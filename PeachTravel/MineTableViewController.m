@@ -7,8 +7,10 @@
 //
 #import "MineTableViewController.h"
 #import "LoginTableViewCell.h"
+#import "AccountManagerViewController.h"
+#import "LoginViewController.h"
 
-#define dataSource               @[@"分享设置", @"我的消息", @"收藏夹", @"推荐给朋友", @"关于桃子旅行", @"清理缓存"]
+#define dataSource               @[@"分享设置", @"消息中心", @"推荐给微信好友", @"设置", @"关于桃子旅行"]
 #define loginCell                @"loginCell"
 #define secondCell               @"secondCell"
 
@@ -18,9 +20,23 @@
 
 @implementation MineTableViewController
 
+#pragma mark - LifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,8 +53,7 @@
     return [dataSource count] + 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return 80.0;
     }
@@ -60,48 +75,53 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+            
+        case 0: {
+            LoginViewController *loginViewCtl = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:loginViewCtl animated:YES];
+        }
+            break;
+            
+        case 1: {
+            AccountManagerViewController *accountmanagerCtl = [[AccountManagerViewController alloc] init];
+            [self.navigationController pushViewController:accountmanagerCtl animated:YES];
+        }
+            
+            break;
+            
+        case 2: {
+            
+        }
+            
+            break;
+            
+        case 3:
+            
+            break;
+            
+        case 4:
+            
+            break;
+            
+        case 5:
+            
+            break;
+            
+        default:
+            break;
+    }
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
+
+
+
+
+
+
+
+
+

@@ -15,6 +15,7 @@
 #import "DestinationToolBar.h"
 #import "DestinationCityPoi.h"
 #import "DestinationCountryPoi.h"
+#import "CityDetailViewController.h"
 
 #define searchCell              @ "searchCell"
 #define domesticCell            @ "domesticDestinationCell"
@@ -116,7 +117,7 @@
         _flowLayout.headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 64);
         
     } else {
-        _flowLayout.itemSize = CGSizeMake(width, 150);
+        _flowLayout.itemSize = CGSizeMake(width-20, 150);
         _flowLayout.minimumInteritemSpacing = 10.;
         _flowLayout.minimumLineSpacing = 10.;
         _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
@@ -151,11 +152,12 @@
 
 - (IBAction)addDestination:(UIButton *)sender
 {
-    CGPoint point = [sender convertPoint:CGPointZero toView:_destinationCollection];
+    CGPoint point = [sender convertPoint:sender.center toView:_destinationCollection];
     NSIndexPath *indexPath = [_destinationCollection indexPathForItemAtPoint:point];
-      DestinationCityPoi *destinationCityPoi = [((NSMutableArray *)[[self.destinations.domesticDestinations objectAtIndex:indexPath.section] objectForKey:@"Pois"])objectAtIndex:indexPath.row];
+
+    DestinationCityPoi *destinationCityPoi = [((NSMutableArray *)[[self.destinations.domesticDestinations objectAtIndex:indexPath.section] objectForKey:@"Pois"])objectAtIndex:indexPath.row];
     [self.destinations.destinationsSelected addObject:destinationCityPoi];
-    UIButton *deleteBtn = [self addDestinationWithName:destinationCityPoi.poiName];
+    UIButton *deleteBtn = [self addDestinationWithName:destinationCityPoi.poiName andImage:[destinationCityPoi.imageList firstObject]];
     [deleteBtn addTarget:self action:@selector(removeDestination:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -185,12 +187,11 @@
 
 #pragma mark - private methods
 
-- (UIButton *)addDestinationWithName:(NSString *)destinationName
+- (UIButton *)addDestinationWithName:(NSString *)destinationName andImage:(NSString *)imageStr
 {
     CGFloat x = 0;
     x = (contentViewWidth + 5) * _viewsOnScrollView.count;
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 5, contentViewWidth, contentViewWidth)];
-    [button setBackgroundColor:[UIColor greenColor]];
     [button setTitle:destinationName forState:UIControlStateNormal];
     
     UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(button.frame.size.width-20, 0, 20, 20)];
@@ -236,7 +237,9 @@
         DestinationCityPoi *domesticCityPoi = [((NSMutableArray *)[[self.destinations.domesticDestinations objectAtIndex:indexPath.section] objectForKey:@"Pois"])objectAtIndex:indexPath.row];
         DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:domesticCell forIndexPath:indexPath];
         [cell.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[[domesticCityPoi imageList] firstObject]] placeholderImage:nil];
-        cell.titleLabel.text = domesticCityPoi.poiName;
+        
+        [cell.titleBtn setTitle:domesticCityPoi.poiName forState:UIControlStateNormal];
+        cell.titleBtn.userInteractionEnabled = NO;
         
         [cell.addBtn addTarget:self action:@selector(addDestination:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -249,7 +252,6 @@
         [cell.backgroundImageView sd_setImageWithURL:[foreignCountryPoi.imageList firstObject] placeholderImage:nil];
         return cell;
     }
-   
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -261,6 +263,19 @@
         headerView.headerLabel.text = [[self.destinations.foreignDestinations objectAtIndex:indexPath.section] objectForKey:@"Title"];
     }
     return headerView;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (isDomesticDestination) {
+        DestinationCityPoi *destinationCityPoi = [((NSMutableArray *)[[self.destinations.domesticDestinations objectAtIndex:indexPath.section] objectForKey:@"Pois"])objectAtIndex:indexPath.row];
+        
+        CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
+        cityDetailCtl.navigationItem.title = destinationCityPoi.poiName;
+        [self.navigationController pushViewController:cityDetailCtl animated:YES];
+    } else {
+        
+    }
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -282,7 +297,6 @@
 }
 
 #pragma mark - UISearchBarDelegate, UISearchDisplayDelegate
-
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {

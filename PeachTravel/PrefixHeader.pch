@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  PeachTravel
+//
+//  Created by liangpengshuai on 14/10/10.
+//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//
+
+#ifndef PeachTravel_PrefixHeader_pch
+#define PeachTravel_PrefixHeader_pch
+
+#ifdef __OBJC__
+
+#import "UIImageView+WebCache.h"
+#import "Constants.h"
+
+#endif
+
+#endif

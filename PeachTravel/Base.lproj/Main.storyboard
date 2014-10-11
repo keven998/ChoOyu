@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A386a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="m3z-Mn-OEd">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -19,7 +20,7 @@
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hoR-By-tue">
                                 <rect key="frame" x="-16" y="0.0" width="39" height="37"/>
                             </pageControl>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-gM-xko">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-gM-xko">
                                 <rect key="frame" x="0.0" y="108" width="600" height="388"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="QoT-7Z-GKj"/>
@@ -43,7 +44,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="destinationCollectionHeader" id="wnx-DQ-Ect" customClass="DestinationCollectionHeaderView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bs-hi-hy9">
@@ -80,7 +81,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="epY-7Y-95G"/>
                                 </connections>
                             </collectionView>
-                            <searchBar contentMode="redraw" placeholder="搜索想要去的城市" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-O1-wEc">
+                            <searchBar contentMode="redraw" misplaced="YES" placeholder="搜索想要去的城市" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-O1-wEc">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="0F2-FU-wdK"/>
@@ -104,7 +105,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="cbh-vB-oYy"/>
                                 </connections>
                             </searchBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5L-M8-lbI" customClass="DestinationToolBar">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F5L-M8-lbI" customClass="DestinationToolBar">
                                 <rect key="frame" x="0.0" y="496" width="600" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9n-hg-MlF">
@@ -151,13 +152,13 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="V8u-GK-akh"/>
-                                        <exclude reference="Sgy-tO-1HD"/>
-                                        <exclude reference="fQz-3X-H7R"/>
-                                        <exclude reference="kg0-F7-Y9p"/>
                                         <exclude reference="7lU-8T-fh2"/>
                                         <exclude reference="LAo-sd-76A"/>
                                         <exclude reference="pOM-5A-UJS"/>
                                         <exclude reference="ptI-Od-jo7"/>
+                                        <exclude reference="Sgy-tO-1HD"/>
+                                        <exclude reference="fQz-3X-H7R"/>
+                                        <exclude reference="kg0-F7-Y9p"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
@@ -169,13 +170,13 @@
                                         <exclude reference="OlW-E9-eI3"/>
                                         <exclude reference="Q3G-5m-Cad"/>
                                         <include reference="V8u-GK-akh"/>
-                                        <include reference="Sgy-tO-1HD"/>
-                                        <include reference="fQz-3X-H7R"/>
-                                        <include reference="kg0-F7-Y9p"/>
                                         <include reference="7lU-8T-fh2"/>
                                         <include reference="LAo-sd-76A"/>
                                         <include reference="pOM-5A-UJS"/>
                                         <include reference="ptI-Od-jo7"/>
+                                        <include reference="Sgy-tO-1HD"/>
+                                        <include reference="fQz-3X-H7R"/>
+                                        <include reference="kg0-F7-Y9p"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -300,7 +301,7 @@
             </objects>
             <point key="canvasLocation" x="1300.5" y="239.99999999999997"/>
         </scene>
-        <!--我-->
+        <!--Mine Table View Controller-->
         <scene sceneID="emZ-zE-Z6I">
             <objects>
                 <tableViewController id="QDV-nF-sLP" customClass="MineTableViewController" sceneMemberID="viewController">
@@ -313,11 +314,11 @@
                             <outlet property="delegate" destination="QDV-nF-sLP" id="mIx-ur-T4d"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="我" id="cJ3-QO-joY"/>
+                    <navigationItem key="navigationItem" id="UoK-mc-d9G"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ty5-HL-F8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1291.5" y="987.99999999999989"/>
+            <point key="canvasLocation" x="2209.5" y="987"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6QN-fx-Bad">
@@ -332,7 +333,7 @@
                     <connections>
                         <segue destination="UMW-lM-IvM" kind="relationship" relationship="viewControllers" id="g4G-Rv-GcD"/>
                         <segue destination="TWu-LE-aWR" kind="relationship" relationship="viewControllers" id="90J-pw-6OR"/>
-                        <segue destination="QDV-nF-sLP" kind="relationship" relationship="viewControllers" id="WnL-3G-a7B"/>
+                        <segue destination="Whb-gT-OX8" kind="relationship" relationship="viewControllers" id="WnL-3G-a7B"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeB-J6-6gX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -357,6 +358,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hNW-Tl-rzU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1300.5" y="-463"/>
+        </scene>
+        <!--我-->
+        <scene sceneID="KRf-vI-0JP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Whb-gT-OX8" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="我" id="cJ3-QO-joY"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VjT-mV-yKw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QDV-nF-sLP" kind="relationship" relationship="rootViewController" id="vYq-8L-7Wz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SXS-gS-fQZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1291.5" y="987"/>
         </scene>
     </scenes>
 </document>

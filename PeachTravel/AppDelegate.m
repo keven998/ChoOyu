@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "UMSocial.h"
+#import "UMSocialSinaHandler.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +21,28 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    //设置友盟分享
+    [UMSocialData openLog:NO];
+
+    [UMSocialData setAppKey:UMENG_KEY];
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    [UMSocialQQHandler setQQWithAppId:SHARE_QQ_APPID appKey:SHARE_QQ_KEY url:@"http://www.umeng.com/social"];
+    
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

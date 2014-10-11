@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A386a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="accountCell" id="KGk-i7-Jjw" customClass="AccountManagerTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-Mn-avh">
+                        <rect key="frame" x="27" y="0.0" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="mRf-Zn-bat"/>
+                        </constraints>
+                        <state key="normal" image="sns_icon_qzone.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrM-LH-1oc">
+                        <rect key="frame" x="87" y="1" width="168" height="43"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aML-uc-Dln">
+                        <rect key="frame" x="263" y="7" width="51" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="38q-fR-Ca9"/>
+                        </constraints>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="aML-uc-Dln" secondAttribute="trailing" constant="8" id="4ha-Lw-tzu"/>
+                    <constraint firstAttribute="bottom" secondItem="26j-Mn-avh" secondAttribute="bottom" constant="-0.5" id="7XT-yR-ufq"/>
+                    <constraint firstAttribute="bottom" secondItem="aML-uc-Dln" secondAttribute="bottom" constant="6" id="ccR-qR-qzk"/>
+                    <constraint firstItem="aML-uc-Dln" firstAttribute="leading" secondItem="hrM-LH-1oc" secondAttribute="trailing" constant="8" id="kBH-5D-8rm"/>
+                    <constraint firstItem="hrM-LH-1oc" firstAttribute="leading" secondItem="26j-Mn-avh" secondAttribute="trailing" constant="16" id="nkm-Ab-rKE"/>
+                    <constraint firstItem="26j-Mn-avh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="27" id="qPo-0w-oyQ"/>
+                    <constraint firstItem="26j-Mn-avh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rC2-4B-EKQ"/>
+                    <constraint firstItem="hrM-LH-1oc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="stI-9F-D5B"/>
+                    <constraint firstAttribute="bottom" secondItem="hrM-LH-1oc" secondAttribute="bottom" id="w3c-xJ-YcH"/>
+                    <constraint firstItem="aML-uc-Dln" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="yEZ-Qy-Kit"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="snsBtn" destination="26j-Mn-avh" id="hZh-en-bMK"/>
+                <outlet property="snsSwitch" destination="aML-uc-Dln" id="REy-au-Vhb"/>
+                <outlet property="userName" destination="hrM-LH-1oc" id="UtY-O8-eSF"/>
+            </connections>
+            <point key="canvasLocation" x="179" y="206"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="sns_icon_qzone.png" width="40" height="40"/>
+    </resources>
+</document>
