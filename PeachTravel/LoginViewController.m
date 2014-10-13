@@ -7,6 +7,8 @@
 //
 
 #import "LoginViewController.h"
+#import "RegisterViewController.h"
+#import "LosePasswordViewController.h"
 
 @interface LoginViewController ()
 
@@ -59,7 +61,16 @@
 
 - (IBAction)userRegister:(id)sender
 {
-    
+    RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
+    [self.navigationController pushViewController:registerCtl animated:YES];
+}
+
+- (IBAction)losePassword:(UIButton *)sender {
+    LosePasswordViewController *losePasswordCtl = [[LosePasswordViewController alloc] init];
+    [self.navigationController pushViewController:losePasswordCtl animated:YES];
+}
+
+- (IBAction)login:(UIButton *)sender {
 }
 
 - (void)tapBackground:(id)sender
