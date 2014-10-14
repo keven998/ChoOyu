@@ -130,7 +130,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"wechat resp Error: %@", error);
     }];
-    
 }
 
 @end

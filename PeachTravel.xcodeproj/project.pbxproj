@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
 		D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */; };
+		D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */; };
+		D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -142,6 +144,9 @@
 		D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
 		D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
 		D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewController.xib; sourceTree = "<group>"; };
+		D90857A619ED0F890041A4E2 /* UserHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeaderTableViewCell.h; sourceTree = "<group>"; };
+		D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeaderTableViewCell.m; sourceTree = "<group>"; };
+		D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -386,11 +391,46 @@
 		D908579819ED001C0041A4E2 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				D90857A419ED0F260041A4E2 /* Views */,
+				D90857A319ED0F110041A4E2 /* ViewControllers */,
+				D90857A219ED0EFE0041A4E2 /* Model */,
+			);
+			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		D90857A219ED0EFE0041A4E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D90857A319ED0F110041A4E2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */,
 				D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */,
 				D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */,
 			);
-			name = UserInfo;
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D90857A419ED0F260041A4E2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D90857A519ED0F2D0041A4E2 /* Cells */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D90857A519ED0F2D0041A4E2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D90857A619ED0F890041A4E2 /* UserHeaderTableViewCell.h */,
+				D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */,
+				D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		D955E34919E6306C00047F2B /* Destination */ = {
@@ -1234,6 +1274,7 @@
 				D9F57B9119E93486005BB43B /* UMSCommentInputControlleriPad.xib in Resources */,
 				D955E54F19E7A91300047F2B /* sns_icon_weixin@2x.png in Resources */,
 				D964204119EBF0D900CC8057 /* AppiraterLocalizable.strings in Resources */,
+				D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */,
 				D955E5D419E7D41200047F2B /* Default-568h@2x.png in Resources */,
 				D9F57B9619E93486005BB43B /* UMSShareListController.xib in Resources */,
 				D9F57B8C19E93486005BB43B /* UMSocialLocalizable.strings in Resources */,
@@ -1323,6 +1364,7 @@
 				D964203219EBEB7A00CC8057 /* AFHTTPRequestOperationManager.m in Sources */,
 				D955E38C19E67AD600047F2B /* SDWebImageDecoder.m in Sources */,
 				D955E39319E67AD600047F2B /* UIImage+MultiFormat.m in Sources */,
+				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D955E39419E67AD600047F2B /* UIImage+WebP.m in Sources */,
 				D9CDD74119EBBAF6001AC9F2 /* ChineseToPinyinResource.m in Sources */,
 				D955E38E19E67AD600047F2B /* SDWebImageDownloaderOperation.m in Sources */,

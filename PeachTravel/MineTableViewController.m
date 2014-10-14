@@ -105,7 +105,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.accountManager.isLogin) {
+        if (!self.accountManager.isLogin) {
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
             return cell;
         } else {
@@ -127,7 +127,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.accountManager.isLogin) {
+        if (!self.accountManager.isLogin) {
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
             [self.navigationController pushViewController:userInfoCtl animated:YES];
         }
