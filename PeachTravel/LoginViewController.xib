@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -230,26 +229,26 @@
                     <exclude reference="iql-PQ-zND"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="5Ul-FU-Agm"/>
-                    <exclude reference="XqI-7Q-U2U"/>
-                    <exclude reference="dnR-bd-qy2"/>
-                    <exclude reference="ZnR-GJ-DHh"/>
-                    <exclude reference="eSp-FI-yO1"/>
-                    <exclude reference="gCp-rQ-HEa"/>
-                    <exclude reference="WP3-4Z-MPv"/>
-                    <exclude reference="noV-gb-sys"/>
-                    <exclude reference="Nrc-NQ-Nk2"/>
-                    <exclude reference="moM-KL-ga1"/>
                     <exclude reference="0FN-W6-Pr6"/>
                     <exclude reference="Ah5-sL-eih"/>
                     <exclude reference="ese-FO-Pne"/>
+                    <exclude reference="ZnR-GJ-DHh"/>
+                    <exclude reference="eSp-FI-yO1"/>
+                    <exclude reference="gCp-rQ-HEa"/>
+                    <exclude reference="5Ul-FU-Agm"/>
+                    <exclude reference="XqI-7Q-U2U"/>
+                    <exclude reference="dnR-bd-qy2"/>
+                    <exclude reference="WP3-4Z-MPv"/>
+                    <exclude reference="noV-gb-sys"/>
                     <exclude reference="Cvo-Pm-CMY"/>
                     <exclude reference="GQF-mF-veh"/>
+                    <exclude reference="keO-VT-vIr"/>
+                    <exclude reference="lQc-xW-pYo"/>
+                    <exclude reference="Nrc-NQ-Nk2"/>
+                    <exclude reference="moM-KL-ga1"/>
                     <exclude reference="3d3-Pb-io6"/>
                     <exclude reference="Ezg-42-b9h"/>
                     <exclude reference="bEf-uc-T5T"/>
-                    <exclude reference="keO-VT-vIr"/>
-                    <exclude reference="lQc-xW-pYo"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -264,26 +263,26 @@
                     <include reference="iql-PQ-zND"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="5Ul-FU-Agm"/>
-                    <include reference="XqI-7Q-U2U"/>
-                    <include reference="dnR-bd-qy2"/>
-                    <include reference="ZnR-GJ-DHh"/>
-                    <include reference="eSp-FI-yO1"/>
-                    <include reference="gCp-rQ-HEa"/>
-                    <include reference="WP3-4Z-MPv"/>
-                    <include reference="noV-gb-sys"/>
-                    <include reference="Nrc-NQ-Nk2"/>
-                    <include reference="moM-KL-ga1"/>
                     <include reference="0FN-W6-Pr6"/>
                     <include reference="Ah5-sL-eih"/>
                     <include reference="ese-FO-Pne"/>
+                    <include reference="ZnR-GJ-DHh"/>
+                    <include reference="eSp-FI-yO1"/>
+                    <include reference="gCp-rQ-HEa"/>
+                    <include reference="5Ul-FU-Agm"/>
+                    <include reference="XqI-7Q-U2U"/>
+                    <include reference="dnR-bd-qy2"/>
+                    <include reference="WP3-4Z-MPv"/>
+                    <include reference="noV-gb-sys"/>
                     <include reference="Cvo-Pm-CMY"/>
                     <include reference="GQF-mF-veh"/>
+                    <include reference="keO-VT-vIr"/>
+                    <include reference="lQc-xW-pYo"/>
+                    <include reference="Nrc-NQ-Nk2"/>
+                    <include reference="moM-KL-ga1"/>
                     <include reference="3d3-Pb-io6"/>
                     <include reference="Ezg-42-b9h"/>
                     <include reference="bEf-uc-T5T"/>
-                    <include reference="keO-VT-vIr"/>
-                    <include reference="lQc-xW-pYo"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="36" y="302"/>

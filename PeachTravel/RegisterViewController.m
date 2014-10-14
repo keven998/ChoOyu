@@ -32,10 +32,6 @@
     [self.view addGestureRecognizer:tapBackground];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - IBAction Methods
 
 - (void)tapBackground:(id)sender
@@ -47,5 +43,41 @@
     }
 }
 
+- (IBAction)confirmRegister:(UIButton *)sender {
+    switch ([self checkInput]) {
+        case NoError:
+            NSLog(@"输入合法");
+            break;
+            
+        case PhoneNumberError:
+            NSLog(@"手机号输入非法");
+            break;
+            
+        case PasswordError:
+            NSLog(@"密码输入非法");
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - Private Methods
+
+- (UserInfoInputError)checkInput
+{
+    NSLog(@"%d", _phoneLabel.text.length);
+    if (_phoneLabel.text.length != 11) {
+        return PhoneNumberError;
+    }
+    
+    NSString * regex = @"^[A-Za-z0-9]{6,16}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if (![pred evaluateWithObject:_passwordLabel.text]) {
+        return PasswordError;
+    }
+
+    return NoError;
+}
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
+		D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -78,6 +80,8 @@
 		D964204119EBF0D900CC8057 /* AppiraterLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D964203E19EBF0D900CC8057 /* AppiraterLocalizable.strings */; };
 		D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D964204219EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		D964204519EBF42E00CC8057 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D964204319EBF42E00CC8057 /* TencentOpenAPI.framework */; };
+		D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964207D19ECC65000CC8057 /* ChangePasswordViewController.m */; };
+		D964208019ECC65000CC8057 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */; };
 		D973340A19EB77B6004D2D8D /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D973340619EB77B6004D2D8D /* libSocialQQ.a */; };
 		D97B670119E90C70004439A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97B66FF19E90C70004439A3 /* LoginViewController.m */; };
 		D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97B670019E90C70004439A3 /* LoginViewController.xib */; };
@@ -135,6 +139,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
+		D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
+		D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewController.xib; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -254,6 +261,9 @@
 		D964204219EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		D964204319EBF42E00CC8057 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		D964204619EC003600CC8057 /* WXApiObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		D964207C19ECC65000CC8057 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		D964207D19ECC65000CC8057 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		D973340619EB77B6004D2D8D /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
 		D973340919EB77B6004D2D8D /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
 		D97B66FE19E90C70004439A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -373,6 +383,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D908579819ED001C0041A4E2 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */,
+				D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */,
+				D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */,
+			);
+			name = UserInfo;
+			sourceTree = "<group>";
+		};
 		D955E34919E6306C00047F2B /* Destination */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +766,33 @@
 			path = iRate;
 			sourceTree = "<group>";
 		};
+		D964207919ECC61500CC8057 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D908579819ED001C0041A4E2 /* UserInfo */,
+				D964207A19ECC61A00CC8057 /* ChangePassword */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		D964207A19ECC61A00CC8057 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				D964207B19ECC62C00CC8057 /* ViewControllers */,
+			);
+			name = ChangePassword;
+			sourceTree = "<group>";
+		};
+		D964207B19ECC62C00CC8057 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D964207C19ECC65000CC8057 /* ChangePasswordViewController.h */,
+				D964207D19ECC65000CC8057 /* ChangePasswordViewController.m */,
+				D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		D973340519EB77B6004D2D8D /* TencentOpenAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -877,6 +924,7 @@
 		D9A5939319E3DAB3004A6072 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				D964207919ECC61500CC8057 /* User */,
 				D964200E19EBC9AD00CC8057 /* Setting */,
 				D9CDD72519EBB9EB001AC9F2 /* About */,
 				D9CDD71F19EBAC5F001AC9F2 /* Register */,
@@ -1197,6 +1245,7 @@
 				D955E5D219E7D24700047F2B /* Images.xcassets in Resources */,
 				D9F57B9319E93486005BB43B /* UMShareEditViewControlleriPad.xib in Resources */,
 				D9CDD74619EBBAF6001AC9F2 /* unicode_to_hanyu_pinyin.txt in Resources */,
+				D964208019ECC65000CC8057 /* ChangePasswordViewController.xib in Resources */,
 				D955E54C19E7A91300047F2B /* sns_icon_qzone@2x.png in Resources */,
 				D9F57B8F19E93486005BB43B /* UMSCommentDetailController.xib in Resources */,
 				D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */,
@@ -1218,6 +1267,7 @@
 				D955E54919E7A91300047F2B /* sns_icon_pengyouquan@2x.png in Resources */,
 				D964201819EBCA3300CC8057 /* SettingTableViewController.xib in Resources */,
 				D955E54B19E7A91300047F2B /* sns_icon_qqweibo@2x.png in Resources */,
+				D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */,
 				D955E59E19E7C87E00047F2B /* AccountManagerTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1245,6 +1295,7 @@
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D964203819EBEB7A00CC8057 /* AFURLResponseSerialization.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
+				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D955E39019E67AD600047F2B /* SDWebImagePrefetcher.m in Sources */,
 				D955E38F19E67AD600047F2B /* SDWebImageManager.m in Sources */,
@@ -1253,6 +1304,7 @@
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
 				D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
+				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
 				D964204019EBF0D900CC8057 /* Appirater.m in Sources */,
 				D955E39619E67AD600047F2B /* UIImageView+WebCache.m in Sources */,

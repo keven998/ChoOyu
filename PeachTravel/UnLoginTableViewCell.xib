@@ -3,7 +3,6 @@
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,8 +18,8 @@
                         <rect key="frame" x="60" y="80" width="60" height="30"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="eln-Dl-Tru"/>
-                            <constraint firstAttribute="height" constant="30" id="t86-xg-EQp"/>
+                            <constraint firstAttribute="width" constant="60" id="TIr-hK-5bk"/>
+                            <constraint firstAttribute="height" constant="30" id="vQa-75-peu"/>
                         </constraints>
                         <state key="normal" title="登录">
                             <color key="titleColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
@@ -31,8 +30,8 @@
                         <rect key="frame" x="200" y="80" width="60" height="30"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="EzN-y6-hfo"/>
-                            <constraint firstAttribute="width" constant="60" id="d9v-XL-Pje"/>
+                            <constraint firstAttribute="width" constant="60" id="9w2-7V-byd"/>
+                            <constraint firstAttribute="height" constant="30" id="SQ1-LN-hAd"/>
                         </constraints>
                         <state key="normal" title="注册">
                             <color key="titleColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
@@ -42,8 +41,8 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8x-aJ-ams">
                         <rect key="frame" x="135" y="8" width="50" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="EY6-sV-isL"/>
-                            <constraint firstAttribute="width" constant="50" id="qkx-19-KbD"/>
+                            <constraint firstAttribute="height" constant="50" id="KYX-bh-clN"/>
+                            <constraint firstAttribute="width" constant="50" id="Onm-Mg-Ydp"/>
                         </constraints>
                         <state key="normal" title="Button">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,12 +50,12 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="centerX" secondItem="c8x-aJ-ams" secondAttribute="centerX" id="5mm-Bv-b0m"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="6jP-dq-qIh" secondAttribute="trailing" constant="52" id="OaY-oW-g1c"/>
-                    <constraint firstItem="6dj-Xd-9JO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="52" id="UEe-Tq-dV2"/>
-                    <constraint firstAttribute="bottom" secondItem="6dj-Xd-9JO" secondAttribute="bottom" constant="19.5" id="ih3-cF-pye"/>
-                    <constraint firstAttribute="bottom" secondItem="6jP-dq-qIh" secondAttribute="bottom" constant="19.5" id="k0N-fv-BEv"/>
-                    <constraint firstItem="c8x-aJ-ams" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ukn-ml-A4B"/>
+                    <constraint firstAttribute="trailing" secondItem="6jP-dq-qIh" secondAttribute="trailing" constant="60" id="Dnl-yJ-CiJ"/>
+                    <constraint firstAttribute="bottom" secondItem="6jP-dq-qIh" secondAttribute="bottom" constant="19.5" id="Jvx-vK-Jre"/>
+                    <constraint firstItem="c8x-aJ-ams" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="alK-N8-QYb"/>
+                    <constraint firstAttribute="centerX" secondItem="c8x-aJ-ams" secondAttribute="centerX" id="hQK-o1-yCa"/>
+                    <constraint firstItem="6dj-Xd-9JO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="hhz-mT-z7O"/>
+                    <constraint firstAttribute="bottom" secondItem="6dj-Xd-9JO" secondAttribute="bottom" constant="19.5" id="q6q-h8-Adl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

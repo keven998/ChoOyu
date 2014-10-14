@@ -15,6 +15,7 @@
 #import "AccountManager.h"
 #import "AboutViewController.h"
 #import "SettingTableViewController.h"
+#import "UserInfoTableViewController.h"
 
 #define dataSource               @[@[@"分享设置", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
@@ -93,7 +94,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (self.accountManager.isLogin) {
-            return 80;
+            return 100;
         } else {
             return 130;
         }
@@ -126,7 +127,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        
+        if (self.accountManager.isLogin) {
+            UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
+            [self.navigationController pushViewController:userInfoCtl animated:YES];
+        }
     }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {

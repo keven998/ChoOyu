@@ -21,7 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //设置友盟分享
-    [UMSocialData openLog:YES];
+    [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     [UMSocialQQHandler setQQWithAppId:SHARE_QQ_APPID appKey:SHARE_QQ_KEY url:@"http://www.umeng.com/social"];
@@ -67,7 +67,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
 
-//
 -(void)onReq:(BaseReq *)req
 {
     NSLog(@"%@",req);
@@ -97,10 +96,7 @@
     
     NSString * requestUrl = [NSString stringWithFormat:@"%@sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WECHAT_API_DOMAIN,SHARE_WEIXIN_APPID,SHARE_WEIXIN_SECRET,code];
     
-    //需要将客户端的acceptable content type 设置一下否则会报错，因为微信服务器有限制
-    
     AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-    // This will make the AFJSONResponseSerializer accept any content type
     jsonReponseSerializer.acceptableContentTypes = nil;
     manager.responseSerializer = jsonReponseSerializer;
     
@@ -122,12 +118,9 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSString * requestUrl = [NSString stringWithFormat:@"%@sns/userinfo?access_token=%@&openid=%@",WECHAT_API_DOMAIN,access_token,openid];
-    
-    NSLog(@"print request url %@" , requestUrl );
+    NSString * requestUrl = [NSString stringWithFormat:@"%@sns/userinfo?access_token=%@&openid=%@", WECHAT_API_DOMAIN,access_token,openid];
     
     AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-    // This will make the AFJSONResponseSerializer accept any content type
     jsonReponseSerializer.acceptableContentTypes = nil;
     manager.responseSerializer = jsonReponseSerializer;
     
@@ -139,7 +132,5 @@
     }];
     
 }
-
-
 
 @end

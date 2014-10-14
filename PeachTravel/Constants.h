@@ -23,3 +23,13 @@
 #define SHARE_TECENTWEIBO_KEY   @ "801545095 "
 
 #define WECHAT_API_DOMAIN       @"https://api.weixin.qq.com/"
+
+//登录注册时输入的错误码
+typedef enum : NSUInteger {
+    PhoneNumberError = 1,           //手机号号输入非法
+    PasswordError,                  //密码输入非法
+    PresentPasswordError,            //新密码输入非法
+    ConfirmPasswordError,           //确认密码输入非法
+    PasswordNotMatchedError,        //修改密码时两次输入的密码不一致
+    NoError
+} UserInfoInputError;
