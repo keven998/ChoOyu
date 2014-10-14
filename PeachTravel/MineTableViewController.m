@@ -14,6 +14,7 @@
 #import "RegisterViewController.h"
 #import "AccountManager.h"
 #import "AboutViewController.h"
+#import "SettingTableViewController.h"
 
 #define dataSource               @[@[@"分享设置", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
@@ -135,7 +136,8 @@
     }
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            
+            SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
+            [self.navigationController pushViewController:settingCtl animated:YES];
         }
         if (indexPath.row == 1) {
             AboutController *aboutCtl = [[AboutController alloc] init];
@@ -145,12 +147,6 @@
 }
 
 @end
-
-
-
-
-
-
 
 
 

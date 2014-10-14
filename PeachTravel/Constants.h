@@ -21,3 +21,5 @@
 #define SHARE_WEIXIN_APPID      @ "wx26b58c7173483529"
 #define SHARE_WEIXIN_SECRET     @ "28daa05c021ebebe6d3cf06645b0c5ac"
 #define SHARE_TECENTWEIBO_KEY   @ "801545095 "
+
+#define WECHAT_API_DOMAIN       @"https://api.weixin.qq.com/"

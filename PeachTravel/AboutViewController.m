@@ -82,7 +82,7 @@
     weichat.font = [UIFont systemFontOfSize:13.];
     weichat.backgroundColor = [UIColor clearColor];
     weichat.textColor = UIColorFromRGB(0x313131);
-    weichat.text = @"微信: 旅行派";
+    weichat.text = @"微信: 桃子旅行";
     [self.view addSubview:weichat];
     
     offsetY += 23.;
@@ -90,7 +90,7 @@
     weibo.font = [UIFont systemFontOfSize:13.];
     weibo.backgroundColor = [UIColor clearColor];
     weibo.textColor = UIColorFromRGB(0x313131);
-    weibo.text = @"微博: 旅行派";
+    weibo.text = @"微博: 桃子旅行";
     [self.view addSubview:weibo];
     
     offsetY += 23.;
@@ -144,13 +144,6 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)back:(id)sender {

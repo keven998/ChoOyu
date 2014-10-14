@@ -66,7 +66,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AccountManagerTableViewCell *accountCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifiner forIndexPath:indexPath];
-
     [accountCell.snsSwitch addTarget:self action:@selector(switchMethod:) forControlEvents:UIControlEventValueChanged];
     switch (indexPath.row) {
         case 0:

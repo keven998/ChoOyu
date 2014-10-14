@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "LosePasswordViewController.h"
+#import "WXApi.h"
 
 @interface LoginViewController ()
 
@@ -73,6 +74,11 @@
 - (IBAction)login:(UIButton *)sender {
 }
 
+//微信登录
+- (IBAction)weixinLogin:(UIButton *)sender {
+    [self sendAuthRequest];
+}
+
 - (void)tapBackground:(id)sender
 {
     if ([_userNameTextField isFirstResponder]) {
@@ -80,6 +86,19 @@
     } else if ([_passwordTextField isFirstResponder]) {
         [_passwordTextField resignFirstResponder];
     }
+}
+
+#pragma mark - private methods
+
+-(void)sendAuthRequest
+{
+    //构造SendAuthReq结构体
+    SendAuthReq* req =[[SendAuthReq alloc] init];
+    req.scope = @"snsapi_userinfo";
+    req.state = @"wechat_login_demo";
+    
+    //第三方向微信终端发送一个SendAuthReq消息结构
+    [WXApi sendReq:req];
 }
 
 @end
