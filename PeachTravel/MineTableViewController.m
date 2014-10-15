@@ -68,12 +68,14 @@
 - (IBAction)userLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    loginCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
 }
 
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
+    registerCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:registerCtl animated:YES];
 }
 
@@ -105,7 +107,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (!self.accountManager.isLogin) {
+        if (self.accountManager.isLogin) {
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
             return cell;
         } else {
@@ -127,24 +129,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (!self.accountManager.isLogin) {
+        if (self.accountManager.isLogin) {
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
+            userInfoCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:userInfoCtl animated:YES];
         }
     }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
+            accountManagerCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:accountManagerCtl animated:YES];
         }
     }
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
+            settingCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingCtl animated:YES];
         }
         if (indexPath.row == 1) {
             AboutController *aboutCtl = [[AboutController alloc] init];
+            aboutCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:aboutCtl animated:YES];
         }
     }

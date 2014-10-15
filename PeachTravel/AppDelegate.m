@@ -96,22 +96,24 @@
     
     NSString * requestUrl = [NSString stringWithFormat:@"%@sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WECHAT_API_DOMAIN,SHARE_WEIXIN_APPID,SHARE_WEIXIN_SECRET,code];
     
-    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-    jsonReponseSerializer.acceptableContentTypes = nil;
-    manager.responseSerializer = jsonReponseSerializer;
+    NSLog(@"%@", requestUrl);
     
-    [manager GET:requestUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary * result = responseObject;
-        [userInfo setObject:[result objectForKey:@"access_token"] forKey:@"access_token"];
-        [userInfo setObject:[result objectForKey:@"expires_in"] forKey:@"expires_in"];
-        [userInfo setObject:[result objectForKey:@"openid"] forKey:@"openid"];
-        [userInfo setObject:[result objectForKey:@"refresh_token"] forKey:@"scope"];
-        [userInfo setObject:[result objectForKey:@"scope"] forKey:@"scope"];
-        [self getUserInfo:[result objectForKey:@"access_token"] andOpenid:[result objectForKey:@"openid"]];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"wechat resp Error: %@", error);
-    }];
+//    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
+//    jsonReponseSerializer.acceptableContentTypes = nil;
+//    manager.responseSerializer = jsonReponseSerializer;
+//    
+//    [manager GET:requestUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSDictionary * result = responseObject;
+//        [userInfo setObject:[result objectForKey:@"access_token"] forKey:@"access_token"];
+//        [userInfo setObject:[result objectForKey:@"expires_in"] forKey:@"expires_in"];
+//        [userInfo setObject:[result objectForKey:@"openid"] forKey:@"openid"];
+//        [userInfo setObject:[result objectForKey:@"refresh_token"] forKey:@"scope"];
+//        [userInfo setObject:[result objectForKey:@"scope"] forKey:@"scope"];
+//        [self getUserInfo:[result objectForKey:@"access_token"] andOpenid:[result objectForKey:@"openid"]];
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"wechat resp Error: %@", error);
+//    }];
 }
 
 -(void)getUserInfo:(NSString *)access_token andOpenid:(NSString *)openid
@@ -129,7 +131,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Notification_GetUserProfileSuccess" object:nil userInfo:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"wechat resp Error: %@", error);
-    }];
+    }]; 
 }
 
 @end

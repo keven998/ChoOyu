@@ -7,15 +7,18 @@
 //
 
 #import "RegisterViewController.h"
+#import "SMSVerifyViewController.h"
 
 @interface RegisterViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
+
 @end
 
 @implementation RegisterViewController
 
+#pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -32,6 +35,17 @@
     [self.view addGestureRecognizer:tapBackground];
 }
 
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.tabBarController.tabBar.hidden = YES;
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    self.tabBarController.tabBar.hidden = NO;
+//}
+
 #pragma mark - IBAction Methods
 
 - (void)tapBackground:(id)sender
@@ -45,8 +59,12 @@
 
 - (IBAction)confirmRegister:(UIButton *)sender {
     switch ([self checkInput]) {
-        case NoError:
+        case NoError: {
             NSLog(@"输入合法");
+            SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
+            smsVerifyCtl.phoneNumber = self.phoneLabel.text;
+            [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+        }
             break;
             
         case PhoneNumberError:

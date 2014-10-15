@@ -21,6 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
+    tapBackground.numberOfTapsRequired = 1;
+    tapBackground.numberOfTouchesRequired = 1;
+    [self.view addGestureRecognizer:tapBackground];
 }
 
 #pragma mark - Private Methods
@@ -49,5 +53,18 @@
 - (IBAction)changePassword:(UIButton *)sender {
 }
 
+- (void)tapBackground:(id)sender
+{
+    if ([_oldPasswordLabel isFirstResponder]) {
+        [_oldPasswordLabel resignFirstResponder];
+    } else if ([_presentPasswordLabel isFirstResponder]) {
+        [_presentPasswordLabel resignFirstResponder];
+    } else if ([_confirmPasswordLabel isFirstResponder]) {
+        [_confirmPasswordLabel resignFirstResponder];
+    }
+}
+
 @end
+
+
 

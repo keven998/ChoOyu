@@ -7,6 +7,7 @@
 //
 
 #import "LosePasswordViewController.h"
+#import "SMSVerifyViewController.h"
 
 @interface LosePasswordViewController ()
 
@@ -25,6 +26,29 @@
 
 }
 
+#pragma mark - Private Methods
+
+- (UserInfoInputError)checkInput
+{
+    NSLog(@"%d", _phoneLabel.text.length);
+    if (_phoneLabel.text.length != 11) {
+        return PhoneNumberError;
+    }
+    return NoError;
+}
+
+#pragma mark - IBAction Methods
+
+- (IBAction)receiveVerifyCode:(UIButton *)sender {
+    if ([self checkInput] == PhoneNumberError) {
+        NSLog(@"手机号码错误");
+    } else {
+        SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
+        smsVerifyCtl.phoneNumber = _phoneLabel.text;
+        [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+    }
+}
+
 - (void)tapBackground:(id)sender
 {
     if ([_phoneLabel isFirstResponder]) {
@@ -34,3 +58,6 @@
 
 
 @end
+
+
+
