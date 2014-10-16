@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AccountBean.h"
+#import "Account.h"
 
 @interface AccountManager : NSObject
 
-@property (nonatomic, strong) AccountBean *account;
+@property (nonatomic, strong) Account *account;
 
 + (AccountManager *)shareAccountManager;
 

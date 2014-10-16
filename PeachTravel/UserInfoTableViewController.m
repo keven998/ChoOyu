@@ -103,7 +103,7 @@
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
         cell.cellTitle.text = dataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0 && indexPath.row == 1) {
-            cell.cellDetail.text = [NSString stringWithFormat:@"ID%d", self.accountManager.account.userId];
+            cell.cellDetail.text = [NSString stringWithFormat:@"ID%d", [self.accountManager.account.userId intValue]];
         }
         if (indexPath.section == 0 && indexPath.row == 2) {
             cell.cellDetail.text = self.accountManager.account.nickName;

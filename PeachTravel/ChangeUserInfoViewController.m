@@ -80,7 +80,7 @@
         [params setObject:_contentTextField.text forKey:@"signature"];
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%d", API_USERINFO, accountManager.account.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
     
     //获取用户信息
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

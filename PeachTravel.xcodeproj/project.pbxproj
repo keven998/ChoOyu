@@ -98,6 +98,9 @@
 		D99D8ED419C8600C0021C25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED219C8600C0021C25B /* Main.storyboard */; };
 		D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED719C8600C0021C25B /* LaunchScreen.xib */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
+		D9A981AA19EFB5FD00210A1B /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
+		D9A981AD19EFB81000210A1B /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A981AC19EFB81000210A1B /* Account.m */; };
+		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
 		D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */; };
 		D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */; };
 		D9CDD71519EBA44F001AC9F2 /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71019EBA44F001AC9F2 /* TMCache.m */; };
@@ -299,6 +302,10 @@
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
+		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
+		D9A981AB19EFB81000210A1B /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		D9A981AC19EFB81000210A1B /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D9CDD70919EB9C3C001AC9F2 /* UnLoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnLoginTableViewCell.h; sourceTree = "<group>"; };
 		D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnLoginTableViewCell.m; sourceTree = "<group>"; };
 		D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnLoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -375,6 +382,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */,
 				D9F57B8D19E93486005BB43B /* libUMSocial_Sdk_4.1.a in Frameworks */,
 				D9F57BAA19E93487005BB43B /* libWeChatSDK.a in Frameworks */,
 				D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */,
@@ -713,6 +721,7 @@
 		D955E3F719E7A84A00047F2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9A981AF19EFB99A00210A1B /* CoreData.framework */,
 				D955E3ED19E7A28500047F2B /* libz.dylib */,
 				D955E3EB19E7A27700047F2B /* libstdc++.dylib */,
 				D955E3E919E7A26D00047F2B /* CoreTelephony.framework */,
@@ -843,9 +852,7 @@
 				D908579819ED001C0041A4E2 /* UserInfo */,
 				D964207A19ECC61A00CC8057 /* ChangePassword */,
 				D90857B319EE0C390041A4E2 /* SMS */,
-				D90857F319EEA8CD0041A4E2 /* ChangeUserInfoViewController.h */,
-				D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */,
-				D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */,
+				D9A981AE19EFB92400210A1B /* ChangeUserInfo */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -945,6 +952,9 @@
 				D955E5D119E7D24700047F2B /* Images.xcassets */,
 				D955E3F819E7A86800047F2B /* Resources */,
 				D99D8EC819C8600C0021C25B /* Supporting Files */,
+				D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */,
+				D9A981AB19EFB81000210A1B /* Account.h */,
+				D9A981AC19EFB81000210A1B /* Account.m */,
 			);
 			path = PeachTravel;
 			sourceTree = "<group>";
@@ -1006,6 +1016,16 @@
 				D9E6BFAF19E3E57600C750AC /* Root */,
 			);
 			name = Me;
+			sourceTree = "<group>";
+		};
+		D9A981AE19EFB92400210A1B /* ChangeUserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D90857F319EEA8CD0041A4E2 /* ChangeUserInfoViewController.h */,
+				D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */,
+				D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */,
+			);
+			name = ChangeUserInfo;
 			sourceTree = "<group>";
 		};
 		D9CDD70E19EBA44F001AC9F2 /* TMCache */ = {
@@ -1373,6 +1393,7 @@
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
 				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
+				D9A981AD19EFB81000210A1B /* Account.m in Sources */,
 				D955E39019E67AD600047F2B /* SDWebImagePrefetcher.m in Sources */,
 				D955E38F19E67AD600047F2B /* SDWebImageManager.m in Sources */,
 				D964203619EBEB7A00CC8057 /* AFURLConnectionOperation.m in Sources */,
@@ -1398,6 +1419,7 @@
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
 				D964203219EBEB7A00CC8057 /* AFHTTPRequestOperationManager.m in Sources */,
 				D955E38C19E67AD600047F2B /* SDWebImageDecoder.m in Sources */,
+				D9A981AA19EFB5FD00210A1B /* UserInfo.xcdatamodeld in Sources */,
 				D955E39319E67AD600047F2B /* UIImage+MultiFormat.m in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D955E39419E67AD600047F2B /* UIImage+WebP.m in Sources */,
@@ -1685,6 +1707,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */,
+			);
+			currentVersion = D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */;
+			path = UserInfo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D99D8EBD19C8600C0021C25B /* Project object */;
 }
