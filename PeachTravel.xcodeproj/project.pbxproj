@@ -13,6 +13,10 @@
 		D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */; };
 		D90857B119EE0C330041A4E2 /* SMSVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857AF19EE0C330041A4E2 /* SMSVerifyViewController.m */; };
 		D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857B019EE0C330041A4E2 /* SMSVerifyViewController.xib */; };
+		D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857EF19EE9AC20041A4E2 /* UserOtherTableViewCell.m */; };
+		D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857F019EE9AC20041A4E2 /* UserOtherTableViewCell.xib */; };
+		D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */; };
+		D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -152,6 +156,12 @@
 		D90857AE19EE0C330041A4E2 /* SMSVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSVerifyViewController.h; sourceTree = "<group>"; };
 		D90857AF19EE0C330041A4E2 /* SMSVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSVerifyViewController.m; sourceTree = "<group>"; };
 		D90857B019EE0C330041A4E2 /* SMSVerifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSVerifyViewController.xib; sourceTree = "<group>"; };
+		D90857EE19EE9AC20041A4E2 /* UserOtherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserOtherTableViewCell.h; sourceTree = "<group>"; };
+		D90857EF19EE9AC20041A4E2 /* UserOtherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserOtherTableViewCell.m; sourceTree = "<group>"; };
+		D90857F019EE9AC20041A4E2 /* UserOtherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserOtherTableViewCell.xib; sourceTree = "<group>"; };
+		D90857F319EEA8CD0041A4E2 /* ChangeUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserInfoViewController.h; sourceTree = "<group>"; };
+		D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeUserInfoViewController.m; sourceTree = "<group>"; };
+		D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeUserInfoViewController.xib; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -434,6 +444,9 @@
 				D90857A619ED0F890041A4E2 /* UserHeaderTableViewCell.h */,
 				D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */,
 				D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */,
+				D90857EE19EE9AC20041A4E2 /* UserOtherTableViewCell.h */,
+				D90857EF19EE9AC20041A4E2 /* UserOtherTableViewCell.m */,
+				D90857F019EE9AC20041A4E2 /* UserOtherTableViewCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -830,6 +843,9 @@
 				D908579819ED001C0041A4E2 /* UserInfo */,
 				D964207A19ECC61A00CC8057 /* ChangePassword */,
 				D90857B319EE0C390041A4E2 /* SMS */,
+				D90857F319EEA8CD0041A4E2 /* ChangeUserInfoViewController.h */,
+				D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */,
+				D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -1307,6 +1323,7 @@
 				D955E54C19E7A91300047F2B /* sns_icon_qzone@2x.png in Resources */,
 				D9F57B8F19E93486005BB43B /* UMSCommentDetailController.xib in Resources */,
 				D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */,
+				D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */,
 				D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */,
 				D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */,
 				D955E3AD19E7742500047F2B /* CityDetailViewController.xib in Resources */,
@@ -1314,6 +1331,7 @@
 				D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */,
 				D955E54A19E7A91300047F2B /* sns_icon_qq@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
+				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D964200C19EBC3B800CC8057 /* LosePasswordViewController.xib in Resources */,
 				D955E54E19E7A91300047F2B /* sns_icon_sina@2x.png in Resources */,
@@ -1391,6 +1409,7 @@
 				D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */,
 				D955E38D19E67AD600047F2B /* SDWebImageDownloader.m in Sources */,
 				D964201C19EBE9C900CC8057 /* FeedbackViewController.m in Sources */,
+				D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */,
 				D955E39219E67AD600047F2B /* UIImage+GIF.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D955E3A219E6B9AC00047F2B /* DestinationCountryPoi.m in Sources */,
@@ -1399,6 +1418,7 @@
 				D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D964200B19EBC3B800CC8057 /* LosePasswordViewController.m in Sources */,
+				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
 				D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */,
 				D964203319EBEB7A00CC8057 /* AFHTTPSessionManager.m in Sources */,
 				D9CDD71E19EBA5FE001AC9F2 /* AccountBean.m in Sources */,

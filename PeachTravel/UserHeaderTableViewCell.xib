@@ -26,32 +26,35 @@
                             <constraint firstAttribute="width" constant="40" id="tk9-9w-RN9"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-Fs-d7r">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BaB-m5-bPy">
                         <rect key="frame" x="272" y="2" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="hu7-if-7od"/>
-                            <constraint firstAttribute="height" constant="40" id="tFz-vN-2Kq"/>
+                            <constraint firstAttribute="width" constant="40" id="EnN-Ed-5zt"/>
+                            <constraint firstAttribute="height" constant="40" id="eDG-kE-pBk"/>
                         </constraints>
-                        <state key="normal">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="BaB-m5-bPy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="3iN-x0-G1P"/>
                     <constraint firstItem="PUV-Xe-4wj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="6YX-B6-m8U"/>
-                    <constraint firstAttribute="trailing" secondItem="VQe-Fs-d7r" secondAttribute="trailing" constant="8" id="8dc-GP-TBm"/>
-                    <constraint firstAttribute="bottom" secondItem="VQe-Fs-d7r" secondAttribute="bottom" constant="2" id="GDd-jr-fhf"/>
+                    <constraint firstAttribute="bottom" secondItem="BaB-m5-bPy" secondAttribute="bottom" constant="1.5" id="Peg-H2-dsU"/>
                     <constraint firstAttribute="bottom" secondItem="PUV-Xe-4wj" secondAttribute="bottom" constant="2" id="Rez-eb-4oj"/>
-                    <constraint firstItem="VQe-Fs-d7r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="eDu-Qy-OiP"/>
+                    <constraint firstAttribute="trailing" secondItem="BaB-m5-bPy" secondAttribute="trailing" constant="8" id="SLK-t2-6bC"/>
                     <constraint firstItem="PUV-Xe-4wj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="iCw-2d-PyA"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellLabel" destination="Gtm-KO-s42" id="M1T-7C-WxR"/>
                 <outlet property="testImage" destination="PUV-Xe-4wj" id="yOY-4n-IGM"/>
-                <outlet property="userPhotoBtn" destination="VQe-Fs-d7r" id="8xT-bg-sfK"/>
+                <outlet property="userPhoto" destination="BaB-m5-bPy" id="gQ0-ud-Fzy"/>
             </connections>
-            <point key="canvasLocation" x="-66" y="173"/>
+            <point key="canvasLocation" x="-253" y="176"/>
         </tableViewCell>
     </objects>
 </document>

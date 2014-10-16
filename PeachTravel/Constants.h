@@ -22,9 +22,22 @@
 #define SHARE_WEIXIN_SECRET     @ "28daa05c021ebebe6d3cf06645b0c5ac"
 #define SHARE_TECENTWEIBO_KEY   @ "801545095 "
 
-#define WECHAT_API_DOMAIN       @"https://api.weixin.qq.com/"
+#define WECHAT_API_DOMAIN       @ "https://api.weixin.qq.com/"
 
-//登录注册时输入的错误码
+/***** API *****/
+
+#define BASE_URL                @ "http://api.lvxingpai.cn/"
+
+#define API_WEIXIN_LOGIN        (BASE_URL @"app/users/auth-signup")
+
+/***** Notification name *******/
+
+#define weixinDidLoginNoti          @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
+#define userDidLoginNoti            @ "userDidLogin"                //用户完成所有登录工作。
+#define userDidLogoutNoti            @ "userDidLogout"              //用户完成所有退出登录工作。
+
+
+/***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {
     PhoneNumberError = 1,           //手机号号输入非法
     PasswordError,                  //密码输入非法

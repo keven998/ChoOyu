@@ -11,6 +11,7 @@
 #import "UMSocialSinaHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "AccountManager.h"
 
 @interface AppDelegate ()
 
@@ -67,71 +68,22 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
 
--(void)onReq:(BaseReq *)req
-{
-    NSLog(@"%@",req);
-}
-
--(void)onResp:(BaseResp *)resp
+- (void)onResp:(BaseResp *)resp
 {
     SendAuthResp * result = (SendAuthResp *)resp;
     
     NSString * code = result.code;
-    NSString * state = result.state;
-    NSString * lang = result.lang;
-    NSString * country = result.country;
     
-    NSLog(@"code is %@  \n\
-          state is %@ \n\
-          lang is %@ \n\
-          country is %@ " , code , state , lang , country );
-    
-    NSUserDefaults * userInfo = [[NSUserDefaults alloc]init];
-    [userInfo setObject:code forKey:@"code"];
-    [userInfo setObject:state forKey:@"state"];
-    [userInfo setObject:lang forKey:@"lang"];
-    [userInfo setObject:country forKey:@"country"];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSString * requestUrl = [NSString stringWithFormat:@"%@sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WECHAT_API_DOMAIN,SHARE_WEIXIN_APPID,SHARE_WEIXIN_SECRET,code];
-    
-    NSLog(@"%@", requestUrl);
-    
-//    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-//    jsonReponseSerializer.acceptableContentTypes = nil;
-//    manager.responseSerializer = jsonReponseSerializer;
-//    
-//    [manager GET:requestUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary * result = responseObject;
-//        [userInfo setObject:[result objectForKey:@"access_token"] forKey:@"access_token"];
-//        [userInfo setObject:[result objectForKey:@"expires_in"] forKey:@"expires_in"];
-//        [userInfo setObject:[result objectForKey:@"openid"] forKey:@"openid"];
-//        [userInfo setObject:[result objectForKey:@"refresh_token"] forKey:@"scope"];
-//        [userInfo setObject:[result objectForKey:@"scope"] forKey:@"scope"];
-//        [self getUserInfo:[result objectForKey:@"access_token"] andOpenid:[result objectForKey:@"openid"]];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"wechat resp Error: %@", error);
-//    }];
-}
-
--(void)getUserInfo:(NSString *)access_token andOpenid:(NSString *)openid
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSString * requestUrl = [NSString stringWithFormat:@"%@sns/userinfo?access_token=%@&openid=%@", WECHAT_API_DOMAIN,access_token,openid];
-    
-    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-    jsonReponseSerializer.acceptableContentTypes = nil;
-    manager.responseSerializer = jsonReponseSerializer;
-    
-    [manager GET:requestUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"wechat callback user info %@" , responseObject );
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"Notification_GetUserProfileSuccess" object:nil userInfo:nil];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"wechat resp Error: %@", error);
-    }]; 
+    //微信授权失败,取消登录
+    if (!code) {
+        return;
+    }
+    NSDictionary *userInfo = @{@"code" : code};
+    [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
 
 @end
+
+
+
+

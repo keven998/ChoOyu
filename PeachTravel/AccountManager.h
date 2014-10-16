@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class AccountBean;
+#import "AccountBean.h"
 
 @interface AccountManager : NSObject
 
@@ -17,7 +17,7 @@
 
 - (BOOL)isLogin;
 
-- (void)login;
+- (void)userDidLoginWithUserInfo:(id)userInfo;
 - (void)logout;
 
 @end

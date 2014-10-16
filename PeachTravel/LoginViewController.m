@@ -9,13 +9,13 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "LosePasswordViewController.h"
+#import "AccountManager.h"
 #import "WXApi.h"
 
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *losePassworkBtn;
 
@@ -44,6 +44,18 @@
     tapBackground.numberOfTapsRequired = 1;
     tapBackground.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:tapBackground];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
 }
 
 #pragma mark - IBAction Methods
@@ -83,10 +95,38 @@
     //构造SendAuthReq结构体
     SendAuthReq* req =[[SendAuthReq alloc] init];
     req.scope = @"snsapi_userinfo";
-    req.state = @"wechat_login_demo";
-    
+    req.state = @"peachtravel";
     //第三方向微信终端发送一个SendAuthReq消息结构
     [WXApi sendReq:req];
+}
+
+- (void)weixinDidLogin:(NSNotification *)noti
+{
+    NSString *code = [noti.userInfo objectForKey:@"code"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:code forKey:@"code"];
+    
+    //获取用户信息
+    [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        
+    }];
+
 }
 
 @end

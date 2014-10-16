@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *userId;
+@property (weak, nonatomic) IBOutlet UILabel *userSign;
 
 @end

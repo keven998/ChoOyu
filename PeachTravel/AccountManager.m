@@ -7,7 +7,6 @@
 //
 
 #import "AccountManager.h"
-#import "AccountBean.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -26,7 +25,9 @@
 
 - (AccountBean *)account
 {
-    _account = [[TMCache sharedCache] objectForKey:ACCOUNT_KEY];
+    if (!_account) {
+        _account = [[TMCache sharedCache] objectForKey:ACCOUNT_KEY];
+    }
     return _account;
 }
 
@@ -38,11 +39,13 @@
 - (void)logout
 {
     [[TMCache sharedCache] removeObjectForKey:ACCOUNT_KEY];
+    self.account = nil;
 }
 
-- (void)login
+- (void)userDidLoginWithUserInfo:(id)userInfo
 {
-    
+    _account = [[AccountBean alloc] initWithJson:userInfo];
+    [[TMCache sharedCache] setObject:_account forKey:ACCOUNT_KEY];
 }
 
 @end

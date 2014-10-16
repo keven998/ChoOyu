@@ -1,20 +1,21 @@
 //
-//  LoginTableViewCell.m
+//  UserOtherTableViewCell.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/10/7.
+//  Created by liangpengshuai on 14/10/15.
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-#import "LoginTableViewCell.h"
+#import "UserOtherTableViewCell.h"
 
-@implementation LoginTableViewCell
+@implementation UserOtherTableViewCell
 
 - (void)awakeFromNib {
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+
 }
 
 @end

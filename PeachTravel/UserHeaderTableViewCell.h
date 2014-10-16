@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UserHeaderTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *testImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *testImage;
 @property (weak, nonatomic) IBOutlet UILabel *cellLabel;
-@property (weak, nonatomic) IBOutlet UIButton *userPhotoBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
 
 @end

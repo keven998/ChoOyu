@@ -14,29 +14,67 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="旅行小哥" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGO-fE-yCY">
-                        <rect key="frame" x="83" y="18" width="208" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGO-fE-yCY">
+                        <rect key="frame" x="86" y="13" width="208" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="EVF-Wa-hDR"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aze-0P-fg7">
-                        <rect key="frame" x="8" y="23" width="50" height="50"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Aze-0P-fg7">
+                        <rect key="frame" x="8" y="13" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="1aI-yE-7ke"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="35"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ID:100000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOO-ts-ihT">
-                        <rect key="frame" x="83" y="37" width="208" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我爱旅行可惜没钱啊" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgs-cw-IOM">
-                        <rect key="frame" x="83" y="59" width="208" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgs-cw-IOM">
+                        <rect key="frame" x="86" y="62" width="208" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="BcA-ao-fKn"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOO-ts-ihT">
+                        <rect key="frame" x="86" y="37" width="208" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="lKe-eZ-Qbx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="YOO-ts-ihT" firstAttribute="leading" secondItem="Aze-0P-fg7" secondAttribute="trailing" constant="8" id="7VB-aw-G9g"/>
+                    <constraint firstAttribute="trailing" secondItem="GGO-fE-yCY" secondAttribute="trailing" constant="26" id="925-kl-418"/>
+                    <constraint firstItem="Rgs-cw-IOM" firstAttribute="top" secondItem="YOO-ts-ihT" secondAttribute="bottom" constant="4" id="BhG-EE-iqj"/>
+                    <constraint firstItem="GGO-fE-yCY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="HeN-nG-vXB"/>
+                    <constraint firstItem="Rgs-cw-IOM" firstAttribute="leading" secondItem="Aze-0P-fg7" secondAttribute="trailing" constant="8" id="NzC-4L-BPx"/>
+                    <constraint firstAttribute="trailing" secondItem="YOO-ts-ihT" secondAttribute="trailing" constant="26" id="O2x-aZ-rhm"/>
+                    <constraint firstItem="YOO-ts-ihT" firstAttribute="top" secondItem="GGO-fE-yCY" secondAttribute="bottom" constant="3" id="Pj1-5A-2sx"/>
+                    <constraint firstAttribute="trailing" secondItem="Rgs-cw-IOM" secondAttribute="trailing" constant="26" id="eug-Fv-aYJ"/>
+                    <constraint firstItem="Aze-0P-fg7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="hGK-G2-fMe"/>
+                    <constraint firstAttribute="bottom" secondItem="Aze-0P-fg7" secondAttribute="bottom" constant="16.5" id="mVt-T4-Kqz"/>
+                    <constraint firstItem="Aze-0P-fg7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="pTE-f0-dUk"/>
+                    <constraint firstItem="GGO-fE-yCY" firstAttribute="leading" secondItem="Aze-0P-fg7" secondAttribute="trailing" constant="8" id="sE7-eB-jjA"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="userId" destination="YOO-ts-ihT" id="mbs-6M-XL7"/>
+                <outlet property="userName" destination="GGO-fE-yCY" id="Sri-4M-hJ3"/>
+                <outlet property="userPhoto" destination="Aze-0P-fg7" id="hp2-Tm-IlI"/>
+                <outlet property="userSign" destination="Rgs-cw-IOM" id="8S2-l3-Akl"/>
+            </connections>
             <point key="canvasLocation" x="251" y="277.5"/>
         </tableViewCell>
     </objects>

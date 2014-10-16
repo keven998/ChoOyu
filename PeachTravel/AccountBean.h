@@ -15,11 +15,14 @@ enum ACCOUNT_TYPE {
 
 @interface AccountBean : NSObject<NSCoding>
 
-@property (nonatomic, copy) NSString *uid;
-@property (nonatomic, copy) NSString *uname;
+@property (nonatomic) NSInteger userId;
+@property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *gender;
-@property (nonatomic, assign) int accountType;
-@property (nonatomic, copy) NSString *platformToken;
+@property (nonatomic, copy) NSString *tel;
+@property (nonatomic, copy) NSString *secToken;
+@property (nonatomic, copy) NSString *signature;
+
+- (id)initWithJson:(id)json;
 
 @end

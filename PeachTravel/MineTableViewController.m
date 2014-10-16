@@ -37,16 +37,14 @@
     [self.tableView setContentInset:UIEdgeInsetsMake(-35, 0, 0, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
      [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +59,13 @@
         _accountManager = [AccountManager shareAccountManager];
     }
     return _accountManager;
+}
+
+#pragma mark - Private Methods
+
+- (void)userAccountHasChage
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - IBAction Methods
@@ -108,7 +113,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (self.accountManager.isLogin) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
+            [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:nil];
+            cell.userId.text = [NSString stringWithFormat:@"ID:%d", accountManager.account.userId];
+            cell.userName.text = accountManager.account.nickName;
+            if (!accountManager.account.signature && ![accountManager.account.signature isEqualToString:@""]) {
+                cell.userSign.text = accountManager.account.signature;
+            } else {
+                cell.userSign.text = @"编写签名";
+            }
             return cell;
         } else {
             UnLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:unLoginCell forIndexPath:indexPath];

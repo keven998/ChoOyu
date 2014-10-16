@@ -10,6 +10,8 @@
 #import "UserHeaderTableViewCell.h"
 #import "ChangePasswordViewController.h"
 #import "AccountManager.h"
+#import "UserOtherTableViewCell.h"
+#import "ChangeUserInfoViewController.h"
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -19,6 +21,7 @@
 @interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
+@property (strong, nonatomic) AccountManager *accountManager;
 
 @end
 
@@ -32,7 +35,7 @@
     [self.tableView setContentInset:UIEdgeInsetsMake(-35, 0, 0, 0)];
     self.tableView.tableFooterView = self.footerView;
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:userInfoHeaderCell];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:otherUserInfoCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
 }
 
 #pragma mark - setter & getter
@@ -54,6 +57,14 @@
     return _footerView;
 }
 
+- (AccountManager *)accountManager
+{
+    if (!_accountManager) {
+        _accountManager = [AccountManager shareAccountManager];
+    }
+    return _accountManager;
+}
+
 #pragma mark - Private Methods
 
 - (void)presentImagePicker
@@ -68,6 +79,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [accountManager logout];
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -85,10 +97,24 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = dataSource[indexPath.section][indexPath.row];
+        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:nil];
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
-        cell.textLabel.text = dataSource[indexPath.section][indexPath.row];
+        UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
+        cell.cellTitle.text = dataSource[indexPath.section][indexPath.row];
+        if (indexPath.section == 0 && indexPath.row == 1) {
+            cell.cellDetail.text = [NSString stringWithFormat:@"ID%d", self.accountManager.account.userId];
+        }
+        if (indexPath.section == 0 && indexPath.row == 2) {
+            cell.cellDetail.text = self.accountManager.account.nickName;
+        }
+        if (indexPath.section == 0 && indexPath.row == 4) {
+            if (!self.accountManager.account.signature && ![self.accountManager.account.signature isEqualToString:@""]) {
+                cell.cellDetail.text = self.accountManager.account.signature;
+            } else {
+                cell.cellDetail.text = @"编写签名";
+            }
+        }
         return cell;
     }
 }
@@ -99,10 +125,23 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         [self presentImagePicker];
     }
+    if (indexPath.section == 0 && indexPath.row == 2) {
+        ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
+        changeUserInfo.changeType = ChangeName;
+        [self.navigationController pushViewController:changeUserInfo animated:YES];
+        changeUserInfo.content = self.accountManager.account.nickName;
+    }
+    if (indexPath.section == 0 && indexPath.row == 4) {
+        ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
+        changeUserInfo.changeType = ChangeSignature;
+        [self.navigationController pushViewController:changeUserInfo animated:YES];
+        changeUserInfo.content = self.accountManager.account.signature;
+    }
     if (indexPath.section == 1 && indexPath.row == 0) {
         ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
         [self.navigationController pushViewController:changePasswordCtl animated:YES];
     }
+    
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -130,7 +169,8 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
     UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
-    cell.testImage.image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    cell.userPhoto.image = headerImage;
 }
 
 
