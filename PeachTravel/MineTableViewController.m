@@ -40,6 +40,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
 }
 
 - (void)dealloc
@@ -118,11 +119,7 @@
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:nil];
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
-            if (!accountManager.account.signature && ![accountManager.account.signature isEqualToString:@""]) {
-                cell.userSign.text = accountManager.account.signature;
-            } else {
-                cell.userSign.text = @"编写签名";
-            }
+            cell.userSign.text = accountManager.account.signature.length>0 ? accountManager.account.signature:@"编写签名";
             return cell;
         } else {
             UnLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:unLoginCell forIndexPath:indexPath];

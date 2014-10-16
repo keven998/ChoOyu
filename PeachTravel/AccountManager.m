@@ -72,6 +72,8 @@
     return _context;
 }
 
+#pragma mark - Private Methods
+
 //用户退出登录
 - (void)logout
 {
@@ -90,6 +92,24 @@
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
 
+    NSError *error = nil;
+    [self.context save:&error];
+}
+
+//用户更新了
+- (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
+{
+    switch (changeType) {
+        case ChangeName:
+            self.account.nickName = changeContent;
+            break;
+        
+        case ChangeSignature:
+            self.account.signature = changeContent;
+            
+        default:
+            break;
+    }
     NSError *error = nil;
     [self.context save:&error];
 }

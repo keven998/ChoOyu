@@ -71,7 +71,30 @@
     [self.navigationController pushViewController:losePasswordCtl animated:YES];
 }
 
+//普通登录
 - (IBAction)login:(UIButton *)sender {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:_userNameTextField.text forKey:@"loginName"];
+    [params setObject:_passwordTextField.text forKey:@"pwd"];
+    
+    //普通登录
+    [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 //微信登录
@@ -112,7 +135,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:code forKey:@"code"];
     
-    //获取用户信息
+    //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -124,7 +147,6 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        
     }];
 
 }

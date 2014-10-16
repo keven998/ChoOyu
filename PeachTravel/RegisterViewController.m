@@ -49,10 +49,7 @@
 - (IBAction)confirmRegister:(UIButton *)sender {
     switch ([self checkInput]) {
         case NoError: {
-            NSLog(@"输入合法");
-            SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
-            smsVerifyCtl.phoneNumber = self.phoneLabel.text;
-            [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+            [self getCaptcha];
         }
             break;
             
@@ -86,5 +83,48 @@
 
     return NoError;
 }
+
+- (void)getCaptcha
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:_phoneLabel.text forKey:@"tel"];
+    [params setObject:@"1" forKey:@"actionCode"];
+    
+    //获取用户信息
+    [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
+            smsVerifyCtl.phoneNumber = self.phoneLabel.text;
+            smsVerifyCtl.password = self.passwordLabel.text;
+            [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+        } else {
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

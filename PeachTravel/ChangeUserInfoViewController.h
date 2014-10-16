@@ -8,14 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
-    ChangeName,
-    ChangeSignature,
-} ChangeType;
-
 @interface ChangeUserInfoViewController : UIViewController
 
-@property (nonatomic) ChangeType changeType;
+@property (nonatomic) UserInfoChangeType changeType;
 @property (copy, nonatomic) NSString *content;
 
 @end

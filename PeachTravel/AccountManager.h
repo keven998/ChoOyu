@@ -19,5 +19,5 @@
 
 - (void)userDidLoginWithUserInfo:(id)userInfo;
 - (void)logout;
-
+- (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 @end

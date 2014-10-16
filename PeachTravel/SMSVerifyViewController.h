@@ -11,4 +11,5 @@
 @interface SMSVerifyViewController : UIViewController
 
 @property (copy, nonatomic) NSString *phoneNumber;
+@property (copy, nonatomic) NSString *password;
 @end

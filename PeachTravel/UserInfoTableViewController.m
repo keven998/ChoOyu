@@ -36,6 +36,13 @@
     self.tableView.tableFooterView = self.footerView;
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:userInfoHeaderCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter & getter
@@ -71,6 +78,11 @@
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从手机相册中选择", nil];
     [actionSheet showInView:self.view];
+}
+
+- (void)userAccountHasChage
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - IBAction Methods
@@ -109,11 +121,8 @@
             cell.cellDetail.text = self.accountManager.account.nickName;
         }
         if (indexPath.section == 0 && indexPath.row == 4) {
-            if (!self.accountManager.account.signature && ![self.accountManager.account.signature isEqualToString:@""]) {
-                cell.cellDetail.text = self.accountManager.account.signature;
-            } else {
-                cell.cellDetail.text = @"编写签名";
-            }
+            cell.cellDetail.text = self.accountManager.account.signature.length>0 ? self.accountManager.account.signature:@"编写签名";
+
         }
         return cell;
     }

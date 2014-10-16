@@ -7,6 +7,7 @@
 //
 
 #import "SMSVerifyViewController.h"
+#import "AccountManager.h"
 
 //短信验证码的发送周期
 #define MaxCount       60
@@ -89,6 +90,31 @@
 }
 
 - (IBAction)confirm:(UIButton *)sender {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:_phoneNumber forKey:@"tel"];
+    [params setObject:_password forKey:@"pwd"];
+    [params setObject:_verifyCodeTextField.text forKey:@"captcha"];
+    
+    //获取用户信息
+    [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+        } else {
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)tapBackground:(id)sender

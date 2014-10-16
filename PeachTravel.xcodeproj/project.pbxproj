@@ -107,7 +107,6 @@
 		D9CDD71619EBA44F001AC9F2 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71219EBA44F001AC9F2 /* TMDiskCache.m */; };
 		D9CDD71719EBA44F001AC9F2 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71419EBA44F001AC9F2 /* TMMemoryCache.m */; };
 		D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */; };
-		D9CDD71E19EBA5FE001AC9F2 /* AccountBean.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71D19EBA5FE001AC9F2 /* AccountBean.m */; };
 		D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD72119EBAF70001AC9F2 /* RegisterViewController.m */; };
 		D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD72219EBAF70001AC9F2 /* RegisterViewController.xib */; };
 		D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD72719EBB9FD001AC9F2 /* AboutViewController.m */; };
@@ -317,8 +316,6 @@
 		D9CDD71419EBA44F001AC9F2 /* TMMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMemoryCache.m; sourceTree = "<group>"; };
 		D9CDD71819EBA4A3001AC9F2 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
 		D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
-		D9CDD71C19EBA5FE001AC9F2 /* AccountBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountBean.h; sourceTree = "<group>"; };
-		D9CDD71D19EBA5FE001AC9F2 /* AccountBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountBean.m; sourceTree = "<group>"; };
 		D9CDD72019EBAF70001AC9F2 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		D9CDD72119EBAF70001AC9F2 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		D9CDD72219EBAF70001AC9F2 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
@@ -953,8 +950,6 @@
 				D955E3F819E7A86800047F2B /* Resources */,
 				D99D8EC819C8600C0021C25B /* Supporting Files */,
 				D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */,
-				D9A981AB19EFB81000210A1B /* Account.h */,
-				D9A981AC19EFB81000210A1B /* Account.m */,
 			);
 			path = PeachTravel;
 			sourceTree = "<group>";
@@ -1147,8 +1142,8 @@
 		D9E6BFAE19E3E4C200C750AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D9CDD71C19EBA5FE001AC9F2 /* AccountBean.h */,
-				D9CDD71D19EBA5FE001AC9F2 /* AccountBean.m */,
+				D9A981AB19EFB81000210A1B /* Account.h */,
+				D9A981AC19EFB81000210A1B /* Account.m */,
 				D9CDD71819EBA4A3001AC9F2 /* AccountManager.h */,
 				D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */,
 			);
@@ -1443,7 +1438,6 @@
 				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
 				D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */,
 				D964203319EBEB7A00CC8057 /* AFHTTPSessionManager.m in Sources */,
-				D9CDD71E19EBA5FE001AC9F2 /* AccountBean.m in Sources */,
 				D964203519EBEB7A00CC8057 /* AFSecurityPolicy.m in Sources */,
 				D955E39519E67AD600047F2B /* UIImageView+HighlightedWebCache.m in Sources */,
 				D9CDD74019EBBAF6001AC9F2 /* OpenUDID.m in Sources */,

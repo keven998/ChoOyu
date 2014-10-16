@@ -46,11 +46,23 @@
 
 - (UserInfoInputError)checkInput
 {
-    NSString * regex = @"^[\u4E00-\u9FA5|a-zA-Z][\u4E00-\u9FA5|0-9a-zA-Z]*$";
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    if (![pred evaluateWithObject:_contentTextField.text]) {
-        NSLog(@"输入中含有非法字符串");
-        return IllegalCharacterError;
+    if (_changeType == ChangeName) {
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]*$";
+        NSString *regex2 = @"^[0-9]{6,}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
+        if (![pred1 evaluateWithObject:_contentTextField.text] || [pred2 evaluateWithObject:_contentTextField.text]) {
+            NSLog(@"输入中含有非法字符串");
+            return IllegalCharacterError;
+        }
+    }
+    if (_changeType == ChangeSignature) {
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]*$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+        if (![pred1 evaluateWithObject:_contentTextField.text] ||  ![pred1 evaluateWithObject:_contentTextField.text]) {
+            NSLog(@"输入中含有非法字符串");
+            return IllegalCharacterError;
+        }
     }
     return NoError;
 }
@@ -82,19 +94,17 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
     
-    //获取用户信息
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            NSLog(@"%@", responseObject);
+            [accountManager updateUserInfo:_contentTextField.text withChangeType:_changeType];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        
     }];
-
-    
 }
 
 - (void)tapBackground:(id)sender

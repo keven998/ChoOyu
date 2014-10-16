@@ -31,12 +31,17 @@
 //用户相关接口
 #define API_WEIXIN_LOGIN        (BASE_URL @"app/users/auth-signup")
 #define API_USERINFO            (BASE_URL @"app/users/")
+#define API_GET_CAPTCHA         (BASE_URL @"app/users/send-validation")
+#define API_SIGNUP              (BASE_URL @"app/users/signup")
+#define API_SIGNIN              (BASE_URL @"app/users/signin")
+
 
 /***** Notification name *******/
 
 #define weixinDidLoginNoti      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
 #define userDidLoginNoti        @ "userDidLogin"                //用户完成所有登录工作。
-#define userDidLogoutNoti       @ "userDidLogout"              //用户完成所有退出登录工作。
+#define userDidLogoutNoti       @ "userDidLogout"               //用户完成所有退出登录工作。
+#define updateUserInfoNoti      @ "updateUserInfo"              //用户信息有更改。
 
 
 /***** 登录注册时输入的错误码 *****/
@@ -51,4 +56,36 @@ typedef enum : NSUInteger {
     NoError
     
 } UserInfoInputError;
+
+typedef enum : NSUInteger {
+    ChangeName,
+    ChangeSignature,
+} UserInfoChangeType;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

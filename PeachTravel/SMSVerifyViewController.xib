@@ -46,7 +46,7 @@
                         <constraint firstAttribute="height" constant="45" id="2RL-lh-h7o"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="2RL-lh-h7o"/>
@@ -145,11 +145,11 @@
                     <exclude reference="NFm-Mc-QeK"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="3oK-Zu-oDh"/>
+                    <exclude reference="7Dg-NX-kYU"/>
                     <exclude reference="1Ud-Re-4oe"/>
                     <exclude reference="CQJ-Sh-31q"/>
                     <exclude reference="g1Q-qf-sJM"/>
-                    <exclude reference="3oK-Zu-oDh"/>
-                    <exclude reference="7Dg-NX-kYU"/>
                     <exclude reference="Fen-bv-GBq"/>
                     <exclude reference="kq6-fI-Xm1"/>
                     <exclude reference="u92-Ia-3xO"/>
@@ -167,11 +167,11 @@
                     <include reference="NFm-Mc-QeK"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="3oK-Zu-oDh"/>
+                    <include reference="7Dg-NX-kYU"/>
                     <include reference="1Ud-Re-4oe"/>
                     <include reference="CQJ-Sh-31q"/>
                     <include reference="g1Q-qf-sJM"/>
-                    <include reference="3oK-Zu-oDh"/>
-                    <include reference="7Dg-NX-kYU"/>
                     <include reference="Fen-bv-GBq"/>
                     <include reference="kq6-fI-Xm1"/>
                     <include reference="u92-Ia-3xO"/>
