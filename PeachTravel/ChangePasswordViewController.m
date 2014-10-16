@@ -7,6 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "AccountManager.h"
 
 @interface ChangePasswordViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordLabel;
@@ -51,6 +52,7 @@
 #pragma mark - IBActiong Methods
 
 - (IBAction)changePassword:(UIButton *)sender {
+    
 }
 
 - (void)tapBackground:(id)sender

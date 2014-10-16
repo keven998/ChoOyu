@@ -28,21 +28,27 @@
 
 #define BASE_URL                @ "http://api.lvxingpai.cn/"
 
+//用户相关接口
 #define API_WEIXIN_LOGIN        (BASE_URL @"app/users/auth-signup")
+#define API_USERINFO            (BASE_URL @"app/users/")
 
 /***** Notification name *******/
 
-#define weixinDidLoginNoti          @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
-#define userDidLoginNoti            @ "userDidLogin"                //用户完成所有登录工作。
-#define userDidLogoutNoti            @ "userDidLogout"              //用户完成所有退出登录工作。
+#define weixinDidLoginNoti      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
+#define userDidLoginNoti        @ "userDidLogin"                //用户完成所有登录工作。
+#define userDidLogoutNoti       @ "userDidLogout"              //用户完成所有退出登录工作。
 
 
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {
     PhoneNumberError = 1,           //手机号号输入非法
     PasswordError,                  //密码输入非法
-    PresentPasswordError,            //新密码输入非法
+    PresentPasswordError,           //新密码输入非法
     ConfirmPasswordError,           //确认密码输入非法
     PasswordNotMatchedError,        //修改密码时两次输入的密码不一致
+    IllegalCharacterError,          //包含非法字符
+    InputEmptyError,                //输入字符为空
     NoError
+    
 } UserInfoInputError;
+
