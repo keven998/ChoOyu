@@ -8,7 +8,6 @@
 
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
-#import "Appirater.h"
 
 #define cellIdentifier   @"settingCell"
 #define dataSource       @[@"清理缓存", @"我有意见", @"去App Store评分", @"消息和提醒"]
@@ -30,8 +29,6 @@
 #pragma mark - private methods
 
 - (void)mark {
-    [Appirater setAppId:@"895702413"];
-    [Appirater rateApp];
 }
 
 #pragma mark - Table view data source
