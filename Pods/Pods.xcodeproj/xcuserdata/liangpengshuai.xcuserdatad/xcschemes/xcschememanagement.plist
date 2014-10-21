@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-EaseMobSDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-OpenUDID.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,37 +47,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>274B9359782403F23437C9EF</key>
+		<key>2F54E79CF8AD8FE5E3AA21C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41DF85111FEE208AE61BF525</key>
+		<key>44D24D23D3C1E0CAC4C824EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A208BB943623423BCE6515A</key>
+		<key>57F649217CA929C2F92CFE13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F801D2BD60339FB81EFA292</key>
+		<key>7034E1B83E32E6572486EE96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E6AED5A1113C9DFBB207363A</key>
+		<key>C4738D0350FC1770C34A7198</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F4B94F20C7C2EED3D7820A41</key>
+		<key>CAD6CA1A3D63237FBDB8B3BA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F5CB07A584490CE498FD4454</key>
+		<key>E09AEE0D209CFC031AAA980E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD50CC03774A4F3FC1961E6F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
