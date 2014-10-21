@@ -70,8 +70,9 @@
 
 - (UserInfoInputError)checkInput
 {
-    NSLog(@"%d", _phoneLabel.text.length);
-    if (_phoneLabel.text.length != 11) {
+    NSString * regex0 = @"^1\\d{10}$";
+    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
+    if (![pred0 evaluateWithObject:_phoneLabel.text]) {
         return PhoneNumberError;
     }
     
@@ -94,9 +95,9 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:@"1" forKey:@"actionCode"];
+    [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
     
-    //获取用户信息
+    //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -105,26 +106,12 @@
             smsVerifyCtl.password = self.passwordLabel.text;
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
         } else {
-            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        
     }];
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

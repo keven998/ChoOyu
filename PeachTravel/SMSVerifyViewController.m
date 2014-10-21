@@ -9,9 +9,6 @@
 #import "SMSVerifyViewController.h"
 #import "AccountManager.h"
 
-//短信验证码的发送周期
-#define MaxCount       60
-
 @interface SMSVerifyViewController () {
     NSTimer *timer;
     NSInteger count;
@@ -30,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    count = MaxCount;
+    count = _coolDown;
     self.navigationItem.title = @"验证";
     _titleLabel.text = [NSString stringWithFormat:@"已发送短信验证码至%@", _phoneNumber];
     [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
@@ -83,7 +80,7 @@
 
 //重新获取验证码
 - (IBAction)reloadVerifyCode:(UIButton *)sender {
-    count = MaxCount;
+    count = _coolDown;
     [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
     [self startTimer];
     _verifyCodeBtn.userInteractionEnabled = NO;
@@ -97,8 +94,18 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:_phoneNumber forKey:@"tel"];
-    [params setObject:_password forKey:@"pwd"];
+    switch (_smsType) {
+        case UserRegister:
+            [params setObject:_phoneNumber forKey:@"tel"];
+            [params setObject:_password forKey:@"pwd"];
+            [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
+            break;
+            
+        case UserBindTel:
+            
+        default:
+            break;
+    }
     [params setObject:_verifyCodeTextField.text forKey:@"captcha"];
     
     //获取用户信息
@@ -126,10 +133,6 @@
 
 
 @end
-
-
-
-
 
 
 

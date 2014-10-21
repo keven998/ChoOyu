@@ -82,6 +82,8 @@
 		D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD72219EBAF70001AC9F2 /* RegisterViewController.xib */; };
 		D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD72719EBB9FD001AC9F2 /* AboutViewController.m */; };
 		D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD72C19EBBAAD001AC9F2 /* AppUtils.m */; };
+		D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */; };
+		D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */; };
 		D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613519E41A51000F379F /* MineTableViewController.m */; };
 		D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613D19E42360000F379F /* LoginTableViewCell.m */; };
 		D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F3613E19E42360000F379F /* LoginTableViewCell.xib */; };
@@ -227,6 +229,9 @@
 		D9CDD72719EBB9FD001AC9F2 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D9CDD72B19EBBAAD001AC9F2 /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		D9CDD72C19EBBAAD001AC9F2 /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		D9D840FF19F4F74200FEB197 /* BindTelephoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindTelephoneViewController.h; sourceTree = "<group>"; };
+		D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindTelephoneViewController.m; sourceTree = "<group>"; };
+		D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindTelephoneViewController.xib; sourceTree = "<group>"; };
 		D9F3613419E41A51000F379F /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
 		D9F3613519E41A51000F379F /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
 		D9F3613C19E42360000F379F /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
@@ -446,7 +451,6 @@
 			children = (
 				D955E3F319E7A72300047F2B /* Category */,
 				D955E3EF19E7A2DD00047F2B /* Constants */,
-				D955E36519E67ACD00047F2B /* libs */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -663,6 +667,7 @@
 		D964207919ECC61500CC8057 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				D9D840F819F4F67200FEB197 /* BindPhone */,
 				D964200D19EBC3C300CC8057 /* LosePassword */,
 				D97B66FA19E90C33004439A3 /* Login */,
 				D9CDD71F19EBAC5F001AC9F2 /* Register */,
@@ -867,6 +872,7 @@
 		D9CDD72919EBBA72001AC9F2 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				D955E36519E67ACD00047F2B /* libs */,
 				D9CDD72A19EBBA85001AC9F2 /* Environment */,
 			);
 			name = Config;
@@ -879,6 +885,24 @@
 				D9CDD72C19EBBAAD001AC9F2 /* AppUtils.m */,
 			);
 			name = Environment;
+			sourceTree = "<group>";
+		};
+		D9D840F819F4F67200FEB197 /* BindPhone */ = {
+			isa = PBXGroup;
+			children = (
+				D9D840F919F4F68B00FEB197 /* ViewControllers */,
+			);
+			name = BindPhone;
+			sourceTree = "<group>";
+		};
+		D9D840F919F4F68B00FEB197 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9D840FF19F4F74200FEB197 /* BindTelephoneViewController.h */,
+				D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */,
+				D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		D9E1EF8219F0E2B8006348A3 /* Others */ = {
@@ -1135,6 +1159,7 @@
 				D9F57B9719E93486005BB43B /* UMSocialSDKResourcesNew.bundle in Resources */,
 				D9F57B9019E93486005BB43B /* UMSCommentInputController.xib in Resources */,
 				D955E54919E7A91300047F2B /* sns_icon_pengyouquan@2x.png in Resources */,
+				D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */,
 				D964201819EBCA3300CC8057 /* SettingTableViewController.xib in Resources */,
 				D955E54B19E7A91300047F2B /* sns_icon_qqweibo@2x.png in Resources */,
 				D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */,
@@ -1197,6 +1222,7 @@
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D9A981AD19EFB81000210A1B /* Account.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
+				D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */,
 				D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,

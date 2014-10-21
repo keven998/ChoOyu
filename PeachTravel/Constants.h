@@ -32,8 +32,9 @@
 #define API_WEIXIN_LOGIN        (BASE_URL @"app/users/auth-signup")
 #define API_USERINFO            (BASE_URL @"app/users/")
 #define API_GET_CAPTCHA         (BASE_URL @"app/users/send-validation")
-#define API_SIGNUP              (BASE_URL @"app/users/signup")
+#define API_SIGNUP              (BASE_URL @"app/users/signup")        //用户注册
 #define API_SIGNIN              (BASE_URL @"app/users/signin")
+#define API_BINDTEL             (BASE_URL @"app/users/band-tel")      //绑定手机号
 
 
 /***** Notification name *******/
@@ -56,6 +57,13 @@ typedef enum : NSUInteger {
     NoError
     
 } UserInfoInputError;
+
+/***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
+typedef enum : NSUInteger {
+    UserRegister = 1,        //用户注册时候进入时天下短信验证码
+    UserBindTel,         //用户绑定手机
+    UserLoseTel,         //用户忘记密码
+} SMSType;
 
 typedef enum : NSUInteger {
     ChangeName,
