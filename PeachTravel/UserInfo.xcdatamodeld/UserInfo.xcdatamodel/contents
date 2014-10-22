@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Account" representedClassName="Account" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
@@ -9,8 +9,19 @@
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="ApplyEntity" representedClassName="ApplyEntity" syncable="YES">
+        <attribute name="applicantNick" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="applicantUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupSubject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reason" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="receiverNick" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="receiverUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="style" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
     <fetchRequest name="FetchRequest" entity="Account"/>
     <elements>
         <element name="Account" positionX="-45" positionY="0" width="128" height="150"/>
+        <element name="ApplyEntity" positionX="-45" positionY="54" width="128" height="165"/>
     </elements>
 </model>

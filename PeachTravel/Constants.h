@@ -70,9 +70,11 @@ typedef enum : NSUInteger {
     ChangeSignature,
 } UserInfoChangeType;
 
+/***** 设备信息 *****/
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 
-
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
 
 

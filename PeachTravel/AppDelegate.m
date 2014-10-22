@@ -29,8 +29,46 @@
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
     
+    
+    /****** 设置环信 ******/
+    
+    [self registerRemoteNotification];
+    
+    NSString *apnsCertName = @"taoziAPNS";
+
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#xiaofang" apnsCertName:apnsCertName];
+    
+#if DEBUG
+    [[EaseMob sharedInstance] enableUncaughtExceptionHandler];
+#endif
+    [[[EaseMob sharedInstance] chatManager] setAutoFetchBuddyList:YES];
+    
+    //以下一行代码的方法里实现了自动登录，异步登录，需要监听[didLoginWithInfo: error:]
+    //demo中此监听方法在MainViewController中
+    [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
+    [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    
     return YES;
 }
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    NSLog(@"注册 APNS 成功");
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册推送失败"
+                                                    message:error.description
+                                                   delegate:nil
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
@@ -53,20 +91,42 @@
     return  result;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [[EaseMob sharedInstance] application:application didReceiveLocalNotification:notification];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    [[EaseMob sharedInstance] applicationWillResignActive:application];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"applicationDidEnterBackground" object:nil];
+    [[EaseMob sharedInstance] applicationDidEnterBackground:application];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [[EaseMob sharedInstance] applicationWillEnterForeground:application];
 }
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [[EaseMob sharedInstance] applicationDidBecomeActive:application];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [[EaseMob sharedInstance] applicationWillTerminate:application];
+}
+
 
 - (void)onResp:(BaseResp *)resp
 {
@@ -81,6 +141,29 @@
     NSDictionary *userInfo = @{@"code" : code};
     [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
+
+- (void)registerRemoteNotification{
+#if !TARGET_IPHONE_SIMULATOR
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    //iOS8 注册APNS
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        [application registerForRemoteNotifications];
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }else{
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeSound |
+        UIRemoteNotificationTypeAlert;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+    }
+    
+#endif
+    
+}
+
+
 
 @end
 

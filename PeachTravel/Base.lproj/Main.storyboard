@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="m3z-Mn-OEd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="m3z-Mn-OEd">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Destination View Controller-->
@@ -285,7 +285,7 @@
         <!--工具箱-->
         <scene sceneID="fRP-vO-oT5">
             <objects>
-                <viewController id="TWu-LE-aWR" sceneMemberID="viewController">
+                <viewController id="TWu-LE-aWR" customClass="ToolBoxViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mw1-3b-toX"/>
                         <viewControllerLayoutGuide type="bottom" id="Om7-sj-kB1"/>
@@ -293,13 +293,37 @@
                     <view key="view" contentMode="scaleToFill" id="9qo-zc-bOt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdZ-Tk-rsm">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="旅行圈">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="178" y="253" width="45" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="jumpIM:" destination="TWu-LE-aWR" eventType="touchUpInside" id="ToF-z7-lEu"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="CdZ-Tk-rsm"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="CdZ-Tk-rsm"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="工具箱" id="otW-Eu-z4z"/>
+                    <navigationItem key="navigationItem" title="工具箱" id="a2R-vV-Pbx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WlI-Au-m3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1300.5" y="239.99999999999997"/>
+            <point key="canvasLocation" x="2218.5" y="239"/>
         </scene>
         <!--我-->
         <scene sceneID="emZ-zE-Z6I">
@@ -332,7 +356,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="UMW-lM-IvM" kind="relationship" relationship="viewControllers" id="g4G-Rv-GcD"/>
-                        <segue destination="TWu-LE-aWR" kind="relationship" relationship="viewControllers" id="90J-pw-6OR"/>
+                        <segue destination="7qq-iv-VRy" kind="relationship" relationship="viewControllers" id="90J-pw-6OR"/>
                         <segue destination="Whb-gT-OX8" kind="relationship" relationship="viewControllers" id="WnL-3G-a7B"/>
                     </connections>
                 </tabBarController>
@@ -377,6 +401,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXS-gS-fQZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1291.5" y="987"/>
+        </scene>
+        <!--工具箱-->
+        <scene sceneID="DW2-Vo-WXg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7qq-iv-VRy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="工具箱" id="otW-Eu-z4z"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wbK-Xy-aZ3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TWu-LE-aWR" kind="relationship" relationship="rootViewController" id="hbU-ct-oXe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0dH-EG-6a5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1300.5" y="239"/>
         </scene>
     </scenes>
 </document>
