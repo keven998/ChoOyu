@@ -7,7 +7,7 @@
 //
 
 #import "AccountManager.h"
-#import <CoreData/CoreData.h>
+#import "AppDelegate.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -43,7 +43,6 @@
             [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
         }
         _account = [objs firstObject];
-        NSLog(@"一共有%d 个用户",[objs count]);
     }
     return _account;
 }
@@ -54,20 +53,15 @@
     return self.account != nil;
 }
 
+- (BOOL)accountIsBindTel
+{
+    return !([self.account.tel isEqualToString:@""] || self.account.tel == nil);
+}
+
 - (NSManagedObjectContext *)context
 {
     if (!_context) {
-        NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];
-        NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-        NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSURL *url = [NSURL fileURLWithPath:[docs stringByAppendingPathComponent:@"userInfo.data"]];
-        NSError *error = nil;
-        NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error];
-        if (store == nil) {
-            [NSException raise:@"添加数据库错误" format:@"%@",[error localizedDescription]];
-        }
-        _context = [[NSManagedObjectContext alloc] init];
-        _context.persistentStoreCoordinator = psc;
+        _context = [((AppDelegate *)[[UIApplication sharedApplication] delegate]) managedObjectContext];
     }
     return _context;
 }
@@ -83,6 +77,8 @@
     if (error) {
         [NSException raise:@"用户退出登录发生错误" format:@"%@",[error localizedDescription]];
     }
+    //退出环信聊天系统
+    [[EaseMob sharedInstance].chatManager asyncLogoff];
     _account = nil;
 }
 
@@ -91,9 +87,19 @@
 {
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
+}
 
+//环信系统也登录成功
+- (void)easeMobDidLogin
+{
     NSError *error = nil;
     [self.context save:&error];
+}
+
+//环信系统登录失败
+- (void)easeMobUnlogin
+{
+    _account = nil;
 }
 
 //用户更新了
@@ -124,7 +130,13 @@
     _account.tel = [json objectForKey:@"tel"];
     _account.secToken = [json objectForKey:@"secToken"];
     _account.signature = [json objectForKey:@"signature"];
+#warning 替换环信帐号密码
+//    _account.easemobUser = [json objectForKey:@"easemobUser"];
+//    _account.easemobPwd = [json objectForKey:@"easemobPwd"];
+    _account.easemobUser = @"heheceo";
+    _account.easemobPwd = @"james890526";
 }
+
 @end
 
 

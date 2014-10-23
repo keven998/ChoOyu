@@ -31,10 +31,12 @@
 //用户相关接口
 #define API_WEIXIN_LOGIN        (BASE_URL @"app/users/auth-signup")
 #define API_USERINFO            (BASE_URL @"app/users/")
-#define API_GET_CAPTCHA         (BASE_URL @"app/users/send-validation")
+#define API_GET_CAPTCHA         (BASE_URL @"app/users/send-validation")    //接收验证码
+#define API_VERIFY_CAPTCHA      (BASE_URL @"app/users/check-validation")   //验证验证码
+#define API_RESET_PWD           (BASE_URL @"app/users/reset-pwd")           //重新设置密码
 #define API_SIGNUP              (BASE_URL @"app/users/signup")        //用户注册
 #define API_SIGNIN              (BASE_URL @"app/users/signin")
-#define API_BINDTEL             (BASE_URL @"app/users/band-tel")      //绑定手机号
+#define API_BINDTEL             (BASE_URL @"app/users/bind")      //绑定手机号
 
 
 /***** Notification name *******/
@@ -58,12 +60,16 @@ typedef enum : NSUInteger {
     
 } UserInfoInputError;
 
-/***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
+/***** 用户验证验证码时候的原因 *****/
 typedef enum : NSUInteger {
-    UserRegister = 1,        //用户注册时候进入时天下短信验证码
-    UserBindTel,         //用户绑定手机
-    UserLoseTel,         //用户忘记密码
-} SMSType;
+    UserLosePassword = 1,       //忘记密码
+    UserBindTel                 //绑定手机号的时候
+} VerifyCaptchaType;
+
+/***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
+#define    kUserRegister         @"1"        //用户注册时候进入时天下短信验证码
+#define    kUserLosePassword     @"2"        //用户忘记密码
+#define    kUserBindTel          @"3"         //用户绑定手机
 
 typedef enum : NSUInteger {
     ChangeName,

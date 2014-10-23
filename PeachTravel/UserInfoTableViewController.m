@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "UserOtherTableViewCell.h"
 #import "ChangeUserInfoViewController.h"
+#import "VerifyCaptchaViewController.h"
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -150,6 +151,12 @@
         ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
         [self.navigationController pushViewController:changePasswordCtl animated:YES];
     }
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+        changePasswordCtl.verifyCaptchaType = UserBindTel;
+        [self.navigationController pushViewController:changePasswordCtl animated:YES];
+    }
+
     
 }
 

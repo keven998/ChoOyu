@@ -2,7 +2,6 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Account" representedClassName="Account" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="easemobPwd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="easemobUser" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nickName" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,7 +25,7 @@
     <entity name="ContactDetailInfo" syncable="YES"/>
     <fetchRequest name="FetchRequest" entity="Account"/>
     <elements>
-        <element name="Account" positionX="-8946" positionY="-3969" width="128" height="208"/>
+        <element name="Account" positionX="-8946" positionY="-3969" width="128" height="193"/>
         <element name="Contact" positionX="-8658" positionY="-3910" width="128" height="163"/>
         <element name="ContactDetailInfo" positionX="-8775" positionY="-3843" width="128" height="45"/>
     </elements>

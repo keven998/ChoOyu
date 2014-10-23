@@ -18,6 +18,9 @@
 - (BOOL)isLogin;
 
 - (void)userDidLoginWithUserInfo:(id)userInfo;
+- (void)easeMobDidLogin;
+- (void)easeMobUnlogin;
 - (void)logout;
+- (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 @end

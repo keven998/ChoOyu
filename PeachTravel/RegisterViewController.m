@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
+@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
 @end
 
@@ -50,6 +51,7 @@
     switch ([self checkInput]) {
         case NoError: {
             [self getCaptcha];
+            _registerBtn.userInteractionEnabled = NO;
         }
             break;
             
@@ -96,7 +98,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
     [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
-    
+    [SVProgressHUD show];
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -104,14 +106,19 @@
             SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
             smsVerifyCtl.phoneNumber = self.phoneLabel.text;
             smsVerifyCtl.password = self.passwordLabel.text;
+            smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
         } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"msg"]];
+            _registerBtn.userInteractionEnabled = YES;
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
         
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+        _registerBtn.userInteractionEnabled = YES;
     }];
-
 }
 
 @end

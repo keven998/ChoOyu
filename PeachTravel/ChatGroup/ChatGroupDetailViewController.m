@@ -594,7 +594,6 @@
     [[[EaseMob sharedInstance] chatManager] asyncIgnoreGroupPushNotification:_chatGroup.groupId
                                                                     isIgnore:_chatGroup.isPushNotificationEnabled];
 
-    return;
     UIViewController *viewController = [[UIViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }

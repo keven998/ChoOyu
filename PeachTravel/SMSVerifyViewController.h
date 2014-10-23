@@ -12,7 +12,6 @@
 
 @property (copy, nonatomic) NSString *phoneNumber;
 @property (copy, nonatomic) NSString *password;
-@property (nonatomic) SMSType smsType;    //进入发送填写验证码界面的原因
 @property (nonatomic) NSInteger coolDown;
 
 @end

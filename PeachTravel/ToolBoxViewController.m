@@ -7,7 +7,7 @@
 //
 
 #import "ToolBoxViewController.h"
-#import "TravelGroupViewController.h"
+#import "IMRootViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -56,9 +56,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 //进入聊天功能
 - (IBAction)jumpIM:(UIButton *)sender {
-    TravelGroupViewController *travelGroupCtl = [[TravelGroupViewController alloc] init];
-    travelGroupCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:travelGroupCtl animated:YES];
+    IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
+    IMRootCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:IMRootCtl animated:YES];
 }
 
 #pragma mark - private

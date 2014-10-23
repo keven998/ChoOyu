@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
-#import "LosePasswordViewController.h"
+#import "VerifyCaptchaViewController.h"
 #import "AccountManager.h"
 #import "WXApi.h"
 
@@ -67,7 +67,7 @@
 }
 
 - (IBAction)losePassword:(UIButton *)sender {
-    LosePasswordViewController *losePasswordCtl = [[LosePasswordViewController alloc] init];
+    VerifyCaptchaViewController *losePasswordCtl = [[VerifyCaptchaViewController alloc] init];
     [self.navigationController pushViewController:losePasswordCtl animated:YES];
 }
 
@@ -83,14 +83,20 @@
     [params setObject:_userNameTextField.text forKey:@"loginName"];
     [params setObject:_passwordTextField.text forKey:@"pwd"];
     
+    [SVProgressHUD show];
+    
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self loginWithUserInfo:[responseObject objectForKey:@"result"]];
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
         }
+        [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -132,37 +138,46 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:code forKey:@"code"];
     
+    [SVProgressHUD show];
+    
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self loginWithUserInfo:[responseObject objectForKey:@"result"]];
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+            [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"msg"]];
         }
+
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
     }];
 }
 
 //使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
-- (void)loginWithUserInfo:(id)userInfo
+- (void)loginWithUserName:(NSString *)userName withPassword:(NSString *)password
 {
-    [self showHudInView:self.view hint:@"正在登录..."];
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"heheceo"
-                                                        password:@"james890526"
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:accountManager.account.easemobUser
+                                                        password:accountManager.account.easemobPwd
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
          [self hideHud];
          if (loginInfo && !error) {
              [SVProgressHUD showSuccessWithStatus:@"登录成功"];
              AccountManager *accountManager = [AccountManager shareAccountManager];
-             [accountManager userDidLoginWithUserInfo:userInfo];
+             [accountManager easeMobDidLogin];
              [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
              
              [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
              
          }else {
              
+             [accountManager easeMobUnlogin];
+
              switch (error.errorCode) {
                  case EMErrorServerNotReachable:
                      [SVProgressHUD showErrorWithStatus:(@"连接服务器失败!")];
@@ -183,15 +198,6 @@
 
 - (void)dismissCtl
 {
-    NSArray *buddys = [[EaseMob sharedInstance].chatManager buddyList];
-    
-    for (EMBuddy *buddy in buddys) {
-        //屏蔽发送了好友申请, 但未通过对方接受的用户
-        if (!buddy.isPendingApproval) {
-            NSLog(@"%@", buddy.username);
-        }
-    }
-
     [self.navigationController popViewControllerAnimated:YES];
 }
 

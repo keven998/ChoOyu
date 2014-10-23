@@ -138,7 +138,6 @@
 		D90F36F519F63FFA00E26FA9 /* PublicGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E619F63FFA00E26FA9 /* PublicGroupDetailViewController.m */; };
 		D90F36F619F63FFA00E26FA9 /* PublicGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */; };
 		D90F36FA19F6402000E26FA9 /* WCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36F919F6402000E26FA9 /* WCAlertView.m */; };
-		D90F371819F6626500E26FA9 /* ApplyEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F371719F6626500E26FA9 /* ApplyEntity.m */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -176,8 +175,8 @@
 		D955E59E19E7C87E00047F2B /* AccountManagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E59C19E7C87E00047F2B /* AccountManagerTableViewCell.xib */; };
 		D955E5D219E7D24700047F2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D955E5D119E7D24700047F2B /* Images.xcassets */; };
 		D955E5D419E7D41200047F2B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955E5D319E7D41200047F2B /* Default-568h@2x.png */; };
-		D964200B19EBC3B800CC8057 /* LosePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964200919EBC3B800CC8057 /* LosePasswordViewController.m */; };
-		D964200C19EBC3B800CC8057 /* LosePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964200A19EBC3B800CC8057 /* LosePasswordViewController.xib */; };
+		D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */; };
+		D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */; };
 		D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964201519EBCA3300CC8057 /* SettingTableViewController.m */; };
 		D964201819EBCA3300CC8057 /* SettingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964201619EBCA3300CC8057 /* SettingTableViewController.xib */; };
 		D964201C19EBE9C900CC8057 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964201B19EBE9C900CC8057 /* FeedbackViewController.m */; };
@@ -188,13 +187,17 @@
 		D973340A19EB77B6004D2D8D /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D973340619EB77B6004D2D8D /* libSocialQQ.a */; };
 		D97B670119E90C70004439A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97B66FF19E90C70004439A3 /* LoginViewController.m */; };
 		D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97B670019E90C70004439A3 /* LoginViewController.xib */; };
+		D990FBD819F8E3BB0008A8FE /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBD719F8E3BB0008A8FE /* Account.m */; };
+		D990FBDB19F8E3BB0008A8FE /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDA19F8E3BB0008A8FE /* Contact.m */; };
+		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
+		D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */; };
+		D990FBE719F915AF0008A8FE /* IMRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBE619F915AF0008A8FE /* IMRootViewController.m */; };
+		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
 		D99D8ECB19C8600C0021C25B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECA19C8600C0021C25B /* main.m */; };
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
 		D99D8ED419C8600C0021C25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED219C8600C0021C25B /* Main.storyboard */; };
 		D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED719C8600C0021C25B /* LaunchScreen.xib */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
-		D9A981AA19EFB5FD00210A1B /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
-		D9A981AD19EFB81000210A1B /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A981AC19EFB81000210A1B /* Account.m */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
 		D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */; };
 		D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */; };
@@ -429,8 +432,6 @@
 		D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicGroupListViewController.m; sourceTree = "<group>"; };
 		D90F36F819F6402000E26FA9 /* WCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlertView.h; sourceTree = "<group>"; };
 		D90F36F919F6402000E26FA9 /* WCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlertView.m; sourceTree = "<group>"; };
-		D90F371619F6626500E26FA9 /* ApplyEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyEntity.h; sourceTree = "<group>"; };
-		D90F371719F6626500E26FA9 /* ApplyEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyEntity.m; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -483,9 +484,9 @@
 		D955E59C19E7C87E00047F2B /* AccountManagerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountManagerTableViewCell.xib; sourceTree = "<group>"; };
 		D955E5D119E7D24700047F2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D955E5D319E7D41200047F2B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		D964200819EBC3B800CC8057 /* LosePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LosePasswordViewController.h; sourceTree = "<group>"; };
-		D964200919EBC3B800CC8057 /* LosePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LosePasswordViewController.m; sourceTree = "<group>"; };
-		D964200A19EBC3B800CC8057 /* LosePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LosePasswordViewController.xib; sourceTree = "<group>"; };
+		D964200819EBC3B800CC8057 /* VerifyCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCaptchaViewController.h; sourceTree = "<group>"; };
+		D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCaptchaViewController.m; sourceTree = "<group>"; };
+		D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyCaptchaViewController.xib; sourceTree = "<group>"; };
 		D964201419EBCA3300CC8057 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
 		D964201519EBCA3300CC8057 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
 		D964201619EBCA3300CC8057 /* SettingTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingTableViewController.xib; sourceTree = "<group>"; };
@@ -502,6 +503,16 @@
 		D97B66FE19E90C70004439A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		D97B66FF19E90C70004439A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		D97B670019E90C70004439A3 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		D990FBD619F8E3BB0008A8FE /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		D990FBD719F8E3BB0008A8FE /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		D990FBD919F8E3BB0008A8FE /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		D990FBDA19F8E3BB0008A8FE /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		D990FBDD19F8FC970008A8FE /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
+		D990FBE519F915AF0008A8FE /* IMRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMRootViewController.h; sourceTree = "<group>"; };
+		D990FBE619F915AF0008A8FE /* IMRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMRootViewController.m; sourceTree = "<group>"; };
+		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EC919C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8ECA19C8600C0021C25B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -513,8 +524,6 @@
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
-		D9A981AB19EFB81000210A1B /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
-		D9A981AC19EFB81000210A1B /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D9CDD70919EB9C3C001AC9F2 /* UnLoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnLoginTableViewCell.h; sourceTree = "<group>"; };
 		D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnLoginTableViewCell.m; sourceTree = "<group>"; };
@@ -618,16 +627,8 @@
 			children = (
 				D90857A419ED0F260041A4E2 /* Views */,
 				D90857A319ED0F110041A4E2 /* ViewControllers */,
-				D90857A219ED0EFE0041A4E2 /* Model */,
 			);
 			name = UserInfo;
-			sourceTree = "<group>";
-		};
-		D90857A219ED0EFE0041A4E2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		D90857A319ED0F110041A4E2 /* ViewControllers */ = {
@@ -674,42 +675,40 @@
 		D90F356819F6321B00E26FA9 /* IM */ = {
 			isa = PBXGroup;
 			children = (
-				D90F36D319F63FFA00E26FA9 /* ChatGroup */,
 				D90F357319F63B3300E26FA9 /* Chat */,
-				D90F356D19F639B300E26FA9 /* ViewControllers */,
-				D90F371619F6626500E26FA9 /* ApplyEntity.h */,
-				D90F371719F6626500E26FA9 /* ApplyEntity.m */,
+				D90F356D19F639B300E26FA9 /* TravelGroup */,
 			);
 			name = IM;
 			sourceTree = "<group>";
 		};
-		D90F356919F638F900E26FA9 /* Root */ = {
+		D90F356919F638F900E26FA9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				D90F356A19F6391E00E26FA9 /* ToolBoxViewController.h */,
 				D90F356B19F6391E00E26FA9 /* ToolBoxViewController.m */,
 			);
-			name = Root;
+			name = Home;
 			sourceTree = "<group>";
 		};
-		D90F356D19F639B300E26FA9 /* ViewControllers */ = {
+		D90F356D19F639B300E26FA9 /* TravelGroup */ = {
 			isa = PBXGroup;
 			children = (
-				D90F356E19F63A6B00E26FA9 /* TravelGroupViewController.h */,
-				D90F356F19F63A6B00E26FA9 /* TravelGroupViewController.m */,
-				D90F357019F63A6B00E26FA9 /* TravelGroupViewController.xib */,
+				D90F371919F773E400E26FA9 /* ViewControllers */,
 			);
-			name = ViewControllers;
+			name = TravelGroup;
 			sourceTree = "<group>";
 		};
 		D90F357319F63B3300E26FA9 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				D90F36D319F63FFA00E26FA9 /* ChatGroup */,
 				D90F368219F63F5B00E26FA9 /* RealtimeSearchUtil.h */,
 				D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */,
 				D90F365119F63E5300E26FA9 /* Custom */,
 				D90F357419F63B3300E26FA9 /* ChatList */,
 				D90F357919F63B3300E26FA9 /* ChatView */,
+				D990FBE519F915AF0008A8FE /* IMRootViewController.h */,
+				D990FBE619F915AF0008A8FE /* IMRootViewController.m */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1027,8 +1026,9 @@
 				D90F36E719F63FFA00E26FA9 /* PublicGroupListViewController.h */,
 				D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */,
 			);
-			path = ChatGroup;
-			sourceTree = "<group>";
+			name = ChatGroup;
+			path = PeachTravel/ChatGroup;
+			sourceTree = SOURCE_ROOT;
 		};
 		D90F36F719F6402000E26FA9 /* WCAlertView */ = {
 			isa = PBXGroup;
@@ -1037,6 +1037,16 @@
 				D90F36F919F6402000E26FA9 /* WCAlertView.m */,
 			);
 			path = WCAlertView;
+			sourceTree = "<group>";
+		};
+		D90F371919F773E400E26FA9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D90F356E19F63A6B00E26FA9 /* TravelGroupViewController.h */,
+				D90F356F19F63A6B00E26FA9 /* TravelGroupViewController.m */,
+				D90F357019F63A6B00E26FA9 /* TravelGroupViewController.xib */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		D955E34919E6306C00047F2B /* Destination */ = {
@@ -1116,6 +1126,8 @@
 		D955E36419E67AC700047F2B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D955E35F19E6698B00047F2B /* Base */,
+				D9CDD72919EBBA72001AC9F2 /* Config */,
 				D955E3F319E7A72300047F2B /* Category */,
 				D955E3EF19E7A2DD00047F2B /* Constants */,
 			);
@@ -1320,9 +1332,12 @@
 		D964200D19EBC3C300CC8057 /* LosePassword */ = {
 			isa = PBXGroup;
 			children = (
-				D964200819EBC3B800CC8057 /* LosePasswordViewController.h */,
-				D964200919EBC3B800CC8057 /* LosePasswordViewController.m */,
-				D964200A19EBC3B800CC8057 /* LosePasswordViewController.xib */,
+				D964200819EBC3B800CC8057 /* VerifyCaptchaViewController.h */,
+				D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */,
+				D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */,
+				D990FBDD19F8FC970008A8FE /* ResetPasswordViewController.h */,
+				D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */,
+				D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */,
 			);
 			name = LosePassword;
 			sourceTree = "<group>";
@@ -1394,35 +1409,11 @@
 		D97B66FA19E90C33004439A3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				D97B66FD19E90C50004439A3 /* ViewControllers */,
-				D97B66FC19E90C4A004439A3 /* Views */,
-				D97B66FB19E90C43004439A3 /* Model */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
-		D97B66FB19E90C43004439A3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		D97B66FC19E90C4A004439A3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		D97B66FD19E90C50004439A3 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
 				D97B66FE19E90C70004439A3 /* LoginViewController.h */,
 				D97B66FF19E90C70004439A3 /* LoginViewController.m */,
 				D97B670019E90C70004439A3 /* LoginViewController.xib */,
 			);
-			name = ViewControllers;
+			name = Login;
 			sourceTree = "<group>";
 		};
 		D99D8EBC19C8600C0021C25B = {
@@ -1448,9 +1439,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				D9CDD72919EBBA72001AC9F2 /* Config */,
 				D955E36419E67AC700047F2B /* Common */,
-				D955E35F19E6698B00047F2B /* Base */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,
 				D9A5939219E3DA9D004A6072 /* ToolBox */,
 				D9A5939319E3DAB3004A6072 /* Me */,
@@ -1507,7 +1496,7 @@
 		D9A5939219E3DA9D004A6072 /* ToolBox */ = {
 			isa = PBXGroup;
 			children = (
-				D90F356919F638F900E26FA9 /* Root */,
+				D90F356919F638F900E26FA9 /* Home */,
 				D90F356819F6321B00E26FA9 /* IM */,
 			);
 			name = ToolBox;
@@ -1575,19 +1564,11 @@
 		D9D840F819F4F67200FEB197 /* BindPhone */ = {
 			isa = PBXGroup;
 			children = (
-				D9D840F919F4F68B00FEB197 /* ViewControllers */,
-			);
-			name = BindPhone;
-			sourceTree = "<group>";
-		};
-		D9D840F919F4F68B00FEB197 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
 				D9D840FF19F4F74200FEB197 /* BindTelephoneViewController.h */,
 				D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */,
 				D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */,
 			);
-			name = ViewControllers;
+			name = BindPhone;
 			sourceTree = "<group>";
 		};
 		D9E1EF8219F0E2B8006348A3 /* Others */ = {
@@ -1630,10 +1611,12 @@
 		D9E6BFAE19E3E4C200C750AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D9A981AB19EFB81000210A1B /* Account.h */,
-				D9A981AC19EFB81000210A1B /* Account.m */,
 				D9CDD71819EBA4A3001AC9F2 /* AccountManager.h */,
 				D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */,
+				D990FBD919F8E3BB0008A8FE /* Contact.h */,
+				D990FBDA19F8E3BB0008A8FE /* Contact.m */,
+				D990FBD619F8E3BB0008A8FE /* Account.h */,
+				D990FBD719F8E3BB0008A8FE /* Account.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1822,6 +1805,7 @@
 				D90F360F19F63B3300E26FA9 /* chatBar_recordBg.png in Resources */,
 				D99D8ED419C8600C0021C25B /* Main.storyboard in Resources */,
 				D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */,
+				D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */,
 				D90F360E19F63B3300E26FA9 /* chatBar_record@2x.png in Resources */,
 				D955E54719E7A91300047F2B /* sns_icon_douban@2x.png in Resources */,
 				D955E54D19E7A91300047F2B /* sns_icon_renren@2x.png in Resources */,
@@ -1879,7 +1863,7 @@
 				D90F360D19F63B3300E26FA9 /* chatBar_record.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				D964200C19EBC3B800CC8057 /* LosePasswordViewController.xib in Resources */,
+				D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */,
 				D90F35FC19F63B3300E26FA9 /* faceDelete.png in Resources */,
 				D90F35EB19F63B3300E26FA9 /* call_out.png in Resources */,
 				D90F361719F63B3300E26FA9 /* chatBar_colorMore_location@2x.png in Resources */,
@@ -1978,20 +1962,20 @@
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
 				D90F36F619F63FFA00E26FA9 /* PublicGroupListViewController.m in Sources */,
-				D9A981AD19EFB81000210A1B /* Account.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
 				D90F364919F63C2F00E26FA9 /* NSDateFormatter+Category.m in Sources */,
 				D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */,
+				D990FBD819F8E3BB0008A8FE /* Account.m in Sources */,
 				D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */,
 				D90F36F019F63FFA00E26FA9 /* GroupListViewController.m in Sources */,
 				D90F35FA19F63B3300E26FA9 /* DXMessageToolBar.m in Sources */,
 				D90F364A19F63C2F00E26FA9 /* NSString+Valid.m in Sources */,
 				D90F36F519F63FFA00E26FA9 /* PublicGroupDetailViewController.m in Sources */,
-				D90F371819F6626500E26FA9 /* ApplyEntity.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
+				D990FBDB19F8E3BB0008A8FE /* Contact.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,
 				D90F35EA19F63B3300E26FA9 /* ChatListViewController.m in Sources */,
@@ -2011,7 +1995,6 @@
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
-				D9A981AA19EFB5FD00210A1B /* UserInfo.xcdatamodeld in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
 				D90F36FA19F6402000E26FA9 /* WCAlertView.m in Sources */,
@@ -2024,6 +2007,7 @@
 				D90F36F319F63FFA00E26FA9 /* GroupSettingViewController.m in Sources */,
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
+				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
 				D955E3A219E6B9AC00047F2B /* DestinationCountryPoi.m in Sources */,
 				D99D8ECB19C8600C0021C25B /* main.m in Sources */,
@@ -2035,6 +2019,7 @@
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,
 				D90F36EA19F63FFA00E26FA9 /* ContactSelectionViewController.m in Sources */,
 				D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */,
+				D990FBE719F915AF0008A8FE /* IMRootViewController.m in Sources */,
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D90F36EB19F63FFA00E26FA9 /* CreateGroupViewController.m in Sources */,
@@ -2042,7 +2027,7 @@
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
-				D964200B19EBC3B800CC8057 /* LosePasswordViewController.m in Sources */,
+				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,
 				D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */,
 				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
 				D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */,
@@ -2053,6 +2038,7 @@
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
 				D90F357119F63A6B00E26FA9 /* TravelGroupViewController.m in Sources */,
 				D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */,
+				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,
 				D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */,
 				D90F366719F63E5300E26FA9 /* EMSearchBar.m in Sources */,
@@ -2307,6 +2293,7 @@
 		D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */,
 				D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */,
 			);
 			currentVersion = D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */;

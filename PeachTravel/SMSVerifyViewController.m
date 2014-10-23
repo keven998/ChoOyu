@@ -94,18 +94,9 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    switch (_smsType) {
-        case UserRegister:
-            [params setObject:_phoneNumber forKey:@"tel"];
-            [params setObject:_password forKey:@"pwd"];
-            [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
-            break;
-            
-        case UserBindTel:
-            
-        default:
-            break;
-    }
+    [params setObject:_phoneNumber forKey:@"tel"];
+    [params setObject:_password forKey:@"pwd"];
+
     [params setObject:_verifyCodeTextField.text forKey:@"captcha"];
     
     //获取用户信息

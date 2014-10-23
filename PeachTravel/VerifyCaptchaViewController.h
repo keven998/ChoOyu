@@ -1,5 +1,5 @@
 //
-//  LosePasswordViewController.h
+//  VerifyCaptchaViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 14/10/13.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LosePasswordViewController : UIViewController
+@interface VerifyCaptchaViewController : UIViewController
+
+@property (nonatomic) VerifyCaptchaType verifyCaptchaType;
 
 @end
