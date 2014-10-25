@@ -53,6 +53,7 @@
     return self.account != nil;
 }
 
+//用户是否曾绑定过手机号
 - (BOOL)accountIsBindTel
 {
     return !([self.account.tel isEqualToString:@""] || self.account.tel == nil);
@@ -130,15 +131,40 @@
     _account.tel = [json objectForKey:@"tel"];
     _account.secToken = [json objectForKey:@"secToken"];
     _account.signature = [json objectForKey:@"signature"];
-#warning 替换环信帐号密码
-//    _account.easemobUser = [json objectForKey:@"easemobUser"];
-//    _account.easemobPwd = [json objectForKey:@"easemobPwd"];
-    _account.easemobUser = @"heheceo";
-    _account.easemobPwd = @"james890526";
+    _account.easemobUser = [json objectForKey:@"easemobUser"];
+    _account.easemobPwd = [json objectForKey:@"easemobPwd"];
+    
+//        _account.easemobUser = @"18600441776";
+//        _account.easemobPwd = @"james890526";
+
+}
+
+//从服务器上加载好友信息
+- (void)loadContacts
+{
+    NSLog(@"从服务器上加载好友列表信息");
+    NSArray *buddys = [[EaseMob sharedInstance].chatManager buddyList];
+    NSMutableSet *contacts = [[NSMutableSet alloc] init];
+    NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
+    //删除数据库已存在的联系人
+    for (id oldContact in self.account.contacts) {
+        [oldContacts addObject:oldContact];
+    }
+    [self.account removeContacts:oldContacts];
+    
+    //循环取得 EMBuddy 对象
+    for (EMBuddy *buddy in buddys) {
+        Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+        if (!buddy.isPendingApproval) {
+            newContact.easemobUser = buddy.username;
+            [contacts addObject:newContact];
+        }
+    }
+    [self.account addContacts:contacts];
+    NSError *error = nil;
+    [self.context save:&error];
 }
 
 @end
-
-
 
 

@@ -92,7 +92,7 @@
     retureMsg.ext = dic;
     retureMsg.requireEncryption = requireEncryption;
     retureMsg.isGroup = isChatGroup;
-    
+
     EMMessage *message = [[EaseMob sharedInstance].chatManager asyncSendMessage:retureMsg progress:nil];
     
     return message;

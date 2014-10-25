@@ -71,7 +71,7 @@
     [self.navigationController pushViewController:losePasswordCtl animated:YES];
 }
 
-//普通登录
+//帐号密码登录
 - (IBAction)login:(UIButton *)sender {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -92,8 +92,12 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
+            [SVProgressHUD dismiss];
+            
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        [SVProgressHUD dismiss];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
@@ -150,7 +154,6 @@
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"msg"]];
         }
-
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];

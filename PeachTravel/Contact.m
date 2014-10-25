@@ -20,5 +20,6 @@
 @dynamic remark;
 @dynamic relationship;
 @dynamic relationship1;
+@dynamic easemobUser;
 
 @end

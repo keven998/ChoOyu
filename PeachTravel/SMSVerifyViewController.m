@@ -107,7 +107,7 @@
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
         } else {
-            
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -124,6 +124,4 @@
 
 
 @end
-
-
 

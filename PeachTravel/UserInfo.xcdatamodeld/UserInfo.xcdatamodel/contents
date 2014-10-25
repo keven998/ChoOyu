@@ -15,6 +15,7 @@
     </entity>
     <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="easemobUser" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pinyin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remark" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,7 +28,7 @@
     <fetchRequest name="FetchRequest" entity="Account"/>
     <elements>
         <element name="Account" positionX="-8946" positionY="-3969" width="128" height="208"/>
-        <element name="Contact" positionX="-8658" positionY="-3910" width="128" height="163"/>
+        <element name="Contact" positionX="-8658" positionY="-3910" width="128" height="178"/>
         <element name="ContactDetailInfo" positionX="-8775" positionY="-3843" width="128" height="45"/>
     </elements>
 </model>

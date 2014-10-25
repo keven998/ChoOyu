@@ -8,6 +8,7 @@
 
 #import "ToolBoxViewController.h"
 #import "IMRootViewController.h"
+#import "AccountManager.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -33,7 +34,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.navigationController.navigationBar.translucent = NO;
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
 
@@ -90,7 +91,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
 {
-    NSLog(@"会话列表有更新");
+    NSLog(@"用户信息有更新");
 }
 
 // 未读消息数量变化回调
@@ -287,7 +288,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             changedBuddies:(NSArray *)changedBuddies
                      isAdd:(BOOL)isAdd
 {
-    NSLog(@"%@", buddyList);
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [accountManager loadContacts];
 
 }
 

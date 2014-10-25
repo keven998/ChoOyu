@@ -13,10 +13,14 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
+@class IMRootViewController;
+
 @interface ChatListViewController : BaseViewController
 
 - (void)refreshDataSource;
 
 - (void)networkChanged:(EMConnectionState)connectionState;
+
+@property (nonatomic, weak) UIViewController *rootCtl;
 
 @end

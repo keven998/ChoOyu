@@ -97,7 +97,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneLabel.text forKey:@"tel"];
-    [params setObject:[NSNumber numberWithInt:1] forKey:@"actionCode"];
+    [params setObject:kUserRegister forKey:@"actionCode"];
     [SVProgressHUD show];
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -108,12 +108,12 @@
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
+            [SVProgressHUD dismiss];
+            
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"msg"]];
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             _registerBtn.userInteractionEnabled = YES;
         }
-        
-        [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];

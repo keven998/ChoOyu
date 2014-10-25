@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * sex;
 @property (nonatomic, retain) NSString * pinyin;
 @property (nonatomic, retain) NSString * remark;
+@property (nonatomic, retain) NSString * easemobUser;
 @property (nonatomic, retain) Account *relationship;
 @property (nonatomic, retain) Account *relationship1;
 

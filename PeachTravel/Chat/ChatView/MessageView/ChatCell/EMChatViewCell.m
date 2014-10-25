@@ -23,7 +23,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 {
     self = [super initWithMessageModel:model reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
         self.headImageView.clipsToBounds = YES;
         self.headImageView.layer.cornerRadius = 3.0;
     }

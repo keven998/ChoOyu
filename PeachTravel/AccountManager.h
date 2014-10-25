@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Account.h"
+#import "Contact.h"
 
 @interface AccountManager : NSObject
 
@@ -23,4 +24,8 @@
 - (void)logout;
 - (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
+
+//加载用户好友
+- (void)loadContacts;
+
 @end

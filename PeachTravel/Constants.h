@@ -26,17 +26,17 @@
 
 /***** API *****/
 
-#define BASE_URL                @ "http://api.lvxingpai.cn/"
+#define BASE_URL                @ "http://api.lvxingpai.cn/taozi/"
 
 //用户相关接口
-#define API_WEIXIN_LOGIN        (BASE_URL @"app/users/auth-signup")
-#define API_USERINFO            (BASE_URL @"app/users/")
-#define API_GET_CAPTCHA         (BASE_URL @"app/users/send-validation")    //接收验证码
-#define API_VERIFY_CAPTCHA      (BASE_URL @"app/users/check-validation")   //验证验证码
-#define API_RESET_PWD           (BASE_URL @"app/users/reset-pwd")           //重新设置密码
-#define API_SIGNUP              (BASE_URL @"app/users/signup")        //用户注册
-#define API_SIGNIN              (BASE_URL @"app/users/signin")
-#define API_BINDTEL             (BASE_URL @"app/users/bind")      //绑定手机号
+#define API_WEIXIN_LOGIN        (BASE_URL @"users/auth-signup")
+#define API_USERINFO            (BASE_URL @"users/")
+#define API_GET_CAPTCHA         (BASE_URL @"users/send-validation")    //接收验证码
+#define API_VERIFY_CAPTCHA      (BASE_URL @"users/check-validation")   //验证验证码
+#define API_RESET_PWD           (BASE_URL @"users/reset-pwd")           //重新设置密码
+#define API_SIGNUP              (BASE_URL @"users/signup")        //用户注册
+#define API_SIGNIN              (BASE_URL @"users/signin")
+#define API_BINDTEL             (BASE_URL @"users/bind")      //绑定手机号
 
 
 /***** Notification name *******/

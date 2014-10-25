@@ -24,6 +24,8 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.layer.borderWidth = 1.0;
+        self.layer.borderColor = [UIColor purpleColor].CGColor;
         _imageView = [[UIImageView alloc] init];
         [self addSubview:_imageView];
     }

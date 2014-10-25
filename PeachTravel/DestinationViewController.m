@@ -48,16 +48,11 @@
 
 #pragma mark - LifeCycle
 
-- (void)awakeFromNib
-{
-    NSLog(@"%f", self.view.frame.size.width);
-
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     isDomesticDestination = YES;
+    self.navigationController.navigationBar.translucent = NO;
     
     //进来如果没有选择任何目的地则destinationToolBar为隐藏状态
     if (self.destinations.destinationsSelected.count == 0) {
