@@ -18,13 +18,16 @@
 
 static LocationViewController *defaultLocation = nil;
 
-@interface LocationViewController () <MKMapViewDelegate>
+@interface LocationViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 {
     MKMapView *_mapView;
     MKPointAnnotation *_annotation;
     
     CLLocationCoordinate2D _currentLocationCoordinate;
     BOOL _isSendLocation;
+    
+    CLLocationManager* location;
+
 }
 
 @property (strong, nonatomic) NSString *addressString;
@@ -86,6 +89,9 @@ static LocationViewController *defaultLocation = nil;
         self.navigationItem.rightBarButtonItem.enabled = NO;
         
         [self startLocation];
+        location = [[CLLocationManager alloc] init];
+        location.delegate= self;
+        [location requestAlwaysAuthorization];
     }
     else{
         [self removeToLocation:_currentLocationCoordinate];
@@ -139,6 +145,18 @@ static LocationViewController *defaultLocation = nil;
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     [self showHint:@"定位失败"];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        casekCLAuthorizationStatusNotDetermined:
+            break;
+        default:
+            break;
+            
+            
+    } 
 }
 
 #pragma mark - public

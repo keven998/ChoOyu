@@ -83,18 +83,19 @@
     _account = nil;
 }
 
-//用户登录成功
+//用户桃子系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
 }
 
-//环信系统也登录成功
+//环信系统也登录成功，这时候才是真正的登录成功
 - (void)easeMobDidLogin
 {
     NSError *error = nil;
     [self.context save:&error];
+    [self getContactsFromServer];
 }
 
 //环信系统登录失败
@@ -103,7 +104,7 @@
     _account = nil;
 }
 
-//用户更新了
+//更新用户信息
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
 {
     switch (changeType) {
@@ -139,26 +140,50 @@
 
 }
 
-//从服务器上加载好友信息
-- (void)loadContacts
+//从服务器上获取好友列表
+- (void)getContactsFromServer
 {
-    NSLog(@"从服务器上加载好友列表信息");
-    NSArray *buddys = [[EaseMob sharedInstance].chatManager buddyList];
+    NSLog(@"开始从服务器上加载好友列表");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    [manager GET:API_GET_CONTACTS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSLog(@"已经完成从服务器上加载好友列表");
+            [self analysisAndSaveContacts:[[responseObject objectForKey:@"result"] objectForKey:@"contacts"]];
+        } else {
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
+- (void)analysisAndSaveContacts:(NSArray *)contactList
+{
     NSMutableSet *contacts = [[NSMutableSet alloc] init];
     NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
     //删除数据库已存在的联系人
     for (id oldContact in self.account.contacts) {
         [oldContacts addObject:oldContact];
     }
-    [self.account removeContacts:oldContacts];
     
-    //循环取得 EMBuddy 对象
-    for (EMBuddy *buddy in buddys) {
+    [self.account removeContacts:oldContacts];
+    for (id contactDic in contactList) {
         Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-        if (!buddy.isPendingApproval) {
-            newContact.easemobUser = buddy.username;
-            [contacts addObject:newContact];
-        }
+        newContact.userId = [contactDic objectForKey:@"userId"];
+        newContact.userName = [contactDic objectForKey:@"nickName"];
+        newContact.sex = [contactDic objectForKey:@"gender"];
+        newContact.remark = [contactDic objectForKey:@"memo"];
+        newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
+        newContact.avatar = [contactDic objectForKey:@"avatar"];
+//TODO:将用户名转为拼音
+        [contacts addObject:newContact];
     }
     [self.account addContacts:contacts];
     NSError *error = nil;
@@ -166,5 +191,10 @@
 }
 
 @end
+
+
+
+
+
 
 

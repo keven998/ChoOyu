@@ -38,6 +38,10 @@
 #define API_SIGNIN              (BASE_URL @"users/signin")
 #define API_BINDTEL             (BASE_URL @"users/bind")      //绑定手机号
 
+//IM相关接口
+#define API_GET_CONTACTS        (BASE_URL @"users/contacts")   //获得联系人列表
+
+
 
 /***** Notification name *******/
 
@@ -75,6 +79,20 @@ typedef enum : NSUInteger {
     ChangeName,
     ChangeSignature,
 } UserInfoChangeType;
+
+
+/***** 桃子旅行自定义消息枚举信息****/
+typedef enum : NSUInteger {
+    TZChatTypeStrategy = 1,        //游记
+    TZChatTypeCity,                 //城市
+    TZChatTypeSpot,                 //景点
+    TZChatTypeTravelNote,           //游记
+    TZChatTypeFood,                 //美食
+    TZChatTypeShopping,             //购物
+    TZChatTypeHotel,                //酒店
+    
+} TZChatType;
+
 
 /***** 设备信息 *****/
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )

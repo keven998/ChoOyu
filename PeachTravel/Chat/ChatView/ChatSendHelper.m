@@ -25,6 +25,20 @@
 
 @implementation ChatSendHelper
 
+//发送桃子旅行自定义的消息类型
++(EMMessage *)sendTaoziMessageWithString:(NSString *)mainStr
+                           andExtMessage:(NSDictionary *)extMsg
+                             toUsername:(NSString *)username
+                            isChatGroup:(BOOL)isChatGroup
+                      requireEncryption:(BOOL)requireEncryption
+{
+    // 表情映射。
+    NSString *willSendText = [ConvertToCommonEmoticonsHelper convertToCommonEmoticons:mainStr];
+    EMChatText *text = [[EMChatText alloc] initWithText:willSendText];
+    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:text];
+    return [self sendMessage:username messageBody:body messageExt:extMsg isChatGroup:isChatGroup requireEncryption:requireEncryption];
+}
+
 +(EMMessage *)sendTextMessageWithString:(NSString *)str
                              toUsername:(NSString *)username
                             isChatGroup:(BOOL)isChatGroup
@@ -46,8 +60,10 @@
     id <IChatImageOptions> options = [[ChatImageOptions alloc] init];
     [options setCompressionQuality:0.6];
     [chatImage setImageOptions:options];
+
     EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithImage:chatImage thumbnailImage:nil];
-    return [self sendMessage:username messageBody:body isChatGroup:isChatGroup requireEncryption:requireEncryption];
+
+    return [self sendMessage:username messageBody:body  isChatGroup:isChatGroup requireEncryption:requireEncryption];
 }
 
 +(EMMessage *)sendVoice:(EMChatVoice *)voice
@@ -86,15 +102,24 @@
               isChatGroup:(BOOL)isChatGroup
         requireEncryption:(BOOL)requireEncryption
 {
+    return [self sendMessage:username messageBody:body messageExt:nil isChatGroup:isChatGroup requireEncryption:requireEncryption];
+}
+
+// 发送消息
++(EMMessage *)sendMessage:(NSString *)username
+              messageBody:(id<IEMMessageBody>)body
+               messageExt:(NSDictionary *)extMsg
+              isChatGroup:(BOOL)isChatGroup
+        requireEncryption:(BOOL)requireEncryption
+{
     EMMessage *retureMsg = [[EMMessage alloc] initWithReceiver:username bodies:[NSArray arrayWithObject:body]];
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject:@"景点信息" forKey:@"extKey"];
-    retureMsg.ext = dic;
+    if (extMsg) {
+        retureMsg.ext = extMsg;
+    }
     retureMsg.requireEncryption = requireEncryption;
     retureMsg.isGroup = isChatGroup;
-
     EMMessage *message = [[EaseMob sharedInstance].chatManager asyncSendMessage:retureMsg progress:nil];
-    
+
     return message;
 }
 

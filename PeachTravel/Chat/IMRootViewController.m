@@ -9,6 +9,7 @@
 #import "IMRootViewController.h"
 #import "ChatListViewController.h"
 #import "ContactListTableViewController.h"
+#import "AddressBook.h"
 
 @interface IMRootViewController ()
 
@@ -27,6 +28,13 @@
     self.navigationItem.titleView = _segmentedControl;
     [_segmentedControl addTarget:self action:@selector(switchController:) forControlEvents:UIControlEventValueChanged];
     [_segmentedControl setSelectedSegmentIndex:0];
+    
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [addBtn setTitle:@"添加好友" forState:UIControlStateNormal];
+    addBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(userAdd:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     [self setCurrentController:self.chatListCtl];
 }
@@ -76,6 +84,13 @@
             break;
     }
 }
+
+- (IBAction)userAdd:(id)sender
+{
+    AddressBook *addressBook = [[AddressBook alloc] init];
+    [addressBook getAllPerson];
+}
+
 @end
 
 

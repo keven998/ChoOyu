@@ -13,7 +13,7 @@
 
 @interface Contact : NSManagedObject
 
-@property (nonatomic, retain) NSString * userId;
+@property (nonatomic, retain) NSNumber * userId;
 @property (nonatomic, retain) NSString * userName;
 @property (nonatomic, retain) NSString * avatar;
 @property (nonatomic, retain) NSString * sex;

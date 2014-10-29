@@ -63,7 +63,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     Contact *contact = [self.contacts objectAtIndex:indexPath.row];
-    cell.textLabel.text = contact.easemobUser;
+    cell.textLabel.text = contact.userName;
     return cell;
 }
 

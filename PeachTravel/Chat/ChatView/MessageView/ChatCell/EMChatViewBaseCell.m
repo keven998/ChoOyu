@@ -137,6 +137,40 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         }
             break;
             
+        case eMessageBodyType_Taozi:
+        {
+            switch ([[model.taoziMessage objectForKey:@"type"] integerValue]) {
+                case TZChatTypeStrategy: {
+                    identifier = [identifier stringByAppendingString:@"Strategy"];
+                }
+                    break;
+                    
+                case TZChatTypeTravelNote: {
+                    identifier = [identifier stringByAppendingString:@"travelNote"];
+                }
+                    break;
+                    
+                case TZChatTypeSpot: {
+                    identifier = [identifier stringByAppendingString:@"spot"];
+                }
+                    break;
+                    
+                case TZChatTypeCity: {
+                    identifier = [identifier stringByAppendingString:@"city"];
+                }
+                    break;
+                    
+                case TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
+                    identifier = [identifier stringByAppendingString:@"ext"];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
         default:
             break;
     }

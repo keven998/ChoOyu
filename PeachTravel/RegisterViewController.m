@@ -117,6 +117,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];
+        NSLog(@"%@", error);
         _registerBtn.userInteractionEnabled = YES;
     }];
 }

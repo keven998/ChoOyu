@@ -12,6 +12,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "EMChatImageBubbleView.h"
+#import "UIImage+Utils.h"
 
 NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleTapEventName";
 
@@ -24,8 +25,6 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.layer.borderWidth = 1.0;
-        self.layer.borderColor = [UIColor purpleColor].CGColor;
         _imageView = [[UIImageView alloc] init];
         [self addSubview:_imageView];
     }
@@ -50,7 +49,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
         retSize.height = MAX_SIZE;
     }
     
-    return CGSizeMake(retSize.width + BUBBLE_VIEW_PADDING * 2 + BUBBLE_ARROW_WIDTH, 2 * BUBBLE_VIEW_PADDING + retSize.height);
+    return CGSizeMake(retSize.width + BUBBLE_ARROW_WIDTH, retSize.height);
 }
 
 -(void)layoutSubviews
@@ -59,14 +58,14 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     
     CGRect frame = self.bounds;
     frame.size.width -= BUBBLE_ARROW_WIDTH;
-    frame = CGRectInset(frame, BUBBLE_VIEW_PADDING, BUBBLE_VIEW_PADDING);
+    frame = CGRectInset(frame, 0, 0);
     if (self.model.isSender) {
-        frame.origin.x = BUBBLE_VIEW_PADDING;
+        frame.origin.x = 0;
     }else{
-        frame.origin.x = BUBBLE_VIEW_PADDING + BUBBLE_ARROW_WIDTH;
+        frame.origin.x = BUBBLE_ARROW_WIDTH;
     }
     
-    frame.origin.y = BUBBLE_VIEW_PADDING;
+
     [self.imageView setFrame:frame];
 }
 
@@ -77,13 +76,24 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     [super setModel:model];
     
     UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
+    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder";
     if (!image) {
         image = _model.image;
         if (!image) {
             image = [UIImage imageNamed:@"imageDownloadFail.png"];
         }
     }
-    self.imageView.image = image;
+    [self resizeImage:image withMaskImageName:maskImageName];
+
+}
+
+- (void) resizeImage:(UIImage *)image withMaskImageName:(NSString *)maskImageName;
+{
+    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:15 topCapHeight:30];
+    CGSize size = CGSizeMake(100, 100);
+    const UIImage *maskImageDrawnToSize = [resizableMaskImage renderAtSize:size];
+    self.imageView.image = [image maskWithImage: maskImageDrawnToSize];
+
 }
 
 #pragma mark - public
@@ -93,7 +103,6 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     [self routerEventWithName:kRouterEventImageBubbleTapEventName
                      userInfo:@{KMESSAGEKEY:self.model}];
 }
-
 
 +(CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {

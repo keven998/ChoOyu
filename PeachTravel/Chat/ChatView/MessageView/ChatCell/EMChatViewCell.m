@@ -172,6 +172,41 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [[EMChatVideoBubbleView alloc] init];
         }
             break;
+            
+        case eMessageBodyType_Taozi:
+        {
+            switch ([[messageModel.taoziMessage objectForKey:@"type"] integerValue]) {
+                case TZChatTypeStrategy: {
+
+                }
+                    break;
+                    
+                case TZChatTypeTravelNote: {
+
+                }
+                    break;
+                    
+                case TZChatTypeSpot: {
+
+                }
+                    break;
+                    
+                case TZChatTypeCity: {
+
+                }
+                    break;
+                    
+                case TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
+
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
         default:
             break;
     }

@@ -18,6 +18,24 @@
  *  发送文字消息（包括系统表情）
  *
  *  @param str               发送的文字
+ *  @param str               发送的自定义消息
+ *  @param username          接收方
+ *  @param isChatGroup       是否是群聊
+ *  @param requireEncryption 是否加密
+ *
+ *  @return 封装的消息体
+ */
+
++(EMMessage *)sendTaoziMessageWithString:(NSString *)mainStr
+                           andExtMessage:(NSDictionary *)extMsg
+                              toUsername:(NSString *)username
+                             isChatGroup:(BOOL)isChatGroup
+                       requireEncryption:(BOOL)requireEncryption;
+
+/**
+ *  发送文字消息（包括系统表情）
+ *
+ *  @param str               发送的文字
  *  @param username          接收方
  *  @param isChatGroup       是否是群聊
  *  @param requireEncryption 是否加密

@@ -92,7 +92,6 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
-            [SVProgressHUD dismiss];
             
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -146,13 +145,14 @@
     
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"msg"]];
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -168,6 +168,7 @@
                                                         password:accountManager.account.easemobPwd
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
+         NSLog(@"%@", loginInfo);
          [self hideHud];
          if (loginInfo && !error) {
              [SVProgressHUD showSuccessWithStatus:@"登录成功"];

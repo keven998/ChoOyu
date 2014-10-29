@@ -10,22 +10,10 @@
   * from EaseMob Technologies.
   */
 
-#import "MessageModel.h"
+#import <Foundation/Foundation.h>
 
-@implementation MessageModel
+@interface MessageModelManager : NSObject
 
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self) {
-    }
-    
-    return self;
-}
-
-- (void)dealloc{
-    
-}
++ (id)modelWithMessage:(EMMessage *)message;
 
 @end

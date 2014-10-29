@@ -288,9 +288,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             changedBuddies:(NSArray *)changedBuddies
                      isAdd:(BOOL)isAdd
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [accountManager loadContacts];
-
+    NSLog(@"buddyList:%@/n changeedBuddies:%@", buddyList, changedBuddies);
 }
 
 - (void)didRemovedByBuddy:(NSString *)username

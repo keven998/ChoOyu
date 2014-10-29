@@ -32,10 +32,11 @@
 #import "DXMessageToolBar.h"
 #import "DXChatBarMoreView.h"
 #import "CallViewController.h"
+#import "ZYQAssetPickerController.h"
 
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -287,7 +288,7 @@
         _chatToolBar.delegate = self;
         
         ChatMoreType type = _isChatGroup == YES ? ChatMoreTypeGroupChat : ChatMoreTypeChat;
-        _chatToolBar.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), _chatToolBar.frame.size.width, 80) typw:type];
+        _chatToolBar.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), _chatToolBar.frame.size.width, 190) typw:type];
         _chatToolBar.moreView.backgroundColor = [UIColor lightGrayColor];
         _chatToolBar.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
@@ -692,15 +693,85 @@
 
 #pragma mark - EMChatBarMoreViewDelegate
 
+- (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
+{
+    // 隐藏键盘
+    [self keyBoardHidden];
+    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
+    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
+    NSDictionary *content = @{@"id"     :   @"1234567890",
+                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
+                              @"name"   :   @"吹海风,撸大串"};
+    
+    [tmpDic setObject:content forKey:@"content"];
+    [self sendTaoziMessage:tmpDic];
+}
+
+- (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
+{
+    // 隐藏键盘
+    [self keyBoardHidden];
+    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
+    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
+    NSDictionary *content = @{@"id"     :   @"1234567890",
+                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
+                              @"name"   :   @"吹海风,撸大串"};
+    
+    [tmpDic setObject:content forKey:@"content"];
+    [self sendTaoziMessage:tmpDic];
+
+}
+
+- (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
+{
+    // 隐藏键盘
+    [self keyBoardHidden];
+    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
+    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
+    NSDictionary *content = @{@"id"     :   @"1234567890",
+                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
+                              @"name"   :   @"吹海风,撸大串"};
+    [tmpDic setObject:content forKey:@"content"];
+    [self sendTaoziMessage:tmpDic];
+
+}
+
+- (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
+{
+    // 隐藏键盘
+    [self keyBoardHidden];
+    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
+    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
+    NSDictionary *content = @{@"id"     :   @"1234567890",
+                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
+                              @"name"   :   @"吹海风,撸大串"};
+    [tmpDic setObject:content forKey:@"content"];
+    [self sendTaoziMessage:tmpDic];
+
+}
+
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
     [self keyBoardHidden];
     
     // 弹出照片选择
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
+    ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
+    picker.maximumNumberOfSelection = 10;
+    picker.assetsFilter = [ALAssetsFilter allPhotos];
+    picker.showEmptyGroups=NO;
+    picker.delegate=self;
+    picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+            NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
+            return duration >= 5;
+        } else {
+            return YES;
+        }
+    }];
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+
 }
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
@@ -726,6 +797,8 @@
     [self.navigationController pushViewController:locationController animated:YES];
 }
 
+/*****暂时屏蔽掉录制视频和发送及时语音的功能*****/
+/*
 - (void)moreViewVideoAction:(DXChatBarMoreView *)moreView{
     [self keyBoardHidden];
     
@@ -737,14 +810,13 @@
     [self presentViewController:self.imagePicker animated:YES completion:NULL];
 #endif
 }
-
 - (void)moreViewAudioCallAction:(DXChatBarMoreView *)moreView
 {
     CallViewController *callController = [CallViewController shareController];
     [callController setupCallOutWithChatter:_chatter];
-//    [callController setupCallInWithChatter:_chatter];
     [self presentViewController:callController animated:YES completion:nil];
 }
+*/
 
 #pragma mark - LocationViewDelegate
 
@@ -822,39 +894,18 @@
      } onQueue:nil];
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSString *mediaType = info[UIImagePickerControllerMediaType];
-    if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
-        NSURL *videoURL = info[UIImagePickerControllerMediaURL];
-        [picker dismissViewControllerAnimated:YES completion:nil];
-        // video url:
-        // file:///private/var/mobile/Applications/B3CDD0B2-2F19-432B-9CFA-158700F4DE8F/tmp/capture-T0x16e39100.tmp.9R8weF/capturedvideo.mp4
-        // we will convert it to mp4 format
-        NSURL *mp4 = [self convert2Mp4:videoURL];
-        NSFileManager *fileman = [NSFileManager defaultManager];
-        if ([fileman fileExistsAtPath:videoURL.path]) {
-            NSError *error = nil;
-            [fileman removeItemAtURL:videoURL error:&error];
-            if (error) {
-                NSLog(@"failed to remove file, error:%@.", error);
-            }
+#pragma mark - ZYQAssetPickerController Delegate
+-(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (int i=0; i<assets.count; i++) {
+            ALAsset *asset=assets[i];
+            UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+            [images addObject:tempImg];
         }
-        EMChatVideo *chatVideo = [[EMChatVideo alloc] initWithFile:[mp4 relativePath] displayName:@"video.mp4"];
-        [self sendVideoMessage:chatVideo];
-        
-    }else{
-        UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
-        [picker dismissViewControllerAnimated:YES completion:nil];
-        [self sendImageMessage:orgImage];
-    }
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+        [self sendImageMessages:images];
+    });
 }
 
 #pragma mark - MenuItem actions
@@ -1017,7 +1068,6 @@
         
         for (int i = 0; i < messages.count; i++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count+i inSection:0];
-//            [indexPaths insertObject:indexPath atIndex:0];
             [indexPaths addObject:indexPath];
         }
         
@@ -1026,9 +1076,6 @@
             [weakSelf.dataSource addObjectsFromArray:messages];
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             [weakSelf.tableView endUpdates];
-            
-            //            [weakSelf.tableView reloadData];
-            
             [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
     });
@@ -1126,20 +1173,24 @@
 
 -(void)sendTextMessage:(NSString *)textMessage
 {
-//    for (int i = 0; i < 100; i++) {
-//        NSString *str = [NSString stringWithFormat:@"%@--%i", _conversation.chatter, i];
-//        EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:str toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
-//        [self addChatDataToMessage:tempMessage];
-//    }
     EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:textMessage toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
     [self addChatDataToMessage:tempMessage];
 }
 
--(void)sendImageMessage:(UIImage *)imageMessage
+-(void)sendImageMessages:(NSArray *)imageMessages
 {
-    EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:imageMessage toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
+    for (UIImage *imageMsg in imageMessages) {
+        EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:imageMsg toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
+        [self addChatDataToMessage:tempMessage];
+    }
+}
+
+- (void)sendTaoziMessage:(NSDictionary *)taoziMsg
+{
+    EMMessage *tempMessage = [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:taoziMsg toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
     [self addChatDataToMessage:tempMessage];
 }
+
 
 -(void)sendAudioMessage:(EMChatVoice *)voice
 {
@@ -1147,11 +1198,14 @@
     [self addChatDataToMessage:tempMessage];
 }
 
+/*****暂时屏蔽掉发送视频功能*******/
+/*
 -(void)sendVideoMessage:(EMChatVideo *)video
 {
     EMMessage *tempMessage = [ChatSendHelper sendVideo:video toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
     [self addChatDataToMessage:tempMessage];
 }
+ */
 
 #pragma mark - EMDeviceManagerProximitySensorDelegate
 

@@ -34,6 +34,9 @@
 //text
 @property (nonatomic, strong) NSString *content;
 
+//桃子旅行自有的消息内容
+@property (nonatomic, strong) NSDictionary *taoziMessage;
+
 //image
 @property (nonatomic) CGSize size;
 @property (nonatomic) CGSize thumbnailSize;

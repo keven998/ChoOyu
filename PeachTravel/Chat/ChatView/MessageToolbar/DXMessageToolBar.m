@@ -346,7 +346,7 @@
     self.recordButton.hidden = YES;
     
     if (!self.moreView) {
-        self.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 80) typw:ChatMoreTypeGroupChat];
+        self.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 190) typw:ChatMoreTypeGroupChat];
         self.moreView.backgroundColor = [UIColor lightGrayColor];
         self.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
