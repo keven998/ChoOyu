@@ -25,7 +25,7 @@
 - (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
-//加载用户好友
-- (void)loadContacts;
+//得到按照拼音区分的联系人列表，是以组的形式展现
+- (NSDictionary *)contactsByPinyin;
 
 @end

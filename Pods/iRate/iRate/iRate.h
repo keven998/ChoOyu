@@ -1,7 +1,7 @@
 //
 //  iRate.h
 //
-//  Version 1.11
+//  Version 1.11.3
 //
 //  Created by Nick Lockwood on 26/01/2011.
 //  Copyright 2011 Charcoal Design
@@ -31,8 +31,8 @@
 //
 
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-missing-property-synthesis"
 
 
 #import <Availability.h>
@@ -133,6 +133,7 @@ typedef NS_ENUM(NSUInteger, iRateErrorCode)
 @property (nonatomic, copy) NSString *rateButtonLabel;
 
 //debugging and prompt overrides
+@property (nonatomic, assign) BOOL useUIAlertControllerIfAvailable;
 @property (nonatomic, assign) BOOL useAllAvailableLanguages;
 @property (nonatomic, assign) BOOL promptForNewVersionIfUserRated;
 @property (nonatomic, assign) BOOL onlyPromptIfLatestVersion;
@@ -165,4 +166,4 @@ typedef NS_ENUM(NSUInteger, iRateErrorCode)
 @end
 
 
-#pragma GCC diagnostic pop
+#pragma clang diagnostic pop

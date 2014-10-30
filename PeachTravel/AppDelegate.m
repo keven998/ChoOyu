@@ -22,7 +22,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //设置友盟分享
-    [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+    NSLog(@"ddddd");
+//    [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+    
     [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];

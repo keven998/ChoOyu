@@ -8,6 +8,7 @@
 
 #import "AccountManager.h"
 #import "AppDelegate.h"
+#import "pinyin.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -155,7 +156,174 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"已经完成从服务器上加载好友列表");
-            [self analysisAndSaveContacts:[[responseObject objectForKey:@"result"] objectForKey:@"contacts"]];
+            
+#warning 测试数据
+//            [self analysisAndSaveContacts:[[responseObject objectForKey:@"result"] objectForKey:@"contacts"]];
+            [self analysisAndSaveContacts:  @[@{@"userId":@100073, @"nickName":@"煎蛋小王子", @"gender":@"F",        @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                               , @"avatar":@"defalu"},
+                                             @{@"userId":@100073, @"nickName":@"阮金明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                             @{@"userId":@100073, @"nickName":@"杨阳洋", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                               , @"avatar":@"defalu"},
+                                             @{@"userId":@100073, @"nickName":@"贝尔", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                               , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"海子", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"博通", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"骆驼", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"速速", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"keven", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"easy", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"西瓜", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"cc", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"jina", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小水", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                               , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"煎蛋小王子", @"gender":@"F",        @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"阮金明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"杨阳洋", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"贝尔", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"海子", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"博通", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"骆驼", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"速速", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"keven", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"easy", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"西瓜", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"cc", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"jina", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小水", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"煎蛋小王子", @"gender":@"F",        @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"阮金明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"杨阳洋", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"贝尔", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"海子", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"博通", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"骆驼", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"速速", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"keven", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"easy", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"西瓜", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"cc", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"jina", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小水", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"煎蛋小王子", @"gender":@"F",        @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"阮金明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"杨阳洋", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"贝尔", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"海子", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"博通", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"骆驼", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"速速", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"keven", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"easy", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"西瓜", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"cc", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"jina", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小水", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"煎蛋小王子", @"gender":@"F",        @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"阮金明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"杨阳洋", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"贝尔", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"海子", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"博通", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"骆驼", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"速速", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"keven", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"easy", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"西瓜", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"cc", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"jina", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小水", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"煎蛋小王子", @"gender":@"F",        @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"阮金明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"杨阳洋", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"贝尔", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"海子", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"博通", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"骆驼", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小明", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"速速", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"keven", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs", @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"easy", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"西瓜", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"cc", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"jina", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"小水", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"},
+                                              @{@"userId":@100073, @"nickName":@"zz", @"gender":@"F", @"memo":@"哈哈哈", @"easemobUser":@"dsdfs"
+                                                , @"avatar":@"defalu"}]];
+
         } else {
         }
         
@@ -166,6 +334,7 @@
 
 - (void)analysisAndSaveContacts:(NSArray *)contactList
 {
+    NSLog(@"开始解析联系人");
     NSMutableSet *contacts = [[NSMutableSet alloc] init];
     NSMutableSet *oldContacts = [[NSMutableSet alloc] init];
     //删除数据库已存在的联系人
@@ -182,14 +351,74 @@
         newContact.remark = [contactDic objectForKey:@"memo"];
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
-//TODO:将用户名转为拼音
+        newContact.pinyin = [self chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         [contacts addObject:newContact];
     }
     [self.account addContacts:contacts];
     NSError *error = nil;
     [self.context save:&error];
+    NSLog(@"成功解析联系人");
 }
 
+//将每个汉字的第一个拼音字母组装起来
+- (NSString *)chineseToPinyin:(NSString *)chinese
+{
+    NSLog(@"需要转换的汉字为：%@", chinese);
+    if(![chinese isEqualToString:@""]){
+        //join the pinYin
+        NSString *pinYinResult = [NSString string];
+        for(int j = 0;j < chinese.length; j++) {
+            NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
+                                             pinyinFirstLetter([chinese characterAtIndex:j])]uppercaseString];
+            
+            pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
+        }
+        NSLog(@"转换完成的字符为：%@", pinYinResult);
+        return pinYinResult;
+    } else {
+        return @"";
+    }
+}
+
+- (NSDictionary *)contactsByPinyin
+{
+    NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];
+    for (id tempContact in self.account.contacts) {
+        [chineseStringsArray addObject:tempContact];
+    }
+    NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
+    //sort the ChineseStringArr by pinYin
+    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinyin" ascending:YES]];
+    [chineseStringsArray sortUsingDescriptors:sortDescriptors];
+    
+    NSMutableArray *arrayForArrays = [NSMutableArray array];
+    BOOL checkValueAtIndex= NO;  //flag to check
+    NSMutableArray *TempArrForGrouping = nil;
+    
+    for(int index = 0; index < [chineseStringsArray count]; index++)
+    {
+        Contact *contact = (Contact *)[chineseStringsArray objectAtIndex:index];
+        NSMutableString *strchar= [NSMutableString stringWithString:contact.pinyin];
+        NSString *sr= [strchar substringToIndex:1];
+        if(![sectionHeadsKeys containsObject:[sr uppercaseString]])//here I'm checking whether the character already in the selection header keys or not
+        {
+            [sectionHeadsKeys addObject:[sr uppercaseString]];
+            TempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
+            checkValueAtIndex = NO;
+        }
+        if([sectionHeadsKeys containsObject:[sr uppercaseString]])
+        {
+            [TempArrForGrouping addObject:[chineseStringsArray objectAtIndex:index]];
+            if(checkValueAtIndex == NO)
+            {
+                [arrayForArrays addObject:TempArrForGrouping];
+                checkValueAtIndex = YES;
+            }
+        }
+    }
+    return @{@"headerKeys":sectionHeadsKeys, @"content":arrayForArrays};
+
+}
 @end
 
 

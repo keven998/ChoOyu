@@ -10,7 +10,6 @@
 
 @interface AddressBook : NSObject
 
-
-- (void)getAllPerson;
+-(void)getAllPerson;
 
 @end

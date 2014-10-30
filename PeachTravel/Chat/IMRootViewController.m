@@ -9,13 +9,16 @@
 #import "IMRootViewController.h"
 #import "ChatListViewController.h"
 #import "ContactListTableViewController.h"
-#import "AddressBook.h"
+#import "AddContactTableViewController.h"
+#import "CreateCoversationViewController.h"
+#import "KxMenu.h"
 
 @interface IMRootViewController ()
 
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 @property (nonatomic, strong) ContactListTableViewController *contactListCtl;
+@property (nonatomic, strong) NSArray *addItems;
 
 @end
 
@@ -59,6 +62,22 @@
     return _contactListCtl;
 }
 
+- (NSArray *)addItems
+{
+    if (!_addItems) {
+        _addItems = @[ [KxMenuItem menuItem:@"添加好友"
+                                      image:[UIImage imageNamed:@"action_icon"]
+                                     target:self
+                                     action:@selector(addUserContact:)],
+                       
+                       [KxMenuItem menuItem:@"群聊/聊天"
+                                      image:nil
+                                     target:self
+                                     action:@selector(addConversation:)]];
+    }
+    return _addItems;
+}
+
 #pragma mark - Private Methods
 
 - (void)setCurrentController:(UIViewController *)controller
@@ -85,11 +104,31 @@
     }
 }
 
-- (IBAction)userAdd:(id)sender
+- (IBAction)userAdd:(UIButton *)sender
 {
-    AddressBook *addressBook = [[AddressBook alloc] init];
-    [addressBook getAllPerson];
+    [KxMenu showMenuInView:self.view
+                  fromRect:CGRectMake(self.view.frame.size.width-40, 0, 0, 0)
+                 menuItems:self.addItems];
+   
 }
+
+- (IBAction)addUserContact:(id)sender
+{
+    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    [self.navigationController pushViewController:addContactCtl animated:YES];
+}
+
+- (IBAction)addConversation:(id)sender
+{
+    CreateCoversationViewController *createCoversationCtl = [[CreateCoversationViewController alloc] init];
+    [self.navigationController pushViewController:createCoversationCtl animated:YES];
+}
+
+
+
+
+
+
 
 @end
 
