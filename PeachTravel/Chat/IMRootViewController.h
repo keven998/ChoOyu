@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
+
+/*!
+ * A custom tab bar container view controller. It works just like a regular
+ * UITabBarController, except the tabs are at the top and look different.
+ */
 @interface IMRootViewController : UIViewController
 
 @end
+

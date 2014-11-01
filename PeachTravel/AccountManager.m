@@ -332,6 +332,7 @@
     }];
 }
 
+//解析好友列表，然后存到数据库里
 - (void)analysisAndSaveContacts:(NSArray *)contactList
 {
     NSLog(@"开始解析联系人");
@@ -346,9 +347,9 @@
     for (id contactDic in contactList) {
         Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
         newContact.userId = [contactDic objectForKey:@"userId"];
-        newContact.userName = [contactDic objectForKey:@"nickName"];
-        newContact.sex = [contactDic objectForKey:@"gender"];
-        newContact.remark = [contactDic objectForKey:@"memo"];
+        newContact.nickName = [contactDic objectForKey:@"nickName"];
+        newContact.gender = [contactDic objectForKey:@"gender"];
+        newContact.memo = [contactDic objectForKey:@"memo"];
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
         newContact.pinyin = [self chineseToPinyin:[contactDic objectForKey:@"nickName"]];
@@ -358,6 +359,38 @@
     NSError *error = nil;
     [self.context save:&error];
     NSLog(@"成功解析联系人");
+}
+
+- (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic
+{
+    NSLog(@"开始解析好友请求");    
+    FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
+    frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
+    frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
+    frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
+    frendRequest.status = TZFrendDefault;
+    frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
+    frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
+    frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+    
+    for (FrendRequest *request in self.account.frendrequestlist) {
+        if ([request.userId integerValue] == [frendRequest.userId integerValue]) {
+            [self.account removeFrendrequestlistObject:request];
+            NSLog(@"这个好友请求信息数据库里已经存在了,已经将数据库里旧的数据删除了,\n之前的 id 是%@，新 ID 是%@",request.userId, frendRequest.userId);
+            break;
+        }
+    }
+    [self.account addFrendrequestlistObject:frendRequest];
+    NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
+    NSError *error = nil;
+    [self.context save:&error];
+}
+
+- (void)removeFrendRequest:(FrendRequest *)frendRequest
+{
+    [self.account removeFrendrequestlistObject:frendRequest];
+    NSError *error = nil;
+    [self.context save:&error];
 }
 
 //将每个汉字的第一个拼音字母组装起来
@@ -370,7 +403,6 @@
         for(int j = 0;j < chinese.length; j++) {
             NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
                                              pinyinFirstLetter([chinese characterAtIndex:j])]uppercaseString];
-            
             pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
         }
         NSLog(@"转换完成的字符为：%@", pinYinResult);

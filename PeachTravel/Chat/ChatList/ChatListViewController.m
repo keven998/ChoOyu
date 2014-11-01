@@ -55,7 +55,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     [self refreshDataSource];
     [self registerNotifications];
 }
@@ -256,7 +255,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-    
     ChatViewController *chatController;
     NSString *title = conversation.chatter;
     if (conversation.isGroup) {
@@ -273,7 +271,7 @@
     chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:conversation.isGroup];
     chatController.title = title;
     [conversation markMessagesAsRead:YES];
-    [_rootCtl.navigationController pushViewController:chatController animated:YES];
+    [self.navigationController pushViewController:chatController animated:YES];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -281,7 +279,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         EMConversation *converation = [self.dataSource objectAtIndex:indexPath.row];
         [[EaseMob sharedInstance].chatManager removeConversationByChatter:converation.chatter deleteMessages:NO];

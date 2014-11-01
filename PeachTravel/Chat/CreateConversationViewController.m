@@ -6,14 +6,14 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-#import "CreateCoversationViewController.h"
+#import "CreateConversationViewController.h"
 #import "TZScrollView.h"
 #import "pinyin.h"
 #import "AccountManager.h"
 
 #define contactCell      @"contactCell"
 
-@interface CreateCoversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
@@ -21,12 +21,14 @@
 
 @end
 
-@implementation CreateCoversationViewController
+@implementation CreateConversationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 #pragma mark - setter & getter
@@ -34,7 +36,8 @@
 - (TZScrollView *)tzScrollView
 {
     if (!_tzScrollView) {
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 80, [UIApplication sharedApplication].keyWindow.frame.size.width, 40)];
+        
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 144, [UIApplication sharedApplication].keyWindow.frame.size.width, 40)];
         _tzScrollView.scrollView.delegate = self;
         _tzScrollView.itemWidth = 80;
         _tzScrollView.itemHeight = 40;
@@ -55,7 +58,6 @@
         for (UIButton *tempBtn in _tzScrollView.viewsOnScrollView) {
             [tempBtn addTarget:self action:@selector(choseCurrent:) forControlEvents:UIControlEventTouchUpInside];
         }
-
     }
     return _tzScrollView;
 }
@@ -63,7 +65,7 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 120, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height)];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:contactCell];
@@ -87,7 +89,6 @@
     _tzScrollView.currentIndex = sender.tag;
     [self tableViewMoveToCorrectPosition:sender.tag];
 }
-
 
 #pragma mark - Private Methods
 
@@ -114,7 +115,7 @@
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     label.backgroundColor = [UIColor grayColor];
-
+    
     label.text = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section];
     return label;
 }
@@ -130,7 +131,7 @@
 {
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
-    cell.textLabel.text = contact.userName;
+    cell.textLabel.text = contact.nickName;
     return cell;
 }
 
@@ -140,6 +141,9 @@
 {
     if (scrollView == self.tzScrollView.scrollView) {
         CGPoint currentOffset = scrollView.contentOffset;
+        
+        NSLog(@"offset: %@", NSStringFromCGPoint(currentOffset));
+        
         int currentIndex = (int)(currentOffset.x)/80;
         if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]-1) {
             currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count]-1;
@@ -155,7 +159,7 @@
         NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
         self.tzScrollView.currentIndex = indexPath.section;
     }
-  
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;

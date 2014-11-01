@@ -30,7 +30,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    _scrollView.contentSize = CGSizeMake(_viewsOnScrollView.count *_itemWidth+self.bounds.size.width, _itemHeight);
+    _scrollView.contentSize = CGSizeMake(_viewsOnScrollView.count *_itemWidth+self.bounds.size.width, _scrollView.contentSize.height);
     for (UIView *subview in _scrollView.subviews) {
         [subview removeFromSuperview];
     }
@@ -60,7 +60,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        _scrollView.contentSize = self.bounds.size;
+        NSLog(@"%@", NSStringFromCGRect(self.bounds));
         UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(155, 0, 10, 10)];
         indicatorView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_scrollView];

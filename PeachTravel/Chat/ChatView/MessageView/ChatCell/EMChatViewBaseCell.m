@@ -161,7 +161,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
                     break;
                     
                 case TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
-                    identifier = [identifier stringByAppendingString:@"ext"];
+                    identifier = [identifier stringByAppendingString:@"taoziExt"];
                 }
                     break;
                     

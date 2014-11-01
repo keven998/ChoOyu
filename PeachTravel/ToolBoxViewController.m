@@ -9,11 +9,15 @@
 #import "ToolBoxViewController.h"
 #import "IMRootViewController.h"
 #import "AccountManager.h"
+#import "LoginViewController.h"
+#import "MHTabBarController.h"
+#import "ContactListViewController.h"
+#import "ChatListViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate>
+@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate>
 
 @property (strong, nonatomic)NSDate *lastPlaySoundDate;
 
@@ -34,7 +38,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
 
@@ -57,9 +60,30 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 //进入聊天功能
 - (IBAction)jumpIM:(UIButton *)sender {
-    IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
-    IMRootCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:IMRootCtl animated:YES];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+
+        ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+        ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
+        contactListCtl.title = @"好朋友";
+        chatListCtl.title = @"会话";
+        NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
+        MHTabBarController *tabBarController = [[MHTabBarController alloc] init];
+        tabBarController.delegate = self;
+        tabBarController.viewControllers = viewControllers;
+        tabBarController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:tabBarController animated:YES];
+
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"请先登录"];
+        [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.8];
+    }
+}
+
+- (IBAction)goLogin:(id)sender
+{
+    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:loginCtl animated:YES];
 }
 
 #pragma mark - private
@@ -147,6 +171,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 // 收到消息回调
 -(void)didReceiveMessage:(EMMessage *)message
 {
+    NSLog(@"收到消息，消息为%@", message);
     BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversation.chatter] : YES;
     if (needShowNotification) {
 #if !TARGET_IPHONE_SIMULATOR

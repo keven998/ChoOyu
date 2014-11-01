@@ -8,16 +8,16 @@
 
 #import "IMRootViewController.h"
 #import "ChatListViewController.h"
-#import "ContactListTableViewController.h"
+#import "ContactListViewController.H"
 #import "AddContactTableViewController.h"
-#import "CreateCoversationViewController.h"
+#import "CreateConversationViewController.h"
 #import "KxMenu.h"
 
 @interface IMRootViewController ()
 
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
-@property (nonatomic, strong) ContactListTableViewController *contactListCtl;
+@property (nonatomic, strong) ContactListViewController *contactListCtl;
 @property (nonatomic, strong) NSArray *addItems;
 
 @end
@@ -40,6 +40,13 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     [self setCurrentController:self.chatListCtl];
+    NSLog(@"我第一");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"我是第二");
 }
 
 #pragma mark - setter & getter
@@ -53,10 +60,10 @@
     return _chatListCtl;
 }
 
-- (ContactListTableViewController *)contactListCtl
+- (ContactListViewController *)contactListCtl
 {
     if (!_contactListCtl) {
-        _contactListCtl = [[ContactListTableViewController alloc] init];
+        _contactListCtl = [[ContactListViewController alloc] init];
         _contactListCtl.rootCtl = self;
     }
     return _contactListCtl;
@@ -107,7 +114,7 @@
 - (IBAction)userAdd:(UIButton *)sender
 {
     [KxMenu showMenuInView:self.view
-                  fromRect:CGRectMake(self.view.frame.size.width-40, 0, 0, 0)
+                  fromRect:CGRectMake(self.view.frame.size.width-40, 64, 0, 0)
                  menuItems:self.addItems];
    
 }
@@ -120,14 +127,9 @@
 
 - (IBAction)addConversation:(id)sender
 {
-    CreateCoversationViewController *createCoversationCtl = [[CreateCoversationViewController alloc] init];
+    CreateConversationViewController *createCoversationCtl = [[CreateConversationViewController alloc] init];
     [self.navigationController pushViewController:createCoversationCtl animated:YES];
 }
-
-
-
-
-
 
 
 @end

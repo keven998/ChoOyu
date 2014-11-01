@@ -76,7 +76,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     [super setModel:model];
     
     UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
-    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder";
+    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
     if (!image) {
         image = _model.image;
         if (!image) {

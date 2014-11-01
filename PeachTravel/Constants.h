@@ -95,6 +95,13 @@ typedef enum : NSUInteger {
     
 } TZChatType;
 
+/***** 桃子旅行好友请求枚举信息****/
+typedef enum : NSUInteger {
+    TZFrendDefault = 0,      //未处理
+    TZFrendAgree,            //同意
+    TZFrendReject,          //拒绝
+    
+} TZFrendRequest;
 
 /***** 设备信息 *****/
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )

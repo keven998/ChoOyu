@@ -271,7 +271,10 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     if (systemVersion >= 7.0) {
         size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
     }else{
-        size = [object.content sizeWithFont:[self textLabelFont] constrainedToSize:textBlockMinSize lineBreakMode:[self textLabelLineBreakModel]];
+//        size = [object.content sizeWithFont:[self textLabelFont] constrainedToSize:textBlockMinSize lineBreakMode:[self textLabelLineBreakModel]];
+        
+        size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [self textLabelFont]} context:nil].size;
+
     }
     return 2 * BUBBLE_VIEW_PADDING + size.height;
 }

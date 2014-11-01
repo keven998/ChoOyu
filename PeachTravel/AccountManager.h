@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Account.h"
 #import "Contact.h"
+#import "FrendRequest.h"
 
 @interface AccountManager : NSObject
 
@@ -27,5 +28,11 @@
 
 //得到按照拼音区分的联系人列表，是以组的形式展现
 - (NSDictionary *)contactsByPinyin;
+
+//解析好友申请
+- (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic;
+
+- (void)removeFrendRequest:(FrendRequest *)frendRequest;
+
 
 @end

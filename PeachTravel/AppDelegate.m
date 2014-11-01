@@ -22,8 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //设置友盟分享
-    NSLog(@"ddddd");
-//    [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+    [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
     
     [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
@@ -97,12 +96,28 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"**推送消息**"
+                                                    message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
+                                                   delegate:self
+                                          cancelButtonTitle:@"关闭"
+                                          otherButtonTitles:@"处理",nil];
+    [alert show];
+    
+    
     [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"**推送消息**"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"关闭"
+                                          otherButtonTitles:@"处理推送内容",nil];
+    [alert show];
+
     [[EaseMob sharedInstance] application:application didReceiveLocalNotification:notification];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -147,7 +162,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
 
-- (void)registerRemoteNotification{
+- (void)registerRemoteNotification {
 #if !TARGET_IPHONE_SIMULATOR
     UIApplication *application = [UIApplication sharedApplication];
     

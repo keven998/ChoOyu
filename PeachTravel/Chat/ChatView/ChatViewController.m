@@ -605,6 +605,7 @@
 
 -(void)didSendMessage:(EMMessage *)message error:(EMError *)error;
 {
+    NSLog(@"发送结果：%@", error);
     [self reloadTableViewDataWithMessage:message];
 }
 

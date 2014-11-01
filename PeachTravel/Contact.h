@@ -2,7 +2,7 @@
 //  Contact.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/10/23.
+//  Created by liangpengshuai on 14/11/1.
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
@@ -13,13 +13,13 @@
 
 @interface Contact : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * userId;
-@property (nonatomic, retain) NSString * userName;
 @property (nonatomic, retain) NSString * avatar;
-@property (nonatomic, retain) NSString * sex;
-@property (nonatomic, retain) NSString * pinyin;
-@property (nonatomic, retain) NSString * remark;
 @property (nonatomic, retain) NSString * easemobUser;
+@property (nonatomic, retain) NSString * pinyin;
+@property (nonatomic, retain) NSString * memo;
+@property (nonatomic, retain) NSString * gender;
+@property (nonatomic, retain) NSNumber * userId;
+@property (nonatomic, retain) NSString * nickName;
 @property (nonatomic, retain) Account *relationship;
 @property (nonatomic, retain) Account *relationship1;
 

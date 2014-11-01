@@ -1,15 +1,14 @@
 //
-//  ContactListTableViewController.h
+//  ContactListViewController.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/10/24.
+//  Created by liangpengshuai on 14/10/30.
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ContactListTableViewController : UITableViewController
-
+@interface ContactListViewController : UIViewController
 @property (nonatomic, weak) UIViewController *rootCtl;
 
 @end

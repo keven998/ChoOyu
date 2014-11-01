@@ -12,6 +12,9 @@
 #import "AccountManager.h"
 #import "WXApi.h"
 
+#import "EMChatServiceDefs.h"
+#import "EMPushNotificationOptions.h"
+
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -176,6 +179,10 @@
              AccountManager *accountManager = [AccountManager shareAccountManager];
              [accountManager easeMobDidLogin];
              [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+             
+             EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
+             options.displayStyle = ePushNotificationDisplayStyle_messageDetail;
+             [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
              
              [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
              
