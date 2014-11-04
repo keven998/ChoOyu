@@ -10,11 +10,13 @@
 #import "AddressBookTableViewController.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocial.h"
+#import "AccountManager.h"
+#import "SearchUserInfoViewController.h"
 
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
 
-@interface AddContactTableViewController ()
+@interface AddContactTableViewController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchTableViewController;
 
@@ -66,6 +68,61 @@
     }];
 }
 
+- (void)searchUsersWithSearchText:(NSString *)searchText
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:searchText forKey:@"keyword"];
+    
+    [SVProgressHUD show];
+    //搜索好友
+    [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self parseSearchResult:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"%@", error);
+    }];
+
+}
+
+- (void)parseSearchResult:(id)searchResult
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    if ([searchResult count] > 0) {
+        NSInteger userId = [[[searchResult firstObject] objectForKey:@"userId"] integerValue];
+        if (userId == [accountManager.account.userId integerValue]) {
+            [SVProgressHUD showErrorWithStatus:@"不能添加自己到通讯录"];
+            
+        } else {
+            [SVProgressHUD dismiss];
+            for (Contact *contact in accountManager.account.contacts) {
+                if ([contact.userId integerValue] == userId) {
+                    NSLog(@"我应该进入好友详情界面");
+                    return;
+                }
+            }
+            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+            searchUserInfoCtl.userInfo = [searchResult firstObject];
+            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+        }
+    } else {
+        [SVProgressHUD dismiss];
+    }
+
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,14 +168,12 @@
     }
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UISearchBarDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self searchUsersWithSearchText:searchBar.text];
 }
-*/
+
 
 @end

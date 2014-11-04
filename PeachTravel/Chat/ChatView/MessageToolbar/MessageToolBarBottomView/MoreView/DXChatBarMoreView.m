@@ -20,7 +20,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame typw:(ChatMoreType)type
 {
-    NSLog(@"%@", NSStringFromCGRect(frame));
+    NSLog(@"ToolBar的尺寸为： %@", NSStringFromCGRect(frame));
     self = [super initWithFrame:frame];
     if (self) {
         [self setupSubviewsForType:type];

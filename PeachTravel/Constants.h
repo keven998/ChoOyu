@@ -36,7 +36,12 @@
 #define API_RESET_PWD           (BASE_URL @"users/reset-pwd")           //重新设置密码
 #define API_SIGNUP              (BASE_URL @"users/signup")        //用户注册
 #define API_SIGNIN              (BASE_URL @"users/signin")
-#define API_BINDTEL             (BASE_URL @"users/bind")      //绑定手机号
+#define API_BINDTEL             (BASE_URL @"users/bind")        //绑定手机号
+#define API_SEARCH_USER         (BASE_URL @"users/search")      //搜索好友
+#define API_SEARCH_USER         (BASE_URL @"users/search")      //搜索好友
+#define API_ADD_CONTACT         (BASE_URL @"users/contacts")   //添加好友
+#define API_DELETE_CONTACTS     (BASE_URL @"users/contacts")   //删除好友
+
 
 //IM相关接口
 #define API_GET_CONTACTS        (BASE_URL @"users/contacts")   //获得联系人列表
@@ -45,12 +50,14 @@
 
 /***** Notification name *******/
 
-#define weixinDidLoginNoti          @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
-#define userDidLoginNoti            @ "userDidLogin"                //用户完成所有登录工作。
-#define userDidLogoutNoti           @ "userDidLogout"               //用户完成所有退出登录工作。
-#define updateUserInfoNoti          @ "updateUserInfo"              //用户信息有更改。
-#define loadedAddressBookNoti       @ "loadedAddressBook"           //通讯录联系人加载完成。
-#define regectLoadAddressBookNoti   @"regectLoadAddressBook"        //用户拒绝读取通讯录
+#define weixinDidLoginNoti              @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
+#define userDidLoginNoti                @ "userDidLogin"                //用户完成所有登录工作。
+#define userDidLogoutNoti               @ "userDidLogout"               //用户完成所有退出登录工作。
+#define updateUserInfoNoti              @ "updateUserInfo"              //用户信息有更改。
+#define loadedAddressBookNoti           @ "loadedAddressBook"           //通讯录联系人加载完成。
+#define regectLoadAddressBookNoti       @ "regectLoadAddressBook"       //用户拒绝读取通讯录
+#define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
+#define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友请求列表
 
 
 /***** 登录注册时输入的错误码 *****/
@@ -85,7 +92,8 @@ typedef enum : NSUInteger {
 
 /***** 桃子旅行自定义消息枚举信息****/
 typedef enum : NSUInteger {
-    TZChatTypeStrategy = 1,        //游记
+    TZChatNormalText = 0,                  //普通文字信息
+    TZChatTypeStrategy = 1,         //游记
     TZChatTypeCity,                 //城市
     TZChatTypeSpot,                 //景点
     TZChatTypeTravelNote,           //游记
@@ -102,6 +110,14 @@ typedef enum : NSUInteger {
     TZFrendReject,          //拒绝
     
 } TZFrendRequest;
+
+/***** 桃子旅行自定义透传枚举信息 ****/
+typedef enum : NSUInteger {
+    CMDAddContact = 1,
+    CMDAgreeAddContact,
+    CMDDeleteContact
+} TZCMDChatType;
+
 
 /***** 设备信息 *****/
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )

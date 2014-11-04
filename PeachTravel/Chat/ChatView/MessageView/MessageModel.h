@@ -30,6 +30,12 @@
 @property (nonatomic, strong) NSURL *headImageURL;
 @property (nonatomic, strong) NSString *nickName;
 @property (nonatomic, strong) NSString *username;
+/*!
+ @property
+ @brief 消息发送或接收的时间
+ */
+@property (nonatomic) long long timestamp;
+
 
 //text
 @property (nonatomic, strong) NSString *content;

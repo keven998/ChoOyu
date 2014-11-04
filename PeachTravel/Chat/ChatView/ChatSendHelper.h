@@ -111,4 +111,18 @@
             isChatGroup:(BOOL)isChatGroup
       requireEncryption:(BOOL)requireEncryption;
 
+/**
+ *  发送透传消息
+ *
+ *  @param username          接收方
+ *  @param isChatGroup       是否是群聊
+ *  @param requireEncryption 是否加密
+ *  @param extMsg            自定义的消息
+ *  @return 封装的消息体
+ */
++(EMMessage *)sendCMDMessage:(NSString *)username
+                  messageExt:(NSDictionary *)extMsg
+                 isChatGroup:(BOOL)isChatGroup
+           requireEncryption:(BOOL)requireEncryption;
+
 @end

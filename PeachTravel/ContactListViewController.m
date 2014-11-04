@@ -19,6 +19,7 @@
 @property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
+@property (strong, nonatomic) AccountManager *accountManager;
 
 @end
 
@@ -28,12 +29,17 @@
     [super viewDidLoad];
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"viewdiapper");
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter & getter
@@ -74,6 +80,14 @@
     return _tzScrollView;
 }
 
+- (AccountManager *)accountManager
+{
+    if (!_accountManager) {
+        _accountManager = [AccountManager shareAccountManager];
+    }
+    return _accountManager;
+}
+
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
@@ -88,11 +102,11 @@
 - (NSDictionary *)dataSource
 {
     if (!_dataSource) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        _dataSource = [accountManager contactsByPinyin];
+        _dataSource = [self.accountManager contactsByPinyin];
     }
     return _dataSource;
 }
+
 
 #pragma mark - IBAction Methods
 
@@ -105,11 +119,47 @@
 
 #pragma mark - Private Methods
 
+- (void)updateContactList
+{
+    self.dataSource = [self.accountManager contactsByPinyin];
+    [self.contactTableView reloadData];
+}
+
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
 {
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:currentIndex];
     [self.contactTableView scrollToRowAtIndexPath:scrollIndexPath
                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)removeContact:(NSNumber *)userId atIndex:(NSIndexPath *)indexPath
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@",self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, userId];
+    
+    [SVProgressHUD show];
+    
+    //删除联系人
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self.accountManager removeContact:userId];
+            [self updateContactList];
+            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+    }];
+
 }
 
 #pragma mark - UITableVeiwDataSource & delegate
@@ -166,27 +216,33 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-#warning 测试数据
-        
-        NSDictionary *frendRequestDic = @{@"userId":[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]],
-                                          @"nickName":[NSString stringWithFormat:@"%@",[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]],
-                                          @"requestDate":[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]
-                                          };
-        
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [accountManager analysisAndSaveFrendRequest:frendRequestDic];
-        
+    if (indexPath.section == 0) {        
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:@"47xanf7f2qymv2b0g7tjq583k51lexdg" isGroup:NO];
+        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
         chatVC.title = contact.nickName;
         [self.navigationController pushViewController:chatVC animated:YES];
     }
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return UITableViewCellEditingStyleNone;
+    } else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        [self removeContact:contact.userId atIndex:indexPath];
+    }
+}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -195,12 +251,13 @@
     if (scrollView == self.tzScrollView.scrollView) {
         CGPoint currentOffset = scrollView.contentOffset;
         int currentIndex = (int)(currentOffset.x)/80;
-        if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]-1) {
-            currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count]-1;
+        if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]) {
+            currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count];
         }
         if (currentIndex < 0) {
             currentIndex = 0;
         }
+        
         _tzScrollView.currentIndex = currentIndex;
         [self tableViewMoveToCorrectPosition:currentIndex];
         
@@ -217,8 +274,8 @@
     if (scrollView == self.tzScrollView.scrollView) {
         CGPoint currentOffset = scrollView.contentOffset;
         int currentIndex = (int)(currentOffset.x)/80;
-        if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]-1) {
-            currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count]-1;
+        if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]) {
+            currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count];
         }
         if (currentIndex < 0) {
             currentIndex = 0;

@@ -225,6 +225,8 @@
 		D90F36F519F63FFA00E26FA9 /* PublicGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E619F63FFA00E26FA9 /* PublicGroupDetailViewController.m */; };
 		D90F36F619F63FFA00E26FA9 /* PublicGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */; };
 		D90F36FA19F6402000E26FA9 /* WCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36F919F6402000E26FA9 /* WCAlertView.m */; };
+		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
+		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -279,9 +281,13 @@
 		D97C17D819FE516A00895B62 /* SenderImageNodeBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C17D719FE516A00895B62 /* SenderImageNodeBorder@2x.png */; };
 		D97C17DB19FE5C5900895B62 /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C17DA19FE5C5900895B62 /* UIImage+Utils.m */; };
 		D97C17FB19FE72CF00895B62 /* ReceiverImageNodeBorder_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C17F919FE72CF00895B62 /* ReceiverImageNodeBorder_back@2x.png */; };
+		D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F90B1A04BF4800ECF18A /* FrendRequestTableViewCell.m */; };
+		D982F90E1A04BF4800ECF18A /* FrendRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F90C1A04BF4800ECF18A /* FrendRequestTableViewCell.xib */; };
+		D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */; };
+		D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */; };
+		D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */; };
 		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
 		D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */; };
-		D990FBE719F915AF0008A8FE /* IMRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBE619F915AF0008A8FE /* IMRootViewController.m */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
 		D99D8ECB19C8600C0021C25B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECA19C8600C0021C25B /* main.m */; };
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
@@ -639,6 +645,9 @@
 		D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicGroupListViewController.m; sourceTree = "<group>"; };
 		D90F36F819F6402000E26FA9 /* WCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlertView.h; sourceTree = "<group>"; };
 		D90F36F919F6402000E26FA9 /* WCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlertView.m; sourceTree = "<group>"; };
+		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
+		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
+		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -718,11 +727,17 @@
 		D97C17D919FE5C5900895B62 /* UIImage+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Utils.h"; path = "Chat/ChatView/MessageView/UIImage+Utils.h"; sourceTree = "<group>"; };
 		D97C17DA19FE5C5900895B62 /* UIImage+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Utils.m"; path = "Chat/ChatView/MessageView/UIImage+Utils.m"; sourceTree = "<group>"; };
 		D97C17F919FE72CF00895B62 /* ReceiverImageNodeBorder_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_back@2x.png"; sourceTree = "<group>"; };
+		D982F90A1A04BF4800ECF18A /* FrendRequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendRequestTableViewCell.h; sourceTree = "<group>"; };
+		D982F90B1A04BF4800ECF18A /* FrendRequestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrendRequestTableViewCell.m; sourceTree = "<group>"; };
+		D982F90C1A04BF4800ECF18A /* FrendRequestTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrendRequestTableViewCell.xib; sourceTree = "<group>"; };
+		D982F90F1A071B6F00ECF18A /* TZCMDChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZCMDChatHelper.h; sourceTree = "<group>"; };
+		D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZCMDChatHelper.m; sourceTree = "<group>"; };
+		D982F9121A073A5100ECF18A /* SearchUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUserInfoViewController.h; sourceTree = "<group>"; };
+		D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserInfoViewController.m; sourceTree = "<group>"; };
+		D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchUserInfoViewController.xib; sourceTree = "<group>"; };
 		D990FBDD19F8FC970008A8FE /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
-		D990FBE519F915AF0008A8FE /* IMRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMRootViewController.h; path = Chat/IMRootViewController.h; sourceTree = "<group>"; };
-		D990FBE619F915AF0008A8FE /* IMRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMRootViewController.m; path = Chat/IMRootViewController.m; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EC919C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1110,9 +1125,9 @@
 			isa = PBXGroup;
 			children = (
 				D990FBEA19F9F94F0008A8FE /* Contact */,
-				D990FBE519F915AF0008A8FE /* IMRootViewController.h */,
-				D990FBE619F915AF0008A8FE /* IMRootViewController.m */,
 				D90F357319F63B3300E26FA9 /* Chat */,
+				D982F90F1A071B6F00ECF18A /* TZCMDChatHelper.h */,
+				D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */,
 			);
 			name = IM;
 			sourceTree = "<group>";
@@ -1972,6 +1987,9 @@
 				D9A717BE1A04AD4F005BDEFE /* FrendRequestTableViewController.h */,
 				D9A717BF1A04AD4F005BDEFE /* FrendRequestTableViewController.m */,
 				D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */,
+				D982F90A1A04BF4800ECF18A /* FrendRequestTableViewCell.h */,
+				D982F90B1A04BF4800ECF18A /* FrendRequestTableViewCell.m */,
+				D982F90C1A04BF4800ECF18A /* FrendRequestTableViewCell.xib */,
 			);
 			name = FrendRequest;
 			sourceTree = "<group>";
@@ -2124,6 +2142,9 @@
 				D9E9F7A91A00A3C7003F70F6 /* AddContactTableViewController.h */,
 				D9E9F7AA1A00A3C7003F70F6 /* AddContactTableViewController.m */,
 				D9E9F7AB1A00A3C7003F70F6 /* AddContactTableViewController.xib */,
+				D982F9121A073A5100ECF18A /* SearchUserInfoViewController.h */,
+				D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */,
+				D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */,
 			);
 			name = AddContact;
 			sourceTree = "<group>";
@@ -2143,6 +2164,9 @@
 				D9A717A21A03B04A005BDEFE /* CreateConversationViewController.h */,
 				D9A717A31A03B04A005BDEFE /* CreateConversationViewController.m */,
 				D9A717A41A03B04A005BDEFE /* CreateConversationViewController.xib */,
+				D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */,
+				D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */,
+				D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */,
 			);
 			name = CreateCoversation;
 			sourceTree = "<group>";
@@ -2333,6 +2357,7 @@
 				D90C637D19FB44D300C2E440 /* VoiceSearchFeedback009.png in Resources */,
 				D90C637A19FB44D300C2E440 /* VoiceSearchFeedback007@2x.png in Resources */,
 				D9F57B9119E93486005BB43B /* UMSCommentInputControlleriPad.xib in Resources */,
+				D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */,
 				D90F35EF19F63B3300E26FA9 /* call_silence.png in Resources */,
 				D90C636519FB44D300C2E440 /* chatFire_audioPlaying0.png in Resources */,
 				D955E54F19E7A91300047F2B /* sns_icon_weixin@2x.png in Resources */,
@@ -2396,6 +2421,7 @@
 				D90F35EC19F63B3300E26FA9 /* call_out@2x.png in Resources */,
 				D90C63A519FB44D300C2E440 /* chat_location_detail_disclosureHL@2x.png in Resources */,
 				D90C638B19FB44D300C2E440 /* VoiceSearchFeedback016.png in Resources */,
+				D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */,
 				D97C17FB19FE72CF00895B62 /* ReceiverImageNodeBorder_back@2x.png in Resources */,
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
@@ -2494,6 +2520,7 @@
 				D90C637119FB44D300C2E440 /* VoiceSearchFeedback003.png in Resources */,
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
 				D90C638819FB44D300C2E440 /* VoiceSearchFeedback014@2x.png in Resources */,
+				D982F90E1A04BF4800ECF18A /* FrendRequestTableViewCell.xib in Resources */,
 				D9F57B9719E93486005BB43B /* UMSocialSDKResourcesNew.bundle in Resources */,
 				D97C17D819FE516A00895B62 /* SenderImageNodeBorder@2x.png in Resources */,
 				D90C638F19FB44D300C2E440 /* VoiceSearchFeedback018.png in Resources */,
@@ -2580,11 +2607,13 @@
 			files = (
 				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
+				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
 				D90F360019F63B3300E26FA9 /* DXRecordView.m in Sources */,
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
 				D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */,
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
+				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
@@ -2593,6 +2622,7 @@
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
+				D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */,
 				D90F36F619F63FFA00E26FA9 /* PublicGroupListViewController.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
 				D90F364919F63C2F00E26FA9 /* NSDateFormatter+Category.m in Sources */,
@@ -2642,6 +2672,7 @@
 				D964201C19EBE9C900CC8057 /* FeedbackViewController.m in Sources */,
 				D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */,
 				D90F36F319F63FFA00E26FA9 /* GroupSettingViewController.m in Sources */,
+				D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */,
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
@@ -2656,7 +2687,6 @@
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,
 				D90F36EA19F63FFA00E26FA9 /* ContactSelectionViewController.m in Sources */,
 				D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */,
-				D990FBE719F915AF0008A8FE /* IMRootViewController.m in Sources */,
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D90F36EB19F63FFA00E26FA9 /* CreateGroupViewController.m in Sources */,

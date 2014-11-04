@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSString * easemobUser;
 @property (nonatomic, retain) NSString * gender;
 @property (nonatomic, retain) NSString * avatar;
+@property (nonatomic, retain) NSString * attachMsg;
 @property (nonatomic, retain) Account *relationship;
 
 @end

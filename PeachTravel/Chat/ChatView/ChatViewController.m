@@ -54,6 +54,7 @@
 @property (strong, nonatomic) NSString *chatter;
 
 @property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
+@property (strong, nonatomic) NSMutableArray *chattingPeople;     //正在聊天的人
 @property (strong, nonatomic) SRRefreshView *slimeView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
@@ -127,8 +128,7 @@
         [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
         [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
-    }
-    else{
+    } else{
         UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [clearButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
         [clearButton addTarget:self action:@selector(removeAllMessages:) forControlEvents:UIControlEventTouchUpInside];
@@ -174,17 +174,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[[EaseMob sharedInstance] deviceManager] removeDelegate:self];
-}
-
-- (void)back
-{
-    //判断当前会话是否为空，若符合则删除该会话
+    
     EMMessage *message = [_conversation latestMessage];
     if (message == nil) {
         [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:YES];
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - helper
@@ -242,6 +236,14 @@
     }
     
     return _dataSource;
+}
+
+- (NSMutableArray *)chattingPeople
+{
+    if (!_chattingPeople) {
+        _chattingPeople = [[NSMutableArray alloc] init];
+    }
+    return _chattingPeople;
 }
 
 - (SRRefreshView *)slimeView
@@ -324,11 +326,16 @@
     return _chatTagDate;
 }
 
+#pragma mark - Private Methods
+
+- (void)updateChattingPeople
+{
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
@@ -348,13 +355,13 @@
                 timeCell.backgroundColor = [UIColor clearColor];
                 timeCell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            
             timeCell.textLabel.text = (NSString *)obj;
             
             return timeCell;
         }
         else{
             MessageModel *model = (MessageModel *)obj;
+            [self checkOutModel:model];
             NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
             EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
@@ -1012,7 +1019,6 @@
             weakSelf.dataSource.array = [weakSelf sortChatSource:chats];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
-                
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             });
         }
@@ -1023,7 +1029,6 @@
 {
     NSMutableArray *resultArray = [[NSMutableArray alloc] init];
     if (array && [array count] > 0) {
-        
         for (EMMessage *message in array) {
             NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
             NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
@@ -1031,8 +1036,8 @@
                 [resultArray addObject:[createDate formattedTime]];
                 self.chatTagDate = createDate;
             }
-            
             MessageModel *model = [MessageModelManager modelWithMessage:message];
+            [self updateModelData:model];
             if (model) {
                 [resultArray addObject:model];
             }
@@ -1040,6 +1045,35 @@
     }
     
     return resultArray;
+}
+
+- (void)updateModelData:(MessageModel *)messageModel
+{
+    for (MessageModel *model in self.chattingPeople) {
+        if ([model.username isEqualToString: model.username]) {
+            if (messageModel.timestamp > model.timestamp) {
+                [self.chattingPeople removeObject:model];
+                [self.chattingPeople addObject:messageModel];
+            } else {
+                messageModel.nickName = model.nickName;
+                messageModel.headImageURL = model.headImageURL;
+            }
+            return;
+        }
+    }
+    [self.chattingPeople addObject:messageModel];
+}
+
+- (void)checkOutModel:(MessageModel *)messageModel
+{
+    for (MessageModel *model in self.chattingPeople) {
+        if ([model.username isEqualToString:messageModel.username] && (![model.nickName isEqualToString:messageModel.nickName] || ![model.headImageURL isEqual:messageModel.headImageURL])) {
+            messageModel.headImageURL = model.headImageURL;
+            messageModel.nickName = model.nickName;
+            
+            NSLog(@"更新了用户信息：%@  消息内容为：%@", messageModel.nickName, messageModel.content);
+        }
+    }
 }
 
 -(NSMutableArray *)addChatToMessage:(EMMessage *)message

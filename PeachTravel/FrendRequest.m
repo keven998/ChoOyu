@@ -18,6 +18,7 @@
 @dynamic gender;
 @dynamic avatar;
 @dynamic relationship;
-@dynamic status;  
+@dynamic status;
+@dynamic attachMsg;
 
 @end

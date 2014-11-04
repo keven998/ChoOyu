@@ -60,7 +60,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        NSLog(@"%@", NSStringFromCGRect(self.bounds));
         UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(155, 0, 10, 10)];
         indicatorView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_scrollView];

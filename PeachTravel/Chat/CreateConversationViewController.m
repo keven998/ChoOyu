@@ -10,14 +10,17 @@
 #import "TZScrollView.h"
 #import "pinyin.h"
 #import "AccountManager.h"
+#import "ChatView/ChatViewController.h"
+#import "CreateConversationTableViewCell.h"
 
-#define contactCell      @"contactCell"
+#define contactCell      @"createConversationCell"
 
 @interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
+@property (strong, nonatomic) NSMutableArray *selectedContacts;
 
 @end
 
@@ -29,6 +32,11 @@
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    UIButton *confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [confirm setTitle:@"确认" forState:UIControlStateNormal];
+    [confirm setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirm];
 }
 
 #pragma mark - setter & getter
@@ -68,9 +76,18 @@
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height)];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
-        [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:contactCell];
+        [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
+
     }
     return _contactTableView;
+}
+
+- (NSMutableArray *)selectedContacts
+{
+    if (!_selectedContacts) {
+        _selectedContacts = [[NSMutableArray alloc] init];
+    }
+    return _selectedContacts;
 }
 
 - (NSDictionary *)dataSource
@@ -90,6 +107,51 @@
     [self tableViewMoveToCorrectPosition:sender.tag];
 }
 
+- (IBAction)createConversation:(id)sender
+{
+    NSLog(@"我选择的聊天好友为：%@", self.selectedContacts);
+    if (self.selectedContacts.count == 0) {
+        [SVProgressHUD showErrorWithStatus:@"一个都不选聊天球啊"];
+        
+    } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
+        Contact *contact = [self.selectedContacts firstObject];
+        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
+        chatVC.title = contact.nickName;
+        [self.navigationController pushViewController:chatVC animated:YES];
+        
+    } else if (self.selectedContacts.count > 1) {     //群聊
+        [self showHudInView:self.view hint:@"创建群组..."];
+        
+        NSMutableArray *source = [NSMutableArray array];
+        for (Contact *buddy in self.selectedContacts) {
+            [source addObject:buddy.easemobUser];
+        }
+        
+        Contact *firstContact = [self.selectedContacts firstObject];
+        Contact *secondContact = [self.selectedContacts objectAtIndex:1];
+        NSString *groupName = [NSString stringWithFormat:@"%@,%@",firstContact.nickName, secondContact.nickName];
+
+        EMGroupStyleSetting *setting = [[EMGroupStyleSetting alloc] init];
+        setting.groupStyle = eGroupStyle_PrivateMemberCanInvite;
+        
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        NSString *messageStr = [NSString stringWithFormat:@"%@ 邀请你加入群组\'%@\'", accountManager.account.nickName, groupName];
+        __weak CreateConversationViewController *weakSelf = self;
+        
+        [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:groupName description:@"" invitees:source initialWelcomeMessage:messageStr styleSetting:setting completion:^(EMGroup *group, EMError *error) {
+            [weakSelf hideHud];
+            if (group && !error) {
+                [weakSelf showHint:@"创建群组成功"];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+            else{
+                [weakSelf showHint:@"创建群组失败，请重新操作"];
+            }
+        } onQueue:nil];
+
+    }
+}
+
 #pragma mark - Private Methods
 
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
@@ -97,6 +159,16 @@
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:currentIndex];
     [self.contactTableView scrollToRowAtIndexPath:scrollIndexPath
                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (BOOL)isSelected:(NSNumber *)userId
+{
+    for (Contact *contact in self.selectedContacts) {
+        if (userId.integerValue == contact.userId.integerValue) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - UITableVeiwDataSource & delegate
@@ -109,6 +181,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 30.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -130,9 +207,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
-    cell.textLabel.text = contact.nickName;
+    CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
+    cell.nickNameLabel.text = contact.nickName;
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
+    if ([self isSelected:contact.userId]) {
+        cell.selectImageView.backgroundColor = [UIColor redColor];
+    } else {
+        cell.selectImageView.backgroundColor = [UIColor greenColor];
+    }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
+    if ([self isSelected:contact.userId]) {
+        [self.selectedContacts removeObject:contact];
+    } else {
+        [self.selectedContacts addObject:contact];
+    }
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - UIScrollViewDelegate

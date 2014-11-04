@@ -17,14 +17,16 @@
 #import "ChatViewController.h"
 #import "EMSearchDisplayController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
+#import "AccountManager.h"
 
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *dataSource;
-
+@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
+@property (nonatomic, strong) AccountManager *accountManager;
 
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
@@ -45,6 +47,7 @@
 {
     [super viewDidLoad];
     _dataSource = [self loadDataSource];
+    [self loadChattingPeople];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
@@ -66,6 +69,14 @@
 }
 
 #pragma mark - getter
+
+- (AccountManager *)accountManager
+{
+    if (!_accountManager) {
+        _accountManager = [AccountManager shareAccountManager];
+    }
+    return _accountManager;
+}
 
 - (SRRefreshView *)slimeView
 {
@@ -124,6 +135,28 @@
 
 #pragma mark - private
 
+- (void)loadChattingPeople
+{
+    if (!_chattingPeople) {
+        _chattingPeople = [[NSMutableArray alloc] init];
+    } else {
+        [_chattingPeople removeAllObjects];
+    }
+    for (EMConversation *conversation in self.dataSource) {
+        if (!conversation.isGroup) {
+            if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
+                [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
+            } else {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO];
+            }
+        } else {
+            [_chattingPeople addObject:conversation.chatter];
+        }
+    }
+    //重新加载 datasource
+    self.dataSource = [self loadDataSource];
+}
+
 - (NSMutableArray *)loadDataSource
 {
     NSMutableArray *ret = nil;
@@ -169,31 +202,61 @@
     NSString *ret = @"";
     EMMessage *lastMessage = [conversation latestMessage];
     if (lastMessage) {
-        id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
-        switch (messageBody.messageBodyType) {
-            case eMessageBodyType_Image:{
-                ret = @"[图片]";
-            } break;
-            case eMessageBodyType_Text:{
-                // 表情映射。
-                NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
-                                            convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
-                ret = didReceiveText;
-            } break;
-            case eMessageBodyType_Voice:{
-                ret = @"[声音]";
-            } break;
-            case eMessageBodyType_Location: {
-                ret = @"[位置]";
-            } break;
-            case eMessageBodyType_Video: {
-                ret = @"[视频]";
-            } break;
-            default: {
-            } break;
+        if (conversation.isGroup) {
+            NSString *nickName = [[lastMessage.ext objectForKey:@"fromUser"] objectForKey:@"nickName"];
+            id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
+            switch (messageBody.messageBodyType) {
+                case eMessageBodyType_Image:{
+                    ret = [NSString stringWithFormat:@"%@:[图片]", nickName];
+                } break;
+                case eMessageBodyType_Text:{
+                    // 表情映射。
+                    NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                                convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
+                    ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
+                } break;
+                case eMessageBodyType_Voice:{
+                    ret = [NSString stringWithFormat:@"%@:[声音]", nickName];
+
+                } break;
+                case eMessageBodyType_Location: {
+                    ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
+
+                } break;
+                case eMessageBodyType_Video: {
+                    ret = [NSString stringWithFormat:@"%@:[视频]", nickName];
+
+                } break;
+                default: {
+                } break;
+            }
+
+        } else {
+            id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
+            switch (messageBody.messageBodyType) {
+                case eMessageBodyType_Image:{
+                    ret = @"[图片]";
+                } break;
+                case eMessageBodyType_Text:{
+                    // 表情映射。
+                    NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                                convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
+                    ret = didReceiveText;
+                } break;
+                case eMessageBodyType_Voice:{
+                    ret = @"[声音]";
+                } break;
+                case eMessageBodyType_Location: {
+                    ret = @"[位置]";
+                } break;
+                case eMessageBodyType_Video: {
+                    ret = @"[视频]";
+                } break;
+                default: {
+                } break;
+            }
         }
     }
-    
     return ret;
 }
 
@@ -221,11 +284,11 @@
         cell = [[ChatListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
     }
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-    cell.name = conversation.chatter;
+    id chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
     if (!conversation.isGroup) {
-        cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
-    }
-    else{
+        cell.name = ((Contact *)chatPeople).nickName;
+        cell.placeholderImageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", ((Contact *)chatPeople).avatar]];
+    } else{
         NSString *imageName = @"groupPublicHeader";
         NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
         for (EMGroup *group in groupArray) {
@@ -235,7 +298,8 @@
                 break;
             }
         }
-        cell.placeholderImage = [UIImage imageNamed:imageName];
+        cell.placeholderImageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", imageName]];
+
     }
     cell.detailMsg = [self subTitleMessageByConversation:conversation];
     cell.time = [self lastMessageTimeByConversation:conversation];
@@ -256,7 +320,7 @@
     
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     ChatViewController *chatController;
-    NSString *title = conversation.chatter;
+    NSString *title;
     if (conversation.isGroup) {
         NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
         for (EMGroup *group in groupArray) {
@@ -265,6 +329,8 @@
                 break;
             }
         }
+    } else {
+        title = ((Contact*)[self.chattingPeople objectAtIndex:indexPath.row]).nickName;
     }
     
     NSString *chatter = conversation.chatter;
@@ -281,7 +347,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         EMConversation *converation = [self.dataSource objectAtIndex:indexPath.row];
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:converation.chatter deleteMessages:NO];
+        [[EaseMob sharedInstance].chatManager removeConversationByChatter:converation.chatter deleteMessages:YES];
         [self.dataSource removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -338,6 +404,7 @@
 -(void)refreshDataSource
 {
     self.dataSource = [self loadDataSource];
+    [self loadChattingPeople];
     [_tableView reloadData];
     [self hideHud];
 }
@@ -362,3 +429,5 @@
 }
 
 @end
+
+

@@ -14,6 +14,7 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "MessageModel.h"
 #import "EaseMob.h"
+#import "AccountManager.h"
 
 @implementation MessageModelManager
 
@@ -30,9 +31,11 @@
     model.message = message;
     model.type = messageBody.messageBodyType;
     model.messageId = message.messageId;
+    model.timestamp = message.timestamp;
     model.isSender = isSender;
     model.isPlaying = NO;
     model.isChatGroup = message.isGroup;
+    model.nickName = [[message.ext objectForKey:@"fromUser"] objectForKey:@"nickName"];
     if (model.isChatGroup) {
         model.username = message.groupSenderName;
     }
@@ -41,11 +44,11 @@
     }
     
     if (isSender) {
-        model.headImageURL = nil;
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", accountManager.account.avatar]];
         model.status = message.deliveryState;
-    }
-    else{
-        model.headImageURL = nil;
+    } else{
+        model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[message.ext objectForKey:@"fromUser"] objectForKey:@"avatar"]]];
         model.status = eMessageDeliveryState_Delivered;
     }
     
@@ -53,7 +56,7 @@
         case eMessageBodyType_Text:
         {
             //如果是原生的文字消息类型
-            if (!message.ext) {
+            if (!message.ext || [[message.ext objectForKey:@"tzType"] integerValue] == TZChatNormalText) {
                 // 表情映射。
                 NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
                                             convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];

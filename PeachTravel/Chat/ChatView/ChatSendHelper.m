@@ -12,6 +12,7 @@
 
 #import "ChatSendHelper.h"
 #import "ConvertToCommonEmoticonsHelper.h"
+#import "AccountManager.h"
 
 @interface ChatImageOptions : NSObject<IChatImageOptions>
 
@@ -113,14 +114,44 @@
         requireEncryption:(BOOL)requireEncryption
 {
     EMMessage *retureMsg = [[EMMessage alloc] initWithReceiver:username bodies:[NSArray arrayWithObject:body]];
+    NSMutableDictionary *allExtMsg = [[NSMutableDictionary alloc] init];
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+    [userInfo setObject:accountManager.account.userId forKey:@"userId"];
+    [userInfo setObject:accountManager.account.nickName forKey:@"nickName"];
+    [userInfo setObject:accountManager.account.avatar forKey:@"avatar"];
+    
+    [allExtMsg setObject:userInfo forKey:@"fromUser"];
     if (extMsg) {
-        retureMsg.ext = extMsg;
+        [allExtMsg addEntriesFromDictionary:extMsg];
     }
+    retureMsg.ext = allExtMsg;
     retureMsg.requireEncryption = requireEncryption;
     retureMsg.isGroup = isChatGroup;
     EMMessage *message = [[EaseMob sharedInstance].chatManager asyncSendMessage:retureMsg progress:nil];
 
     return message;
+}
+
++(EMMessage *)sendCMDMessage:(NSString *)username
+                  messageExt:(NSDictionary *)extMsg
+                 isChatGroup:(BOOL)isChatGroup
+           requireEncryption:(BOOL)requireEncryption
+{
+    EMChatCommand *cmd = [[EMChatCommand alloc] init];
+    cmd.cmd = @"TZAction";
+    EMCommandMessageBody *body = [[EMCommandMessageBody alloc] initWithChatObject:cmd];
+    
+    EMMessage *msg = [[EMMessage alloc]
+                      initWithReceiver:username
+                      bodies:[NSArray arrayWithObject:body]];
+    msg.ext = extMsg;
+    
+    return [[EaseMob sharedInstance].chatManager sendMessage:msg
+                                                    progress:nil
+                                                       error:nil];
+    return nil;
 }
 
 

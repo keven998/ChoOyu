@@ -84,8 +84,8 @@
     [super layoutSubviews];
     CGRect frame = self.imageView.frame;
     
-    [self.imageView setImage:_placeholderImage];
     self.imageView.frame = CGRectMake(10, 7, 45, 45);
+    [self.imageView sd_setImageWithURL:_placeholderImageUrl];
     
     self.textLabel.text = _name;
     self.textLabel.frame = CGRectMake(65, 7, 175, 20);
@@ -115,6 +115,13 @@
 -(void)setName:(NSString *)name{
     _name = name;
     self.textLabel.text = name;
+}
+
+- (void)setPlaceholderImageUrl:(NSURL *)placeholderImageUrl
+{
+    _placeholderImageUrl = placeholderImageUrl;
+    [self.imageView sd_setImageWithURL:_placeholderImageUrl];
+
 }
 
 +(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

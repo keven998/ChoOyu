@@ -7,12 +7,12 @@
 //
 
 #import "ToolBoxViewController.h"
-#import "IMRootViewController.h"
 #import "AccountManager.h"
 #import "LoginViewController.h"
 #import "MHTabBarController.h"
 #import "ContactListViewController.h"
 #import "ChatListViewController.h"
+#import "TZCMDChatHelper.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -115,7 +115,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
 {
-    NSLog(@"用户信息有更新");
+    NSLog(@"聊天的内容发生变化");
 }
 
 // 未读消息数量变化回调
@@ -145,9 +145,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         do {
             if (options.noDisturbing) {
                 NSDate *now = [NSDate date];
-                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute
-                                                                               fromDate:now];
-                
+                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
                 NSInteger hour = [components hour];
                 //        NSInteger minute= [components minute];
                 
@@ -172,6 +170,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 -(void)didReceiveMessage:(EMMessage *)message
 {
     NSLog(@"收到消息，消息为%@", message);
+    id<IEMMessageBody> messageBody = [message.messageBodies firstObject];
+    if (messageBody.messageBodyType == eMessageBodyType_Command) {
+        [TZCMDChatHelper distributeCMDMsg:message];
+        UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"接收到透传消息" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        [a show];
+        
+    }
     BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversation.chatter] : YES;
     if (needShowNotification) {
 #if !TARGET_IPHONE_SIMULATOR
@@ -260,9 +265,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         notification.alertBody = @"您有一条新消息";
     }
     
-#warning 去掉注释会显示[本地]开头, 方便在开发中区分是否为本地推送
-    //notification.alertBody = [[NSString alloc] initWithFormat:@"[本地]%@", notification.alertBody];
-    
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
     //发送通知
@@ -342,6 +344,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                               message:(NSString *)message
 {
 #if !TARGET_IPHONE_SIMULATOR
+    NSLog(@"didReceiveGroupInvitationFrom");
     [self playSoundAndVibration];
 #endif
     
