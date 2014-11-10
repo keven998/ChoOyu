@@ -42,8 +42,8 @@ install_resource()
   esac
 }
           install_resource "EaseMobSDK/EaseMobSDK/resources/EaseMob.bundle"
+                    install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
                     install_resource "MWPhotoBrowser/MWPhotoBrowser/MWPhotoBrowser.bundle"
-                    install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
                     install_resource "iRate/iRate/iRate.bundle"
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

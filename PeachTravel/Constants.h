@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "AppUtils.h"
 //友盟key
 #define UMENG_KEY               @ "5433d2e2fd98c5b7a3020907"
 
@@ -43,10 +43,11 @@
 #define API_DELETE_CONTACTS             (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
 
-
-
 //IM相关接口
-#define API_GET_CONTACTS        (BASE_URL @"users/contacts")   //获得联系人列表
+#define API_GET_CONTACTS                (BASE_URL @"users/contacts")   //获得联系人列表
+
+//其他一些乱七八糟的接口
+#define API_GET_COVER_STORIES           (BASE_URL @"misc/cover-stories")  //获得封面故事接口
 
 
 
@@ -131,7 +132,10 @@ typedef enum : NSUInteger {
 
 #define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
 
+/*****应用启动时是否应该启动引导页******/
+#define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 
+#define kShouldShowIntroduceWhenFirstLaunch   YES
 
 
 
