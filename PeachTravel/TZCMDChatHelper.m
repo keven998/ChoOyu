@@ -26,6 +26,7 @@
     [contentDic setObject:accountManager.account.avatar forKey:@"avatar"];
     [contentDic setObject:accountManager.account.gender forKey:@"gender"];
     [contentDic setObject:accountManager.account.easemobUser forKey:@"easemobUser"];
+    [contentDic setObject:accountManager.account.signature forKey:@"signature"];
     [contentDic setObject:attachMsg forKey:@"attachMsg"];
     
     [ext setObject:contentDic forKey:@"content"];
@@ -46,9 +47,31 @@
         }
             break;
             
-        case CMDAgreeAddContact: {
+        case CMDAgreeAddContact: {       //添加好友后收到同意指令
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager addContact:[extDic objectForKey:@"content"]];
+            
+            id  chatManager = [[EaseMob sharedInstance] chatManager];
+            EMConversation *conversation = [chatManager conversationForChatter:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"] isGroup:NO];
+            NSDictionary *loginInfo = [chatManager loginInfo];
+            NSString *account = [loginInfo objectForKey:kSDKUsername];
+            EMChatText *chatText = [[EMChatText alloc] initWithText:@"我已经同意了你的好友请求，现在我们可以聊天了"];
+            EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
+            EMMessage *message = [[EMMessage alloc] initWithReceiver:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"] bodies:@[textBody]];
+            [message setIsGroup:NO];
+            [message setIsAcked:NO];
+            [message setTo:account];
+            [message setFrom:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"]];
+            [message setIsGroup:NO];
+            
+            NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+            NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
+            [message setMessageId:messageID];
+            
+            [chatManager saveConversation:conversation];
+            [chatManager importMessage:message
+                           append2Chat:YES];
+            
         }
             break;
             
@@ -60,5 +83,7 @@
             break;
     }
 }
+
+
 
 @end

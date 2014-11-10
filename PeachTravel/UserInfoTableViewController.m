@@ -51,7 +51,7 @@
 - (UIView *)footerView
 {
     if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.frame.size.width, 80)];
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 80)];
         
         UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, _footerView.frame.size.width, 35)];
         logoutBtn.center = _footerView.center;

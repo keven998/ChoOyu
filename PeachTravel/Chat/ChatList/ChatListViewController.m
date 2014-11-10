@@ -99,9 +99,9 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, self.view.frame.size.height - 64) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -208,41 +208,137 @@
             switch (messageBody.messageBodyType) {
                 case eMessageBodyType_Image:{
                     ret = [NSString stringWithFormat:@"%@:[图片]", nickName];
-                } break;
+                }
+                    break;
+                    
                 case eMessageBodyType_Text:{
-                    // 表情映射。
-                    NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
-                                                convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
-                    ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
-                } break;
+                    
+                    switch ([[lastMessage.ext objectForKey:@"tzType"] integerValue]) {
+                        case TZChatNormalText: {
+                            // 表情映射。
+                            NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                                        convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
+                            ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
+
+                        }
+                            break;
+                            
+                        case TZChatTypeStrategy: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeTravelNote: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeSpot: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeCity: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
+                            
+                        }
+                            break;
+                            
+                        case TZTipsMsg: {
+                            ret = [lastMessage.ext objectForKey:@"content"];
+                        }
+                            
+                        default:
+                            break;
+                    }
+
+                }
+                    break;
+                    
                 case eMessageBodyType_Voice:{
                     ret = [NSString stringWithFormat:@"%@:[声音]", nickName];
 
-                } break;
+                }
+                    break;
+                    
                 case eMessageBodyType_Location: {
                     ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
 
-                } break;
+                }
+                    break;
+                    
                 case eMessageBodyType_Video: {
                     ret = [NSString stringWithFormat:@"%@:[视频]", nickName];
 
-                } break;
+                }
+                    break;
+                    
                 default: {
                 } break;
             }
 
         } else {
+            
             id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
             switch (messageBody.messageBodyType) {
+                    
                 case eMessageBodyType_Image:{
                     ret = @"[图片]";
-                } break;
+                }
+                    break;
+                    
                 case eMessageBodyType_Text:{
-                    // 表情映射。
-                    NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
-                                                convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
-                    ret = didReceiveText;
-                } break;
+                    
+                    switch ([[lastMessage.ext objectForKey:@"tzType"] integerValue]) {
+                        case TZChatNormalText: {
+                            // 表情映射。
+                            NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                                        convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
+                            ret = didReceiveText;
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeStrategy: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeTravelNote: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeSpot: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeCity: {
+                            
+                        }
+                            break;
+                            
+                        case TZChatTypeFood: {
+                            
+                        }
+                            break;
+                            
+                        case TZTipsMsg: {
+                            ret = [lastMessage.ext objectForKey:@"content"];
+                        }
+                            
+                        default:
+                            break;
+                    }
+                    
+                }
+                    break;
+                    
                 case eMessageBodyType_Voice:{
                     ret = @"[声音]";
                 } break;
@@ -287,19 +383,16 @@
     id chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
     if (!conversation.isGroup) {
         cell.name = ((Contact *)chatPeople).nickName;
-        cell.placeholderImageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", ((Contact *)chatPeople).avatar]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", ((Contact *)chatPeople).avatar]] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
     } else{
-        NSString *imageName = @"groupPublicHeader";
         NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
         for (EMGroup *group in groupArray) {
             if ([group.groupId isEqualToString:conversation.chatter]) {
                 cell.name = group.groupSubject;
-                imageName = group.isPublic ? @"groupPublicHeader" : @"groupPrivateHeader";
                 break;
             }
         }
-        cell.placeholderImageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", imageName]];
-
+        [cell.imageView setImage:[UIImage imageNamed:@"groupPrivateHeader"]];
     }
     cell.detailMsg = [self subTitleMessageByConversation:conversation];
     cell.time = [self lastMessageTimeByConversation:conversation];

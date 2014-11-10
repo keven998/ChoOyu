@@ -9,6 +9,7 @@
 #import "AccountManager.h"
 #import "AppDelegate.h"
 #import "pinyin.h"
+#import "Group.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -114,8 +115,7 @@
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
 {
     switch (changeType) {
-        case ChangeName:
-            self.account.nickName = changeContent;
+        case ChangeName:             self.account.nickName = changeContent;
             break;
         
         case ChangeSignature:
@@ -139,10 +139,6 @@
     _account.signature = [json objectForKey:@"signature"];
     _account.easemobUser = [json objectForKey:@"easemobUser"];
     _account.easemobPwd = [json objectForKey:@"easemobPwd"];
-    
-//        _account.easemobUser = @"18600441776";
-//        _account.easemobPwd = @"james890526";
-
 }
 
 //通过环信 id 取得用户的桃子信息
@@ -154,6 +150,16 @@
         }
     }
     return nil;
+}
+
+- (BOOL)isMyFrend:(NSNumber *)userId
+{
+    for (Contact *contact in self.account.contacts) {
+        if (contact.userId.integerValue == userId.integerValue) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 //从服务器上获取好友列表
@@ -203,6 +209,7 @@
         newContact.memo = [contactDic objectForKey:@"memo"];
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
+        newContact.signature = [contactDic objectForKey:@"signature"];
         newContact.pinyin = [self chineseToPinyin:[contactDic objectForKey:@"nickName"]];
     }
     [self.account addContactsObject:newContact];
@@ -291,6 +298,86 @@
     }
 }
 
+#pragma mark - ********群组相关操作******
+
+- (Group *)groupWithGroupId:(NSString *)groupId
+{
+    for (Group *group in self.account.groupList) {
+        if ([group.groupId isEqualToString:groupId]) {
+            return group;
+        }
+    }
+    return nil;
+}
+
+- (Group *)createGroupWithGroupId:(NSString *)groupId
+                            owner:(NSString *)owner
+                  groupSubject:(NSString *)subject
+                     groupInfo:(NSString *)groupDescription
+                       numbers:(NSSet *)numbers
+{
+    Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.context];
+    group.owner = owner;
+    group.numbers = numbers;
+    group.groupId = groupId;
+    group.groupSubject = subject;
+    group.groupDescription = groupDescription;
+    [self.account addGroupListObject:group];
+    [self save];
+    return group;
+}
+
+- (Group *)updateGroup:(NSString *)groupId withGroupOwner:(NSString *)owner groupSubject:(NSString *)subject groupInfo:(NSString *)groupDescription numbers:(id)numbersDic
+{
+    NSMutableSet *numbers = [[NSMutableSet alloc] init];
+    for (id contactDic in numbersDic) {
+        Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+        contact.userId = [contactDic objectForKey:@"userId"];
+        contact.avatar = [contactDic objectForKey:@"avatar"];
+        contact.nickName = [contactDic objectForKey:@"nickName"];
+        contact.signature= [contactDic objectForKey:@"signature"];
+        contact.easemobUser = [contactDic objectForKey:@"easemobUser"];
+        contact.gender = [contactDic objectForKey:@"gender"];
+        contact.memo = [contactDic objectForKey:@"memo"];
+        [numbers addObject:contact];
+    }
+    
+    Group *tempGroup = [self groupWithGroupId:groupId];
+    if (!tempGroup) {
+        tempGroup = [self createGroupWithGroupId:groupId owner:owner groupSubject:subject groupInfo:groupDescription numbers:numbers];
+    } else {
+        tempGroup.groupId = groupId;
+        tempGroup.groupSubject= subject;
+        tempGroup.groupDescription = groupDescription;
+        tempGroup.numbers = numbers;
+        tempGroup.owner = owner;
+        [self save];
+    }
+    return tempGroup;
+}
+
+- (void)addNumberToGroup:(NSString *)groupId
+                 numbers:(NSSet *)numbers
+{
+    for (Group *group in self.account.groupList) {
+        if ([group.groupId isEqualToString:groupId]) {
+            [group addNumbers:numbers];
+            [self save];
+        }
+    }
+}
+
+- (void)removeNumberToGroup:(NSString *)groupId numbers:(NSSet *)numbers
+{
+    for (Group *group in self.account.groupList) {
+        if ([group.groupId isEqualToString:groupId]) {
+            [group removeNumbers:numbers];
+            [self save];
+        }
+    }
+}
+
+#pragma mark - ********* 拼音转换 ***********
 //将每个汉字的第一个拼音字母组装起来
 - (NSString *)chineseToPinyin:(NSString *)chinese
 {

@@ -26,7 +26,7 @@
     self.textLabel.font = [UIFont systemFontOfSize:14];
     self.textLabel.textColor = [UIColor grayColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    self.textLabel.numberOfLines = 2;
     return self;
 }
 

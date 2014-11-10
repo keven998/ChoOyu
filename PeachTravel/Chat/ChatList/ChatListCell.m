@@ -29,8 +29,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 7, 80, 16)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kWindowWidth-80, 7, 80, 16)];
         _timeLabel.font = [UIFont systemFontOfSize:13];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_timeLabel];
@@ -45,7 +44,7 @@
         _unreadLabel.clipsToBounds = YES;
         [self.contentView addSubview:_unreadLabel];
         
-        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 175, 20)];
+        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 200, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
         _detailLabel.font = [UIFont systemFontOfSize:15];
         _detailLabel.textColor = [UIColor lightGrayColor];
@@ -53,7 +52,7 @@
         
         self.textLabel.backgroundColor = [UIColor clearColor];
         
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, 1)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 1)];
         _lineView.backgroundColor = RGBACOLOR(207, 210, 213, 0.7);
         [self.contentView addSubview:_lineView];
     }
@@ -85,10 +84,11 @@
     CGRect frame = self.imageView.frame;
     
     self.imageView.frame = CGRectMake(10, 7, 45, 45);
-    [self.imageView sd_setImageWithURL:_placeholderImageUrl];
     
     self.textLabel.text = _name;
     self.textLabel.frame = CGRectMake(65, 7, 175, 20);
+    self.imageView.layer.cornerRadius = 22.5;
+    self.imageView.layer.masksToBounds = YES;
     
     _detailLabel.text = _detailMsg;
     _timeLabel.text = _time;
@@ -120,7 +120,11 @@
 - (void)setPlaceholderImageUrl:(NSURL *)placeholderImageUrl
 {
     _placeholderImageUrl = placeholderImageUrl;
-    [self.imageView sd_setImageWithURL:_placeholderImageUrl];
+    if (_placeholderImageUrl) {
+        [self.imageView sd_setImageWithURL:_placeholderImageUrl placeholderImage:[UIImage imageNamed:_imageName]];
+    } else {
+        [self.imageView setImage:[UIImage imageNamed:_imageName]];
+    }
 
 }
 

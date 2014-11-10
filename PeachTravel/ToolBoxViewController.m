@@ -20,6 +20,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate>
 
 @property (strong, nonatomic)NSDate *lastPlaySoundDate;
+@property (weak, nonatomic) IBOutlet UIButton *IMBtn;
 
 @end
 
@@ -343,11 +344,29 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                               inviter:(NSString *)username
                               message:(NSString *)message
 {
-#if !TARGET_IPHONE_SIMULATOR
     NSLog(@"didReceiveGroupInvitationFrom");
     [self playSoundAndVibration];
-#endif
+}
+
+- (void)groupDidUpdateInfo:(EMGroup *)group error:(EMError *)error
+{
+    NSLog(@"groupDidUpdateInfo");
+
+    if (!error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"groupDidUpdateInfo" object:nil];
+    }
+}
+
+- (void)didAcceptInvitationFromGroup:(EMGroup *)group
+                               error:(EMError *)error
+{
+    NSLog(@"didAcceptInvitationFromGroup");
     
+}
+
+- (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
+{
+    NSLog(@"didUpdateGroupList");
 }
 
 //接收到入群申请
@@ -359,6 +378,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     if (!error) {
 #if !TARGET_IPHONE_SIMULATOR
+        NSLog(@"didReceiveGroupInvitationFrom");
         [self playSoundAndVibration];
 #endif
         

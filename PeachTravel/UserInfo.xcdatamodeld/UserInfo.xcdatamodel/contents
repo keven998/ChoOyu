@@ -13,6 +13,7 @@
         <relationship name="blacklist" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="relationship1" inverseEntity="Contact" syncable="YES"/>
         <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Contact" inverseName="relationship" inverseEntity="Contact" syncable="YES"/>
         <relationship name="frendrequestlist" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FrendRequest" inverseName="relationship" inverseEntity="FrendRequest" syncable="YES"/>
+        <relationship name="groupList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="relationship" inverseEntity="Group" syncable="YES"/>
     </entity>
     <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,9 +22,11 @@
         <attribute name="memo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nickName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pinyin" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="signature" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="contacts" inverseEntity="Account" syncable="YES"/>
         <relationship name="relationship1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="blacklist" inverseEntity="Account" syncable="YES"/>
+        <relationship name="relationship2" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="numbers" inverseEntity="Group" syncable="YES"/>
     </entity>
     <entity name="ContactDetailInfo" syncable="YES"/>
     <entity name="FrendRequest" representedClassName="FrendRequest" syncable="YES">
@@ -37,11 +40,20 @@
         <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="frendrequestlist" inverseEntity="Account" syncable="YES"/>
     </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="groupDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupSubject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="owner" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="numbers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="relationship2" inverseEntity="Contact" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="groupList" inverseEntity="Account" syncable="YES"/>
+    </entity>
     <fetchRequest name="FetchRequest" entity="Account"/>
     <elements>
-        <element name="Account" positionX="-11090" positionY="-3931" width="128" height="223"/>
-        <element name="Contact" positionX="-10305" positionY="-3892" width="128" height="73"/>
+        <element name="Account" positionX="-11090" positionY="-3931" width="128" height="238"/>
+        <element name="Contact" positionX="-10305" positionY="-3892" width="128" height="208"/>
         <element name="ContactDetailInfo" positionX="-10242" positionY="-3825" width="128" height="45"/>
         <element name="FrendRequest" positionX="-10388" positionY="-4095" width="128" height="180"/>
+        <element name="Group" positionX="-10881" positionY="-3942" width="128" height="28"/>
     </elements>
 </model>

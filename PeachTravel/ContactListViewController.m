@@ -11,8 +11,11 @@
 #import "TZScrollView.h"
 #import "ChatViewController.h"
 #import "FrendRequestTableViewController.h"
+#import "ContactDetailViewController.h"
+#import "ContactListTableViewCell.h"
 
 #define contactCell      @"contactCell"
+#define requestCell      @"requestCell"
 
 @interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -47,7 +50,7 @@
 - (TZScrollView *)tzScrollView
 {
     if (!_tzScrollView) {
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.frame.size.width, 40)];
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 40)];
         _tzScrollView.scrollView.delegate = self;
         _tzScrollView.itemWidth = 80;
         _tzScrollView.itemHeight = 40;
@@ -91,10 +94,11 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
-        [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:contactCell];
+        [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
+        [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
     }
     return _contactTableView;
 }
@@ -169,6 +173,11 @@
     return [[self.dataSource objectForKey:@"headerKeys"] count]+1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50.0;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
@@ -201,14 +210,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:requestCell forIndexPath:indexPath];
         cell.textLabel.text = @"好友申请";
         return cell;
         
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
-        cell.textLabel.text = contact.nickName;
+        ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+        cell.nickNameLabel.text = contact.nickName;
         return cell;
     }
 }
@@ -221,9 +231,9 @@
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
-        chatVC.title = contact.nickName;
-        [self.navigationController pushViewController:chatVC animated:YES];
+        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        contactDetailCtl.contact = contact;
+        [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
 }
 

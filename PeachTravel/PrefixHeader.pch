@@ -12,6 +12,7 @@
 #ifdef __OBJC__
 
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
 #import "Constants.h"
 #import "TMCache.h"
 #import "AFNetworking.h"
@@ -19,7 +20,7 @@
 #import "EaseMob.h"
 #import "UIViewController+DismissKeyboard.h"
 #import "UIViewController+HUD.h"
-#import "WCAlertView.h"
+#import "UIAlertView+Block.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 

@@ -60,7 +60,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(155, 0, 10, 10)];
+        UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width/2-5, 0, 10, 10)];
         indicatorView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_scrollView];
         [self addSubview:indicatorView];
@@ -70,7 +70,7 @@
 
 - (void)awakeFromNib
 {
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.frame.size.width, _itemHeight)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, _itemHeight)];
     [self addSubview:_scrollView];
 }
 

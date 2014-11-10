@@ -26,6 +26,8 @@
 - (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
+- (BOOL)isMyFrend:(NSNumber *)userId;       //判读是不是我的好友
+
 //将好友加入到数据库当中
 - (void)addContact:(id)userInfo;
 
@@ -46,6 +48,23 @@
 
 //通过环信 id 获取桃子用户信息
 - (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
+
+#pragma mark *******群组相关信息******
+- (Group *)groupWithGroupId:(NSString *)groupId;
+
+- (Group *)updateGroup:(NSString *)groupId
+        withGroupOwner:(NSString *)owner
+          groupSubject:(NSString *)subject
+             groupInfo:(NSString *)groupDescription
+               numbers:(id)numbersDic;
+
+- (void)addNumberToGroup:(NSString *)groupId
+                 numbers:(NSSet *)numbers;
+
+- (void)removeNumberToGroup:(NSString *)groupId
+                 numbers:(NSSet *)numbers;
+
+
 
 
 @end

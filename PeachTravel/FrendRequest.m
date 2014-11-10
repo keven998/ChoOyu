@@ -15,6 +15,7 @@
 @dynamic userId;
 @dynamic nickName;
 @dynamic easemobUser;
+@dynamic requestDate;
 @dynamic gender;
 @dynamic avatar;
 @dynamic relationship;

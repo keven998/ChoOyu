@@ -29,18 +29,20 @@
 #define BASE_URL                @ "http://api.lvxingpai.cn/taozi/"
 
 //用户相关接口
-#define API_WEIXIN_LOGIN        (BASE_URL @"users/auth-signup")
-#define API_USERINFO            (BASE_URL @"users/")
-#define API_GET_CAPTCHA         (BASE_URL @"users/send-validation")    //接收验证码
-#define API_VERIFY_CAPTCHA      (BASE_URL @"users/check-validation")   //验证验证码
-#define API_RESET_PWD           (BASE_URL @"users/reset-pwd")           //重新设置密码
-#define API_SIGNUP              (BASE_URL @"users/signup")        //用户注册
-#define API_SIGNIN              (BASE_URL @"users/signin")
-#define API_BINDTEL             (BASE_URL @"users/bind")        //绑定手机号
-#define API_SEARCH_USER         (BASE_URL @"users/search")      //搜索好友
-#define API_SEARCH_USER         (BASE_URL @"users/search")      //搜索好友
-#define API_ADD_CONTACT         (BASE_URL @"users/contacts")   //添加好友
-#define API_DELETE_CONTACTS     (BASE_URL @"users/contacts")   //删除好友
+#define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")
+#define API_USERINFO                    (BASE_URL @"users/")
+#define API_GET_CAPTCHA                 (BASE_URL @"users/send-validation")    //接收验证码
+#define API_VERIFY_CAPTCHA              (BASE_URL @"users/check-validation")   //验证验证码
+#define API_RESET_PWD                   (BASE_URL @"users/reset-pwd")           //重新设置密码
+#define API_SIGNUP                      (BASE_URL @"users/signup")        //用户注册
+#define API_SIGNIN                      (BASE_URL @"users/signin")
+#define API_BINDTEL                     (BASE_URL @"users/bind")        //绑定手机号
+#define API_SEARCH_USER                 (BASE_URL @"users/search")      //搜索好友
+#define API_SEARCH_USER                 (BASE_URL @"users/search")      //搜索好友
+#define API_ADD_CONTACT                 (BASE_URL @"users/contacts")   //添加好友
+#define API_DELETE_CONTACTS             (BASE_URL @"users/contacts")   //删除好友
+#define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
+
 
 
 //IM相关接口
@@ -101,6 +103,8 @@ typedef enum : NSUInteger {
     TZChatTypeShopping,             //购物
     TZChatTypeHotel,                //酒店
     
+    TZTipsMsg    =  100             //自定义的提示信息， 如：我加入了旅行派群组
+    
 } TZChatType;
 
 /***** 桃子旅行好友请求枚举信息****/
@@ -125,6 +129,7 @@ typedef enum : NSUInteger {
 
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
+#define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
 
 
 

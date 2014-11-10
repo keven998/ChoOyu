@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "ChatView/ChatViewController.h"
 #import "CreateConversationTableViewCell.h"
+#import "ChatView/ChatSendHelper.h"
 
 #define contactCell      @"createConversationCell"
 
@@ -45,7 +46,7 @@
 {
     if (!_tzScrollView) {
         
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 144, [UIApplication sharedApplication].keyWindow.frame.size.width, 40)];
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 144, kWindowWidth, 40)];
         _tzScrollView.scrollView.delegate = self;
         _tzScrollView.itemWidth = 80;
         _tzScrollView.itemHeight = 40;
@@ -73,7 +74,7 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height)];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth-20, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height)];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
@@ -109,50 +110,72 @@
 
 - (IBAction)createConversation:(id)sender
 {
-    NSLog(@"我选择的聊天好友为：%@", self.selectedContacts);
-    if (self.selectedContacts.count == 0) {
-        [SVProgressHUD showErrorWithStatus:@"一个都不选聊天球啊"];
-        
-    } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
-        Contact *contact = [self.selectedContacts firstObject];
-        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
-        chatVC.title = contact.nickName;
-        [self.navigationController pushViewController:chatVC animated:YES];
-        
-    } else if (self.selectedContacts.count > 1) {     //群聊
-        [self showHudInView:self.view hint:@"创建群组..."];
-        
-        NSMutableArray *source = [NSMutableArray array];
-        for (Contact *buddy in self.selectedContacts) {
-            [source addObject:buddy.easemobUser];
+    if (_group) {         //如果是向已有的群组里添加新的成员
+        [self didAddNumberToGroup];
+
+    } else {
+        NSLog(@"我选择的聊天好友为：%@", self.selectedContacts);
+        if (self.selectedContacts.count == 0) {
+            [SVProgressHUD showErrorWithStatus:@"一个都不选聊天球啊"];
+            
+        } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
+            Contact *contact = [self.selectedContacts firstObject];
+            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
+            chatVC.title = contact.nickName;
+            [self.navigationController pushViewController:chatVC animated:YES];
+            
+        } else if (self.selectedContacts.count > 1) {     //群聊
+            [self showHudInView:self.view hint:@"创建群组..."];
+            
+            NSMutableArray *source = [NSMutableArray array];
+            for (Contact *buddy in self.selectedContacts) {
+                [source addObject:buddy.easemobUser];
+            }
+            
+            Contact *firstContact = [self.selectedContacts firstObject];
+            Contact *secondContact = [self.selectedContacts objectAtIndex:1];
+            NSString *groupName = [NSString stringWithFormat:@"%@,%@",firstContact.nickName, secondContact.nickName];
+
+            EMGroupStyleSetting *setting = [[EMGroupStyleSetting alloc] init];
+            setting.groupStyle = eGroupStyle_PrivateMemberCanInvite;
+            
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            NSString *messageStr = [NSString stringWithFormat:@"%@ 邀请你加入群组\'%@\'", accountManager.account.nickName, groupName];
+            __weak CreateConversationViewController *weakSelf = self;
+            
+            [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:groupName description:@"" invitees:source initialWelcomeMessage:messageStr styleSetting:setting completion:^(EMGroup *group, EMError *error) {
+                [weakSelf hideHud];
+                if (group && !error) {
+                    NSLog(@"%@", [NSThread currentThread]);
+                    [weakSelf showHint:@"创建群组成功"];
+                    [[EaseMob sharedInstance].chatManager setNickname:groupName];
+                    [weakSelf sendMsgWhileCreateGroup:group.groupId];
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }
+                else{
+                    [weakSelf showHint:@"创建群组失败，请重新操作"];
+                }
+            } onQueue:nil];
+
         }
-        
-        Contact *firstContact = [self.selectedContacts firstObject];
-        Contact *secondContact = [self.selectedContacts objectAtIndex:1];
-        NSString *groupName = [NSString stringWithFormat:@"%@,%@",firstContact.nickName, secondContact.nickName];
-
-        EMGroupStyleSetting *setting = [[EMGroupStyleSetting alloc] init];
-        setting.groupStyle = eGroupStyle_PrivateMemberCanInvite;
-        
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        NSString *messageStr = [NSString stringWithFormat:@"%@ 邀请你加入群组\'%@\'", accountManager.account.nickName, groupName];
-        __weak CreateConversationViewController *weakSelf = self;
-        
-        [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:groupName description:@"" invitees:source initialWelcomeMessage:messageStr styleSetting:setting completion:^(EMGroup *group, EMError *error) {
-            [weakSelf hideHud];
-            if (group && !error) {
-                [weakSelf showHint:@"创建群组成功"];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }
-            else{
-                [weakSelf showHint:@"创建群组失败，请重新操作"];
-            }
-        } onQueue:nil];
-
     }
 }
 
 #pragma mark - Private Methods
+
+//当群主创建了一个群组，向群里发送一条欢迎语句
+- (void)sendMsgWhileCreateGroup:(NSString *)groupId
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    NSMutableString *messageStr = [NSMutableString stringWithFormat:@"%@邀请了",accountManager.account.nickName];
+    for (Contact *contact in self.selectedContacts) {
+        [messageStr appendString:[NSString stringWithFormat:@"%@ ", contact.nickName]];
+    }
+    [messageStr appendString:@"加入了群聊"];
+    NSDictionary *messageDic = @{@"tzType":@100, @"content":messageStr};
+    
+    [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:groupId isChatGroup:YES requireEncryption:NO];
+}
 
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
 {
@@ -169,6 +192,42 @@
         }
     }
     return NO;
+}
+
+- (BOOL)isNumberInGroup:(NSNumber *)userId
+{
+    for (Contact *contact in self.group.numbers) {
+        if (userId.integerValue == contact.userId.integerValue) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)didAddNumberToGroup
+{
+    __weak typeof(self) weakSelf = self;
+    [SVProgressHUD show];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *source = [NSMutableArray array];
+        for (Contact *contact in self.selectedContacts) {
+            [source addObject:contact.easemobUser];
+        }
+        [SVProgressHUD show];
+        EMError *error = nil;
+        [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
+        if (!error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showSuccessWithStatus:@"添加成功"];
+                [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
+                AccountManager *accountManager = [AccountManager shareAccountManager];
+                [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
+                [self sendMsgWhileCreateGroup:_group.groupId];
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+            
+        }
+    });
 }
 
 #pragma mark - UITableVeiwDataSource & delegate
@@ -191,9 +250,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    label.backgroundColor = [UIColor grayColor];
-    
-    label.text = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section];
+    label.backgroundColor = [UIColor whiteColor];
+    label.layer.borderColor = UIColorFromRGB(0xeeeeee).CGColor;
+    label.layer.borderWidth = 1.0;
+    label.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section]];
     return label;
 }
 
@@ -215,6 +275,9 @@
     } else {
         cell.selectImageView.backgroundColor = [UIColor greenColor];
     }
+    if ([self isNumberInGroup:contact.userId]) {
+        cell.selectImageView.backgroundColor = [UIColor grayColor];
+    }
     return cell;
 }
 
@@ -222,7 +285,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
+    if ([self isNumberInGroup:contact.userId]) {
+        return;
+    }
     if ([self isSelected:contact.userId]) {
         [self.selectedContacts removeObject:contact];
     } else {

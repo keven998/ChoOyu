@@ -67,6 +67,36 @@
 
 #pragma mark - Private Methods
 
+- (void)insertMsgToEasemobDB:(FrendRequest *)frendRequest
+{
+    id  chatManager = [[EaseMob sharedInstance] chatManager];
+    EMConversation *conversation = [chatManager conversationForChatter:frendRequest.easemobUser isGroup:NO];
+    NSDictionary *loginInfo = [chatManager loginInfo];
+    NSString *account = [loginInfo objectForKey:kSDKUsername];
+    EMChatText *chatText = [[EMChatText alloc] initWithText:@""];
+    EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
+    EMMessage *message = [[EMMessage alloc] initWithReceiver:frendRequest.easemobUser bodies:@[textBody]];
+    
+    NSString *str = [NSString stringWithFormat:@"你已添加%@为好友",frendRequest.nickName];
+    message.ext = @{
+                    @"tzType":@100,
+                    @"content":str
+                    };
+    [message setIsGroup:NO];
+    [message setIsAcked:NO];
+    [message setTo:account];
+    [message setFrom:frendRequest.easemobUser];
+    [message setIsGroup:NO];
+    
+    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+    NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
+    [message setMessageId:messageID];
+    
+    [chatManager saveConversation:conversation];
+    [chatManager importMessage:message
+                   append2Chat:YES];
+}
+
 - (void)updateDataSource
 {
     [self.dataSource removeAllObjects];
@@ -105,6 +135,7 @@
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
+            [self insertMsgToEasemobDB:frendRequest];
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }

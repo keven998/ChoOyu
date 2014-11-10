@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9048F301A09F18500334AB5 /* ChatSettingViewController.m */; };
+		D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */; };
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
 		D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */; };
 		D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */; };
@@ -210,21 +212,6 @@
 		D90F368019F63ED200E26FA9 /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F367D19F63ED200E26FA9 /* Emoji.m */; };
 		D90F368119F63ED200E26FA9 /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F367F19F63ED200E26FA9 /* EmojiEmoticons.m */; };
 		D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */; };
-		D90F36E919F63FFA00E26FA9 /* ChatGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36D519F63FFA00E26FA9 /* ChatGroupDetailViewController.m */; };
-		D90F36EA19F63FFA00E26FA9 /* ContactSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36D719F63FFA00E26FA9 /* ContactSelectionViewController.m */; };
-		D90F36EB19F63FFA00E26FA9 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36D919F63FFA00E26FA9 /* CreateGroupViewController.m */; };
-		D90F36EC19F63FFA00E26FA9 /* group_detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36DA19F63FFA00E26FA9 /* group_detail@2x.png */; };
-		D90F36ED19F63FFA00E26FA9 /* group_invitee_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36DB19F63FFA00E26FA9 /* group_invitee_delete@2x.png */; };
-		D90F36EE19F63FFA00E26FA9 /* group_participant_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36DC19F63FFA00E26FA9 /* group_participant_add@2x.png */; };
-		D90F36EF19F63FFA00E26FA9 /* group_participant_addHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36DD19F63FFA00E26FA9 /* group_participant_addHL@2x.png */; };
-		D90F36F019F63FFA00E26FA9 /* GroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36DF19F63FFA00E26FA9 /* GroupListViewController.m */; };
-		D90F36F119F63FFA00E26FA9 /* groupPrivateHeader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36E019F63FFA00E26FA9 /* groupPrivateHeader@2x.png */; };
-		D90F36F219F63FFA00E26FA9 /* groupPublicHeader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36E119F63FFA00E26FA9 /* groupPublicHeader@2x.png */; };
-		D90F36F319F63FFA00E26FA9 /* GroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E319F63FFA00E26FA9 /* GroupSettingViewController.m */; };
-		D90F36F419F63FFA00E26FA9 /* nav_createGroup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F36E419F63FFA00E26FA9 /* nav_createGroup@2x.png */; };
-		D90F36F519F63FFA00E26FA9 /* PublicGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E619F63FFA00E26FA9 /* PublicGroupDetailViewController.m */; };
-		D90F36F619F63FFA00E26FA9 /* PublicGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */; };
-		D90F36FA19F6402000E26FA9 /* WCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F36F919F6402000E26FA9 /* WCAlertView.m */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
@@ -274,6 +261,10 @@
 		D964204519EBF42E00CC8057 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D964204319EBF42E00CC8057 /* TencentOpenAPI.framework */; };
 		D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964207D19ECC65000CC8057 /* ChangePasswordViewController.m */; };
 		D964208019ECC65000CC8057 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */; };
+		D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A41A0DE3C600122793 /* ANBlurredImageView.m */; };
+		D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */; };
+		D96819AC1A0E031000122793 /* ContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819AA1A0E031000122793 /* ContactListTableViewCell.m */; };
+		D96819AD1A0E031000122793 /* ContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96819AB1A0E031000122793 /* ContactListTableViewCell.xib */; };
 		D973340A19EB77B6004D2D8D /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D973340619EB77B6004D2D8D /* libSocialQQ.a */; };
 		D97B670119E90C70004439A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97B66FF19E90C70004439A3 /* LoginViewController.m */; };
 		D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97B670019E90C70004439A3 /* LoginViewController.xib */; };
@@ -298,8 +289,6 @@
 		D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A717A41A03B04A005BDEFE /* CreateConversationViewController.xib */; };
 		D9A717A81A047E7C005BDEFE /* c2cReceiverMsgNodeBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A717A71A047E7C005BDEFE /* c2cReceiverMsgNodeBG@2x.png */; };
 		D9A717AA1A047E94005BDEFE /* c2cRejectedSenderReceiverMsgNodeBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A717A91A047E94005BDEFE /* c2cRejectedSenderReceiverMsgNodeBG@2x.png */; };
-		D9A717B61A04945E005BDEFE /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717B51A04945E005BDEFE /* Account.m */; };
-		D9A717B91A04945F005BDEFE /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717B81A04945F005BDEFE /* Contact.m */; };
 		D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717BB1A04945F005BDEFE /* FrendRequest.m */; };
 		D9A717C11A04AD4F005BDEFE /* FrendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717BF1A04AD4F005BDEFE /* FrendRequestTableViewController.m */; };
 		D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */; };
@@ -313,6 +302,14 @@
 		D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD72C19EBBAAD001AC9F2 /* AppUtils.m */; };
 		D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */; };
 		D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */; };
+		D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE349B1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m */; };
+		D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */; };
+		D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34D71A0B1F2500DDCCAB /* ChatScrollView.m */; };
+		D9DE34DC1A0B5B8800DDCCAB /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34DA1A0B5B8800DDCCAB /* ContactDetailViewController.m */; };
+		D9DE34DD1A0B5B8800DDCCAB /* ContactDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE34DB1A0B5B8800DDCCAB /* ContactDetailViewController.xib */; };
+		D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34EC1A0B92A900DDCCAB /* Group.m */; };
+		D9DE34F01A0B92AA00DDCCAB /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34EF1A0B92AA00DDCCAB /* Account.m */; };
+		D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34F21A0B92AA00DDCCAB /* Contact.m */; };
 		D9DE789E1A027965008A8576 /* ContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE789C1A027965008A8576 /* ContactListViewController.m */; };
 		D9DE789F1A027965008A8576 /* ContactListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE789D1A027965008A8576 /* ContactListViewController.xib */; };
 		D9DE78DD1A033724008A8576 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE78DC1A033724008A8576 /* MHTabBarController.m */; };
@@ -367,6 +364,9 @@
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D9048F2F1A09F18500334AB5 /* ChatSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSettingViewController.h; sourceTree = "<group>"; };
+		D9048F301A09F18500334AB5 /* ChatSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSettingViewController.m; sourceTree = "<group>"; };
+		D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSettingViewController.xib; sourceTree = "<group>"; };
 		D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
 		D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
 		D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewController.xib; sourceTree = "<group>"; };
@@ -622,29 +622,6 @@
 		D90F367F19F63ED200E26FA9 /* EmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiEmoticons.m; sourceTree = "<group>"; };
 		D90F368219F63F5B00E26FA9 /* RealtimeSearchUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealtimeSearchUtil.h; sourceTree = "<group>"; };
 		D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealtimeSearchUtil.m; sourceTree = "<group>"; };
-		D90F36D419F63FFA00E26FA9 /* ChatGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupDetailViewController.h; sourceTree = "<group>"; };
-		D90F36D519F63FFA00E26FA9 /* ChatGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupDetailViewController.m; sourceTree = "<group>"; };
-		D90F36D619F63FFA00E26FA9 /* ContactSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSelectionViewController.h; sourceTree = "<group>"; };
-		D90F36D719F63FFA00E26FA9 /* ContactSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSelectionViewController.m; sourceTree = "<group>"; };
-		D90F36D819F63FFA00E26FA9 /* CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
-		D90F36D919F63FFA00E26FA9 /* CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
-		D90F36DA19F63FFA00E26FA9 /* group_detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group_detail@2x.png"; sourceTree = "<group>"; };
-		D90F36DB19F63FFA00E26FA9 /* group_invitee_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group_invitee_delete@2x.png"; sourceTree = "<group>"; };
-		D90F36DC19F63FFA00E26FA9 /* group_participant_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group_participant_add@2x.png"; sourceTree = "<group>"; };
-		D90F36DD19F63FFA00E26FA9 /* group_participant_addHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group_participant_addHL@2x.png"; sourceTree = "<group>"; };
-		D90F36DE19F63FFA00E26FA9 /* GroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListViewController.h; sourceTree = "<group>"; };
-		D90F36DF19F63FFA00E26FA9 /* GroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListViewController.m; sourceTree = "<group>"; };
-		D90F36E019F63FFA00E26FA9 /* groupPrivateHeader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groupPrivateHeader@2x.png"; sourceTree = "<group>"; };
-		D90F36E119F63FFA00E26FA9 /* groupPublicHeader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groupPublicHeader@2x.png"; sourceTree = "<group>"; };
-		D90F36E219F63FFA00E26FA9 /* GroupSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSettingViewController.h; sourceTree = "<group>"; };
-		D90F36E319F63FFA00E26FA9 /* GroupSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSettingViewController.m; sourceTree = "<group>"; };
-		D90F36E419F63FFA00E26FA9 /* nav_createGroup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_createGroup@2x.png"; sourceTree = "<group>"; };
-		D90F36E519F63FFA00E26FA9 /* PublicGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicGroupDetailViewController.h; sourceTree = "<group>"; };
-		D90F36E619F63FFA00E26FA9 /* PublicGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicGroupDetailViewController.m; sourceTree = "<group>"; };
-		D90F36E719F63FFA00E26FA9 /* PublicGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicGroupListViewController.h; sourceTree = "<group>"; };
-		D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicGroupListViewController.m; sourceTree = "<group>"; };
-		D90F36F819F6402000E26FA9 /* WCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlertView.h; sourceTree = "<group>"; };
-		D90F36F919F6402000E26FA9 /* WCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlertView.m; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -716,6 +693,13 @@
 		D964207C19ECC65000CC8057 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		D964207D19ECC65000CC8057 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
+		D96819A31A0DE3C600122793 /* ANBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredImageView.h; sourceTree = "<group>"; };
+		D96819A41A0DE3C600122793 /* ANBlurredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBlurredImageView.m; sourceTree = "<group>"; };
+		D96819A51A0DE3C600122793 /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
+		D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BoxBlur.m"; sourceTree = "<group>"; };
+		D96819A91A0E031000122793 /* ContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListTableViewCell.h; sourceTree = "<group>"; };
+		D96819AA1A0E031000122793 /* ContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListTableViewCell.m; sourceTree = "<group>"; };
+		D96819AB1A0E031000122793 /* ContactListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListTableViewCell.xib; sourceTree = "<group>"; };
 		D973340619EB77B6004D2D8D /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
 		D973340919EB77B6004D2D8D /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
 		D97B66FE19E90C70004439A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -754,10 +738,6 @@
 		D9A717A41A03B04A005BDEFE /* CreateConversationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationViewController.xib; sourceTree = "<group>"; };
 		D9A717A71A047E7C005BDEFE /* c2cReceiverMsgNodeBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c2cReceiverMsgNodeBG@2x.png"; sourceTree = "<group>"; };
 		D9A717A91A047E94005BDEFE /* c2cRejectedSenderReceiverMsgNodeBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c2cRejectedSenderReceiverMsgNodeBG@2x.png"; sourceTree = "<group>"; };
-		D9A717B41A04945E005BDEFE /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
-		D9A717B51A04945E005BDEFE /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
-		D9A717B71A04945F005BDEFE /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
-		D9A717B81A04945F005BDEFE /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		D9A717BA1A04945F005BDEFE /* FrendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendRequest.h; sourceTree = "<group>"; };
 		D9A717BB1A04945F005BDEFE /* FrendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrendRequest.m; sourceTree = "<group>"; };
 		D9A717BE1A04AD4F005BDEFE /* FrendRequestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendRequestTableViewController.h; sourceTree = "<group>"; };
@@ -780,6 +760,20 @@
 		D9D840FF19F4F74200FEB197 /* BindTelephoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindTelephoneViewController.h; sourceTree = "<group>"; };
 		D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindTelephoneViewController.m; sourceTree = "<group>"; };
 		D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindTelephoneViewController.xib; sourceTree = "<group>"; };
+		D9DE349A1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeGroupTitleViewController.h; sourceTree = "<group>"; };
+		D9DE349B1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeGroupTitleViewController.m; sourceTree = "<group>"; };
+		D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeGroupTitleViewController.xib; sourceTree = "<group>"; };
+		D9DE34D61A0B1F2500DDCCAB /* ChatScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatScrollView.h; sourceTree = "<group>"; };
+		D9DE34D71A0B1F2500DDCCAB /* ChatScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatScrollView.m; sourceTree = "<group>"; };
+		D9DE34D91A0B5B8800DDCCAB /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
+		D9DE34DA1A0B5B8800DDCCAB /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
+		D9DE34DB1A0B5B8800DDCCAB /* ContactDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailViewController.xib; sourceTree = "<group>"; };
+		D9DE34EB1A0B92A900DDCCAB /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		D9DE34EC1A0B92A900DDCCAB /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		D9DE34EE1A0B92AA00DDCCAB /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		D9DE34EF1A0B92AA00DDCCAB /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		D9DE34F11A0B92AA00DDCCAB /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		D9DE34F21A0B92AA00DDCCAB /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		D9DE789B1A027965008A8576 /* ContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListViewController.h; sourceTree = "<group>"; };
 		D9DE789C1A027965008A8576 /* ContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListViewController.m; sourceTree = "<group>"; };
 		D9DE789D1A027965008A8576 /* ContactListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListViewController.xib; sourceTree = "<group>"; };
@@ -891,6 +885,19 @@
 				97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D9048F1A1A09E37D00334AB5 /* ChatSetting */ = {
+			isa = PBXGroup;
+			children = (
+				D9048F2F1A09F18500334AB5 /* ChatSettingViewController.h */,
+				D9048F301A09F18500334AB5 /* ChatSettingViewController.m */,
+				D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */,
+				D9DE349A1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.h */,
+				D9DE349B1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m */,
+				D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */,
+			);
+			name = ChatSetting;
 			sourceTree = "<group>";
 		};
 		D908579819ED001C0041A4E2 /* UserInfo */ = {
@@ -1144,8 +1151,8 @@
 		D90F357319F63B3300E26FA9 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				D9048F1A1A09E37D00334AB5 /* ChatSetting */,
 				D9E9F7F51A00DDB6003F70F6 /* CreateCoversation */,
-				D90F36D319F63FFA00E26FA9 /* ChatGroup */,
 				D90F368219F63F5B00E26FA9 /* RealtimeSearchUtil.h */,
 				D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */,
 				D90F365119F63E5300E26FA9 /* Custom */,
@@ -1169,6 +1176,8 @@
 		D90F357919F63B3300E26FA9 /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
+				D9DE34D61A0B1F2500DDCCAB /* ChatScrollView.h */,
+				D9DE34D71A0B1F2500DDCCAB /* ChatScrollView.m */,
 				D90C63C019FB9FC900C2E440 /* ChosePhotos */,
 				D90F357A19F63B3300E26FA9 /* call_out.png */,
 				D90F357B19F63B3300E26FA9 /* call_out@2x.png */,
@@ -1445,44 +1454,6 @@
 			path = Emoji;
 			sourceTree = "<group>";
 		};
-		D90F36D319F63FFA00E26FA9 /* ChatGroup */ = {
-			isa = PBXGroup;
-			children = (
-				D90F36D419F63FFA00E26FA9 /* ChatGroupDetailViewController.h */,
-				D90F36D519F63FFA00E26FA9 /* ChatGroupDetailViewController.m */,
-				D90F36D619F63FFA00E26FA9 /* ContactSelectionViewController.h */,
-				D90F36D719F63FFA00E26FA9 /* ContactSelectionViewController.m */,
-				D90F36D819F63FFA00E26FA9 /* CreateGroupViewController.h */,
-				D90F36D919F63FFA00E26FA9 /* CreateGroupViewController.m */,
-				D90F36DA19F63FFA00E26FA9 /* group_detail@2x.png */,
-				D90F36DB19F63FFA00E26FA9 /* group_invitee_delete@2x.png */,
-				D90F36DC19F63FFA00E26FA9 /* group_participant_add@2x.png */,
-				D90F36DD19F63FFA00E26FA9 /* group_participant_addHL@2x.png */,
-				D90F36DE19F63FFA00E26FA9 /* GroupListViewController.h */,
-				D90F36DF19F63FFA00E26FA9 /* GroupListViewController.m */,
-				D90F36E019F63FFA00E26FA9 /* groupPrivateHeader@2x.png */,
-				D90F36E119F63FFA00E26FA9 /* groupPublicHeader@2x.png */,
-				D90F36E219F63FFA00E26FA9 /* GroupSettingViewController.h */,
-				D90F36E319F63FFA00E26FA9 /* GroupSettingViewController.m */,
-				D90F36E419F63FFA00E26FA9 /* nav_createGroup@2x.png */,
-				D90F36E519F63FFA00E26FA9 /* PublicGroupDetailViewController.h */,
-				D90F36E619F63FFA00E26FA9 /* PublicGroupDetailViewController.m */,
-				D90F36E719F63FFA00E26FA9 /* PublicGroupListViewController.h */,
-				D90F36E819F63FFA00E26FA9 /* PublicGroupListViewController.m */,
-			);
-			name = ChatGroup;
-			path = PeachTravel/ChatGroup;
-			sourceTree = SOURCE_ROOT;
-		};
-		D90F36F719F6402000E26FA9 /* WCAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				D90F36F819F6402000E26FA9 /* WCAlertView.h */,
-				D90F36F919F6402000E26FA9 /* WCAlertView.m */,
-			);
-			path = WCAlertView;
-			sourceTree = "<group>";
-		};
 		D955E34919E6306C00047F2B /* Destination */ = {
 			isa = PBXGroup;
 			children = (
@@ -1575,7 +1546,6 @@
 				D958E3671A0256A60026EF7E /* KxMenu */,
 				D9FCC79B1A0232CB00AD7CBF /* Pinyin */,
 				D9E9F7B31A00CF9E003F70F6 /* TZScrollView */,
-				D90F36F719F6402000E26FA9 /* WCAlertView */,
 				D90F367B19F63ED200E26FA9 /* Emoji */,
 				D90F366F19F63EBF00E26FA9 /* SlimeRefresh */,
 				D90F363819F63BE000E26FA9 /* THProgressView */,
@@ -1690,6 +1660,10 @@
 		D955E3F319E7A72300047F2B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				D96819A31A0DE3C600122793 /* ANBlurredImageView.h */,
+				D96819A41A0DE3C600122793 /* ANBlurredImageView.m */,
+				D96819A51A0DE3C600122793 /* UIImage+BoxBlur.h */,
+				D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */,
 				D97C17D919FE5C5900895B62 /* UIImage+Utils.h */,
 				D97C17DA19FE5C5900895B62 /* UIImage+Utils.m */,
 				D90F363C19F63C2F00E26FA9 /* NSDate+Category.h */,
@@ -1850,6 +1824,19 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		D96819AE1A0E032F00122793 /* ContactList */ = {
+			isa = PBXGroup;
+			children = (
+				D9DE789B1A027965008A8576 /* ContactListViewController.h */,
+				D9DE789C1A027965008A8576 /* ContactListViewController.m */,
+				D9DE789D1A027965008A8576 /* ContactListViewController.xib */,
+				D96819A91A0E031000122793 /* ContactListTableViewCell.h */,
+				D96819AA1A0E031000122793 /* ContactListTableViewCell.m */,
+				D96819AB1A0E031000122793 /* ContactListTableViewCell.xib */,
+			);
+			name = ContactList;
+			sourceTree = "<group>";
+		};
 		D973340519EB77B6004D2D8D /* TencentOpenAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1876,9 +1863,8 @@
 			children = (
 				D9A717BD1A04AD29005BDEFE /* FrendRequest */,
 				D9E9F7A81A00A390003F70F6 /* AddContact */,
-				D9DE789B1A027965008A8576 /* ContactListViewController.h */,
-				D9DE789C1A027965008A8576 /* ContactListViewController.m */,
-				D9DE789D1A027965008A8576 /* ContactListViewController.xib */,
+				D96819AE1A0E032F00122793 /* ContactList */,
+				D9DE34DE1A0B5B8D00DDCCAB /* ContactDetail */,
 			);
 			name = Contact;
 			sourceTree = "<group>";
@@ -2051,6 +2037,16 @@
 			name = BindPhone;
 			sourceTree = "<group>";
 		};
+		D9DE34DE1A0B5B8D00DDCCAB /* ContactDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D9DE34D91A0B5B8800DDCCAB /* ContactDetailViewController.h */,
+				D9DE34DA1A0B5B8800DDCCAB /* ContactDetailViewController.m */,
+				D9DE34DB1A0B5B8800DDCCAB /* ContactDetailViewController.xib */,
+			);
+			name = ContactDetail;
+			sourceTree = "<group>";
+		};
 		D9DE78DE1A033729008A8576 /* MHTabBarController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2105,10 +2101,12 @@
 				D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */,
 				D9A717BA1A04945F005BDEFE /* FrendRequest.h */,
 				D9A717BB1A04945F005BDEFE /* FrendRequest.m */,
-				D9A717B71A04945F005BDEFE /* Contact.h */,
-				D9A717B81A04945F005BDEFE /* Contact.m */,
-				D9A717B41A04945E005BDEFE /* Account.h */,
-				D9A717B51A04945E005BDEFE /* Account.m */,
+				D9DE34F11A0B92AA00DDCCAB /* Contact.h */,
+				D9DE34F21A0B92AA00DDCCAB /* Contact.m */,
+				D9DE34EE1A0B92AA00DDCCAB /* Account.h */,
+				D9DE34EF1A0B92AA00DDCCAB /* Account.m */,
+				D9DE34EB1A0B92A900DDCCAB /* Group.h */,
+				D9DE34EC1A0B92A900DDCCAB /* Group.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2352,6 +2350,7 @@
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
 				D90C63B419FB44D300C2E440 /* chat_sender_audio_playing_000.png in Resources */,
+				D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */,
 				D90C638019FB44D300C2E440 /* VoiceSearchFeedback010@2x.png in Resources */,
 				D90C63A019FB44D300C2E440 /* chat_location_annotation_someone.png in Resources */,
 				D90C637D19FB44D300C2E440 /* VoiceSearchFeedback009.png in Resources */,
@@ -2389,7 +2388,6 @@
 				D90C636D19FB44D300C2E440 /* VoiceSearchFeedback001.png in Resources */,
 				D90C63AF19FB44D300C2E440 /* chat_receiver_audio_playing003@2x.png in Resources */,
 				D90C637219FB44D300C2E440 /* VoiceSearchFeedback003@2x.png in Resources */,
-				D90F36F419F63FFA00E26FA9 /* nav_createGroup@2x.png in Resources */,
 				D90C636A19FB44D300C2E440 /* chatFire_audioPlaying2@2x.png in Resources */,
 				D90F362219F63B3300E26FA9 /* chatBar_more_location@2x.png in Resources */,
 				D90F360219F63B3300E26FA9 /* chatBar_face@2x.png in Resources */,
@@ -2441,7 +2439,6 @@
 				D90C637F19FB44D300C2E440 /* VoiceSearchFeedback010.png in Resources */,
 				D90F361219F63B3300E26FA9 /* chatBar_recordSelected@2x.png in Resources */,
 				D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */,
-				D90F36EE19F63FFA00E26FA9 /* group_participant_add@2x.png in Resources */,
 				D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */,
 				D90C638619FB44D300C2E440 /* VoiceSearchFeedback013@2x.png in Resources */,
 				D90F35F319F63B3300E26FA9 /* callBg@2x.png in Resources */,
@@ -2450,7 +2447,6 @@
 				D90F360919F63B3300E26FA9 /* chatBar_more.png in Resources */,
 				D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */,
 				D90C63A219FB44D300C2E440 /* chat_location_detail_disclosure.png in Resources */,
-				D90F36F219F63FFA00E26FA9 /* groupPublicHeader@2x.png in Resources */,
 				D90C638919FB44D300C2E440 /* VoiceSearchFeedback015.png in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
 				D90F362319F63B3300E26FA9 /* chatBar_more_locationSelected.png in Resources */,
@@ -2472,22 +2468,20 @@
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D90F361B19F63B3300E26FA9 /* chatBar_colorMore_video@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
-				D90F36EF19F63FFA00E26FA9 /* group_participant_addHL@2x.png in Resources */,
 				D90C63B019FB44D300C2E440 /* chat_receiver_audio_playing_full.png in Resources */,
 				D90F361C19F63B3300E26FA9 /* chatBar_colorMore_videoSelected@2x.png in Resources */,
 				D90F360419F63B3300E26FA9 /* chatBar_faceSelected@2x.png in Resources */,
 				D90C639B19FB44D300C2E440 /* chatBar_more_face@2x.png in Resources */,
 				D90F35FD19F63B3300E26FA9 /* faceDelete@2x.png in Resources */,
 				D90C636819FB44D300C2E440 /* chatFire_audioPlaying1@2x.png in Resources */,
-				D90F36EC19F63FFA00E26FA9 /* group_detail@2x.png in Resources */,
 				D90F360719F63B3300E26FA9 /* chatBar_keyboardSelected.png in Resources */,
 				D90F35F019F63B3300E26FA9 /* call_silence@2x.png in Resources */,
-				D90F36ED19F63FFA00E26FA9 /* group_invitee_delete@2x.png in Resources */,
 				D90F360D19F63B3300E26FA9 /* chatBar_record.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
+				D9DE34DD1A0B5B8800DDCCAB /* ContactDetailViewController.xib in Resources */,
 				D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D90C636F19FB44D300C2E440 /* VoiceSearchFeedback002.png in Resources */,
 				D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */,
@@ -2500,6 +2494,7 @@
 				D955E54E19E7A91300047F2B /* sns_icon_sina@2x.png in Resources */,
 				D90F361619F63B3300E26FA9 /* chatBar_colorMore_cameraSelected@2x.png in Resources */,
 				D90C639719FB44D300C2E440 /* chatBar_more_card@2x.png in Resources */,
+				D96819AD1A0E031000122793 /* ContactListTableViewCell.xib in Resources */,
 				D9A717AA1A047E94005BDEFE /* c2cRejectedSenderReceiverMsgNodeBG@2x.png in Resources */,
 				D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */,
 				D90C636419FB44D300C2E440 /* chatListCellHead@2x.png in Resources */,
@@ -2519,6 +2514,7 @@
 				D90F362119F63B3300E26FA9 /* chatBar_more_location.png in Resources */,
 				D90C637119FB44D300C2E440 /* VoiceSearchFeedback003.png in Resources */,
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
+				D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */,
 				D90C638819FB44D300C2E440 /* VoiceSearchFeedback014@2x.png in Resources */,
 				D982F90E1A04BF4800ECF18A /* FrendRequestTableViewCell.xib in Resources */,
 				D9F57B9719E93486005BB43B /* UMSocialSDKResourcesNew.bundle in Resources */,
@@ -2548,7 +2544,6 @@
 				D90F360119F63B3300E26FA9 /* chatBar_face.png in Resources */,
 				D9E9F7B21A00AC6D003F70F6 /* AddressBookTableViewController.xib in Resources */,
 				D90C639A19FB44D300C2E440 /* chatBar_more_face.png in Resources */,
-				D90F36F119F63FFA00E26FA9 /* groupPrivateHeader@2x.png in Resources */,
 				D90C637919FB44D300C2E440 /* VoiceSearchFeedback007.png in Resources */,
 				D955E54B19E7A91300047F2B /* sns_icon_qqweibo@2x.png in Resources */,
 				D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */,
@@ -2623,16 +2618,13 @@
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
 				D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */,
-				D90F36F619F63FFA00E26FA9 /* PublicGroupListViewController.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
 				D90F364919F63C2F00E26FA9 /* NSDateFormatter+Category.m in Sources */,
 				D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */,
 				D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */,
-				D90F36F019F63FFA00E26FA9 /* GroupListViewController.m in Sources */,
 				D90F35FA19F63B3300E26FA9 /* DXMessageToolBar.m in Sources */,
 				D90F364A19F63C2F00E26FA9 /* NSString+Valid.m in Sources */,
 				D9E9F7F41A00DB00003F70F6 /* TZScrollView.m in Sources */,
-				D90F36F519F63FFA00E26FA9 /* PublicGroupDetailViewController.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
@@ -2647,31 +2639,30 @@
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
 				D90F363119F63B3300E26FA9 /* EMChatTimeCell.m in Sources */,
 				D90F356C19F6391E00E26FA9 /* ToolBoxViewController.m in Sources */,
+				D9DE34F01A0B92AA00DDCCAB /* Account.m in Sources */,
 				D97C17DB19FE5C5900895B62 /* UIImage+Utils.m in Sources */,
 				D97C17D419FE301B00895B62 /* MessageModelManager.m in Sources */,
-				D9A717B61A04945E005BDEFE /* Account.m in Sources */,
+				D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */,
 				D9DE78DD1A033724008A8576 /* MHTabBarController.m in Sources */,
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
 				D90F366819F63E5300E26FA9 /* EMTextView.m in Sources */,
 				D9FCC79E1A0232D500AD7CBF /* pinyin.c in Sources */,
+				D96819AC1A0E031000122793 /* ContactListTableViewCell.m in Sources */,
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
-				D90F36E919F63FFA00E26FA9 /* ChatGroupDetailViewController.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
-				D90F36FA19F6402000E26FA9 /* WCAlertView.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
 				D958E36A1A0256A60026EF7E /* KxMenu.m in Sources */,
 				D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */,
 				D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */,
 				D964201C19EBE9C900CC8057 /* FeedbackViewController.m in Sources */,
 				D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */,
-				D90F36F319F63FFA00E26FA9 /* GroupSettingViewController.m in Sources */,
 				D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */,
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
@@ -2684,17 +2675,20 @@
 				D90F363519F63B3300E26FA9 /* MessageModel.m in Sources */,
 				D90F366E19F63E5300E26FA9 /* XHMessageTextView.m in Sources */,
 				D90F366D19F63E5300E26FA9 /* EMSearchDisplayController.m in Sources */,
+				D9DE34DC1A0B5B8800DDCCAB /* ContactDetailViewController.m in Sources */,
+				D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */,
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,
-				D90F36EA19F63FFA00E26FA9 /* ContactSelectionViewController.m in Sources */,
 				D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
+				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
-				D90F36EB19F63FFA00E26FA9 /* CreateGroupViewController.m in Sources */,
+				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
 				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,
+				D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */,
 				D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */,
 				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
 				D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */,
@@ -2704,9 +2698,10 @@
 				D90F368119F63ED200E26FA9 /* EmojiEmoticons.m in Sources */,
 				D9A717A51A03B04A005BDEFE /* CreateConversationViewController.m in Sources */,
 				D955E35E19E6694500047F2B /* DestinationCityPoi.m in Sources */,
-				D9A717B91A04945F005BDEFE /* Contact.m in Sources */,
+				D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */,
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
+				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
 				D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,

@@ -25,14 +25,19 @@
 #import "MessageReadManager.h"
 #import "MessageModelManager.h"
 #import "LocationViewController.h"
-#import "ChatGroupDetailViewController.h"
 #import "UIViewController+HUD.h"
-#import "WCAlertView.h"
 #import "NSDate+Category.h"
 #import "DXMessageToolBar.h"
 #import "DXChatBarMoreView.h"
 #import "CallViewController.h"
 #import "ZYQAssetPickerController.h"
+#import "ChatSettingViewController.h"
+#import "ChatScrollView.h"
+#import "AccountManager.h"
+#import "Group.h"
+#import "ContactDetailViewController.h"
+#import "SearchUserInfoViewController.h"
+#import "CreateConversationViewController.h"
 
 #define KPageCount 20
 
@@ -46,15 +51,22 @@
     NSInteger _recordingCount;
     
     dispatch_queue_t _messageQueue;
-    
+    UIButton *showGroupList;
     BOOL _isScrollToBottom;
 }
 
 @property (nonatomic) BOOL isChatGroup;
 @property (strong, nonatomic) NSString *chatter;
+@property (strong, nonatomic) ChatScrollView *chatScrollView;
 
 @property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
-@property (strong, nonatomic) NSMutableArray *chattingPeople;     //正在聊天的人
+@property (strong, nonatomic) NSArray *peopleInGroup;   //保存群组的人员信息
+@property (strong, nonatomic) NSMutableArray *chattingPeople;
+
+@property (strong, nonatomic) NSMutableArray *numberBtns;   //群组的时候存放群组头像的 btn
+@property (strong, nonatomic) NSMutableArray *numberDeleteBtns; //群组的时候存放群组头像上的删除按钮的 btn
+
+@property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是桃子用户的信息。
 @property (strong, nonatomic) SRRefreshView *slimeView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
@@ -67,6 +79,7 @@
 
 @property (nonatomic) BOOL isScrollToBottom;
 @property (nonatomic) BOOL isPlayingAudio;
+@property (nonatomic, strong) AccountManager *accountManager;
 
 @end
 
@@ -119,6 +132,15 @@
     
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
+    
+    if (_isChatGroup) {
+         showGroupList = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-50, 70, 30, 20)];
+        [showGroupList setBackgroundColor:[UIColor grayColor]];
+        [showGroupList addTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:showGroupList];
+        
+       
+    }
 }
 
 - (void)setupBarButtonItem
@@ -128,18 +150,26 @@
         [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
         [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
-    } else{
-        UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [clearButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-        [clearButton addTarget:self action:@selector(removeAllMessages:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    if (_isChatGroup) {
+        EMGroup *chatGroup = nil;
+        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+        for (EMGroup *group in groupArray) {
+            if ([group.groupId isEqualToString:_chatter]) {
+                chatGroup = group;
+                break;
+            }
+        }
+        if (chatGroup == nil) {
+            chatGroup = [[EMGroup alloc] initWithGroupId:_chatter];
+        }
+        self.navigationItem.title = chatGroup.groupSubject;
+    }
     if (_isScrollToBottom) {
         [self scrollViewToBottom:YES];
     }
@@ -181,7 +211,208 @@
     }
 }
 
-#pragma mark - helper
+#pragma mark - IBAction Methods
+
+//显示群组联系人列表
+- (IBAction)showGroupList:(id)sender
+{
+    showGroupList.hidden = YES;
+    self.peopleInGroup = [self loadContactsFromDB];
+    if (self.peopleInGroup.count > 0) {
+        self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
+        if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
+            self.chatScrollView.shouldshowDeleteBtn = YES;
+            
+        } else {
+            self.chatScrollView.shouldshowDeleteBtn = NO;
+        }
+    }
+    [self asyncLoadGroupFromEasemobServer];
+    self.chatScrollView.addBtn.hidden = NO;
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        CGRect rect = CGRectMake(0, 64, self.view.frame.size.width, 150);
+        self.chatScrollView.frame = rect;
+    } completion:^(BOOL finished) {
+    }];
+
+}
+
+- (void)hideGroupList
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        CGRect rect = CGRectMake(0, 64-150, self.view.frame.size.width, 150);
+        self.chatScrollView.frame = rect;
+    } completion:^(BOOL finished) {
+        showGroupList.hidden = NO;
+    }];
+}
+
+//增加群组成员
+- (IBAction)addGroupNumber:(id)sender
+{
+    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+    createConversationCtl.group = self.group;
+    [self.navigationController pushViewController:createConversationCtl animated:YES];
+}
+
+- (IBAction)beginDelete:(id)sender
+{
+    for (UIButton *btn in self.numberDeleteBtns) {
+        btn.hidden = NO;
+    }
+    self.chatScrollView.addBtn.hidden = YES;
+    self.chatScrollView.deleteBtn.hidden = YES;
+}
+
+- (IBAction)showUserInfo:(UIButton *)sender
+{
+    Contact *selectPerson = self.peopleInGroup[sender.tag];
+    if ([self.accountManager isMyFrend:selectPerson.userId]) {
+        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        contactDetailCtl.contact = selectPerson;
+        [self.navigationController pushViewController:contactDetailCtl animated:YES];
+    } else {
+        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+        searchUserInfoCtl.userInfo = @{@"userId":selectPerson.userId,
+                                       @"avatar":selectPerson.avatar,
+                                       @"nickName":selectPerson.nickName,
+                                       @"signature":selectPerson.signature,
+                                       @"easemobUser":selectPerson.easemobUser
+                                       };
+        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+    }
+    
+}
+
+- (IBAction)deleteNumber:(UIButton *)sender
+{
+    Contact *selectPerson = self.peopleInGroup[sender.tag];
+
+    NSArray *occupants = @[selectPerson.easemobUser];
+    [SVProgressHUD show];
+    [[EaseMob sharedInstance].chatManager asyncRemoveOccupants:occupants fromGroup:self.group.groupId completion:^(EMGroup *group, EMError *error) {
+        if (!error) {
+            [self.accountManager removeNumberToGroup:self.group.groupId numbers:[NSSet setWithObject:selectPerson]];
+            self.peopleInGroup = [self loadContactsFromDB];
+            self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
+            for (UIButton *btn in self.numberDeleteBtns) {
+                btn.hidden = NO;
+            }
+            [SVProgressHUD dismiss];
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            NSString *messageStr = [NSString stringWithFormat:@"%@把%@移除了群组",accountManager.account.nickName, selectPerson.nickName];
+            
+            NSDictionary *messageDic = @{@"tzType":@100, @"content":messageStr};
+            
+            [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:self.group.groupId isChatGroup:YES requireEncryption:NO];
+        }
+        else{
+        }
+    } onQueue:nil];
+}
+
+#pragma mark - private Methods
+
+- (NSArray *)loadContactsFromDB
+{
+    NSMutableArray *contacts = [[NSMutableArray alloc] init];
+    _group = [self.accountManager groupWithGroupId:_chatter];
+    if (_group) {
+        for (id item in _group.numbers) {
+            [contacts addObject:item];
+        }
+    }
+    return contacts;
+}
+
+- (void)asyncLoadGroupFromEasemobServer
+{
+    [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:_chatter completion:^(EMGroup *group, EMError *error){
+        if (!error) {
+            [self loadContactsFromTZServerWithGroup:group];
+        }
+    } onQueue:nil];
+}
+
+- (void)loadContactsFromTZServerWithGroup:(EMGroup *)emgroup
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:emgroup.occupants forKey:@"easemob"];
+    //获取用户信息列表
+    [manager POST:API_GET_USERINFO_WITHEASEMOB parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateGroupInDB:[responseObject objectForKey:@"result"] andEMGroup:emgroup];
+            
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+
+}
+
+- (void)updateGroupInDB:(id)numbersDic andEMGroup:(EMGroup *)emGroup
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    self.group = [accountManager updateGroup:emGroup.groupId withGroupOwner:emGroup.owner groupSubject:emGroup.groupSubject groupInfo:emGroup.groupDescription numbers:numbersDic];
+    
+    self.peopleInGroup = [self loadContactsFromDB];
+    
+    NSMutableArray *datas = [[NSMutableArray alloc] init];
+    for (Contact *contact in self.peopleInGroup) {
+        [datas addObject:contact.avatar];
+    }
+    self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
+    
+    if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
+        self.chatScrollView.shouldshowDeleteBtn = YES;
+    } else {
+        self.chatScrollView.shouldshowDeleteBtn = NO;
+    }
+}
+
+- (NSArray *)createChatScrollViewDataSource
+{
+    [self.numberBtns removeAllObjects];
+    [self.numberDeleteBtns removeAllObjects];
+    NSMutableArray *titles = [[NSMutableArray alloc] init];
+    NSMutableArray *retArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.peopleInGroup.count; i++) {
+        if (self.accountManager.account.userId.integerValue != ((Contact *)self.peopleInGroup[i]).userId.integerValue) {
+            UIButton *item = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+            item.layer.cornerRadius = 20;
+            item.tag = i;
+            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.peopleInGroup[i]).avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"chatListCellHead"]];
+            item.clipsToBounds = YES;
+            [item addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
+            
+            UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+            [deleteBtn setBackgroundColor:[UIColor redColor]];
+            deleteBtn.layer.cornerRadius = 20;
+            deleteBtn.tag = i;
+            [deleteBtn addTarget:self action:@selector(deleteNumber:) forControlEvents:UIControlEventTouchUpInside];
+            deleteBtn.hidden = YES;
+            [retArray addObject:item];
+            [self.numberBtns addObject:item];
+            [self.numberDeleteBtns addObject:deleteBtn];
+            [titles addObject:((Contact *)self.peopleInGroup[i]).nickName];
+        }
+    }
+    self.chatScrollView.titles = titles;
+    self.chatScrollView.deleteBtns = self.numberDeleteBtns;
+    return retArray;
+}
+
 - (NSURL *)convert2Mp4:(NSURL *)movUrl {
     NSURL *mp4Url = nil;
     AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:movUrl options:nil];
@@ -228,6 +459,43 @@
 }
 
 #pragma mark - getter
+
+- (AccountManager *)accountManager
+{
+    if (!_accountManager) {
+        _accountManager = [AccountManager shareAccountManager];
+        
+    }
+    return _accountManager;
+}
+
+- (NSMutableArray *)numberDeleteBtns
+{
+    if(!_numberDeleteBtns) {
+        _numberDeleteBtns = [[NSMutableArray alloc] init];
+    }
+    return _numberDeleteBtns;
+}
+
+- (NSMutableArray *)numberBtns
+{
+    if (!_numberBtns) {
+        _numberBtns = [[NSMutableArray alloc] init];
+    }
+    return _numberBtns;
+}
+- (ChatScrollView *)chatScrollView
+{
+    if (!_chatScrollView) {
+        _chatScrollView = [[ChatScrollView alloc] initWithFrame:CGRectMake(0, 64-150, self.view.frame.size.width, 150)];
+        [self.view addSubview:_chatScrollView];
+        [_chatScrollView.dismissBtn addTarget:self action:@selector(hideGroupList) forControlEvents:UIControlEventTouchUpInside];
+        [_chatScrollView.addBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
+        [_chatScrollView.deleteBtn addTarget:self action:@selector(beginDelete:) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _chatScrollView;
+}
 
 - (NSMutableArray *)dataSource
 {
@@ -356,22 +624,33 @@
                 timeCell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             timeCell.textLabel.text = (NSString *)obj;
-            
             return timeCell;
-        }
-        else{
-            MessageModel *model = (MessageModel *)obj;
-            [self checkOutModel:model];
-            NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
-            EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (cell == nil) {
-                cell = [[EMChatViewCell alloc] initWithMessageModel:model reuseIdentifier:cellIdentifier];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            cell.messageModel = model;
             
-            return cell;
+        } else if ([obj isKindOfClass:[MessageModel class]]) {
+            MessageModel *model = (MessageModel *)obj;
+            if ([[model.taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
+                EMChatTimeCell *tipsCell = (EMChatTimeCell *)[tableView dequeueReusableCellWithIdentifier:@"MessageCellTime"];
+                if (tipsCell == nil) {
+                    tipsCell = [[EMChatTimeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageCellTime"];
+                    tipsCell.backgroundColor = [UIColor clearColor];
+                    tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                tipsCell.textLabel.text = [model.taoziMessage objectForKey:@"content"];
+                return tipsCell;
+                
+            }  else{
+                [self checkOutModel:model];
+                NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
+                EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                if (cell == nil) {
+                    cell = [[EMChatViewCell alloc] initWithMessageModel:model reuseIdentifier:cellIdentifier];
+                    cell.backgroundColor = [UIColor clearColor];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                cell.messageModel = model;
+                
+                return cell;
+            }
         }
     }
     
@@ -387,7 +666,11 @@
         return 40;
     }
     else{
-        return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
+        if ([[((MessageModel *)obj).taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
+            return 40;
+        } else {
+            return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
+        }
     }
 }
 
@@ -395,6 +678,9 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (_chatScrollView && !_chatScrollView.hidden) {
+        [self hideGroupList];
+    }
     if (_slimeView) {
         [_slimeView scrollViewDidScroll];
     }
@@ -402,6 +688,10 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    
+    if (_chatScrollView && !_chatScrollView.hidden) {
+        [self hideGroupList];
+    }
     if (_slimeView) {
         [_slimeView scrollViewDidEndDraging];
     }
@@ -1129,8 +1419,20 @@
 {
     [self.view endEditing:YES];
     if (_isChatGroup) {
-        ChatGroupDetailViewController *detailController = [[ChatGroupDetailViewController alloc] initWithGroupId:_chatter];
-        [self.navigationController pushViewController:detailController animated:YES];
+        EMGroup *chatGroup = nil;
+        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+        for (EMGroup *group in groupArray) {
+            if ([group.groupId isEqualToString:_chatter]) {
+                chatGroup = group;
+                break;
+            }
+        }
+        if (chatGroup == nil) {
+            chatGroup = [[EMGroup alloc] initWithGroupId:_chatter];
+        }
+        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+        chatSettingCtl.group = chatGroup;
+        [self.navigationController pushViewController:chatSettingCtl animated:YES];
     }
 }
 
@@ -1149,21 +1451,6 @@
             [_tableView reloadData];
             [self showHint:@"消息已经清空"];
         }
-    }
-    else{
-        __weak typeof(self) weakSelf = self;
-        [WCAlertView showAlertWithTitle:@"提示"
-                                message:@"请确认删除"
-                     customizationBlock:^(WCAlertView *alertView) {
-                         
-                     } completionBlock:
-         ^(NSUInteger buttonIndex, WCAlertView *alertView) {
-             if (buttonIndex == 1) {
-                 [weakSelf.conversation removeAllMessages];
-                 [weakSelf.dataSource removeAllObjects];
-                 [weakSelf.tableView reloadData];
-             }
-         } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     }
 }
 

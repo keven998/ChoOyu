@@ -106,6 +106,8 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+            [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
+
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }

@@ -320,6 +320,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="工具箱" id="a2R-vV-Pbx"/>
+                    <connections>
+                        <outlet property="IMBtn" destination="CdZ-Tk-rsm" id="5EI-L3-4Zp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WlI-Au-m3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

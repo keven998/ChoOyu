@@ -101,6 +101,9 @@
         if (code == 0) {
             [accountManager updateUserInfo:_contentTextField.text withChangeType:_changeType];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            if (_changeType == ChangeName) {
+                [[EaseMob sharedInstance].chatManager setNickname:_contentTextField.text];
+            }
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
