@@ -16,7 +16,7 @@
 #import "Constants.h"
 #import "TMCache.h"
 #import "AFNetworking.h"
-#import "JGProgressHUD.h"
+#import "SVProgressHUD.H"
 #import "EaseMob.h"
 #import "UIViewController+DismissKeyboard.h"
 #import "UIViewController+HUD.h"

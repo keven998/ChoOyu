@@ -28,6 +28,10 @@
 
 #define BASE_URL                @ "http://api.lvxingpai.cn/taozi/"
 
+//攻略相关接口
+
+#define API_GET_RECOMMEND               (BASE_URL @"recommend")
+
 //用户相关接口
 #define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")
 #define API_USERINFO                    (BASE_URL @"users/")

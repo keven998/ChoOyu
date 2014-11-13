@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-JGProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-TMCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,62 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0AE592B0ECB3903217269BF8</key>
+		<key>0A782FF12F8356A90A3AAE3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3C7297677EBB8854E3BE37AB</key>
+		<key>1D1C6709D8A770F6109E3860</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>53D9FF2CC8691EF044D477B5</key>
+		<key>328E2D41405DAF4C34BE3C65</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C223E761B8BD0B0524C378C</key>
+		<key>4DFA77BD69DE7B826A3C7520</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A630D08DB3A105428D7BC01</key>
+		<key>7A445E4B73EC904760E2DB99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6C05D73CA1295BA8167AF511</key>
+		<key>8A8485F87D570F2511F592A3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2CD6D48C53A97C6F60F88A9</key>
+		<key>A10255EFAD7CDCFD7D8715B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C28E9507A579E85DB6C0A9D4</key>
+		<key>AB616C5E4DB797204D1F748F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D10DAD0ADBBEC1C4170A484B</key>
+		<key>BBDB50AFFEF179EB22A7D810</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D6ED002D44C667BE79091FBF</key>
+		<key>C87649BAA42DD1FB054A5611</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E7722AAAD343942A3F2A0B28</key>
+		<key>D271655E1E2390D7BA7E7CB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F9395027EF5EB77D5C611077</key>
+		<key>EB8FD9A63B9EAB3B0D7FF45B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
