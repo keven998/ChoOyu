@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
-        <!--Hot Destination Collection View Controller-->
+        <!--桃子旅行-->
         <scene sceneID="kZe-2h-5we">
             <objects>
                 <collectionViewController id="sC6-Rw-M3h" customClass="HotDestinationCollectionViewController" sceneMemberID="viewController">
@@ -24,11 +24,11 @@
                             <outlet property="delegate" destination="sC6-Rw-M3h" id="N3U-Na-PKR"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="hjX-nX-rdB"/>
+                    <navigationItem key="navigationItem" title="桃子旅行" id="hjX-nX-rdB"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIr-FT-h3w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2106" y="-525"/>
+            <point key="canvasLocation" x="2148" y="-576"/>
         </scene>
         <!--Destination View Controller-->
         <scene sceneID="ufC-wZ-h7g">

@@ -12,8 +12,13 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "AccountManager.h"
+#import "GexinSdk.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <GexinSdkDelegate>
+
+@property (strong, nonatomic) GexinSdk *gexinPusher;
+@property (assign, nonatomic) int lastPayloadIndex;
+@property (retain, nonatomic) NSString *payloadId;
 
 @end
 
@@ -53,13 +58,32 @@
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
     [self loginStateChange:nil];
+    
+    /******设置个推*****/
+    [self startGeTuiSdk];
+    
+    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (message) {
+        NSString *payloadMsg = [message objectForKey:@"payload"];
+        NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
+        NSLog(@"/*****个推消息*****/:%@", record);
+    }
+    
     return YES;
 }
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-    NSLog(@"注册 APNS 成功");
+    
+    //设置个推
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    NSString *geTuideviceToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"deviceToken:%@", geTuideviceToken);
+    // [3]:向个推服务器注册deviceToken
+    if (_gexinPusher) {
+        [_gexinPusher registerDeviceToken:geTuideviceToken];
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -70,6 +94,11 @@
                                           cancelButtonTitle:@"确定"
                                           otherButtonTitles:nil];
     [alert show];
+    
+    // [3-EXT]:如果APNS注册失败，通知个推服务器
+    if (_gexinPusher) {
+        [_gexinPusher registerDeviceToken:@""];
+    }
 }
 
 
@@ -102,9 +131,25 @@
                                           cancelButtonTitle:@"关闭"
                                           otherButtonTitles:@"处理",nil];
     [alert show];
-    
-    
     [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
+    
+    //设置个推
+    NSString *payloadMsg = [userInfo objectForKey:@"payload"];
+    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
+    NSLog(@"/***收到个推消息****/:%@", record);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    // [4-EXT]:处理APN
+    NSString *payloadMsg = [userInfo objectForKey:@"payload"];
+    
+    NSDictionary *aps = [userInfo objectForKey:@"aps"];
+    NSNumber *contentAvailable = aps == nil ? nil : [aps objectForKeyedSubscript:@"content-available"];
+    
+    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@, [content-available: %@]", [NSDate date], payloadMsg, contentAvailable];
+    NSLog(@"/***收到个推消息****/:%@", record);
+    
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
@@ -129,6 +174,7 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"applicationDidEnterBackground" object:nil];
     [[EaseMob sharedInstance] applicationDidEnterBackground:application];
+    [self stopGeTuiSdk];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -139,6 +185,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[EaseMob sharedInstance] applicationDidBecomeActive:application];
+    [self startGeTuiSdk];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -160,6 +207,36 @@
     }
     NSDictionary *userInfo = @{@"code" : code};
     [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
+}
+
+#pragma mark - 个推
+
+- (void)startGeTuiSdk
+{
+    if (!_gexinPusher) {
+        
+        NSError *err = nil;
+        _gexinPusher = [GexinSdk createSdkWithAppId:kGeTuiAppId
+                                             appKey:kGeTuiAppKey
+                                          appSecret:kGeTuiAppSecret
+                                         appVersion:@"0.0.0"
+                                           delegate:self
+                                              error:&err];
+        if (!_gexinPusher) {
+
+        } else {
+
+        }
+        
+    }
+}
+
+- (void)stopGeTuiSdk
+{
+    if (_gexinPusher) {
+        [_gexinPusher destroy];
+        _gexinPusher = nil;
+    }
 }
 
 - (void)registerRemoteNotification {

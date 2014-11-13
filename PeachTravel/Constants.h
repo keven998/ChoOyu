@@ -24,6 +24,13 @@
 
 #define WECHAT_API_DOMAIN       @ "https://api.weixin.qq.com/"
 
+/***** 个推相关 key *****/
+
+#define kGeTuiAppId           @"dajFCa9UMt7Ezo6kqOZ4C9"
+#define kGeTuiAppKey          @"2aMWW4drb67bQFixAQ5cj"
+#define kGeTuiAppSecret       @"BmkFKzmOqI7YSrQhYbhAn3"
+
+
 /***** API *****/
 
 #define BASE_URL                @ "http://api.lvxingpai.cn/taozi/"

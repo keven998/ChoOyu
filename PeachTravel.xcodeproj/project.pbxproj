@@ -13,6 +13,8 @@
 		D902AD101A14811400E36A93 /* HotDestinationCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD0E1A14811400E36A93 /* HotDestinationCollectionReusableView.m */; };
 		D902AD111A14811400E36A93 /* HotDestinationCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD0F1A14811400E36A93 /* HotDestinationCollectionReusableView.xib */; };
 		D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD171A14919800E36A93 /* RecommendDataSource.m */; };
+		D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */; };
+		D902AD201A149FAB00E36A93 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9048F301A09F18500334AB5 /* ChatSettingViewController.m */; };
 		D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */; };
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
@@ -397,6 +399,10 @@
 		D902AD0F1A14811400E36A93 /* HotDestinationCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotDestinationCollectionReusableView.xib; sourceTree = "<group>"; };
 		D902AD161A14919800E36A93 /* RecommendDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendDataSource.h; sourceTree = "<group>"; };
 		D902AD171A14919800E36A93 /* RecommendDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendDataSource.m; sourceTree = "<group>"; };
+		D902AD1A1A149F7200E36A93 /* GexinSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GexinSdk.h; sourceTree = "<group>"; };
+		D902AD1B1A149F7200E36A93 /* GXSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXSdkError.h; sourceTree = "<group>"; };
+		D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGexinSdk-1.0.7.a"; sourceTree = "<group>"; };
+		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D9048F2F1A09F18500334AB5 /* ChatSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSettingViewController.h; sourceTree = "<group>"; };
 		D9048F301A09F18500334AB5 /* ChatSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSettingViewController.m; sourceTree = "<group>"; };
 		D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSettingViewController.xib; sourceTree = "<group>"; };
@@ -898,7 +904,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D902AD201A149FAB00E36A93 /* CFNetwork.framework in Frameworks */,
 				D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */,
+				D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */,
 				D9E9F7A519FFDCB9003F70F6 /* AddressBookUI.framework in Frameworks */,
 				D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */,
 				D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */,
@@ -964,6 +972,24 @@
 				D902AD171A14919800E36A93 /* RecommendDataSource.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D902AD191A149F7200E36A93 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D902AD1A1A149F7200E36A93 /* GexinSdk.h */,
+				D902AD1B1A149F7200E36A93 /* GXSdkError.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		D902AD1E1A149F7700E36A93 /* GeTui */ = {
+			isa = PBXGroup;
+			children = (
+				D902AD191A149F7200E36A93 /* include */,
+				D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */,
+			);
+			name = GeTui;
 			sourceTree = "<group>";
 		};
 		D9048F1A1A09E37D00334AB5 /* ChatSetting */ = {
@@ -1621,6 +1647,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D902AD1E1A149F7700E36A93 /* GeTui */,
 				D96819F41A109BF600122793 /* ICETutorial */,
 				D9DE78DE1A033729008A8576 /* MHTabBarController */,
 				D958E3671A0256A60026EF7E /* KxMenu */,
@@ -1767,6 +1794,7 @@
 		D955E3F719E7A84A00047F2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */,
 				D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */,
 				D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */,
 				D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */,
@@ -3030,6 +3058,7 @@
 					"$(PROJECT_DIR)/PeachTravel/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/PeachTravel",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3061,6 +3090,7 @@
 					"$(PROJECT_DIR)/PeachTravel/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/PeachTravel",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
