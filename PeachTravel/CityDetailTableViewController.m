@@ -2,11 +2,13 @@
 //  CityDetailTableViewController.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/13/14.
+//  Created by liangpengshuai on 11/14/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
 #import "CityDetailTableViewController.h"
+#import "CityHeaderView.h"
+#import "TravelNoteTableViewCell.h"
 
 @interface CityDetailTableViewController ()
 
@@ -14,32 +16,28 @@
 
 @implementation CityDetailTableViewController
 
+static NSString * const reuseIdentifier = @"travelNoteCell";
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.tableView.backgroundColor = UIColorFromRGB(0xeeeeee);
+    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"CityHeaderView" owner:nil options:nil];
+    CityHeaderView *hello = [nibView firstObject];
+    hello.frame = CGRectMake(0, 0, self.view.frame.size.width, hello.frame.size.height);
+    self.tableView.tableHeaderView = hello;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
+
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+
     return 0;
 }
 
@@ -84,22 +82,6 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
-}
-*/
-
-/*
-#pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
-    
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 */
 

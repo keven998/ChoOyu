@@ -10,12 +10,11 @@
 
 @implementation CityHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
++ (CityHeaderView *)instanceHeaderView
+{
+    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"CityHeaderView" owner:nil options:nil];
+    return [nibView objectAtIndex:0];
 }
-*/
+
 
 @end
