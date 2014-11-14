@@ -15,6 +15,10 @@
 		D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD171A14919800E36A93 /* RecommendDataSource.m */; };
 		D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */; };
 		D902AD201A149FAB00E36A93 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
+		D902AD231A14A85100E36A93 /* CityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD221A14A85100E36A93 /* CityHeaderView.m */; };
+		D902AD271A14A86E00E36A93 /* CityDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD251A14A86E00E36A93 /* CityDetailTableViewController.m */; };
+		D902AD281A14A86E00E36A93 /* CityDetailTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD261A14A86E00E36A93 /* CityDetailTableViewController.xib */; };
+		D902AD2A1A14A91E00E36A93 /* CityHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD291A14A91E00E36A93 /* CityHeaderView.xib */; };
 		D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9048F301A09F18500334AB5 /* ChatSettingViewController.m */; };
 		D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */; };
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
@@ -233,8 +237,6 @@
 		D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E39C19E6B69100047F2B /* ForeignDestinationCell.m */; };
 		D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */; };
 		D955E3A219E6B9AC00047F2B /* DestinationCountryPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E3A119E6B9AC00047F2B /* DestinationCountryPoi.m */; };
-		D955E3AC19E7742500047F2B /* CityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E3AA19E7742500047F2B /* CityDetailViewController.m */; };
-		D955E3AD19E7742500047F2B /* CityDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E3AB19E7742500047F2B /* CityDetailViewController.xib */; };
 		D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E3B319E7A09200047F2B /* AccountManagerViewController.m */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
 		D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E119E7A24500047F2B /* libiconv.dylib */; };
@@ -403,6 +405,12 @@
 		D902AD1B1A149F7200E36A93 /* GXSdkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXSdkError.h; sourceTree = "<group>"; };
 		D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGexinSdk-1.0.7.a"; sourceTree = "<group>"; };
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D902AD211A14A85100E36A93 /* CityHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityHeaderView.h; sourceTree = "<group>"; };
+		D902AD221A14A85100E36A93 /* CityHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityHeaderView.m; sourceTree = "<group>"; };
+		D902AD241A14A86E00E36A93 /* CityDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailTableViewController.h; sourceTree = "<group>"; };
+		D902AD251A14A86E00E36A93 /* CityDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailTableViewController.m; sourceTree = "<group>"; };
+		D902AD261A14A86E00E36A93 /* CityDetailTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityDetailTableViewController.xib; sourceTree = "<group>"; };
+		D902AD291A14A91E00E36A93 /* CityHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityHeaderView.xib; sourceTree = "<group>"; };
 		D9048F2F1A09F18500334AB5 /* ChatSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSettingViewController.h; sourceTree = "<group>"; };
 		D9048F301A09F18500334AB5 /* ChatSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSettingViewController.m; sourceTree = "<group>"; };
 		D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSettingViewController.xib; sourceTree = "<group>"; };
@@ -684,9 +692,6 @@
 		D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCell.xib; sourceTree = "<group>"; };
 		D955E3A019E6B9AC00047F2B /* DestinationCountryPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCountryPoi.h; sourceTree = "<group>"; };
 		D955E3A119E6B9AC00047F2B /* DestinationCountryPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCountryPoi.m; sourceTree = "<group>"; };
-		D955E3A919E7742500047F2B /* CityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailViewController.h; sourceTree = "<group>"; };
-		D955E3AA19E7742500047F2B /* CityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailViewController.m; sourceTree = "<group>"; };
-		D955E3AB19E7742500047F2B /* CityDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityDetailViewController.xib; sourceTree = "<group>"; };
 		D955E3B219E7A09200047F2B /* AccountManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManagerViewController.h; sourceTree = "<group>"; };
 		D955E3B319E7A09200047F2B /* AccountManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManagerViewController.m; sourceTree = "<group>"; };
 		D955E3DF19E7A23800047F2B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1697,6 +1702,9 @@
 		D955E3A719E773E500047F2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D902AD211A14A85100E36A93 /* CityHeaderView.h */,
+				D902AD221A14A85100E36A93 /* CityHeaderView.m */,
+				D902AD291A14A91E00E36A93 /* CityHeaderView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1704,9 +1712,9 @@
 		D955E3A819E773EB00047F2B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D955E3A919E7742500047F2B /* CityDetailViewController.h */,
-				D955E3AA19E7742500047F2B /* CityDetailViewController.m */,
-				D955E3AB19E7742500047F2B /* CityDetailViewController.xib */,
+				D902AD241A14A86E00E36A93 /* CityDetailTableViewController.h */,
+				D902AD251A14A86E00E36A93 /* CityDetailTableViewController.m */,
+				D902AD261A14A86E00E36A93 /* CityDetailTableViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2622,6 +2630,7 @@
 				D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */,
 				D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */,
 				D90C638619FB44D300C2E440 /* VoiceSearchFeedback013@2x.png in Resources */,
+				D902AD2A1A14A91E00E36A93 /* CityHeaderView.xib in Resources */,
 				D90F35F319F63B3300E26FA9 /* callBg@2x.png in Resources */,
 				D90C639119FB44D300C2E440 /* VoiceSearchFeedback019.png in Resources */,
 				D90C63A919FB44D300C2E440 /* chat_receiver_audio_playing000@2x.png in Resources */,
@@ -2631,12 +2640,12 @@
 				D90C63A219FB44D300C2E440 /* chat_location_detail_disclosure.png in Resources */,
 				D90C638919FB44D300C2E440 /* VoiceSearchFeedback015.png in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
+				D902AD281A14A86E00E36A93 /* CityDetailTableViewController.xib in Resources */,
 				D90F362319F63B3300E26FA9 /* chatBar_more_locationSelected.png in Resources */,
 				D90F362619F63B3300E26FA9 /* chatBar_more_photo@2x.png in Resources */,
 				D90F363019F63B3300E26FA9 /* imageDownloadFail@2x.png in Resources */,
 				D9E9F78A19FF5ADB003F70F6 /* SenderImageNodeBorder_back@2x.png in Resources */,
 				D90F362719F63B3300E26FA9 /* chatBar_more_photoSelected.png in Resources */,
-				D955E3AD19E7742500047F2B /* CityDetailViewController.xib in Resources */,
 				D9F57B9519E93486005BB43B /* UMSnsAccountViewController.xib in Resources */,
 				D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */,
 				D90F35F119F63B3300E26FA9 /* call_silence_h.png in Resources */,
@@ -2826,7 +2835,6 @@
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,
 				D90F35EA19F63B3300E26FA9 /* ChatListViewController.m in Sources */,
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,
-				D955E3AC19E7742500047F2B /* CityDetailViewController.m in Sources */,
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
@@ -2891,6 +2899,7 @@
 				D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */,
 				D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */,
 				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
+				D902AD271A14A86E00E36A93 /* CityDetailTableViewController.m in Sources */,
 				D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */,
 				D90F366B19F63E5300E26FA9 /* EMChooseViewController.m in Sources */,
 				D9DE789E1A027965008A8576 /* ContactListViewController.m in Sources */,
@@ -2903,6 +2912,7 @@
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
 				D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */,
+				D902AD231A14A85100E36A93 /* CityHeaderView.m in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,
 				D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */,

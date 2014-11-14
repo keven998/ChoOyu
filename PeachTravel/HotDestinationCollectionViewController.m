@@ -10,6 +10,7 @@
 #import "HotDestinationCollectionViewCell.h"
 #import "HotDestinationCollectionReusableView.h"
 #import "RecommendDataSource.h"
+#import "CityDetailTableViewController.h"
 
 @interface HotDestinationCollectionViewController ()
 @property (strong, nonatomic) UICollectionViewFlowLayout *flowLayout;
@@ -30,6 +31,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     self.collectionView.collectionViewLayout = self.flowLayout;
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
     [self loadDataSource];
 
 }
@@ -41,12 +43,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     CGFloat width = self.view.bounds.size.width;
     if (!_flowLayout) {
         _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        _flowLayout.itemSize = CGSizeMake((width-40)/2, (width-40)/2);
+        _flowLayout.itemSize = CGSizeMake((width-50)/2, (width-50)/2);
         _flowLayout.minimumInteritemSpacing = 10.;
         _flowLayout.minimumLineSpacing = 10.;
         _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
         [_flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _flowLayout.headerReferenceSize = CGSizeMake(width, 30);
+        _flowLayout.headerReferenceSize = CGSizeMake(width, 40);
     }
     
     return _flowLayout;
@@ -75,8 +77,9 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [SVProgressHUD show];
     
     //获取首页数据
-    [manager POST:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             for (id json in [responseObject objectForKey:@"result"]) {
@@ -113,7 +116,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     HotDestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [cell.cellImageView sd_setImageWithURL:[NSURL URLWithString:recommend.cover] placeholderImage:nil];
     cell.cellTitleLabel.text = recommend.zhName;
-    cell.cellTitleLabel.text = recommend.desc;
+    cell.cellDescLabel.text = recommend.desc;
     return cell;
 }
 
@@ -127,33 +130,27 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark <UICollectionViewDelegate>
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
+    Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.recommend = recommend;
+    [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

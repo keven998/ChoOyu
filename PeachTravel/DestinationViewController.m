@@ -15,7 +15,6 @@
 #import "DestinationToolBar.h"
 #import "DestinationCityPoi.h"
 #import "DestinationCountryPoi.h"
-#import "CityDetailViewController.h"
 
 #define searchCell              @ "searchCell"
 #define domesticCell            @ "domesticDestinationCell"
@@ -262,11 +261,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (isDomesticDestination) {
-        DestinationCityPoi *destinationCityPoi = [((NSMutableArray *)[[self.destinations.domesticDestinations objectAtIndex:indexPath.section] objectForKey:@"Pois"])objectAtIndex:indexPath.row];
-        
-        CityDetailViewController *cityDetailCtl = [[CityDetailViewController alloc] init];
-        cityDetailCtl.navigationItem.title = destinationCityPoi.poiName;
-        [self.navigationController pushViewController:cityDetailCtl animated:YES];
+       
     } else {
         
     }
