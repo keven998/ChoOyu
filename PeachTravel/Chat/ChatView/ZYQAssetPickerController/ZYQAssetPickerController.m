@@ -91,14 +91,23 @@
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
     
-    CGSize titleSize        = [self.text sizeWithFont:self.font];
+    CGSize titleSize        = [self.text sizeWithAttributes:@{ NSFontAttributeName : self.font }];
     [self.textColor set];
-    [self.text drawAtPoint:CGPointMake(rect.size.width - titleSize.width - 2 , (height - 12) / 2)
-                   forWidth:kThumbnailLength
-                   withFont:self.font
-                   fontSize:12
-              lineBreakMode:NSLineBreakByTruncatingTail
-         baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+//    [self.text drawAtPoint:CGPointMake(rect.size.width - titleSize.width - 2 , (height - 12) / 2)
+//                   forWidth:kThumbnailLength
+//                   withFont:self.font
+//                   fontSize:12
+//              lineBreakMode:NSLineBreakByTruncatingTail
+//         baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+    CGRect textRect = CGRectMake(rect.size.width - titleSize.width - 2, (height - 12) / 2, kThumbnailLength, CGFLOAT_MAX);
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+     self.font, NSFontAttributeName,
+     [NSNumber numberWithFloat:1.0], NSBaselineOffsetAttributeName, nil];
+    NSStringDrawingContext *drawingContext = [[NSStringDrawingContext alloc] init];
+    [self.text drawWithRect:textRect
+                 options:NSStringDrawingTruncatesLastVisibleLine
+              attributes:textAttributes
+                 context:drawingContext];
 
     UIImage *videoIcon=[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ZYQAssetPicker.Bundle/Images/AssetsPickerVideo@2x.png"]];
     
@@ -401,7 +410,8 @@ static UIColor *titleColor;
             [self setEdgesForExtendedLayout:UIRectEdgeNone];
         
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
-            [self setContentSizeForViewInPopover:kPopoverContentSize];
+//            [self setContentSizeForViewInPopover:kPopoverContentSize];
+            self.preferredContentSize = kPopoverContentSize;
     }
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
