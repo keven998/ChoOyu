@@ -306,6 +306,7 @@
 		D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */; };
 		D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
+		D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6831A19AD1D00FA5A76 /* ResizableView.m */; };
 		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
 		D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
@@ -791,6 +792,8 @@
 		D982F9121A073A5100ECF18A /* SearchUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUserInfoViewController.h; sourceTree = "<group>"; };
 		D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserInfoViewController.m; sourceTree = "<group>"; };
 		D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchUserInfoViewController.xib; sourceTree = "<group>"; };
+		D98CC6821A19AD1D00FA5A76 /* ResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizableView.h; sourceTree = "<group>"; };
+		D98CC6831A19AD1D00FA5A76 /* ResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizableView.m; sourceTree = "<group>"; };
 		D990FBDD19F8FC970008A8FE /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -1631,6 +1634,8 @@
 		D955E35F19E6698B00047F2B /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D98CC6821A19AD1D00FA5A76 /* ResizableView.h */,
+				D98CC6831A19AD1D00FA5A76 /* ResizableView.m */,
 				D955E36019E6699700047F2B /* SuperClass */,
 			);
 			name = Base;
@@ -2884,6 +2889,7 @@
 				D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */,
 				D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */,
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
+				D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
@@ -3086,7 +3092,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7644d3a-63e8-467f-a546-2eb607c4f1e0";
+				PROVISIONING_PROFILE = "566c9a18-ebab-4e39-b454-642e8b4416ff";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -3118,7 +3124,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7644d3a-63e8-467f-a546-2eb607c4f1e0";
+				PROVISIONING_PROFILE = "566c9a18-ebab-4e39-b454-642e8b4416ff";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
