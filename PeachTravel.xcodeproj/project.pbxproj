@@ -15,7 +15,6 @@
 		D902AD111A14811400E36A93 /* HotDestinationCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD0F1A14811400E36A93 /* HotDestinationCollectionReusableView.xib */; };
 		D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD171A14919800E36A93 /* RecommendDataSource.m */; };
 		D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */; };
-		D902AD201A149FAB00E36A93 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */; };
 		D902ADBF1A15E15E00E36A93 /* CityHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902ADBD1A15E15E00E36A93 /* CityHeaderView.xib */; };
 		D902ADC51A15E58C00E36A93 /* CityDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADC41A15E58C00E36A93 /* CityDetailTableViewController.m */; };
@@ -307,6 +306,7 @@
 		D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */; };
 		D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */; };
 		D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */; };
+		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
 		D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
@@ -919,7 +919,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D902AD201A149FAB00E36A93 /* CFNetwork.framework in Frameworks */,
+				D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */,
 				D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */,
 				D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */,
 				D9E9F7A519FFDCB9003F70F6 /* AddressBookUI.framework in Frameworks */,
