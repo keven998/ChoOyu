@@ -31,6 +31,11 @@
     [self.view addSubview:spotDetailView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 #pragma mark - Private Methods
 
 - (void) loadData

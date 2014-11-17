@@ -34,21 +34,19 @@
     if (_shouldShowMoreContent) {
         CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.font}];
         NSInteger lineCount = (size.width / self.frame.size.width) + 1;
-        self.backgroundColor = [UIColor grayColor];
+        self.numberOfLines = lineCount;
         [UIView animateWithDuration:0.3 animations:^{
             CGFloat height = size.height * lineCount + 10;
             [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
                                       , self.frame.size.width, height)];
             self.alpha = 1;
-            self.numberOfLines = lineCount;
         }];
-
+        _resizeHeight = self.frame.size.height - _resetFrame.size.height;
     } else {
         self.alpha = 0;
-        self.backgroundColor = [UIColor whiteColor];
+        self.numberOfLines = 2;
         [UIView animateWithDuration:0.3 animations:^{
             [self setFrame:_resetFrame];
-            self.numberOfLines = 2;
             self.alpha = 1;
         }];
     }
@@ -69,6 +67,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _resetFrame = frame;
+        self.layer.cornerRadius = 2.0;
         self.numberOfLines = 2;
     }
     return self;
