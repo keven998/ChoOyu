@@ -129,7 +129,7 @@
     
 }
 
-- (IBAction)<#selector#>:(id)sender)
+//- (IBAction)<#selector#>:(id)sender)
 
 #pragma scrolldelegate
 
