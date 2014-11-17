@@ -48,6 +48,9 @@
 
 - (void)loadData
 {
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -68,9 +71,10 @@
         } else {
             
         }
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 
 }
