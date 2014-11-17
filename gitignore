@@ -1,5 +1,4 @@
-*~
-.DS_Store
+_Store
  
 # old skool
 .svn
@@ -19,6 +18,7 @@ build/*
 *.perspective
 *.perspectivev3
 *.pbxuser
+*.xcworkspace
 xcuserdata
 *.xcodeproj/ !*.xcodeproj/project.pbxproj
  
