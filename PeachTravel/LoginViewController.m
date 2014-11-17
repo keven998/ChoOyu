@@ -30,13 +30,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _userNameTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    self.navigationItem.title = @"登录";
+    
+    _userNameTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _userNameTextField.layer.borderWidth = 1.0;
-    _passwordTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    _passwordTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _passwordTextField.layer.borderWidth = 1.0;
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _userNameTextField.bounds.size.height - 14.0)];
+    ul.text = @" 账户:";
+    ul.textColor = UIColorFromRGB(0x393939);
+    ul.font = [UIFont systemFontOfSize:15.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _userNameTextField.leftView = ul;
+    _userNameTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _userNameTextField.bounds.size.height - 14.0)];
+    pl.text = @" 密码:";
+    pl.textColor = UIColorFromRGB(0x393939);
+    pl.font = [UIFont systemFontOfSize:15.0];
+    pl.textAlignment = NSTextAlignmentCenter;
+    _passwordTextField.leftView = pl;
+    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:14.];
     [registerBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(userRegister:) forControlEvents:UIControlEventTouchUpInside];
@@ -131,6 +150,11 @@
     req.state = @"peachtravel";
     //第三方向微信终端发送一个SendAuthReq消息结构
     [WXApi sendReq:req];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    [super touchesEnded:touches withEvent:event];
 }
 
 - (void)weixinDidLogin:(NSNotification *)noti
