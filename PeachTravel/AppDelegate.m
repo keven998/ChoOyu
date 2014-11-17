@@ -36,6 +36,7 @@
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
     
+    application.keyWindow.backgroundColor = APP_PAGE_COLOR;
     
     /****** 设置环信 ******/
     

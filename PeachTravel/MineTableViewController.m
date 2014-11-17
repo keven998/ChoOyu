@@ -16,6 +16,7 @@
 #import "AboutViewController.h"
 #import "SettingTableViewController.h"
 #import "UserInfoTableViewController.h"
+#import "MineTableViewCell.h"
 
 #define dataSource               @[@[@"分享设置", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView setContentInset:UIEdgeInsetsMake(-35, 0, 0, 0)];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(-35, 0, 0, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
      [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     
@@ -91,6 +92,13 @@
     return 3;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0.0;
+    }
+    return 30.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
@@ -107,7 +115,7 @@
             return 130;
         }
     } else {
-        return 44;
+        return 44.0;
     }
 }
 
@@ -129,11 +137,12 @@
         }
         
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
+        MineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:secondCell];
+            cell = [[MineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:secondCell];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        cell.textLabel.text = [[dataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        cell.titleView.text = [[dataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         return cell;
     }
 }
@@ -165,6 +174,8 @@
             [self.navigationController pushViewController:aboutCtl animated:YES];
         }
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
