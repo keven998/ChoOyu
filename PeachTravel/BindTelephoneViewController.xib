@@ -21,7 +21,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="AmG-Zj-JOe"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
@@ -35,14 +35,15 @@
                         </mask>
                     </variation>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号：" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fCU-Xf-GYu">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fCU-Xf-GYu">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="EFD-cW-lMZ"/>
                     </constraints>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="EFD-cW-lMZ"/>
@@ -56,24 +57,27 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwF-ae-Uit">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="绑定">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="8" y="203" width="384" height="40"/>
+                        <rect key="frame" x="8" y="184" width="384" height="40"/>
                     </variation>
                     <connections>
                         <action selector="bindTelephone:" destination="-1" eventType="touchUpInside" id="as4-eV-m3I"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Dzo-ug-1qk" secondAttribute="trailing" constant="55" id="0Y7-fc-U2b"/>
                 <constraint firstItem="fCU-Xf-GYu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="4iK-nm-o33"/>
-                <constraint firstItem="fCU-Xf-GYu" firstAttribute="top" secondItem="Dzo-ug-1qk" secondAttribute="bottom" constant="23" id="L3C-d5-6tM"/>
+                <constraint firstItem="fCU-Xf-GYu" firstAttribute="top" secondItem="Dzo-ug-1qk" secondAttribute="bottom" constant="23" id="L3C-d5-6tM">
+                    <variation key="widthClass=compact" constant="11"/>
+                </constraint>
                 <constraint firstItem="Dzo-ug-1qk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="56" id="ih0-5X-Gs7"/>
                 <constraint firstItem="Dzo-ug-1qk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="87" id="m9H-Ge-dTF"/>
                 <constraint firstAttribute="trailing" secondItem="fCU-Xf-GYu" secondAttribute="trailing" constant="8" id="oli-9h-ubq"/>

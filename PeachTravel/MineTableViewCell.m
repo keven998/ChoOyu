@@ -38,7 +38,7 @@
         flagView.contentMode = UIViewContentModeScaleAspectFit;
         [bgView addSubview:flagView];
         
-        titleView = [[UILabel alloc] initWithFrame:CGRectMake(flagView.frame.origin.x + 24.0 + 10.0, 0, 88.0, 44.0)];
+        titleView = [[UILabel alloc] initWithFrame:CGRectMake(flagView.frame.origin.x + 24.0 + 10.0, 0, 108.0, 44.0)];
         titleView.textColor = UIColorFromRGB(0x666666);
         titleView.font = [UIFont systemFontOfSize:14.0];
         [bgView addSubview:titleView];

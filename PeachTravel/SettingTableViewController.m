@@ -8,6 +8,7 @@
 
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
+#import "MineTableViewCell.h"
 
 #define cellIdentifier   @"settingCell"
 #define dataSource       @[@"清理缓存", @"我有意见", @"去App Store评分", @"消息和提醒"]
@@ -23,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    [self.tableView registerClass:[MineTableViewCell class] forCellReuseIdentifier:cellIdentifier];
 }
 
 #pragma mark - private methods
@@ -34,23 +35,35 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = APP_PAGE_COLOR;
+    return view;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [dataSource count];
+    return [dataSource count]/2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [dataSource objectAtIndex:indexPath.row];
+    MineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
     return cell;
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
+    int index = indexPath.section*2 + indexPath.row;
+    switch (index) {
         case 0: {
             
         }
@@ -73,6 +86,8 @@
         default:
             break;
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
