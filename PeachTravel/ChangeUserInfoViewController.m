@@ -9,7 +9,7 @@
 #import "ChangeUserInfoViewController.h"
 #import "AccountManager.h"
 
-@interface ChangeUserInfoViewController ()
+@interface ChangeUserInfoViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *contentTextField;
 
@@ -30,6 +30,7 @@
     
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _contentTextField.layer.borderWidth = 1.0;
+    _contentTextField.delegate = self;
     UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12.0, 20.0)];
     sv.backgroundColor = [UIColor whiteColor];
     _contentTextField.leftView = sv;
@@ -75,6 +76,15 @@
         }
     }
     return NoError;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == _contentTextField) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 #pragma mark - IBAction Methods

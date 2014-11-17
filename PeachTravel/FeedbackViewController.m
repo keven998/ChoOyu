@@ -68,7 +68,7 @@
     UIButton *send = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40., 40.)];
     [send setTitle:@"发送" forState:UIControlStateNormal];
     [send setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    send.titleLabel.font = [UIFont systemFontOfSize:17.];
+    send.titleLabel.font = [UIFont systemFontOfSize:14.];
     [send addTarget:self action:@selector(sendFeedback:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:send];
 }

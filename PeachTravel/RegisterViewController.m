@@ -9,7 +9,7 @@
 #import "RegisterViewController.h"
 #import "SMSVerifyViewController.h"
 
-@interface RegisterViewController ()
+@interface RegisterViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
@@ -29,6 +29,7 @@
     _phoneLabel.layer.borderWidth = 1.0;
     _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _passwordLabel.layer.borderWidth = 1.0;
+    _passwordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _phoneLabel.bounds.size.height - 14.0)];
     ul.text = @" 账户:";
@@ -50,6 +51,15 @@
 //    tapBackground.numberOfTapsRequired = 1;
 //    tapBackground.numberOfTouchesRequired = 1;
 //    [self.view addGestureRecognizer:tapBackground];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == _passwordLabel) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 #pragma mark - IBAction Methods

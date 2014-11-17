@@ -15,7 +15,7 @@
 #import "EMChatServiceDefs.h"
 #import "EMPushNotificationOptions.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -35,8 +35,10 @@
     
     _userNameTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _userNameTextField.layer.borderWidth = 1.0;
+    _userNameTextField.delegate = self;
     _passwordTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _passwordTextField.layer.borderWidth = 1.0;
+    _passwordTextField.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _userNameTextField.bounds.size.height - 14.0)];
     ul.text = @" 账户:";
@@ -150,6 +152,15 @@
     req.state = @"peachtravel";
     //第三方向微信终端发送一个SendAuthReq消息结构
     [WXApi sendReq:req];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == _userNameTextField) {
+        [_passwordTextField becomeFirstResponder];
+    } else if (textField == _passwordTextField) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="注册手机号" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ys6-1u-JAa">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ys6-1u-JAa">
                     <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -270,30 +270,30 @@
                     <exclude reference="49V-qH-ArX"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="5Ul-FU-Agm"/>
-                    <exclude reference="XqI-7Q-U2U"/>
-                    <exclude reference="dnR-bd-qy2"/>
+                    <exclude reference="0FN-W6-Pr6"/>
+                    <exclude reference="Ah5-sL-eih"/>
+                    <exclude reference="GZj-DH-ONU"/>
+                    <exclude reference="ese-FO-Pne"/>
+                    <exclude reference="5g7-1H-mjw"/>
+                    <exclude reference="Cvo-Pm-CMY"/>
+                    <exclude reference="GQF-mF-veh"/>
+                    <exclude reference="keO-VT-vIr"/>
+                    <exclude reference="lQc-xW-pYo"/>
                     <exclude reference="ZnR-GJ-DHh"/>
                     <exclude reference="eSp-FI-yO1"/>
                     <exclude reference="gCp-rQ-HEa"/>
+                    <exclude reference="5Ul-FU-Agm"/>
+                    <exclude reference="XqI-7Q-U2U"/>
+                    <exclude reference="dnR-bd-qy2"/>
                     <exclude reference="0JZ-iX-fFC"/>
                     <exclude reference="WP3-4Z-MPv"/>
                     <exclude reference="noV-gb-sys"/>
                     <exclude reference="uC5-Tf-9BX"/>
                     <exclude reference="Nrc-NQ-Nk2"/>
                     <exclude reference="moM-KL-ga1"/>
-                    <exclude reference="0FN-W6-Pr6"/>
-                    <exclude reference="Ah5-sL-eih"/>
-                    <exclude reference="GZj-DH-ONU"/>
-                    <exclude reference="ese-FO-Pne"/>
-                    <exclude reference="keO-VT-vIr"/>
-                    <exclude reference="lQc-xW-pYo"/>
                     <exclude reference="6Ze-Wz-tje"/>
                     <exclude reference="ct4-Ab-Ryf"/>
                     <exclude reference="jMs-sC-FXt"/>
-                    <exclude reference="5g7-1H-mjw"/>
-                    <exclude reference="Cvo-Pm-CMY"/>
-                    <exclude reference="GQF-mF-veh"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -308,29 +308,29 @@
                     <include reference="49V-qH-ArX"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="5Ul-FU-Agm"/>
-                    <include reference="XqI-7Q-U2U"/>
-                    <include reference="dnR-bd-qy2"/>
+                    <include reference="0FN-W6-Pr6"/>
+                    <include reference="Ah5-sL-eih"/>
+                    <include reference="GZj-DH-ONU"/>
+                    <include reference="ese-FO-Pne"/>
+                    <include reference="Cvo-Pm-CMY"/>
+                    <include reference="GQF-mF-veh"/>
+                    <include reference="keO-VT-vIr"/>
+                    <include reference="lQc-xW-pYo"/>
                     <include reference="ZnR-GJ-DHh"/>
                     <include reference="eSp-FI-yO1"/>
                     <include reference="gCp-rQ-HEa"/>
+                    <include reference="5Ul-FU-Agm"/>
+                    <include reference="XqI-7Q-U2U"/>
+                    <include reference="dnR-bd-qy2"/>
                     <include reference="0JZ-iX-fFC"/>
                     <include reference="WP3-4Z-MPv"/>
                     <include reference="noV-gb-sys"/>
                     <include reference="uC5-Tf-9BX"/>
                     <include reference="Nrc-NQ-Nk2"/>
                     <include reference="moM-KL-ga1"/>
-                    <include reference="0FN-W6-Pr6"/>
-                    <include reference="Ah5-sL-eih"/>
-                    <include reference="GZj-DH-ONU"/>
-                    <include reference="ese-FO-Pne"/>
-                    <include reference="keO-VT-vIr"/>
-                    <include reference="lQc-xW-pYo"/>
                     <include reference="6Ze-Wz-tje"/>
                     <include reference="ct4-Ab-Ryf"/>
                     <include reference="jMs-sC-FXt"/>
-                    <include reference="Cvo-Pm-CMY"/>
-                    <include reference="GQF-mF-veh"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact-widthClass=compact">

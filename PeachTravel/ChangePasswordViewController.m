@@ -9,7 +9,7 @@
 #import "ChangePasswordViewController.h"
 #import "AccountManager.h"
 
-@interface ChangePasswordViewController ()
+@interface ChangePasswordViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordLabel;
 @property (weak, nonatomic) IBOutlet UITextField *presentPasswordLabel;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordLabel;
@@ -27,10 +27,13 @@
 
     _oldPasswordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _oldPasswordLabel.layer.borderWidth = 1.0;
+    _oldPasswordLabel.delegate = self;
     _presentPasswordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _presentPasswordLabel.layer.borderWidth = 1.0;
+    _presentPasswordLabel.delegate = self;
     _confirmPasswordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _confirmPasswordLabel.layer.borderWidth = 1.0;
+    _confirmPasswordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 72.0, _oldPasswordLabel.bounds.size.height - 14.0)];
     ul.text = @"  当前密码:";
@@ -55,6 +58,19 @@
     npl.textAlignment = NSTextAlignmentCenter;
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == _confirmPasswordLabel) {
+        [textField resignFirstResponder];
+    } else if (textField == _oldPasswordLabel) {
+        [_presentPasswordLabel becomeFirstResponder];
+    } else if (textField == _presentPasswordLabel) {
+        [_confirmPasswordLabel becomeFirstResponder];
+    }
+    return YES;
 }
 
 #pragma mark - Private Methods
