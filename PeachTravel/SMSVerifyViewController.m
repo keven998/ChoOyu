@@ -29,15 +29,25 @@
     [super viewDidLoad];
     count = _coolDown;
     self.navigationItem.title = @"验证";
-    _titleLabel.text = [NSString stringWithFormat:@"已发送短信验证码至%@", _phoneNumber];
+    _titleLabel.text = [NSString stringWithFormat:@"已发送短信验证码至%@\n网络有延迟，请稍候", _phoneNumber];
     [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
     _verifyCodeBtn.userInteractionEnabled = NO;
     [self startTimer];
     
-    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-    tapBackground.numberOfTapsRequired = 1;
-    tapBackground.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tapBackground];
+    _verifyCodeTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _verifyCodeTextField.layer.borderWidth = 1.0;
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 58.0, _verifyCodeTextField.bounds.size.height - 14.0)];
+    ul.text = @" 验证码:";
+    ul.textColor = UIColorFromRGB(0x393939);
+    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _verifyCodeTextField.leftView = ul;
+    _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
+//    tapBackground.numberOfTapsRequired = 1;
+//    tapBackground.numberOfTouchesRequired = 1;
+//    [self.view addGestureRecognizer:tapBackground];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -117,13 +127,17 @@
     }];
 }
 
-- (void)tapBackground:(id)sender
-{
-    if ([_verifyCodeTextField isFirstResponder]) {
-        [_verifyCodeTextField resignFirstResponder];
-    }
-}
+//- (void)tapBackground:(id)sender
+//{
+//    if ([_verifyCodeTextField isFirstResponder]) {
+//        [_verifyCodeTextField resignFirstResponder];
+//    }
+//}
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    [super touchesEnded:touches withEvent:event];
+}
 
 @end
 

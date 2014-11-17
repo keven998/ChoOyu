@@ -44,7 +44,7 @@
                         <constraint firstAttribute="height" constant="45" id="f3u-Bt-mgh"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                    <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="f3u-Bt-mgh"/>
@@ -63,7 +63,7 @@
                         <constraint firstAttribute="height" constant="45" id="Dza-sb-xvw"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="Dza-sb-xvw"/>
@@ -159,21 +159,21 @@
                     <exclude reference="dSo-gc-hXz"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="7g2-ce-VeE"/>
-                    <exclude reference="B43-PK-5N4"/>
-                    <exclude reference="hNm-U6-hYY"/>
-                    <exclude reference="Tzj-LL-MEC"/>
-                    <exclude reference="p77-hj-kQS"/>
-                    <exclude reference="pct-ha-asv"/>
-                    <exclude reference="4Tf-8U-eb7"/>
-                    <exclude reference="Y4B-ep-TGK"/>
-                    <exclude reference="rEz-5J-ehq"/>
-                    <exclude reference="Ayj-qB-hVw"/>
-                    <exclude reference="B7j-Mj-T25"/>
-                    <exclude reference="dUj-oj-t3w"/>
                     <exclude reference="6Hv-em-w32"/>
                     <exclude reference="LSO-EI-35r"/>
                     <exclude reference="yqz-Kx-6bd"/>
+                    <exclude reference="4Tf-8U-eb7"/>
+                    <exclude reference="Y4B-ep-TGK"/>
+                    <exclude reference="rEz-5J-ehq"/>
+                    <exclude reference="Tzj-LL-MEC"/>
+                    <exclude reference="p77-hj-kQS"/>
+                    <exclude reference="pct-ha-asv"/>
+                    <exclude reference="7g2-ce-VeE"/>
+                    <exclude reference="B43-PK-5N4"/>
+                    <exclude reference="hNm-U6-hYY"/>
+                    <exclude reference="Ayj-qB-hVw"/>
+                    <exclude reference="B7j-Mj-T25"/>
+                    <exclude reference="dUj-oj-t3w"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -185,21 +185,21 @@
                     <include reference="dSo-gc-hXz"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="7g2-ce-VeE"/>
-                    <include reference="B43-PK-5N4"/>
-                    <include reference="hNm-U6-hYY"/>
-                    <include reference="Tzj-LL-MEC"/>
-                    <include reference="p77-hj-kQS"/>
-                    <include reference="pct-ha-asv"/>
-                    <include reference="4Tf-8U-eb7"/>
-                    <include reference="Y4B-ep-TGK"/>
-                    <include reference="rEz-5J-ehq"/>
-                    <include reference="Ayj-qB-hVw"/>
-                    <include reference="B7j-Mj-T25"/>
-                    <include reference="dUj-oj-t3w"/>
                     <include reference="6Hv-em-w32"/>
                     <include reference="LSO-EI-35r"/>
                     <include reference="yqz-Kx-6bd"/>
+                    <include reference="4Tf-8U-eb7"/>
+                    <include reference="Y4B-ep-TGK"/>
+                    <include reference="rEz-5J-ehq"/>
+                    <include reference="Tzj-LL-MEC"/>
+                    <include reference="p77-hj-kQS"/>
+                    <include reference="pct-ha-asv"/>
+                    <include reference="7g2-ce-VeE"/>
+                    <include reference="B43-PK-5N4"/>
+                    <include reference="hNm-U6-hYY"/>
+                    <include reference="Ayj-qB-hVw"/>
+                    <include reference="B7j-Mj-T25"/>
+                    <include reference="dUj-oj-t3w"/>
                 </mask>
             </variation>
         </view>

@@ -27,19 +27,29 @@
     if (_changeType == ChangeSignature) {
         self.navigationItem.title = @"个性签名";
     }
+    
+    _contentTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _contentTextField.layer.borderWidth = 1.0;
+    UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12.0, 20.0)];
+    sv.backgroundColor = [UIColor whiteColor];
+    _contentTextField.leftView = sv;
+    _contentTextField.leftViewMode = UITextFieldViewModeAlways;
+    [_contentTextField becomeFirstResponder];
+    
     _contentTextField.text = _content;
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34.0, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:14.];
     [registerBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [registerBtn setTitle:@"保存" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(saveChange:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
     self.navigationItem.rightBarButtonItem = registerItem;
     
-    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-    tapBackground.numberOfTapsRequired = 1;
-    tapBackground.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tapBackground];
+//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
+//    tapBackground.numberOfTapsRequired = 1;
+//    tapBackground.numberOfTouchesRequired = 1;
+//    [self.view addGestureRecognizer:tapBackground];
 }
 
 #pragma mark - Private Methods
@@ -113,12 +123,17 @@
     }];
 }
 
-- (void)tapBackground:(id)sender
-{
-    if ([_contentTextField isFirstResponder]) {
-        [_contentTextField resignFirstResponder];
-    }
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    [super touchesEnded:touches withEvent:event];
 }
+
+//- (void)tapBackground:(id)sender
+//{
+//    if ([_contentTextField isFirstResponder]) {
+//        [_contentTextField resignFirstResponder];
+//    }
+//}
 
 
 

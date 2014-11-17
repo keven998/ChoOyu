@@ -53,11 +53,11 @@
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 80)];
         
-        UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, _footerView.frame.size.width, 35)];
+        UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(10.0, 10.0, _footerView.frame.size.width - 20.0, 35.0)];
         logoutBtn.center = _footerView.center;
         logoutBtn.backgroundColor = [UIColor redColor];
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-        logoutBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+        logoutBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
         [_footerView addSubview:logoutBtn];
@@ -110,20 +110,19 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = dataSource[indexPath.section][indexPath.row];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:nil];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
         cell.cellTitle.text = dataSource[indexPath.section][indexPath.row];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.section == 0 && indexPath.row == 1) {
             cell.cellDetail.text = [NSString stringWithFormat:@"ID%d", [self.accountManager.account.userId intValue]];
-        }
-        if (indexPath.section == 0 && indexPath.row == 2) {
+        } else if (indexPath.section == 0 && indexPath.row == 2) {
             cell.cellDetail.text = self.accountManager.account.nickName;
-        }
-        if (indexPath.section == 0 && indexPath.row == 4) {
-            cell.cellDetail.text = self.accountManager.account.signature.length>0 ? self.accountManager.account.signature:@"编写签名";
-
+        } else if (indexPath.section == 0 && indexPath.row == 4) {
+            cell.cellDetail.text = self.accountManager.account.signature.length>0 ? self.accountManager.account.signature:@"修改";
         }
         return cell;
     }
@@ -157,7 +156,7 @@
         [self.navigationController pushViewController:changePasswordCtl animated:YES];
     }
 
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate

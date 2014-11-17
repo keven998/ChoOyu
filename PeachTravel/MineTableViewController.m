@@ -134,6 +134,7 @@
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length>0 ? accountManager.account.signature:@"编写签名";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         } else {
             UnLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:unLoginCell forIndexPath:indexPath];
