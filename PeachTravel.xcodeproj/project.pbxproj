@@ -310,7 +310,8 @@
 		D98CC6871A19B6F900FA5A76 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6861A19B6F900FA5A76 /* MineTableViewCell.m */; };
 		D98CC68E1A19BE5000FA5A76 /* SpotDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC68D1A19BE5000FA5A76 /* SpotDetailViewController.m */; };
 		D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6901A19BF8700FA5A76 /* SpotDetailView.m */; };
-		D98CC6941A19C38100FA5A76 /* SpotDetailBean.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6931A19C38100FA5A76 /* SpotDetailBean.m */; };
+		D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */; };
+		D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6991A19D93400FA5A76 /* TaoziImage.m */; };
 		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
 		D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
@@ -804,8 +805,10 @@
 		D98CC68D1A19BE5000FA5A76 /* SpotDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotDetailViewController.m; sourceTree = "<group>"; };
 		D98CC68F1A19BF8700FA5A76 /* SpotDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotDetailView.h; sourceTree = "<group>"; };
 		D98CC6901A19BF8700FA5A76 /* SpotDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotDetailView.m; sourceTree = "<group>"; };
-		D98CC6921A19C38100FA5A76 /* SpotDetailBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotDetailBean.h; sourceTree = "<group>"; };
-		D98CC6931A19C38100FA5A76 /* SpotDetailBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotDetailBean.m; sourceTree = "<group>"; };
+		D98CC6951A19D7EE00FA5A76 /* SpotPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotPoi.h; sourceTree = "<group>"; };
+		D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotPoi.m; sourceTree = "<group>"; };
+		D98CC6981A19D93400FA5A76 /* TaoziImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziImage.h; sourceTree = "<group>"; };
+		D98CC6991A19D93400FA5A76 /* TaoziImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziImage.m; sourceTree = "<group>"; };
 		D990FBDD19F8FC970008A8FE /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -1649,6 +1652,8 @@
 				D98CC6821A19AD1D00FA5A76 /* ResizableView.h */,
 				D98CC6831A19AD1D00FA5A76 /* ResizableView.m */,
 				D955E36019E6699700047F2B /* SuperClass */,
+				D98CC6981A19D93400FA5A76 /* TaoziImage.h */,
+				D98CC6991A19D93400FA5A76 /* TaoziImage.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -2074,12 +2079,12 @@
 		D98CC68B1A19BA3400FA5A76 /* SpotDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D98CC6921A19C38100FA5A76 /* SpotDetailBean.h */,
-				D98CC6931A19C38100FA5A76 /* SpotDetailBean.m */,
 				D98CC68C1A19BE5000FA5A76 /* SpotDetailViewController.h */,
 				D98CC68D1A19BE5000FA5A76 /* SpotDetailViewController.m */,
 				D98CC68F1A19BF8700FA5A76 /* SpotDetailView.h */,
 				D98CC6901A19BF8700FA5A76 /* SpotDetailView.m */,
+				D98CC6951A19D7EE00FA5A76 /* SpotPoi.h */,
+				D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */,
 			);
 			name = SpotDetail;
 			sourceTree = "<group>";
@@ -2853,7 +2858,6 @@
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
 				D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */,
-				D98CC6941A19C38100FA5A76 /* SpotDetailBean.m in Sources */,
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
@@ -2862,6 +2866,7 @@
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
 				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
 				D90F364D19F63C2F00E26FA9 /* UIViewController+HUD.m in Sources */,
+				D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */,
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
@@ -2968,6 +2973,7 @@
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,
 				D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */,
+				D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */,
 				D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */,
 				D90F366719F63E5300E26FA9 /* EMSearchBar.m in Sources */,
 				D9A717C11A04AD4F005BDEFE /* FrendRequestTableViewController.m in Sources */,

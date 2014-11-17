@@ -12,6 +12,9 @@
 #import "RecommendDataSource.h"
 #import "CityDetailTableViewController.h"
 
+#warning 测试景点详情数据。
+#import "SpotDetailViewController.h"
+
 @interface HotDestinationCollectionViewController ()
 @property (strong, nonatomic) UICollectionViewFlowLayout *flowLayout;
 @property (strong, nonatomic) NSMutableArray *dataSource;
@@ -132,12 +135,18 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.recommend = recommend;
     cityDetailCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
+     */
+    
+#warning 测试景点详情数据。
+    SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
+    [self.navigationController pushViewController:spotCtl animated:YES];
 }
 
 @end

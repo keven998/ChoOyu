@@ -10,15 +10,15 @@
 
 @interface CityPoi : NSObject
 
-@property (nonatomic, strong) NSString *cityId;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *enName;
+@property (nonatomic, copy) NSString *cityId;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *enName;
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
-@property (nonatomic, strong) NSString *desc;
+@property (nonatomic, copy) NSString *desc;
 @property (nonatomic) double timeCost;
-@property (nonatomic, strong) NSString *travelMonth;
-@property (nonatomic, strong) NSString *cover;
+@property (nonatomic, copy) NSString *travelMonth;
+@property (nonatomic, copy) NSString *cover;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
 

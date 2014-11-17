@@ -39,6 +39,7 @@
 
 #define API_GET_RECOMMEND               (BASE_URL @"recommend")
 #define API_GET_CITYDETAIL              (BASE_URL @"geo/localities/")
+#define API_GET_SPOT_DETAIL             (BASE_URL @"poi/vs/")
 
 //用户相关接口
 #define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")

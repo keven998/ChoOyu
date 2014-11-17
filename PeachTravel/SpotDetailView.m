@@ -16,21 +16,35 @@
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) ResizableView *descView;
-//@property (nonatomic, strong) UIButton
+@property (nonatomic, strong) UIButton *ticketBtn;
+@property (nonatomic, strong) UIButton *ticketDescBtn;
+@property (nonatomic, strong) UIButton *travelBtn;
+@property (nonatomic, strong) UILabel *travelMonthLabel;
+@property (nonatomic, strong) UILabel *openTimeLabel;
+@property (nonatomic, strong) UILabel *timeCostLabel;
+@property (nonatomic, strong) UILabel *addressBtn;
+@property (nonatomic, strong) UIButton *travleGuideBtn;
+@property (nonatomic, strong) UIButton *kendieBtn;
+@property (nonatomic, strong) UIButton *trafficGuideBtn;
 
 @end
 
 @implementation SpotDetailView
 
-@synthesize spot;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupSubView];
+        self.backgroundColor = UIColorFromRGB(0xf4f4f4);
     }
     return self;
+}
+
+- (void)setSpot:(SpotPoi *)spot
+{
+    _spot = spot;
+    [self setupSubView];
 }
 
 - (void)setupSubView
@@ -38,8 +52,9 @@
     CGFloat oy = 0;
     CGFloat width = self.frame.size.width;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, width-20, 250)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 10+64, width-20, 280)];
     headerView.backgroundColor = [UIColor whiteColor];
+    headerView.layer.cornerRadius = 2.0;
     
     UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 176.0)];
     gallery.pagingEnabled = YES;
@@ -47,18 +62,39 @@
     gallery.showsVerticalScrollIndicator = NO;
     gallery.delegate = self;
     gallery.bounces = YES;
-    
     [headerView addSubview:gallery];
     
+    oy += 180;
+    
+    _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, oy, width-20, 40)];
+    [_titleBtn setTitle:_spot.enName forState:UIControlStateNormal];
+    _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    [headerView addSubview:_titleBtn];
+    
+    oy += 45;
+    
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-40, 40)];
+    _descView.font = [UIFont systemFontOfSize:15.0];
+    _descView.textColor = [UIColor grayColor];
+    _descView.text = _spot.desc;
+    [headerView addSubview:_descView];
+    
+    oy += 40;
+    
+    UIButton *showMoreDescContent = [[UIButton alloc] initWithFrame:CGRectMake(width-30, oy+3, 20, 20)];
+    [showMoreDescContent setBackgroundColor:[UIColor grayColor]];
+    [showMoreDescContent addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:showMoreDescContent];
+    
+    [self addSubview:headerView];
     
     
-    oy+=176.0;
     
     
 }
 
 - (void)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= spot.pictures.count) {
+    if (page >= _spot.images.count) {
         return;
     }
     
@@ -79,11 +115,21 @@
         frame.origin.x = CGRectGetWidth(frame) * page;
         img.frame = frame;
         [self.galleryPageView insertSubview:img atIndex:0];
-        NSString *url = [spot.pictures objectAtIndex:page];
+        TaoziImage *taoziIamge = [_spot.images objectAtIndex:page];
+        NSString *url = taoziIamge.imageUrl;
         if ([url rangeOfString:@"qiniudn"].location != NSNotFound) {
         }
     }
 }
+
+#pragma mark - IBAction Methods
+
+- (IBAction)showMoreContent:(id)sender
+{
+    
+}
+
+- (IBAction)<#selector#>:(id)sender)
 
 #pragma scrolldelegate
 
