@@ -10,12 +10,11 @@
 
 @interface CityHeaderView : UIView
 
-@property (weak, nonatomic) IBOutlet UIImageView *cityImageView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *likeBtn;
-@property (weak, nonatomic) IBOutlet UILabel *descLabel;
-@property (weak, nonatomic) IBOutlet UILabel *costTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *seasonLabel;
+@property (nonatomic, copy) NSString *cityImage;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic) double timeCost;
+@property (nonatomic, copy) NSString *travelMonth;
 
 +(CityHeaderView *)instanceHeaderView;
 

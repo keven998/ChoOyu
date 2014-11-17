@@ -10,11 +10,12 @@
 
 @interface TravelNoteTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *travelNoteImageView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
-@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *resourceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (nonatomic, copy) NSString *travelNoteImage;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *authorAvatar;
+@property (nonatomic, copy) NSString *authorName;
+@property (nonatomic, copy) NSString *resource;
+@property (nonatomic, copy) NSString *time;
+
 @end

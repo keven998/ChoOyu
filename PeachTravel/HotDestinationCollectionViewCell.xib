@@ -14,20 +14,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="220" height="200"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qCv-rb-LI7">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="165"/>
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="173"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70Z-RK-Xlv">
-                        <rect key="frame" x="0.0" y="165" width="210" height="35"/>
+                        <rect key="frame" x="0.0" y="173" width="210" height="27"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="35" id="rCa-NX-lER"/>
+                            <constraint firstAttribute="height" constant="27" id="rCa-NX-lER"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTv-9e-bsD">
-                        <rect key="frame" x="0.0" y="130" width="210" height="35"/>
+                        <rect key="frame" x="0.0" y="138" width="210" height="35"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="clg-af-5Ok"/>
@@ -43,11 +43,11 @@
             <constraints>
                 <constraint firstItem="fTv-9e-bsD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0MZ-Mc-YXX"/>
                 <constraint firstAttribute="bottom" secondItem="70Z-RK-Xlv" secondAttribute="bottom" id="1ya-sW-zXr"/>
-                <constraint firstAttribute="bottom" secondItem="fTv-9e-bsD" secondAttribute="bottom" constant="35" id="3wv-Cb-Yzg"/>
+                <constraint firstAttribute="bottom" secondItem="fTv-9e-bsD" secondAttribute="bottom" constant="27" id="3wv-Cb-Yzg"/>
                 <constraint firstAttribute="trailing" secondItem="70Z-RK-Xlv" secondAttribute="trailing" constant="10" id="40x-1X-Mq7"/>
                 <constraint firstAttribute="trailing" secondItem="fTv-9e-bsD" secondAttribute="trailing" constant="10" id="6yH-2F-6A5"/>
                 <constraint firstItem="qCv-rb-LI7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Hkl-3a-AId"/>
-                <constraint firstAttribute="bottom" secondItem="qCv-rb-LI7" secondAttribute="bottom" constant="35" id="TQZ-nf-hGl"/>
+                <constraint firstAttribute="bottom" secondItem="qCv-rb-LI7" secondAttribute="bottom" constant="27" id="TQZ-nf-hGl"/>
                 <constraint firstItem="70Z-RK-Xlv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XKU-F3-6GZ"/>
                 <constraint firstItem="qCv-rb-LI7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="uZW-Ga-1SI"/>
                 <constraint firstAttribute="trailing" secondItem="qCv-rb-LI7" secondAttribute="trailing" id="vIu-uC-gTD"/>

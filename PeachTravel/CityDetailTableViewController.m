@@ -9,8 +9,13 @@
 #import "CityDetailTableViewController.h"
 #import "CityHeaderView.h"
 #import "TravelNoteTableViewCell.h"
+#import "CityPoi.h"
+#import "TravelNote.h"
 
 @interface CityDetailTableViewController ()
+
+@property (nonatomic, strong) CityPoi *cityPoi;
+@property (nonatomic, strong) CityHeaderView *cityHeaderView;
 
 @end
 
@@ -21,78 +26,101 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
+    [self loadCityData];
+}
+
+- (void)updateView
+{
     self.tableView.backgroundColor = UIColorFromRGB(0xeeeeee);
     NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"CityHeaderView" owner:nil options:nil];
-    CityHeaderView *hello = [nibView firstObject];
-    hello.frame = CGRectMake(0, 0, self.view.frame.size.width, hello.frame.size.height);
-    self.tableView.tableHeaderView = hello;
-    [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
+    _cityHeaderView = [nibView firstObject];
+    _cityHeaderView.frame = CGRectMake(0, 0, self.view.frame.size.width, _cityHeaderView.frame.size.height);
+    _cityHeaderView.title = _cityPoi.name;
+    _cityHeaderView.cityImage = _cityPoi.cover;
+    _cityHeaderView.desc = _cityPoi.desc;
+    _cityHeaderView.timeCost = _cityPoi.timeCost;
+    _cityHeaderView.travelMonth = _cityPoi.travelMonth;
+    self.tableView.tableHeaderView = _cityHeaderView;
+    [self.tableView reloadData];
+}
+
+- (void)loadCityData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", API_GET_CITYDETAIL];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:3] forKey:@"noteCnt"];
+    
+    [SVProgressHUD show];
+    
+    //获取城市信息
+    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            _cityPoi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            [self updateView];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
+
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 0;
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 150.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 0;
+    return self.cityPoi.travelNotes.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
+    cell.travelNoteImage = travelNote.cover;
+    cell.title = travelNote.title;
+    cell.desc = travelNote.desc;
+    cell.authorName = travelNote.authorName;
+    cell.authorAvatar = travelNote.authorAvatar;
+    cell.resource = travelNote.source;
+//    cell.time = travelNote.publishDate;
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+#pragma mark - TableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
+    
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
+
+
+
+
+

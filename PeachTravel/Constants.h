@@ -38,6 +38,7 @@
 //攻略相关接口
 
 #define API_GET_RECOMMEND               (BASE_URL @"recommend")
+#define API_GET_CITYDETAIL              (BASE_URL @"geo/localities/")
 
 //用户相关接口
 #define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")

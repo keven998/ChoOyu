@@ -21,6 +21,7 @@
 		D902ADC91A15EC9300E36A93 /* TravelNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */; };
 		D902ADCA1A15EC9300E36A93 /* TravelNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */; };
 		D902ADCD1A15F0E300E36A93 /* CityPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADCC1A15F0E300E36A93 /* CityPoi.m */; };
+		D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADCF1A15F47100E36A93 /* TravelNote.m */; };
 		D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9048F301A09F18500334AB5 /* ChatSettingViewController.m */; };
 		D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */; };
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
@@ -280,7 +281,6 @@
 		D9681A061A109BF600122793 /* ICETutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819F81A109BF600122793 /* ICETutorialController.m */; };
 		D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819FA1A109BF600122793 /* ICETutorialPage.m */; };
 		D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819FC1A109BF600122793 /* ICETutorialStyle.m */; };
-		D9681A091A109BF600122793 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D96819FD1A109BF600122793 /* README.md */; };
 		D9681A0A1A109BF600122793 /* background-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = D96819FF1A109BF600122793 /* background-gradient.png */; };
 		D9681A0B1A109BF600122793 /* background-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A001A109BF600122793 /* background-gradient@2x.png */; };
 		D9681A0C1A109BF600122793 /* button-background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A011A109BF600122793 /* button-background.png */; };
@@ -417,6 +417,8 @@
 		D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelNoteTableViewCell.xib; sourceTree = "<group>"; };
 		D902ADCB1A15F0E300E36A93 /* CityPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPoi.h; sourceTree = "<group>"; };
 		D902ADCC1A15F0E300E36A93 /* CityPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityPoi.m; sourceTree = "<group>"; };
+		D902ADCE1A15F47100E36A93 /* TravelNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelNote.h; sourceTree = "<group>"; };
+		D902ADCF1A15F47100E36A93 /* TravelNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelNote.m; sourceTree = "<group>"; };
 		D9048F2F1A09F18500334AB5 /* ChatSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSettingViewController.h; sourceTree = "<group>"; };
 		D9048F301A09F18500334AB5 /* ChatSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSettingViewController.m; sourceTree = "<group>"; };
 		D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSettingViewController.xib; sourceTree = "<group>"; };
@@ -756,7 +758,6 @@
 		D96819FA1A109BF600122793 /* ICETutorialPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICETutorialPage.m; sourceTree = "<group>"; };
 		D96819FB1A109BF600122793 /* ICETutorialStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICETutorialStyle.h; sourceTree = "<group>"; };
 		D96819FC1A109BF600122793 /* ICETutorialStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICETutorialStyle.m; sourceTree = "<group>"; };
-		D96819FD1A109BF600122793 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D96819FF1A109BF600122793 /* background-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-gradient.png"; sourceTree = "<group>"; };
 		D9681A001A109BF600122793 /* background-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-gradient@2x.png"; sourceTree = "<group>"; };
 		D9681A011A109BF600122793 /* button-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-background.png"; sourceTree = "<group>"; };
@@ -1703,6 +1704,8 @@
 			children = (
 				D902ADCB1A15F0E300E36A93 /* CityPoi.h */,
 				D902ADCC1A15F0E300E36A93 /* CityPoi.m */,
+				D902ADCE1A15F47100E36A93 /* TravelNote.h */,
+				D902ADCF1A15F47100E36A93 /* TravelNote.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1980,7 +1983,6 @@
 			isa = PBXGroup;
 			children = (
 				D96819F51A109BF600122793 /* ICETutorial */,
-				D96819FD1A109BF600122793 /* README.md */,
 				D96819FE1A109BF600122793 /* Resources */,
 			);
 			path = ICETutorial;
@@ -2849,6 +2851,7 @@
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
+				D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */,
 				D90F363119F63B3300E26FA9 /* EMChatTimeCell.m in Sources */,
 				D90F356C19F6391E00E26FA9 /* ToolBoxViewController.m in Sources */,
 				D9DE34F01A0B92AA00DDCCAB /* Account.m in Sources */,
@@ -2885,7 +2888,6 @@
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
 				D955E3A219E6B9AC00047F2B /* DestinationCountryPoi.m in Sources */,
-				D9681A091A109BF600122793 /* README.md in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
 				D99D8ECB19C8600C0021C25B /* main.m in Sources */,
 				D90F35FF19F63B3300E26FA9 /* DXChatBarMoreView.m in Sources */,

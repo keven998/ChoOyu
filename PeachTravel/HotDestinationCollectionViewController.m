@@ -31,7 +31,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     self.collectionView.collectionViewLayout = self.flowLayout;
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     [self loadDataSource];
 
 }
@@ -43,7 +43,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     CGFloat width = self.view.bounds.size.width;
     if (!_flowLayout) {
         _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        _flowLayout.itemSize = CGSizeMake((width-50)/2, (width-50)/2);
+        _flowLayout.itemSize = CGSizeMake((width-40)/2, (width-40)/2);
         _flowLayout.minimumInteritemSpacing = 10.;
         _flowLayout.minimumLineSpacing = 10.;
         _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
