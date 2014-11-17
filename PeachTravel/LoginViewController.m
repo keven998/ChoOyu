@@ -62,10 +62,10 @@
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
     self.navigationItem.rightBarButtonItem = registerItem;
     
-    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-    tapBackground.numberOfTapsRequired = 1;
-    tapBackground.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tapBackground];
+//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
+//    tapBackground.numberOfTapsRequired = 1;
+//    tapBackground.numberOfTouchesRequired = 1;
+//    [self.view addGestureRecognizer:tapBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,14 +131,14 @@
     [self sendAuthRequest];
 }
 
-- (void)tapBackground:(id)sender
-{
-    if ([_userNameTextField isFirstResponder]) {
-        [_userNameTextField resignFirstResponder];
-    } else if ([_passwordTextField isFirstResponder]) {
-        [_passwordTextField resignFirstResponder];
-    }
-}
+//- (void)tapBackground:(id)sender
+//{
+//    if ([_userNameTextField isFirstResponder]) {
+//        [_userNameTextField resignFirstResponder];
+//    } else if ([_passwordTextField isFirstResponder]) {
+//        [_passwordTextField resignFirstResponder];
+//    }
+//}
 
 #pragma mark - private methods
 

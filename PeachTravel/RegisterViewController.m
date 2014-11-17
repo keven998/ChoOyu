@@ -25,26 +25,47 @@
     
     self.navigationItem.title = @"注册";
     
-    _phoneLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _phoneLabel.layer.borderWidth = 1.0;
-    _passwordLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _passwordLabel.layer.borderWidth = 1.0;
     
-    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-    tapBackground.numberOfTapsRequired = 1;
-    tapBackground.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tapBackground];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _phoneLabel.bounds.size.height - 14.0)];
+    ul.text = @" 账户:";
+    ul.textColor = UIColorFromRGB(0x393939);
+    ul.font = [UIFont systemFontOfSize:15.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _phoneLabel.leftView = ul;
+    _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
+    
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _passwordLabel.bounds.size.height - 14.0)];
+    pl.text = @" 密码:";
+    pl.textColor = UIColorFromRGB(0x393939);
+    pl.font = [UIFont systemFontOfSize:15.0];
+    pl.textAlignment = NSTextAlignmentCenter;
+    _passwordLabel.leftView = pl;
+    _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+    
+//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
+//    tapBackground.numberOfTapsRequired = 1;
+//    tapBackground.numberOfTouchesRequired = 1;
+//    [self.view addGestureRecognizer:tapBackground];
 }
 
 #pragma mark - IBAction Methods
 
-- (void)tapBackground:(id)sender
-{
-    if ([_phoneLabel isFirstResponder]) {
-        [_phoneLabel resignFirstResponder];
-    } else if ([_passwordLabel isFirstResponder]) {
-        [_passwordLabel resignFirstResponder];
-    }
+//- (void)tapBackground:(id)sender
+//{
+//    if ([_phoneLabel isFirstResponder]) {
+//        [_phoneLabel resignFirstResponder];
+//    } else if ([_passwordLabel isFirstResponder]) {
+//        [_passwordLabel resignFirstResponder];
+//    }
+//}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    [super touchesEnded:touches withEvent:event];
 }
 
 - (IBAction)confirmRegister:(UIButton *)sender {

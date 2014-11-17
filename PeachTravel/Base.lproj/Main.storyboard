@@ -8,7 +8,7 @@
         <!--桃子旅行-->
         <scene sceneID="kZe-2h-5we">
             <objects>
-                <collectionViewController id="sC6-Rw-M3h" customClass="HotDestinationCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="destionSB" id="sC6-Rw-M3h" customClass="HotDestinationCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="eCJ-h7-7DZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
         <!--Destination View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="DestinationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="planSB" id="vXZ-lx-hvc" customClass="DestinationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Af-Ad-qIB"/>
                         <viewControllerLayoutGuide type="bottom" id="89U-6s-gs3"/>
@@ -314,7 +314,7 @@
         <!--工具箱-->
         <scene sceneID="fRP-vO-oT5">
             <objects>
-                <viewController id="TWu-LE-aWR" customClass="ToolBoxViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="toolsSB" id="TWu-LE-aWR" customClass="ToolBoxViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mw1-3b-toX"/>
                         <viewControllerLayoutGuide type="bottom" id="Om7-sj-kB1"/>
@@ -379,7 +379,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="rw1-3Y-f97">
             <objects>
-                <viewController id="gdI-Yy-1ZG" customClass="WelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcomeSB" id="gdI-Yy-1ZG" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aHe-gR-RCF"/>
                         <viewControllerLayoutGuide type="bottom" id="iRk-sT-vuo"/>
@@ -468,7 +468,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="6QN-fx-Bad">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="m3z-Mn-OEd" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabhostSB" automaticallyAdjustsScrollViewInsets="NO" id="m3z-Mn-OEd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="PnO-UY-mIT"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -508,7 +508,7 @@
         <!--我-->
         <scene sceneID="KRf-vI-0JP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Whb-gT-OX8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mehostSB" automaticallyAdjustsScrollViewInsets="NO" id="Whb-gT-OX8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我" id="cJ3-QO-joY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VjT-mV-yKw">
@@ -527,7 +527,7 @@
         <!--工具箱-->
         <scene sceneID="DW2-Vo-WXg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7qq-iv-VRy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="toolsHostSB" automaticallyAdjustsScrollViewInsets="NO" id="7qq-iv-VRy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="工具箱" id="otW-Eu-z4z"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wbK-Xy-aZ3">
@@ -546,7 +546,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Gq6-J1-z40">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AwD-Lv-qAA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ptStroyboard" automaticallyAdjustsScrollViewInsets="NO" id="AwD-Lv-qAA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qn7-wi-jr3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

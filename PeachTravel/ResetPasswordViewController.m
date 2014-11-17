@@ -60,7 +60,22 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
     }];
+    
+    _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _passwordLabel.layer.borderWidth = 1.0;
 
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _passwordLabel.bounds.size.height - 14.0)];
+    ul.text = @"新密码:";
+    ul.textColor = UIColorFromRGB(0x393939);
+    ul.font = [UIFont systemFontOfSize:15.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _passwordLabel.leftView = ul;
+    _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    [super touchesEnded:touches withEvent:event];
 }
 
 @end
