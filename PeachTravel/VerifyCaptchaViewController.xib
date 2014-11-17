@@ -24,7 +24,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="FJp-87-E4T"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
@@ -38,12 +38,12 @@
                         </mask>
                     </variation>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号:" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u3R-qM-t3B">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u3R-qM-t3B">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="8y2-yj-pdO"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -56,13 +56,13 @@
                         </mask>
                     </variation>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VtS-KD-ZnZ">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="短信验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VtS-KD-ZnZ">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="dxm-TB-rBZ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="dxm-TB-rBZ"/>
@@ -76,11 +76,12 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdB-yX-fOs">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="hs4-ly-vPR"/>
                     </constraints>
                     <state key="normal" title="下一步">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="default">
@@ -102,13 +103,13 @@
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="123" id="8ht-eJ-lJc">
-                            <variation key="widthClass=compact" constant="98"/>
+                            <variation key="widthClass=compact" constant="68"/>
                         </constraint>
                         <constraint firstAttribute="height" constant="40" id="CFn-vN-dVy">
-                            <variation key="widthClass=compact" constant="34"/>
+                            <variation key="widthClass=compact" constant="28"/>
                         </constraint>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="获取验证码">
                         <color key="titleColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,10 +144,10 @@
                 <constraint firstAttribute="trailing" secondItem="VtS-KD-ZnZ" secondAttribute="trailing" constant="8" id="aDo-FZ-uWK"/>
                 <constraint firstAttribute="trailing" secondItem="u3R-qM-t3B" secondAttribute="trailing" constant="8" id="cHH-ri-ils"/>
                 <constraint firstItem="c4s-dx-Vc4" firstAttribute="top" secondItem="Ah4-Ne-V7B" secondAttribute="bottom" constant="11" id="ikk-a1-UbY">
-                    <variation key="widthClass=compact" constant="14"/>
+                    <variation key="widthClass=compact" constant="17"/>
                 </constraint>
                 <constraint firstAttribute="trailing" secondItem="c4s-dx-Vc4" secondAttribute="trailing" constant="22" id="lZE-z5-npW">
-                    <variation key="widthClass=compact" constant="27"/>
+                    <variation key="widthClass=compact" constant="14"/>
                 </constraint>
                 <constraint firstItem="u3R-qM-t3B" firstAttribute="top" secondItem="Ah4-Ne-V7B" secondAttribute="bottom" constant="8" id="mx0-Jm-8lD"/>
                 <constraint firstAttribute="trailing" secondItem="Ah4-Ne-V7B" secondAttribute="trailing" constant="8" id="wIo-Jr-haM"/>
@@ -164,12 +165,12 @@
                     <exclude reference="7Z9-hT-nRh"/>
                     <exclude reference="XzC-0F-vtW"/>
                     <exclude reference="wIo-Jr-haM"/>
-                    <exclude reference="FqT-bD-q7K"/>
-                    <exclude reference="cHH-ri-ils"/>
-                    <exclude reference="mx0-Jm-8lD"/>
                     <exclude reference="4f7-yM-dZi"/>
                     <exclude reference="8dd-24-nX0"/>
                     <exclude reference="aDo-FZ-uWK"/>
+                    <exclude reference="FqT-bD-q7K"/>
+                    <exclude reference="cHH-ri-ils"/>
+                    <exclude reference="mx0-Jm-8lD"/>
                     <exclude reference="43v-Xa-cW0"/>
                     <exclude reference="GI5-J5-Nd7"/>
                     <exclude reference="WZy-zG-l6f"/>
@@ -189,12 +190,12 @@
                     <include reference="7Z9-hT-nRh"/>
                     <include reference="XzC-0F-vtW"/>
                     <include reference="wIo-Jr-haM"/>
-                    <include reference="FqT-bD-q7K"/>
-                    <include reference="cHH-ri-ils"/>
-                    <include reference="mx0-Jm-8lD"/>
                     <include reference="4f7-yM-dZi"/>
                     <include reference="8dd-24-nX0"/>
                     <include reference="aDo-FZ-uWK"/>
+                    <include reference="FqT-bD-q7K"/>
+                    <include reference="cHH-ri-ils"/>
+                    <include reference="mx0-Jm-8lD"/>
                     <include reference="43v-Xa-cW0"/>
                     <include reference="GI5-J5-Nd7"/>
                     <include reference="WZy-zG-l6f"/>

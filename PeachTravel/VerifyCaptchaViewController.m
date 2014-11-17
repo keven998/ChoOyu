@@ -27,12 +27,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-    tapBackground.numberOfTapsRequired = 1;
-    tapBackground.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tapBackground];
+    
+    self.navigationItem.title = @"找回密码";
+    
+//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
+//    tapBackground.numberOfTapsRequired = 1;
+//    tapBackground.numberOfTouchesRequired = 1;
+//    [self.view addGestureRecognizer:tapBackground];
+    
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
+    
+    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _phoneLabel.layer.borderWidth = 1.0;
+    _captchaLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _captchaLabel.layer.borderWidth = 1.0;
+    
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _phoneLabel.bounds.size.height - 14.0)];
+    ul.text = @" 账 户:";
+    ul.textColor = UIColorFromRGB(0x393939);
+    ul.font = [UIFont systemFontOfSize:15.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _phoneLabel.leftView = ul;
+    _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
+    
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _captchaLabel.bounds.size.height - 14.0)];
+    pl.text = @"验证码:";
+    pl.textColor = UIColorFromRGB(0x393939);
+    pl.font = [UIFont systemFontOfSize:13.0];
+    pl.textAlignment = NSTextAlignmentCenter;
+    _captchaLabel.leftView = pl;
+    _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
 }
 
 #pragma mark - Private Methods
@@ -211,15 +236,20 @@
     [self virifyCaptcha];
 }
 
-- (void)tapBackground:(id)sender
-{
-    if ([_phoneLabel isFirstResponder]) {
-        [_phoneLabel resignFirstResponder];
-    } else if ([_captchaLabel isFirstResponder]) {
-        [_captchaLabel resignFirstResponder];
-    }
-}
+//- (void)tapBackground:(id)sender
+//{
+//    if ([_phoneLabel isFirstResponder]) {
+//        [_phoneLabel resignFirstResponder];
+//    } else if ([_captchaLabel isFirstResponder]) {
+//        [_captchaLabel resignFirstResponder];
+//    }
+//}
 
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    [super touchesEnded:touches withEvent:event];
+}
 
 @end
 
