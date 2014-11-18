@@ -12,6 +12,9 @@
 #import "RecommendDataSource.h"
 #import "CityDetailTableViewController.h"
 #import "DestinationViewController.h"
+#import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
 
 #warning 测试景点详情数据。
 #import "SpotDetailViewController.h"
@@ -113,9 +116,14 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (IBAction)makePlan:(id)sender
 {
-    DestinationViewController *destinationCtl = [[DestinationViewController alloc] init];
-    destinationCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:destinationCtl animated:YES];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    foreignCtl.title = @"国外";
+    domestic.title = @"国内";
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    makePlanCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 #pragma mark <UICollectionViewDataSource>

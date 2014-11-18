@@ -1,0 +1,79 @@
+//
+//  MakePlanViewController.m
+//  PeachTravel
+//
+//  Created by liangpengshuai on 11/18/14.
+//  Copyright (c) 2014 com.aizou.www. All rights reserved.
+//
+
+#import "MakePlanViewController.h"
+#import "DomesticViewController.h"
+#import "ForeignViewController.h"
+
+@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UISearchDisplayController *searchController;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UIButton *searchBtn;
+
+@end
+
+@implementation MakePlanViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationItem.title = @"选择目的地";
+    
+    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
+    _searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    _searchBar.delegate = self;
+    [_searchBar setPlaceholder:@"请输入城市名或拼音"];
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _searchBar.translucent = YES;
+    _searchBar.showsCancelButton = YES;
+    _searchController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
+    _searchController.active = NO;
+    _searchController.searchResultsDataSource = self;
+    _searchController.searchResultsDelegate = self;
+    
+    [self.view addSubview:_searchBar];
+
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    [_searchBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+}
+
+- (IBAction)beginSearch:(id)sender
+{
+    [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
+    [_searchController setActive:YES animated:YES];
+}
+
+#pragma mark - tableview datasource & delegate
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 0;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
+@end
+
+
+
+
+
+
