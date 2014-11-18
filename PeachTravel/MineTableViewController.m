@@ -16,7 +16,7 @@
 #import "AboutViewController.h"
 #import "SettingTableViewController.h"
 #import "UserInfoTableViewController.h"
-#import "MineTableViewCell.h"
+#import "OptionTableViewCell.h"
 
 #define dataSource               @[@[@"分享设置", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
@@ -37,7 +37,8 @@
     [super viewDidLoad];
 //    [self.tableView setContentInset:UIEdgeInsetsMake(-35, 0, 0, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
-     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
@@ -144,11 +145,8 @@
         }
         
     } else {
-        MineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
-        if (!cell) {
-            cell = [[MineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:secondCell];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
+        OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.titleView.text = [[dataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         return cell;
     }

@@ -36,8 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"意见反馈";
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = @"提意见";
 
     CGFloat width = self.view.frame.size.width;
     
@@ -45,7 +45,7 @@
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"快来说说你的意见吧~";
+    desc1.text = @"亲你这么吐槽真的好么";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
