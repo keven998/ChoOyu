@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C655B7691A1B74E0004EE8E3 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C655B7671A1B74E0004EE8E3 /* OptionTableViewCell.m */; };
+		C655B76A1A1B74E0004EE8E3 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C655B7681A1B74E0004EE8E3 /* OptionTableViewCell.xib */; };
+		C655B76D1A1B74F1004EE8E3 /* ic_extender@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C655B76C1A1B74F1004EE8E3 /* ic_extender@2x.png */; };
 		D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */; };
 		D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD091A147B5600E36A93 /* HotDestinationCollectionViewCell.m */; };
 		D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD0A1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib */; };
@@ -308,7 +311,6 @@
 		D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6831A19AD1D00FA5A76 /* ResizableView.m */; };
-		D98CC6871A19B6F900FA5A76 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6861A19B6F900FA5A76 /* MineTableViewCell.m */; };
 		D98CC68E1A19BE5000FA5A76 /* SpotDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC68D1A19BE5000FA5A76 /* SpotDetailViewController.m */; };
 		D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6901A19BF8700FA5A76 /* SpotDetailView.m */; };
 		D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */; };
@@ -406,6 +408,10 @@
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C655B7661A1B74E0004EE8E3 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
+		C655B7671A1B74E0004EE8E3 /* OptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionTableViewCell.m; sourceTree = "<group>"; };
+		C655B7681A1B74E0004EE8E3 /* OptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionTableViewCell.xib; sourceTree = "<group>"; };
+		C655B76C1A1B74F1004EE8E3 /* ic_extender@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_extender@2x.png"; sourceTree = "<group>"; };
 		D902AD051A14789400E36A93 /* HotDestinationCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewController.h; sourceTree = "<group>"; };
 		D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotDestinationCollectionViewController.m; sourceTree = "<group>"; };
 		D902AD081A147B5600E36A93 /* HotDestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewCell.h; sourceTree = "<group>"; };
@@ -808,8 +814,6 @@
 		D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchUserInfoViewController.xib; sourceTree = "<group>"; };
 		D98CC6821A19AD1D00FA5A76 /* ResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizableView.h; sourceTree = "<group>"; };
 		D98CC6831A19AD1D00FA5A76 /* ResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizableView.m; sourceTree = "<group>"; };
-		D98CC6851A19B6F900FA5A76 /* MineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewCell.h; sourceTree = "<group>"; };
-		D98CC6861A19B6F900FA5A76 /* MineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewCell.m; sourceTree = "<group>"; };
 		D98CC68C1A19BE5000FA5A76 /* SpotDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotDetailViewController.h; sourceTree = "<group>"; };
 		D98CC68D1A19BE5000FA5A76 /* SpotDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotDetailViewController.m; sourceTree = "<group>"; };
 		D98CC68F1A19BF8700FA5A76 /* SpotDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotDetailView.h; sourceTree = "<group>"; };
@@ -990,6 +994,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C655B76B1A1B74F1004EE8E3 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				C655B76C1A1B74F1004EE8E3 /* ic_extender@2x.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 		D04CEAB67B3F2D1933738689 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2156,6 +2168,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
+				C655B76B1A1B74F1004EE8E3 /* resource */,
 				D955E36419E67AC700047F2B /* Common */,
 				D9681A1B1A10A19100122793 /* Welcome */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,
@@ -2350,8 +2363,9 @@
 		D9E6BFAD19E3E4B700C750AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D98CC6851A19B6F900FA5A76 /* MineTableViewCell.h */,
-				D98CC6861A19B6F900FA5A76 /* MineTableViewCell.m */,
+				C655B7661A1B74E0004EE8E3 /* OptionTableViewCell.h */,
+				C655B7671A1B74E0004EE8E3 /* OptionTableViewCell.m */,
+				C655B7681A1B74E0004EE8E3 /* OptionTableViewCell.xib */,
 				D9F3613C19E42360000F379F /* LoginTableViewCell.h */,
 				D9F3613D19E42360000F379F /* LoginTableViewCell.m */,
 				D9F3613E19E42360000F379F /* LoginTableViewCell.xib */,
@@ -2698,6 +2712,7 @@
 				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
 				D90C637819FB44D300C2E440 /* VoiceSearchFeedback006@2x.png in Resources */,
+				C655B76D1A1B74F1004EE8E3 /* ic_extender@2x.png in Resources */,
 				D90F360619F63B3300E26FA9 /* chatBar_keyboard@2x.png in Resources */,
 				D90F362519F63B3300E26FA9 /* chatBar_more_photo.png in Resources */,
 				D955E54C19E7A91300047F2B /* sns_icon_qzone@2x.png in Resources */,
@@ -2731,6 +2746,7 @@
 				D90F362719F63B3300E26FA9 /* chatBar_more_photoSelected.png in Resources */,
 				D9F57B9519E93486005BB43B /* UMSnsAccountViewController.xib in Resources */,
 				D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */,
+				C655B76A1A1B74E0004EE8E3 /* OptionTableViewCell.xib in Resources */,
 				D90F35F119F63B3300E26FA9 /* call_silence_h.png in Resources */,
 				D9681A171A109C4700122793 /* tutorial_background_01@2x.jpg in Resources */,
 				D90C63A619FB44D300C2E440 /* chat_location_preview.png in Resources */,
@@ -2885,7 +2901,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
-				D98CC6871A19B6F900FA5A76 /* MineTableViewCell.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
 				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
 				D90F360019F63B3300E26FA9 /* DXRecordView.m in Sources */,
@@ -2946,6 +2961,7 @@
 				D96819AC1A0E031000122793 /* ContactListTableViewCell.m in Sources */,
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
+				C655B7691A1B74E0004EE8E3 /* OptionTableViewCell.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
