@@ -60,8 +60,7 @@ static const NSInteger TAG_OFFSET = 1000;
 	[button setBackgroundImage:image forState:UIControlStateNormal];
 	[button setBackgroundImage:image forState:UIControlStateHighlighted];
 	
-	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[button setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.5f] forState:UIControlStateNormal];
+    [button setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
 }
 
 - (void)deselectTabButton:(UIButton *)button
@@ -72,8 +71,9 @@ static const NSInteger TAG_OFFSET = 1000;
 	[button setBackgroundImage:image forState:UIControlStateNormal];
 	[button setBackgroundImage:image forState:UIControlStateHighlighted];
 
-	[button setTitleColor:[UIColor colorWithRed:175/255.0f green:85/255.0f blue:58/255.0f alpha:1.0f] forState:UIControlStateNormal];
-	[button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+
 }
 
 - (void)removeTabButtons
@@ -148,7 +148,7 @@ static const NSInteger TAG_OFFSET = 1000;
 	CGRect rect = CGRectMake(0, 64, self.view.bounds.size.width, TAB_BAR_HEIGHT);
 	tabButtonsContainerView = [[UIView alloc] initWithFrame:rect];
 	tabButtonsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    tabButtonsContainerView.backgroundColor = [UIColor lightGrayColor];
+    tabButtonsContainerView.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:tabButtonsContainerView];
 
 	rect.origin.y = TAB_BAR_HEIGHT+64;
@@ -158,9 +158,13 @@ static const NSInteger TAG_OFFSET = 1000;
 	[self.view addSubview:contentContainerView];
 
 	indicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MHTabBarIndicator"]];
-	[self.view addSubview:indicatorImageView];
+//	[self.view addSubview:indicatorImageView];
 
 	[self reloadTabButtons];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 5, 1, 34)];
+    spaceView.backgroundColor = [UIColor grayColor];
+    [tabButtonsContainerView addSubview:spaceView];
     
 }
 

@@ -329,6 +329,11 @@
 		D9A717C11A04AD4F005BDEFE /* FrendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717BF1A04AD4F005BDEFE /* FrendRequestTableViewController.m */; };
 		D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
+		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
+		D9C64B391A1AFEDA00A4B9BF /* ForeignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B381A1AFEDA00A4B9BF /* ForeignViewController.m */; };
+		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
+		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
+		D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */; };
 		D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */; };
 		D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */; };
 		D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */; };
@@ -839,6 +844,15 @@
 		D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrendRequestTableViewController.xib; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
+		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
+		D9C64B371A1AFEDA00A4B9BF /* ForeignViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignViewController.h; sourceTree = "<group>"; };
+		D9C64B381A1AFEDA00A4B9BF /* ForeignViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignViewController.m; sourceTree = "<group>"; };
+		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
+		D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziCollectionLayout.m; sourceTree = "<group>"; };
+		D9C64BB21A1B31CA00A4B9BF /* DomesticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticViewController.h; sourceTree = "<group>"; };
+		D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticViewController.m; sourceTree = "<group>"; };
+		D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticViewController.xib; sourceTree = "<group>"; };
 		D9CDD70919EB9C3C001AC9F2 /* UnLoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnLoginTableViewCell.h; sourceTree = "<group>"; };
 		D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnLoginTableViewCell.m; sourceTree = "<group>"; };
 		D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnLoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -1612,6 +1626,13 @@
 			children = (
 				D955E34D19E6508D00047F2B /* DestinationViewController.h */,
 				D955E34E19E6508D00047F2B /* DestinationViewController.m */,
+				D9C64B371A1AFEDA00A4B9BF /* ForeignViewController.h */,
+				D9C64B381A1AFEDA00A4B9BF /* ForeignViewController.m */,
+				D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */,
+				D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */,
+				D9C64BB21A1B31CA00A4B9BF /* DomesticViewController.h */,
+				D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */,
+				D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1707,6 +1728,8 @@
 		D955E3A319E6BF7C00047F2B /* MakeTravel */ = {
 			isa = PBXGroup;
 			children = (
+				D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */,
+				D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */,
 			);
 			name = MakeTravel;
 			sourceTree = "<group>";
@@ -2672,6 +2695,7 @@
 				D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */,
 				D97C17FB19FE72CF00895B62 /* ReceiverImageNodeBorder_back@2x.png in Resources */,
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
+				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
 				D90C637819FB44D300C2E440 /* VoiceSearchFeedback006@2x.png in Resources */,
 				D90F360619F63B3300E26FA9 /* chatBar_keyboard@2x.png in Resources */,
@@ -2871,6 +2895,7 @@
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
+				D9C64B391A1AFEDA00A4B9BF /* ForeignViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
@@ -2881,6 +2906,7 @@
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
 				D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */,
+				D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
 				D90F364919F63C2F00E26FA9 /* NSDateFormatter+Category.m in Sources */,
 				D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */,
@@ -2890,6 +2916,7 @@
 				D90F364A19F63C2F00E26FA9 /* NSString+Valid.m in Sources */,
 				D9E9F7F41A00DB00003F70F6 /* TZScrollView.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
+				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
@@ -2963,6 +2990,7 @@
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
+				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
 				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,
 				D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */,
