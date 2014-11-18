@@ -11,5 +11,6 @@
 @interface OptionTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *flagView;
 @property (weak, nonatomic) IBOutlet UILabel *titleView;
+@property (weak, nonatomic) IBOutlet UIView *bgFrame;
 
 @end

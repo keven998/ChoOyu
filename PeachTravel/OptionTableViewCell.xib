@@ -58,6 +58,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bgFrame" destination="loP-fX-WYJ" id="35d-9o-2bL"/>
                 <outlet property="flagView" destination="FDg-U2-dQN" id="5aq-NK-vYc"/>
                 <outlet property="titleView" destination="7ID-ja-dxp" id="KoN-wR-dh8"/>
             </connections>

@@ -19,6 +19,8 @@
     view.backgroundColor = UIColorFromRGB(0xdddddd);
     self.selectedBackgroundView = view;
     
+    _bgFrame.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _bgFrame.layer.borderWidth = 0.5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
