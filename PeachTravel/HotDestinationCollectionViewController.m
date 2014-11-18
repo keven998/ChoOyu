@@ -11,6 +11,7 @@
 #import "HotDestinationCollectionReusableView.h"
 #import "RecommendDataSource.h"
 #import "CityDetailTableViewController.h"
+#import "DestinationViewController.h"
 
 #warning 测试景点详情数据。
 #import "SpotDetailViewController.h"
@@ -36,6 +37,13 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     self.collectionView.collectionViewLayout = self.flowLayout;
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     [self loadDataSource];
+    
+    UIButton *makePlanBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    [makePlanBtn setTitle:@"做攻略" forState:UIControlStateNormal];
+    makePlanBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [makePlanBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+    [makePlanBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:makePlanBtn];
 
 }
 
@@ -101,6 +109,15 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 }
 
+#pragma mark - IBAciton Methods
+
+- (IBAction)makePlan:(id)sender
+{
+    DestinationViewController *destinationCtl = [[DestinationViewController alloc] init];
+    destinationCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:destinationCtl animated:YES];
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -135,18 +152,17 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.recommend = recommend;
     cityDetailCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
-     */
     
-#warning 测试景点详情数据。
+/*
     SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
     [self.navigationController pushViewController:spotCtl animated:YES];
+ */
 }
 
 @end

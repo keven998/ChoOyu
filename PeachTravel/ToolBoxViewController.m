@@ -9,10 +9,10 @@
 #import "ToolBoxViewController.h"
 #import "AccountManager.h"
 #import "LoginViewController.h"
-#import "MHTabBarController.h"
 #import "ContactListViewController.h"
 #import "ChatListViewController.h"
 #import "TZCMDChatHelper.h"
+#import "IMRootViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -69,11 +69,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         contactListCtl.title = @"好朋友";
         chatListCtl.title = @"会话";
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
-        MHTabBarController *tabBarController = [[MHTabBarController alloc] init];
-        tabBarController.delegate = self;
-        tabBarController.viewControllers = viewControllers;
-        tabBarController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:tabBarController animated:YES];
+//        MHTabBarController *tabBarController = [[MHTabBarController alloc] init];
+//        tabBarController.delegate = self;
+//        tabBarController.viewControllers = viewControllers;
+//        tabBarController.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:tabBarController animated:YES];
+        
+        
+        IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
+        IMRootCtl.delegate = self;
+        IMRootCtl.viewControllers = viewControllers;
+        IMRootCtl.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:IMRootCtl animated:YES];
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];

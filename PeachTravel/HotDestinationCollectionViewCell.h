@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HotDestinationCollectionViewCell : UICollectionViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
 @property (weak, nonatomic) IBOutlet UILabel *cellTitleLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *cellDescLabel;
+
 @end

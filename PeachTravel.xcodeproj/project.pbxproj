@@ -338,6 +338,7 @@
 		D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD72C19EBBAAD001AC9F2 /* AppUtils.m */; };
 		D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */; };
 		D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */; };
+		D9D9D9001A1AE159005BE754 /* IMRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D9D8FF1A1AE159005BE754 /* IMRootViewController.m */; };
 		D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE349B1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m */; };
 		D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */; };
 		D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34D71A0B1F2500DDCCAB /* ChatScrollView.m */; };
@@ -853,6 +854,8 @@
 		D9D840FF19F4F74200FEB197 /* BindTelephoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindTelephoneViewController.h; sourceTree = "<group>"; };
 		D9D8410019F4F74200FEB197 /* BindTelephoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindTelephoneViewController.m; sourceTree = "<group>"; };
 		D9D8410119F4F74200FEB197 /* BindTelephoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindTelephoneViewController.xib; sourceTree = "<group>"; };
+		D9D9D8FE1A1AE159005BE754 /* IMRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMRootViewController.h; sourceTree = "<group>"; };
+		D9D9D8FF1A1AE159005BE754 /* IMRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMRootViewController.m; sourceTree = "<group>"; };
 		D9DE349A1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeGroupTitleViewController.h; sourceTree = "<group>"; };
 		D9DE349B1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeGroupTitleViewController.m; sourceTree = "<group>"; };
 		D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeGroupTitleViewController.xib; sourceTree = "<group>"; };
@@ -1273,6 +1276,8 @@
 				D90F357319F63B3300E26FA9 /* Chat */,
 				D982F90F1A071B6F00ECF18A /* TZCMDChatHelper.h */,
 				D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */,
+				D9D9D8FE1A1AE159005BE754 /* IMRootViewController.h */,
+				D9D9D8FF1A1AE159005BE754 /* IMRootViewController.m */,
 			);
 			name = IM;
 			sourceTree = "<group>";
@@ -2938,6 +2943,7 @@
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
 				D99D8ECB19C8600C0021C25B /* main.m in Sources */,
 				D90F35FF19F63B3300E26FA9 /* DXChatBarMoreView.m in Sources */,
+				D9D9D9001A1AE159005BE754 /* IMRootViewController.m in Sources */,
 				D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */,
 				D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */,
 				D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */,
