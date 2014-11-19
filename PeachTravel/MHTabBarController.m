@@ -24,7 +24,7 @@
 
 #import "MHTabBarController.h"
 
-static const float TAB_BAR_HEIGHT = 44.0f;
+static const float TAB_BAR_HEIGHT = 44.0;
 static const NSInteger TAG_OFFSET = 1000;
 
 @interface MHTabBarController ()
@@ -47,56 +47,62 @@ static const NSInteger TAG_OFFSET = 1000;
 {
 	CGRect rect = indicatorImageView.frame;
 	rect.origin.x = button.center.x - floorf(indicatorImageView.frame.size.width/2.0f);
-	rect.origin.y = TAB_BAR_HEIGHT - indicatorImageView.frame.size.height;
+	rect.origin.y = tabButtonsContainerView.frame.origin.y + TAB_BAR_HEIGHT - indicatorImageView.frame.size.height;
 	indicatorImageView.frame = rect;
 	indicatorImageView.hidden = NO;
 }
 
 - (void)selectTabButton:(UIButton *)button
 {
-	[button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+//	[button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 
 	UIImage *image = [[UIImage imageNamed:@"MHTabBarActiveTab"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
 	[button setBackgroundImage:image forState:UIControlStateNormal];
 	[button setBackgroundImage:image forState:UIControlStateHighlighted];
-	
+    [button setImage:nil forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [button setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
 }
 
 - (void)deselectTabButton:(UIButton *)button
 {
-	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
 	UIImage *image = [[UIImage imageNamed:@"MHTabBarInactiveTab"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
 	[button setBackgroundImage:image forState:UIControlStateNormal];
 	[button setBackgroundImage:image forState:UIControlStateHighlighted];
 
-	
-    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
 
 }
 
 - (void)removeTabButtons
 {
 	NSArray *buttons = [tabButtonsContainerView subviews];
-	for (UIButton *button in buttons)
+    for (UIButton *button in buttons) {
 		[button removeFromSuperview];
+    }
 }
 
 - (void)addTabButtons
 {
 	NSUInteger index = 0;
-	for (UIViewController *viewController in self.viewControllers)
+	for (MHChildViewController *viewController in self.viewControllers)
 	{
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = TAG_OFFSET + index;
 		[button setTitle:viewController.title forState:UIControlStateNormal];
 		[button addTarget:self action:@selector(tabButtonPressed:) forControlEvents:UIControlEventTouchDown];
-		button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-		button.titleLabel.shadowOffset = CGSizeMake(0, 1);
+		button.titleLabel.font = [UIFont systemFontOfSize:16.0];
+//		button.titleLabel.shadowOffset = CGSizeMake(0, 1);
+        if (viewController.notify) {
+            [button setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+            [button setImageEdgeInsets:UIEdgeInsetsMake(-16.0, 64.0, 0.0, 0.0)];
+            [button setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 27.0)];
+        }
 		[self deselectTabButton:button];
 		[tabButtonsContainerView addSubview:button];
-
+        
 		++index;
 	}
 }
@@ -116,7 +122,6 @@ static const NSInteger TAG_OFFSET = 1000;
 {
 	NSUInteger index = 0;
 	NSUInteger count = [self.viewControllers count];
-
 	CGRect rect = CGRectMake(0, 0, floorf(self.view.bounds.size.width / count), TAB_BAR_HEIGHT);
 
 	indicatorImageView.hidden = YES;
@@ -130,9 +135,9 @@ static const NSInteger TAG_OFFSET = 1000;
 		button.frame = rect;
 		rect.origin.x += rect.size.width;
 
-		if (index == self.selectedIndex)
+        if (index == self.selectedIndex) {
 			[self centerIndicatorOnButton:button];
-
+        }
 		++index;
 	}
 }
@@ -140,9 +145,7 @@ static const NSInteger TAG_OFFSET = 1000;
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
+//    self.view.backgroundColor = APP_PAGE_COLOR;
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
 	CGRect rect = CGRectMake(0, 64, self.view.bounds.size.width, TAB_BAR_HEIGHT);
@@ -152,20 +155,27 @@ static const NSInteger TAG_OFFSET = 1000;
 	[self.view addSubview:tabButtonsContainerView];
 
 	rect.origin.y = TAB_BAR_HEIGHT+64;
-	rect.size.height = self.view.bounds.size.height - TAB_BAR_HEIGHT;
+	rect.size.height = self.view.bounds.size.height - TAB_BAR_HEIGHT - 64.0;
 	contentContainerView = [[UIView alloc] initWithFrame:rect];
+    contentContainerView.backgroundColor = APP_PAGE_COLOR;
 	contentContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.view addSubview:contentContainerView];
 
 	indicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MHTabBarIndicator"]];
-//	[self.view addSubview:indicatorImageView];
-
+	[self.view addSubview:indicatorImageView];
 	[self reloadTabButtons];
     
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 5, 1, 34)];
     spaceView.backgroundColor = [UIColor grayColor];
     [tabButtonsContainerView addSubview:spaceView];
     
+    int count = self.viewControllers.count;
+    CGFloat w = floorf(self.view.bounds.size.width / count);
+    for (int i = 1; i < count; ++i) {
+        UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(w*i, 10.0 + tabButtonsContainerView.frame.origin.y, 0.8, TAB_BAR_HEIGHT - 2*10.0)];
+        divider.backgroundColor = UIColorFromRGB(0xcccccc);
+        [self.view addSubview:divider];
+    }
 }
 
 - (void)viewDidUnload
@@ -276,7 +286,7 @@ static const NSInteger TAG_OFFSET = 1000;
 		{
 			[fromViewController.view removeFromSuperview];
 		}
-		else if (fromViewController == nil)  // don't animate
+        else if (fromViewController == nil)  // don't animate
 		{
 			toViewController.view.frame = contentContainerView.bounds;
 			[contentContainerView addSubview:toViewController.view];
@@ -328,8 +338,9 @@ static const NSInteger TAG_OFFSET = 1000;
 			[contentContainerView addSubview:toViewController.view];
 			[self centerIndicatorOnButton:toButton];
 
-			if ([self.delegate respondsToSelector:@selector(mh_tabBarController:didSelectViewController:atIndex:)])
+            if ([self.delegate respondsToSelector:@selector(mh_tabBarController:didSelectViewController:atIndex:)]) {
 				[self.delegate mh_tabBarController:self didSelectViewController:toViewController atIndex:newSelectedIndex];
+            }
 		}
 	}
 }
@@ -359,5 +370,11 @@ static const NSInteger TAG_OFFSET = 1000;
 	[self setSelectedIndex:sender.tag - TAG_OFFSET animated:YES];
 }
 
+
+@end
+
+@implementation MHChildViewController
+
+@synthesize notify;
 
 @end

@@ -46,9 +46,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+    
+    self.view.backgroundColor = APP_PAGE_COLOR;
     _dataSource = [self loadDataSource];
     [self loadChattingPeople];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self networkStateView];
@@ -100,7 +105,7 @@
 {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, self.view.frame.size.height - 64) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;

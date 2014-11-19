@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
@@ -97,6 +98,7 @@
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
+        _contactTableView.backgroundColor = APP_PAGE_COLOR;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
     }

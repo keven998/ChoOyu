@@ -65,10 +65,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if ([accountManager isLogin]) {
 
         ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+        contactListCtl.title = @"好友";
+        contactListCtl.notify = YES;
+        
         ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
-        contactListCtl.title = @"好朋友";
-        chatListCtl.title = @"会话";
+        chatListCtl.title = @"消息";
+        chatListCtl.notify = YES;
+        
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
+        
 //        MHTabBarController *tabBarController = [[MHTabBarController alloc] init];
 //        tabBarController.delegate = self;
 //        tabBarController.viewControllers = viewControllers;

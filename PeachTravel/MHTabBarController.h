@@ -50,3 +50,9 @@
 - (BOOL)mh_tabBarController:(MHTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index;
 - (void)mh_tabBarController:(MHTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index;
 @end
+
+@interface MHChildViewController : UIViewController
+
+@property (nonatomic, assign) BOOL notify;
+
+@end
