@@ -15,6 +15,10 @@
 		C63344E91A1C487400A27F86 /* ic_menu_add_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63344E71A1C487400A27F86 /* ic_menu_add_friend@2x.png */; };
 		C63344EA1A1C487400A27F86 /* ic_menu_circle_chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63344E81A1C487400A27F86 /* ic_menu_circle_chat@2x.png */; };
 		C63344EC1A1C728000A27F86 /* ic_notify_flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63344EB1A1C728000A27F86 /* ic_notify_flag@2x.png */; };
+		C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344EF1A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m */; };
+		C63344F21A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344F01A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib */; };
+		C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344FE1A1C9AF000A27F86 /* ContactListTableViewCell.m */; };
+		C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344FF1A1C9AF000A27F86 /* ContactListTableViewCell.xib */; };
 		D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */; };
 		D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD091A147B5600E36A93 /* HotDestinationCollectionViewCell.m */; };
 		D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD0A1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib */; };
@@ -280,8 +284,6 @@
 		D964208019ECC65000CC8057 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */; };
 		D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A41A0DE3C600122793 /* ANBlurredImageView.m */; };
 		D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */; };
-		D96819AC1A0E031000122793 /* ContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819AA1A0E031000122793 /* ContactListTableViewCell.m */; };
-		D96819AD1A0E031000122793 /* ContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96819AB1A0E031000122793 /* ContactListTableViewCell.xib */; };
 		D9681A061A109BF600122793 /* ICETutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819F81A109BF600122793 /* ICETutorialController.m */; };
 		D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819FA1A109BF600122793 /* ICETutorialPage.m */; };
 		D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819FC1A109BF600122793 /* ICETutorialStyle.m */; };
@@ -425,6 +427,12 @@
 		C63344E71A1C487400A27F86 /* ic_menu_add_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu_add_friend@2x.png"; sourceTree = "<group>"; };
 		C63344E81A1C487400A27F86 /* ic_menu_circle_chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu_circle_chat@2x.png"; sourceTree = "<group>"; };
 		C63344EB1A1C728000A27F86 /* ic_notify_flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_notify_flag@2x.png"; sourceTree = "<group>"; };
+		C63344EE1A1C8AA200A27F86 /* OptionOfFASKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionOfFASKTableViewCell.h; sourceTree = "<group>"; };
+		C63344EF1A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionOfFASKTableViewCell.m; sourceTree = "<group>"; };
+		C63344F01A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionOfFASKTableViewCell.xib; sourceTree = "<group>"; };
+		C63344FD1A1C9AF000A27F86 /* ContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListTableViewCell.h; sourceTree = "<group>"; };
+		C63344FE1A1C9AF000A27F86 /* ContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListTableViewCell.m; sourceTree = "<group>"; };
+		C63344FF1A1C9AF000A27F86 /* ContactListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListTableViewCell.xib; sourceTree = "<group>"; };
 		D902AD051A14789400E36A93 /* HotDestinationCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewController.h; sourceTree = "<group>"; };
 		D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotDestinationCollectionViewController.m; sourceTree = "<group>"; };
 		D902AD081A147B5600E36A93 /* HotDestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewCell.h; sourceTree = "<group>"; };
@@ -775,9 +783,6 @@
 		D96819A41A0DE3C600122793 /* ANBlurredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBlurredImageView.m; sourceTree = "<group>"; };
 		D96819A51A0DE3C600122793 /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
 		D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BoxBlur.m"; sourceTree = "<group>"; };
-		D96819A91A0E031000122793 /* ContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListTableViewCell.h; sourceTree = "<group>"; };
-		D96819AA1A0E031000122793 /* ContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListTableViewCell.m; sourceTree = "<group>"; };
-		D96819AB1A0E031000122793 /* ContactListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListTableViewCell.xib; sourceTree = "<group>"; };
 		D96819F71A109BF600122793 /* ICETutorialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICETutorialController.h; sourceTree = "<group>"; };
 		D96819F81A109BF600122793 /* ICETutorialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICETutorialController.m; sourceTree = "<group>"; };
 		D96819F91A109BF600122793 /* ICETutorialPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICETutorialPage.h; sourceTree = "<group>"; };
@@ -1030,6 +1035,20 @@
 			);
 			name = RNGridMenu;
 			path = Common/Config/libs/RNGridMenu;
+			sourceTree = "<group>";
+		};
+		C63344ED1A1C8A2800A27F86 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C63344FD1A1C9AF000A27F86 /* ContactListTableViewCell.h */,
+				C63344FE1A1C9AF000A27F86 /* ContactListTableViewCell.m */,
+				C63344FF1A1C9AF000A27F86 /* ContactListTableViewCell.xib */,
+				C63344EE1A1C8AA200A27F86 /* OptionOfFASKTableViewCell.h */,
+				C63344EF1A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m */,
+				C63344F01A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib */,
+			);
+			name = View;
+			path = ToolBox/IM/Contact/ContactList/View;
 			sourceTree = "<group>";
 		};
 		D04CEAB67B3F2D1933738689 /* Pods */ = {
@@ -2059,12 +2078,10 @@
 		D96819AE1A0E032F00122793 /* ContactList */ = {
 			isa = PBXGroup;
 			children = (
+				C63344ED1A1C8A2800A27F86 /* View */,
 				D9DE789B1A027965008A8576 /* ContactListViewController.h */,
 				D9DE789C1A027965008A8576 /* ContactListViewController.m */,
 				D9DE789D1A027965008A8576 /* ContactListViewController.xib */,
-				D96819A91A0E031000122793 /* ContactListTableViewCell.h */,
-				D96819AA1A0E031000122793 /* ContactListTableViewCell.m */,
-				D96819AB1A0E031000122793 /* ContactListTableViewCell.xib */,
 			);
 			name = ContactList;
 			sourceTree = "<group>";
@@ -2827,8 +2844,8 @@
 				D955E54E19E7A91300047F2B /* sns_icon_sina@2x.png in Resources */,
 				D90F361619F63B3300E26FA9 /* chatBar_colorMore_cameraSelected@2x.png in Resources */,
 				D90C639719FB44D300C2E440 /* chatBar_more_card@2x.png in Resources */,
-				D96819AD1A0E031000122793 /* ContactListTableViewCell.xib in Resources */,
 				D9A717AA1A047E94005BDEFE /* c2cRejectedSenderReceiverMsgNodeBG@2x.png in Resources */,
+				C63344F21A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib in Resources */,
 				D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */,
 				D90C636419FB44D300C2E440 /* chatListCellHead@2x.png in Resources */,
 				D955E35719E65D1B00047F2B /* DomesticDestinationCell.xib in Resources */,
@@ -2838,6 +2855,7 @@
 				D90F362419F63B3300E26FA9 /* chatBar_more_locationSelected@2x.png in Resources */,
 				D90C636E19FB44D300C2E440 /* VoiceSearchFeedback001@2x.png in Resources */,
 				D90C637019FB44D300C2E440 /* VoiceSearchFeedback002@2x.png in Resources */,
+				C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */,
 				D9E9F79219FF68C3003F70F6 /* SenderImageNodeMask@2x.png in Resources */,
 				D90F35F819F63B3300E26FA9 /* delete@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
@@ -2970,6 +2988,7 @@
 				D9681A1E1A10A1C700122793 /* WelcomeViewController.m in Sources */,
 				D90F364A19F63C2F00E26FA9 /* NSString+Valid.m in Sources */,
 				D9E9F7F41A00DB00003F70F6 /* TZScrollView.m in Sources */,
+				C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
@@ -2998,7 +3017,6 @@
 				D90F366819F63E5300E26FA9 /* EMTextView.m in Sources */,
 				D9FCC79E1A0232D500AD7CBF /* pinyin.c in Sources */,
 				D902AD101A14811400E36A93 /* HotDestinationCollectionReusableView.m in Sources */,
-				D96819AC1A0E031000122793 /* ContactListTableViewCell.m in Sources */,
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
 				C63344E61A1C44BB00A27F86 /* RNGridMenu.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
@@ -3047,6 +3065,7 @@
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
+				C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */,
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
 				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,

@@ -13,6 +13,7 @@
 #import "FrendRequestTableViewController.h"
 #import "ContactDetailViewController.h"
 #import "ContactListTableViewCell.h"
+#import "OptionOfFASKTableViewCell.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
@@ -34,6 +35,8 @@
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
+    
+    [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -59,7 +62,7 @@
         _tzScrollView.backgroundColor = [UIColor greenColor];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
-        [button setTitle:@"好友申请" forState:UIControlStateNormal];
+        [button setTitle:@"好友请求" forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor greenColor]];
         button.titleLabel.font = [UIFont systemFontOfSize:16.0];
         button.tag = 0;
@@ -99,6 +102,8 @@
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
+        _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _contactTableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
     }
@@ -177,7 +182,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50.0;
+    if (indexPath.section == 0) {
+        return 55.0;
+    }
+    
+    return 60.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -185,18 +194,26 @@
     if (section == 0) {
         return 0;
     }
-    return 30.0;
+    return 24.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-        label.backgroundColor = [UIColor grayColor];
-    
-        label.text = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1];
-        return label;
-    } else return nil;
+        UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+        view.backgroundColor = [UIColor clearColor];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, tableView.frame.size.width - 20.0, 24.0)];
+//        label.text = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1];
+        label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
+        label.backgroundColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:15.0];
+        label.textColor = UIColorFromRGB(0x999999);
+        label.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+        label.layer.borderWidth = 0.5;
+        [view addSubview:label];
+        return view;
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -212,8 +229,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:requestCell forIndexPath:indexPath];
-        cell.textLabel.text = @"好友申请";
+        OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
+        if (self.notify) {
+            cell.notifyFlag.hidden = NO;
+        } else {
+            cell.notifyFlag.hidden = YES;
+        }
         return cell;
         
     } else {
@@ -230,6 +251,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {        
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if ([cell isKindOfClass:[OptionOfFASKTableViewCell class]]) {
+            OptionOfFASKTableViewCell *oc = (OptionOfFASKTableViewCell *)cell;
+            oc.notifyFlag.hidden = YES;
+            self.notify = NO;
+        }
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
@@ -237,6 +264,8 @@
         contactDetailCtl.contact = contact;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
