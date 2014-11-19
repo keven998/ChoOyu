@@ -55,7 +55,7 @@
         
         UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(10.0, 10.0, _footerView.frame.size.width - 20.0, 35.0)];
         logoutBtn.center = _footerView.center;
-        logoutBtn.backgroundColor = [UIColor redColor];
+        logoutBtn.backgroundColor = UIColorFromRGB(0xee528c);
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         logoutBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;

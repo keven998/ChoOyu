@@ -22,10 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [addBtn setTitle:@"添加好友" forState:UIControlStateNormal];
-    addBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+//    [addBtn setTitle:@"添加好友" forState:UIControlStateNormal];
+//    addBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+//    [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(userAdd:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
