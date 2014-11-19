@@ -8,7 +8,7 @@
 
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
-#import "MineTableViewCell.h"
+#import "OptionTableViewCell.h"
 
 #define cellIdentifier   @"settingCell"
 #define dataSource       @[@"清理缓存", @"我有意见", @"去App Store评分", @"消息和提醒"]
@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
-    [self.tableView registerClass:[MineTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
 }
 
 #pragma mark - private methods
@@ -42,6 +42,10 @@
     return 20.0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44.0;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = APP_PAGE_COLOR;
@@ -53,8 +57,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
     return cell;
 }
