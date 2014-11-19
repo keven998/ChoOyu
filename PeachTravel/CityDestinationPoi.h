@@ -10,7 +10,7 @@
 
 @interface CityDestinationPoi : NSObject
 
-@property (nonatomic, copy) NSString *destinationId;
+@property (nonatomic, copy) NSString *cityId;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *pinyin;

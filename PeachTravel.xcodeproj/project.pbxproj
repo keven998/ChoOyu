@@ -329,8 +329,13 @@
 		D9A717C11A04AD4F005BDEFE /* FrendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717BF1A04AD4F005BDEFE /* FrendRequestTableViewController.m */; };
 		D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
+		D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9AFB1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m */; };
+		D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9AFC1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib */; };
+		D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */; };
+		D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */; };
+		D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9B041A1C8AAD00E0C4CE /* country.jpg */; };
+		D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
-		D9C64B391A1AFEDA00A4B9BF /* ForeignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B381A1AFEDA00A4B9BF /* ForeignViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
 		D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */; };
@@ -846,10 +851,17 @@
 		D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrendRequestTableViewController.xib; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9AC9AFA1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignDestinationCollectionHeaderView.h; sourceTree = "<group>"; };
+		D9AC9AFB1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignDestinationCollectionHeaderView.m; sourceTree = "<group>"; };
+		D9AC9AFC1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCollectionHeaderView.xib; sourceTree = "<group>"; };
+		D9AC9AFF1A1C5F8C00E0C4CE /* ForeignViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignViewController.h; sourceTree = "<group>"; };
+		D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignViewController.m; sourceTree = "<group>"; };
+		D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignViewController.xib; sourceTree = "<group>"; };
+		D9AC9B041A1C8AAD00E0C4CE /* country.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = country.jpg; sourceTree = "<group>"; };
+		D9AC9B071A1C93BB00E0C4CE /* DestinationUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationUnit.h; sourceTree = "<group>"; };
+		D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationUnit.m; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
-		D9C64B371A1AFEDA00A4B9BF /* ForeignViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignViewController.h; sourceTree = "<group>"; };
-		D9C64B381A1AFEDA00A4B9BF /* ForeignViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
 		D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziCollectionLayout.m; sourceTree = "<group>"; };
 		D9C64BB21A1B31CA00A4B9BF /* DomesticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticViewController.h; sourceTree = "<group>"; };
@@ -1646,13 +1658,14 @@
 			children = (
 				D955E34D19E6508D00047F2B /* DestinationViewController.h */,
 				D955E34E19E6508D00047F2B /* DestinationViewController.m */,
-				D9C64B371A1AFEDA00A4B9BF /* ForeignViewController.h */,
-				D9C64B381A1AFEDA00A4B9BF /* ForeignViewController.m */,
 				D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */,
 				D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */,
 				D9C64BB21A1B31CA00A4B9BF /* DomesticViewController.h */,
 				D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */,
 				D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */,
+				D9AC9AFF1A1C5F8C00E0C4CE /* ForeignViewController.h */,
+				D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */,
+				D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1679,6 +1692,11 @@
 				D9C64BC31A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.h */,
 				D9C64BC41A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m */,
 				D9C64BC51A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib */,
+				D9AC9AFA1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.h */,
+				D9AC9AFB1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m */,
+				D9AC9AFC1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib */,
+				D9AC9B071A1C93BB00E0C4CE /* DestinationUnit.h */,
+				D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1925,6 +1943,8 @@
 		D955E3F919E7A88900047F2B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D9AC9B041A1C8AAD00E0C4CE /* country.jpg */,
+				D9AC9B061A1C8AB000E0C4CE /* 临时图片文件记得删掉 */,
 				D96819AF1A105C6800122793 /* Introduction */,
 				D90C62FE19FB44C800C2E440 /* IM */,
 				D955E5D319E7D41200047F2B /* Default-568h@2x.png */,
@@ -2278,6 +2298,13 @@
 				D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */,
 			);
 			name = ChangeUserInfo;
+			sourceTree = "<group>";
+		};
+		D9AC9B061A1C8AB000E0C4CE /* 临时图片文件记得删掉 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "临时图片文件记得删掉";
 			sourceTree = "<group>";
 		};
 		D9CDD71F19EBAC5F001AC9F2 /* Register */ = {
@@ -2691,6 +2718,7 @@
 				D90C639019FB44D300C2E440 /* VoiceSearchFeedback018@2x.png in Resources */,
 				D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */,
 				D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */,
+				D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */,
 				D90C63AE19FB44D300C2E440 /* chat_receiver_audio_playing003.png in Resources */,
 				D90C63A819FB44D300C2E440 /* chat_receiver_audio_playing000.png in Resources */,
 				D90F361919F63B3300E26FA9 /* chatBar_colorMore_photo@2x.png in Resources */,
@@ -2703,6 +2731,7 @@
 				C63344E21A1C3F5F00A27F86 /* ic_menu_add@2x.png in Resources */,
 				D90C63B819FB44D300C2E440 /* chat_sender_audio_playing_002.png in Resources */,
 				C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */,
+				D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */,
 				D90F360319F63B3300E26FA9 /* chatBar_faceSelected.png in Resources */,
 				D90F361119F63B3300E26FA9 /* chatBar_recordSelected.png in Resources */,
 				D90C639219FB44D300C2E440 /* VoiceSearchFeedback019@2x.png in Resources */,
@@ -2721,6 +2750,7 @@
 				D90C63A519FB44D300C2E440 /* chat_location_detail_disclosureHL@2x.png in Resources */,
 				D90C638B19FB44D300C2E440 /* VoiceSearchFeedback016.png in Resources */,
 				D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */,
+				D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */,
 				D97C17FB19FE72CF00895B62 /* ReceiverImageNodeBorder_back@2x.png in Resources */,
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
 				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
@@ -2915,6 +2945,7 @@
 			files = (
 				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
+				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,
 				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
 				D90F360019F63B3300E26FA9 /* DXRecordView.m in Sources */,
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
@@ -2923,10 +2954,10 @@
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
-				D9C64B391A1AFEDA00A4B9BF /* ForeignViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
+				D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */,
 				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
 				D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */,
 				D90F364D19F63C2F00E26FA9 /* UIViewController+HUD.m in Sources */,
@@ -2951,6 +2982,7 @@
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
+				D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */,
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,
 				D90F35EA19F63B3300E26FA9 /* ChatListViewController.m in Sources */,
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,

@@ -2,7 +2,7 @@
 //  ForeignViewController.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/18/14.
+//  Created by liangpengshuai on 11/19/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
@@ -10,6 +10,6 @@
 #import "Destinations.h"
 
 @interface ForeignViewController : UIViewController
-@property (nonatomic, strong) Destinations *destinations;
 
+@property (nonatomic, strong) Destinations *destinations;
 @end

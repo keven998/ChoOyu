@@ -127,6 +127,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     domestic.title = @"国内";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     makePlanCtl.hidesBottomBarWhenPushed = YES;
+    domestic.makePlanCtl = makePlanCtl;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 

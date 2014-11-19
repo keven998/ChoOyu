@@ -13,7 +13,7 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        _destinationId = [json objectForKey:@"id"];
+        _cityId = [json objectForKey:@"id"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _pinyin = [ConvertMethods chineseToPinyin:_zhName];

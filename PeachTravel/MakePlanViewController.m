@@ -9,6 +9,7 @@
 #import "MakePlanViewController.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
+#import "DestinationToolBar.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -45,6 +46,17 @@
     [_searchBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+    
+    [self.view addSubview:self.destinationToolBar];
+    
+}
+
+- (DestinationToolBar *)destinationToolBar
+{
+    if (!_destinationToolBar) {
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
+    }
+    return _destinationToolBar;
 }
 
 - (IBAction)beginSearch:(id)sender

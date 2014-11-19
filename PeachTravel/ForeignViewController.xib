@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DomesticViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ForeignViewController">
             <connections>
-                <outlet property="domesticCollectionView" destination="zjg-xA-dWL" id="jZB-Wy-zfD"/>
+                <outlet property="foreignCollectionView" destination="dp0-LM-i7c" id="c8C-zm-cf4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,56 +16,48 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zjg-xA-dWL">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dp0-LM-i7c">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <collectionViewLayout key="collectionViewLayout" id="EIO-Vx-hAP" customClass="TaoziCollectionLayout"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
+                    <collectionViewLayout key="collectionViewLayout" id="3vX-8h-Nif" customClass="TaoziCollectionLayout"/>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="zjg-xA-dWL" secondAttribute="bottom" id="5LO-DH-iWt">
+                <constraint firstItem="dp0-LM-i7c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Dum-9r-82Z"/>
+                <constraint firstAttribute="bottom" secondItem="dp0-LM-i7c" secondAttribute="bottom" id="n9r-ld-qIJ">
                     <variation key="widthClass=compact" constant="10"/>
                 </constraint>
-                <constraint firstItem="zjg-xA-dWL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="153" id="LOP-Eo-77Z">
-                    <variation key="widthClass=compact" constant="60"/>
-                </constraint>
-                <constraint firstItem="zjg-xA-dWL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tUr-m0-IPN">
+                <constraint firstAttribute="trailing" secondItem="dp0-LM-i7c" secondAttribute="trailing" id="w2s-eu-847">
                     <variation key="widthClass=compact" constant="10"/>
                 </constraint>
-                <constraint firstAttribute="trailing" secondItem="zjg-xA-dWL" secondAttribute="trailing" id="ukb-Ev-iuY">
+                <constraint firstItem="dp0-LM-i7c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yTw-Gt-3rK">
                     <variation key="widthClass=compact" constant="10"/>
                 </constraint>
             </constraints>
-            <nil key="simulatedTopBarMetrics"/>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="zjg-xA-dWL"/>
+                    <exclude reference="dp0-LM-i7c"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="5LO-DH-iWt"/>
-                    <exclude reference="LOP-Eo-77Z"/>
-                    <exclude reference="tUr-m0-IPN"/>
-                    <exclude reference="ukb-Ev-iuY"/>
+                    <exclude reference="Dum-9r-82Z"/>
+                    <exclude reference="n9r-ld-qIJ"/>
+                    <exclude reference="w2s-eu-847"/>
+                    <exclude reference="yTw-Gt-3rK"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
-                    <include reference="zjg-xA-dWL"/>
+                    <include reference="dp0-LM-i7c"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="5LO-DH-iWt"/>
-                    <include reference="LOP-Eo-77Z"/>
-                    <include reference="tUr-m0-IPN"/>
-                    <include reference="ukb-Ev-iuY"/>
+                    <include reference="Dum-9r-82Z"/>
+                    <include reference="n9r-ld-qIJ"/>
+                    <include reference="w2s-eu-847"/>
+                    <include reference="yTw-Gt-3rK"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="299" y="407"/>
+            <point key="canvasLocation" x="295" y="275"/>
         </view>
     </objects>
 </document>

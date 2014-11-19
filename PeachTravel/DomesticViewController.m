@@ -11,13 +11,14 @@
 #import "DestinationCollectionHeaderView.h"
 #import "Destinations.h"
 #import "DomesticDestinationCell.h"
+#import "TZScrollView.h"
+#import "MakePlanViewController.h"
 
-@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
+@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, DestinationToolBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *domesticCollectionView;
-
-#warning 测试数据
-@property (nonatomic, strong) NSMutableArray *testArray;
+@property (nonatomic, strong) TZScrollView *tzScrollView;
+@property (nonatomic, strong) NSDictionary *dataSource;
 
 @end
 
@@ -28,20 +29,75 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _makePlanCtl.destinationToolBar.delegate = self;
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     [(TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout setDelegate:self];
-    
-    NSArray *s = @[@"北京", @"上海", @"哈尔滨", @"浩", @"马六甲"];
-    NSArray *s1 = @[@"北京", @"上海", @"哈尔滨", @"呼和浩特", @"马六甲海峡"];
-    NSArray *s2 = @[@"北京", @"上海", @"哈尔滨", @"呼和浩特", @"马六甲海峡"];
-    _testArray = [[NSMutableArray alloc] initWithObjects:s,s1,s2,nil];
-    [self loadDomesticData];
+    [self loadDomesticDataFromServer];
+    if (_destinations.destinationsSelected.count == 0) {
+        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
+    }
 }
 
-- (void)loadDomesticData
+- (NSDictionary *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [self.destinations destinationsGroupByPin];
+    }
+    return _dataSource;
+}
+
+- (TZScrollView *)tzScrollView
+{
+    if (!_tzScrollView) {
+        
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 40)];
+        _tzScrollView.scrollView.delegate = self;
+        _tzScrollView.itemWidth = 80;
+        _tzScrollView.itemHeight = 40;
+        _tzScrollView.itemBackgroundColor = [UIColor greenColor];
+        _tzScrollView.backgroundColor = [UIColor greenColor];
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        for (int i = 0; i<[[self.dataSource objectForKey:@"headerKeys"] count]; i++) {
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+            NSString *s = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:i];
+            [button setTitle:s forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor greenColor]];
+            button.titleLabel.font = [UIFont systemFontOfSize:16.0];
+            button.tag = i;
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [array addObject:button];
+        }        _tzScrollView.viewsOnScrollView = array;
+        for (UIButton *tempBtn in _tzScrollView.viewsOnScrollView) {
+            [tempBtn addTarget:self action:@selector(choseCurrent:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+    return _tzScrollView;
+}
+
+- (void)updateView
+{
+    _dataSource = [_destinations destinationsGroupByPin];
+    [self.view addSubview:self.tzScrollView];
+    [self.domesticCollectionView reloadData];
+}
+
+- (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
+{
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:currentIndex];
+    
+    [_domesticCollectionView scrollToItemAtIndexPath:scrollIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    
+    CGFloat offsetY = [_domesticCollectionView layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:scrollIndexPath].frame.origin.y;
+    
+    
+    [_domesticCollectionView setContentOffset:CGPointMake(0, offsetY) animated:YES];
+    
+}
+
+- (void)loadDomesticDataFromServer
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -60,6 +116,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [_destinations initDomesticCitiesWithJson:[responseObject objectForKey:@"result"]];
+            [self updateView];
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
@@ -69,11 +126,41 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }];
 }
 
+#pragma mark - IBAction Methods
+
+- (IBAction)choseCurrent:(UIButton *)sender
+{
+    _tzScrollView.currentIndex = sender.tag;
+    [self tableViewMoveToCorrectPosition:sender.tag];
+}
+
+#pragma mark - DestinationToolBarDelegate
+
+- (void)removeUintCell:(NSInteger)index
+{
+    CityDestinationPoi *city = [_destinations.destinationsSelected objectAtIndex:index];
+    [_destinations.destinationsSelected removeObjectAtIndex:index];
+    for (int i=0; i<[[self.dataSource objectForKey:@"content"] count]; i++) {
+        NSArray *cities = [[self.dataSource objectForKey:@"content"] objectAtIndex:i];
+        for (int j=0; j<cities.count; j++) {
+            CityDestinationPoi *cityPoi = [cities objectAtIndex:j];
+            if ([cityPoi.cityId isEqualToString:city.cityId]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
+                [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }
+        }
+    }
+    if (self.destinations.destinationsSelected.count == 0) {
+        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
+    }
+}
+
 #pragma mark -  TaoziLayoutDelegate
 
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [_testArray[section] count];
+    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:section];
+    return [group count];
 }
 
 - (CGFloat)tzcollectionLayoutWidth
@@ -83,12 +170,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
-    return _testArray.count;
+    return [[self.dataSource objectForKey:@"headerKeys"] count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize size = [_testArray[indexPath.section][indexPath.row] sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
+    CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
+    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
     return CGSizeMake(size.width+30, size.height+10);
 }
 
@@ -99,19 +188,20 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 5;
+    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:section];
+    return [group count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    return [[self.dataSource objectForKey:@"headerKeys"] count];
 }
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
-    [headerView.titleBtn setTitle:@"A" forState:UIControlStateNormal];
+    [headerView.titleBtn setTitle:[[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section] forState:UIControlStateNormal];
     return headerView;
 }
 
@@ -119,9 +209,90 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusableIdentifier forIndexPath:indexPath];
-    cell.layer.borderColor = [UIColor grayColor].CGColor;
-    cell.tiltleLabel.text = _testArray[indexPath.section][indexPath.row];
+    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
+    CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
+    cell.tiltleLabel.text = city.zhName;
+    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
+        if ([cityPoi.cityId isEqualToString:city.cityId]) {
+            cell.layer.borderColor = UIColorFromRGB(0xee528c).CGColor;
+            return  cell;
+        }
+    }
+    cell.layer.borderColor = UIColorFromRGB(0xf5f5f5).CGColor;
     return  cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
+    CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
+    if (_destinations.destinationsSelected.count == 0) {
+        [self.makePlanCtl.destinationToolBar setHidden:NO withAnimation:YES];
+    }
+    [_destinations.destinationsSelected addObject:city];
+    [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];
+    [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tzScrollView.scrollView) {
+        CGPoint currentOffset = scrollView.contentOffset;
+        
+        NSLog(@"offset: %@", NSStringFromCGPoint(currentOffset));
+        
+        int currentIndex = (int)(currentOffset.x)/80;
+        if (currentIndex > ([[self.dataSource objectForKey:@"headerKeys"] count] -1)) {
+            currentIndex = ([[self.dataSource objectForKey:@"headerKeys"] count] -1);
+        }
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        }
+        _tzScrollView.currentIndex = currentIndex;
+        [self tableViewMoveToCorrectPosition:currentIndex];
+        
+    } else if (scrollView == self.domesticCollectionView) {
+            NSArray *visiableCells = [self.domesticCollectionView visibleCells];
+            
+            NSInteger firstSection = INT_MAX;
+            
+            for (UICollectionViewCell *cell in visiableCells) {
+                NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
+                (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
+            }
+            self.tzScrollView.currentIndex = firstSection;
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
+{
+    if (scrollView == self.tzScrollView.scrollView) {
+        CGPoint currentOffset = scrollView.contentOffset;
+        int currentIndex = (int)(currentOffset.x)/80;
+        if (currentIndex > ([[self.dataSource objectForKey:@"headerKeys"] count] -1)) {
+            currentIndex = ([[self.dataSource objectForKey:@"headerKeys"] count] -1);
+        }
+
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        }
+        _tzScrollView.currentIndex = currentIndex;
+        [self tableViewMoveToCorrectPosition:currentIndex];
+        
+    } else if (scrollView == self.domesticCollectionView) {
+        NSArray *visiableCells = [self.domesticCollectionView visibleCells];
+        
+        NSInteger firstSection = INT_MAX;
+        
+        for (UICollectionViewCell *CELL in visiableCells) {
+            NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:CELL];
+            (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
+        }
+        
+        self.tzScrollView.currentIndex = firstSection;
+    }
 }
 
 @end

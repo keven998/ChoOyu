@@ -17,4 +17,6 @@
 - (void)initDomesticCitiesWithJson:(id)json;
 - (void)initForeignCountriesWithJson:(id)json;
 
+- (NSDictionary *)destinationsGroupByPin;
+
 @end
