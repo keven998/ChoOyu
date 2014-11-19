@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Destinations.h"
 
 @interface ForeignViewController : UIViewController
+@property (nonatomic, strong) Destinations *destinations;
 
 @end

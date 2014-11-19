@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Destinations.h"
 
 @interface DomesticViewController : UIViewController
+
+@property (nonatomic, strong) Destinations *destinations;
+
 
 @end

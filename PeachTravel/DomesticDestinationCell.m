@@ -11,7 +11,6 @@
 @implementation DomesticDestinationCell
 
 - (void)awakeFromNib {
-    
 }
 
 @end

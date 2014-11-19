@@ -8,7 +8,9 @@
 
 #import "TaoziCollectionLayout.h"
 
-@interface TaoziCollectionLayout ()
+@interface TaoziCollectionLayout () {
+    CGFloat offsetY;
+}
 
 @property (nonatomic, strong) NSMutableArray *itemsAttributes;
 @property (nonatomic, strong) NSMutableArray *headerViewAttributes;
@@ -25,8 +27,7 @@
     _width = [_delegate tzcollectionLayoutWidth];
     _itemsAttributes = [[NSMutableArray alloc] init];
     _headerViewAttributes = [[NSMutableArray alloc] init];
-    CGFloat offsetY = 10;
-    
+    offsetY = 0;
     for (int i=0; i<sections; i++) {
         CGFloat offsetX = 10.0;
         NSInteger itemsCountPerSection = [_delegate tzcollectionView:self.collectionView numberOfItemsInSection:i];
@@ -36,7 +37,7 @@
         CGSize headerSize = [_delegate collectionview:self.collectionView sizeForHeaderView:headerIndexPath];
         
         UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:headerIndexPath];
-        headerAttributes.frame = CGRectMake(offsetX, offsetY, _width, headerSize.height);
+        headerAttributes.frame = CGRectMake(0, offsetY, _width, headerSize.height);
         [_headerViewAttributes addObject:headerAttributes];
         offsetY += headerSize.height+10;
         
@@ -94,7 +95,7 @@
 -(CGSize)collectionViewContentSize{
     CGSize retVal = self.collectionView.bounds.size;
     
-    retVal.height = 1000;
+    retVal.height = offsetY + 50;
     
     return retVal;
 }

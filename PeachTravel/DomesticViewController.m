@@ -9,6 +9,8 @@
 #import "DomesticViewController.h"
 #import "TaoziCollectionLayout.h"
 #import "DestinationCollectionHeaderView.h"
+#import "Destinations.h"
+#import "DomesticDestinationCell.h"
 
 @interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
 
@@ -22,11 +24,12 @@
 @implementation DomesticViewController
 
 static NSString *reusableIdentifier = @"cell";
+static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_domesticCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reusableIdentifier];
-    [_domesticCollectionView registerClass:[DestinationCollectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"test"];
+    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
+    [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     [(TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout setDelegate:self];
@@ -35,11 +38,35 @@ static NSString *reusableIdentifier = @"cell";
     NSArray *s1 = @[@"北京", @"上海", @"哈尔滨", @"呼和浩特", @"马六甲海峡"];
     NSArray *s2 = @[@"北京", @"上海", @"哈尔滨", @"呼和浩特", @"马六甲海峡"];
     _testArray = [[NSMutableArray alloc] initWithObjects:s,s1,s2,nil];
+    [self loadDomesticData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loadDomesticData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    [SVProgressHUD show];
+    
+    //获取首页数据
+    [manager GET:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [_destinations initDomesticCitiesWithJson:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
 }
 
 #pragma mark -  TaoziLayoutDelegate
@@ -51,7 +78,7 @@ static NSString *reusableIdentifier = @"cell";
 
 - (CGFloat)tzcollectionLayoutWidth
 {
-    return self.domesticCollectionView.frame.size.width-20;
+    return self.domesticCollectionView.frame.size.width;
 }
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
@@ -62,12 +89,12 @@ static NSString *reusableIdentifier = @"cell";
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize size = [_testArray[indexPath.section][indexPath.row] sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width+20, size.height+10);
+    return CGSizeMake(size.width+30, size.height+10);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width-20, 30);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 40);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -83,18 +110,22 @@ static NSString *reusableIdentifier = @"cell";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"test" forIndexPath:indexPath];
-    headerView.headerLabel.text = @"我们的家";
-    headerView.backgroundColor = [UIColor blackColor];
+    DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
+    [headerView.titleBtn setTitle:@"A" forState:UIControlStateNormal];
     return headerView;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusableIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blackColor];
+    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusableIdentifier forIndexPath:indexPath];
+    cell.layer.borderColor = [UIColor grayColor].CGColor;
+    cell.tiltleLabel.text = _testArray[indexPath.section][indexPath.row];
     return  cell;
 }
 
 @end
+
+
+
+

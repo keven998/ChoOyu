@@ -15,6 +15,7 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
+#import "Destinations.h"
 
 #warning 测试景点详情数据。
 #import "SpotDetailViewController.h"
@@ -116,9 +117,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (IBAction)makePlan:(id)sender
 {
+    Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
     DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
     foreignCtl.title = @"国外";
     domestic.title = @"国内";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];

@@ -8,7 +8,6 @@
 
 #import "AccountManager.h"
 #import "AppDelegate.h"
-#import "pinyin.h"
 #import "Group.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
@@ -200,7 +199,7 @@
         newContact.memo = @"";
         newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
         newContact.avatar = ((FrendRequest *)contactDic).avatar;
-        newContact.pinyin = [self chineseToPinyin:newContact.nickName];
+        newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
         
     } else {
         newContact.userId = [contactDic objectForKey:@"userId"];
@@ -210,7 +209,7 @@
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
         newContact.signature = [contactDic objectForKey:@"signature"];
-        newContact.pinyin = [self chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
     }
     [self.account addContactsObject:newContact];
     [self save];
@@ -238,7 +237,7 @@
         newContact.memo = [contactDic objectForKey:@"memo"];
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
-        newContact.pinyin = [self chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         [contacts addObject:newContact];
     }
     [self.account addContacts:contacts];
@@ -377,25 +376,7 @@
     }
 }
 
-#pragma mark - ********* 拼音转换 ***********
-//将每个汉字的第一个拼音字母组装起来
-- (NSString *)chineseToPinyin:(NSString *)chinese
-{
-    NSLog(@"需要转换的汉字为：%@", chinese);
-    if(![chinese isEqualToString:@""]){
-        //join the pinYin
-        NSString *pinYinResult = [NSString string];
-        for(int j = 0;j < chinese.length; j++) {
-            NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
-                                             pinyinFirstLetter([chinese characterAtIndex:j])]uppercaseString];
-            pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
-        }
-        NSLog(@"转换完成的字符为：%@", pinYinResult);
-        return pinYinResult;
-    } else {
-        return @"";
-    }
-}
+
 
 - (NSDictionary *)contactsByPinyin
 {

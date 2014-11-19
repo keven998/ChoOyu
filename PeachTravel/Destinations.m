@@ -9,70 +9,31 @@
  */
 
 #import "Destinations.h"
-#import "DestinationCityPoi.h"
-#import "DestinationCountryPoi.h"
+#import "CityDestinationPoi.h"
+#import "CountryDestination.h"
 
 @implementation Destinations
 
-- (NSMutableArray *)domesticDestinations
+- (void)initDomesticCitiesWithJson:(id)json
 {
-    if (!_domesticDestinations) {
-        _domesticDestinations = [[NSMutableArray alloc] init];
-        
-        for (int i=0; i<3; i++) {
-            NSMutableDictionary *testDic = [[NSMutableDictionary alloc] init];
-            [testDic setObject:@"人山人海行" forKey:@"Title"];
-            
-            NSMutableArray *testArray = [[NSMutableArray alloc] init];
-            DestinationCityPoi *cityPoi = [[DestinationCityPoi alloc] init];
-            cityPoi.poiId = @"";
-            cityPoi.poiName = @"北京";
-            cityPoi.imageList = @[@"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1"];
-            [testArray addObject:cityPoi];
-            DestinationCityPoi *cityPoi1 = [[DestinationCityPoi alloc] init];
-            cityPoi1.poiId = @"";
-            cityPoi1.poiName = @"上海";
-            cityPoi1.imageList = @[@"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1"];
-            [testArray addObject:cityPoi1];
-            
-            DestinationCityPoi *cityPoi2 = [[DestinationCityPoi alloc] init];
-            cityPoi2.poiId = @"";
-            cityPoi2.poiName = @"杭州";
-            cityPoi2.imageList = @[@"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1"];
-            [testArray addObject:cityPoi2];
-            
-            DestinationCityPoi *cityPoi3 = [[DestinationCityPoi alloc] init];
-            cityPoi3.poiId = @"";
-            cityPoi3.poiName = @"烟台";
-            cityPoi3.imageList = @[@"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1"];
-            [testArray addObject:cityPoi3];
-            
-            [testDic setObject:testArray forKey:@"Pois"];
-            
-            [_domesticDestinations addObject:testDic];
-
-        }
+    if (!_domesticCities) {
+        _domesticCities = [[NSMutableArray alloc] init];
     }
-    return _domesticDestinations;
+    for (id cityDic in json) {
+        CityDestinationPoi *cityPoi = [[CityDestinationPoi alloc] initWithJson:cityDic];
+        [_domesticCities addObject:cityPoi];
+    }
 }
 
-- (NSMutableArray *)foreignDestinations
+- (void)initForeignCountriesWithJson:(id)json
 {
-    if (!_foreignDestinations) {
-        _foreignDestinations = [[NSMutableArray alloc] init];
-        for (int i = 0; i<10; i++) {
-            NSMutableDictionary *testDic = [[NSMutableDictionary alloc] init];
-            [testDic setObject:@"人山人海行" forKey:@"Title"];
-            
-            DestinationCountryPoi *country = [[DestinationCountryPoi alloc] init];
-            country.poiName = @"日本";
-            country.imageList = @[@"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1"];
-            
-            [testDic setObject:country forKey:@"Poi"];
-            [_foreignDestinations addObject:testDic];
-        }
+    if (!_foreignCountries) {
+        _foreignCountries = [[NSMutableArray alloc] init];
     }
-    return _foreignDestinations;
+    for (id CountryDic in json) {
+        CountryDestination *country = [[CountryDestination alloc] initWithJson:CountryDic];
+        [_foreignCountries addObject:country];
+    }
 }
 
 - (NSMutableArray *)destinationsSelected
