@@ -6,9 +6,11 @@
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "SuperPoi.h"
-
-@interface DestinationCityPoi : SuperPoi
-
-@end
+//#import <Foundation/Foundation.h>
+//#import "SuperPoi.h"
+//
+//@interface DestinationCityPoi : NSObject
+//
+//@property (nonatomic, strong) NSString *const
+//
+//@end

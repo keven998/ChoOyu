@@ -48,6 +48,7 @@
 }
 
 #pragma mark setter&getter
+
 - (NSDictionary *)snsAccnout
 {
     if (!_snsAccnout) {

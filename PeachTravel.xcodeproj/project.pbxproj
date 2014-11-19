@@ -233,12 +233,9 @@
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
 		D955E35719E65D1B00047F2B /* DomesticDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E35519E65D1B00047F2B /* DomesticDestinationCell.xib */; };
 		D955E35B19E6634100047F2B /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35A19E6634100047F2B /* Destinations.m */; };
-		D955E35E19E6694500047F2B /* DestinationCityPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35D19E6694500047F2B /* DestinationCityPoi.m */; };
 		D955E36319E669B000047F2B /* SuperPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E36219E669AF00047F2B /* SuperPoi.m */; };
-		D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E39919E682D900047F2B /* DestinationCollectionHeaderView.m */; };
 		D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E39C19E6B69100047F2B /* ForeignDestinationCell.m */; };
 		D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */; };
-		D955E3A219E6B9AC00047F2B /* DestinationCountryPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E3A119E6B9AC00047F2B /* DestinationCountryPoi.m */; };
 		D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E3B319E7A09200047F2B /* AccountManagerViewController.m */; };
 		D955E3E019E7A23800047F2B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3DF19E7A23800047F2B /* Security.framework */; };
 		D955E3E219E7A24500047F2B /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E119E7A24500047F2B /* libiconv.dylib */; };
@@ -334,6 +331,11 @@
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
 		D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */; };
+		D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BBB1A1B677000A4B9BF /* ConvertMethods.m */; };
+		D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BBE1A1B6B9C00A4B9BF /* CityDestinationPoi.m */; };
+		D9C64BC21A1B6BD600A4B9BF /* CountryDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BC11A1B6BD600A4B9BF /* CountryDestination.m */; };
+		D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BC41A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m */; };
+		D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C64BC51A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib */; };
 		D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */; };
 		D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */; };
 		D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */; };
@@ -702,17 +704,11 @@
 		D955E35519E65D1B00047F2B /* DomesticDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticDestinationCell.xib; sourceTree = "<group>"; };
 		D955E35919E6634100047F2B /* Destinations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Destinations.h; sourceTree = "<group>"; };
 		D955E35A19E6634100047F2B /* Destinations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Destinations.m; sourceTree = "<group>"; };
-		D955E35C19E6694500047F2B /* DestinationCityPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCityPoi.h; sourceTree = "<group>"; };
-		D955E35D19E6694500047F2B /* DestinationCityPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCityPoi.m; sourceTree = "<group>"; };
 		D955E36119E669AF00047F2B /* SuperPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPoi.h; sourceTree = "<group>"; };
 		D955E36219E669AF00047F2B /* SuperPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPoi.m; sourceTree = "<group>"; };
-		D955E39819E682D900047F2B /* DestinationCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionHeaderView.h; sourceTree = "<group>"; };
-		D955E39919E682D900047F2B /* DestinationCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionHeaderView.m; sourceTree = "<group>"; };
 		D955E39B19E6B69100047F2B /* ForeignDestinationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignDestinationCell.h; sourceTree = "<group>"; };
 		D955E39C19E6B69100047F2B /* ForeignDestinationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignDestinationCell.m; sourceTree = "<group>"; };
 		D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCell.xib; sourceTree = "<group>"; };
-		D955E3A019E6B9AC00047F2B /* DestinationCountryPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCountryPoi.h; sourceTree = "<group>"; };
-		D955E3A119E6B9AC00047F2B /* DestinationCountryPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCountryPoi.m; sourceTree = "<group>"; };
 		D955E3B219E7A09200047F2B /* AccountManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManagerViewController.h; sourceTree = "<group>"; };
 		D955E3B319E7A09200047F2B /* AccountManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManagerViewController.m; sourceTree = "<group>"; };
 		D955E3DF19E7A23800047F2B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -853,6 +849,15 @@
 		D9C64BB21A1B31CA00A4B9BF /* DomesticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticViewController.h; sourceTree = "<group>"; };
 		D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticViewController.m; sourceTree = "<group>"; };
 		D9C64BB41A1B31CA00A4B9BF /* DomesticViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticViewController.xib; sourceTree = "<group>"; };
+		D9C64BBA1A1B677000A4B9BF /* ConvertMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertMethods.h; sourceTree = "<group>"; };
+		D9C64BBB1A1B677000A4B9BF /* ConvertMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertMethods.m; sourceTree = "<group>"; };
+		D9C64BBD1A1B6B9C00A4B9BF /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
+		D9C64BBE1A1B6B9C00A4B9BF /* CityDestinationPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDestinationPoi.m; sourceTree = "<group>"; };
+		D9C64BC01A1B6BD600A4B9BF /* CountryDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryDestination.h; sourceTree = "<group>"; };
+		D9C64BC11A1B6BD600A4B9BF /* CountryDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryDestination.m; sourceTree = "<group>"; };
+		D9C64BC31A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionHeaderView.h; sourceTree = "<group>"; };
+		D9C64BC41A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionHeaderView.m; sourceTree = "<group>"; };
+		D9C64BC51A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionHeaderView.xib; sourceTree = "<group>"; };
 		D9CDD70919EB9C3C001AC9F2 /* UnLoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnLoginTableViewCell.h; sourceTree = "<group>"; };
 		D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnLoginTableViewCell.m; sourceTree = "<group>"; };
 		D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnLoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -1642,10 +1647,10 @@
 			children = (
 				D955E35919E6634100047F2B /* Destinations.h */,
 				D955E35A19E6634100047F2B /* Destinations.m */,
-				D955E35C19E6694500047F2B /* DestinationCityPoi.h */,
-				D955E35D19E6694500047F2B /* DestinationCityPoi.m */,
-				D955E3A019E6B9AC00047F2B /* DestinationCountryPoi.h */,
-				D955E3A119E6B9AC00047F2B /* DestinationCountryPoi.m */,
+				D9C64BBD1A1B6B9C00A4B9BF /* CityDestinationPoi.h */,
+				D9C64BBE1A1B6B9C00A4B9BF /* CityDestinationPoi.m */,
+				D9C64BC01A1B6BD600A4B9BF /* CountryDestination.h */,
+				D9C64BC11A1B6BD600A4B9BF /* CountryDestination.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1656,8 +1661,9 @@
 				D955E35819E65E6F00047F2B /* Cells */,
 				D955E35019E6538B00047F2B /* DestinationToolBar.h */,
 				D955E35119E6538B00047F2B /* DestinationToolBar.m */,
-				D955E39819E682D900047F2B /* DestinationCollectionHeaderView.h */,
-				D955E39919E682D900047F2B /* DestinationCollectionHeaderView.m */,
+				D9C64BC31A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.h */,
+				D9C64BC41A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m */,
+				D9C64BC51A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1678,6 +1684,8 @@
 		D955E35F19E6698B00047F2B /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D9C64BBA1A1B677000A4B9BF /* ConvertMethods.h */,
+				D9C64BBB1A1B677000A4B9BF /* ConvertMethods.m */,
 				D98CC6821A19AD1D00FA5A76 /* ResizableView.h */,
 				D98CC6831A19AD1D00FA5A76 /* ResizableView.m */,
 				D955E36019E6699700047F2B /* SuperClass */,
@@ -2757,6 +2765,7 @@
 				D90F360D19F63B3300E26FA9 /* chatBar_record.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
+				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
 				D9DE34DD1A0B5B8800DDCCAB /* ContactDetailViewController.xib in Resources */,
@@ -2900,6 +2909,7 @@
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
 				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
+				D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */,
 				D90F364D19F63C2F00E26FA9 /* UIViewController+HUD.m in Sources */,
 				D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */,
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
@@ -2950,8 +2960,10 @@
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
+				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
+				D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
 				D958E36A1A0256A60026EF7E /* KxMenu.m in Sources */,
@@ -2966,7 +2978,6 @@
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
-				D955E3A219E6B9AC00047F2B /* DestinationCountryPoi.m in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
 				D99D8ECB19C8600C0021C25B /* main.m in Sources */,
 				D90F35FF19F63B3300E26FA9 /* DXChatBarMoreView.m in Sources */,
@@ -2997,14 +3008,13 @@
 				D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */,
 				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
 				D902ADC51A15E58C00E36A93 /* CityDetailTableViewController.m in Sources */,
-				D955E39A19E682D900047F2B /* DestinationCollectionHeaderView.m in Sources */,
+				D9C64BC21A1B6BD600A4B9BF /* CountryDestination.m in Sources */,
 				D90F366B19F63E5300E26FA9 /* EMChooseViewController.m in Sources */,
 				D9DE789E1A027965008A8576 /* ContactListViewController.m in Sources */,
 				D90857B119EE0C330041A4E2 /* SMSVerifyViewController.m in Sources */,
 				D90F368119F63ED200E26FA9 /* EmojiEmoticons.m in Sources */,
 				D9A717A51A03B04A005BDEFE /* CreateConversationViewController.m in Sources */,
 				D97C47321A1A3D8F0045E1E1 /* NSString+TaoziString.m in Sources */,
-				D955E35E19E6694500047F2B /* DestinationCityPoi.m in Sources */,
 				D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */,
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,

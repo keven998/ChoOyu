@@ -10,9 +10,7 @@
 
 @interface DomesticDestinationCell : UICollectionViewCell
 
-
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
-@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
-@property (weak, nonatomic) IBOutlet UIButton *addBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
+@property (weak, nonatomic) IBOutlet UILabel *tiltleLabel;
 
 @end

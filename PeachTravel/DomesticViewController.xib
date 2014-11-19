@@ -18,18 +18,29 @@
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zjg-xA-dWL">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewLayout key="collectionViewLayout" id="EIO-Vx-hAP" customClass="TaoziCollectionLayout"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="zjg-xA-dWL" secondAttribute="bottom" id="5LO-DH-iWt"/>
+                <constraint firstAttribute="bottom" secondItem="zjg-xA-dWL" secondAttribute="bottom" id="5LO-DH-iWt">
+                    <variation key="widthClass=compact" constant="10"/>
+                </constraint>
                 <constraint firstItem="zjg-xA-dWL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="153" id="LOP-Eo-77Z">
                     <variation key="widthClass=compact" constant="89"/>
                 </constraint>
-                <constraint firstItem="zjg-xA-dWL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tUr-m0-IPN"/>
-                <constraint firstAttribute="trailing" secondItem="zjg-xA-dWL" secondAttribute="trailing" id="ukb-Ev-iuY"/>
+                <constraint firstItem="zjg-xA-dWL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tUr-m0-IPN">
+                    <variation key="widthClass=compact" constant="10"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="zjg-xA-dWL" secondAttribute="trailing" id="ukb-Ev-iuY">
+                    <variation key="widthClass=compact" constant="10"/>
+                </constraint>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <variation key="default">

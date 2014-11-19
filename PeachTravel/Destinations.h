@@ -10,8 +10,11 @@
 
 @interface Destinations : NSObject
 
-@property (nonatomic, strong) NSMutableArray *domesticDestinations;
-@property (nonatomic, strong) NSMutableArray *foreignDestinations;
+@property (nonatomic, strong) NSMutableArray *domesticCities;
+@property (nonatomic, strong) NSMutableArray *foreignCountries;
 @property (nonatomic, strong) NSMutableArray *destinationsSelected;
+
+- (void)initDomesticCitiesWithJson:(id)json;
+- (void)initForeignCountriesWithJson:(id)json;
 
 @end
