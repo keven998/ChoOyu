@@ -112,6 +112,7 @@
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
     }
     
@@ -203,7 +204,7 @@
 
 - (void) setupListView {
     [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+//    [self.tableView addSubview:self.slimeView];
 }
 
 - (NSMutableArray *)loadDataSource

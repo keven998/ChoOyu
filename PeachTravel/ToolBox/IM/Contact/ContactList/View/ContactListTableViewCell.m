@@ -18,9 +18,6 @@
     _frameBg.layer.borderColor = UIColorFromRGB(0xeeeeee).CGColor;
     _frameBg.layer.borderWidth = 0.5;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = UIColorFromRGB(0xdddddd);
-    self.selectedBackgroundView = view;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

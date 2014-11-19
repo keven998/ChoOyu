@@ -15,10 +15,6 @@
     
     self.backgroundColor = APP_PAGE_COLOR;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = UIColorFromRGB(0xdddddd);
-    self.selectedBackgroundView = view;
-    
     _bgFrame.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _bgFrame.layer.borderWidth = 0.5;
 }
