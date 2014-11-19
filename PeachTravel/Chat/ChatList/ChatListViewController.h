@@ -11,11 +11,11 @@
   */
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import "MHTabBarController.h"
 
 @class IMRootViewController;
 
-@interface ChatListViewController : BaseViewController
+@interface ChatListViewController : MHChildViewController
 
 - (void)refreshDataSource;
 

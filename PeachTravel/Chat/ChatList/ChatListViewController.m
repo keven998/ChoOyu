@@ -18,6 +18,7 @@
 #import "EMSearchDisplayController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
+#import "CreateConversationViewController.h"
 
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate>
 
@@ -46,11 +47,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    }
+    
+    self.view.backgroundColor = APP_PAGE_COLOR;
     _dataSource = [self loadDataSource];
     [self loadChattingPeople];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+//    [self.view addSubview:self.tableView];
+//    [self.tableView addSubview:self.slimeView];
     [self networkStateView];
     [self searchController];
 }
@@ -100,12 +106,13 @@
 {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, self.view.frame.size.height - 64) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
     }
     
@@ -154,7 +161,50 @@
         }
     }
     //重新加载 datasource
-    self.dataSource = [self loadDataSource];
+    if (_chattingPeople.count <= 0) {
+        [self setupEmptyView];
+    } else {
+//        self.dataSource = [self loadDataSource];
+        [self setupListView];
+    }
+}
+
+- (void) setupEmptyView {
+    CGFloat width = self.view.frame.size.width;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_notify_flag.png"]];
+    imageView.contentMode = UIViewContentModeScaleToFill;
+    imageView.center = CGPointMake(width/2.0, 100.0);
+    [self.view addSubview:imageView];
+    
+    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
+    desc.textColor = UIColorFromRGB(0x666666);
+    desc.font = [UIFont systemFontOfSize:15.0];
+    desc.numberOfLines = 2;
+    desc.textAlignment = NSTextAlignmentCenter;
+    desc.text = @"想去哪儿旅行\n约蜜蜜们来八一八吧";
+    [self.view addSubview:desc];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
+    btn.backgroundColor = [UIColor redColor];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitle:@"去聊聊" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
+    [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+- (IBAction)addConversation:(id)sender
+{
+    CreateConversationViewController *createCoversationCtl = [[CreateConversationViewController alloc] init];
+    [self.navigationController pushViewController:createCoversationCtl animated:YES];
+}
+
+- (void) setupListView {
+    [self.view addSubview:self.tableView];
+//    [self.tableView addSubview:self.slimeView];
 }
 
 - (NSMutableArray *)loadDataSource

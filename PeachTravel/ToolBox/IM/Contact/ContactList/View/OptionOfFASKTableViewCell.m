@@ -1,22 +1,23 @@
 //
-//  OptionTableViewCell.m
+//  OptionOfFASKTableViewCell.m
 //  PeachTravel
 //
-//  Created by Luo Yong on 14/11/18.
+//  Created by Luo Yong on 14/11/19.
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
-#import "OptionTableViewCell.h"
+#import "OptionOfFASKTableViewCell.h"
 
-@implementation OptionTableViewCell
+@implementation OptionOfFASKTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
-    
     self.backgroundColor = APP_PAGE_COLOR;
     
-    _bgFrame.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _bgFrame.layer.borderWidth = 0.5;
+    _cellFrameBg.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _cellFrameBg.layer.borderWidth = 0.5;
+    
+    _notifyFlag.layer.cornerRadius = 5.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
