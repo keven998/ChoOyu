@@ -8,7 +8,10 @@
 
 #import "TZScrollView.h"
 
-@interface TZScrollView()
+@interface TZScrollView() <UIScrollViewDelegate>
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+#define spaceWidth  20.0
 
 @end
 
@@ -22,6 +25,44 @@
     [self setNeedsDisplay];
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    NSLog(@"layoutSubviews");
+}
+
+- (void)setTitles:(NSArray *)titles
+{
+    _scrollView.contentSize = CGSizeMake(titles.count *(_itemWidth + spaceWidth)+self.bounds.size.width, _scrollView.contentSize.height);
+
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int i = 0; i<[titles count]; i++) {
+        
+        CGRect frame = CGRectMake((spaceWidth+_itemWidth) * i+self.bounds.size.width/2, 10, _itemWidth, _itemHeight);
+
+        UIButton *button = [[UIButton alloc] initWithFrame:frame];
+        NSString *s = [titles objectAtIndex:i];
+        [button setTitle:s forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+        button.layer.cornerRadius = _itemHeight/2;
+        [button setBackgroundColor:_itemBackgroundColor];
+        button.tag = i;
+        [array addObject:button];
+        [self.scrollView addSubview:button];
+    }
+    
+    _viewsOnScrollView = array;
+    for (UIButton *tempBtn in _viewsOnScrollView) {
+        [tempBtn addTarget:self action:@selector(choseCurrent:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+       if (self.viewsOnScrollView.count) {
+        self.currentIndex = 0;
+    }
+
+}
+
 //用户发生了滑动操作，然后将 scrollview 滑动到正确位置
 - (void)setCurrentIndex:(NSInteger)currentIndex
 {
@@ -29,21 +70,12 @@
     [self scrollToCorrectPosition];
 }
 
-- (void)drawRect:(CGRect)rect {
-    _scrollView.contentSize = CGSizeMake(_viewsOnScrollView.count *_itemWidth+self.bounds.size.width, _scrollView.contentSize.height);
-    for (UIView *subview in _scrollView.subviews) {
-        [subview removeFromSuperview];
-    }
-    for (int i = 0; i < _viewsOnScrollView.count; i++) {
-        UIButton *contentView = [_viewsOnScrollView objectAtIndex:i];
-        CGRect frame = CGRectMake(_itemWidth * i+self.bounds.size.width/2, 0, _itemWidth, _itemHeight);
-        [_viewsOnScrollView[i] setFrame:frame];
-        [_scrollView addSubview:contentView];
-    }
-    if (self.viewsOnScrollView.count) {
-        self.currentIndex = 0;
-    }
+- (IBAction)choseCurrent:(UIButton *)sender
+{
+    self.currentIndex = sender.tag;
+    [_delegate moveToIndex:sender.tag];
 }
+
 
 - (void)scrollToCorrectPosition
 {
@@ -55,15 +87,96 @@
     [_scrollView setContentOffset:CGPointMake(length, 0) animated:YES] ;
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    
+    NSLog(@"%f", currentOffset.x);
+    
+    int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
+    if (currentIndex > ([_viewsOnScrollView count] -1)) {
+        currentIndex = [_viewsOnScrollView count] - 1;
+    }
+    if (currentIndex < 0) {
+        currentIndex = 0;
+    }
+    CGFloat offset = currentOffset.x - (_itemWidth + spaceWidth)*currentIndex;
+    if (offset<0) {
+        offset = 0;
+    }
+    if (offset>10) {
+        offset = 20-offset;
+        if (offset<0) {
+            offset=0;
+        }
+    }
+    
+    CGFloat x = (spaceWidth+_itemWidth) * currentIndex+self.bounds.size.width/2;
+
+    UIButton *btn = [_viewsOnScrollView objectAtIndex:currentIndex];
+    CGRect rect = CGRectMake(x-(offset/2), 10-(offset/2), _itemWidth+offset, _itemWidth+offset);
+    btn.layer.cornerRadius = (_itemWidth+offset)/2;
+    [btn setFrame:rect];
+    btn.backgroundColor = UIColorFromRGB(0xee528c);
+    
+    for (int i=0; i<_viewsOnScrollView.count; i++) {
+        UIButton *otherbtn = [_viewsOnScrollView objectAtIndex:i];
+        if (![btn isEqual:otherbtn]) {
+            CGFloat x = (spaceWidth+_itemWidth) * i+self.bounds.size.width/2;
+            [otherbtn setFrame:CGRectMake(x,10, _itemWidth, _itemWidth)];
+            otherbtn.layer.cornerRadius = _itemWidth/2;
+            [otherbtn setBackgroundColor:_itemBackgroundColor];
+        }
+    }
+    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    
+    int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
+    if (currentIndex > ([_viewsOnScrollView count] -1)) {
+        currentIndex = [_viewsOnScrollView count] - 1;
+    }
+    if (currentIndex < 0) {
+        currentIndex = 0;
+    }
+    self.currentIndex = currentIndex;
+    [_delegate moveToIndex:currentIndex];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    
+    int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
+    if (currentIndex > ([_viewsOnScrollView count] -1)) {
+        currentIndex = [_viewsOnScrollView count] - 1;
+    }
+    if (currentIndex < 0) {
+        currentIndex = 0;
+    }
+//    NSLog(@"应该滚动的位置是:%d", currentIndex);
+    self.currentIndex = currentIndex;
+    [_delegate moveToIndex:currentIndex];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width/2-5, 0, 10, 10)];
-        indicatorView.backgroundColor = [UIColor whiteColor];
+        UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width/2-2.5, frame.size.height-4, 4, 4)];
+        indicatorView.layer.cornerRadius = 2.0;
+        indicatorView.backgroundColor = UIColorFromRGB(0xee528c);
         [self addSubview:_scrollView];
         [self addSubview:indicatorView];
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.delegate = self;
     }
     return self;
 }
@@ -71,6 +184,10 @@
 - (void)awakeFromNib
 {
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, _itemHeight)];
+    _scrollView.delegate = self;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.showsVerticalScrollIndicator = NO;
+
     [self addSubview:_scrollView];
 }
 
