@@ -24,5 +24,6 @@
 
 - (void) addNewUnit:(NSString *)icon withName:(NSString *)name;
 - (void) addNewUnitWithName:(NSString *)name;
+- (void) removeUnitAtIndex:(NSInteger)index;
 
 @end

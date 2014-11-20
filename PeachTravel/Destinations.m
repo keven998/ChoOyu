@@ -77,13 +77,13 @@
     dest.desc = @"水电费克里斯蒂就离开放暑假了卡机弗兰卡积分卡拉丝机付了款解放东路可视对讲法律文件佛 i 问 u 分哦骗我 i 分配 i 的；是；‘’撒就赶快拉德斯基嘎斯龙卷风破网 i 我；二姐夫稳婆克里斯蒂就离开说的话 v 撒旦咖啡店就是哇解放克里斯多夫建安看来是；减肥 i 哦啊 u 蜂窝 iu 惹我 i 解放啦三角阀；十几分了；撒开房间啊是水电费静安寺零度空间发卡量三角阀螺丝粉 啦";
     CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
     poi.zhName = @"大阪";
-    poi.cityId = @"1";
+    poi.cityId = @"21";
     CityDestinationPoi *poi2 = [[CityDestinationPoi alloc] init];
     poi2.zhName = @"大阪哈哈哈";
-    poi2.cityId = @"2";
+    poi2.cityId = @"22";
     CityDestinationPoi *poi3 = [[CityDestinationPoi alloc] init];
     poi3.zhName = @"大阪的";
-    poi3.cityId = @"3";
+    poi3.cityId = @"23";
     dest.cities = @[poi,poi2, poi3];
     [_foreignCountries addObject:dest];
     
@@ -92,22 +92,22 @@
     dest1.desc = @"水电费克里斯蒂就离开放暑假了卡机弗兰卡积分卡拉丝机付了款解放东路可视对讲法律文件佛 i 问 u 分哦骗我 i 分配 i 的；是；‘’撒就赶快拉德斯基嘎斯龙卷风破网 i 我；二姐夫稳婆克里斯蒂就离开说的话 v 撒旦咖啡店就是哇解放克里斯多夫建安看来是；减肥 i 哦啊 u 蜂窝 iu 惹我 i 解放啦三角阀；十几分了；撒开房间啊是水电费静安寺零度空间发卡量三角阀螺丝粉 啦";
     CityDestinationPoi *spoi = [[CityDestinationPoi alloc] init];
     spoi.zhName = @"大阪";
-    spoi.cityId= @"4";
+    spoi.cityId= @"24";
     CityDestinationPoi *spoi2 = [[CityDestinationPoi alloc] init];
     spoi2.zhName = @"大阪斯蒂芬森";
-    spoi2.cityId = @"5";
+    spoi2.cityId = @"25";
     CityDestinationPoi *spoi3 = [[CityDestinationPoi alloc] init];
     spoi3.zhName = @"大阪搜索";
     
     CityDestinationPoi *spoi4 = [[CityDestinationPoi alloc] init];
     spoi4.zhName = @"大阪";
-    spoi4.cityId = @"6";
+    spoi4.cityId = @"26";
     CityDestinationPoi *spoi5 = [[CityDestinationPoi alloc] init];
     spoi5.zhName = @"大阪斯蒂芬森";
-    spoi5.cityId = @"7";
+    spoi5.cityId = @"27";
     CityDestinationPoi *spoi6 = [[CityDestinationPoi alloc] init];
     spoi6.zhName = @"大阪搜索";
-    spoi6.cityId = @"8";
+    spoi6.cityId = @"28";
     
     dest1.cities = @[spoi,spoi2, spoi3, spoi4, spoi5, spoi6];
     
@@ -116,13 +116,13 @@
     dest2.desc = @"水电费克里斯蒂就离开放暑假了卡机弗兰卡积";
     CityDestinationPoi *qpoi = [[CityDestinationPoi alloc] init];
     qpoi.zhName = @"大阪";
-    qpoi.cityId = @"10";
+    qpoi.cityId = @"110";
     CityDestinationPoi *qpoi2 = [[CityDestinationPoi alloc] init];
     qpoi2.zhName = @"大阪";
-    qpoi2.cityId = @"11";
+    qpoi2.cityId = @"111";
     CityDestinationPoi *qpoi3 = [[CityDestinationPoi alloc] init];
     qpoi3.zhName = @"大阪";
-    qpoi3.cityId = @"12";
+    qpoi3.cityId = @"112";
     dest2.cities = @[qpoi,qpoi2, qpoi3];
     CountryDestination *dest3 = [[CountryDestination alloc] init];
     dest3.zhName = @"韩国";

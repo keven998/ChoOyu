@@ -9,10 +9,12 @@
 #import "MHTabBarController.h"
 #import "CityDestinationPoi.h"
 #import "DestinationToolBar.h"
+#import "Destinations.h"
 
 @interface MakePlanViewController : MHTabBarController
 
 @property (nonatomic, strong) DestinationToolBar *destinationToolBar;
+@property (nonatomic, strong) Destinations *destinations;
 
 
 @end

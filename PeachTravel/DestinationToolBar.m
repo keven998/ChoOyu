@@ -161,6 +161,12 @@
     [self addNewUnit:nil withName:name];
 }
 
+- (void)removeUnitAtIndex:(NSInteger)index
+{
+    DestinationUnit *unitCell = [_unitList objectAtIndex:index];
+    [self unitCellTouched:unitCell];
+}
+
 /*
  *  @method
  *  @function
@@ -178,6 +184,10 @@
     _frontMove = NO;
     if (_unitList.count - 1 > defaultVisibleCount && (_unitList.count - index - 1) <= defaultVisibleCount) {
         _frontMove = YES;
+    }
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(removeUintCell:)]) {
+        [_delegate removeUintCell:index];
     }
     
     [UIView animateWithDuration:duration animations:^(){
@@ -216,9 +226,6 @@
             [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         if (_frontMove) {
             [self isNeedResetFrameWithWidth:unitCell.frame.size.width];
-        }
-        if (_delegate && [_delegate respondsToSelector:@selector(removeUintCell:)]) {
-            [_delegate removeUintCell:index];
         }
     }];
     

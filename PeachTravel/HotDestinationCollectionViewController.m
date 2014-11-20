@@ -123,11 +123,15 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     DomesticViewController *domestic = [[DomesticViewController alloc] init];
     domestic.destinations = destinations;
     foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
     foreignCtl.title = @"国外";
     domestic.title = @"国内";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     makePlanCtl.hidesBottomBarWhenPushed = YES;
     domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    domestic.notify = NO;
+    foreignCtl.notify = NO;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 

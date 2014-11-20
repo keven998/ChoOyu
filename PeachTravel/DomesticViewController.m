@@ -151,7 +151,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         }
     }
     if (self.destinations.destinationsSelected.count == 0) {
-        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
+        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:NO];
     }
 }
 
@@ -226,12 +226,23 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 {
     NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
-    if (_destinations.destinationsSelected.count == 0) {
-        [self.makePlanCtl.destinationToolBar setHidden:NO withAnimation:YES];
+    BOOL find = NO;
+    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
+        if ([city.cityId isEqualToString:cityPoi.cityId]) {
+            NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
+            [_makePlanCtl.destinationToolBar removeUnitAtIndex:index];
+            find = YES;
+            break;
+        }
     }
-    [_destinations.destinationsSelected addObject:city];
-    [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];
-    [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+    if (!find) {
+        if (_destinations.destinationsSelected.count == 0) {
+            [_makePlanCtl.destinationToolBar setHidden:NO withAnimation:YES];
+        }
+        [_destinations.destinationsSelected addObject:city];
+        [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];
+        [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

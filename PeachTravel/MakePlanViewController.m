@@ -26,6 +26,7 @@
     
     self.navigationItem.title = @"选择目的地";
     
+    self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _searchBar.delegate = self;
@@ -55,6 +56,7 @@
 {
     if (!_destinationToolBar) {
         _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
+        [_destinationToolBar.nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _destinationToolBar;
 }
@@ -63,6 +65,11 @@
 {
     [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
     [_searchController setActive:YES animated:YES];
+}
+
+- (IBAction)makePlan:(id)sender
+{
+    
 }
 
 #pragma mark - tableview datasource & delegate
