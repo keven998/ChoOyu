@@ -241,7 +241,7 @@
 - (void)hideGroupList
 {
     [UIView animateWithDuration:0.4 animations:^{
-        CGRect rect = CGRectMake(0, 64-150, self.view.frame.size.width, 150);
+        CGRect rect = CGRectMake(0, -150, self.view.frame.size.width, 150);
         self.chatScrollView.frame = rect;
     } completion:^(BOOL finished) {
         showGroupList.hidden = NO;
