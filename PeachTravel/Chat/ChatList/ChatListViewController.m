@@ -31,6 +31,8 @@
 
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
+@property (nonatomic, strong) UIView                *emptyView;
+
 @end
 
 @implementation ChatListViewController
@@ -170,12 +172,19 @@
 }
 
 - (void) setupEmptyView {
+    if (self.emptyView != nil) {
+        return;
+    }
+    
     CGFloat width = self.view.frame.size.width;
+    
+    self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.emptyView];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_notify_flag.png"]];
     imageView.contentMode = UIViewContentModeScaleToFill;
     imageView.center = CGPointMake(width/2.0, 100.0);
-    [self.view addSubview:imageView];
+    [self.emptyView addSubview:imageView];
     
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
     desc.textColor = UIColorFromRGB(0x666666);
@@ -183,7 +192,7 @@
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
     desc.text = @"想去哪儿旅行\n约蜜蜜们来八一八吧";
-    [self.view addSubview:desc];
+    [self.emptyView addSubview:desc];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
@@ -193,7 +202,7 @@
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
     [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+    [self.emptyView addSubview:btn];
 }
 
 - (IBAction)addConversation:(id)sender
@@ -203,6 +212,10 @@
 }
 
 - (void) setupListView {
+    if (self.emptyView != nil) {
+        [self.emptyView removeFromSuperview];
+        self.emptyView = nil;
+    }
     [self.view addSubview:self.tableView];
 //    [self.tableView addSubview:self.slimeView];
 }

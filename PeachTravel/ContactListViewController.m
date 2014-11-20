@@ -60,13 +60,15 @@
 
 - (void) handleEmptyView {
     if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
-        [self setupEmptyView];
+        if (self.emptyView == nil) {
+            [self setupEmptyView];
+        }
     } else {
         [self removeEmptyView];
     }
 }
 
-- (void) buildEmptyView {
+- (void) setupEmptyView {
     CGFloat width = CGRectGetWidth(self.view.frame);
     
     self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, width, 192.0)];
