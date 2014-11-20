@@ -161,6 +161,11 @@
     return NO;
 }
 
+- (void)updateContact
+{
+    
+}
+
 //从服务器上获取好友列表
 - (void)getContactsFromServer
 {

@@ -9,6 +9,7 @@
 #import "MakePlanViewController.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
+#import "DestinationToolBar.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -25,6 +26,7 @@
     
     self.navigationItem.title = @"选择目的地";
     
+    self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _searchBar.delegate = self;
@@ -45,12 +47,29 @@
     [_searchBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+    
+    [self.view addSubview:self.destinationToolBar];
+    
+}
+
+- (DestinationToolBar *)destinationToolBar
+{
+    if (!_destinationToolBar) {
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
+        [_destinationToolBar.nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _destinationToolBar;
 }
 
 - (IBAction)beginSearch:(id)sender
 {
     [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
     [_searchController setActive:YES animated:YES];
+}
+
+- (IBAction)makePlan:(id)sender
+{
+    
 }
 
 #pragma mark - tableview datasource & delegate

@@ -10,7 +10,6 @@
 
 @interface DomesticDestinationCell : UICollectionViewCell
 
-//@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UILabel *tiltleLabel;
 
 @end
