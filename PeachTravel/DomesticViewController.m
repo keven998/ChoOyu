@@ -14,7 +14,7 @@
 #import "TZScrollView.h"
 #import "MakePlanViewController.h"
 
-@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, DestinationToolBarDelegate>
+@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, TZScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *domesticCollectionView;
 @property (nonatomic, strong) TZScrollView *tzScrollView;
@@ -29,7 +29,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _makePlanCtl.destinationToolBar.delegate = self;
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:reusableIdentifier];
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
@@ -39,6 +38,13 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSDictionary *)dataSource
@@ -54,25 +60,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     if (!_tzScrollView) {
         
         _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 40)];
-        _tzScrollView.scrollView.delegate = self;
-        _tzScrollView.itemWidth = 80;
-        _tzScrollView.itemHeight = 40;
-        _tzScrollView.itemBackgroundColor = [UIColor greenColor];
-        _tzScrollView.backgroundColor = [UIColor greenColor];
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        for (int i = 0; i<[[self.dataSource objectForKey:@"headerKeys"] count]; i++) {
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
-            NSString *s = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:i];
-            [button setTitle:s forState:UIControlStateNormal];
-            [button setBackgroundColor:[UIColor greenColor]];
-            button.titleLabel.font = [UIFont systemFontOfSize:16.0];
-            button.tag = i;
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [array addObject:button];
-        }        _tzScrollView.viewsOnScrollView = array;
-        for (UIButton *tempBtn in _tzScrollView.viewsOnScrollView) {
-            [tempBtn addTarget:self action:@selector(choseCurrent:) forControlEvents:UIControlEventTouchUpInside];
-        }
+        _tzScrollView.itemWidth = 20;
+        _tzScrollView.itemHeight = 20;
+        _tzScrollView.itemBackgroundColor = [UIColor grayColor];
+        _tzScrollView.backgroundColor = [UIColor whiteColor];
+        _tzScrollView.delegate = self;
+        _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
     }
     return _tzScrollView;
 }
@@ -126,20 +119,19 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }];
 }
 
-#pragma mark - IBAction Methods
+#pragma mark - TZScollViewDelegate
 
-- (IBAction)choseCurrent:(UIButton *)sender
+- (void)moveToIndex:(NSInteger)index
 {
-    _tzScrollView.currentIndex = sender.tag;
-    [self tableViewMoveToCorrectPosition:sender.tag];
+    [self tableViewMoveToCorrectPosition:index];
 }
 
-#pragma mark - DestinationToolBarDelegate
+#pragma mark - notification
 
-- (void)removeUintCell:(NSInteger)index
+- (void)updateDestinationsSelected:(NSNotification *)noti
 {
-    CityDestinationPoi *city = [_destinations.destinationsSelected objectAtIndex:index];
-    [_destinations.destinationsSelected removeObjectAtIndex:index];
+    CityDestinationPoi *city = [noti.userInfo objectForKey:@"city"];
+
     for (int i=0; i<[[self.dataSource objectForKey:@"content"] count]; i++) {
         NSArray *cities = [[self.dataSource objectForKey:@"content"] objectAtIndex:i];
         for (int j=0; j<cities.count; j++) {
@@ -149,9 +141,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
             }
         }
-    }
-    if (self.destinations.destinationsSelected.count == 0) {
-        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:NO];
     }
 }
 
@@ -247,63 +236,37 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView == self.tzScrollView.scrollView) {
-        CGPoint currentOffset = scrollView.contentOffset;
-        
-        NSLog(@"offset: %@", NSStringFromCGPoint(currentOffset));
-        
-        int currentIndex = (int)(currentOffset.x)/80;
-        if (currentIndex > ([[self.dataSource objectForKey:@"headerKeys"] count] -1)) {
-            currentIndex = ([[self.dataSource objectForKey:@"headerKeys"] count] -1);
-        }
-        if (currentIndex < 0) {
-            currentIndex = 0;
-        }
-        _tzScrollView.currentIndex = currentIndex;
-        [self tableViewMoveToCorrectPosition:currentIndex];
-        
-    } else if (scrollView == self.domesticCollectionView) {
-            NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-            
-            NSInteger firstSection = INT_MAX;
-            
-            for (UICollectionViewCell *cell in visiableCells) {
-                NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
-                (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
-            }
-            self.tzScrollView.currentIndex = firstSection;
+    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
+    
+    NSInteger firstSection = INT_MAX;
+    
+    for (UICollectionViewCell *cell in visiableCells) {
+        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
+        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
     }
+    self.tzScrollView.currentIndex = firstSection;
+
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 {
-    if (scrollView == self.tzScrollView.scrollView) {
-        CGPoint currentOffset = scrollView.contentOffset;
-        int currentIndex = (int)(currentOffset.x)/80;
-        if (currentIndex > ([[self.dataSource objectForKey:@"headerKeys"] count] -1)) {
-            currentIndex = ([[self.dataSource objectForKey:@"headerKeys"] count] -1);
-        }
-
-        if (currentIndex < 0) {
-            currentIndex = 0;
-        }
-        _tzScrollView.currentIndex = currentIndex;
-        [self tableViewMoveToCorrectPosition:currentIndex];
-        
-    } else if (scrollView == self.domesticCollectionView) {
-        NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-        
-        NSInteger firstSection = INT_MAX;
-        
-        for (UICollectionViewCell *CELL in visiableCells) {
-            NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:CELL];
-            (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
-        }
-        
-        self.tzScrollView.currentIndex = firstSection;
+    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
+    
+    NSInteger firstSection = INT_MAX;
+    
+    for (UICollectionViewCell *CELL in visiableCells) {
+        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:CELL];
+        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
     }
+    
+    self.tzScrollView.currentIndex = firstSection;
 }
 
 @end
