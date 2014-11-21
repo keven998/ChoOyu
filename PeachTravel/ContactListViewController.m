@@ -19,7 +19,7 @@
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TZScrollViewDelegate>
 
 @property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
@@ -115,39 +115,22 @@
 - (TZScrollView *)tzScrollView
 {
     if (!_tzScrollView) {
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, 40)];
-        _tzScrollView.scrollView.delegate = self;
-        _tzScrollView.itemWidth = 80;
-        _tzScrollView.itemHeight = 40;
-        _tzScrollView.itemBackgroundColor = [UIColor greenColor];
-        _tzScrollView.backgroundColor = [UIColor greenColor];
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
-        [button setTitle:@"好友请求" forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor greenColor]];
-        button.titleLabel.font = [UIFont systemFontOfSize:16.0];
-        button.tag = 0;
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [array addObject:button];
-        for (int i = 0; i<[[self.dataSource objectForKey:@"headerKeys"] count]; i++) {
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
-            NSString *s = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:i];
-            [button setTitle:s forState:UIControlStateNormal];
-            [button setBackgroundColor:[UIColor greenColor]];
-            button.titleLabel.font = [UIFont systemFontOfSize:16.0];
-            button.tag = i+1;
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [array addObject:button];
-        }
-        _tzScrollView.viewsOnScrollView = array;
-        for (UIButton *tempBtn in _tzScrollView.viewsOnScrollView) {
-            [tempBtn addTarget:self action:@selector(choseCurrent:) forControlEvents:UIControlEventTouchUpInside];
-        }
         
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 40)];
+        _tzScrollView.itemWidth = 20;
+        _tzScrollView.itemHeight = 20;
+        _tzScrollView.itemBackgroundColor = [UIColor grayColor];
+        _tzScrollView.backgroundColor = [UIColor whiteColor];
+        _tzScrollView.delegate = self;
+        NSMutableArray *titles = [[NSMutableArray alloc] init];
+        [titles addObject:@"好友请求"];
+        for (NSString *s in [self.dataSource objectForKey:@"headerKeys"]) {
+            [titles addObject:s];
+        }
+        _tzScrollView.titles = titles;
     }
     return _tzScrollView;
 }
-
 - (AccountManager *)accountManager
 {
     if (!_accountManager) {
@@ -178,7 +161,6 @@
     }
     return _dataSource;
 }
-
 
 #pragma mark - IBAction Methods
 
@@ -234,6 +216,13 @@
         [SVProgressHUD showErrorWithStatus:@"删除失败"];
     }];
 
+}
+
+#pragma mark - TZScollViewDelegate
+
+- (void)moveToIndex:(NSInteger)index
+{
+    [self tableViewMoveToCorrectPosition:index];
 }
 
 #pragma mark - UITableVeiwDataSource & delegate
@@ -312,7 +301,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {        
+    if (indexPath.section == 0) {
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if ([cell isKindOfClass:[OptionOfFASKTableViewCell class]]) {
@@ -352,45 +341,16 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView == self.tzScrollView.scrollView) {
-        CGPoint currentOffset = scrollView.contentOffset;
-        int currentIndex = (int)(currentOffset.x)/80;
-        if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]) {
-            currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count];
-        }
-        if (currentIndex < 0) {
-            currentIndex = 0;
-        }
-        
-        _tzScrollView.currentIndex = currentIndex;
-        [self tableViewMoveToCorrectPosition:currentIndex];
-        
-    } else if (scrollView == self.contactTableView) {
-        NSArray *visiableCells = [self.contactTableView visibleCells];
-        NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
-        self.tzScrollView.currentIndex = indexPath.section;
-    }
+    NSArray *visiableCells = [self.contactTableView visibleCells];
+    NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
+    self.tzScrollView.currentIndex = indexPath.section;
     
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 {
-    if (scrollView == self.tzScrollView.scrollView) {
-        CGPoint currentOffset = scrollView.contentOffset;
-        int currentIndex = (int)(currentOffset.x)/80;
-        if (currentIndex > [[self.dataSource objectForKey:@"headerKeys"] count]) {
-            currentIndex = [[self.dataSource objectForKey:@"headerKeys"] count];
-        }
-        if (currentIndex < 0) {
-            currentIndex = 0;
-        }
-        _tzScrollView.currentIndex = currentIndex;
-        [self tableViewMoveToCorrectPosition:currentIndex];
-        
-    } else if (scrollView == self.contactTableView) {
-        NSArray *visiableCells = [self.contactTableView visibleCells];
-        NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
-        self.tzScrollView.currentIndex = indexPath.section;
-    }
+    NSArray *visiableCells = [self.contactTableView visibleCells];
+    NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
+    self.tzScrollView.currentIndex = indexPath.section;
 }
 @end

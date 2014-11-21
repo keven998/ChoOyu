@@ -13,7 +13,7 @@
 #import "CountryDestination.h"
 #import "CityDestinationPoi.h"
 
-@interface ForeignViewController () <TaoziLayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DestinationToolBarDelegate>
+@interface ForeignViewController () <TaoziLayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic) NSInteger showCitiesIndex;
 
@@ -35,9 +35,13 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [(TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout setDelegate:self];
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
-    _makePlanCtl.destinationToolBar.delegate = self;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
     [self loadForeignDataFromServer];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadForeignDataFromServer
@@ -82,12 +86,11 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [self.foreignCollectionView reloadData];
 }
 
-#pragma mark - DestinationToolBarDelegate
+#pragma mark - notification
 
-- (void)removeUintCell:(NSInteger)index
+- (void) updateDestinationsSelected:(NSNotification *)noti
 {
-    CityDestinationPoi *city = [_destinations.destinationsSelected objectAtIndex:index];
-    [_destinations.destinationsSelected removeObjectAtIndex:index];
+    CityDestinationPoi *city = [noti.userInfo objectForKey:@"city"];
     for (int i=0; i<[_destinations.foreignCountries count]; i++) {
         CountryDestination *country = _destinations.foreignCountries[i];
         for (int j=0; j<country.cities.count; j++) {
@@ -211,7 +214,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     }
     if (!find) {
         if (_destinations.destinationsSelected.count == 0) {
-            [_makePlanCtl.destinationToolBar setHidden:NO withAnimation:NO];
+            [_makePlanCtl.destinationToolBar setHidden:NO withAnimation:YES];
         }
         [_destinations.destinationsSelected addObject:city];
         [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];

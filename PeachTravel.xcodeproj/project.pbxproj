@@ -1823,6 +1823,7 @@
 		D955E3A319E6BF7C00047F2B /* MakeTravel */ = {
 			isa = PBXGroup;
 			children = (
+				D955E34919E6306C00047F2B /* Destination */,
 				D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */,
 				D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */,
 			);
@@ -2303,7 +2304,6 @@
 				D902ACFA1A14546500E36A93 /* HotDestination */,
 				D955E3A419E773BF00047F2B /* PoiDetail */,
 				D955E3A319E6BF7C00047F2B /* MakeTravel */,
-				D955E34919E6306C00047F2B /* Destination */,
 			);
 			name = TravelPlan;
 			sourceTree = "<group>";

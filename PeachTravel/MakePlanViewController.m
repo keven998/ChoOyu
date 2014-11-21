@@ -11,7 +11,7 @@
 #import "ForeignViewController.h"
 #import "DestinationToolBar.h"
 
-@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, DestinationToolBarDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -57,6 +57,7 @@
     if (!_destinationToolBar) {
         _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
         [_destinationToolBar.nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
+        _destinationToolBar.delegate = self;
     }
     return _destinationToolBar;
 }
@@ -67,9 +68,26 @@
     [_searchController setActive:YES animated:YES];
 }
 
+/**
+ *  开始制作攻略
+ *
+ *  @param sender 
+ */
 - (IBAction)makePlan:(id)sender
 {
     
+}
+
+#pragma mark - DestinationToolBarDelegate
+
+- (void)removeUintCell:(NSInteger)index
+{
+    CityDestinationPoi *city = [_destinations.destinationsSelected objectAtIndex:index];
+    [_destinations.destinationsSelected removeObjectAtIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateDestinationsSelectedNoti object:nil userInfo:@{@"city":city}];
+    if (_destinations.destinationsSelected.count == 0) {
+        [_destinationToolBar setHidden:YES withAnimation:YES];
+    }
 }
 
 #pragma mark - tableview datasource & delegate
