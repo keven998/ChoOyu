@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
+		C630BA691A1EFFC50066D678 /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
 		C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63344DF1A1C3F5F00A27F86 /* ic_extender@2x.png */; };
@@ -363,8 +365,6 @@
 		D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE349B1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m */; };
 		D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */; };
 		D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34D71A0B1F2500DDCCAB /* ChatScrollView.m */; };
-		D9DE34DC1A0B5B8800DDCCAB /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34DA1A0B5B8800DDCCAB /* ContactDetailViewController.m */; };
-		D9DE34DD1A0B5B8800DDCCAB /* ContactDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE34DB1A0B5B8800DDCCAB /* ContactDetailViewController.xib */; };
 		D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34EC1A0B92A900DDCCAB /* Group.m */; };
 		D9DE34F01A0B92AA00DDCCAB /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34EF1A0B92AA00DDCCAB /* Account.m */; };
 		D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE34F21A0B92AA00DDCCAB /* Contact.m */; };
@@ -422,6 +422,10 @@
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C630BA631A1EDF680066D678 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
+		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
+		C630BA671A1EFFC50066D678 /* ALDBlurImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDBlurImageProcessor.h; sourceTree = "<group>"; };
+		C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
 		C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionTableViewCell.m; sourceTree = "<group>"; };
 		C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionTableViewCell.xib; sourceTree = "<group>"; };
@@ -912,9 +916,6 @@
 		D9DE349C1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeGroupTitleViewController.xib; sourceTree = "<group>"; };
 		D9DE34D61A0B1F2500DDCCAB /* ChatScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatScrollView.h; sourceTree = "<group>"; };
 		D9DE34D71A0B1F2500DDCCAB /* ChatScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatScrollView.m; sourceTree = "<group>"; };
-		D9DE34D91A0B5B8800DDCCAB /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
-		D9DE34DA1A0B5B8800DDCCAB /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
-		D9DE34DB1A0B5B8800DDCCAB /* ContactDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailViewController.xib; sourceTree = "<group>"; };
 		D9DE34EB1A0B92A900DDCCAB /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		D9DE34EC1A0B92A900DDCCAB /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		D9DE34EE1A0B92AA00DDCCAB /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
@@ -1027,6 +1028,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C630BA661A1EFFC50066D678 /* ALDBlurImageProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				C630BA671A1EFFC50066D678 /* ALDBlurImageProcessor.h */,
+				C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */,
+			);
+			name = ALDBlurImageProcessor;
+			path = Common/Config/libs/ALDBlurImageProcessor;
+			sourceTree = "<group>";
+		};
 		C63344DE1A1C3F5F00A27F86 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1792,6 +1803,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C630BA661A1EFFC50066D678 /* ALDBlurImageProcessor */,
 				C63344E31A1C44BB00A27F86 /* RNGridMenu */,
 				D902AD1E1A149F7700E36A93 /* GeTui */,
 				D96819F41A109BF600122793 /* ICETutorial */,
@@ -2397,9 +2409,8 @@
 		D9DE34DE1A0B5B8D00DDCCAB /* ContactDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D9DE34D91A0B5B8800DDCCAB /* ContactDetailViewController.h */,
-				D9DE34DA1A0B5B8800DDCCAB /* ContactDetailViewController.m */,
-				D9DE34DB1A0B5B8800DDCCAB /* ContactDetailViewController.xib */,
+				C630BA631A1EDF680066D678 /* ContactDetailViewController.h */,
+				C630BA641A1EDF680066D678 /* ContactDetailViewController.m */,
 			);
 			name = ContactDetail;
 			sourceTree = "<group>";
@@ -2860,7 +2871,6 @@
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
-				D9DE34DD1A0B5B8800DDCCAB /* ContactDetailViewController.xib in Resources */,
 				D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D90C636F19FB44D300C2E440 /* VoiceSearchFeedback002.png in Resources */,
 				D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */,
@@ -3023,6 +3033,7 @@
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
+				C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */,
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
@@ -3061,6 +3072,7 @@
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
+				C630BA691A1EFFC50066D678 /* ALDBlurImageProcessor.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
 				D958E36A1A0256A60026EF7E /* KxMenu.m in Sources */,
 				D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */,
@@ -3084,7 +3096,6 @@
 				D90F363519F63B3300E26FA9 /* MessageModel.m in Sources */,
 				D90F366E19F63E5300E26FA9 /* XHMessageTextView.m in Sources */,
 				D90F366D19F63E5300E26FA9 /* EMSearchDisplayController.m in Sources */,
-				D9DE34DC1A0B5B8800DDCCAB /* ContactDetailViewController.m in Sources */,
 				D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */,
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,
 				D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */,

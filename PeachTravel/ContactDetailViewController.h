@@ -2,7 +2,7 @@
 //  ContactDetailViewController.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/11/6.
+//  Created by Luo Yong on 14/11/21.
 //  Copyright (c) 2014年 com.aizou.www. All rights reserved.
 //
 
@@ -10,6 +10,7 @@
 #import "Contact.h"
 
 @interface ContactDetailViewController : UIViewController
+
 @property (nonatomic, strong) Contact *contact;
 
 @end
