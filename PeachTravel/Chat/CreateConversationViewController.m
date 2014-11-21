@@ -258,13 +258,18 @@
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     cell.nickNameLabel.text = contact.nickName;
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
+//    if ([self isSelected:contact.userId]) {
+//        cell.selectImageView.backgroundColor = [UIColor redColor];
+//    } else {
+//        cell.selectImageView.backgroundColor = [UIColor greenColor];
+//    }
+//    if ([self isNumberInGroup:contact.userId]) {
+//        cell.selectImageView.backgroundColor = [UIColor grayColor];
+//    }
     if ([self isSelected:contact.userId]) {
-        cell.selectImageView.backgroundColor = [UIColor redColor];
+        cell.selectView.selected = YES;
     } else {
-        cell.selectImageView.backgroundColor = [UIColor greenColor];
-    }
-    if ([self isNumberInGroup:contact.userId]) {
-        cell.selectImageView.backgroundColor = [UIColor grayColor];
+        cell.selectView.selected = NO;
     }
     return cell;
 }

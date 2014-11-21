@@ -163,10 +163,10 @@
         }
     }
     //重新加载 datasource
+//    self.dataSource = [self loadDataSource];
     if (_chattingPeople.count <= 0) {
         [self setupEmptyView];
     } else {
-//        self.dataSource = [self loadDataSource];
         [self setupListView];
     }
 }

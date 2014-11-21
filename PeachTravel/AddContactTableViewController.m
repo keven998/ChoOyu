@@ -12,6 +12,7 @@
 #import "UMSocial.h"
 #import "AccountManager.h"
 #import "SearchUserInfoViewController.h"
+#import "ConvertMethods.h"
 
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
@@ -34,9 +35,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"添加好友";
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:normalCell];
+    
+//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:normalCell];
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 
+//    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]];
+    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
 }
 
 #pragma mark - setter & getter
@@ -132,6 +136,14 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 12.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 48.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == _searchTableViewController.searchResultsTableView) {
         return self.searchDataSource.count;
@@ -146,12 +158,30 @@
         cell.textLabel.text = @"cell";
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell forIndexPath:indexPath];
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+            if (indexPath.row == 0) {
+                UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, 49.0, tableView.frame.size.width, 1.0)];
+                divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                divider.backgroundColor = UIColorFromRGB(0xdddddd);
+                [cell.contentView addSubview:divider];
+            }
+            cell.textLabel.font = [UIFont systemFontOfSize:16.0];
+            cell.textLabel.textColor = UIColorFromRGB(0x393939);
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.normalDataSource[indexPath.row];
         return cell;
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = APP_PAGE_COLOR;
+    return view;
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,6 +196,8 @@
             [self shareToWeChat];
         }
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UISearchBarDelegate
