@@ -13,14 +13,20 @@
 #import "ChatListViewController.h"
 #import "TZCMDChatHelper.h"
 #import "IMRootViewController.h"
+#import "OperationData.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate>
+@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *weatherBtn;
 @property (strong, nonatomic)NSDate *lastPlaySoundDate;
 @property (weak, nonatomic) IBOutlet UIButton *IMBtn;
+@property (weak, nonatomic) IBOutlet UIScrollView *galleryPageView;
+@property (nonatomic, strong) NSArray *operationDataArray;
+@property (nonatomic, strong) NSMutableArray *imageViews;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weatherBtnConstraints;
 
 @end
 
@@ -39,16 +45,24 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
 
     [self registerNotifications];
     [self setupUnreadMessageCount];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    
+#warning 测试数据
+    _operationDataArray = [[NSArray alloc] init];
+    OperationData *testData = [[OperationData alloc] init];
+    testData.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
+    OperationData *testData1 = [[OperationData alloc] init];
+    testData1.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/612e622e2604f4f0c59cdfa75b422805.jpg";
+    OperationData *testData2 = [[OperationData alloc] init];
+    testData2.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
+    _operationDataArray = @[testData, testData1,testData2];
+    [self setupSubView];
+    
 }
 
 - (void)dealloc
@@ -56,7 +70,121 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self unregisterNotifications];
 }
 
+- (void) setupSubView
+{
+    _galleryPageView.pagingEnabled = YES;
+    _galleryPageView.showsHorizontalScrollIndicator = NO;
+    _galleryPageView.showsVerticalScrollIndicator = NO;
+    _galleryPageView.delegate = self;
+    _galleryPageView.bounces = YES;
+    
+    NSLog(@"%@", NSStringFromCGRect(_galleryPageView.frame));
+
+    int count = [_operationDataArray count];
+    _galleryPageView.contentSize = CGSizeMake(kWindowWidth * count, CGRectGetHeight(_galleryPageView.frame));
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0; i < count; i++)
+    {
+        [images addObject:[NSNull null]];
+    }
+    _imageViews = images;
+    [self loadScrollViewWithPage:0];
+    if (count > 1) {
+        [self loadScrollViewWithPage:1];
+    }
+    if (!self.weatherInfo) {
+        self.weatherBtn.alpha = 0;
+    } else {
+        self.weatherBtn.alpha = 0.5;
+    }
+    
+}
+
+- (void)loadScrollViewWithPage:(NSUInteger)page {
+    if (page >= _operationDataArray.count) {
+        return;
+    }
+
+    UIImageView *img = [_imageViews objectAtIndex:page];
+    if ((NSNull *)img == [NSNull null]) {
+        img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.bounds.size.width, 176)];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.clipsToBounds = YES;
+        img.userInteractionEnabled = YES;
+        [_imageViews replaceObjectAtIndex:page withObject:img];
+        img.tag = page;
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewImage:)];
+        [img addGestureRecognizer:tap];
+    }
+    
+    if (img.superview == nil) {
+        CGRect frame = img.frame;
+        frame.origin.x = CGRectGetWidth(frame) * page;
+        img.frame = frame;
+        [self.galleryPageView insertSubview:img atIndex:0];
+        OperationData *opreateData = [_operationDataArray objectAtIndex:page];
+        NSString *url = opreateData.imageUrl;
+        [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
+    }
+}
+
+- (void)setWeatherInfo:(WeatherInfo *)weatherInfo
+{
+    _weatherInfo = weatherInfo;
+    if(_weatherInfo) {
+        [self getReverseGeocode];
+    }
+}
+
+- (void)getReverseGeocode
+{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+
+    CLLocationCoordinate2D myCoOrdinate;
+    
+    myCoOrdinate.latitude = _location.coordinate.latitude;
+    myCoOrdinate.longitude = _location.coordinate.longitude;
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"failed with error: %@", error);
+             return;
+         }
+         if(placemarks.count > 0)
+         {
+             CLPlacemark *clPlaceMark = [placemarks firstObject];
+             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"City"];
+             [self updateWeatherLabelWithCityName:city];
+         }
+     }];
+}
+
+- (void)updateWeatherLabelWithCityName:(NSString *)city
+{
+    NSString *currentDate = [ConvertMethods getCurrentDataWithFormat:@"yyyy-MM-dd"];
+    NSLog(@"%@", _location.description);
+    NSString *cityName = city? city:@"当前位置";
+    NSString *sss = [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode];
+    NSString *s = [NSString stringWithFormat:@"%@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
+    [_weatherBtn setTitle:s forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.3 animations:^{
+        _weatherBtn.alpha = 0.5;
+    } completion:^(BOOL finished) {
+    }];
+    
+
+
+}
+
 #pragma mark - IBAction Methods
+
+- (IBAction)viewImage:(id)sender
+{
+    
+}
 
 //进入聊天功能
 - (IBAction)jumpIM:(UIButton *)sender {
@@ -90,6 +218,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.8];
     }
+}
+- (IBAction)nearBy:(UIButton *)sender {
+}
+
+- (IBAction)myTravelNote:(UIButton *)sender {
 }
 
 - (IBAction)goLogin:(id)sender
@@ -461,6 +594,20 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self showHint:@"重连成功！"];
     }
 }
+
+#pragma scrolldelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == _galleryPageView) {
+        CGFloat pageWidth = CGRectGetWidth(self.galleryPageView.frame);
+        NSUInteger page = floor((self.galleryPageView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        [self loadScrollViewWithPage:page - 1];
+        [self loadScrollViewWithPage:page];
+        [self loadScrollViewWithPage:page + 1];
+    }
+}
+
 
 
 

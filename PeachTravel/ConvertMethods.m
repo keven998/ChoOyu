@@ -26,6 +26,20 @@
     return date;
 }
 
+
++ (NSString *)getCurrentDataWithFormat:(NSString *)format
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:format];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    return [dateFormatter stringFromDate:[NSDate date]];
+}
+
++ (NSString *)getCuttentData
+{
+    return [ConvertMethods getCurrentDataWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+}
+
 + (NSString *) dateToString:(NSDate *)date withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:zone];

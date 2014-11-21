@@ -341,6 +341,12 @@
 		D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */; };
 		D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9B041A1C8AAD00E0C4CE /* country.jpg */; };
 		D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */; };
+		D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B0B1A1E01B200E0C4CE /* OperationData.m */; };
+		D9AC9BB21A1F2A2300E0C4CE /* WeatherInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BAB1A1F2A2300E0C4CE /* WeatherInfo.m */; };
+		D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BAD1A1F2A2300E0C4CE /* WOEIDUtils.m */; };
+		D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB11A1F2A2300E0C4CE /* YWeatherUtils.m */; };
+		D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB61A1F312900E0C4CE /* TBXML.m */; };
+		D9AC9BBA1A1F66A600E0C4CE /* YahooWeatherCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -874,6 +880,20 @@
 		D9AC9B041A1C8AAD00E0C4CE /* country.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = country.jpg; sourceTree = "<group>"; };
 		D9AC9B071A1C93BB00E0C4CE /* DestinationUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationUnit.h; sourceTree = "<group>"; };
 		D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationUnit.m; sourceTree = "<group>"; };
+		D9AC9B0A1A1E01B200E0C4CE /* OperationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationData.h; sourceTree = "<group>"; };
+		D9AC9B0B1A1E01B200E0C4CE /* OperationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationData.m; sourceTree = "<group>"; };
+		D9AC9BA91A1F2A2300E0C4CE /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
+		D9AC9BAA1A1F2A2300E0C4CE /* WeatherInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherInfo.h; sourceTree = "<group>"; };
+		D9AC9BAB1A1F2A2300E0C4CE /* WeatherInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherInfo.m; sourceTree = "<group>"; };
+		D9AC9BAC1A1F2A2300E0C4CE /* WOEIDUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOEIDUtils.h; sourceTree = "<group>"; };
+		D9AC9BAD1A1F2A2300E0C4CE /* WOEIDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOEIDUtils.m; sourceTree = "<group>"; };
+		D9AC9BAE1A1F2A2300E0C4CE /* WOEIDUtilsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOEIDUtilsDelegate.h; sourceTree = "<group>"; };
+		D9AC9BAF1A1F2A2300E0C4CE /* YWeatherInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWeatherInfoDelegate.h; sourceTree = "<group>"; };
+		D9AC9BB01A1F2A2300E0C4CE /* YWeatherUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWeatherUtils.h; sourceTree = "<group>"; };
+		D9AC9BB11A1F2A2300E0C4CE /* YWeatherUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWeatherUtils.m; sourceTree = "<group>"; };
+		D9AC9BB51A1F312900E0C4CE /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
+		D9AC9BB61A1F312900E0C4CE /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
+		D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = YahooWeatherCode.plist; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -1374,6 +1394,8 @@
 			children = (
 				D90F356A19F6391E00E26FA9 /* ToolBoxViewController.h */,
 				D90F356B19F6391E00E26FA9 /* ToolBoxViewController.m */,
+				D9AC9B0A1A1E01B200E0C4CE /* OperationData.h */,
+				D9AC9B0B1A1E01B200E0C4CE /* OperationData.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1792,6 +1814,8 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9AC9BB81A1F312E00E0C4CE /* TBXML */,
+				D9AC9BA81A1F2A2300E0C4CE /* YWeatherGetter4i */,
 				C63344E31A1C44BB00A27F86 /* RNGridMenu */,
 				D902AD1E1A149F7700E36A93 /* GeTui */,
 				D96819F41A109BF600122793 /* ICETutorial */,
@@ -2265,6 +2289,7 @@
 				D99D8EC919C8600C0021C25B /* Info.plist */,
 				D99D8ECA19C8600C0021C25B /* main.m */,
 				D955E55019E7ABEA00047F2B /* PrefixHeader.pch */,
+				D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2345,6 +2370,31 @@
 			children = (
 			);
 			name = "临时图片文件记得删掉";
+			sourceTree = "<group>";
+		};
+		D9AC9BA81A1F2A2300E0C4CE /* YWeatherGetter4i */ = {
+			isa = PBXGroup;
+			children = (
+				D9AC9BA91A1F2A2300E0C4CE /* Consts.h */,
+				D9AC9BAA1A1F2A2300E0C4CE /* WeatherInfo.h */,
+				D9AC9BAB1A1F2A2300E0C4CE /* WeatherInfo.m */,
+				D9AC9BAC1A1F2A2300E0C4CE /* WOEIDUtils.h */,
+				D9AC9BAD1A1F2A2300E0C4CE /* WOEIDUtils.m */,
+				D9AC9BAE1A1F2A2300E0C4CE /* WOEIDUtilsDelegate.h */,
+				D9AC9BAF1A1F2A2300E0C4CE /* YWeatherInfoDelegate.h */,
+				D9AC9BB01A1F2A2300E0C4CE /* YWeatherUtils.h */,
+				D9AC9BB11A1F2A2300E0C4CE /* YWeatherUtils.m */,
+			);
+			path = YWeatherGetter4i;
+			sourceTree = "<group>";
+		};
+		D9AC9BB81A1F312E00E0C4CE /* TBXML */ = {
+			isa = PBXGroup;
+			children = (
+				D9AC9BB51A1F312900E0C4CE /* TBXML.h */,
+				D9AC9BB61A1F312900E0C4CE /* TBXML.m */,
+			);
+			name = TBXML;
 			sourceTree = "<group>";
 		};
 		D9CDD71F19EBAC5F001AC9F2 /* Register */ = {
@@ -2704,6 +2754,7 @@
 				D90F362819F63B3300E26FA9 /* chatBar_more_photoSelected@2x.png in Resources */,
 				D90C637619FB44D300C2E440 /* VoiceSearchFeedback005@2x.png in Resources */,
 				D9681A0F1A109BF600122793 /* Default.png in Resources */,
+				D9AC9BBA1A1F66A600E0C4CE /* YahooWeatherCode.plist in Resources */,
 				D90C63A419FB44D300C2E440 /* chat_location_detail_disclosureHL.png in Resources */,
 				D90F361319F63B3300E26FA9 /* chatBar_recordSelectedBg.png in Resources */,
 				D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */,
@@ -3042,6 +3093,7 @@
 				D902ADC91A15EC9300E36A93 /* TravelNoteTableViewCell.m in Sources */,
 				D97C17D419FE301B00895B62 /* MessageModelManager.m in Sources */,
 				D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */,
+				D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */,
 				D9DE78DD1A033724008A8576 /* MHTabBarController.m in Sources */,
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
@@ -3054,6 +3106,7 @@
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
+				D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
@@ -3074,6 +3127,7 @@
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
+				D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
 				D99D8ECB19C8600C0021C25B /* main.m in Sources */,
 				D90F35FF19F63B3300E26FA9 /* DXChatBarMoreView.m in Sources */,
@@ -3099,6 +3153,7 @@
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
 				C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */,
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
+				D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
 				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,
 				D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */,
@@ -3122,6 +3177,7 @@
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,
 				D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */,
 				D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */,
+				D9AC9BB21A1F2A2300E0C4CE /* WeatherInfo.m in Sources */,
 				D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */,
 				D90F366719F63E5300E26FA9 /* EMSearchBar.m in Sources */,
 				D9A717C11A04AD4F005BDEFE /* FrendRequestTableViewController.m in Sources */,

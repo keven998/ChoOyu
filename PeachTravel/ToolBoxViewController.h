@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YWeatherUtils.h"
 
 @interface ToolBoxViewController : UIViewController
+
+@property (strong, nonatomic) WeatherInfo *weatherInfo;
+@property (strong, nonatomic) CLLocation *location;
 
 @end

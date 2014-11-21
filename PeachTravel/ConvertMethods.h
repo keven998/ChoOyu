@@ -13,6 +13,8 @@
 
 + (CLLocationDistance) getDistanceFrom:(CLLocationCoordinate2D)startPoint to:(CLLocationCoordinate2D)endPoint;
 
++ (NSString *)getCurrentDataWithFormat:(NSString *)format;
++ (NSString *)getCuttentData;
 + (NSDate *) stringToDate:(NSString *)string withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
 + (NSString *) dateToString:(NSDate *)date withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
 

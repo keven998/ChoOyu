@@ -154,8 +154,6 @@ static LocationViewController *defaultLocation = nil;
             break;
         default:
             break;
-            
-            
     } 
 }
 
