@@ -40,7 +40,7 @@
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 
 //    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]];
-    [_searchBar setBackgroundImage:[UIImage new]];
+    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
 }
 
 #pragma mark - setter & getter
