@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "M13Checkbox.h"
 
 @interface CreateConversationTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *selectImageView;
+
+@property (weak, nonatomic) IBOutlet M13Checkbox *selectView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @end

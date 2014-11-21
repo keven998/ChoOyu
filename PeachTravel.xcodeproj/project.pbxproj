@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
 		C630BA691A1EFFC50066D678 /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */; };
+		C630BA6D1A1F20490066D678 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA6C1A1F20490066D678 /* M13Checkbox.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
 		C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63344DF1A1C3F5F00A27F86 /* ic_extender@2x.png */; };
@@ -426,6 +427,8 @@
 		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
 		C630BA671A1EFFC50066D678 /* ALDBlurImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDBlurImageProcessor.h; sourceTree = "<group>"; };
 		C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
+		C630BA6B1A1F20490066D678 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
+		C630BA6C1A1F20490066D678 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
 		C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionTableViewCell.m; sourceTree = "<group>"; };
 		C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionTableViewCell.xib; sourceTree = "<group>"; };
@@ -1036,6 +1039,16 @@
 			);
 			name = ALDBlurImageProcessor;
 			path = Common/Config/libs/ALDBlurImageProcessor;
+			sourceTree = "<group>";
+		};
+		C630BA6A1A1F20490066D678 /* M13Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				C630BA6B1A1F20490066D678 /* M13Checkbox.h */,
+				C630BA6C1A1F20490066D678 /* M13Checkbox.m */,
+			);
+			name = M13Checkbox;
+			path = Common/Config/libs/M13Checkbox;
 			sourceTree = "<group>";
 		};
 		C63344DE1A1C3F5F00A27F86 /* resource */ = {
@@ -1803,6 +1816,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C630BA6A1A1F20490066D678 /* M13Checkbox */,
 				C630BA661A1EFFC50066D678 /* ALDBlurImageProcessor */,
 				C63344E31A1C44BB00A27F86 /* RNGridMenu */,
 				D902AD1E1A149F7700E36A93 /* GeTui */,
@@ -3037,6 +3051,7 @@
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
+				C630BA6D1A1F20490066D678 /* M13Checkbox.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
 				D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */,
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,

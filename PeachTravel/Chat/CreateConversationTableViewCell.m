@@ -11,6 +11,17 @@
 @implementation CreateConversationTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.avatarImageView.layer.cornerRadius = 20.0;
+    self.avatarImageView.clipsToBounds = YES;
+    
+    _selectView.strokeColor = UIColorFromRGB(0xdddddd);
+    _selectView.strokeWidth = 1.0;
+    _selectView.uncheckedColor = [UIColor whiteColor];
+    _selectView.radius = 12.0;
+    _selectView.checkColor = [UIColor whiteColor];
+    _selectView.tintColor = [UIColor yellowColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

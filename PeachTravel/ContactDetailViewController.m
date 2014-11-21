@@ -151,7 +151,7 @@
     
     CGFloat y = _chatBtn.frame.origin.y + _chatBtn.frame.size.height + 10.0;
     
-    y = y > _scrollView.bounds.size.height ? y : _scrollView.bounds.size.height + 1.0;
+    y = y > _scrollView.bounds.size.height ? y : _scrollView.bounds.size.height - 63.0;
     _scrollView.contentSize = CGSizeMake(0.0, y);
     
     y = _scrollView.contentOffset.y;
