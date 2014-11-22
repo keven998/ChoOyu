@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
-		C630BA691A1EFFC50066D678 /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */; };
-		C630BA6D1A1F20490066D678 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA6C1A1F20490066D678 /* M13Checkbox.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
 		C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C63344DF1A1C3F5F00A27F86 /* ic_extender@2x.png */; };
@@ -350,6 +348,8 @@
 		D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB11A1F2A2300E0C4CE /* YWeatherUtils.m */; };
 		D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB61A1F312900E0C4CE /* TBXML.m */; };
 		D9AC9BBA1A1F66A600E0C4CE /* YahooWeatherCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */; };
+		D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */; };
+		D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -431,10 +431,6 @@
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C630BA631A1EDF680066D678 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
 		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
-		C630BA671A1EFFC50066D678 /* ALDBlurImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDBlurImageProcessor.h; sourceTree = "<group>"; };
-		C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
-		C630BA6B1A1F20490066D678 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
-		C630BA6C1A1F20490066D678 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
 		C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionTableViewCell.m; sourceTree = "<group>"; };
 		C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionTableViewCell.xib; sourceTree = "<group>"; };
@@ -901,6 +897,10 @@
 		D9AC9BB51A1F312900E0C4CE /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
 		D9AC9BB61A1F312900E0C4CE /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
 		D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = YahooWeatherCode.plist; sourceTree = "<group>"; };
+		D9AC9BD31A1F7AD400E0C4CE /* ALDBlurImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDBlurImageProcessor.h; sourceTree = "<group>"; };
+		D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
+		D9AC9BD61A1F7ADF00E0C4CE /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
+		D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -1051,26 +1051,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C630BA661A1EFFC50066D678 /* ALDBlurImageProcessor */ = {
-			isa = PBXGroup;
-			children = (
-				C630BA671A1EFFC50066D678 /* ALDBlurImageProcessor.h */,
-				C630BA681A1EFFC50066D678 /* ALDBlurImageProcessor.m */,
-			);
-			name = ALDBlurImageProcessor;
-			path = Common/Config/libs/ALDBlurImageProcessor;
-			sourceTree = "<group>";
-		};
-		C630BA6A1A1F20490066D678 /* M13Checkbox */ = {
-			isa = PBXGroup;
-			children = (
-				C630BA6B1A1F20490066D678 /* M13Checkbox.h */,
-				C630BA6C1A1F20490066D678 /* M13Checkbox.m */,
-			);
-			name = M13Checkbox;
-			path = Common/Config/libs/M13Checkbox;
-			sourceTree = "<group>";
-		};
 		C63344DE1A1C3F5F00A27F86 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1838,6 +1818,8 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9AC9BBB1A1F795B00E0C4CE /* ALDBlurImageProcessor */,
+				D9AC9BBE1A1F795B00E0C4CE /* M13Checkbox */,
 				D9AC9BB81A1F312E00E0C4CE /* TBXML */,
 				D9AC9BA81A1F2A2300E0C4CE /* YWeatherGetter4i */,
 				C63344E31A1C44BB00A27F86 /* RNGridMenu */,
@@ -2419,6 +2401,26 @@
 				D9AC9BB61A1F312900E0C4CE /* TBXML.m */,
 			);
 			name = TBXML;
+			sourceTree = "<group>";
+		};
+		D9AC9BBB1A1F795B00E0C4CE /* ALDBlurImageProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				D9AC9BD31A1F7AD400E0C4CE /* ALDBlurImageProcessor.h */,
+				D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */,
+			);
+			name = ALDBlurImageProcessor;
+			path = Common/Config/libs/ALDBlurImageProcessor;
+			sourceTree = "<group>";
+		};
+		D9AC9BBE1A1F795B00E0C4CE /* M13Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				D9AC9BD61A1F7ADF00E0C4CE /* M13Checkbox.h */,
+				D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */,
+			);
+			name = M13Checkbox;
+			path = Common/Config/libs/M13Checkbox;
 			sourceTree = "<group>";
 		};
 		D9CDD71F19EBAC5F001AC9F2 /* Register */ = {
@@ -3100,7 +3102,6 @@
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
-				C630BA6D1A1F20490066D678 /* M13Checkbox.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
 				D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */,
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,
@@ -3128,6 +3129,7 @@
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
 				C63344E61A1C44BB00A27F86 /* RNGridMenu.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
+				D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */,
@@ -3138,7 +3140,6 @@
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
-				C630BA691A1EFFC50066D678 /* ALDBlurImageProcessor.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
 				D958E36A1A0256A60026EF7E /* KxMenu.m in Sources */,
 				D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */,
@@ -3179,6 +3180,7 @@
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
 				D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
+				D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */,
 				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,
 				D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */,
 				D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */,

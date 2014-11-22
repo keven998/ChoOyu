@@ -84,6 +84,9 @@
     CGPoint indexPoint = [self convertPoint:midPoint toView:self.scrollView];
     CGPoint currentPoint = ((UIButton *)_viewsOnScrollView[_currentIndex]).frame.origin;
     CGFloat length = currentOffset.x - (indexPoint.x - currentPoint.x-_itemWidth/2);
+    if (length<10) {
+        length = 10;
+    }
     [_scrollView setContentOffset:CGPointMake(length, 0) animated:YES] ;
 }
 
