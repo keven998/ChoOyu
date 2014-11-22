@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *detailView;
 
-
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) ResizableView *descView;

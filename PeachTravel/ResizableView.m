@@ -35,15 +35,16 @@
         CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.font}];
         NSInteger lineCount = (size.width / self.frame.size.width) + 1;
         self.numberOfLines = lineCount;
+        self.alpha = 0.6;
         [UIView animateWithDuration:0.3 animations:^{
-            CGFloat height = size.height * lineCount + 10;
+            CGFloat height = size.height * lineCount;
             [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
                                       , self.frame.size.width, height)];
             self.alpha = 1;
         }];
         _resizeHeight = self.frame.size.height - _resetFrame.size.height;
     } else {
-        self.alpha = 0;
+        self.alpha = 0.6;
         self.numberOfLines = 2;
         [UIView animateWithDuration:0.3 animations:^{
             [self setFrame:_resetFrame];

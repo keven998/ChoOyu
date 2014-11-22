@@ -36,6 +36,8 @@
 		D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADCF1A15F47100E36A93 /* TravelNote.m */; };
 		D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9048F301A09F18500334AB5 /* ChatSettingViewController.m */; };
 		D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */; };
+		D906CBD91A2068C800BE2588 /* RestaurantLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D906CBD71A2068C800BE2588 /* RestaurantLocationTableViewCell.m */; };
+		D906CBDA1A2068C800BE2588 /* RestaurantLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D906CBD81A2068C800BE2588 /* RestaurantLocationTableViewCell.xib */; };
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
 		D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */; };
 		D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */; };
@@ -241,6 +243,14 @@
 		D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
+		D9545F9B1A207D3500688D72 /* RecommendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545F991A207D3500688D72 /* RecommendsTableViewCell.m */; };
+		D9545F9C1A207D3500688D72 /* RecommendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9545F9A1A207D3500688D72 /* RecommendsTableViewCell.xib */; };
+		D9545FA01A20809C00688D72 /* RecommendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545F9E1A20809C00688D72 /* RecommendCollectionViewCell.m */; };
+		D9545FA11A20809C00688D72 /* RecommendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9545F9F1A20809C00688D72 /* RecommendCollectionViewCell.xib */; };
+		D9545FA61A20896700688D72 /* RecommendDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FA51A20896700688D72 /* RecommendDetail.m */; };
+		D9545FA91A208C9800688D72 /* CommentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FA81A208C9800688D72 /* CommentDetail.m */; };
+		D9545FAD1A208EEF00688D72 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FAB1A208EEF00688D72 /* CommentTableViewCell.m */; };
+		D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9545FAC1A208EEF00688D72 /* CommentTableViewCell.xib */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -320,6 +330,9 @@
 		D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6901A19BF8700FA5A76 /* SpotDetailView.m */; };
 		D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */; };
 		D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6991A19D93400FA5A76 /* TaoziImage.m */; };
+		D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907B091A20334800C7CF0C /* RestaurantPoi.m */; };
+		D9907B0D1A2037C100C7CF0C /* RestaurantDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907B0C1A2037C100C7CF0C /* RestaurantDetailView.m */; };
+		D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907B0F1A203C0B00C7CF0C /* RestaurantDetailViewController.m */; };
 		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
 		D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
@@ -347,7 +360,6 @@
 		D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BAD1A1F2A2300E0C4CE /* WOEIDUtils.m */; };
 		D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB11A1F2A2300E0C4CE /* YWeatherUtils.m */; };
 		D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB61A1F312900E0C4CE /* TBXML.m */; };
-		D9AC9BBA1A1F66A600E0C4CE /* YahooWeatherCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */; };
 		D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */; };
 		D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
@@ -476,6 +488,9 @@
 		D9048F2F1A09F18500334AB5 /* ChatSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSettingViewController.h; sourceTree = "<group>"; };
 		D9048F301A09F18500334AB5 /* ChatSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSettingViewController.m; sourceTree = "<group>"; };
 		D9048F311A09F18500334AB5 /* ChatSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSettingViewController.xib; sourceTree = "<group>"; };
+		D906CBD61A2068C800BE2588 /* RestaurantLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantLocationTableViewCell.h; sourceTree = "<group>"; };
+		D906CBD71A2068C800BE2588 /* RestaurantLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantLocationTableViewCell.m; sourceTree = "<group>"; };
+		D906CBD81A2068C800BE2588 /* RestaurantLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantLocationTableViewCell.xib; sourceTree = "<group>"; };
 		D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
 		D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
 		D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewController.xib; sourceTree = "<group>"; };
@@ -734,6 +749,19 @@
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
+		D9545F981A207D3500688D72 /* RecommendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendsTableViewCell.h; sourceTree = "<group>"; };
+		D9545F991A207D3500688D72 /* RecommendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendsTableViewCell.m; sourceTree = "<group>"; };
+		D9545F9A1A207D3500688D72 /* RecommendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendsTableViewCell.xib; sourceTree = "<group>"; };
+		D9545F9D1A20809C00688D72 /* RecommendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCollectionViewCell.h; sourceTree = "<group>"; };
+		D9545F9E1A20809C00688D72 /* RecommendCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCollectionViewCell.m; sourceTree = "<group>"; };
+		D9545F9F1A20809C00688D72 /* RecommendCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecommendCollectionViewCell.xib; sourceTree = "<group>"; };
+		D9545FA41A20896700688D72 /* RecommendDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendDetail.h; sourceTree = "<group>"; };
+		D9545FA51A20896700688D72 /* RecommendDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendDetail.m; sourceTree = "<group>"; };
+		D9545FA71A208C9800688D72 /* CommentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentDetail.h; sourceTree = "<group>"; };
+		D9545FA81A208C9800688D72 /* CommentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentDetail.m; sourceTree = "<group>"; };
+		D9545FAA1A208EEF00688D72 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		D9545FAB1A208EEF00688D72 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
+		D9545FAC1A208EEF00688D72 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -848,6 +876,12 @@
 		D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotPoi.m; sourceTree = "<group>"; };
 		D98CC6981A19D93400FA5A76 /* TaoziImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziImage.h; sourceTree = "<group>"; };
 		D98CC6991A19D93400FA5A76 /* TaoziImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziImage.m; sourceTree = "<group>"; };
+		D9907B081A20334800C7CF0C /* RestaurantPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantPoi.h; sourceTree = "<group>"; };
+		D9907B091A20334800C7CF0C /* RestaurantPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantPoi.m; sourceTree = "<group>"; };
+		D9907B0B1A2037C100C7CF0C /* RestaurantDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailView.h; sourceTree = "<group>"; };
+		D9907B0C1A2037C100C7CF0C /* RestaurantDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailView.m; sourceTree = "<group>"; };
+		D9907B0E1A203C0B00C7CF0C /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
+		D9907B0F1A203C0B00C7CF0C /* RestaurantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailViewController.m; sourceTree = "<group>"; };
 		D990FBDD19F8FC970008A8FE /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		D990FBDF19F8FC970008A8FE /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -896,7 +930,6 @@
 		D9AC9BB11A1F2A2300E0C4CE /* YWeatherUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWeatherUtils.m; sourceTree = "<group>"; };
 		D9AC9BB51A1F312900E0C4CE /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
 		D9AC9BB61A1F312900E0C4CE /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
-		D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = YahooWeatherCode.plist; sourceTree = "<group>"; };
 		D9AC9BD31A1F7AD400E0C4CE /* ALDBlurImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDBlurImageProcessor.h; sourceTree = "<group>"; };
 		D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
 		D9AC9BD61A1F7ADF00E0C4CE /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
@@ -1710,6 +1743,17 @@
 			path = Emoji;
 			sourceTree = "<group>";
 		};
+		D9545FA31A20885E00688D72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9545FA41A20896700688D72 /* RecommendDetail.h */,
+				D9545FA51A20896700688D72 /* RecommendDetail.m */,
+				D9545FA71A208C9800688D72 /* CommentDetail.h */,
+				D9545FA81A208C9800688D72 /* CommentDetail.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D955E34919E6306C00047F2B /* Destination */ = {
 			isa = PBXGroup;
 			children = (
@@ -1851,6 +1895,8 @@
 		D955E3A419E773BF00047F2B /* PoiDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9545FA31A20885E00688D72 /* Model */,
+				D9907B071A202EC900C7CF0C /* Restaurant */,
 				D98CC68B1A19BA3400FA5A76 /* SpotDetail */,
 				D955E3A519E773CA00047F2B /* CityDetail */,
 			);
@@ -2236,6 +2282,31 @@
 			name = SpotDetail;
 			sourceTree = "<group>";
 		};
+		D9907B071A202EC900C7CF0C /* Restaurant */ = {
+			isa = PBXGroup;
+			children = (
+				D9907B081A20334800C7CF0C /* RestaurantPoi.h */,
+				D9907B091A20334800C7CF0C /* RestaurantPoi.m */,
+				D9907B0B1A2037C100C7CF0C /* RestaurantDetailView.h */,
+				D9907B0C1A2037C100C7CF0C /* RestaurantDetailView.m */,
+				D9907B0E1A203C0B00C7CF0C /* RestaurantDetailViewController.h */,
+				D9907B0F1A203C0B00C7CF0C /* RestaurantDetailViewController.m */,
+				D906CBD61A2068C800BE2588 /* RestaurantLocationTableViewCell.h */,
+				D906CBD71A2068C800BE2588 /* RestaurantLocationTableViewCell.m */,
+				D906CBD81A2068C800BE2588 /* RestaurantLocationTableViewCell.xib */,
+				D9545F981A207D3500688D72 /* RecommendsTableViewCell.h */,
+				D9545F991A207D3500688D72 /* RecommendsTableViewCell.m */,
+				D9545F9A1A207D3500688D72 /* RecommendsTableViewCell.xib */,
+				D9545F9D1A20809C00688D72 /* RecommendCollectionViewCell.h */,
+				D9545F9E1A20809C00688D72 /* RecommendCollectionViewCell.m */,
+				D9545F9F1A20809C00688D72 /* RecommendCollectionViewCell.xib */,
+				D9545FAA1A208EEF00688D72 /* CommentTableViewCell.h */,
+				D9545FAB1A208EEF00688D72 /* CommentTableViewCell.m */,
+				D9545FAC1A208EEF00688D72 /* CommentTableViewCell.xib */,
+			);
+			name = Restaurant;
+			sourceTree = "<group>";
+		};
 		D990FBEA19F9F94F0008A8FE /* Contact */ = {
 			isa = PBXGroup;
 			children = (
@@ -2295,7 +2366,6 @@
 				D99D8EC919C8600C0021C25B /* Info.plist */,
 				D99D8ECA19C8600C0021C25B /* main.m */,
 				D955E55019E7ABEA00047F2B /* PrefixHeader.pch */,
-				D9AC9BB91A1F66A600E0C4CE /* YahooWeatherCode.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2320,8 +2390,8 @@
 		D9A5939119E3DA8E004A6072 /* TravelPlan */ = {
 			isa = PBXGroup;
 			children = (
-				D902ACFA1A14546500E36A93 /* HotDestination */,
 				D955E3A419E773BF00047F2B /* PoiDetail */,
+				D902ACFA1A14546500E36A93 /* HotDestination */,
 				D955E3A319E6BF7C00047F2B /* MakeTravel */,
 			);
 			name = TravelPlan;
@@ -2779,7 +2849,6 @@
 				D90F362819F63B3300E26FA9 /* chatBar_more_photoSelected@2x.png in Resources */,
 				D90C637619FB44D300C2E440 /* VoiceSearchFeedback005@2x.png in Resources */,
 				D9681A0F1A109BF600122793 /* Default.png in Resources */,
-				D9AC9BBA1A1F66A600E0C4CE /* YahooWeatherCode.plist in Resources */,
 				D90C63A419FB44D300C2E440 /* chat_location_detail_disclosureHL.png in Resources */,
 				D90F361319F63B3300E26FA9 /* chatBar_recordSelectedBg.png in Resources */,
 				D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */,
@@ -2842,6 +2911,7 @@
 				D90F361919F63B3300E26FA9 /* chatBar_colorMore_photo@2x.png in Resources */,
 				D90F360519F63B3300E26FA9 /* chatBar_keyboard.png in Resources */,
 				D90C639619FB44D300C2E440 /* chatBar_more_card.png in Resources */,
+				D906CBDA1A2068C800BE2588 /* RestaurantLocationTableViewCell.xib in Resources */,
 				D90C638E19FB44D300C2E440 /* VoiceSearchFeedback017@2x.png in Resources */,
 				D9F57B9219E93486005BB43B /* UMShareEditViewController.xib in Resources */,
 				D90C638A19FB44D300C2E440 /* VoiceSearchFeedback015@2x.png in Resources */,
@@ -2933,6 +3003,7 @@
 				D90F360D19F63B3300E26FA9 /* chatBar_record.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
+				D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
@@ -2967,6 +3038,7 @@
 				D90C63AD19FB44D300C2E440 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				D9681A0E1A109BF600122793 /* Default-568h@2x.png in Resources */,
 				D9E9F79019FF66B1003F70F6 /* chat_sender_bg@2x.png in Resources */,
+				D9545FA11A20809C00688D72 /* RecommendCollectionViewCell.xib in Resources */,
 				D9681A101A109BF600122793 /* Default@2x.png in Resources */,
 				D90C63A119FB44D300C2E440 /* chat_location_annotation_someone@2x.png in Resources */,
 				D90F362119F63B3300E26FA9 /* chatBar_more_location.png in Resources */,
@@ -2981,6 +3053,7 @@
 				D90C638D19FB44D300C2E440 /* VoiceSearchFeedback017.png in Resources */,
 				D90F362019F63B3300E26FA9 /* chatBar_more_cameraSelected@2x.png in Resources */,
 				D9F57B9019E93486005BB43B /* UMSCommentInputController.xib in Resources */,
+				D9545F9C1A207D3500688D72 /* RecommendsTableViewCell.xib in Resources */,
 				D955E54919E7A91300047F2B /* sns_icon_pengyouquan@2x.png in Resources */,
 				D90C63B919FB44D300C2E440 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90C639819FB44D300C2E440 /* chatBar_more_cardSelected.png in Resources */,
@@ -3062,6 +3135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */,
 				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
 				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,
@@ -3070,6 +3144,7 @@
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
 				D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */,
+				D9545FA61A20896700688D72 /* RecommendDetail.m in Sources */,
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
@@ -3077,6 +3152,7 @@
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
 				D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */,
+				D9545FAD1A208EEF00688D72 /* CommentTableViewCell.m in Sources */,
 				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
 				D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */,
 				D90F364D19F63C2F00E26FA9 /* UIViewController+HUD.m in Sources */,
@@ -3097,6 +3173,7 @@
 				C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
+				D9545F9B1A207D3500688D72 /* RecommendsTableViewCell.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
 				C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */,
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
@@ -3123,6 +3200,7 @@
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
 				D902ADCD1A15F0E300E36A93 /* CityPoi.m in Sources */,
+				D9545FA01A20809C00688D72 /* RecommendCollectionViewCell.m in Sources */,
 				D90F366819F63E5300E26FA9 /* EMTextView.m in Sources */,
 				D9FCC79E1A0232D500AD7CBF /* pinyin.c in Sources */,
 				D902AD101A14811400E36A93 /* HotDestinationCollectionReusableView.m in Sources */,
@@ -3138,6 +3216,8 @@
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
+				D9907B0D1A2037C100C7CF0C /* RestaurantDetailView.m in Sources */,
+				D906CBD91A2068C800BE2588 /* RestaurantLocationTableViewCell.m in Sources */,
 				D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
@@ -3183,6 +3263,7 @@
 				D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */,
 				D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */,
 				D9DE34F31A0B92AA00DDCCAB /* Contact.m in Sources */,
+				D9545FA91A208C9800688D72 /* CommentDetail.m in Sources */,
 				D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */,
 				D90857F119EE9AC20041A4E2 /* UserOtherTableViewCell.m in Sources */,
 				D902ADC51A15E58C00E36A93 /* CityDetailTableViewController.m in Sources */,
@@ -3197,6 +3278,7 @@
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
+				D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */,
 				D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */,
 				C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,

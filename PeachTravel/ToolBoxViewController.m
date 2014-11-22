@@ -167,8 +167,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSString *currentDate = [ConvertMethods getCurrentDataWithFormat:@"yyyy-MM-dd"];
     NSLog(@"%@", _location.description);
     NSString *cityName = city? city:@"当前位置";
-    NSString *sss = [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode];
-    NSString *s = [NSString stringWithFormat:@"%@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
+    NSString *s = [NSString stringWithFormat:@"  %@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
     [_weatherBtn setTitle:s forState:UIControlStateNormal];
     [UIView animateWithDuration:0.3 animations:^{
         _weatherBtn.alpha = 0.5;
@@ -200,14 +199,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         chatListCtl.notify = YES;
         
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
-        
-//        MHTabBarController *tabBarController = [[MHTabBarController alloc] init];
-//        tabBarController.delegate = self;
-//        tabBarController.viewControllers = viewControllers;
-//        tabBarController.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:tabBarController animated:YES];
-        
-        
         IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
         IMRootCtl.delegate = self;
         IMRootCtl.viewControllers = viewControllers;
@@ -228,6 +219,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)goLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    loginCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
 }
 
