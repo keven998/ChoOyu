@@ -11,7 +11,6 @@
 #import "HotDestinationCollectionReusableView.h"
 #import "RecommendDataSource.h"
 #import "CityDetailTableViewController.h"
-#import "DestinationViewController.h"
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"

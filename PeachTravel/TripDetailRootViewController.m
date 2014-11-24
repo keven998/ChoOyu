@@ -21,7 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"旅行圈";
+    
     [self setupViewControllers];
+   
 }
 
 - (void)setupViewControllers {

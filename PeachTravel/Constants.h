@@ -144,10 +144,20 @@ typedef enum : NSUInteger {
 
 
 /***** 设备信息 *****/
+
+
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define APP_PAGE_COLOR UIColorFromRGB(0xf4f4f4)
+
+#define APP_THEME_COLOR UIColorFromRGB(0xee528c)
+
+
 
 #define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
 
@@ -156,6 +166,7 @@ typedef enum : NSUInteger {
 
 #define kShouldShowIntroduceWhenFirstLaunch   YES
 
+/*****Yahoo!天气对应的 code 列表******/
 #define yahooWeatherCode @[ @"龙卷风",@"热带风暴", @"暴风",@"大雷雨",@"雷阵雨",@"雨夹雪",\
                                       @"雨夹雹",\
                                       @"雪夹雹",\

@@ -1,5 +1,5 @@
 //
-//  ShoppingListViewController.h
+//  ShoppingsListViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/24/14.
