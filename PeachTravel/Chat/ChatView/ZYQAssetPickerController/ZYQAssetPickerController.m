@@ -682,7 +682,7 @@ static UIColor *titleColor;
         [picker.delegate assetPickerController:picker didFinishPickingAssets:_indexPathsForSelectedItems];
     
     if (picker.isFinishDismissViewController) {
-        [picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+        [picker popViewControllerAnimated:YES];
     }
 }
 
