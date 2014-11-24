@@ -1,5 +1,5 @@
 //
-//  RestaurantLocationTableViewCell.h
+//  LocationTableViewCell.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/22/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RestaurantLocationTableViewCell : UITableViewCell
+@interface LocationTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *telephoneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;

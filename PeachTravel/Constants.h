@@ -41,6 +41,8 @@
 #define API_GET_CITYDETAIL                      (BASE_URL @"geo/localities/")
 #define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/vs/")
 #define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurants/")
+#define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
+
 
 
 //用户相关接口

@@ -25,6 +25,7 @@
 - (void)setCommentDetail:(CommentDetail *)commentDetail
 {
     _commentDetail = commentDetail;
+
     CGSize size = [_commentDetail.commentDetails sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15]}];
     NSInteger lineCount = (size.width / (self.frame.size.width-60)) + 1;
     _descLabel.numberOfLines = lineCount;
@@ -36,7 +37,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 @end

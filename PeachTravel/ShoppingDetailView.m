@@ -1,18 +1,19 @@
 //
-//  RestaurantDetailView.m
+//  ShoppingDetailView.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/22/14.
+//  Created by liangpengshuai on 11/24/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "RestaurantDetailView.h"
+#import "ShoppingDetailView.h"
 #import "ResizableView.h"
 #import "LocationTableViewCell.h"
 #import "RecommendsTableViewCell.h"
 #import "CommentTableViewCell.h"
 
-@interface RestaurantDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@interface ShoppingDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *galleryPageView;
 
@@ -31,7 +32,7 @@
 
 @end
 
-@implementation RestaurantDetailView
+@implementation ShoppingDetailView
 
 static NSString *locationCellIdentifier = @"locationCell";
 static NSString *recommendCellIdentifier = @"recommendCell";
@@ -47,9 +48,9 @@ static NSString *commentCellIdentifier = @"commentCell";
     return self;
 }
 
-- (void)setRestaurantPoi:(RestaurantPoi *)restaurantPoi
+- (void)setShoppingPoi:(ShoppingPoi *)shoppingPoi
 {
-    _restaurantPoi = restaurantPoi;
+    _shoppingPoi = shoppingPoi;
     [self setupSubView];
 }
 
@@ -58,7 +59,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     self.dataSource = self;
     self.delegate = self;
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+    
     CGFloat oy = 0;
     CGFloat width = self.frame.size.width;
     
@@ -75,7 +76,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     [_headerView addSubview:gallery];
     _galleryPageView = gallery;
     
-    int count = _restaurantPoi.images.count;
+    int count = _shoppingPoi.images.count;
     _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame) * count, CGRectGetHeight(_galleryPageView.frame));
     
     NSMutableArray *images = [[NSMutableArray alloc] init];
@@ -89,7 +90,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         [self loadScrollViewWithPage:1];
     }
     oy += 180;
-
+    
     UIButton *decorationView = [[UIButton alloc] initWithFrame:CGRectMake((width-30)/2, oy, 30, 30)];
     decorationView.layer.cornerRadius = 15.0;
     decorationView.backgroundColor = UIColorFromRGB(0xee528c);
@@ -97,7 +98,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     oy += 35;
     
     _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 30)];
-    [_titleBtn setTitle:_restaurantPoi.zhName forState:UIControlStateNormal];
+    [_titleBtn setTitle:_shoppingPoi.zhName forState:UIControlStateNormal];
     [_titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_titleBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
@@ -114,7 +115,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     oy += 25;
     
     _priceBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 30)];
-    [_priceBtn setTitle:_restaurantPoi.priceDesc forState:UIControlStateNormal];
+    [_priceBtn setTitle:_shoppingPoi.priceDesc forState:UIControlStateNormal];
     [_priceBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
     [_priceBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     _priceBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
@@ -122,12 +123,12 @@ static NSString *commentCellIdentifier = @"commentCell";
     [_headerView addSubview:_priceBtn];
     
     oy += 30;
-
+    
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 40)];
     _descView.font = [UIFont systemFontOfSize:15.0];
     _descView.textColor = [UIColor grayColor];
-    _descView.content = _restaurantPoi.desc;
-
+    _descView.content = _shoppingPoi.desc;
+    
     [_headerView addSubview:_descView];
     
     oy += 45;
@@ -148,11 +149,11 @@ static NSString *commentCellIdentifier = @"commentCell";
     [self registerNib:[UINib nibWithNibName:@"RecommendsTableViewCell" bundle:nil] forCellReuseIdentifier:recommendCellIdentifier];
     [self registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:commentCellIdentifier];
     
-
+    
 }
 
 - (void)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= _restaurantPoi.images.count) {
+    if (page >= _shoppingPoi.images.count) {
         return;
     }
     
@@ -173,7 +174,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         frame.origin.x = CGRectGetWidth(frame) * page;
         img.frame = frame;
         [self.galleryPageView insertSubview:img atIndex:0];
-        TaoziImage *taoziImage = [_restaurantPoi.images objectAtIndex:page];
+        TaoziImage *taoziImage = [_shoppingPoi.images objectAtIndex:page];
         NSString *url = taoziImage.imageUrl;
         [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
@@ -190,7 +191,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         return 1;
     }
     if (section == 2) {
-        return _restaurantPoi.comments.count;
+        return _shoppingPoi.comments.count;
     }
     return 0;
 }
@@ -212,7 +213,7 @@ static NSString *commentCellIdentifier = @"commentCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        CGSize size = [_restaurantPoi.address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+        CGSize size = [_shoppingPoi.address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
         NSInteger lineCount = (size.width / (self.frame.size.width-60)) + 1;
         CGFloat addressHeight = lineCount*size.height+10;
         return addressHeight+60;
@@ -221,11 +222,11 @@ static NSString *commentCellIdentifier = @"commentCell";
         return 130;
     }
     if (indexPath.section == 2) {
-        NSString *commentDetail = ((CommentDetail *)[_restaurantPoi.comments objectAtIndex:indexPath.row]).commentDetails;
+        NSString *commentDetail = ((CommentDetail *)[_shoppingPoi.comments objectAtIndex:indexPath.row]).commentDetails;
         CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
         NSInteger lineCount = (size.width / (self.frame.size.width-16)) + 1;
         CGFloat commentHeight = lineCount*size.height+10;
-        return commentHeight+80;
+        return commentHeight+90;
     }
     return 0;
 }
@@ -250,7 +251,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         [sectionBtn setTitle:@"网友点评" forState:UIControlStateNormal];
     }
     [sectionView addSubview:sectionBtn];
-
+    
     return sectionView;
 }
 
@@ -258,17 +259,17 @@ static NSString *commentCellIdentifier = @"commentCell";
 {
     if (indexPath.section == 0) {
         LocationTableViewCell *locationCell = [tableView dequeueReusableCellWithIdentifier:locationCellIdentifier];
-        locationCell.address = _restaurantPoi.address;
+        locationCell.address = _shoppingPoi.address;
         return locationCell;
     }
     if (indexPath.section == 1) {
         RecommendsTableViewCell *recommendsCell = [tableView dequeueReusableCellWithIdentifier:recommendCellIdentifier];
-        recommendsCell.recommends = _restaurantPoi.recommends;
+        recommendsCell.recommends = _shoppingPoi.recommends;
         return recommendsCell;
         
     } if (indexPath.section == 2) {
         CommentTableViewCell *commentCell = [tableView dequeueReusableCellWithIdentifier:commentCellIdentifier];
-        commentCell.commentDetail = [_restaurantPoi.comments objectAtIndex:indexPath.row];
+        commentCell.commentDetail = [_shoppingPoi.comments objectAtIndex:indexPath.row];
         return commentCell;
     }
     return nil;
@@ -289,7 +290,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     self.tableHeaderView = tempHeaderView;
     [self endUpdates];
     [self bringSubviewToFront:_headerView];
-
+    
     [UIView animateWithDuration:0.2 animations:^{
         [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height + _descView.resizeHeight)];
         [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y+_descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
@@ -317,13 +318,5 @@ static NSString *commentCellIdentifier = @"commentCell";
 }
 
 
+
 @end
-
-
-
-
-
-
-
-
-

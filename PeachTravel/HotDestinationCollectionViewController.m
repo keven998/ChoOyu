@@ -20,6 +20,7 @@
 #warning 测试景点详情数据。
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
 
 @interface HotDestinationCollectionViewController ()
 @property (strong, nonatomic) UICollectionViewFlowLayout *flowLayout;
@@ -183,8 +184,13 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
     [self.navigationController pushViewController:spotCtl animated:YES];
      */
+    
+    /*
     RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+     */
+    ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
+    [self.navigationController pushViewController:shoppingCtl animated:YES];
 }
 
 @end

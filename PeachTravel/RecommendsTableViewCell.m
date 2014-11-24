@@ -8,6 +8,7 @@
 
 #import "RecommendsTableViewCell.h"
 #import "RecommendCollectionViewCell.h"
+#import "RecommendDetail.h"
 
 @implementation RecommendsTableViewCell
 
@@ -21,13 +22,13 @@ static NSString * recommendCollectionReusableIdentifier = @"recommendCollectionC
 
 - (void)setRecommends:(NSArray *)recommends
 {
+    _recommends = recommends;
     [_recommendCollectionView reloadData];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return _recommends.count;
-    return 10;
+    return _recommends.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -37,9 +38,11 @@ static NSString * recommendCollectionReusableIdentifier = @"recommendCollectionC
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    RecommendDetail *recommendDetail = [_recommends objectAtIndex:indexPath.row];
+    TaoziImage *image = [recommendDetail.images firstObject];
     RecommendCollectionViewCell *recommendCollectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:recommendCollectionReusableIdentifier forIndexPath:indexPath];
-    [recommendCollectionCell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:nil];
-    recommendCollectionCell.titleLabel.text = @"提拉米苏";
+    [recommendCollectionCell.backGroundImage sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+    recommendCollectionCell.titleLabel.text = recommendDetail.title;
     return recommendCollectionCell;
     
 }
