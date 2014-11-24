@@ -10,6 +10,7 @@
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
 #import "DestinationToolBar.h"
+#import "TripDetailRootViewController.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, DestinationToolBarDelegate>
 
@@ -75,6 +76,8 @@
  */
 - (IBAction)makePlan:(id)sender
 {
+    TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+    [self.navigationController pushViewController:tripDetailCtl animated:YES];
     
 }
 

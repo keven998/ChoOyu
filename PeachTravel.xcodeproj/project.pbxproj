@@ -254,6 +254,36 @@
 		D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FB31A22D68100688D72 /* ShoppingPoi.m */; };
 		D9545FB71A22D6E200688D72 /* ShoppingDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FB61A22D6E200688D72 /* ShoppingDetailView.m */; };
 		D9545FBA1A22D7DB00688D72 /* ShoppingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FB91A22D7DB00688D72 /* ShoppingDetailViewController.m */; };
+		D9545FC21A22EF9700688D72 /* RDVTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FBD1A22EF9700688D72 /* RDVTabBar.m */; };
+		D9545FC31A22EF9700688D72 /* RDVTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FBF1A22EF9700688D72 /* RDVTabBarController.m */; };
+		D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FC11A22EF9700688D72 /* RDVTabBarItem.m */; };
+		D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */; };
+		D9545FCC1A22F36300688D72 /* SpotsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FCA1A22F36300688D72 /* SpotsListViewController.m */; };
+		D9545FCD1A22F36300688D72 /* SpotsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9545FCB1A22F36300688D72 /* SpotsListViewController.xib */; };
+		D9545FD11A22F37F00688D72 /* RestaurantsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FCF1A22F37F00688D72 /* RestaurantsListViewController.m */; };
+		D9545FD21A22F37F00688D72 /* RestaurantsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9545FD01A22F37F00688D72 /* RestaurantsListViewController.xib */; };
+		D9545FD61A22F39400688D72 /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FD41A22F39400688D72 /* ShoppingListViewController.m */; };
+		D9545FD71A22F39400688D72 /* ShoppingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9545FD51A22F39400688D72 /* ShoppingListViewController.xib */; };
+		D9545FED1A22F5CD00688D72 /* first_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FD91A22F5CD00688D72 /* first_normal.png */; };
+		D9545FEE1A22F5CD00688D72 /* first_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDA1A22F5CD00688D72 /* first_normal@2x.png */; };
+		D9545FEF1A22F5CD00688D72 /* first_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDB1A22F5CD00688D72 /* first_selected.png */; };
+		D9545FF01A22F5CD00688D72 /* first_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDC1A22F5CD00688D72 /* first_selected@2x.png */; };
+		D9545FF11A22F5CD00688D72 /* navigationbar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDD1A22F5CD00688D72 /* navigationbar_background.png */; };
+		D9545FF21A22F5CD00688D72 /* navigationbar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDE1A22F5CD00688D72 /* navigationbar_background@2x.png */; };
+		D9545FF31A22F5CD00688D72 /* navigationbar_background_tall.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDF1A22F5CD00688D72 /* navigationbar_background_tall.png */; };
+		D9545FF41A22F5CD00688D72 /* navigationbar_background_tall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE01A22F5CD00688D72 /* navigationbar_background_tall@2x.png */; };
+		D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE11A22F5CD00688D72 /* second_normal.png */; };
+		D9545FF61A22F5CD00688D72 /* second_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE21A22F5CD00688D72 /* second_normal@2x.png */; };
+		D9545FF71A22F5CD00688D72 /* second_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE31A22F5CD00688D72 /* second_selected.png */; };
+		D9545FF81A22F5CD00688D72 /* second_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE41A22F5CD00688D72 /* second_selected@2x.png */; };
+		D9545FF91A22F5CD00688D72 /* tabbar_normal_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE51A22F5CD00688D72 /* tabbar_normal_background.png */; };
+		D9545FFA1A22F5CD00688D72 /* tabbar_normal_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE61A22F5CD00688D72 /* tabbar_normal_background@2x.png */; };
+		D9545FFB1A22F5CD00688D72 /* tabbar_selected_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE71A22F5CD00688D72 /* tabbar_selected_background.png */; };
+		D9545FFC1A22F5CD00688D72 /* tabbar_selected_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE81A22F5CD00688D72 /* tabbar_selected_background@2x.png */; };
+		D9545FFD1A22F5CD00688D72 /* third_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE91A22F5CD00688D72 /* third_normal.png */; };
+		D9545FFE1A22F5CD00688D72 /* third_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FEA1A22F5CD00688D72 /* third_normal@2x.png */; };
+		D9545FFF1A22F5CD00688D72 /* third_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FEB1A22F5CD00688D72 /* third_selected.png */; };
+		D95460001A22F5CD00688D72 /* third_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FEC1A22F5CD00688D72 /* third_selected@2x.png */; };
 		D955E34F19E6508D00047F2B /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E34E19E6508D00047F2B /* DestinationViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -771,6 +801,43 @@
 		D9545FB61A22D6E200688D72 /* ShoppingDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingDetailView.m; sourceTree = "<group>"; };
 		D9545FB81A22D7DB00688D72 /* ShoppingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingDetailViewController.h; sourceTree = "<group>"; };
 		D9545FB91A22D7DB00688D72 /* ShoppingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingDetailViewController.m; sourceTree = "<group>"; };
+		D9545FBC1A22EF9700688D72 /* RDVTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDVTabBar.h; sourceTree = "<group>"; };
+		D9545FBD1A22EF9700688D72 /* RDVTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDVTabBar.m; sourceTree = "<group>"; };
+		D9545FBE1A22EF9700688D72 /* RDVTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDVTabBarController.h; sourceTree = "<group>"; };
+		D9545FBF1A22EF9700688D72 /* RDVTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDVTabBarController.m; sourceTree = "<group>"; };
+		D9545FC01A22EF9700688D72 /* RDVTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDVTabBarItem.h; sourceTree = "<group>"; };
+		D9545FC11A22EF9700688D72 /* RDVTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDVTabBarItem.m; sourceTree = "<group>"; };
+		D9545FC61A22F26200688D72 /* TripDetailRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailRootViewController.h; sourceTree = "<group>"; };
+		D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailRootViewController.m; sourceTree = "<group>"; };
+		D9545FC91A22F36300688D72 /* SpotsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotsListViewController.h; sourceTree = "<group>"; };
+		D9545FCA1A22F36300688D72 /* SpotsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotsListViewController.m; sourceTree = "<group>"; };
+		D9545FCB1A22F36300688D72 /* SpotsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpotsListViewController.xib; sourceTree = "<group>"; };
+		D9545FCE1A22F37F00688D72 /* RestaurantsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsListViewController.h; sourceTree = "<group>"; };
+		D9545FCF1A22F37F00688D72 /* RestaurantsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsListViewController.m; sourceTree = "<group>"; };
+		D9545FD01A22F37F00688D72 /* RestaurantsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantsListViewController.xib; sourceTree = "<group>"; };
+		D9545FD31A22F39400688D72 /* ShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListViewController.h; sourceTree = "<group>"; };
+		D9545FD41A22F39400688D72 /* ShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListViewController.m; sourceTree = "<group>"; };
+		D9545FD51A22F39400688D72 /* ShoppingListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingListViewController.xib; sourceTree = "<group>"; };
+		D9545FD91A22F5CD00688D72 /* first_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first_normal.png; sourceTree = "<group>"; };
+		D9545FDA1A22F5CD00688D72 /* first_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_normal@2x.png"; sourceTree = "<group>"; };
+		D9545FDB1A22F5CD00688D72 /* first_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first_selected.png; sourceTree = "<group>"; };
+		D9545FDC1A22F5CD00688D72 /* first_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_selected@2x.png"; sourceTree = "<group>"; };
+		D9545FDD1A22F5CD00688D72 /* navigationbar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_background.png; sourceTree = "<group>"; };
+		D9545FDE1A22F5CD00688D72 /* navigationbar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_background@2x.png"; sourceTree = "<group>"; };
+		D9545FDF1A22F5CD00688D72 /* navigationbar_background_tall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_background_tall.png; sourceTree = "<group>"; };
+		D9545FE01A22F5CD00688D72 /* navigationbar_background_tall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_background_tall@2x.png"; sourceTree = "<group>"; };
+		D9545FE11A22F5CD00688D72 /* second_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second_normal.png; sourceTree = "<group>"; };
+		D9545FE21A22F5CD00688D72 /* second_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second_normal@2x.png"; sourceTree = "<group>"; };
+		D9545FE31A22F5CD00688D72 /* second_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second_selected.png; sourceTree = "<group>"; };
+		D9545FE41A22F5CD00688D72 /* second_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second_selected@2x.png"; sourceTree = "<group>"; };
+		D9545FE51A22F5CD00688D72 /* tabbar_normal_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_normal_background.png; sourceTree = "<group>"; };
+		D9545FE61A22F5CD00688D72 /* tabbar_normal_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_normal_background@2x.png"; sourceTree = "<group>"; };
+		D9545FE71A22F5CD00688D72 /* tabbar_selected_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_selected_background.png; sourceTree = "<group>"; };
+		D9545FE81A22F5CD00688D72 /* tabbar_selected_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_selected_background@2x.png"; sourceTree = "<group>"; };
+		D9545FE91A22F5CD00688D72 /* third_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = third_normal.png; sourceTree = "<group>"; };
+		D9545FEA1A22F5CD00688D72 /* third_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_normal@2x.png"; sourceTree = "<group>"; };
+		D9545FEB1A22F5CD00688D72 /* third_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = third_selected.png; sourceTree = "<group>"; };
+		D9545FEC1A22F5CD00688D72 /* third_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_selected@2x.png"; sourceTree = "<group>"; };
 		D955E34D19E6508D00047F2B /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		D955E34E19E6508D00047F2B /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
 		D955E35019E6538B00047F2B /* DestinationToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationToolBar.h; sourceTree = "<group>"; };
@@ -1804,6 +1871,65 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		D9545FBB1A22EF9700688D72 /* RDVTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				D9545FBC1A22EF9700688D72 /* RDVTabBar.h */,
+				D9545FBD1A22EF9700688D72 /* RDVTabBar.m */,
+				D9545FBE1A22EF9700688D72 /* RDVTabBarController.h */,
+				D9545FBF1A22EF9700688D72 /* RDVTabBarController.m */,
+				D9545FC01A22EF9700688D72 /* RDVTabBarItem.h */,
+				D9545FC11A22EF9700688D72 /* RDVTabBarItem.m */,
+			);
+			path = RDVTabBarController;
+			sourceTree = "<group>";
+		};
+		D9545FC51A22F23B00688D72 /* TripListDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D9545FC61A22F26200688D72 /* TripDetailRootViewController.h */,
+				D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */,
+				D9545FC91A22F36300688D72 /* SpotsListViewController.h */,
+				D9545FCA1A22F36300688D72 /* SpotsListViewController.m */,
+				D9545FCB1A22F36300688D72 /* SpotsListViewController.xib */,
+				D9545FCE1A22F37F00688D72 /* RestaurantsListViewController.h */,
+				D9545FCF1A22F37F00688D72 /* RestaurantsListViewController.m */,
+				D9545FD01A22F37F00688D72 /* RestaurantsListViewController.xib */,
+				D9545FD31A22F39400688D72 /* ShoppingListViewController.h */,
+				D9545FD41A22F39400688D72 /* ShoppingListViewController.m */,
+				D9545FD51A22F39400688D72 /* ShoppingListViewController.xib */,
+			);
+			name = TripListDetail;
+			sourceTree = "<group>";
+		};
+		D9545FD81A22F5CD00688D72 /* 攻略列表的 tabbar 测试图片 */ = {
+			isa = PBXGroup;
+			children = (
+				D9545FD91A22F5CD00688D72 /* first_normal.png */,
+				D9545FDA1A22F5CD00688D72 /* first_normal@2x.png */,
+				D9545FDB1A22F5CD00688D72 /* first_selected.png */,
+				D9545FDC1A22F5CD00688D72 /* first_selected@2x.png */,
+				D9545FDD1A22F5CD00688D72 /* navigationbar_background.png */,
+				D9545FDE1A22F5CD00688D72 /* navigationbar_background@2x.png */,
+				D9545FDF1A22F5CD00688D72 /* navigationbar_background_tall.png */,
+				D9545FE01A22F5CD00688D72 /* navigationbar_background_tall@2x.png */,
+				D9545FE11A22F5CD00688D72 /* second_normal.png */,
+				D9545FE21A22F5CD00688D72 /* second_normal@2x.png */,
+				D9545FE31A22F5CD00688D72 /* second_selected.png */,
+				D9545FE41A22F5CD00688D72 /* second_selected@2x.png */,
+				D9545FE51A22F5CD00688D72 /* tabbar_normal_background.png */,
+				D9545FE61A22F5CD00688D72 /* tabbar_normal_background@2x.png */,
+				D9545FE71A22F5CD00688D72 /* tabbar_selected_background.png */,
+				D9545FE81A22F5CD00688D72 /* tabbar_selected_background@2x.png */,
+				D9545FE91A22F5CD00688D72 /* third_normal.png */,
+				D9545FEA1A22F5CD00688D72 /* third_normal@2x.png */,
+				D9545FEB1A22F5CD00688D72 /* third_selected.png */,
+				D9545FEC1A22F5CD00688D72 /* third_selected@2x.png */,
+			);
+			name = "攻略列表的 tabbar 测试图片";
+			path = Images;
+			sourceTree = "<group>";
+		};
 		D955E34919E6306C00047F2B /* Destination */ = {
 			isa = PBXGroup;
 			children = (
@@ -1912,6 +2038,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9545FBB1A22EF9700688D72 /* RDVTabBarController */,
 				D9AC9BBB1A1F795B00E0C4CE /* ALDBlurImageProcessor */,
 				D9AC9BBE1A1F795B00E0C4CE /* M13Checkbox */,
 				D9AC9BB81A1F312E00E0C4CE /* TBXML */,
@@ -1935,6 +2062,7 @@
 		D955E3A319E6BF7C00047F2B /* MakeTravel */ = {
 			isa = PBXGroup;
 			children = (
+				D9545FC51A22F23B00688D72 /* TripListDetail */,
 				D955E34919E6306C00047F2B /* Destination */,
 				D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */,
 				D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */,
@@ -2483,6 +2611,7 @@
 		D9AC9B061A1C8AB000E0C4CE /* 临时图片文件记得删掉 */ = {
 			isa = PBXGroup;
 			children = (
+				D9545FD81A22F5CD00688D72 /* 攻略列表的 tabbar 测试图片 */,
 			);
 			name = "临时图片文件记得删掉";
 			sourceTree = "<group>";
@@ -2886,6 +3015,7 @@
 				D90F361F19F63B3300E26FA9 /* chatBar_more_cameraSelected.png in Resources */,
 				D90C63A319FB44D300C2E440 /* chat_location_detail_disclosure@2x.png in Resources */,
 				D90F362819F63B3300E26FA9 /* chatBar_more_photoSelected@2x.png in Resources */,
+				D9545FFB1A22F5CD00688D72 /* tabbar_selected_background.png in Resources */,
 				D90C637619FB44D300C2E440 /* VoiceSearchFeedback005@2x.png in Resources */,
 				D9681A0F1A109BF600122793 /* Default.png in Resources */,
 				D90C63A419FB44D300C2E440 /* chat_location_detail_disclosureHL.png in Resources */,
@@ -2896,6 +3026,7 @@
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
 				D90C63B419FB44D300C2E440 /* chat_sender_audio_playing_000.png in Resources */,
+				D9545FEF1A22F5CD00688D72 /* first_selected.png in Resources */,
 				D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */,
 				D90C638019FB44D300C2E440 /* VoiceSearchFeedback010@2x.png in Resources */,
 				D90C63A019FB44D300C2E440 /* chat_location_annotation_someone.png in Resources */,
@@ -2909,6 +3040,7 @@
 				C63344EC1A1C728000A27F86 /* ic_notify_flag@2x.png in Resources */,
 				D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */,
 				D90C63A719FB44D300C2E440 /* chat_location_preview@2x.png in Resources */,
+				D9545FED1A22F5CD00688D72 /* first_normal.png in Resources */,
 				D90C63BD19FB44D300C2E440 /* chat_sender_audio_playing_full@2x.png in Resources */,
 				D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */,
 				D955E5D419E7D41200047F2B /* Default-568h@2x.png in Resources */,
@@ -2937,6 +3069,7 @@
 				D90C639419FB44D300C2E440 /* VoiceSearchFeedback020@2x.png in Resources */,
 				D90C636D19FB44D300C2E440 /* VoiceSearchFeedback001.png in Resources */,
 				D90C63AF19FB44D300C2E440 /* chat_receiver_audio_playing003@2x.png in Resources */,
+				D9545FCD1A22F36300688D72 /* SpotsListViewController.xib in Resources */,
 				D90C637219FB44D300C2E440 /* VoiceSearchFeedback003@2x.png in Resources */,
 				D90C636A19FB44D300C2E440 /* chatFire_audioPlaying2@2x.png in Resources */,
 				D90F362219F63B3300E26FA9 /* chatBar_more_location@2x.png in Resources */,
@@ -2946,6 +3079,7 @@
 				D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */,
 				D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */,
 				D90C63AE19FB44D300C2E440 /* chat_receiver_audio_playing003.png in Resources */,
+				D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */,
 				D90C63A819FB44D300C2E440 /* chat_receiver_audio_playing000.png in Resources */,
 				D90F361919F63B3300E26FA9 /* chatBar_colorMore_photo@2x.png in Resources */,
 				D90F360519F63B3300E26FA9 /* chatBar_keyboard.png in Resources */,
@@ -2958,6 +3092,7 @@
 				C63344E21A1C3F5F00A27F86 /* ic_menu_add@2x.png in Resources */,
 				D90C63B819FB44D300C2E440 /* chat_sender_audio_playing_002.png in Resources */,
 				C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */,
+				D9545FF21A22F5CD00688D72 /* navigationbar_background@2x.png in Resources */,
 				D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */,
 				D90F360319F63B3300E26FA9 /* chatBar_faceSelected.png in Resources */,
 				D90F361119F63B3300E26FA9 /* chatBar_recordSelected.png in Resources */,
@@ -2975,6 +3110,7 @@
 				D90C637C19FB44D300C2E440 /* VoiceSearchFeedback008@2x.png in Resources */,
 				D90F35EC19F63B3300E26FA9 /* call_out@2x.png in Resources */,
 				D90C63A519FB44D300C2E440 /* chat_location_detail_disclosureHL@2x.png in Resources */,
+				D9545FEE1A22F5CD00688D72 /* first_normal@2x.png in Resources */,
 				D90C638B19FB44D300C2E440 /* VoiceSearchFeedback016.png in Resources */,
 				D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */,
 				D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */,
@@ -2982,6 +3118,7 @@
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
 				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
+				D9545FF71A22F5CD00688D72 /* second_selected.png in Resources */,
 				D90C637819FB44D300C2E440 /* VoiceSearchFeedback006@2x.png in Resources */,
 				D90F360619F63B3300E26FA9 /* chatBar_keyboard@2x.png in Resources */,
 				D90F362519F63B3300E26FA9 /* chatBar_more_photo.png in Resources */,
@@ -2992,8 +3129,10 @@
 				D90F360C19F63B3300E26FA9 /* chatBar_moreSelected@2x.png in Resources */,
 				D9A717A81A047E7C005BDEFE /* c2cReceiverMsgNodeBG@2x.png in Resources */,
 				D9DE789F1A027965008A8576 /* ContactListViewController.xib in Resources */,
+				D9545FFF1A22F5CD00688D72 /* third_selected.png in Resources */,
 				D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */,
 				D90C63B119FB44D300C2E440 /* chat_receiver_audio_playing_full@2x.png in Resources */,
+				D9545FD21A22F37F00688D72 /* RestaurantsListViewController.xib in Resources */,
 				D9E9F7AD1A00A3C7003F70F6 /* AddContactTableViewController.xib in Resources */,
 				D90C637F19FB44D300C2E440 /* VoiceSearchFeedback010.png in Resources */,
 				D90F361219F63B3300E26FA9 /* chatBar_recordSelected@2x.png in Resources */,
@@ -3005,48 +3144,58 @@
 				D90C63A919FB44D300C2E440 /* chat_receiver_audio_playing000@2x.png in Resources */,
 				D90F360919F63B3300E26FA9 /* chatBar_more.png in Resources */,
 				D9681A0B1A109BF600122793 /* background-gradient@2x.png in Resources */,
+				D9545FFC1A22F5CD00688D72 /* tabbar_selected_background@2x.png in Resources */,
 				D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */,
 				D90C63A219FB44D300C2E440 /* chat_location_detail_disclosure.png in Resources */,
 				D90C638919FB44D300C2E440 /* VoiceSearchFeedback015.png in Resources */,
+				D9545FF01A22F5CD00688D72 /* first_selected@2x.png in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
 				D90F362319F63B3300E26FA9 /* chatBar_more_locationSelected.png in Resources */,
 				D90F362619F63B3300E26FA9 /* chatBar_more_photo@2x.png in Resources */,
 				D90F363019F63B3300E26FA9 /* imageDownloadFail@2x.png in Resources */,
 				D9E9F78A19FF5ADB003F70F6 /* SenderImageNodeBorder_back@2x.png in Resources */,
+				D9545FF41A22F5CD00688D72 /* navigationbar_background_tall@2x.png in Resources */,
 				D90F362719F63B3300E26FA9 /* chatBar_more_photoSelected.png in Resources */,
 				D9F57B9519E93486005BB43B /* UMSnsAccountViewController.xib in Resources */,
 				D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */,
 				D90F35F119F63B3300E26FA9 /* call_silence_h.png in Resources */,
 				D9681A171A109C4700122793 /* tutorial_background_01@2x.jpg in Resources */,
 				D90C63A619FB44D300C2E440 /* chat_location_preview.png in Resources */,
+				D95460001A22F5CD00688D72 /* third_selected@2x.png in Resources */,
 				D90C639E19FB44D300C2E440 /* chatBar_textBg.png in Resources */,
 				D9681A161A109C4700122793 /* tutorial_background_00@2x.jpg in Resources */,
 				D90C639519FB44D300C2E440 /* chat_video_play.png in Resources */,
 				D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */,
 				D90C637519FB44D300C2E440 /* VoiceSearchFeedback005.png in Resources */,
+				D9545FF81A22F5CD00688D72 /* second_selected@2x.png in Resources */,
 				D955E54A19E7A91300047F2B /* sns_icon_qq@2x.png in Resources */,
 				D90F361A19F63B3300E26FA9 /* chatBar_colorMore_photoSelected@2x.png in Resources */,
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D90F361B19F63B3300E26FA9 /* chatBar_colorMore_video@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
+				D9545FF91A22F5CD00688D72 /* tabbar_normal_background.png in Resources */,
 				D90C63B019FB44D300C2E440 /* chat_receiver_audio_playing_full.png in Resources */,
 				D90F361C19F63B3300E26FA9 /* chatBar_colorMore_videoSelected@2x.png in Resources */,
 				D90F360419F63B3300E26FA9 /* chatBar_faceSelected@2x.png in Resources */,
 				D90C639B19FB44D300C2E440 /* chatBar_more_face@2x.png in Resources */,
+				D9545FF61A22F5CD00688D72 /* second_normal@2x.png in Resources */,
 				D90F35FD19F63B3300E26FA9 /* faceDelete@2x.png in Resources */,
 				D90C636819FB44D300C2E440 /* chatFire_audioPlaying1@2x.png in Resources */,
 				D90F360719F63B3300E26FA9 /* chatBar_keyboardSelected.png in Resources */,
 				D90F35F019F63B3300E26FA9 /* call_silence@2x.png in Resources */,
+				D9545FF11A22F5CD00688D72 /* navigationbar_background.png in Resources */,
 				D9681A0A1A109BF600122793 /* background-gradient.png in Resources */,
 				D9681A0C1A109BF600122793 /* button-background.png in Resources */,
 				D90F360D19F63B3300E26FA9 /* chatBar_record.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
+				D9545FFA1A22F5CD00688D72 /* tabbar_normal_background@2x.png in Resources */,
 				D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
 				D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				D9545FD71A22F39400688D72 /* ShoppingListViewController.xib in Resources */,
 				D90C636F19FB44D300C2E440 /* VoiceSearchFeedback002.png in Resources */,
 				D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */,
 				D90C63B719FB44D300C2E440 /* chat_sender_audio_playing_001@2x.png in Resources */,
@@ -3084,6 +3233,7 @@
 				D90C637119FB44D300C2E440 /* VoiceSearchFeedback003.png in Resources */,
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
 				D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */,
+				D9545FF31A22F5CD00688D72 /* navigationbar_background_tall.png in Resources */,
 				D90C638819FB44D300C2E440 /* VoiceSearchFeedback014@2x.png in Resources */,
 				D982F90E1A04BF4800ECF18A /* FrendRequestTableViewCell.xib in Resources */,
 				D9F57B9719E93486005BB43B /* UMSocialSDKResourcesNew.bundle in Resources */,
@@ -3105,9 +3255,11 @@
 				D90C636919FB44D300C2E440 /* chatFire_audioPlaying2.png in Resources */,
 				D90C637719FB44D300C2E440 /* VoiceSearchFeedback006.png in Resources */,
 				D90F361E19F63B3300E26FA9 /* chatBar_more_camera@2x.png in Resources */,
+				D9545FFD1A22F5CD00688D72 /* third_normal.png in Resources */,
 				C63344E91A1C487400A27F86 /* ic_menu_add_friend@2x.png in Resources */,
 				D90C638519FB44D300C2E440 /* VoiceSearchFeedback013.png in Resources */,
 				D964201819EBCA3300CC8057 /* SettingTableViewController.xib in Resources */,
+				D9545FFE1A22F5CD00688D72 /* third_normal@2x.png in Resources */,
 				D90F361D19F63B3300E26FA9 /* chatBar_more_camera.png in Resources */,
 				D90F35F219F63B3300E26FA9 /* call_silence_h@2x.png in Resources */,
 				D90F361519F63B3300E26FA9 /* chatBar_colorMore_camera@2x.png in Resources */,
@@ -3220,12 +3372,14 @@
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
 				D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */,
+				D9545FCC1A22F36300688D72 /* SpotsListViewController.m in Sources */,
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,
 				D90F35EA19F63B3300E26FA9 /* ChatListViewController.m in Sources */,
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
+				D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */,
 				D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */,
 				D90F363119F63B3300E26FA9 /* EMChatTimeCell.m in Sources */,
 				D90F356C19F6391E00E26FA9 /* ToolBoxViewController.m in Sources */,
@@ -3246,6 +3400,7 @@
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
 				C63344E61A1C44BB00A27F86 /* RNGridMenu.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
+				D9545FD11A22F37F00688D72 /* RestaurantsListViewController.m in Sources */,
 				D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */,
 				D9545FB71A22D6E200688D72 /* ShoppingDetailView.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
@@ -3254,6 +3409,7 @@
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
+				D9545FC21A22EF9700688D72 /* RDVTabBar.m in Sources */,
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D9907B0D1A2037C100C7CF0C /* RestaurantDetailView.m in Sources */,
@@ -3270,6 +3426,7 @@
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
 				D98CC68E1A19BE5000FA5A76 /* SpotDetailViewController.m in Sources */,
 				D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */,
+				D9545FC31A22EF9700688D72 /* RDVTabBarController.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
@@ -3317,6 +3474,7 @@
 				D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */,
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
+				D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
 				D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */,
 				D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */,
@@ -3326,6 +3484,7 @@
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,
 				D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */,
+				D9545FD61A22F39400688D72 /* ShoppingListViewController.m in Sources */,
 				D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */,
 				D9AC9BB21A1F2A2300E0C4CE /* WeatherInfo.m in Sources */,
 				D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */,
