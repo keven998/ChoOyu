@@ -20,15 +20,6 @@
                             <constraint firstAttribute="width" constant="62" id="ou6-Ki-vMP"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="马达加斯加" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sk-qQ-AMp">
-                        <rect key="frame" x="98" y="5" width="133" height="42"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="42" id="fF8-sh-qtV"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2di-Ve-u0h">
                         <rect key="frame" x="100" y="45" width="130" height="27"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -72,6 +63,15 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIO-Dk-bN0">
+                        <rect key="frame" x="98" y="8" width="132" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="cCo-wT-yY7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -79,18 +79,18 @@
                     <constraint firstItem="ov0-ZM-sUJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="9hf-KC-t5k"/>
                     <constraint firstItem="2di-Ve-u0h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="45" id="FUy-Fp-Gpo"/>
                     <constraint firstAttribute="trailing" secondItem="ov0-ZM-sUJ" secondAttribute="trailing" constant="8" id="IaI-Vv-N6B"/>
-                    <constraint firstItem="4Sk-qQ-AMp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="KDv-pH-Hh4"/>
                     <constraint firstItem="2di-Ve-u0h" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="10" id="OdR-gj-ncn"/>
+                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="OhB-vl-xt8"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="cTT-TZ-1Cj"/>
                     <constraint firstAttribute="bottom" secondItem="4cL-6P-Vhd" secondAttribute="bottom" id="crD-1p-uWw"/>
                     <constraint firstAttribute="trailing" secondItem="2di-Ve-u0h" secondAttribute="trailing" constant="78" id="hH5-dT-AOq"/>
+                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="8" id="hNF-om-DU7"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="jQ6-2P-v6H"/>
+                    <constraint firstAttribute="trailing" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="78" id="qP9-if-hZ5"/>
                     <constraint firstItem="4cL-6P-Vhd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rsd-ll-hgn"/>
                     <constraint firstAttribute="bottom" secondItem="ILK-yd-WJS" secondAttribute="bottom" constant="10" id="tgh-sr-nza"/>
-                    <constraint firstItem="4Sk-qQ-AMp" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="8" id="uAs-IK-zcp"/>
                     <constraint firstAttribute="bottom" secondItem="ov0-ZM-sUJ" secondAttribute="bottom" constant="24.5" id="wed-Pc-6yy"/>
                     <constraint firstItem="4cL-6P-Vhd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x4e-xO-jtR"/>
-                    <constraint firstAttribute="trailing" secondItem="4Sk-qQ-AMp" secondAttribute="trailing" constant="77" id="yBE-G0-yKp"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,9 +100,9 @@
                 <outlet property="pictureHorizontalSpace" destination="cTT-TZ-1Cj" id="1o6-RF-y4n"/>
                 <outlet property="spaceView" destination="4cL-6P-Vhd" id="1Jn-0a-S3x"/>
                 <outlet property="timeCostConstraint" destination="hH5-dT-AOq" id="vGb-h2-g5c"/>
-                <outlet property="titleContstraint" destination="yBE-G0-yKp" id="4yf-bT-f4d"/>
+                <outlet property="titleContstraint" destination="qP9-if-hZ5" id="I4g-Ox-vuO"/>
             </connections>
-            <point key="canvasLocation" x="-127" y="153"/>
+            <point key="canvasLocation" x="-225" y="159"/>
         </tableViewCell>
     </objects>
     <resources>

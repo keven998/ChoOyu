@@ -175,6 +175,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="b66-St-uco" firstAttribute="leading" secondItem="NkR-4z-YPD" secondAttribute="trailing" id="5ma-kB-z68"/>
                         <constraint firstAttribute="trailing" secondItem="b66-St-uco" secondAttribute="trailing" id="8Yp-Ho-Pm8"/>
                         <constraint firstItem="Rdi-by-B0m" firstAttribute="leading" secondItem="qCY-9c-rDz" secondAttribute="trailing" constant="1" id="8mA-aO-bIQ"/>
                         <constraint firstItem="jVh-kA-xlf" firstAttribute="width" secondItem="b66-St-uco" secondAttribute="width" constant="2" id="CzL-T2-MgN"/>

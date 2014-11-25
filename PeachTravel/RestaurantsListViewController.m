@@ -10,6 +10,7 @@
 #import "DKCircleButton.h"
 #import "RestaurantListTableViewCell.h"
 #import "DestinationsView.h"
+#import "RestaurantsOfCityViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -93,7 +94,9 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 - (IBAction)addWantTo:(id)sender
 {
-    
+    RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
+    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
+    restaurantOfCityCtl.cities = self.destinationsHeaderView.destinations;
 }
 
 - (void)updateTableView

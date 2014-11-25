@@ -29,10 +29,10 @@
         self.title.textAlignment = NSTextAlignmentCenter;
         self.title.backgroundColor = [UIColor clearColor];
         NSDictionary *currentStyle = [[UINavigationBar appearance] titleTextAttributes];
-        self.title.textColor = currentStyle[UITextAttributeTextColor];
-        self.title.font = currentStyle[UITextAttributeFont];
-        self.title.shadowColor = currentStyle[UITextAttributeTextShadowColor];
-        NSValue *shadowOffset = currentStyle[UITextAttributeTextShadowOffset];
+        self.title.textColor = currentStyle[NSForegroundColorAttributeName];
+        self.title.font = currentStyle[NSFontAttributeName];
+        self.title.shadowColor = currentStyle[NSShadowAttributeName];
+        NSValue *shadowOffset = currentStyle[NSShadowAttributeName];
         self.title.shadowOffset = shadowOffset.CGSizeValue;
         [self addSubview:self.title];
 

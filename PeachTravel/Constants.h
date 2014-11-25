@@ -33,7 +33,7 @@
 
 /***** API *****/
 
-#define BASE_URL                @ "http://api.lvxingpai.cn/taozi/"
+#define BASE_URL                @ "http://api.taozilvxing.cn/taozi/"
 
 //攻略相关接口
 
