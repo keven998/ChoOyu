@@ -13,4 +13,7 @@
 @property (nonatomic, strong) NSArray *shoppingList;
 
 - (id)initWithJson:(id)json;
+
+- (void)setRestaurantsListWithJson:(id)json;
+
 @end

@@ -15,7 +15,7 @@
 {
     if (self = [super init]) {
         _cityId = [json objectForKey:@"id"];
-        _name = [json objectForKey:@"name"];
+        _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _lat = [[[json objectForKey:@"coords"] objectForKey:@"lat"] doubleValue];
         _lng = [[[json objectForKey:@"coords"] objectForKey:@"lng"] doubleValue];

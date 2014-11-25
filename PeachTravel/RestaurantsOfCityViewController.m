@@ -18,8 +18,6 @@
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) SINavigationMenuView *titleMenu;
 
-
-
 @end
 
 @implementation RestaurantsOfCityViewController
@@ -30,14 +28,17 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    if (self.cities.count) {
+    if (self.cities.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
+    } else {
+        self.navigationItem.title = _currentCity.zhName;
     }
     _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
     [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
     [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightItemBtn];
+    [self loadDataWithCityId:_currentCity.cityId];
 }
 
 #pragma mark - setter & getter
@@ -45,10 +46,15 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 - (SINavigationMenuView *)titleMenu
 {
     if (!_titleMenu) {
+        NSMutableArray *names = [[NSMutableArray alloc] init];
+        for (CityPoi *city in _cities) {
+            [names addObject:city.zhName];
+        }
         CGRect frame = CGRectMake(0.0, 0.0, 200.0, self.navigationController.navigationBar.bounds.size.height);
-        _titleMenu = [[SINavigationMenuView alloc] initWithFrame:frame title:@"安顺"];
+        _titleMenu = [[SINavigationMenuView alloc] initWithFrame:frame title:[names firstObject]];
         [_titleMenu displayMenuInView:self.navigationController.view];
-        _titleMenu.items = @[@"安顺", @"大阪",@"葡萄牙",@"大不列颠及北爱尔兰"];
+       
+        _titleMenu.items = names;
         _titleMenu.delegate = self;
     }
     return _titleMenu;
@@ -101,6 +107,46 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 }
 
+#pragma mark - Private Methods
+
+- (void)loadDataWithCityId:(NSString *)cityId
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,cityId];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:3] forKey:@"noteCnt"];
+    
+    [SVProgressHUD show];
+    
+    //获取城市的美食列表信息
+    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [_currentCity.restaurants setRestaurantsListWithJson:[responseObject objectForKey:@"result"]];
+            [self updateView];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)updateView
+{
+    [self.tableView reloadData];
+}
+
 #pragma mark - IBAction Methods
 
 - (IBAction)showMoreCities:(UIButton *)sender
@@ -116,7 +162,8 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (void)didSelectItemAtIndex:(NSUInteger)index
 {
-    [_titleMenu setTitle:_titleMenu.items[index]];
+    _currentCity = [self.cities objectAtIndex:index];
+    [_titleMenu setTitle:_currentCity.zhName];
 }
 
 
@@ -125,7 +172,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _currentCity.restaurants.restaurantsList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -135,12 +182,18 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 166.0;
+    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
+    if ([restaurantPoi.comments count]) {
+        return 166.0;
+    }
+    return 130;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
     RestaurantOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantOfCityCellIdentifier];
+    cell.restaurantPoi = restaurantPoi;
     return cell;
 }
 @end

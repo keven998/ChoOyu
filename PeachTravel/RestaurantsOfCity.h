@@ -14,4 +14,6 @@
 
 - (id)initWithJson:(id)json;
 
+- (void)setRestaurantsListWithJson:(id)json;
+
 @end

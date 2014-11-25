@@ -44,6 +44,7 @@
             [commnentArray addObject:comment];
         }
         _comments = commnentArray;
+        _commentCount = [[json objectForKey:@"commentCnt"] integerValue];
     }
     return self;
 }

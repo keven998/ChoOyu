@@ -23,6 +23,7 @@
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
             [tempImages addObject:image];
         }
+        _rating = [[json objectForKey:@"rating"] floatValue];
         _images = tempImages;
 
     }

@@ -7,11 +7,13 @@
 //
 
 #import "SuperPoi.h"
+#import "RestaurantsOfCity.h"
+#import "ShoppingOfCity.h"
 
 @interface CityPoi : NSObject
 
 @property (nonatomic, copy) NSString *cityId;
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
@@ -21,7 +23,12 @@
 @property (nonatomic, copy) NSString *cover;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
+@property (nonatomic, strong) RestaurantsOfCity *restaurants;
+@property (nonatomic, strong) ShoppingOfCity *shopping;
 
 - (id)initWithJson:(id)json;
+
+- (void)initRestaurantsWithJson:(id)json;        //解析城市里的美食数据
+- (void)initShoppingWithJson:(id)json;        //解析城市里的购物数据
 
 @end

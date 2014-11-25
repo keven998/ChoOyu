@@ -38,7 +38,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"CityHeaderView" owner:nil options:nil];
     _cityHeaderView = [nibView firstObject];
     _cityHeaderView.frame = CGRectMake(0, 0, self.view.frame.size.width, _cityHeaderView.frame.size.height);
-    _cityHeaderView.title = _cityPoi.name;
+    _cityHeaderView.title = _cityPoi.zhName;
     _cityHeaderView.cityImage = _cityPoi.cover;
     _cityHeaderView.desc = _cityPoi.desc;
     _cityHeaderView.timeCost = _cityPoi.timeCost;
@@ -66,11 +66,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     [SVProgressHUD show];
     
-//****************
 #warning 测试数据
     [self updateView];
-//*************
-
+   
+    
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -100,7 +99,15 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)viewRestaurants:(id)sender
 {
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
-    restaurantOfCityCtl.cities = @[@"大顺", @"呼和浩特市"];
+#warning 测试数据
+    _cityPoi = [[CityPoi alloc] initWithJson:@{}];
+    _cityPoi.zhName = @"大阪";
+    _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
+    _cityPoi.restaurants = [[RestaurantsOfCity alloc] initWithJson:@{}];
+    restaurantOfCityCtl.currentCity = _cityPoi;
+    
+    
+    restaurantOfCityCtl.cities = @[_cityPoi];
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 

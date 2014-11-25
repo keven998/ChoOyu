@@ -14,15 +14,20 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super initWithJson:json]) {
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id restaurantDic in [json objectForKey:@"poiList"]) {
-            ShoppingPoi *poi = [[ShoppingPoi alloc] initWithJson:restaurantDic];
-            [tempArray addObject:poi];
-        }
-        _shoppingList = tempArray;
+      
     }
     return self;
 }
 
+- (void)setRestaurantsListWithJson:(id)json
+{
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *poiDic in json) {
+        ShoppingPoi *poi = [[ShoppingPoi alloc] initWithJson:poiDic];
+        [tempArray addObject:poi];
+    }
+    
+    _shoppingList = tempArray;
+}
 
 @end

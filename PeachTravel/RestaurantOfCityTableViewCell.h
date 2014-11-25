@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RestaurantPoi.h"
 
 @interface RestaurantOfCityTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) RestaurantPoi *restaurantPoi;
 
 @end

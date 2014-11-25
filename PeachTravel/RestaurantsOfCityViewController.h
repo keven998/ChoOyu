@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CityPoi.h"
 
 @interface RestaurantsOfCityViewController : UIViewController
 
 @property (strong, nonatomic) NSArray *cities;
+@property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
 
 @end
