@@ -25,30 +25,11 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
-//    [addBtn setTitle:@"添加好友" forState:UIControlStateNormal];
-//    addBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-//    [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [addBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
 }
-
-//- (NSArray *)addItems
-//{
-//    if (!_addItems) {
-//        _addItems = @[ [KxMenuItem menuItem:@"添加好友"
-//                                      image:[UIImage imageNamed:@"action_icon"]
-//                                     target:self
-//                                     action:@selector(addUserContact:)],
-//                       
-//                       [KxMenuItem menuItem:@"群聊/聊天"
-//                                      image:nil
-//                                     target:self
-//                                     action:@selector(addConversation:)]];
-//    }
-//    return _addItems;
-//}
 
 
 - (IBAction)addUserContact:(id)sender
@@ -65,10 +46,6 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-//    [KxMenu showMenuInView:self.view
-//                  fromRect:CGRectMake(self.view.frame.size.width-40, 64, 0, 0)
-//                 menuItems:self.addItems];
-    
     NSInteger numberOfOptions = 2;
     NSArray *items = @[
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"新建讨论"],

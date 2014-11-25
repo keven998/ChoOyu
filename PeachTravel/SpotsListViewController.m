@@ -9,12 +9,15 @@
 #import "SpotsListViewController.h"
 #import "SpotsListTableViewCell.h"
 #import "DKCircleButton.h"
+#import "RNGridMenu.h"
+#import "DestinationsView.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (strong, nonatomic) UIView *tableViewFooterView;
+@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
 
 @end
@@ -50,6 +53,8 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = self.tableViewFooterView;
+        _tableView.tableHeaderView = self.destinationsHeaderView;
+        [_tableView setContentOffset:CGPointMake(0, 60)];
     }
     return _tableView;
 }
@@ -66,20 +71,30 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         addOneDayBtn.layer.cornerRadius = 2.0;
         addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [_tableViewFooterView addSubview:addOneDayBtn];
-    }
-    if (!self.tableView.isEditing) {
-        UIView *nodeView = [[UIView alloc] initWithFrame:CGRectMake(1, 16, 8, 8)];
-        nodeView.backgroundColor = APP_THEME_COLOR;
-        nodeView.layer.cornerRadius = 4.0;
-        [_tableViewFooterView addSubview:nodeView];
-        
-    
-        UIView *verticalSpaceViewUp = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 16)];
-        verticalSpaceViewUp.backgroundColor = [UIColor lightGrayColor];
-        [_tableViewFooterView addSubview:verticalSpaceViewUp];
-        
+        if (!self.tableView.isEditing) {
+            UIView *nodeView = [[UIView alloc] initWithFrame:CGRectMake(1, 16, 8, 8)];
+            nodeView.backgroundColor = APP_THEME_COLOR;
+            nodeView.layer.cornerRadius = 4.0;
+            [_tableViewFooterView addSubview:nodeView];
+            
+            
+            UIView *verticalSpaceViewUp = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 16)];
+            verticalSpaceViewUp.backgroundColor = [UIColor lightGrayColor];
+            [_tableViewFooterView addSubview:verticalSpaceViewUp];
+       
+        }
     }
     return _tableViewFooterView;
+}
+
+- (DestinationsView *)destinationsHeaderView
+{
+    if (!_destinationsHeaderView) {
+        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60) andContentOffsetX:20];
+#warning 测试数据
+        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
+    }
+    return _destinationsHeaderView;
 }
 
 #pragma makr - IBAction Methods
@@ -89,10 +104,23 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     
 }
 
-- (IBAction)showMore:(id)sender
+- (IBAction)showMore:(UIButton *)sender
 {
+    NSInteger numberOfOptions = 4;
+    NSArray *items = @[
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"添加目的地"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"替我编排"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"地图"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"删除"]
+                       ];
     
+    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+    av.backgroundColor = [UIColor clearColor];
+    av.delegate = self;
+    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
+
+
 
 - (void)updateTableView
 {
@@ -107,6 +135,22 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
     } else {
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - RNGridMenuDelegate
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
+    //进入添加目的地界面
+    if (itemIndex == 0) {
+    }
+    //进入优化界面
+    if (itemIndex == 1) {
+    }
+    //进入地图导航界面
+    if (itemIndex == 2) {
+    }
+    //删除一天
+    if (itemIndex == 3) {
     }
 }
 
@@ -231,7 +275,34 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 }
 
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    NSLog(@"%@",NSStringFromCGPoint(currentOffset));
+    
+    if ([scrollView isEqual:self.tableView]) {
+        if (currentOffset.y < 20) {
+            [self.tableView setContentOffset:CGPointZero animated:YES];
+        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
+            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
+        }
+    }
+}
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
+
+    if ([scrollView isEqual:self.tableView]) {
+        if (currentOffset.y < 20) {
+            [self.tableView setContentOffset:CGPointZero animated:YES];
+        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
+            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
+        }
+    }
+}
 
 
 

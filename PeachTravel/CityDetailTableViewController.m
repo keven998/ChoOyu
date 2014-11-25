@@ -11,6 +11,8 @@
 #import "TravelNoteTableViewCell.h"
 #import "CityPoi.h"
 #import "TravelNote.h"
+#import "RestaurantsOfCityViewController.h"
+#import "ShoppingOfCityViewController.h"
 
 @interface CityDetailTableViewController ()
 
@@ -41,6 +43,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityHeaderView.desc = _cityPoi.desc;
     _cityHeaderView.timeCost = _cityPoi.timeCost;
     _cityHeaderView.travelMonth = _cityPoi.travelMonth;
+    [_cityHeaderView.spotBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
+    [_cityHeaderView.restaurantBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
+    [_cityHeaderView.shoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
+
     self.tableView.tableHeaderView = _cityHeaderView;
     [self.tableView reloadData];
 }
@@ -60,6 +66,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     [SVProgressHUD show];
     
+//****************
+#warning 测试数据
+    [self updateView];
+//*************
+
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -77,6 +88,27 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [SVProgressHUD dismiss];
     }];
 
+}
+
+#pragma mark - IBAction Methods
+
+- (IBAction)viewSpots:(id)sender
+{
+    
+}
+
+- (IBAction)viewRestaurants:(id)sender
+{
+    RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
+    restaurantOfCityCtl.cities = @[@"大顺", @"呼和浩特市"];
+    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
+}
+
+- (IBAction)viewShopping:(id)sender
+{
+    ShoppingOfCityViewController *shoppingOfCityCtl = [[ShoppingOfCityViewController alloc] init];
+    [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
+    
 }
 
 #pragma mark - Table view data source

@@ -9,11 +9,14 @@
 #import "RestaurantsListViewController.h"
 #import "DKCircleButton.h"
 #import "RestaurantListTableViewCell.h"
+#import "DestinationsView.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
+@property (strong, nonatomic) UIView *tableViewFooterView;
+@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
 @end
 
@@ -48,11 +51,50 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+8, self.view.frame.size.width-16, self.view.frame.size.height-64-48)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.tableFooterView = self.tableViewFooterView;
+        _tableView.tableHeaderView = self.destinationsHeaderView;
+        [_tableView setContentOffset:CGPointMake(0, 64)];
     }
     return _tableView;
 }
 
+- (UIView *)tableViewFooterView
+{
+    if (!_tableViewFooterView) {
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 80, 30)];
+        [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [addOneDayBtn setTitle:@"添加想去" forState:UIControlStateNormal];
+        addOneDayBtn.backgroundColor = APP_THEME_COLOR;
+        [addOneDayBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
+        addOneDayBtn.layer.cornerRadius = 2.0;
+        addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        [_tableViewFooterView addSubview:addOneDayBtn];
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, self.tableView.frame.size.width, 1)];
+        spaceView.backgroundColor = [UIColor lightGrayColor];
+        [_tableViewFooterView addSubview:spaceView];
+    }
+    return _tableViewFooterView;
+}
+
+- (DestinationsView *)destinationsHeaderView
+{
+    if (!_destinationsHeaderView) {
+        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60)];
+#warning 测试数据
+        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
+    }
+    return _destinationsHeaderView;
+}
+
+
 #pragma makr - IBAction Methods
+
+- (IBAction)addWantTo:(id)sender
+{
+    
+}
 
 - (void)updateTableView
 {
@@ -136,5 +178,35 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     
 }
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    NSLog(@"%@",NSStringFromCGPoint(currentOffset));
+    
+    if ([scrollView isEqual:self.tableView]) {
+        if (currentOffset.y < 20) {
+            [self.tableView setContentOffset:CGPointZero animated:YES];
+        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
+            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    CGPoint currentOffset = scrollView.contentOffset;
+    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
+    
+    if ([scrollView isEqual:self.tableView]) {
+        if (currentOffset.y < 20) {
+            [self.tableView setContentOffset:CGPointZero animated:YES];
+        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
+            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
+        }
+    }
+}
+
 
 @end

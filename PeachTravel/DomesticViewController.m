@@ -39,6 +39,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+    
+
 }
 
 - (void)dealloc

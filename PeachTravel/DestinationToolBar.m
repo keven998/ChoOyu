@@ -48,35 +48,51 @@
 
 @implementation DestinationToolBar
 
-- (id)initWithFrame:(CGRect)frame
+/**
+ *  初始化一个带下一步按钮的界面
+ *
+ *  @param frame  view 的尺寸
+ *  @param title 下一步按钮的名字
+ *
+ *  @return  self
+ */
+- (id)initWithFrame:(CGRect)frame andNextBtnTitle:(NSString *)title
 {
     self = [super initWithFrame:frame];
     if (self) {
         offsetX = defaultPace;
         self.backgroundColor = UIColorFromRGB(0xee528c);
         self.alpha = 0.8;
-        _nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-70, 0, 70, frame.size.height)];
-        [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
-        _nextBtn.alpha = 0.8;
-        _nextBtn.backgroundColor = UIColorFromRGB(0xee528c);
-        [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [self addSubview:_nextBtn];
+        if (title) {
+            _nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-70, 0, 70, frame.size.height)];
+            [_nextBtn setTitle:title forState:UIControlStateNormal];
+            _nextBtn.alpha = 0.8;
+            _nextBtn.backgroundColor = UIColorFromRGB(0xee528c);
+            [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+            [self addSubview:_nextBtn];
+            
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, frame.size.height)];
+            spaceView.backgroundColor = [UIColor whiteColor];
+            [_nextBtn addSubview:spaceView];
+        }
         
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, frame.size.height)];
-        spaceView.backgroundColor = [UIColor whiteColor];
-        [_nextBtn addSubview:spaceView];
-
-        [self setProperty];
+        [self setPropertyWithNextBtn:_nextBtn];
     }
     return self;
 }
+
+- (id)initWithFrame:(CGRect)frame
+{
+    return [self initWithFrame:frame andNextBtnTitle:nil];
+}
+
 /*
  *   @method
  *   @function
  *   初始化_scrollView等
  */
-- (void) setProperty
+- (void) setPropertyWithNextBtn:(UIButton *)nextBtn
 {
     _unitList = [[NSMutableArray alloc] init];
     _hasDelete = NO;
@@ -88,7 +104,11 @@
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.delegate = self;
-    _scrollView.frame = CGRectMake(0, (self.bounds.size.height - defaultHeight)/2.0, self.bounds.size.width - 72, defaultHeight);
+    if (nextBtn) {
+        _scrollView.frame = CGRectMake(0, (self.bounds.size.height - defaultHeight)/2.0, self.bounds.size.width - 72, defaultHeight);
+    } else {
+        _scrollView.frame = CGRectMake(0, (self.bounds.size.height - defaultHeight)/2.0, self.bounds.size.width, defaultHeight);
+    }
     _scrollView.backgroundColor = UIColorFromRGB(0xee528c);
     _scrollView.alpha = 0.8;
     _scrollView.scrollEnabled = YES;
@@ -156,10 +176,57 @@
  *  _defaultUnit向后移动并伴随动画效果
  *  newUnitCell渐变显示
  */
+- (void) addNewUnit:(NSString *)icon withName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled
+{
+    __block DestinationUnit *newUnitCell;
+    
+    NSLog(@"%f", offsetX);
+    if (icon) {
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
+    } else {
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
+    }
+    offsetX += defaultPace+newUnitCell.frame.size.width;
+    newUnitCell.alpha = 0.1;
+    if (userInteractionEnabled) {
+        [newUnitCell addTarget:self action:@selector(unitCellTouched:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        newUnitCell.userInteractionEnabled = NO;
+    }
+    [_unitList addObject:newUnitCell];
+    [_scrollView addSubview:newUnitCell];
+    [self scrollViewAbleScroll];
+    
+    [UIView animateWithDuration:duration animations:^(){
+        newUnitCell.alpha = 0.8;
+    } completion:^(BOOL finished){
+        newUnitCell.alpha = 1.0;
+    }];
+}
+
+/*
+ *  @method
+ *  @function
+ *  新增一个unitCell
+ *  _defaultUnit向后移动并伴随动画效果
+ *  newUnitCell渐变显示
+ */
 - (void)addNewUnitWithName:(NSString *)name
 {
     [self addNewUnit:nil withName:name];
 }
+
+/**
+ *  新增一个unitCell
+ *
+ *  @param name          新增按钮的标题
+ *  @param userInterface 是否禁止用户点击操作，yes 是不禁止，no 是禁止
+ */
+- (void) addNewUnitWithName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled
+{
+    [self addNewUnit:nil withName:name userInteractionEnabled:userInteractionEnabled];
+}
+
 
 - (void)removeUnitAtIndex:(NSInteger)index
 {

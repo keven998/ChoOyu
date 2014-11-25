@@ -16,6 +16,9 @@
 @property (nonatomic) double timeCost;
 @property (nonatomic, copy) NSString *travelMonth;
 
+@property (weak, nonatomic) IBOutlet UIButton *shoppingBtn;
+@property (weak, nonatomic) IBOutlet UIButton *restaurantBtn;
+@property (weak, nonatomic) IBOutlet UIButton *spotBtn;
 +(CityHeaderView *)instanceHeaderView;
 
 @end

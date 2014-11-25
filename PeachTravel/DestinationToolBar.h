@@ -16,6 +16,8 @@
 
 @interface DestinationToolBar : UIView
 
+- (id)initWithFrame:(CGRect)frame andNextBtnTitle:(NSString *)title;
+
 -(void)setHidden:(BOOL)hidden withAnimation:(BOOL)animation;
 
 @property (nonatomic, strong) UIButton *nextBtn;
@@ -24,6 +26,7 @@
 
 - (void) addNewUnit:(NSString *)icon withName:(NSString *)name;
 - (void) addNewUnitWithName:(NSString *)name;
+- (void) addNewUnitWithName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled;
 - (void) removeUnitAtIndex:(NSInteger)index;
 
 @end

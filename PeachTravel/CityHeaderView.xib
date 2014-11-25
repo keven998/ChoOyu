@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -213,7 +213,10 @@
                 <outlet property="cityImageView" destination="bhi-1Y-cK5" id="kwW-84-fc9"/>
                 <outlet property="costTimeLabel" destination="nHk-nL-SnN" id="QHa-X9-NFZ"/>
                 <outlet property="likeBtn" destination="qQC-00-1kq" id="NWn-lf-Ip5"/>
+                <outlet property="restaurantBtn" destination="jVh-kA-xlf" id="Q4o-4Q-2cj"/>
                 <outlet property="seasonLabel" destination="bqW-WG-gaF" id="aA1-RG-AJ9"/>
+                <outlet property="shoppingBtn" destination="b66-St-uco" id="Sh2-wF-G2i"/>
+                <outlet property="spotBtn" destination="qCY-9c-rDz" id="1NG-lx-ihB"/>
                 <outlet property="titleLabel" destination="rmf-56-2xn" id="sO5-GO-KGQ"/>
             </connections>
             <point key="canvasLocation" x="-338" y="159"/>

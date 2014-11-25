@@ -170,14 +170,14 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
+
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.recommend = recommend;
     cityDetailCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
-     */
+
     
     /*
     SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
@@ -188,8 +188,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
      */
+    
+    /*
     ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
     [self.navigationController pushViewController:shoppingCtl animated:YES];
+     */
 }
 
 @end

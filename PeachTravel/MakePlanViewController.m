@@ -56,7 +56,7 @@
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
-        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50) andNextBtnTitle:@"下一步"];
         [_destinationToolBar.nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
         _destinationToolBar.delegate = self;
     }

@@ -398,6 +398,24 @@
 		D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BB61A1F312900E0C4CE /* TBXML.m */; };
 		D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */; };
 		D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */; };
+		D9B476541A24259A0014136C /* DestinationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476531A24259A0014136C /* DestinationsView.m */; };
+		D9B476571A243E490014136C /* RestaurantsOfCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476561A243E490014136C /* RestaurantsOfCityViewController.m */; };
+		D9B4765A1A243E570014136C /* ShoppingOfCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476591A243E570014136C /* ShoppingOfCityViewController.m */; };
+		D9B4765E1A2440D20014136C /* RestaurantOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4765C1A2440D20014136C /* RestaurantOfCityTableViewCell.m */; };
+		D9B4765F1A2440D20014136C /* RestaurantOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B4765D1A2440D20014136C /* RestaurantOfCityTableViewCell.xib */; };
+		D9B476631A24474C0014136C /* ShoppingOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476611A24474C0014136C /* ShoppingOfCityTableViewCell.m */; };
+		D9B476641A24474C0014136C /* ShoppingOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B476621A24474C0014136C /* ShoppingOfCityTableViewCell.xib */; };
+		D9B4767D1A2468D30014136C /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4766B1A2468D30014136C /* arrow_down.png */; };
+		D9B4767E1A2468D30014136C /* arrow_down1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4766C1A2468D30014136C /* arrow_down1.png */; };
+		D9B4767F1A2468D30014136C /* arrow_down1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4766D1A2468D30014136C /* arrow_down1@2x.png */; };
+		D9B476801A2468D30014136C /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4766E1A2468D30014136C /* arrow_down@2x.png */; };
+		D9B476811A2468D30014136C /* SICellSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476701A2468D30014136C /* SICellSelection.m */; };
+		D9B476821A2468D30014136C /* SIMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476721A2468D30014136C /* SIMenuButton.m */; };
+		D9B476831A2468D30014136C /* SIMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476741A2468D30014136C /* SIMenuCell.m */; };
+		D9B476841A2468D30014136C /* SIMenuConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476761A2468D30014136C /* SIMenuConfiguration.m */; };
+		D9B476851A2468D30014136C /* SIMenuTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476781A2468D30014136C /* SIMenuTable.m */; };
+		D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767A1A2468D30014136C /* SINavigationMenuView.m */; };
+		D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767C1A2468D30014136C /* UIColor+Extension.m */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -1019,6 +1037,36 @@
 		D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
 		D9AC9BD61A1F7ADF00E0C4CE /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
+		D9B476521A24259A0014136C /* DestinationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationsView.h; sourceTree = "<group>"; };
+		D9B476531A24259A0014136C /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
+		D9B476551A243E490014136C /* RestaurantsOfCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsOfCityViewController.h; sourceTree = "<group>"; };
+		D9B476561A243E490014136C /* RestaurantsOfCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsOfCityViewController.m; sourceTree = "<group>"; };
+		D9B476581A243E570014136C /* ShoppingOfCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOfCityViewController.h; sourceTree = "<group>"; };
+		D9B476591A243E570014136C /* ShoppingOfCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOfCityViewController.m; sourceTree = "<group>"; };
+		D9B4765B1A2440D20014136C /* RestaurantOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantOfCityTableViewCell.h; sourceTree = "<group>"; };
+		D9B4765C1A2440D20014136C /* RestaurantOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantOfCityTableViewCell.m; sourceTree = "<group>"; };
+		D9B4765D1A2440D20014136C /* RestaurantOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantOfCityTableViewCell.xib; sourceTree = "<group>"; };
+		D9B476601A24474C0014136C /* ShoppingOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOfCityTableViewCell.h; sourceTree = "<group>"; };
+		D9B476611A24474C0014136C /* ShoppingOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOfCityTableViewCell.m; sourceTree = "<group>"; };
+		D9B476621A24474C0014136C /* ShoppingOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingOfCityTableViewCell.xib; sourceTree = "<group>"; };
+		D9B4766B1A2468D30014136C /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
+		D9B4766C1A2468D30014136C /* arrow_down1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down1.png; sourceTree = "<group>"; };
+		D9B4766D1A2468D30014136C /* arrow_down1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down1@2x.png"; sourceTree = "<group>"; };
+		D9B4766E1A2468D30014136C /* arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@2x.png"; sourceTree = "<group>"; };
+		D9B4766F1A2468D30014136C /* SICellSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICellSelection.h; sourceTree = "<group>"; };
+		D9B476701A2468D30014136C /* SICellSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICellSelection.m; sourceTree = "<group>"; };
+		D9B476711A2468D30014136C /* SIMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuButton.h; sourceTree = "<group>"; };
+		D9B476721A2468D30014136C /* SIMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuButton.m; sourceTree = "<group>"; };
+		D9B476731A2468D30014136C /* SIMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuCell.h; sourceTree = "<group>"; };
+		D9B476741A2468D30014136C /* SIMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuCell.m; sourceTree = "<group>"; };
+		D9B476751A2468D30014136C /* SIMenuConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuConfiguration.h; sourceTree = "<group>"; };
+		D9B476761A2468D30014136C /* SIMenuConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuConfiguration.m; sourceTree = "<group>"; };
+		D9B476771A2468D30014136C /* SIMenuTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuTable.h; sourceTree = "<group>"; };
+		D9B476781A2468D30014136C /* SIMenuTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuTable.m; sourceTree = "<group>"; };
+		D9B476791A2468D30014136C /* SINavigationMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINavigationMenuView.h; sourceTree = "<group>"; };
+		D9B4767A1A2468D30014136C /* SINavigationMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINavigationMenuView.m; sourceTree = "<group>"; };
+		D9B4767B1A2468D30014136C /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
+		D9B4767C1A2468D30014136C /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -1896,6 +1944,8 @@
 		D9545FC51A22F23B00688D72 /* TripListDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D9B476521A24259A0014136C /* DestinationsView.h */,
+				D9B476531A24259A0014136C /* DestinationsView.m */,
 				D9545FC61A22F26200688D72 /* TripDetailRootViewController.h */,
 				D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */,
 				D95460011A22FA4100688D72 /* SpotsList */,
@@ -2084,6 +2134,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9B476691A2468D30014136C /* NavigationMenuView */,
 				D95460111A233D6C00688D72 /* DKCircleButton */,
 				D9545FBB1A22EF9700688D72 /* RDVTabBarController */,
 				D9AC9BBB1A1F795B00E0C4CE /* ALDBlurImageProcessor */,
@@ -2159,6 +2210,12 @@
 				D902ADC61A15EC9300E36A93 /* TravelNoteTableViewCell.h */,
 				D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */,
 				D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */,
+				D9B4765B1A2440D20014136C /* RestaurantOfCityTableViewCell.h */,
+				D9B4765C1A2440D20014136C /* RestaurantOfCityTableViewCell.m */,
+				D9B4765D1A2440D20014136C /* RestaurantOfCityTableViewCell.xib */,
+				D9B476601A24474C0014136C /* ShoppingOfCityTableViewCell.h */,
+				D9B476611A24474C0014136C /* ShoppingOfCityTableViewCell.m */,
+				D9B476621A24474C0014136C /* ShoppingOfCityTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2168,6 +2225,10 @@
 			children = (
 				D902ADC31A15E58C00E36A93 /* CityDetailTableViewController.h */,
 				D902ADC41A15E58C00E36A93 /* CityDetailTableViewController.m */,
+				D9B476551A243E490014136C /* RestaurantsOfCityViewController.h */,
+				D9B476561A243E490014136C /* RestaurantsOfCityViewController.m */,
+				D9B476581A243E570014136C /* ShoppingOfCityViewController.h */,
+				D9B476591A243E570014136C /* ShoppingOfCityViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2708,6 +2769,39 @@
 			path = Common/Config/libs/M13Checkbox;
 			sourceTree = "<group>";
 		};
+		D9B476691A2468D30014136C /* NavigationMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				D9B4766A1A2468D30014136C /* images */,
+				D9B4766F1A2468D30014136C /* SICellSelection.h */,
+				D9B476701A2468D30014136C /* SICellSelection.m */,
+				D9B476711A2468D30014136C /* SIMenuButton.h */,
+				D9B476721A2468D30014136C /* SIMenuButton.m */,
+				D9B476731A2468D30014136C /* SIMenuCell.h */,
+				D9B476741A2468D30014136C /* SIMenuCell.m */,
+				D9B476751A2468D30014136C /* SIMenuConfiguration.h */,
+				D9B476761A2468D30014136C /* SIMenuConfiguration.m */,
+				D9B476771A2468D30014136C /* SIMenuTable.h */,
+				D9B476781A2468D30014136C /* SIMenuTable.m */,
+				D9B476791A2468D30014136C /* SINavigationMenuView.h */,
+				D9B4767A1A2468D30014136C /* SINavigationMenuView.m */,
+				D9B4767B1A2468D30014136C /* UIColor+Extension.h */,
+				D9B4767C1A2468D30014136C /* UIColor+Extension.m */,
+			);
+			path = NavigationMenuView;
+			sourceTree = "<group>";
+		};
+		D9B4766A1A2468D30014136C /* images */ = {
+			isa = PBXGroup;
+			children = (
+				D9B4766B1A2468D30014136C /* arrow_down.png */,
+				D9B4766C1A2468D30014136C /* arrow_down1.png */,
+				D9B4766D1A2468D30014136C /* arrow_down1@2x.png */,
+				D9B4766E1A2468D30014136C /* arrow_down@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		D9CDD71F19EBAC5F001AC9F2 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -3086,6 +3180,7 @@
 				D955E54F19E7A91300047F2B /* sns_icon_weixin@2x.png in Resources */,
 				C63344EC1A1C728000A27F86 /* ic_notify_flag@2x.png in Resources */,
 				D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */,
+				D9B4765F1A2440D20014136C /* RestaurantOfCityTableViewCell.xib in Resources */,
 				D90C63A719FB44D300C2E440 /* chat_location_preview@2x.png in Resources */,
 				D9545FED1A22F5CD00688D72 /* first_normal.png in Resources */,
 				D90C63BD19FB44D300C2E440 /* chat_sender_audio_playing_full@2x.png in Resources */,
@@ -3095,6 +3190,7 @@
 				D90C637319FB44D300C2E440 /* VoiceSearchFeedback004.png in Resources */,
 				D9F57B9619E93486005BB43B /* UMSShareListController.xib in Resources */,
 				D90C639919FB44D300C2E440 /* chatBar_more_cardSelected@2x.png in Resources */,
+				D9B476641A24474C0014136C /* ShoppingOfCityTableViewCell.xib in Resources */,
 				D9F57B8C19E93486005BB43B /* UMSocialLocalizable.strings in Resources */,
 				C63344EA1A1C487400A27F86 /* ic_menu_circle_chat@2x.png in Resources */,
 				D90C63C719FBA07700C2E440 /* ZYQAssetPicker.Bundle in Resources */,
@@ -3151,8 +3247,10 @@
 				D9F57B9319E93486005BB43B /* UMShareEditViewControlleriPad.xib in Resources */,
 				D90C636619FB44D300C2E440 /* chatFire_audioPlaying0@2x.png in Resources */,
 				D90F367719F63EBF00E26FA9 /* sr_refresh.png in Resources */,
+				D9B4767D1A2468D30014136C /* arrow_down.png in Resources */,
 				D902AD111A14811400E36A93 /* HotDestinationCollectionReusableView.xib in Resources */,
 				D964208019ECC65000CC8057 /* ChangePasswordViewController.xib in Resources */,
+				D9B4767E1A2468D30014136C /* arrow_down1.png in Resources */,
 				D90C637C19FB44D300C2E440 /* VoiceSearchFeedback008@2x.png in Resources */,
 				D90F35EC19F63B3300E26FA9 /* call_out@2x.png in Resources */,
 				D90C63A519FB44D300C2E440 /* chat_location_detail_disclosureHL@2x.png in Resources */,
@@ -3203,6 +3301,7 @@
 				D9545FF41A22F5CD00688D72 /* navigationbar_background_tall@2x.png in Resources */,
 				D90F362719F63B3300E26FA9 /* chatBar_more_photoSelected.png in Resources */,
 				D9F57B9519E93486005BB43B /* UMSnsAccountViewController.xib in Resources */,
+				D9B476801A2468D30014136C /* arrow_down@2x.png in Resources */,
 				D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */,
 				D90F35F119F63B3300E26FA9 /* call_silence_h.png in Resources */,
 				D9681A171A109C4700122793 /* tutorial_background_01@2x.jpg in Resources */,
@@ -3247,6 +3346,7 @@
 				D90C63B719FB44D300C2E440 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				D90C63AC19FB44D300C2E440 /* chat_receiver_audio_playing002.png in Resources */,
 				D90C638719FB44D300C2E440 /* VoiceSearchFeedback014.png in Resources */,
+				D9B4767F1A2468D30014136C /* arrow_down1@2x.png in Resources */,
 				D902ADBF1A15E15E00E36A93 /* CityHeaderView.xib in Resources */,
 				D90F35FC19F63B3300E26FA9 /* faceDelete.png in Resources */,
 				D90F35EB19F63B3300E26FA9 /* call_out.png in Resources */,
@@ -3373,11 +3473,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9B476851A2468D30014136C /* SIMenuTable.m in Sources */,
 				D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */,
 				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
 				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,
 				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
+				D9B4765E1A2440D20014136C /* RestaurantOfCityTableViewCell.m in Sources */,
 				D90F360019F63B3300E26FA9 /* DXRecordView.m in Sources */,
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
@@ -3388,6 +3490,7 @@
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
+				D9B476571A243E490014136C /* RestaurantsOfCityViewController.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
 				D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */,
 				D9545FAD1A208EEF00688D72 /* CommentTableViewCell.m in Sources */,
@@ -3426,6 +3529,8 @@
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
+				D9B476831A2468D30014136C /* SIMenuCell.m in Sources */,
+				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
 				D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */,
 				D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */,
@@ -3442,6 +3547,7 @@
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
 				D95460181A2346D300688D72 /* RestaurantListTableViewCell.m in Sources */,
+				D9B476821A2468D30014136C /* SIMenuButton.m in Sources */,
 				D902ADCD1A15F0E300E36A93 /* CityPoi.m in Sources */,
 				D9545FA01A20809C00688D72 /* RecommendCollectionViewCell.m in Sources */,
 				D90F366819F63E5300E26FA9 /* EMTextView.m in Sources */,
@@ -3450,12 +3556,15 @@
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
 				C63344E61A1C44BB00A27F86 /* RNGridMenu.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
+				D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */,
 				D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */,
 				D9545FB71A22D6E200688D72 /* ShoppingDetailView.m in Sources */,
+				D9B476811A2468D30014136C /* SICellSelection.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
 				D954600C1A22FF5B00688D72 /* RestaurantsListViewController.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */,
+				D9B476841A2468D30014136C /* SIMenuConfiguration.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
@@ -3479,6 +3588,7 @@
 				D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */,
 				D9545FC31A22EF9700688D72 /* RDVTabBarController.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
+				D9B4765A1A243E570014136C /* ShoppingOfCityViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
 				D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */,
@@ -3506,6 +3616,7 @@
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
 				C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */,
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
+				D9B476631A24474C0014136C /* ShoppingOfCityTableViewCell.m in Sources */,
 				D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
 				D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */,
@@ -3524,6 +3635,7 @@
 				D97C47321A1A3D8F0045E1E1 /* NSString+TaoziString.m in Sources */,
 				D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */,
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
+				D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
 				D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
