@@ -416,6 +416,9 @@
 		D9B476851A2468D30014136C /* SIMenuTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476781A2468D30014136C /* SIMenuTable.m */; };
 		D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767A1A2468D30014136C /* SINavigationMenuView.m */; };
 		D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767C1A2468D30014136C /* UIColor+Extension.m */; };
+		D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476891A2475CE0014136C /* RecommendsOfCity.m */; };
+		D9B4768D1A2478F20014136C /* RestaurantsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4768C1A2478F20014136C /* RestaurantsOfCity.m */; };
+		D9B476901A2479F50014136C /* ShoppingOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4768F1A2479F50014136C /* ShoppingOfCity.m */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -1067,6 +1070,12 @@
 		D9B4767A1A2468D30014136C /* SINavigationMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINavigationMenuView.m; sourceTree = "<group>"; };
 		D9B4767B1A2468D30014136C /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
 		D9B4767C1A2468D30014136C /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
+		D9B476881A2475CE0014136C /* RecommendsOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendsOfCity.h; sourceTree = "<group>"; };
+		D9B476891A2475CE0014136C /* RecommendsOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendsOfCity.m; sourceTree = "<group>"; };
+		D9B4768B1A2478F20014136C /* RestaurantsOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsOfCity.h; sourceTree = "<group>"; };
+		D9B4768C1A2478F20014136C /* RestaurantsOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsOfCity.m; sourceTree = "<group>"; };
+		D9B4768E1A2479F50014136C /* ShoppingOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOfCity.h; sourceTree = "<group>"; };
+		D9B4768F1A2479F50014136C /* ShoppingOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOfCity.m; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -2197,6 +2206,12 @@
 				D902ADCC1A15F0E300E36A93 /* CityPoi.m */,
 				D902ADCE1A15F47100E36A93 /* TravelNote.h */,
 				D902ADCF1A15F47100E36A93 /* TravelNote.m */,
+				D9B476881A2475CE0014136C /* RecommendsOfCity.h */,
+				D9B476891A2475CE0014136C /* RecommendsOfCity.m */,
+				D9B4768B1A2478F20014136C /* RestaurantsOfCity.h */,
+				D9B4768C1A2478F20014136C /* RestaurantsOfCity.m */,
+				D9B4768E1A2479F50014136C /* ShoppingOfCity.h */,
+				D9B4768F1A2479F50014136C /* ShoppingOfCity.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -3529,6 +3544,7 @@
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
+				D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */,
 				D9B476831A2468D30014136C /* SIMenuCell.m in Sources */,
 				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
@@ -3590,6 +3606,7 @@
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D9B4765A1A243E570014136C /* ShoppingOfCityViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
+				D9B4768D1A2478F20014136C /* RestaurantsOfCity.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
 				D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
@@ -3638,6 +3655,7 @@
 				D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
 				D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */,
+				D9B476901A2479F50014136C /* ShoppingOfCity.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
 				D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */,
 				D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */,
