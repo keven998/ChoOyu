@@ -20,6 +20,8 @@
 		C63344F21A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344F01A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib */; };
 		C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344FE1A1C9AF000A27F86 /* ContactListTableViewCell.m */; };
 		C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344FF1A1C9AF000A27F86 /* ContactListTableViewCell.xib */; };
+		C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */; };
+		C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */; };
 		D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */; };
 		D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD091A147B5600E36A93 /* HotDestinationCollectionViewCell.m */; };
 		D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD0A1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib */; };
@@ -521,6 +523,12 @@
 		C63344FD1A1C9AF000A27F86 /* ContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListTableViewCell.h; sourceTree = "<group>"; };
 		C63344FE1A1C9AF000A27F86 /* ContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListTableViewCell.m; sourceTree = "<group>"; };
 		C63344FF1A1C9AF000A27F86 /* ContactListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListTableViewCell.xib; sourceTree = "<group>"; };
+		C653F5281A25C2BF00E7479F /* FBShimmering-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmering-Prefix.pch"; sourceTree = "<group>"; };
+		C653F5291A25C2BF00E7479F /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
+		C653F52A1A25C2BF00E7479F /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
+		C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
+		C653F52C1A25C2BF00E7479F /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
+		C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		D902AD051A14789400E36A93 /* HotDestinationCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewController.h; sourceTree = "<group>"; };
 		D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotDestinationCollectionViewController.m; sourceTree = "<group>"; };
 		D902AD081A147B5600E36A93 /* HotDestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1273,6 +1281,20 @@
 			);
 			name = View;
 			path = ToolBox/IM/Contact/ContactList/View;
+			sourceTree = "<group>";
+		};
+		C653F5271A25C2BF00E7479F /* FBShimmering */ = {
+			isa = PBXGroup;
+			children = (
+				C653F5281A25C2BF00E7479F /* FBShimmering-Prefix.pch */,
+				C653F5291A25C2BF00E7479F /* FBShimmering.h */,
+				C653F52A1A25C2BF00E7479F /* FBShimmeringLayer.h */,
+				C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */,
+				C653F52C1A25C2BF00E7479F /* FBShimmeringView.h */,
+				C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */,
+			);
+			name = FBShimmering;
+			path = Common/Config/libs/FBShimmering;
 			sourceTree = "<group>";
 		};
 		D04CEAB67B3F2D1933738689 /* Pods */ = {
@@ -2159,6 +2181,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C653F5271A25C2BF00E7479F /* FBShimmering */,
 				D9B476691A2468D30014136C /* NavigationMenuView */,
 				D95460111A233D6C00688D72 /* DKCircleButton */,
 				D9545FBB1A22EF9700688D72 /* RDVTabBarController */,
@@ -3564,6 +3587,7 @@
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
 				D9545F9B1A207D3500688D72 /* RecommendsTableViewCell.m in Sources */,
+				C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
 				C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */,
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
@@ -3597,6 +3621,7 @@
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
 				D95460181A2346D300688D72 /* RestaurantListTableViewCell.m in Sources */,
 				D9B476821A2468D30014136C /* SIMenuButton.m in Sources */,
+				C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */,
 				D902ADCD1A15F0E300E36A93 /* CityPoi.m in Sources */,
 				D9545FA01A20809C00688D72 /* RecommendCollectionViewCell.m in Sources */,
 				D90F366819F63E5300E26FA9 /* EMTextView.m in Sources */,

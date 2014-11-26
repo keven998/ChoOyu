@@ -11,6 +11,7 @@
 #import "AppUtils.h"
 #import "YWeatherUtils.h"
 #import "ToolBoxViewController.h"
+#import "FBShimmeringView.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface WelcomeViewController () <CLLocationManagerDelegate,ICETutorialControllerDelegate, YWeatherInfoDelegate>
@@ -53,6 +54,18 @@
     locationManager.delegate= self;
     [locationManager requestAlwaysAuthorization];
 //    [locationManager startUpdatingLocation];
+    
+    FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:self.view.bounds];
+    shimmeringView.shimmering = YES;
+    shimmeringView.shimmeringBeginFadeDuration = 0.1;
+    shimmeringView.shimmeringEndFadeDuration = 0.1;
+    shimmeringView.shimmeringPauseDuration = 0.1;
+    shimmeringView.shimmeringAnimationOpacity = 0.50;
+    shimmeringView.shimmeringHighlightLength = 0.15;
+    shimmeringView.shimmeringOpacity = 1.0;
+    shimmeringView.shimmeringSpeed = 100.0;
+    [self.view addSubview:shimmeringView];
+    shimmeringView.contentView = _jumpTaozi;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -97,7 +110,6 @@
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 
@@ -114,7 +126,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"beginTravel"]) {
-        NSLog(@"*****^~~^*****开始旅行了，好开心");
         _toolBoxCtl = ((ToolBoxViewController *)((UINavigationController *)[((UITabBarController *)segue.destinationViewController).viewControllers firstObject]).topViewController);
         _toolBoxCtl.location = _currentLocation;
         _toolBoxCtl.weatherInfo = _weatherInfo;
