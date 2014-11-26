@@ -188,10 +188,16 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-
+    tripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
+    [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
+    [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath

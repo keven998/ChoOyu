@@ -19,14 +19,12 @@
     _tripTitle = [json objectForKey:@"titile"];
     _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
     
-#warning 测试数据
-    CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
-    poi.cityId = @"54756008d17491193832582d";
-    poi.zhName = @"北京";
-    CityDestinationPoi *poi1 = [[CityDestinationPoi alloc] init];
-    poi1.cityId = @"5475b938d174911938325835";
-    poi1.zhName = @"上海大不列颠";
-    _destinations = @[poi, poi1];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (id destinationsDic in [json objectForKey:@"destinations"]) {
+        CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationsDic];
+        [tempArray addObject:poi];
+    }
+    _destinations = tempArray;
     
     _itineraryList = [self analysisItineraryData:[json objectForKey:@"itinerary"]];
     _restaurantsList = [self analysisRestaurantData:[json objectForKey:@"restaurant"]];

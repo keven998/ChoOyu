@@ -324,12 +324,21 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSMutableArray *tempArray = [_tripDetail.itineraryList objectAtIndex:indexPath.section];
+        [tempArray removeObjectAtIndex:indexPath.row];
+        NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    NSMutableArray *fromArray = _tripDetail.itineraryList[sourceIndexPath.section];
+    NSMutableArray *toArray = _tripDetail.itineraryList[destinationIndexPath.section];
+
+    tripPoi *poi = [fromArray objectAtIndex:sourceIndexPath.row];
+    [fromArray removeObjectAtIndex:sourceIndexPath.row];
+    [toArray insertObject:poi atIndex:destinationIndexPath.row];
     
 }
 
