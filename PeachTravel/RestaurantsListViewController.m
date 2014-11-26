@@ -96,7 +96,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
-    restaurantOfCityCtl.cities = self.destinationsHeaderView.destinations;
 }
 
 - (void)updateTableView

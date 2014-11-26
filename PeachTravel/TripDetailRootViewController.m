@@ -30,6 +30,7 @@
     SpotsListViewController *spotsListCtl = [[SpotsListViewController alloc] init];
     UIViewController *firstNavigationController = [[UINavigationController alloc]
                                                    initWithRootViewController:spotsListCtl];
+    spotsListCtl.rootViewController = self;
     
     RestaurantsListViewController *restaurantListCtl = [[RestaurantsListViewController alloc] init];
     UIViewController *secondNavigationController = [[UINavigationController alloc]

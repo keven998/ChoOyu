@@ -28,7 +28,4 @@
 
 - (id)initWithJson:(id)json;
 
-- (void)initRestaurantsWithJson:(id)json;        //解析城市里的美食数据
-- (void)initShoppingWithJson:(id)json;        //解析城市里的购物数据
-
 @end

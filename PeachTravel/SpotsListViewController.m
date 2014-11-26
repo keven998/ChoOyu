@@ -11,6 +11,7 @@
 #import "DKCircleButton.h"
 #import "RNGridMenu.h"
 #import "DestinationsView.h"
+#import "AddPoiTableViewController.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate>
 
@@ -142,6 +143,8 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 - (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
     //进入添加目的地界面
     if (itemIndex == 0) {
+        AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
+        [self.rootViewController.navigationController pushViewController:addPoiCtl animated:YES];
     }
     //进入优化界面
     if (itemIndex == 1) {

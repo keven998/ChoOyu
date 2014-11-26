@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Y4M-GX-wx6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="知己牛肉馆" image="AssetsPickerChecked.png">
+                                <state key="normal" title="知己牛肉馆" image="test.png">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -175,7 +175,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="AssetsPickerChecked.png" width="31" height="31"/>
         <image name="country.jpg" width="640" height="400"/>
+        <image name="test.png" width="31" height="31"/>
     </resources>
 </document>
