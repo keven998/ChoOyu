@@ -107,7 +107,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     restaurantOfCityCtl.currentCity = _cityPoi;
     
     
-    restaurantOfCityCtl.cities = @[_cityPoi];
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 

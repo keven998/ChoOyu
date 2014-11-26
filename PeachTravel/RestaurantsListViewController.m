@@ -11,6 +11,7 @@
 #import "RestaurantListTableViewCell.h"
 #import "DestinationsView.h"
 #import "RestaurantsOfCityViewController.h"
+#import "CityDestinationPoi.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -39,13 +40,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
     [self.view addSubview:_editBtn];
-    [self setUpTableViewHeaderView];
     
-}
-
-- (void)setUpTableViewHeaderView
-{
-    self.tableView.tableHeaderView = self.destinationsHeaderView;
 }
 
 #pragma mark - setter & getter
@@ -54,6 +49,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     _tripDetail = tripDetail;
     [_tableView reloadData];
+    [self updateDestinationsHeaderView];
 }
 
 - (UITableView *)tableView
@@ -65,6 +61,8 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+        _tableView.tableHeaderView = self.destinationsHeaderView;
     }
     return _tableView;
 }
@@ -93,18 +91,29 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     if (!_destinationsHeaderView) {
         _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60)];
-#warning 测试数据
-        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
+        [self updateDestinationsHeaderView];
+
     }
     return _destinationsHeaderView;
 }
 
+#pragma mark Private Methods
+
+- (void)updateDestinationsHeaderView
+{
+    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [destinationsArray addObject:poi.zhName];
+    }
+    _destinationsHeaderView.destinations = destinationsArray;
+}
 
 #pragma makr - IBAction Methods
 
 - (IBAction)addWantTo:(id)sender
 {
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
+    restaurantOfCityCtl.destinations = _tripDetail.destinations;
     [self.rootViewController.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 

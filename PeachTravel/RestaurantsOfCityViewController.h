@@ -11,7 +11,7 @@
 
 @interface RestaurantsOfCityViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *cities;
+@property (strong, nonatomic) NSArray *destinations;
 @property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
 
 @end

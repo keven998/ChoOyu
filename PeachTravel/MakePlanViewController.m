@@ -83,7 +83,7 @@
     poi.zhName = @"北京";
     CityDestinationPoi *poi1 = [[CityDestinationPoi alloc] init];
     poi1.cityId = @"5475b938d174911938325835";
-    poi1.zhName = @"上海";
+    poi1.zhName = @"上海大不列颠";
     tripDetailCtl.destinations = @[poi, poi1];
     [self.navigationController pushViewController:tripDetailCtl animated:YES];
     

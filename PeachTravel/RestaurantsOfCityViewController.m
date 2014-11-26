@@ -9,6 +9,7 @@
 #import "RestaurantsOfCityViewController.h"
 #import "RestaurantOfCityTableViewCell.h"
 #import "SINavigationMenuView.h"
+#import "CityDestinationPoi.h"
 
 @interface RestaurantsOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
 
@@ -28,7 +29,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    if (self.cities.count > 1) {
+    if (self.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
     } else {
         self.navigationItem.title = _currentCity.zhName;
@@ -47,10 +48,10 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 {
     if (!_titleMenu) {
         NSMutableArray *names = [[NSMutableArray alloc] init];
-        for (CityPoi *city in _cities) {
+        for (CityPoi *city in _destinations) {
             [names addObject:city.zhName];
         }
-        CGRect frame = CGRectMake(0.0, 0.0, 200.0, self.navigationController.navigationBar.bounds.size.height);
+        CGRect frame = CGRectMake(0.0, 0.0, 100, self.navigationController.navigationBar.bounds.size.height);
         _titleMenu = [[SINavigationMenuView alloc] initWithFrame:frame title:[names firstObject]];
         [_titleMenu displayMenuInView:self.navigationController.view];
        
@@ -162,7 +163,10 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
 {
-    _currentCity = [self.cities objectAtIndex:index];
+    CityDestinationPoi *destination = [self.destinations objectAtIndex:index];
+    _currentCity = [[CityPoi alloc] init];
+    _currentCity.cityId = destination.cityId;
+    _currentCity.zhName = destination.zhName;
     [_titleMenu setTitle:_currentCity.zhName];
 }
 
