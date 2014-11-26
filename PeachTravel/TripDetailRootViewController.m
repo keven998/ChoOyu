@@ -14,6 +14,11 @@
 
 @interface TripDetailRootViewController ()
 
+@property (nonatomic, strong) SpotsListViewController *spotsListCtl;
+@property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
+@property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
+
+
 @end
 
 @implementation TripDetailRootViewController
@@ -23,30 +28,65 @@
     self.navigationItem.title = @"旅行圈";
     
     [self setupViewControllers];
-   
+    [self loadTripData];
+}
+
+- (void)loadTripData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@[@"54756008d17491193832582d"] forKey:@"locId"];
+    [SVProgressHUD show];
+    
+    //获取路线模板数据
+    [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            [self reloadTripData];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
+
+}
+
+- (void)reloadTripData
+{
+    _spotsListCtl.tripDetail = _tripDetail;
+    _restaurantListCtl.tripDetail = _tripDetail;
+    _shoppingListCtl.tripDetail = _tripDetail;
 }
 
 - (void)setupViewControllers {
-    SpotsListViewController *spotsListCtl = [[SpotsListViewController alloc] init];
+    _spotsListCtl = [[SpotsListViewController alloc] init];
     UIViewController *firstNavigationController = [[UINavigationController alloc]
-                                                   initWithRootViewController:spotsListCtl];
-    spotsListCtl.rootViewController = self;
+                                                   initWithRootViewController:_spotsListCtl];
+    _spotsListCtl.rootViewController = self;
     
-    RestaurantsListViewController *restaurantListCtl = [[RestaurantsListViewController alloc] init];
+    _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     UIViewController *secondNavigationController = [[UINavigationController alloc]
-                                                    initWithRootViewController:restaurantListCtl];
+                                                    initWithRootViewController:_restaurantListCtl];
     
-    ShoppingListViewController *shoppingListCtl = [[ShoppingListViewController alloc] init];
+    _shoppingListCtl = [[ShoppingListViewController alloc] init];
     UIViewController *thirdNavigationController = [[UINavigationController alloc]
-                                                   initWithRootViewController:shoppingListCtl];
+                                                   initWithRootViewController:_shoppingListCtl];
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                            thirdNavigationController]];
-
     [self customizeTabBarForController];
-
 }
-
 
 - (void)customizeTabBarForController
 {
@@ -68,3 +108,7 @@
 }
 
 @end
+
+
+
+

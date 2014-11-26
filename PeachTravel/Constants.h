@@ -42,8 +42,14 @@
 #define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/vs/")
 #define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurants/")
 #define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
+
 #define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurants/localities/")
 #define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")
+#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/vs/localities/")
+#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel/localities/")
+
+#define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
+
 
 
 
@@ -82,8 +88,6 @@
 #define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
 #define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友请求列表
 #define updateDestinationsSelectedNoti      @ "updatecontactList"           //更新好友请求列表
-
-
 
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {

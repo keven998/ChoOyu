@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetailRootViewController.h"
+#import "TripDetail.h"
 
 @interface SpotsListViewController : UIViewController
 
 @property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 
+@property (nonatomic, strong) TripDetail *tripDetail;
 @end

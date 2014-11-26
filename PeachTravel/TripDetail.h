@@ -19,10 +19,11 @@
 
 @property (nonatomic, copy) NSString *tripId;
 @property (nonatomic, copy) NSString *tripTitle;
-@property (nonatomic, strong) NSArray *itineraryList;
-@property (nonatomic, strong) NSArray *shoppingList;
-@property (nonatomic, strong) NSArray *restaurantsList;
-@property (nonatomic) NSInteger *dayCount;         //行程单一共有几天
+@property (nonatomic, strong) NSArray *destinations;       //保存目的地列表;
+@property (nonatomic, strong) NSMutableArray *itineraryList;
+@property (nonatomic, strong) NSMutableArray *shoppingList;
+@property (nonatomic, strong) NSMutableArray *restaurantsList;
+@property (nonatomic) NSInteger dayCount;         //行程单一共有几天
 
 - (id)initWithJson:(id)json;
 
@@ -32,3 +33,42 @@
 - (void)saveTrip;
 
 @end
+
+/**
+ 路线 poi类型
+ */
+typedef enum : NSUInteger {
+    TripSpotPoi = 1,
+    TripRestaurantPoi,
+    TripShoppingPoi,
+    TripHotelPoi,
+    
+} tripPoiType;
+
+@interface tripPoi : NSObject
+
+
+@property (nonatomic, copy) NSString *poiId;
+@property (nonatomic, copy) NSString *zhName;
+@property (nonatomic, copy) NSString *enName;
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic) tripPoiType poiType;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic) float rating;
+@property (nonatomic, copy) NSString *telephone;
+@property (nonatomic) double lng;
+@property (nonatomic) double lat;
+@property (nonatomic, strong) NSArray *locList;
+@property (nonatomic, copy) NSString *timeCost;
+
+- (id) initWithJson:(id)json;
+
+@end
+
+
+
+
+
+
+
+

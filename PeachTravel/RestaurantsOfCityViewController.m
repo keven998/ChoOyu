@@ -160,7 +160,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 #pragma mark - SINavigationMenuDelegate
 
-- (void)didSelectItemAtIndex:(NSUInteger)index
+- (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
 {
     _currentCity = [self.cities objectAtIndex:index];
     [_titleMenu setTitle:_currentCity.zhName];

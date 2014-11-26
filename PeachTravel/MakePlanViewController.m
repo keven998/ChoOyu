@@ -77,7 +77,6 @@
 - (IBAction)makePlan:(id)sender
 {
     TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
-    tripDetailCtl.destinations = self.destinations.destinationsSelected;
     [self.navigationController pushViewController:tripDetailCtl animated:YES];
     
 }

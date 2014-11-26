@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TripDetail.h"
 
 @interface AddPoiTableViewController : UITableViewController
+
+@property (nonatomic, strong) TripDetail *tripDetail;
 
 @end
