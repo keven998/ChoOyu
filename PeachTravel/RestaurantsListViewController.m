@@ -30,9 +30,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerNib:[UINib nibWithNibName:@"RestaurantListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
     [self.view addSubview:self.tableView];
     
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
@@ -40,8 +37,15 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+    [self.tableView reloadData];
     [self.view addSubview:_editBtn];
+    [self setUpTableViewHeaderView];
     
+}
+
+- (void)setUpTableViewHeaderView
+{
+    self.tableView.tableHeaderView = self.destinationsHeaderView;
 }
 
 #pragma mark - setter & getter
@@ -49,20 +53,18 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
-    [self.tableView reloadData];
+    [_tableView reloadData];
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+8, self.view.frame.size.width-16, self.view.frame.size.height-64-48)];
+        [self.tableView registerNib:[UINib nibWithNibName:@"RestaurantListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.tableFooterView = self.tableViewFooterView;
-        _tableView.tableHeaderView = self.destinationsHeaderView;
-        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-
-        [_tableView setContentOffset:CGPointMake(0, 64)];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
     }
     return _tableView;
 }
@@ -103,7 +105,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 - (IBAction)addWantTo:(id)sender
 {
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
-    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
+    [self.rootViewController.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
 - (void)updateTableView
@@ -127,13 +129,11 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     }
 }
 
-
-
 #pragma mark - UITableViewDataSource & Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 10;
+    return self.tripDetail.restaurantsList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -162,6 +162,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     RestaurantListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
     cell.isEditing = self.tableView.isEditing;
+    cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
     return cell;
 }
 

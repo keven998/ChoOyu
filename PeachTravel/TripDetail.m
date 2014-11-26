@@ -17,10 +17,16 @@
     _backUpJson = json;
     _tripId = [json objectForKey:@"id"];
     _tripTitle = [json objectForKey:@"titile"];
-    _dayCount = [[json objectForKey:@"dayCount"] integerValue];
+    _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
     
 #warning 测试数据
-    _dayCount = 1;
+    CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
+    poi.cityId = @"54756008d17491193832582d";
+    poi.zhName = @"北京";
+    CityDestinationPoi *poi1 = [[CityDestinationPoi alloc] init];
+    poi1.cityId = @"5475b938d174911938325835";
+    poi1.zhName = @"上海";
+    _destinations = @[poi, poi1];
     
     _itineraryList = [self analysisItineraryData:[json objectForKey:@"itinerary"]];
     _restaurantsList = [self analysisRestaurantData:[json objectForKey:@"restaurant"]];
@@ -44,6 +50,7 @@
     for (id oneDayDic in json) {
         NSMutableArray *currentDayArray = [retArray objectAtIndex:[[oneDayDic objectForKey:@"dayIndex"] integerValue]];
         [currentDayArray addObject:[[tripPoi alloc] initWithJson:[oneDayDic objectForKey:@"poi"]]];
+
     }
     return retArray;
 }
@@ -92,6 +99,8 @@
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _desc = [json objectForKey:@"desc"];
+        _priceDesc = [json objectForKey:@"priceDesc"];
+        _address = [json objectForKey:@"address"];
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];

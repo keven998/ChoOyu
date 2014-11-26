@@ -34,6 +34,7 @@ static NSString *addSpotCellIndentifier = @"addSpotCell";
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];

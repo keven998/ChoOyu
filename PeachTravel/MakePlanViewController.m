@@ -76,7 +76,15 @@
  */
 - (IBAction)makePlan:(id)sender
 {
+    
     TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+    CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
+    poi.cityId = @"54756008d17491193832582d";
+    poi.zhName = @"北京";
+    CityDestinationPoi *poi1 = [[CityDestinationPoi alloc] init];
+    poi1.cityId = @"5475b938d174911938325835";
+    poi1.zhName = @"上海";
+    tripDetailCtl.destinations = @[poi, poi1];
     [self.navigationController pushViewController:tripDetailCtl animated:YES];
     
 }

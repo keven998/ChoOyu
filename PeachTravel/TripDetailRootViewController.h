@@ -12,5 +12,6 @@
 @interface TripDetailRootViewController : RDVTabBarController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
+@property (nonatomic, strong) NSArray *destinations;
 
 @end

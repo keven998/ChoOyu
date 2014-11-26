@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TripDetail.h"
 
 @interface RestaurantListTableViewCell : UITableViewCell
 
 @property (nonatomic) BOOL isEditing;
+
+@property (nonatomic, strong) tripPoi *tripPoi;
 
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;

@@ -1247,7 +1247,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C63344DE1A1C3F5F00A27F86 /* resource */ = {
+		C63344DE1A1C3F5F00A27F86 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				C63344EB1A1C728000A27F86 /* ic_notify_flag@2x.png */,
@@ -1256,6 +1256,7 @@
 				C63344DF1A1C3F5F00A27F86 /* ic_extender@2x.png */,
 				C63344E01A1C3F5F00A27F86 /* ic_menu_add@2x.png */,
 			);
+			name = Resource;
 			path = resource;
 			sourceTree = "<group>";
 		};
@@ -2681,7 +2682,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
-				C63344DE1A1C3F5F00A27F86 /* resource */,
+				C63344DE1A1C3F5F00A27F86 /* Resource */,
 				D955E36419E67AC700047F2B /* Common */,
 				D9681A1B1A10A19100122793 /* Welcome */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,

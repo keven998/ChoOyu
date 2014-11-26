@@ -12,6 +12,7 @@
 #import "RNGridMenu.h"
 #import "DestinationsView.h"
 #import "AddPoiTableViewController.h"
+#import "CityDestinationPoi.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate>
 
@@ -50,7 +51,8 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
-    [self.tableView reloadData];
+    [_tableView reloadData];
+    [self updateDestinationsHeaderView];
 }
 
 - (UITableView *)tableView
@@ -98,30 +100,47 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 {
     if (!_destinationsHeaderView) {
         _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60) andContentOffsetX:20];
-#warning 测试数据
-        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
+        [self updateDestinationsHeaderView];
     }
     return _destinationsHeaderView;
+}
+
+#pragma mark Private Methods
+
+- (void)updateDestinationsHeaderView
+{
+    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [destinationsArray addObject:poi.zhName];
+    }
+    _destinationsHeaderView.destinations = destinationsArray;
 }
 
 #pragma makr - IBAction Methods
 
 - (IBAction)addOneDay:(id)sender
 {
-    
+    [_tripDetail.itineraryList addObject:[[NSMutableArray alloc] init]];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:_tripDetail.itineraryList.count-1];
+    [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (IBAction)showMore:(UIButton *)sender
 {
     NSInteger numberOfOptions = 2;
+    RNGridMenuItem *addItem = [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"添加目的地"];
+    RNGridMenuItem *deleteItem = [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"删除"]
+    ;
+    
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"添加目的地"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"删除"]
+                       addItem,
+                       deleteItem
                        ];
     
     RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
     av.backgroundColor = [UIColor clearColor];
     av.delegate = self;
+    av.menuView.tag = sender.tag;
     [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
 
@@ -161,6 +180,13 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     }
     //删除一天
     if (itemIndex == 1) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [_tripDetail.itineraryList removeObjectAtIndex:gridMenu.menuView.tag];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:gridMenu.menuView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }];
     }
 }
 
@@ -184,12 +210,12 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return _tripDetail.itineraryList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return [[_tripDetail.itineraryList objectAtIndex:section] count];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -213,7 +239,24 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     } else {
         headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 30)];
     }
-    headerTitle.text = @"  D1 安顺";
+    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"  D%d  ", section+1];
+    NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
+    for (tripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
+        CityDestinationPoi *poi = [tripPoi.locList lastObject];
+        [set addObject:poi.zhName];
+    }
+
+    for (int i=0; i<set.count; i++) {
+        NSString *str;
+        if (i == set.count-1) {
+            str = [set objectAtIndex:i];
+        } else {
+            str = [NSString stringWithFormat:@"%@ -- ", [set objectAtIndex:i]];
+        }
+        [headerTitleStr appendString:str];
+
+    }
+    headerTitle.text = headerTitleStr;
     headerTitle.font = [UIFont boldSystemFontOfSize:17.0];
     headerTitle.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:headerTitle];
@@ -264,6 +307,7 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 {
     SpotsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:spotsListReusableIdentifier forIndexPath:indexPath];
     cell.isEditing = self.tableView.isEditing;
+    cell.tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     return cell;
 }
 
@@ -322,10 +366,6 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         }
     }
 }
-
-
-
-
 
 
 @end

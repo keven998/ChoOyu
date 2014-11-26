@@ -34,5 +34,13 @@
     }
 }
 
+- (void)setTripPoi:(tripPoi *)tripPoi
+{
+    _tripPoi = tripPoi;
+    TaoziImage *image = [_tripPoi.images firstObject];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+    _titleLabel.text = tripPoi.zhName;
+    [_timeCostBtn setTitle:tripPoi.timeCost forState:UIControlStateNormal];
+}
 
 @end

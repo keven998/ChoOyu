@@ -99,8 +99,10 @@
                 <outlet property="nearBy" destination="ov0-ZM-sUJ" id="viG-fv-bSv"/>
                 <outlet property="pictureHorizontalSpace" destination="cTT-TZ-1Cj" id="1o6-RF-y4n"/>
                 <outlet property="spaceView" destination="4cL-6P-Vhd" id="1Jn-0a-S3x"/>
+                <outlet property="timeCostBtn" destination="2di-Ve-u0h" id="zWn-cx-Spv"/>
                 <outlet property="timeCostConstraint" destination="hH5-dT-AOq" id="vGb-h2-g5c"/>
                 <outlet property="titleContstraint" destination="qP9-if-hZ5" id="I4g-Ox-vuO"/>
+                <outlet property="titleLabel" destination="uIO-Dk-bN0" id="qDD-5D-76E"/>
             </connections>
             <point key="canvasLocation" x="-225" y="159"/>
         </tableViewCell>

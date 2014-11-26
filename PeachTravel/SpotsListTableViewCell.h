@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TripDetail.h"
 
 @interface SpotsListTableViewCell : UITableViewCell
 @property (nonatomic) BOOL isEditing;
+
+@property (strong, nonatomic) tripPoi *tripPoi;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *timeCostBtn;
 
 @property (weak, nonatomic) IBOutlet UIView *spaceView;
 @property (weak, nonatomic) IBOutlet UIButton *nearBy;

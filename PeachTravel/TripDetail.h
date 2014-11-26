@@ -52,6 +52,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *priceDesc;
+@property (nonatomic, copy) NSString *address;
 @property (nonatomic) tripPoiType poiType;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) float rating;

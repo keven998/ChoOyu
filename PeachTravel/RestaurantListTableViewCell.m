@@ -28,6 +28,21 @@
         _addressLabelConstraint.constant = 60;
 
     }
-
 }
+
+- (void)setTripPoi:(tripPoi *)tripPoi
+{
+    _tripPoi = tripPoi;
+    [_titleBtn setTitle:tripPoi.zhName forState:UIControlStateNormal];
+    TaoziImage *image = [tripPoi.images firstObject];
+    [_photoImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+    [_priceBtn setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
+    _addressLabel.text = tripPoi.address;
+}
+
 @end
+
+
+
+
+

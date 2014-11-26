@@ -11,6 +11,7 @@
 #import "SpotsListViewController.h"
 #import "RestaurantsListViewController.h"
 #import "ShoppingListViewController.h"
+#import "CityDestinationPoi.h"
 
 @interface TripDetailRootViewController ()
 
@@ -39,8 +40,12 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
+    NSMutableArray *cityIds = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _destinations) {
+        [cityIds addObject:poi.cityId];
+    }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:@[@"54756008d17491193832582d"] forKey:@"locId"];
+    [params setObject:cityIds forKey:@"locId"];
     [SVProgressHUD show];
     
     //获取路线模板数据
@@ -78,6 +83,7 @@
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     UIViewController *secondNavigationController = [[UINavigationController alloc]
                                                     initWithRootViewController:_restaurantListCtl];
+    _restaurantListCtl.rootViewController = self;
     
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
     UIViewController *thirdNavigationController = [[UINavigationController alloc]
