@@ -60,10 +60,10 @@
     shimmeringView.shimmeringBeginFadeDuration = 0.1;
     shimmeringView.shimmeringEndFadeDuration = 0.1;
     shimmeringView.shimmeringPauseDuration = 0.1;
-    shimmeringView.shimmeringAnimationOpacity = 0.50;
+    shimmeringView.shimmeringAnimationOpacity = 1.0;
     shimmeringView.shimmeringHighlightLength = 0.15;
-    shimmeringView.shimmeringOpacity = 1.0;
-    shimmeringView.shimmeringSpeed = 100.0;
+    shimmeringView.shimmeringOpacity = 0.7;
+    shimmeringView.shimmeringSpeed = 80.0;
     [self.view addSubview:shimmeringView];
     shimmeringView.contentView = _jumpTaozi;
 }
