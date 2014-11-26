@@ -46,6 +46,12 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 #pragma mark - setter & getter
 
+- (void)setTripDetail:(TripDetail *)tripDetail
+{
+    _tripDetail = tripDetail;
+    [self.tableView reloadData];
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -54,6 +60,8 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = self.tableViewFooterView;
         _tableView.tableHeaderView = self.destinationsHeaderView;
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+
         [_tableView setContentOffset:CGPointMake(0, 64)];
     }
     return _tableView;
@@ -101,6 +109,11 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 - (void)updateTableView
 {
     [self.tableView reloadData];
+    if (self.tableView.isEditing) {
+        self.tableView.tableFooterView = self.tableViewFooterView;
+    } else {
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+    }
 }
 
 - (IBAction)editTrip:(id)sender

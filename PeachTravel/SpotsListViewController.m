@@ -47,14 +47,20 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 #pragma mark - setter & getter
 
+- (void)setTripDetail:(TripDetail *)tripDetail
+{
+    _tripDetail = tripDetail;
+    [self.tableView reloadData];
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+8, self.view.frame.size.width-16, self.view.frame.size.height-64-48)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = self.tableViewFooterView;
         _tableView.tableHeaderView = self.destinationsHeaderView;
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
         [_tableView setContentOffset:CGPointMake(0, 60)];
     }
     return _tableView;
@@ -107,11 +113,9 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (IBAction)showMore:(UIButton *)sender
 {
-    NSInteger numberOfOptions = 4;
+    NSInteger numberOfOptions = 2;
     NSArray *items = @[
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"添加目的地"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"替我编排"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"地图"],
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"删除"]
                        ];
     
@@ -121,11 +125,19 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
 
-
+- (IBAction)mapView:(id)sender
+{
+    //TODO:进入地图导航
+}
 
 - (void)updateTableView
 {
     [self.tableView reloadData];
+    if (self.tableView.isEditing) {
+        self.tableView.tableFooterView = self.tableViewFooterView;
+    } else {
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+    }
 }
 
 - (IBAction)editTrip:(id)sender
@@ -144,16 +156,11 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     //进入添加目的地界面
     if (itemIndex == 0) {
         AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
-        [self.rootViewController.navigationController pushViewController:addPoiCtl animated:YES];
-    }
-    //进入优化界面
-    if (itemIndex == 1) {
-    }
-    //进入地图导航界面
-    if (itemIndex == 2) {
+        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
+        [self presentViewController:nctl animated:YES completion:nil];
     }
     //删除一天
-    if (itemIndex == 3) {
+    if (itemIndex == 1) {
     }
 }
 
@@ -211,13 +218,24 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     headerTitle.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:headerTitle];
     
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-80, 0, 80, 30)];
-    [moreBtn setBackgroundColor:[UIColor whiteColor]];
-    [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
-    [moreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    moreBtn.tag = section;
-    [moreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:moreBtn];
+    if (self.tableView.isEditing) {
+        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-80, 0, 80, 30)];
+        [moreBtn setBackgroundColor:[UIColor whiteColor]];
+        [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+        [moreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        moreBtn.tag = section;
+        [moreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:moreBtn];
+    } else {
+        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-80, 0, 80, 30)];
+        [mapBtn setBackgroundColor:[UIColor whiteColor]];
+        [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
+        [mapBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        mapBtn.tag = section;
+        [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:mapBtn];
+
+    }
     
     UIView *horizontalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, headerView.frame.size.height-1, headerView.frame.size.width, 1)];
     horizontalSpaceView.backgroundColor = APP_PAGE_COLOR;
@@ -237,7 +255,6 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
             verticalSpaceViewUp.backgroundColor = [UIColor lightGrayColor];
             [headerView addSubview:verticalSpaceViewUp];
         }
-
     }
     
     return headerView;
@@ -259,7 +276,6 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-    
     return proposedDestinationIndexPath;
 }
 

@@ -103,6 +103,11 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     
     [SVProgressHUD show];
     
+#warning 测试数据
+    [_destinations initDomesticCitiesWithJson:@"result"];
+    [self updateView];
+     
+     
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

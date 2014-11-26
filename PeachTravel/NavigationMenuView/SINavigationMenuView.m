@@ -88,7 +88,7 @@
 {
     self.menuButton.isActive = !self.menuButton.isActive;
     [self onHandleMenuTap:nil];
-    [self.delegate didSelectItemAtIndex:index];
+    [self.delegate didSelectItemAtIndex:index withSender:self];
 }
 
 - (void)didBackgroundTap
