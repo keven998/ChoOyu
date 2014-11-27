@@ -547,15 +547,15 @@
                                 <exclude reference="gRr-gS-VUC"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="8Hq-HK-Mjz"/>
+                                <exclude reference="HgH-c2-l1O"/>
+                                <exclude reference="hFI-0r-l2X"/>
+                                <exclude reference="9Wz-h0-vec"/>
                                 <exclude reference="3A9-rF-b3g"/>
                                 <exclude reference="7Yg-24-1fH"/>
                                 <exclude reference="A6V-y6-Rva"/>
                                 <exclude reference="1UU-xB-I0Y"/>
                                 <exclude reference="1u9-YZ-TPG"/>
-                                <exclude reference="8Hq-HK-Mjz"/>
-                                <exclude reference="HgH-c2-l1O"/>
-                                <exclude reference="hFI-0r-l2X"/>
-                                <exclude reference="9Wz-h0-vec"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -565,15 +565,15 @@
                                 <include reference="gRr-gS-VUC"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="8Hq-HK-Mjz"/>
+                                <include reference="HgH-c2-l1O"/>
+                                <include reference="hFI-0r-l2X"/>
+                                <include reference="9Wz-h0-vec"/>
                                 <include reference="3A9-rF-b3g"/>
                                 <include reference="7Yg-24-1fH"/>
                                 <include reference="A6V-y6-Rva"/>
                                 <include reference="1UU-xB-I0Y"/>
                                 <include reference="1u9-YZ-TPG"/>
-                                <include reference="8Hq-HK-Mjz"/>
-                                <include reference="HgH-c2-l1O"/>
-                                <include reference="hFI-0r-l2X"/>
-                                <include reference="9Wz-h0-vec"/>
                             </mask>
                         </variation>
                     </view>
