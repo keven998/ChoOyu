@@ -29,8 +29,13 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    if (self.destinations.count > 1) {
+    if (self.tripDetail.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
+        CityDestinationPoi *poi = [self.tripDetail.destinations firstObject];
+        _currentCity = [[CityPoi alloc] init];
+        _currentCity.restaurants = [[RestaurantsOfCity alloc] init];
+        _currentCity.cityId = poi.cityId;
+        _currentCity.zhName = poi.zhName;
     } else {
         self.navigationItem.title = _currentCity.zhName;
     }
@@ -39,7 +44,16 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
     [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightItemBtn];
-    [self loadDataWithCityId:_currentCity.cityId];
+    
+    if (self.shouldEdit) {
+        UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [leftBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [leftBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+        [leftBtn addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    }
+   
+    [self loadData];
 }
 
 #pragma mark - setter & getter
@@ -48,7 +62,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 {
     if (!_titleMenu) {
         NSMutableArray *names = [[NSMutableArray alloc] init];
-        for (CityPoi *city in _destinations) {
+        for (CityPoi *city in _tripDetail.destinations) {
             [names addObject:city.zhName];
         }
         CGRect frame = CGRectMake(0.0, 0.0, 100, self.navigationController.navigationBar.bounds.size.height);
@@ -108,9 +122,31 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 }
 
+#pragma mark - IBAction Methods
+
+- (IBAction)addPoi:(UIButton *)sender
+{
+    TripPoi *tripPoi = [[TripPoi alloc] init];
+    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:sender.tag];
+    tripPoi.poiId = restaurantPoi.restaurantId;
+    tripPoi.zhName = restaurantPoi.zhName;
+    tripPoi.enName = restaurantPoi.enName;
+    tripPoi.images = restaurantPoi.images;
+    tripPoi.priceDesc = restaurantPoi.priceDesc;
+    tripPoi.desc = restaurantPoi.desc;
+    tripPoi.address = restaurantPoi.address;
+    [self.tripDetail.restaurantsList addObject:tripPoi];
+}
+
+- (IBAction)finishAdd:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [_delegate finishEdit];
+}
+
 #pragma mark - Private Methods
 
-- (void)loadDataWithCityId:(NSString *)cityId
+- (void)loadData
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -118,10 +154,9 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,cityId];
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_currentCity.cityId];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[NSNumber numberWithInt:3] forKey:@"noteCnt"];
     
     [SVProgressHUD show];
     
@@ -163,14 +198,14 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
 {
-    CityDestinationPoi *destination = [self.destinations objectAtIndex:index];
+    CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:index];
     _currentCity = [[CityPoi alloc] init];
+    _currentCity.restaurants = [[RestaurantsOfCity alloc] init];
     _currentCity.cityId = destination.cityId;
     _currentCity.zhName = destination.zhName;
     [_titleMenu setTitle:_currentCity.zhName];
+    [self loadData];
 }
-
-
 
 #pragma mark - UITableViewDataSource & delegate
 
@@ -201,6 +236,8 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
         cell.addBtn.hidden = YES;
     }
     cell.restaurantPoi = restaurantPoi;
+    cell.addBtn.tag = indexPath.row;
+    [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 @end

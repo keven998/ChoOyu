@@ -8,12 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
+#import "TripDetail.h"
+
+@protocol RestaurantsOfCityDelegate <NSObject>
+
+- (void)finishEdit;
+
+@end
 
 @interface RestaurantsOfCityViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *destinations;
 @property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
 
 @property (nonatomic) BOOL shouldEdit;
 
+@property (nonatomic, strong) TripDetail *tripDetail;
+
+
+@property (nonatomic, assign) id <RestaurantsOfCityDelegate>delegate;
 @end

@@ -13,7 +13,7 @@
 #import "RestaurantsOfCityViewController.h"
 #import "CityDestinationPoi.h"
 
-@interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantsOfCityDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -115,9 +115,17 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 - (IBAction)addWantTo:(id)sender
 {
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
-    restaurantOfCityCtl.destinations = _tripDetail.destinations;
+    restaurantOfCityCtl.tripDetail = _tripDetail;
+    restaurantOfCityCtl.delegate = self;
+    
+#warning 测试数据
+    for (CityDestinationPoi *poi in restaurantOfCityCtl.tripDetail.destinations) {
+        poi.cityId = @"53aa9a6410114e3fd47833bd";
+    }
+    
     restaurantOfCityCtl.shouldEdit = YES;
-    [self.rootViewController.navigationController pushViewController:restaurantOfCityCtl animated:YES];
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
+    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)updateTableView
@@ -139,6 +147,13 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     } else {
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     }
+}
+
+#pragma mark - RestaurantsOfCityDelegate
+
+- (void)finishEdit
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource & Delegate
