@@ -30,7 +30,7 @@
     }
 }
 
-- (void)setTripPoi:(tripPoi *)tripPoi
+- (void)setTripPoi:(TripPoi *)tripPoi
 {
     _tripPoi = tripPoi;
     [_titleBtn setTitle:tripPoi.zhName forState:UIControlStateNormal];

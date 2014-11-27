@@ -13,7 +13,7 @@
 
 @property (nonatomic) BOOL isEditing;
 
-@property (nonatomic, strong) tripPoi *tripPoi;
+@property (nonatomic, strong) TripPoi *tripPoi;
 
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;

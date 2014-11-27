@@ -12,7 +12,7 @@
 @interface SpotsListTableViewCell : UITableViewCell
 @property (nonatomic) BOOL isEditing;
 
-@property (strong, nonatomic) tripPoi *tripPoi;
+@property (strong, nonatomic) TripPoi *tripPoi;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *timeCostBtn;
 

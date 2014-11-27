@@ -14,10 +14,13 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setTripPoi:(TripPoi *)tripPoi
+{
+    TaoziImage *image = [tripPoi.images firstObject];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+    _titleLabel.text = tripPoi.zhName;
+    [_timeCostBtn setTitle:tripPoi.timeCost forState:UIControlStateNormal];
+    _descLabel.text = tripPoi.desc;
 }
 
 @end

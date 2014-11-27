@@ -47,7 +47,7 @@
     }
     for (id oneDayDic in json) {
         NSMutableArray *currentDayArray = [retArray objectAtIndex:[[oneDayDic objectForKey:@"dayIndex"] integerValue]];
-        [currentDayArray addObject:[[tripPoi alloc] initWithJson:[oneDayDic objectForKey:@"poi"]]];
+        [currentDayArray addObject:[[TripPoi alloc] initWithJson:[oneDayDic objectForKey:@"poi"]]];
     }
     return retArray;
 }
@@ -56,7 +56,7 @@
 {
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     for (id oneDayDic in json) {
-        [retArray addObject:[[tripPoi alloc] initWithJson:oneDayDic]];
+        [retArray addObject:[[TripPoi alloc] initWithJson:oneDayDic]];
     }
     return retArray;
 
@@ -66,7 +66,7 @@
 {
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     for (id oneDayDic in json) {
-        [retArray addObject:[[tripPoi alloc] initWithJson:oneDayDic]];
+        [retArray addObject:[[TripPoi alloc] initWithJson:oneDayDic]];
     }
     return retArray;
 }
@@ -74,7 +74,7 @@
 @end
 
 
-@implementation tripPoi
+@implementation TripPoi
 
 - (id)initWithJson:(id)json
 {

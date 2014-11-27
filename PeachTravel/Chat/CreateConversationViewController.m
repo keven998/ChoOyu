@@ -258,14 +258,7 @@
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     cell.nickNameLabel.text = contact.nickName;
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
-//    if ([self isSelected:contact.userId]) {
-//        cell.selectImageView.backgroundColor = [UIColor redColor];
-//    } else {
-//        cell.selectImageView.backgroundColor = [UIColor greenColor];
-//    }
-//    if ([self isNumberInGroup:contact.userId]) {
-//        cell.selectImageView.backgroundColor = [UIColor grayColor];
-//    }
+
     if ([self isSelected:contact.userId]) {
         cell.selectView.selected = YES;
     } else {
@@ -277,16 +270,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if ([self isNumberInGroup:contact.userId]) {
-        return;
-    }
-    if ([self isSelected:contact.userId]) {
-        [self.selectedContacts removeObject:contact];
-    } else {
-        [self.selectedContacts addObject:contact];
-    }
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+//    if ([self isNumberInGroup:contact.userId]) {
+//        return;
+//    }
+//    if ([self isSelected:contact.userId]) {
+//        [self.selectedContacts removeObject:contact];
+//    } else {
+//        [self.selectedContacts addObject:contact];
+//    }
+//    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - UIScrollViewDelegate

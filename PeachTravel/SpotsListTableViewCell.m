@@ -34,7 +34,7 @@
     }
 }
 
-- (void)setTripPoi:(tripPoi *)tripPoi
+- (void)setTripPoi:(TripPoi *)tripPoi
 {
     _tripPoi = tripPoi;
     TaoziImage *image = [_tripPoi.images firstObject];

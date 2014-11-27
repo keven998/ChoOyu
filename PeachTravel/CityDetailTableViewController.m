@@ -104,6 +104,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityPoi.zhName = @"大阪";
     _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
     _cityPoi.restaurants = [[RestaurantsOfCity alloc] initWithJson:@{}];
+    restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.currentCity = _cityPoi;
     
     

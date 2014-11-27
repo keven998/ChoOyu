@@ -45,7 +45,7 @@ typedef enum : NSUInteger {
     
 } tripPoiType;
 
-@interface tripPoi : NSObject
+@interface TripPoi : NSObject
 
 
 @property (nonatomic, copy) NSString *poiId;
