@@ -11,7 +11,6 @@
 
 @interface RestaurantOfCityTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
-@property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *HeaderImageView;
 @property (weak, nonatomic) IBOutlet UIButton *ratingBtn;

@@ -57,11 +57,6 @@
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIO-Dk-bN0">
                         <rect key="frame" x="98" y="8" width="132" height="36"/>
@@ -96,10 +91,10 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="headerImageView" destination="ILK-yd-WJS" id="9g6-eT-3dO"/>
-                <outlet property="nearBy" destination="ov0-ZM-sUJ" id="viG-fv-bSv"/>
+                <outlet property="nearBy" destination="ov0-ZM-sUJ" id="gBT-Am-VvG"/>
                 <outlet property="pictureHorizontalSpace" destination="cTT-TZ-1Cj" id="1o6-RF-y4n"/>
                 <outlet property="spaceView" destination="4cL-6P-Vhd" id="1Jn-0a-S3x"/>
-                <outlet property="timeCostBtn" destination="2di-Ve-u0h" id="zWn-cx-Spv"/>
+                <outlet property="timeCostBtn" destination="2di-Ve-u0h" id="Jef-Qx-rtB"/>
                 <outlet property="timeCostConstraint" destination="hH5-dT-AOq" id="vGb-h2-g5c"/>
                 <outlet property="titleContstraint" destination="qP9-if-hZ5" id="I4g-Ox-vuO"/>
                 <outlet property="titleLabel" destination="uIO-Dk-bN0" id="qDD-5D-76E"/>

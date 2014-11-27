@@ -103,7 +103,9 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        [destinationsArray addObject:poi.zhName];
+        if (poi.zhName) {
+            [destinationsArray addObject:poi.zhName];
+        }
     }
     _destinationsHeaderView.destinations = destinationsArray;
 }
@@ -114,6 +116,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
     restaurantOfCityCtl.destinations = _tripDetail.destinations;
+    restaurantOfCityCtl.shouldEdit = YES;
     [self.rootViewController.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
@@ -188,7 +191,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    tripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
+    TripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
 }
@@ -198,16 +201,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-}
-
-- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"willBeginEditingRowAtIndexPath");
-}
-
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 #pragma mark - UIScrollViewDelegate

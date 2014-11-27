@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TripDetail.h"
 
 @interface AddSpotTableViewCell : UITableViewCell
 
@@ -16,5 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeCostBtn;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
+
+@property (nonatomic, strong) TripPoi *tripPoi;
 
 @end

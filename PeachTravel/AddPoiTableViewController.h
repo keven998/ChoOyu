@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 
+@protocol addPoiDelegate <NSObject>
+
+- (void)finishEdit;
+
+@end
+
 @interface AddPoiTableViewController : UITableViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
+@property (nonatomic) NSUInteger currentDayIndex;    //标识添加到哪一天
+
+@property (nonatomic, assign) id <addPoiDelegate> delegate;
+
+- (void)loadData;
 
 @end

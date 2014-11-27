@@ -197,6 +197,9 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 {
     RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
     RestaurantOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantOfCityCellIdentifier];
+    if (!_shouldEdit) {
+        cell.addBtn.hidden = YES;
+    }
     cell.restaurantPoi = restaurantPoi;
     return cell;
 }

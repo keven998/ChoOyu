@@ -14,7 +14,7 @@
 #import "AddPoiTableViewController.h"
 #import "CityDestinationPoi.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -111,7 +111,9 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 {
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        [destinationsArray addObject:poi.zhName];
+        if (poi.zhName) {
+            [destinationsArray addObject:poi.zhName];
+        }
     }
     _destinationsHeaderView.destinations = destinationsArray;
 }
@@ -175,8 +177,13 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     //进入添加目的地界面
     if (itemIndex == 0) {
         AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
+        addPoiCtl.tripDetail = self.tripDetail;
+        addPoiCtl.delegate = self;
+        addPoiCtl.currentDayIndex = gridMenu.menuView.tag;
         UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
-        [self presentViewController:nctl animated:YES completion:nil];
+        [self presentViewController:nctl animated:YES completion:^{
+            [addPoiCtl loadData];
+        }];
     }
     //删除一天
     if (itemIndex == 1) {
@@ -190,6 +197,12 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     }
 }
 
+#pragma mark - AddPoiDelegate
+
+- (void)finishEdit
+{
+    [self.tableView reloadData];
+}
 
 #pragma mark - UITableViewDataSource & Delegate
 
@@ -241,9 +254,11 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     }
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"  D%d  ", section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
-    for (tripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
+    for (TripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         CityDestinationPoi *poi = [tripPoi.locList lastObject];
-        [set addObject:poi.zhName];
+        if (poi.zhName) {
+            [set addObject:poi.zhName];
+        }
     }
 
     for (int i=0; i<set.count; i++) {
@@ -336,7 +351,7 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     NSMutableArray *fromArray = _tripDetail.itineraryList[sourceIndexPath.section];
     NSMutableArray *toArray = _tripDetail.itineraryList[destinationIndexPath.section];
 
-    tripPoi *poi = [fromArray objectAtIndex:sourceIndexPath.row];
+    TripPoi *poi = [fromArray objectAtIndex:sourceIndexPath.row];
     [fromArray removeObjectAtIndex:sourceIndexPath.row];
     [toArray insertObject:poi atIndex:destinationIndexPath.row];
     
