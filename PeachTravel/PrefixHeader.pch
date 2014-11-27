@@ -24,6 +24,7 @@
 #import "TaoziImage.h"
 #import "NSString+TaoziString.h"
 #import "ConvertMethods.h"
+#import "NSMutableDictionary+MyDictionary.h"
 
 #endif
 

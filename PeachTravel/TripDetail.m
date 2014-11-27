@@ -35,6 +35,10 @@
 
 - (void)saveTrip
 {
+    NSMutableArray *itineraryListToServer = [[NSMutableArray alloc] init];
+    NSMutableArray *restaurantListToServer = [[NSMutableArray alloc] init];
+    NSMutableArray *shoppingListToServer = [[NSMutableArray alloc] init];
+
     
 }
 
@@ -119,4 +123,14 @@
     return self;
 }
 
+- (NSDictionary *)prepareToUpload
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    return retDic;
+}
+
 @end
+
+
+
+
