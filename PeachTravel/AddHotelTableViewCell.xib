@@ -18,7 +18,7 @@
                         <rect key="frame" x="8" y="8" width="304" height="120"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnN-2Z-Efy">
-                                <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="230" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4ab-AQ-2gG"/>
                                 </constraints>
@@ -112,7 +112,7 @@
                             <constraint firstItem="922-aa-29x" firstAttribute="leading" secondItem="EbE-mZ-MTM" secondAttribute="leading" constant="30" id="KPX-XA-jyw"/>
                             <constraint firstItem="feM-wn-JBZ" firstAttribute="leading" secondItem="922-aa-29x" secondAttribute="trailing" constant="16" id="SwW-t0-DCg"/>
                             <constraint firstItem="fdB-4E-Tql" firstAttribute="top" secondItem="EbE-mZ-MTM" secondAttribute="top" constant="5" id="W73-YB-EnE"/>
-                            <constraint firstAttribute="trailing" secondItem="NnN-2Z-Efy" secondAttribute="trailing" id="WTY-29-FeR"/>
+                            <constraint firstAttribute="trailing" secondItem="NnN-2Z-Efy" secondAttribute="trailing" constant="74" id="WTY-29-FeR"/>
                             <constraint firstItem="922-aa-29x" firstAttribute="top" secondItem="NnN-2Z-Efy" secondAttribute="bottom" constant="49" id="if4-k4-jxM"/>
                             <constraint firstItem="Tm0-HO-C5L" firstAttribute="top" secondItem="NnN-2Z-Efy" secondAttribute="bottom" constant="1" id="jhM-hU-PlF"/>
                             <constraint firstItem="NnN-2Z-Efy" firstAttribute="leading" secondItem="EbE-mZ-MTM" secondAttribute="leading" id="lWu-Kd-X5M"/>
