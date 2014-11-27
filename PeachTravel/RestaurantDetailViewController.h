@@ -10,4 +10,6 @@
 
 @interface RestaurantDetailViewController : UIViewController
 
+@property (nonatomic, copy) NSString *restaurantId;
+
 @end

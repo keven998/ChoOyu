@@ -14,6 +14,7 @@
 #import "CityDestinationPoi.h"
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
+#import "RestaurantDetailViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantsOfCityDelegate>
 
@@ -235,6 +236,14 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TripPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
+    RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+    restaurantDetailCtl.restaurantId = tripPoi.poiId;
+    [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate

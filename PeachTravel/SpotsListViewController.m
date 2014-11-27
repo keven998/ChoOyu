@@ -16,6 +16,9 @@
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
 #import "RecommendDataSource.h"
+#import "SpotDetailViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
@@ -288,7 +291,7 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         if (i == set.count-1) {
             str = [set objectAtIndex:i];
         } else {
-            str = [NSString stringWithFormat:@"%@ -- ", [set objectAtIndex:i]];
+            str = [NSString stringWithFormat:@"%@--", [set objectAtIndex:i]];
         }
         [headerTitleStr appendString:str];
 
@@ -346,6 +349,40 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     cell.isEditing = self.tableView.isEditing;
     cell.tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    switch (tripPoi.poiType) {
+        case TripSpotPoi: {
+            SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
+            spotDetailCtl.spotId = tripPoi.poiId;
+            [self.rootViewController.navigationController pushViewController:spotDetailCtl animated:YES];
+        }
+            break;
+        case TripRestaurantPoi: {
+            RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+            restaurantDetailCtl.restaurantId = tripPoi.poiId;
+            [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        }
+            
+            break;
+        case TripShoppingPoi: {
+            ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
+            shoppingDetailCtl.shoppingId = tripPoi.poiId;
+            [self.rootViewController.navigationController pushViewController:shoppingDetailCtl animated:YES];
+        }
+            
+            break;
+        case TripHotelPoi:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
