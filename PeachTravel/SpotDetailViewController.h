@@ -10,4 +10,6 @@
 
 @interface SpotDetailViewController : UIViewController
 
+@property (nonatomic, copy) NSString *spotId;
+
 @end

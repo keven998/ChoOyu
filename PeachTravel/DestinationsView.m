@@ -38,11 +38,20 @@
 
 - (void)setDestinations:(NSArray *)destinations
 {
+    NSMutableArray *destinationItemsArray = [[NSMutableArray alloc] init];
     _destinations = destinations;
-    for (NSString *title in _destinations) {
-        [_destinationToolBar addNewUnitWithName:title userInteractionEnabled:NO];
+    for (int i = 0; i < _destinations.count; i++) {
+        NSString *title = [_destinations objectAtIndex:i];
+        DestinationUnit *unit = [_destinationToolBar addUnit:nil withName:title];
+        unit.tag = i;
+        [destinationItemsArray addObject:unit];
     }
-    [_destinationToolBar.scrollView setContentOffset:CGPointZero];
+    
+   [_destinationToolBar.scrollView setContentOffset:CGPointZero];
+    _destinationItmes = destinationItemsArray;
 }
 
 @end
+
+
+

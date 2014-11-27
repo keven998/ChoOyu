@@ -12,6 +12,9 @@
 #import "DestinationsView.h"
 #import "RestaurantsOfCityViewController.h"
 #import "CityDestinationPoi.h"
+#import "DestinationUnit.h"
+#import "CityDetailTableViewController.h"
+#import "RestaurantDetailViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantsOfCityDelegate>
 
@@ -108,6 +111,10 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         }
     }
     _destinationsHeaderView.destinations = destinationsArray;
+    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
+        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
 }
 
 #pragma makr - IBAction Methods
@@ -147,6 +154,19 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     } else {
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     }
+}
+
+/**
+ *  点击我的目的地进入城市详情
+ *
+ *  @param sender
+ */
+- (IBAction)viewCityDetail:(UIButton *)sender
+{
+    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = poi.cityId;
+    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - RestaurantsOfCityDelegate
@@ -216,6 +236,14 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TripPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
+    RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+    restaurantDetailCtl.restaurantId = tripPoi.poiId;
+    [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate

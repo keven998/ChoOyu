@@ -9,6 +9,7 @@
 
 #import "TripDetail.h"
 #import "CityDestinationPoi.h"
+#import "AccountManager.h"
 
 @implementation TripDetail
 
@@ -16,7 +17,7 @@
 {
     _backUpJson = json;
     _tripId = [json objectForKey:@"id"];
-    _tripTitle = [json objectForKey:@"titile"];
+    _tripTitle = [json objectForKey:@"title"];
     _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
     
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -33,10 +34,129 @@
     return self;
 }
 
+- (TripDetail *)backUpTrip
+{
+    if (!_backUpTrip) {
+        _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
+    }
+    return _backUpTrip;
+}
+
 - (void)saveTrip
 {
     
+    if (![self restaurantListIsChange] && ![self itineraryListIsChange] && ![self shoppingListIsChange] ) {
+        return;
+    }
+    
+    NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
+    
+    if ([self itineraryListIsChange]) {
+        NSLog(@"******保存路线列表**********");
+        NSMutableArray *itineraryListToServer = [[NSMutableArray alloc] init];
+        for (int i = 0; i < _itineraryList.count; i++) {
+            NSMutableDictionary *oneDayDic = [[NSMutableDictionary alloc] init];
+            [oneDayDic setObject:[NSNumber numberWithInt:i] forKeyedSubscript:@"dayIndex"];
+            NSMutableArray *oneDayArray = [[NSMutableArray alloc] init];
+            for (int j = 0; j < [[_itineraryList objectAtIndex:i] count]; j++) {
+                TripPoi *tripPoi = [[_itineraryList objectAtIndex:i] objectAtIndex:j];
+                [oneDayArray addObject:[tripPoi prepareForUpload]];
+            }
+            [oneDayDic safeSetObject:oneDayArray forKey:@"poi"];
+            if (oneDayArray.count) {
+                [itineraryListToServer addObject:oneDayDic];
+            }
+        }
+        [uploadDic safeSetObject:itineraryListToServer forKey:@"itinerary"];
+        [uploadDic safeSetObject:[NSNumber numberWithInt:_dayCount] forKey:@"itineraryDays"];
+    }
+   
+    if ([self restaurantListIsChange]) {
+        NSLog(@"******保存美食列表**********");
+
+        NSMutableArray *restaurantListToServer = [[NSMutableArray alloc] init];
+        for (TripPoi *tripPoi in _restaurantsList) {\
+            [restaurantListToServer addObject:[tripPoi prepareForUpload]];
+        }
+        [uploadDic safeSetObject:restaurantListToServer forKey:@"restaurant"];
+    }
+    
+    if ([self shoppingListIsChange]) {
+        NSLog(@"******保存购物列表**********");
+
+        NSMutableArray *shoppingListToServer = [[NSMutableArray alloc] init];
+        for (TripPoi *tripPoi in _shoppingList) {
+            [shoppingListToServer addObject:[tripPoi prepareForUpload]];
+        }
+        [uploadDic safeSetObject:shoppingListToServer forKey:@"shopping"];
+    }
+    
+    [uploadDic safeSetObject:_tripId forKey:@"id"];
+    [uploadDic safeSetObject:_tripTitle forKey:@"title"];
+    
+    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _destinations) {
+        NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
+        [poiDic safeSetObject:poi.cityId forKey:@"id"];
+        [poiDic safeSetObject:poi.zhName forKey:@"zhName"];
+        [poiDic safeSetObject:poi.enName forKey:@"enName"];
+        [destinationsArray addObject:poiDic];
+    }
+    
+    [uploadDic safeSetObject:destinationsArray forKey:@"destinations"];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:uploadDic options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    NSLog(@"经过辛辛苦苦的增删改查终于编辑好了,路线内容为：\n%@",str);
+    
+    [self uploadTripData:(NSDictionary *)uploadDic];
 }
+
+- (void)uploadTripData:(NSDictionary *)uploadDic
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [SVProgressHUD show];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            NSLog(@"保存成功");
+            [self updateBackupTripJson:uploadDic];
+        } else {
+            NSLog(@"保存失败");
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+
+}
+
+- (void)updateBackupTripJson:(NSDictionary *)uploadDic
+{
+    NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
+    if ([uploadDic objectForKey:@"itinerary"]) {
+        [tempDic setObject:[uploadDic objectForKey:@"itinerary"] forKey:@"itinerary"];
+        [tempDic setObject:[uploadDic objectForKey:@"itineraryDays"] forKey:@"itineraryDays"];
+    }
+    if ([uploadDic objectForKey:@"restaurant"]) {
+        [tempDic setObject:[uploadDic objectForKey:@"restaurant"] forKey:@"restaurant"];
+    }
+    if ([uploadDic objectForKey:@"shopping"]) {
+        [tempDic setObject:[uploadDic objectForKey:@"shopping"] forKey:@"shopping"];
+    }
+}
+
 
 - (NSMutableArray *)analysisItineraryData:(id)json
 {
@@ -69,6 +189,72 @@
         [retArray addObject:[[TripPoi alloc] initWithJson:oneDayDic]];
     }
     return retArray;
+}
+
+//线路列表是否发生了变化
+- (BOOL)itineraryListIsChange
+{
+    //天数发生变化
+    if (self.itineraryList.count != self.backUpTrip.itineraryList.count) {
+        return YES;
+    }
+    //每天的 poi 数目发生变化
+    for (int i = 0; i < self.itineraryList.count; i++) {
+        NSArray *oneDayArry = [self.itineraryList objectAtIndex:i];
+        NSArray *backUpOneDayArray = [self.backUpTrip.itineraryList objectAtIndex:i];
+        if (oneDayArry.count != backUpOneDayArray.count) {
+            return YES;
+        }
+    }
+    
+    //poi 的顺序发生变化
+    for (int i = 0; i<self.itineraryList.count; i++) {
+        for (int j = 0; j<[[self.itineraryList objectAtIndex:i] count]; j++) {
+            TripPoi *poi = [[self.itineraryList objectAtIndex:i] objectAtIndex:j];
+            TripPoi *backUpPoi = [[self.backUpTrip.itineraryList objectAtIndex:i] objectAtIndex:j];
+            if (![poi.poiId isEqualToString:backUpPoi.poiId]) {
+                return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
+//美食列表是否发生了变化
+- (BOOL)restaurantListIsChange
+{
+    if (self.restaurantsList.count != self.backUpTrip.restaurantsList.count) {
+        return YES;
+    }
+    
+    for (int i = 0; i<self.restaurantsList.count; i++) {
+        TripPoi *poi = [self.restaurantsList objectAtIndex:i];
+        TripPoi *backUpPoi = [self.backUpTrip.restaurantsList objectAtIndex:i];
+        if (![poi.poiId isEqualToString:backUpPoi.poiId]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+//购物列表是否发生了变化
+- (BOOL)shoppingListIsChange
+{
+    if (self.shoppingList.count != self.backUpTrip.shoppingList.count) {
+        return YES;
+    }
+    
+    for (int i = 0; i<self.shoppingList.count; i++) {
+        TripPoi *poi = [self.shoppingList objectAtIndex:i];
+        TripPoi *backUpPoi = [self.backUpTrip.shoppingList objectAtIndex:i];
+        if (![poi.poiId isEqualToString:backUpPoi.poiId]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 @end
@@ -114,9 +300,76 @@
             [tempLocArray addObject:poi];
         }
         _locList = tempLocArray;
-        _timeCost = [json objectForKey:@"timeCost"];
+        _timeCost = [json objectForKey:@"timeCostDesc"];
     }
     return self;
 }
 
+- (NSDictionary *)prepareForUpload
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    [retDic safeSetObject:_poiId forKey:@"id"];
+    [retDic safeSetObject:_zhName forKey:@"zhName"];
+    [retDic safeSetObject:_enName forKey:@"enName"];
+    [retDic safeSetObject:_desc forKey:@"desc"];
+    [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
+    [retDic safeSetObject:_address forKey:@"address"];
+    [retDic safeSetObject:[NSNumber numberWithFloat:_rating] forKey:@"rating"];
+    [retDic safeSetObject:_telephone forKey:@"telephone"];
+    [retDic safeSetObject:_timeCost forKey:@"timeCostDesc"];
+    
+    NSString *poiTypeStr;
+    switch (_poiType) {
+        case TripSpotPoi:
+            poiTypeStr = @"vs";
+            break;
+            
+        case TripRestaurantPoi:
+            poiTypeStr = @"restaurant";
+            break;
+        case TripShoppingPoi:
+            poiTypeStr = @"shopping";
+            break;
+        case TripHotelPoi:
+            poiTypeStr = @"hotel";
+            break;
+            
+        default:
+            break;
+    }
+    
+    [retDic safeSetObject:poiTypeStr forKey:@"tpye"];
+    
+    NSMutableArray *coordinatesArray = [[NSMutableArray alloc] init];
+    [coordinatesArray addObject:[NSNumber numberWithDouble:_lng]];
+    [coordinatesArray addObject:[NSNumber numberWithDouble:_lat]];
+    [retDic safeSetObject:@{@"coordinates":coordinatesArray} forKey:@"location"];
+    
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    for (TaoziImage *image in _images) {
+        NSMutableDictionary *imageDic = [[NSMutableDictionary alloc] init];
+        [imageDic safeSetObject:image.imageUrl forKey:@"url"];
+        [imageArray addObject:imageDic];
+    }
+    
+    [retDic safeSetObject:imageArray forKey:@"images"];
+    
+    NSMutableArray *localListArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _locList) {
+        NSMutableDictionary *destinationDic = [[NSMutableDictionary alloc] init];
+        [destinationDic safeSetObject:poi.cityId forKey:@"id"];
+        [destinationDic safeSetObject:poi.zhName forKey:@"zhName"];
+        [destinationDic safeSetObject:poi.enName forKey:@"enName"];
+        [localListArray addObject:destinationDic];
+    }
+    
+    [retDic safeSetObject:localListArray forKey:@"locList"];
+
+    return retDic;
+}
+
 @end
+
+
+
+

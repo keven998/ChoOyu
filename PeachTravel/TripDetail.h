@@ -10,6 +10,10 @@
  * **************包含三张单的所有数据************
  ****************/
 
+@protocol TripDetailDelegate <NSObject>
+
+@end
+
 #import <Foundation/Foundation.h>
 
 @interface TripDetail : NSObject
@@ -64,6 +68,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *timeCost;
 
 - (id) initWithJson:(id)json;
+
+- (NSDictionary *)prepareForUpload;     //将数据结构转换成上传的 json 数据
 
 @end
 

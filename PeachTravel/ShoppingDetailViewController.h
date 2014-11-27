@@ -10,4 +10,6 @@
 
 @interface ShoppingDetailViewController : UIViewController
 
+@property (nonatomic, copy) NSString *shoppingId;
+
 @end

@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RecommendDataSource.h"
 
 @interface CityDetailTableViewController : UITableViewController
 
-@property (nonatomic, strong) Recommend *recommend;
+@property (nonatomic, strong) NSString *cityId;
 
 @end
