@@ -12,6 +12,7 @@
 #import "CityDestinationPoi.h"
 #import "TripDetail.h"
 #import "RestaurantOfCityTableViewCell.h"
+#import "AddHotelTableViewCell.h"
 
 @interface AddPoiTableViewController () <SINavigationMenuDelegate>
 
@@ -43,7 +44,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"RestaurantOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addShoppingCellIndentifier];
-//    [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddHotelTableViewCell" bundle:nil] forCellReuseIdentifier:addHotelCellIndentifier];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -218,7 +219,11 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         
     }
     if (poi.poiType == TripHotelPoi) {
-        
+        AddHotelTableViewCell *addHotelCell = [tableView dequeueReusableCellWithIdentifier:addHotelCellIndentifier forIndexPath:indexPath];
+        addHotelCell.tripPoi = poi;
+        addHotelCell.addBtn.tag = indexPath.row;
+        [addHotelCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        return addHotelCell;
     }
     return nil;
 }

@@ -335,6 +335,8 @@
 		D96550F41A257CA200928DB0 /* AddSpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */; };
 		D96550F51A257CA200928DB0 /* AddSpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */; };
 		D96550F81A2580E900928DB0 /* AddPoiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550F71A2580E900928DB0 /* AddPoiTableViewController.m */; };
+		D96551311A26E64A00928DB0 /* AddHotelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D965512F1A26E64A00928DB0 /* AddHotelTableViewCell.m */; };
+		D96551321A26E64A00928DB0 /* AddHotelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96551301A26E64A00928DB0 /* AddHotelTableViewCell.xib */; };
 		D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A41A0DE3C600122793 /* ANBlurredImageView.m */; };
 		D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */; };
 		D9681A061A109BF600122793 /* ICETutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819F81A109BF600122793 /* ICETutorialController.m */; };
@@ -947,6 +949,9 @@
 		D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSpotTableViewCell.xib; sourceTree = "<group>"; };
 		D96550F61A2580E900928DB0 /* AddPoiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiTableViewController.h; sourceTree = "<group>"; };
 		D96550F71A2580E900928DB0 /* AddPoiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiTableViewController.m; sourceTree = "<group>"; };
+		D965512E1A26E64A00928DB0 /* AddHotelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddHotelTableViewCell.h; sourceTree = "<group>"; };
+		D965512F1A26E64A00928DB0 /* AddHotelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddHotelTableViewCell.m; sourceTree = "<group>"; };
+		D96551301A26E64A00928DB0 /* AddHotelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddHotelTableViewCell.xib; sourceTree = "<group>"; };
 		D96819A31A0DE3C600122793 /* ANBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredImageView.h; sourceTree = "<group>"; };
 		D96819A41A0DE3C600122793 /* ANBlurredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBlurredImageView.m; sourceTree = "<group>"; };
 		D96819A51A0DE3C600122793 /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
@@ -2521,6 +2526,9 @@
 				D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */,
 				D96550F61A2580E900928DB0 /* AddPoiTableViewController.h */,
 				D96550F71A2580E900928DB0 /* AddPoiTableViewController.m */,
+				D965512E1A26E64A00928DB0 /* AddHotelTableViewCell.h */,
+				D965512F1A26E64A00928DB0 /* AddHotelTableViewCell.m */,
+				D96551301A26E64A00928DB0 /* AddHotelTableViewCell.xib */,
 			);
 			name = AddPoi;
 			sourceTree = "<group>";
@@ -3406,6 +3414,7 @@
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
 				D9545FFA1A22F5CD00688D72 /* tabbar_normal_background@2x.png in Resources */,
 				D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */,
+				D96551321A26E64A00928DB0 /* AddHotelTableViewCell.xib in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
@@ -3641,6 +3650,7 @@
 				D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */,
 				D9B476841A2468D30014136C /* SIMenuConfiguration.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
+				D96551311A26E64A00928DB0 /* AddHotelTableViewCell.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
 				D9545FC21A22EF9700688D72 /* RDVTabBar.m in Sources */,
