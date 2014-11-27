@@ -9,22 +9,14 @@
 #import "WelcomeViewController.h"
 #import "ICETutorialController.h"
 #import "AppUtils.h"
-#import "YWeatherUtils.h"
-#import "ToolBoxViewController.h"
 #import "FBShimmeringView.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface WelcomeViewController () <CLLocationManagerDelegate,ICETutorialControllerDelegate, YWeatherInfoDelegate>
-{
-    CLLocationManager* locationManager;
-    BOOL locationIsGotten;
-}
+@interface WelcomeViewController () <ICETutorialControllerDelegate>
 
 @property (nonatomic, strong) ICETutorialController *viewController;
 @property (weak, nonatomic) IBOutlet UIButton *jumpTaozi;
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageView;
-@property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
-@property (strong, nonatomic) WeatherInfo *weatherInfo;
 @property (strong, nonatomic) CLLocation *currentLocation;
 
 @end
@@ -34,7 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    locationIsGotten = NO;
     self.navigationController.navigationBar.hidden = YES;
     NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
     
@@ -45,11 +36,6 @@
     }];
     
     [self loadData];
-    
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate= self;
-    [locationManager requestAlwaysAuthorization];
-//    [locationManager startUpdatingLocation];
     
     FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:self.view.bounds];
     shimmeringView.shimmering = YES;
@@ -73,15 +59,6 @@
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
-}
-
-- (ToolBoxViewController *)toolBoxCtl
-{
-    if (!_toolBoxCtl) {
-        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        _toolBoxCtl = [board instantiateViewControllerWithIdentifier:@"toolsSB"];
-    }
-    return _toolBoxCtl;
 }
 
 - (void)loadData
@@ -127,9 +104,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"beginTravel"]) {
-        _toolBoxCtl = ((ToolBoxViewController *)((UINavigationController *)[((UITabBarController *)segue.destinationViewController).viewControllers firstObject]).topViewController);
-        _toolBoxCtl.location = _currentLocation;
-        _toolBoxCtl.weatherInfo = _weatherInfo;
     }
 }
 
@@ -191,65 +165,7 @@
     }];
 }
 
-- (void)updateWeatherWithLocation:(CLLocation *)location
-{
-    YWeatherUtils* yweatherUtils = [YWeatherUtils getInstance];
-    [yweatherUtils setMAfterRecieveDataDelegate: self];
-    [yweatherUtils queryYahooWeather:location.coordinate.latitude andLng:location.coordinate.longitude apiKey:@""];
-}
 
-#pragma mark - YWeatherInfoDelegate
-- (void)gotWeatherInfo:(WeatherInfo *)weatherInfo
-{
-    NSLog(@"/*****接收到天气数据******/\n");
-    _weatherInfo = weatherInfo;
-    if (_toolBoxCtl) {
-        _toolBoxCtl.weatherInfo = self.weatherInfo;
-        _toolBoxCtl.location = self.currentLocation;
-    }
-    
-}
-
-#pragma mark - MKMapViewDelegate
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations
-{
-    [locationManager stopUpdatingLocation];
-    if (!locationIsGotten) {
-        locationIsGotten = YES;
-        CLLocation *location = [locations firstObject];
-        NSLog(@"oh my god我被定位到了：%f, %f", location.coordinate.latitude, location.coordinate.longitude);
-        _currentLocation = location;
-        [self updateWeatherWithLocation:location];
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error
-{
-    [locationManager stopUpdatingLocation];
-}
-
-
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
-    switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
-            [locationManager stopUpdatingLocation];
-            break;
-        case kCLAuthorizationStatusAuthorizedAlways:
-            [locationManager startUpdatingLocation];
-
-            break;
-        case kCLAuthorizationStatusAuthorizedWhenInUse:
-            [locationManager startUpdatingLocation];
-            
-        default:
-            break;
-    } 
-}
 
 
 @end

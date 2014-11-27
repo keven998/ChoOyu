@@ -46,7 +46,7 @@
 #define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurants/localities/")
 #define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")
 #define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/vs/localities/")
-#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel/localities/")
+#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotels/localities/")
 
 #define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
 

@@ -18,8 +18,13 @@
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate>
+@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
+{
+    CLLocationManager* locationManager;
+    BOOL locationIsGotten;
+}
 
+@property (strong, nonatomic) CLLocation *currentLocation;
 @property (weak, nonatomic) IBOutlet UIButton *weatherBtn;
 @property (strong, nonatomic)NSDate *lastPlaySoundDate;
 @property (weak, nonatomic) IBOutlet UIButton *IMBtn;
@@ -45,6 +50,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate= self;
+    [locationManager requestWhenInUseAuthorization];
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
@@ -141,6 +150,56 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
+
+#pragma mark - MKMapViewDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [locationManager stopUpdatingLocation];
+    if (!locationIsGotten) {
+        locationIsGotten = YES;
+        CLLocation *location = [locations firstObject];
+        NSLog(@"oh my god我被定位到了：%f, %f", location.coordinate.latitude, location.coordinate.longitude);
+        _location = location;
+        [self updateWeatherWithLocation:location];
+    }
+}
+
+- (void)updateWeatherWithLocation:(CLLocation *)location
+{
+    YWeatherUtils* yweatherUtils = [YWeatherUtils getInstance];
+    [yweatherUtils setMAfterRecieveDataDelegate: self];
+    [yweatherUtils queryYahooWeather:location.coordinate.latitude andLng:location.coordinate.longitude apiKey:@""];
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    [locationManager stopUpdatingLocation];
+}
+
+
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            [locationManager stopUpdatingLocation];
+            break;
+        case kCLAuthorizationStatusAuthorizedAlways:
+            [locationManager startUpdatingLocation];
+            
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [locationManager startUpdatingLocation];
+            
+        default:
+            break;
+    } 
+}
+
+
 - (void)getReverseGeocode
 {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -151,8 +210,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     myCoOrdinate.longitude = _location.coordinate.longitude;
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
-     {
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
          if (error)
          {
              NSLog(@"failed with error: %@", error);
@@ -167,6 +225,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
      }];
 }
 
+#pragma mark - YWeatherInfoDelegate
+- (void)gotWeatherInfo:(WeatherInfo *)weatherInfo
+{
+    NSLog(@"/*****接收到天气数据******/\n");
+    self.weatherInfo = weatherInfo;
+    
+}
+
 - (void)updateWeatherLabelWithCityName:(NSString *)city
 {
     NSString *currentDate = [ConvertMethods getCurrentDataWithFormat:@"yyyy-MM-dd"];
@@ -178,9 +244,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         _weatherBtn.alpha = 0.5;
     } completion:^(BOOL finished) {
     }];
-    
-
-
 }
 
 #pragma mark - IBAction Methods
