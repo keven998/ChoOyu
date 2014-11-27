@@ -13,9 +13,9 @@
 - (void)awakeFromNib {
     // Initialization code
     
-    self.backgroundColor = APP_PAGE_COLOR;
+//    self.backgroundColor = APP_PAGE_COLOR;
     
-    _bgFrame.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+    _bgFrame.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     _bgFrame.layer.borderWidth = 0.5;
 }
 
@@ -25,8 +25,8 @@
     // Configure the view for the selected state
 }
 
-- (void)layoutSubviews {
-    self.selectedBackgroundView.frame = CGRectMake(10.0, 0, self.frame.size.width - 20.0, 44.0);
-}
+//- (void)layoutSubviews {
+//    self.selectedBackgroundView.frame = CGRectMake(10.0, 0, self.frame.size.width - 20.0, 44.0);
+//}
 
 @end

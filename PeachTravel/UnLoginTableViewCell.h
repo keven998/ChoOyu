@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface UnLoginTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *avatarFrame;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarPlaceholder;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 

@@ -12,6 +12,8 @@
 @implementation UnLoginTableViewCell
 
 - (void)awakeFromNib {
+    
+    _avatarPlaceholder.layer.cornerRadius = 31.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
