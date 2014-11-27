@@ -43,7 +43,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@53f30c3f10114e376de5b0fc", API_GET_SPOT_DETAIL];
+    NSString *url = [NSString stringWithFormat:@"%@5474674fd174911938325828", API_GET_SPOT_DETAIL];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取景点详情数据****\n%@", responseObject);

@@ -174,7 +174,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
-    cityDetailCtl.recommend = recommend;
+    cityDetailCtl.cityId = recommend.recommondId;
     cityDetailCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
 
