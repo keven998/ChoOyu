@@ -13,6 +13,9 @@
 #import "DestinationsView.h"
 #import "AddPoiTableViewController.h"
 #import "CityDestinationPoi.h"
+#import "DestinationUnit.h"
+#import "CityDetailTableViewController.h"
+#import "RecommendDataSource.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
@@ -116,6 +119,9 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         }
     }
     _destinationsHeaderView.destinations = destinationsArray;
+    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
+        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 #pragma makr - IBAction Methods
@@ -125,6 +131,7 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     [_tripDetail.itineraryList addObject:[[NSMutableArray alloc] init]];
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:_tripDetail.itineraryList.count-1];
     [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    _tripDetail.dayCount++;
 }
 
 - (IBAction)showMore:(UIButton *)sender
@@ -169,7 +176,21 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
     } else {
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [self.tripDetail saveTrip];
     }
+}
+
+/**
+ *  点击我的目的地进入城市详情
+ *
+ *  @param sender
+ */
+- (IBAction)viewCityDetail:(UIButton *)sender
+{
+    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = poi.cityId;
+    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - RNGridMenuDelegate
@@ -191,6 +212,7 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
                 [_tripDetail.itineraryList removeObjectAtIndex:gridMenu.menuView.tag];
+                _tripDetail.dayCount--;
                 [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:gridMenu.menuView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }];

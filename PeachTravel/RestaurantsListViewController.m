@@ -12,6 +12,8 @@
 #import "DestinationsView.h"
 #import "RestaurantsOfCityViewController.h"
 #import "CityDestinationPoi.h"
+#import "DestinationUnit.h"
+#import "CityDetailTableViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantsOfCityDelegate>
 
@@ -108,6 +110,10 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         }
     }
     _destinationsHeaderView.destinations = destinationsArray;
+    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
+        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
 }
 
 #pragma makr - IBAction Methods
@@ -147,6 +153,19 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     } else {
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     }
+}
+
+/**
+ *  点击我的目的地进入城市详情
+ *
+ *  @param sender
+ */
+- (IBAction)viewCityDetail:(UIButton *)sender
+{
+    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = poi.cityId;
+    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - RestaurantsOfCityDelegate

@@ -14,4 +14,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame andContentOffsetX:(CGFloat)offsetX;
 
+@property (nonatomic, strong) NSArray *destinationItmes;
+
 @end

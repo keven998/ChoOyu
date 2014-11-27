@@ -204,6 +204,30 @@
     }];
 }
 
+- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name
+{
+    __block DestinationUnit *newUnitCell;
+    
+    NSLog(@"%f", offsetX);
+    if (icon) {
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
+    } else {
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
+    }
+    offsetX += defaultPace+newUnitCell.frame.size.width;
+    newUnitCell.alpha = 0.1;
+    [_unitList addObject:newUnitCell];
+    [_scrollView addSubview:newUnitCell];
+    [self scrollViewAbleScroll];
+    
+    [UIView animateWithDuration:duration animations:^(){
+        newUnitCell.alpha = 0.8;
+    } completion:^(BOOL finished){
+        newUnitCell.alpha = 1.0;
+    }];
+    return newUnitCell;
+}
+
 /*
  *  @method
  *  @function

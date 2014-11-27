@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DestinationUnit.h"
 
 @protocol DestinationToolBarDelegate <NSObject>
 
@@ -27,6 +28,8 @@
 - (void) addNewUnit:(NSString *)icon withName:(NSString *)name;
 - (void) addNewUnitWithName:(NSString *)name;
 - (void) addNewUnitWithName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled;
+- (DestinationUnit *) addUnit:(NSString *)icon withName:(NSString *)name;
+
 - (void) removeUnitAtIndex:(NSInteger)index;
 
 @end

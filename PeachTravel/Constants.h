@@ -50,6 +50,8 @@
 
 #define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
 
+#define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
+
 
 
 
