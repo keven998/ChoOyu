@@ -44,10 +44,6 @@
         }
     }];
     
-    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
-        [self beginIntroduce];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
-    }
     [self loadData];
     
     locationManager = [[CLLocationManager alloc] init];
@@ -66,6 +62,11 @@
     shimmeringView.shimmeringSpeed = 80.0;
     [self.view addSubview:shimmeringView];
     shimmeringView.contentView = _jumpTaozi;
+    
+    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
+        [self beginIntroduce];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -177,7 +178,6 @@
     
     // Run it.
     [self.viewController startScrolling];
-
 }
 
 - (void)tutorialControllerDidReachLastPage:(ICETutorialController *)tutorialController
@@ -188,7 +188,6 @@
         self.viewController.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self.viewController.view removeFromSuperview];
-        
     }];
 }
 
