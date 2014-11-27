@@ -74,6 +74,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"count = %d", self.navigationController.childViewControllers.count);
+}
+
 - (void)dealloc
 {
     [self unregisterNotifications];
