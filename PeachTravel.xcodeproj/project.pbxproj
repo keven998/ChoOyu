@@ -23,7 +23,7 @@
 		C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */; };
 		C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */; };
 		C67B4DBA1A26D60200CBF10B /* CustomSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DB91A26D60200CBF10B /* CustomSegue.m */; };
-		C67B4DBE1A26EAFA00CBF10B /* RASlideInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DBD1A26EAFA00CBF10B /* RASlideInViewController.m */; };
+		C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */; };
 		D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */; };
 		D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD091A147B5600E36A93 /* HotDestinationCollectionViewCell.m */; };
 		D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902AD0A1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib */; };
@@ -536,8 +536,8 @@
 		C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		C67B4DB81A26D60200CBF10B /* CustomSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegue.h; sourceTree = "<group>"; };
 		C67B4DB91A26D60200CBF10B /* CustomSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegue.m; sourceTree = "<group>"; };
-		C67B4DBC1A26EAFA00CBF10B /* RASlideInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RASlideInViewController.h; sourceTree = "<group>"; };
-		C67B4DBD1A26EAFA00CBF10B /* RASlideInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RASlideInViewController.m; sourceTree = "<group>"; };
+		C67B4DC01A270EF600CBF10B /* ZFModalTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFModalTransitionAnimator.h; sourceTree = "<group>"; };
+		C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
 		D902AD051A14789400E36A93 /* HotDestinationCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewController.h; sourceTree = "<group>"; };
 		D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotDestinationCollectionViewController.m; sourceTree = "<group>"; };
 		D902AD081A147B5600E36A93 /* HotDestinationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1312,14 +1312,14 @@
 			path = Common/Config/libs/FBShimmering;
 			sourceTree = "<group>";
 		};
-		C67B4DBB1A26EAFA00CBF10B /* RASlideInViewController */ = {
+		C67B4DBF1A270EF600CBF10B /* ZFDragableModalTransition */ = {
 			isa = PBXGroup;
 			children = (
-				C67B4DBC1A26EAFA00CBF10B /* RASlideInViewController.h */,
-				C67B4DBD1A26EAFA00CBF10B /* RASlideInViewController.m */,
+				C67B4DC01A270EF600CBF10B /* ZFModalTransitionAnimator.h */,
+				C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */,
 			);
-			name = RASlideInViewController;
-			path = Common/Config/libs/RASlideInViewController;
+			name = ZFDragableModalTransition;
+			path = Common/Config/libs/ZFDragableModalTransition;
 			sourceTree = "<group>";
 		};
 		D04CEAB67B3F2D1933738689 /* Pods */ = {
@@ -2206,7 +2206,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				C67B4DBB1A26EAFA00CBF10B /* RASlideInViewController */,
+				C67B4DBF1A270EF600CBF10B /* ZFDragableModalTransition */,
 				C653F5271A25C2BF00E7479F /* FBShimmering */,
 				D9B476691A2468D30014136C /* NavigationMenuView */,
 				D95460111A233D6C00688D72 /* DKCircleButton */,
@@ -3685,6 +3685,7 @@
 				D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */,
 				D954601F1A23531200688D72 /* ShoppingListTableViewCell.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
+				C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
 				D958E36A1A0256A60026EF7E /* KxMenu.m in Sources */,
 				D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */,
@@ -3700,7 +3701,6 @@
 				D9B4765A1A243E570014136C /* ShoppingOfCityViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D9B4768D1A2478F20014136C /* RestaurantsOfCity.m in Sources */,
-				C67B4DBE1A26EAFA00CBF10B /* RASlideInViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
 				D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,

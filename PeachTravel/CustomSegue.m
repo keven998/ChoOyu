@@ -7,11 +7,14 @@
 //
 
 #import "CustomSegue.h"
+#import "WelcomeViewController.h"
 
 @implementation CustomSegue
 
 - (void)perform {
     UINavigationController *nctl = [self.sourceViewController navigationController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *welvc = [storyboard instantiateViewControllerWithIdentifier:@"welcomeSB"];
     NSArray *newViewControllers = [NSArray arrayWithObject:[self destinationViewController]];
     [nctl setViewControllers:newViewControllers animated:YES];
 }

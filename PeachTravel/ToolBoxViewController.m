@@ -14,6 +14,8 @@
 #import "TZCMDChatHelper.h"
 #import "IMRootViewController.h"
 #import "OperationData.h"
+#import "ZFModalTransitionAnimator.h"
+#import "WelcomeViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -33,6 +35,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *weatherBtnConstraints;
 
+@property (nonatomic, strong) ZFModalTransitionAnimator *animator;
+
 @end
 
 @implementation ToolBoxViewController
@@ -50,6 +54,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self showCover];
+    
+    self.navigationItem.title = @"桃子旅行";
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
@@ -71,12 +78,41 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     testData2.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
     _operationDataArray = @[testData, testData1,testData2];
     [self setupSubView];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void) showCover {
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    RASlideInViewController *welvc = [storyboard instantiateViewControllerWithIdentifier:@"welcomeSB"];
+////    welvc.hidesBottomBarWhenPushed = YES;
+////    [self.navigationController pushViewController:welvc animated:NO];
+//    welvc.slideInDirection = RASlideInDirectionLeftToRight;
+//    
+//    _subWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    _subWindow.windowLevel = UIWindowLevelStatusBar;
+//    _subWindow.rootViewController = welvc;
+//    [_subWindow makeKeyAndVisible];
     
+    WelcomeViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"welcomeSB"];
+    modalVC.modalPresentationStyle = UIModalPresentationCustom;
+    
+    self.animator = [[ZFModalTransitionAnimator alloc] initWithModalViewController:modalVC];
+    self.animator.dragable = YES;
+    self.animator.bounces = NO;
+    self.animator.behindViewAlpha = 0.5f;
+    self.animator.behindViewScale = 0.5f;
+    self.animator.transitionDuration = 0.7f;
+    self.animator.direction = ZFModalTransitonDirectionLeft;
+    
+    modalVC.transitioningDelegate = self.animator;
+    [self presentViewController:modalVC animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@"count = %d", self.navigationController.childViewControllers.count);
 }
 
 - (void)dealloc

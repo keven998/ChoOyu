@@ -12,7 +12,9 @@
 #import "FBShimmeringView.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface WelcomeViewController () <ICETutorialControllerDelegate>
+@interface WelcomeViewController () <ICETutorialControllerDelegate> {
+    FBShimmeringView *shimmeringView;
+}
 
 @property (nonatomic, strong) ICETutorialController *viewController;
 @property (weak, nonatomic) IBOutlet UIButton *jumpTaozi;
@@ -26,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.hidden = YES;
     NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
     
     [_backGroundImageView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -36,18 +37,7 @@
     }];
     
     [self loadData];
-    
-    FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:self.view.bounds];
-    shimmeringView.shimmering = YES;
-    shimmeringView.shimmeringBeginFadeDuration = 0.1;
-    shimmeringView.shimmeringEndFadeDuration = 0.1;
-    shimmeringView.shimmeringPauseDuration = 0.1;
-    shimmeringView.shimmeringAnimationOpacity = 1.0;
-    shimmeringView.shimmeringHighlightLength = 0.15;
-    shimmeringView.shimmeringOpacity = 0.7;
-    shimmeringView.shimmeringSpeed = 80.0;
-    [self.view addSubview:shimmeringView];
-    shimmeringView.contentView = _jumpTaozi;
+    [_jumpTaozi addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
@@ -55,10 +45,41 @@
     }
 }
 
+- (IBAction)dismiss:(id)sender {
+//    [self.navigationController popViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    self.navigationController.navigationBar.hidden = YES;
+    
+    if (shimmeringView == nil) {
+        shimmeringView = [[FBShimmeringView alloc] initWithFrame:self.view.bounds];
+        shimmeringView.shimmering = YES;
+        shimmeringView.shimmeringBeginFadeDuration = 0.1;
+        shimmeringView.shimmeringEndFadeDuration = 0.1;
+        shimmeringView.shimmeringPauseDuration = 0.1;
+        shimmeringView.shimmeringAnimationOpacity = 1.0;
+        shimmeringView.shimmeringHighlightLength = 0.15;
+        shimmeringView.shimmeringOpacity = 0.7;
+        shimmeringView.shimmeringSpeed = 80.0;
+        [self.view addSubview:shimmeringView];
+        shimmeringView.contentView = _jumpTaozi;
+    } else {
+        shimmeringView.shimmering = YES;
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
+    shimmeringView.shimmering = NO;
+}
+
+- (void) dealloc {
+    shimmeringView = nil;
 }
 
 - (void)loadData
