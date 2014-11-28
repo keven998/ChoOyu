@@ -42,7 +42,7 @@
     return _backUpTrip;
 }
 
-- (void)saveTrip
+- (void)saveTrip:(void (^)(BOOL))completion
 {
     
     if (![self restaurantListIsChange] && ![self itineraryListIsChange] && ![self shoppingListIsChange] ) {
@@ -110,10 +110,10 @@
 
     NSLog(@"经过辛辛苦苦的增删改查终于编辑好了,路线内容为：\n%@",str);
     
-    [self uploadTripData:(NSDictionary *)uploadDic];
+    [self uploadTripData:(NSDictionary *)uploadDic completionBlock:completion];
 }
 
-- (void)uploadTripData:(NSDictionary *)uploadDic
+- (void)uploadTripData:(NSDictionary *)uploadDic completionBlock:(void(^)(BOOL))completion
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
@@ -131,8 +131,10 @@
         if (code == 0) {
             NSLog(@"保存成功");
             [self updateBackupTripJson:uploadDic];
+            completion(YES);
         } else {
             NSLog(@"保存失败");
+            completion(NO);
             
         }
         

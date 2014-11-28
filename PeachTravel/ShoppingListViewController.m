@@ -108,7 +108,9 @@ static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
     } else {
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [self.tripDetail saveTrip];
+        [self.tripDetail saveTrip:^(BOOL isSuccesss) {
+            
+        }];
     }
 }
 

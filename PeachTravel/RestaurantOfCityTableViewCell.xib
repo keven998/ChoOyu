@@ -57,7 +57,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tW-7h-GtK">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tW-7h-GtK">
                                 <rect key="frame" x="30" y="61" width="184" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="Axu-Vx-T7h"/>
@@ -118,11 +118,21 @@
                                 <color key="textColor" red="0.9507679939" green="0.49321734360000002" blue="0.41973676570000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAm-iX-zjQ">
+                                <rect key="frame" x="8" y="115" width="288" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="X8o-bJ-xps"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Xyp-6d-AOQ" secondAttribute="trailing" constant="14" id="0gl-wg-W3K"/>
                             <constraint firstAttribute="trailing" secondItem="bw7-9i-X9E" secondAttribute="trailing" constant="8" id="3ao-we-Vv6"/>
+                            <constraint firstAttribute="trailing" secondItem="zAm-iX-zjQ" secondAttribute="trailing" constant="8" id="4rn-Fd-pL4"/>
                             <constraint firstItem="RQx-Su-fv7" firstAttribute="leading" secondItem="5tW-7h-GtK" secondAttribute="trailing" constant="16" id="7bc-Oe-21k"/>
                             <constraint firstItem="5tW-7h-GtK" firstAttribute="top" secondItem="3Mc-EB-YzM" secondAttribute="bottom" constant="31" id="9Ij-vG-7oL"/>
                             <constraint firstItem="A2r-F8-f1I" firstAttribute="leading" secondItem="ZMo-1w-qbx" secondAttribute="trailing" constant="20" id="ANv-KN-Pm0"/>
@@ -132,9 +142,11 @@
                             <constraint firstAttribute="trailing" secondItem="A2r-F8-f1I" secondAttribute="trailing" constant="8" id="Eay-ha-43c"/>
                             <constraint firstItem="Rbk-Jj-QiR" firstAttribute="top" secondItem="3Mc-EB-YzM" secondAttribute="bottom" constant="10" id="GIQ-QV-Z9E"/>
                             <constraint firstAttribute="trailing" secondItem="3Mc-EB-YzM" secondAttribute="trailing" id="JRE-TK-QcI"/>
+                            <constraint firstAttribute="bottom" secondItem="zAm-iX-zjQ" secondAttribute="bottom" id="L7X-bs-fyp"/>
                             <constraint firstItem="lVe-6N-7J1" firstAttribute="leading" secondItem="K0b-94-vE5" secondAttribute="leading" constant="30" id="LCw-si-HI2"/>
                             <constraint firstItem="RQx-Su-fv7" firstAttribute="top" secondItem="3Mc-EB-YzM" secondAttribute="bottom" constant="10" id="Rvj-Ua-lk5"/>
                             <constraint firstItem="RQx-Su-fv7" firstAttribute="leading" secondItem="Rbk-Jj-QiR" secondAttribute="trailing" constant="53" id="STn-kA-4WX"/>
+                            <constraint firstItem="zAm-iX-zjQ" firstAttribute="leading" secondItem="K0b-94-vE5" secondAttribute="leading" constant="8" id="Tvb-zJ-0dE"/>
                             <constraint firstAttribute="trailing" secondItem="lVe-6N-7J1" secondAttribute="trailing" constant="74" id="Vkn-03-Sa1"/>
                             <constraint firstItem="bw7-9i-X9E" firstAttribute="top" secondItem="K0b-94-vE5" secondAttribute="top" constant="5" id="Wbk-Qe-K6V"/>
                             <constraint firstItem="3Mc-EB-YzM" firstAttribute="leading" secondItem="K0b-94-vE5" secondAttribute="leading" id="hkk-XF-QC9"/>
@@ -167,11 +179,12 @@
                 <outlet property="commentAuthor" destination="ZMo-1w-qbx" id="Pza-WP-asy"/>
                 <outlet property="commentCntBtn" destination="A2r-F8-f1I" id="dAP-gQ-J7T"/>
                 <outlet property="commentDetail" destination="lVe-6N-7J1" id="JyW-zm-CJM"/>
+                <outlet property="jumpCommentBtn" destination="zAm-iX-zjQ" id="91S-8j-aNU"/>
                 <outlet property="priceLabel" destination="Rbk-Jj-QiR" id="MCc-0m-qon"/>
                 <outlet property="ratingBtn" destination="Xyp-6d-AOQ" id="GNd-IP-Zf2"/>
                 <outlet property="titleBtn" destination="3Mc-EB-YzM" id="Vn2-fq-Ft5"/>
             </connections>
-            <point key="canvasLocation" x="132" y="114"/>
+            <point key="canvasLocation" x="133" y="18"/>
         </tableViewCell>
     </objects>
     <resources>

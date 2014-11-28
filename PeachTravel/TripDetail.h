@@ -10,10 +10,6 @@
  * **************包含三张单的所有数据************
  ****************/
 
-@protocol TripDetailDelegate <NSObject>
-
-@end
-
 #import <Foundation/Foundation.h>
 
 @interface TripDetail : NSObject
@@ -34,7 +30,7 @@
 /**
  *  保存所有的路线，包含三张单的内容,但是你别小瞧了这个函数，这个函数可厉害了，他会自动判断你哪张单做了改动，要是没做改动是不会上传的。
  */
-- (void)saveTrip;
+- (void)saveTrip:(void(^)(BOOL isSuccesss))completion;
 
 @end
 
