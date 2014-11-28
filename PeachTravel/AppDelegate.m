@@ -39,6 +39,14 @@
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     application.keyWindow.backgroundColor = APP_PAGE_COLOR;
+//    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+//    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+//    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0x08dcab)] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setTitleTextAttributes:
+//     [NSDictionary dictionaryWithObjectsAndKeys:
+//      [UIColor whiteColor], NSForegroundColorAttributeName,
+//      nil]];
+//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     /****** 设置环信 ******/
     

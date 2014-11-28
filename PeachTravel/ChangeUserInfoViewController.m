@@ -22,16 +22,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_changeType == ChangeName) {
-        self.navigationItem.title = @"昵称";
+        self.navigationItem.title = @"修改昵称";
     }
     if (_changeType == ChangeSignature) {
-        self.navigationItem.title = @"个性签名";
+        self.navigationItem.title = @"旅行宣言";
     }
     
-    _contentTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _contentTextField.layer.borderWidth = 1.0;
+    _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
+    _contentTextField.layer.borderWidth = 0.5;
     _contentTextField.delegate = self;
-    UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12.0, 20.0)];
+    UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, 20.0)];
     sv.backgroundColor = [UIColor whiteColor];
     _contentTextField.leftView = sv;
     _contentTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -39,9 +39,10 @@
     
     _contentTextField.text = _content;
     
+    
     UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:14.];
-    [registerBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [registerBtn setTitle:@"保存" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(saveChange:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];

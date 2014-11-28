@@ -10,6 +10,6 @@
 
 @interface VerifyCaptchaViewController : UIViewController
 
-@property (nonatomic) VerifyCaptchaType verifyCaptchaType;
+@property (nonatomic, assign) VerifyCaptchaType verifyCaptchaType;
 
 @end

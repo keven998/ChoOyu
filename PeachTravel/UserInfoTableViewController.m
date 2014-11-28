@@ -17,9 +17,9 @@
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define dataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"个性签名"], @[@"修改密码", @"手机绑定"]]
+#define dataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"旅行宣言"], @[@"修改密码", @"手机绑定"]]
 
-@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -97,10 +97,12 @@
 
 -(IBAction)logout:(id)sender
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [accountManager logout];
-    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
-    [self.navigationController popViewControllerAnimated:YES];
+    UIAlertView*alert = [[UIAlertView alloc]initWithTitle:nil
+                                                  message:@"确定退出已登陆账户"
+                                                 delegate:self
+                                        cancelButtonTitle:@"取消"
+                                        otherButtonTitles:@"确定", nil];
+    [alert show];
 }
 
 #pragma mark - Table view data source
@@ -238,6 +240,14 @@
     cell.userPhoto.image = headerImage;
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [accountManager logout];
+        [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 @end
 
