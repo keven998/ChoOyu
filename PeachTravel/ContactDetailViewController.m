@@ -116,7 +116,7 @@
     title.font = [UIFont systemFontOfSize:15.0];
     title.textColor = UIColorFromRGB(0x393939);
     title.textAlignment = NSTextAlignmentRight;
-    title.text = @"签名：";
+    title.text = @"旅行宣言：";
     [_signPanel addSubview:title];
     _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(58.0, 0.0, width - 88.0, 50.0)];
     _signLabel.numberOfLines = 0.;

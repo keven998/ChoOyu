@@ -11,6 +11,8 @@
 @implementation UserOtherTableViewCell
 
 - (void)awakeFromNib {
+    self.contentView.layer.borderWidth = 0.25;
+    self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

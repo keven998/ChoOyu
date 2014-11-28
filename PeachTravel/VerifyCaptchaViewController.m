@@ -28,7 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"找回密码";
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48.0, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
+    [registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = registerItem;
+
+    
+    if (_verifyCaptchaType == UserBindTel) {
+        self.navigationItem.title = @"安全设置";
+        _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
+        [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
+    } else {
+        self.navigationItem.title = @"找回密码";
+        [registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
+        
+    }
     
 //    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
 //    tapBackground.numberOfTapsRequired = 1;
@@ -38,23 +54,23 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
     
-    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _phoneLabel.layer.borderWidth = 1.0;
-    _captchaLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _captchaLabel.layer.borderWidth = 1.0;
+//    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _phoneLabel.layer.borderWidth = 1.0;
+//    _captchaLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _captchaLabel.layer.borderWidth = 1.0;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _phoneLabel.bounds.size.height - 14.0)];
-    ul.text = @" 账 户:";
-    ul.textColor = UIColorFromRGB(0x393939);
-    ul.font = [UIFont systemFontOfSize:15.0];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 14.0)];
+    ul.text = @"手机号:";
+    ul.textColor = TEXT_COLOR_TITLE;
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _captchaLabel.bounds.size.height - 14.0)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 14.0)];
     pl.text = @"验证码:";
-    pl.textColor = UIColorFromRGB(0x393939);
-    pl.font = [UIFont systemFontOfSize:13.0];
+    pl.textColor = TEXT_COLOR_TITLE;
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
