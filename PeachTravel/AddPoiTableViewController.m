@@ -13,6 +13,10 @@
 #import "TripDetail.h"
 #import "RestaurantOfCityTableViewCell.h"
 #import "AddHotelTableViewCell.h"
+#import "SpotDetailViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
+
 
 @interface AddPoiTableViewController () <SINavigationMenuDelegate, UISearchBarDelegate>
 
@@ -80,7 +84,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _searchBar.translucent = YES;
-        _searchBar.showsCancelButton = YES;
         _searchController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
         _searchController.active = NO;
         _searchController.searchResultsDataSource = self;
@@ -269,6 +272,40 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         return addHotelCell;
     }
     return nil;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TripPoi *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
+    switch (tripPoi.poiType) {
+        case TripSpotPoi: {
+            SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
+            spotDetailCtl.spotId = tripPoi.poiId;
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+        }
+            break;
+        case TripRestaurantPoi: {
+            RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+            restaurantDetailCtl.restaurantId = tripPoi.poiId;
+            [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        }
+            
+            break;
+        case TripShoppingPoi: {
+            ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
+            shoppingDetailCtl.shoppingId = tripPoi.poiId;
+            [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
+        }
+            
+            break;
+        case TripHotelPoi:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

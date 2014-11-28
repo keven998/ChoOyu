@@ -12,6 +12,7 @@
 @interface RestaurantOfCityTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (weak, nonatomic) IBOutlet UIButton *jumpCommentBtn;
 
 @property (nonatomic, strong) RestaurantPoi *restaurantPoi;
 

@@ -37,6 +37,7 @@
         _commentDetail.hidden = NO;
         _commentAuthor.hidden = NO;
         _commentCntBtn.hidden = NO;
+        _jumpCommentBtn.hidden = NO;
         CommentDetail *comment = [restaurantPoi.comments firstObject];
         _commentAuthor.text = comment.nickName;
         _commentDetail.text = comment.commentDetails;
@@ -45,6 +46,7 @@
         _commentDetail.hidden = YES;
         _commentAuthor.hidden = YES;
         _commentCntBtn.hidden = YES;
+        _jumpCommentBtn.hidden = YES;
     }
     
 }

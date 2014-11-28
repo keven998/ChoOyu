@@ -10,6 +10,7 @@
 #import "RestaurantOfCityTableViewCell.h"
 #import "SINavigationMenuView.h"
 #import "CityDestinationPoi.h"
+#import "RestaurantDetailViewController.h"
 
 @interface RestaurantsOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
 
@@ -122,28 +123,6 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 }
 
-#pragma mark - IBAction Methods
-
-- (IBAction)addPoi:(UIButton *)sender
-{
-    TripPoi *tripPoi = [[TripPoi alloc] init];
-    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:sender.tag];
-    tripPoi.poiId = restaurantPoi.restaurantId;
-    tripPoi.zhName = restaurantPoi.zhName;
-    tripPoi.enName = restaurantPoi.enName;
-    tripPoi.images = restaurantPoi.images;
-    tripPoi.priceDesc = restaurantPoi.priceDesc;
-    tripPoi.desc = restaurantPoi.desc;
-    tripPoi.address = restaurantPoi.address;
-    [self.tripDetail.restaurantsList addObject:tripPoi];
-}
-
-- (IBAction)finishAdd:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [_delegate finishEdit];
-}
-
 #pragma mark - Private Methods
 
 - (void)loadData
@@ -185,6 +164,26 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 #pragma mark - IBAction Methods
 
+- (IBAction)addPoi:(UIButton *)sender
+{
+    TripPoi *tripPoi = [[TripPoi alloc] init];
+    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:sender.tag];
+    tripPoi.poiId = restaurantPoi.restaurantId;
+    tripPoi.zhName = restaurantPoi.zhName;
+    tripPoi.enName = restaurantPoi.enName;
+    tripPoi.images = restaurantPoi.images;
+    tripPoi.priceDesc = restaurantPoi.priceDesc;
+    tripPoi.desc = restaurantPoi.desc;
+    tripPoi.address = restaurantPoi.address;
+    [self.tripDetail.restaurantsList addObject:tripPoi];
+}
+
+- (IBAction)finishAdd:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [_delegate finishEdit];
+}
+
 - (IBAction)showMoreCities:(UIButton *)sender
 {
 }
@@ -192,6 +191,11 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 - (IBAction)chat:(id)sender
 {
     
+}
+
+- (IBAction)jumpToCommentList:(id)sender
+{
+    //TODO:进入评论列表
 }
 
 #pragma mark - SINavigationMenuDelegate
@@ -237,7 +241,22 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     }
     cell.restaurantPoi = restaurantPoi;
     cell.addBtn.tag = indexPath.row;
+    cell.jumpCommentBtn.tag = indexPath.row;
     [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.jumpCommentBtn addTarget:self action:@selector(jumpToCommentList:) forControlEvents:UIControlEventTouchUpInside];
+
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
+    RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+    restaurantDetailCtl.restaurantId = restaurantPoi.restaurantId;
+    [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+}
+
+
+
+
 @end
