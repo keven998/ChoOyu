@@ -11,6 +11,10 @@
 @implementation UserHeaderTableViewCell
 
 - (void)awakeFromNib {
+    _userPhoto.layer.cornerRadius = 20.5;
+    _userPhoto.clipsToBounds = YES;
+    self.contentView.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
+    self.contentView.layer.borderWidth = 0.3;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
