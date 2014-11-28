@@ -120,6 +120,9 @@
         case ChangeSignature:
             self.account.signature = changeContent;
             
+        case ChangeTel:
+            self.account.tel = changeContent;
+            
         default:
             break;
     }

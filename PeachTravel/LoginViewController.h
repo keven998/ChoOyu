@@ -10,4 +10,6 @@
 
 @interface LoginViewController : UIViewController
 
+@property (nonatomic) BOOL isPushed;       //判断是 push 还是 present
+
 @end

@@ -33,6 +33,16 @@
     
     self.navigationItem.title = @"登录";
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
+    
+    if (!self.isPushed) {
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [backBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    }
+    
     _userNameTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     _userNameTextField.layer.borderWidth = 1.0;
     _userNameTextField.delegate = self;
@@ -64,10 +74,6 @@
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
     self.navigationItem.rightBarButtonItem = registerItem;
     
-//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-//    tapBackground.numberOfTapsRequired = 1;
-//    tapBackground.numberOfTouchesRequired = 1;
-//    [self.view addGestureRecognizer:tapBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -132,15 +138,6 @@
 - (IBAction)weixinLogin:(UIButton *)sender {
     [self sendAuthRequest];
 }
-
-//- (void)tapBackground:(id)sender
-//{
-//    if ([_userNameTextField isFirstResponder]) {
-//        [_userNameTextField resignFirstResponder];
-//    } else if ([_passwordTextField isFirstResponder]) {
-//        [_passwordTextField resignFirstResponder];
-//    }
-//}
 
 #pragma mark - private methods
 
@@ -243,9 +240,20 @@
      } onQueue:nil];
 }
 
+- (void)userDidRegisted
+{
+    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+}
+
 - (void)dismissCtl
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isPushed) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
 @end

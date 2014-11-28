@@ -46,11 +46,7 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = pl;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
-    
-//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-//    tapBackground.numberOfTapsRequired = 1;
-//    tapBackground.numberOfTouchesRequired = 1;
-//    [self.view addGestureRecognizer:tapBackground];
+
 }
 
 #pragma mark - UITextFieldDelegate
@@ -63,15 +59,6 @@
 }
 
 #pragma mark - IBAction Methods
-
-//- (void)tapBackground:(id)sender
-//{
-//    if ([_phoneLabel isFirstResponder]) {
-//        [_phoneLabel resignFirstResponder];
-//    } else if ([_passwordLabel isFirstResponder]) {
-//        [_passwordLabel resignFirstResponder];
-//    }
-//}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

@@ -52,13 +52,26 @@
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
+            if (_verifyCaptchaType == UserBindTel) {     //如果是绑定手机号过程中的设置密码
+                [SVProgressHUD showSuccessWithStatus:@"设置成功"];
+                AccountManager *accountManager = [AccountManager shareAccountManager];
+                [accountManager updateUserInfo:_phoneNumber withChangeType:ChangeTel];
+                [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                
+            } else {
+                [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            }
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        if (_verifyCaptchaType == UserBindTel) {     //如果是绑定手机号过程中的设置密码
+            [SVProgressHUD showErrorWithStatus:@"设置失败"];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        }
     }];
     
     _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
