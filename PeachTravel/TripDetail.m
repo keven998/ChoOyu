@@ -303,7 +303,12 @@
     return self;
 }
 
-- (NSDictionary *)prepareForUpload
+/**
+ *
+ *
+ *  @return 
+ */
+- (NSDictionary *)prepareAllDataForUpload
 {
     NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
     [retDic safeSetObject:_poiId forKey:@"id"];

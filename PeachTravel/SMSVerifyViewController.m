@@ -43,11 +43,7 @@
     ul.textAlignment = NSTextAlignmentCenter;
     _verifyCodeTextField.leftView = ul;
     _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
-    
-//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-//    tapBackground.numberOfTapsRequired = 1;
-//    tapBackground.numberOfTouchesRequired = 1;
-//    [self.view addGestureRecognizer:tapBackground];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated

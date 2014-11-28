@@ -57,9 +57,13 @@
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager updateUserInfo:_phoneNumber withChangeType:ChangeTel];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-                
+                [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+                AccountManager *accountManager = [AccountManager shareAccountManager];
+                [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
             }
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
@@ -89,6 +93,12 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
+}
+
+- (void)dismissCtl
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 @end
