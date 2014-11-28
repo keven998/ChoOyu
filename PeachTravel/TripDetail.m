@@ -55,15 +55,11 @@
         NSLog(@"******保存路线列表**********");
         NSMutableArray *itineraryListToServer = [[NSMutableArray alloc] init];
         for (int i = 0; i < _itineraryList.count; i++) {
-            NSMutableDictionary *oneDayDic = [[NSMutableDictionary alloc] init];
-            [oneDayDic setObject:[NSNumber numberWithInt:i] forKeyedSubscript:@"dayIndex"];
-            NSMutableArray *oneDayArray = [[NSMutableArray alloc] init];
             for (int j = 0; j < [[_itineraryList objectAtIndex:i] count]; j++) {
+                NSMutableDictionary *oneDayDic = [[NSMutableDictionary alloc] init];
+                [oneDayDic setObject:[NSNumber numberWithInt:i] forKeyedSubscript:@"dayIndex"];
                 TripPoi *tripPoi = [[_itineraryList objectAtIndex:i] objectAtIndex:j];
-                [oneDayArray addObject:[tripPoi prepareForUpload]];
-            }
-            [oneDayDic safeSetObject:oneDayArray forKey:@"poi"];
-            if (oneDayArray.count) {
+                [oneDayDic safeSetObject:[tripPoi prepareForUpload] forKey:@"poi"];
                 [itineraryListToServer addObject:oneDayDic];
             }
         }
@@ -340,7 +336,7 @@
             break;
     }
     
-    [retDic safeSetObject:poiTypeStr forKey:@"tpye"];
+    [retDic safeSetObject:poiTypeStr forKey:@"type"];
     
     NSMutableArray *coordinatesArray = [[NSMutableArray alloc] init];
     [coordinatesArray addObject:[NSNumber numberWithDouble:_lng]];

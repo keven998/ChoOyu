@@ -109,13 +109,17 @@
 
     [params setObject:_verifyCodeTextField.text forKey:@"captcha"];
     
+    [SVProgressHUD show];
+    
     //获取用户信息
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"注册成功"];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil];
             [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
 
         } else {

@@ -77,6 +77,7 @@
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     loginCtl.hidesBottomBarWhenPushed = YES;
+    loginCtl.isPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
 }
 

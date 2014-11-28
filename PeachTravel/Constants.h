@@ -83,6 +83,7 @@
 
 #define weixinDidLoginNoti              @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
 #define userDidLoginNoti                @ "userDidLogin"                //用户完成所有登录工作。
+#define userDidRegistedNoti             @ "userDidRegisted"                //用户完成所有登录工作。
 #define userDidLogoutNoti               @ "userDidLogout"               //用户完成所有退出登录工作。
 #define updateUserInfoNoti              @ "updateUserInfo"              //用户信息有更改。
 #define loadedAddressBookNoti           @ "loadedAddressBook"           //通讯录联系人加载完成。
