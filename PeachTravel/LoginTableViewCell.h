@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *userId;
 @property (weak, nonatomic) IBOutlet UILabel *userSign;
+@property (weak, nonatomic) IBOutlet UIImageView *userGender;
 
 @end

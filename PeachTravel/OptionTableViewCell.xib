@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -8,53 +8,55 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="OptionTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loP-fX-WYJ">
-                        <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-U2-dQN">
-                                <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                <rect key="frame" x="19" y="14" width="17" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="DoA-KH-1gP"/>
+                                    <constraint firstAttribute="width" constant="17" id="Ujn-HA-ymn"/>
+                                    <constraint firstAttribute="height" constant="17" id="a3R-Jf-kmz"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-ja-dxp">
-                                <rect key="frame" x="44" y="11" width="216" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="56" y="13" width="236" height="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_extender.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kvv-TO-HHs">
-                                <rect key="frame" x="270" y="12" width="20" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_accessory.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kvv-TO-HHs">
+                                <rect key="frame" x="301" y="17" width="6" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="1wW-gG-7dT"/>
+                                    <constraint firstAttribute="width" constant="6" id="8Ia-GJ-D03"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="8" id="A4i-Fr-HMJ"/>
-                            <constraint firstItem="Kvv-TO-HHs" firstAttribute="leading" secondItem="7ID-ja-dxp" secondAttribute="trailing" constant="10" id="Ee7-ux-xFU"/>
-                            <constraint firstItem="FDg-U2-dQN" firstAttribute="top" secondItem="loP-fX-WYJ" secondAttribute="top" constant="8" id="F8D-US-hVF"/>
-                            <constraint firstAttribute="bottom" secondItem="7ID-ja-dxp" secondAttribute="bottom" constant="11" id="F9Z-vf-mCY"/>
-                            <constraint firstAttribute="bottom" secondItem="Kvv-TO-HHs" secondAttribute="bottom" constant="11" id="IxX-F0-Q7K"/>
-                            <constraint firstAttribute="trailing" secondItem="7ID-ja-dxp" secondAttribute="trailing" constant="40" id="MHH-N1-YoC"/>
-                            <constraint firstItem="Kvv-TO-HHs" firstAttribute="top" secondItem="loP-fX-WYJ" secondAttribute="top" constant="12" id="QKD-2h-Czs"/>
-                            <constraint firstAttribute="bottom" secondItem="FDg-U2-dQN" secondAttribute="bottom" constant="7" id="dcQ-Np-kau"/>
-                            <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="loP-fX-WYJ" secondAttribute="leading" constant="8" id="i1m-4v-Op0"/>
-                            <constraint firstAttribute="trailing" secondItem="Kvv-TO-HHs" secondAttribute="trailing" constant="10" id="ige-hv-4Yl"/>
-                            <constraint firstItem="7ID-ja-dxp" firstAttribute="top" secondItem="loP-fX-WYJ" secondAttribute="top" constant="11" id="zJy-uB-nYv"/>
+                            <constraint firstItem="Kvv-TO-HHs" firstAttribute="top" secondItem="loP-fX-WYJ" secondAttribute="top" constant="17" id="CfR-P2-R66"/>
+                            <constraint firstItem="7ID-ja-dxp" firstAttribute="top" secondItem="loP-fX-WYJ" secondAttribute="top" constant="13" id="FI1-mE-iic"/>
+                            <constraint firstItem="Kvv-TO-HHs" firstAttribute="leading" secondItem="7ID-ja-dxp" secondAttribute="trailing" constant="9" id="J1O-sm-iEm"/>
+                            <constraint firstItem="FDg-U2-dQN" firstAttribute="top" secondItem="loP-fX-WYJ" secondAttribute="top" constant="14" id="KfO-vh-weP"/>
+                            <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="20" id="NMl-bh-YFX"/>
+                            <constraint firstAttribute="trailing" secondItem="Kvv-TO-HHs" secondAttribute="trailing" constant="13" id="hme-Ra-cSv"/>
+                            <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="loP-fX-WYJ" secondAttribute="leading" constant="19" id="iXL-Af-x0T"/>
+                            <constraint firstAttribute="bottom" secondItem="7ID-ja-dxp" secondAttribute="bottom" constant="14" id="vYh-mS-nmw"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="loP-fX-WYJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9S1-hT-WIQ"/>
-                    <constraint firstAttribute="trailing" secondItem="loP-fX-WYJ" secondAttribute="trailing" constant="10" id="E9c-tZ-2fO"/>
-                    <constraint firstItem="loP-fX-WYJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="IQp-CH-6wq"/>
-                    <constraint firstAttribute="bottom" secondItem="loP-fX-WYJ" secondAttribute="bottom" id="vje-Sv-GwU"/>
+                    <constraint firstAttribute="bottom" secondItem="loP-fX-WYJ" secondAttribute="bottom" constant="-1" id="Cdo-26-EZ2"/>
+                    <constraint firstItem="loP-fX-WYJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vf8-N4-ixv"/>
+                    <constraint firstItem="loP-fX-WYJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jc6-i4-jU6"/>
+                    <constraint firstAttribute="trailing" secondItem="loP-fX-WYJ" secondAttribute="trailing" id="p4O-he-KUG"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -62,10 +64,10 @@
                 <outlet property="flagView" destination="FDg-U2-dQN" id="5aq-NK-vYc"/>
                 <outlet property="titleView" destination="7ID-ja-dxp" id="KoN-wR-dh8"/>
             </connections>
-            <point key="canvasLocation" x="427" y="226"/>
+            <point key="canvasLocation" x="427" y="223"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_extender.png" width="36" height="36"/>
+        <image name="cell_accessory.png" width="6" height="10"/>
     </resources>
 </document>

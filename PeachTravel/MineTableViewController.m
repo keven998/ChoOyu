@@ -97,7 +97,7 @@
     if (section == 0) {
         return 0.0;
     }
-    return 30.0;
+    return 20.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -116,13 +116,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.accountManager.isLogin) {
-            return 100;
-        } else {
-            return 130;
-        }
+//        if (self.accountManager.isLogin) {
+//            return 100;
+//        } else {
+//            return 130;
+//        }
+        return 114.0;
     } else {
-        return 44.0;
+        return 47.0;
     }
 }
 
@@ -131,11 +132,11 @@
         if (self.accountManager.isLogin) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
-            [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:nil];
+            [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length>0 ? accountManager.account.signature:@"编写签名";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         } else {
             UnLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:unLoginCell forIndexPath:indexPath];
@@ -147,7 +148,44 @@
     } else {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory.png"]];
         cell.titleView.text = [[dataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+//        cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+//        cell.textLabel.textColor = UIColorFromRGB(0x333333);
+//        UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 46.5, cell.frame.size.width, 0.5)];
+//        dividerView.backgroundColor = UIColorFromRGB(0xdcdcdc);
+//        [cell.contentView addSubview:dividerView];
+        if (indexPath.section == 1) {
+            switch (indexPath.row) {
+                case 0:
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting_share.png"]];
+                    break;
+                    
+                case 1:
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting_notify.png"]];
+                    break;
+                    
+                case 2:
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_share_to_friend.png"]];
+                    break;
+                    
+                default:
+                    break;
+            }
+        } else {
+            switch (indexPath.row) {
+                case 0:
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting.png"]];
+                    break;
+                    
+                case 1:
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting_share.png"]];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
         return cell;
     }
 }

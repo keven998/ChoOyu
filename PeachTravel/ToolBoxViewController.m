@@ -53,8 +53,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     [self showCover];
+    
+    [super viewDidLoad];
     
     self.navigationItem.title = @"桃子旅行";
     
@@ -85,17 +86,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (void) showCover {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    RASlideInViewController *welvc = [storyboard instantiateViewControllerWithIdentifier:@"welcomeSB"];
-////    welvc.hidesBottomBarWhenPushed = YES;
-////    [self.navigationController pushViewController:welvc animated:NO];
-//    welvc.slideInDirection = RASlideInDirectionLeftToRight;
-//    
-//    _subWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//    _subWindow.windowLevel = UIWindowLevelStatusBar;
-//    _subWindow.rootViewController = welvc;
-//    [_subWindow makeKeyAndVisible];
-    
     WelcomeViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"welcomeSB"];
     modalVC.modalPresentationStyle = UIModalPresentationCustom;
     
