@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     
     _userPhoto.layer.cornerRadius = 31.0;
+    _userPhoto.clipsToBounds = YES;
     _userGender.layer.cornerRadius = 8.5;
     
 }

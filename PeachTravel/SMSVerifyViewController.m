@@ -119,7 +119,10 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil];
+            __weak SMSVerifyViewController *weakSelf = self;
+        
+             [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
+            
             [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
 
         } else {

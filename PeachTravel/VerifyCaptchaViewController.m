@@ -28,36 +28,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48.0, 30)];
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60.0, 30)];
     registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
     [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
     [registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = registerItem;
-
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
     
     if (_verifyCaptchaType == UserBindTel) {
-        self.navigationItem.title = @"安全设置";
-        _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
-        [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
+        if (_shouldSetPasswordWhenBindTel) {
+            self.navigationItem.title = @"安全设置";
+            _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
+            [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
+        } else {
+            self.navigationItem.title = @"更换手机";
+            _titleLabel.text = @"真羡慕有两个手机的美眉";
+            [registerBtn setTitle:@"更换" forState:UIControlStateNormal];
+        }
+       
     } else {
         self.navigationItem.title = @"找回密码";
         [registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
         
     }
-    
-//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-//    tapBackground.numberOfTapsRequired = 1;
-//    tapBackground.numberOfTouchesRequired = 1;
-//    [self.view addGestureRecognizer:tapBackground];
-    
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
-    
-//    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _phoneLabel.layer.borderWidth = 1.0;
-//    _captchaLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _captchaLabel.layer.borderWidth = 1.0;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 14.0)];
     ul.text = @"手机号:";
@@ -136,14 +132,15 @@
     [SVProgressHUD show];
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"验证码发送成功"];
             
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showErrorWithStatus:@"验证码发送失败"];
             _captchaBtn.userInteractionEnabled = YES;
         }
         
@@ -172,7 +169,7 @@
     }
     [params setObject:_captchaLabel.text forKey:@"captcha"];
     [SVProgressHUD show];
-    //获取注册码
+    //验证注册码
     [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -183,7 +180,7 @@
             if (_verifyCaptchaType == UserBindTel) {
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 resetPasswordCtl.userId = [accountManager.account.userId integerValue];
-                //如果用户正在首次不是首次绑定手机号,则不进入下一个界面进行设置手机。
+                //如果用户不是首次绑定手机号,则不进入下一个界面进行设置密码。而是直接退出次界面
                 if (!_shouldSetPasswordWhenBindTel) {
                     [self bindTelwithToken:[[responseObject objectForKey:@"result"] objectForKey:@"token"]];
                     return;
@@ -223,14 +220,15 @@
     [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            
+            [SVProgressHUD showSuccessWithStatus:@"绑定成功"];
         } else {
             
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"绑定失败"];
+        NSLog(@"%@", error);
         _captchaBtn.userInteractionEnabled = YES;
     }];
     

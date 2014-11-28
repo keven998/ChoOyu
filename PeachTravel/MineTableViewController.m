@@ -43,6 +43,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
+
 }
 
 - (void)dealloc
@@ -69,6 +71,12 @@
 - (void)userAccountHasChage
 {
     [self.tableView reloadData];
+}
+
+- (void)userDidRegister:(NSNotification *)noti
+{
+    UIViewController *controller = [noti.userInfo objectForKey:@"poster"];
+    [controller.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - IBAction Methods
