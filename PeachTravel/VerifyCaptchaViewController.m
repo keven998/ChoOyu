@@ -195,11 +195,11 @@
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"验证码验证失败"];
     }];
 }
 
-//绑定手机号
+//修改手机号
 - (void)bindTelwithToken:(NSString *)token
 {
     
@@ -216,18 +216,23 @@
     [params setObject:accountManager.account.userId forKey:@"userId"];
     
     [SVProgressHUD show];
-    //获取注册码
+    //修改手机号
     [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"绑定成功"];
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager updateUserInfo:_phoneLabel.text withChangeType:ChangeTel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"绑定失败"];
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
         NSLog(@"%@", error);
         _captchaBtn.userInteractionEnabled = YES;
     }];
@@ -249,16 +254,6 @@
     [self stopTimer];
     [self virifyCaptcha];
 }
-
-//- (void)tapBackground:(id)sender
-//{
-//    if ([_phoneLabel isFirstResponder]) {
-//        [_phoneLabel resignFirstResponder];
-//    } else if ([_captchaLabel isFirstResponder]) {
-//        [_captchaLabel resignFirstResponder];
-//    }
-//}
-
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

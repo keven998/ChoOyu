@@ -24,6 +24,13 @@
 - (void)easeMobUnlogin;
 - (void)logout;
 - (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
+
+/**
+ *  修改用户信息
+ *
+ *  @param changeContent 信息内容
+ *  @param changeType    信息类型，电话，签名等
+ */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
 - (BOOL)isMyFrend:(NSNumber *)userId;       //判读是不是我的好友
