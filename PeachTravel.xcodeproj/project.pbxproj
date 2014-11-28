@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D541A286654006033C9 /* ic_about@2x.png */; };
+		C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */; };
+		C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D561A286654006033C9 /* ic_gender_man@2x.png */; };
 		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
@@ -528,6 +531,9 @@
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C60C0D541A286654006033C9 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
+		C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_lady@2x.png"; sourceTree = "<group>"; };
+		C60C0D561A286654006033C9 /* ic_gender_man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_man@2x.png"; sourceTree = "<group>"; };
 		C630BA631A1EDF680066D678 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
 		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
@@ -1371,6 +1377,9 @@
 		C6BC347E1A272DB1002C19D3 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				C60C0D541A286654006033C9 /* ic_about@2x.png */,
+				C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */,
+				C60C0D561A286654006033C9 /* ic_gender_man@2x.png */,
 				C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */,
 				C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */,
 				C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */,
@@ -3387,6 +3396,7 @@
 				D90C638319FB44D300C2E440 /* VoiceSearchFeedback012.png in Resources */,
 				D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */,
 				D9E9F78D19FF6692003F70F6 /* chat_receiver_bg@2x.png in Resources */,
+				C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */,
 				D90F360E19F63B3300E26FA9 /* chatBar_record@2x.png in Resources */,
 				D955E54719E7A91300047F2B /* sns_icon_douban@2x.png in Resources */,
 				C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */,
@@ -3406,6 +3416,7 @@
 				D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */,
 				D90C63A819FB44D300C2E440 /* chat_receiver_audio_playing000.png in Resources */,
 				D90F361919F63B3300E26FA9 /* chatBar_colorMore_photo@2x.png in Resources */,
+				C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */,
 				D90F360519F63B3300E26FA9 /* chatBar_keyboard.png in Resources */,
 				C6BC34931A276396002C19D3 /* cell_accessory_white@2x.png in Resources */,
 				D90C639619FB44D300C2E440 /* chatBar_more_card.png in Resources */,
@@ -3509,6 +3520,7 @@
 				D90F361A19F63B3300E26FA9 /* chatBar_colorMore_photoSelected@2x.png in Resources */,
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D95460081A22FAAB00688D72 /* SpotsListTableViewCell.xib in Resources */,
+				C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */,
 				D90F361B19F63B3300E26FA9 /* chatBar_colorMore_video@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
 				D9545FF91A22F5CD00688D72 /* tabbar_normal_background.png in Resources */,
