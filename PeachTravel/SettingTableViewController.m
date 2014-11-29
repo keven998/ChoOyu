@@ -9,6 +9,7 @@
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
 #import "OptionTableViewCell.h"
+#import "PushSettingViewController.h"
 
 #define cellIdentifier   @"settingCell"
 #define dataSource       @[@"清理缓存", @"我有意见", @"去App Store评分", @"消息和提醒"]
@@ -96,8 +97,10 @@
             [self mark];
             break;
             
-        case 3:
-            
+        case 3: {
+            PushSettingViewController *ctl = [[PushSettingViewController alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
             break;
             
         default:

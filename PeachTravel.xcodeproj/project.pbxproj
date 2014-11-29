@@ -16,6 +16,10 @@
 		C60C0D631A297A16006033C9 /* ic_clear_cache@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5D1A297A16006033C9 /* ic_clear_cache@2x.png */; };
 		C60C0D641A297A16006033C9 /* ic_feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5E1A297A16006033C9 /* ic_feedback@2x.png */; };
 		C60C0D651A297A16006033C9 /* ic_score_app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5F1A297A16006033C9 /* ic_score_app@2x.png */; };
+		C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D681A298DF8006033C9 /* PushSettingViewController.m */; };
+		C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */; };
+		C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */; };
+		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
@@ -546,6 +550,12 @@
 		C60C0D5D1A297A16006033C9 /* ic_clear_cache@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear_cache@2x.png"; sourceTree = "<group>"; };
 		C60C0D5E1A297A16006033C9 /* ic_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_feedback@2x.png"; sourceTree = "<group>"; };
 		C60C0D5F1A297A16006033C9 /* ic_score_app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_score_app@2x.png"; sourceTree = "<group>"; };
+		C60C0D671A298DF8006033C9 /* PushSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingViewController.h; sourceTree = "<group>"; };
+		C60C0D681A298DF8006033C9 /* PushSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingViewController.m; sourceTree = "<group>"; };
+		C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingViewController.xib; sourceTree = "<group>"; };
+		C60C0D6C1A299389006033C9 /* PushSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingTableViewCell.h; sourceTree = "<group>"; };
+		C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingTableViewCell.m; sourceTree = "<group>"; };
+		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C630BA631A1EDF680066D678 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
 		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
@@ -1315,6 +1325,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C60C0D661A298DDA006033C9 /* PushSetting */ = {
+			isa = PBXGroup;
+			children = (
+				C60C0D671A298DF8006033C9 /* PushSettingViewController.h */,
+				C60C0D681A298DF8006033C9 /* PushSettingViewController.m */,
+				C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */,
+				C60C0D6C1A299389006033C9 /* PushSettingTableViewCell.h */,
+				C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */,
+				C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */,
+			);
+			name = PushSetting;
+			path = Me/Setting/PushSetting;
+			sourceTree = "<group>";
+		};
 		C63344DE1A1C3F5F00A27F86 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2595,6 +2619,7 @@
 		D964200E19EBC9AD00CC8057 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				C60C0D661A298DDA006033C9 /* PushSetting */,
 				D964201919EBE9B900CC8057 /* FeedBack */,
 				D964201419EBCA3300CC8057 /* SettingTableViewController.h */,
 				D964201519EBCA3300CC8057 /* SettingTableViewController.m */,
@@ -3372,6 +3397,7 @@
 				D96550F51A257CA200928DB0 /* AddSpotTableViewCell.xib in Resources */,
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
+				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
 				D90C63B419FB44D300C2E440 /* chat_sender_audio_playing_000.png in Resources */,
 				D9545FEF1A22F5CD00688D72 /* first_selected.png in Resources */,
 				D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */,
@@ -3648,6 +3674,7 @@
 				D90C63AA19FB44D300C2E440 /* chat_receiver_audio_playing001.png in Resources */,
 				D9681A1A1A109C4700122793 /* tutorial_background_04@2x.jpg in Resources */,
 				D90F360119F63B3300E26FA9 /* chatBar_face.png in Resources */,
+				C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */,
 				D9681A0D1A109BF600122793 /* button-background@2x.png in Resources */,
 				D9E9F7B21A00AC6D003F70F6 /* AddressBookTableViewController.xib in Resources */,
 				D90C639A19FB44D300C2E440 /* chatBar_more_face.png in Resources */,
@@ -3823,6 +3850,7 @@
 				D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */,
 				D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */,
 				D964201C19EBE9C900CC8057 /* FeedbackViewController.m in Sources */,
+				C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */,
 				D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */,
 				D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */,
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
@@ -3855,6 +3883,7 @@
 				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
+				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
 				D9681A061A109BF600122793 /* ICETutorialController.m in Sources */,
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
