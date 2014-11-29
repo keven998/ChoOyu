@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D541A286654006033C9 /* ic_about@2x.png */; };
+		C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */; };
+		C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D561A286654006033C9 /* ic_gender_man@2x.png */; };
+		C60C0D601A297A16006033C9 /* ic_app_introduction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5A1A297A16006033C9 /* ic_app_introduction@2x.png */; };
+		C60C0D611A297A16006033C9 /* ic_app_message@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5B1A297A16006033C9 /* ic_app_message@2x.png */; };
+		C60C0D621A297A16006033C9 /* ic_check_version@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5C1A297A16006033C9 /* ic_check_version@2x.png */; };
+		C60C0D631A297A16006033C9 /* ic_clear_cache@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5D1A297A16006033C9 /* ic_clear_cache@2x.png */; };
+		C60C0D641A297A16006033C9 /* ic_feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5E1A297A16006033C9 /* ic_feedback@2x.png */; };
+		C60C0D651A297A16006033C9 /* ic_score_app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D5F1A297A16006033C9 /* ic_score_app@2x.png */; };
+		C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D681A298DF8006033C9 /* PushSettingViewController.m */; };
+		C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */; };
+		C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */; };
+		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
@@ -532,6 +545,21 @@
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C60C0D541A286654006033C9 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
+		C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_lady@2x.png"; sourceTree = "<group>"; };
+		C60C0D561A286654006033C9 /* ic_gender_man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_man@2x.png"; sourceTree = "<group>"; };
+		C60C0D5A1A297A16006033C9 /* ic_app_introduction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_app_introduction@2x.png"; sourceTree = "<group>"; };
+		C60C0D5B1A297A16006033C9 /* ic_app_message@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_app_message@2x.png"; sourceTree = "<group>"; };
+		C60C0D5C1A297A16006033C9 /* ic_check_version@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_check_version@2x.png"; sourceTree = "<group>"; };
+		C60C0D5D1A297A16006033C9 /* ic_clear_cache@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear_cache@2x.png"; sourceTree = "<group>"; };
+		C60C0D5E1A297A16006033C9 /* ic_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_feedback@2x.png"; sourceTree = "<group>"; };
+		C60C0D5F1A297A16006033C9 /* ic_score_app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_score_app@2x.png"; sourceTree = "<group>"; };
+		C60C0D671A298DF8006033C9 /* PushSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingViewController.h; sourceTree = "<group>"; };
+		C60C0D681A298DF8006033C9 /* PushSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingViewController.m; sourceTree = "<group>"; };
+		C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingViewController.xib; sourceTree = "<group>"; };
+		C60C0D6C1A299389006033C9 /* PushSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingTableViewCell.h; sourceTree = "<group>"; };
+		C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingTableViewCell.m; sourceTree = "<group>"; };
+		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C630BA631A1EDF680066D678 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
 		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
@@ -1308,6 +1336,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C60C0D661A298DDA006033C9 /* PushSetting */ = {
+			isa = PBXGroup;
+			children = (
+				C60C0D671A298DF8006033C9 /* PushSettingViewController.h */,
+				C60C0D681A298DF8006033C9 /* PushSettingViewController.m */,
+				C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */,
+				C60C0D6C1A299389006033C9 /* PushSettingTableViewCell.h */,
+				C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */,
+				C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */,
+			);
+			name = PushSetting;
+			path = Me/Setting/PushSetting;
+			sourceTree = "<group>";
+		};
 		C63344DE1A1C3F5F00A27F86 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1382,6 +1424,15 @@
 		C6BC347E1A272DB1002C19D3 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				C60C0D5A1A297A16006033C9 /* ic_app_introduction@2x.png */,
+				C60C0D5B1A297A16006033C9 /* ic_app_message@2x.png */,
+				C60C0D5C1A297A16006033C9 /* ic_check_version@2x.png */,
+				C60C0D5D1A297A16006033C9 /* ic_clear_cache@2x.png */,
+				C60C0D5E1A297A16006033C9 /* ic_feedback@2x.png */,
+				C60C0D5F1A297A16006033C9 /* ic_score_app@2x.png */,
+				C60C0D541A286654006033C9 /* ic_about@2x.png */,
+				C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */,
+				C60C0D561A286654006033C9 /* ic_gender_man@2x.png */,
 				C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */,
 				C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */,
 				C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */,
@@ -2603,6 +2654,7 @@
 		D964200E19EBC9AD00CC8057 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				C60C0D661A298DDA006033C9 /* PushSetting */,
 				D964201919EBE9B900CC8057 /* FeedBack */,
 				D964201419EBCA3300CC8057 /* SettingTableViewController.h */,
 				D964201519EBCA3300CC8057 /* SettingTableViewController.m */,
@@ -3379,6 +3431,7 @@
 				D96550F51A257CA200928DB0 /* AddSpotTableViewCell.xib in Resources */,
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
+				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
 				D90C63B419FB44D300C2E440 /* chat_sender_audio_playing_000.png in Resources */,
 				D9545FEF1A22F5CD00688D72 /* first_selected.png in Resources */,
 				D9048F331A09F18500334AB5 /* ChatSettingViewController.xib in Resources */,
@@ -3421,6 +3474,7 @@
 				D90C638319FB44D300C2E440 /* VoiceSearchFeedback012.png in Resources */,
 				D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */,
 				D9E9F78D19FF6692003F70F6 /* chat_receiver_bg@2x.png in Resources */,
+				C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */,
 				D90F360E19F63B3300E26FA9 /* chatBar_record@2x.png in Resources */,
 				D955E54719E7A91300047F2B /* sns_icon_douban@2x.png in Resources */,
 				C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */,
@@ -3440,12 +3494,16 @@
 				D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */,
 				D90C63A819FB44D300C2E440 /* chat_receiver_audio_playing000.png in Resources */,
 				D90F361919F63B3300E26FA9 /* chatBar_colorMore_photo@2x.png in Resources */,
+				C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */,
 				D90F360519F63B3300E26FA9 /* chatBar_keyboard.png in Resources */,
 				C6BC34931A276396002C19D3 /* cell_accessory_white@2x.png in Resources */,
 				D90C639619FB44D300C2E440 /* chatBar_more_card.png in Resources */,
+				C60C0D601A297A16006033C9 /* ic_app_introduction@2x.png in Resources */,
 				D906CBDA1A2068C800BE2588 /* LocationTableViewCell.xib in Resources */,
+				C60C0D611A297A16006033C9 /* ic_app_message@2x.png in Resources */,
 				D90C638E19FB44D300C2E440 /* VoiceSearchFeedback017@2x.png in Resources */,
 				D9F57B9219E93486005BB43B /* UMShareEditViewController.xib in Resources */,
+				C60C0D641A297A16006033C9 /* ic_feedback@2x.png in Resources */,
 				D90C638A19FB44D300C2E440 /* VoiceSearchFeedback015@2x.png in Resources */,
 				C6BC34991A28171B002C19D3 /* ic_setting_avatar@2x.png in Resources */,
 				C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */,
@@ -3488,6 +3546,7 @@
 				D90F362519F63B3300E26FA9 /* chatBar_more_photo.png in Resources */,
 				D955E54C19E7A91300047F2B /* sns_icon_qzone@2x.png in Resources */,
 				D90C636319FB44D300C2E440 /* chatListCellHead.png in Resources */,
+				C60C0D631A297A16006033C9 /* ic_clear_cache@2x.png in Resources */,
 				D9F57B8F19E93486005BB43B /* UMSCommentDetailController.xib in Resources */,
 				D90C637B19FB44D300C2E440 /* VoiceSearchFeedback008.png in Resources */,
 				D90F360C19F63B3300E26FA9 /* chatBar_moreSelected@2x.png in Resources */,
@@ -3506,6 +3565,7 @@
 				D90C638619FB44D300C2E440 /* VoiceSearchFeedback013@2x.png in Resources */,
 				D90F35F319F63B3300E26FA9 /* callBg@2x.png in Resources */,
 				D90C639119FB44D300C2E440 /* VoiceSearchFeedback019.png in Resources */,
+				C60C0D651A297A16006033C9 /* ic_score_app@2x.png in Resources */,
 				D90C63A919FB44D300C2E440 /* chat_receiver_audio_playing000@2x.png in Resources */,
 				D90F360919F63B3300E26FA9 /* chatBar_more.png in Resources */,
 				D9681A0B1A109BF600122793 /* background-gradient@2x.png in Resources */,
@@ -3543,6 +3603,7 @@
 				D90F361A19F63B3300E26FA9 /* chatBar_colorMore_photoSelected@2x.png in Resources */,
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D95460081A22FAAB00688D72 /* SpotsListTableViewCell.xib in Resources */,
+				C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */,
 				D90F361B19F63B3300E26FA9 /* chatBar_colorMore_video@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
 				D9545FF91A22F5CD00688D72 /* tabbar_normal_background.png in Resources */,
@@ -3622,6 +3683,7 @@
 				D9F57B9019E93486005BB43B /* UMSCommentInputController.xib in Resources */,
 				D9545F9C1A207D3500688D72 /* RecommendsTableViewCell.xib in Resources */,
 				D955E54919E7A91300047F2B /* sns_icon_pengyouquan@2x.png in Resources */,
+				C60C0D621A297A16006033C9 /* ic_check_version@2x.png in Resources */,
 				D90C63B919FB44D300C2E440 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90C639819FB44D300C2E440 /* chatBar_more_cardSelected.png in Resources */,
 				D90F360A19F63B3300E26FA9 /* chatBar_more@2x.png in Resources */,
@@ -3647,6 +3709,7 @@
 				D90C63AA19FB44D300C2E440 /* chat_receiver_audio_playing001.png in Resources */,
 				D9681A1A1A109C4700122793 /* tutorial_background_04@2x.jpg in Resources */,
 				D90F360119F63B3300E26FA9 /* chatBar_face.png in Resources */,
+				C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */,
 				D9681A0D1A109BF600122793 /* button-background@2x.png in Resources */,
 				D9E9F7B21A00AC6D003F70F6 /* AddressBookTableViewController.xib in Resources */,
 				D90C639A19FB44D300C2E440 /* chatBar_more_face.png in Resources */,
@@ -3824,6 +3887,7 @@
 				D9CDD72319EBAF70001AC9F2 /* RegisterViewController.m in Sources */,
 				D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */,
 				D964201C19EBE9C900CC8057 /* FeedbackViewController.m in Sources */,
+				C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */,
 				D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */,
 				D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */,
 				D90F362E19F63B3300E26FA9 /* EMChatTextBubbleView.m in Sources */,
@@ -3857,6 +3921,7 @@
 				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
+				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
 				D9681A061A109BF600122793 /* ICETutorialController.m in Sources */,
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,

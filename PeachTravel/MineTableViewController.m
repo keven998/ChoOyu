@@ -171,7 +171,7 @@
                     break;
                     
                 case 1:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting_notify.png"]];
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_app_message.png"]];
                     break;
                     
                 case 2:
@@ -188,7 +188,7 @@
                     break;
                     
                 case 1:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting_share.png"]];
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_about.png"]];
                     break;
                     
                 default:

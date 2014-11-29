@@ -9,6 +9,7 @@
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
 #import "OptionTableViewCell.h"
+#import "PushSettingViewController.h"
 
 #define cellIdentifier   @"settingCell"
 #define dataSource       @[@"清理缓存", @"我有意见", @"去App Store评分", @"消息和提醒"]
@@ -60,6 +61,19 @@
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
+        } else if (indexPath.row == 1) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_feedback.png"];
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_score_app.png"];
+        } else if (indexPath.row == 1) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_app_message.png"];
+        }
+    }
     return cell;
 }
 
@@ -83,8 +97,10 @@
             [self mark];
             break;
             
-        case 3:
-            
+        case 3: {
+            PushSettingViewController *ctl = [[PushSettingViewController alloc] init];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
             break;
             
         default:

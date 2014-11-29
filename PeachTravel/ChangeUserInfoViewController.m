@@ -25,7 +25,7 @@
         self.navigationItem.title = @"修改昵称";
     }
     if (_changeType == ChangeSignature) {
-        self.navigationItem.title = @"旅行宣言";
+        self.navigationItem.title = @"旅行签名";
     }
     
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;

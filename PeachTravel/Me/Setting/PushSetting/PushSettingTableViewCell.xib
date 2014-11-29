@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="PushSettingTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dal-jr-DJu">
+                        <rect key="frame" x="17" y="13" width="206" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Nt5-YQ-clP"/>
+                            <constraint firstAttribute="width" constant="206" id="enb-0U-oRh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wgr-VJ-sVY">
+                        <rect key="frame" x="255" y="8" width="51" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="Q8y-XT-m61"/>
+                            <constraint firstAttribute="width" constant="49" id="Yat-8c-o9v"/>
+                        </constraints>
+                    </switch>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="dal-jr-DJu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="Aje-fC-KBG"/>
+                    <constraint firstAttribute="centerY" secondItem="dal-jr-DJu" secondAttribute="centerY" id="uSR-3B-03h"/>
+                    <constraint firstAttribute="centerY" secondItem="wgr-VJ-sVY" secondAttribute="centerY" id="xaX-1N-YT1"/>
+                    <constraint firstAttribute="trailing" secondItem="wgr-VJ-sVY" secondAttribute="trailing" constant="16" id="xlG-F9-LF6"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="switchButton" destination="wgr-VJ-sVY" id="a2U-7s-Y62"/>
+                <outlet property="titleView" destination="dal-jr-DJu" id="Xb6-4m-oaj"/>
+            </connections>
+            <point key="canvasLocation" x="573" y="183.5"/>
+        </tableViewCell>
+    </objects>
+</document>
