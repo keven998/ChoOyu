@@ -65,7 +65,7 @@ typedef enum : NSUInteger {
 
 - (id) initWithJson:(id)json;
 
-- (NSDictionary *)prepareForUpload;     //将数据结构转换成上传的 json 数据
+- (NSDictionary *)prepareAllDataForUpload;     //将完整的数据结构转换成上传的 json 数据
 
 @end
 

@@ -17,6 +17,7 @@
 + (NSString *)getCuttentData;
 + (NSDate *) stringToDate:(NSString *)string withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
 + (NSString *) dateToString:(NSDate *)date withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
++ (NSString *) timeIntervalToString:(long long)interval withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone;
 
 + (UIImage*) createImageWithColor: (UIColor*)color;
 + (UIColor *)RGBColor:(int)rgb withAlpha:(CGFloat)alpha;

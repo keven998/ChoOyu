@@ -16,6 +16,7 @@
 #import "OperationData.h"
 #import "ZFModalTransitionAnimator.h"
 #import "WelcomeViewController.h"
+#import "MyGuideListTableViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -308,13 +309,25 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (IBAction)myTravelNote:(UIButton *)sender {
+    
+    MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if (!accountManager.isLogin) {
+        [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
+        [SVProgressHUD showErrorWithStatus:@"请先登录"];
+    } else {
+        myGuidesCtl.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:myGuidesCtl animated:YES];
+    }
 }
 
 - (IBAction)goLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
     loginCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:loginCtl animated:YES];
+    loginCtl.isPushed = NO;
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 #pragma mark - private

@@ -40,17 +40,19 @@
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")
 #define API_GET_CITYDETAIL                      (BASE_URL @"geo/localities/")
 #define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/vs/")
-#define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurants/")
+#define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurant/")
 #define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
 
-#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurants/localities/")
+#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurant/localities/")
 #define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")
 #define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/vs/localities/")
-#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotels/localities/")
+#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel/localities/")
 
 #define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
 
 #define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
+#define API_GET_GUIDELIST                       (BASE_URL @"guides")    //获取攻略列表
+#define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
 
 
 

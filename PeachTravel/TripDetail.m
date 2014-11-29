@@ -59,7 +59,7 @@
                 NSMutableDictionary *oneDayDic = [[NSMutableDictionary alloc] init];
                 [oneDayDic setObject:[NSNumber numberWithInt:i] forKeyedSubscript:@"dayIndex"];
                 TripPoi *tripPoi = [[_itineraryList objectAtIndex:i] objectAtIndex:j];
-                [oneDayDic safeSetObject:[tripPoi prepareForUpload] forKey:@"poi"];
+                [oneDayDic safeSetObject:[tripPoi prepareAllDataForUpload] forKey:@"poi"];
                 [itineraryListToServer addObject:oneDayDic];
             }
         }
@@ -71,8 +71,8 @@
         NSLog(@"******保存美食列表**********");
 
         NSMutableArray *restaurantListToServer = [[NSMutableArray alloc] init];
-        for (TripPoi *tripPoi in _restaurantsList) {\
-            [restaurantListToServer addObject:[tripPoi prepareForUpload]];
+        for (TripPoi *tripPoi in _restaurantsList) {
+            [restaurantListToServer addObject:[tripPoi prepareAllDataForUpload]];
         }
         [uploadDic safeSetObject:restaurantListToServer forKey:@"restaurant"];
     }
@@ -82,7 +82,7 @@
 
         NSMutableArray *shoppingListToServer = [[NSMutableArray alloc] init];
         for (TripPoi *tripPoi in _shoppingList) {
-            [shoppingListToServer addObject:[tripPoi prepareForUpload]];
+            [shoppingListToServer addObject:[tripPoi prepareAllDataForUpload]];
         }
         [uploadDic safeSetObject:shoppingListToServer forKey:@"shopping"];
     }
