@@ -92,10 +92,13 @@
 
 -(IBAction)saveChange:(id)sender
 {
-    if (!([self checkInput] == NoError)) {
-        return;
+    if (_changeType == ChangeName) {
+        if (!([self checkInput] == NoError)) {
+            return;
+        }
     }
     
+    [SVProgressHUD show];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -120,6 +123,7 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             [accountManager updateUserInfo:_contentTextField.text withChangeType:_changeType];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             if (_changeType == ChangeName) {
@@ -127,10 +131,11 @@
             }
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
 }
 
