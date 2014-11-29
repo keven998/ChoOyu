@@ -166,10 +166,11 @@ typedef enum : NSUInteger {
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define APP_PAGE_COLOR UIColorFromRGB(0xf4f4f4)
-#define APP_THEME_COLOR UIColorFromRGB(0xee528c)
-#define APP_DIVIDER_COLOR UIColorFromRGB(0xdcdcdc)
-#define TEXT_COLOR_TITLE UIColorFromRGB(0x333333)
+#define APP_PAGE_COLOR              UIColorFromRGB(0xf4f4f4)
+#define APP_THEME_COLOR             UIColorFromRGB(0xee528c)
+#define APP_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0xcc306a)
+#define APP_DIVIDER_COLOR           UIColorFromRGB(0xdcdcdc)
+#define TEXT_COLOR_TITLE            UIColorFromRGB(0x333333)
 
 
 #define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width

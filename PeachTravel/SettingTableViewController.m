@@ -60,6 +60,19 @@
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
+        } else if (indexPath.row == 1) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_feedback.png"];
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_score_app.png"];
+        } else if (indexPath.row == 1) {
+            cell.flagView.image = [UIImage imageNamed:@"ic_app_message.png"];
+        }
+    }
     return cell;
 }
 

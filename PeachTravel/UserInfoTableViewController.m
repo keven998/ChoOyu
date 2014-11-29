@@ -17,7 +17,7 @@
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define dataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"旅行宣言"], @[@"修改密码", @"手机绑定"]]
+#define dataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"旅行签名"], @[@"修改密码", @"手机绑定"]]
 
 @interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>
 
