@@ -25,28 +25,30 @@
     
     self.navigationItem.title = @"注册";
     
-    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _phoneLabel.layer.borderWidth = 1.0;
-    _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _passwordLabel.layer.borderWidth = 1.0;
+//    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _phoneLabel.layer.borderWidth = 1.0;
+//    _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _passwordLabel.layer.borderWidth = 1.0;
     _passwordLabel.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _phoneLabel.bounds.size.height - 14.0)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 14.0)];
     ul.text = @" 账户:";
-    ul.textColor = UIColorFromRGB(0x393939);
-    ul.font = [UIFont systemFontOfSize:15.0];
+    ul.textColor = TEXT_COLOR_TITLE;
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _passwordLabel.bounds.size.height - 14.0)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 14.0)];
     pl.text = @" 密码:";
-    pl.textColor = UIColorFromRGB(0x393939);
-    pl.font = [UIFont systemFontOfSize:15.0];
+    pl.textColor = TEXT_COLOR_TITLE;
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = pl;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
 
+    [_registerBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
+    [_registerBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
 }
 
 #pragma mark - UITextFieldDelegate

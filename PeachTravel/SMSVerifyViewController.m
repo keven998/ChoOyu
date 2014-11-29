@@ -34,16 +34,18 @@
     _verifyCodeBtn.userInteractionEnabled = NO;
     [self startTimer];
     
-    _verifyCodeTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _verifyCodeTextField.layer.borderWidth = 1.0;
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 58.0, _verifyCodeTextField.bounds.size.height - 14.0)];
+//    _verifyCodeTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _verifyCodeTextField.layer.borderWidth = 1.0;
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _verifyCodeTextField.bounds.size.height - 14.0)];
     ul.text = @" 验证码:";
-    ul.textColor = UIColorFromRGB(0x393939);
+    ul.textColor = TEXT_COLOR_TITLE;
     ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _verifyCodeTextField.leftView = ul;
     _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
 
+    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
+    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

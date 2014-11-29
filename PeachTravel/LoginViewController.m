@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *losePassworkBtn;
+@property (weak, nonatomic) IBOutlet UIButton *supportLoginButton;
 
 @end
 
@@ -44,32 +45,38 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     }
     
-    _userNameTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _userNameTextField.layer.borderWidth = 1.0;
+//    _userNameTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _userNameTextField.layer.borderWidth = 1.0;
     _userNameTextField.delegate = self;
-    _passwordTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-    _passwordTextField.layer.borderWidth = 1.0;
+//    _passwordTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
+//    _passwordTextField.layer.borderWidth = 1.0;
     _passwordTextField.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _userNameTextField.bounds.size.height - 14.0)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 14.0)];
     ul.text = @" 账户:";
-    ul.textColor = UIColorFromRGB(0x393939);
-    ul.font = [UIFont systemFontOfSize:15.0];
+    ul.textColor = TEXT_COLOR_TITLE;
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _userNameTextField.leftView = ul;
     _userNameTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _userNameTextField.bounds.size.height - 14.0)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 14.0)];
     pl.text = @" 密码:";
-    pl.textColor = UIColorFromRGB(0x393939);
-    pl.font = [UIFont systemFontOfSize:15.0];
+    pl.textColor = TEXT_COLOR_TITLE;
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordTextField.leftView = pl;
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:14.];
-    [registerBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
+    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
+    
+    [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
+    [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
+    
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48.0, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(userRegister:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];

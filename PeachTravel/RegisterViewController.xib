@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -37,13 +37,14 @@
                         </mask>
                     </variation>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-Hm-jbq">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-Hm-jbq">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="f3u-Bt-mgh"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -56,13 +57,14 @@
                         </mask>
                     </variation>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="6-16位数字、字母" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9OL-xb-8q9">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6-16位数字、字母" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9OL-xb-8q9">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="Dza-sb-xvw"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -99,11 +101,10 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSo-gc-hXz">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="Gaf-8d-Hoo"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="注册">
                         <color key="titleColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,28 +126,42 @@
             </subviews>
             <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9OL-xb-8q9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="4Tf-8U-eb7"/>
+                <constraint firstItem="9OL-xb-8q9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="4Tf-8U-eb7">
+                    <variation key="widthClass=compact" constant="0.0"/>
+                </constraint>
                 <constraint firstAttribute="trailing" secondItem="0qg-hh-eSa" secondAttribute="trailing" constant="8" id="6Hv-em-w32"/>
                 <constraint firstItem="ysq-eg-abd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="7g2-ce-VeE"/>
-                <constraint firstAttribute="trailing" secondItem="dSo-gc-hXz" secondAttribute="trailing" constant="8" id="Ayj-qB-hVw"/>
+                <constraint firstAttribute="trailing" secondItem="dSo-gc-hXz" secondAttribute="trailing" constant="8" id="Ayj-qB-hVw">
+                    <variation key="widthClass=compact" constant="10"/>
+                </constraint>
                 <constraint firstItem="ysq-eg-abd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="85" id="B43-PK-5N4">
-                    <variation key="widthClass=compact" constant="92"/>
+                    <variation key="widthClass=compact" constant="84"/>
                 </constraint>
-                <constraint firstItem="dSo-gc-hXz" firstAttribute="top" secondItem="9OL-xb-8q9" secondAttribute="bottom" constant="27" id="B7j-Mj-T25"/>
+                <constraint firstItem="dSo-gc-hXz" firstAttribute="top" secondItem="9OL-xb-8q9" secondAttribute="bottom" constant="27" id="B7j-Mj-T25">
+                    <variation key="widthClass=compact" constant="20"/>
+                </constraint>
                 <constraint firstItem="0qg-hh-eSa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="LSO-EI-35r"/>
-                <constraint firstAttribute="trailing" secondItem="oP0-Hm-jbq" secondAttribute="trailing" constant="8" id="Tzj-LL-MEC"/>
-                <constraint firstItem="9OL-xb-8q9" firstAttribute="top" secondItem="ysq-eg-abd" secondAttribute="bottom" constant="57" id="Y4B-ep-TGK">
-                    <variation key="widthClass=compact" constant="50"/>
+                <constraint firstAttribute="trailing" secondItem="oP0-Hm-jbq" secondAttribute="trailing" constant="8" id="Tzj-LL-MEC">
+                    <variation key="widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstItem="dSo-gc-hXz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="dUj-oj-t3w"/>
+                <constraint firstItem="9OL-xb-8q9" firstAttribute="top" secondItem="ysq-eg-abd" secondAttribute="bottom" constant="57" id="Y4B-ep-TGK">
+                    <variation key="widthClass=compact" constant="56"/>
+                </constraint>
+                <constraint firstItem="dSo-gc-hXz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="dUj-oj-t3w">
+                    <variation key="widthClass=compact" constant="10"/>
+                </constraint>
                 <constraint firstAttribute="trailing" secondItem="ysq-eg-abd" secondAttribute="trailing" constant="8" id="hNm-U6-hYY"/>
                 <constraint firstItem="oP0-Hm-jbq" firstAttribute="top" secondItem="ysq-eg-abd" secondAttribute="bottom" constant="13" id="p77-hj-kQS">
-                    <variation key="widthClass=compact" constant="6"/>
+                    <variation key="widthClass=compact" constant="10"/>
                 </constraint>
-                <constraint firstItem="oP0-Hm-jbq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="pct-ha-asv"/>
-                <constraint firstAttribute="trailing" secondItem="9OL-xb-8q9" secondAttribute="trailing" constant="8" id="rEz-5J-ehq"/>
+                <constraint firstItem="oP0-Hm-jbq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="pct-ha-asv">
+                    <variation key="widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="9OL-xb-8q9" secondAttribute="trailing" constant="8" id="rEz-5J-ehq">
+                    <variation key="widthClass=compact" constant="0.0"/>
+                </constraint>
                 <constraint firstItem="0qg-hh-eSa" firstAttribute="top" secondItem="dSo-gc-hXz" secondAttribute="bottom" constant="40" id="yqz-Kx-6bd">
-                    <variation key="widthClass=compact" constant="25"/>
+                    <variation key="widthClass=compact" constant="15"/>
                 </constraint>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
