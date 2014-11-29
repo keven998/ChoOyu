@@ -46,6 +46,7 @@
 {
     
     if (![self restaurantListIsChange] && ![self itineraryListIsChange] && ![self shoppingListIsChange] ) {
+        completion(YES);
         return;
     }
     
@@ -122,20 +123,16 @@
     
     [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            NSLog(@"保存成功");
             [self updateBackupTripJson:uploadDic];
             completion(YES);
         } else {
-            NSLog(@"保存失败");
             completion(NO);
-            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        completion(NO);
     }];
 
 }

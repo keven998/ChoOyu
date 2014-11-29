@@ -172,14 +172,22 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (IBAction)editTrip:(id)sender
 {
-    [self.tableView setEditing:!self.tableView.isEditing animated:YES];
-    [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-    if (self.tableView.isEditing) {
+    if (!self.tableView.isEditing) {
+        [self.tableView setEditing:YES animated:YES];
         [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+        
     } else {
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
-            
+            if (isSuccesss) {
+                [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+                [self.tableView setEditing:NO animated:YES];
+                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+            } else {
+                [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+            }
+           
         }];
     }
 }

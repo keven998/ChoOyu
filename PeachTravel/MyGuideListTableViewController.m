@@ -90,17 +90,104 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
+/**
+ *  点击删除攻略按钮
+ *
+ *  @param sender
+ */
 - (IBAction)deleteGuide:(UIButton *)sender
 {
-    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
+            [self deleteUserGuide:guideSummary];
+        }
+    }];
 }
 
-- (IBAction)editGuideTitle:(UIButton *)sender
+- (IBAction)edit:(UIButton *)sender
 {
     
 }
 
 #pragma mark - Private Methods
+
+/**
+ *  删除我的攻略
+ *
+ *  @param guideSummary
+ */
+- (void)deleteUserGuide:(MyGuideSummary *)guideSummary
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",API_DELETE_GUIDE ,guideSummary.guideId];
+    
+    [SVProgressHUD show];
+    
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+            NSInteger index = [self.dataSource indexOfObject:guideSummary];
+            [self.dataSource removeObject:guideSummary];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+    }];
+    
+}
+
+/**
+ *  修改攻略名称
+ *
+ *  @param guideSummary 被修改的攻略
+ *  @param title        新的标题
+ */
+- (void)editGuideTitle:(MyGuideSummary *)guideSummary andTitle:(NSString *)title
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [SVProgressHUD show];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:guideSummary.guideId forKey:@"id"];
+    [params setObject:title forKey:@"title"];
+    
+    [manager POST:API_SAVE_TRIP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            guideSummary.title = title;
+        } else {
+            
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+    }];
+
+}
 
 /**
  *  获取我的攻略列表
@@ -126,14 +213,14 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
-        for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
-            MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
-            [self.dataSource addObject:guideSummary];
-
-        }
-        [self.tableView reloadData];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
+                MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
+                [self.dataSource addObject:guideSummary];
+                
+            }
+            [self.tableView reloadData];
             _currentPage ++;
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -144,7 +231,6 @@ static NSString *reusableCell = @"myGuidesCell";
         [SVProgressHUD dismiss];
     }];
     
-                                                    
 }
 
 #pragma mark - Table view data source
@@ -168,7 +254,7 @@ static NSString *reusableCell = @"myGuidesCell";
     cell.deleteBtn.tag = indexPath.row;
     cell.editTitleBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.editTitleBtn addTarget:self action:@selector(editGuideTitle:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.editTitleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
 
     cell.isEditing = self.isEditing;
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.row];

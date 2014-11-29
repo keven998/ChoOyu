@@ -53,6 +53,8 @@
 #define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
 #define API_GET_GUIDELIST                       (BASE_URL @"guides")    //获取攻略列表
 #define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
+#define API_DELETE_GUIDE                        (BASE_URL @"guides/")    //删除攻略列表
+
 
 
 
