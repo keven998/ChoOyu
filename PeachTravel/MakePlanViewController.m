@@ -88,6 +88,7 @@
         poi1.cityId = @"5475b938d174911938325835";
         poi1.zhName = @"上海大不列颠";
         tripDetailCtl.destinations = @[poi, poi1];
+        tripDetailCtl.isMakeNewTrip = YES;
         [self.navigationController pushViewController:tripDetailCtl animated:YES];
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];

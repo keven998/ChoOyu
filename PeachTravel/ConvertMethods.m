@@ -47,6 +47,15 @@
     return [dateFormatter stringFromDate:date];
 }
 
++ (NSString *) timeIntervalToString:(long long)interval withFormat:(NSString *)format withTimeZone:(NSTimeZone *)zone
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    [dateFormatter setTimeZone:zone];
+    [dateFormatter setDateFormat:format];
+    return [dateFormatter stringFromDate:date];
+}
+
 + (UIImage*) createImageWithColor: (UIColor*)color
 {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);

@@ -1,0 +1,207 @@
+//
+//  MyGuideListTableViewController.m
+//  PeachTravel
+//
+//  Created by liangpengshuai on 11/28/14.
+//  Copyright (c) 2014 com.aizou.www. All rights reserved.
+//
+
+#import "MyGuideListTableViewController.h"
+#import "MyGuidesTableViewCell.h"
+#import "DKCircleButton/DKCircleButton.h"
+#import "AccountManager.h"
+#import "MyGuideSummary.h"
+#import "TripDetailRootViewController.h"
+
+@interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) DKCircleButton *editBtn;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic) BOOL isEditing;
+
+@property (nonatomic) NSUInteger currentPage;
+
+@property (nonatomic, strong) NSMutableArray *dataSource;
+
+
+@end
+
+@implementation MyGuideListTableViewController
+
+static NSString *reusableCell = @"myGuidesCell";
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = @"我的攻略";
+    _isEditing = NO;
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.editBtn];
+    _currentPage = 0;
+    [self loadDataWithPageIndex:_currentPage];
+}
+
+#pragma mark - setter & getter
+
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
+
+    }
+    return _tableView;
+}
+
+- (NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [[NSMutableArray alloc] init];
+    }
+    return _dataSource;
+}
+
+- (DKCircleButton *)editBtn
+{
+    if (!_editBtn) {
+        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
+        _editBtn.backgroundColor = APP_THEME_COLOR;
+        _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _editBtn;
+}
+
+#pragma mark - IBAction Methods
+
+- (IBAction)editMyGuides:(id)sender
+{
+    _isEditing = !_isEditing;
+    [self.tableView reloadData];
+    if (_isEditing) {
+        [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
+    } else {
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)deleteGuide:(UIButton *)sender
+{
+    
+}
+
+- (IBAction)editGuideTitle:(UIButton *)sender
+{
+    
+}
+
+#pragma mark - Private Methods
+
+/**
+ *  获取我的攻略列表
+ */
+
+- (void)loadDataWithPageIndex:(NSInteger)pageIndex
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
+    [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    
+    [SVProgressHUD show];
+    
+    //获取我的攻略列表
+    [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
+            MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
+            [self.dataSource addObject:guideSummary];
+
+        }
+        [self.tableView reloadData];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            _currentPage ++;
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
+    
+                                                    
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    return self.dataSource.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 216;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
+    cell.deleteBtn.tag = indexPath.row;
+    cell.editTitleBtn.tag = indexPath.row;
+    [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.editTitleBtn addTarget:self action:@selector(editGuideTitle:) forControlEvents:UIControlEventTouchUpInside];
+
+    cell.isEditing = self.isEditing;
+    cell.guideSummary = [self.dataSource objectAtIndex:indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
+    TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
+    tripDetailRootCtl.isMakeNewTrip = NO;
+    tripDetailRootCtl.tripId = guideSummary.guideId;
+    [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@end
