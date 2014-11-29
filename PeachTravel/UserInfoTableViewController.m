@@ -93,6 +93,11 @@
     [self.tableView reloadData];
 }
 
+/**
+ *  获取上传青牛服务器所需要的 token，key
+ *
+ *  @param image
+ */
 - (void)uploadPhotoImage:(UIImage *)image
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -119,6 +124,13 @@
     
 }
 
+/**
+ *  将头像上传至七牛服务器
+ *
+ *  @param image       上传的图片
+ *  @param uploadToken 上传的 token
+ *  @param key         上传的 key
+ */
 - (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
  {
      NSData *data = UIImageJPEGRepresentation(image, 1.0);
@@ -136,6 +148,11 @@
 
 #pragma mark - IBAction Methods
 
+/**
+ *  退出登录
+ *
+ *  @param sender
+ */
 -(IBAction)logout:(id)sender
 {
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:nil
@@ -169,13 +186,11 @@
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = dataSource[indexPath.section][indexPath.row];
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
         cell.cellTitle.text = dataSource[indexPath.section][indexPath.row];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
@@ -222,6 +237,7 @@
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.nickName;
         }
+        
     } else if (indexPath.section ==  1) {
         if (indexPath.row == 0) {
             _genderAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"美女", @"帅锅", @"不告诉你", nil];
@@ -232,6 +248,7 @@
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.signature;
         }
+        
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
@@ -272,6 +289,7 @@
 }
 
 #pragma mark - UIImagePickerControllerDelegate
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
