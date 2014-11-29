@@ -88,6 +88,9 @@
     [_avatarAS showInView:self.view];
 }
 
+/**
+ *  处理各种会改变用户信息的通知
+ */
 - (void)userAccountHasChage
 {
     [self.tableView reloadData];
@@ -145,6 +148,53 @@
                } option:nil];
  }
 
+/**
+ *  更改用户性别信息
+ *
+ *  @param gender 用户性别信息
+ */
+- (void)updateUserGender:(NSString *)gender
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [SVProgressHUD show];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:gender forKey:@"gender"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:1];
+            UserOtherTableViewCell *cell = (UserOtherTableViewCell *)[self.tableView cellForRowAtIndexPath:ip];
+            if ([gender isEqualToString:@"F"]) {
+                cell.cellDetail.text = @"美女";
+            }
+            if ([gender isEqualToString:@"M"]) {
+                cell.cellDetail.text = @"帅锅";
+            }
+            if ([gender isEqualToString:@"U"]) {
+                cell.cellDetail.text = @"不告诉你";
+            }
+            [accountManager updateUserInfo:gender withChangeType:ChangeGender];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+    }];
+}
 
 #pragma mark - IBAction Methods
 
@@ -202,7 +252,16 @@
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = self.accountManager.account.gender;
+                if ([self.accountManager.account.gender isEqualToString:@"F"]) {
+                    cell.cellDetail.text = @"美女";
+                }
+                if ([self.accountManager.account.gender isEqualToString:@"M"]) {
+                    cell.cellDetail.text = @"帅锅";
+                }
+                if ([self.accountManager.account.gender isEqualToString:@"U"]) {
+                    cell.cellDetail.text = @"不告诉你";
+                }
+
             } else if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
                 cell.cellDetail.text = self.accountManager.account.signature;
@@ -242,6 +301,7 @@
         if (indexPath.row == 0) {
             _genderAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"美女", @"帅锅", @"不告诉你", nil];
             [_genderAS showInView:self.view];
+            
         } else if (indexPath.row == 1) {
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeSignature;
@@ -281,10 +341,23 @@
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;
         [self presentViewController:picker animated:YES completion:nil];
-    } else if (actionSheet == _genderAS) {
-        NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:1];
-        UserOtherTableViewCell *cell = (UserOtherTableViewCell *)[self.tableView cellForRowAtIndexPath:ip];
-        cell.cellDetail.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+        
+    } else if (actionSheet == _genderAS) {          //相应切换性别的
+        NSString *gender;
+        if (buttonIndex == 0) {
+            gender = @"F";
+        }
+        if (buttonIndex == 1) {
+            gender = @"M";
+        }
+        if (buttonIndex == 2) {
+            gender = @"U";
+        }
+        if (buttonIndex == 3) {   //点击取消
+            return;
+        }
+
+        [self updateUserGender:gender];
     }
 }
 

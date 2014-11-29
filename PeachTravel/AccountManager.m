@@ -114,14 +114,21 @@
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
 {
     switch (changeType) {
-        case ChangeName:             self.account.nickName = changeContent;
+        case ChangeName:
+            self.account.nickName = changeContent;
             break;
         
         case ChangeSignature:
             self.account.signature = changeContent;
+            break;
             
         case ChangeTel:
             self.account.tel = changeContent;
+            break;
+            
+        case ChangeGender:
+            self.account.gender = changeContent;
+            break;
             
         default:
             break;
@@ -136,6 +143,9 @@
     _account.nickName = [json objectForKey:@"nickName"];
     _account.avatar = [json objectForKey:@"avatar"];
     _account.gender = [json objectForKey:@"gender"];
+    if (!_account.gender) {
+        _account.gender = @"U";
+    }
     _account.tel = [json objectForKey:@"tel"];
     _account.secToken = [json objectForKey:@"secToken"];
     _account.signature = [json objectForKey:@"signature"];

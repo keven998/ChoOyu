@@ -125,11 +125,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-//        if (self.accountManager.isLogin) {
-//            return 100;
-//        } else {
-//            return 130;
-//        }
         return 114.0;
     } else {
         return 47.0;
@@ -145,8 +140,16 @@
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length>0 ? accountManager.account.signature:@"编写签名";
-//            if (accountManager.account.gender)
-            cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
+            if ([accountManager.account.gender isEqualToString:@"M"]) {
+                cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
+
+            }
+            if ([accountManager.account.gender isEqualToString:@"F"]) {
+                cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
+            }
+            if ([accountManager.account.gender isEqualToString:@"U"]) {
+                cell.userGender.image = nil;
+            }
             return cell;
         } else {
             UnLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:unLoginCell forIndexPath:indexPath];
@@ -157,14 +160,7 @@
         
     } else {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory.png"]];
         cell.titleView.text = [[dataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-//        cell.textLabel.font = [UIFont systemFontOfSize:14.0];
-//        cell.textLabel.textColor = UIColorFromRGB(0x333333);
-//        UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 46.5, cell.frame.size.width, 0.5)];
-//        dividerView.backgroundColor = UIColorFromRGB(0xdcdcdc);
-//        [cell.contentView addSubview:dividerView];
         if (indexPath.section == 1) {
             switch (indexPath.row) {
                 case 0:

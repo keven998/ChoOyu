@@ -127,7 +127,8 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     ChangeName,
     ChangeSignature,
-    ChangeTel
+    ChangeTel,
+    ChangeGender
 } UserInfoChangeType;
 
 
