@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Qiniu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,62 +72,67 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>05BEC5E8CF5713307E4BB698</key>
+		<key>0ABB32CFAD5D491C26418712</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>330828F21CBAED6EDF919548</key>
+		<key>26799F5DAF543B8D6C03C6EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3F4484E473ADDCA35048ACC3</key>
+		<key>46F0C0B7D9F2D476FD265442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>44FE91750BF91E5B0049EC13</key>
+		<key>5B7E193907C28BAEB9035875</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4ECF94DA6FA61113C488C0BA</key>
+		<key>5CF73A8DB78B0B3E73C47716</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>52321F64D81D797CCEB5A3BB</key>
+		<key>5E4D52DD547B249AAB148BC1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B48323C4B2B87B415BC7F8C</key>
+		<key>64FA57FE5344C6311C02386C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9EE6D091381CFD327BBCFBF3</key>
+		<key>67CE64333F6A6C64D19078F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AA2A4493F352B04479B3A877</key>
+		<key>6B872ED446AED6B466E795ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C60C479F270A01BEA41411C6</key>
+		<key>8CB1E869CBE042BD070779CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D366AA9A6CB8B6D089DD0AE3</key>
+		<key>A0BA29611CC6C2F8480BC22C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EAA76C27A60EA4B2C51DF8CE</key>
+		<key>B671AD0F0EAC2D8A6137B5C2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D9BD5467B9B90E7979A99306</key>
 		<dict>
 			<key>primary</key>
 			<true/>

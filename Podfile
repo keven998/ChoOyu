@@ -8,3 +8,5 @@ pod 'SDWebImage', '~> 3.7.1'
 pod 'EaseMobSDK', '~> 2.1.0'
 pod 'MWPhotoBrowser', '~> 1.4.1'
 pod 'SVProgressHUD', '~> 1.0'
+pod "Qiniu", "~> 7.0"
+

@@ -13,6 +13,7 @@
 #import "UserOtherTableViewCell.h"
 #import "ChangeUserInfoViewController.h"
 #import "VerifyCaptchaViewController.h"
+#import <QiniuSDK.h>
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -58,7 +59,6 @@
         
         UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 35.0)];
         logoutBtn.center = _footerView.center;
-//        logoutBtn.backgroundColor = UIColorFromRGB(0xee528c);
         [logoutBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [logoutBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
@@ -93,8 +93,66 @@
     [self.tableView reloadData];
 }
 
+/**
+ *  获取上传青牛服务器所需要的 token，key
+ *
+ *  @param image
+ */
+- (void)uploadPhotoImage:(UIImage *)image
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [SVProgressHUD show];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+
+    
+    [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+    }];
+    
+}
+
+/**
+ *  将头像上传至七牛服务器
+ *
+ *  @param image       上传的图片
+ *  @param uploadToken 上传的 token
+ *  @param key         上传的 key
+ */
+- (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
+ {
+     NSData *data = UIImageJPEGRepresentation(image, 1.0);
+     QNUploadManager *upManager = [[QNUploadManager alloc] init];
+     
+     [upManager putData:data key:key token:uploadToken
+               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                   NSLog(@"%@", info);
+                   NSLog(@"%@", resp);
+                   [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+
+               } option:nil];
+ }
+
+
 #pragma mark - IBAction Methods
 
+/**
+ *  退出登录
+ *
+ *  @param sender
+ */
 -(IBAction)logout:(id)sender
 {
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:nil
@@ -128,13 +186,11 @@
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = dataSource[indexPath.section][indexPath.row];
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
         cell.cellTitle.text = dataSource[indexPath.section][indexPath.row];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
@@ -181,6 +237,7 @@
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.nickName;
         }
+        
     } else if (indexPath.section ==  1) {
         if (indexPath.row == 0) {
             _genderAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"美女", @"帅锅", @"不告诉你", nil];
@@ -191,6 +248,7 @@
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.signature;
         }
+        
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
@@ -231,6 +289,7 @@
 }
 
 #pragma mark - UIImagePickerControllerDelegate
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -238,6 +297,7 @@
     UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
     cell.userPhoto.image = headerImage;
+    [self uploadPhotoImage:headerImage];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
