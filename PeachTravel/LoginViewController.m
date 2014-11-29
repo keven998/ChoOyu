@@ -34,6 +34,7 @@
     self.navigationItem.title = @"登录";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
     if (!self.isPushed) {
         UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
@@ -86,6 +87,11 @@
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; 
 }
 
 #pragma mark - IBAction Methods

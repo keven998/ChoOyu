@@ -2873,7 +2873,7 @@
 				D964200E19EBC9AD00CC8057 /* Setting */,
 				D9CDD72519EBB9EB001AC9F2 /* About */,
 				D955E3AE19E7A06800047F2B /* ShareSetting */,
-				D9E6BFAF19E3E57600C750AC /* Root */,
+				D9E6BFAF19E3E57600C750AC /* Mine */,
 			);
 			name = Me;
 			sourceTree = "<group>";
@@ -3112,14 +3112,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		D9E6BFAF19E3E57600C750AC /* Root */ = {
+		D9E6BFAF19E3E57600C750AC /* Mine */ = {
 			isa = PBXGroup;
 			children = (
 				D9E6BFAE19E3E4C200C750AC /* Model */,
 				D9E6BFAD19E3E4B700C750AC /* Views */,
 				D9E6BFAC19E3E4AF00C750AC /* ViewControllers */,
 			);
-			name = Root;
+			name = Mine;
 			sourceTree = "<group>";
 		};
 		D9E9F79E19FFDB7C003F70F6 /* Address Book */ = {

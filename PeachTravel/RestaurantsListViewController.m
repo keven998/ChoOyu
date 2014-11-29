@@ -247,19 +247,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    CGPoint currentOffset = scrollView.contentOffset;
-    NSLog(@"%@",NSStringFromCGPoint(currentOffset));
-    
-    if ([scrollView isEqual:self.tableView]) {
-        if (currentOffset.y < 20) {
-            [self.tableView setContentOffset:CGPointZero animated:YES];
-        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
-            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
-        }
-    }
-}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
