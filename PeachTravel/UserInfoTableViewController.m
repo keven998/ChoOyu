@@ -13,6 +13,7 @@
 #import "UserOtherTableViewCell.h"
 #import "ChangeUserInfoViewController.h"
 #import "VerifyCaptchaViewController.h"
+#import <QiniuSDK.h>
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -58,7 +59,6 @@
         
         UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 35.0)];
         logoutBtn.center = _footerView.center;
-//        logoutBtn.backgroundColor = UIColorFromRGB(0xee528c);
         [logoutBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [logoutBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
@@ -92,6 +92,47 @@
 {
     [self.tableView reloadData];
 }
+
+- (void)uploadPhotoImage:(UIImage *)image
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [SVProgressHUD show];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+
+    
+    [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+    }];
+    
+}
+
+- (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
+ {
+     NSData *data = UIImageJPEGRepresentation(image, 1.0);
+     QNUploadManager *upManager = [[QNUploadManager alloc] init];
+     
+     [upManager putData:data key:key token:uploadToken
+               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                   NSLog(@"%@", info);
+                   NSLog(@"%@", resp);
+                   [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+
+               } option:nil];
+ }
+
 
 #pragma mark - IBAction Methods
 
@@ -238,6 +279,7 @@
     UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
     cell.userPhoto.image = headerImage;
+    [self uploadPhotoImage:headerImage];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

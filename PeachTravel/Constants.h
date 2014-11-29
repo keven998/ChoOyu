@@ -80,6 +80,8 @@
 
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES           (BASE_URL @"misc/cover-stories")  //获得封面故事接口
+#define API_POST_PHOTOIMAGE             (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
+
 
 
 
