@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C608ED611A2C3B4E00B76934 /* PushMsgsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED5F1A2C3B4E00B76934 /* PushMsgsViewController.m */; };
 		C608ED621A2C3B4E00B76934 /* PushMsgsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C608ED601A2C3B4E00B76934 /* PushMsgsViewController.xib */; };
+		C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED651A2C4D8E00B76934 /* HomeViewController.m */; };
 		C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D541A286654006033C9 /* ic_about@2x.png */; };
 		C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */; };
 		C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D561A286654006033C9 /* ic_gender_man@2x.png */; };
@@ -556,6 +557,8 @@
 		C608ED5E1A2C3B4E00B76934 /* PushMsgsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMsgsViewController.h; sourceTree = "<group>"; };
 		C608ED5F1A2C3B4E00B76934 /* PushMsgsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMsgsViewController.m; sourceTree = "<group>"; };
 		C608ED601A2C3B4E00B76934 /* PushMsgsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMsgsViewController.xib; sourceTree = "<group>"; };
+		C608ED641A2C4D8E00B76934 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		C608ED651A2C4D8E00B76934 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		C60C0D541A286654006033C9 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
 		C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_lady@2x.png"; sourceTree = "<group>"; };
 		C60C0D561A286654006033C9 /* ic_gender_man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_man@2x.png"; sourceTree = "<group>"; };
@@ -1364,6 +1367,15 @@
 			);
 			name = PushMessages;
 			path = Me/Mine/PushMessages;
+			sourceTree = "<group>";
+		};
+		C608ED631A2C4D5E00B76934 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C608ED641A2C4D8E00B76934 /* HomeViewController.h */,
+				C608ED651A2C4D8E00B76934 /* HomeViewController.m */,
+			);
+			path = HomeViewController;
 			sourceTree = "<group>";
 		};
 		C60C0D661A298DDA006033C9 /* PushSetting */ = {
@@ -2932,6 +2944,7 @@
 		D99D8EC719C8600C0021C25B /* PeachTravel */ = {
 			isa = PBXGroup;
 			children = (
+				C608ED631A2C4D5E00B76934 /* HomeViewController */,
 				C63344DE1A1C3F5F00A27F86 /* Resource */,
 				D955E36419E67AC700047F2B /* Common */,
 				D9681A1B1A10A19100122793 /* Welcome */,
@@ -3933,6 +3946,7 @@
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D96551311A26E64A00928DB0 /* AddHotelTableViewCell.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
+				C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */,
 				D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */,
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
 				D9545FC21A22EF9700688D72 /* RDVTabBar.m in Sources */,

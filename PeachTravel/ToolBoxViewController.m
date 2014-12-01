@@ -14,8 +14,6 @@
 #import "TZCMDChatHelper.h"
 #import "IMRootViewController.h"
 #import "OperationData.h"
-#import "ZFModalTransitionAnimator.h"
-#import "WelcomeViewController.h"
 #import "MyGuideListTableViewController.h"
 
 //两次提示的默认间隔
@@ -36,8 +34,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *weatherBtnConstraints;
 
-@property (nonatomic, strong) ZFModalTransitionAnimator *animator;
-
 @end
 
 @implementation ToolBoxViewController
@@ -54,7 +50,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewDidLoad
 {
-    [self showCover];
+//    [self showCover];
     
     [super viewDidLoad];
     
@@ -84,22 +80,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-}
-
-- (void) showCover {
-    WelcomeViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"welcomeSB"];
-    modalVC.modalPresentationStyle = UIModalPresentationCustom;
-    
-    self.animator = [[ZFModalTransitionAnimator alloc] initWithModalViewController:modalVC];
-    self.animator.dragable = YES;
-    self.animator.bounces = NO;
-    self.animator.behindViewAlpha = 0.5f;
-    self.animator.behindViewScale = 0.5f;
-    self.animator.transitionDuration = 0.7f;
-    self.animator.direction = ZFModalTransitonDirectionLeft;
-    
-    modalVC.transitioningDelegate = self.animator;
-    [self presentViewController:modalVC animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
