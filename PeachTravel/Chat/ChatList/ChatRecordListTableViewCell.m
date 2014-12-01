@@ -11,7 +11,8 @@
 @implementation ChatRecordListTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _headerImageView.layer.cornerRadius = 20;
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

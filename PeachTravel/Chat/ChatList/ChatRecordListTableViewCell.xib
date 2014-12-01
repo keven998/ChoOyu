@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatRecordListCell" id="KGk-i7-Jjw" customClass="ChatRecordListTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatRecordListCell" rowHeight="44" id="KGk-i7-Jjw" customClass="ChatRecordListTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -15,26 +15,28 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YkH-7C-EId">
-                        <rect key="frame" x="8" y="2" width="40" height="40"/>
+                        <rect key="frame" x="20" y="2" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="n3g-Cr-mph"/>
+                            <constraint firstAttribute="height" constant="40" id="bUo-d1-Z4l"/>
+                            <constraint firstAttribute="width" constant="40" id="mB4-aC-75F"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-8t-Q24">
-                        <rect key="frame" x="56" y="11" width="220" height="21"/>
+                        <rect key="frame" x="68" y="11" width="220" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="o3N-qK-76a"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="YkH-7C-EId" secondAttribute="bottom" constant="1.5" id="487-F6-IDb"/>
-                    <constraint firstItem="YkH-7C-EId" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="60I-h7-SOs"/>
-                    <constraint firstAttribute="trailing" secondItem="r6H-8t-Q24" secondAttribute="trailing" constant="44" id="82Z-il-CeD"/>
-                    <constraint firstAttribute="bottom" secondItem="r6H-8t-Q24" secondAttribute="bottom" constant="11.5" id="E1q-Ig-klQ"/>
-                    <constraint firstItem="r6H-8t-Q24" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="ZNZ-Ui-YHy"/>
-                    <constraint firstItem="YkH-7C-EId" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="qUg-T1-Eq0"/>
-                    <constraint firstItem="r6H-8t-Q24" firstAttribute="leading" secondItem="YkH-7C-EId" secondAttribute="trailing" constant="8" id="sWL-pS-rfw"/>
+                    <constraint firstItem="YkH-7C-EId" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="OfL-FM-ucj"/>
+                    <constraint firstItem="r6H-8t-Q24" firstAttribute="leading" secondItem="YkH-7C-EId" secondAttribute="trailing" constant="8" id="XUT-lu-9KR"/>
+                    <constraint firstItem="YkH-7C-EId" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="pBx-bH-1O7"/>
+                    <constraint firstItem="r6H-8t-Q24" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="sMw-Al-CLb"/>
+                    <constraint firstAttribute="trailing" secondItem="r6H-8t-Q24" secondAttribute="trailing" constant="32" id="yvc-HG-VvV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

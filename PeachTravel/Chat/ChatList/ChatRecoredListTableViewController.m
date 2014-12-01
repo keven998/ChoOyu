@@ -13,6 +13,8 @@
 #import "ChatRecoredListTableViewController.h"
 #import "AccountManager.h"
 #import "ChatRecordListTableViewCell.h"
+#import "CreateConversationViewController.h"
+#import "ChatViewController.h"
 
 @interface ChatRecoredListTableViewController ()
 
@@ -28,11 +30,20 @@
 static NSString *reusableCreateConversationCell = @"createConversationCell";
 static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+           }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCel" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
+
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
     [self loadChattingPeople];
@@ -103,19 +114,33 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     return _dataSource.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        return 20;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCreateConversationCell forIndexPath:indexPath];
         cell.textLabel.text = @"创建新的聊天";
-        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
+        
     } else {
         ChatRecordListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableChatRecordCell forIndexPath:indexPath];
         EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
         if (!conversation.isGroup) {
             cell.titleLabel.text = chatPeople.nickName;
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
         } else{
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
@@ -145,48 +170,15 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     return nil;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+        [self.navigationController pushViewController:createConversationCtl animated:YES];
+    } else {
+        ChatViewController *chatViewCtl = [[ChatViewController alloc] init];
+        [self.navigationController pushViewController:chatViewCtl animated:YES];
+    }
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
