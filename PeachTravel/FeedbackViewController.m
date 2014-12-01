@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"吐槽";
+    self.navigationItem.title = @"意见与吐槽";
 
     CGFloat width = self.view.frame.size.width;
     

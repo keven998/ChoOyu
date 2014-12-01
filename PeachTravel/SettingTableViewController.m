@@ -12,7 +12,7 @@
 #import "PushSettingViewController.h"
 
 #define cellIdentifier   @"settingCell"
-#define dataSource       @[@"清理缓存", @"我有意见", @"去App Store评分", @"消息和提醒"]
+#define dataSource       @[@"清理缓存", @"意见与吐槽", @"去App Store评分", @"消息和提醒"]
 
 @interface SettingTableViewController ()
 

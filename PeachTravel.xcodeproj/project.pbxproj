@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C608ED611A2C3B4E00B76934 /* PushMsgsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED5F1A2C3B4E00B76934 /* PushMsgsViewController.m */; };
+		C608ED621A2C3B4E00B76934 /* PushMsgsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C608ED601A2C3B4E00B76934 /* PushMsgsViewController.xib */; };
 		C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D541A286654006033C9 /* ic_about@2x.png */; };
 		C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */; };
 		C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D561A286654006033C9 /* ic_gender_man@2x.png */; };
@@ -554,6 +556,9 @@
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C608ED5E1A2C3B4E00B76934 /* PushMsgsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMsgsViewController.h; sourceTree = "<group>"; };
+		C608ED5F1A2C3B4E00B76934 /* PushMsgsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMsgsViewController.m; sourceTree = "<group>"; };
+		C608ED601A2C3B4E00B76934 /* PushMsgsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMsgsViewController.xib; sourceTree = "<group>"; };
 		C60C0D541A286654006033C9 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
 		C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_lady@2x.png"; sourceTree = "<group>"; };
 		C60C0D561A286654006033C9 /* ic_gender_man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_gender_man@2x.png"; sourceTree = "<group>"; };
@@ -1358,6 +1363,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C608ED5D1A2C3B1A00B76934 /* PushMessages */ = {
+			isa = PBXGroup;
+			children = (
+				C608ED5E1A2C3B4E00B76934 /* PushMsgsViewController.h */,
+				C608ED5F1A2C3B4E00B76934 /* PushMsgsViewController.m */,
+				C608ED601A2C3B4E00B76934 /* PushMsgsViewController.xib */,
+			);
+			name = PushMessages;
+			path = Me/Mine/PushMessages;
+			sourceTree = "<group>";
+		};
 		C60C0D661A298DDA006033C9 /* PushSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -3252,6 +3268,7 @@
 		D9E6BFAF19E3E57600C750AC /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				C608ED5D1A2C3B1A00B76934 /* PushMessages */,
 				D929980D1A28AF8B00795986 /* myGuides */,
 				D929980C1A28AF3300795986 /* Root */,
 			);
@@ -3525,6 +3542,7 @@
 				D90C63C719FBA07700C2E440 /* ZYQAssetPicker.Bundle in Resources */,
 				D90F360F19F63B3300E26FA9 /* chatBar_recordBg.png in Resources */,
 				D90C63BB19FB44D300C2E440 /* chat_sender_audio_playing_003@2x.png in Resources */,
+				C608ED621A2C3B4E00B76934 /* PushMsgsViewController.xib in Resources */,
 				D90C63BA19FB44D300C2E440 /* chat_sender_audio_playing_003.png in Resources */,
 				D9681A191A109C4700122793 /* tutorial_background_03@2x.jpg in Resources */,
 				D99D8ED419C8600C0021C25B /* Main.storyboard in Resources */,
@@ -3978,6 +3996,7 @@
 				D90F363519F63B3300E26FA9 /* MessageModel.m in Sources */,
 				D90F366E19F63E5300E26FA9 /* XHMessageTextView.m in Sources */,
 				D90F366D19F63E5300E26FA9 /* EMSearchDisplayController.m in Sources */,
+				C608ED611A2C3B4E00B76934 /* PushMsgsViewController.m in Sources */,
 				D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */,
 				D96551351A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m in Sources */,
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,

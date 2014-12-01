@@ -35,9 +35,12 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"分享设置";
-    _accountTableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    _accountTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     _accountTableView.delegate = self;
     _accountTableView.dataSource = self;
+    _accountTableView.backgroundColor = APP_PAGE_COLOR;
+    _accountTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _accountTableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0);
     [_accountTableView registerNib:[UINib nibWithNibName:@"AccountManagerTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifiner];
     [self.view addSubview:_accountTableView];
 }
@@ -64,32 +67,36 @@
     return 5;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 49.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AccountManagerTableViewCell *accountCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifiner forIndexPath:indexPath];
     [accountCell.snsSwitch addTarget:self action:@selector(switchMethod:) forControlEvents:UIControlEventValueChanged];
     switch (indexPath.row) {
         case 0:
-            [accountCell.snsBtn setImage:[UIImage imageNamed:@"sns_icon_qq.png"] forState:UIControlStateNormal];
+            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_qq.png"];
             if (![self.snsAccnout objectForKey:@"qq"]) {
-                [accountCell.userName setTitle:@"QQ账号" forState:UIControlStateNormal];
+                accountCell.snsTitle.text = @"QQ";
                 [accountCell.snsSwitch setOn:NO animated:YES];
             } else {
                 UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"qq"];
-                [accountCell.userName setTitle:[NSString stringWithFormat:@"QQ账号 (%@)",accountEntity.userName] forState:UIControlStateNormal];
+                accountCell.snsTitle.text = [NSString stringWithFormat:@"QQ (%@)",accountEntity.userName];
                 [accountCell.snsSwitch setOn:YES animated:YES];
             }
             accountCell.snsSwitch.tag = 0;
             break;
             
         case 1:
-            [accountCell.snsBtn setImage:[UIImage imageNamed:@"sns_icon_sina.png"] forState:UIControlStateNormal];
+            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_sina.png"];
             if (![self.snsAccnout objectForKey:@"sina"]) {
-                [accountCell.userName setTitle:@"新浪微博" forState:UIControlStateNormal];
+                accountCell.snsTitle.text = @"新浪微博";
                 [accountCell.snsSwitch setOn:NO animated:YES];
             } else {
                 UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"sina"];
-                [accountCell.userName setTitle:[NSString stringWithFormat:@"新浪微博 (%@)",accountEntity.userName] forState:UIControlStateNormal];
+                accountCell.snsTitle.text = [NSString stringWithFormat:@"新浪微博 (%@)",accountEntity.userName];
                 [accountCell.snsSwitch setOn:YES animated:YES];
                 
             }
@@ -97,41 +104,41 @@
             break;
             
         case 2:
-            [accountCell.snsBtn setImage:[UIImage imageNamed:@"sns_icon_qqweibo.png"] forState:UIControlStateNormal];
+            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_qqweibo.png"];
             if (![self.snsAccnout objectForKey:@"tencent"]) {
-                [accountCell.userName setTitle:@"腾讯微博" forState:UIControlStateNormal];
+                accountCell.snsTitle.text = @"腾讯微博";
                 [accountCell.snsSwitch setOn:NO animated:YES];
 
             } else {
                 UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"tencent"];
-                [accountCell.userName setTitle:[NSString stringWithFormat:@"腾讯微博 (%@)",accountEntity.userName] forState:UIControlStateNormal];
+                accountCell.snsTitle.text = [NSString stringWithFormat:@"腾讯微博 (%@)",accountEntity.userName];
                 [accountCell.snsSwitch setOn:YES animated:YES];
             }
             accountCell.snsSwitch.tag = 2;
             break;
         
         case 3:
-            [accountCell.snsBtn setImage:[UIImage imageNamed:@"sns_icon_douban.png"] forState:UIControlStateNormal];
+            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_douban.png"];
             if (![self.snsAccnout objectForKey:@"douban"]) {
-                [accountCell.userName setTitle:@"豆瓣" forState:UIControlStateNormal];
+                accountCell.snsTitle.text = @"豆瓣";
                 [accountCell.snsSwitch setOn:NO animated:YES];
                 
             } else {
                 UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"douban"];
-                [accountCell.userName setTitle:[NSString stringWithFormat:@"豆瓣 (%@)",accountEntity.userName] forState:UIControlStateNormal];
+                accountCell.snsTitle.text = [NSString stringWithFormat:@"豆瓣 (%@)",accountEntity.userName];
                 [accountCell.snsSwitch setOn:YES animated:YES];
             }
             accountCell.snsSwitch.tag = 3;
             break;
             
         case 4:
-            [accountCell.snsBtn setImage:[UIImage imageNamed:@"sns_icon_renren.png"] forState:UIControlStateNormal];
+            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_renren.png"];
             if (![self.snsAccnout objectForKey:@"renren"]) {
-                [accountCell.userName setTitle:@"人人" forState:UIControlStateNormal];
+                accountCell.snsTitle.text = @"人人";
                 [accountCell.snsSwitch setOn:NO animated:YES];
             } else {
                 UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"renren"];
-                [accountCell.userName setTitle:[NSString stringWithFormat:@"人人 (%@)",accountEntity.userName] forState:UIControlStateNormal];
+                accountCell.snsTitle.text = [NSString stringWithFormat:@"人人 (%@)",accountEntity.userName];
                 [accountCell.snsSwitch setOn:YES animated:YES];
             }
             accountCell.snsSwitch.tag = 4;

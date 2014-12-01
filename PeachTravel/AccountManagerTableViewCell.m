@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    self.contentView.layer.borderWidth = 0.25;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

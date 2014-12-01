@@ -17,8 +17,9 @@
 #import "SettingTableViewController.h"
 #import "UserInfoTableViewController.h"
 #import "OptionTableViewCell.h"
+#import "PushMsgsViewController.h"
 
-#define dataSource               @[@[@"分享设置", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define dataSource               @[@[@"分享账户管理", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -203,21 +204,24 @@
             userInfoCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:userInfoCtl animated:YES];
         }
-    }
-    if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
             accountManagerCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:accountManagerCtl animated:YES];
+        } else if (indexPath.row == 1) {
+            PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
+            ctl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ctl animated:YES];
+        } else if (indexPath.row == 2) {
+            
         }
-    }
-    if (indexPath.section == 2) {
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
             settingCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingCtl animated:YES];
-        }
-        if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) {
             AboutController *aboutCtl = [[AboutController alloc] init];
             aboutCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:aboutCtl animated:YES];

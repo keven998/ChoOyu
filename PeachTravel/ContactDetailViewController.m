@@ -55,7 +55,7 @@
     _bigHeaderView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 64.0, width, 108.0)];
     _bigHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _bigHeaderView.clipsToBounds = YES;
-    [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+    [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"ic_setting_avatar.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
         if (image == nil) return ;
         blurImageProcessor = [[ALDBlurImageProcessor alloc] initWithImage: image];
         [blurImageProcessor asyncBlurWithRadius: 99
@@ -151,7 +151,7 @@
     
     CGFloat y = _chatBtn.frame.origin.y + _chatBtn.frame.size.height + 10.0;
     
-    y = y > _scrollView.bounds.size.height ? y : _scrollView.bounds.size.height - 63.0;
+    y = y > _scrollView.bounds.size.height - 64.0 ? y : _scrollView.bounds.size.height - 63.0;
     _scrollView.contentSize = CGSizeMake(0.0, y);
     
     y = _scrollView.contentOffset.y;
@@ -165,6 +165,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) dealloc {
+    _scrollView.delegate = nil;
+    _scrollView = nil;
 }
 
 #pragma - mark IBAction
