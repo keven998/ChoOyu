@@ -114,6 +114,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     _contentFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
     _contentFrame.contentMode = UIViewContentModeScaleAspectFill;
+    _contentFrame.userInteractionEnabled = YES;
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_contentFrame];
     
