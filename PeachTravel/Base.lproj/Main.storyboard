@@ -69,10 +69,10 @@
             </objects>
             <point key="canvasLocation" x="3235.5" y="1283"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Home View Controller-->
         <scene sceneID="6QN-fx-Bad">
             <objects>
-                <tabBarController storyboardIdentifier="tabhostSB" automaticallyAdjustsScrollViewInsets="NO" id="m3z-Mn-OEd" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabhostSB" automaticallyAdjustsScrollViewInsets="NO" id="m3z-Mn-OEd" customClass="HomeViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="PnO-UY-mIT"/>
                     <nil key="simulatedBottomBarMetrics"/>
