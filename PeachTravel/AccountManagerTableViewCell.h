@@ -10,8 +10,11 @@
 
 @interface AccountManagerTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *snsBtn;
-@property (weak, nonatomic) IBOutlet UIButton *userName;
+//@property (weak, nonatomic) IBOutlet UIButton *snsBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *userName;
+
+@property (weak, nonatomic) IBOutlet UIImageView *snsFlag;
+@property (weak, nonatomic) IBOutlet UILabel *snsTitle;
 @property (weak, nonatomic) IBOutlet UISwitch *snsSwitch;
 
 @end
