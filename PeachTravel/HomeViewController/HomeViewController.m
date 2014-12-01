@@ -90,15 +90,16 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         //
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
+        if (panX >= 0.0) return;
         CGRect frame = view.frame;
         frame.origin.x = panX;
         view.frame = frame;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
-        if (fabsf(panX) >= CGRectGetWidth(self.view.bounds) * 0.33) {
+        if (panX <= -CGRectGetWidth(self.view.bounds) * 0.33) {
             [self dismiss:nil];
-        } else if (x < 0.0) {
+        } else if (x < -10.0 && panX < 0.0) {
             [self dismiss:nil];
-        } else {
+        } else if (x > 10.0 && panX < 0.0) {
             CGRect srcFrame = _coverView.frame;
             srcFrame.origin.x = 0.0;
             void (^closeAnim)(void) = ^(void) {
