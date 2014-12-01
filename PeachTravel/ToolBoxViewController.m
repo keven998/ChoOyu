@@ -26,13 +26,20 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 @property (strong, nonatomic) CLLocation *currentLocation;
-@property (weak, nonatomic) IBOutlet UIButton *weatherBtn;
-@property (strong, nonatomic)NSDate *lastPlaySoundDate;
-@property (weak, nonatomic) IBOutlet UIButton *IMBtn;
-@property (weak, nonatomic) IBOutlet UIScrollView *galleryPageView;
+
+@property (strong, nonatomic) NSDate *lastPlaySoundDate;
 @property (nonatomic, strong) NSArray *operationDataArray;
 @property (nonatomic, strong) NSMutableArray *imageViews;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weatherBtnConstraints;
+
+@property (strong, nonatomic) UILabel *weatherLabel;
+@property (nonatomic, strong) UIScrollView *galleryPageView;
+@property (nonatomic, strong) UIButton *planBtn;
+@property (nonatomic, strong) UIButton *favoriteBtn;
+@property (nonatomic, strong) UIButton *aroundBtn;
+@property (strong, nonatomic) UIButton *IMBtn;
+
+@property (nonatomic, strong) UIImageView *contentFrame;
+@property (nonatomic, strong) UIView *weatherFrame;
 
 @end
 
@@ -50,9 +57,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewDidLoad
 {
-//    [self showCover];
-    
     [super viewDidLoad];
+    
+    [self setupView];
     
     self.navigationItem.title = @"桃子旅行";
     
@@ -65,6 +72,94 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
     [self registerNotifications];
     [self setupUnreadMessageCount];
+}
+
+- (void) setupView {
+    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat h = CGRectGetHeight(self.view.bounds) - 64.0 - 49.0;
+    
+    CGFloat offsetY = 64.0;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    _galleryPageView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, 176.0)];
+    _galleryPageView.pagingEnabled = YES;
+    _galleryPageView.showsHorizontalScrollIndicator = NO;
+    _galleryPageView.showsVerticalScrollIndicator = NO;
+    _galleryPageView.delegate = self;
+    _galleryPageView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:_galleryPageView];
+    
+    _weatherFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, 24.0)];
+    _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    _weatherFrame.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
+//    [self.view addSubview:_weatherFrame];
+    
+    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(19.0, 0.0, w - 38.0, 24.0)];
+    _weatherLabel.textAlignment = NSTextAlignmentLeft;
+    _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _weatherLabel.textColor = [UIColor whiteColor];
+    _weatherLabel.font = [UIFont systemFontOfSize:13.0];
+    [_weatherFrame addSubview:_weatherLabel];
+    
+    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, h, w, 64.0)];
+    _IMBtn.backgroundColor = [UIColor greenColor];
+    [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _IMBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [_IMBtn setTitle:@"桃·Talk" forState:UIControlStateNormal];
+    [_IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_IMBtn];
+    
+    offsetY += CGRectGetHeight(_galleryPageView.frame);
+    
+    _contentFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
+    _contentFrame.contentMode = UIViewContentModeScaleAspectFill;
+    _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:_contentFrame];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 20.0, w, 21.0)];
+    title.font = [UIFont systemFontOfSize:17.0];
+    title.textColor = TEXT_COLOR_TITLE;
+    title.textAlignment = NSTextAlignmentCenter;
+    title.text = @"\"旅行助手\"";
+    title.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+    [_contentFrame addSubview:title];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
+    _favoriteBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    _favoriteBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setTitle:@"收藏夹" forState:UIControlStateNormal];
+    _favoriteBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
+    _favoriteBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
+    [_favoriteBtn addTarget:self action:@selector(myFavorite:) forControlEvents:UIControlEventTouchUpInside];
+    [_contentFrame addSubview:_favoriteBtn];
+    
+    _planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
+    _planBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [_planBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 76.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    [_planBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    [_planBtn setTitle:@"我的攻略" forState:UIControlStateNormal];
+    _planBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
+    _planBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
+    [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
+    [_contentFrame addSubview:_planBtn];
+    
+    _aroundBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
+    _aroundBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [_aroundBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_aroundBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 76.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    [_aroundBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    [_aroundBtn setTitle:@"我身边" forState:UIControlStateNormal];
+    _aroundBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
+    _aroundBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
+    [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
+    [_contentFrame addSubview:_aroundBtn];
     
 #warning 测试数据
     _operationDataArray = [[NSArray alloc] init];
@@ -76,6 +171,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     testData2.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
     _operationDataArray = @[testData, testData1,testData2];
     [self setupSubView];
+}
+
+- (void)viewWillLayoutSubviews {
+
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -93,16 +192,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void) setupSubView
 {
-    _galleryPageView.pagingEnabled = YES;
-    _galleryPageView.showsHorizontalScrollIndicator = NO;
-    _galleryPageView.showsVerticalScrollIndicator = NO;
-    _galleryPageView.delegate = self;
-    _galleryPageView.bounces = YES;
-    
-    NSLog(@"%@", NSStringFromCGRect(_galleryPageView.frame));
-
     int count = [_operationDataArray count];
-    _galleryPageView.contentSize = CGSizeMake(kWindowWidth * count, CGRectGetHeight(_galleryPageView.frame));
+    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.bounds) * count, 0);
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
     {
@@ -114,9 +205,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self loadScrollViewWithPage:1];
     }
     if (!self.weatherInfo) {
-        self.weatherBtn.alpha = 0;
+//        [self.weatherLabel.superview removeFromSuperview];
+        [_weatherFrame removeFromSuperview];
     } else {
-        self.weatherBtn.alpha = 0.5;
+//        [self.weatherLabel.superview removeFromSuperview];
+//        [self.view addSubview:self.weatherLabel.superview];
+        [_weatherFrame removeFromSuperview];
+        [self.view addSubview:_weatherFrame];
     }
     
 }
@@ -128,7 +223,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
     UIImageView *img = [_imageViews objectAtIndex:page];
     if ((NSNull *)img == [NSNull null]) {
-        img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.bounds.size.width, 176)];
+        img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, CGRectGetWidth(_galleryPageView.bounds), CGRectGetHeight(_galleryPageView.bounds))];
         img.contentMode = UIViewContentModeScaleAspectFill;
         img.clipsToBounds = YES;
         img.userInteractionEnabled = YES;
@@ -142,7 +237,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         CGRect frame = img.frame;
         frame.origin.x = CGRectGetWidth(frame) * page;
         img.frame = frame;
-        [self.galleryPageView insertSubview:img atIndex:0];
+        [_galleryPageView insertSubview:img atIndex:0];
         OperationData *opreateData = [_operationDataArray objectAtIndex:page];
         NSString *url = opreateData.imageUrl;
         [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
@@ -246,11 +341,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSLog(@"%@", _location.description);
     NSString *cityName = city? city:@"当前位置";
     NSString *s = [NSString stringWithFormat:@"  %@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
-    [_weatherBtn setTitle:s forState:UIControlStateNormal];
-    [UIView animateWithDuration:0.3 animations:^{
-        _weatherBtn.alpha = 0.5;
-    } completion:^(BOOL finished) {
-    }];
+//    [_weatherBtn setTitle:s forState:UIControlStateNormal];
+    _weatherLabel.text = s;
+    [_weatherFrame removeFromSuperview];
+    [self.view addSubview:_weatherFrame];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        _weatherBtn.alpha = 0.5;
+//    } completion:^(BOOL finished) {
+//        
+//    }];
 }
 
 #pragma mark - IBAction Methods
@@ -285,7 +384,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.8];
     }
 }
+
 - (IBAction)nearBy:(UIButton *)sender {
+
+}
+
+- (IBAction)myFavorite:(id)sender {
+    
 }
 
 - (IBAction)myTravelNote:(UIButton *)sender {
