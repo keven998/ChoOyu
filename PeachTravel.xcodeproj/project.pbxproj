@@ -282,6 +282,7 @@
 		D9117A661A2C0E1D000DBFCB /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A651A2C0E1D000DBFCB /* UIViewController+CWPopup.m */; };
 		D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */; };
 		D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */; };
+		D9117A6E1A2C1B58000DBFCB /* trip_name_confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92998121A28B02900795986 /* MyGuideListTableViewController.m */; };
@@ -907,6 +908,7 @@
 		D9117A681A2C0E90000DBFCB /* ConfirmRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmRouteViewController.h; sourceTree = "<group>"; };
 		D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmRouteViewController.m; sourceTree = "<group>"; };
 		D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmRouteViewController.xib; sourceTree = "<group>"; };
+		D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trip_name_confirm@2x.png"; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -3017,6 +3019,7 @@
 		D9AC9B061A1C8AB000E0C4CE /* 临时图片文件记得删掉 */ = {
 			isa = PBXGroup;
 			children = (
+				D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */,
 				D9B476911A24A7140014136C /* test@2x.png */,
 				D9AC9B041A1C8AAD00E0C4CE /* country.jpg */,
 				D9545FD81A22F5CD00688D72 /* 攻略列表的 tabbar 测试图片 */,
@@ -3628,6 +3631,7 @@
 				C6BC349C1A28171B002C19D3 /* ic_setting_nick@2x.png in Resources */,
 				D9681A171A109C4700122793 /* tutorial_background_01@2x.jpg in Resources */,
 				D90C63A619FB44D300C2E440 /* chat_location_preview.png in Resources */,
+				D9117A6E1A2C1B58000DBFCB /* trip_name_confirm@2x.png in Resources */,
 				D95460001A22F5CD00688D72 /* third_selected@2x.png in Resources */,
 				D90C639E19FB44D300C2E440 /* chatBar_textBg.png in Resources */,
 				D9681A161A109C4700122793 /* tutorial_background_00@2x.jpg in Resources */,

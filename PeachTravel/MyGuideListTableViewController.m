@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
 
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 
 @end
 
@@ -35,6 +36,9 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
+    _tapRecognizer.numberOfTapsRequired = 1;
+    _tapRecognizer.delegate = self;
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"我的攻略";
     _isEditing = NO;
@@ -82,6 +86,11 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - IBAction Methods
 
+/**
+ *  点击编辑按钮
+ *
+ *  @param sender
+ */
 - (IBAction)editMyGuides:(id)sender
 {
     _isEditing = !_isEditing;
@@ -117,10 +126,15 @@ static NSString *reusableCell = @"myGuidesCell";
 - (IBAction)edit:(UIButton *)sender
 {
     _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
-    [self presentPopupViewController:_confirmRouteViewController atHeight:0.0 animated:YES completion:^(void) {
-        _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
-        [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
+    [self.view addGestureRecognizer:_tapRecognizer];
+    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
+    [self presentPopupViewController:_confirmRouteViewController atHeight:70.0 animated:YES completion:^(void) {
     }];
+    _confirmRouteViewController.routeTitle.text = guideSummary.title;
+    _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
+    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 /**
@@ -131,7 +145,28 @@ static NSString *reusableCell = @"myGuidesCell";
 - (IBAction)willConfirmRouteTitle:(UIButton *)sender
 {
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
-    [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text];
+    if ([guideSummary.title isEqualToString:_confirmRouteViewController.routeTitle.text]) {
+        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        return;
+    }
+    [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text atIndex:sender.tag];
+}
+
+/**
+ *  弹出修改标题后点击背景，消除修改标题弹出框
+ *
+ *  @param sender
+ */
+- (IBAction)dismissPopup:(id)sender
+{
+    if (self.popupViewController != nil) {
+        if ([_confirmRouteViewController.routeTitle isFirstResponder]) {
+            [_confirmRouteViewController.routeTitle resignFirstResponder];
+        }
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+            [self.view removeGestureRecognizer:_tapRecognizer];
+        }];
+    }
 }
 
 #pragma mark - Private Methods
@@ -150,6 +185,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",API_DELETE_GUIDE ,guideSummary.guideId];
     
@@ -181,7 +217,7 @@ static NSString *reusableCell = @"myGuidesCell";
  *  @param guideSummary 被修改的攻略
  *  @param title        新的标题
  */
-- (void)editGuideTitle:(MyGuideSummary *)guideSummary andTitle:(NSString *)title
+- (void)editGuideTitle:(MyGuideSummary *)guideSummary andTitle:(NSString *)title atIndex:(NSInteger)index
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
@@ -202,6 +238,9 @@ static NSString *reusableCell = @"myGuidesCell";
         if (code == 0) {
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             guideSummary.title = title;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
         } else {
             
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
@@ -224,7 +263,9 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"100035"] forHTTPHeaderField:@"UserId"];
+
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
