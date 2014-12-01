@@ -13,6 +13,7 @@
 @interface SpotDetailViewController ()
 
 @property (nonatomic, strong) SpotPoi *spotPoi;
+@property (nonatomic, strong) UIButton *rightItemBtn;
 
 @end
 
@@ -21,6 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
+    [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+    [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightItemBtn];
     [self loadData];
 }
 
@@ -34,6 +40,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = YES;
+}
+
+#pragma mark - IBAction Methods
+
+- (IBAction)chat:(id)sender
+{
+    
 }
 
 #pragma mark - Private Methods

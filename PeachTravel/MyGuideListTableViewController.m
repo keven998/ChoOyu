@@ -14,7 +14,7 @@
 #import "TripDetailRootViewController.h"
 #import "ConfirmRouteViewController.h"
 
-@interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (nonatomic, strong) UITableView *tableView;
@@ -226,13 +226,14 @@ static NSString *reusableCell = @"myGuidesCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"100035"] forHTTPHeaderField:@"UserId"];
     
+    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",API_SAVE_TRIPINFO, guideSummary.guideId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:guideSummary.guideId forKey:@"id"];
     [params setObject:title forKey:@"title"];
-    
-    [manager POST:API_SAVE_TRIP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+    [manager POST:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

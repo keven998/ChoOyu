@@ -40,11 +40,6 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     } else {
         self.navigationItem.title = _currentCity.zhName;
     }
-    _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
-    [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
-    [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightItemBtn];
     
     if (self.shouldEdit) {
         UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];

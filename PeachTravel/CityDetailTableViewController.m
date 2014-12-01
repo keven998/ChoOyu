@@ -46,7 +46,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.spotBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.restaurantBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.shoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
-
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView = _cityHeaderView;
     [self.tableView reloadData];
 }
