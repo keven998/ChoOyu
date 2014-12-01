@@ -36,10 +36,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"添加好友";
     
-//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:normalCell];
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 
-//    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]];
     [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
 }
 

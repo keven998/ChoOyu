@@ -41,7 +41,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _dataSource = [NSMutableArray array];
     }
     return self;
 }
@@ -55,10 +54,9 @@
     }
     
     self.view.backgroundColor = APP_PAGE_COLOR;
+    _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
     [self loadChattingPeople];
-//    [self.view addSubview:self.tableView];
-//    [self.tableView addSubview:self.slimeView];
     [self networkStateView];
     [self searchController];
 }
@@ -455,7 +453,7 @@
                 break;
             }
         }
-        [cell.imageView setImage:[UIImage imageNamed:@"groupPrivateHeader"]];
+        [cell.imageView setImage:[UIImage imageNamed:@"chatListCellHead.png"]];
     }
     cell.detailMsg = [self subTitleMessageByConversation:conversation];
     cell.time = [self lastMessageTimeByConversation:conversation];

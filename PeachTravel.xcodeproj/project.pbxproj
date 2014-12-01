@@ -286,6 +286,9 @@
 		D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */; };
 		D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */; };
 		D9117A6E1A2C1B58000DBFCB /* trip_name_confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */; };
+		D9117A741A2C3836000DBFCB /* ChatRecoredListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A731A2C3836000DBFCB /* ChatRecoredListTableViewController.m */; };
+		D9117A791A2C4710000DBFCB /* ChatRecordListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A771A2C4710000DBFCB /* ChatRecordListTableViewCell.m */; };
+		D9117A7A1A2C4710000DBFCB /* ChatRecordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A781A2C4710000DBFCB /* ChatRecordListTableViewCell.xib */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92998121A28B02900795986 /* MyGuideListTableViewController.m */; };
@@ -917,6 +920,11 @@
 		D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmRouteViewController.m; sourceTree = "<group>"; };
 		D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmRouteViewController.xib; sourceTree = "<group>"; };
 		D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trip_name_confirm@2x.png"; sourceTree = "<group>"; };
+		D9117A721A2C3836000DBFCB /* ChatRecoredListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRecoredListTableViewController.h; sourceTree = "<group>"; };
+		D9117A731A2C3836000DBFCB /* ChatRecoredListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRecoredListTableViewController.m; sourceTree = "<group>"; };
+		D9117A761A2C4710000DBFCB /* ChatRecordListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRecordListTableViewCell.h; sourceTree = "<group>"; };
+		D9117A771A2C4710000DBFCB /* ChatRecordListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRecordListTableViewCell.m; sourceTree = "<group>"; };
+		D9117A781A2C4710000DBFCB /* ChatRecordListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatRecordListTableViewCell.xib; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -1844,6 +1852,7 @@
 				D90F357619F63B3300E26FA9 /* ChatListCell.m */,
 				D90F357719F63B3300E26FA9 /* ChatListViewController.h */,
 				D90F357819F63B3300E26FA9 /* ChatListViewController.m */,
+				D9117A751A2C4698000DBFCB /* ChatRecoredList */,
 			);
 			path = ChatList;
 			sourceTree = "<group>";
@@ -2146,6 +2155,18 @@
 				D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */,
 			);
 			path = ConfirmGuideTitle;
+			sourceTree = "<group>";
+		};
+		D9117A751A2C4698000DBFCB /* ChatRecoredList */ = {
+			isa = PBXGroup;
+			children = (
+				D9117A721A2C3836000DBFCB /* ChatRecoredListTableViewController.h */,
+				D9117A731A2C3836000DBFCB /* ChatRecoredListTableViewController.m */,
+				D9117A761A2C4710000DBFCB /* ChatRecordListTableViewCell.h */,
+				D9117A771A2C4710000DBFCB /* ChatRecordListTableViewCell.m */,
+				D9117A781A2C4710000DBFCB /* ChatRecordListTableViewCell.xib */,
+			);
+			name = ChatRecoredList;
 			sourceTree = "<group>";
 		};
 		D929980C1A28AF3300795986 /* Root */ = {
@@ -3507,6 +3528,7 @@
 				D90C63A019FB44D300C2E440 /* chat_location_annotation_someone.png in Resources */,
 				D90C637D19FB44D300C2E440 /* VoiceSearchFeedback009.png in Resources */,
 				C60C0D731A29A40C006033C9 /* ic_login_weixin_highlight@2x.png in Resources */,
+				D9117A7A1A2C4710000DBFCB /* ChatRecordListTableViewCell.xib in Resources */,
 				D90C637A19FB44D300C2E440 /* VoiceSearchFeedback007@2x.png in Resources */,
 				D9F57B9119E93486005BB43B /* UMSCommentInputControlleriPad.xib in Resources */,
 				D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */,
@@ -3889,6 +3911,7 @@
 				C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
+				D9117A791A2C4710000DBFCB /* ChatRecordListTableViewCell.m in Sources */,
 				D9545F9B1A207D3500688D72 /* RecommendsTableViewCell.m in Sources */,
 				C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */,
 				D9CDD72819EBB9FD001AC9F2 /* AboutViewController.m in Sources */,
@@ -4039,6 +4062,7 @@
 				D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */,
 				D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */,
 				D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */,
+				D9117A741A2C3836000DBFCB /* ChatRecoredListTableViewController.m in Sources */,
 				D9AC9BB21A1F2A2300E0C4CE /* WeatherInfo.m in Sources */,
 				D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */,
 				D90F366719F63E5300E26FA9 /* EMSearchBar.m in Sources */,

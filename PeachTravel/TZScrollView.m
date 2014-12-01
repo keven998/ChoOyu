@@ -25,12 +25,6 @@
     [self setNeedsDisplay];
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    NSLog(@"layoutSubviews");
-}
-
 - (void)setTitles:(NSArray *)titles
 {
     _scrollView.contentSize = CGSizeMake(titles.count *(_itemWidth + spaceWidth)+self.bounds.size.width, _scrollView.contentSize.height);
