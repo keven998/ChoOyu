@@ -9,6 +9,7 @@
 #import "SpotDetailViewController.h"
 #import "SpotDetailView.h"
 #import "SpotPoi.h"
+#import "ChatRecoredListTableViewController.h"
 
 @interface SpotDetailViewController ()
 
@@ -46,7 +47,8 @@
 
 - (IBAction)chat:(id)sender
 {
-    
+    ChatRecoredListTableViewController *chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+    [self.navigationController pushViewController:chatRecordListCtl animated:YES];
 }
 
 #pragma mark - Private Methods

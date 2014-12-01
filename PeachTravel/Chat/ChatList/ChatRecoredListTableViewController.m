@@ -1,0 +1,192 @@
+//
+//  ChatRecoredListTableViewController.m
+//  PeachTravel
+//
+//  Created by liangpengshuai on 12/1/14.
+//  Copyright (c) 2014 com.aizou.www. All rights reserved.
+//
+
+/**
+ *  聊天记录的列表页面，当从 poi 详情界面发送东西的时候回进入此页面来选择接收的对象
+ */
+
+#import "ChatRecoredListTableViewController.h"
+#import "AccountManager.h"
+#import "ChatRecordListTableViewCell.h"
+
+@interface ChatRecoredListTableViewController ()
+
+@property (strong, nonatomic) NSMutableArray *dataSource;
+@property (strong, nonatomic) NSMutableArray *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
+@property (nonatomic, strong) AccountManager *accountManager;
+
+
+@end
+
+@implementation ChatRecoredListTableViewController
+
+static NSString *reusableCreateConversationCell = @"createConversationCell";
+static NSString *reusableChatRecordCell = @"chatRecordListCell";
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCel" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
+    _dataSource = [NSMutableArray array];
+    _dataSource = [self loadDataSource];
+    [self loadChattingPeople];
+
+}
+
+#pragma mark - getter
+
+- (AccountManager *)accountManager
+{
+    if (!_accountManager) {
+        _accountManager = [AccountManager shareAccountManager];
+    }
+    return _accountManager;
+}
+
+#pragma mark - Private Methods
+
+- (NSMutableArray *)loadDataSource
+{
+    NSMutableArray *ret = nil;
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSArray* sorte = [conversations sortedArrayUsingComparator:
+                      ^(EMConversation *obj1, EMConversation* obj2){
+                          EMMessage *message1 = [obj1 latestMessage];
+                          EMMessage *message2 = [obj2 latestMessage];
+                          if(message1.timestamp > message2.timestamp) {
+                              return(NSComparisonResult)NSOrderedAscending;
+                          }else {
+                              return(NSComparisonResult)NSOrderedDescending;
+                          }
+                      }];
+    ret = [[NSMutableArray alloc] initWithArray:sorte];
+    return ret;
+}
+
+- (void)loadChattingPeople
+{
+    if (!_chattingPeople) {
+        _chattingPeople = [[NSMutableArray alloc] init];
+    } else {
+        [_chattingPeople removeAllObjects];
+    }
+    for (EMConversation *conversation in self.dataSource) {
+        if (!conversation.isGroup) {
+            if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
+                [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
+            } else {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO];
+            }
+        } else {
+            [_chattingPeople addObject:conversation.chatter];
+        }
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 1;
+    }
+    return _dataSource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCreateConversationCell forIndexPath:indexPath];
+        cell.textLabel.text = @"创建新的聊天";
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        return cell;
+    } else {
+        ChatRecordListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableChatRecordCell forIndexPath:indexPath];
+        EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+        Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
+        if (!conversation.isGroup) {
+            cell.titleLabel.text = chatPeople.nickName;
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+        } else{
+            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+            for (EMGroup *group in groupArray) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+                    cell.titleLabel.text = group.groupSubject;
+                    break;
+                }
+            }
+        }
+        return cell;
+    }
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 20)];
+        label.text = @"最近聊天";
+        label.font = [UIFont systemFontOfSize:13.0];
+        label.textColor = [UIColor lightGrayColor];
+        [sectionView addSubview:label];
+        return sectionView;
+    }
+    return nil;
+}
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

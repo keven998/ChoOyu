@@ -39,7 +39,7 @@
 
 - (IBAction)addContact:(UIButton *)sender {
     [TZCMDChatHelper addContact:[_userInfo objectForKey:@"easemobUser"] withAttachMsg:@"我是小明,我是旅行派的小闺密"];
-    [SVProgressHUD showWithStatus:@"添加成功"];
+    [SVProgressHUD showSuccessWithStatus:@"添加成功"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
