@@ -29,7 +29,6 @@
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _coverView.backgroundColor = [UIColor yellowColor];
     _coverView.userInteractionEnabled = YES;
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     CALayer *layer = [_coverView layer];
@@ -41,7 +40,7 @@
     [self.view addSubview:_coverView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 48.0, w, 48.0)];
-    bottomView.backgroundColor = [UIColor redColor];
+    bottomView.backgroundColor = APP_THEME_COLOR;
     bottomView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     bottomView.userInteractionEnabled = YES;
     [_coverView addSubview:bottomView];
@@ -51,7 +50,6 @@
     button.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
-    button.backgroundColor = [UIColor blueColor];
     [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:button];
     
@@ -108,6 +106,10 @@
             
             UIViewAnimationOptions options = UIViewAnimationOptionTransitionFlipFromRight;
             [UIView animateWithDuration:0.2 delay:0.0 options:options animations:closeAnim completion:nil];
+        } else {
+            CGRect frame = view.frame;
+            frame.origin.x = 0.0;
+            view.frame = frame;
         }
     }
 }

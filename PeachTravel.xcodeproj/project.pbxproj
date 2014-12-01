@@ -40,7 +40,6 @@
 		C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344FF1A1C9AF000A27F86 /* ContactListTableViewCell.xib */; };
 		C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */; };
 		C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */; };
-		C67B4DBA1A26D60200CBF10B /* CustomSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DB91A26D60200CBF10B /* CustomSegue.m */; };
 		C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */; };
 		C6BC34811A272DB2002C19D3 /* login_frame_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */; };
 		C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */; };
@@ -404,7 +403,6 @@
 		D9681A181A109C4700122793 /* tutorial_background_02@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9681A131A109C4700122793 /* tutorial_background_02@2x.jpg */; };
 		D9681A191A109C4700122793 /* tutorial_background_03@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9681A141A109C4700122793 /* tutorial_background_03@2x.jpg */; };
 		D9681A1A1A109C4700122793 /* tutorial_background_04@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9681A151A109C4700122793 /* tutorial_background_04@2x.jpg */; };
-		D9681A1E1A10A1C700122793 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9681A1D1A10A1C700122793 /* WelcomeViewController.m */; };
 		D973340A19EB77B6004D2D8D /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D973340619EB77B6004D2D8D /* libSocialQQ.a */; };
 		D97B670119E90C70004439A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97B66FF19E90C70004439A3 /* LoginViewController.m */; };
 		D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97B670019E90C70004439A3 /* LoginViewController.xib */; };
@@ -603,8 +601,6 @@
 		C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
 		C653F52C1A25C2BF00E7479F /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
 		C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
-		C67B4DB81A26D60200CBF10B /* CustomSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegue.h; sourceTree = "<group>"; };
-		C67B4DB91A26D60200CBF10B /* CustomSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegue.m; sourceTree = "<group>"; };
 		C67B4DC01A270EF600CBF10B /* ZFModalTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFModalTransitionAnimator.h; sourceTree = "<group>"; };
 		C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
 		C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_frame_bg@2x.png"; sourceTree = "<group>"; };
@@ -1088,8 +1084,6 @@
 		D9681A131A109C4700122793 /* tutorial_background_02@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tutorial_background_02@2x.jpg"; sourceTree = "<group>"; };
 		D9681A141A109C4700122793 /* tutorial_background_03@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tutorial_background_03@2x.jpg"; sourceTree = "<group>"; };
 		D9681A151A109C4700122793 /* tutorial_background_04@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tutorial_background_04@2x.jpg"; sourceTree = "<group>"; };
-		D9681A1C1A10A1C700122793 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
-		D9681A1D1A10A1C700122793 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		D973340619EB77B6004D2D8D /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
 		D973340919EB77B6004D2D8D /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
 		D97B66FE19E90C70004439A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -2873,17 +2867,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		D9681A1B1A10A19100122793 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				D9681A1C1A10A1C700122793 /* WelcomeViewController.h */,
-				D9681A1D1A10A1C700122793 /* WelcomeViewController.m */,
-				C67B4DB81A26D60200CBF10B /* CustomSegue.h */,
-				C67B4DB91A26D60200CBF10B /* CustomSegue.m */,
-			);
-			name = Welcome;
-			sourceTree = "<group>";
-		};
 		D973340519EB77B6004D2D8D /* TencentOpenAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2968,7 +2951,6 @@
 				C608ED631A2C4D5E00B76934 /* HomeViewController */,
 				C63344DE1A1C3F5F00A27F86 /* Resource */,
 				D955E36419E67AC700047F2B /* Common */,
-				D9681A1B1A10A19100122793 /* Welcome */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,
 				D9A5939219E3DA9D004A6072 /* ToolBox */,
 				D9A5939319E3DAB3004A6072 /* Me */,
@@ -3904,7 +3886,6 @@
 				D95460141A233D6C00688D72 /* DKCircleButton.m in Sources */,
 				D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */,
 				D90F35FA19F63B3300E26FA9 /* DXMessageToolBar.m in Sources */,
-				D9681A1E1A10A1C700122793 /* WelcomeViewController.m in Sources */,
 				D90F364A19F63C2F00E26FA9 /* NSString+Valid.m in Sources */,
 				D9E9F7F41A00DB00003F70F6 /* TZScrollView.m in Sources */,
 				D9117A621A297628000DBFCB /* MyGuideSummary.m in Sources */,
@@ -4017,7 +3998,6 @@
 				D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
 				D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */,
-				C67B4DBA1A26D60200CBF10B /* CustomSegue.m in Sources */,
 				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
