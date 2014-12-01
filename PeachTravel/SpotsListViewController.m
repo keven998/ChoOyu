@@ -183,9 +183,10 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
             if (isSuccesss) {
                 [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
                 [self.tableView setEditing:NO animated:YES];
+                [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
                 [SVProgressHUD showSuccessWithStatus:@"保存成功"];
             } else {
-                [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+                [SVProgressHUD showErrorWithStatus:@"保存失败"];
             }
            
         }];

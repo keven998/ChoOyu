@@ -11,7 +11,6 @@
 @implementation RestaurantListTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
 }
 
 - (void)setIsEditing:(BOOL)isEditing
@@ -21,8 +20,7 @@
         _titleLabelConstraint.constant = 0;
         _addressLabelConstraint.constant = 0;
         
-    } else
-    {
+    } else {
         _mapViewBtn.hidden = NO;
         _titleLabelConstraint.constant = 60;
         _addressLabelConstraint.constant = 60;

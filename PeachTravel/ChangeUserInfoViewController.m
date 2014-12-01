@@ -144,13 +144,6 @@
     [super touchesEnded:touches withEvent:event];
 }
 
-//- (void)tapBackground:(id)sender
-//{
-//    if ([_contentTextField isFirstResponder]) {
-//        [_contentTextField resignFirstResponder];
-//    }
-//}
-
 
 
 @end

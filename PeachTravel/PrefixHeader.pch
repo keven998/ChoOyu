@@ -25,6 +25,7 @@
 #import "NSString+TaoziString.h"
 #import "ConvertMethods.h"
 #import "NSMutableDictionary+MyDictionary.h"
+#import "UIViewController+CWPopup.h"
 
 #endif
 

@@ -279,6 +279,9 @@
 		D90F368119F63ED200E26FA9 /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F367F19F63ED200E26FA9 /* EmojiEmoticons.m */; };
 		D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */; };
 		D9117A621A297628000DBFCB /* MyGuideSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A611A297628000DBFCB /* MyGuideSummary.m */; };
+		D9117A661A2C0E1D000DBFCB /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A651A2C0E1D000DBFCB /* UIViewController+CWPopup.m */; };
+		D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */; };
+		D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92998121A28B02900795986 /* MyGuideListTableViewController.m */; };
@@ -899,6 +902,11 @@
 		D90F368319F63F5B00E26FA9 /* RealtimeSearchUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealtimeSearchUtil.m; sourceTree = "<group>"; };
 		D9117A601A297628000DBFCB /* MyGuideSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuideSummary.h; sourceTree = "<group>"; };
 		D9117A611A297628000DBFCB /* MyGuideSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuideSummary.m; sourceTree = "<group>"; };
+		D9117A641A2C0E1D000DBFCB /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
+		D9117A651A2C0E1D000DBFCB /* UIViewController+CWPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CWPopup.m"; sourceTree = "<group>"; };
+		D9117A681A2C0E90000DBFCB /* ConfirmRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmRouteViewController.h; sourceTree = "<group>"; };
+		D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmRouteViewController.m; sourceTree = "<group>"; };
+		D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmRouteViewController.xib; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -2091,6 +2099,25 @@
 			path = Emoji;
 			sourceTree = "<group>";
 		};
+		D9117A631A2C0E1D000DBFCB /* CWPopup */ = {
+			isa = PBXGroup;
+			children = (
+				D9117A641A2C0E1D000DBFCB /* UIViewController+CWPopup.h */,
+				D9117A651A2C0E1D000DBFCB /* UIViewController+CWPopup.m */,
+			);
+			path = CWPopup;
+			sourceTree = "<group>";
+		};
+		D9117A671A2C0E90000DBFCB /* ConfirmGuideTitle */ = {
+			isa = PBXGroup;
+			children = (
+				D9117A681A2C0E90000DBFCB /* ConfirmRouteViewController.h */,
+				D9117A691A2C0E90000DBFCB /* ConfirmRouteViewController.m */,
+				D9117A6A1A2C0E90000DBFCB /* ConfirmRouteViewController.xib */,
+			);
+			path = ConfirmGuideTitle;
+			sourceTree = "<group>";
+		};
 		D929980C1A28AF3300795986 /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -2104,6 +2131,7 @@
 		D929980D1A28AF8B00795986 /* myGuides */ = {
 			isa = PBXGroup;
 			children = (
+				D9117A671A2C0E90000DBFCB /* ConfirmGuideTitle */,
 				D92998111A28B02900795986 /* MyGuideListTableViewController.h */,
 				D92998121A28B02900795986 /* MyGuideListTableViewController.m */,
 				D92998141A28B05000795986 /* MyGuidesTableViewCell.h */,
@@ -2376,6 +2404,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9117A631A2C0E1D000DBFCB /* CWPopup */,
 				C67B4DBF1A270EF600CBF10B /* ZFDragableModalTransition */,
 				C653F5271A25C2BF00E7479F /* FBShimmering */,
 				D9B476691A2468D30014136C /* NavigationMenuView */,
@@ -3582,6 +3611,7 @@
 				D90C638919FB44D300C2E440 /* VoiceSearchFeedback015.png in Resources */,
 				C6BC349D1A28171B002C19D3 /* ic_setting_password@2x.png in Resources */,
 				D9545FF01A22F5CD00688D72 /* first_selected@2x.png in Resources */,
+				D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
 				D90F362319F63B3300E26FA9 /* chatBar_more_locationSelected.png in Resources */,
 				D90F362619F63B3300E26FA9 /* chatBar_more_photo@2x.png in Resources */,
@@ -3785,6 +3815,7 @@
 				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,
 				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
 				D9B4765E1A2440D20014136C /* RestaurantOfCityTableViewCell.m in Sources */,
+				D9117A661A2C0E1D000DBFCB /* UIViewController+CWPopup.m in Sources */,
 				D90F360019F63B3300E26FA9 /* DXRecordView.m in Sources */,
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
@@ -3856,6 +3887,7 @@
 				D9DE78DD1A033724008A8576 /* MHTabBarController.m in Sources */,
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
+				D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */,
 				D95460181A2346D300688D72 /* RestaurantListTableViewCell.m in Sources */,
 				D9B476821A2468D30014136C /* SIMenuButton.m in Sources */,
 				C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */,

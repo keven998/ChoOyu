@@ -175,6 +175,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     tripPoi.priceDesc = restaurantPoi.priceDesc;
     tripPoi.desc = restaurantPoi.desc;
     tripPoi.address = restaurantPoi.address;
+    tripPoi.poiType = TripRestaurantPoi;
     [self.tripDetail.restaurantsList addObject:tripPoi];
 }
 

@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "MyGuideSummary.h"
 #import "TripDetailRootViewController.h"
+#import "ConfirmRouteViewController.h"
 
 @interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -22,6 +23,8 @@
 @property (nonatomic) NSUInteger currentPage;
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
+
+@property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
 
 
 @end
@@ -106,9 +109,29 @@ static NSString *reusableCell = @"myGuidesCell";
     }];
 }
 
+/**
+ *  点击路线列表里的编辑标题按钮
+ *
+ *  @param sender
+ */
 - (IBAction)edit:(UIButton *)sender
 {
-    
+    _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
+    [self presentPopupViewController:_confirmRouteViewController atHeight:0.0 animated:YES completion:^(void) {
+        _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
+        [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
+    }];
+}
+
+/**
+ *  点击修改标题的弹出框的确定按钮
+ *
+ *  @param sender
+ */
+- (IBAction)willConfirmRouteTitle:(UIButton *)sender
+{
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
+    [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text];
 }
 
 #pragma mark - Private Methods

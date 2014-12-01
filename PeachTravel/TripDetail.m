@@ -15,21 +15,24 @@
 
 - (id)initWithJson:(id)json
 {
-    _backUpJson = json;
-    _tripId = [json objectForKey:@"id"];
-    _tripTitle = [json objectForKey:@"title"];
-    _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
-    
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (id destinationsDic in [json objectForKey:@"destinations"]) {
-        CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationsDic];
-        [tempArray addObject:poi];
+    if (self = [super init]) {
+        NSLog(@"******接收到新路线********\n%@", json);
+        _backUpJson = json;
+        _tripId = [json objectForKey:@"id"];
+        _tripTitle = [json objectForKey:@"title"];
+        _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
+        
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (id destinationsDic in [json objectForKey:@"destinations"]) {
+            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationsDic];
+            [tempArray addObject:poi];
+        }
+        _destinations = tempArray;
+        
+        _itineraryList = [self analysisItineraryData:[json objectForKey:@"itinerary"]];
+        _restaurantsList = [self analysisRestaurantData:[json objectForKey:@"restaurant"]];
+        _shoppingList = [self analysisShoppingData:[json objectForKey:@"shopping"]];
     }
-    _destinations = tempArray;
-    
-    _itineraryList = [self analysisItineraryData:[json objectForKey:@"itinerary"]];
-    _restaurantsList = [self analysisRestaurantData:[json objectForKey:@"restaurant"]];
-    _shoppingList = [self analysisShoppingData:[json objectForKey:@"shopping"]];
     
     return self;
 }
