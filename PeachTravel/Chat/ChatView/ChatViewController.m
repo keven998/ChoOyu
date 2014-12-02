@@ -1329,7 +1329,8 @@
             }
             MessageModel *model = [MessageModelManager modelWithMessage:message];
             [self updateModelData:model];
-            if (model) {
+
+            if (model && (model.type != eMessageBodyType_Command)) {
                 [resultArray addObject:model];
             }
         }
