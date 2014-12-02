@@ -15,6 +15,8 @@
 #import "IMRootViewController.h"
 #import "OperationData.h"
 #import "MyGuideListTableViewController.h"
+#import "FavoritesViewController.h"
+#import "LocalViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -387,11 +389,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (IBAction)nearBy:(UIButton *)sender {
-
+    LocalViewController *lvc = [[LocalViewController alloc] init];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 - (IBAction)myFavorite:(id)sender {
-    
+    FavoritesViewController *fvc = [[FavoritesViewController alloc] init];
+    [self.navigationController pushViewController:fvc animated:YES];
 }
 
 - (IBAction)myTravelNote:(UIButton *)sender {
