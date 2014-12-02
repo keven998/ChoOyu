@@ -1,5 +1,5 @@
 //
-//  FavoritesViewController.h
+//  FavoriteViewController.h
 //  PeachTravel
 //
 //  Created by Luo Yong on 14/12/2.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavoritesViewController : UIViewController
+@interface FavoriteViewController : UIViewController
 
 @end
