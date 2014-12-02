@@ -24,7 +24,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     self = [super initWithMessageModel:model reuseIdentifier:reuseIdentifier];
     if (self) {
         self.headImageView.clipsToBounds = YES;
-        self.headImageView.layer.cornerRadius = 3.0;
+        self.headImageView.layer.cornerRadius = 20.0;
+        if (model.isChatGroup) {
+            _showNickName = YES;
+        } else {
+            _showNickName = NO;
+        }
     }
     return self;
 }
@@ -42,7 +47,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     bubbleFrame.origin.y = self.headImageView.frame.origin.y;
     
     if (self.messageModel.isSender) {
-        bubbleFrame.origin.y = self.headImageView.frame.origin.y;
         // 菊花状态 （因不确定菊花具体位置，要在子类中实现位置的修改）
         switch (self.messageModel.status) {
             case eMessageDeliveryState_Delivering:
@@ -80,7 +84,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         frame.origin.y = _bubbleView.center.y - frame.size.height / 2;
         self.activityView.frame = frame;
     }
+    
     else{
+        if (_showNickName) {
+            bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;
+        }
+
         bubbleFrame.origin.x = HEAD_PADDING * 2 + HEAD_SIZE;
         _bubbleView.frame = bubbleFrame;
     }
@@ -214,32 +223,43 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     return nil;
 }
 
+/**
+ *  返回
+ *
+ *  @param messageModel <#messageModel description#>
+ *
+ *  @return <#return value description#>
+ */
 + (CGFloat)bubbleViewHeightForMessageModel:(MessageModel *)messageModel
 {
+    CGFloat nickNameHeight = 0;
+    if (messageModel.isChatGroup) {
+        nickNameHeight = 20;
+    }
     switch (messageModel.type) {
         case eMessageBodyType_Text:
         {
-            return [EMChatTextBubbleView heightForBubbleWithObject:messageModel];
+            return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
         case eMessageBodyType_Image:
         {
-            return [EMChatImageBubbleView heightForBubbleWithObject:messageModel];
+            return [EMChatImageBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
         case eMessageBodyType_Voice:
         {
-            return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel];
+            return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
         case eMessageBodyType_Location:
         {
-            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel];
+            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
         case eMessageBodyType_Video:
         {
-            return [EMChatVideoBubbleView heightForBubbleWithObject:messageModel];
+            return [EMChatVideoBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
         default:

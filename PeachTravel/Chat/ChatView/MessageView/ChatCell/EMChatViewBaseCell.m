@@ -37,8 +37,9 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.backgroundColor = [UIColor clearColor];
         _nameLabel.textColor = [UIColor grayColor];
-        _nameLabel.textAlignment = NSTextAlignmentCenter;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont systemFontOfSize:12];
+        _nameLabel.text = @"小明";
         [self.contentView addSubview:_nameLabel];
         
         [self setupSubviewsForMessageModel:model];
@@ -54,7 +55,9 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     frame.origin.x = _messageModel.isSender ? (self.bounds.size.width - _headImageView.frame.size.width - HEAD_PADDING) : HEAD_PADDING;
     _headImageView.frame = frame;
     
-    _nameLabel.frame = CGRectMake(CGRectGetMinX(_headImageView.frame), CGRectGetMaxY(_headImageView.frame), CGRectGetWidth(_headImageView.frame), NAME_LABEL_HEIGHT);
+    CGRect nameFrame = CGRectMake(0, _headImageView.frame.origin.y, NAME_LABEL_WIDTH, NAME_LABEL_HEIGHT);
+    nameFrame.origin.x = _messageModel.isSender ? 0 : (_headImageView.frame.size.width + _headImageView.frame.origin.x + NAME_LABEL_PADDING);
+    _nameLabel.frame = nameFrame;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

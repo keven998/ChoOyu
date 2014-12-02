@@ -31,4 +31,6 @@ extern NSString *const kShouldResendCell;
 @property (nonatomic, strong) UIView *activityView;
 @property (nonatomic, strong) UIButton *retryButton;
 
+@property (nonatomic) BOOL showNickName;
+
 @end
