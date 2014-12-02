@@ -42,6 +42,14 @@
     [confirm setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirm];
+    
+    if (!_isPushed) {
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [backBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    }
 }
 
 #pragma mark - setter & getter
@@ -104,6 +112,11 @@
 
 #pragma mark - IBAction Methods
 
+- (IBAction)back:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)createConversation:(id)sender
 {
     if (_group) {         //如果是向已有的群组里添加新的成员
@@ -118,8 +131,8 @@
             Contact *contact = [self.selectedContacts firstObject];
             ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
             chatVC.title = contact.nickName;
-            if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:)]) {
-                [_delegate createConversationSuccessWithChatter:contact.easemobUser isGroup:NO];
+            if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
+                [_delegate createConversationSuccessWithChatter:contact.easemobUser isGroup:NO chatTitle:contact.nickName];
             }
             
         } else if (self.selectedContacts.count > 1) {     //群聊
@@ -150,8 +163,8 @@
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
                     ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:group.groupId isGroup:YES];
                     chatVC.title = group.groupSubject;
-                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:)]) {
-                        [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES];
+                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
+                        [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
                     }
 
                 }

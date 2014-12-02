@@ -75,10 +75,11 @@
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
     [_createCoversationCtl dismissViewControllerAnimated:YES completion:^{
         ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+        chatCtl.title = chatTitle;
         [self.navigationController pushViewController:chatCtl animated:YES];
     }];
 }

@@ -19,8 +19,9 @@
  *
  *  @param chatter 会话的 chatterid
  *  @param isGroup 是否是群
+ *  @param chatTitle 聊天界面显示的title
  */
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle;
 
 @end
 
@@ -29,4 +30,7 @@
 @property (nonatomic, strong) Group *group;
 
 @property (nonatomic, assign) id <CreateConversationDelegate> delegate;
+
+@property (nonatomic) BOOL isPushed;
+
 @end

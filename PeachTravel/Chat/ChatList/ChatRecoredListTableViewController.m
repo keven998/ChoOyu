@@ -41,12 +41,20 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
 
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
     [self loadChattingPeople];
+    
 
 }
 
@@ -61,6 +69,11 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 }
 
 #pragma mark - Private Methods
+
+- (IBAction)back:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (NSMutableArray *)loadDataSource
 {
@@ -103,10 +116,10 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:)]) {
-        [_delegate createConversationSuccessWithChatter:chatter isGroup:isGroup];
+    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
+        [_delegate createConversationSuccessWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
     }
 }
 
@@ -184,17 +197,18 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     if (indexPath.section == 0) {
         CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
         createConversationCtl.delegate = self;
+        createConversationCtl.isPushed = YES;
         [self.navigationController pushViewController:createConversationCtl animated:YES];
     } else {
         EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
         if (!conversation.isGroup) {
-            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO];
+            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO chatTitle:chatPeople.nickName];
         } else{
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES];
+                    [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
                     break;
                 }
             }
