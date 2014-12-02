@@ -95,6 +95,8 @@
         
         //根据接收者的username获取当前会话的管理者
         _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:chatter isGroup:_isChatGroup];
+        
+        
     }
     
     return self;
@@ -121,7 +123,7 @@
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     //将self注册为chatToolBar的moreView的代理
     if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
@@ -246,6 +248,16 @@
     } completion:^(BOOL finished) {
         showGroupList.hidden = NO;
     }];
+}
+
+/**
+ *  如果界面是 present 进来的，点击后退按钮，让上级页面跳转到指定页面
+ 
+ *  @param sender
+ */
+- (IBAction)backToViewController:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:chatOverNoti object:nil];
 }
 
 //增加群组成员
@@ -534,7 +546,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;

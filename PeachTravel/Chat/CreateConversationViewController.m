@@ -118,7 +118,9 @@
             Contact *contact = [self.selectedContacts firstObject];
             ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
             chatVC.title = contact.nickName;
-            [self.navigationController pushViewController:chatVC animated:YES];
+            if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:)]) {
+                [_delegate createConversationSuccessWithChatter:contact.easemobUser isGroup:NO];
+            }
             
         } else if (self.selectedContacts.count > 1) {     //群聊
             [self showHudInView:self.view hint:@"创建群组..."];
@@ -146,7 +148,12 @@
                     [weakSelf showHint:@"创建群组成功"];
                     [[EaseMob sharedInstance].chatManager setNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
-                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                    ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:group.groupId isGroup:YES];
+                    chatVC.title = group.groupSubject;
+                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:)]) {
+                        [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES];
+                    }
+
                 }
                 else{
                     [weakSelf showHint:@"创建群组失败，请重新操作"];
@@ -156,6 +163,7 @@
         }
     }
 }
+
 
 #pragma mark - Private Methods
 
@@ -219,7 +227,6 @@
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
                 [self sendMsgWhileCreateGroup:_group.groupId];
-                [self.navigationController popViewControllerAnimated:YES];
             });
             
         }

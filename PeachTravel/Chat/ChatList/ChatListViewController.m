@@ -206,7 +206,9 @@
 - (IBAction)addConversation:(id)sender
 {
     CreateConversationViewController *createCoversationCtl = [[CreateConversationViewController alloc] init];
-    [self.navigationController pushViewController:createCoversationCtl animated:YES];
+
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:createCoversationCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (void) setupListView {
@@ -490,6 +492,7 @@
     NSString *chatter = conversation.chatter;
     chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:conversation.isGroup];
     chatController.title = title;
+    
     [conversation markMessagesAsRead:YES];
     [self.navigationController pushViewController:chatController animated:YES];
 }
