@@ -118,12 +118,11 @@
     
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     _isScrollToBottom = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupBarButtonItem];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     //将self注册为chatToolBar的moreView的代理
     if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
@@ -536,7 +535,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height - 64) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -1135,8 +1134,8 @@
 {
     [UIView animateWithDuration:0.3 animations:^{
         CGRect rect = self.tableView.frame;
-        rect.origin.y = 0;
-        rect.size.height = self.view.frame.size.height - toHeight;
+        rect.origin.y = 64;
+        rect.size.height = self.view.frame.size.height - toHeight - 64;
         self.tableView.frame = rect;
     }];
     [self scrollViewToBottom:YES];

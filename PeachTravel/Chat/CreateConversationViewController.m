@@ -129,8 +129,6 @@
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             Contact *contact = [self.selectedContacts firstObject];
-            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
-            chatVC.title = contact.nickName;
             if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
                 [_delegate createConversationSuccessWithChatter:contact.easemobUser isGroup:NO chatTitle:contact.nickName];
             }
@@ -161,8 +159,6 @@
                     [weakSelf showHint:@"创建群组成功"];
                     [[EaseMob sharedInstance].chatManager setNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
-                    ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:group.groupId isGroup:YES];
-                    chatVC.title = group.groupSubject;
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
                         [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
                     }
