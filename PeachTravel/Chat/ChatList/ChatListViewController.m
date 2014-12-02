@@ -155,14 +155,14 @@
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
             } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO];
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
             }
         } else {
             [_chattingPeople addObject:conversation.chatter];
         }
     }
     //重新加载 datasource
-//    self.dataSource = [self loadDataSource];
+    self.dataSource = [self loadDataSource];
     if (_chattingPeople.count <= 0) {
         [self setupEmptyView];
     } else {
@@ -507,6 +507,7 @@
         EMConversation *converation = [self.dataSource objectAtIndex:indexPath.row];
         [[EaseMob sharedInstance].chatManager removeConversationByChatter:converation.chatter deleteMessages:YES];
         [self.dataSource removeObjectAtIndex:indexPath.row];
+        [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }

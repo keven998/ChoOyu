@@ -61,6 +61,11 @@
 - (void)setCurrentIndex:(NSInteger)currentIndex
 {
     _currentIndex = currentIndex;
+    
+    //如果scrollview 上一个 cell 都没有的话直接 return 掉
+    if (_currentIndex == 0 && self.viewsOnScrollView.count == 0) {
+        return;
+    }
     [self scrollToCorrectPosition];
 }
 
