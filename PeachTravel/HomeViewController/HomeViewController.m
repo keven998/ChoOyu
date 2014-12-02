@@ -19,11 +19,9 @@
 @implementation HomeViewController
 
 - (void)viewDidLoad {
-    [self setupConverView];
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [self setupConverView];
 }
 
 - (void) setupConverView {

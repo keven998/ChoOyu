@@ -109,7 +109,7 @@
 #pragma mark - SwipeViewDelegate
 
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
-    
+    [_filterView setSelectedIndex:swipeView.currentItemIndex];
 }
 
 - (CGSize)swipeViewItemSize:(SwipeView *)swipeView {
@@ -119,7 +119,7 @@
 #pragma mark - DMFilterViewDelegate
 
 - (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
-    
+    [_swipeView setCurrentPage:index];
 }
 
 - (void)didReceiveMemoryWarning {
