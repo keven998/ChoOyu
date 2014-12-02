@@ -33,10 +33,10 @@
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     CALayer *layer = [_coverView layer];
     layer.shadowColor = [UIColor colorWithWhite:0. alpha:1.0].CGColor;
-    layer.shadowOffset = CGSizeMake(4.0, 0.0);
+    layer.shadowOffset = CGSizeMake(2.5, 0.0);
     layer.shadowOpacity = 1.0;
-    layer.shadowOpacity = 0.4;
-    layer.shadowRadius = 4.0;
+    layer.shadowOpacity = 0.25;
+    layer.shadowRadius = 2.5;
     [self.view addSubview:_coverView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 48.0, w, 48.0)];

@@ -41,6 +41,9 @@
 		C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */; };
 		C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */; };
 		C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */; };
+		C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */; };
+		C68D9B9A1A2D5CB1008A9D4B /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C68D9B981A2D5CB1008A9D4B /* FavoritesViewController.m */; };
+		C68D9B9B1A2D5CB1008A9D4B /* FavoritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C68D9B991A2D5CB1008A9D4B /* FavoritesViewController.xib */; };
 		C6BC34811A272DB2002C19D3 /* login_frame_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */; };
 		C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */; };
 		C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */; };
@@ -606,6 +609,11 @@
 		C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		C67B4DC01A270EF600CBF10B /* ZFModalTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFModalTransitionAnimator.h; sourceTree = "<group>"; };
 		C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
+		C68D9B931A2D5C3B008A9D4B /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
+		C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
+		C68D9B971A2D5CB1008A9D4B /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		C68D9B981A2D5CB1008A9D4B /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		C68D9B991A2D5CB1008A9D4B /* FavoritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesViewController.xib; sourceTree = "<group>"; };
 		C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_frame_bg@2x.png"; sourceTree = "<group>"; };
 		C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_btn_frame@2x.png"; sourceTree = "<group>"; };
 		C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_line@2x.png"; sourceTree = "<group>"; };
@@ -1465,6 +1473,27 @@
 			);
 			name = ZFDragableModalTransition;
 			path = Common/Config/libs/ZFDragableModalTransition;
+			sourceTree = "<group>";
+		};
+		C68D9B8F1A2D5BE8008A9D4B /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				C68D9B931A2D5C3B008A9D4B /* LocalViewController.h */,
+				C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */,
+			);
+			name = Local;
+			path = ToolBox/Local;
+			sourceTree = "<group>";
+		};
+		C68D9B961A2D5C9A008A9D4B /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				C68D9B971A2D5CB1008A9D4B /* FavoritesViewController.h */,
+				C68D9B981A2D5CB1008A9D4B /* FavoritesViewController.m */,
+				C68D9B991A2D5CB1008A9D4B /* FavoritesViewController.xib */,
+			);
+			name = Favorite;
+			path = ToolBox/Favorite;
 			sourceTree = "<group>";
 		};
 		C6BC347D1A272DB1002C19D3 /* 1x */ = {
@@ -3016,6 +3045,8 @@
 		D9A5939219E3DA9D004A6072 /* ToolBox */ = {
 			isa = PBXGroup;
 			children = (
+				C68D9B961A2D5C9A008A9D4B /* Favorite */,
+				C68D9B8F1A2D5BE8008A9D4B /* Local */,
 				D90F356919F638F900E26FA9 /* Home */,
 				D90F356819F6321B00E26FA9 /* IM */,
 			);
@@ -3511,6 +3542,7 @@
 				D9681A0F1A109BF600122793 /* Default.png in Resources */,
 				D90C63A419FB44D300C2E440 /* chat_location_detail_disclosureHL.png in Resources */,
 				D90F361319F63B3300E26FA9 /* chatBar_recordSelectedBg.png in Resources */,
+				C68D9B9B1A2D5CB1008A9D4B /* FavoritesViewController.xib in Resources */,
 				D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */,
 				D90C639D19FB44D300C2E440 /* chatBar_more_faceSelected@2x.png in Resources */,
 				D902ADCA1A15EC9300E36A93 /* TravelNoteTableViewCell.xib in Resources */,
@@ -3878,6 +3910,7 @@
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
+				C68D9B9A1A2D5CB1008A9D4B /* FavoritesViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9B476571A243E490014136C /* RestaurantsOfCityViewController.m in Sources */,
@@ -4051,6 +4084,7 @@
 				D9B476901A2479F50014136C /* ShoppingOfCity.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
 				D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */,
+				C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */,
 				D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */,
 				D9545FBA1A22D7DB00688D72 /* ShoppingDetailViewController.m in Sources */,
 				D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */,
