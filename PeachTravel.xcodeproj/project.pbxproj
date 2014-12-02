@@ -288,6 +288,9 @@
 		D9117A741A2C3836000DBFCB /* ChatRecoredListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A731A2C3836000DBFCB /* ChatRecoredListTableViewController.m */; };
 		D9117A791A2C4710000DBFCB /* ChatRecordListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A771A2C4710000DBFCB /* ChatRecordListTableViewCell.m */; };
 		D9117A7A1A2C4710000DBFCB /* ChatRecordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A781A2C4710000DBFCB /* ChatRecordListTableViewCell.xib */; };
+		D9117A7D1A2C9894000DBFCB /* SelectContactScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A7C1A2C9894000DBFCB /* SelectContactScrollView.m */; };
+		D9117A801A2C9C6B000DBFCB /* TZSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A7F1A2C9C6B000DBFCB /* TZSelectView.m */; };
+		D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92998121A28B02900795986 /* MyGuideListTableViewController.m */; };
@@ -921,6 +924,12 @@
 		D9117A761A2C4710000DBFCB /* ChatRecordListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRecordListTableViewCell.h; sourceTree = "<group>"; };
 		D9117A771A2C4710000DBFCB /* ChatRecordListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRecordListTableViewCell.m; sourceTree = "<group>"; };
 		D9117A781A2C4710000DBFCB /* ChatRecordListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatRecordListTableViewCell.xib; sourceTree = "<group>"; };
+		D9117A7B1A2C9894000DBFCB /* SelectContactScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactScrollView.h; sourceTree = "<group>"; };
+		D9117A7C1A2C9894000DBFCB /* SelectContactScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactScrollView.m; sourceTree = "<group>"; };
+		D9117A7E1A2C9C6B000DBFCB /* TZSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSelectView.h; sourceTree = "<group>"; };
+		D9117A7F1A2C9C6B000DBFCB /* TZSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSelectView.m; sourceTree = "<group>"; };
+		D9117A811A2CA377000DBFCB /* SelectContactUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactUnitView.h; sourceTree = "<group>"; };
+		D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactUnitView.m; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -3301,6 +3310,8 @@
 			children = (
 				D9E9F7F21A00DB00003F70F6 /* TZScrollView.h */,
 				D9E9F7F31A00DB00003F70F6 /* TZScrollView.m */,
+				D9117A7E1A2C9C6B000DBFCB /* TZSelectView.h */,
+				D9117A7F1A2C9C6B000DBFCB /* TZSelectView.m */,
 			);
 			name = TZScrollView;
 			sourceTree = "<group>";
@@ -3314,6 +3325,10 @@
 				D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */,
 				D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */,
 				D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */,
+				D9117A7B1A2C9894000DBFCB /* SelectContactScrollView.h */,
+				D9117A7C1A2C9894000DBFCB /* SelectContactScrollView.m */,
+				D9117A811A2CA377000DBFCB /* SelectContactUnitView.h */,
+				D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */,
 			);
 			name = CreateCoversation;
 			sourceTree = "<group>";
@@ -3891,6 +3906,7 @@
 				D9117A621A297628000DBFCB /* MyGuideSummary.m in Sources */,
 				C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
+				D9117A801A2C9C6B000DBFCB /* TZSelectView.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
 				D9117A791A2C4710000DBFCB /* ChatRecordListTableViewCell.m in Sources */,
 				D9545F9B1A207D3500688D72 /* RecommendsTableViewCell.m in Sources */,
@@ -3999,6 +4015,7 @@
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
 				D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */,
 				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
+				D9117A7D1A2C9894000DBFCB /* SelectContactScrollView.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
 				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
@@ -4036,6 +4053,7 @@
 				D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */,
 				D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */,
 				D9545FBA1A22D7DB00688D72 /* ShoppingDetailViewController.m in Sources */,
+				D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */,
 				D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */,
 				C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,

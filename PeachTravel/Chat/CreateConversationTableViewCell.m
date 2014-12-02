@@ -11,22 +11,38 @@
 @implementation CreateConversationTableViewCell
 
 - (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    self.avatarImageView.layer.cornerRadius = 20.0;
-    self.avatarImageView.clipsToBounds = YES;
-    
-    _selectView.strokeColor = UIColorFromRGB(0xdddddd);
-    _selectView.strokeWidth = 1.0;
-    _selectView.uncheckedColor = [UIColor whiteColor];
-    _selectView.radius = 12.0;
-    _selectView.checkColor = [UIColor whiteColor];
-    _selectView.tintColor = [UIColor yellowColor];
+    _selectImageView.layer.cornerRadius = 10;
+    _selectImageView.clipsToBounds = YES;
+    _avatarImageView.layer.cornerRadius = 20.0;
+    _avatarImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+}
+
+- (void)setCheckStatus:(CheckStatus)checkStatus
+{
+    _checkStatus = checkStatus;
+    switch (_checkStatus) {
+        case unChecked:
+            _selectImageView.backgroundColor = [UIColor greenColor];
+            break;
+            
+        case checked:
+            _selectImageView.backgroundColor = [UIColor redColor];
+
+            break;
+            
+        case disable:
+            _selectImageView.backgroundColor = [UIColor grayColor];
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

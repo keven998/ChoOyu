@@ -13,15 +13,18 @@
 #import "ChatView/ChatViewController.h"
 #import "CreateConversationTableViewCell.h"
 #import "ChatView/ChatSendHelper.h"
+#import "SelectContactScrollView.h"
+#import "SelectContactUnitView.h"
 
 #define contactCell      @"createConversationCell"
 
-@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource,TZScrollViewDelegate, UITableViewDelegate>
+@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource,TZScrollViewDelegate, UITableViewDelegate, TaoziSelectViewDelegate>
 
 @property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
+@property (strong, nonatomic) SelectContactScrollView *selectContactView;
 
 @end
 
@@ -30,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -46,7 +50,7 @@
 {
     if (!_tzScrollView) {
         
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 74, kWindowWidth, 40)];
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 164, kWindowWidth, 40)];
         _tzScrollView.itemWidth = 20;
         _tzScrollView.itemHeight = 20;
         _tzScrollView.itemBackgroundColor = [UIColor grayColor];
@@ -58,14 +62,25 @@
     return _tzScrollView;
 }
 
+- (SelectContactScrollView *)selectContactView
+{
+    if (!_selectContactView) {
+        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 90)];
+        _selectContactView.delegate = self;
+        _selectContactView.backgroundColor = [UIColor whiteColor];
+    }
+    return _selectContactView;
+}
+
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height+10, kWindowWidth-20, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height)];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
+        _contactTableView.separatorStyle = UITableViewCellSelectionStyleNone;
+        _contactTableView.backgroundColor = APP_PAGE_COLOR;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
-
     }
     return _contactTableView;
 }
@@ -218,6 +233,14 @@
     [self tableViewMoveToCorrectPosition:index];
 }
 
+#pragma mark -  TaoziSelectViewDelegate
+
+- (void)removeUintCell:(NSInteger)index
+{
+    [self.selectedContacts removeObjectAtIndex:index];
+    [self.contactTableView reloadData];
+}
+
 #pragma mark - UITableVeiwDataSource & delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -237,12 +260,17 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contactTableView.frame.size.width, 30)];
+    sectionView.backgroundColor = [UIColor whiteColor];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    label.backgroundColor = [UIColor whiteColor];
-    label.layer.borderColor = UIColorFromRGB(0xeeeeee).CGColor;
-    label.layer.borderWidth = 1.0;
     label.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section]];
-    return label;
+    
+    [sectionView addSubview:label];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, self.contactTableView.frame.size.width, 1)];
+    spaceView.backgroundColor = UIColorFromRGB(0xeeeeee);
+    [sectionView addSubview:spaceView];
+    
+    return sectionView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -257,12 +285,14 @@
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     cell.nickNameLabel.text = contact.nickName;
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
-
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
     if ([self isSelected:contact.userId]) {
-        cell.selectView.selected = YES;
+        cell.checkStatus = checked;
     } else {
-        cell.selectView.selected = NO;
+        cell.checkStatus = unChecked;
+    }
+    if ([self isNumberInGroup:contact.userId]) {
+        cell.checkStatus = disable;
     }
     return cell;
 }
@@ -270,16 +300,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-//    if ([self isNumberInGroup:contact.userId]) {
-//        return;
-//    }
-//    if ([self isSelected:contact.userId]) {
-//        [self.selectedContacts removeObject:contact];
-//    } else {
-//        [self.selectedContacts addObject:contact];
-//    }
-//    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if ([self isNumberInGroup:contact.userId]) {
+        return;
+    }
+    if ([self isSelected:contact.userId]) {
+        NSInteger index = [self.selectedContacts indexOfObject:contact];
+        [self.selectContactView removeUnitAtIndex:index];
+        
+    } else {
+        [self.selectedContacts addObject:contact];
+        SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
+        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
+        unitView.nickNameLabel.text = contact.nickName;
+        [self.selectContactView addSelectUnit:unitView];
+    }
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - UIScrollViewDelegate

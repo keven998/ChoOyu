@@ -66,6 +66,7 @@
         strokeColor = [UIColor colorWithRed:(r + .2) green:(g + .2) blue:(b + .2) alpha:a];
         [checkbox.checkColor getRed:&r green:&g blue:&b alpha:&a];
         checkColor = [UIColor colorWithRed:(r + .2) green:(g + .2) blue:(b + .2) alpha:a];
+
     } else {
         strokeColor = checkbox.strokeColor;
         checkColor = checkbox.checkColor;

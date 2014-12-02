@@ -1,15 +1,15 @@
 //
-//  DestinationToolBar.m
-//  PeachTravelDemo
+//  TZSelectView.m
+//  PeachTravel
 //
-//  Created by liangpengshuai on 14/9/24.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 12/1/14.
+//  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "DestinationToolBar.h"
-#import "DestinationUnit.h"
+#import "TZSelectView.h"
 
-@interface DestinationToolBar ()<UIScrollViewDelegate>
+@interface TZSelectView () <UIScrollViewDelegate>
+
 {
     CGFloat offsetX;
 }
@@ -46,7 +46,7 @@
 
 @end
 
-@implementation DestinationToolBar
+@implementation TZSelectView
 
 /**
  *  初始化一个带下一步按钮的界面
@@ -61,23 +61,24 @@
     self = [super initWithFrame:frame];
     if (self) {
         offsetX = defaultPace;
-        self.backgroundColor = UIColorFromRGB(0xee528c);
         self.alpha = 0.8;
+        UIButton *nextBtn;
         if (title) {
-            _nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-70, 0, 70, frame.size.height)];
-            [_nextBtn setTitle:title forState:UIControlStateNormal];
-            _nextBtn.alpha = 0.8;
-            _nextBtn.backgroundColor = UIColorFromRGB(0xee528c);
-            [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            _nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-            [self addSubview:_nextBtn];
+            nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-70, 0, 70, frame.size.height)];
+            [nextBtn setTitle:title forState:UIControlStateNormal];
+            nextBtn.alpha = 0.8;
+            nextBtn.backgroundColor = UIColorFromRGB(0xee528c);
+            [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+            [self addSubview:nextBtn];
             
             UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, frame.size.height)];
             spaceView.backgroundColor = [UIColor whiteColor];
-            [_nextBtn addSubview:spaceView];
+            [nextBtn addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
+            [nextBtn addSubview:spaceView];
         }
         
-        [self setPropertyWithNextBtn:_nextBtn];
+        [self setPropertyWithNextBtn:nextBtn];
     }
     return self;
 }
@@ -105,12 +106,11 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.delegate = self;
     if (nextBtn) {
-        _scrollView.frame = CGRectMake(0, (self.bounds.size.height - defaultHeight)/2.0, self.bounds.size.width - 72, defaultHeight);
+        _scrollView.frame = CGRectMake(0, 0, self.bounds.size.width - 72, self.frame.size.height);
     } else {
-        _scrollView.frame = CGRectMake(0, (self.bounds.size.height - defaultHeight)/2.0, self.bounds.size.width, defaultHeight);
+        _scrollView.frame = CGRectMake(0, 0, self.bounds.size.width, self.frame.size.height);
     }
-    _scrollView.backgroundColor = UIColorFromRGB(0xee528c);
-    _scrollView.alpha = 0.8;
+    _scrollView.backgroundColor = self.backgroundColor;
     _scrollView.scrollEnabled = YES;
     _scrollView.directionalLockEnabled = YES;
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -132,128 +132,33 @@
  */
 - (void)scrollViewAbleScroll
 {
-    DestinationUnit *lastUnit = [_unitList lastObject];
+    UIView *lastUnit = [_unitList lastObject];
     NSLog(@"最后一个%@", NSStringFromCGRect(lastUnit.frame));
     _scrollView.contentSize = CGSizeMake(lastUnit.frame.size.width + lastUnit.frame.origin.x, _scrollView.frame.size.height);
     [_scrollView scrollRectToVisible:lastUnit.frame animated:YES];
 }
 
-/*
- *  @method
- *  @function
- *  新增一个unitCell
- *  _defaultUnit向后移动并伴随动画效果
- *  newUnitCell渐变显示
- */
-- (void) addNewUnit:(NSString *)icon withName:(NSString *)name
+- (void)addNewUnit:(UIView *)unit
 {
-    __block DestinationUnit *newUnitCell;
-    
-    if (icon) {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
-    } else {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
-    }
-    offsetX += defaultPace+newUnitCell.frame.size.width;
-    newUnitCell.alpha = 0.1;
-    [newUnitCell addTarget:self action:@selector(unitCellTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [_unitList addObject:newUnitCell];
-    [_scrollView addSubview:newUnitCell];
+    unit.alpha = 0.1;
+    CGRect frame = CGRectMake(offsetX, unit.frame.origin.y, unit.frame.size.width, unit.frame.size.height);
+    [unit setFrame:frame];
+    [_unitList addObject:unit];
+    [_scrollView addSubview:unit];
     [self scrollViewAbleScroll];
     
     [UIView animateWithDuration:duration animations:^(){
-        newUnitCell.alpha = 0.8;
+        unit.alpha = 0.8;
     } completion:^(BOOL finished){
-        newUnitCell.alpha = 1.0;
+        unit.alpha = 1.0;
     }];
-}
-
-/*
- *  @method
- *  @function
- *  新增一个unitCell
- *  _defaultUnit向后移动并伴随动画效果
- *  newUnitCell渐变显示
- */
-- (void) addNewUnit:(NSString *)icon withName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled
-{
-    __block DestinationUnit *newUnitCell;
-    
-    NSLog(@"%f", offsetX);
-    if (icon) {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
-    } else {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
-    }
-    offsetX += defaultPace+newUnitCell.frame.size.width;
-    newUnitCell.alpha = 0.1;
-    if (userInteractionEnabled) {
-        [newUnitCell addTarget:self action:@selector(unitCellTouched:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        newUnitCell.userInteractionEnabled = NO;
-    }
-    [_unitList addObject:newUnitCell];
-    [_scrollView addSubview:newUnitCell];
-    [self scrollViewAbleScroll];
-    
-    [UIView animateWithDuration:duration animations:^(){
-        newUnitCell.alpha = 0.8;
-    } completion:^(BOOL finished){
-        newUnitCell.alpha = 1.0;
-    }];
-}
-
-- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name
-{
-    __block DestinationUnit *newUnitCell;
-    
-    NSLog(@"%f", offsetX);
-    if (icon) {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
-    } else {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
-    }
-    offsetX += defaultPace+newUnitCell.frame.size.width;
-    newUnitCell.alpha = 0.1;
-    [_unitList addObject:newUnitCell];
-    [_scrollView addSubview:newUnitCell];
-    [self scrollViewAbleScroll];
-    
-    [UIView animateWithDuration:duration animations:^(){
-        newUnitCell.alpha = 0.8;
-    } completion:^(BOOL finished){
-        newUnitCell.alpha = 1.0;
-    }];
-    return newUnitCell;
-}
-
-/*
- *  @method
- *  @function
- *  新增一个unitCell
- *  _defaultUnit向后移动并伴随动画效果
- *  newUnitCell渐变显示
- */
-- (void)addNewUnitWithName:(NSString *)name
-{
-    [self addNewUnit:nil withName:name];
-}
-
-/**
- *  新增一个unitCell
- *
- *  @param name          新增按钮的标题
- *  @param userInterface 是否禁止用户点击操作，yes 是不禁止，no 是禁止
- */
-- (void) addNewUnitWithName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled
-{
-    [self addNewUnit:nil withName:name userInteractionEnabled:userInteractionEnabled];
+    offsetX += defaultPace + unit.frame.size.width;
 }
 
 
 - (void)removeUnitAtIndex:(NSInteger)index
 {
-    DestinationUnit *unitCell = [_unitList objectAtIndex:index];
+    UIView *unitCell = [_unitList objectAtIndex:index];
     [self unitCellTouched:unitCell];
 }
 
@@ -262,7 +167,7 @@
  *  @function
  *  unitCell被点击代理，需要执行删除操作
  */
-- (void)unitCellTouched:(UIButton *)unitCell
+- (void)unitCellTouched:(UIView *)unitCell
 {
     _hasDelete = YES;
     __block int index = (int)[_unitList indexOfObject:unitCell];
@@ -287,7 +192,7 @@
         {
             // 前面的向后移动
             for (int i = 0; i < index; i++) {
-                DestinationUnit *cell = [_unitList objectAtIndex:(NSUInteger) i];
+                UIView *cell = [_unitList objectAtIndex:(NSUInteger) i];
                 CGRect rect = cell.frame;
                 rect.origin.x += (defaultPace + unitCell.frame.size.width);
                 cell.frame = rect;
@@ -298,7 +203,7 @@
         {
             // 后面的向前移动
             for (int i = index + 1; i < _unitList.count; i++) {
-                DestinationUnit *cell = [_unitList objectAtIndex:(NSUInteger)i];
+                UIView *cell = [_unitList objectAtIndex:(NSUInteger)i];
                 CGRect rect = cell.frame;
                 rect.origin.x -= (defaultPace + unitCell.frame.size.width);
                 cell.frame = rect;
@@ -321,11 +226,6 @@
     
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    //    [self isNeedResetFrame];
-}
-
 /*
  *  @method
  *  @function
@@ -337,7 +237,7 @@
     if (_frontMove && _moveCount > 0) {
         
         for (int i = 0; i < _unitList.count; i++) {
-            DestinationUnit *cell = [_unitList objectAtIndex:(NSUInteger) i];
+            UIView *cell = [_unitList objectAtIndex:(NSUInteger) i];
             CGRect rect = cell.frame;
             rect.origin.x -= (defaultPace + width);
             cell.frame = rect;
@@ -349,7 +249,7 @@
     
     if (_hasDelete)
     {
-        DestinationUnit *lastUnit = [_unitList lastObject];
+        UIView *lastUnit = [_unitList lastObject];
         _scrollView.contentSize = CGSizeMake(lastUnit.frame.size.width + lastUnit.frame.origin.x, _scrollView.frame.size.height);
         _hasDelete = !_hasDelete;
     }
@@ -392,11 +292,17 @@
     [super setHidden:!self.hidden];
 }
 
+#pragma mark - IBAction Methods
+
+/**
+ *  点击下一步按钮，调用delegate
+ *
+ *  @param sender
+ */
+
+- (IBAction)next:(id)sender
+{
+    [self.delegate nextStep];
+}
 
 @end
-
-
-
-
-
-

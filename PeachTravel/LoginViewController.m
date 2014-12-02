@@ -226,7 +226,7 @@
              [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
              
              EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
-             options.displayStyle = ePushNotificationDisplayStyle_messageDetail;
+             options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
              [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
              
              [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];

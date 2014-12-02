@@ -17,13 +17,13 @@
 
 @interface DestinationToolBar : UIView
 
-- (id)initWithFrame:(CGRect)frame andNextBtnTitle:(NSString *)title;
-
--(void)setHidden:(BOOL)hidden withAnimation:(BOOL)animation;
-
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) id<DestinationToolBarDelegate> delegate;
+
+
+- (id)initWithFrame:(CGRect)frame andNextBtnTitle:(NSString *)title;
+-(void)setHidden:(BOOL)hidden withAnimation:(BOOL)animation;
 
 - (void) addNewUnit:(NSString *)icon withName:(NSString *)name;
 - (void) addNewUnitWithName:(NSString *)name;
