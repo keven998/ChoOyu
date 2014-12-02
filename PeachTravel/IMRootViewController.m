@@ -10,10 +10,13 @@
 #import "AddContactTableViewController.h"
 #import "CreateConversationViewController.h"
 #import "RNGridMenu.h"
+#import "ChatViewController.h"
 
-@interface IMRootViewController ()<RNGridMenuDelegate>
+@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate>
 
 @property (nonatomic, strong) NSArray *addItems;
+
+@property (nonatomic, strong) CreateConversationViewController *createCoversationCtl;
 
 @end
 
@@ -40,8 +43,10 @@
 
 - (IBAction)addConversation:(id)sender
 {
-    CreateConversationViewController *createCoversationCtl = [[CreateConversationViewController alloc] init];
-    [self.navigationController pushViewController:createCoversationCtl animated:YES];
+    _createCoversationCtl = [[CreateConversationViewController alloc] init];
+    _createCoversationCtl.delegate = self;
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createCoversationCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (IBAction)addAction:(UIButton *)sender
@@ -58,13 +63,25 @@
     [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
 
-#pragma RNGridMenuDelegate
+#pragma mark - RNGridMenuDelegate
+
 - (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
     if (itemIndex == 0) {
         [self addConversation:nil];
     } else {
         [self addUserContact:nil];
     }
+}
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+    [_createCoversationCtl dismissViewControllerAnimated:YES completion:^{
+        ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+        chatCtl.title = chatTitle;
+        [self.navigationController pushViewController:chatCtl animated:YES];
+    }];
 }
 
 @end

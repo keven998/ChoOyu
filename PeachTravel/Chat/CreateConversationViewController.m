@@ -42,6 +42,14 @@
     [confirm setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirm];
+    
+    if (!_isPushed) {
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [backBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    }
 }
 
 #pragma mark - setter & getter
@@ -104,6 +112,11 @@
 
 #pragma mark - IBAction Methods
 
+- (IBAction)back:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)createConversation:(id)sender
 {
     if (_group) {         //如果是向已有的群组里添加新的成员
@@ -116,9 +129,9 @@
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             Contact *contact = [self.selectedContacts firstObject];
-            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
-            chatVC.title = contact.nickName;
-            [self.navigationController pushViewController:chatVC animated:YES];
+            if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
+                [_delegate createConversationSuccessWithChatter:contact.easemobUser isGroup:NO chatTitle:contact.nickName];
+            }
             
         } else if (self.selectedContacts.count > 1) {     //群聊
             [self showHudInView:self.view hint:@"创建群组..."];
@@ -146,7 +159,10 @@
                     [weakSelf showHint:@"创建群组成功"];
                     [[EaseMob sharedInstance].chatManager setNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
-                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
+                        [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
+                    }
+
                 }
                 else{
                     [weakSelf showHint:@"创建群组失败，请重新操作"];
@@ -156,6 +172,7 @@
         }
     }
 }
+
 
 #pragma mark - Private Methods
 
@@ -219,7 +236,6 @@
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
                 [self sendMsgWhileCreateGroup:_group.groupId];
-                [self.navigationController popViewControllerAnimated:YES];
             });
             
         }

@@ -20,7 +20,7 @@
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
 
-@interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate>
+@interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *dataSource;
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
@@ -28,6 +28,7 @@
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
 @property (nonatomic, strong) AccountManager *accountManager;
+@property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
@@ -205,8 +206,10 @@
 
 - (IBAction)addConversation:(id)sender
 {
-    CreateConversationViewController *createCoversationCtl = [[CreateConversationViewController alloc] init];
-    [self.navigationController pushViewController:createCoversationCtl animated:YES];
+    _createConversationCtl = [[CreateConversationViewController alloc] init];
+    _createConversationCtl.delegate = self;
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createConversationCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (void) setupListView {
@@ -490,6 +493,7 @@
     NSString *chatter = conversation.chatter;
     chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:conversation.isGroup];
     chatController.title = title;
+    
     [conversation markMessagesAsRead:YES];
     [self.navigationController pushViewController:chatController animated:YES];
 }
@@ -580,6 +584,17 @@
 - (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
     NSLog(@"离线消息接收成功");
     [self refreshDataSource];
+}
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+    [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
+        ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+        chatCtl.title = chatTitle;
+        [self.navigationController pushViewController:chatCtl animated:YES];
+    }];
 }
 
 @end

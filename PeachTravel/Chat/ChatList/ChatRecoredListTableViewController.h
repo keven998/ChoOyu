@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CreateConversationViewController.h"
+
+@protocol ChatRecordListDelegate <NSObject>
+
+@optional
+
+- (void)choseReceiverOver;
+
+@end
 
 @interface ChatRecoredListTableViewController : UITableViewController
+
+@property (nonatomic, assign) id <CreateConversationDelegate> delegate;
 
 @end
