@@ -250,16 +250,6 @@
     }];
 }
 
-/**
- *  如果界面是 present 进来的，点击后退按钮，让上级页面跳转到指定页面
- 
- *  @param sender
- */
-- (IBAction)backToViewController:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:chatOverNoti object:nil];
-}
-
 //增加群组成员
 - (IBAction)addGroupNumber:(id)sender
 {

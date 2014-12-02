@@ -16,7 +16,7 @@
 #import "CreateConversationViewController.h"
 #import "ChatViewController.h"
 
-@interface ChatRecoredListTableViewController ()
+@interface ChatRecoredListTableViewController () <CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
@@ -101,6 +101,15 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     [self.tableView reloadData];
 }
 
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:)]) {
+        [_delegate createConversationSuccessWithChatter:chatter isGroup:isGroup];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -174,10 +183,22 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 {
     if (indexPath.section == 0) {
         CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+        createConversationCtl.delegate = self;
         [self.navigationController pushViewController:createConversationCtl animated:YES];
     } else {
-        ChatViewController *chatViewCtl = [[ChatViewController alloc] init];
-        [self.navigationController pushViewController:chatViewCtl animated:YES];
+        EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+        Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
+        if (!conversation.isGroup) {
+            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO];
+        } else{
+            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+            for (EMGroup *group in groupArray) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES];
+                    break;
+                }
+            }
+        }
     }
 }
 

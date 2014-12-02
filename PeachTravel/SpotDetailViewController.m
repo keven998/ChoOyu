@@ -10,11 +10,13 @@
 #import "SpotDetailView.h"
 #import "SpotPoi.h"
 #import "ChatRecoredListTableViewController.h"
+#import "CreateConversationViewController.h"
 
-@interface SpotDetailViewController ()
+@interface SpotDetailViewController () <CreateConversationDelegate>
 
 @property (nonatomic, strong) SpotPoi *spotPoi;
 @property (nonatomic, strong) UIButton *rightItemBtn;
+@property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
 @end
 
@@ -47,8 +49,10 @@
 
 - (IBAction)chat:(id)sender
 {
-    ChatRecoredListTableViewController *chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-    [self.navigationController pushViewController:chatRecordListCtl animated:YES];
+    _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+    _chatRecordListCtl.delegate = self;
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 #pragma mark - Private Methods
@@ -77,4 +81,18 @@
 
     
 }
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup
+{
+    [_chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
+        ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+        [self.navigationController pushViewController:chatCtl animated:YES];
+    }];
+}
 @end
+
+
+
+
