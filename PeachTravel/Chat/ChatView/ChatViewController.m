@@ -1320,18 +1320,24 @@
 {
     NSMutableArray *resultArray = [[NSMutableArray alloc] init];
     if (array && [array count] > 0) {
+        
         for (EMMessage *message in array) {
-            NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
-            NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
-            if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
-                [resultArray addObject:[createDate formattedTime]];
-                self.chatTagDate = createDate;
-            }
             MessageModel *model = [MessageModelManager modelWithMessage:message];
-            [self updateModelData:model];
+            
+            //如果消息是透传消息，直接忽略掉
+            if (model.type != eMessageBodyType_Command) {
+                NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
+                NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
+                if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
+                    [resultArray addObject:[createDate formattedTime]];
+                    self.chatTagDate = createDate;
+                }
+                [self updateModelData:model];
+                
+                if (model) {
+                    [resultArray addObject:model];
+                }
 
-            if (model && (model.type != eMessageBodyType_Command)) {
-                [resultArray addObject:model];
             }
         }
     }

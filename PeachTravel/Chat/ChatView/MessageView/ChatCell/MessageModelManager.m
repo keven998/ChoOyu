@@ -117,6 +117,7 @@
             model.image = model.thumbnailImage;
         }
             break;
+
         default:
             break;
     }
