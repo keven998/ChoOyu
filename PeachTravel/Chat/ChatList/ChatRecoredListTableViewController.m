@@ -145,7 +145,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+                    [cell.headerImageView setImage:[UIImage imageNamed:@"chatListCellHead"]];
                     cell.titleLabel.text = group.groupSubject;
                     break;
                 }
