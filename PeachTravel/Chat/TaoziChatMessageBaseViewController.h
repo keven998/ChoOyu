@@ -30,6 +30,8 @@
 @property (nonatomic, copy) NSString *chatter;
 @property (nonatomic) BOOL isGroup;
 @property (nonatomic, copy) NSString *chatTitle;
+// chatType 聊天的类型，分为景点，城市之类的
+@property (nonatomic) TZChatType chatType;
 
 //发送内容的 id,景点 id，攻略 id 之类的
 @property (nonatomic, copy) NSString *messageId;
@@ -43,13 +45,6 @@
 
 @property (nonatomic, assign) id <TaoziMessageSendDelegate> delegate;
 
-/**
- *  初始化一个不同种类的消息待发送界面
- *
- *  @param chatType 聊天的类型，分为景点，城市之类的
- *
- *  @return self
- */
-- (id)initWithChatMessageType:(TZChatType)chatType;
+
 @end
 

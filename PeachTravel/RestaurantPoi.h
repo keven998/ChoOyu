@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSArray *recommends;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic) NSInteger commentCount;
+@property (nonatomic) float rating;
 
 - (id)initWithJson:(id)json;
 @end

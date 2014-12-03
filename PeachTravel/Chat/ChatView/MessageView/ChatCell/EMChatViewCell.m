@@ -274,7 +274,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 }
                     break;
                     
-                case TZChatTypeSpot:TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
+                case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
                     return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
                 }
                     break;

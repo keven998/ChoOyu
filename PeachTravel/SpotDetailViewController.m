@@ -20,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     [self loadData];
 }
 
@@ -77,6 +76,7 @@
     taoziMessageCtl.messageName = _spotPoi.zhName;
     taoziMessageCtl.messageTimeCost = _spotPoi.timeCostStr;
     taoziMessageCtl.descLabel.text = _spotPoi.desc;
+    taoziMessageCtl.chatType = TZChatTypeSpot;
 }
 
 

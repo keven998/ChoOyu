@@ -11,19 +11,10 @@
 
 @interface TaoziChatMessageBaseViewController ()
 
-@property (nonatomic) TZChatType chatType;
-
 @end
 
 @implementation TaoziChatMessageBaseViewController
 
-- (id)initWithChatMessageType:(TZChatType)chatType
-{
-    if (self = [super init]) {
-        _chatType = chatType;
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +27,6 @@
     _sendBtn.layer.borderWidth = 1.0;
     _cancelBtn.layer.borderWidth = 1.0;
     
-    _descLabel.text = _messageDesc;
     _titleLabel.text = _messageName;
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_messageImage] placeholderImage:nil];
     
@@ -44,6 +34,7 @@
         case TZChatTypeSpot:
             _headerLabel.text = @"  景点";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
+            _descLabel.text = _messageDesc;
             
             break;
             
@@ -52,9 +43,13 @@
             
             break;
             
-        case TZChatTypeFood:
+        case TZChatTypeFood: {
             _headerLabel.text = @"  美食";
-            
+            NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
+            _descLabel.text = _messageAddress;
+            [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
+
+        }
             break;
             
         case TZChatTypeHotel:

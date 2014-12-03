@@ -58,8 +58,18 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
     }];
-    
-    
+}
+
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+    taoziMessageCtl.messageId = _restaurantPoi.restaurantId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[_restaurantPoi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = _restaurantPoi.desc;
+    taoziMessageCtl.messageName = _restaurantPoi.zhName;
+    taoziMessageCtl.messagePrice = _restaurantPoi.priceDesc;
+    taoziMessageCtl.messageRating = _restaurantPoi.rating;
+    taoziMessageCtl.chatType = TZChatTypeFood;
+    taoziMessageCtl.messageAddress = _restaurantPoi.address;
 }
 
 @end

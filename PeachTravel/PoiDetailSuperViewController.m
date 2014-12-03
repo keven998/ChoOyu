@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
     [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
@@ -43,18 +44,19 @@
 
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
-    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] initWithChatMessageType:TZChatTypeSpot];
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    [self setChatMessageModel:taoziMessageCtl];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatTitle = chatTitle;
+    taoziMessageCtl.chatter = chatter;
+    taoziMessageCtl.isGroup = isGroup;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
         }];
     }];
     
-    [self setChatMessageModel:taoziMessageCtl];
-    taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatTitle = chatTitle;
-    taoziMessageCtl.chatter = chatter;
-    taoziMessageCtl.isGroup = isGroup;
+    
 }
 
 #pragma mark - TaoziMessageSendDelegate
@@ -87,6 +89,11 @@
         [self dismissPopupViewControllerAnimated:YES completion:^{
         }];
     }
+}
+
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+    
 }
 
 @end

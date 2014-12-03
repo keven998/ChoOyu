@@ -78,7 +78,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
         [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth - 40 - 8 -BUBBLE_ARROW_WIDTH, 8+TaoziBubbleTypeHeight, 40, 40)];
         [_titleLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
-        [_propertyBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8, 20)];
+        [_propertyBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
         
     } else {
         _typeLabel.textAlignment = NSTextAlignmentLeft;

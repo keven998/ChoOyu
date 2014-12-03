@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PoiDetailSuperViewController.h"
 
-@interface RestaurantDetailViewController : UIViewController
+@interface RestaurantDetailViewController : PoiDetailSuperViewController
 
 @property (nonatomic, copy) NSString *restaurantId;
 

@@ -25,6 +25,7 @@
         _desc = [json objectForKey:@"desc"];
         _address = [json objectForKey:@"address"];
         _telephone = [json objectForKey:@"telephone"];
+        _rating = [[json objectForKey:@"rating"] floatValue];
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
