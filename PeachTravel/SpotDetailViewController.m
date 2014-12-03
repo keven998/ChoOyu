@@ -11,8 +11,9 @@
 #import "SpotPoi.h"
 #import "ChatRecoredListTableViewController.h"
 #import "CreateConversationViewController.h"
+#import "TaoziChatMessageBaseViewController.h"
 
-@interface SpotDetailViewController () <CreateConversationDelegate>
+@interface SpotDetailViewController () <CreateConversationDelegate, TaoziMessageSendDelegate>
 
 @property (nonatomic, strong) SpotPoi *spotPoi;
 @property (nonatomic, strong) UIButton *rightItemBtn;
@@ -86,13 +87,37 @@
 
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] initWithChatMessageType:TZChatTypeSpot];
+   
     [_chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
-        chatCtl.title = chatTitle;
-        [self.navigationController pushViewController:chatCtl animated:YES];
+        [self presentPopupViewController:taoziMessageCtl atHeight:70.0 animated:YES completion:^(void) {
+        }];
     }];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.descLabel.text = _spotPoi.desc;
+    taoziMessageCtl.chatTitle = chatTitle;
+    taoziMessageCtl.chatter = chatter;
+    taoziMessageCtl.isGroup = isGroup;
 }
+
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送景点给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self.navigationController pushViewController:chatCtl animated:YES];
+}
+
+- (void)sendCancel
+{
+    
+}
+
 @end
+
+
+
+
 
 
 

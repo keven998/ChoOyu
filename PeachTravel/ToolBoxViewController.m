@@ -61,6 +61,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     [super viewDidLoad];
     
+    NSLog(@"********TOOLBOX");
+    
     [self setupView];
     
     self.navigationItem.title = @"桃子旅行";
@@ -208,11 +210,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self loadScrollViewWithPage:1];
     }
     if (!self.weatherInfo) {
-//        [self.weatherLabel.superview removeFromSuperview];
         [_weatherFrame removeFromSuperview];
     } else {
-//        [self.weatherLabel.superview removeFromSuperview];
-//        [self.view addSubview:self.weatherLabel.superview];
         [_weatherFrame removeFromSuperview];
         [self.view addSubview:_weatherFrame];
     }

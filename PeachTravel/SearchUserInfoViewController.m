@@ -30,6 +30,7 @@
 {
     _avatarImageFrame.layer.cornerRadius = 48.0;
     _avatarImageView.layer.cornerRadius = 45.0;
+    _avatarImageView.clipsToBounds = YES;
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"avatar"]] placeholderImage:nil];
     _nickNameLabel.text = [userInfo objectForKey:@"nickName"];
     _signatureSimLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;

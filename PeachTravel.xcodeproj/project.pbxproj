@@ -295,6 +295,8 @@
 		D9117A7D1A2C9894000DBFCB /* SelectContactScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A7C1A2C9894000DBFCB /* SelectContactScrollView.m */; };
 		D9117A801A2C9C6B000DBFCB /* TZSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A7F1A2C9C6B000DBFCB /* TZSelectView.m */; };
 		D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */; };
+		D9117A8C1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */; };
+		D9117A8D1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92998121A28B02900795986 /* MyGuideListTableViewController.m */; };
@@ -941,6 +943,9 @@
 		D9117A7F1A2C9C6B000DBFCB /* TZSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSelectView.m; sourceTree = "<group>"; };
 		D9117A811A2CA377000DBFCB /* SelectContactUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactUnitView.h; sourceTree = "<group>"; };
 		D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactUnitView.m; sourceTree = "<group>"; };
+		D9117A891A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatMessageBaseViewController.h; sourceTree = "<group>"; };
+		D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatMessageBaseViewController.m; sourceTree = "<group>"; };
+		D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaoziChatMessageBaseViewController.xib; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -1855,8 +1860,8 @@
 		D90F356819F6321B00E26FA9 /* IM */ = {
 			isa = PBXGroup;
 			children = (
-				D990FBEA19F9F94F0008A8FE /* Contact */,
 				D90F357319F63B3300E26FA9 /* Chat */,
+				D990FBEA19F9F94F0008A8FE /* Contact */,
 				D982F90F1A071B6F00ECF18A /* TZCMDChatHelper.h */,
 				D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */,
 				D9D9D8FE1A1AE159005BE754 /* IMRootViewController.h */,
@@ -1886,6 +1891,7 @@
 				D90F365119F63E5300E26FA9 /* Custom */,
 				D90F357419F63B3300E26FA9 /* ChatList */,
 				D90F357919F63B3300E26FA9 /* ChatView */,
+				D9117A881A2DF620000DBFCB /* TaoChatView */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -2212,6 +2218,16 @@
 				D9117A781A2C4710000DBFCB /* ChatRecordListTableViewCell.xib */,
 			);
 			name = ChatRecoredList;
+			sourceTree = "<group>";
+		};
+		D9117A881A2DF620000DBFCB /* TaoChatView */ = {
+			isa = PBXGroup;
+			children = (
+				D9117A891A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.h */,
+				D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */,
+				D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */,
+			);
+			name = TaoChatView;
 			sourceTree = "<group>";
 		};
 		D929980C1A28AF3300795986 /* Root */ = {
@@ -3722,6 +3738,7 @@
 				C6BC348C1A274FEB002C19D3 /* ic_setting_notify@2x.png in Resources */,
 				C6BC34A31A2842C0002C19D3 /* ic_navigation_back@2x.png in Resources */,
 				D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */,
+				D9117A8D1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib in Resources */,
 				D90F35F119F63B3300E26FA9 /* call_silence_h.png in Resources */,
 				C6BC349C1A28171B002C19D3 /* ic_setting_nick@2x.png in Resources */,
 				D9681A171A109C4700122793 /* tutorial_background_01@2x.jpg in Resources */,
@@ -4017,6 +4034,7 @@
 				D9C64BBF1A1B6B9C00A4B9BF /* CityDestinationPoi.m in Sources */,
 				D9545FC21A22EF9700688D72 /* RDVTabBar.m in Sources */,
 				D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */,
+				D9117A8C1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m in Sources */,
 				D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */,
 				D9907B0D1A2037C100C7CF0C /* RestaurantDetailView.m in Sources */,
 				D906CBD91A2068C800BE2588 /* LocationTableViewCell.m in Sources */,

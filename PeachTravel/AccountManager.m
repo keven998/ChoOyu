@@ -208,6 +208,11 @@
 - (void)addContact:(id)contactDic
 {
     NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
+    
+    //如果已经是我的好友了，那我就没必要添加了。。
+    if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
+        return;
+    }
     Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
     
     if ([contactDic isKindOfClass:[FrendRequest class]]) {
