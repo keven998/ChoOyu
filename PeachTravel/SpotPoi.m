@@ -19,7 +19,7 @@
         _enName = [json objectForKey:@"enName"];
         _lat = [[[json objectForKey:@"coords"] objectForKey:@"lat"] doubleValue];
         _lng = [[[json objectForKey:@"coords"] objectForKey:@"lng"] doubleValue];
-        _priceDesc = [json objectForKey:@"priceDesc"];
+        _priceDesc = [json objectForKey:@"priceDescd"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _desc = [json objectForKey:@"desc"];
         NSMutableArray *tempImages = [[NSMutableArray alloc] init];

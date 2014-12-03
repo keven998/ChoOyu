@@ -7,8 +7,7 @@
 //
 
 #import "TZCMDChatHelper.h"
-#import "Chat/ChatView/ChatSendHelper.h"
-#import "AccountManager.h"
+#import "ChatSendHelper.h"
 #import "AccountManager.h"
 
 @implementation TZCMDChatHelper

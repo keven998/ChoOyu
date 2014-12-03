@@ -38,6 +38,7 @@
 #import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
+#import "SpotDetailViewController.h"
 
 #define KPageCount 20
 
@@ -539,7 +540,7 @@
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
@@ -746,6 +747,10 @@
     else if ([eventName isEqualToString:kRouterEventLocationBubbleTapEventName]){
         [self chatLocationCellBubblePressed:model];
     }
+    else if ([eventName isEqualToString:kRouterEventTaoziBubbleTapEventName]) {
+        [self chatTaoziBubblePressed:model];
+    }
+    
     else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];
         MessageModel *messageModel = resendCell.messageModel;
@@ -839,6 +844,26 @@
             [weakSelf showHint:@"视频获取失败!"];
         }
     } onQueue:nil];
+}
+
+/**
+ *  自定义桃子消息的气泡被点击
+ *
+ *  @param model 回传的 气泡所属的 model
+ */
+- (void)chatTaoziBubblePressed:(MessageModel *)model
+{
+    switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
+        case TZChatTypeSpot: {
+            SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
+            spotDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)playVideoWithVideoPath:(NSString *)videoPath
@@ -998,9 +1023,11 @@
     [self keyBoardHidden];
     NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
     [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
-    NSDictionary *content = @{@"id"     :   @"1234567890",
+    NSDictionary *content = @{
+                              @"id"     :   @"1234567890",
                               @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
-                              @"name"   :   @"吹海风,撸大串"};
+                              @"name"   :   @"吹海风,撸大串"
+                              };
     
     [tmpDic setObject:content forKey:@"content"];
     [self sendTaoziMessage:tmpDic];
@@ -1012,9 +1039,11 @@
     [self keyBoardHidden];
     NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
     [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
-    NSDictionary *content = @{@"id"     :   @"1234567890",
+    NSDictionary *content = @{
+                              @"id"     :   @"1234567890",
                               @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
-                              @"name"   :   @"吹海风,撸大串"};
+                              @"name"   :   @"吹海风,撸大串"
+                              };
     
     [tmpDic setObject:content forKey:@"content"];
     [self sendTaoziMessage:tmpDic];

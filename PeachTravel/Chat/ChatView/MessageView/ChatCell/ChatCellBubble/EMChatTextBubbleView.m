@@ -123,7 +123,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 {
     NSMutableAttributedString* optimizedAttributedText = [self.textLabel.attributedText mutableCopy];
     
-    // use label's font and lineBreakMode properties in case the attributedText does not contain such attributes
     [self.textLabel.attributedText enumerateAttributesInRange:NSMakeRange(0, [self.textLabel.attributedText length]) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
         
         if (!attrs[(NSString*)kCTFontAttributeName])
@@ -140,7 +139,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         }
     }];
     
-    // modify kCTLineBreakByTruncatingTail lineBreakMode to kCTLineBreakByWordWrapping
     [optimizedAttributedText enumerateAttribute:(NSString*)kCTParagraphStyleAttributeName inRange:NSMakeRange(0, [optimizedAttributedText length]) options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
      {
         NSMutableParagraphStyle* paragraphStyle = [value mutableCopy];
@@ -163,9 +161,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         return NSNotFound;
     }
     
-    // Offset tap coordinates by textRect origin to make them relative to the origin of frame
     point = CGPointMake(point.x - textRect.origin.x, point.y - textRect.origin.y);
-    // Convert tap coordinates (start at top left) to CT coordinates (start at bottom left)
     point = CGPointMake(point.x, textRect.size.height - point.y);
     
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)optimizedAttributedText);
@@ -271,8 +267,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     if (systemVersion >= 7.0) {
         size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
     }else{
-//        size = [object.content sizeWithFont:[self textLabelFont] constrainedToSize:textBlockMinSize lineBreakMode:[self textLabelLineBreakModel]];
-        
         size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [self textLabelFont]} context:nil].size;
 
     }

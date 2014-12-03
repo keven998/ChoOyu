@@ -63,7 +63,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@5474674fd174911938325828", API_GET_SPOT_DETAIL];
+    NSString *url = [NSString stringWithFormat:@"%@547bfdfdb8ce043eb2d860e6", API_GET_SPOT_DETAIL];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取景点详情数据****\n%@", responseObject);
@@ -90,9 +90,13 @@
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] initWithChatMessageType:TZChatTypeSpot];
    
     [_chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self presentPopupViewController:taoziMessageCtl atHeight:70.0 animated:YES completion:^(void) {
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
         }];
     }];
+    taoziMessageCtl.messageId = _spotPoi.spotId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[_spotPoi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = _spotPoi.desc;
+    taoziMessageCtl.messageName = _spotPoi.zhName;
     taoziMessageCtl.delegate = self;
     taoziMessageCtl.descLabel.text = _spotPoi.desc;
     taoziMessageCtl.chatTitle = chatTitle;
@@ -105,13 +109,29 @@
 //用户确定发送景点给朋友
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
+    [self dismissPopup:nil];
     [self.navigationController pushViewController:chatCtl animated:YES];
 }
 
 - (void)sendCancel
 {
-    
+    [self dismissPopup:nil];
 }
+
+/**
+ *  弹出修改标题后点击背景，消除修改标题弹出框
+ *
+ *  @param sender
+ */
+- (IBAction)dismissPopup:(id)sender
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+        }];
+    }
+}
+
+
 
 @end
 

@@ -184,18 +184,8 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             
         case eMessageBodyType_Taozi:
         {
-            switch ([[messageModel.taoziMessage objectForKey:@"type"] integerValue]) {
+            switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
                 case TZChatTypeStrategy: {
-
-                }
-                    break;
-                    
-                case TZChatTypeTravelNote: {
-
-                }
-                    break;
-                    
-                case TZChatTypeSpot: {
 
                 }
                     break;
@@ -204,9 +194,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 
                 }
                     break;
-                    
-                case TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
-
+                  
+                    /**
+                     *  一下几类显示效果是一样的
+                     */
+                case TZChatTypeSpot: case TZChatTypeTravelNote: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
+                    return [[TaoziChatBaseBubbleView alloc] init];
                 }
                     break;
                     
@@ -224,11 +217,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 }
 
 /**
- *  返回
+ *  返回cell 的高度
  *
- *  @param messageModel <#messageModel description#>
+ *  @param messageModel
  *
- *  @return <#return value description#>
+ *  @return
  */
 + (CGFloat)bubbleViewHeightForMessageModel:(MessageModel *)messageModel
 {
@@ -262,6 +255,37 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [EMChatVideoBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
+            
+        case eMessageBodyType_Taozi:
+        {
+            switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
+                case TZChatTypeStrategy: {
+                    
+                }
+                    break;
+                    
+                case TZChatTypeTravelNote: {
+                }
+                    break;
+                    
+                    
+                case TZChatTypeCity: {
+
+                }
+                    break;
+                    
+                case TZChatTypeSpot:TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
+                    return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+                }
+                    break;
+                    
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
         default:
             break;
     }

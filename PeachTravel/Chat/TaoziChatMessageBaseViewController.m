@@ -7,8 +7,11 @@
 //
 
 #import "TaoziChatMessageBaseViewController.h"
+#import "ChatSendHelper.h"
 
 @interface TaoziChatMessageBaseViewController ()
+
+@property (nonatomic) TZChatType chatType;
 
 @end
 
@@ -17,61 +20,153 @@
 - (id)initWithChatMessageType:(TZChatType)chatType
 {
     if (self = [super init]) {
-        switch (chatType) {
-            case TZChatTypeSpot:
-                _titleLabel.text = @"景点";
-                _addressLabel.hidden = YES;
-                _ratingBtn.hidden = YES;
-                
-                break;
-                
-            case TZChatTypeCity:
-                _titleLabel.text = @"城市";
-                _addressLabel.hidden = YES;
-                _ratingBtn.hidden = YES;
-                
-                break;
-            
-            case TZChatTypeFood:
-                _titleLabel.text = @"美食";
-                _descLabel.hidden = YES;
-                
-                break;
-            
-            case TZChatTypeHotel:
-                _titleLabel.text = @"酒店";
-                _descLabel.hidden = YES;
-
-                break;
-            
-            case TZChatTypeShopping:
-                _titleLabel.text = @"购物";
-                _descLabel.hidden = YES;
-                
-            default:
-                break;
-        }
+        _chatType = chatType;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.clipsToBounds = YES;
+    self.view.layer.cornerRadius = 4.0;
+    _sendBtn.layer.cornerRadius = 2.0;
+    _cancelBtn.layer.cornerRadius = 2.0;
+    _sendBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+    _cancelBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+    _sendBtn.layer.borderWidth = 1.0;
+    _cancelBtn.layer.borderWidth = 1.0;
+    
+    _descLabel.text = _messageDesc;
+    _titleLabel.text = _messageName;
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_messageImage] placeholderImage:nil];
+    
+    switch (_chatType) {
+        case TZChatTypeSpot:
+            _headerLabel.text = @"  景点";
+            [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
+            
+            break;
+            
+        case TZChatTypeCity:
+            _headerLabel.text = @"  城市";
+            
+            break;
+            
+        case TZChatTypeFood:
+            _headerLabel.text = @"  美食";
+            
+            break;
+            
+        case TZChatTypeHotel:
+            _headerLabel.text = @"  酒店";
+            
+            break;
+            
+        case TZChatTypeShopping:
+            _headerLabel.text = @"  购物";
+            
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (void)setMessageAddress:(NSString *)messageAddress
+{
+    _messageAddress = messageAddress;
+}
+
+- (void)setMessageDesc:(NSString *)messageDesc
+{
+    _messageDesc = messageDesc;
+}
+
+- (void)setMessageName:(NSString *)messageName
+{
+    _messageName = messageName;
+}
+
+- (void)setMessageRating:(float)messageRating
+{
+    _messageRating = messageRating;
+}
+
+- (void)setMessagePrice:(NSString *)messagePrice
+{
+    _messagePrice = messagePrice;
+}
+
+- (void)setMessageImage:(NSString *)messageImage
+{
+    _messageImage = messageImage;
+}
+
+- (void) setMessageTimeCost:(NSString *)messageTimeCost
+{
+    _messageTimeCost = messageTimeCost;
 }
 
 - (IBAction)confirmSend:(UIButton *)sender {
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
     chatCtl.title = _chatTitle;
+    [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
     [_delegate sendSuccess:chatCtl];
 }
 
 - (IBAction)cancel:(UIButton *)sender {
     [_delegate sendCancel];
 }
+
+/**
+ *  得到需要发送到朋友圈的内容
+ *
+ *  @return 需要发送的内容
+ */
+- (NSDictionary *)dataToSend
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    [retDic setObject:[NSNumber numberWithInt:_chatType] forKey:@"tzType"];
+    NSMutableDictionary *contentDic = [[NSMutableDictionary alloc] init];
+    [contentDic safeSetObject:_messageId forKey:@"id"];
+    [contentDic safeSetObject:_messageImage forKey:@"image"];
+    [contentDic safeSetObject:_messageName forKey:@"name"];
+    switch (_chatType) {
+        case TZChatTypeSpot:
+            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+            break;
+            
+        case TZChatTypeCity:
+            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+            break;
+            
+        case TZChatTypeFood:
+            [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
+            [contentDic safeSetObject:_messagePrice forKey:@"price"];
+            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+            break;
+            
+        case TZChatTypeHotel:
+            [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
+            [contentDic safeSetObject:_messagePrice forKey:@"price"];
+            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+            break;
+            
+        case TZChatTypeShopping:
+            [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
+            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+            break;
+            
+        default:
+            break;
+    }
+    [retDic setObject:contentDic forKey:@"content"];
+    return retDic;
+}
+
+
+
 
 
 @end
