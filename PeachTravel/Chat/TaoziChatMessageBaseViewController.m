@@ -135,6 +135,7 @@
     switch (_chatType) {
         case TZChatTypeSpot:
             [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+            [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
             break;
             
         case TZChatTypeCity:

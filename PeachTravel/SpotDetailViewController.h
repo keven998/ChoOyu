@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PoiDetailSuperViewController.h"
 
-@interface SpotDetailViewController : UIViewController
+@interface SpotDetailViewController : PoiDetailSuperViewController
 
 @property (nonatomic, copy) NSString *spotId;
 

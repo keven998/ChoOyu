@@ -9,15 +9,10 @@
 #import "SpotDetailViewController.h"
 #import "SpotDetailView.h"
 #import "SpotPoi.h"
-#import "ChatRecoredListTableViewController.h"
-#import "CreateConversationViewController.h"
-#import "TaoziChatMessageBaseViewController.h"
 
-@interface SpotDetailViewController () <CreateConversationDelegate, TaoziMessageSendDelegate>
 
+@interface SpotDetailViewController () 
 @property (nonatomic, strong) SpotPoi *spotPoi;
-@property (nonatomic, strong) UIButton *rightItemBtn;
-@property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
 @end
 
@@ -25,12 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
-    [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
-    [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightItemBtn];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self loadData];
 }
 
@@ -46,15 +36,6 @@
     self.tabBarController.tabBar.hidden = YES;
 }
 
-#pragma mark - IBAction Methods
-
-- (IBAction)chat:(id)sender
-{
-    _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-    _chatRecordListCtl.delegate = self;
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
-}
 
 #pragma mark - Private Methods
 
@@ -83,54 +64,20 @@
     
 }
 
-#pragma mark - CreateConversationDelegate
-
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+/**
+ *  实现父类的发送 poi 到桃talk 的值传递
+ *
+ *  @param taoziMessageCtl 
+ */
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] initWithChatMessageType:TZChatTypeSpot];
-   
-    [_chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-        }];
-    }];
     taoziMessageCtl.messageId = _spotPoi.spotId;
     taoziMessageCtl.messageImage = ((TaoziImage *)[_spotPoi.images firstObject]).imageUrl;
     taoziMessageCtl.messageDesc = _spotPoi.desc;
     taoziMessageCtl.messageName = _spotPoi.zhName;
-    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.messageTimeCost = _spotPoi.timeCostStr;
     taoziMessageCtl.descLabel.text = _spotPoi.desc;
-    taoziMessageCtl.chatTitle = chatTitle;
-    taoziMessageCtl.chatter = chatter;
-    taoziMessageCtl.isGroup = isGroup;
 }
-
-#pragma mark - TaoziMessageSendDelegate
-
-//用户确定发送景点给朋友
-- (void)sendSuccess:(ChatViewController *)chatCtl
-{
-    [self dismissPopup:nil];
-    [self.navigationController pushViewController:chatCtl animated:YES];
-}
-
-- (void)sendCancel
-{
-    [self dismissPopup:nil];
-}
-
-/**
- *  弹出修改标题后点击背景，消除修改标题弹出框
- *
- *  @param sender
- */
-- (IBAction)dismissPopup:(id)sender
-{
-    if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
-    }
-}
-
 
 
 @end

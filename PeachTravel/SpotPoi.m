@@ -17,9 +17,9 @@
         _spotId = [json objectForKey:@"id"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
-        _lat = [[[json objectForKey:@"coords"] objectForKey:@"lat"] doubleValue];
-        _lng = [[[json objectForKey:@"coords"] objectForKey:@"lng"] doubleValue];
-        _priceDesc = [json objectForKey:@"priceDescd"];
+        _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
+        _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        _priceDesc = [json objectForKey:@"priceDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _desc = [json objectForKey:@"desc"];
         NSMutableArray *tempImages = [[NSMutableArray alloc] init];
@@ -30,7 +30,7 @@
         _images = tempImages;
         _address = [json objectForKey:@"address"];
         _openTime = [json objectForKey:@"openTime"];
-        _timeCostStr = [json objectForKey:@"timeCostStr"];
+        _timeCostStr = [json objectForKey:@"timeCostDesc"];
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
         _guideUrl = [json objectForKey:@"guideUrl"];
         _kengdieUrl = [json objectForKey:@"kengdieUrl"];

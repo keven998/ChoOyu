@@ -302,6 +302,7 @@
 		D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */; };
 		D9117A8C1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */; };
 		D9117A8D1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */; };
+		D91F4B0C1A2F376E00DA2B24 /* PoiDetailSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91F4B0B1A2F376E00DA2B24 /* PoiDetailSuperViewController.m */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
 		D92998131A28B02900795986 /* MyGuideListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92998121A28B02900795986 /* MyGuideListTableViewController.m */; };
@@ -982,6 +983,8 @@
 		D9117A891A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatMessageBaseViewController.h; sourceTree = "<group>"; };
 		D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatMessageBaseViewController.m; sourceTree = "<group>"; };
 		D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaoziChatMessageBaseViewController.xib; sourceTree = "<group>"; };
+		D91F4B0A1A2F376E00DA2B24 /* PoiDetailSuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailSuperViewController.h; sourceTree = "<group>"; };
+		D91F4B0B1A2F376E00DA2B24 /* PoiDetailSuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetailSuperViewController.m; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
 		D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateConversationTableViewCell.m; sourceTree = "<group>"; };
 		D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateConversationTableViewCell.xib; sourceTree = "<group>"; };
@@ -2322,6 +2325,8 @@
 			children = (
 				D9545FB01A22D63800688D72 /* views */,
 				D9545FB11A22D64200688D72 /* Model */,
+				D91F4B0A1A2F376E00DA2B24 /* PoiDetailSuperViewController.h */,
+				D91F4B0B1A2F376E00DA2B24 /* PoiDetailSuperViewController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -4266,6 +4271,7 @@
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
 				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
+				D91F4B0C1A2F376E00DA2B24 /* PoiDetailSuperViewController.m in Sources */,
 				D9681A061A109BF600122793 /* ICETutorialController.m in Sources */,
 				C6999FB11A2DDA4F009032D8 /* SwipeView.m in Sources */,
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
