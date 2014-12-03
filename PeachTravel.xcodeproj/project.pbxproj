@@ -44,6 +44,11 @@
 		C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */; };
 		C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */; };
 		C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */; };
+		C6999FB11A2DDA4F009032D8 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FB01A2DDA4F009032D8 /* SwipeView.m */; };
+		C6999FB51A2DE460009032D8 /* DMFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FB41A2DE460009032D8 /* DMFilterView.m */; };
+		C6999FBE1A2EB136009032D8 /* LocalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */; };
+		C6999FBF1A2EB136009032D8 /* LocalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */; };
+		C6999FC31A2EBA7D009032D8 /* AXRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FC21A2EBA7D009032D8 /* AXRatingView.m */; };
 		C6BC34811A272DB2002C19D3 /* login_frame_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */; };
 		C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */; };
 		C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */; };
@@ -617,6 +622,15 @@
 		C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
 		C68D9B931A2D5C3B008A9D4B /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
 		C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
+		C6999FAF1A2DDA4F009032D8 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		C6999FB01A2DDA4F009032D8 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
+		C6999FB31A2DE460009032D8 /* DMFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMFilterView.h; sourceTree = "<group>"; };
+		C6999FB41A2DE460009032D8 /* DMFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMFilterView.m; sourceTree = "<group>"; };
+		C6999FBB1A2EB136009032D8 /* LocalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTableViewCell.h; sourceTree = "<group>"; };
+		C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTableViewCell.m; sourceTree = "<group>"; };
+		C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalTableViewCell.xib; sourceTree = "<group>"; };
+		C6999FC11A2EBA7D009032D8 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXRatingView.h; sourceTree = "<group>"; };
+		C6999FC21A2EBA7D009032D8 /* AXRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXRatingView.m; sourceTree = "<group>"; };
 		C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_frame_bg@2x.png"; sourceTree = "<group>"; };
 		C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_btn_frame@2x.png"; sourceTree = "<group>"; };
 		C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_line@2x.png"; sourceTree = "<group>"; };
@@ -1496,6 +1510,7 @@
 		C68D9B8F1A2D5BE8008A9D4B /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				C6999FBA1A2EB128009032D8 /* cell */,
 				C68D9B931A2D5C3B008A9D4B /* LocalViewController.h */,
 				C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */,
 			);
@@ -1512,6 +1527,46 @@
 			);
 			name = Favorite;
 			path = ToolBox/Favorite;
+			sourceTree = "<group>";
+		};
+		C6999FAE1A2DDA4F009032D8 /* SwipeView */ = {
+			isa = PBXGroup;
+			children = (
+				C6999FAF1A2DDA4F009032D8 /* SwipeView.h */,
+				C6999FB01A2DDA4F009032D8 /* SwipeView.m */,
+			);
+			name = SwipeView;
+			path = Common/Config/libs/SwipeView;
+			sourceTree = "<group>";
+		};
+		C6999FB21A2DE460009032D8 /* DMFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				C6999FB31A2DE460009032D8 /* DMFilterView.h */,
+				C6999FB41A2DE460009032D8 /* DMFilterView.m */,
+			);
+			name = DMFilterView;
+			path = Common/Config/libs/DMFilterView;
+			sourceTree = "<group>";
+		};
+		C6999FBA1A2EB128009032D8 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				C6999FBB1A2EB136009032D8 /* LocalTableViewCell.h */,
+				C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */,
+				C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		C6999FC01A2EBA7D009032D8 /* AXRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				C6999FC11A2EBA7D009032D8 /* AXRatingView.h */,
+				C6999FC21A2EBA7D009032D8 /* AXRatingView.m */,
+			);
+			name = AXRatingView;
+			path = Common/Config/libs/AXRatingView;
 			sourceTree = "<group>";
 		};
 		C6BC347D1A272DB1002C19D3 /* 1x */ = {
@@ -2516,6 +2571,9 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C6999FC01A2EBA7D009032D8 /* AXRatingView */,
+				C6999FB21A2DE460009032D8 /* DMFilterView */,
+				C6999FAE1A2DDA4F009032D8 /* SwipeView */,
 				D9117A631A2C0E1D000DBFCB /* CWPopup */,
 				C67B4DBF1A270EF600CBF10B /* ZFDragableModalTransition */,
 				C653F5271A25C2BF00E7479F /* FBShimmering */,
@@ -3822,6 +3880,7 @@
 				C60C0D741A29A40C006033C9 /* ic_login_weixin@2x.png in Resources */,
 				D90C63A119FB44D300C2E440 /* chat_location_annotation_someone@2x.png in Resources */,
 				D90F362119F63B3300E26FA9 /* chatBar_more_location.png in Resources */,
+				C6999FBF1A2EB136009032D8 /* LocalTableViewCell.xib in Resources */,
 				D90C637119FB44D300C2E440 /* VoiceSearchFeedback003.png in Resources */,
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
 				D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */,
@@ -3990,6 +4049,7 @@
 				D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */,
 				D9B476831A2468D30014136C /* SIMenuCell.m in Sources */,
 				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
+				C6999FC31A2EBA7D009032D8 /* AXRatingView.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
 				D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */,
 				D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */,
@@ -4015,6 +4075,7 @@
 				D9FCC79E1A0232D500AD7CBF /* pinyin.c in Sources */,
 				D902AD101A14811400E36A93 /* HotDestinationCollectionReusableView.m in Sources */,
 				D90F362F19F63B3300E26FA9 /* EMChatVideoBubbleView.m in Sources */,
+				C6999FB51A2DE460009032D8 /* DMFilterView.m in Sources */,
 				C63344E61A1C44BB00A27F86 /* RNGridMenu.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
 				D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */,
@@ -4084,10 +4145,12 @@
 				D9048F321A09F18500334AB5 /* ChatSettingViewController.m in Sources */,
 				C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */,
 				D9681A061A109BF600122793 /* ICETutorialController.m in Sources */,
+				C6999FB11A2DDA4F009032D8 /* SwipeView.m in Sources */,
 				D90F364819F63C2F00E26FA9 /* NSDate+Category.m in Sources */,
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
 				C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */,
+				C6999FBE1A2EB136009032D8 /* LocalTableViewCell.m in Sources */,
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
 				D9B476631A24474C0014136C /* ShoppingOfCityTableViewCell.m in Sources */,
 				D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */,
