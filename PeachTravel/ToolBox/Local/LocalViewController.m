@@ -11,10 +11,10 @@
 #import "SwipeView.h"
 #import "LocalTableViewCell.h"
 
-#define LOCAL_PAGE_TITLES       @[@"当地美食", @"Shopping", @"游玩", @"酒店"]
-#define PAGE_FOOD               0
-#define PAGE_SHOPPING           1
-#define PAGE_FUN                2
+#define LOCAL_PAGE_TITLES       @[@"游玩美景", @"风味美食", @"最佳Shopping", @"酒店青旅"]
+#define PAGE_FUN                0
+#define PAGE_FOOD               1
+#define PAGE_SHOPPING           2
 #define PAGE_STAY               3
 
 @interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate>
