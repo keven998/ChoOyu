@@ -208,7 +208,7 @@
             [self updateContactList];
             [SVProgressHUD showSuccessWithStatus:@"删除成功"];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showErrorWithStatus:@"删除失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

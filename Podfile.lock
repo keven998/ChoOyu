@@ -21,7 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - DACircularProgress (2.2.0)
-  - EaseMobSDK (2.1.0)
+  - EaseMobSDK (2.1.1)
   - iRate (1.11.3)
   - MBProgressHUD (0.9)
   - MWPhotoBrowser (1.4.1):
@@ -41,7 +41,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - EaseMobSDK (~> 2.1.0)
+  - EaseMobSDK (from `https://github.com/easemob/sdk-ios-cocoapods.git`)
   - iRate (~> 1.11)
   - MWPhotoBrowser (~> 1.4.1)
   - OpenUDID (~> 1.0.0)
@@ -50,10 +50,14 @@ DEPENDENCIES:
   - SVProgressHUD (~> 1.0)
   - TMCache (~> 1.2.2)
 
+EXTERNAL SOURCES:
+  EaseMobSDK:
+    :git: https://github.com/easemob/sdk-ios-cocoapods.git
+
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
-  EaseMobSDK: 63f37ee58fbe75c4b975c89c67ea9a8813645ddb
+  EaseMobSDK: 0b70b16c47048a3e5866ae629d72ea3f7e4d6e95
   iRate: 5e1978bac8b3f3f0296dbeccc0dd7b50e6e50657
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   MWPhotoBrowser: be05b3b7521e961382a4ba5579685bf5a00b93d8
