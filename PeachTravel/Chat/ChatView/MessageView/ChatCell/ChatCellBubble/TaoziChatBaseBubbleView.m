@@ -74,23 +74,25 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     if (_model.isSender) {
         _typeLabel.textAlignment = NSTextAlignmentRight;
         _titleLabel.textAlignment = NSTextAlignmentRight;
-        _propertyBtn.contentHorizontalAlignment = NSTextAlignmentRight;
+        _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
 
-        [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth - 40 - 8 -BUBBLE_ARROW_WIDTH, 8+TaoziBubbleTypeHeight, 40, 40)];
+        [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth - 40 - 8 -BUBBLE_ARROW_WIDTH, 4+TaoziBubbleTypeHeight, 40, 40)];
         [_titleLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
         [_propertyBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
-        
+        [_descLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
+
     } else {
         _typeLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.textAlignment = NSTextAlignmentRight;
-        _propertyBtn.contentHorizontalAlignment = NSTextAlignmentLeft;
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
-        [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth, 8+TaoziBubbleTypeHeight, 40, 40)];
-        [_titleLabel setFrame:CGRectMake(56, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8, 20)];
-        [_propertyBtn setFrame:CGRectMake(56, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8, 20)];
+        [_pictureImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 4+TaoziBubbleTypeHeight, 40, 40)];
+        [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 20)];
+        [_propertyBtn setFrame:CGRectMake(_titleLabel.frame.origin.x, _pictureImageView.frame.origin.y+20, _titleLabel.frame.size.width, 20)];
+        [_descLabel setFrame:CGRectMake(8+BUBBLE_ARROW_WIDTH, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
+
     }
     
-    [_descLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16, 27)];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
@@ -122,6 +124,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             case TZChatTypeFood: {
                 _typeLabel.text = @"美食";
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
+                [_propertyBtn setImage:[UIImage imageNamed:@"rating_star.png"] forState:UIControlStateNormal];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
             }
@@ -129,6 +132,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeHotel: {
                 _typeLabel.text = @"酒店";
+                [_propertyBtn setImage:[UIImage imageNamed:@"rating_star.png"] forState:UIControlStateNormal];
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
@@ -138,6 +142,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeShopping:
                 _typeLabel.text = @"购物";
+                [_propertyBtn setImage:[UIImage imageNamed:@"rating_star.png"] forState:UIControlStateNormal];
                 [_propertyBtn setTitle:[content objectForKey:@"rating"] forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
                 

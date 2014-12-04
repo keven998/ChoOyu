@@ -611,15 +611,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (error) {
-        NSString *hintText = @"你的账号登录失败，正在重试中... \n点击 '登出' 按钮跳转到登录页面 \n点击 '继续等待' 按钮等待重连成功";
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:hintText
-                                                           delegate:self
-                                                  cancelButtonTitle:@"继续等待"
-                                                  otherButtonTitles:@"登出",
-                                  nil];
-        alertView.tag = 99;
-        [alertView show];
+        NSLog(@"自动登录失败");
+    } else {
+        NSLog(@"自动登录成功");
     }
 }
 

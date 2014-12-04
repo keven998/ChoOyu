@@ -39,6 +39,7 @@
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
+#import "RestaurantDetailViewController.h"
 
 #define KPageCount 20
 
@@ -861,6 +862,11 @@
         }
             break;
             
+        case TZChatTypeFood: {
+            RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+            restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        }
         default:
             break;
     }
