@@ -20,6 +20,7 @@
 #import "DXRecordView.h"
 #import "DXFaceView.h"
 #import "EMChatViewCell.h"
+#import "TipsChatTableViewCell.h"
 #import "EMChatTimeCell.h"
 #import "ChatSendHelper.h"
 #import "MessageReadManager.h"
@@ -107,7 +108,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     [[[EaseMob sharedInstance] deviceManager] addDelegate:self onQueue:nil];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
@@ -141,8 +142,6 @@
         [showGroupList setBackgroundColor:[UIColor grayColor]];
         [showGroupList addTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:showGroupList];
-        
-       
     }
 }
 
@@ -256,7 +255,8 @@
 {
     CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
     createConversationCtl.group = self.group;
-    [self.navigationController pushViewController:createConversationCtl animated:YES];
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:createConversationCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (IBAction)beginDelete:(id)sender
@@ -626,15 +626,15 @@
                 timeCell.backgroundColor = [UIColor clearColor];
                 timeCell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            timeCell.textLabel.text = (NSString *)obj;
+            timeCell.time = (NSString *)obj;
             return timeCell;
             
         } else if ([obj isKindOfClass:[MessageModel class]]) {
             MessageModel *model = (MessageModel *)obj;
             if ([[model.taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
-                EMChatTimeCell *tipsCell = (EMChatTimeCell *)[tableView dequeueReusableCellWithIdentifier:@"MessageCellTime"];
+                TipsChatTableViewCell *tipsCell = (TipsChatTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MessageCellTips"];
                 if (tipsCell == nil) {
-                    tipsCell = [[EMChatTimeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageCellTime"];
+                    tipsCell = [[TipsChatTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageCellTips"];
                     tipsCell.backgroundColor = [UIColor clearColor];
                     tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }

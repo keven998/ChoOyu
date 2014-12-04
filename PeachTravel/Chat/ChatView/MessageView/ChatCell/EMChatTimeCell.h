@@ -14,4 +14,7 @@
 
 @interface EMChatTimeCell : UITableViewCell
 
+
+@property (nonatomic, copy) NSString *time;
+
 @end

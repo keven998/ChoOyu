@@ -95,7 +95,7 @@
 {
     if (_backgroundImageView == nil) {
         _backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        _backgroundImageView.backgroundColor = [UIColor clearColor];
+        _backgroundImageView.backgroundColor = [UIColor whiteColor];
         _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     }
     
@@ -106,7 +106,7 @@
 {
     if (_toolbarBackgroundImageView == nil) {
         _toolbarBackgroundImageView = [[UIImageView alloc] init];
-        _toolbarBackgroundImageView.backgroundColor = [UIColor clearColor];
+        _toolbarBackgroundImageView.backgroundColor = [UIColor whiteColor];
         _toolbarBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     
@@ -117,7 +117,7 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
-        _toolbarView.backgroundColor = [UIColor clearColor];
+        _toolbarView.backgroundColor = [UIColor whiteColor];
     }
     
     return _toolbarView;

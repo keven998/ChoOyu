@@ -29,7 +29,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = [UIColor whiteColor];
+        self.alpha = 0.9;
         CGRect scrollFrame = CGRectMake(0, 0, frame.size.width-100, frame.size.height);
         _scrollView = [[UIScrollView alloc] initWithFrame:scrollFrame];
         _scrollView.showsVerticalScrollIndicator = NO;
@@ -37,14 +38,12 @@
         [self addSubview:_scrollView];
         
         self.addBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 50, 10, 40, 40)];
-        [self.addBtn setTitle:@"增加" forState:UIControlStateNormal];
-        self.addBtn.backgroundColor =[UIColor whiteColor];
+        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
         self.addBtn.layer.cornerRadius = 20;
         [self addSubview:self.addBtn];
         
         self.deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 95, 10, 40, 40)];
-        [self.deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-        self.deleteBtn.backgroundColor =[UIColor whiteColor];
+        [self.deleteBtn setBackgroundImage:[UIImage imageNamed:@"remove_contact.png"] forState:UIControlStateNormal];
         [self addSubview:self.deleteBtn];
         self.deleteBtn.layer.cornerRadius = 20;
         self.deleteBtn.hidden = YES;

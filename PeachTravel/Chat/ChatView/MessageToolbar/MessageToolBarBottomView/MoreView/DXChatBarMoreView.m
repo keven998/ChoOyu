@@ -23,7 +23,7 @@
     NSLog(@"ToolBar的尺寸为： %@", NSStringFromCGRect(frame));
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = APP_PAGE_COLOR;
         [self setupSubviewsForType:type];
     }
     return self;
@@ -38,94 +38,94 @@
     
     _myStrategyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_myStrategyButton setFrame:CGRectMake(insets, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photo"] forState:UIControlStateNormal];
-    [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photoSelected"] forState:UIControlStateHighlighted];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_more_guide.png"] forState:UIControlStateNormal];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_more_guide_selected.png"] forState:UIControlStateHighlighted];
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
     _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_myStrategyButton setTitle:@"我的攻略" forState:UIControlStateNormal];
-    [_myStrategyButton setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
+    [_myStrategyButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _myStrategyButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myStrategyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _myStrategyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _myStrategyButton.titleEdgeInsets = UIEdgeInsetsMake(45.0, -32.5, -10.0, 0.0);
+    _myStrategyButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _myStrategyButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_myStrategyButton];
     
     
     _myFavoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_myFavoriteButton setFrame:CGRectMake(insets + CHAT_BUTTON_SIZE, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photo"] forState:UIControlStateNormal];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photoSelected"] forState:UIControlStateHighlighted];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite.png"] forState:UIControlStateNormal];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite_selected.png"] forState:UIControlStateHighlighted];
     [_myFavoriteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
     [_myFavoriteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
-    [_myFavoriteButton setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
+    [_myFavoriteButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _myFavoriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _myFavoriteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _myFavoriteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _myFavoriteButton.titleEdgeInsets = UIEdgeInsetsMake(45.0, -32.5, -10.0, 0.0);
+    _myFavoriteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _myFavoriteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_myFavoriteButton];
     
     
     _destinationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_destinationButton setFrame:CGRectMake(insets + 2*CHAT_BUTTON_SIZE, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photo"] forState:UIControlStateNormal];
-    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photoSelected"] forState:UIControlStateHighlighted];
+    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_destination.png"] forState:UIControlStateNormal];
+    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_destination_selected.png"] forState:UIControlStateHighlighted];
     [_destinationButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
     [_destinationButton setTitle:@"地点" forState:UIControlStateNormal];
-    [_destinationButton setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
+    [_destinationButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _destinationButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _destinationButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _destinationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _destinationButton.titleEdgeInsets = UIEdgeInsetsMake(45.0, -32.5, -10.0, 0.0);
+    _destinationButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _destinationButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_destinationButton];
     
     _travelNoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_travelNoteButton setFrame:CGRectMake(insets, 10 + CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photo"] forState:UIControlStateNormal];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photoSelected"] forState:UIControlStateHighlighted];
+    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote.png"] forState:UIControlStateNormal];
+    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote_selected.png"] forState:UIControlStateHighlighted];
     [_travelNoteButton addTarget:self action:@selector(travelNoteAction) forControlEvents:UIControlEventTouchUpInside];
     [_travelNoteButton setTitle:@"游记" forState:UIControlStateNormal];
-    [_travelNoteButton setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
+    [_travelNoteButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _travelNoteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _travelNoteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(33.0, -32.5, -10.0, 0.0);
+    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_travelNoteButton];
     
     _photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_photoButton setFrame:CGRectMake(insets + CHAT_BUTTON_SIZE, 10 + CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_photoButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photo"] forState:UIControlStateNormal];
-    [_photoButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photoSelected"] forState:UIControlStateHighlighted];
+    [_photoButton setImage:[UIImage imageNamed:@"chatBar_more_album.png"] forState:UIControlStateNormal];
+    [_photoButton setImage:[UIImage imageNamed:@"chatBar_more_album_selected.png"] forState:UIControlStateHighlighted];
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
     [_photoButton setTitle:@"相册" forState:UIControlStateNormal];
-    [_photoButton setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
+    [_photoButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _photoButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _photoButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _photoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _photoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _photoButton.titleEdgeInsets = UIEdgeInsetsMake(33.0, -32.5, -10.0, 0.0);
+    _photoButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _photoButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_photoButton];
     
 
     _takePicButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_takePicButton setFrame:CGRectMake(insets + 2*CHAT_BUTTON_SIZE, 10 + CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_takePicButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photo"] forState:UIControlStateNormal];
-    [_takePicButton setImage:[UIImage imageNamed:@"chatBar_colorMore_photoSelected"] forState:UIControlStateHighlighted];
+    [_takePicButton setImage:[UIImage imageNamed:@"chatBar_more_camera.png"] forState:UIControlStateNormal];
+    [_takePicButton setImage:[UIImage imageNamed:@"chatBar_more_camera_selected.png"] forState:UIControlStateHighlighted];
     [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
     [_takePicButton setTitle:@"相机" forState:UIControlStateNormal];
-    [_takePicButton setTitleColor:UIColorFromRGB(0x393939) forState:UIControlStateNormal];
+    [_takePicButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _takePicButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _takePicButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _takePicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _takePicButton.titleEdgeInsets = UIEdgeInsetsMake(33.0, -32.5, -10.0, 0.0);
+    _takePicButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _takePicButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_takePicButton];
     

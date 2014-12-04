@@ -12,29 +12,43 @@
 
 #import "EMChatTimeCell.h"
 
+@interface EMChatTimeCell ()
+
+@property (nonatomic, strong) UIButton *textBtn;
+
+@end
+
+
 @implementation EMChatTimeCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        _textBtn = [[UIButton alloc] initWithFrame:self.frame];
+        [_textBtn setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
+        _textBtn.userInteractionEnabled = NO;
+        _textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        _textBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        [_textBtn setImage:[UIImage imageNamed:@"chat_time.png"] forState:UIControlStateNormal];
+        _textBtn.titleLabel.numberOfLines = 2;
+        _textBtn.backgroundColor = [UIColor clearColor];
+        _textBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        [self addSubview:_textBtn];
     }
-    self.backgroundColor = [UIColor clearColor];
-    self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.textAlignment = NSTextAlignmentCenter;
-    self.textLabel.font = [UIFont systemFontOfSize:14];
-    self.textLabel.textColor = [UIColor grayColor];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.textLabel.numberOfLines = 2;
+   
     return self;
+}
+
+- (void)setTime:(NSString *)time
+{
+    _time = time;
+    [_textBtn setTitle:_time forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
 }
 
 -(void)layoutSubviews

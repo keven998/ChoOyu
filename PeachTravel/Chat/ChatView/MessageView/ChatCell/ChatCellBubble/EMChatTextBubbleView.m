@@ -52,8 +52,10 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     frame = CGRectInset(frame, BUBBLE_VIEW_PADDING, BUBBLE_VIEW_PADDING);
     if (self.model.isSender) {
         frame.origin.x = BUBBLE_VIEW_PADDING;
+        _textLabel.textColor = [UIColor whiteColor];
     }else{
         frame.origin.x = BUBBLE_VIEW_PADDING + BUBBLE_ARROW_WIDTH;
+        _textLabel.textColor = [UIColor lightGrayColor];
     }
     
     frame.origin.y = BUBBLE_VIEW_PADDING;
