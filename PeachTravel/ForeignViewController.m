@@ -44,6 +44,9 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+/**
+ * 获取国外目的地数据
+ */
 - (void)loadForeignDataFromServer
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -53,11 +56,10 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
+    [params setObject:[NSNumber numberWithInt:1] forKey:@"abroad"];
     [SVProgressHUD show];
     
-    //获取国外目的地数据
-    [manager GET:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_GET_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
