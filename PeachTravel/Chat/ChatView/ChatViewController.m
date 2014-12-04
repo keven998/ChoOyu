@@ -41,6 +41,8 @@
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
+#import "MyGuideListTableViewController.h"
+#import "FavoriteViewController.h"
 
 #define KPageCount 20
 
@@ -1025,62 +1027,25 @@
 
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
-    // 隐藏键盘
-    [self keyBoardHidden];
-    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
-    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
-    NSDictionary *content = @{
-                              @"id"     :   @"1234567890",
-                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
-                              @"name"   :   @"吹海风,撸大串"
-                              };
-    
-    [tmpDic setObject:content forKey:@"content"];
-    [self sendTaoziMessage:tmpDic];
+    MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
+    [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
 }
 
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
-    // 隐藏键盘
-    [self keyBoardHidden];
-    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
-    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
-    NSDictionary *content = @{
-                              @"id"     :   @"1234567890",
-                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
-                              @"name"   :   @"吹海风,撸大串"
-                              };
-    
-    [tmpDic setObject:content forKey:@"content"];
-    [self sendTaoziMessage:tmpDic];
-
+    FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
+    [self.navigationController pushViewController:favoriteCtl animated:YES];
 }
 
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
-    // 隐藏键盘
-    [self keyBoardHidden];
-    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
-    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
-    NSDictionary *content = @{@"id"     :   @"1234567890",
-                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
-                              @"name"   :   @"吹海风,撸大串"};
-    [tmpDic setObject:content forKey:@"content"];
-    [self sendTaoziMessage:tmpDic];
+    
 
 }
 
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
-    // 隐藏键盘
-    [self keyBoardHidden];
-    NSMutableDictionary *tmpDic = [[NSMutableDictionary alloc] init];
-    [tmpDic setObject:[NSNumber numberWithInteger:TZChatTypeStrategy] forKey:@"type"];
-    NSDictionary *content = @{@"id"     :   @"1234567890",
-                              @"image"  :   @"http://lvxingpai-img-store.qiniudn.com/assets/images/a1e64f400c3497dd56c05dd8f19110d5.jpg?imageView/1/w/800/h/600/q/85/format/jpg/interlace/1",
-                              @"name"   :   @"吹海风,撸大串"};
-    [tmpDic setObject:content forKey:@"content"];
-    [self sendTaoziMessage:tmpDic];
+   
 
 }
 
@@ -1121,6 +1086,8 @@
 #endif
 }
 
+/*****暂时屏蔽掉位置功能*****/
+/*
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
@@ -1130,6 +1097,7 @@
     locationController.delegate = self;
     [self.navigationController pushViewController:locationController animated:YES];
 }
+*/
 
 /*****暂时屏蔽掉录制视频和发送及时语音的功能*****/
 /*

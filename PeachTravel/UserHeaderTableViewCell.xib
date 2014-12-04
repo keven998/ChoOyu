@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C68m" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="头像" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtm-KO-s42">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="头像" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtm-KO-s42">
                         <rect key="frame" x="56" y="11" width="191" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="36o-Af-vwT"/>
@@ -115,14 +115,14 @@
                         <exclude reference="8Wa-Vb-bzN"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="hlG-DQ-MNR"/>
-                        <exclude reference="phf-3F-5B7"/>
                         <exclude reference="HtF-HA-Dsi"/>
                         <exclude reference="fcb-ya-oPM"/>
-                        <exclude reference="S7Q-fS-0QV"/>
-                        <exclude reference="VvG-cC-zTg"/>
                         <exclude reference="DKc-Ld-KBG"/>
                         <exclude reference="ocv-KX-qOn"/>
+                        <exclude reference="hlG-DQ-MNR"/>
+                        <exclude reference="phf-3F-5B7"/>
+                        <exclude reference="S7Q-fS-0QV"/>
+                        <exclude reference="VvG-cC-zTg"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -132,14 +132,14 @@
                         <include reference="8Wa-Vb-bzN"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="hlG-DQ-MNR"/>
-                        <include reference="phf-3F-5B7"/>
                         <include reference="HtF-HA-Dsi"/>
                         <include reference="fcb-ya-oPM"/>
-                        <include reference="S7Q-fS-0QV"/>
-                        <include reference="VvG-cC-zTg"/>
                         <include reference="DKc-Ld-KBG"/>
                         <include reference="ocv-KX-qOn"/>
+                        <include reference="hlG-DQ-MNR"/>
+                        <include reference="phf-3F-5B7"/>
+                        <include reference="S7Q-fS-0QV"/>
+                        <include reference="VvG-cC-zTg"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C68m" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -68,9 +68,23 @@
                                     <constraint firstAttribute="width" constant="21" id="tpi-To-6jQ"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ngp-4G-r4J">
+                                <rect key="frame" x="262" y="8" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="JX9-Lf-tof"/>
+                                    <constraint firstAttribute="width" constant="30" id="YPv-w8-Jze"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="edit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Ngp-4G-r4J" firstAttribute="top" secondItem="HcY-cs-vUE" secondAttribute="top" constant="8" id="6uF-DB-6Wy"/>
                             <constraint firstAttribute="trailing" secondItem="KCq-LU-8Rz" secondAttribute="trailing" id="DO8-WG-lfS"/>
                             <constraint firstAttribute="trailing" secondItem="5nV-jV-vhf" secondAttribute="trailing" constant="52" id="FnC-v3-WXd"/>
                             <constraint firstItem="9Cc-gq-CTd" firstAttribute="top" secondItem="m2G-M9-SJh" secondAttribute="bottom" constant="2" id="G7B-yT-QAw"/>
@@ -87,6 +101,7 @@
                             <constraint firstAttribute="centerX" secondItem="OSs-ce-XCn" secondAttribute="centerX" id="nNY-tg-Bzy"/>
                             <constraint firstAttribute="bottom" secondItem="KCq-LU-8Rz" secondAttribute="bottom" id="o2j-Ez-pmu"/>
                             <constraint firstItem="KCq-LU-8Rz" firstAttribute="top" secondItem="m2G-M9-SJh" secondAttribute="bottom" constant="21" id="sJE-uY-4H4"/>
+                            <constraint firstAttribute="trailing" secondItem="Ngp-4G-r4J" secondAttribute="trailing" constant="8" id="sj1-CI-f6Y"/>
                             <constraint firstItem="5nV-jV-vhf" firstAttribute="top" secondItem="HcY-cs-vUE" secondAttribute="top" constant="54" id="t6s-Vq-4RO"/>
                             <constraint firstItem="Mhc-hh-wXm" firstAttribute="top" secondItem="5nV-jV-vhf" secondAttribute="bottom" constant="3" id="yBw-ES-c0B"/>
                             <constraint firstItem="5nV-jV-vhf" firstAttribute="top" secondItem="OSs-ce-XCn" secondAttribute="bottom" constant="2" id="zme-eg-LB5"/>
@@ -108,6 +123,7 @@
                 <outlet property="contentTitle" destination="OSs-ce-XCn" id="Lym-8F-VwZ"/>
                 <outlet property="contentType" destination="9Cc-gq-CTd" id="trU-nx-2xJ"/>
                 <outlet property="contentTypeFlag" destination="Mhc-hh-wXm" id="kuo-5t-Xf4"/>
+                <outlet property="deleteBtn" destination="Ngp-4G-r4J" id="SuU-3r-O1H"/>
                 <outlet property="standardImageView" destination="m2G-M9-SJh" id="PYd-ft-i8Y"/>
             </connections>
             <point key="canvasLocation" x="229" y="162"/>

@@ -58,6 +58,7 @@
 #define API_DELETE_GUIDE                        (BASE_URL @"guides/")    //删除攻略列表
 #define API_SAVE_TRIPINFO                       (BASE_URL @"guides/info/")    //保存攻略信息
 
+#define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")    //获取我的收藏列表
 
 
 
@@ -132,7 +133,8 @@ typedef enum : NSUInteger {
     ChangeName,
     ChangeSignature,
     ChangeTel,
-    ChangeGender
+    ChangeGender,
+    ChangeAvatar
 } UserInfoChangeType;
 
 

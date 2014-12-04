@@ -130,6 +130,8 @@
             self.account.gender = changeContent;
             break;
             
+        case ChangeAvatar:
+            self.account.avatar = changeContent;
         default:
             break;
     }

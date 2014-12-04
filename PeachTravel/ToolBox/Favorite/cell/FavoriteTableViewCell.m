@@ -12,7 +12,9 @@
 
 
 - (void)awakeFromNib {
-    // Initialization code
+    _deleteBtn.alpha = 0;
+    self.deleteBtn.layer.cornerRadius = 15.0;
+
     _standardImageView.clipsToBounds = YES;
     _contentDescExpandView.titleLabel.numberOfLines = 0;
     [_contentDescExpandView setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
@@ -22,11 +24,25 @@
     [_contentDescExpandView.titleLabel sizeToFit];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)setIsEditing:(BOOL)isEditing
+{
+    _isEditing = isEditing;
+    if (_isEditing) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _deleteBtn.alpha = 0.7;
 
-    // Configure the view for the selected state
+        } completion:^(BOOL finished) {
+            _deleteBtn.alpha = 1;
+        }];
+    } else {
+        [UIView animateWithDuration:0.3 animations:^{
+            _deleteBtn.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
 }
+
 
 - (void) resizeHeight:(BOOL)resize {
     if (resize) {

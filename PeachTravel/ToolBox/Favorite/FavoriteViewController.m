@@ -8,40 +8,138 @@
 
 #import "FavoriteViewController.h"
 #import "FavoriteTableViewCell.h"
+#import "DKCircleButton.h"
+#import "AccountManager.h"
+#import "Favorite.h"
 
 @interface FavoriteViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) DKCircleButton *editBtn;
+@property (nonatomic) BOOL isEditing;
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, strong) FavoriteTableViewCell *prototypeCell;
 
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic) NSUInteger currentPage;
 @end
 
 @implementation FavoriteViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    _isEditing = NO;
     self.navigationItem.title = @"收藏夹";
     
     _selectedIndex = -1;
-    
+    _currentPage = 0;
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _tableView.contentInset = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
     [self.view addSubview:_tableView];
+    [self.view addSubview:self.editBtn];
+    [self loadDataWithPageIndex:_currentPage];
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [[NSMutableArray alloc] init];
+    }
+    return _dataSource;
 }
+
+- (DKCircleButton *)editBtn
+{
+    if (!_editBtn) {
+        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
+        _editBtn.backgroundColor = APP_THEME_COLOR;
+        _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _editBtn;
+}
+
+/**
+ *  点击编辑按钮
+ *
+ *  @param sender
+ */
+- (IBAction)editMyGuides:(id)sender
+{
+    _isEditing = !_isEditing;
+    [self.tableView reloadData];
+    if (_isEditing) {
+        [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
+    } else {
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    }
+}
+
+/**
+ *  点击删除攻略按钮
+ *
+ *  @param sender
+ */
+- (IBAction)deleteGuide:(UIButton *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+        }
+    }];
+}
+
+
+/**
+ *  获取我的收藏列表
+ */
+
+- (void)loadDataWithPageIndex:(NSInteger)pageIndex
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
+    [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    
+    [SVProgressHUD show];
+    
+    [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            for (NSDictionary *favoriteDic in [responseObject objectForKey:@"result"]) {
+                Favorite *favorite = [[Favorite alloc] initWithJson:favoriteDic];
+                [self.dataSource addObject:favorite];
+            }
+            [self.tableView reloadData];
+            _currentPage ++;
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
+    
+}
+
+
 
 #pragma mark - UITableViewDataSource
 
@@ -51,7 +149,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FavoriteTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"favorite_cell" forIndexPath:indexPath];
-    
+    cell.isEditing = _isEditing;
+    [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
     cell.standardImageView.image = [UIImage imageNamed:@"country.jpg"];
     cell.contentType.text = @"景点";
     cell.contentTitle.text = @"黄果树瀑布";

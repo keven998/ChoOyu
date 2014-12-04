@@ -107,6 +107,8 @@
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
     chatCtl.title = _chatTitle;
     [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
+    
+    NSLog(@"%@", [self dataToSend]);
     [_delegate sendSuccess:chatCtl];
 }
 

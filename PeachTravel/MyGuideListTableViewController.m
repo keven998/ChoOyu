@@ -8,7 +8,7 @@
 
 #import "MyGuideListTableViewController.h"
 #import "MyGuidesTableViewCell.h"
-#import "DKCircleButton/DKCircleButton.h"
+#import "DKCircleButton.h"
 #import "AccountManager.h"
 #import "MyGuideSummary.h"
 #import "TripDetailRootViewController.h"

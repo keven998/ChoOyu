@@ -118,6 +118,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
+            
         } else {
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
@@ -141,9 +142,12 @@
      
      [upManager putData:data key:key token:uploadToken
                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                   NSLog(@"%@", info);
-                   NSLog(@"%@", resp);
                    [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+                   [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+                   UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
+                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:nil];
 
                } option:nil];
  }
@@ -366,10 +370,8 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-    UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
+   
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    cell.userPhoto.image = headerImage;
     [self uploadPhotoImage:headerImage];
 }
 
