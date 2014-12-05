@@ -205,5 +205,9 @@
     [self searchUsersWithSearchText:searchBar.text];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [SVProgressHUD dismiss];
+}
 
 @end

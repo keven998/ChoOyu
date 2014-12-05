@@ -105,7 +105,9 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
             } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO];
+                NSLog(@"loadChattingPeople我要删除会话");
+
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
             }
         } else {
             [_chattingPeople addObject:conversation.chatter];

@@ -368,11 +368,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
         ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
         contactListCtl.title = @"好友";
-        contactListCtl.notify = YES;
+        if ([accountManager numberOfUnReadFrendRequest]) {
+            contactListCtl.notify = YES;
+        } else {
+            contactListCtl.notify = NO;
+        }
         
         ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
         chatListCtl.title = @"消息";
-        chatListCtl.notify = YES;
+        chatListCtl.notify = NO;
         
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
         IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
@@ -647,8 +651,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didRemovedByBuddy:(NSString *)username
 {
+    NSLog(@"didRemovedByBuddy我要删除会话");
     [[EaseMob sharedInstance].chatManager removeConversationByChatter:username deleteMessages:YES];
-
 }
 
 - (void)didAcceptedByBuddy:(NSString *)username

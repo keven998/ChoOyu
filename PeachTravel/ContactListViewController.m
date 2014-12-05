@@ -37,12 +37,25 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
+    [self.accountManager loadContactsFromServer];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([self.accountManager numberOfUnReadFrendRequest]) {
+        self.notify = YES;
+    } else {
+        self.notify = NO;
+    }
+    if (self.contactTableView.numberOfSections > 0) {
+        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.contactTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    __weak ContactListViewController *weakSelf = self;
+    [self.delegate updateNotify:weakSelf notify:self.notify];
     [self handleEmptyView];
 }
 
@@ -255,7 +268,6 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
         view.backgroundColor = [UIColor clearColor];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, tableView.frame.size.width - 20.0, 24.0)];
-//        label.text = [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:15.0];

@@ -38,6 +38,11 @@
 //将好友加入到数据库当中
 - (void)addContact:(id)userInfo;
 
+/**
+ *  从服务器上加载好友列表
+ */
+- (void)loadContactsFromServer;
+
 //得到按照拼音区分的联系人列表，是以组的形式展现
 - (NSDictionary *)contactsByPinyin;
 
@@ -59,6 +64,7 @@
 //通过环信 id 获取桃子用户信息
 - (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
 
+
 #pragma mark *******群组相关信息******
 - (Group *)groupWithGroupId:(NSString *)groupId;
 
@@ -75,6 +81,14 @@
                  numbers:(NSSet *)numbers;
 
 
+#pragma mark *****其他操作******
+
+/**
+ *  返回未读的好友请求的数量
+ *
+ *  @return 
+ */
+- (NSUInteger)numberOfUnReadFrendRequest;
 
 
 @end

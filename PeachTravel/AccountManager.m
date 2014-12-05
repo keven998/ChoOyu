@@ -101,7 +101,7 @@
 - (void)easeMobDidLogin
 {
     [self save];
-    [self getContactsFromServer];
+    [self loadContactsFromServer];
 }
 
 //环信系统登录失败
@@ -182,7 +182,7 @@
 }
 
 //从服务器上获取好友列表
-- (void)getContactsFromServer
+- (void)loadContactsFromServer
 {
     NSLog(@"开始从服务器上加载好友列表");
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -196,8 +196,9 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"已经完成从服务器上加载好友列表");
-        
+            
             [self analysisAndSaveContacts:[[responseObject objectForKey:@"result"] objectForKey:@"contacts"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
         } else {
         }
         
@@ -211,13 +212,14 @@
 {
     NSLog(@"收到添加联系人，联系人的内容为：%@", contactDic);
     
-    //如果已经是我的好友了，那我就没必要添加了。。
-    if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
-        return;
-    }
-    Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+       Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
     
     if ([contactDic isKindOfClass:[FrendRequest class]]) {
+        //如果已经是我的好友了，那我就没必要添加了。。
+
+        if ([self isMyFrend:((FrendRequest *)contactDic).userId]) {
+            return;
+        }
         newContact.userId = ((FrendRequest *)contactDic).userId;
         newContact.nickName = ((FrendRequest *)contactDic).nickName;
         newContact.gender = ((FrendRequest *)contactDic).gender;
@@ -227,6 +229,11 @@
         newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
         
     } else {
+        //如果已经是我的好友了，那我就没必要添加了。。
+        if ([self isMyFrend:[contactDic objectForKey:@"userId"]]) {
+            return;
+        }
+
         newContact.userId = [contactDic objectForKey:@"userId"];
         newContact.nickName = [contactDic objectForKey:@"nickName"];
         newContact.gender = [contactDic objectForKey:@"gender"];
@@ -401,8 +408,18 @@
     }
 }
 
+- (NSUInteger)numberOfUnReadFrendRequest
+{
+    NSUInteger ret = 0;
+    for (FrendRequest *request in self.account.frendrequestlist) {
+        if (request.status == 0) {
+            ret++;
+        }
+    }
+    return ret;
+}
 
-
+#pragma mark -
 - (NSDictionary *)contactsByPinyin
 {
     NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];

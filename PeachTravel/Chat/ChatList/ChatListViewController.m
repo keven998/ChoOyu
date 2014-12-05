@@ -19,6 +19,7 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
+#import "IMRootViewController.h"
 
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
@@ -32,7 +33,14 @@
 
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
-@property (nonatomic, strong) UIView                *emptyView;
+
+
+@property (nonatomic, strong) UIView *emptyView;
+
+/**
+ *  是否有未读的消息，如果有出现小红点
+ */
+@property (nonatomic) BOOL *isShowNotify;
 
 @end
 
@@ -53,7 +61,6 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
@@ -65,9 +72,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    __weak ChatListViewController *weakSelf = self;
+    [self.delegate updateNotify:weakSelf notify:NO];
     [self refreshDataSource];
     [self registerNotifications];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -113,7 +123,7 @@
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
+        _tableView.contentInset = UIEdgeInsetsMake(11.0, 0.0, 11.0, 0.0);
         [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
     }
     
@@ -143,6 +153,9 @@
 
 #pragma mark - private
 
+/**
+ *  得到聊天历史列表的好友的信息
+ */
 - (void)loadChattingPeople
 {
     if (!_chattingPeople) {
@@ -150,19 +163,22 @@
     } else {
         [_chattingPeople removeAllObjects];
     }
+    BOOL neeUpdate = NO;
     for (EMConversation *conversation in self.dataSource) {
         if (!conversation.isGroup) {
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
             } else {
                 [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+                neeUpdate = YES;
             }
         } else {
             [_chattingPeople addObject:conversation.chatter];
         }
     }
-    //重新加载 datasource
-    self.dataSource = [self loadDataSource];
+    if (neeUpdate) {
+        self.dataSource = [self loadDataSource];
+    }
     if (_chattingPeople.count <= 0) {
         [self setupEmptyView];
     } else {
@@ -218,7 +234,6 @@
         self.emptyView = nil;
     }
     [self.view addSubview:self.tableView];
-//    [self.tableView addSubview:self.slimeView];
 }
 
 - (NSMutableArray *)loadDataSource
@@ -256,11 +271,20 @@
 {
     NSInteger ret = 0;
     ret = conversation.unreadMessagesCount;
-    
+    if (ret) {
+        __weak ChatListViewController *weakSelf = self;
+        [self.delegate updateNotify:weakSelf notify:YES];
+    }
     return  ret;
 }
 
-// 得到最后消息文字或者类型
+/**
+ * 得到最后消息文字或者类型
+ *
+ *  @param conversation
+ *
+ *  @return
+ */
 -(NSString *)subTitleMessageByConversation:(EMConversation *)conversation
 {
     NSString *ret = @"";
@@ -287,27 +311,9 @@
                         }
                             break;
                             
-                        case TZChatTypeStrategy: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeTravelNote: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeSpot: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeCity: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeFood: TZChatTypeHotel: TZChatTypeShopping: {
+                        case TZChatTypeStrategy: case TZChatTypeTravelNote: case TZChatTypeSpot: case TZChatTypeCity: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping:{
+
+                            ret = [NSString stringWithFormat:@"%@:[链接]%@", nickName, [[lastMessage.ext objectForKey:@"content"] objectForKey:@"name"]];
                             
                         }
                             break;
@@ -324,7 +330,7 @@
                     break;
                     
                 case eMessageBodyType_Voice:{
-                    ret = [NSString stringWithFormat:@"%@:[声音]", nickName];
+                    ret = [NSString stringWithFormat:@"%@:[语音]", nickName];
 
                 }
                     break;
@@ -367,31 +373,13 @@
                         }
                             break;
                             
-                        case TZChatTypeStrategy: {
+                        case TZChatTypeStrategy: case TZChatTypeTravelNote: case TZChatTypeSpot: case TZChatTypeCity: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping:{
+                            
+                            ret = [NSString stringWithFormat:@"[链接]%@",[[lastMessage.ext objectForKey:@"content"] objectForKey:@"name"]];
                             
                         }
                             break;
-                            
-                        case TZChatTypeTravelNote: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeSpot: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeCity: {
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeFood: {
-                            
-                        }
-                            break;
-                            
+
                         case TZTipsMsg: {
                             ret = [lastMessage.ext objectForKey:@"content"];
                         }

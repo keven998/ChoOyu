@@ -12,7 +12,7 @@
 #import "RNGridMenu.h"
 #import "ChatViewController.h"
 
-@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate>
+@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate, MHChildViewControllerDeleagate>
 
 @property (nonatomic, strong) NSArray *addItems;
 
@@ -32,8 +32,16 @@
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
+    for (MHChildViewController *ctl in self.viewControllers) {
+        ctl.delegate = self;
+    }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"viewwillapper");
+}
 
 - (IBAction)addUserContact:(id)sender
 {
@@ -82,6 +90,14 @@
         chatCtl.title = chatTitle;
         [self.navigationController pushViewController:chatCtl animated:YES];
     }];
+}
+
+#pragma mark - MHChildViewControllerDeleagate
+
+- (void)updateNotify:(MHChildViewController *)needUpdateCtl notify:(BOOL)notify
+{
+    NSUInteger index = [self.viewControllers indexOfObject:needUpdateCtl];
+    [super updateNotify:index notify:notify];
 }
 
 @end

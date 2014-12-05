@@ -13,14 +13,10 @@
 #import <UIKit/UIKit.h>
 #import "MHTabBarController.h"
 
-@class IMRootViewController;
-
 @interface ChatListViewController : MHChildViewController
 
 - (void)refreshDataSource;
 
 - (void)networkChanged:(EMConnectionState)connectionState;
-
-@property (nonatomic, weak) UIViewController *rootCtl;
 
 @end

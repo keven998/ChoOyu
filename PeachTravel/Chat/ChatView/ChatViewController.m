@@ -56,6 +56,7 @@
     NSInteger _recordingCount;
     
     dispatch_queue_t _messageQueue;
+    dispatch_queue_t loadChatPeopleQueue;
     UIButton *showGroupList;
     BOOL _isScrollToBottom;
 }
@@ -122,6 +123,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
     
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
+    loadChatPeopleQueue = dispatch_queue_create("loadChattingPeople", NULL);
     _isScrollToBottom = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupBarButtonItem];
@@ -211,6 +213,7 @@
     
     EMMessage *message = [_conversation latestMessage];
     if (message == nil) {
+        NSLog(@"delloc 我也要删除了");
         [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:YES];
     }
 }
@@ -386,6 +389,11 @@
     }
 }
 
+/**
+ *  如果是群组的话，点击展开按钮，返回所有的联系人信息
+ *
+ *  @return 所有的聊天人的信息
+ */
 - (NSArray *)createChatScrollViewDataSource
 {
     [self.numberBtns removeAllObjects];
@@ -1086,8 +1094,6 @@
 #endif
 }
 
-/*****暂时屏蔽掉位置功能*****/
-/*
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
@@ -1097,7 +1103,6 @@
     locationController.delegate = self;
     [self.navigationController pushViewController:locationController animated:YES];
 }
-*/
 
 /*****暂时屏蔽掉录制视频和发送及时语音的功能*****/
 /*
@@ -1381,14 +1386,17 @@
  */
 - (void)checkOutModel:(MessageModel *)messageModel
 {
-    for (MessageModel *model in self.chattingPeople) {
-        if ([model.username isEqualToString:messageModel.username] && (![model.nickName isEqualToString:messageModel.nickName] || ![model.headImageURL isEqual:messageModel.headImageURL])) {
-            messageModel.headImageURL = model.headImageURL;
-            messageModel.nickName = model.nickName;
-            
-            NSLog(@"更新了用户信息：%@  消息内容为：%@", messageModel.nickName, messageModel.content);
+    dispatch_async(loadChatPeopleQueue, ^{
+        for (MessageModel *model in self.chattingPeople) {
+            if ([model.username isEqualToString:messageModel.username] && (![model.nickName isEqualToString:messageModel.nickName] || ![model.headImageURL isEqual:messageModel.headImageURL])) {
+                messageModel.headImageURL = model.headImageURL;
+                messageModel.nickName = model.nickName;
+                
+                NSLog(@"更新了用户信息：%@  消息内容为：%@", messageModel.nickName, messageModel.content);
+            }
         }
-    }
+    });
+     
 }
 
 -(NSMutableArray *)addChatToMessage:(EMMessage *)message
@@ -1411,24 +1419,19 @@
 
 -(void)addChatDataToMessage:(EMMessage *)message
 {
-    __weak ChatViewController *weakSelf = self;
-    dispatch_async(_messageQueue, ^{
-        NSArray *messages = [weakSelf addChatToMessage:message];
-        NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-        
-        for (int i = 0; i < messages.count; i++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count+i inSection:0];
-            [indexPaths addObject:indexPath];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView beginUpdates];
-            [weakSelf.dataSource addObjectsFromArray:messages];
-            [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            [weakSelf.tableView endUpdates];
-            [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        });
-    });
+    NSArray *messages = [self addChatToMessage:message];
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < messages.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count+i inSection:0];
+        [indexPaths addObject:indexPath];
+    }
+    [self.dataSource addObjectsFromArray:messages];
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+
+    NSLog(@"总共的 cell 个数为：%lu", (unsigned long)self.dataSource.count);
+    NSLog(@"我应该滑倒底部,底部的位置是：%d",((NSIndexPath *)[indexPaths lastObject]).row);
+    [self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)scrollViewToBottom:(BOOL)animated

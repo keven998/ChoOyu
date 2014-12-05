@@ -102,7 +102,7 @@
 #define loadedAddressBookNoti           @ "loadedAddressBook"           //通讯录联系人加载完成。
 #define regectLoadAddressBookNoti       @ "regectLoadAddressBook"       //用户拒绝读取通讯录
 #define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
-#define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友请求列表
+#define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti      @ "updatecontactList"           //更新好友请求列表
 
 /***** 登录注册时输入的错误码 *****/

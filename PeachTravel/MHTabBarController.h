@@ -40,6 +40,14 @@
 - (void)setSelectedIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setSelectedViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
+/**
+ *  更新小红点
+ *
+ *  @param index  小红点的位置
+ *  @param notify 是否显示小红点
+ */
+- (void)updateNotify:(NSUInteger)index notify:(BOOL)notify;
+
 @end
 
 /*!
@@ -51,8 +59,29 @@
 - (void)mh_tabBarController:(MHTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index;
 @end
 
+
+
+
+@protocol MHChildViewControllerDeleagate;
+
 @interface MHChildViewController : UIViewController
 
-@property (nonatomic, assign) BOOL notify;
-
+@property (nonatomic, assign) id <MHChildViewControllerDeleagate>delegate;
+@property (nonatomic) BOOL notify;
 @end
+
+
+@protocol MHChildViewControllerDeleagate <NSObject>
+
+/**
+ *  更新小红点
+ *
+ *  @param notify 更新状态
+ */
+- (void)updateNotify:(MHChildViewController *)needUpdateCtl notify:(BOOL)notify;
+@end
+
+
+
+
+
