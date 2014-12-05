@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BindTelephoneViewController : UIViewController
+@interface BindTelephoneViewController : TZViewController
 
 @end

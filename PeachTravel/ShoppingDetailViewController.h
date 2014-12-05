@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShoppingDetailViewController : UIViewController
+@interface ShoppingDetailViewController : TZViewController
 
 @property (nonatomic, copy) NSString *shoppingId;
 

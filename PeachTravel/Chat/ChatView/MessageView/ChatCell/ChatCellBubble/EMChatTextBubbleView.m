@@ -35,6 +35,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.userInteractionEnabled = NO;
         _textLabel.multipleTouchEnabled = NO;
+        _textLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_textLabel];
         
         _detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
@@ -73,12 +74,12 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [[self class] textLabelFont]} context:nil].size;
     }
     
-    CGFloat height = 40;
+    CGFloat height = 32.5;
     if (2*BUBBLE_VIEW_PADDING + retSize.height > height) {
-        height = 2*BUBBLE_VIEW_PADDING + retSize.height;
+        height = 16 + retSize.height;
     }
     
-    return CGSizeMake(retSize.width + BUBBLE_VIEW_PADDING*2 + BUBBLE_VIEW_PADDING, height);
+    return CGSizeMake(retSize.width + BUBBLE_VIEW_WIDTH_PADDING*2 + BUBBLE_VIEW_PADDING, height);
 }
 
 #pragma mark - setter
@@ -272,7 +273,8 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [self textLabelFont]} context:nil].size;
 
     }
-    return 2 * BUBBLE_VIEW_PADDING + size.height;
+    NSLog(@"%f",  2 * BUBBLE_VIEW_PADDING + size.height);
+    return 2 * + size.height;
 }
 
 +(UIFont *)textLabelFont

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccountManagerViewController : UIViewController
+@interface AccountManagerViewController : TZViewController
 
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResetPasswordViewController : UIViewController
+@interface ResetPasswordViewController : TZViewController
 
 @property (nonatomic, copy) NSString *phoneNumber;
 @property (nonatomic, copy) NSString *token;

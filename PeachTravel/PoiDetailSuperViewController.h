@@ -12,7 +12,7 @@
 #import "TaoziChatMessageBaseViewController.h"
 
 
-@interface PoiDetailSuperViewController : UIViewController
+@interface PoiDetailSuperViewController : TZViewController
 
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 

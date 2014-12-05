@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShoppingOfCityViewController : UIViewController
+@interface ShoppingOfCityViewController : TZViewController
 
 @end

@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChatViewController : UIViewController
+@interface ChatViewController : TZViewController
 
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
 

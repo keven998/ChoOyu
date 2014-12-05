@@ -25,12 +25,15 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _textBtn = [[UIButton alloc] initWithFrame:self.frame];
+        NSLog(@"%@", NSStringFromCGRect(self.frame));
+        _textBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, self.frame.size.height)];
         [_textBtn setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
         _textBtn.userInteractionEnabled = NO;
         _textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _textBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         [_textBtn setImage:[UIImage imageNamed:@"chat_time.png"] forState:UIControlStateNormal];
+        [_textBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_textBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         _textBtn.titleLabel.numberOfLines = 2;
         _textBtn.backgroundColor = [UIColor clearColor];
         _textBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];

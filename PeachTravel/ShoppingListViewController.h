@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 
-@interface ShoppingListViewController : UIViewController
+@interface ShoppingListViewController : TZViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 

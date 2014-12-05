@@ -14,7 +14,7 @@
 
 #import "EMChatBaseBubbleView.h"
 
-#define ANIMATION_IMAGEVIEW_SIZE 25 // 小喇叭图片尺寸
+#define ANIMATION_IMAGEVIEW_SIZE 25 // 小喇叭图片高度
 #define ANIMATION_IMAGEVIEW_SPEED 1 // 小喇叭动画播放速度
 
 

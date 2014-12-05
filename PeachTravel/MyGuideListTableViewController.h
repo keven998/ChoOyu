@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyGuideListTableViewController : UIViewController
+@interface MyGuideListTableViewController : TZViewController
 
 @end

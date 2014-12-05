@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchUserInfoViewController : UIViewController
+@interface SearchUserInfoViewController : TZViewController
 
 @property (nonatomic, strong) NSDictionary *userInfo;
 

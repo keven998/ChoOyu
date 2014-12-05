@@ -25,7 +25,7 @@
 
 @end
 
-@interface CreateConversationViewController : UIViewController
+@interface CreateConversationViewController : TZViewController
 
 @property (nonatomic, strong) Group *group;
 

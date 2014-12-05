@@ -77,6 +77,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
         
         bubbleFrame.origin.x = self.headImageView.frame.origin.x - bubbleFrame.size.width - HEAD_PADDING;
+        bubbleFrame.origin.y += 5;
         _bubbleView.frame = bubbleFrame;
         
         CGRect frame = self.activityView.frame;
@@ -88,6 +89,8 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     else{
         if (_showNickName) {
             bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;
+        } else {
+            bubbleFrame.origin.y += 5;
         }
 
         bubbleFrame.origin.x = HEAD_PADDING * 2 + HEAD_SIZE;

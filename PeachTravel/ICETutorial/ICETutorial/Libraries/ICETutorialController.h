@@ -29,7 +29,7 @@ typedef NS_OPTIONS(NSUInteger, ScrollingState) {
 typedef void (^ButtonBlock)(UIButton *button);
 
 @protocol ICETutorialControllerDelegate;
-@interface ICETutorialController : UIViewController <UIScrollViewDelegate>
+@interface ICETutorialController : TZViewController <UIScrollViewDelegate>
 
 @property (nonatomic, assign) BOOL autoScrollEnabled;
 @property (nonatomic, weak) id<ICETutorialControllerDelegate> delegate;

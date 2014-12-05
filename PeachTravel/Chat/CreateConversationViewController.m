@@ -36,7 +36,6 @@
     [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.tzScrollView];
     [self.view addSubview:self.contactTableView];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     UIButton *confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
     [confirm setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -58,7 +57,7 @@
 {
     if (!_tzScrollView) {
         
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 164, kWindowWidth, 40)];
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, 40)];
         _tzScrollView.itemWidth = 20;
         _tzScrollView.itemHeight = 20;
         _tzScrollView.itemBackgroundColor = [UIColor grayColor];
@@ -73,7 +72,7 @@
 - (SelectContactScrollView *)selectContactView
 {
     if (!_selectContactView) {
-        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 90)];
+        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
         _selectContactView.delegate = self;
         _selectContactView.backgroundColor = [UIColor whiteColor];
     }

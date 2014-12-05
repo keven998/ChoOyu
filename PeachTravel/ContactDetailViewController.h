@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Contact.h"
 
-@interface ContactDetailViewController : UIViewController
+@interface ContactDetailViewController : TZViewController
 
 @property (nonatomic, strong) Contact *contact;
 

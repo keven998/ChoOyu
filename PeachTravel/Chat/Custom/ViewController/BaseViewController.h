@@ -12,6 +12,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseViewController : UIViewController
+@interface BaseViewController : TZViewController
 
 @end

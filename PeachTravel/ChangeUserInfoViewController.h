@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChangeUserInfoViewController : UIViewController
+@interface ChangeUserInfoViewController : TZViewController
 
 @property (nonatomic) UserInfoChangeType changeType;
 @property (copy, nonatomic) NSString *content;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PushSettingViewController : UIViewController
+@interface PushSettingViewController : TZViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
