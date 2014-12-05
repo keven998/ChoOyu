@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DestinationCollectionHeaderView : UICollectionReusableView
-@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

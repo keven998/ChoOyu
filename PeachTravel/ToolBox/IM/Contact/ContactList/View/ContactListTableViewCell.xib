@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C68m" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHU-Vx-ioE">
-                        <rect key="frame" x="10" y="0.0" width="300" height="59"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBo-DE-0lK">
                                 <rect key="frame" x="59" y="9" width="235" height="21"/>
@@ -43,9 +43,9 @@
                             <constraint firstItem="UBo-DE-0lK" firstAttribute="top" secondItem="FHU-Vx-ioE" secondAttribute="top" constant="9" id="C98-Pl-Hfj"/>
                             <constraint firstItem="4RI-Xp-0RI" firstAttribute="leading" secondItem="FHU-Vx-ioE" secondAttribute="leading" constant="8" id="O13-au-lzl"/>
                             <constraint firstItem="UBo-DE-0lK" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="9" id="SIp-zf-Bxp"/>
-                            <constraint firstAttribute="trailing" secondItem="UBo-DE-0lK" secondAttribute="trailing" constant="6" id="Yyx-r4-1PK"/>
+                            <constraint firstAttribute="trailing" secondItem="UBo-DE-0lK" secondAttribute="trailing" constant="26" id="Yyx-r4-1PK"/>
                             <constraint firstItem="HaD-5e-6HJ" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="10" id="ZEY-jn-s0K"/>
-                            <constraint firstAttribute="trailing" secondItem="HaD-5e-6HJ" secondAttribute="trailing" constant="5" id="chM-We-SCv"/>
+                            <constraint firstAttribute="trailing" secondItem="HaD-5e-6HJ" secondAttribute="trailing" constant="25" id="chM-We-SCv"/>
                             <constraint firstItem="HaD-5e-6HJ" firstAttribute="top" secondItem="FHU-Vx-ioE" secondAttribute="top" constant="31" id="i0U-Wq-PbU"/>
                             <constraint firstAttribute="bottom" secondItem="UBo-DE-0lK" secondAttribute="bottom" constant="29" id="nJ0-KN-5Kr"/>
                             <constraint firstItem="4RI-Xp-0RI" firstAttribute="top" secondItem="FHU-Vx-ioE" secondAttribute="top" constant="10" id="xxg-m2-7e5"/>
@@ -55,11 +55,11 @@
                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="FHU-Vx-ioE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5Ff-Kh-3Jl"/>
-                    <constraint firstItem="FHU-Vx-ioE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HJo-Ve-9rB"/>
+                    <constraint firstItem="FHU-Vx-ioE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HJo-Ve-9rB"/>
                     <constraint firstAttribute="bottom" secondItem="FHU-Vx-ioE" secondAttribute="bottom" id="JTv-7V-4Q8"/>
-                    <constraint firstItem="FHU-Vx-ioE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ezx-yB-J7y"/>
-                    <constraint firstAttribute="trailing" secondItem="FHU-Vx-ioE" secondAttribute="trailing" constant="10" id="fBB-5l-Tec"/>
-                    <constraint firstAttribute="trailing" secondItem="FHU-Vx-ioE" secondAttribute="trailing" constant="10" id="oSo-IX-YNE"/>
+                    <constraint firstItem="FHU-Vx-ioE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ezx-yB-J7y"/>
+                    <constraint firstAttribute="trailing" secondItem="FHU-Vx-ioE" secondAttribute="trailing" id="fBB-5l-Tec"/>
+                    <constraint firstAttribute="trailing" secondItem="FHU-Vx-ioE" secondAttribute="trailing" id="oSo-IX-YNE"/>
                     <constraint firstItem="FHU-Vx-ioE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="orR-Ib-kyy"/>
                     <constraint firstAttribute="bottom" secondItem="FHU-Vx-ioE" secondAttribute="bottom" id="thl-nS-jgS"/>
                 </constraints>

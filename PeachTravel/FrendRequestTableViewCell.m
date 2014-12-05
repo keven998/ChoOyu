@@ -11,13 +11,12 @@
 @implementation FrendRequestTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _avatarImageView.layer.cornerRadius = 20.0;
+    _avatarImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

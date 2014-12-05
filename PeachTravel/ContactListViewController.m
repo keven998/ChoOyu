@@ -129,9 +129,9 @@
 {
     if (!_tzScrollView) {
         
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 40)];
-        _tzScrollView.itemWidth = 20;
-        _tzScrollView.itemHeight = 20;
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 52)];
+        _tzScrollView.itemWidth = 22;
+        _tzScrollView.itemHeight = 22;
         _tzScrollView.itemBackgroundColor = [UIColor grayColor];
         _tzScrollView.backgroundColor = [UIColor whiteColor];
         _tzScrollView.delegate = self;
@@ -155,7 +155,7 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
@@ -248,10 +248,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 55.0;
+        return 54.0;
     }
     
-    return 60.0;
+    return 54.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -259,19 +259,19 @@
     if (section == 0) {
         return 0;
     }
-    return 24.0;
+    return 25.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 25.0)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, tableView.frame.size.width - 20.0, 24.0)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, 25.0)];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:15.0];
-        label.textColor = UIColorFromRGB(0x999999);
+        label.font = [UIFont systemFontOfSize:12.0];
+        label.textColor = UIColorFromRGB(0xadadad);
         label.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
         label.layer.borderWidth = 0.5;
         [view addSubview:label];

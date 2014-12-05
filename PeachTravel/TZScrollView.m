@@ -32,7 +32,8 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i<[titles count]; i++) {
         
-        CGRect frame = CGRectMake((spaceWidth+_itemWidth) * i+self.bounds.size.width/2, 10, _itemWidth, _itemHeight);
+        NSLog(@"%f",(self.frame.size.height-_itemHeight)/2);
+        CGRect frame = CGRectMake((spaceWidth+_itemWidth) * i+self.bounds.size.width/2, (self.frame.size.height-_itemHeight)/2, _itemWidth, _itemHeight);
 
         UIButton *button = [[UIButton alloc] initWithFrame:frame];
         NSString *s = [titles objectAtIndex:i];
@@ -95,8 +96,6 @@
 {
     CGPoint currentOffset = scrollView.contentOffset;
     
-    NSLog(@"%f", currentOffset.x);
-    
     int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
     if (currentIndex > ([_viewsOnScrollView count] -1)) {
         currentIndex = [_viewsOnScrollView count] - 1;
@@ -118,7 +117,7 @@
     CGFloat x = (spaceWidth+_itemWidth) * currentIndex+self.bounds.size.width/2;
 
     UIButton *btn = [_viewsOnScrollView objectAtIndex:currentIndex];
-    CGRect rect = CGRectMake(x-(offset/2), 10-(offset/2), _itemWidth+offset, _itemWidth+offset);
+    CGRect rect = CGRectMake(x-(offset/2), (self.frame.size.height-_itemHeight)/2-(offset/2), _itemWidth+offset, _itemWidth+offset);
     btn.layer.cornerRadius = (_itemWidth+offset)/2;
     [btn setFrame:rect];
     btn.backgroundColor = UIColorFromRGB(0xee528c);
@@ -127,7 +126,7 @@
         UIButton *otherbtn = [_viewsOnScrollView objectAtIndex:i];
         if (![btn isEqual:otherbtn]) {
             CGFloat x = (spaceWidth+_itemWidth) * i+self.bounds.size.width/2;
-            [otherbtn setFrame:CGRectMake(x,10, _itemWidth, _itemWidth)];
+            [otherbtn setFrame:CGRectMake(x,(self.frame.size.height-_itemHeight)/2, _itemWidth, _itemWidth)];
             otherbtn.layer.cornerRadius = _itemWidth/2;
             [otherbtn setBackgroundColor:_itemBackgroundColor];
         }
@@ -171,9 +170,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width/2-2.5, frame.size.height-4, 4, 4)];
-        indicatorView.layer.cornerRadius = 2.0;
-        indicatorView.backgroundColor = UIColorFromRGB(0xee528c);
+        UIImageView *indicatorView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-4, frame.size.height-4, 8, 4)];
+        indicatorView.image = [UIImage imageNamed:@"TZScrollView_indicator.png"];
         [self addSubview:_scrollView];
         [self addSubview:indicatorView];
         _scrollView.showsHorizontalScrollIndicator = NO;

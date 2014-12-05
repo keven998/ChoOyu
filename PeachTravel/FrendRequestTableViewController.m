@@ -183,7 +183,7 @@
         cell.requestBtn.userInteractionEnabled = NO;
 
     } else if ([request.status integerValue] == TZFrendDefault) {
-        [cell.requestBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [cell.requestBtn setTitle:@"同意" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = YES;
         [cell.requestBtn addTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];
