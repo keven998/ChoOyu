@@ -12,12 +12,32 @@
 
 - (void)awakeFromNib {
     _deleteBtn.alpha = 0;
-    _editTitleBtn.alpha = 0;
+//    _editTitleBtn.alpha = 0;
     self.countBtn.layer.cornerRadius = 25.0;
     self.countBtn.clipsToBounds = YES;
+    self.countBtn.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.15];
+    self.countBtn.layer.borderWidth = 2.0;
+    self.countBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.deleteBtn.layer.cornerRadius = 15.0;
-    self.editTitleBtn.layer.cornerRadius = 10.0;
+//    self.editTitleBtn.layer.cornerRadius = 10.0;
+    
+    _frameView.layer.cornerRadius = 2.0;
+    _frameView.layer.shadowColor = UIColorFromRGB(0xdcdcdc).CGColor;
+    _frameView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    _frameView.layer.shadowRadius = 1.0;
+    _frameView.layer.shadowOpacity = 1.0;
+    
 }
+
+//- (void)layoutSubviews {
+//    UIBezierPath * bezierPath = [UIBezierPath bezierPathWithRoundedRect:_headerImageView.frame
+//                                                      byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+//                                                            cornerRadii:CGSizeMake(2, 2)];
+//    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+//    maskLayer.frame = _headerImageView.layer.frame;
+//    maskLayer.path = bezierPath.CGPath;
+//    _headerImageView.layer.mask = maskLayer;
+//}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -27,19 +47,22 @@
 {
     _isEditing = isEditing;
     if (_isEditing) {
+        [_titleBtn setImage:[UIImage imageNamed:@"ic_clear_cache.png"] forState:UIControlStateNormal];
+        _titleBtn.imageView.alpha = 0.0;
         [UIView animateWithDuration:0.3 animations:^{
             _deleteBtn.alpha = 0.7;
-            _editTitleBtn.alpha = 0.7;
+            _titleBtn.imageView.alpha = 0.7;
         } completion:^(BOOL finished) {
             _deleteBtn.alpha = 1;
-            _editTitleBtn.alpha = 1;
+            _titleBtn.imageView.alpha = 1.0;
         }];
     } else {
         [UIView animateWithDuration:0.3 animations:^{
             _deleteBtn.alpha = 0;
-            _editTitleBtn.alpha = 0;
+//            _editTitleBtn.alpha = 0;
+            _titleBtn.imageView.alpha = 0.0;
         } completion:^(BOOL finished) {
-            
+            [_titleBtn setImage:nil forState:UIControlStateNormal];
         }];
     }
 }
