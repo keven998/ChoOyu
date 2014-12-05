@@ -58,6 +58,7 @@ static NSString *reusableCell = @"myGuidesCell";
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
 
     }
@@ -314,9 +315,9 @@ static NSString *reusableCell = @"myGuidesCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     cell.deleteBtn.tag = indexPath.row;
-    cell.editTitleBtn.tag = indexPath.row;
+//    cell.editTitleBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.editTitleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+//    [cell.editTitleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
 
     cell.isEditing = self.isEditing;
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.row];
