@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) SelectContactScrollView *selectContactView;
+@property (nonatomic) BOOL showRefrence;
 
 @end
 
@@ -32,10 +33,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    /**
+     *  如果联系人的个数大于15，那显示索引，反之不现实
+     */
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager.account.contacts count] > 15) {
+        _showRefrence = YES;
+    }
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     [self.view addSubview:self.selectContactView];
-    [self.view addSubview:self.tzScrollView];
+    if (_showRefrence) {
+        [self.view addSubview:self.tzScrollView];
+    }
     [self.view addSubview:self.contactTableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     UIButton *confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
     [confirm setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -57,7 +69,7 @@
 {
     if (!_tzScrollView) {
         
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 100, kWindowWidth, 40)];
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, self.selectContactView.frame.origin.y + 10, kWindowWidth, 40)];
         _tzScrollView.itemWidth = 20;
         _tzScrollView.itemHeight = 20;
         _tzScrollView.itemBackgroundColor = [UIColor grayColor];
@@ -72,9 +84,10 @@
 - (SelectContactScrollView *)selectContactView
 {
     if (!_selectContactView) {
-        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
+        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 90)];
         _selectContactView.delegate = self;
         _selectContactView.backgroundColor = [UIColor whiteColor];
+        _selectContactView.alpha = 0;
     }
     return _selectContactView;
 }
@@ -82,7 +95,11 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height+10, kWindowWidth-20, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height)];
+        CGFloat offsetY = 70;
+        if (_showRefrence) {
+            offsetY += self.tzScrollView.frame.size.height + 10;
+        }
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, kWindowWidth-22, self.view.frame.size.height - offsetY)];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -253,6 +270,22 @@
 - (void)removeUintCell:(NSInteger)index
 {
     [self.selectedContacts removeObjectAtIndex:index];
+    if (self.selectedContacts.count == 0) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.selectContactView.alpha = 0.2;
+            
+            CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y - self.selectContactView.frame.size.height, self.selectContactView.frame.size.width, self.contactTableView.frame.size.height + self.selectContactView.frame.size.height);
+            [self.contactTableView setFrame:frame];
+            
+            if (_showRefrence) {
+                CGRect refrenceFrame = CGRectMake(self.tzScrollView.frame.origin.x, self.tzScrollView.frame.origin.y - self.selectContactView.frame.size.height, self.tzScrollView.frame.size.width, self.tzScrollView.frame.size.height);
+                [self.tzScrollView setFrame:refrenceFrame];
+            }
+
+        } completion:^(BOOL finished) {
+            self.selectContactView.alpha = 0;
+        }];
+    }
     [self.contactTableView reloadData];
 }
 
@@ -324,6 +357,19 @@
         [self.selectContactView removeUnitAtIndex:index];
         
     } else {
+        if (self.selectedContacts.count == 0) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.selectContactView.alpha = 0.8;
+                CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y+self.selectContactView.frame.size.height, self.selectContactView.frame.size.width, self.contactTableView.frame.size.height - self.selectContactView.frame.size.height);
+                [self.contactTableView setFrame:frame];
+                if (_showRefrence) {
+                    CGRect refrenceFrame = CGRectMake(self.tzScrollView.frame.origin.x, self.tzScrollView.frame.origin.y + self.selectContactView.frame.size.height, self.tzScrollView.frame.size.width, self.tzScrollView.frame.size.height);
+                    [self.tzScrollView setFrame:refrenceFrame];
+                }
+            } completion:^(BOOL finished) {
+                self.selectContactView.alpha = 1.0;
+            }];
+        }
         [self.selectedContacts addObject:contact];
         SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
         [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
