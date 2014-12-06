@@ -7,6 +7,7 @@
 //
 
 #import "TaoziCollectionLayout.h"
+#import "CityCardReusableView.h"
 
 @interface TaoziCollectionLayout () {
     CGFloat offsetY;
@@ -14,6 +15,7 @@
 
 @property (nonatomic, strong) NSMutableArray *itemsAttributes;
 @property (nonatomic, strong) NSMutableArray *headerViewAttributes;
+@property (strong, nonatomic) NSMutableArray *sectionAttributes;
 
 @end
 
@@ -27,6 +29,7 @@
     _width = [_delegate tzcollectionLayoutWidth];
     _itemsAttributes = [[NSMutableArray alloc] init];
     _headerViewAttributes = [[NSMutableArray alloc] init];
+    _sectionAttributes = [NSMutableArray new];
     offsetY = 0;
     for (int i=0; i<sections; i++) {
         CGFloat offsetX = 10.0;
@@ -56,11 +59,32 @@
             offsetX += 10 + itemSize.width;
             
             (heighest < itemSize.height)? (heighest=itemSize.height):(heighest=heighest);
-            
             [tempArray addObject:attributes];
         }
         offsetY += 10+heighest;
         [_itemsAttributes addObject:tempArray];
+        
+        
+        //
+        NSInteger lastIndex = [self.collectionView numberOfItemsInSection:i] - 1;
+        if (lastIndex < 0)
+            continue;
+        
+        UICollectionViewLayoutAttributes *firstItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+        UICollectionViewLayoutAttributes *lastItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:lastIndex inSection:i]];
+        
+        CGRect frame = CGRectUnion(firstItem.frame, lastItem.frame);
+        frame.origin.x -= 10.0;
+        frame.origin.y -= 10.0;
+        frame.size.width = self.collectionView.frame.size.width;
+        frame.size.height += self.sectionInset.top + self.sectionInset.bottom + 20.0;
+        
+        UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:@"CityCardReusableView" withIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+        attributes.zIndex = -1;
+        attributes.frame = frame;
+        [_sectionAttributes addObject:attributes];
+        [self registerClass:[CityCardReusableView class] forDecorationViewOfKind:@"CityCardReusableView"];
+//        [self registerNib:[UINib nibWithNibName:@"SectionCard" bundle:[NSBundle mainBundle]] forDecorationViewOfKind:@"SectionCard"];
     }
 }
 
@@ -83,6 +107,13 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:i];
         [attributes addObject:[self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath]];
     }
+    for (UICollectionViewLayoutAttributes *attribute in self.sectionAttributes)
+    {
+        if (!CGRectIntersectsRect(rect, attribute.frame))
+            continue;
+        
+        [attributes addObject:attribute];
+    }
     return attributes;
 }
 
@@ -94,9 +125,8 @@
 
 -(CGSize)collectionViewContentSize{
     CGSize retVal = self.collectionView.bounds.size;
-    
     retVal.height = offsetY + 100;
-    
     return retVal;
 }
+
 @end

@@ -39,8 +39,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
-    
-
 }
 
 - (void)dealloc
@@ -60,11 +58,15 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 {
     if (!_tzScrollView) {
         
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 40)];
-        _tzScrollView.itemWidth = 20;
-        _tzScrollView.itemHeight = 20;
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10.0, kWindowWidth, 52.0)];
+        _tzScrollView.itemWidth = 22;
+        _tzScrollView.itemHeight = 22;
         _tzScrollView.itemBackgroundColor = [UIColor grayColor];
         _tzScrollView.backgroundColor = [UIColor whiteColor];
+        _tzScrollView.layer.shadowRadius = 1.0;
+        _tzScrollView.layer.shadowColor = UIColorFromRGB(0xdcdcdc).CGColor;
+        _tzScrollView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        _tzScrollView.layer.shadowOpacity = 1.0;
         _tzScrollView.delegate = self;
         _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
     }
@@ -109,7 +111,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [SVProgressHUD show];
     
     [manager GET:API_GET_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -194,10 +195,13 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];[[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section];
-    headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section]];
-    headerView.userInteractionEnabled = NO;
-    return headerView;
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];[[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section];
+        headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section]];
+        headerView.userInteractionEnabled = NO;
+        return headerView;
+    }
+    return nil;
 }
 
 
@@ -209,11 +213,11 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     cell.tiltleLabel.text = city.zhName;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
-            cell.layer.borderColor = UIColorFromRGB(0xee528c).CGColor;
+            cell.layer.borderColor = APP_THEME_COLOR.CGColor;
             return  cell;
         }
     }
-    cell.layer.borderColor = UIColorFromRGB(0xf5f5f5).CGColor;
+    cell.layer.borderColor = UIColorFromRGB(0xb3b3b3).CGColor;
     return  cell;
 }
 
