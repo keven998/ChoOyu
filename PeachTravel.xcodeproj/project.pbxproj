@@ -2329,12 +2329,10 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 				C666D4771A32E9B10049F4DA /* ic_dotted_line@2x.png */,
-=======
 				D94772F51A32E5ED00BF9F8B /* ic_more@2x.png */,
->>>>>>> Stashed changes
+
 				D9386C471A31A27F0085FC36 /* cell_accessory_pink_up@2x.png */,
 				D9386C481A31A27F0085FC36 /* cell_accessory_pink_down@2x.png */,
 				C6BC34921A276396002C19D3 /* cell_accessory_white@2x.png */,
