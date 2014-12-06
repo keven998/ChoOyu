@@ -60,13 +60,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *buf = @"Back";
-    if ([UINavigationBar instancesRespondToSelector:@selector(setBackIndicatorImage:)]) {
-        UIImage *image = [[UIImage imageNamed:@"ic_navigation_back.png"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(8, 0, 8, 0)];
-        [[UINavigationBar appearance] setBackIndicatorImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
-        buf = @"";
-    }
 
     [self setupView];
     
