@@ -41,6 +41,7 @@
 		C63E65A71A2D98E400245184 /* FavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63E65A51A2D98E400245184 /* FavoriteTableViewCell.xib */; };
 		C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */; };
 		C653F52F1A25C2BF00E7479F /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */; };
+		C666D4781A32E9B10049F4DA /* ic_dotted_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C666D4771A32E9B10049F4DA /* ic_dotted_line@2x.png */; };
 		C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */; };
 		C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */; };
 		C6999FB11A2DDA4F009032D8 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FB01A2DDA4F009032D8 /* SwipeView.m */; };
@@ -629,6 +630,7 @@
 		C653F52B1A25C2BF00E7479F /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
 		C653F52C1A25C2BF00E7479F /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
 		C653F52D1A25C2BF00E7479F /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
+		C666D4771A32E9B10049F4DA /* ic_dotted_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_dotted_line@2x.png"; path = "Common/ic_dotted_line@2x.png"; sourceTree = "<group>"; };
 		C67B4DC01A270EF600CBF10B /* ZFModalTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFModalTransitionAnimator.h; sourceTree = "<group>"; };
 		C67B4DC11A270EF600CBF10B /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
 		C68D9B931A2D5C3B008A9D4B /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
@@ -2305,6 +2307,7 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C666D4771A32E9B10049F4DA /* ic_dotted_line@2x.png */,
 				D9386C471A31A27F0085FC36 /* cell_accessory_pink_up@2x.png */,
 				D9386C481A31A27F0085FC36 /* cell_accessory_pink_down@2x.png */,
 				C6BC34921A276396002C19D3 /* cell_accessory_white@2x.png */,
@@ -3995,6 +3998,7 @@
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
 				D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */,
 				D93696E51A3002D9001922F4 /* rating_star_gray@2x.png in Resources */,
+				C666D4781A32E9B10049F4DA /* ic_dotted_line@2x.png in Resources */,
 				D9545FF31A22F5CD00688D72 /* navigationbar_background_tall.png in Resources */,
 				D93696E41A3002D9001922F4 /* rating_star@2x.png in Resources */,
 				D90C638819FB44D300C2E440 /* VoiceSearchFeedback014@2x.png in Resources */,

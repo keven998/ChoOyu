@@ -42,11 +42,14 @@
         UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:headerIndexPath];
         headerAttributes.frame = CGRectMake(0, offsetY, _width, headerSize.height);
         [_headerViewAttributes addObject:headerAttributes];
-        offsetY += headerSize.height+10;
+        offsetY += headerSize.height;
         
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         CGFloat heighest = 0;
-        for (int j=0; j<itemsCountPerSection; j++) {
+        if (itemsCountPerSection > 0) {
+            offsetY += 10.0;
+        }
+        for (int j=0; j < itemsCountPerSection; j++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
             UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
@@ -61,11 +64,13 @@
             (heighest < itemSize.height)? (heighest=itemSize.height):(heighest=heighest);
             [tempArray addObject:attributes];
         }
-        offsetY += 10+heighest;
+        if (heighest > 0) {
+            offsetY += 10 + heighest;
+        }
+        
         [_itemsAttributes addObject:tempArray];
         
-        
-        //
+
         NSInteger lastIndex = [self.collectionView numberOfItemsInSection:i] - 1;
         if (lastIndex < 0)
             continue;
@@ -112,9 +117,8 @@
     }
     for (UICollectionViewLayoutAttributes *attribute in self.sectionAttributes)
     {
-        if (!CGRectIntersectsRect(rect, attribute.frame))
-            continue;
-        
+//        if (!CGRectIntersectsRect(rect, attribute.frame))
+//            continue;
         [attributes addObject:attribute];
     }
     return attributes;
@@ -128,7 +132,7 @@
 
 -(CGSize)collectionViewContentSize{
     CGSize retVal = self.collectionView.bounds.size;
-    retVal.height = offsetY + 100;
+    retVal.height = offsetY + 100; //?
     return retVal;
 }
 
