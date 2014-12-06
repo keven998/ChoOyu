@@ -2329,7 +2329,6 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-
 				D94772F51A32E5ED00BF9F8B /* ic_more@2x.png */,
 				D9386C471A31A27F0085FC36 /* cell_accessory_pink_up@2x.png */,
 				D9386C481A31A27F0085FC36 /* cell_accessory_pink_down@2x.png */,
