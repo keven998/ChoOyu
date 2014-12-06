@@ -370,12 +370,13 @@ static const NSInteger TAG_OFFSET = 1000;
 
 
 
-
-
-
-
 @implementation MHChildViewController
 
 @synthesize notify;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
 
 @end

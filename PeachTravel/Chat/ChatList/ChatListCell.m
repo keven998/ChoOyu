@@ -37,6 +37,11 @@
         frameView = [[UIView alloc] initWithFrame:CGRectZero];
         frameView.backgroundColor = [UIColor whiteColor];
         frameView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        frameView.layer.cornerRadius = 2.0;
+        frameView.layer.shadowColor = UIColorFromRGB(0xdcdcdc).CGColor;
+        frameView.layer.shadowOpacity = 1.0;
+        frameView.layer.shadowRadius = 0.7;
+        frameView.layer.shadowOffset = CGSizeMake(0.0, 0.7);
         [self.contentView addSubview:frameView];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -134,10 +139,6 @@
     }
     
     self.selectedBackgroundView.frame = CGRectMake(10.0, 0, self.frame.size.width - 20.0, self.frame.size.height);
-    
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(11, frameView.frame.size.height-1, frameView.frame.size.width, 1)];
-    spaceView.backgroundColor = APP_DIVIDER_COLOR;
-    [self addSubview:spaceView];
 }
 
 -(void)setName:(NSString *)name{
@@ -156,9 +157,9 @@
 
 }
 
-+(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
++ (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 59;
 }
 
 @end

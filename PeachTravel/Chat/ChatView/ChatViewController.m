@@ -143,7 +143,7 @@
     
     if (_isChatGroup) {
          showGroupList = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-50, 70, 30, 20)];
-        [showGroupList setBackgroundColor:[UIColor grayColor]];
+        [showGroupList setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
         [showGroupList addTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:showGroupList];
     }
@@ -151,12 +151,10 @@
 
 - (void)setupBarButtonItem
 {
-    if (_isChatGroup) {
-        UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
-        [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
-    }
+    UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+    [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
+    [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated

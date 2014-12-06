@@ -82,7 +82,7 @@
 }
 
 - (void) setupEmptyView {
-    CGFloat width = CGRectGetWidth(self.view.frame);
+    CGFloat width = CGRectGetWidth(self.contactTableView.frame);
     
     self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, width, 192.0)];
     self.emptyView.userInteractionEnabled = YES;
@@ -91,11 +91,13 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(25.0, 0.0, width - 50.0, 32.0)];
     label.font = [UIFont systemFontOfSize:13.0];
     label.textColor = UIColorFromRGB(0x999999);
+    label.numberOfLines = 2;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
     label.text = @"快邀爱旅行的蜜蜜们到旅行圈来吧，旅行交流更方便啦~";
     [self.emptyView addSubview:label];
     
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_notify_flag.png"]];
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
     imgView.center = CGPointMake(width*0.30, 55.0);
     [self.emptyView addSubview:imgView];
     
@@ -104,8 +106,9 @@
     btn.backgroundColor = UIColorFromRGB(0xee528c);
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"添加旅友" forState:UIControlStateNormal];
+    [btn setTitle:@"添加好友" forState:UIControlStateNormal];
     btn.center = CGPointMake(width/2.0, 108.0);
+    btn.layer.cornerRadius = 2.0;
     [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
     [self.emptyView addSubview:btn];
     

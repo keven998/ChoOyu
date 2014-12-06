@@ -28,14 +28,14 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        _animationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ANIMATION_IMAGEVIEW_SIZE, ANIMATION_IMAGEVIEW_SIZE)];
+        _animationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 12, 16)];
         _animationImageView.animationDuration = ANIMATION_IMAGEVIEW_SPEED;
         [self addSubview:_animationImageView];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ANIMATION_TIME_LABEL_WIDHT, ANIMATION_TIME_LABEL_HEIGHT)];
         _timeLabel.font = [UIFont boldSystemFontOfSize:ANIMATION_TIME_LABEL_FONT_SIZE];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
-        _timeLabel.textColor = [UIColor grayColor];
+        _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_timeLabel];
         
@@ -55,8 +55,8 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 {
     CGFloat width = BUBBLE_VIEW_PADDING*2 + BUBBLE_ARROW_WIDTH + ANIMATION_TIME_LABEL_WIDHT +ANIMATION_TIME_IMAGEVIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
     
-    CGFloat maxHeight = MAX(ANIMATION_IMAGEVIEW_SIZE, ANIMATION_TIME_LABEL_HEIGHT);
-    CGFloat height = BUBBLE_VIEW_PADDING*2 + maxHeight;
+//    CGFloat maxHeight = MAX(ANIMATION_IMAGEVIEW_SIZE, ANIMATION_TIME_LABEL_HEIGHT);
+    CGFloat height = 32.5;
     return CGSizeMake(width, height);
 }
 

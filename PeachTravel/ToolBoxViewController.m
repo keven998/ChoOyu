@@ -60,9 +60,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"********TOOLBOX");
-    
+    NSString *buf = @"Back";
+    if ([UINavigationBar instancesRespondToSelector:@selector(setBackIndicatorImage:)]) {
+        UIImage *image = [[UIImage imageNamed:@"ic_navigation_back.png"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(8, 0, 8, 0)];
+        [[UINavigationBar appearance] setBackIndicatorImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:image];
+        buf = @"";
+    }
+
     [self setupView];
     
     self.navigationItem.title = @"桃子旅行";
@@ -165,7 +170,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _aroundBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
-    
+
 #warning 测试数据
     _operationDataArray = [[NSArray alloc] init];
     OperationData *testData = [[OperationData alloc] init];
@@ -176,6 +181,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     testData2.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
     _operationDataArray = @[testData, testData1,testData2];
     [self setupSubView];
+    
+   
+
+
+
 }
 
 - (void)viewWillLayoutSubviews {

@@ -26,6 +26,7 @@
 #import "ConvertMethods.h"
 #import "NSMutableDictionary+MyDictionary.h"
 #import "UIViewController+CWPopup.h"
+#import "TZViewController.h"
 
 #endif
 

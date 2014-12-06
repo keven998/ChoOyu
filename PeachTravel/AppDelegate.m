@@ -26,6 +26,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    application.keyWindow.backgroundColor = APP_PAGE_COLOR;
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    
     //设置友盟分享
     [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
     
@@ -36,19 +41,7 @@
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
     
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    application.keyWindow.backgroundColor = APP_PAGE_COLOR;
-//    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0x08dcab)] forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setTitleTextAttributes:
-//     [NSDictionary dictionaryWithObjectsAndKeys:
-//      [UIColor whiteColor], NSForegroundColorAttributeName,
-//      nil]];
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    /****** 设置环信 ******/
+       /****** 设置环信 ******/
     
     [self registerRemoteNotification];
     

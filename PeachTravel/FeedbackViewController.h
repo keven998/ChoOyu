@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FeedbackController : UIViewController
+@interface FeedbackController : TZViewController
 
 @end

@@ -16,7 +16,7 @@ typedef enum{
     CommunicationStatusAnother,
 }CommunicationStatus;
 
-@interface CallViewController : UIViewController
+@interface CallViewController : TZViewController
 
 + (instancetype)shareController;
 

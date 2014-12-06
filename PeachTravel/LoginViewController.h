@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : TZViewController
 
 @property (nonatomic) BOOL isPushed;       //判断是 push 还是 present
 

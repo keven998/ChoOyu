@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChangeGroupTitleViewController : UIViewController
+@interface ChangeGroupTitleViewController : TZViewController
 
 @property (nonatomic, copy) NSString *groupId;
 @property (nonatomic, copy) NSString *oldTitle;

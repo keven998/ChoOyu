@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VerifyCaptchaViewController : UIViewController
+@interface VerifyCaptchaViewController : TZViewController
 
 @property (nonatomic, assign) VerifyCaptchaType verifyCaptchaType;
 

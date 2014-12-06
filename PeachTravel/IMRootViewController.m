@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+       
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
@@ -35,6 +36,11 @@
     for (MHChildViewController *ctl in self.viewControllers) {
         ctl.delegate = self;
     }
+}
+
+- (void)goBackToAllPets
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -55,7 +55,7 @@
         }
         _dismissBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-50, self.frame.size.height-50, 35, 35)];
         [_dismissBtn setTitle:@"隐藏" forState:UIControlStateNormal];
-        [_dismissBtn setBackgroundColor:[UIColor grayColor]];
+        [_dismissBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_up.png"] forState:UIControlStateNormal];
         [self addSubview:_dismissBtn];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];

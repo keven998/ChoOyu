@@ -10,7 +10,7 @@
 #import "TripDetailRootViewController.h"
 #import "TripDetail.h"
 
-@interface SpotsListViewController : UIViewController
+@interface SpotsListViewController : TZViewController
 
 @property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 

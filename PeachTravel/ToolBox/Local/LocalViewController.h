@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LocalViewController : UIViewController
+@interface LocalViewController : TZViewController
 
 @end

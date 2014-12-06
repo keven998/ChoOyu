@@ -19,7 +19,7 @@
                  andAddress:(NSString *)address;
 @end
 
-@interface LocationViewController : UIViewController
+@interface LocationViewController : TZViewController
 
 @property (nonatomic, assign) id<LocationViewDelegate> delegate;
 

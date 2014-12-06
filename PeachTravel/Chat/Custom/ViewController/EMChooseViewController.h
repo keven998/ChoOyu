@@ -17,7 +17,7 @@
 /**
  *  展示，提供单选多选
  */
-@interface EMChooseViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface EMChooseViewController : TZViewController<UITableViewDataSource, UITableViewDelegate>
 {
     __weak id<EMChooseViewDelegate> _delegate;
     NSMutableArray *_dataSource;

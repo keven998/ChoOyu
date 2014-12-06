@@ -30,7 +30,7 @@
  * A custom tab bar container view controller. It works just like a regular
  * UITabBarController, except the tabs are at the top and look different.
  */
-@interface MHTabBarController : UIViewController
+@interface MHTabBarController : TZViewController
 
 @property (nonatomic, copy) NSArray *viewControllers;
 @property (nonatomic, weak) UIViewController *selectedViewController;
@@ -64,7 +64,7 @@
 
 @protocol MHChildViewControllerDeleagate;
 
-@interface MHChildViewController : UIViewController
+@interface MHChildViewController : TZViewController
 
 @property (nonatomic, assign) id <MHChildViewControllerDeleagate>delegate;
 @property (nonatomic) BOOL notify;

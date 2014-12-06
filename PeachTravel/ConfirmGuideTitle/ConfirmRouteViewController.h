@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ConfirmRouteViewController : UIViewController
+@interface ConfirmRouteViewController : TZViewController
 @property (weak, nonatomic) IBOutlet UITextView *routeTitle;
 @property (weak, nonatomic) IBOutlet UIButton *confirmRouteTitle;
 

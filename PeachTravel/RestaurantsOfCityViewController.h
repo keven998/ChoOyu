@@ -16,7 +16,7 @@
 
 @end
 
-@interface RestaurantsOfCityViewController : UIViewController
+@interface RestaurantsOfCityViewController : TZViewController
 
 @property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SMSVerifyViewController : UIViewController
+@interface SMSVerifyViewController : TZViewController
 
 @property (copy, nonatomic) NSString *phoneNumber;
 @property (copy, nonatomic) NSString *password;

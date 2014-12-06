@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PushMsgsViewController : UIViewController
+@interface PushMsgsViewController : TZViewController
 
 @end
