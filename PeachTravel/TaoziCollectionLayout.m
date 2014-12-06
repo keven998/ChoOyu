@@ -84,7 +84,6 @@
         attributes.frame = frame;
         [_sectionAttributes addObject:attributes];
         [self registerClass:[CityCardReusableView class] forDecorationViewOfKind:@"CityCardReusableView"];
-//        [self registerNib:[UINib nibWithNibName:@"SectionCard" bundle:[NSBundle mainBundle]] forDecorationViewOfKind:@"SectionCard"];
     }
 }
 
@@ -92,6 +91,10 @@
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     return _headerViewAttributes[indexPath.section];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    return _sectionAttributes[indexPath.section];
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
