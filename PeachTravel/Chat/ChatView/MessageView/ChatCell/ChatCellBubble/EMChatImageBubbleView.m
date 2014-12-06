@@ -83,15 +83,34 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
             image = [UIImage imageNamed:@"imageDownloadFail.png"];
         }
     }
-    [self resizeImage:image withMaskImageName:maskImageName];
+    CGSize retSize = model.size;
+    if (retSize.width == 0 || retSize.height == 0) {
+        retSize.width = MAX_SIZE;
+        retSize.height = MAX_SIZE;
+    }else if (retSize.width > retSize.height) {
+        CGFloat height =  MAX_SIZE / retSize.width  *  retSize.height;
+        retSize.height = height;
+        retSize.width = MAX_SIZE;
+    }else {
+        CGFloat width = MAX_SIZE / retSize.height * retSize.width;
+        retSize.width = width;
+        retSize.height = MAX_SIZE;
+    }
+    
+    NSInteger leftCapWidth = model.isSender?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_TOP_CAP_HEIGHT;
+    
+    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:20];
+    
+    [self resizeImage:image withMaskImage:resizableMaskImage andSize:retSize];
 
 }
 
-- (void) resizeImage:(UIImage *)image withMaskImageName:(NSString *)maskImageName;
+- (void) resizeImage:(UIImage *)image withMaskImage:(const UIImage *)maskImage andSize:(CGSize) size;
 {
-    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:15 topCapHeight:30];
-    CGSize size = CGSizeMake(100, 100);
-    const UIImage *maskImageDrawnToSize = [resizableMaskImage renderAtSize:size];
+    
+   
+
+    const UIImage *maskImageDrawnToSize = [maskImage renderAtSize:size];
     self.imageView.image = [image maskWithImage: maskImageDrawnToSize];
 
 }
