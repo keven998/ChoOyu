@@ -26,6 +26,13 @@
 - (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
 
 /**
+ *  登录环信服务器
+ */
+- (void)loginEaseMobServer;
+
+- (void)loginEaseMobServer:(void (^)(BOOL))completion;
+
+/**
  *  修改用户信息
  *
  *  @param changeContent 信息内容

@@ -2,14 +2,14 @@
 //  ChatSettingViewController.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/11/5.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 12/6/14.
+//  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface ChatSettingViewController : TZViewController
 
-@property (nonatomic, strong) EMGroup *group;
+@property (nonatomic, copy) NSString *chatter;
 
 @end

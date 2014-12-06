@@ -32,6 +32,7 @@
 #import "DXChatBarMoreView.h"
 #import "CallViewController.h"
 #import "ZYQAssetPickerController.h"
+#import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
 #import "ChatScrollView.h"
 #import "AccountManager.h"
@@ -151,8 +152,8 @@
 
 - (void)setupBarButtonItem
 {
-    UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-    [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
+    UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [detailButton setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
     [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
 }
@@ -1456,8 +1457,13 @@
         if (chatGroup == nil) {
             chatGroup = [[EMGroup alloc] initWithGroupId:_chatter];
         }
-        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+        ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
         chatSettingCtl.group = chatGroup;
+        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+        
+    } else {
+        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+        chatSettingCtl.chatter = _conversation.chatter;
         [self.navigationController pushViewController:chatSettingCtl animated:YES];
     }
 }
@@ -1470,8 +1476,13 @@
     }
     
     if ([sender isKindOfClass:[NSNotification class]]) {
-        NSString *groupId = (NSString *)[(NSNotification *)sender object];
-        if (_isChatGroup && [groupId isEqualToString:_conversation.chatter]) {
+        NSString *chatter = (NSString *)[(NSNotification *)sender object];
+        if (_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
+            [_conversation removeAllMessages];
+            [_dataSource removeAllObjects];
+            [_tableView reloadData];
+            [self showHint:@"消息已经清空"];
+        } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
             [_conversation removeAllMessages];
             [_dataSource removeAllObjects];
             [_tableView reloadData];

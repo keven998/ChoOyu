@@ -60,14 +60,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self setupView];
     
     self.navigationItem.title = @"桃子旅行";
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
-    [locationManager requestWhenInUseAuthorization];
+    [locationManager requestAlwaysAuthorization];
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
@@ -174,11 +174,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     testData2.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
     _operationDataArray = @[testData, testData1,testData2];
     [self setupSubView];
-    
-   
-
-
-
 }
 
 - (void)viewWillLayoutSubviews {
@@ -618,7 +613,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (error) {
-        NSLog(@"自动登录失败");
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:accountManager.account.easemobUser
+                                                            password:accountManager.account.easemobPwd
+                                                          completion:
+         ^(NSDictionary *loginInfo, EMError *error) {
+             if (error) {
+                 NSLog(@"登录失败：%@", error);
+             } else {
+                 NSLog(@"登录成功");
+             }
+         } onQueue:nil];
     } else {
         NSLog(@"自动登录成功");
     }

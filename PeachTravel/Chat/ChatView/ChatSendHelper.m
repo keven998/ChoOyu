@@ -148,9 +148,8 @@
                       bodies:[NSArray arrayWithObject:body]];
     msg.ext = extMsg;
     
-    return [[EaseMob sharedInstance].chatManager sendMessage:msg
-                                                    progress:nil
-                                                       error:nil];
+    return [[EaseMob sharedInstance].chatManager asyncSendMessage:msg
+                                                    progress:nil];
     return nil;
 }
 

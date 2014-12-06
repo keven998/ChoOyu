@@ -27,17 +27,15 @@
     _checkStatus = checkStatus;
     switch (_checkStatus) {
         case unChecked:
-            _selectImageView.backgroundColor = [UIColor greenColor];
+            [_selectImageView setImage:[UIImage imageNamed:@"dx_checkbox_on.png"]];
             break;
             
         case checked:
-            _selectImageView.backgroundColor = [UIColor redColor];
-
+            [_selectImageView setImage:[UIImage imageNamed:@"dx_checkbox_off.png"]];
             break;
             
         case disable:
-            _selectImageView.backgroundColor = [UIColor grayColor];
-            
+            [_selectImageView setImage:[UIImage imageNamed:@"dx_checkbox_forbade.png"]];
             break;
             
         default:

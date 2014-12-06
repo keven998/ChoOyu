@@ -134,14 +134,14 @@
             [self.accountManager agreeFrendRequest:frendRequest];
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
-            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"添加成功"];
             [self insertMsgToEasemobDB:frendRequest];
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"添加失败"];
     }];
 }
 

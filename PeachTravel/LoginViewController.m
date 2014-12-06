@@ -34,6 +34,8 @@
     
     self.navigationItem.title = @"登录";
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
@@ -44,12 +46,7 @@
         [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     }
-    
-//    _userNameTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _userNameTextField.layer.borderWidth = 1.0;
     _userNameTextField.delegate = self;
-//    _passwordTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _passwordTextField.layer.borderWidth = 1.0;
     _passwordTextField.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 14.0)];
@@ -135,7 +132,13 @@
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
+            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
+                }
+            }];
             
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -199,7 +202,14 @@
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [self loginWithUserName:accountManager.account.easemobUser withPassword:accountManager.account.easemobPwd];
+            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
+                }
+            }];
+            
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
@@ -209,8 +219,14 @@
     }];
 }
 
-//使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
-- (void)loginWithUserName:(NSString *)userName withPassword:(NSString *)password
+/**
+*  使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
+ *
+ *  @param userName
+ *  @param password
+ */
+/*
+- (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:accountManager.account.easemobUser
@@ -252,6 +268,7 @@
          }
      } onQueue:nil];
 }
+ */
 
 - (void)userDidRegisted
 {

@@ -25,7 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-       
+    self.navigationItem.title = @"桃•Talk";
+
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];

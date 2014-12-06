@@ -29,9 +29,10 @@
     application.keyWindow.backgroundColor = APP_PAGE_COLOR;
     
     [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xffffff)] forBarMetrics:UIBarMetricsDefault];
+    [UINavigationBar appearance].translucent = YES;
     
-    //设置友盟分享
+    //设置环信自动登录
     [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
     
     [UMSocialData openLog:NO];

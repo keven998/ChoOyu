@@ -110,6 +110,53 @@
     _account = nil;
 }
 
+- (void)loginEaseMobServer
+{
+    [self loginEaseMobServer:nil];
+}
+
+- (void)loginEaseMobServer:(void (^)(BOOL))completion
+{
+    [self loginEaseMobServerWithUserName:self.account.easemobUser withPassword:self.account.easemobPwd withCompletion:completion];
+}
+
+/**
+ *  使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
+ *
+ *  @param userName
+ *  @param password
+ */
+- (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password withCompletion:(void(^)(BOOL))completion
+{
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:userName
+                                                        password:password
+                                                      completion:
+     ^(NSDictionary *loginInfo, EMError *error) {
+         if (loginInfo && !error) {
+             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+             [self easeMobDidLogin];
+             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+             
+             EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
+             options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
+             [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
+             if (completion) {
+                 completion(YES);
+                 
+             }
+         } else {
+             
+             [self easeMobUnlogin];
+             if (completion) {
+                 completion(NO);
+                 
+             }
+         }
+         
+     } onQueue:nil];
+}
+
+
 //更新用户信息
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
 {

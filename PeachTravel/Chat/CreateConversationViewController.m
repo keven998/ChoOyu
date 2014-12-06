@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) SelectContactScrollView *selectContactView;
 @property (nonatomic) BOOL showRefrence;
+@property (nonatomic, strong)  UIButton *confirm;
 
 @end
 
@@ -38,7 +39,7 @@
      *  如果联系人的个数大于15，那显示索引，反之不现实
      */
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager.account.contacts count] > 15) {
+    if ([accountManager.account.contacts count] < 15) {
         _showRefrence = YES;
     }
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -48,16 +49,18 @@
     }
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    UIButton *confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [confirm setTitle:@"确认" forState:UIControlStateNormal];
-    [confirm setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirm];
+    _confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    [_confirm setTitle:@"确定" forState:UIControlStateNormal];
+    _confirm.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
+    _confirm.userInteractionEnabled = NO;
+    _confirm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [_confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
     
     if (!_isPushed) {
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-        [backBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
+        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
         [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     }
@@ -68,11 +71,10 @@
 - (TZScrollView *)tzScrollView
 {
     if (!_tzScrollView) {
-        
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, self.selectContactView.frame.origin.y + 10, kWindowWidth, 40)];
-        _tzScrollView.itemWidth = 20;
-        _tzScrollView.itemHeight = 20;
-        _tzScrollView.itemBackgroundColor = [UIColor grayColor];
+        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, self.selectContactView.frame.origin.y + 10, kWindowWidth, 52)];
+        _tzScrollView.itemWidth = 22;
+        _tzScrollView.itemHeight = 22;
+        _tzScrollView.itemBackgroundColor = UIColorFromRGB(0xd2d2d2);
         _tzScrollView.backgroundColor = [UIColor whiteColor];
         _tzScrollView.delegate = self;
         _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
@@ -274,7 +276,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.selectContactView.alpha = 0.2;
             
-            CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y - self.selectContactView.frame.size.height, self.selectContactView.frame.size.width, self.contactTableView.frame.size.height + self.selectContactView.frame.size.height);
+            CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y - self.selectContactView.frame.size.height, self.contactTableView.frame.size.width, self.contactTableView.frame.size.height + self.selectContactView.frame.size.height);
             [self.contactTableView setFrame:frame];
             
             if (_showRefrence) {
@@ -285,6 +287,12 @@
         } completion:^(BOOL finished) {
             self.selectContactView.alpha = 0;
         }];
+        [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
+        [_confirm setTitle:[NSString stringWithFormat:@"确定"] forState:UIControlStateNormal];
+
+        _confirm.userInteractionEnabled = NO;
+    } else {
+        [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
     }
     [self.contactTableView reloadData];
 }
@@ -358,9 +366,10 @@
         
     } else {
         if (self.selectedContacts.count == 0) {
+            
             [UIView animateWithDuration:0.3 animations:^{
                 self.selectContactView.alpha = 0.8;
-                CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y+self.selectContactView.frame.size.height, self.selectContactView.frame.size.width, self.contactTableView.frame.size.height - self.selectContactView.frame.size.height);
+                CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y+self.selectContactView.frame.size.height, self.contactTableView.frame.size.width, self.contactTableView.frame.size.height - self.selectContactView.frame.size.height);
                 [self.contactTableView setFrame:frame];
                 if (_showRefrence) {
                     CGRect refrenceFrame = CGRectMake(self.tzScrollView.frame.origin.x, self.tzScrollView.frame.origin.y + self.selectContactView.frame.size.height, self.tzScrollView.frame.size.width, self.tzScrollView.frame.size.height);
@@ -369,12 +378,15 @@
             } completion:^(BOOL finished) {
                 self.selectContactView.alpha = 1.0;
             }];
+            [_confirm setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+            _confirm.userInteractionEnabled = YES;
         }
         [self.selectedContacts addObject:contact];
         SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
         [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
         unitView.nickNameLabel.text = contact.nickName;
         [self.selectContactView addSelectUnit:unitView];
+         [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

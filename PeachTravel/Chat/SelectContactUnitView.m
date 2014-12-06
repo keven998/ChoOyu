@@ -17,13 +17,12 @@
         _avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 40, 40)];
         _avatarBtn.layer.cornerRadius = 20.0;
         _avatarBtn.clipsToBounds = YES;
-        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 50, 10, 10)];
-        _deleteBtn.layer.cornerRadius = 5.0;
-        _deleteBtn.backgroundColor = APP_THEME_COLOR;
+        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 50, 12, 12)];
+        [_deleteBtn setImage:[UIImage imageNamed:@"ic_remove_select_one.png"] forState:UIControlStateNormal];
         _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 40, 20)];
         _nickNameLabel.textAlignment = NSTextAlignmentCenter;
-        _nickNameLabel.font = [UIFont systemFontOfSize:13.0];
-        _nickNameLabel.textColor = [UIColor grayColor];
+        _nickNameLabel.font = [UIFont systemFontOfSize:12.0];
+        _nickNameLabel.textColor = UIColorFromRGB(0x797979);
         [self addSubview:_avatarBtn];
         [self addSubview:_deleteBtn];
         [self addSubview:_nickNameLabel];

@@ -63,9 +63,13 @@
 {
     [super viewDidLoad];
     
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    if ([[EaseMob sharedInstance].chatManager isLoggedIn]) {
+        NSLog(@"哈哈哈哈。我登录环信了");
+    } else {
+        NSLog(@"oops。我登录环信失败了");
+
     }
+
     self.view.backgroundColor = APP_PAGE_COLOR;
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
