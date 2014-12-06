@@ -66,6 +66,7 @@
 		C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */; };
 		C6BC34A11A2832C7002C19D3 /* theme_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */; };
 		C6BC34A31A2842C0002C19D3 /* ic_navigation_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */; };
+		C6BEEE411A31D8E5009C1027 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BEEE401A31D8E5009C1027 /* CityCardReusableView.m */; };
 		C6CA487A1A2DB6B8000776E3 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6CA48791A2DB6B8000776E3 /* FavoriteViewController.m */; };
 		D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD061A14789400E36A93 /* HotDestinationCollectionViewController.m */; };
 		D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD091A147B5600E36A93 /* HotDestinationCollectionViewCell.m */; };
@@ -659,6 +660,8 @@
 		C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_btn_highlight@2x.png"; sourceTree = "<group>"; };
 		C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_btn_normal@2x.png"; sourceTree = "<group>"; };
 		C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigation_back@2x.png"; sourceTree = "<group>"; };
+		C6BEEE3F1A31D8E5009C1027 /* CityCardReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCardReusableView.h; sourceTree = "<group>"; };
+		C6BEEE401A31D8E5009C1027 /* CityCardReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityCardReusableView.m; sourceTree = "<group>"; };
 		C6CA48781A2DB6B8000776E3 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		C6CA48791A2DB6B8000776E3 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		D902AD051A14789400E36A93 /* HotDestinationCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewController.h; sourceTree = "<group>"; };
@@ -2499,6 +2502,8 @@
 				D9AC9AFF1A1C5F8C00E0C4CE /* ForeignViewController.h */,
 				D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */,
 				D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */,
+				C6BEEE3F1A31D8E5009C1027 /* CityCardReusableView.h */,
+				C6BEEE401A31D8E5009C1027 /* CityCardReusableView.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -4092,6 +4097,7 @@
 			files = (
 				D9B476851A2468D30014136C /* SIMenuTable.m in Sources */,
 				D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */,
+				C6BEEE411A31D8E5009C1027 /* CityCardReusableView.m in Sources */,
 				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
 				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,

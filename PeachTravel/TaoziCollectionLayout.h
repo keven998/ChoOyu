@@ -21,7 +21,7 @@
 
 @end
 
-@interface TaoziCollectionLayout : UICollectionViewLayout
+@interface TaoziCollectionLayout : UICollectionViewFlowLayout
 
 @property (nonatomic, assign) id <TaoziLayoutDelegate> delegate;
 

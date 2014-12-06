@@ -11,6 +11,8 @@
 @implementation DestinationCollectionHeaderView
 
 - (void)awakeFromNib {
+    _titleLabel.layer.cornerRadius = 2.0;
+    _titleLabel.clipsToBounds = YES;
 }
 
 @end
