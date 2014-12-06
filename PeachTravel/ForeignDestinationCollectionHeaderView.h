@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface ForeignDestinationCollectionHeaderView : UICollectionReusableView
-@property (weak, nonatomic) IBOutlet UIView *spaceLineView;
+@property (weak, nonatomic) IBOutlet UIImageView *spaceLineView;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
+@property (weak, nonatomic) IBOutlet UIButton *contentBtn;
 
 @end
