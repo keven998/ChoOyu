@@ -2330,6 +2330,7 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				C666D4771A32E9B10049F4DA /* ic_dotted_line@2x.png */,
 =======
 				D94772F51A32E5ED00BF9F8B /* ic_more@2x.png */,
