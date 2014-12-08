@@ -214,10 +214,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.layer.borderColor = APP_THEME_COLOR.CGColor;
+            cell.tiltleLabel.textColor = APP_THEME_COLOR;
             return  cell;
         }
     }
     cell.layer.borderColor = UIColorFromRGB(0xb3b3b3).CGColor;
+    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     return  cell;
 }
 

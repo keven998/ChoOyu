@@ -124,7 +124,6 @@
     return attributes;
 }
 
-
 -(UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewLayoutAttributes *retVal = _itemsAttributes[indexPath.section][indexPath.row];
     return retVal;
