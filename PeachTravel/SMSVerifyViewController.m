@@ -113,15 +113,20 @@
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"注册成功"];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
             __weak SMSVerifyViewController *weakSelf = self;
-        
-             [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
+            //注册完成后要登录环信
+            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
+                    [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
+                    [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+
+                }
+            }];
             
-            [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
 
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];

@@ -115,7 +115,7 @@
     [self loginEaseMobServer:nil];
 }
 
-- (void)loginEaseMobServer:(void (^)(BOOL))completion
+- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion
 {
     [self loginEaseMobServerWithUserName:self.account.easemobUser withPassword:self.account.easemobPwd withCompletion:completion];
 }
