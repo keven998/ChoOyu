@@ -42,10 +42,12 @@
         _accessoryImageView.hidden = YES;
         [_quitBtn setTitle:@"退出该群" forState:UIControlStateNormal];
     }
-    _isPushNotificationEnable = _group.isPushNotificationEnabled;
-    if (_isPushNotificationEnable) {
+
+    if ( _group.isPushNotificationEnabled) {
+        _isPushNotificationEnable = YES;
         [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_border.png"]];
     } else {
+        _isPushNotificationEnable = NO;
         [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_selected.png"]];
 
     }
@@ -89,7 +91,7 @@
     __weak ChatGroupSettingViewController *weakSelf = self;
     sender.userInteractionEnabled = NO;
     [self showHudInView:self.view hint:@"正在设置"];
-    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:!_isPushNotificationEnable completion:^(NSArray *ignoreGroupsList, EMError *error) {
+    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:_isPushNotificationEnable completion:^(NSArray *ignoreGroupsList, EMError *error) {
         [weakSelf hideHud];
         if (!error) {
             [weakSelf showHint:@"设置成功"];

@@ -546,6 +546,9 @@
 		D9DE78E01A03774D008A8576 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DE78DF1A03774D008A8576 /* MHTabBarIndicator.png */; };
 		D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */; };
 		D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */; };
+		D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E681A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m */; };
+		D9E81E6B1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E6A1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png */; };
+		D9E81E6D1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E6C1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7A019FFDBD1003F70F6 /* AddressBook.m */; };
@@ -1355,6 +1358,10 @@
 		D9DE78DF1A03774D008A8576 /* MHTabBarIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MHTabBarIndicator.png; sourceTree = "<group>"; };
 		D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_expand@2x.png"; sourceTree = "<group>"; };
 		D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_unexpand@2x.png"; sourceTree = "<group>"; };
+		D9E81E671A35C30A00D3BFD0 /* TaoziChatCityBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatCityBubbleView.h; sourceTree = "<group>"; };
+		D9E81E681A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatCityBubbleView.m; sourceTree = "<group>"; };
+		D9E81E6A1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message_taozi_city_send@2x.png"; sourceTree = "<group>"; };
+		D9E81E6C1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message_taozi_city_receive@2x.png"; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F79F19FFDBD1003F70F6 /* AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBook.h; sourceTree = "<group>"; };
@@ -1872,6 +1879,7 @@
 		D90C634919FB44D300C2E440 /* receiver_bubble */ = {
 			isa = PBXGroup;
 			children = (
+				D9E81E6C1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png */,
 				D94772EB1A32CAE700BF9F8B /* ReceiverImageNodeBorder_back@2x.png */,
 				D94772E11A32C3AF00BF9F8B /* 切图.png */,
 				D93696E01A2FFD7E001922F4 /* message_taozi_receive@2x.png */,
@@ -1888,6 +1896,7 @@
 		D90C635619FB44D300C2E440 /* sender_bubble */ = {
 			isa = PBXGroup;
 			children = (
+				D9E81E6A1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png */,
 				D94772E91A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png */,
 				D9386C5B1A31A7D90085FC36 /* chat_sender_audio_playing_full@2x.png */,
 				D9386C531A31A6E10085FC36 /* chat_sender_audio_playing_001@2x.png */,
@@ -3195,6 +3204,8 @@
 			children = (
 				D9A19C891A2EEE4A00B189CB /* TaoziChatBaseBubbleView.h */,
 				D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */,
+				D9E81E671A35C30A00D3BFD0 /* TaoziChatCityBubbleView.h */,
+				D9E81E681A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m */,
 			);
 			name = TaoziMessageBubbleView;
 			sourceTree = "<group>";
@@ -3838,6 +3849,7 @@
 				C688AADF1A35445600372A39 /* ic_dotted_line@2x.png in Resources */,
 				D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */,
 				D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */,
+				D9E81E6D1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png in Resources */,
 				D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */,
 				D93697151A31617B001922F4 /* TZScrollView_indicator@2x.png in Resources */,
 				D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */,
@@ -3936,6 +3948,7 @@
 				D9386C4A1A31A27F0085FC36 /* cell_accessory_pink_down@2x.png in Resources */,
 				D93697071A305F94001922F4 /* chatListCellHead@2x.png in Resources */,
 				D9A19CB71A2F063E00B189CB /* check_border@2x.png in Resources */,
+				D9E81E6B1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png in Resources */,
 				D90F363019F63B3300E26FA9 /* imageDownloadFail@2x.png in Resources */,
 				D9A19CAD1A2F063E00B189CB /* 声音1.png in Resources */,
 				D9A19CAE1A2F063E00B189CB /* 女性.png in Resources */,
@@ -4223,6 +4236,7 @@
 				D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */,
 				D95460181A2346D300688D72 /* RestaurantListTableViewCell.m in Sources */,
 				D9B476821A2468D30014136C /* SIMenuButton.m in Sources */,
+				D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */,
 				D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */,
 				C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */,
 				D902ADCD1A15F0E300E36A93 /* CityPoi.m in Sources */,
