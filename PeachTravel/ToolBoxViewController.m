@@ -67,7 +67,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
-    [locationManager requestAlwaysAuthorization];
+    if (IS_IOS8) {
+        [locationManager requestAlwaysAuthorization];
+    } else {
+        [locationManager startUpdatingLocation];
+    }
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];

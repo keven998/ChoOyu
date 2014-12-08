@@ -158,12 +158,11 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height-self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64) ];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height + 10, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64 - 10 - 44) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _contactTableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
     }

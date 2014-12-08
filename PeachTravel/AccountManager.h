@@ -30,7 +30,7 @@
  */
 - (void)loginEaseMobServer;
 
-- (void)loginEaseMobServer:(void (^)(BOOL))completion;
+- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion;
 
 /**
  *  修改用户信息
