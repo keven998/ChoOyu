@@ -141,10 +141,10 @@ typedef enum : NSUInteger {
 /***** 桃子旅行自定义消息枚举信息****/
 typedef enum : NSUInteger {
     TZChatNormalText = 0,                  //普通文字信息
-    TZChatTypeStrategy = 1,         //游记
+    TZChatTypeStrategy = 1,         //我的攻略
     TZChatTypeCity,                 //城市
-    TZChatTypeSpot,                 //景点
     TZChatTypeTravelNote,           //游记
+    TZChatTypeSpot,                 //景点
     TZChatTypeFood,                 //美食
     TZChatTypeShopping,             //购物
     TZChatTypeHotel,                //酒店

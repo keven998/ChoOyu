@@ -207,7 +207,7 @@
         [messageStr appendString:[NSString stringWithFormat:@"%@ ", contact.nickName]];
     }
     [messageStr appendString:@"加入了群聊"];
-    NSDictionary *messageDic = @{@"tzType":@100, @"content":messageStr};
+    NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
     
     [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:groupId isChatGroup:YES requireEncryption:NO];
 }

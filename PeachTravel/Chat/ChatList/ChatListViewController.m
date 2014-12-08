@@ -75,15 +75,22 @@
 {
     [super viewWillAppear:animated];
     __weak ChatListViewController *weakSelf = self;
-    [self.delegate updateNotify:weakSelf notify:NO];
     [self refreshDataSource];
     [self registerNotifications];
+    if ([self isUnReadMsg]) {
+        [self.delegate updateNotify:weakSelf notify:YES];
+    } else {
+        [self.delegate updateNotify:weakSelf notify:NO];
+    }
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)dealloc{
     [self unregisterNotifications];
 }
 
@@ -273,11 +280,23 @@
 {
     NSInteger ret = 0;
     ret = conversation.unreadMessagesCount;
-    if (ret) {
-        __weak ChatListViewController *weakSelf = self;
-        [self.delegate updateNotify:weakSelf notify:YES];
-    }
     return  ret;
+}
+
+/**
+ *  是否有未读的消息，包括未读的聊天消息和好友请求消息
+ *
+ *  @return
+ */
+- (BOOL)isUnReadMsg
+{
+    NSArray *conversations = [[[EaseMob sharedInstance] chatManager] conversations];
+    for (EMConversation *conversation in conversations) {
+        if (conversation.unreadMessagesCount > 0) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 /**
@@ -544,15 +563,17 @@
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
 }
 
-- (void)dealloc{
-    [self unregisterNotifications];
-}
-
 #pragma mark - public
 
 -(void)refreshDataSource
 {
     self.dataSource = [self loadDataSource];
+    typeof(ChatListViewController) *weakSelf = self;
+    if ([self isUnReadMsg]) {
+        [self.delegate updateNotify:weakSelf notify:YES];
+    } else {
+        [self.delegate updateNotify:weakSelf notify:NO];
+    }
     [self loadChattingPeople];
     [_tableView reloadData];
     [self hideHud];

@@ -19,14 +19,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _titleLable.text = _oldTitle;
+    self.navigationItem.title = @"修改群名称";
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setTitle:@"确定" forState:UIControlStateNormal];
-    addBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    addBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [addBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSuccess) name:@"groupDidUpdateInfo" object:nil];
+    _titleLable.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
+    _titleLable.layer.borderWidth = 0.5;
+    UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, 20.0)];
+    sv.backgroundColor = [UIColor whiteColor];
+    _titleLable.leftView = sv;
+    _titleLable.leftViewMode = UITextFieldViewModeAlways;
+    [_titleLable becomeFirstResponder];
+    
 }
 
 - (void)dealloc
@@ -38,18 +46,22 @@
 {
     NSString *title = [_titleLable.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (title.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"小组标题不能为空"];
+        [SVProgressHUD showErrorWithStatus:@"群标题不能为空"];
     } else {
         [SVProgressHUD show];
         [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
                                                              forGroup:_groupId];
     }
+    
+    [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text forGroup:_groupId completion:^(EMGroup *group, EMError *error) {
+        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+    } onQueue:nil];
 }
 
 - (void)updateSuccess
 {
-    [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 @end

@@ -723,10 +723,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)groupDidUpdateInfo:(EMGroup *)group error:(EMError *)error
 {
     NSLog(@"groupDidUpdateInfo");
-
-    if (!error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"groupDidUpdateInfo" object:nil];
-    }
 }
 
 - (void)didAcceptInvitationFromGroup:(EMGroup *)group

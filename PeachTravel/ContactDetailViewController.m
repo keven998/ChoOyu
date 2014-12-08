@@ -112,18 +112,19 @@
     _signPanel.backgroundColor = [UIColor whiteColor];
     _signPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [contentView addSubview:_signPanel];
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0.0, 0.0, 58.0, 50.0)];
-    title.font = [UIFont systemFontOfSize:15.0];
-    title.textColor = UIColorFromRGB(0x393939);
-    title.textAlignment = NSTextAlignmentRight;
-    title.text = @"旅行签名：";
-    [_signPanel addSubview:title];
-    _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(58.0, 0.0, width - 88.0, 50.0)];
+    
+    _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, oy, width - 20.0, 50.0)];
     _signLabel.numberOfLines = 0.;
     _signLabel.textColor = UIColorFromRGB(0x393939);
     _signLabel.font = [UIFont systemFontOfSize:15.0];
-    _signLabel.text = contact.signature;
+    if (contact.signature) {
+        _signLabel.text = [NSString stringWithFormat:@"   旅行签名：%@",contact.signature];
+    } else {
+        _signLabel.text = [NSString stringWithFormat:@"   旅行签名：未设置签名"];
+        
+    }
     [_signPanel addSubview:_signLabel];
+    
     
     _chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 108.0, 34.0)];
     _chatBtn.backgroundColor = UIColorFromRGB(0xee528c);

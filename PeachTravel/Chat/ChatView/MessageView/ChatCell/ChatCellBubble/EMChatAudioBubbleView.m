@@ -35,14 +35,15 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ANIMATION_TIME_LABEL_WIDHT, ANIMATION_TIME_LABEL_HEIGHT)];
         _timeLabel.font = [UIFont boldSystemFontOfSize:ANIMATION_TIME_LABEL_FONT_SIZE];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
+        
         _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_timeLabel];
         
-        _isReadView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-        _isReadView.layer.cornerRadius = 5;
+        _isReadView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+        _isReadView.layer.cornerRadius = 4;
         [_isReadView setClipsToBounds:YES];
-        [_isReadView setBackgroundColor:[UIColor redColor]];
+        [_isReadView setBackgroundColor:APP_THEME_COLOR];
         [self addSubview:_isReadView];
         
         _senderAnimationImages = [[NSMutableArray alloc] initWithObjects: [UIImage imageNamed:SENDER_ANIMATION_IMAGEVIEW_IMAGE_01], [UIImage imageNamed:SENDER_ANIMATION_IMAGEVIEW_IMAGE_02], [UIImage imageNamed:SENDER_ANIMATION_IMAGEVIEW_IMAGE_03], [UIImage imageNamed:SENDER_ANIMATION_IMAGEVIEW_IMAGE_04], nil];
@@ -55,7 +56,6 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 {
     CGFloat width = BUBBLE_VIEW_PADDING*2 + BUBBLE_ARROW_WIDTH + ANIMATION_TIME_LABEL_WIDHT +ANIMATION_TIME_IMAGEVIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
     
-//    CGFloat maxHeight = MAX(ANIMATION_IMAGEVIEW_SIZE, ANIMATION_TIME_LABEL_HEIGHT);
     CGFloat height = 32.5;
     return CGSizeMake(width, height);
 }
@@ -65,11 +65,13 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
     [super layoutSubviews];
     
     CGRect frame = _animationImageView.frame;
+    
     if (self.model.isSender) {
         frame.origin.x = self.frame.size.width - BUBBLE_ARROW_WIDTH - frame.size.width - BUBBLE_VIEW_PADDING;
         frame.origin.y = self.frame.size.height / 2 - frame.size.height / 2;
         _animationImageView.frame = frame;
-        
+        _timeLabel.textColor = [UIColor whiteColor];
+
         frame = _timeLabel.frame;
         frame.origin.x = _animationImageView.frame.origin.x - ANIMATION_TIME_IMAGEVIEW_PADDING - ANIMATION_TIME_LABEL_WIDHT;
         frame.origin.y = _animationImageView.center.y - frame.size.height / 2;
@@ -78,17 +80,18 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
     }
     else {
         _animationImageView.image = [UIImage imageNamed:RECEIVER_ANIMATION_IMAGEVIEW_IMAGE_DEFAULT];
-        
+        _timeLabel.textColor = UIColorFromRGB(0x797979);
+
         frame.origin.x = BUBBLE_ARROW_WIDTH + BUBBLE_VIEW_PADDING;
         frame.origin.y = self.frame.size.height / 2 - frame.size.height / 2;
         _animationImageView.frame = frame;
         
         frame = _timeLabel.frame;
-        frame.origin.x = ANIMATION_TIME_IMAGEVIEW_PADDING + BUBBLE_ARROW_WIDTH + _animationImageView.frame.size.width + _animationImageView.frame.origin.x;
+        frame.origin.x = ANIMATION_TIME_IMAGEVIEW_PADDING + _animationImageView.frame.size.width + _animationImageView.frame.origin.x;
         frame.origin.y = _animationImageView.center.y - frame.size.height / 2;
         _timeLabel.frame = frame;
-        frame.origin.x += frame.size.width - _isReadView.frame.size.width / 2;
-        frame.origin.y = - _isReadView.frame.size.height / 2;
+        frame.origin.x = self.frame.size.width + 2;
+        frame.origin.y = 0;
         frame.size = _isReadView.frame.size;
         _isReadView.frame = frame;
     }
@@ -100,7 +103,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 {
     [super setModel:model];
     
-    _timeLabel.text = [NSString stringWithFormat:@"%d'",self.model.time];
+    _timeLabel.text = [NSString stringWithFormat:@"%d\"",self.model.time];
     
     if (self.model.isSender) {
         [_isReadView setHidden:YES];

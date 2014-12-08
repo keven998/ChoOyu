@@ -19,6 +19,9 @@
  *  
  */
 @property (weak, nonatomic) IBOutlet UIImageView *groupMsgStatusImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *accessoryImageView;
+
+@property (nonatomic) BOOL isPushNotificationEnable;
 
 @end
 
@@ -36,13 +39,15 @@
         [_quitBtn setTitle:@"解散该群" forState:UIControlStateNormal];
     } else {
         _groupTitle.userInteractionEnabled = NO;
+        _accessoryImageView.hidden = YES;
         [_quitBtn setTitle:@"退出该群" forState:UIControlStateNormal];
     }
-
-    if (_group.isBlocked) {
-        [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_selected.png"]];
-    } else {
+    _isPushNotificationEnable = _group.isPushNotificationEnabled;
+    if (_isPushNotificationEnable) {
         [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_border.png"]];
+    } else {
+        [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_selected.png"]];
+
     }
 
     
@@ -70,7 +75,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     NSString *messageStr = [NSString stringWithFormat:@"%@退出了群组",accountManager.account.nickName];
     
-    NSDictionary *messageDic = @{@"tzType":@100, @"content":messageStr};
+    NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
     
     [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:_group.groupId isChatGroup:YES requireEncryption:NO];
 }
@@ -81,37 +86,23 @@
  *  @param sender
  */
 - (IBAction)changeMsgStatus:(UIButton *)sender {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
-        [self showHint:@"不能屏蔽自己创建的群组的消息"];
-        return;
-    }
     __weak ChatGroupSettingViewController *weakSelf = self;
     sender.userInteractionEnabled = NO;
-    if (!_group.isBlocked) {
-        [[EaseMob sharedInstance].chatManager asyncBlockGroup:_group.groupId completion:^(EMGroup *group, EMError *error) {
-            sender.userInteractionEnabled = YES;
-            if (error) {
-                [weakSelf showHint:@"设置失败"];
-                return;
-            }
+    [self showHudInView:self.view hint:@"正在设置"];
+    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:!_isPushNotificationEnable completion:^(NSArray *ignoreGroupsList, EMError *error) {
+        [weakSelf hideHud];
+        if (!error) {
             [weakSelf showHint:@"设置成功"];
-            [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_selected.png"]];
-        } onQueue:nil];
-    }
-    else{
-        [[EaseMob sharedInstance].chatManager asyncUnblockGroup:_group.groupId completion:^(EMGroup *group, EMError *error) {
-            sender.userInteractionEnabled = YES;
-            if (error) {
-                [weakSelf showHint:@"设置失败"];
-                return;
-            }
-            [weakSelf hideHud];
-            [weakSelf showHint:@"设置成功"];
-            [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_border.png"]];
+            _isPushNotificationEnable = !_isPushNotificationEnable;
+            NSString *imageName = _isPushNotificationEnable? @"check_border.png":@"check_selected.png";
+            [_groupMsgStatusImageView setImage:[UIImage imageNamed:imageName]];
+        }
+        else{
+            [weakSelf showHint:@"设置失败"];
+        }
+        sender.userInteractionEnabled = YES;
+    } onQueue:nil];
 
-        } onQueue:nil];
-    }
 }
 
 - (IBAction)changeGroupTitle:(UIButton *)sender {
@@ -132,8 +123,35 @@
 }
 
 - (IBAction)quitGroup:(UIButton *)sender {
-    [self showHudInView:self.view hint:@"退出群组"];
-    [self sendMsgWhileQuit];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    __weak ChatGroupSettingViewController *weakSelf = self;
+    if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
+        [self showHudInView:self.view hint:@"删除群组"];
+        [[EaseMob sharedInstance].chatManager asyncDestroyGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
+            [weakSelf hideHud];
+            if (error) {
+                [weakSelf showHint:@"删除群组失败"];
+            }
+            else{
+                [weakSelf showHint:@"删除群组成功"];
+
+            }
+        } onQueue:nil];
+
+    } else {
+        [self showHudInView:self.view hint:@"退出群组"];
+        [self sendMsgWhileQuit];
+        [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
+            [weakSelf hideHud];
+            if (error) {
+                [weakSelf showHint:@"退出群组失败"];
+            }
+            else{
+                [weakSelf showHint:@"退出群组成功"];
+            }
+        } onQueue:nil];
+        
+    }
     
 }
 

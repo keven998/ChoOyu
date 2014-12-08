@@ -308,6 +308,11 @@
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
         cell.nickNameLabel.text = contact.nickName;
+        if (contact.signature) {
+            cell.phoneLabel.text = contact.signature;
+        } else {
+            cell.phoneLabel.text = @"未设置签名";
+        }
         return cell;
     }
 }

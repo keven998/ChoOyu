@@ -544,6 +544,8 @@
 		D9DE789F1A027965008A8576 /* ContactListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DE789D1A027965008A8576 /* ContactListViewController.xib */; };
 		D9DE78DD1A033724008A8576 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE78DC1A033724008A8576 /* MHTabBarController.m */; };
 		D9DE78E01A03774D008A8576 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DE78DF1A03774D008A8576 /* MHTabBarIndicator.png */; };
+		D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */; };
+		D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7A019FFDBD1003F70F6 /* AddressBook.m */; };
@@ -1351,6 +1353,8 @@
 		D9DE78DB1A033724008A8576 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
 		D9DE78DC1A033724008A8576 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
 		D9DE78DF1A03774D008A8576 /* MHTabBarIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MHTabBarIndicator.png; sourceTree = "<group>"; };
+		D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_expand@2x.png"; sourceTree = "<group>"; };
+		D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_unexpand@2x.png"; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F79F19FFDBD1003F70F6 /* AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBook.h; sourceTree = "<group>"; };
@@ -1762,6 +1766,8 @@
 		D90C630219FB44D300C2E440 /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
+				D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */,
+				D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */,
 				D93697011A3026BC001922F4 /* chat_time@2x.png */,
 				D93696EC1A301898001922F4 /* add_contact@2x.png */,
 				D93696ED1A301898001922F4 /* remove_contact@2x.png */,
@@ -3861,6 +3867,7 @@
 				C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */,
 				D90C639219FB44D300C2E440 /* VoiceSearchFeedback019@2x.png in Resources */,
 				D90F35EE19F63B3300E26FA9 /* call_out_h@2x.png in Resources */,
+				D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */,
 				C6BC34871A274BF3002C19D3 /* avatar_placeholder@2x.png in Resources */,
 				D90C63B519FB44D300C2E440 /* chat_sender_audio_playing_000@2x.png in Resources */,
 				D9DE78E01A03774D008A8576 /* MHTabBarIndicator.png in Resources */,
@@ -3920,6 +3927,7 @@
 				C6BC349D1A28171B002C19D3 /* ic_setting_password@2x.png in Resources */,
 				D9545FF01A22F5CD00688D72 /* first_selected@2x.png in Resources */,
 				D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */,
+				D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
 				D90F362319F63B3300E26FA9 /* chatBar_more_locationSelected.png in Resources */,
 				D90F362619F63B3300E26FA9 /* chatBar_more_photo@2x.png in Resources */,

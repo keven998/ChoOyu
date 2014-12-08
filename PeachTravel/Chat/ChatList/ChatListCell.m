@@ -107,7 +107,7 @@
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.font = [UIFont systemFontOfSize:11.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(70.0, 5.0, width - 80.0 - 110.0, 20.0);
+    self.textLabel.frame = CGRectMake(70.0, 5.0, width - 110.0, 20.0);
     
     _timeLabel.frame = CGRectMake(width - 100.0, 10.0, 90.0, 15.0);
     frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height);

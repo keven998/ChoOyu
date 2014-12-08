@@ -11,6 +11,8 @@
 #import "CreateConversationViewController.h"
 #import "RNGridMenu.h"
 #import "ChatViewController.h"
+#import "ContactListViewController.h"
+#import "AccountManager.h"
 
 @interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate, MHChildViewControllerDeleagate>
 
@@ -35,6 +37,13 @@
     
     for (MHChildViewController *ctl in self.viewControllers) {
         ctl.delegate = self;
+    }
+    if ([[self.viewControllers lastObject] isKindOfClass:[ContactListViewController class]]) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        if ([accountManager numberOfUnReadFrendRequest]) {
+            ContactListViewController *ctl = [self.viewControllers lastObject];
+            [ctl.delegate updateNotify:ctl notify:YES];
+        }
     }
 }
 
