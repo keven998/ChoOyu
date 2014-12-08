@@ -26,7 +26,7 @@
 }
 
 - (void)layoutSubviews {
-    self.selectedBackgroundView.frame = CGRectMake(10.0, 0, self.frame.size.width - 20.0, self.frame.size.height);
+    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 @end

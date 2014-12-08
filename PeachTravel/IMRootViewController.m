@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.navigationItem.title = @"桃•Talk";
 
     self.view.backgroundColor = APP_PAGE_COLOR;

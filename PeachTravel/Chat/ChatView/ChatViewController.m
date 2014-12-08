@@ -103,7 +103,6 @@
         //根据接收者的username获取当前会话的管理者
         _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:chatter isGroup:_isChatGroup];
         
-        
     }
     
     return self;
@@ -496,6 +495,7 @@
     }
     return _numberBtns;
 }
+
 - (ChatScrollView *)chatScrollView
 {
     if (!_chatScrollView) {

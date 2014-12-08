@@ -39,6 +39,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) UIButton *favoriteBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
 @property (strong, nonatomic) UIButton *IMBtn;
+/**
+ *  未读消息的 label
+ */
+@property (strong, nonatomic) UILabel *unReadMsgLabel;
 
 @property (nonatomic, strong) UIImageView *contentFrame;
 @property (nonatomic, strong) UIView *weatherFrame;
@@ -116,6 +120,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_IMBtn];
     
+    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 6, 6)];
+    [_unReadMsgLabel setCenter:CGPointMake(_IMBtn.center.x + 30, 20)];
+    _unReadMsgLabel.layer.cornerRadius = 3.0;
+    _unReadMsgLabel.clipsToBounds = YES;
+    _unReadMsgLabel.backgroundColor = APP_THEME_COLOR;
+    _unReadMsgLabel.hidden = YES;
+    [_IMBtn addSubview:_unReadMsgLabel];
+    
     offsetY += CGRectGetHeight(_galleryPageView.frame);
     
     _contentFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
@@ -190,6 +202,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([self isUnReadMsg]) {
+        _unReadMsgLabel.hidden = NO;
+    } else {
+        _unReadMsgLabel.hidden = YES;
+    }
 }
 
 - (void)dealloc
@@ -345,15 +362,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSLog(@"%@", _location.description);
     NSString *cityName = city? city:@"当前位置";
     NSString *s = [NSString stringWithFormat:@"  %@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
-//    [_weatherBtn setTitle:s forState:UIControlStateNormal];
     _weatherLabel.text = s;
     [_weatherFrame removeFromSuperview];
     [self.view addSubview:_weatherFrame];
-//    [UIView animateWithDuration:0.3 animations:^{
-//        _weatherBtn.alpha = 0.5;
-//    } completion:^(BOOL finished) {
-//        
-//    }];
 }
 
 #pragma mark - IBAction Methods
@@ -450,6 +461,27 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [application setApplicationIconBadgeNumber:unreadCount];
 }
 
+
+/**
+ *  是否有未读的消息，包括未读的聊天消息和好友请求消息
+ *
+ *  @return
+ */
+- (BOOL)isUnReadMsg
+{
+    NSArray *conversations = [[[EaseMob sharedInstance] chatManager] conversations];
+    for (EMConversation *conversation in conversations) {
+        if (conversation.unreadMessagesCount > 0) {
+            return YES;
+        }
+    }
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if (accountManager.numberOfUnReadFrendRequest > 0) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - IChatManagerDelegate 消息变化
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
@@ -509,6 +541,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 -(void)didReceiveMessage:(EMMessage *)message
 {
     NSLog(@"收到消息，消息为%@", message);
+    _unReadMsgLabel.hidden = NO;
     id<IEMMessageBody> messageBody = [message.messageBodies firstObject];
     if (messageBody.messageBodyType == eMessageBodyType_Command) {
         [TZCMDChatHelper distributeCMDMsg:message];
@@ -601,7 +634,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         notification.alertBody = [NSString stringWithFormat:@"%@:%@", title, messageStr];
     }
     else{
-        notification.alertBody = @"您有一条新消息";
+        notification.alertBody = @"您有一条新桃子消息";
     }
     
     notification.alertAction = @"打开";
@@ -618,16 +651,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     if (error) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
-        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:accountManager.account.easemobUser
-                                                            password:accountManager.account.easemobPwd
-                                                          completion:
-         ^(NSDictionary *loginInfo, EMError *error) {
-             if (error) {
-                 NSLog(@"登录失败：%@", error);
-             } else {
-                 NSLog(@"登录成功");
-             }
-         } onQueue:nil];
+        [accountManager loginEaseMobServer:^(BOOL isSuccess) {
+            if (isSuccess) {
+                NSLog(@"自动登录失败后的 登录成功");
+            } else {
+                NSLog(@"自动登录失败后的 登录失败");
+            }
+        }];
     } else {
         NSLog(@"自动登录成功");
     }

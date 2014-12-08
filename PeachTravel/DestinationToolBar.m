@@ -179,7 +179,6 @@
 {
     __block DestinationUnit *newUnitCell;
     
-    NSLog(@"%f", offsetX);
     if (icon) {
         newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
     } else {
@@ -207,7 +206,6 @@
 {
     __block DestinationUnit *newUnitCell;
     
-    NSLog(@"%f", offsetX);
     if (icon) {
         newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
     } else {

@@ -35,7 +35,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.userInteractionEnabled = NO;
         _textLabel.multipleTouchEnabled = NO;
-        _textLabel.textAlignment = NSTextAlignmentCenter;
+        _textLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_textLabel];
         
         _detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
@@ -273,7 +273,6 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [self textLabelFont]} context:nil].size;
 
     }
-    NSLog(@"%f",  2 * BUBBLE_VIEW_PADDING + size.height);
     return 2 * + size.height;
 }
 

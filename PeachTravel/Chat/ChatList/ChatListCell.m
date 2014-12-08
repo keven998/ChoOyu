@@ -99,7 +99,7 @@
     
     CGFloat width = self.frame.size.width;
     
-    self.imageView.frame = CGRectMake(20.0, 10.5, 39, 39);
+    self.imageView.frame = CGRectMake(10.0, 10.5, 39, 39);
     self.imageView.layer.cornerRadius = 19.5;
     self.imageView.layer.masksToBounds = YES;
     
@@ -107,10 +107,10 @@
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.font = [UIFont systemFontOfSize:11.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(80.0, 5.0, width - 80.0 - 110.0, 20.0);
+    self.textLabel.frame = CGRectMake(70.0, 5.0, width - 80.0 - 110.0, 20.0);
     
-    _timeLabel.frame = CGRectMake(width - 120.0, 12.0, 90.0, 15.0);
-    frameView.frame = CGRectMake(11.0, 0.0, width - 22.0, self.frame.size.height);
+    _timeLabel.frame = CGRectMake(width - 100.0, 10.0, 90.0, 15.0);
+    frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height);
     
     _detailLabel.text = _detailMsg;
     CGSize size = [_detailMsg sizeWithAttributes:@{NSFontAttributeName : _detailLabel.font}];
@@ -133,12 +133,12 @@
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
         _unreadLabel.text = [NSString stringWithFormat:@"%d",_unreadCount];
-        _unreadLabel.frame = CGRectMake(52.0, 3.0, 16.0, 16.0);
+        _unreadLabel.frame = CGRectMake(42.0, 3.0, 16.0, 16.0);
     }else{
         [_unreadLabel setHidden:YES];
     }
     
-    self.selectedBackgroundView.frame = CGRectMake(10.0, 0, self.frame.size.width - 20.0, self.frame.size.height);
+    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 -(void)setName:(NSString *)name{

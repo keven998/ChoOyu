@@ -32,7 +32,6 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i<[titles count]; i++) {
         
-        NSLog(@"%f",(self.frame.size.height-_itemHeight)/2);
         CGRect frame = CGRectMake((spaceWidth+_itemWidth) * i+self.bounds.size.width/2, (self.frame.size.height-_itemHeight)/2, _itemWidth, _itemHeight);
 
         UIButton *button = [[UIButton alloc] initWithFrame:frame];
