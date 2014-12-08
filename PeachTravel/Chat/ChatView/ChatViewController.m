@@ -44,6 +44,7 @@
 #import "RestaurantDetailViewController.h"
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
+#import "CityDetailTableViewController.h"
 
 #define KPageCount 20
 
@@ -786,21 +787,23 @@
     MessageModel *model = [userInfo objectForKey:KMESSAGEKEY];
     if ([eventName isEqualToString:kRouterEventTextURLTapEventName]) {
         [self chatTextCellUrlPressed:[userInfo objectForKey:@"url"]];
-    }
-    else if ([eventName isEqualToString:kRouterEventAudioBubbleTapEventName]) {
+        
+    } else if ([eventName isEqualToString:kRouterEventAudioBubbleTapEventName]) {
         [self chatAudioCellBubblePressed:model];
-    }
-    else if ([eventName isEqualToString:kRouterEventImageBubbleTapEventName]){
+        
+    } else if ([eventName isEqualToString:kRouterEventImageBubbleTapEventName]){
         [self chatImageCellBubblePressed:model];
-    }
-    else if ([eventName isEqualToString:kRouterEventLocationBubbleTapEventName]){
+        
+    } else if ([eventName isEqualToString:kRouterEventLocationBubbleTapEventName]){
         [self chatLocationCellBubblePressed:model];
-    }
-    else if ([eventName isEqualToString:kRouterEventTaoziBubbleTapEventName]) {
+        
+    } else if ([eventName isEqualToString:kRouterEventTaoziBubbleTapEventName]) {
         [self chatTaoziBubblePressed:model];
-    }
-    
-    else if([eventName isEqualToString:kResendButtonTapEventName]){
+        
+    } else if ([eventName isEqualToString:kRouterEventTaoziCityBubbleTapEventName]) {
+        [self chatTaoziCityBubblePressed:model];
+
+    } else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];
         MessageModel *messageModel = resendCell.messageModel;
         messageModel.status = eMessageDeliveryState_Delivering;
@@ -811,7 +814,8 @@
         [self.tableView endUpdates];
         id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
         [chatManager asyncResendMessage:messageModel.message progress:nil];
-    }else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]){
+        
+    } else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]){
         [self chatVideoCellPressed:model];
     }
 }
@@ -902,10 +906,12 @@
  */
 - (void)chatTaoziBubblePressed:(MessageModel *)model
 {
+    _isScrollToBottom = NO;
     switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
         case TZChatTypeSpot: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            spotDetailCtl.spotId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
@@ -918,6 +924,21 @@
         default:
             break;
     }
+}
+
+/**
+ *  桃子城市气泡被点击
+ *
+ *  @param playVideoWithVideoPath
+ *  @param videoPath
+ */
+- (void)chatTaoziCityBubblePressed:(MessageModel *)model
+{
+    _isScrollToBottom = NO;
+    CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
+    cityCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+    cityCtl.cityId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+    [self.navigationController pushViewController:cityCtl animated:YES];
 }
 
 - (void)playVideoWithVideoPath:(NSString *)videoPath

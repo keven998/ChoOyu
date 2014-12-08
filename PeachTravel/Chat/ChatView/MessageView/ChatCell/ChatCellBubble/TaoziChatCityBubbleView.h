@@ -8,8 +8,8 @@
 
 #import "EMChatBaseBubbleView.h"
 
-#define  TaoziCityBubbleHeight 78
-#define  TaoziCityBubbleWidth 113
+#define  TaoziCityBubbleHeight 98
+#define  TaoziCityBubbleWidth 133
 #define  TaoziCityTitleBubbleHeight    18
 
 extern NSString *const kRouterEventTaoziCityBubbleTapEventName;
