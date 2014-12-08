@@ -146,6 +146,7 @@ static const NSInteger TAG_OFFSET = 1000;
 {
 	[super viewDidLoad];
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     CGRect rect = CGRectMake(0, 64, self.view.bounds.size.width, TAB_BAR_HEIGHT);
     
