@@ -92,9 +92,12 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
         _showCitiesIndex = sender.tag;
     }
     [self.foreignCollectionView reloadData];
+    
+//    _showCitiesIndex = 1;
 
 //    [self.foreignCollectionView performBatchUpdates:^{
-//        [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+//        [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+//        [self.foreignCollectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:1]]];
 //        [self.foreignCollectionView reloadData];
 //    } completion:nil];
 
@@ -179,7 +182,8 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 {
     CountryDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     ForeignDestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
-    [headerView.titleBtn setTitle:country.zhName forState:UIControlStateNormal];
+//    [headerView.titleBtn setTitle:country.zhName forState:UIControlStateNormal];
+    headerView.titleBtn.text = country.zhName;
     
     country.desc = @"hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello";
     headerView.descLabel.text = country.desc;
@@ -210,15 +214,16 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     CountryDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     ForeignDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
-    cell.layer.borderColor = [UIColor grayColor].CGColor;
     cell.titleLabel.text = city.zhName;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.layer.borderColor = APP_THEME_COLOR.CGColor;
+            cell.titleLabel.textColor = APP_THEME_COLOR;
             return  cell;
         }
     }
-    cell.layer.borderColor = APP_PAGE_COLOR.CGColor;
+    cell.layer.borderColor = UIColorFromRGB(0xb3b3b3).CGColor;
+    cell.titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     return  cell;
 
 }

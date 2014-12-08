@@ -11,6 +11,8 @@
 @implementation DomesticDestinationCell
 
 - (void)awakeFromNib {
+    self.layer.borderWidth = 1.0;
+    self.layer.cornerRadius = 2.0;
 }
 
 @end

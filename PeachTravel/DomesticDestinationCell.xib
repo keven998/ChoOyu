@@ -16,26 +16,19 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBm-KO-Ev6">
                         <rect key="frame" x="6" y="0.0" width="94" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="vBm-KO-Ev6" secondAttribute="bottom" id="LfR-AI-lY3"/>
                 <constraint firstItem="vBm-KO-Ev6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MyJ-jW-7xP"/>
                 <constraint firstAttribute="trailing" secondItem="vBm-KO-Ev6" secondAttribute="trailing" id="UYx-yI-pia"/>
                 <constraint firstItem="vBm-KO-Ev6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="6" id="XCg-bJ-4iC"/>
             </constraints>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                    <integer key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                    <integer key="value" value="2"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="tiltleLabel" destination="vBm-KO-Ev6" id="utC-zw-2ED"/>
             </connections>

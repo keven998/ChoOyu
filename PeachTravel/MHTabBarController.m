@@ -147,18 +147,24 @@ static const NSInteger TAG_OFFSET = 1000;
 	[super viewDidLoad];
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-	CGRect rect = CGRectMake(0, 64, self.view.bounds.size.width, TAB_BAR_HEIGHT);
+    CGRect rect = CGRectMake(0, 64, self.view.bounds.size.width, TAB_BAR_HEIGHT);
+    
+    rect.origin.y = TAB_BAR_HEIGHT+64;
+    rect.size.height = self.view.bounds.size.height - TAB_BAR_HEIGHT - 64.0;
+    contentContainerView = [[UIView alloc] initWithFrame:rect];
+    contentContainerView.backgroundColor = APP_PAGE_COLOR;
+    contentContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:contentContainerView];
+    
+    rect = CGRectMake(0, 64, self.view.bounds.size.width, TAB_BAR_HEIGHT);
 	tabButtonsContainerView = [[UIView alloc] initWithFrame:rect];
 	tabButtonsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     tabButtonsContainerView.backgroundColor = [UIColor whiteColor];
+    tabButtonsContainerView.layer.shadowColor = UIColorFromRGB(0xdcdcdc).CGColor;
+    tabButtonsContainerView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    tabButtonsContainerView.layer.shadowRadius = 1.0;
+    tabButtonsContainerView.layer.shadowOpacity = 1.0;
 	[self.view addSubview:tabButtonsContainerView];
-
-	rect.origin.y = TAB_BAR_HEIGHT+64;
-	rect.size.height = self.view.bounds.size.height - TAB_BAR_HEIGHT - 64.0;
-	contentContainerView = [[UIView alloc] initWithFrame:rect];
-    contentContainerView.backgroundColor = APP_PAGE_COLOR;
-	contentContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	[self.view addSubview:contentContainerView];
 
 	indicatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 3)];
     indicatorImageView.backgroundColor = APP_THEME_COLOR;

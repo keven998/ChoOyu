@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.layer.cornerRadius = 2.0;
+    self.layer.borderWidth = 1.0;
 }
 
 @end
