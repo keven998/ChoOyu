@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 
+@property (nonatomic, copy) NSString *keyWord;
+
+
 @end
 
 @implementation SearchDestinationViewController
@@ -31,6 +34,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouch)];
     _tap.numberOfTapsRequired = 1;
     _tap.numberOfTouchesRequired = 1;
@@ -49,6 +53,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.view addSubview:_searchBar];
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
 
 }
 
@@ -96,6 +107,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
  */
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
+    _keyWord = keyWord;
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -171,7 +184,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         poi.poiType = TripRestaurantPoi;
         [restaurants addObject:poi];
     }
-    if (cities.count > 0) {
+    if (restaurants.count > 0) {
         [restaurantDic setObject:restaurants forKey:@"content"];
         [restaurantDic setObject:[NSNumber numberWithInt:TripRestaurantPoi] forKey:@"type"];
 
@@ -224,7 +237,35 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     SearchMoreDestinationViewController *searchMoreCtl = [[SearchMoreDestinationViewController alloc] init];
     searchMoreCtl.poiType = [[dic objectForKey:@"type"] integerValue];
-    [searchMoreCtl.navigationController pushViewController:searchMoreCtl animated:YES];
+    NSString *poiTypeDesc;
+    switch ([[dic objectForKey:@"type"] integerValue]) {
+        case tripCityPoi:
+            poiTypeDesc = @"loc";
+            
+            break;
+        case TripSpotPoi:
+            poiTypeDesc = @"vs";
+            
+            break;
+        case TripRestaurantPoi:
+            poiTypeDesc = @"restaurant";
+            
+            break;
+        case TripShoppingPoi:
+            poiTypeDesc = @"shopping";
+            
+            break;
+        case TripHotelPoi:
+            poiTypeDesc = @"hotel";
+            break;
+            
+            
+        default:
+            break;
+    }
+    searchMoreCtl.poiTypeDesc = poiTypeDesc;
+    searchMoreCtl.keyWord = _keyWord;
+    [self.navigationController pushViewController:searchMoreCtl animated:YES];
 }
 
 #pragma mark - tableview datasource & delegate

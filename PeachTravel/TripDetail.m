@@ -288,7 +288,11 @@
             [tempArray addObject:image];
         }
         _images = tempArray;
-        _rating = [[json objectForKey:@"rating"] floatValue];
+        if ([json objectForKey:@"rating"] == [NSNull null]) {
+            _rating = 3.5;
+        } else {
+            _rating = [[json objectForKey:@"rating"] floatValue];
+        }
         _telephone = [json objectForKey:@"telephone"];
         _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
         _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];

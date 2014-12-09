@@ -179,6 +179,8 @@
             
         case ChangeAvatar:
             self.account.avatar = changeContent;
+            break;
+            
         default:
             break;
     }

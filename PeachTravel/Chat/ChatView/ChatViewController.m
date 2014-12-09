@@ -61,7 +61,6 @@
     dispatch_queue_t _messageQueue;
     dispatch_queue_t loadChatPeopleQueue;
     BOOL _isScrollToBottom;
-    BOOL _isNeedRefresh;       //当 viewwillappear 的时候是否需要刷新数据源
 }
 
 @property (nonatomic) BOOL isChatGroup;
@@ -184,10 +183,6 @@
     }
     else{
         _isScrollToBottom = YES;
-    }
-    if (_isNeedRefresh) {
-        [self loadMoreMessages];
-        _isNeedRefresh = NO;
     }
 }
 
@@ -1100,24 +1095,20 @@
 
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
-    _isNeedRefresh = YES;
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
-    myGuideListTableCtl.chatter = self.chatter;
-    myGuideListTableCtl.isGroup = self.isChatGroup;
+    myGuideListTableCtl.chatCtl = self;
     myGuideListTableCtl.selectToSend = YES;
     [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
 }
 
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
-    _isNeedRefresh = YES;
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     [self.navigationController pushViewController:favoriteCtl animated:YES];
 }
 
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
-    _isNeedRefresh = YES;
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.chatCtl = self;
     [self.navigationController pushViewController:searchCtl animated:YES];
@@ -1126,7 +1117,6 @@
 
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
-    _isNeedRefresh = YES;
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView

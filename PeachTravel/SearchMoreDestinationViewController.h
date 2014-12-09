@@ -8,9 +8,21 @@
 
 #import "TZViewController.h"
 #import "TripDetail.h"
+#import "ChatViewController.h"
 
 @interface SearchMoreDestinationViewController : TZViewController
 
 @property (nonatomic) tripPoiType poiType;
+
+@property (nonatomic, copy) NSString *poiTypeDesc;
+
+/**
+ *  搜索的字段
+ */
+@property (nonatomic, copy) NSString *keyWord;
+
+@property (nonatomic, weak) ChatViewController *chatCtl;
+
+
 
 @end
