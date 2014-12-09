@@ -38,9 +38,10 @@
             
             break;
             
-        case TZChatTypeCity:
-            _headerLabel.text = @"  城市";
-            
+        case TZChatTypeStrategy:
+            _headerLabel.text = @"  攻略";
+            [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
+            _descLabel.text = _messageDesc;
             break;
             
         case TZChatTypeFood: {
@@ -61,6 +62,10 @@
             _headerLabel.text = @"  购物";
             
             break;
+            
+        case TZChatTypeCity:
+            _headerLabel.text = @"  城市";
+            
             
         default:
             break;
@@ -135,8 +140,10 @@
             [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
             break;
             
-        case TZChatTypeCity:
+        case TZChatTypeStrategy:
             [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+            [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
+
             break;
             
         case TZChatTypeFood:
@@ -154,6 +161,9 @@
         case TZChatTypeShopping:
             [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
             [contentDic safeSetObject:_messageAddress forKey:@"address"];
+            break;
+            
+        case TZChatTypeCity:
             break;
             
         default:

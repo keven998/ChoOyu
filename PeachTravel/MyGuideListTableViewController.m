@@ -13,8 +13,9 @@
 #import "MyGuideSummary.h"
 #import "TripDetailRootViewController.h"
 #import "ConfirmRouteViewController.h"
+#import "TaoziChatMessageBaseViewController.h"
 
-@interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
+@interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, TaoziMessageSendDelegate>
 
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (nonatomic, strong) UITableView *tableView;
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
+
 
 @end
 
@@ -296,6 +298,39 @@ static NSString *reusableCell = @"myGuidesCell";
     
 }
 
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送景点给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    
+    /*发送完成后不进入聊天界面
+     [self.navigationController pushViewController:chatCtl animated:YES];
+     */
+    
+    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+        }];
+    }
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -328,11 +363,33 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
-    TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
-    tripDetailRootCtl.isMakeNewTrip = NO;
-    tripDetailRootCtl.tripId = guideSummary.guideId;
-    [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
-    
+    //进入攻略详情
+    if (!_selectToSend) {
+        TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
+        tripDetailRootCtl.isMakeNewTrip = NO;
+        tripDetailRootCtl.tripId = guideSummary.guideId;
+        [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
+        
+        //弹出发送菜单
+    } else {
+        TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+        taoziMessageCtl.delegate = self;
+        taoziMessageCtl.chatType = TZChatTypeStrategy;
+        taoziMessageCtl.chatter = _chatter;
+        taoziMessageCtl.isGroup = _isGroup;
+        taoziMessageCtl.chatTitle = @"攻略";
+        taoziMessageCtl.messageId = guideSummary.guideId;
+        taoziMessageCtl.messageDesc = guideSummary.summary;
+        taoziMessageCtl.messageName = guideSummary.title;
+        TaoziImage *image = [guideSummary.images firstObject];
+        taoziMessageCtl.messageImage = image.imageUrl;
+        taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", guideSummary.dayCount];
+
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
+            
+        }];
+    }
+
 }
 
 

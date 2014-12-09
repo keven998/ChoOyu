@@ -75,7 +75,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _typeLabel.textAlignment = NSTextAlignmentRight;
         _titleLabel.textAlignment = NSTextAlignmentRight;
         _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-
+        _descLabel.textAlignment = NSTextAlignmentRight;
         [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth - 40 - 8 -BUBBLE_ARROW_WIDTH, 4+TaoziBubbleTypeHeight, 40, 40)];
         [_titleLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
         [_propertyBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
@@ -85,12 +85,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _typeLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _descLabel.textAlignment = NSTextAlignmentLeft;
 
         [_pictureImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 4+TaoziBubbleTypeHeight, 40, 40)];
         [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 20)];
         [_propertyBtn setFrame:CGRectMake(_titleLabel.frame.origin.x, _pictureImageView.frame.origin.y+20, _titleLabel.frame.size.width, 20)];
         [_descLabel setFrame:CGRectMake(8+BUBBLE_ARROW_WIDTH, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
-
     }
     
 }
@@ -146,6 +146,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 [_propertyBtn setTitle:[content objectForKey:@"rating"] forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
                 
+                break;
+                
+            case TZChatTypeStrategy:
+                _typeLabel.text = @"攻略";
+                [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
+                _descLabel.text = [content objectForKey:@"desc"];
                 break;
                 
             default:

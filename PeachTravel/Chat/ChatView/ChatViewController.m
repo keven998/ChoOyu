@@ -45,6 +45,7 @@
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
+#import "SearchDestinationViewController.h"
 
 #define KPageCount 20
 
@@ -1096,6 +1097,9 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
+    myGuideListTableCtl.chatter = self.chatter;
+    myGuideListTableCtl.isGroup = self.isChatGroup;
+    myGuideListTableCtl.selectToSend = YES;
     [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
 }
 
@@ -1107,7 +1111,8 @@
 
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
-    
+    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    [self.navigationController pushViewController:searchCtl animated:YES];
 
 }
 

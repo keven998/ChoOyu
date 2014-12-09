@@ -55,8 +55,6 @@
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
         }];
     }];
-    
-    
 }
 
 #pragma mark - TaoziMessageSendDelegate

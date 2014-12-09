@@ -188,11 +188,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case eMessageBodyType_Taozi:
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
-                case TZChatTypeStrategy: {
-                    return [[TaoziChatCityBubbleView alloc] init];
-
-                }
-                    break;
                     
                 case TZChatTypeCity: {
                     return [[TaoziChatCityBubbleView alloc] init];
@@ -203,7 +198,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                     /**
                      *  一下几类显示效果是一样的
                      */
-                case TZChatTypeSpot: case TZChatTypeTravelNote: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
+                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeTravelNote: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
                     return [[TaoziChatBaseBubbleView alloc] init];
                 }
                     break;
@@ -264,10 +259,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case eMessageBodyType_Taozi:
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
-                case TZChatTypeStrategy: {
-                    
-                }
-                    break;
                     
                 case TZChatTypeTravelNote: {
                 }
@@ -280,7 +271,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 }
                     break;
                     
-                case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
+                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
                     return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
                 }
                     break;
