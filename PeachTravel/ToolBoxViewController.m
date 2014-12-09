@@ -461,7 +461,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [application setApplicationIconBadgeNumber:unreadCount];
 }
 
-
 /**
  *  是否有未读的消息，包括未读的聊天消息和好友请求消息
  *
@@ -723,6 +722,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)groupDidUpdateInfo:(EMGroup *)group error:(EMError *)error
 {
     NSLog(@"groupDidUpdateInfo");
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [accountManager updateGroup:group.groupId withGroupOwner:group.owner groupSubject:group.groupSubject groupInfo:group.groupDescription];
 }
 
 - (void)didAcceptInvitationFromGroup:(EMGroup *)group

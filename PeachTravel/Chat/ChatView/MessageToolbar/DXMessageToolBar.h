@@ -18,10 +18,10 @@
 #import "DXFaceView.h"
 #import "DXRecordView.h"
 
-#define kInputTextViewMinHeight 36
+#define kInputTextViewMinHeight 30
 #define kInputTextViewMaxHeight 200
 #define kHorizontalPadding 8
-#define kVerticalPadding 5
+#define kVerticalPadding 7.5
 
 #define kTouchToRecord @"按住说话"
 #define kTouchToFinish @"松开发送"

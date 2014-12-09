@@ -434,6 +434,23 @@
     return tempGroup;
 }
 
+
+- (Group *)updateGroup:(NSString *)groupId withGroupOwner:(NSString *)owner groupSubject:(NSString *)subject groupInfo:(NSString *)groupDescription
+{
+    Group *tempGroup = [self groupWithGroupId:groupId];
+    if (!tempGroup) {
+        return nil;
+    } else {
+        tempGroup.groupId = groupId;
+        tempGroup.groupSubject= subject;
+        tempGroup.groupDescription = groupDescription;
+        tempGroup.owner = owner;
+        [self save];
+    }
+    return tempGroup;
+}
+
+
 - (void)addNumberToGroup:(NSString *)groupId
                  numbers:(NSSet *)numbers
 {

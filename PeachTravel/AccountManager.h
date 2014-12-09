@@ -81,6 +81,22 @@
              groupInfo:(NSString *)groupDescription
                numbers:(id)numbersDic;
 
+/**
+ *  更新群组信息
+ *
+ *  @param groupId          群组 id
+ *  @param owner            群组所有人
+ *  @param subject          群组标题
+ *  @param groupDescription 群组介绍
+ *
+ *  @return 更新后的群组
+ */
+- (Group *)updateGroup:(NSString *)groupId
+        withGroupOwner:(NSString *)owner
+          groupSubject:(NSString *)subject
+             groupInfo:(NSString *)groupDescription;
+
+
 - (void)addNumberToGroup:(NSString *)groupId
                  numbers:(NSSet *)numbers;
 

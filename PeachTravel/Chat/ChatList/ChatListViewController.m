@@ -66,7 +66,6 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
-    [self loadChattingPeople];
     [self networkStateView];
     [self searchController];
 }
@@ -74,14 +73,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    __weak ChatListViewController *weakSelf = self;
     [self refreshDataSource];
     [self registerNotifications];
-    if ([self isUnReadMsg]) {
-        [self.delegate updateNotify:weakSelf notify:YES];
-    } else {
-        [self.delegate updateNotify:weakSelf notify:NO];
-    }
 }
 
 
@@ -125,7 +118,10 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 10, kWindowWidth - 22, self.view.frame.size.height-10) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 10, kWindowWidth - 22, self.view.frame.size.height-10 - 64 - 44) style:UITableViewStylePlain];
+        
+        NSLog(@"%f", self.view.frame.size.height);
+        
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
@@ -166,6 +162,7 @@
  */
 - (void)loadChattingPeople
 {
+    NSLog(@"开始加载正在聊天的人");
     if (!_chattingPeople) {
         _chattingPeople = [[NSMutableArray alloc] init];
     } else {
@@ -192,6 +189,8 @@
     } else {
         [self setupListView];
     }
+    NSLog(@"结束加载正在聊天的人");
+
 }
 
 - (void) setupEmptyView {
@@ -263,7 +262,13 @@
     return ret;
 }
 
-// 得到最后消息时间
+/**
+ *  得到最后消息时间
+ *
+ *  @param conversation
+ *
+ *  @return
+ */
 -(NSString *)lastMessageTimeByConversation:(EMConversation *)conversation
 {
     NSString *ret = @"";
@@ -567,6 +572,7 @@
 
 -(void)refreshDataSource
 {
+    NSLog(@"开始刷新聊天DataSource");
     self.dataSource = [self loadDataSource];
     typeof(ChatListViewController) *weakSelf = self;
     if ([self isUnReadMsg]) {
@@ -577,6 +583,8 @@
     [self loadChattingPeople];
     [_tableView reloadData];
     [self hideHud];
+    NSLog(@"结束刷新聊天DataSource");
+
 }
 
 - (void)networkChanged:(EMConnectionState)connectionState

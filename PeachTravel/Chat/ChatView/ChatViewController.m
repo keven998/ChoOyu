@@ -272,6 +272,7 @@
 {
     CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
     createConversationCtl.group = self.group;
+    [self hideGroupList];
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:createConversationCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
@@ -1261,6 +1262,12 @@
 }
 
 #pragma mark - ZYQAssetPickerController Delegate
+/**
+ *  从相册里获取图片
+ *
+ *  @param picker
+ *  @param assets
+ */
 -(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     [picker dismissViewControllerAnimated:YES completion:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1272,6 +1279,20 @@
         }
         [self sendImageMessages:images];
     });
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self sendImageMessages:@[orgImage]];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - MenuItem actions
