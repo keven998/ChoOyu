@@ -119,7 +119,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
         }
     }
     if (self.destinations.destinationsSelected.count == 0) {
-        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:NO];
+        [self.makePlanCtl hideDestinationBar];
     }
 }
 
@@ -243,7 +243,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     }
     if (!find) {
         if (_destinations.destinationsSelected.count == 0) {
-            [_makePlanCtl.destinationToolBar setHidden:NO withAnimation:YES];
+            [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
         [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];

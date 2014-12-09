@@ -1289,7 +1289,7 @@
 {
     UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
-    [self sendImageMessages:@[orgImage]];
+    [self sendImageMessage:orgImage];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -1506,19 +1506,25 @@
 
 -(void)addChatDataToMessage:(EMMessage *)message
 {
-    NSArray *messages = [self addChatToMessage:message];
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < messages.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count+i inSection:0];
-        [indexPaths addObject:indexPath];
-    }
-    [self.dataSource addObjectsFromArray:messages];
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    __weak ChatViewController *weakSelf = self;
+    dispatch_async(_messageQueue, ^{
+        NSArray *messages = [weakSelf addChatToMessage:message];
+        NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < messages.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count+i inSection:0];
+            [indexPaths addObject:indexPath];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView beginUpdates];
+            [weakSelf.dataSource addObjectsFromArray:messages];
+            [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.tableView endUpdates];
+            [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        });
+    });
 
-    NSLog(@"总共的 cell 个数为：%lu", (unsigned long)self.dataSource.count);
-    NSLog(@"我应该滑倒底部,底部的位置是：%d",((NSIndexPath *)[indexPaths lastObject]).row);
-    [self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)scrollViewToBottom:(BOOL)animated
@@ -1618,19 +1624,26 @@
 
 #pragma mark - send message
 
--(void)sendTextMessage:(NSString *)textMessage
+- (void)sendTextMessage:(NSString *)textMessage
 {
     EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:textMessage toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
     [self addChatDataToMessage:tempMessage];
 }
 
--(void)sendImageMessages:(NSArray *)imageMessages
+- (void)sendImageMessages:(NSArray *)imageMessages
 {
     for (UIImage *imageMsg in imageMessages) {
         EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:imageMsg toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
         [self addChatDataToMessage:tempMessage];
     }
 }
+
+-(void)sendImageMessage:(UIImage *)imageMessage
+{
+    EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:imageMessage toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
+    [self addChatDataToMessage:tempMessage];
+}
+
 
 - (void)sendTaoziMessage:(NSDictionary *)taoziMsg
 {

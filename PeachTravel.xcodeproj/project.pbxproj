@@ -314,26 +314,6 @@
 		D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FC11A22EF9700688D72 /* RDVTabBarItem.m */; };
 		D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */; };
 		D9545FCC1A22F36300688D72 /* SpotsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FCA1A22F36300688D72 /* SpotsListViewController.m */; };
-		D9545FED1A22F5CD00688D72 /* first_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FD91A22F5CD00688D72 /* first_normal.png */; };
-		D9545FEE1A22F5CD00688D72 /* first_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDA1A22F5CD00688D72 /* first_normal@2x.png */; };
-		D9545FEF1A22F5CD00688D72 /* first_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDB1A22F5CD00688D72 /* first_selected.png */; };
-		D9545FF01A22F5CD00688D72 /* first_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDC1A22F5CD00688D72 /* first_selected@2x.png */; };
-		D9545FF11A22F5CD00688D72 /* navigationbar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDD1A22F5CD00688D72 /* navigationbar_background.png */; };
-		D9545FF21A22F5CD00688D72 /* navigationbar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDE1A22F5CD00688D72 /* navigationbar_background@2x.png */; };
-		D9545FF31A22F5CD00688D72 /* navigationbar_background_tall.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FDF1A22F5CD00688D72 /* navigationbar_background_tall.png */; };
-		D9545FF41A22F5CD00688D72 /* navigationbar_background_tall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE01A22F5CD00688D72 /* navigationbar_background_tall@2x.png */; };
-		D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE11A22F5CD00688D72 /* second_normal.png */; };
-		D9545FF61A22F5CD00688D72 /* second_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE21A22F5CD00688D72 /* second_normal@2x.png */; };
-		D9545FF71A22F5CD00688D72 /* second_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE31A22F5CD00688D72 /* second_selected.png */; };
-		D9545FF81A22F5CD00688D72 /* second_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE41A22F5CD00688D72 /* second_selected@2x.png */; };
-		D9545FF91A22F5CD00688D72 /* tabbar_normal_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE51A22F5CD00688D72 /* tabbar_normal_background.png */; };
-		D9545FFA1A22F5CD00688D72 /* tabbar_normal_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE61A22F5CD00688D72 /* tabbar_normal_background@2x.png */; };
-		D9545FFB1A22F5CD00688D72 /* tabbar_selected_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE71A22F5CD00688D72 /* tabbar_selected_background.png */; };
-		D9545FFC1A22F5CD00688D72 /* tabbar_selected_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE81A22F5CD00688D72 /* tabbar_selected_background@2x.png */; };
-		D9545FFD1A22F5CD00688D72 /* third_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FE91A22F5CD00688D72 /* third_normal.png */; };
-		D9545FFE1A22F5CD00688D72 /* third_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FEA1A22F5CD00688D72 /* third_normal@2x.png */; };
-		D9545FFF1A22F5CD00688D72 /* third_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FEB1A22F5CD00688D72 /* third_selected.png */; };
-		D95460001A22F5CD00688D72 /* third_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9545FEC1A22F5CD00688D72 /* third_selected@2x.png */; };
 		D95460071A22FAAB00688D72 /* SpotsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460051A22FAAB00688D72 /* SpotsListTableViewCell.m */; };
 		D95460081A22FAAB00688D72 /* SpotsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95460061A22FAAB00688D72 /* SpotsListTableViewCell.xib */; };
 		D954600C1A22FF5B00688D72 /* RestaurantsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D954600A1A22FF5B00688D72 /* RestaurantsListViewController.m */; };
@@ -495,6 +475,16 @@
 		D9C64BC21A1B6BD600A4B9BF /* CountryDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BC11A1B6BD600A4B9BF /* CountryDestination.m */; };
 		D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BC41A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m */; };
 		D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C64BC51A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib */; };
+		D9CC36B11A372B3400E72A7F /* ic_next_step@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B01A372B3400E72A7F /* ic_next_step@2x.png */; };
+		D9CC36B91A3747D300E72A7F /* third_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B31A3747D300E72A7F /* third_selected@2x.png */; };
+		D9CC36BA1A3747D300E72A7F /* third_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B41A3747D300E72A7F /* third_normal@2x.png */; };
+		D9CC36BB1A3747D300E72A7F /* second_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B51A3747D300E72A7F /* second_selected@2x.png */; };
+		D9CC36BC1A3747D300E72A7F /* second_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B61A3747D300E72A7F /* second_normal@2x.png */; };
+		D9CC36BD1A3747D300E72A7F /* first_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B71A3747D300E72A7F /* first_selected@2x.png */; };
+		D9CC36BE1A3747D300E72A7F /* first_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36B81A3747D300E72A7F /* first_normal@2x.png */; };
+		D9CC36C21A374B6B00E72A7F /* ic_layer_edit_done.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36BF1A374B6B00E72A7F /* ic_layer_edit_done.png */; };
+		D9CC36C31A374B6B00E72A7F /* ic_layer_edit_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36C01A374B6B00E72A7F /* ic_layer_edit_highlight.png */; };
+		D9CC36C41A374B6B00E72A7F /* ic_layer_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CC36C11A374B6B00E72A7F /* ic_layer_edit.png */; };
 		D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */; };
 		D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */; };
 		D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CDD71919EBA4A3001AC9F2 /* AccountManager.m */; };
@@ -997,26 +987,6 @@
 		D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailRootViewController.m; sourceTree = "<group>"; };
 		D9545FC91A22F36300688D72 /* SpotsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotsListViewController.h; sourceTree = "<group>"; };
 		D9545FCA1A22F36300688D72 /* SpotsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotsListViewController.m; sourceTree = "<group>"; };
-		D9545FD91A22F5CD00688D72 /* first_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first_normal.png; sourceTree = "<group>"; };
-		D9545FDA1A22F5CD00688D72 /* first_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_normal@2x.png"; sourceTree = "<group>"; };
-		D9545FDB1A22F5CD00688D72 /* first_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first_selected.png; sourceTree = "<group>"; };
-		D9545FDC1A22F5CD00688D72 /* first_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_selected@2x.png"; sourceTree = "<group>"; };
-		D9545FDD1A22F5CD00688D72 /* navigationbar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_background.png; sourceTree = "<group>"; };
-		D9545FDE1A22F5CD00688D72 /* navigationbar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_background@2x.png"; sourceTree = "<group>"; };
-		D9545FDF1A22F5CD00688D72 /* navigationbar_background_tall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_background_tall.png; sourceTree = "<group>"; };
-		D9545FE01A22F5CD00688D72 /* navigationbar_background_tall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_background_tall@2x.png"; sourceTree = "<group>"; };
-		D9545FE11A22F5CD00688D72 /* second_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second_normal.png; sourceTree = "<group>"; };
-		D9545FE21A22F5CD00688D72 /* second_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second_normal@2x.png"; sourceTree = "<group>"; };
-		D9545FE31A22F5CD00688D72 /* second_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second_selected.png; sourceTree = "<group>"; };
-		D9545FE41A22F5CD00688D72 /* second_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second_selected@2x.png"; sourceTree = "<group>"; };
-		D9545FE51A22F5CD00688D72 /* tabbar_normal_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_normal_background.png; sourceTree = "<group>"; };
-		D9545FE61A22F5CD00688D72 /* tabbar_normal_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_normal_background@2x.png"; sourceTree = "<group>"; };
-		D9545FE71A22F5CD00688D72 /* tabbar_selected_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_selected_background.png; sourceTree = "<group>"; };
-		D9545FE81A22F5CD00688D72 /* tabbar_selected_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_selected_background@2x.png"; sourceTree = "<group>"; };
-		D9545FE91A22F5CD00688D72 /* third_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = third_normal.png; sourceTree = "<group>"; };
-		D9545FEA1A22F5CD00688D72 /* third_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_normal@2x.png"; sourceTree = "<group>"; };
-		D9545FEB1A22F5CD00688D72 /* third_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = third_selected.png; sourceTree = "<group>"; };
-		D9545FEC1A22F5CD00688D72 /* third_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_selected@2x.png"; sourceTree = "<group>"; };
 		D95460041A22FAAB00688D72 /* SpotsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotsListTableViewCell.h; sourceTree = "<group>"; };
 		D95460051A22FAAB00688D72 /* SpotsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotsListTableViewCell.m; sourceTree = "<group>"; };
 		D95460061A22FAAB00688D72 /* SpotsListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpotsListTableViewCell.xib; sourceTree = "<group>"; };
@@ -1271,6 +1241,16 @@
 		D9C64BC31A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCollectionHeaderView.h; sourceTree = "<group>"; };
 		D9C64BC41A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCollectionHeaderView.m; sourceTree = "<group>"; };
 		D9C64BC51A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCollectionHeaderView.xib; sourceTree = "<group>"; };
+		D9CC36B01A372B3400E72A7F /* ic_next_step@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_next_step@2x.png"; sourceTree = "<group>"; };
+		D9CC36B31A3747D300E72A7F /* third_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_selected@2x.png"; sourceTree = "<group>"; };
+		D9CC36B41A3747D300E72A7F /* third_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_normal@2x.png"; sourceTree = "<group>"; };
+		D9CC36B51A3747D300E72A7F /* second_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second_selected@2x.png"; sourceTree = "<group>"; };
+		D9CC36B61A3747D300E72A7F /* second_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second_normal@2x.png"; sourceTree = "<group>"; };
+		D9CC36B71A3747D300E72A7F /* first_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_selected@2x.png"; sourceTree = "<group>"; };
+		D9CC36B81A3747D300E72A7F /* first_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_normal@2x.png"; sourceTree = "<group>"; };
+		D9CC36BF1A374B6B00E72A7F /* ic_layer_edit_done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_layer_edit_done.png; sourceTree = "<group>"; };
+		D9CC36C01A374B6B00E72A7F /* ic_layer_edit_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_layer_edit_highlight.png; sourceTree = "<group>"; };
+		D9CC36C11A374B6B00E72A7F /* ic_layer_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_layer_edit.png; sourceTree = "<group>"; };
 		D9CDD70919EB9C3C001AC9F2 /* UnLoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnLoginTableViewCell.h; sourceTree = "<group>"; };
 		D9CDD70A19EB9C3C001AC9F2 /* UnLoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnLoginTableViewCell.m; sourceTree = "<group>"; };
 		D9CDD70B19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnLoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -1598,6 +1578,7 @@
 		C6BC347E1A272DB1002C19D3 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D9CC36AF1A372B2500E72A7F /* TravelPlan */,
 				D93697131A31616E001922F4 /* Common */,
 				D9A19C8C1A2F05EF00B189CB /* IM */,
 				D9A19C8D1A2F060400B189CB /* User */,
@@ -2267,6 +2248,9 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D9CC36BF1A374B6B00E72A7F /* ic_layer_edit_done.png */,
+				D9CC36C01A374B6B00E72A7F /* ic_layer_edit_highlight.png */,
+				D9CC36C11A374B6B00E72A7F /* ic_layer_edit.png */,
 				D9E81E741A36CD2600D3BFD0 /* ic_search@2x.png */,
 				C688AADE1A35445600372A39 /* ic_dotted_line@2x.png */,
 				D94772F51A32E5ED00BF9F8B /* ic_more@2x.png */,
@@ -2371,34 +2355,6 @@
 				D96550EB1A256CE500928DB0 /* TripDetail.m */,
 			);
 			name = TripListDetail;
-			sourceTree = "<group>";
-		};
-		D9545FD81A22F5CD00688D72 /* 攻略列表的 tabbar 测试图片 */ = {
-			isa = PBXGroup;
-			children = (
-				D9545FD91A22F5CD00688D72 /* first_normal.png */,
-				D9545FDA1A22F5CD00688D72 /* first_normal@2x.png */,
-				D9545FDB1A22F5CD00688D72 /* first_selected.png */,
-				D9545FDC1A22F5CD00688D72 /* first_selected@2x.png */,
-				D9545FDD1A22F5CD00688D72 /* navigationbar_background.png */,
-				D9545FDE1A22F5CD00688D72 /* navigationbar_background@2x.png */,
-				D9545FDF1A22F5CD00688D72 /* navigationbar_background_tall.png */,
-				D9545FE01A22F5CD00688D72 /* navigationbar_background_tall@2x.png */,
-				D9545FE11A22F5CD00688D72 /* second_normal.png */,
-				D9545FE21A22F5CD00688D72 /* second_normal@2x.png */,
-				D9545FE31A22F5CD00688D72 /* second_selected.png */,
-				D9545FE41A22F5CD00688D72 /* second_selected@2x.png */,
-				D9545FE51A22F5CD00688D72 /* tabbar_normal_background.png */,
-				D9545FE61A22F5CD00688D72 /* tabbar_normal_background@2x.png */,
-				D9545FE71A22F5CD00688D72 /* tabbar_selected_background.png */,
-				D9545FE81A22F5CD00688D72 /* tabbar_selected_background@2x.png */,
-				D9545FE91A22F5CD00688D72 /* third_normal.png */,
-				D9545FEA1A22F5CD00688D72 /* third_normal@2x.png */,
-				D9545FEB1A22F5CD00688D72 /* third_selected.png */,
-				D9545FEC1A22F5CD00688D72 /* third_selected@2x.png */,
-			);
-			name = "攻略列表的 tabbar 测试图片";
-			path = Images;
 			sourceTree = "<group>";
 		};
 		D95460011A22FA4100688D72 /* SpotsList */ = {
@@ -3250,7 +3206,6 @@
 				D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */,
 				D9B476911A24A7140014136C /* test@2x.png */,
 				D9AC9B041A1C8AAD00E0C4CE /* country.jpg */,
-				D9545FD81A22F5CD00688D72 /* 攻略列表的 tabbar 测试图片 */,
 			);
 			name = "临时图片文件记得删掉";
 			sourceTree = "<group>";
@@ -3331,6 +3286,28 @@
 				D9B4766E1A2468D30014136C /* arrow_down@2x.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		D9CC36AF1A372B2500E72A7F /* TravelPlan */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC36B21A3747C900E72A7F /* MakePlan */,
+				D9CC36B01A372B3400E72A7F /* ic_next_step@2x.png */,
+			);
+			path = TravelPlan;
+			sourceTree = "<group>";
+		};
+		D9CC36B21A3747C900E72A7F /* MakePlan */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC36B31A3747D300E72A7F /* third_selected@2x.png */,
+				D9CC36B41A3747D300E72A7F /* third_normal@2x.png */,
+				D9CC36B51A3747D300E72A7F /* second_selected@2x.png */,
+				D9CC36B61A3747D300E72A7F /* second_normal@2x.png */,
+				D9CC36B71A3747D300E72A7F /* first_selected@2x.png */,
+				D9CC36B81A3747D300E72A7F /* first_normal@2x.png */,
+			);
+			name = MakePlan;
 			sourceTree = "<group>";
 		};
 		D9CDD71F19EBAC5F001AC9F2 /* Register */ = {
@@ -3705,9 +3682,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D90C63A319FB44D300C2E440 /* chat_location_detail_disclosure@2x.png in Resources */,
-				D9545FFB1A22F5CD00688D72 /* tabbar_selected_background.png in Resources */,
 				D90C637619FB44D300C2E440 /* VoiceSearchFeedback005@2x.png in Resources */,
 				D9681A0F1A109BF600122793 /* Default.png in Resources */,
+				D9CC36C41A374B6B00E72A7F /* ic_layer_edit.png in Resources */,
 				D90C63A419FB44D300C2E440 /* chat_location_detail_disclosureHL.png in Resources */,
 				D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */,
 				D90C639D19FB44D300C2E440 /* chatBar_more_faceSelected@2x.png in Resources */,
@@ -3716,7 +3693,6 @@
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
 				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
-				D9545FEF1A22F5CD00688D72 /* first_selected.png in Resources */,
 				D9048F331A09F18500334AB5 /* ChatGroupSettingViewController.xib in Resources */,
 				D93696F81A301C0C001922F4 /* chatBar_more_myfavorite@2x.png in Resources */,
 				D90C638019FB44D300C2E440 /* VoiceSearchFeedback010@2x.png in Resources */,
@@ -3739,9 +3715,9 @@
 				D94772F11A32E16E00BF9F8B /* dx_checkbox_off.png in Resources */,
 				D9B4765F1A2440D20014136C /* RestaurantOfCityTableViewCell.xib in Resources */,
 				D90C63A719FB44D300C2E440 /* chat_location_preview@2x.png in Resources */,
-				D9545FED1A22F5CD00688D72 /* first_normal.png in Resources */,
 				D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */,
 				D955E5D419E7D41200047F2B /* Default-568h@2x.png in Resources */,
+				D9CC36BD1A3747D300E72A7F /* first_selected@2x.png in Resources */,
 				D90C638419FB44D300C2E440 /* VoiceSearchFeedback012@2x.png in Resources */,
 				D90C637319FB44D300C2E440 /* VoiceSearchFeedback004.png in Resources */,
 				D9386C501A31A6600085FC36 /* chat_receiver_audio_playing002@2x.png in Resources */,
@@ -3780,11 +3756,12 @@
 				C688AADF1A35445600372A39 /* ic_dotted_line@2x.png in Resources */,
 				D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */,
 				D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */,
+				D9CC36C31A374B6B00E72A7F /* ic_layer_edit_highlight.png in Resources */,
 				D9E81E6D1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png in Resources */,
 				D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */,
 				D93697151A31617B001922F4 /* TZScrollView_indicator@2x.png in Resources */,
-				D9545FF51A22F5CD00688D72 /* second_normal.png in Resources */,
 				D93696EB1A30107A001922F4 /* chatBar_record@2x.png in Resources */,
+				D9CC36B91A3747D300E72A7F /* third_selected@2x.png in Resources */,
 				D94772FB1A32EEAA00BF9F8B /* ChatSettingViewController.xib in Resources */,
 				C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */,
 				C6BC34931A276396002C19D3 /* cell_accessory_white@2x.png in Resources */,
@@ -3802,7 +3779,6 @@
 				C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */,
 				C63344E21A1C3F5F00A27F86 /* ic_menu_add@2x.png in Resources */,
 				C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */,
-				D9545FF21A22F5CD00688D72 /* navigationbar_background@2x.png in Resources */,
 				D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */,
 				D9386C4F1A31A6600085FC36 /* chat_receiver_audio_playing001@2x.png in Resources */,
 				D9E81E6F1A35EB0F00D3BFD0 /* chatBar_more@2x.png in Resources */,
@@ -3826,15 +3802,14 @@
 				D93696EE1A301898001922F4 /* add_contact@2x.png in Resources */,
 				D90F35EC19F63B3300E26FA9 /* call_out@2x.png in Resources */,
 				D90C63A519FB44D300C2E440 /* chat_location_detail_disclosureHL@2x.png in Resources */,
+				D9CC36B11A372B3400E72A7F /* ic_next_step@2x.png in Resources */,
 				D93696EF1A301898001922F4 /* remove_contact@2x.png in Resources */,
-				D9545FEE1A22F5CD00688D72 /* first_normal@2x.png in Resources */,
 				D90C638B19FB44D300C2E440 /* VoiceSearchFeedback016.png in Resources */,
 				D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */,
 				D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */,
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
 				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
-				D9545FF71A22F5CD00688D72 /* second_selected.png in Resources */,
 				D90C637819FB44D300C2E440 /* VoiceSearchFeedback006@2x.png in Resources */,
 				D90F360619F63B3300E26FA9 /* chatBar_keyboard@2x.png in Resources */,
 				D955E54C19E7A91300047F2B /* sns_icon_qzone@2x.png in Resources */,
@@ -3843,7 +3818,6 @@
 				D90C637B19FB44D300C2E440 /* VoiceSearchFeedback008.png in Resources */,
 				D9DE789F1A027965008A8576 /* ContactListViewController.xib in Resources */,
 				D94772F21A32E16E00BF9F8B /* dx_checkbox_on.png in Resources */,
-				D9545FFF1A22F5CD00688D72 /* third_selected.png in Resources */,
 				D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */,
 				D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */,
 				D9E9F7AD1A00A3C7003F70F6 /* AddContactTableViewController.xib in Resources */,
@@ -3857,16 +3831,16 @@
 				D90F35F319F63B3300E26FA9 /* callBg@2x.png in Resources */,
 				D90C639119FB44D300C2E440 /* VoiceSearchFeedback019.png in Resources */,
 				C60C0D651A297A16006033C9 /* ic_score_app@2x.png in Resources */,
+				D9CC36BB1A3747D300E72A7F /* second_selected@2x.png in Resources */,
 				D90C63A919FB44D300C2E440 /* chat_receiver_audio_playing000@2x.png in Resources */,
 				D9681A0B1A109BF600122793 /* background-gradient@2x.png in Resources */,
-				D9545FFC1A22F5CD00688D72 /* tabbar_selected_background@2x.png in Resources */,
 				D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */,
 				D90C63A219FB44D300C2E440 /* chat_location_detail_disclosure.png in Resources */,
 				D90C638919FB44D300C2E440 /* VoiceSearchFeedback015.png in Resources */,
 				C6BC349D1A28171B002C19D3 /* ic_setting_password@2x.png in Resources */,
-				D9545FF01A22F5CD00688D72 /* first_selected@2x.png in Resources */,
 				D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */,
 				D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */,
+				D9CC36BC1A3747D300E72A7F /* second_normal@2x.png in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
 				D9A19CB31A2F063E00B189CB /* check_selected@2x.png in Resources */,
 				D9386C4A1A31A27F0085FC36 /* cell_accessory_pink_down@2x.png in Resources */,
@@ -3875,7 +3849,6 @@
 				D9E81E6B1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png in Resources */,
 				D90F363019F63B3300E26FA9 /* imageDownloadFail@2x.png in Resources */,
 				D9A19CAD1A2F063E00B189CB /* 声音1.png in Resources */,
-				D9545FF41A22F5CD00688D72 /* navigationbar_background_tall@2x.png in Resources */,
 				D9F57B9519E93486005BB43B /* UMSnsAccountViewController.xib in Resources */,
 				D9B476801A2468D30014136C /* arrow_down@2x.png in Resources */,
 				C6BC348C1A274FEB002C19D3 /* ic_setting_notify@2x.png in Resources */,
@@ -3887,37 +3860,32 @@
 				D9681A171A109C4700122793 /* tutorial_background_01@2x.jpg in Resources */,
 				D90C63A619FB44D300C2E440 /* chat_location_preview.png in Resources */,
 				D9117A6E1A2C1B58000DBFCB /* trip_name_confirm@2x.png in Resources */,
-				D95460001A22F5CD00688D72 /* third_selected@2x.png in Resources */,
 				D90C639E19FB44D300C2E440 /* chatBar_textBg.png in Resources */,
 				D9681A161A109C4700122793 /* tutorial_background_00@2x.jpg in Resources */,
 				C6BC349A1A28171B002C19D3 /* ic_setting_bindphone@2x.png in Resources */,
+				D9CC36BA1A3747D300E72A7F /* third_normal@2x.png in Resources */,
 				D90C639519FB44D300C2E440 /* chat_video_play.png in Resources */,
 				D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */,
 				D90C637519FB44D300C2E440 /* VoiceSearchFeedback005.png in Resources */,
-				D9545FF81A22F5CD00688D72 /* second_selected@2x.png in Resources */,
 				D955E54A19E7A91300047F2B /* sns_icon_qq@2x.png in Resources */,
 				D9386C571A31A6E10085FC36 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D95460081A22FAAB00688D72 /* SpotsListTableViewCell.xib in Resources */,
 				C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
-				D9545FF91A22F5CD00688D72 /* tabbar_normal_background.png in Resources */,
 				C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */,
 				D93696FC1A301C0C001922F4 /* chatBar_more_album@2x.png in Resources */,
 				D90F360419F63B3300E26FA9 /* chatBar_faceSelected@2x.png in Resources */,
 				D90C639B19FB44D300C2E440 /* chatBar_more_face@2x.png in Resources */,
-				D9545FF61A22F5CD00688D72 /* second_normal@2x.png in Resources */,
 				D90F35FD19F63B3300E26FA9 /* faceDelete@2x.png in Resources */,
 				D90C636819FB44D300C2E440 /* chatFire_audioPlaying1@2x.png in Resources */,
 				D90F35F019F63B3300E26FA9 /* call_silence@2x.png in Resources */,
-				D9545FF11A22F5CD00688D72 /* navigationbar_background.png in Resources */,
 				D9681A0A1A109BF600122793 /* background-gradient.png in Resources */,
 				D9681A0C1A109BF600122793 /* button-background.png in Resources */,
 				D9386C5C1A31A7D90085FC36 /* chat_sender_audio_playing_full@2x.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
 				D9386C581A31A6E10085FC36 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
-				D9545FFA1A22F5CD00688D72 /* tabbar_normal_background@2x.png in Resources */,
 				D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */,
 				D96551321A26E64A00928DB0 /* AddHotelTableViewCell.xib in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
@@ -3961,11 +3929,11 @@
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
 				D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */,
 				D93696E51A3002D9001922F4 /* rating_star_gray@2x.png in Resources */,
-				D9545FF31A22F5CD00688D72 /* navigationbar_background_tall.png in Resources */,
 				D93696E41A3002D9001922F4 /* rating_star@2x.png in Resources */,
 				D94772F41A32E3EB00BF9F8B /* dx_checkbox_forbade@2x.png in Resources */,
 				D90C638819FB44D300C2E440 /* VoiceSearchFeedback014@2x.png in Resources */,
 				D982F90E1A04BF4800ECF18A /* FrendRequestTableViewCell.xib in Resources */,
+				D9CC36BE1A3747D300E72A7F /* first_normal@2x.png in Resources */,
 				D9F57B9719E93486005BB43B /* UMSocialSDKResourcesNew.bundle in Resources */,
 				C6BC34811A272DB2002C19D3 /* login_frame_bg@2x.png in Resources */,
 				D97C17D819FE516A00895B62 /* SenderImageNodeBorder@2x.png in Resources */,
@@ -3983,16 +3951,15 @@
 				D90F362919F63B3300E26FA9 /* messageToolbarBg@2x.png in Resources */,
 				D92998181A28B05000795986 /* MyGuidesTableViewCell.xib in Resources */,
 				D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */,
+				D9CC36C21A374B6B00E72A7F /* ic_layer_edit_done.png in Resources */,
 				D90C636919FB44D300C2E440 /* chatFire_audioPlaying2.png in Resources */,
 				C6BC348E1A274FEB002C19D3 /* ic_setting@2x.png in Resources */,
 				D90C637719FB44D300C2E440 /* VoiceSearchFeedback006.png in Resources */,
 				D9E81E7D1A36DD3E00D3BFD0 /* SearchResultTableViewCell.xib in Resources */,
-				D9545FFD1A22F5CD00688D72 /* third_normal.png in Resources */,
 				C63344E91A1C487400A27F86 /* ic_menu_add_friend@2x.png in Resources */,
 				D90C638519FB44D300C2E440 /* VoiceSearchFeedback013.png in Resources */,
 				D95460201A23531200688D72 /* ShoppingListTableViewCell.xib in Resources */,
 				D964201819EBCA3300CC8057 /* SettingTableViewController.xib in Resources */,
-				D9545FFE1A22F5CD00688D72 /* third_normal@2x.png in Resources */,
 				D90F35F219F63B3300E26FA9 /* call_silence_h@2x.png in Resources */,
 				D9386C511A31A6600085FC36 /* chat_receiver_audio_playing003@2x.png in Resources */,
 				D9681A1A1A109C4700122793 /* tutorial_background_04@2x.jpg in Resources */,

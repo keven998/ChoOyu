@@ -10,6 +10,8 @@
 
 @interface DestinationUnit : UIButton
 
+@property (nonatomic, strong) UIButton *indictatorView;
+
 - (id)initWithFrame:(CGRect)frame andName:(NSString *)name;
 - (id)initWithFrame:(CGRect)frame andIcon:(NSString *)icon andName:(NSString *)name;
 

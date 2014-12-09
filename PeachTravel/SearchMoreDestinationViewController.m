@@ -95,7 +95,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, -38, 0);
         
         _tableView.layer.cornerRadius = 2.0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -142,7 +141,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:keyWord forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
-    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageCnt"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
     [SVProgressHUD show];
     

@@ -72,8 +72,6 @@
     
     NSInteger index = 0;
     
-    // Layout items
-    
     for (RDVTabBarItem *item in [self items]) {
         CGFloat itemHeight = [item itemHeight];
         

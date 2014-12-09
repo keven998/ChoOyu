@@ -109,7 +109,6 @@
     } else {
         _scrollView.frame = CGRectMake(0, (self.bounds.size.height - defaultHeight)/2.0, self.bounds.size.width, defaultHeight);
     }
-    _scrollView.backgroundColor = UIColorFromRGB(0xee528c);
     _scrollView.alpha = 0.8;
     _scrollView.scrollEnabled = YES;
     _scrollView.directionalLockEnabled = YES;

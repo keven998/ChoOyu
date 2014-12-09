@@ -72,6 +72,8 @@
  */
 - (void)setHeight:(CGFloat)height;
 
+
+
 /**
  * Returns the minimum height of tab bar's items.
  */

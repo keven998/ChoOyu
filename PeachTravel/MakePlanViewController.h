@@ -15,7 +15,9 @@
 
 @property (nonatomic, strong) DestinationToolBar *destinationToolBar;
 @property (nonatomic, strong) Destinations *destinations;
+@property (nonatomic, strong) UIView *nextView;
 
-
+- (void)hideDestinationBar;
+- (void)showDestinationBar;
 
 @end

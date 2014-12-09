@@ -59,8 +59,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-
+    NSLog(@"***%@", NSStringFromCGSize(self.tableView.contentSize));
 }
 
 - (UITableView *)tableView
@@ -78,6 +77,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [_tableView addGestureRecognizer:_tap];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowHeight-22, 40)];
+        footerView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.tableFooterView = footerView;
     }
     return _tableView;
 }
@@ -225,7 +228,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (self.dataSource.count>0) {
         self.tableView.hidden = NO;
         [self.tableView reloadData];
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width, self.tableView.contentSize.height+30);
+
     } else {
         self.tableView.hidden = YES;
     }

@@ -36,7 +36,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [(TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout setDelegate:self];
     [self loadDomesticDataFromServer];
     if (_destinations.destinationsSelected.count == 0) {
-        [self.makePlanCtl.destinationToolBar setHidden:YES withAnimation:YES];
+        [self.makePlanCtl hideDestinationBar];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
 }
@@ -238,7 +238,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }
     if (!find) {
         if (_destinations.destinationsSelected.count == 0) {
-            [_makePlanCtl.destinationToolBar setHidden:NO withAnimation:YES];
+            [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
         [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];

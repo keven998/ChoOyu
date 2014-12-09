@@ -44,9 +44,8 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     [self.view addSubview:self.tableView];
     
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
-    _editBtn.backgroundColor = APP_THEME_COLOR;
-    _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+    [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editBtn];
 
@@ -174,14 +173,16 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 {
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES];
-        [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
+        _editBtn.backgroundColor = APP_THEME_COLOR;
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
         [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             if (isSuccesss) {
-                [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+                _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+                [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
                 [self.tableView setEditing:NO animated:YES];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
                 [SVProgressHUD showSuccessWithStatus:@"保存成功"];

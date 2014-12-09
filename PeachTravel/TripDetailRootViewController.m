@@ -141,12 +141,30 @@
 
 - (void)customizeTabBarForController
 {
-    UIImage *finishedImage = [UIImage imageNamed:@"tabbar_selected_background"];
-    UIImage *unfinishedImage = [UIImage imageNamed:@"tabbar_normal_background"];
+    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 40);
+    self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 62);
+    self.tabBar.backgroundColor = [UIColor whiteColor];
+    UIView *toolBarViewLeft = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, 40, 62)];
+    toolBarViewLeft.backgroundColor = [UIColor whiteColor];
+    UIView *toolBarViewRight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-40, self.view.frame.size.height-62, 40, 62)];
+    toolBarViewRight.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:toolBarViewLeft];
+    [self.view addSubview:toolBarViewRight];
+    
+    UIImage *finishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+
     NSArray *tabBarItemImages = @[@"first", @"second", @"third"];
     
     NSInteger index = 0;
     for (RDVTabBarItem *item in [[self tabBar] items]) {
+        [item setTitle:@"线路日程"];
+        item.titlePositionAdjustment = UIOffsetMake(0, 6);
+        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
+        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : UIColorFromRGB(0x797979)};
+
+        item.itemHeight = 62.0;
+
         [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                       [tabBarItemImages objectAtIndex:index]]];

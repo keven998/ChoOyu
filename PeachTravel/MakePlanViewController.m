@@ -52,17 +52,39 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
     [self.view addSubview:self.destinationToolBar];
+    [self.view addSubview:self.nextView];
     
 }
 
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
-        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50) andNextBtnTitle:@"下一步"];
-        [_destinationToolBar.nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49, self.view.bounds.size.width-62.5, 49) andNextBtnTitle:nil];
+
+        _destinationToolBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
         _destinationToolBar.delegate = self;
     }
     return _destinationToolBar;
+}
+
+- (UIView *)nextView
+{
+    if (!_nextView) {
+        _nextView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-62.5, self.view.bounds.size.height-76, 62.5, 76)];
+
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 27, 62.5, 49)];
+        imageView.image = [UIImage imageNamed:@"ic_next_step.png"];
+        UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
+        nextBtn.layer.cornerRadius = 27.0;
+        nextBtn.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
+        [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
+        [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
+        [_nextView addSubview:imageView];
+        [_nextView addSubview:nextBtn];
+    }
+    return _nextView;
 }
 
 - (IBAction)beginSearch:(id)sender
@@ -104,6 +126,29 @@
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
+- (void)hideDestinationBar
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.nextView.alpha = 0.2;
+        self.destinationToolBar.alpha = 0.2;
+    } completion:^(BOOL finished) {
+        self.nextView.alpha = 0;
+        self.destinationToolBar.alpha = 0;
+    }];
+}
+
+- (void)showDestinationBar
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.nextView.alpha = 0.8;
+        self.destinationToolBar.alpha = 0.8;
+    } completion:^(BOOL finished) {
+        self.nextView.alpha = 1;
+        self.destinationToolBar.alpha = 1;
+    }];
+}
+
+
 #pragma mark - DestinationToolBarDelegate
 
 - (void)removeUintCell:(NSInteger)index
@@ -112,7 +157,7 @@
     [_destinations.destinationsSelected removeObjectAtIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:updateDestinationsSelectedNoti object:nil userInfo:@{@"city":city}];
     if (_destinations.destinationsSelected.count == 0) {
-        [_destinationToolBar setHidden:YES withAnimation:YES];
+        [self hideDestinationBar];
     }
 }
 
@@ -132,6 +177,7 @@
 {
     return nil;
 }
+
 
 @end
 

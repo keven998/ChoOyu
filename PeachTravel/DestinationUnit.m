@@ -27,7 +27,12 @@
         [self setTitle:name forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont systemFontOfSize:16.0];
+        
+        _indictatorView = [[UIButton alloc] initWithFrame:CGRectMake(tempFrame.size.width-20, 0, 20, 30)];
+        [_indictatorView setImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+        _indictatorView.userInteractionEnabled = NO;
     }
+    
    
     return self;
 }
