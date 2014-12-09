@@ -109,12 +109,18 @@
 }
 
 - (IBAction)confirmSend:(UIButton *)sender {
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
-    chatCtl.title = _chatTitle;
-    [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
-    
-    NSLog(@"%@", [self dataToSend]);
-    [_delegate sendSuccess:chatCtl];
+    if (_chatCtl) {
+        [_chatCtl sendTaoziMessage:[self dataToSend]];
+        [_delegate sendSuccess:nil];
+
+    } else {
+        
+        ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
+        temtChatCtl.title = _chatTitle;
+        [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
+        
+        [_delegate sendSuccess:temtChatCtl];
+    }
 }
 
 - (IBAction)cancel:(UIButton *)sender {

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MineTableViewController : UITableViewController
+@interface MineTableViewController :TZTableViewController
 
 @end

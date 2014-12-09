@@ -219,57 +219,6 @@
     }];
 }
 
-/**
-*  使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
- *
- *  @param userName
- *  @param password
- */
-/*
-- (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:accountManager.account.easemobUser
-                                                        password:accountManager.account.easemobPwd
-                                                      completion:
-     ^(NSDictionary *loginInfo, EMError *error) {
-         NSLog(@"%@", loginInfo);
-         [self hideHud];
-         if (loginInfo && !error) {
-             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-             AccountManager *accountManager = [AccountManager shareAccountManager];
-             [accountManager easeMobDidLogin];
-             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-             
-             EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
-             options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
-             [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
-             
-             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
-             
-         }else {
-             
-             [accountManager easeMobUnlogin];
-
-             switch (error.errorCode) {
-                 case EMErrorServerNotReachable:
-                     [SVProgressHUD showErrorWithStatus:(@"连接服务器失败!")];
-                     break;
-                 case EMErrorServerAuthenticationFailure:
-                     [SVProgressHUD showErrorWithStatus:(@"用户名或密码错误!")];
-                     break;
-                 case EMErrorServerTimeout:
-                     [SVProgressHUD showErrorWithStatus:(@"连接服务器超时!")];
-                     break;
-                 default:
-                     [SVProgressHUD showErrorWithStatus:(@"登录失败!")];
-                     break;
-             }
-         }
-     } onQueue:nil];
-}
- */
-
 - (void)userDidRegisted
 {
     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];

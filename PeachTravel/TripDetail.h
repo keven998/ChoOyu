@@ -42,6 +42,7 @@ typedef enum : NSUInteger {
     TripRestaurantPoi,
     TripShoppingPoi,
     TripHotelPoi,
+    tripCityPoi,
     
 } tripPoiType;
 

@@ -300,7 +300,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - TaoziMessageSendDelegate
 
-//用户确定发送景点给朋友
+//用户确定发送poi给朋友
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];

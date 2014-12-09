@@ -185,6 +185,10 @@
     else{
         _isScrollToBottom = YES;
     }
+    if (_isNeedRefresh) {
+        [self loadMoreMessages];
+        _isNeedRefresh = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -1096,6 +1100,7 @@
 
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
+    _isNeedRefresh = YES;
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
     myGuideListTableCtl.chatter = self.chatter;
     myGuideListTableCtl.isGroup = self.isChatGroup;
@@ -1105,21 +1110,23 @@
 
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
+    _isNeedRefresh = YES;
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     [self.navigationController pushViewController:favoriteCtl animated:YES];
 }
 
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
+    _isNeedRefresh = YES;
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    searchCtl.chatCtl = self;
     [self.navigationController pushViewController:searchCtl animated:YES];
 
 }
 
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
-   
-
+    _isNeedRefresh = YES;
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView
@@ -1388,7 +1395,7 @@
 {
     __weak typeof(self) weakSelf = self;
     dispatch_async(_messageQueue, ^{
-        
+    
         NSLog(@"******开始加载聊天记录");
         NSInteger currentCount = [weakSelf.dataSource count];
         EMMessage *latestMessage = [weakSelf.conversation latestMessage];
@@ -1400,7 +1407,6 @@
         }
         
         NSArray *chats = [weakSelf.conversation loadNumbersOfMessages:(currentCount + KPageCount) before:beforeTime];
-        
         if ([chats count] > currentCount) {
             weakSelf.dataSource.array = [weakSelf sortChatSource:chats];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1409,6 +1415,8 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             });
+        } else {
+            NSLog(@"******不需要加载聊天记录");
         }
     });
 }

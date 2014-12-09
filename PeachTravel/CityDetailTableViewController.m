@@ -28,6 +28,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
+    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"]];
+    self.navigationItem.leftBarButtonItem = backBtn;
+
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     [self loadCityData];
 }

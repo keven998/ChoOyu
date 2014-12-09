@@ -86,6 +86,9 @@
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES           (BASE_URL @"misc/cover-stories")  //获得封面故事接口
 #define API_POST_PHOTOIMAGE             (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
+#define API_SEARCH                      (BASE_URL @"search")  //获得封面故事接口
+
+
 
 
 
@@ -103,7 +106,7 @@
 #define regectLoadAddressBookNoti       @ "regectLoadAddressBook"       //用户拒绝读取通讯录
 #define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
 #define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
-#define updateDestinationsSelectedNoti      @ "updatecontactList"           //更新好友请求列表
+#define updateDestinationsSelectedNoti   @ "updatecontactList"           //更新好友请求列表
 
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {
@@ -191,6 +194,8 @@ typedef enum : NSUInteger {
 
 
 #define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
+#define kWindowHeight  [UIApplication sharedApplication].keyWindow.frame.size.height
+
 
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]

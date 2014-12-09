@@ -15,7 +15,7 @@
 
 @end
 
-@interface AddPoiTableViewController : UITableViewController
+@interface AddPoiTableViewController :TZTableViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic) NSUInteger currentDayIndex;    //标识添加到哪一天

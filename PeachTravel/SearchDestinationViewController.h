@@ -7,7 +7,10 @@
 //
 
 #import "TZViewController.h"
+#import "ChatViewController.h"
 
 @interface SearchDestinationViewController : TZViewController
+
+@property (nonatomic, weak)ChatViewController *chatCtl;
 
 @end

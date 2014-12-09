@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FrendRequestTableViewController : UITableViewController
+@interface FrendRequestTableViewController :TZTableViewController
 
 @end

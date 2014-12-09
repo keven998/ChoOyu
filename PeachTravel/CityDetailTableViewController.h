@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CityDetailTableViewController : UITableViewController
+@interface CityDetailTableViewController :TZTableViewController
 
 @property (nonatomic, strong) NSString *cityId;
 

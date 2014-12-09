@@ -16,4 +16,10 @@
 
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
 
+/**
+ *  发送桃子旅行消息
+ *
+ *  @param taoziMsg 桃子旅行
+ */
+- (void)sendTaoziMessage:(NSDictionary *)taoziMsg;
 @end

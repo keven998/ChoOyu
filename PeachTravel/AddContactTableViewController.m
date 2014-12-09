@@ -156,7 +156,6 @@
         cell.textLabel.text = @"cell";
         return cell;
     } else {
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell forIndexPath:indexPath];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];

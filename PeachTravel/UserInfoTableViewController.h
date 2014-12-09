@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserInfoTableViewController : UITableViewController
+@interface UserInfoTableViewController :TZTableViewController
 
 @end

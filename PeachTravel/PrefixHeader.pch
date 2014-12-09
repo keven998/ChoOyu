@@ -27,6 +27,7 @@
 #import "NSMutableDictionary+MyDictionary.h"
 #import "UIViewController+CWPopup.h"
 #import "TZViewController.h"
+#import "TZTableViewController.h"
 
 #endif
 

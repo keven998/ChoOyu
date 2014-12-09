@@ -1,31 +1,22 @@
 //
-//  TZViewController.m
+//  SearchMoreDestinationViewController.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 12/5/14.
+//  Created by liangpengshuai on 12/9/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "TZViewController.h"
+#import "SearchMoreDestinationViewController.h"
 
-@interface TZViewController ()
+@interface SearchMoreDestinationViewController ()
 
 @end
 
-@implementation TZViewController
+@implementation SearchMoreDestinationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = YES;
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
-    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"]];
-    self.navigationItem.leftBarButtonItem = backBtn;
-
-}
-
-- (void)goBackToAllPets
-{
-    [self.navigationController popViewControllerAnimated:YES];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

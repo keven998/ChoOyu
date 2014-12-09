@@ -18,6 +18,9 @@
 @end
 
 @interface TaoziChatMessageBaseViewController : TZViewController
+
+@property (nonatomic, weak) ChatViewController *chatCtl;
+
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
