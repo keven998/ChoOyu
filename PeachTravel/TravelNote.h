@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *travelNoteId;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *summary;
 @property (nonatomic, copy) NSString *cover;
 @property (nonatomic, copy) NSString *authorName;
 @property (nonatomic, copy) NSString *authorAvatar;

@@ -26,17 +26,22 @@
             [tempArray addObject:image];
         }
         _images = tempArray;
-        _timeCost = [[json objectForKey:@"timeCost"] doubleValue];
+        _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _imageCount = [[json objectForKey:@"imageCount"] integerValue];
-        NSMutableArray *tempTravelNotes = [[NSMutableArray alloc] init];
-        for (id travelNoteJson in [json objectForKey:@"travelNote"]) {
-            TravelNote *travelNote = [[TravelNote alloc] initWithJson:travelNoteJson];
-            [tempTravelNotes addObject:travelNote];
-        }
-        _travelNotes = tempTravelNotes;
+        
     }
     return self;
+}
+
+- (void)setTravelNotes:(NSArray *)travelNotes
+{
+    NSMutableArray *tempTravelNotes = [[NSMutableArray alloc] init];
+    for (id travelNoteJson in travelNotes) {
+        TravelNote *travelNote = [[TravelNote alloc] initWithJson:travelNoteJson];
+        [tempTravelNotes addObject:travelNote];
+    }
+    _travelNotes = tempTravelNotes;
 }
 
 @end

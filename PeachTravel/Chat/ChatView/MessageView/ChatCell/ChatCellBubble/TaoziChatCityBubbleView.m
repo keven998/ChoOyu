@@ -43,16 +43,16 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
 {
     [super layoutSubviews];
     
-    [_titleLabel setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 0, TaoziCityBubbleWidth-16-BUBBLE_ARROW_WIDTH, TaoziCityTitleBubbleHeight)];
-    [_titleImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth+BUBBLE_ARROW_WIDTH, TaoziCityTitleBubbleHeight)];
+    [_titleLabel setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 0, TaoziCityBubbleWidth-16-2*BUBBLE_ARROW_WIDTH, TaoziCityTitleBubbleHeight)];
+    [_titleImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth, TaoziCityTitleBubbleHeight)];
 
     if (self.model.isSender) {
         
-        [_coverImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth, TaoziCityBubbleHeight)];
+        [_coverImageView setFrame:CGRectMake(0, 0, TaoziCityBubbleWidth-BUBBLE_ARROW_WIDTH, TaoziCityBubbleHeight)];
         _titleLabel.textAlignment = NSTextAlignmentRight;
         _titleImageView.image = [[UIImage imageNamed:@"message_taozi_city_send.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];
     } else {
-        [_coverImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH, 0, TaoziCityBubbleWidth, TaoziCityBubbleHeight)];
+        [_coverImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH, 0, TaoziCityBubbleWidth-BUBBLE_ARROW_WIDTH, TaoziCityBubbleHeight)];
 
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleImageView.image = [[UIImage imageNamed:@"message_taozi_city_receive.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:5];

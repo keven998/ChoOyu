@@ -65,6 +65,8 @@
             
         case TZChatTypeCity:
             _headerLabel.text = @"  城市";
+            [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
+            _descLabel.text = _messageDesc;
             
             
         default:

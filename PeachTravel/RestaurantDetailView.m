@@ -124,8 +124,8 @@ static NSString *commentCellIdentifier = @"commentCell";
     oy += 30;
 
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 40)];
-    _descView.font = [UIFont systemFontOfSize:15.0];
-    _descView.textColor = [UIColor grayColor];
+    _descView.contentFont = [UIFont systemFontOfSize:15.0];
+    _descView.contentColor = [UIColor grayColor];
     _descView.content = _restaurantPoi.desc;
 
     [_headerView addSubview:_descView];

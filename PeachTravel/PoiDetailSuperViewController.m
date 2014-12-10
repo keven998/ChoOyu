@@ -118,7 +118,7 @@
     if (isFavorite) {
         [params setObject:type forKey:@"type"];
         
-        [manager PUT:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager POST:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {

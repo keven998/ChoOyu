@@ -29,6 +29,18 @@
     [self setTitleColor:contentColor forState:UIControlStateNormal];
 }
 
+- (void)setNumberOfLine:(NSUInteger)numberOfLine
+{
+    _numberOfLine = numberOfLine;
+    self.titleLabel.numberOfLines = _numberOfLine;
+}
+
+- (void)setContentFont:(UIFont *)contentFont
+{
+    _contentFont = contentFont;
+    self.titleLabel.font = _contentFont;
+}
+
 - (NSInteger)maxNumberOfLine
 {
     CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
@@ -58,7 +70,7 @@
         _resizeHeight = self.frame.size.height - _resetFrame.size.height;
     } else {
         self.alpha = 0.6;
-        self.titleLabel.numberOfLines = 2;
+        self.titleLabel.numberOfLines = _numberOfLine;
         [UIView animateWithDuration:0.3 animations:^{
             [self setFrame:_resetFrame];
             self.alpha = 1;

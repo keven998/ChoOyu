@@ -18,13 +18,15 @@
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
 @property (nonatomic, copy) NSString *desc;
-@property (nonatomic) double timeCost;
+@property (nonatomic, copy) NSString *timeCostDesc;
 @property (nonatomic, copy) NSString *travelMonth;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
 @property (nonatomic, strong) RestaurantsOfCity *restaurants;
 @property (nonatomic, strong) ShoppingOfCity *shopping;
+
+@property (nonatomic) BOOL isMyFavorite;
 
 - (id)initWithJson:(id)json;
 

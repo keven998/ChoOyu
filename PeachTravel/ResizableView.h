@@ -12,7 +12,9 @@
 
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic) CGFloat resizeHeight;
-@property (nonatomic) UIColor *contentColor;
+@property (nonatomic, strong) UIColor *contentColor;
+@property (nonatomic, strong) UIFont *contentFont;
+@property (nonatomic) NSUInteger numberOfLine;
 
 - (void)showMoreContent;
 

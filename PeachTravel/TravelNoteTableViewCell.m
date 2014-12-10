@@ -23,6 +23,10 @@
 @implementation TravelNoteTableViewCell
 
 - (void)awakeFromNib {
+    _authorImageView.layer.cornerRadius = 15.0;
+    _authorImageView.clipsToBounds = YES;
+    _travelNoteImageView.layer.cornerRadius = 3.0;
+    _travelNoteImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -62,7 +66,7 @@
 - (void)setResource:(NSString *)resource
 {
     _resource = resource;
-    _resourceLabel.text = _resource;
+    _resourceLabel.text = [NSString stringWithFormat:@"from %@", _resource];
 }
 
 - (void)setTime:(NSString *)time

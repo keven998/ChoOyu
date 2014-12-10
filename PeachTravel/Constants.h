@@ -63,6 +63,8 @@
 #define API_FAVORITE                            (BASE_URL @"misc/favorites")       //收藏
 #define API_UNFAVORITE                          (BASE_URL @"misc/favorites")      //取消收藏
 
+#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"misc/notes/search")      //搜索游记
+
 
 //用户相关接口
 #define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")
@@ -85,7 +87,7 @@
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES           (BASE_URL @"misc/cover-stories")  //获得封面故事接口
 #define API_POST_PHOTOIMAGE             (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
-#define API_SEARCH                      (BASE_URL @"search")  //获得封面故事接口
+#define API_SEARCH                      (BASE_URL @"search")  //联合搜索
 
 
 
