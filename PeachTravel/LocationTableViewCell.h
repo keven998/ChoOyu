@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *telephoneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;
 @property (copy, nonatomic) NSString *address;
+@property (weak, nonatomic) IBOutlet UIButton *navigationBtn;
 
 @end

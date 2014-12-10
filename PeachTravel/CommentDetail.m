@@ -16,7 +16,13 @@
         _nickName = [json objectForKey:@"nickName"];
         _avatar = [json objectForKey:@"avatar"];
         _commentDetails = [json objectForKey:@"commentDetails"];
-        _commentTime = [json objectForKey:@"commentTime"];
+        _commentTime = [ConvertMethods timeIntervalToString:([[json objectForKey:@"commentTime"] longLongValue]/1000) withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+        
+        if ([json objectForKey:@"rating"] == [NSNull null]) {
+            _rating = 3.5;
+        } else {
+            _rating = [[json objectForKey:@"rating"] floatValue];
+        }
     }
     return self;
 }

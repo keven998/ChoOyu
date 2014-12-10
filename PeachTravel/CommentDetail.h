@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *nickName;
+@property (nonatomic) CGFloat rating;
 @property (nonatomic, copy) NSString *commentDetails;
 @property (nonatomic, copy) NSString *commentTime;
 

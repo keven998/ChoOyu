@@ -19,13 +19,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     [self loadData];
 }
 
 - (void)updateView
 {
-    RestaurantDetailView *restaurantView = [[RestaurantDetailView alloc] initWithFrame:CGRectMake(8, 0, self.view.bounds.size.width-16, self.view.bounds.size.height)];
+    self.navigationItem.title = _restaurantPoi.zhName;
+    RestaurantDetailView *restaurantView = [[RestaurantDetailView alloc] initWithFrame:CGRectMake(11, 74, self.view.bounds.size.width-22, self.view.bounds.size.height-74)];
     restaurantView.restaurantPoi = self.restaurantPoi;
     [self.view addSubview:restaurantView];
 }
@@ -42,7 +44,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@53b0599710114e05dc63b5a2", API_GET_RESTAURANT_DETAIL];
+    NSString *url = [NSString stringWithFormat:@"%@53b05a1210114e05e448131d", API_GET_RESTAURANT_DETAIL];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取美食详情数据****\n%@", responseObject);

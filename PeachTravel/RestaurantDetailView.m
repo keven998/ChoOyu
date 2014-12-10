@@ -11,6 +11,7 @@
 #import "LocationTableViewCell.h"
 #import "RecommendsTableViewCell.h"
 #import "CommentTableViewCell.h"
+#import "AXRatingView.h"
 
 @interface RestaurantDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -22,7 +23,7 @@
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) ResizableView *descView;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
-@property (nonatomic, strong) UIButton *scoreBtn;
+@property (nonatomic, strong) AXRatingView *ratingView;
 @property (nonatomic, strong) UIButton *priceBtn;
 
 
@@ -42,7 +43,7 @@ static NSString *commentCellIdentifier = @"commentCell";
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = UIColorFromRGB(0xf4f4f4);
+        self.backgroundColor = APP_PAGE_COLOR;
     }
     return self;
 }
@@ -62,11 +63,12 @@ static NSString *commentCellIdentifier = @"commentCell";
     CGFloat oy = 0;
     CGFloat width = self.frame.size.width;
     
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 10+64, width, 380)];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 283)];
     _headerView.backgroundColor = [UIColor whiteColor];
     _headerView.layer.cornerRadius = 2.0;
+    _headerView.clipsToBounds = YES;
     
-    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 176.0)];
+    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 130.0)];
     gallery.pagingEnabled = YES;
     gallery.showsHorizontalScrollIndicator = NO;
     gallery.showsVerticalScrollIndicator = NO;
@@ -88,58 +90,72 @@ static NSString *commentCellIdentifier = @"commentCell";
     if (count > 1) {
         [self loadScrollViewWithPage:1];
     }
-    oy += 180;
+    oy += 140;
 
-    UIButton *decorationView = [[UIButton alloc] initWithFrame:CGRectMake((width-30)/2, oy, 30, 30)];
-    decorationView.layer.cornerRadius = 15.0;
-    decorationView.backgroundColor = UIColorFromRGB(0xee528c);
+    UIButton *decorationView = [[UIButton alloc] initWithFrame:CGRectMake((width-30)/2, oy, 20, 20)];
+    [decorationView setImage:[UIImage imageNamed:@"ic_decoration.png"] forState:UIControlStateNormal];
     [_headerView addSubview:decorationView];
-    oy += 35;
+    oy += 30;
     
-    _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 30)];
+    _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 20)];
     [_titleBtn setTitle:_restaurantPoi.zhName forState:UIControlStateNormal];
-    [_titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_titleBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-    _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
     _titleBtn.userInteractionEnabled = NO;
     [_headerView addSubview:_titleBtn];
     
-    oy += 35;
+    oy += 30;
     
-    _scoreBtn = [[UIButton alloc] initWithFrame:CGRectMake((width-100)/2, oy, 100, 20)];
-    _scoreBtn.backgroundColor = UIColorFromRGB(0xee528c);
-    _scoreBtn.userInteractionEnabled = NO;
-    [_headerView addSubview:_scoreBtn];
+    _ratingView = [[AXRatingView alloc] initWithFrame:CGRectMake((width-40)/2, oy, 40
+                                                                 , 15)];
+    _ratingView.userInteractionEnabled = NO;
+    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    [_ratingView sizeToFit];
+    _ratingView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_ratingView setValue:_restaurantPoi.rating];
+    [_headerView addSubview:_ratingView];
     
-    oy += 25;
+    oy += 10;
     
-    _priceBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 30)];
+    _priceBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 20)];
     [_priceBtn setTitle:_restaurantPoi.priceDesc forState:UIControlStateNormal];
-    [_priceBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+    [_priceBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_priceBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-    _priceBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    _priceBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     _priceBtn.userInteractionEnabled = NO;
     [_headerView addSubview:_priceBtn];
     
-    oy += 30;
-
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 40)];
-    _descView.contentFont = [UIFont systemFontOfSize:15.0];
-    _descView.contentColor = [UIColor grayColor];
+    oy += 20;
+    
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 30)];
+    _descView.contentFont = [UIFont systemFontOfSize:12.0];
+    _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _restaurantPoi.desc;
+    _descView.numberOfLine = 2.0;
 
     [_headerView addSubview:_descView];
     
-    oy += 45;
+    oy += 25;
     
-    _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, oy, 20, 10)];
-    [_showMoreDescContentBtn setBackgroundColor:[UIColor grayColor]];
-    [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_headerView addSubview:_showMoreDescContentBtn];
+    _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-30, oy, 20, 20)];
+    [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
     
-    oy += 30;
+    if (_descView.maxNumberOfLine > 2) {
+        [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+        [_headerView addSubview:_showMoreDescContentBtn];
+    }
     
-    UIView *tempHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _headerView.frame.size.width, _headerView.frame.size.height+64+10)];
+    if (_descView.maxNumberOfLine == 1) {
+        oy += 10;
+    } else {
+        oy += 25;
+    }
+
+    _headerView.frame = CGRectMake(0, 0, width, oy);
+    
+    
+    UIView *tempHeaderView = [[UIView alloc] initWithFrame:_headerView.frame];
     tempHeaderView.backgroundColor = [UIColor clearColor];
     self.tableHeaderView = tempHeaderView;
     
@@ -205,7 +221,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     if (section == 0) {
         return 0;
     } else {
-        return 40.0;
+        return 43.0;
     }
 }
 
@@ -218,14 +234,17 @@ static NSString *commentCellIdentifier = @"commentCell";
         return addressHeight+60;
     }
     if (indexPath.section == 1) {
-        return 130;
+        return 95;
     }
     if (indexPath.section == 2) {
         NSString *commentDetail = ((CommentDetail *)[_restaurantPoi.comments objectAtIndex:indexPath.row]).commentDetails;
-        CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+        
+        commentDetail = @"sdklfjsdlfjsdds离开家法拉克减肥撒龙卷风快上课了打飞机塞德里克福建师大";
+        
+        CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}];
         NSInteger lineCount = (size.width / (self.frame.size.width-16)) + 1;
         CGFloat commentHeight = lineCount*size.height+10;
-        return commentHeight+80;
+        return commentHeight+60;
     }
     return 0;
 }
@@ -235,18 +254,22 @@ static NSString *commentCellIdentifier = @"commentCell";
     if (section == 0) {
         return nil;
     }
-    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
+    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 43)];
     sectionView.backgroundColor = UIColorFromRGB(0xf5f5f5);
-    UIButton *sectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 9, self.frame.size.width, 30)];
-    [sectionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    UIButton *sectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 9, self.frame.size.width, 33)];
+    [sectionBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     sectionBtn.backgroundColor = [UIColor whiteColor];
     sectionBtn.layer.cornerRadius = 1.0;
+    [sectionBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 9, 0, 0)];
     [sectionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     if (section == 1) {
+        [sectionBtn setImage:[UIImage imageNamed:@"ic_recommend.png"] forState:UIControlStateNormal];
         [sectionBtn setTitle:@"网友推荐" forState:UIControlStateNormal];
     }
     if (section == 2) {
+        [sectionBtn setImage:[UIImage imageNamed:@"ic_comment.png"] forState:UIControlStateNormal];
+
         [sectionBtn setTitle:@"网友点评" forState:UIControlStateNormal];
     }
     [sectionView addSubview:sectionBtn];

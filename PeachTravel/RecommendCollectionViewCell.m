@@ -11,7 +11,9 @@
 @implementation RecommendCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _titleLabel.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    self.layer.cornerRadius = 1.0;
+    self.clipsToBounds = YES;
 }
 
 @end

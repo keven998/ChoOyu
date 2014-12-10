@@ -97,7 +97,7 @@
         self.titleLabel.numberOfLines = 2;
         self.userInteractionEnabled = NO;
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-        [self setContentMode:UIViewContentModeTop];
+        self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     }
     return self;
 }
