@@ -17,4 +17,11 @@
 
 - (void)hideContent;
 
+/**
+ *  全部展开需要的行数
+ *
+ *  @return
+ */
+- (NSInteger)maxNumberOfLine;
+
 @end

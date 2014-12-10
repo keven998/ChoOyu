@@ -78,16 +78,6 @@ static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
     return _tableViewFooterView;
 }
 
-- (DestinationsView *)destinationsHeaderView
-{
-    if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60)];
-#warning 测试数据
-        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
-    }
-    return _destinationsHeaderView;
-}
-
 #pragma makr - IBAction Methods
 
 - (IBAction)addWantTo:(id)sender

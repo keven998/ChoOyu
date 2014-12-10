@@ -94,4 +94,10 @@
     
 }
 
+
+- (void)asyncFavorite:(NSString *)poiId poiType:(NSString *)type isFavorite:(BOOL)isFavorite completion:(void (^)(BOOL))completion
+{
+    
+}
+
 @end

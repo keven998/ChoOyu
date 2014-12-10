@@ -23,6 +23,7 @@
 @property (nonatomic, copy) NSString *trafficInfoUrl;
 @property (nonatomic, copy) NSString *guideUrl;
 @property (nonatomic, copy) NSString *kengdieUrl;
+@property (nonatomic) BOOL isMyFavorite;
 
 @property (nonatomic) long lat;
 @property (nonatomic) long lng;

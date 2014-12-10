@@ -179,13 +179,13 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 //    [self.navigationController pushViewController:cityDetailCtl animated:YES];
 
     
-    /*
     SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
     [self.navigationController pushViewController:spotCtl animated:YES];
-     */
     
+    /*
     RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+     */
     
     /*
     ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];

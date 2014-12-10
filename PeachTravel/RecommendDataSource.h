@@ -18,7 +18,6 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) id json;
 
-@property (nonatomic, strong) NSString *typeId;
 @property (nonatomic, strong) NSString *typeName;
 @property (nonatomic, strong) NSArray *localities;
 

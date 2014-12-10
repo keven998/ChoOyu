@@ -26,6 +26,11 @@
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *taoziImage = [[TaoziImage alloc] initWithJson:imageDic];
             [tempImages addObject:taoziImage];
+            
+#warning 测试数据
+            [tempImages addObject:taoziImage];
+            [tempImages addObject:taoziImage];
+
         }
         _images = tempImages;
         _address = [json objectForKey:@"address"];

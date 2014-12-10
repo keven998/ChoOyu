@@ -25,8 +25,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (strong, nonatomic) UIView *tableViewFooterView;
-@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
-
 
 @end
 
@@ -43,11 +41,28 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"SpotsListTableViewCell" bundle:nil] forCellReuseIdentifier:spotsListReusableIdentifier];
     [self.view addSubview:self.tableView];
     
+    NSLog(@"%@", NSStringFromCGRect(_destinationsHeaderView.frame));
+    
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
     _editBtn.backgroundColor = UIColorFromRGB(0x797979);
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editBtn];
+    if (!_tripDetail) {
+        _editBtn.hidden = YES;
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    for (UIView *subview in self.view.subviews) {
+        if ([subview isEqual:_destinationsHeaderView]) {
+            return;
+        }
+    }
+    NSLog(@"我应该加载目的地列表");
+    [self.view addSubview:_destinationsHeaderView];
 
 }
 
@@ -55,18 +70,21 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
+    if (!_tripDetail) {
+        _editBtn.hidden = YES;
+    } else {
+        _editBtn.hidden = NO;
+    }
     _tripDetail = tripDetail;
     [_tableView reloadData];
-    [self updateDestinationsHeaderView];
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+8, self.view.frame.size.width-16, self.view.frame.size.height-64-48)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+55, self.view.frame.size.width-16, self.view.frame.size.height-64-62-55)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableHeaderView = self.destinationsHeaderView;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
         [_tableView setContentOffset:CGPointMake(0, 60)];
     }
@@ -98,31 +116,6 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         }
     }
     return _tableViewFooterView;
-}
-
-- (DestinationsView *)destinationsHeaderView
-{
-    if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60) andContentOffsetX:20];
-        [self updateDestinationsHeaderView];
-    }
-    return _destinationsHeaderView;
-}
-
-#pragma mark Private Methods
-
-- (void)updateDestinationsHeaderView
-{
-    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        if (poi.zhName) {
-            [destinationsArray addObject:poi.zhName];
-        }
-    }
-    _destinationsHeaderView.destinations = destinationsArray;
-    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
-        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
-    }
 }
 
 #pragma makr - IBAction Methods
@@ -192,19 +185,6 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
            
         }];
     }
-}
-
-/**
- *  点击我的目的地进入城市详情
- *
- *  @param sender
- */
-- (IBAction)viewCityDetail:(UIButton *)sender
-{
-    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
-    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
-    cityDetailCtl.cityId = poi.cityId;
-    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
 #pragma mark - RNGridMenuDelegate

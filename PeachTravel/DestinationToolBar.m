@@ -14,7 +14,7 @@
     CGFloat offsetX;
 }
 
-#define defaultHeight  40      // 每一个unitCell的默认宽度
+#define defaultHeight  40      // 每一个unitCell的默认高度
 #define defaultPace   8       // unitCell之间的间距
 #define duration      0.3     // 动画执行时间
 #define defaultVisibleCount 3 //默认显示的unitCell的个数
@@ -203,10 +203,16 @@
 
 - (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name
 {
+    return [self addUnit:icon withName:name andUnitHeight:defaultHeight];
+   
+}
+
+- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height
+{
     __block DestinationUnit *newUnitCell;
     
     if (icon) {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andIcon:icon andName:name];
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, (self.frame.size.height-height)/2, 0, height) andIcon:icon andName:name];
     } else {
         newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
     }
@@ -223,6 +229,7 @@
     }];
     return newUnitCell;
 }
+
 
 /*
  *  @method

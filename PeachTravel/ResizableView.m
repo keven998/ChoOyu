@@ -23,6 +23,13 @@
     self.text = _content;
 }
 
+- (NSInteger)maxNumberOfLine
+{
+    CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.font}];
+    NSInteger lineCount = (size.width / self.frame.size.width) + 1;
+    return lineCount;
+}
+
 - (void)setShouldShowMoreContent:(BOOL)shouldShowMoreContent
 {
     _shouldShowMoreContent = shouldShowMoreContent;

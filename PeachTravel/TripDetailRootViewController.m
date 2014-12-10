@@ -13,12 +13,19 @@
 #import "ShoppingListViewController.h"
 #import "CityDestinationPoi.h"
 #import "AccountManager.h"
+#import "DestinationsView.h"
+#import "DestinationUnit.h"
+#import "CityDetailTableViewController.h"
 
 @interface TripDetailRootViewController ()
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
+/**
+ *  目的地titile 列表，三个界面共享
+ */
+@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
 
 @end
@@ -74,7 +81,17 @@
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
     }];
+}
 
+- (DestinationsView *)destinationsHeaderView
+{
+    if (!_destinationsHeaderView) {
+        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:80];
+#warning 测试数据
+        _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
+        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
+    }
+    return _destinationsHeaderView;
 }
 
 /**
@@ -101,6 +118,7 @@
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
+            [self updateDestinationsHeaderView];
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
@@ -111,7 +129,39 @@
     }];
 }
 
+/**
+ *  更新三账单的目的地标题
+ */
+- (void)updateDestinationsHeaderView
+{
+    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        if (poi.zhName) {
+            [destinationsArray addObject:poi.zhName];
+        }
+    }
+    _destinationsHeaderView.destinations = destinationsArray;
+    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
+        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
 
+/**
+ *  点击我的目的地进入城市详情
+ *
+ *  @param sender
+ */
+- (IBAction)viewCityDetail:(UIButton *)sender
+{
+    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = poi.cityId;
+    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+}
+
+/**
+ *  更新三账单的路线数据
+ */
 - (void)reloadTripData
 {
     _spotsListCtl.tripDetail = _tripDetail;
@@ -124,11 +174,13 @@
     UIViewController *firstNavigationController = [[UINavigationController alloc]
                                                    initWithRootViewController:_spotsListCtl];
     _spotsListCtl.rootViewController = self;
+    _spotsListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     UIViewController *secondNavigationController = [[UINavigationController alloc]
                                                     initWithRootViewController:_restaurantListCtl];
     _restaurantListCtl.rootViewController = self;
+    _restaurantListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
     UIViewController *thirdNavigationController = [[UINavigationController alloc]
@@ -141,12 +193,12 @@
 
 - (void)customizeTabBarForController
 {
-    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 40);
+    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 60, 0, 60);
     self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 62);
     self.tabBar.backgroundColor = [UIColor whiteColor];
-    UIView *toolBarViewLeft = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, 40, 62)];
+    UIView *toolBarViewLeft = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, 60, 62)];
     toolBarViewLeft.backgroundColor = [UIColor whiteColor];
-    UIView *toolBarViewRight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-40, self.view.frame.size.height-62, 40, 62)];
+    UIView *toolBarViewRight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-62, 60, 62)];
     toolBarViewRight.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolBarViewLeft];
     [self.view addSubview:toolBarViewRight];
@@ -155,10 +207,11 @@
     UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
 
     NSArray *tabBarItemImages = @[@"first", @"second", @"third"];
+    NSArray *tabBarItemTitles = @[@"线路日程", @"美食清单", @"爱购清单"];
     
     NSInteger index = 0;
     for (RDVTabBarItem *item in [[self tabBar] items]) {
-        [item setTitle:@"线路日程"];
+        [item setTitle:tabBarItemTitles[index]];
         item.titlePositionAdjustment = UIOffsetMake(0, 6);
         item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
         item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : UIColorFromRGB(0x797979)};

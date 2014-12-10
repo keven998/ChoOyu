@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "TripDetailRootViewController.h"
 #import "TripDetail.h"
+#import "DestinationsView.h"
 
 @interface SpotsListViewController : TZViewController
 
 @property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 
 @property (nonatomic, strong) TripDetail *tripDetail;
+
+@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
+
 @end

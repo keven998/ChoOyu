@@ -12,10 +12,9 @@
 
 - (id) initWithJsonData:(id)data {
     if (self = [super init]) {
-        _typeId = [[data objectForKey:@"type"] objectForKey:@"id"];
-        _typeName = [[data objectForKey:@"type"] objectForKey:@"name"];
+        _typeName = [data objectForKey:@"title"];
         NSMutableArray *tempLocalities = [[NSMutableArray alloc] init];
-        for (id locality in [data objectForKey:@"localities"]) {
+        for (id locality in [data objectForKey:@"contents"]) {
             Recommend *recommend = [[Recommend alloc] initWithJsonData:locality];
             [tempLocalities addObject:recommend];
         }

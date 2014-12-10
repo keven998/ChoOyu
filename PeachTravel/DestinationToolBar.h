@@ -28,6 +28,8 @@
 - (void) addNewUnitWithName:(NSString *)name;
 - (void) addNewUnitWithName:(NSString *)name userInteractionEnabled:(BOOL)userInteractionEnabled;
 - (DestinationUnit *) addUnit:(NSString *)icon withName:(NSString *)name;
+- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height;
+
 
 - (void) removeUnitAtIndex:(NSInteger)index;
 

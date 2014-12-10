@@ -21,7 +21,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (strong, nonatomic) UIView *tableViewFooterView;
-@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
 @end
 
@@ -35,7 +34,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
     _editBtn.backgroundColor = UIColorFromRGB(0x797979);
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
@@ -44,6 +42,20 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     [self.view addSubview:_editBtn];
     
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    for (UIView *subview in self.view.subviews) {
+        if ([subview isEqual:_destinationsHeaderView]) {
+            return;
+        }
+    }
+    NSLog(@"我应该加载目的地列表");
+    [self.view addSubview:_destinationsHeaderView];
+    
+}
+
 
 #pragma mark - setter & getter
 
@@ -64,7 +76,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-        _tableView.tableHeaderView = self.destinationsHeaderView;
     }
     return _tableView;
 }
@@ -89,15 +100,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     return _tableViewFooterView;
 }
 
-- (DestinationsView *)destinationsHeaderView
-{
-    if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60)];
-        [self updateDestinationsHeaderView];
 
-    }
-    return _destinationsHeaderView;
-}
 
 #pragma mark Private Methods
 
@@ -109,11 +112,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
             [destinationsArray addObject:poi.zhName];
         }
     }
-    _destinationsHeaderView.destinations = destinationsArray;
-    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
-        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
-    }
-
 }
 
 #pragma makr - IBAction Methods

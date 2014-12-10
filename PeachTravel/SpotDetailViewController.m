@@ -13,6 +13,7 @@
 
 @interface SpotDetailViewController () 
 @property (nonatomic, strong) SpotPoi *spotPoi;
+@property (nonatomic, strong) SpotDetailView *spotDetailView;
 
 @end
 
@@ -25,9 +26,17 @@
 
 - (void)updateView
 {
-    SpotDetailView *spotDetailView = [[SpotDetailView alloc] initWithFrame:self.view.frame];
-    spotDetailView.spot = self.spotPoi;
-    [self.view addSubview:spotDetailView];
+    _spotDetailView = [[SpotDetailView alloc] initWithFrame:self.view.frame];
+    _spotDetailView.spot = self.spotPoi;
+    self.navigationItem.title = self.spotPoi.zhName;
+    [self.view addSubview:_spotDetailView];
+    [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,6 +86,51 @@
     taoziMessageCtl.messageTimeCost = _spotPoi.timeCostStr;
     taoziMessageCtl.descLabel.text = _spotPoi.desc;
     taoziMessageCtl.chatType = TZChatTypeSpot;
+}
+
+- (IBAction)travelGuide:(id)sender
+{
+    
+}
+
+- (IBAction)kengdie:(id)sender
+{
+    
+}
+
+- (IBAction)trafficGuide:(id)sender
+{
+    
+}
+
+- (IBAction)jumpToMapview:(id)sender
+{
+    
+}
+
+- (IBAction)favorite:(id)sender
+{
+    _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
+    [super asyncFavorite:_spotId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
+        _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
+        if (isSuccess) {
+            _spotPoi.isMyFavorite = !_spotPoi.isMyFavorite;
+            if (_spotPoi.isMyFavorite) {
+                [self showHint:@"收藏成功"];
+            } else {
+                [self showHint:@"取消收藏成功"];
+            }
+            NSString *imageName = _spotPoi.isMyFavorite ? @"ic_favorite.png":@"ic_unFavorite.png";
+            [_spotDetailView.favoriteBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        } else {
+            if (_spotPoi.isMyFavorite) {
+                [self showHint:@"取消收藏失败"];
+            } else {
+                [self showHint:@"收藏失败"];
+            }
+        }
+    }];
+    
 }
 
 
