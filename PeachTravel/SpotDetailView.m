@@ -120,8 +120,8 @@
     _spot.desc = @"位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈";
     
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-44, 40)];
-    _descView.font = [UIFont systemFontOfSize:11.0];
-    _descView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _descView.titleLabel.font = [UIFont systemFontOfSize:11.0];
+    _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _spot.desc;
     [_headerView addSubview:_descView];
     
@@ -218,7 +218,7 @@
                                                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
                                                                                             NSForegroundColorAttributeName : APP_THEME_COLOR
                                                                                             }];
-        NSAttributedString *travelMonthTitle = [[NSAttributedString alloc] initWithString:@"最佳月份  "
+        NSAttributedString *travelMonthTitle = [[NSAttributedString alloc] initWithString:@""
                                                                                attributes:@{
                                                                                            NSFontAttributeName : [UIFont systemFontOfSize:11.0],
                                                                                            NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE,
@@ -230,7 +230,7 @@
         [travelStr appendAttributedString:travelMonthDetail];
 
         CGSize size = travelStr.size;
-        NSInteger lineCount = (size.width / (width-80)) + 1;
+        NSInteger lineCount = (size.width / (width-80-50)) + 1;
         CGFloat height = lineCount * 20+20;
         
         _travelMonthBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-40, height)];
@@ -240,10 +240,17 @@
         _travelMonthBtn.layer.borderWidth = 0.5;
         _travelMonthBtn.titleLabel.numberOfLines = lineCount;
         
-        _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 10);
         _travelMonthBtn.frame = CGRectMake(_travelMonthBtn.frame.origin.x, _travelMonthBtn.frame.origin.y, _travelMonthBtn.frame.size.width, height);
         [_travelMonthBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 
+        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _travelMonthBtn.frame.size.height)];
+        [subTitle setTitle:@"最佳月份" forState:UIControlStateNormal];
+        [subTitle setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        subTitle.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [_travelMonthBtn addSubview:subTitle];
+        subTitle.userInteractionEnabled = NO;
+        
         oy += height+10;
         doy += height+10;
     }
@@ -253,7 +260,7 @@
                                                                                              NSFontAttributeName : [UIFont systemFontOfSize:11.0],
                                                                                              NSForegroundColorAttributeName : APP_THEME_COLOR
                                                                                              }];
-        NSAttributedString *opentTimeTitle = [[NSAttributedString alloc] initWithString:@"开放时间  "
+        NSAttributedString *opentTimeTitle = [[NSAttributedString alloc] initWithString:@""
                                                                                attributes:@{
                                                                                             NSFontAttributeName : [UIFont boldSystemFontOfSize:11.0],
                                                                                             NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE,
@@ -266,7 +273,7 @@
         [travelStr appendAttributedString:opentTimeDetail];
         
         CGSize size = travelStr.size;
-        NSInteger lineCount = (size.width / (width-80)) + 1;
+        NSInteger lineCount = (size.width / (width-80 - 50)) + 1;
         CGFloat height = lineCount * 20+20;
         
         _openTimeBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-40, height)];
@@ -276,9 +283,16 @@
         _openTimeBtn.layer.borderWidth = 0.5;
         
         _openTimeBtn.titleLabel.numberOfLines = lineCount;
-        _openTimeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        _openTimeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 10);
         _openTimeBtn.frame = CGRectMake(_openTimeBtn.frame.origin.x, _openTimeBtn.frame.origin.y, _openTimeBtn.frame.size.width, height);
         [_openTimeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        
+        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _travelMonthBtn.frame.size.height)];
+        [subTitle setTitle:@"开放时间" forState:UIControlStateNormal];
+        [subTitle setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        subTitle.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        subTitle.userInteractionEnabled = NO;
+        [_openTimeBtn addSubview:subTitle];
 
         oy += height+10;
         doy += height+10;
@@ -289,7 +303,7 @@
                                                                                              NSFontAttributeName : [UIFont systemFontOfSize:11.0],
                                                                                              NSForegroundColorAttributeName : APP_THEME_COLOR
                                                                                              }];
-        NSAttributedString *timeCostTitle = [[NSAttributedString alloc] initWithString:@"游玩时间  "
+        NSAttributedString *timeCostTitle = [[NSAttributedString alloc] initWithString:@""
                                                                                attributes:@{
                                                                                             NSFontAttributeName : [UIFont boldSystemFontOfSize:11.0],
                                                                                             NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE,
@@ -302,7 +316,7 @@
         [travelStr appendAttributedString:timeCostDetail];
         
         CGSize size = travelStr.size;
-        NSInteger lineCount = (size.width / (width-80)) + 1;
+        NSInteger lineCount = (size.width / (width-80-50)) + 1;
         CGFloat height = lineCount * 20+20;
         
         _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-40, height)];
@@ -311,9 +325,16 @@
         _timeCostBtn.layer.borderColor = [UIColor grayColor].CGColor;
         _timeCostBtn.layer.borderWidth = 0.5;
         _timeCostBtn.titleLabel.numberOfLines = lineCount;
-        _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 10);
         _timeCostBtn.frame = CGRectMake(_timeCostBtn.frame.origin.x, _timeCostBtn.frame.origin.y, _timeCostBtn.frame.size.width, height);
         [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _travelMonthBtn.frame.size.height)];
+        [subTitle setTitle:@"参考时长" forState:UIControlStateNormal];
+        [subTitle setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        subTitle.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [_timeCostBtn addSubview:subTitle];
+        subTitle.userInteractionEnabled = NO;
+
         oy += height+10;
         doy += height+10;
     }

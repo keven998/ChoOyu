@@ -77,7 +77,6 @@
 		D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D902AD171A14919800E36A93 /* RecommendDataSource.m */; };
 		D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1C1A149F7200E36A93 /* libGexinSdk-1.0.7.a */; };
 		D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */; };
-		D902ADBF1A15E15E00E36A93 /* CityHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902ADBD1A15E15E00E36A93 /* CityHeaderView.xib */; };
 		D902ADC51A15E58C00E36A93 /* CityDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADC41A15E58C00E36A93 /* CityDetailTableViewController.m */; };
 		D902ADC91A15EC9300E36A93 /* TravelNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */; };
 		D902ADCA1A15EC9300E36A93 /* TravelNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */; };
@@ -674,7 +673,6 @@
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D902ADBB1A15E15E00E36A93 /* CityHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityHeaderView.h; sourceTree = "<group>"; };
 		D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityHeaderView.m; sourceTree = "<group>"; };
-		D902ADBD1A15E15E00E36A93 /* CityHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityHeaderView.xib; sourceTree = "<group>"; };
 		D902ADC31A15E58C00E36A93 /* CityDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailTableViewController.h; sourceTree = "<group>"; };
 		D902ADC41A15E58C00E36A93 /* CityDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailTableViewController.m; sourceTree = "<group>"; };
 		D902ADC61A15EC9300E36A93 /* TravelNoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelNoteTableViewCell.h; sourceTree = "<group>"; };
@@ -2624,7 +2622,6 @@
 			children = (
 				D902ADBB1A15E15E00E36A93 /* CityHeaderView.h */,
 				D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */,
-				D902ADBD1A15E15E00E36A93 /* CityHeaderView.xib */,
 				D902ADC61A15EC9300E36A93 /* TravelNoteTableViewCell.h */,
 				D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */,
 				D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */,
@@ -3949,7 +3946,6 @@
 				D90C638719FB44D300C2E440 /* VoiceSearchFeedback014.png in Resources */,
 				D9B4767F1A2468D30014136C /* arrow_down1@2x.png in Resources */,
 				D9CC36DB1A38179800E72A7F /* ic_unFavorite@2x.png in Resources */,
-				D902ADBF1A15E15E00E36A93 /* CityHeaderView.xib in Resources */,
 				D90F35FC19F63B3300E26FA9 /* faceDelete.png in Resources */,
 				C6BC349B1A28171B002C19D3 /* ic_setting_memo@2x.png in Resources */,
 				D90F35EB19F63B3300E26FA9 /* call_out.png in Resources */,

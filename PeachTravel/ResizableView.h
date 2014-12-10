@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResizableView : UILabel
+@interface ResizableView : UIButton
 
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic) CGFloat resizeHeight;
+@property (nonatomic) UIColor *contentColor;
 
 - (void)showMoreContent;
 

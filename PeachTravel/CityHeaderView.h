@@ -7,19 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CityPoi.h"
 
 @interface CityHeaderView : UIView
 
-@property (nonatomic, copy) NSString *cityImage;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *desc;
-@property (nonatomic) double timeCost;
-@property (nonatomic, copy) NSString *travelMonth;
+@property (nonatomic, strong) UIButton *favoriteBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *shoppingBtn;
-@property (weak, nonatomic) IBOutlet UIButton *restaurantBtn;
-@property (weak, nonatomic) IBOutlet UIButton *spotBtn;
+- (CGFloat)headerViewHightWithCityData:(CityPoi *)poi;
 
-+(CityHeaderView *)instanceHeaderView;
 
 @end

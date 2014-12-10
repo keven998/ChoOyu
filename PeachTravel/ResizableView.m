@@ -20,12 +20,18 @@
 - (void)setContent:(NSString *)content
 {
     _content = content;
-    self.text = _content;
+    [self setTitle:_content forState:UIControlStateNormal];
+}
+
+- (void)setContentColor:(UIColor *)contentColor
+{
+    _contentColor = contentColor;
+    [self setTitleColor:contentColor forState:UIControlStateNormal];
 }
 
 - (NSInteger)maxNumberOfLine
 {
-    CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.font}];
+    CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
     NSInteger lineCount = (size.width / self.frame.size.width) + 1;
     return lineCount;
 }
@@ -39,9 +45,9 @@
 - (void)updateView
 {
     if (_shouldShowMoreContent) {
-        CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.font}];
+        CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
         NSInteger lineCount = (size.width / self.frame.size.width) + 1;
-        self.numberOfLines = lineCount;
+        self.titleLabel.numberOfLines = lineCount;
         self.alpha = 0.6;
         [UIView animateWithDuration:0.3 animations:^{
             CGFloat height = size.height * lineCount;
@@ -52,7 +58,7 @@
         _resizeHeight = self.frame.size.height - _resetFrame.size.height;
     } else {
         self.alpha = 0.6;
-        self.numberOfLines = 2;
+        self.titleLabel.numberOfLines = 2;
         [UIView animateWithDuration:0.3 animations:^{
             [self setFrame:_resetFrame];
             self.alpha = 1;
@@ -76,7 +82,10 @@
     if (self) {
         _resetFrame = frame;
         self.layer.cornerRadius = 2.0;
-        self.numberOfLines = 2;
+        self.titleLabel.numberOfLines = 2;
+        self.userInteractionEnabled = NO;
+        self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+        [self setContentMode:UIViewContentModeTop];
     }
     return self;
 }
