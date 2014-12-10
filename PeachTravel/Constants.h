@@ -60,9 +60,8 @@
 
 #define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")    //获取我的收藏列表
 
-
-
-
+#define API_FAVORITE                            (BASE_URL @"misc/favorites")       //收藏
+#define API_UNFAVORITE                          (BASE_URL @"misc/favorites")      //取消收藏
 
 
 //用户相关接口

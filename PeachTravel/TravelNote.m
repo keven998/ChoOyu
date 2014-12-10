@@ -21,7 +21,9 @@
         _authorAvatar = [json objectForKey:@"authorAvatar"];
         _source = [json objectForKey:@"source"];
         _sourceUrl = [json objectForKey:@"sourceUrl"];
-        _publishDate = [json objectForKey:@"publishDate"];
+        if ([json objectForKey:@"publishDate"] != [NSNull null]) {
+            _publishDateStr = [ConvertMethods timeIntervalToString:([[json objectForKey:@"publishDate"] longLongValue]/1000) withFormat:@"yyyt-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+        }
     }
     return self;
 }

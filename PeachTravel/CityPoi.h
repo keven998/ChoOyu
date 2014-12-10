@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic) double timeCost;
 @property (nonatomic, copy) NSString *travelMonth;
-@property (nonatomic, copy) NSString *cover;
+@property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
 @property (nonatomic, strong) RestaurantsOfCity *restaurants;

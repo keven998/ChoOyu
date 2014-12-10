@@ -171,16 +171,16 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-//    RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
-//    Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
-//    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
-//    cityDetailCtl.cityId = recommend.recommondId;
-//    cityDetailCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+    RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
+    Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = recommend.recommondId;
+    cityDetailCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:cityDetailCtl animated:YES];
 
     
-    SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
-    [self.navigationController pushViewController:spotCtl animated:YES];
+//    SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
+//    [self.navigationController pushViewController:spotCtl animated:YES];
     
     /*
     RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];

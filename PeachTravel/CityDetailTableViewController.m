@@ -29,6 +29,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self loadCityData];
 }
 
@@ -39,7 +40,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityHeaderView = [nibView firstObject];
     _cityHeaderView.frame = CGRectMake(0, 0, self.view.frame.size.width, _cityHeaderView.frame.size.height);
     _cityHeaderView.title = _cityPoi.zhName;
-    _cityHeaderView.cityImage = _cityPoi.cover;
+    TaoziImage *image = [_cityPoi.images firstObject];
+    _cityHeaderView.cityImage = image.imageUrl;
     _cityHeaderView.desc = _cityPoi.desc;
     _cityHeaderView.timeCost = _cityPoi.timeCost;
     _cityHeaderView.travelMonth = _cityPoi.travelMonth;
@@ -59,16 +61,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSString *requsetUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", API_GET_CITYDETAIL];
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@5473ccd7b8ce043a64108c46", API_GET_CITYDETAIL];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"noteCnt"];
     
     [SVProgressHUD show];
-    
-#warning 测试数据
-    [self updateView];
-   
     
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

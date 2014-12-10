@@ -7,6 +7,8 @@
 //
 
 #import "PoiDetailSuperViewController.h"
+#import "AccountManager.h"
+#import "LoginViewController.h"
 
 @interface PoiDetailSuperViewController () <CreateConversationDelegate, TaoziMessageSendDelegate>
 
@@ -24,6 +26,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_rightItemBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
     [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
     [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,7 +100,73 @@
 
 - (void)asyncFavorite:(NSString *)poiId poiType:(NSString *)type isFavorite:(BOOL)isFavorite completion:(void (^)(BOOL))completion
 {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if (!accountManager.isLogin) {
+        [SVProgressHUD showErrorWithStatus:@"请登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        return;
+    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:poiId forKey:@"itemId"];
     
+    if (isFavorite) {
+        [params setObject:type forKey:@"type"];
+        
+        [manager PUT:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@", responseObject);
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                
+                [self showHint:@"收藏成功"];
+                completion(YES);
+            } else {
+                completion(NO);
+                [self showHint:@"收藏失败"];
+               
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completion(NO);
+            [self showHint:@"收藏失败"];
+        }];
+        
+    } else {
+        
+        [manager DELETE:API_UNFAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@", responseObject);
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                [self showHint:@"取消收藏成功"];
+                completion(YES);
+            } else {
+                completion(NO);
+               
+                [self showHint:@"取消收藏失败"];
+                
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completion(NO);
+            [self showHint:@"取消收藏失败"];
+
+        }];
+    }
+   
 }
+
+- (void)login
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    loginViewController.isPushed = NO;
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
 
 @end

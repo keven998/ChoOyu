@@ -17,12 +17,17 @@
         _cityId = [json objectForKey:@"id"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
-        _lat = [[[json objectForKey:@"coords"] objectForKey:@"lat"] doubleValue];
-        _lng = [[[json objectForKey:@"coords"] objectForKey:@"lng"] doubleValue];
+        _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
+        _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         _desc = [json objectForKey:@"desc"];
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (id imageDic in [json objectForKey:@"images"]) {
+            TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
+            [tempArray addObject:image];
+        }
+        _images = tempArray;
         _timeCost = [[json objectForKey:@"timeCost"] doubleValue];
         _travelMonth = [json objectForKey:@"travelMonth"];
-        _cover = [json objectForKey:@"cover"];
         _imageCount = [[json objectForKey:@"imageCount"] integerValue];
         NSMutableArray *tempTravelNotes = [[NSMutableArray alloc] init];
         for (id travelNoteJson in [json objectForKey:@"travelNote"]) {

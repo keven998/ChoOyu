@@ -237,7 +237,7 @@
         _travelMonthBtn.layer.cornerRadius = 4.0;
         [_travelMonthBtn setAttributedTitle:travelStr forState:UIControlStateNormal];
         _travelMonthBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        _travelMonthBtn.layer.borderWidth = 0.8;
+        _travelMonthBtn.layer.borderWidth = 0.5;
         _travelMonthBtn.titleLabel.numberOfLines = lineCount;
         
         _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
@@ -273,7 +273,7 @@
         _openTimeBtn.layer.cornerRadius = 4.0;
         [_openTimeBtn setAttributedTitle:travelStr forState:UIControlStateNormal];
         _openTimeBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        _openTimeBtn.layer.borderWidth = 0.8;
+        _openTimeBtn.layer.borderWidth = 0.5;
         
         _openTimeBtn.titleLabel.numberOfLines = lineCount;
         _openTimeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
@@ -309,7 +309,7 @@
         _timeCostBtn.layer.cornerRadius = 4.0;
         [_timeCostBtn setAttributedTitle:travelStr forState:UIControlStateNormal];
         _timeCostBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        _timeCostBtn.layer.borderWidth = 0.8;
+        _timeCostBtn.layer.borderWidth = 0.5;
         _timeCostBtn.titleLabel.numberOfLines = lineCount;
         _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
         _timeCostBtn.frame = CGRectMake(_timeCostBtn.frame.origin.x, _timeCostBtn.frame.origin.y, _timeCostBtn.frame.size.width, height);

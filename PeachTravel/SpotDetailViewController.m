@@ -111,23 +111,14 @@
 - (IBAction)favorite:(id)sender
 {
     _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_spotId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    [super asyncFavorite:_spotPoi.spotId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
         _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _spotPoi.isMyFavorite = !_spotPoi.isMyFavorite;
-            if (_spotPoi.isMyFavorite) {
-                [self showHint:@"收藏成功"];
-            } else {
-                [self showHint:@"取消收藏成功"];
-            }
             NSString *imageName = _spotPoi.isMyFavorite ? @"ic_favorite.png":@"ic_unFavorite.png";
             [_spotDetailView.favoriteBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         } else {
-            if (_spotPoi.isMyFavorite) {
-                [self showHint:@"取消收藏失败"];
-            } else {
-                [self showHint:@"收藏失败"];
-            }
+           
         }
     }];
     
