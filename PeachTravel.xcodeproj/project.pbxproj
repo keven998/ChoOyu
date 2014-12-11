@@ -330,8 +330,8 @@
 		D95460081A22FAAB00688D72 /* SpotsListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95460061A22FAAB00688D72 /* SpotsListTableViewCell.xib */; };
 		D954600C1A22FF5B00688D72 /* RestaurantsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D954600A1A22FF5B00688D72 /* RestaurantsListViewController.m */; };
 		D95460141A233D6C00688D72 /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460131A233D6C00688D72 /* DKCircleButton.m */; };
-		D95460181A2346D300688D72 /* RestaurantListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460161A2346D300688D72 /* RestaurantListTableViewCell.m */; };
-		D95460191A2346D300688D72 /* RestaurantListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95460171A2346D300688D72 /* RestaurantListTableViewCell.xib */; };
+		D95460181A2346D300688D72 /* CommonPoiListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460161A2346D300688D72 /* CommonPoiListTableViewCell.m */; };
+		D95460191A2346D300688D72 /* CommonPoiListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95460171A2346D300688D72 /* CommonPoiListTableViewCell.xib */; };
 		D954601F1A23531200688D72 /* ShoppingListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D954601B1A23531200688D72 /* ShoppingListTableViewCell.m */; };
 		D95460201A23531200688D72 /* ShoppingListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D954601C1A23531200688D72 /* ShoppingListTableViewCell.xib */; };
 		D95460211A23531200688D72 /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D954601E1A23531200688D72 /* ShoppingListViewController.m */; };
@@ -1029,9 +1029,9 @@
 		D954600A1A22FF5B00688D72 /* RestaurantsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsListViewController.m; sourceTree = "<group>"; };
 		D95460121A233D6C00688D72 /* DKCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCircleButton.h; sourceTree = "<group>"; };
 		D95460131A233D6C00688D72 /* DKCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCircleButton.m; sourceTree = "<group>"; };
-		D95460151A2346D300688D72 /* RestaurantListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantListTableViewCell.h; sourceTree = "<group>"; };
-		D95460161A2346D300688D72 /* RestaurantListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantListTableViewCell.m; sourceTree = "<group>"; };
-		D95460171A2346D300688D72 /* RestaurantListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantListTableViewCell.xib; sourceTree = "<group>"; };
+		D95460151A2346D300688D72 /* CommonPoiListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonPoiListTableViewCell.h; sourceTree = "<group>"; };
+		D95460161A2346D300688D72 /* CommonPoiListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonPoiListTableViewCell.m; sourceTree = "<group>"; };
+		D95460171A2346D300688D72 /* CommonPoiListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonPoiListTableViewCell.xib; sourceTree = "<group>"; };
 		D954601A1A23531200688D72 /* ShoppingListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListTableViewCell.h; sourceTree = "<group>"; };
 		D954601B1A23531200688D72 /* ShoppingListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListTableViewCell.m; sourceTree = "<group>"; };
 		D954601C1A23531200688D72 /* ShoppingListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingListTableViewCell.xib; sourceTree = "<group>"; };
@@ -2257,6 +2257,16 @@
 			name = myGuides;
 			sourceTree = "<group>";
 		};
+		D92A48981A3979CE00B00D91 /* TripListCommon */ = {
+			isa = PBXGroup;
+			children = (
+				D95460151A2346D300688D72 /* CommonPoiListTableViewCell.h */,
+				D95460161A2346D300688D72 /* CommonPoiListTableViewCell.m */,
+				D95460171A2346D300688D72 /* CommonPoiListTableViewCell.xib */,
+			);
+			name = TripListCommon;
+			sourceTree = "<group>";
+		};
 		D93696F01A301B08001922F4 /* createconversation */ = {
 			isa = PBXGroup;
 			children = (
@@ -2396,6 +2406,7 @@
 		D9545FC51A22F23B00688D72 /* TripListDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D92A48981A3979CE00B00D91 /* TripListCommon */,
 				D96550ED1A257B2800928DB0 /* AddPoi */,
 				D9B476521A24259A0014136C /* DestinationsView.h */,
 				D9B476531A24259A0014136C /* DestinationsView.m */,
@@ -2427,9 +2438,6 @@
 			children = (
 				D95460091A22FF5B00688D72 /* RestaurantsListViewController.h */,
 				D954600A1A22FF5B00688D72 /* RestaurantsListViewController.m */,
-				D95460151A2346D300688D72 /* RestaurantListTableViewCell.h */,
-				D95460161A2346D300688D72 /* RestaurantListTableViewCell.m */,
-				D95460171A2346D300688D72 /* RestaurantListTableViewCell.xib */,
 			);
 			name = RestaurantsList;
 			sourceTree = "<group>";
@@ -3910,7 +3918,7 @@
 				D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */,
 				D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */,
 				D9E9F7AD1A00A3C7003F70F6 /* AddContactTableViewController.xib in Resources */,
-				D95460191A2346D300688D72 /* RestaurantListTableViewCell.xib in Resources */,
+				D95460191A2346D300688D72 /* CommonPoiListTableViewCell.xib in Resources */,
 				D90C637F19FB44D300C2E440 /* VoiceSearchFeedback010.png in Resources */,
 				C6BC348F1A274FEB002C19D3 /* ic_share_to_friend@2x.png in Resources */,
 				D90F361219F63B3300E26FA9 /* chatBar_recordSelected@2x.png in Resources */,
@@ -4211,7 +4219,7 @@
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
 				D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */,
-				D95460181A2346D300688D72 /* RestaurantListTableViewCell.m in Sources */,
+				D95460181A2346D300688D72 /* CommonPoiListTableViewCell.m in Sources */,
 				D9B476821A2468D30014136C /* SIMenuButton.m in Sources */,
 				D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */,
 				D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */,

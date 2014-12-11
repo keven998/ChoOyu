@@ -184,6 +184,8 @@
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
     UIViewController *thirdNavigationController = [[UINavigationController alloc]
                                                    initWithRootViewController:_shoppingListCtl];
+    _shoppingListCtl.destinationsHeaderView = self.destinationsHeaderView;
+
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                            thirdNavigationController]];

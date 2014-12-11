@@ -8,7 +8,7 @@
 
 #import "RestaurantsListViewController.h"
 #import "DKCircleButton.h"
-#import "RestaurantListTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
 #import "RestaurantsOfCityViewController.h"
 #import "CityDestinationPoi.h"
@@ -26,7 +26,7 @@
 
 @implementation RestaurantsListViewController
 
-static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
+static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,7 +69,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+55, self.view.frame.size.width-22, self.view.frame.size.height-64 - 62 - 45)];
-        [self.tableView registerNib:[UINib nibWithNibName:@"RestaurantListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
+        [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -224,7 +224,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RestaurantListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
+    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
     cell.isEditing = self.tableView.isEditing;
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
     return cell;

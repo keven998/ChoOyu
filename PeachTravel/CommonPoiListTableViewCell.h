@@ -1,5 +1,5 @@
 //
-//  RestaurantListTableViewCell.h
+//  CommonPoiListTableViewCell.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/24/14.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 
-@interface RestaurantListTableViewCell : UITableViewCell
+@interface CommonPoiListTableViewCell : UITableViewCell
 
 @property (nonatomic) BOOL isEditing;
 

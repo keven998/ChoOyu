@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "RestaurantListTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "AXRatingView.h"
 
-@interface RestaurantListTableViewCell ()
+@interface CommonPoiListTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIView *ratingBackgroundView;
 @property (weak, nonatomic) IBOutlet AXRatingView *ratingView;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation RestaurantListTableViewCell
+@implementation CommonPoiListTableViewCell
 
 - (void)awakeFromNib {
     _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];

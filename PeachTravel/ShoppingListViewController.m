@@ -1,5 +1,5 @@
 //
-//  ShoppingsListViewController.m
+//  ShoppingListViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/24/14.
@@ -8,52 +8,73 @@
 
 #import "ShoppingListViewController.h"
 #import "DKCircleButton.h"
-#import "ShoppingListTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
+#import "ShoppingOfCityViewController.h"
+#import "CityDestinationPoi.h"
+#import "DestinationUnit.h"
+#import "CityDetailTableViewController.h"
+#import "ShoppingDetailViewController.h"
 
 @interface ShoppingListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (strong, nonatomic) UIView *tableViewFooterView;
-@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
-
 
 @end
 
 @implementation ShoppingListViewController
 
-static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
+static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
     [self.view addSubview:self.tableView];
-    
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
-    _editBtn.backgroundColor = APP_THEME_COLOR;
-    _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+    [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+    [self.tableView reloadData];
     [self.view addSubview:_editBtn];
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    for (UIView *subview in self.view.subviews) {
+        if ([subview isEqual:_destinationsHeaderView]) {
+            return;
+        }
+    }
+    NSLog(@"我应该加载目的地列表");
+    [self.view addSubview:_destinationsHeaderView];
+}
+
+
 #pragma mark - setter & getter
+
+- (void)setTripDetail:(TripDetail *)tripDetail
+{
+    _tripDetail = tripDetail;
+    [_tableView reloadData];
+    [self updateDestinationsHeaderView];
+}
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+8, self.view.frame.size.width-16, self.view.frame.size.height-64-48)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+55, self.view.frame.size.width-22, self.view.frame.size.height-64 - 62 - 45)];
+        [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = self.tableViewFooterView;
-        _tableView.tableHeaderView = self.destinationsHeaderView;
-        [_tableView setContentOffset:CGPointMake(0, 64)];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
     }
     return _tableView;
 }
@@ -78,39 +99,99 @@ static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
     return _tableViewFooterView;
 }
 
+
+
+#pragma mark Private Methods
+
+- (void)updateDestinationsHeaderView
+{
+    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        if (poi.zhName) {
+            [destinationsArray addObject:poi.zhName];
+        }
+    }
+}
+
 #pragma makr - IBAction Methods
 
 - (IBAction)addWantTo:(id)sender
 {
-    
+//    ShoppingOfCityViewController *shoppingOfCityCtl = [[ShoppingOfCityViewController alloc] init];
+//    shoppingOfCityCtl.tripDetail = _tripDetail;
+//    shoppingOfCityCtl.delegate = self;
+//    
+//#warning 测试数据
+//    for (CityDestinationPoi *poi in shoppingOfCityCtl.tripDetail.destinations) {
+//        poi.cityId = @"53aa9a6410114e3fd47833bd";
+//    }
+//    
+//    shoppingOfCityCtl.shouldEdit = YES;
+//    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:shoppingOfCityCtl];
+//    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)updateTableView
 {
+    if (self.tableView.isEditing) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.tableFooterView = self.tableViewFooterView;
+    } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+    }
     [self.tableView reloadData];
 }
 
 - (IBAction)editTrip:(id)sender
 {
-    [self.tableView setEditing:!self.tableView.isEditing animated:YES];
-    [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-    if (self.tableView.isEditing) {
-        [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
+    if (!self.tableView.isEditing) {
+        [self.tableView setEditing:YES animated:YES];
+        _editBtn.backgroundColor = APP_THEME_COLOR;
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
+        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+        
     } else {
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
-            
+            if (isSuccesss) {
+                _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+                [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
+                [self.tableView setEditing:NO animated:YES];
+                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+                [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+            } else {
+                [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+            }
         }];
     }
 }
 
+/**
+ *  点击我的目的地进入城市详情
+ *
+ *  @param sender
+ */
+- (IBAction)viewCityDetail:(UIButton *)sender
+{
+    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = poi.cityId;
+    [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
+}
 
+#pragma mark - ShoppingOfCityDelegate
+
+- (void)finishEdit
+{
+    [self.tableView reloadData];
+}
 
 #pragma mark - UITableViewDataSource & Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 10;
+    return self.tripDetail.shoppingList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -120,16 +201,22 @@ static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80.0;
+    return 90.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10.0;
+    if (self.isEditing) {
+        return 0;
+    }
+    return 10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    if (self.isEditing) {
+        return nil;
+    }
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
     footerView.backgroundColor = APP_PAGE_COLOR;
     return footerView;
@@ -137,8 +224,9 @@ static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShoppingListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
+    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
     cell.isEditing = self.tableView.isEditing;
+    cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
     return cell;
 }
 
@@ -155,50 +243,46 @@ static NSString *shoppingListReusableIdentifier = @"shoppingListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-
+    
+    TripPoi *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
+    [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.section];
+    [_tripDetail.shoppingList insertObject:poi atIndex:destinationIndexPath.section];
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_tripDetail.shoppingList removeObjectAtIndex:indexPath.section];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
-- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"willBeginEditingRowAtIndexPath");
-}
-
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+    TripPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
+    ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
+    shoppingDetailCtl.shoppingId = tripPoi.poiId;
+    [self.rootViewController.navigationController pushViewController:shoppingDetailCtl animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    CGPoint currentOffset = scrollView.contentOffset;
-    NSLog(@"%@",NSStringFromCGPoint(currentOffset));
-    
-    if ([scrollView isEqual:self.tableView]) {
-        if (currentOffset.y < 20) {
-            [self.tableView setContentOffset:CGPointZero animated:YES];
-        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
-            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
-        }
-    }
-}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    CGPoint currentOffset = scrollView.contentOffset;
-    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
-    
-    if ([scrollView isEqual:self.tableView]) {
-        if (currentOffset.y < 20) {
-            [self.tableView setContentOffset:CGPointZero animated:YES];
-        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
-            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
-        }
-    }
+    //    CGPoint currentOffset = scrollView.contentOffset;
+    //    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
+    //
+    //    if ([scrollView isEqual:self.tableView]) {
+    //        if (currentOffset.y < 20) {
+    //            [self.tableView setContentOffset:CGPointZero animated:YES];
+    //        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
+    //            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
+    //        }
+    //    }
 }
 
 
 @end
+
+
+

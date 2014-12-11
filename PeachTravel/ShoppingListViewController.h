@@ -1,5 +1,5 @@
 //
-//  ShoppingsListViewController.h
+//  ShoppingListViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/24/14.
@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TripDetailRootViewController.h"
 #import "TripDetail.h"
+#import "DestinationsView.h"
 
 @interface ShoppingListViewController : TZViewController
 
+@property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 @property (nonatomic, strong) TripDetail *tripDetail;
+@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
+
 
 @end
