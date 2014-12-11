@@ -11,9 +11,11 @@
 @implementation SpotsListTableViewCell
 
 - (void)awakeFromNib {
-    _nearBy.layer.borderColor = APP_PAGE_COLOR.CGColor;
+    _nearBy.layer.borderColor = UIColorFromRGB(0x797979).CGColor;
     _nearBy.layer.borderWidth = 1.0;
-    _nearBy.layer.cornerRadius = 1.0;
+    _nearBy.layer.cornerRadius = 2.0;
+    self.layer.cornerRadius = 2.0;
+    self.clipsToBounds = YES;
 }
 
 - (void)setIsEditing:(BOOL)isEditing
@@ -40,7 +42,8 @@
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
-    [_timeCostBtn setTitle:tripPoi.timeCost forState:UIControlStateNormal];
+    NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
+    [_timeCostBtn setTitle:timeStr forState:UIControlStateNormal];
 }
 
 @end

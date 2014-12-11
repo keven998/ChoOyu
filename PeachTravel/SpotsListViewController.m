@@ -70,23 +70,22 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
+    _tripDetail = tripDetail;
     if (!_tripDetail) {
         _editBtn.hidden = YES;
     } else {
         _editBtn.hidden = NO;
     }
-    _tripDetail = tripDetail;
     [_tableView reloadData];
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+55, self.view.frame.size.width-16, self.view.frame.size.height-64-62-55)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+55, self.view.frame.size.width-16, self.view.frame.size.height-64-62-25)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-        [_tableView setContentOffset:CGPointMake(0, 60)];
     }
     return _tableView;
 }
@@ -224,12 +223,16 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 35;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 20;
+    if ([[_tripDetail.itineraryList objectAtIndex:section] count] || tableView.isEditing) {
+        return 20;
+    } else {
+        return 100;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -249,26 +252,51 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 20)];
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 20)];
-    view.backgroundColor = APP_PAGE_COLOR;
-    if (!self.tableView.isEditing) {
+    if ([[_tripDetail.itineraryList objectAtIndex:section] count] || tableView.isEditing) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 20)];
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 20)];
+        view.backgroundColor = APP_PAGE_COLOR;
+        if (!self.tableView.isEditing) {
+            spaceView.backgroundColor = [UIColor lightGrayColor];
+            [view addSubview:spaceView];
+        }
+        return view;
+    } else {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self
+                                                                .tableView.frame.size.width, 100)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width-20, 80)];
+        btn.backgroundColor = [UIColor whiteColor];
+        [btn setImage:[UIImage imageNamed:nil] forState:UIControlStateNormal];
+        [btn setTitle:@"还木有任何安排\n 快来添加安排把~" forState:UIControlStateNormal];
+        [btn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        btn.titleLabel.numberOfLines = 2;
+        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [btn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        btn.layer.cornerRadius = 2.0;
+        [view addSubview:btn];
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 100)];
         spaceView.backgroundColor = [UIColor lightGrayColor];
         [view addSubview:spaceView];
+        
+        return view;
     }
-    return view;
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
+    headerView.layer.cornerRadius = 2.0;
+    headerView.clipsToBounds = YES;
     UILabel *headerTitle;
     if (self.tableView.isEditing) {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-60, 30)];
+        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-60, 35)];
     } else {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 30)];
+        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 35)];
     }
-    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"  D%d  ", section+1];
+    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   D%d  ", section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (TripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         CityDestinationPoi *poi = [tripPoi.locList lastObject];
@@ -288,24 +316,25 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
     }
     headerTitle.text = headerTitleStr;
-    headerTitle.font = [UIFont boldSystemFontOfSize:17.0];
+    headerTitle.font = [UIFont boldSystemFontOfSize:15.0];
     headerTitle.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:headerTitle];
     
     if (self.tableView.isEditing) {
-        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-80, 0, 80, 30)];
+        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
         [moreBtn setBackgroundColor:[UIColor whiteColor]];
-        [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+        [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
         [moreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         moreBtn.tag = section;
         [moreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:moreBtn];
     } else {
-        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-80, 0, 80, 30)];
+        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
         [mapBtn setBackgroundColor:[UIColor whiteColor]];
         [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
         [mapBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         mapBtn.tag = section;
+        mapBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:mapBtn];
 
@@ -320,7 +349,7 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
         nodeView.layer.cornerRadius = 4.0;
         [headerView addSubview:nodeView];
         
-        UIView *verticalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 19, 1, 11)];
+        UIView *verticalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 19, 1, 16)];
         verticalSpaceView.backgroundColor = [UIColor lightGrayColor];
         [headerView addSubview:verticalSpaceView];
         

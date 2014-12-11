@@ -103,10 +103,10 @@
     if ([accountManager isLogin]) {
         TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
         CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
-        poi.cityId = @"54756008d17491193832582d";
+        poi.cityId = @"5473ccd7b8ce043a64108c46";
         poi.zhName = @"北京";
         CityDestinationPoi *poi1 = [[CityDestinationPoi alloc] init];
-        poi1.cityId = @"5475b938d174911938325835";
+        poi1.cityId = @"546f2daab8ce0440eddb2aff";
         poi1.zhName = @"上海大不列颠";
         tripDetailCtl.destinations = @[poi, poi1];
         tripDetailCtl.isMakeNewTrip = YES;

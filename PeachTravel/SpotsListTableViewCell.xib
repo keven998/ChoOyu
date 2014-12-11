@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C68m" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,16 +15,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="country.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-yd-WJS">
-                        <rect key="frame" x="28" y="8" width="62" height="62"/>
+                        <rect key="frame" x="28" y="10" width="52" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="62" id="ou6-Ki-vMP"/>
+                            <constraint firstAttribute="width" constant="52" id="ou6-Ki-vMP"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2di-Ve-u0h">
-                        <rect key="frame" x="100" y="45" width="130" height="27"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="建议游玩 4个小时">
-                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2di-Ve-u0h">
+                        <rect key="frame" x="94" y="47" width="130" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="建议游玩 4个小时" image="ic_time.png">
+                            <color key="titleColor" red="0.70196078431372544" green="0.70196078431372544" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -48,43 +49,53 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ov0-ZM-sUJ">
-                        <rect key="frame" x="230" y="25" width="70" height="30"/>
+                        <rect key="frame" x="232" y="25" width="64" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="MKb-R8-MO4"/>
+                            <constraint firstAttribute="width" constant="64" id="MKb-R8-MO4"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="景点周边">
-                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleColor" red="0.47450980390000003" green="0.47450980390000003" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIO-Dk-bN0">
-                        <rect key="frame" x="98" y="8" width="132" height="36"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIO-Dk-bN0">
+                        <rect key="frame" x="92" y="5" width="120" height="36"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="36" id="cCo-wT-yY7"/>
+                            <constraint firstAttribute="height" constant="36" id="GyH-WY-a5J"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJk-8s-2ym">
+                        <rect key="frame" x="20" y="79" width="288" height="1"/>
+                        <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="1d4-Hj-4yT"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="2di-Ve-u0h" secondAttribute="bottom" constant="7.5" id="3B0-5R-ouh"/>
+                    <constraint firstItem="gJk-8s-2ym" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="1VR-oj-o3l"/>
+                    <constraint firstAttribute="bottom" secondItem="2di-Ve-u0h" secondAttribute="bottom" constant="5.5" id="3B0-5R-ouh"/>
                     <constraint firstItem="ov0-ZM-sUJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="9hf-KC-t5k"/>
-                    <constraint firstItem="2di-Ve-u0h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="45" id="FUy-Fp-Gpo"/>
-                    <constraint firstAttribute="trailing" secondItem="ov0-ZM-sUJ" secondAttribute="trailing" constant="8" id="IaI-Vv-N6B"/>
-                    <constraint firstItem="2di-Ve-u0h" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="10" id="OdR-gj-ncn"/>
-                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="OhB-vl-xt8"/>
+                    <constraint firstAttribute="bottom" secondItem="gJk-8s-2ym" secondAttribute="bottom" constant="-0.5" id="BEi-yH-ivi"/>
+                    <constraint firstItem="2di-Ve-u0h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="47" id="FUy-Fp-Gpo"/>
+                    <constraint firstAttribute="trailing" secondItem="gJk-8s-2ym" secondAttribute="trailing" id="GuD-Mv-ESw"/>
+                    <constraint firstAttribute="trailing" secondItem="ov0-ZM-sUJ" secondAttribute="trailing" constant="12" id="IaI-Vv-N6B"/>
+                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="12" id="MeJ-jZ-9Jp"/>
+                    <constraint firstItem="2di-Ve-u0h" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="14" id="OdR-gj-ncn"/>
+                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="P5J-i6-fnO"/>
+                    <constraint firstItem="ov0-ZM-sUJ" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="20" id="RyI-2g-6fb"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="cTT-TZ-1Cj"/>
                     <constraint firstAttribute="bottom" secondItem="4cL-6P-Vhd" secondAttribute="bottom" id="crD-1p-uWw"/>
-                    <constraint firstAttribute="trailing" secondItem="2di-Ve-u0h" secondAttribute="trailing" constant="78" id="hH5-dT-AOq"/>
-                    <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="8" id="hNF-om-DU7"/>
-                    <constraint firstItem="ILK-yd-WJS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="jQ6-2P-v6H"/>
-                    <constraint firstAttribute="trailing" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="78" id="qP9-if-hZ5"/>
+                    <constraint firstAttribute="trailing" secondItem="2di-Ve-u0h" secondAttribute="trailing" constant="84" id="hH5-dT-AOq"/>
+                    <constraint firstItem="ILK-yd-WJS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jQ6-2P-v6H"/>
                     <constraint firstItem="4cL-6P-Vhd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rsd-ll-hgn"/>
                     <constraint firstAttribute="bottom" secondItem="ILK-yd-WJS" secondAttribute="bottom" constant="10" id="tgh-sr-nza"/>
-                    <constraint firstAttribute="bottom" secondItem="ov0-ZM-sUJ" secondAttribute="bottom" constant="24.5" id="wed-Pc-6yy"/>
+                    <constraint firstAttribute="bottom" secondItem="ov0-ZM-sUJ" secondAttribute="bottom" constant="29.5" id="wed-Pc-6yy"/>
                     <constraint firstItem="4cL-6P-Vhd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x4e-xO-jtR"/>
                 </constraints>
             </tableViewCellContentView>
@@ -96,7 +107,6 @@
                 <outlet property="spaceView" destination="4cL-6P-Vhd" id="1Jn-0a-S3x"/>
                 <outlet property="timeCostBtn" destination="2di-Ve-u0h" id="Jef-Qx-rtB"/>
                 <outlet property="timeCostConstraint" destination="hH5-dT-AOq" id="vGb-h2-g5c"/>
-                <outlet property="titleContstraint" destination="qP9-if-hZ5" id="I4g-Ox-vuO"/>
                 <outlet property="titleLabel" destination="uIO-Dk-bN0" id="qDD-5D-76E"/>
             </connections>
             <point key="canvasLocation" x="-225" y="159"/>
@@ -104,5 +114,6 @@
     </objects>
     <resources>
         <image name="country.jpg" width="640" height="400"/>
+        <image name="ic_time.png" width="8" height="8"/>
     </resources>
 </document>

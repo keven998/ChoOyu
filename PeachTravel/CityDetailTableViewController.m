@@ -180,8 +180,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
     RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
 #warning 测试数据
-    _cityPoi = [[CityPoi alloc] initWithJson:@{}];
-    _cityPoi.zhName = @"大阪";
     _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
     _cityPoi.restaurants = [[RestaurantsOfCity alloc] initWithJson:@{}];
     restaurantOfCityCtl.shouldEdit = NO;

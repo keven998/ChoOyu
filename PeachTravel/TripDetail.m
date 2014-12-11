@@ -23,7 +23,7 @@
         _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
         
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id destinationsDic in [json objectForKey:@"destinations"]) {
+        for (id destinationsDic in [json objectForKey:@"localities"]) {
             CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationsDic];
             [tempArray addObject:poi];
         }
@@ -103,7 +103,7 @@
         [destinationsArray addObject:poiDic];
     }
     
-    [uploadDic safeSetObject:destinationsArray forKey:@"destinations"];
+    [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:uploadDic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
