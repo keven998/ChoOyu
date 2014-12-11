@@ -34,6 +34,8 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.showsHorizontalScrollIndicator = NO;
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
     _editBtn.backgroundColor = UIColorFromRGB(0x797979);
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];

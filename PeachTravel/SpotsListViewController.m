@@ -21,7 +21,7 @@
 #import "ShoppingDetailViewController.h"
 #import "CommonPoiListTableViewCell.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -89,6 +89,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+55, self.view.frame.size.width-16, self.view.frame.size.height-64-62-25)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
     }
@@ -134,21 +136,13 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)showMore:(UIButton *)sender
 {
-    NSInteger numberOfOptions = 2;
-    RNGridMenuItem *addItem = [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"添加目的地"];
-    RNGridMenuItem *deleteItem = [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"删除"]
-    ;
+    UIActionSheet *showMoreSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"第%d天", sender.tag+1] delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加目的地",@"删除" ,nil];
+    showMoreSheet.tag = sender.tag;
+    showMoreSheet.destructiveButtonIndex = 1;
     
-    NSArray *items = @[
-                       addItem,
-                       deleteItem
-                       ];
+    [showMoreSheet showInView:self.view];
     
-    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    av.backgroundColor = [UIColor clearColor];
-    av.delegate = self;
-    av.menuView.tag = sender.tag;
-    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
+    
 }
 
 - (IBAction)mapView:(id)sender
@@ -191,28 +185,26 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-#pragma mark - RNGridMenuDelegate
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
-    //进入添加目的地界面
-    if (itemIndex == 0) {
-        AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
-        addPoiCtl.tripDetail = self.tripDetail;
-        addPoiCtl.delegate = self;
-        addPoiCtl.currentDayIndex = gridMenu.menuView.tag;
-        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
-        [self presentViewController:nctl animated:YES completion:^{
-            [addPoiCtl loadData];
-        }];
-    }
-    //删除一天
-    if (itemIndex == 1) {
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [_tripDetail.itineraryList removeObjectAtIndex:gridMenu.menuView.tag];
+                [_tripDetail.itineraryList removeObjectAtIndex:actionSheet.tag];
                 _tripDetail.dayCount--;
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:gridMenu.menuView.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:actionSheet.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
+        }];
+    } if (buttonIndex == 0) {
+        AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
+        addPoiCtl.tripDetail = self.tripDetail;
+        addPoiCtl.delegate = self;
+        addPoiCtl.currentDayIndex = actionSheet.tag;
+        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
+        [self presentViewController:nctl animated:YES completion:^{
+            [addPoiCtl loadData];
         }];
     }
 }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SIMenuTable.h"
+#import "SIMenuButton.h"
 
 @protocol SINavigationMenuDelegate <NSObject>
 
@@ -16,6 +17,9 @@
 @end
 
 @interface SINavigationMenuView : UIView <SIMenuDelegate>
+
+@property (nonatomic, strong) SIMenuButton *menuButton;
+@property (nonatomic, strong) SIMenuTable *table;
 
 @property (nonatomic, weak) id <SINavigationMenuDelegate> delegate;
 @property (nonatomic, strong) NSArray *items;

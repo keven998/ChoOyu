@@ -78,15 +78,19 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pFn-iL-XyB">
                         <rect key="frame" x="28" y="50" width="52" height="20"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMZ-08-wSp" customClass="AXRatingView">
-                                <rect key="frame" x="10" y="5" width="40" height="15"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMZ-08-wSp" customClass="EDStarRating">
+                                <rect key="frame" x="0.0" y="5" width="52" height="15"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="52" id="Eql-0v-KHw"/>
-                            <constraint firstAttribute="height" constant="20" id="XFQ-zC-UNw"/>
+                            <constraint firstItem="tMZ-08-wSp" firstAttribute="top" secondItem="pFn-iL-XyB" secondAttribute="top" constant="5" id="LMw-sn-3Sj"/>
+                            <constraint firstAttribute="bottom" secondItem="tMZ-08-wSp" secondAttribute="bottom" id="QXT-ai-Ysk"/>
+                            <constraint firstAttribute="height" constant="20" id="VJQ-ni-H52"/>
+                            <constraint firstAttribute="trailing" secondItem="tMZ-08-wSp" secondAttribute="trailing" id="Vyo-0t-aQa"/>
+                            <constraint firstItem="tMZ-08-wSp" firstAttribute="leading" secondItem="pFn-iL-XyB" secondAttribute="leading" id="fmm-Sb-lA4"/>
+                            <constraint firstAttribute="width" constant="52" id="xbJ-4y-qxo"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -99,19 +103,19 @@
                     <constraint firstItem="2di-Ve-u0h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="47" id="FUy-Fp-Gpo"/>
                     <constraint firstAttribute="trailing" secondItem="gJk-8s-2ym" secondAttribute="trailing" id="GuD-Mv-ESw"/>
                     <constraint firstAttribute="trailing" secondItem="ov0-ZM-sUJ" secondAttribute="trailing" constant="12" id="IaI-Vv-N6B"/>
-                    <constraint firstItem="pFn-iL-XyB" firstAttribute="leading" secondItem="4cL-6P-Vhd" secondAttribute="trailing" constant="8" id="JaR-fs-WbO"/>
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="12" id="MeJ-jZ-9Jp"/>
                     <constraint firstItem="2di-Ve-u0h" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="14" id="OdR-gj-ncn"/>
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="P5J-i6-fnO"/>
                     <constraint firstItem="ov0-ZM-sUJ" firstAttribute="leading" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="20" id="RyI-2g-6fb"/>
-                    <constraint firstItem="gJk-8s-2ym" firstAttribute="top" secondItem="pFn-iL-XyB" secondAttribute="bottom" constant="9" id="Vsq-Sx-Nqx"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="cTT-TZ-1Cj"/>
                     <constraint firstAttribute="bottom" secondItem="4cL-6P-Vhd" secondAttribute="bottom" id="crD-1p-uWw"/>
                     <constraint firstAttribute="trailing" secondItem="2di-Ve-u0h" secondAttribute="trailing" constant="84" id="hH5-dT-AOq"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="jQ6-2P-v6H"/>
+                    <constraint firstItem="pFn-iL-XyB" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="leading" id="rm0-KE-OqU"/>
                     <constraint firstItem="4cL-6P-Vhd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rsd-ll-hgn"/>
                     <constraint firstAttribute="bottom" secondItem="ILK-yd-WJS" secondAttribute="bottom" constant="10" id="tgh-sr-nza"/>
                     <constraint firstAttribute="bottom" secondItem="ov0-ZM-sUJ" secondAttribute="bottom" constant="27.5" id="wed-Pc-6yy"/>
+                    <constraint firstItem="pFn-iL-XyB" firstAttribute="bottom" secondItem="ILK-yd-WJS" secondAttribute="bottom" id="wer-9B-LjE"/>
                     <constraint firstItem="4cL-6P-Vhd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x4e-xO-jtR"/>
                 </constraints>
             </tableViewCellContentView>
@@ -122,7 +126,7 @@
                 <outlet property="pictureHorizontalSpace" destination="cTT-TZ-1Cj" id="1o6-RF-y4n"/>
                 <outlet property="property" destination="2di-Ve-u0h" id="2HS-6E-qAS"/>
                 <outlet property="ratingBackgroundView" destination="pFn-iL-XyB" id="Qvd-FB-bXo"/>
-                <outlet property="ratingView" destination="tMZ-08-wSp" id="kyS-Ac-JkR"/>
+                <outlet property="ratingView" destination="tMZ-08-wSp" id="PkA-g4-Pp0"/>
                 <outlet property="spaceView" destination="4cL-6P-Vhd" id="1Jn-0a-S3x"/>
                 <outlet property="timeCostConstraint" destination="hH5-dT-AOq" id="vGb-h2-g5c"/>
                 <outlet property="titleLabel" destination="uIO-Dk-bN0" id="qDD-5D-76E"/>

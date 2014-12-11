@@ -25,7 +25,7 @@
         _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(offsetX, 0, frame.size.width-offsetX, frame.size.height)];
         _destinationToolBar.backgroundColor = [UIColor whiteColor];
         [self addSubview:_destinationToolBar];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 45)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 45)];
         titleLabel.textColor = TEXT_COLOR_TITLE;
         titleLabel.text = @"目的地 :";
         titleLabel.font = [UIFont boldSystemFontOfSize:14.0];

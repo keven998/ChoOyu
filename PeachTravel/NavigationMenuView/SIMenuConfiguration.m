@@ -66,7 +66,7 @@
 
 + (UIColor *)mainColor
 {
-    return [UIColor blackColor];
+    return [UIColor whiteColor];
 }
 
 + (float)selectionSpeed

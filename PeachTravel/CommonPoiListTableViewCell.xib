@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -32,7 +32,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1.7km  位于漓江古城。。。。。" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmO-mX-RUU">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.7km  位于漓江古城。。。。。" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmO-mX-RUU">
                         <rect key="frame" x="80" y="57" width="180" height="25"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.70196078431372544" green="0.70196078431372544" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,7 +53,7 @@
                         <rect key="frame" x="8" y="54" width="60" height="20"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJ9-ks-SRt" customClass="EDStarRating">
-                                <rect key="frame" x="10" y="2" width="40" height="15"/>
+                                <rect key="frame" x="0.0" y="2" width="60" height="15"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -62,8 +62,8 @@
                             <constraint firstAttribute="width" constant="60" id="1JY-Hu-MGO"/>
                             <constraint firstAttribute="height" constant="20" id="1O2-tc-wWx"/>
                             <constraint firstItem="MJ9-ks-SRt" firstAttribute="top" secondItem="IDD-Jt-rgy" secondAttribute="top" constant="2.5" id="JuS-B0-ntg"/>
-                            <constraint firstItem="MJ9-ks-SRt" firstAttribute="leading" secondItem="IDD-Jt-rgy" secondAttribute="leading" constant="10" id="SlX-bN-Fof"/>
-                            <constraint firstAttribute="trailing" secondItem="MJ9-ks-SRt" secondAttribute="trailing" constant="10" id="cl9-yh-d1z"/>
+                            <constraint firstItem="MJ9-ks-SRt" firstAttribute="leading" secondItem="IDD-Jt-rgy" secondAttribute="leading" id="SlX-bN-Fof"/>
+                            <constraint firstAttribute="trailing" secondItem="MJ9-ks-SRt" secondAttribute="trailing" id="cl9-yh-d1z"/>
                             <constraint firstAttribute="bottom" secondItem="MJ9-ks-SRt" secondAttribute="bottom" constant="2.5" id="myw-GK-Jl8"/>
                         </constraints>
                     </view>

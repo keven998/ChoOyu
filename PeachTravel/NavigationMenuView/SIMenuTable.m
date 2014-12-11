@@ -35,6 +35,7 @@
         
         endFrame = self.bounds;
         startFrame = endFrame;
+        self.backgroundColor = [UIColor whiteColor];
         startFrame.origin.y -= self.items.count*[SIMenuConfiguration itemCellHeight];
         
         self.table = [[UITableView alloc] initWithFrame:startFrame style:UITableViewStylePlain];

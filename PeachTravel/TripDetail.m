@@ -288,7 +288,7 @@
             [tempArray addObject:image];
         }
         _images = tempArray;
-        if ([json objectForKey:@"rating"] == [NSNull null]) {
+        if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
             _rating = 3.5;
         } else {
             _rating = [[json objectForKey:@"rating"] floatValue];

@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"旅行圈";
+    self.navigationItem.title = @"制作攻略";
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
@@ -86,7 +86,7 @@
 - (DestinationsView *)destinationsHeaderView
 {
     if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:80];
+        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:70];
 #warning 测试数据
         _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
     }

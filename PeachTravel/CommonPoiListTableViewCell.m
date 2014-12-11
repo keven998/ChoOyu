@@ -20,15 +20,13 @@
 @implementation CommonPoiListTableViewCell
 
 - (void)awakeFromNib {
-//    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-//    _ratingView.userInteractionEnabled = NO;
-//    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
-//    [_ratingView sizeToFit];
     
+    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 4;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
 }
 

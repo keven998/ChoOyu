@@ -17,9 +17,13 @@
     self.layer.cornerRadius = 2.0;
     self.clipsToBounds = YES;
     _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-    _ratingView.userInteractionEnabled = NO;
-    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    [_ratingView sizeToFit];
+    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 3;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
 
 }
 
@@ -51,10 +55,9 @@
         NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
         [_property setTitle:timeStr forState:UIControlStateNormal];
         _ratingBackgroundView.hidden = YES;
-        _ratingView.hidden = YES;
     } else {
         _ratingBackgroundView.hidden = NO;
-        _ratingView.hidden = NO;
+        _ratingView.rating = tripPoi.rating;
         [_property setImage:nil forState:UIControlStateNormal];
         if (_tripPoi.poiType == TripRestaurantPoi) {
             [_property setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
