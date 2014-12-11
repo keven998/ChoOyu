@@ -25,6 +25,9 @@
 		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C60C0D731A29A40C006033C9 /* ic_login_weixin_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D711A29A40C006033C9 /* ic_login_weixin_highlight@2x.png */; };
 		C60C0D741A29A40C006033C9 /* ic_login_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D721A29A40C006033C9 /* ic_login_weixin@2x.png */; };
+		C62A7A361A39744F00526928 /* ic_cell_item_chooesed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */; };
+		C62A7A371A39744F00526928 /* ic_cell_item_unchoose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A341A39744F00526928 /* ic_cell_item_unchoose@2x.png */; };
+		C62A7A381A39744F00526928 /* ic_view_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A351A39744F00526928 /* ic_view_add@2x.png */; };
 		C630BA651A1EDF680066D678 /* ContactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C630BA641A1EDF680066D678 /* ContactDetailViewController.m */; };
 		C63344DC1A1C3F5400A27F86 /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C63344DA1A1C3F5400A27F86 /* OptionTableViewCell.m */; };
 		C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63344DB1A1C3F5400A27F86 /* OptionTableViewCell.xib */; };
@@ -607,6 +610,9 @@
 		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C60C0D711A29A40C006033C9 /* ic_login_weixin_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin_highlight@2x.png"; sourceTree = "<group>"; };
 		C60C0D721A29A40C006033C9 /* ic_login_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin@2x.png"; sourceTree = "<group>"; };
+		C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cell_item_chooesed@2x.png"; sourceTree = "<group>"; };
+		C62A7A341A39744F00526928 /* ic_cell_item_unchoose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cell_item_unchoose@2x.png"; sourceTree = "<group>"; };
+		C62A7A351A39744F00526928 /* ic_view_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_view_add@2x.png"; sourceTree = "<group>"; };
 		C630BA631A1EDF680066D678 /* ContactDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailViewController.h; sourceTree = "<group>"; };
 		C630BA641A1EDF680066D678 /* ContactDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailViewController.m; sourceTree = "<group>"; };
 		C63344D91A1C3F5400A27F86 /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
@@ -3361,6 +3367,9 @@
 		D9CC36B21A3747C900E72A7F /* MakePlan */ = {
 			isa = PBXGroup;
 			children = (
+				C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */,
+				C62A7A341A39744F00526928 /* ic_cell_item_unchoose@2x.png */,
+				C62A7A351A39744F00526928 /* ic_view_add@2x.png */,
 				D9CC36B31A3747D300E72A7F /* third_selected@2x.png */,
 				D9CC36B41A3747D300E72A7F /* third_normal@2x.png */,
 				D9CC36B51A3747D300E72A7F /* second_selected@2x.png */,
@@ -3846,6 +3855,7 @@
 				D90C636A19FB44D300C2E440 /* chatFire_audioPlaying2@2x.png in Resources */,
 				D90F360219F63B3300E26FA9 /* chatBar_face@2x.png in Resources */,
 				D90C639019FB44D300C2E440 /* VoiceSearchFeedback018@2x.png in Resources */,
+				C62A7A371A39744F00526928 /* ic_cell_item_unchoose@2x.png in Resources */,
 				C688AADF1A35445600372A39 /* ic_dotted_line@2x.png in Resources */,
 				D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */,
 				D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */,
@@ -3865,6 +3875,7 @@
 				C60C0D611A297A16006033C9 /* ic_app_message@2x.png in Resources */,
 				D93696FA1A301C0C001922F4 /* chatBar_more_travelNote@2x.png in Resources */,
 				D90C638E19FB44D300C2E440 /* VoiceSearchFeedback017@2x.png in Resources */,
+				C62A7A381A39744F00526928 /* ic_view_add@2x.png in Resources */,
 				D9F57B9219E93486005BB43B /* UMShareEditViewController.xib in Resources */,
 				C60C0D641A297A16006033C9 /* ic_feedback@2x.png in Resources */,
 				D93697101A30617B001922F4 /* chat_list_cell_bubble@2x.png in Resources */,
@@ -4058,6 +4069,7 @@
 				D92998181A28B05000795986 /* MyGuidesTableViewCell.xib in Resources */,
 				D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */,
 				D9CC36C21A374B6B00E72A7F /* ic_layer_edit_done.png in Resources */,
+				C62A7A361A39744F00526928 /* ic_cell_item_chooesed@2x.png in Resources */,
 				D9CC36CB1A37F81500E72A7F /* ic_ticket@2x.png in Resources */,
 				D90C636919FB44D300C2E440 /* chatFire_audioPlaying2.png in Resources */,
 				C6BC348E1A274FEB002C19D3 /* ic_setting@2x.png in Resources */,

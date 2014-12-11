@@ -105,8 +105,8 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSMutableArray* attributes = [NSMutableArray array];
-    for (int i=0; i<_itemsAttributes.count; i++) {
-        for (int j=0; j<[_itemsAttributes[i] count]; j++) {
+    for (int i=0; i < _itemsAttributes.count; i++) {
+        for (int j=0; j < [_itemsAttributes[i] count]; j++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
             [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
         }

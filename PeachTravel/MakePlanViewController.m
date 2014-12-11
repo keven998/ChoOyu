@@ -47,7 +47,7 @@
 
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    [_searchBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+    [_searchBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
@@ -60,7 +60,6 @@
 {
     if (!_destinationToolBar) {
         _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49, self.view.bounds.size.width-62.5, 49) andNextBtnTitle:nil];
-
         _destinationToolBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
         _destinationToolBar.delegate = self;
     }
@@ -77,7 +76,7 @@
         UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
         nextBtn.layer.cornerRadius = 27.0;
         nextBtn.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
-        [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
+        [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
         [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
@@ -129,8 +128,8 @@
 - (void)hideDestinationBar
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.nextView.alpha = 0.2;
-        self.destinationToolBar.alpha = 0.2;
+        self.nextView.alpha = 0.0;
+        self.destinationToolBar.alpha = 0.0;
     } completion:^(BOOL finished) {
         self.nextView.alpha = 0;
         self.destinationToolBar.alpha = 0;
@@ -140,11 +139,11 @@
 - (void)showDestinationBar
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.nextView.alpha = 0.8;
-        self.destinationToolBar.alpha = 0.8;
+        self.nextView.alpha = 0.9;
+        self.destinationToolBar.alpha = 0.9;
     } completion:^(BOOL finished) {
-        self.nextView.alpha = 1;
-        self.destinationToolBar.alpha = 1;
+//        self.nextView.alpha = 1;
+//        self.destinationToolBar.alpha = 1;
     }];
 }
 
