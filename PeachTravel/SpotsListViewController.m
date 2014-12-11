@@ -7,7 +7,7 @@
 //
 
 #import "SpotsListViewController.h"
-#import "SpotsListTableViewCell.h"
+#import "TripPoiListTableViewCell.h"
 #import "DKCircleButton.h"
 #import "RNGridMenu.h"
 #import "DestinationsView.h"
@@ -19,6 +19,7 @@
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "CommonPoiListTableViewCell.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
@@ -30,7 +31,9 @@
 
 @implementation SpotsListViewController
 
-static NSString *spotsListReusableIdentifier = @"spotsListCell";
+static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
+static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +41,9 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerNib:[UINib nibWithNibName:@"SpotsListTableViewCell" bundle:nil] forCellReuseIdentifier:spotsListReusableIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:commonPoiListReusableIdentifier];
+
     [self.view addSubview:self.tableView];
     
     NSLog(@"%@", NSStringFromCGRect(_destinationsHeaderView.frame));
@@ -365,14 +370,16 @@ static NSString *spotsListReusableIdentifier = @"spotsListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SpotsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:spotsListReusableIdentifier forIndexPath:indexPath];
+    TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
     cell.isEditing = self.tableView.isEditing;
-    cell.tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    cell.tripPoi = tripPoi;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     switch (tripPoi.poiType) {
         case TripSpotPoi: {

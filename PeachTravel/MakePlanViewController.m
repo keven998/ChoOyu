@@ -14,7 +14,7 @@
 #import "AccountManager.h"
 #import "LoginViewController.h"
 
-@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, DestinationToolBarDelegate>
+@interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, DestinationToolBarDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -38,15 +38,18 @@
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.translucent = YES;
     _searchBar.showsCancelButton = YES;
+    _searchBar.hidden = YES;
     _searchController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
     _searchController.active = NO;
     _searchController.searchResultsDataSource = self;
     _searchController.searchResultsDelegate = self;
+    _searchController.delegate = self;
     
     [self.view addSubview:_searchBar];
 
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    _searchBar.hidden = YES;
     [_searchBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
@@ -90,6 +93,7 @@
 {
     [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
     [_searchController setActive:YES animated:YES];
+    _searchBar.hidden = NO;
 }
 
 /**
@@ -177,7 +181,17 @@
     return nil;
 }
 
+#pragma mark - searchBar
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    _searchBar.hidden = YES;
+}
+
+- (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    _searchBar.hidden = YES;
+}
 @end
 
 
