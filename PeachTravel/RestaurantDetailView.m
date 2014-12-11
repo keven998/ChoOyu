@@ -11,7 +11,7 @@
 #import "LocationTableViewCell.h"
 #import "RecommendsTableViewCell.h"
 #import "CommentTableViewCell.h"
-#import "AXRatingView.h"
+#import "EDStarRating.h"
 
 @interface RestaurantDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) ResizableView *descView;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
-@property (nonatomic, strong) AXRatingView *ratingView;
+@property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *priceBtn;
 
 
@@ -107,14 +107,16 @@ static NSString *commentCellIdentifier = @"commentCell";
     
     oy += 30;
     
-    _ratingView = [[AXRatingView alloc] initWithFrame:CGRectMake((width-40)/2, oy, 40
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((width - 73.0)/2, oy, 73.0
                                                                  , 15)];
-    _ratingView.userInteractionEnabled = NO;
-    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    [_ratingView sizeToFit];
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.horizontalMargin = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [_ratingView setValue:_restaurantPoi.rating];
-    
+    [_ratingView setRating:_restaurantPoi.rating];
     [_headerView addSubview:_ratingView];
     
     oy += 10;

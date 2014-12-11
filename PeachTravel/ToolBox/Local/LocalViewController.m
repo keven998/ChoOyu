@@ -89,7 +89,7 @@
     cell.commentAuthor.text = @"12344";
     cell.commentContent.text = @"不是很好吃而且东西还很贵";
     [cell.commentCount setTitle:@"999条" forState:UIControlStateNormal];
-    [cell.ratingBar setValue:3.5];
+    [cell.ratingBar setRating:3.5];
     
 //    NSArray *datas = [_dataPool objectAtIndex:_currentPage];
 //    id item = [datas objectAtIndex:indexPath.row];
