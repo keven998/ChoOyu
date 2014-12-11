@@ -195,6 +195,13 @@ static NSString *commentCellIdentifier = @"commentCell";
     }
 }
 
+#pragma mark - IBAction Methods
+
+- (void)showMoreComments:(id)sender
+{
+    
+}
+
 #pragma mark - UITableview datasource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -239,8 +246,6 @@ static NSString *commentCellIdentifier = @"commentCell";
     if (indexPath.section == 2) {
         NSString *commentDetail = ((CommentDetail *)[_restaurantPoi.comments objectAtIndex:indexPath.row]).commentDetails;
         
-        commentDetail = @"sdklfjsdlfjsdds离开家法拉克减肥撒龙卷风快上课了打飞机塞德里克福建师大";
-        
         CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}];
         NSInteger lineCount = (size.width / (self.frame.size.width-16)) + 1;
         CGFloat commentHeight = lineCount*size.height+10;
@@ -261,6 +266,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     sectionBtn.backgroundColor = [UIColor whiteColor];
     sectionBtn.layer.cornerRadius = 1.0;
+    sectionBtn.userInteractionEnabled = NO;
     [sectionBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 9, 0, 0)];
     [sectionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     if (section == 1) {
@@ -271,6 +277,13 @@ static NSString *commentCellIdentifier = @"commentCell";
         [sectionBtn setImage:[UIImage imageNamed:@"ic_comment.png"] forState:UIControlStateNormal];
 
         [sectionBtn setTitle:@"网友点评" forState:UIControlStateNormal];
+        
+        UIButton *moreCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(sectionBtn.frame.size.width-60, 0, 60, 29)];
+        [moreCommentBtn setTitle:@"更多点评" forState:UIControlStateNormal];
+        [moreCommentBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        moreCommentBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [sectionBtn addSubview:moreCommentBtn];
+        [moreCommentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
     }
     [sectionView addSubview:sectionBtn];
 

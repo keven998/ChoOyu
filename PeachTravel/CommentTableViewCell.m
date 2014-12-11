@@ -27,7 +27,6 @@
 - (void)setCommentDetail:(CommentDetail *)commentDetail
 {
     _commentDetail = commentDetail;
-_commentDetail.commentDetails =@"sdklfjsdlfjsdds离开家法拉克减肥撒龙卷风快上课了打飞机塞德里克福建师大";
     CGSize size = [_commentDetail.commentDetails sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11]}];
     NSInteger lineCount = (size.width / (self.frame.size.width-60)) + 1;
     _descLabel.numberOfLines = lineCount;

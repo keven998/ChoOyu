@@ -14,6 +14,8 @@
     _titleLabel.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
     self.layer.cornerRadius = 1.0;
     self.clipsToBounds = YES;
+    self.layer.borderColor = UIColorFromRGB(0xeeeeee).CGColor;
+    self.layer.borderWidth = 1.0;
 }
 
 @end

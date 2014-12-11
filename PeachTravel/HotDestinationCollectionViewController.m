@@ -182,17 +182,23 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
     if  (indexPath.row == 1) {
         SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
+        spotCtl.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:spotCtl animated:YES];
     }
     if (indexPath.row == 2) {
         RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+        restaurantDetailCtl.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
     }
     
-    /*
-    ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
-    [self.navigationController pushViewController:shoppingCtl animated:YES];
-     */
+    if (indexPath.row == 3) {
+        ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
+        shoppingCtl.hidesBottomBarWhenPushed = YES;
+
+        [self.navigationController pushViewController:shoppingCtl animated:YES];
+    }
 }
 
 @end
