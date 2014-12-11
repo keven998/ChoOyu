@@ -30,6 +30,18 @@
 - (DestinationUnit *) addUnit:(NSString *)icon withName:(NSString *)name;
 - (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height;
 
+/**
+ *  添加一个 unit
+ *
+ *  @param icon
+ *  @param name
+ *  @param height
+ *  @param userInteractionEnabled  点击是否能删除
+ *  @return
+ */
+- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height userInteractionEnabled:(BOOL)userInteractionEnabled;
+
+
 
 - (void) removeUnitAtIndex:(NSInteger)index;
 
