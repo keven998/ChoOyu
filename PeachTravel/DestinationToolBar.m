@@ -207,15 +207,20 @@
    
 }
 
-- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height
+- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height userInteractionEnabled:(BOOL)userInteractionEnabled
 {
     __block DestinationUnit *newUnitCell;
     
     if (icon) {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, (self.frame.size.height-height)/2, 0, height) andIcon:icon andName:name];
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, (self.scrollView.frame.size.height-height)/2, 0, height) andIcon:icon andName:name];
     } else {
-        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, 5, 0, defaultHeight) andName:name];
+        newUnitCell = [[DestinationUnit alloc] initWithFrame:CGRectMake(offsetX, (self.scrollView.frame.size.height-height)/2, 0, height) andName:name];
     }
+    
+    if (userInteractionEnabled) {
+        [newUnitCell addTarget:self action:@selector(unitCellTouched:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
     offsetX += defaultPace+newUnitCell.frame.size.width;
     newUnitCell.alpha = 0.1;
     [_unitList addObject:newUnitCell];
@@ -228,6 +233,11 @@
         newUnitCell.alpha = 1.0;
     }];
     return newUnitCell;
+}
+
+- (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height
+{
+    return [self addUnit:icon withName:name andUnitHeight:height userInteractionEnabled:YES];
 }
 
 

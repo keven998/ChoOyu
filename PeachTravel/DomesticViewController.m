@@ -243,7 +243,9 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
             [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-        [_makePlanCtl.destinationToolBar addNewUnitWithName:city.zhName];
+        
+        [_makePlanCtl.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
+
         [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
 }

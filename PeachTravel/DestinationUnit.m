@@ -17,20 +17,33 @@
 
 - (id)initWithFrame:(CGRect)frame andIcon:(NSString *)icon andName:(NSString *)name
 {
+    CGSize size = [name sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
+    CGRect tempFrame;
+    if (icon) {
+        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+30, frame.size.height);
+    } else {
+        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+20, frame.size.height);
+    }
     
-    CGSize size = [name sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:16.0]}];
-    CGRect tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+20, 30);
+    NSLog(@"%@", NSStringFromCGRect(tempFrame));
+    
     if (self = [super initWithFrame:tempFrame]) {
         self.frame = tempFrame;
         self.layer.borderColor = [UIColor whiteColor].CGColor;
         self.layer.borderWidth = 1.0;
         [self setTitle:name forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.titleLabel.font = [UIFont systemFontOfSize:16.0];
+        self.titleLabel.font = [UIFont systemFontOfSize:13.0];
         
-        _indictatorView = [[UIButton alloc] initWithFrame:CGRectMake(tempFrame.size.width-20, 0, 20, 30)];
-        [_indictatorView setImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
-        _indictatorView.userInteractionEnabled = NO;
+        if (icon) {
+            [self setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
+            _indictatorView = [[UIButton alloc] initWithFrame:CGRectMake(tempFrame.size.width-20, 0, 20, frame.size.height)];
+            [_indictatorView setImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+            _indictatorView.userInteractionEnabled = NO;
+            
+            [self addSubview:_indictatorView];
+        }
+        
     }
     
    
