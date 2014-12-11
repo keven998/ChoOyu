@@ -300,8 +300,8 @@
 #pragma mark - UITabGestureAction
 - (void)viewImage:(UITapGestureRecognizer *)viewImage {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+//    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [browser loadTZLXdata:nil];
     for (UIView* next = [self superview]; next; next = next.superview)
     {
@@ -310,7 +310,8 @@
         if ([nextResponder isKindOfClass:[UIViewController class]])
         {
              UIViewController *ctl = (UIViewController*)nextResponder;
-            [ctl presentViewController:nc animated:YES completion:nil];
+//            [ctl presentViewController:nc animated:YES completion:nil];
+            [ctl.navigationController pushViewController:browser animated:YES];
             break;
         }
     }
