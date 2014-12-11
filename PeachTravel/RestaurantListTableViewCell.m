@@ -7,10 +7,23 @@
 //
 
 #import "RestaurantListTableViewCell.h"
+#import "AXRatingView.h"
+
+@interface RestaurantListTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UIView *ratingBackgroundView;
+@property (weak, nonatomic) IBOutlet AXRatingView *ratingView;
+
+
+@end
 
 @implementation RestaurantListTableViewCell
 
 - (void)awakeFromNib {
+    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    _ratingView.userInteractionEnabled = NO;
+    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    [_ratingView sizeToFit];
 }
 
 - (void)setIsEditing:(BOOL)isEditing
@@ -36,6 +49,7 @@
     [_photoImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     [_priceBtn setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
     _addressLabel.text = tripPoi.address;
+    _ratingView.value = tripPoi.rating;
 }
 
 @end

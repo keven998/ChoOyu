@@ -53,7 +53,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
     }
     NSLog(@"我应该加载目的地列表");
     [self.view addSubview:_destinationsHeaderView];
-    
 }
 
 
@@ -69,7 +68,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+8, self.view.frame.size.width-16, self.view.frame.size.height-64-48)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+55, self.view.frame.size.width-22, self.view.frame.size.height-64 - 62 - 45)];
         [self.tableView registerNib:[UINib nibWithNibName:@"RestaurantListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -134,12 +133,14 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 - (void)updateTableView
 {
-    [self.tableView reloadData];
     if (self.tableView.isEditing) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.tableFooterView = self.tableViewFooterView;
     } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
     }
+    [self.tableView reloadData];
 }
 
 - (IBAction)editTrip:(id)sender
@@ -162,7 +163,6 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];
             }
-            
         }];
     }
 }
@@ -201,16 +201,22 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80.0;
+    return 90.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (self.isEditing) {
+        return 0;
+    }
     return 10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    if (self.isEditing) {
+        return nil;
+    }
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
     footerView.backgroundColor = APP_PAGE_COLOR;
     return footerView;
@@ -237,9 +243,11 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
     TripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -251,7 +259,7 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TripPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.row];
+    TripPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
     RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     restaurantDetailCtl.restaurantId = tripPoi.poiId;
     [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
@@ -261,17 +269,20 @@ static NSString *restaurantListReusableIdentifier = @"restaurantListCell";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    CGPoint currentOffset = scrollView.contentOffset;
-    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
-    
-    if ([scrollView isEqual:self.tableView]) {
-        if (currentOffset.y < 20) {
-            [self.tableView setContentOffset:CGPointZero animated:YES];
-        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
-            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
-        }
-    }
+//    CGPoint currentOffset = scrollView.contentOffset;
+//    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
+//    
+//    if ([scrollView isEqual:self.tableView]) {
+//        if (currentOffset.y < 20) {
+//            [self.tableView setContentOffset:CGPointZero animated:YES];
+//        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
+//            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
+//        }
+//    }
 }
 
 
 @end
+
+
+

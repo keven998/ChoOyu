@@ -114,6 +114,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     [_ratingView sizeToFit];
     _ratingView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [_ratingView setValue:_restaurantPoi.rating];
+    
     [_headerView addSubview:_ratingView];
     
     oy += 10;

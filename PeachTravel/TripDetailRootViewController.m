@@ -89,7 +89,6 @@
         _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:80];
 #warning 测试数据
         _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
-        _destinationsHeaderView.destinations = @[@"大阪",@"香格里拉大酒店",@"洛杉矶",@"大阪",@"香格里拉大酒店",@"洛杉矶"];
     }
     return _destinationsHeaderView;
 }
@@ -109,8 +108,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/all", API_GET_GUIDE, _tripId];
     [SVProgressHUD show];
-    
-    //获取路线模板数据,新制作路线的情况下
+
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
@@ -167,6 +165,7 @@
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
+    [self updateDestinationsHeaderView];
 }
 
 - (void)setupViewControllers {
