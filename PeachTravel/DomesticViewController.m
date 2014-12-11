@@ -173,7 +173,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width+30, size.height+10);
+    return CGSizeMake(size.width + 23.0, size.height+10);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
@@ -215,11 +215,13 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.layer.borderColor = APP_THEME_COLOR.CGColor;
             cell.tiltleLabel.textColor = APP_THEME_COLOR;
+            cell.statusImageView.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
             return  cell;
         }
     }
     cell.layer.borderColor = UIColorFromRGB(0xb3b3b3).CGColor;
     cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.statusImageView.image = [UIImage imageNamed:@"ic_view_add.png"];
     return  cell;
 }
 

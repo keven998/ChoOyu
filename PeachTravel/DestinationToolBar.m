@@ -14,8 +14,8 @@
     CGFloat offsetX;
 }
 
-#define defaultHeight  40      // 每一个unitCell的默认高度
-#define defaultPace   8       // unitCell之间的间距
+#define defaultHeight  40.0      // 每一个unitCell的默认高度
+#define defaultPace   10.0       // unitCell之间的间距
 #define duration      0.3     // 动画执行时间
 #define defaultVisibleCount 3 //默认显示的unitCell的个数
 
@@ -99,7 +99,7 @@
     _moveCount = 0;
     
     UILabel *topline = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0.5)];
-    topline.backgroundColor = [UIColor lightGrayColor];
+    topline.backgroundColor = APP_PAGE_COLOR;
     [self addSubview:topline];
     
     _scrollView = [[UIScrollView alloc] init];

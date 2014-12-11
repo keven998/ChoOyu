@@ -19,20 +19,33 @@
                         <color key="textColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_view_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="gqY-QH-Rjo">
+                        <rect key="frame" x="84" y="11" width="10" height="7"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="ilB-qG-qe7"/>
+                            <constraint firstAttribute="height" constant="7" id="tIF-Gn-eZ4"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="centerY" secondItem="gqY-QH-Rjo" secondAttribute="centerY" id="3OC-HZ-czE"/>
                 <constraint firstAttribute="bottom" secondItem="vBm-KO-Ev6" secondAttribute="bottom" id="LfR-AI-lY3"/>
                 <constraint firstItem="vBm-KO-Ev6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MyJ-jW-7xP"/>
+                <constraint firstAttribute="trailing" secondItem="gqY-QH-Rjo" secondAttribute="trailing" constant="6" id="PQ0-5e-BEw"/>
                 <constraint firstAttribute="trailing" secondItem="vBm-KO-Ev6" secondAttribute="trailing" id="UYx-yI-pia"/>
                 <constraint firstItem="vBm-KO-Ev6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="6" id="XCg-bJ-4iC"/>
             </constraints>
             <connections>
+                <outlet property="statusImageView" destination="gqY-QH-Rjo" id="qlz-k9-Ope"/>
                 <outlet property="tiltleLabel" destination="vBm-KO-Ev6" id="utC-zw-2ED"/>
             </connections>
             <point key="canvasLocation" x="29" y="229"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_view_add.png" width="10" height="7"/>
+    </resources>
 </document>
