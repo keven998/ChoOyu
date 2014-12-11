@@ -7,12 +7,12 @@
 //
 
 #import "CommonPoiListTableViewCell.h"
-#import "AXRatingView.h"
+#import "EDStarRating.h"
 
 @interface CommonPoiListTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIView *ratingBackgroundView;
-@property (weak, nonatomic) IBOutlet AXRatingView *ratingView;
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 
 
 @end
@@ -20,10 +20,16 @@
 @implementation CommonPoiListTableViewCell
 
 - (void)awakeFromNib {
-    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-    _ratingView.userInteractionEnabled = NO;
-    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    [_ratingView sizeToFit];
+//    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+//    _ratingView.userInteractionEnabled = NO;
+//    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
+//    [_ratingView sizeToFit];
+    
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
 }
 
 - (void)setIsEditing:(BOOL)isEditing
@@ -49,7 +55,7 @@
     [_photoImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     [_priceBtn setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
     _addressLabel.text = tripPoi.address;
-    _ratingView.value = tripPoi.rating;
+    _ratingView.rating = tripPoi.rating;
 }
 
 @end

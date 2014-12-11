@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AXRatingView.h"
+#import "EDStarRating.h"
 
 @interface LocalTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *contentTypeFlag;
@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *propertyView;
 @property (weak, nonatomic) IBOutlet UIImageView *standardImg;
 @property (weak, nonatomic) IBOutlet UIButton *address;
-@property (weak, nonatomic) IBOutlet AXRatingView *ratingBar;
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingBar;
 @property (weak, nonatomic) IBOutlet UILabel *commentAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *commentContent;
 @property (weak, nonatomic) IBOutlet UIButton *commentCount;

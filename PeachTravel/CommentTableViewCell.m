@@ -7,12 +7,12 @@
 //
 
 #import "CommentTableViewCell.h"
-#import "AXRatingView.h"
+#import "EDStarRating.h"
 
 @interface CommentTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *nickNameBtn;
-@property (weak, nonatomic) IBOutlet AXRatingView *ratingView;
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
@@ -34,11 +34,14 @@
     _descLabel.text = commentDetail.commentDetails;
     [_nickNameBtn setTitle:commentDetail.nickName forState:UIControlStateNormal];
     _dateLabel.text = _commentDetail.commentTime;
-    _ratingView.userInteractionEnabled = NO;
-    _ratingView.markImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    [_ratingView sizeToFit];
-    _ratingView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _ratingView.value  = commentDetail.rating;
+    
+
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    [_ratingView setRating:commentDetail.rating];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -19,14 +19,20 @@
     
     _commentContent.adjustsFontSizeToFitWidth = NO;
 
-    _ratingBar.numberOfStar = 5;
-    [_ratingBar setMarkImage:[UIImage imageNamed:@"ic_gender_lady.png"]];
-    [_ratingBar setHighlightColor:[UIColor yellowColor]];
-    [_ratingBar setStepInterval:0.5];
-    [_ratingBar setBaseColor:[UIColor whiteColor]];
-    [_ratingBar setHighlightColor:[UIColor yellowColor]];
-    _ratingBar.userInteractionEnabled = NO;
-    [_ratingBar sizeToFit];
+//    _ratingBar.numberOfStar = 5;
+//    [_ratingBar setMarkImage:[UIImage imageNamed:@"ic_gender_lady.png"]];
+//    [_ratingBar setHighlightColor:[UIColor yellowColor]];
+//    [_ratingBar setStepInterval:0.5];
+//    [_ratingBar setBaseColor:[UIColor whiteColor]];
+//    [_ratingBar setHighlightColor:[UIColor yellowColor]];
+//    _ratingBar.userInteractionEnabled = NO;
+//    [_ratingBar sizeToFit];
+    
+    _ratingBar.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingBar.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingBar.maxRating = 5.0;
+    _ratingBar.editable = NO;
+    _ratingBar.displayMode = EDStarRatingDisplayAccurate;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
