@@ -166,7 +166,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             
         }
     }];
-    
 }
 
 - (IBAction)viewSpots:(id)sender
@@ -184,7 +183,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityPoi.restaurants = [[RestaurantsOfCity alloc] initWithJson:@{}];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.currentCity = _cityPoi;
-    
     
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }

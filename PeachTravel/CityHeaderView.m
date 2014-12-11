@@ -8,6 +8,7 @@
 
 #import "CityHeaderView.h"
 #import "ResizableView.h"
+#import "MWPhotoBrowser.h"
 
 @interface CityHeaderView () <UIScrollViewDelegate>
 
@@ -296,6 +297,24 @@
     return 200;
 }
 
+#pragma mark - UITabGestureAction
+- (void)viewImage:(UITapGestureRecognizer *)viewImage {
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [browser loadTZLXdata:nil];
+    for (UIView* next = [self superview]; next; next = next.superview)
+    {
+        UIResponder* nextResponder = [next nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]])
+        {
+             UIViewController *ctl = (UIViewController*)nextResponder;
+            [ctl presentViewController:nc animated:YES completion:nil];
+            break;
+        }
+    }
+}
 
 #pragma scrolldelegate
     

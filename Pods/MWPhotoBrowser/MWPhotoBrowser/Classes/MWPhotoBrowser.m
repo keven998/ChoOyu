@@ -12,6 +12,7 @@
 #import "MWPhotoBrowserPrivate.h"
 #import "SDImageCache.h"
 
+
 #define PADDING                  10
 #define ACTION_SHEET_OLD_ACTIONS 2000
 
@@ -21,6 +22,7 @@
 
 - (id)init {
     if ((self = [super init])) {
+        _delegate = self;
         [self _initialisation];
     }
     return self;
@@ -45,6 +47,50 @@
         [self _initialisation];
 	}
 	return self;
+}
+
+- (void) loadTZLXdata:(id)params {
+    [SVProgressHUD show];
+    [self performSelector:@selector(test) withObject:nil afterDelay:2.0];
+}
+
+- (void)test {
+    [SVProgressHUD dismiss];
+    _defaultPhotos = [[NSMutableArray alloc] init];
+    MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://pic3.bbzhi.com/fengjingbizhi/gaoqingkuanpingfengguangsheyingps/show_fengjingta_281299_11.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    [self reloadData];
+    [_gridController.collectionView reloadData];
+}
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return _defaultPhotos.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    return [_defaultPhotos objectAtIndex:index];
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
+    return [_defaultPhotos objectAtIndex:index];
 }
 
 - (void)_initialisation {
@@ -72,7 +118,7 @@
     _rotating = NO;
     _viewIsActive = NO;
     _enableGrid = YES;
-    _startOnGrid = NO;
+    _startOnGrid = YES;
     _enableSwipeToDismiss = YES;
     _delayToHideElements = 5;
     _visiblePages = [[NSMutableSet alloc] init];
@@ -1142,7 +1188,6 @@
 }
 
 - (void)showGrid:(BOOL)animated {
-
     if (_gridController) return;
     
     // Init grid controller

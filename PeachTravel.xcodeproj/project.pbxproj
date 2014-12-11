@@ -52,6 +52,10 @@
 		C6999FBE1A2EB136009032D8 /* LocalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */; };
 		C6999FBF1A2EB136009032D8 /* LocalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */; };
 		C6A0C6A41A398A18009D9768 /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A0C6A31A398A18009D9768 /* EDStarRating.m */; };
+		C6A0C6A91A39C032009D9768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6A81A39C032009D9768 /* MessageUI.framework */; };
+		C6A0C6AB1A39C03C009D9768 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AA1A39C03C009D9768 /* QuartzCore.framework */; };
+		C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */; };
+		C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */; };
 		C6BC34811A272DB2002C19D3 /* login_frame_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */; };
 		C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */; };
 		C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */; };
@@ -650,6 +654,10 @@
 		C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalTableViewCell.xib; sourceTree = "<group>"; };
 		C6A0C6A21A398A18009D9768 /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDStarRating.h; sourceTree = "<group>"; };
 		C6A0C6A31A398A18009D9768 /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDStarRating.m; sourceTree = "<group>"; };
+		C6A0C6A81A39C032009D9768 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		C6A0C6AA1A39C03C009D9768 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_frame_bg@2x.png"; sourceTree = "<group>"; };
 		C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_btn_frame@2x.png"; sourceTree = "<group>"; };
 		C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_line@2x.png"; sourceTree = "<group>"; };
@@ -1407,6 +1415,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */,
+				C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */,
+				C6A0C6AB1A39C03C009D9768 /* QuartzCore.framework in Frameworks */,
+				C6A0C6A91A39C032009D9768 /* MessageUI.framework in Frameworks */,
 				D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */,
 				D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */,
 				D902AD1D1A149F7200E36A93 /* libGexinSdk-1.0.7.a in Frameworks */,
@@ -2772,6 +2784,10 @@
 		D955E3F719E7A84A00047F2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */,
+				C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */,
+				C6A0C6AA1A39C03C009D9768 /* QuartzCore.framework */,
+				C6A0C6A81A39C032009D9768 /* MessageUI.framework */,
 				D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */,
 				D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */,
 				D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */,
