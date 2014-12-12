@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentDetail;
 @property (weak, nonatomic) IBOutlet UIImageView *spaceView;
 @property (weak, nonatomic) IBOutlet UIView *ratingBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 
@@ -36,6 +37,7 @@
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _distanceLabel.hidden = YES;
 }
 
 - (void)setPoi:(PoiSummary *)poi
@@ -50,6 +52,12 @@
     _priceLabel.text = @"179/人";
     _ratingView.rating = _poi.rating;
     [_addressBtn setTitle:@"位于北京位于北京位于北京位于北京" forState:UIControlStateNormal];
+    if (_poi.distanceStr) {
+        _distanceLabel.hidden = NO;
+        _distanceLabel.text = _poi.distanceStr;
+    } else {
+        _distanceLabel.hidden = YES;
+    }
 //    if (restaurantPoi.comments.count) {
 //        _commentDetail.hidden = NO;
 //        _commentAuthor.hidden = NO;

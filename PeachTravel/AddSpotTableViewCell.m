@@ -11,19 +11,32 @@
 @implementation AddSpotTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    _distanceLabel.hidden = YES;
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 3;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
 }
 
 - (void)setTripPoi:(TripPoi *)tripPoi
 {
-    TaoziImage *image = [tripPoi.images firstObject];
+    _tripPoi = tripPoi;
+    TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-    _titleLabel.text = tripPoi.zhName;
-    [_timeCostBtn setTitle:tripPoi.timeCost forState:UIControlStateNormal];
-    _descLabel.text = tripPoi.desc;
+    _titleLabel.text = _tripPoi.zhName;
+    [_timeCostBtn setTitle:_tripPoi.timeCost forState:UIControlStateNormal];
+    _descLabel.text = _tripPoi.desc;
+    _ratingView.rating = _tripPoi.rating;
+    if (_tripPoi.distanceStr) {
+        _distanceLabel.hidden = NO;
+        _distanceLabel.text = _tripPoi.distanceStr;
+    }
+    
 }
 
-- (void)setSholdEdit:(BOOL)shouldEdit
+- (void)setShouldEdit:(BOOL)shouldEdit
 {
     _shouldEdit = shouldEdit;
     if (_shouldEdit) {

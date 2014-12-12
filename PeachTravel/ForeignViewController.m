@@ -219,11 +219,13 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.layer.borderColor = APP_THEME_COLOR.CGColor;
             cell.titleLabel.textColor = APP_THEME_COLOR;
+            cell.statusImageView.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
             return  cell;
         }
     }
     cell.layer.borderColor = UIColorFromRGB(0xb3b3b3).CGColor;
     cell.titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.statusImageView.image = [UIImage imageNamed:@"ic_view_add.png"];
     return  cell;
 
 }

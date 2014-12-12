@@ -63,6 +63,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) double lat;
 @property (nonatomic, strong) NSArray *locList;
 @property (nonatomic, copy) NSString *timeCost;
+@property (nonatomic, copy) NSString *distanceStr;
 
 - (id) initWithJson:(id)json;
 

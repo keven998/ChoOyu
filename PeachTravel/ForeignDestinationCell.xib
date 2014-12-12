@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,20 +19,33 @@
                         <color key="textColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_view_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="8mb-jW-Tnm">
+                        <rect key="frame" x="82" y="12" width="10" height="7"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="A0B-yk-SJh"/>
+                            <constraint firstAttribute="height" constant="7" id="hPx-EO-IBK"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Jtw-RY-krL" secondAttribute="bottom" id="0iR-Wy-ifN"/>
                 <constraint firstItem="Jtw-RY-krL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2Ii-Az-HeQ"/>
+                <constraint firstAttribute="trailing" secondItem="8mb-jW-Tnm" secondAttribute="trailing" constant="8" id="4Da-Lu-rkk"/>
+                <constraint firstAttribute="centerY" secondItem="8mb-jW-Tnm" secondAttribute="centerY" id="Kh2-I3-zkD"/>
                 <constraint firstItem="Jtw-RY-krL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="SgZ-IH-OnZ"/>
                 <constraint firstAttribute="trailing" secondItem="Jtw-RY-krL" secondAttribute="trailing" id="lhL-bz-5zx"/>
             </constraints>
             <size key="customSize" width="320" height="32"/>
             <connections>
+                <outlet property="statusImageView" destination="8mb-jW-Tnm" id="XqI-gR-V1e"/>
                 <outlet property="titleLabel" destination="Jtw-RY-krL" id="ZOo-7p-cij"/>
             </connections>
             <point key="canvasLocation" x="285" y="201"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_view_add.png" width="10" height="7"/>
+    </resources>
 </document>

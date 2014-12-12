@@ -25,6 +25,7 @@
 @property (nonatomic) float rating;
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
+@property (nonatomic, copy) NSString *distanceStr;
 
 
 - (id)initWithJson:(id)json;

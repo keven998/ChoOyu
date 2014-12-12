@@ -12,6 +12,9 @@
 #import "PoisOfCityTableViewCell.h"
 #import "AddSpotTableViewCell.h"
 #import "PoiSummary.h"
+#import "SpotDetailViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
 
 #define LOCAL_PAGE_TITLES       @[@"桃∙景", @"桃∙食", @"桃∙购", @"桃∙宿"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
@@ -157,7 +160,18 @@
     }
     NSArray *dataList = [json objectForKey:key];
     for (id poiDic in dataList) {
-        [currentList addObject:[[PoiSummary alloc] initWithJson:poiDic]];
+        PoiSummary *poiSummary = [[PoiSummary alloc] initWithJson:poiDic];
+        [currentList addObject:poiSummary];
+        CLLocation *current=[[CLLocation alloc] initWithLatitude:poiSummary.lat longitude:poiSummary.lng];
+        CLLocation *before=[[CLLocation alloc] initWithLatitude:_lat longitude:_lng];
+        CLLocationDistance meters=[current distanceFromLocation:before];
+        if (meters>1000) {
+            poiSummary.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
+        } else {
+            poiSummary.distanceStr = [NSString stringWithFormat:@"%dm",(int)meters];
+
+        }
+
     }
     UITableView *currentTableView =  (UITableView *)[_swipeView viewWithTag:1];
     if (currentTableView) {
@@ -170,6 +184,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PoiSummary *poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
+    switch (_currentPage) {
+        case PAGE_FUN: {
+            SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
+            spotDetailCtl.spotId = poi.poiId;
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+        }
+            break;
+            
+        case PAGE_FOOD: {
+            RestaurantDetailViewController *restaurant = [[RestaurantDetailViewController alloc] init];
+            restaurant.restaurantId = poi.poiId;
+            [self.navigationController pushViewController:restaurant animated:YES];
+        }
+            break;
+        
+        case PAGE_SHOPPING: {
+            ShoppingDetailViewController *restaurant = [[ShoppingDetailViewController alloc] init];
+            restaurant.shoppingId = poi.poiId;
+            [self.navigationController pushViewController:restaurant animated:YES];
+        }
+            
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -181,6 +220,14 @@
 //        default:
 //            break;
 //    }
+    switch (_currentPage) {
+        case PAGE_FUN:
+            return 138.0;
+            break;
+            
+        default:
+            break;
+    }
     return 185.0;
 }
 
@@ -206,6 +253,8 @@
         trippoi.timeCost = poi.timeCost;
         trippoi.lat = poi.lat;
         trippoi.lng = poi.lng;
+        trippoi.distanceStr = poi.distanceStr;
+        cell.tripPoi = trippoi;
         cell.addBtn.tag = indexPath.row;
         cell.shouldEdit = NO;
         return cell;
