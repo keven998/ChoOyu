@@ -330,6 +330,7 @@
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
+    _isLoadingMore = YES;
     [_indicatroView startAnimating];
     [self loadDataWithPageIndex:(_currentPage + 1)];
 }
@@ -345,10 +346,9 @@
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (!_isLoadingMore && _didEndScroll) {
-        _isLoadingMore = YES;
-        _didEndScroll = NO;
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
         if (scrollPosition < 44.0) {
+            _didEndScroll = NO;
             [self beginLoadingMore];
         }
     }
