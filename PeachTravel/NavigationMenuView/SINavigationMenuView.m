@@ -56,7 +56,7 @@
     if (!self.table) {
         UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
         CGRect frame = mainWindow.frame;
-        frame.origin.y += self.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+        frame.origin.y += self.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height+10;
         self.table = [[SIMenuTable alloc] initWithFrame:frame items:self.items];
         self.table.menuDelegate = self;
     }

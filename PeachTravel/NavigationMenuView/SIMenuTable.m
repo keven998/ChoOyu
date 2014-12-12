@@ -41,9 +41,13 @@
         self.table = [[UITableView alloc] initWithFrame:startFrame style:UITableViewStylePlain];
         self.table.delegate = self;
         self.table.dataSource = self;
-        self.table.backgroundColor = [UIColor clearColor];
+        self.table.backgroundColor = APP_PAGE_COLOR;
         self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.table.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 20)];
+        headerView.backgroundColor = APP_PAGE_COLOR;
+        self.table.tableHeaderView = headerView;
         
         UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.table.bounds.size.height, [SIMenuConfiguration menuWidth], self.table.bounds.size.height)];
         header.backgroundColor = [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
@@ -61,12 +65,9 @@
         [self addFooter];
     }
     [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
-        self.layer.backgroundColor = [UIColor color:[SIMenuConfiguration mainColor] withAlpha:[SIMenuConfiguration backgroundAlpha]].CGColor;
         self.table.frame = endFrame;
-        self.table.contentOffset = CGPointMake(0, [SIMenuConfiguration bounceOffset]);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:[self bounceAnimationDuration] animations:^{
-            self.table.contentOffset = CGPointMake(0, 0);
         }];
     }];
 }

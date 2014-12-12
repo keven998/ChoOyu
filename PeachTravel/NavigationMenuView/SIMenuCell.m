@@ -22,20 +22,17 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
+        self.contentView.backgroundColor = [UIColor whiteColor];
         self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
         self.textLabel.textAlignment = NSTextAlignmentCenter;
-        self.textLabel.shadowColor = [UIColor darkGrayColor];
+        self.textLabel.font = [UIFont boldSystemFontOfSize:14.0];
         self.textLabel.shadowOffset = CGSizeMake(0.0, -1.0);
         
         self.selectionStyle = UITableViewCellEditingStyleNone;
         
-        self.cellSelection = [[SICellSelection alloc] initWithFrame:self.bounds andColor:[SIMenuConfiguration selectionColor]];
-        [self.cellSelection.layer setCornerRadius:6.0];
-        [self.cellSelection.layer setMasksToBounds:YES];
-        
-        self.cellSelection.alpha = 0.0;
-        [self.contentView insertSubview:self.cellSelection belowSubview:self.textLabel];
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, [SIMenuConfiguration itemCellHeight]-1, self.bounds.size.width, 1)];
+        spaceView.backgroundColor = APP_PAGE_COLOR;
+        [self addSubview:spaceView];
     }
     return self;
 }

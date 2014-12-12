@@ -19,7 +19,7 @@
 //Menu item height
 + (float)itemCellHeight
 {
-    return 44.0f;
+    return 47.5f;
 }
 
 //Animation duration of menu appearence
@@ -43,7 +43,7 @@
 //Value of bounce
 + (float)bounceOffset
 {
-    return -7.0;
+    return 0;
 }
 
 //Arrow image near title
@@ -61,7 +61,7 @@
 //Items color in menu
 + (UIColor *)itemsColor
 {
-    return [UIColor blackColor];
+    return [UIColor whiteColor];
 }
 
 + (UIColor *)mainColor
@@ -76,7 +76,7 @@
 
 + (UIColor *)itemTextColor
 {
-    return [UIColor whiteColor];
+    return UIColorFromRGB(0x333333);
 }
 
 + (UIColor *)selectionColor
