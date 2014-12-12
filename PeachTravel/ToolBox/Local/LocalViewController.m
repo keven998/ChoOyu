@@ -211,6 +211,7 @@
         return cell;
     }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
+    cell.shouldEdit = NO;
     cell.poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
     return cell;
 }
