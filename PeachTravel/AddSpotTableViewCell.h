@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeCostBtn;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
+@property (nonatomic) BOOL shouldEdit;
 
 @property (nonatomic, strong) TripPoi *tripPoi;
 

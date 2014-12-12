@@ -23,4 +23,21 @@
     _descLabel.text = tripPoi.desc;
 }
 
+- (void)setSholdEdit:(BOOL)shouldEdit
+{
+    _shouldEdit = shouldEdit;
+    if (_shouldEdit) {
+        _addBtn.backgroundColor = APP_THEME_COLOR;
+        [_addBtn setTitle:@"添加" forState:UIControlStateNormal];
+        [_addBtn setImage:nil forState:UIControlStateNormal];
+        [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+    } else {
+        _addBtn.backgroundColor = [UIColor whiteColor];
+        [_addBtn setTitle:nil forState:UIControlStateNormal];
+        [_addBtn setImage:[UIImage imageNamed:@"ic_navigation_normal.png"] forState:UIControlStateNormal];
+        [_addBtn setImage:[UIImage imageNamed:@"ic_navigation_highlight.png"] forState:UIControlStateHighlighted];
+    }
+
+}
 @end
