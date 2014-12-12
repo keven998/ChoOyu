@@ -160,7 +160,7 @@
     
     __weak typeof(self) this = self;
     
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         
         this.highLightView.alpha = 0.0;
         

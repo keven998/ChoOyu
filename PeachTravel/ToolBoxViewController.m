@@ -411,6 +411,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (IBAction)myFavorite:(id)sender {
     FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
+    fvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:fvc animated:YES];
 }
 

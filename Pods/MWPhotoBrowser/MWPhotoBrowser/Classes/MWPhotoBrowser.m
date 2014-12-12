@@ -12,6 +12,7 @@
 #import "MWPhotoBrowserPrivate.h"
 #import "SDImageCache.h"
 
+
 #define PADDING                  10
 #define ACTION_SHEET_OLD_ACTIONS 2000
 
@@ -21,6 +22,7 @@
 
 - (id)init {
     if ((self = [super init])) {
+        _delegate = self;
         [self _initialisation];
     }
     return self;
@@ -45,6 +47,50 @@
         [self _initialisation];
 	}
 	return self;
+}
+
+- (void) loadTZLXdata:(id)params {
+    [SVProgressHUD show];
+    [self performSelector:@selector(test) withObject:nil afterDelay:2.0];
+}
+
+- (void)test {
+    [SVProgressHUD dismiss];
+    _defaultPhotos = [[NSMutableArray alloc] init];
+    MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://pic3.bbzhi.com/fengjingbizhi/gaoqingkuanpingfengguangsheyingps/show_fengjingta_281299_11.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
+    [_defaultPhotos addObject:photo];
+    [self reloadData];
+    [_gridController.collectionView reloadData];
+}
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return _defaultPhotos.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    return [_defaultPhotos objectAtIndex:index];
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
+    return [_defaultPhotos objectAtIndex:index];
 }
 
 - (void)_initialisation {
@@ -72,7 +118,7 @@
     _rotating = NO;
     _viewIsActive = NO;
     _enableGrid = YES;
-    _startOnGrid = NO;
+    _startOnGrid = YES;
     _enableSwipeToDismiss = YES;
     _delayToHideElements = 5;
     _visiblePages = [[NSMutableSet alloc] init];
@@ -147,8 +193,8 @@
 	// View
 	self.view.backgroundColor = [UIColor blackColor];
     self.view.clipsToBounds = YES;
-	
-	// Setup paging scrolling view
+    
+    // Setup paging scrolling view
 	CGRect pagingScrollViewFrame = [self frameForPagingScrollView];
 	_pagingScrollView = [[UIScrollView alloc] initWithFrame:pagingScrollViewFrame];
 	_pagingScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -161,35 +207,35 @@
 	[self.view addSubview:_pagingScrollView];
 	
     // Toolbar
-    _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
-    _toolbar.tintColor = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7") ? [UIColor whiteColor] : nil;
-    if ([_toolbar respondsToSelector:@selector(setBarTintColor:)]) {
-        _toolbar.barTintColor = nil;
-    }
-    if ([[UIToolbar class] respondsToSelector:@selector(appearance)]) {
-        [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-        [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
-    }
-    _toolbar.barStyle = UIBarStyleBlackTranslucent;
-    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+//    _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
+//    _toolbar.tintColor = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7") ? [UIColor whiteColor] : nil;
+//    if ([_toolbar respondsToSelector:@selector(setBarTintColor:)]) {
+//        _toolbar.barTintColor = nil;
+//    }
+//    if ([[UIToolbar class] respondsToSelector:@selector(appearance)]) {
+//        [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+//        [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
+//    }
+//    _toolbar.barStyle = UIBarStyleBlackTranslucent;
+//    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     
     // Toolbar Items
-    if (self.displayNavArrows) {
-        NSString *arrowPathFormat;
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-            arrowPathFormat = @"MWPhotoBrowser.bundle/images/UIBarButtonItemArrowOutline%@.png";
-        } else {
-            arrowPathFormat = @"MWPhotoBrowser.bundle/images/UIBarButtonItemArrow%@.png";
-        }
-        _previousButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:arrowPathFormat, @"Left"]] style:UIBarButtonItemStylePlain target:self action:@selector(gotoPreviousPage)];
-        _nextButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:arrowPathFormat, @"Right"]] style:UIBarButtonItemStylePlain target:self action:@selector(gotoNextPage)];
-    }
-    if (self.displayActionButton) {
-        _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
-    }
+//    if (self.displayNavArrows) {
+//        NSString *arrowPathFormat;
+//        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+//            arrowPathFormat = @"MWPhotoBrowser.bundle/images/UIBarButtonItemArrowOutline%@.png";
+//        } else {
+//            arrowPathFormat = @"MWPhotoBrowser.bundle/images/UIBarButtonItemArrow%@.png";
+//        }
+//        _previousButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:arrowPathFormat, @"Left"]] style:UIBarButtonItemStylePlain target:self action:@selector(gotoPreviousPage)];
+//        _nextButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:arrowPathFormat, @"Right"]] style:UIBarButtonItemStylePlain target:self action:@selector(gotoNextPage)];
+//    }
+//    if (self.displayActionButton) {
+//        _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
+//    }
     
     // Update
-    [self reloadData];
+//    [self reloadData];
     
     // Swipe to dismiss
     if (_enableSwipeToDismiss) {
@@ -285,19 +331,19 @@
     }
 
     // Toolbar visibility
-    [_toolbar setItems:items];
-    BOOL hideToolbar = YES;
-    for (UIBarButtonItem* item in _toolbar.items) {
-        if (item != fixedSpace && item != flexSpace) {
-            hideToolbar = NO;
-            break;
-        }
-    }
-    if (hideToolbar) {
-        [_toolbar removeFromSuperview];
-    } else {
-        [self.view addSubview:_toolbar];
-    }
+//    [_toolbar setItems:items];
+//    BOOL hideToolbar = YES;
+//    for (UIBarButtonItem* item in _toolbar.items) {
+//        if (item != fixedSpace && item != flexSpace) {
+//            hideToolbar = NO;
+//            break;
+//        }
+//    }
+//    if (hideToolbar) {
+//        [_toolbar removeFromSuperview];
+//    } else {
+//        [self.view addSubview:_toolbar];
+//    }
     
     // Update nav
 	[self updateNavigation];
@@ -510,7 +556,7 @@
 	_performingLayout = YES;
 	
 	// Toolbar
-	_toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
+//	_toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
     
 	// Remember index
 	NSUInteger indexPriorToLayout = _currentPageIndex;
@@ -1142,7 +1188,6 @@
 }
 
 - (void)showGrid:(BOOL)animated {
-
     if (_gridController) return;
     
     // Init grid controller
@@ -1182,6 +1227,7 @@
         [_gridController didMoveToParentViewController:self];
     }];
     
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)hideGrid {
@@ -1304,7 +1350,7 @@
     if (slideAndFade && [self areControlsHidden] && !hidden && animated) {
         
         // Toolbar
-        _toolbar.frame = CGRectOffset([self frameForToolbarAtOrientation:self.interfaceOrientation], 0, animatonOffset);
+//        _toolbar.frame = CGRectOffset([self frameForToolbarAtOrientation:self.interfaceOrientation], 0, animatonOffset);
         
         // Captions
         for (MWZoomingScrollView *page in _visiblePages) {
@@ -1326,11 +1372,11 @@
         [self.navigationController.navigationBar setAlpha:alpha];
         
         // Toolbar
-        if (slideAndFade) {
-            _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
-            if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
-        }
-        _toolbar.alpha = alpha;
+//        if (slideAndFade) {
+//            _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
+//            if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
+//        }
+//        _toolbar.alpha = alpha;
 
         // Captions
         for (MWZoomingScrollView *page in _visiblePages) {
@@ -1396,7 +1442,10 @@
 
 - (BOOL)areControlsHidden { return (_toolbar.alpha == 0); }
 - (void)hideControls { [self setControlsHidden:YES animated:YES permanent:NO]; }
-- (void)toggleControls { [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO]; }
+- (void)toggleControls {
+//    [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO];
+    [self showGridAnimated];
+}
 
 #pragma mark - Properties
 
@@ -1420,6 +1469,8 @@
         if (!_viewIsActive)
             [self tilePages]; // Force tiling if view is not visible
     }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
 }
 
 #pragma mark - Misc
@@ -1450,6 +1501,9 @@
 #pragma mark - Actions
 
 - (void)actionButtonPressed:(id)sender {
+    //TODO
+    [self showGridAnimated];
+/*
     if (_actionsSheet) {
         
         // Dismiss
@@ -1530,6 +1584,7 @@
 
         }
     }
+ */
 }
 
 #pragma mark - Action Sheet Delegate
