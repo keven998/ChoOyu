@@ -95,7 +95,7 @@
 - (DKCircleButton *)editBtn
 {
     if (!_editBtn) {
-        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-80.0, 50, 50)];
+        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-70.0, 50, 50)];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
         [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
@@ -159,7 +159,7 @@
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self bindView:responseObject];
+            [self bindDataToView:responseObject];
             _currentPage = pageIndex;
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -173,7 +173,7 @@
     
 }
 
-- (void) bindView:(id) responseObject {
+- (void) bindDataToView:(id) responseObject {
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
         if (_dataSource.count == 0) {

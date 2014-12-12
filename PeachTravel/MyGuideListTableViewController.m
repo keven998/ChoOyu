@@ -14,21 +14,19 @@
 #import "TripDetailRootViewController.h"
 #import "ConfirmRouteViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
+#import "Destinations.h"
+#import "DomesticViewController.h"
+#import "ForeignViewController.h"
 
-@interface MyGuideListTableViewController () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, TaoziMessageSendDelegate>
+@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate>
 
 @property (strong, nonatomic) DKCircleButton *editBtn;
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic) BOOL isEditing;
-
 @property (nonatomic) NSUInteger currentPage;
-
 @property (nonatomic, strong) NSMutableArray *dataSource;
-
 @property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
-
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
-
+@property (nonatomic, strong) UIView *emptyView;
 
 @end
 
@@ -38,34 +36,80 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"我的攻略";
+    
+    self.navigationController.navigationBar.translucent = YES;
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
+    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+    self.navigationItem.leftBarButtonItem = backBtn;
+    
+    UIButton *mp = [UIButton buttonWithType:UIButtonTypeCustom];
+    mp.frame = CGRectMake(0.0, 0.0, 40.0, 32.0);
+    [mp setTitle:@"新建" forState:UIControlStateNormal];
+    mp.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    [mp setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [mp setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    [mp addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithCustomView:mp];
+    self.navigationItem.rightBarButtonItem = rightBtn;
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
+    
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"我的攻略";
+    
     _isEditing = NO;
-    [self.view addSubview:self.tableView];
-    [self.view addSubview:self.editBtn];
     _currentPage = 0;
-    [self loadDataWithPageIndex:_currentPage];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl beginRefreshing];
+    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+    
+//    [self loadDataWithPageIndex:_currentPage];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.view addSubview:self.editBtn];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.editBtn removeFromSuperview];
+}
+
+#pragma mark - navigation action
+
+- (void)goBackToAllPets
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)makePlan {
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    foreignCtl.title = @"国外";
+    domestic.title = @"国内";
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    makePlanCtl.hidesBottomBarWhenPushed = YES;
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    domestic.notify = NO;
+    foreignCtl.notify = NO;
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 #pragma mark - setter & getter
-
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
-        [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-
-    }
-    return _tableView;
-}
 
 - (NSMutableArray *)dataSource
 {
@@ -78,7 +122,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (DKCircleButton *)editBtn
 {
     if (!_editBtn) {
-        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-80.0, 50, 50)];
+        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.tableView.bounds.size.width-60, self.tableView.bounds.size.height-70.0, 50, 50)];
 //        _editBtn.backgroundColor = APP_THEME_COLOR;
 //        _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
 //        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
@@ -90,6 +134,15 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 #pragma mark - IBAction Methods
+/**
+ *  下拉刷新
+ *
+ *  @param sender
+ */
+- (void)pullToRefreash:(id)sender {
+    //    UIRefreshControl *refreshControl = (UIRefreshControl *)sender;
+    [self loadDataWithPageIndex:0];
+}
 
 /**
  *  点击编辑按钮
@@ -115,7 +168,10 @@ static NSString *reusableCell = @"myGuidesCell";
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
+            CGPoint viewPos = [sender convertPoint:CGPointZero toView:self.tableView];
+            NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
+            int index = indexPath.row;
+            MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index];
             [self deleteUserGuide:guideSummary];
         }
     }];
@@ -184,13 +240,13 @@ static NSString *reusableCell = @"myGuidesCell";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@",API_DELETE_GUIDE ,guideSummary.guideId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_DELETE_GUIDE, guideSummary.guideId];
     
     [SVProgressHUD show];
     
@@ -203,6 +259,9 @@ static NSString *reusableCell = @"myGuidesCell";
             [self.dataSource removeObject:guideSummary];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (_dataSource.count == 0) {
+                [self setupEmptyView];
+            }
         } else {
             [SVProgressHUD showErrorWithStatus:@"删除失败"];
         }
@@ -272,30 +331,92 @@ static NSString *reusableCell = @"myGuidesCell";
     [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
-    [SVProgressHUD show];
+    if (!self.refreshControl.isRefreshing) {
+        [SVProgressHUD show];
+    }
     
     //获取我的攻略列表
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
-                MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
-                [self.dataSource addObject:guideSummary];
-                
-            }
-            [self.tableView reloadData];
-            _currentPage ++;
+            [self bindDataToView:responseObject];
+            _currentPage = pageIndex;
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        
+        [SVProgressHUD dismiss];
+        [self.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
+        [self.refreshControl endRefreshing];
     }];
     
+}
+
+- (void) bindDataToView:(id) responseObject {
+    NSArray *datas = [responseObject objectForKey:@"result"];
+    if (datas.count == 0) {
+        if (_dataSource.count == 0) {
+            [self setupEmptyView];
+        } else {
+            [self showHint:@"已取完所有内容啦"];
+        }
+        return;
+    } else {
+        [self removeEmptyView];
+    }
+    if (self.refreshControl.isRefreshing) {
+        [_dataSource removeAllObjects];
+    }
+    for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
+        MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
+        [self.dataSource addObject:guideSummary];
+    }
+    [self.tableView reloadData];
+}
+
+- (void) setupEmptyView {
+    if (self.emptyView != nil) {
+        return;
+    }
+    
+    CGFloat width = self.view.bounds.size.width;
+    
+    self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.emptyView];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"first_selected.png"]];
+    imageView.contentMode = UIViewContentModeScaleToFill;
+    imageView.center = CGPointMake(width/2.0, 100.0);
+    [self.emptyView addSubview:imageView];
+    
+    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
+    desc.textColor = UIColorFromRGB(0x797979);
+    desc.font = [UIFont systemFontOfSize:15.0];
+    desc.numberOfLines = 2;
+    desc.textAlignment = NSTextAlignmentCenter;
+    desc.text = @"木有任何旅行攻略\n这么好的旅行助手不用可惜了";
+    [self.emptyView addSubview:desc];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0.0, 0.0, 90.0, 34.0);
+    btn.backgroundColor = APP_THEME_COLOR;
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitle:@"新建" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
+    btn.layer.cornerRadius = 2.0;
+    [btn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+    [self.emptyView addSubview:btn];
+}
+
+- (void) removeEmptyView {
+    if (self.emptyView != nil) {
+        [self.emptyView removeFromSuperview];
+        self.emptyView = nil;
+    }
 }
 
 #pragma mark - TaoziMessageSendDelegate
@@ -326,6 +447,7 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     if (self.popupViewController != nil) {
         [self dismissPopupViewControllerAnimated:YES completion:^{
+            
         }];
     }
 }
@@ -349,7 +471,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
-    cell.deleteBtn.tag = indexPath.row;
 //    cell.editTitleBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
 //    [cell.editTitleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];

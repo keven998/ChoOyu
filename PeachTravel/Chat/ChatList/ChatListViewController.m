@@ -213,7 +213,7 @@
     desc.font = [UIFont systemFontOfSize:15.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"想去哪儿旅行\n约蜜蜜们来八一八吧";
+    desc.text = @"旅行那些事\n还有比桃·Talk更方便的么";
     [self.emptyView addSubview:desc];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -241,7 +241,9 @@
         [self.emptyView removeFromSuperview];
         self.emptyView = nil;
     }
-    [self.view addSubview:self.tableView];
+    if ([self.tableView superview] == nil) {
+        [self.view addSubview:self.tableView];
+    }
 }
 
 - (NSMutableArray *)loadDataSource
@@ -523,6 +525,9 @@
         [self.dataSource removeObjectAtIndex:indexPath.row];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if (_dataSource.count == 0) {
+            [self setupEmptyView];
+        }
     }
 }
 
