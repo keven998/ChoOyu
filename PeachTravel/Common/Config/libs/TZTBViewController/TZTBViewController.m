@@ -93,8 +93,8 @@
     if (!_isLoadingMore && _enableLoadingMore && isSameScrollProcessEnd) {
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
         if (scrollPosition < DEFAULT_FOOTER_HEIGHT) {
-            [self beginLoadingMore];
             isSameScrollProcessEnd = NO;
+            [self beginLoadingMore];
         }
     }
 }

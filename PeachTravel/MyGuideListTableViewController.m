@@ -28,6 +28,11 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) UIView *emptyView;
 
+@property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
+@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, assign) BOOL isLoadingMore;
+@property (nonatomic, assign) BOOL didEndScroll;
+
 @end
 
 @implementation MyGuideListTableViewController
@@ -64,6 +69,8 @@ static NSString *reusableCell = @"myGuidesCell";
     
     _isEditing = NO;
     _currentPage = 0;
+    _isLoadingMore = YES;
+    _didEndScroll = YES;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
@@ -331,10 +338,11 @@ static NSString *reusableCell = @"myGuidesCell";
     [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
-    if (!self.refreshControl.isRefreshing) {
-        [SVProgressHUD show];
-    }
+//    if (!self.refreshControl.isRefreshing) {
+//        [SVProgressHUD show];
+//    }
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取我的攻略列表
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -345,12 +353,15 @@ static NSString *reusableCell = @"myGuidesCell";
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         [self.refreshControl endRefreshing];
+        [self loadMoreCompleted];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
         [self.refreshControl endRefreshing];
+        [self loadMoreCompleted];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
@@ -510,6 +521,52 @@ static NSString *reusableCell = @"myGuidesCell";
         }];
     }
 
+}
+
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.backgroundColor = APP_PAGE_COLOR;
+        
+        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [_footerView addSubview:_indicatroView];
+        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+    }
+    return _footerView;
+}
+
+- (void) beginLoadingMore {
+    if (self.tableView.tableFooterView == nil) {
+        self.tableView.tableFooterView = self.footerView;
+    }
+    _isLoadingMore = YES;
+    [_indicatroView startAnimating];
+    [self loadDataWithPageIndex:(_currentPage + 1)];
+}
+
+- (void) loadMoreCompleted {
+    if (!_isLoadingMore) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMore = NO;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_isLoadingMore && _didEndScroll) {
+        CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+        if (scrollPosition < 44.0) {
+            _didEndScroll = NO;
+            [self beginLoadingMore];
+        }
+    }
+}
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    _didEndScroll = YES;
 }
 
 @end

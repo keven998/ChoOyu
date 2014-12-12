@@ -55,16 +55,8 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     pan.delegate = self;
     [_coverView addGestureRecognizer:pan];
+    _coverView.backgroundColor = [UIColor whiteColor];
     
-    NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
-    
-    [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (error) {
-            _coverView.image = [UIImage imageNamed:@"tutorial_background_01.jpg"];
-        }
-    }];
-    
-    [self loadData];
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
@@ -111,6 +103,19 @@
             view.frame = frame;
         }
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
+    [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error) {
+            _coverView.image = [UIImage imageNamed:@"tutorial_background_01.jpg"];
+        }
+    }];
+    [self loadData];
+
 }
 
 #pragma mark - IBActions
