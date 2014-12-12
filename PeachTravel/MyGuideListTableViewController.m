@@ -512,22 +512,4 @@ static NSString *reusableCell = @"myGuidesCell";
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end
