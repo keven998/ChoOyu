@@ -239,6 +239,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     if (poi.poiType == TripSpotPoi) {
         AddSpotTableViewCell *addSpotCell = [tableView dequeueReusableCellWithIdentifier:addSpotCellIndentifier];
         addSpotCell.tripPoi = poi;
+        addSpotCell.shouldEdit = YES;
         addSpotCell.addBtn.tag = indexPath.row;
         [addSpotCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         return addSpotCell;

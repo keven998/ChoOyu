@@ -23,10 +23,13 @@
         _desc = [json objectForKey:@"desc"];
         _address = [json objectForKey:@"address"];
         _telephone = [json objectForKey:@"telephone"];
-        if ([json objectForKey:@"rating"] == [NSNull null]) {
+        _timeCost = [json objectForKey:@"timeCost"];
+        _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
+        _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
             _rating = 3.5;
         } else {
-            _rating = [[json objectForKey:@"rating"] floatValue];
+            _rating = [[json objectForKey:@"rating"] floatValue]*5;
         }
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {

@@ -10,6 +10,8 @@
 #import "DMFilterView.h"
 #import "SwipeView.h"
 #import "PoisOfCityTableViewCell.h"
+#import "AddSpotTableViewCell.h"
+#import "PoiSummary.h"
 
 #define LOCAL_PAGE_TITLES       @[@"桃∙景", @"桃∙食", @"桃∙购", @"桃∙宿"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
@@ -44,7 +46,6 @@
     _filterView.backgroundColor = [UIColor whiteColor];
     _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
 
-    
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
     _swipeView.dataSource = self;
     _swipeView.delegate = self;
@@ -54,6 +55,7 @@
     _swipeView.pagingEnabled = YES;
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
+    [self loadData];
 }
 
 #pragma mark - getter & getter
@@ -66,9 +68,103 @@
             NSMutableArray *oneList = [[NSMutableArray alloc] init];
             [tempArray addObject:oneList];
         }
+        _dataSource = tempArray;
     }
     return _dataSource;
 }
+
+- (void)loadData {
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
+    [params setObject:[NSNumber numberWithFloat:_lat] forKey:@"lat"];
+    [params setObject:[NSNumber numberWithFloat:_lng] forKey:@"lng"];
+    
+    switch (_currentPage) {
+        case PAGE_FUN:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
+            break;
+            
+        case PAGE_FOOD:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
+            break;
+            
+        case PAGE_SHOPPING:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
+            break;
+            
+        case PAGE_STAY:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
+            break;
+            
+        default:
+            break;
+    }
+
+    [SVProgressHUD show];
+    [manager GET:API_NEARBY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD dismiss];
+            [self analysisData:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"加载失败"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"加载失败"];
+    }];
+    
+}
+
+- (void)analysisData:(id)json
+{
+    NSString *key;
+    NSMutableArray *currentList = [self.dataSource objectAtIndex:_currentPage];
+    tripPoiType type;
+    switch (_currentPage) {
+        case PAGE_FUN:
+            key = @"vs";
+            type = TripSpotPoi;
+            break;
+        case PAGE_FOOD:
+            key = @"restaurant";
+            type = TripRestaurantPoi;
+
+            break;
+        case PAGE_SHOPPING:
+            key = @"shopping";
+            type = TripShoppingPoi;
+
+            break;
+        case PAGE_STAY:
+            key = @"hotel";
+            type = TripHotelPoi;
+
+            break;
+            
+        default:
+            break;
+    }
+    NSArray *dataList = [json objectForKey:key];
+    for (id poiDic in dataList) {
+        [currentList addObject:[[PoiSummary alloc] initWithJson:poiDic]];
+    }
+    UITableView *currentTableView =  (UITableView *)[_swipeView viewWithTag:1];
+    if (currentTableView) {
+        [currentTableView reloadData];
+    }
+}
+
 
 #pragma mark - UITableViewDelegate
 
@@ -92,26 +188,43 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSArray *datas = [_dataPool objectAtIndex:_currentPage];
-//    return datas.count;
-    return 2;
+    NSArray *datas = [self.dataSource objectAtIndex:_currentPage];
+    return datas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (_currentPage == PAGE_FUN) {
+        AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
+        PoiSummary *poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
+        TripPoi *trippoi = [[TripPoi alloc] init];
+        trippoi.poiId = poi.poiId;
+        trippoi.images = poi.images;
+        trippoi.zhName = poi.zhName;
+        trippoi.enName = poi.enName;
+        trippoi.desc = poi.desc;
+        trippoi.rating = poi.rating;
+        trippoi.timeCost = poi.timeCost;
+        trippoi.lat = poi.lat;
+        trippoi.lng = poi.lng;
+        cell.addBtn.tag = indexPath.row;
+        cell.shouldEdit = NO;
+        return cell;
+    }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
-    
+    cell.shouldEdit = NO;
+    cell.poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
     return cell;
 }
 
 #pragma mark - SwipeViewDataSource
+
 - (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView {
     return LOCAL_PAGE_TITLES.count;
 }
 
 - (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view {
     UITableView *tbView = nil;
-    
-    //create new view if no view is available for recycling
+    _currentPage = index;
     if (view == nil)
     {
         view = [[UIView alloc] initWithFrame:self.swipeView.bounds];
@@ -125,26 +238,22 @@
         tbView.tag = 1;
         tbView.backgroundColor = APP_PAGE_COLOR;
         [view addSubview:tbView];
-        
-        [tbView registerNib:[UINib nibWithNibName:@"LocalTableViewCell" bundle:nil] forCellReuseIdentifier:@"local_cell"];
-    }
-    else
-    {
+        if (index == PAGE_FUN) {
+            [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
+        } else {
+            [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+        }
+    
+    } else {
         tbView = (UITableView *)[view viewWithTag:1];
-    }
-    
-//    NSArray *data = [_dataPool objectAtIndex:index];
-//    if (data == nil || data.count == 0) {
-//        [self loadData];
-//    } else {
+        if (index == PAGE_FUN) {
+            [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
+        } else {
+            [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+        }
         [tbView reloadData];
-//    }
-    
+    }
     return view;
-}
-
-- (void) loadData {
-    
 }
 
 
@@ -153,6 +262,11 @@
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
     _currentPage = swipeView.currentPage;
     [_filterView setSelectedIndex:_currentPage];
+    if (![[self.dataSource objectAtIndex:_currentPage] count]) {
+        NSLog(@"点击我，我要加载数据") ;
+        [self loadData];
+    }
+
 }
 
 - (CGSize)swipeViewItemSize:(SwipeView *)swipeView {
@@ -163,6 +277,7 @@
 
 - (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
     [_swipeView setCurrentPage:index];
+    _currentPage = index;
 }
 
 

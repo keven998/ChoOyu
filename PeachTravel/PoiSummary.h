@@ -18,10 +18,13 @@
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *telephone;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *timeCost;
 @property (nonatomic, strong) NSArray *recommends;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic) NSInteger commentCount;
 @property (nonatomic) float rating;
+@property (nonatomic) double lat;
+@property (nonatomic) double lng;
 
 
 - (id)initWithJson:(id)json;
