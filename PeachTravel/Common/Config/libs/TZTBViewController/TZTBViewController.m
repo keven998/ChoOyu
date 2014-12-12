@@ -12,6 +12,7 @@
 
 @interface TZTBViewController ()<UITableViewDelegate, UITableViewDataSource> {
     UIActivityIndicatorView *_indicatroView;
+    BOOL isSameScrollProcessEnd;
 }
 
 @end
@@ -23,6 +24,7 @@
     if ((self = [super init])) {
         _isLoadingMore = NO;
         _enableLoadingMore = YES;
+        isSameScrollProcessEnd = YES;
     }
     return self;
 }
@@ -63,11 +65,11 @@
 }
 
 - (void) beginLoadingMore {
+    _isLoadingMore = YES;
     if (_tableView.tableFooterView == nil) {
         _tableView.tableFooterView = self.footerView;
     }
     [_indicatroView startAnimating];
-    _isLoadingMore = YES;
 }
 
 - (void) loadMoreCompleted {
@@ -88,12 +90,17 @@
 #pragma mark - UIScrollViewDelegate
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!_isLoadingMore && _enableLoadingMore) {
+    if (!_isLoadingMore && _enableLoadingMore && isSameScrollProcessEnd) {
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
         if (scrollPosition < DEFAULT_FOOTER_HEIGHT) {
             [self beginLoadingMore];
+            isSameScrollProcessEnd = NO;
         }
     }
+}
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    isSameScrollProcessEnd = YES;
 }
 
 

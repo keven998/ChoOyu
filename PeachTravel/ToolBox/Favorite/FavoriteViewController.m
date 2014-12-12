@@ -25,6 +25,11 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic) NSUInteger currentPage;
+
+@property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
+@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, assign) BOOL isLoadingMore;
+@property (nonatomic, assign) BOOL didEndScroll;
 @end
 
 @implementation FavoriteViewController
@@ -49,6 +54,8 @@
     
     _selectedIndex = -1;
     _currentPage = 0;
+    _isLoadingMore = YES;
+    _didEndScroll = YES;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
@@ -151,12 +158,13 @@
     [params safeSetObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
-    if (!self.refreshControl.isRefreshing) {
-        [SVProgressHUD show];
-    }
+//    if (!self.refreshControl.isRefreshing) {
+//        [SVProgressHUD show];
+//    }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self bindDataToView:responseObject];
@@ -165,10 +173,13 @@
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         [self.refreshControl endRefreshing];
+        [self loadMoreCompleted];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
+        [self loadMoreCompleted];
     }];
     
 }
@@ -300,5 +311,51 @@
  // Pass the selected object to the new view controller.
  }
  */
+
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.backgroundColor = APP_PAGE_COLOR;
+        
+        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [_footerView addSubview:_indicatroView];
+        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+    }
+    return _footerView;
+}
+
+- (void) beginLoadingMore {
+    if (self.tableView.tableFooterView == nil) {
+        self.tableView.tableFooterView = self.footerView;
+    }
+    [_indicatroView startAnimating];
+    [self loadDataWithPageIndex:(_currentPage + 1)];
+}
+
+- (void) loadMoreCompleted {
+    if (!_isLoadingMore) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMore = NO;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_isLoadingMore && _didEndScroll) {
+        _isLoadingMore = YES;
+        _didEndScroll = NO;
+        CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+        if (scrollPosition < 44.0) {
+            [self beginLoadingMore];
+        }
+    }
+}
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    _didEndScroll = YES;
+}
 
 @end

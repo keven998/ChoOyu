@@ -13,7 +13,7 @@
 //loading more status
 @property (nonatomic, assign) BOOL isLoadingMore;
 
-//TODO
+//whether enable "loading more" or not
 @property (nonatomic, assign) BOOL enableLoadingMore;
 
 //The view used for loading more
@@ -25,8 +25,5 @@
 
 // Call to signal that "load more" was completed.
 - (void) loadMoreCompleted;
-
-// Helper to show/hide -footerView
-- (void) setFooterViewVisibility:(BOOL)visible;
 
 @end
