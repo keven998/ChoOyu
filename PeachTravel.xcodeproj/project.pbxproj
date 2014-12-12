@@ -350,8 +350,6 @@
 		D95460141A233D6C00688D72 /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460131A233D6C00688D72 /* DKCircleButton.m */; };
 		D95460181A2346D300688D72 /* CommonPoiListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460161A2346D300688D72 /* CommonPoiListTableViewCell.m */; };
 		D95460191A2346D300688D72 /* CommonPoiListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95460171A2346D300688D72 /* CommonPoiListTableViewCell.xib */; };
-		D954601F1A23531200688D72 /* ShoppingListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D954601B1A23531200688D72 /* ShoppingListTableViewCell.m */; };
-		D95460201A23531200688D72 /* ShoppingListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D954601C1A23531200688D72 /* ShoppingListTableViewCell.xib */; };
 		D95460211A23531200688D72 /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D954601E1A23531200688D72 /* ShoppingListViewController.m */; };
 		D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35119E6538B00047F2B /* DestinationToolBar.m */; };
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
@@ -436,7 +434,6 @@
 		D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6901A19BF8700FA5A76 /* SpotDetailView.m */; };
 		D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */; };
 		D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6991A19D93400FA5A76 /* TaoziImage.m */; };
-		D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907B091A20334800C7CF0C /* RestaurantPoi.m */; };
 		D9907B0D1A2037C100C7CF0C /* RestaurantDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907B0C1A2037C100C7CF0C /* RestaurantDetailView.m */; };
 		D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907B0F1A203C0B00C7CF0C /* RestaurantDetailViewController.m */; };
 		D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D990FBDE19F8FC970008A8FE /* ResetPasswordViewController.m */; };
@@ -474,12 +471,6 @@
 		D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */; };
 		D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */; };
 		D9B476541A24259A0014136C /* DestinationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476531A24259A0014136C /* DestinationsView.m */; };
-		D9B476571A243E490014136C /* RestaurantsOfCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476561A243E490014136C /* RestaurantsOfCityViewController.m */; };
-		D9B4765A1A243E570014136C /* ShoppingOfCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476591A243E570014136C /* ShoppingOfCityViewController.m */; };
-		D9B4765E1A2440D20014136C /* RestaurantOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4765C1A2440D20014136C /* RestaurantOfCityTableViewCell.m */; };
-		D9B4765F1A2440D20014136C /* RestaurantOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B4765D1A2440D20014136C /* RestaurantOfCityTableViewCell.xib */; };
-		D9B476631A24474C0014136C /* ShoppingOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476611A24474C0014136C /* ShoppingOfCityTableViewCell.m */; };
-		D9B476641A24474C0014136C /* ShoppingOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B476621A24474C0014136C /* ShoppingOfCityTableViewCell.xib */; };
 		D9B476811A2468D30014136C /* SICellSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476701A2468D30014136C /* SICellSelection.m */; };
 		D9B476821A2468D30014136C /* SIMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476721A2468D30014136C /* SIMenuButton.m */; };
 		D9B476831A2468D30014136C /* SIMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476741A2468D30014136C /* SIMenuCell.m */; };
@@ -488,8 +479,6 @@
 		D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767A1A2468D30014136C /* SINavigationMenuView.m */; };
 		D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767C1A2468D30014136C /* UIColor+Extension.m */; };
 		D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476891A2475CE0014136C /* RecommendsOfCity.m */; };
-		D9B4768D1A2478F20014136C /* RestaurantsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4768C1A2478F20014136C /* RestaurantsOfCity.m */; };
-		D9B476901A2479F50014136C /* ShoppingOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4768F1A2479F50014136C /* ShoppingOfCity.m */; };
 		D9B476921A24A7140014136C /* test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B476911A24A7140014136C /* test@2x.png */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
@@ -560,6 +549,19 @@
 		D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7AF1A00AC6D003F70F6 /* AddressBookTableViewController.m */; };
 		D9E9F7B21A00AC6D003F70F6 /* AddressBookTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E9F7B01A00AC6D003F70F6 /* AddressBookTableViewController.xib */; };
 		D9E9F7F41A00DB00003F70F6 /* TZScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7F31A00DB00003F70F6 /* TZScrollView.m */; };
+		D9EF98901A3ABB2E00DB480F /* PoisOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF988A1A3ABB2E00DB480F /* PoisOfCityTableViewCell.m */; };
+		D9EF98911A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9EF988B1A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib */; };
+		D9EF98921A3ABB2E00DB480F /* PoisOfCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF988D1A3ABB2E00DB480F /* PoisOfCityViewController.m */; };
+		D9EF98931A3ABB2E00DB480F /* PoiSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF988F1A3ABB2E00DB480F /* PoiSummary.m */; };
+		D9EF98961A3ABBFA00DB480F /* TZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF98951A3ABBFA00DB480F /* TZButton.m */; };
+		D9EF98A21A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF98981A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png */; };
+		D9EF98A31A3ABC1F00DB480F /* nearby_ic_tab_delicacy_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF98991A3ABC1F00DB480F /* nearby_ic_tab_delicacy_select@2x.png */; };
+		D9EF98A41A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989A1A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png */; };
+		D9EF98A51A3ABC1F00DB480F /* nearby_ic_tab_shopping_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989B1A3ABC1F00DB480F /* nearby_ic_tab_shopping_select@2x.png */; };
+		D9EF98A61A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989C1A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png */; };
+		D9EF98A71A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989D1A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png */; };
+		D9EF98A81A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989E1A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png */; };
+		D9EF98A91A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989F1A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png */; };
 		D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613519E41A51000F379F /* MineTableViewController.m */; };
 		D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613D19E42360000F379F /* LoginTableViewCell.m */; };
 		D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F3613E19E42360000F379F /* LoginTableViewCell.xib */; };
@@ -1252,16 +1254,6 @@
 		D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		D9B476521A24259A0014136C /* DestinationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationsView.h; sourceTree = "<group>"; };
 		D9B476531A24259A0014136C /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
-		D9B476551A243E490014136C /* RestaurantsOfCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsOfCityViewController.h; sourceTree = "<group>"; };
-		D9B476561A243E490014136C /* RestaurantsOfCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsOfCityViewController.m; sourceTree = "<group>"; };
-		D9B476581A243E570014136C /* ShoppingOfCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOfCityViewController.h; sourceTree = "<group>"; };
-		D9B476591A243E570014136C /* ShoppingOfCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOfCityViewController.m; sourceTree = "<group>"; };
-		D9B4765B1A2440D20014136C /* RestaurantOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantOfCityTableViewCell.h; sourceTree = "<group>"; };
-		D9B4765C1A2440D20014136C /* RestaurantOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantOfCityTableViewCell.m; sourceTree = "<group>"; };
-		D9B4765D1A2440D20014136C /* RestaurantOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantOfCityTableViewCell.xib; sourceTree = "<group>"; };
-		D9B476601A24474C0014136C /* ShoppingOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOfCityTableViewCell.h; sourceTree = "<group>"; };
-		D9B476611A24474C0014136C /* ShoppingOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOfCityTableViewCell.m; sourceTree = "<group>"; };
-		D9B476621A24474C0014136C /* ShoppingOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingOfCityTableViewCell.xib; sourceTree = "<group>"; };
 		D9B4766F1A2468D30014136C /* SICellSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICellSelection.h; sourceTree = "<group>"; };
 		D9B476701A2468D30014136C /* SICellSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICellSelection.m; sourceTree = "<group>"; };
 		D9B476711A2468D30014136C /* SIMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuButton.h; sourceTree = "<group>"; };
@@ -1382,6 +1374,23 @@
 		D9E9F7B01A00AC6D003F70F6 /* AddressBookTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookTableViewController.xib; sourceTree = "<group>"; };
 		D9E9F7F21A00DB00003F70F6 /* TZScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZScrollView.h; sourceTree = "<group>"; };
 		D9E9F7F31A00DB00003F70F6 /* TZScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZScrollView.m; sourceTree = "<group>"; };
+		D9EF98891A3ABB2E00DB480F /* PoisOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoisOfCityTableViewCell.h; sourceTree = "<group>"; };
+		D9EF988A1A3ABB2E00DB480F /* PoisOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoisOfCityTableViewCell.m; sourceTree = "<group>"; };
+		D9EF988B1A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewCell.xib; sourceTree = "<group>"; };
+		D9EF988C1A3ABB2E00DB480F /* PoisOfCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoisOfCityViewController.h; sourceTree = "<group>"; };
+		D9EF988D1A3ABB2E00DB480F /* PoisOfCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoisOfCityViewController.m; sourceTree = "<group>"; };
+		D9EF988E1A3ABB2E00DB480F /* PoiSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSummary.h; sourceTree = "<group>"; };
+		D9EF988F1A3ABB2E00DB480F /* PoiSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiSummary.m; sourceTree = "<group>"; };
+		D9EF98941A3ABBFA00DB480F /* TZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZButton.h; sourceTree = "<group>"; };
+		D9EF98951A3ABBFA00DB480F /* TZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZButton.m; sourceTree = "<group>"; };
+		D9EF98981A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_delicacy_normal@2x.png"; sourceTree = "<group>"; };
+		D9EF98991A3ABC1F00DB480F /* nearby_ic_tab_delicacy_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_delicacy_select@2x.png"; sourceTree = "<group>"; };
+		D9EF989A1A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_shopping_normal@2x.png"; sourceTree = "<group>"; };
+		D9EF989B1A3ABC1F00DB480F /* nearby_ic_tab_shopping_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_shopping_select@2x.png"; sourceTree = "<group>"; };
+		D9EF989C1A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_spot_normal@2x.png"; sourceTree = "<group>"; };
+		D9EF989D1A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_spot_select@2x.png"; sourceTree = "<group>"; };
+		D9EF989E1A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_stay_normal@2x.png"; sourceTree = "<group>"; };
+		D9EF989F1A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_stay_select@2x.png"; sourceTree = "<group>"; };
 		D9F3613419E41A51000F379F /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
 		D9F3613519E41A51000F379F /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
 		D9F3613C19E42360000F379F /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
@@ -1661,6 +1670,7 @@
 		C6BC347E1A272DB1002C19D3 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF98971A3ABC0800DB480F /* Local */,
 				C6A0C6B81A3AB60A009D9768 /* favorite */,
 				D9CC36AF1A372B2500E72A7F /* TravelPlan */,
 				D93697131A31616E001922F4 /* Common */,
@@ -2421,6 +2431,8 @@
 		D9545FB11A22D64200688D72 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF988E1A3ABB2E00DB480F /* PoiSummary.h */,
+				D9EF988F1A3ABB2E00DB480F /* PoiSummary.m */,
 				D9545FA41A20896700688D72 /* RecommendDetail.h */,
 				D9545FA51A20896700688D72 /* RecommendDetail.m */,
 				D9545FA71A208C9800688D72 /* CommentDetail.h */,
@@ -2576,6 +2588,8 @@
 		D955E35F19E6698B00047F2B /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF98941A3ABBFA00DB480F /* TZButton.h */,
+				D9EF98951A3ABBFA00DB480F /* TZButton.m */,
 				D9C64BBA1A1B677000A4B9BF /* ConvertMethods.h */,
 				D9C64BBB1A1B677000A4B9BF /* ConvertMethods.m */,
 				D98CC6821A19AD1D00FA5A76 /* ResizableView.h */,
@@ -2696,17 +2710,16 @@
 		D955E3A719E773E500047F2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF98891A3ABB2E00DB480F /* PoisOfCityTableViewCell.h */,
+				D9EF988A1A3ABB2E00DB480F /* PoisOfCityTableViewCell.m */,
+				D9EF988B1A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib */,
+				D9EF988C1A3ABB2E00DB480F /* PoisOfCityViewController.h */,
+				D9EF988D1A3ABB2E00DB480F /* PoisOfCityViewController.m */,
 				D902ADBB1A15E15E00E36A93 /* CityHeaderView.h */,
 				D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */,
 				D902ADC61A15EC9300E36A93 /* TravelNoteTableViewCell.h */,
 				D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */,
 				D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */,
-				D9B4765B1A2440D20014136C /* RestaurantOfCityTableViewCell.h */,
-				D9B4765C1A2440D20014136C /* RestaurantOfCityTableViewCell.m */,
-				D9B4765D1A2440D20014136C /* RestaurantOfCityTableViewCell.xib */,
-				D9B476601A24474C0014136C /* ShoppingOfCityTableViewCell.h */,
-				D9B476611A24474C0014136C /* ShoppingOfCityTableViewCell.m */,
-				D9B476621A24474C0014136C /* ShoppingOfCityTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2716,10 +2729,6 @@
 			children = (
 				D902ADC31A15E58C00E36A93 /* CityDetailTableViewController.h */,
 				D902ADC41A15E58C00E36A93 /* CityDetailTableViewController.m */,
-				D9B476551A243E490014136C /* RestaurantsOfCityViewController.h */,
-				D9B476561A243E490014136C /* RestaurantsOfCityViewController.m */,
-				D9B476581A243E570014136C /* ShoppingOfCityViewController.h */,
-				D9B476591A243E570014136C /* ShoppingOfCityViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -3630,6 +3639,21 @@
 			name = CreateCoversation;
 			sourceTree = "<group>";
 		};
+		D9EF98971A3ABC0800DB480F /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF98981A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png */,
+				D9EF98991A3ABC1F00DB480F /* nearby_ic_tab_delicacy_select@2x.png */,
+				D9EF989A1A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png */,
+				D9EF989B1A3ABC1F00DB480F /* nearby_ic_tab_shopping_select@2x.png */,
+				D9EF989C1A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png */,
+				D9EF989D1A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png */,
+				D9EF989E1A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png */,
+				D9EF989F1A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png */,
+			);
+			name = Local;
+			sourceTree = "<group>";
+		};
 		D9F57B3A19E93486005BB43B /* UMSocial_Sdk_4.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3825,6 +3849,7 @@
 				D9117A7A1A2C4710000DBFCB /* ChatRecordListTableViewCell.xib in Resources */,
 				D92A48951A38949900B00D91 /* ic_dot_yellow@2x.png in Resources */,
 				D9A19CB51A2F063E00B189CB /* ic_indicator@2x.png in Resources */,
+				D9EF98A31A3ABC1F00DB480F /* nearby_ic_tab_delicacy_select@2x.png in Resources */,
 				D90C637A19FB44D300C2E440 /* VoiceSearchFeedback007@2x.png in Resources */,
 				D9386C451A3188EB0085FC36 /* cell_accessory_gray@2x.png in Resources */,
 				D93696F91A301C0C001922F4 /* chatBar_more_guide@2x.png in Resources */,
@@ -3838,7 +3863,6 @@
 				D955E54F19E7A91300047F2B /* sns_icon_weixin@2x.png in Resources */,
 				D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */,
 				D94772F11A32E16E00BF9F8B /* dx_checkbox_off.png in Resources */,
-				D9B4765F1A2440D20014136C /* RestaurantOfCityTableViewCell.xib in Resources */,
 				D90C63A719FB44D300C2E440 /* chat_location_preview@2x.png in Resources */,
 				D902AD0C1A147B5600E36A93 /* HotDestinationCollectionViewCell.xib in Resources */,
 				D955E5D419E7D41200047F2B /* Default-568h@2x.png in Resources */,
@@ -3847,12 +3871,12 @@
 				D90C637319FB44D300C2E440 /* VoiceSearchFeedback004.png in Resources */,
 				D9386C501A31A6600085FC36 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				C6BC34A11A2832C7002C19D3 /* theme_btn_normal@2x.png in Resources */,
+				D9EF98A81A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png in Resources */,
 				D9F57B9619E93486005BB43B /* UMSShareListController.xib in Resources */,
 				C6BC34911A2751E0002C19D3 /* cell_accessory_pink@2x.png in Resources */,
 				C63E65A71A2D98E400245184 /* FavoriteTableViewCell.xib in Resources */,
 				D90C639919FB44D300C2E440 /* chatBar_more_cardSelected@2x.png in Resources */,
 				D93696FD1A301C0C001922F4 /* chatBar_more_camera@2x.png in Resources */,
-				D9B476641A24474C0014136C /* ShoppingOfCityTableViewCell.xib in Resources */,
 				D9F57B8C19E93486005BB43B /* UMSocialLocalizable.strings in Resources */,
 				C63344EA1A1C487400A27F86 /* ic_menu_circle_chat@2x.png in Resources */,
 				D90C63C719FBA07700C2E440 /* ZYQAssetPicker.Bundle in Resources */,
@@ -3865,6 +3889,7 @@
 				D90C638319FB44D300C2E440 /* VoiceSearchFeedback012.png in Resources */,
 				D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */,
 				C60C0D581A286654006033C9 /* ic_gender_lady@2x.png in Resources */,
+				D9EF98A71A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png in Resources */,
 				D9CC36D81A380E4E00E72A7F /* kengdie_guide_unselected@2x.png in Resources */,
 				D955E54719E7A91300047F2B /* sns_icon_douban@2x.png in Resources */,
 				C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */,
@@ -3899,6 +3924,7 @@
 				C60C0D611A297A16006033C9 /* ic_app_message@2x.png in Resources */,
 				D93696FA1A301C0C001922F4 /* chatBar_more_travelNote@2x.png in Resources */,
 				D90C638E19FB44D300C2E440 /* VoiceSearchFeedback017@2x.png in Resources */,
+				D9EF98A91A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png in Resources */,
 				C62A7A381A39744F00526928 /* ic_view_add@2x.png in Resources */,
 				D9F57B9219E93486005BB43B /* UMShareEditViewController.xib in Resources */,
 				C60C0D641A297A16006033C9 /* ic_feedback@2x.png in Resources */,
@@ -3916,6 +3942,7 @@
 				D9E81E6F1A35EB0F00D3BFD0 /* chatBar_more@2x.png in Resources */,
 				C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */,
 				D90C639219FB44D300C2E440 /* VoiceSearchFeedback019@2x.png in Resources */,
+				D9EF98A41A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png in Resources */,
 				D90F35EE19F63B3300E26FA9 /* call_out_h@2x.png in Resources */,
 				D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */,
 				C6BC34871A274BF3002C19D3 /* avatar_placeholder@2x.png in Resources */,
@@ -3957,6 +3984,7 @@
 				D95460191A2346D300688D72 /* CommonPoiListTableViewCell.xib in Resources */,
 				D90C637F19FB44D300C2E440 /* VoiceSearchFeedback010.png in Resources */,
 				C6BC348F1A274FEB002C19D3 /* ic_share_to_friend@2x.png in Resources */,
+				D9EF98A51A3ABC1F00DB480F /* nearby_ic_tab_shopping_select@2x.png in Resources */,
 				D90F361219F63B3300E26FA9 /* chatBar_recordSelected@2x.png in Resources */,
 				D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */,
 				D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */,
@@ -4006,11 +4034,13 @@
 				D955E54A19E7A91300047F2B /* sns_icon_qq@2x.png in Resources */,
 				D92A488F1A388D8D00B00D91 /* ic_navigation_normal@2x.png in Resources */,
 				D9386C571A31A6E10085FC36 /* chat_sender_audio_playing_001@2x.png in Resources */,
+				D9EF98A61A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png in Resources */,
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D95460081A22FAAB00688D72 /* TripPoiListTableViewCell.xib in Resources */,
 				C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */,
 				D9F57B9419E93486005BB43B /* UMSLoginViewController.xib in Resources */,
 				C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */,
+				D9EF98A21A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png in Resources */,
 				C6A0C6B31A3A89A6009D9768 /* ic_layer_edit_done@2x.png in Resources */,
 				D93696FC1A301C0C001922F4 /* chatBar_more_album@2x.png in Resources */,
 				D90F360419F63B3300E26FA9 /* chatBar_faceSelected@2x.png in Resources */,
@@ -4039,6 +4069,7 @@
 				C6BC349B1A28171B002C19D3 /* ic_setting_memo@2x.png in Resources */,
 				D90F35EB19F63B3300E26FA9 /* call_out.png in Resources */,
 				D92A48831A38553B00B00D91 /* ic_standard_food@2x.png in Resources */,
+				D9EF98911A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib in Resources */,
 				D9CC36CD1A37F82200E72A7F /* ic_spot@2x.png in Resources */,
 				D955E54E19E7A91300047F2B /* sns_icon_sina@2x.png in Resources */,
 				D9386C521A31A6600085FC36 /* chat_receiver_audio_playing_full@2x.png in Resources */,
@@ -4103,7 +4134,6 @@
 				D9E81E7D1A36DD3E00D3BFD0 /* SearchResultTableViewCell.xib in Resources */,
 				C63344E91A1C487400A27F86 /* ic_menu_add_friend@2x.png in Resources */,
 				D90C638519FB44D300C2E440 /* VoiceSearchFeedback013.png in Resources */,
-				D95460201A23531200688D72 /* ShoppingListTableViewCell.xib in Resources */,
 				D964201819EBCA3300CC8057 /* SettingTableViewController.xib in Resources */,
 				D90F35F219F63B3300E26FA9 /* call_silence_h@2x.png in Resources */,
 				D9386C511A31A6600085FC36 /* chat_receiver_audio_playing003@2x.png in Resources */,
@@ -4179,9 +4209,9 @@
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
 				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,
 				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
-				D9B4765E1A2440D20014136C /* RestaurantOfCityTableViewCell.m in Sources */,
 				D9117A661A2C0E1D000DBFCB /* UIViewController+CWPopup.m in Sources */,
 				D90F360019F63B3300E26FA9 /* DXRecordView.m in Sources */,
+				D9EF98931A3ABB2E00DB480F /* PoiSummary.m in Sources */,
 				D90F366919F63E5300E26FA9 /* EMRemarkImageView.m in Sources */,
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
 				D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */,
@@ -4191,9 +4221,9 @@
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
-				D9B476571A243E490014136C /* RestaurantsOfCityViewController.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
 				D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */,
+				D9EF98901A3ABB2E00DB480F /* PoisOfCityTableViewCell.m in Sources */,
 				D9545FAD1A208EEF00688D72 /* CommentTableViewCell.m in Sources */,
 				C6A0C6A41A398A18009D9768 /* EDStarRating.m in Sources */,
 				D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */,
@@ -4240,6 +4270,7 @@
 				D9E81E781A36D95900D3BFD0 /* SearchMoreDestinationViewController.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
 				D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */,
+				D9EF98921A3ABB2E00DB480F /* PoisOfCityViewController.m in Sources */,
 				D9B476831A2468D30014136C /* SIMenuCell.m in Sources */,
 				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
@@ -4297,7 +4328,6 @@
 				D9907B0D1A2037C100C7CF0C /* RestaurantDetailView.m in Sources */,
 				D906CBD91A2068C800BE2588 /* LocationTableViewCell.m in Sources */,
 				D9C64BBC1A1B677000A4B9BF /* ConvertMethods.m in Sources */,
-				D954601F1A23531200688D72 /* ShoppingListTableViewCell.m in Sources */,
 				D90F366619F63E5300E26FA9 /* BaseTableViewCell.m in Sources */,
 				C67B4DC21A270EF600CBF10B /* ZFModalTransitionAnimator.m in Sources */,
 				D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */,
@@ -4314,9 +4344,7 @@
 				D9545FC31A22EF9700688D72 /* RDVTabBarController.m in Sources */,
 				D92998171A28B05000795986 /* MyGuidesTableViewCell.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
-				D9B4765A1A243E570014136C /* ShoppingOfCityViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
-				D9B4768D1A2478F20014136C /* RestaurantsOfCity.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
 				D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
@@ -4330,6 +4358,7 @@
 				D90F366E19F63E5300E26FA9 /* XHMessageTextView.m in Sources */,
 				D90F366D19F63E5300E26FA9 /* EMSearchDisplayController.m in Sources */,
 				C608ED611A2C3B4E00B76934 /* PushMsgsViewController.m in Sources */,
+				D9EF98961A3ABBFA00DB480F /* TZButton.m in Sources */,
 				D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */,
 				D96551351A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m in Sources */,
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,
@@ -4351,7 +4380,6 @@
 				C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */,
 				C6999FBE1A2EB136009032D8 /* LocalTableViewCell.m in Sources */,
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
-				D9B476631A24474C0014136C /* ShoppingOfCityTableViewCell.m in Sources */,
 				D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,
 				D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */,
@@ -4375,10 +4403,8 @@
 				D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
 				D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */,
-				D9B476901A2479F50014136C /* ShoppingOfCity.m in Sources */,
 				D93697001A30257C001922F4 /* TipsChatTableViewCell.m in Sources */,
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
-				D9907B0A1A20334800C7CF0C /* RestaurantPoi.m in Sources */,
 				C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */,
 				D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */,
 				D9545FBA1A22D7DB00688D72 /* ShoppingDetailViewController.m in Sources */,
