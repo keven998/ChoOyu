@@ -1,40 +1,45 @@
 //
-//  RestaurantsOfCityViewController.m
+//  PoisOfCityViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/25/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "RestaurantsOfCityViewController.h"
-#import "RestaurantOfCityTableViewCell.h"
+#import "PoisOfCityViewController.h"
+#import "PoisOfCityTableViewCell.h"
 #import "SINavigationMenuView.h"
 #import "CityDestinationPoi.h"
+#import "PoiSummary.h"
+#import "RecommendsOfCity.h"
 #import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
+#import "PoiSummary.h"
 
-@interface RestaurantsOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableHeaderView;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) SINavigationMenuView *titleMenu;
+@property (nonatomic, strong) RecommendsOfCity *dataSource;
 
 @end
 
-@implementation RestaurantsOfCityViewController
+@implementation PoisOfCityViewController
 
-static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
+static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     if (self.tripDetail.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
         CityDestinationPoi *poi = [self.tripDetail.destinations firstObject];
         _currentCity = [[CityPoi alloc] init];
-        _currentCity.restaurants = [[RestaurantsOfCity alloc] init];
         _currentCity.cityId = poi.cityId;
         _currentCity.zhName = poi.zhName;
     } else {
@@ -53,6 +58,14 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 }
 
 #pragma mark - setter & getter
+
+- (RecommendsOfCity *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [[RecommendsOfCity alloc] init];
+    }
+    return _dataSource;
+}
 
 - (SINavigationMenuView *)titleMenu
 {
@@ -74,13 +87,14 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64.0)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableHeaderView = self.tableHeaderView;
-        [_tableView registerNib:[UINib nibWithNibName:@"RestaurantOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantOfCityCellIdentifier];
+        [_tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.showsVerticalScrollIndicator = NO;
     }
     return _tableView;
 }
@@ -88,8 +102,8 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 - (UIView *)tableHeaderView
 {
     if (!_tableHeaderView) {
-        _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 190)];
-        UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, _tableHeaderView.frame.size.width, 150)];
+        _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 145)];
+        UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, _tableHeaderView.frame.size.width, 100)];
         headerImageView.image = [UIImage imageNamed:@"country.jpg"];
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 80, _tableHeaderView.frame.size.width-50, 60)];
@@ -106,10 +120,18 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 - (UISearchBar *)searchBar
 {
     if (!_searchBar) {
+        NSString *searchPlaceHolder;
+        if (_poiType == TripRestaurantPoi) {
+            searchPlaceHolder = @"请输入美食名字";
+        }
+        if (_poiType == TripShoppingPoi) {
+            searchPlaceHolder = @"请输入购物名字";
+        }
+        
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
         _searchBar.searchBarStyle = UISearchBarStyleMinimal;
         _searchBar.delegate = self;
-        [_searchBar setPlaceholder:@"请输入美食名字"];
+        [_searchBar setPlaceholder:searchPlaceHolder];
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _searchBar.translucent = YES;
@@ -127,8 +149,15 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *requsetUrl;
+    if (_poiType == TripRestaurantPoi) {
+         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_currentCity.cityId];
+
+    }
+    if (_poiType == TripShoppingPoi) {
+        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_currentCity.cityId];
+    }
     
-    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_currentCity.cityId];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
@@ -140,7 +169,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [_currentCity.restaurants setRestaurantsListWithJson:[responseObject objectForKey:@"result"]];
+            self.dataSource .recommendList = [responseObject objectForKey:@"result"];
             [self updateView];
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -162,8 +191,8 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 - (IBAction)addPoi:(UIButton *)sender
 {
     TripPoi *tripPoi = [[TripPoi alloc] init];
-    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:sender.tag];
-    tripPoi.poiId = restaurantPoi.restaurantId;
+    PoiSummary *restaurantPoi = [_dataSource.recommendList objectAtIndex:sender.tag];
+    tripPoi.poiId = restaurantPoi.poiId;
     tripPoi.zhName = restaurantPoi.zhName;
     tripPoi.enName = restaurantPoi.enName;
     tripPoi.images = restaurantPoi.images;
@@ -172,6 +201,16 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
     tripPoi.address = restaurantPoi.address;
     tripPoi.poiType = TripRestaurantPoi;
     [self.tripDetail.restaurantsList addObject:tripPoi];
+}
+
+/**
+ *  导航
+ *
+ *  @param sender
+ */
+- (IBAction)viewMap:(UIButton *)sender
+{
+    
 }
 
 - (IBAction)finishAdd:(id)sender
@@ -200,7 +239,6 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 {
     CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:index];
     _currentCity = [[CityPoi alloc] init];
-    _currentCity.restaurants = [[RestaurantsOfCity alloc] init];
     _currentCity.cityId = destination.cityId;
     _currentCity.zhName = destination.zhName;
     [_titleMenu setTitle:_currentCity.zhName];
@@ -211,7 +249,7 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _currentCity.restaurants.restaurantsList.count;
+    return _dataSource.recommendList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -221,24 +259,32 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
-    if ([restaurantPoi.comments count]) {
-        return 166.0;
+    PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+//    if ([restaurantPoi.comments count]) {
+//        return 187.0;
+//        NSLog(@"有评论");
+//    }
+//    return 141;
+    
+    if (indexPath.row/2) {
+        return 187.0;
     }
-    return 130;
+    return 141;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
-    RestaurantOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantOfCityCellIdentifier];
-    if (!_shouldEdit) {
-        cell.addBtn.hidden = YES;
+    PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier];
+    cell.shouldEdit = _shouldEdit;
+    if (_shouldEdit) {
+        [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [cell.actionBtn addTarget:self action:@selector(viewMap:) forControlEvents:UIControlEventTouchUpInside];
     }
-    cell.restaurantPoi = restaurantPoi;
-    cell.addBtn.tag = indexPath.row;
+    cell.poi = poi;
+    cell.actionBtn.tag = indexPath.row;
     cell.jumpCommentBtn.tag = indexPath.row;
-    [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     [cell.jumpCommentBtn addTarget:self action:@selector(jumpToCommentList:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
@@ -246,10 +292,19 @@ static NSString *restaurantOfCityCellIdentifier = @"restaurantOfCityCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RestaurantPoi *restaurantPoi = [_currentCity.restaurants.restaurantsList objectAtIndex:indexPath.row];
-    RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
-    restaurantDetailCtl.restaurantId = restaurantPoi.restaurantId;
-    [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    if (_poiType == TripRestaurantPoi) {
+        RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+        restaurantDetailCtl.restaurantId = poi.poiId;
+        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+    }
+    if (_poiType == TripShoppingPoi) {
+        ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
+        shoppingDetailCtl.shoppingId = poi.poiId;
+        [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
+    }
+   
 }
 
 

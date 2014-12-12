@@ -9,7 +9,7 @@
 #import "DMFilterView.h"
 #import <QuartzCore/QuartzCore.h>
 
-const CGFloat kFilterViewHeight = 44.0;
+const CGFloat kFilterViewHeight = 60.0;
 const CGFloat kAnimationSpeed = 0.20;
 @interface DMFilterView ()
 {
@@ -31,9 +31,8 @@ const CGFloat kAnimationSpeed = 0.20;
 
 @implementation DMFilterView
 
-- (id)initWithStrings:(NSArray *)strings containerView:(UIView *)contrainerView
+- (id)initWithStrings:(NSArray *)strings normatlImages:(NSArray *)noremalImages highLightedImages:(NSArray *)highLightedImages containerView:(UIView *)contrainerView
 {
-//    NSAssert(strings.count <= 4, @"only support less than 4 titles");
     self = [super initWithFrame:CGRectMake(0,
                                            64.0,
                                            contrainerView.frame.size.width,
@@ -52,32 +51,41 @@ const CGFloat kAnimationSpeed = 0.20;
                                                                           self.frame.size.height)];
         _selectedBackgroundImageView = [[UIImageView alloc]initWithFrame:self.selectedBackgroundView.frame];
         [self.selectedBackgroundView addSubview:self.selectedBackgroundImageView];
-        _selectedTopBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(0,
-                                                                             self.selectedBackgroundView.frame.size.height - 5.0,
-                                                                             self.selectedBackgroundView.frame.size.width,
-                                                                             5)];
+        _selectedTopBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(15,
+                                                                             self.selectedBackgroundView.frame.size.height - 3.0,
+                                                                             self.selectedBackgroundView.frame.size.width-30,
+                                                                             3)];
         [self.selectedBackgroundView addSubview:self.selectedTopBackgroundView];
         [self addSubview:self.selectedBackgroundView];
         for (NSString *string in strings) {
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            TZButton *button = [[TZButton alloc] init];
             [button setTag:tag];
             [button setFrame:CGRectMake(x,
                                         0,
                                         buttonWidth,
                                         self.frame.size.height)];
             [button setTitle:string forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:[noremalImages objectAtIndex:tag]] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:[highLightedImages objectAtIndex:tag]] forState:UIControlStateDisabled];
+
             [button addTarget:self
                        action:@selector(onButton:)
              forControlEvents:UIControlEventTouchUpInside];
-            [self addSubview:button];
             x += buttonWidth;
             tag += 1;
+            [self addSubview:button];
         }
     }
     [self applyDefaultStyle];
     [self setDraggable:YES];
     [self setSelectedIndex:0];
     return self;
+}
+
+
+- (id)initWithStrings:(NSArray *)strings containerView:(UIView *)contrainerView
+{
+    return [self initWithStrings:strings normatlImages:nil highLightedImages:nil containerView:contrainerView];
 }
 
 #pragma mark - display
@@ -93,7 +101,7 @@ const CGFloat kAnimationSpeed = 0.20;
     //Default ugly style
     [self setBackgroundColor:[UIColor lightGrayColor]];
     [self setSelectedItemBackgroundColor:[UIColor darkGrayColor]];
-    [self setSelectedItemTopBackgroundColor:[UIColor blueColor]];
+    [self setSelectedItemTopBackgroundColor:APP_THEME_COLOR];
     [self setTitlesColor:[UIColor blackColor]];
     [self setTitleInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self setTitlesFont:[UIFont systemFontOfSize:14]];
@@ -142,10 +150,10 @@ const CGFloat kAnimationSpeed = 0.20;
     for (UIButton *btn in self.subviews) {
         if ([btn isKindOfClass:[UIButton class]]) {
             if ([button isEqual:btn]) {
-                [btn setUserInteractionEnabled:NO];
+                btn.enabled = NO;
             }
             else{
-                [btn setUserInteractionEnabled:YES];
+                btn.enabled = YES;
             }
         }
     }

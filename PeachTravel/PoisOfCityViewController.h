@@ -1,5 +1,5 @@
 //
-//  RestaurantsOfCityViewController.h
+//  PoisOfCityViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/25/14.
@@ -10,13 +10,13 @@
 #import "CityPoi.h"
 #import "TripDetail.h"
 
-@protocol RestaurantsOfCityDelegate <NSObject>
+@protocol PoisOfCityDelegate <NSObject>
 
 - (void)finishEdit;
 
 @end
 
-@interface RestaurantsOfCityViewController : TZViewController
+@interface PoisOfCityViewController : TZViewController
 
 @property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
 
@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 
+@property (nonatomic) tripPoiType poiType;
 
-@property (nonatomic, assign) id <RestaurantsOfCityDelegate>delegate;
+
+@property (nonatomic, assign) id <PoisOfCityDelegate>delegate;
 @end

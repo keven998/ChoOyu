@@ -17,7 +17,6 @@
     self.layer.cornerRadius = 2.0;
     self.clipsToBounds = YES;
     _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
@@ -58,6 +57,7 @@
     } else {
         _ratingBackgroundView.hidden = NO;
         _ratingView.rating = tripPoi.rating;
+        
         [_property setImage:nil forState:UIControlStateNormal];
         if (_tripPoi.poiType == TripRestaurantPoi) {
             [_property setTitle:tripPoi.priceDesc forState:UIControlStateNormal];

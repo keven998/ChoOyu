@@ -111,11 +111,10 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:poiId forKey:@"itemId"];
     
     if (isFavorite) {
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:poiId forKey:@"itemId"];
         [params setObject:type forKey:@"type"];
         
         [manager POST:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -138,7 +137,8 @@
         
     } else {
         
-        [manager DELETE:API_UNFAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, poiId];
+        [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
@@ -153,6 +153,8 @@
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             completion(NO);
+            NSLog(@"%@", error);
+
             [self showHint:@"取消收藏失败"];
 
         }];

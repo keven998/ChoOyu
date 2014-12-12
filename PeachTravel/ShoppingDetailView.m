@@ -48,7 +48,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     return self;
 }
 
-- (void)setShoppingPoi:(ShoppingPoi *)shoppingPoi
+- (void)setShoppingPoi:(PoiSummary *)shoppingPoi
 {
     _shoppingPoi = shoppingPoi;
     [self setupSubView];

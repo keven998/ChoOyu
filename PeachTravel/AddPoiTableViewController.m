@@ -11,11 +11,12 @@
 #import "SINavigationMenuView.h"
 #import "CityDestinationPoi.h"
 #import "TripDetail.h"
-#import "RestaurantOfCityTableViewCell.h"
 #import "AddHotelTableViewCell.h"
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "PoiSummary.h"
+#import "PoisOfCityTableViewCell.h"
 
 
 @interface AddPoiTableViewController () <SINavigationMenuDelegate, UISearchBarDelegate>
@@ -40,8 +41,8 @@
 @implementation AddPoiTableViewController
 
 static NSString *addSpotCellIndentifier = @"addSpotCell";
-static NSString *addRestaurantCellIndentifier = @"restaurantOfCityCell";
-static NSString *addShoppingCellIndentifier = @"shoppingOfCityCell";
+static NSString *addRestaurantCellIndentifier = @"poisOfCity";
+static NSString *addShoppingCellIndentifier = @"poisOfCity";
 static NSString *addHotelCellIndentifier = @"addHotelCell";
 
 
@@ -50,8 +51,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"RestaurantOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addShoppingCellIndentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"AddHotelTableViewCell" bundle:nil] forCellReuseIdentifier:addHotelCellIndentifier];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -245,8 +245,8 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     }
     
     if (poi.poiType == TripRestaurantPoi) {
-        RestaurantPoi *restaurantPoi = [[RestaurantPoi alloc] init];
-        restaurantPoi.restaurantId = poi.poiId;
+        PoiSummary *restaurantPoi = [[PoiSummary alloc] init];
+        restaurantPoi.poiId = poi.poiId;
         restaurantPoi.zhName = poi.zhName;
         restaurantPoi.enName = poi.enName;
         restaurantPoi.desc = poi.desc;
@@ -254,14 +254,16 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         restaurantPoi.commentCount = 0;
         restaurantPoi.telephone = poi.telephone;
         restaurantPoi.images = poi.images;
-        RestaurantOfCityTableViewCell *restaurantCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
-        restaurantCell.restaurantPoi = restaurantPoi;
-        restaurantCell.addBtn.tag = indexPath.row;
-        [restaurantCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        
+        PoisOfCityTableViewCell *restaurantCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
+        restaurantCell.poi = restaurantPoi;
+        restaurantCell.actionBtn.tag = indexPath.row;
+        [restaurantCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         return restaurantCell;
     }
     
     if (poi.poiType == TripShoppingPoi) {
+        
         
     }
     if (poi.poiType == TripHotelPoi) {

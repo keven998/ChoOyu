@@ -10,13 +10,14 @@
 #import "DKCircleButton.h"
 #import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
-#import "RestaurantsOfCityViewController.h"
+#import "PoisOfCityTableViewCell.h"
 #import "CityDestinationPoi.h"
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
 #import "RestaurantDetailViewController.h"
+#import "PoisOfCityViewController.h"
 
-@interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantsOfCityDelegate>
+@interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -119,9 +120,10 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addWantTo:(id)sender
 {
-    RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
+    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.delegate = self;
+    restaurantOfCityCtl.poiType = TripRestaurantPoi;
     
 #warning 测试数据
     for (CityDestinationPoi *poi in restaurantOfCityCtl.tripDetail.destinations) {

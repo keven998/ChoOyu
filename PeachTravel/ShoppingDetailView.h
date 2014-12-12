@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShoppingPoi.h"
+#import "PoiSummary.h"
 
 @interface ShoppingDetailView : UITableView
 
-@property (nonatomic, strong) ShoppingPoi *shoppingPoi;
+@property (nonatomic, strong) PoiSummary *shoppingPoi;
 
 @end

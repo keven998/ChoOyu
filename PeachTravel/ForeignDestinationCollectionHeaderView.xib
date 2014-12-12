@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -51,19 +51,19 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="8aP-p2-afE" secondAttribute="bottom" constant="8" id="2Rk-G7-Vpc"/>
                         <constraint firstItem="jRo-t4-oiO" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" id="DBv-xM-I2x"/>
                         <constraint firstAttribute="trailing" secondItem="jRo-t4-oiO" secondAttribute="trailing" id="KcF-RP-GVQ"/>
                         <constraint firstAttribute="trailing" secondItem="WKh-yw-7RT" secondAttribute="trailing" constant="30" id="MeY-zt-eKO"/>
+                        <constraint firstItem="jRo-t4-oiO" firstAttribute="top" secondItem="8aP-p2-afE" secondAttribute="bottom" constant="7" id="N7h-HO-fCK"/>
                         <constraint firstItem="WKh-yw-7RT" firstAttribute="top" secondItem="V7r-7c-aRb" secondAttribute="top" constant="85" id="PqD-KZ-kr7"/>
-                        <constraint firstAttribute="trailing" secondItem="8aP-p2-afE" secondAttribute="trailing" constant="8" id="Wn8-7K-m6F"/>
+                        <constraint firstItem="8aP-p2-afE" firstAttribute="top" secondItem="8y4-z8-RJs" secondAttribute="bottom" constant="7" id="aIS-gO-ZWo"/>
                         <constraint firstItem="WKh-yw-7RT" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" constant="33" id="aZs-oQ-5Om"/>
                         <constraint firstItem="8y4-z8-RJs" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" id="bX7-w0-gxe"/>
-                        <constraint firstItem="8aP-p2-afE" firstAttribute="top" secondItem="8y4-z8-RJs" secondAttribute="bottom" constant="7" id="cp2-e3-AK5"/>
+                        <constraint firstItem="8aP-p2-afE" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" constant="8" id="fFp-aQ-gL0"/>
                         <constraint firstAttribute="bottom" secondItem="jRo-t4-oiO" secondAttribute="bottom" id="gFH-Oc-l6O"/>
                         <constraint firstAttribute="trailing" secondItem="8y4-z8-RJs" secondAttribute="trailing" id="hrw-0V-uuH"/>
                         <constraint firstItem="8y4-z8-RJs" firstAttribute="top" secondItem="V7r-7c-aRb" secondAttribute="top" id="sCb-5z-WZF"/>
-                        <constraint firstItem="8aP-p2-afE" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" constant="8" id="sRo-nC-ojK"/>
+                        <constraint firstAttribute="trailing" secondItem="8aP-p2-afE" secondAttribute="trailing" constant="8" id="xMr-QQ-B6f"/>
                     </constraints>
                 </view>
             </subviews>

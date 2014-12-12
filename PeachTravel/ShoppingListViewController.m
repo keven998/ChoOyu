@@ -10,7 +10,6 @@
 #import "DKCircleButton.h"
 #import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
-#import "ShoppingOfCityViewController.h"
 #import "CityDestinationPoi.h"
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"

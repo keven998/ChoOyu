@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RestaurantPoi.h"
+#import "PoiSummary.h"
 
 
 @interface RestaurantDetailView : UITableView
 
-@property (nonatomic, strong) RestaurantPoi *restaurantPoi;
+@property (nonatomic, strong) PoiSummary *restaurantPoi;
 @end

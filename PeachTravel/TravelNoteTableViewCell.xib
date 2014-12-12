@@ -27,7 +27,6 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tB-ZX-D4w">
@@ -147,6 +146,7 @@
                 <outlet property="authorImageView" destination="liI-Sb-Sph" id="nfQ-D2-1k4"/>
                 <outlet property="authorNameLabel" destination="mof-Ww-3c3" id="wOw-oC-oIf"/>
                 <outlet property="resourceLabel" destination="10e-Qt-GPq" id="GMr-Is-uui"/>
+                <outlet property="spaceView" destination="998-2F-Ldr" id="CQs-Cx-VUX"/>
                 <outlet property="timeLabel" destination="EEo-5d-aqa" id="gQN-Ks-KAV"/>
                 <outlet property="titleLabel" destination="7tB-ZX-D4w" id="irs-x3-pHA"/>
                 <outlet property="travelNoteImageView" destination="Khj-AV-s3G" id="zti-dt-gzP"/>
@@ -156,6 +156,6 @@
     </objects>
     <resources>
         <image name="cell_accessory_pink.png" width="6" height="10"/>
-        <image name="ic_dotted_line" width="31" height="31"/>
+        <image name="ic_dotted_line" width="7" height="7"/>
     </resources>
 </document>

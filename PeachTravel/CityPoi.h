@@ -7,8 +7,7 @@
 //
 
 #import "SuperPoi.h"
-#import "RestaurantsOfCity.h"
-#import "ShoppingOfCity.h"
+#import "RecommendsOfCity.h"
 
 @interface CityPoi : NSObject
 
@@ -23,8 +22,8 @@
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
-@property (nonatomic, strong) RestaurantsOfCity *restaurants;
-@property (nonatomic, strong) ShoppingOfCity *shopping;
+@property (nonatomic, strong) RecommendsOfCity *restaurantsOfCity;
+@property (nonatomic, strong) RecommendsOfCity *shoppingOfCity;
 
 @property (nonatomic) BOOL isMyFavorite;
 

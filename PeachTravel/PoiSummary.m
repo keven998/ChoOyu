@@ -1,24 +1,22 @@
 //
-//  RestaurantPoi.m
+//  PoiSummary.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/22/14.
+//  Created by liangpengshuai on 12/11/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "RestaurantPoi.h"
-#import "TaoziImage.h"
+#import "PoiSummary.h"
 #import "RecommendDetail.h"
 #import "CommentDetail.h"
 
-@implementation RestaurantPoi
-
+@implementation PoiSummary
 
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
         
-        _restaurantId = [json objectForKey:@"id"];
+        _poiId = [json objectForKey:@"id"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _priceDesc = [json objectForKey:@"priceDesc"];
@@ -55,5 +53,3 @@
 }
 
 @end
-
-

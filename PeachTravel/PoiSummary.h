@@ -1,16 +1,16 @@
 //
-//  RestaurantPoi.h
+//  PoiSummary.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/22/14.
+//  Created by liangpengshuai on 12/11/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface RestaurantPoi : NSObject
+@interface PoiSummary : NSObject
 
-@property (nonatomic, copy) NSString *restaurantId;
+@property (nonatomic, copy) NSString *poiId;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *priceDesc;
@@ -23,5 +23,7 @@
 @property (nonatomic) NSInteger commentCount;
 @property (nonatomic) float rating;
 
+
 - (id)initWithJson:(id)json;
+
 @end

@@ -10,7 +10,7 @@
 #import "ShoppingDetailView.h"
 
 @interface ShoppingDetailViewController ()
-@property (nonatomic, strong) ShoppingPoi *shoppingPoi;
+@property (nonatomic, strong) PoiSummary *shoppingPoi;
 @end
 
 @implementation ShoppingDetailViewController
@@ -47,7 +47,7 @@
         NSLog(@"/***获取购物详情数据****\n%@", responseObject);
         if (result == 0) {
             [SVProgressHUD dismiss];
-            _shoppingPoi = [[ShoppingPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            _shoppingPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
             [SVProgressHUD showErrorWithStatus:@"无法获取数据"];

@@ -11,8 +11,8 @@
 #import "TravelNoteTableViewCell.h"
 #import "CityPoi.h"
 #import "TravelNote.h"
-#import "RestaurantsOfCityViewController.h"
-#import "ShoppingOfCityViewController.h"
+#import "PoisOfCityViewController.h"
+#import "AccountManager.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate>
 
@@ -78,6 +78,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if (accountManager.isLogin) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
+    
     NSString *requsetUrl = [NSString stringWithFormat:@"%@5473ccd7b8ce043a64108c46", API_GET_CITYDETAIL];
     
     [SVProgressHUD show];
@@ -105,12 +110,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (void)loadTravelNoteOfCityData
 {
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
@@ -125,12 +130,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             _cityPoi.travelNotes = [responseObject objectForKey:@"result"];
             [self.tableView reloadData];
         } else {
-            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:@"加载失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"加载失败"];
     }];
 
 }
@@ -156,7 +161,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)favorite:(id)sender
 {
     _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_cityPoi.cityId poiType:@"vs" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    [super asyncFavorite:_cityPoi.cityId poiType:@"localities" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
         _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _cityPoi.isMyFavorite = !_cityPoi.isMyFavorite;
@@ -178,12 +183,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     NSLog(@"应该进入城市的美食信息");
 
-    RestaurantsOfCityViewController *restaurantOfCityCtl = [[RestaurantsOfCityViewController alloc] init];
+    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
 #warning 测试数据
     _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
-    _cityPoi.restaurants = [[RestaurantsOfCity alloc] initWithJson:@{}];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.currentCity = _cityPoi;
+    restaurantOfCityCtl.poiType = TripRestaurantPoi;
     
     
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
@@ -193,8 +198,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     NSLog(@"应该进入城市的购物信息");
 
-    ShoppingOfCityViewController *shoppingOfCityCtl = [[ShoppingOfCityViewController alloc] init];
+    PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
+    _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
+    shoppingOfCityCtl.shouldEdit = NO;
+    shoppingOfCityCtl.currentCity = _cityPoi;
+    shoppingOfCityCtl.poiType = TripShoppingPoi;
+    
     [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
+
     
 }
 

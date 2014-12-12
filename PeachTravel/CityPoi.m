@@ -11,6 +11,9 @@
 
 @implementation CityPoi
 
+@synthesize restaurantsOfCity;
+@synthesize shoppingOfCity;
+
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
@@ -29,6 +32,7 @@
         _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _imageCount = [[json objectForKey:@"imageCount"] integerValue];
+        _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
         
     }
     return self;
@@ -43,5 +47,31 @@
     }
     _travelNotes = tempTravelNotes;
 }
+
+- (RecommendsOfCity *)restaurantsOfCity
+{
+    if (!restaurantsOfCity) {
+        restaurantsOfCity = [[RecommendsOfCity alloc] init];
+    }
+    return restaurantsOfCity;
+}
+
+- (RecommendsOfCity *)shoppingOfCity
+{
+    if (!shoppingOfCity) {
+        shoppingOfCity = [[RecommendsOfCity alloc] init];
+    }
+    return shoppingOfCity;
+}
+
+- (void)setRestaurantsOfCity:(id)restaurantsOfCityDic
+{
+}
+
+
+- (void)setShoppingOfCity:(id)shoppingDic
+{
+}
+
 
 @end

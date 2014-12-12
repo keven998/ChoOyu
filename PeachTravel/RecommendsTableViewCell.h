@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PoiSummary.h"
 
 @interface RecommendsTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *recommendCollectionView;
 
 @property (nonatomic, strong) NSArray *recommends;
+
+@property (nonatomic, strong) PoiSummary *poiSummary;
+
 @end

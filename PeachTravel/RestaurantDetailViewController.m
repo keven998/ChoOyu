@@ -10,7 +10,7 @@
 #import "RestaurantDetailView.h"
 
 @interface RestaurantDetailViewController ()
-@property (nonatomic, strong) RestaurantPoi *restaurantPoi;
+@property (nonatomic, strong) PoiSummary *restaurantPoi;
 
 @end
 
@@ -49,7 +49,7 @@
         NSLog(@"/***获取美食详情数据****\n%@", responseObject);
         if (result == 0) {
             [SVProgressHUD dismiss];
-            _restaurantPoi = [[RestaurantPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            _restaurantPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
             [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
@@ -63,7 +63,7 @@
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _restaurantPoi.restaurantId;
+    taoziMessageCtl.messageId = _restaurantPoi.poiId;
     taoziMessageCtl.messageImage = ((TaoziImage *)[_restaurantPoi.images firstObject]).imageUrl;
     taoziMessageCtl.messageDesc = _restaurantPoi.desc;
     taoziMessageCtl.messageName = _restaurantPoi.zhName;

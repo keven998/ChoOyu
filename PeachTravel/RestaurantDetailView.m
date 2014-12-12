@@ -48,7 +48,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     return self;
 }
 
-- (void)setRestaurantPoi:(RestaurantPoi *)restaurantPoi
+- (void)setRestaurantPoi:(PoiSummary *)restaurantPoi
 {
     _restaurantPoi = restaurantPoi;
     [self setupSubView];

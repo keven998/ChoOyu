@@ -108,7 +108,7 @@
                 <outlet property="titleBtn" destination="f6v-yV-Nee" id="uIa-Pm-dze"/>
                 <outlet property="titleLabelConstraint" destination="ado-2z-R1x" id="J3M-BK-pcb"/>
             </connections>
-            <point key="canvasLocation" x="-156" y="153"/>
+            <point key="canvasLocation" x="-468" y="127"/>
         </tableViewCell>
     </objects>
     <resources>

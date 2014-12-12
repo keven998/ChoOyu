@@ -9,9 +9,12 @@
 #import "LocalViewController.h"
 #import "DMFilterView.h"
 #import "SwipeView.h"
-#import "LocalTableViewCell.h"
+#import "PoisOfCityTableViewCell.h"
 
-#define LOCAL_PAGE_TITLES       @[@"游玩美景", @"风味美食", @"最佳Shopping", @"酒店青旅"]
+#define LOCAL_PAGE_TITLES       @[@"桃∙景", @"桃∙食", @"桃∙购", @"桃∙宿"]
+#define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
+#define LOCAL_PAGE_HIGHLIGHTEDIMAGES       @[@"nearby_ic_tab_spot_select.png", @"nearby_ic_tab_delicacy_select", @"nearby_ic_tab_shopping_select.png", @"nearby_ic_tab_stay_select.png"]
+
 #define PAGE_FUN                0
 #define PAGE_FOOD               1
 #define PAGE_SHOPPING           2
@@ -21,9 +24,8 @@
 
 @property (nonatomic, strong) DMFilterView *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
-
-@property (nonatomic, strong) NSArray *dataPool;
 @property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) NSArray *dataSource;
 
 @end
 
@@ -35,10 +37,13 @@
     self.navigationItem.title = @"我身边";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES containerView:self.view];
+    _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES normatlImages:LOCAL_PAGE_NORMALIMAGES highLightedImages:LOCAL_PAGE_HIGHLIGHTEDIMAGES containerView:self.view];
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.filterView attachToContainerView];
     [self.filterView setDelegate:self];
+    _filterView.backgroundColor = [UIColor whiteColor];
+    _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
+
     
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
     _swipeView.dataSource = self;
@@ -49,6 +54,20 @@
     _swipeView.pagingEnabled = YES;
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
+}
+
+#pragma mark - getter & getter
+
+- (NSArray *)dataSource
+{
+    if (!_dataSource) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 5; i++) {
+            NSMutableArray *oneList = [[NSMutableArray alloc] init];
+            [tempArray addObject:oneList];
+        }
+    }
+    return _dataSource;
 }
 
 #pragma mark - UITableViewDelegate
@@ -79,20 +98,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LocalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"local_cell"];
-    cell.contentTypeFlag.image = [UIImage imageNamed:@"ic_gender_lady.png"];
-    cell.contentTitle.text = @"美食街";
-    cell.distance.text = @"999公里";
-    cell.propertyView.text = @"¥9999/人";
-    cell.standardImg.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-    [cell.address setTitle:@"中关村大街中关村大街中关村大街中关村大街中关村大街中关村大街" forState:UIControlStateNormal];
-    cell.commentAuthor.text = @"12344";
-    cell.commentContent.text = @"不是很好吃而且东西还很贵";
-    [cell.commentCount setTitle:@"999条" forState:UIControlStateNormal];
-    [cell.ratingBar setRating:3.5];
-    
-//    NSArray *datas = [_dataPool objectAtIndex:_currentPage];
-//    id item = [datas objectAtIndex:indexPath.row];
+    PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
     
     return cell;
 }
@@ -159,19 +165,5 @@
     [_swipeView setCurrentPage:index];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

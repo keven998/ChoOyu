@@ -28,6 +28,7 @@
 #import "UIViewController+CWPopup.h"
 #import "TZViewController.h"
 #import "TZTableViewController.h"
+#import "TZButton.h"
 
 #endif
 

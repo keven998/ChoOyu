@@ -62,6 +62,21 @@ extern const CGFloat kAnimationSpeed;
 //Is the selected button is draggable. Default is YES.
 @property (nonatomic, getter = isDraggable) BOOL draggable;
 
+
+/**
+ *  添加带图片的按钮
+ *
+ *  @param strings
+ *  @param noremalImages
+ *  @param highLightedImages
+ *  @param initWithStrings
+ *  @param strings
+ *  @param contrainerView
+ *
+ *  @return
+ */
+- (id)initWithStrings:(NSArray *)strings normatlImages:(NSArray *)noremalImages highLightedImages:(NSArray *)highLightedImages containerView:(UIView *)contrainerView;
+
 /**
 Designated initializer
 @param strings An array of strings containing titles of buttons. Maximum number of titles, and so of buttons is 4
@@ -69,6 +84,7 @@ Designated initializer
 @param containerView The view where the filter view will be added, can't be changed once set
 @return An initialized MSFilterView 
  */
+
 - (id)initWithStrings:(NSArray *)strings
        containerView:(UIView *)contrainerView;
 /**You should called this method once to attach the filter view to the 

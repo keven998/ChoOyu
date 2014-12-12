@@ -65,6 +65,9 @@
 
 #define API_SEARCH_TRAVELNOTE                   (BASE_URL @"misc/notes/search")      //搜索游记
 
+#define API_NEARBY                               (BASE_URL @"poi/nearby")      //我身边
+
+
 
 //用户相关接口
 #define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")
