@@ -1270,10 +1270,6 @@
 		D9B4767C1A2468D30014136C /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		D9B476881A2475CE0014136C /* RecommendsOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendsOfCity.h; sourceTree = "<group>"; };
 		D9B476891A2475CE0014136C /* RecommendsOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendsOfCity.m; sourceTree = "<group>"; };
-		D9B4768B1A2478F20014136C /* RestaurantsOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantsOfCity.h; sourceTree = "<group>"; };
-		D9B4768C1A2478F20014136C /* RestaurantsOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantsOfCity.m; sourceTree = "<group>"; };
-		D9B4768E1A2479F50014136C /* ShoppingOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingOfCity.h; sourceTree = "<group>"; };
-		D9B4768F1A2479F50014136C /* ShoppingOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingOfCity.m; sourceTree = "<group>"; };
 		D9B476911A24A7140014136C /* test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test@2x.png"; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
@@ -2699,10 +2695,6 @@
 				D902ADCF1A15F47100E36A93 /* TravelNote.m */,
 				D9B476881A2475CE0014136C /* RecommendsOfCity.h */,
 				D9B476891A2475CE0014136C /* RecommendsOfCity.m */,
-				D9B4768B1A2478F20014136C /* RestaurantsOfCity.h */,
-				D9B4768C1A2478F20014136C /* RestaurantsOfCity.m */,
-				D9B4768E1A2479F50014136C /* ShoppingOfCity.h */,
-				D9B4768F1A2479F50014136C /* ShoppingOfCity.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
