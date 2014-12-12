@@ -78,10 +78,12 @@ static NSString *reusableCell = @"myGuidesCell";
 - (DKCircleButton *)editBtn
 {
     if (!_editBtn) {
-        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
-        _editBtn.backgroundColor = APP_THEME_COLOR;
-        _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-80.0, 50, 50)];
+//        _editBtn.backgroundColor = APP_THEME_COLOR;
+//        _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+//        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
         [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _editBtn;
@@ -96,13 +98,11 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (IBAction)editMyGuides:(id)sender
 {
-    _isEditing = !_isEditing;
+    UIButton *btn = sender;
+    BOOL isEditing = btn.isSelected;
+    _isEditing = !isEditing;
+    btn.selected = !isEditing;
     [self.tableView reloadData];
-    if (_isEditing) {
-        [_editBtn setTitle:@"完成" forState:UIControlStateNormal];
-    } else {
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-    }
 }
 
 /**

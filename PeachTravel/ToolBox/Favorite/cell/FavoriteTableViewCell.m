@@ -14,6 +14,12 @@
 - (void)awakeFromNib {
     _deleteBtn.alpha = 0;
     self.deleteBtn.layer.cornerRadius = 15.0;
+    
+    _frameView.layer.cornerRadius = 2.0;
+    _frameView.layer.shadowColor = UIColorFromRGB(0xb3b3b3).CGColor;
+    _frameView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    _frameView.layer.shadowOpacity = 1.0;
+    _frameView.layer.shadowRadius = 1.0;
 
     _standardImageView.clipsToBounds = YES;
     _contentDescExpandView.titleLabel.numberOfLines = 0;

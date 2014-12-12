@@ -112,6 +112,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 
 + (void)show {
     [[self sharedView] showProgress:-1 status:nil maskType:SVProgressHUDMaskTypeNone];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 + (void)showWithStatus:(NSString *)status {
@@ -166,6 +167,7 @@ CGFloat SVProgressHUDRingThickness = 6;
     if ([self isVisible]) {
         [[self sharedView] dismiss];
     }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 
