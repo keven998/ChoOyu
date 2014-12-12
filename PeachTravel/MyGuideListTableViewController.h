@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #include "ChatViewController.h"
 
-@interface MyGuideListTableViewController : TZViewController
+@interface MyGuideListTableViewController : UITableViewController
 
 /**
  *  进入此页面，点击每条攻略是发送还是进入详情，yes：发送
