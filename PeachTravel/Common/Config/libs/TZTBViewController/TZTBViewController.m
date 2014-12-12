@@ -30,14 +30,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBar.translucent = YES;
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
+    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"]];
+    self.navigationItem.leftBarButtonItem = backBtn;
     
     self.tableView = [[UITableView alloc] init];
-    _tableView.frame = self.view.bounds;
+    _tableView.frame = CGRectMake(0.0, 64.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0);
     _tableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    
     [self.view addSubview:_tableView];
+}
+
+- (void)goBackToAllPets
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (UIView *)footerView {
@@ -59,10 +67,13 @@
         _tableView.tableFooterView = self.footerView;
     }
     [_indicatroView startAnimating];
+    _isLoadingMore = YES;
 }
 
 - (void) loadMoreCompleted {
+    if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
+    _isLoadingMore = NO;
 }
 
 - (void) setFooterViewVisibility:(BOOL)visible {

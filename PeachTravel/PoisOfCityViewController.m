@@ -18,12 +18,13 @@
 
 @interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableHeaderView;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) SINavigationMenuView *titleMenu;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
+
+@property (nonatomic, assign) NSUInteger currentPage;
 
 @end
 
@@ -34,7 +35,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    [self.view addSubview:self.tableView];
+//    [self.view addSubview:self.tableView];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.tableHeaderView = self.tableHeaderView;
+    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     if (self.tripDetail.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
@@ -53,8 +59,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         [leftBtn addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     }
-   
-    [self loadData];
+    
+    _currentPage = 0;
+    self.enableLoadingMore = NO;
+    [self loadData:0];
 }
 
 #pragma mark - setter & getter
@@ -84,20 +92,20 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     return _titleMenu;
 }
 
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64.0)];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.tableHeaderView = self.tableHeaderView;
-        [_tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.showsVerticalScrollIndicator = NO;
-    }
-    return _tableView;
-}
+//- (UITableView *)tableView
+//{
+//    if (!_tableView) {
+//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64.0)];
+//        _tableView.delegate = self;
+//        _tableView.dataSource = self;
+//        _tableView.tableHeaderView = self.tableHeaderView;
+//        [_tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.backgroundColor = APP_PAGE_COLOR;
+//        _tableView.showsVerticalScrollIndicator = NO;
+//    }
+//    return _tableView;
+//}
 
 - (UIView *)tableHeaderView
 {
@@ -140,9 +148,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 }
 
+- (void) beginLoadingMore {
+    [super beginLoadingMore];
+    [self loadData:_currentPage + 1];
+}
+
 #pragma mark - Private Methods
 
-- (void)loadData
+- (void)loadData:(NSUInteger)pageNO
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -169,15 +182,22 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            self.dataSource .recommendList = [responseObject objectForKey:@"result"];
+            self.dataSource.recommendList = [responseObject objectForKey:@"result"];
             [self updateView];
+            _currentPage = pageNO;
+            if (_dataSource.recommendList.count > 0) {
+                self.enableLoadingMore = YES;
+            }
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
+        [self loadMoreCompleted];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
+        [self loadMoreCompleted];
     }];
 }
 
@@ -242,7 +262,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _currentCity.cityId = destination.cityId;
     _currentCity.zhName = destination.zhName;
     [_titleMenu setTitle:_currentCity.zhName];
-    [self loadData];
+    [self loadData:0];
 }
 
 #pragma mark - UITableViewDataSource & delegate

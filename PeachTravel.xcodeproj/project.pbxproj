@@ -1191,8 +1191,6 @@
 		D98CC6961A19D7EE00FA5A76 /* SpotPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotPoi.m; sourceTree = "<group>"; };
 		D98CC6981A19D93400FA5A76 /* TaoziImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziImage.h; sourceTree = "<group>"; };
 		D98CC6991A19D93400FA5A76 /* TaoziImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziImage.m; sourceTree = "<group>"; };
-		D9907B081A20334800C7CF0C /* RestaurantPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantPoi.h; sourceTree = "<group>"; };
-		D9907B091A20334800C7CF0C /* RestaurantPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantPoi.m; sourceTree = "<group>"; };
 		D9907B0B1A2037C100C7CF0C /* RestaurantDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailView.h; sourceTree = "<group>"; };
 		D9907B0C1A2037C100C7CF0C /* RestaurantDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailView.m; sourceTree = "<group>"; };
 		D9907B0E1A203C0B00C7CF0C /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
@@ -3089,8 +3087,6 @@
 		D9907B071A202EC900C7CF0C /* RestaurantDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D9907B081A20334800C7CF0C /* RestaurantPoi.h */,
-				D9907B091A20334800C7CF0C /* RestaurantPoi.m */,
 				D9907B0B1A2037C100C7CF0C /* RestaurantDetailView.h */,
 				D9907B0C1A2037C100C7CF0C /* RestaurantDetailView.m */,
 				D9907B0E1A203C0B00C7CF0C /* RestaurantDetailViewController.h */,

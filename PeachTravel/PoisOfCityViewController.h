@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
 #import "TripDetail.h"
+#import "TZTBViewController.h"
 
 @protocol PoisOfCityDelegate <NSObject>
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface PoisOfCityViewController : TZViewController
+@interface PoisOfCityViewController : TZTBViewController
 
 @property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
 
