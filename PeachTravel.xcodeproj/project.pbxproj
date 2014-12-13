@@ -563,6 +563,8 @@
 		D9EF98A71A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989D1A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png */; };
 		D9EF98A81A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989E1A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png */; };
 		D9EF98A91A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF989F1A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png */; };
+		D9EF98AE1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF98AC1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png */; };
+		D9EF98AF1A3BE4B400DB480F /* ic_nav_filter_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF98AD1A3BE4B400DB480F /* ic_nav_filter_normal@2x.png */; };
 		D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613519E41A51000F379F /* MineTableViewController.m */; };
 		D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613D19E42360000F379F /* LoginTableViewCell.m */; };
 		D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F3613E19E42360000F379F /* LoginTableViewCell.xib */; };
@@ -1388,6 +1390,8 @@
 		D9EF989D1A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_spot_select@2x.png"; sourceTree = "<group>"; };
 		D9EF989E1A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_stay_normal@2x.png"; sourceTree = "<group>"; };
 		D9EF989F1A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby_ic_tab_stay_select@2x.png"; sourceTree = "<group>"; };
+		D9EF98AC1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_filter_highlight@2x.png"; sourceTree = "<group>"; };
+		D9EF98AD1A3BE4B400DB480F /* ic_nav_filter_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_filter_normal@2x.png"; sourceTree = "<group>"; };
 		D9F3613419E41A51000F379F /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
 		D9F3613519E41A51000F379F /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
 		D9F3613C19E42360000F379F /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
@@ -3403,6 +3407,8 @@
 		D9CC36B21A3747C900E72A7F /* MakePlan */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF98AC1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png */,
+				D9EF98AD1A3BE4B400DB480F /* ic_nav_filter_normal@2x.png */,
 				C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */,
 				C62A7A341A39744F00526928 /* ic_cell_item_unchoose@2x.png */,
 				C62A7A351A39744F00526928 /* ic_view_add@2x.png */,
@@ -3927,6 +3933,7 @@
 				D93696FA1A301C0C001922F4 /* chatBar_more_travelNote@2x.png in Resources */,
 				D90C638E19FB44D300C2E440 /* VoiceSearchFeedback017@2x.png in Resources */,
 				D9EF98A91A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png in Resources */,
+				D9EF98AF1A3BE4B400DB480F /* ic_nav_filter_normal@2x.png in Resources */,
 				C62A7A381A39744F00526928 /* ic_view_add@2x.png in Resources */,
 				D9F57B9219E93486005BB43B /* UMShareEditViewController.xib in Resources */,
 				C60C0D641A297A16006033C9 /* ic_feedback@2x.png in Resources */,
@@ -4002,6 +4009,7 @@
 				D90C63A219FB44D300C2E440 /* chat_location_detail_disclosure.png in Resources */,
 				D90C638919FB44D300C2E440 /* VoiceSearchFeedback015.png in Resources */,
 				C6BC349D1A28171B002C19D3 /* ic_setting_password@2x.png in Resources */,
+				D9EF98AE1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png in Resources */,
 				D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */,
 				D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */,
 				D9CC36BC1A3747D300E72A7F /* second_normal@2x.png in Resources */,

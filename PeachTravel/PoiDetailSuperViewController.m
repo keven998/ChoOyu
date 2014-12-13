@@ -108,11 +108,11 @@
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     if (isFavorite) {
+        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setObject:poiId forKey:@"itemId"];
         [params setObject:type forKey:@"type"];

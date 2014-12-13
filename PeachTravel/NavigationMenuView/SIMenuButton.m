@@ -42,6 +42,28 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame withImage:(NSString *)image
+{
+    self = [super initWithFrame:frame];
+
+    if (self) {
+        if ([self defaultGradient]) {
+            
+        } else {
+            [self setSpotlightCenter:CGPointMake(frame.size.width/2, frame.size.height*(-1)+10)];
+            [self setBackgroundColor:[UIColor clearColor]];
+            [self setSpotlightStartRadius:0];
+            [self setSpotlightEndRadius:frame.size.width/2];
+        }
+        UIButton *imageView = [[UIButton alloc] initWithFrame:frame];
+        [imageView setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+        imageView.userInteractionEnabled = NO;
+        [self addSubview:imageView];
+    }
+    return self;
+}
+
+
 - (UIImageView *)defaultGradient
 {
     return nil;

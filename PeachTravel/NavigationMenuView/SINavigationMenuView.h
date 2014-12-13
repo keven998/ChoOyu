@@ -24,6 +24,7 @@
 @property (nonatomic, weak) id <SINavigationMenuDelegate> delegate;
 @property (nonatomic, strong) NSArray *items;
 
+- (id)initWithFrame:(CGRect)frame withImage:(NSString *)image;
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title;
 - (void)displayMenuInView:(UIView *)view;
 

@@ -497,6 +497,7 @@ _spot.kengdieUrl = @"http://";
 
 - (IBAction)hideContent:(id)sender
 {
+    _descView.numberOfLine = 2;
     [_descView hideContent];
     [UIView animateWithDuration:0.2 animations:^{
         [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height - _descView.resizeHeight)];
