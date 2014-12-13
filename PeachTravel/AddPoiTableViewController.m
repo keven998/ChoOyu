@@ -58,9 +58,12 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.tableHeaderView = self.searchBar;
     
-    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [finishBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+    finishBtn.layer.cornerRadius = 2.0;
+    finishBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+    finishBtn.layer.borderWidth = 1.0;
+    [finishBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barItem1 = [[UIBarButtonItem alloc] initWithCustomView:self.sortPoiView];
     UIBarButtonItem *barItem2 = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
@@ -69,7 +72,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     self.navigationItem.rightBarButtonItems = @[barItem2, barItem1];
     CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
 //    _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
-        _requestUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", API_GET_SPOTLIST_CITY];
+        _requestUrl = [NSString stringWithFormat:@"%@547aebffb8ce043deccfed0b", API_GET_SPOTLIST_CITY];
 }
 
 #pragma mark - setter & getter
@@ -105,7 +108,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 {
     if (!_sortPoiView) {
         CGRect frame = CGRectMake(0, 0, 50, 30);
-        _sortPoiView = [[SINavigationMenuView alloc] initWithFrame:frame title:@"景点"];
+        _sortPoiView = [[SINavigationMenuView alloc] initWithFrame:frame withImage:@"ic_nav_filter_normal.png"];
         [_sortPoiView displayMenuInView:self.navigationController.view];
         _sortPoiView.items = @[@"景点", @"美食", @"购物", @"酒店"];
         _sortPoiView.delegate = self;
@@ -198,6 +201,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
             _requestUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", _urlArray[_currentListTypeIndex]];
             [self.sortPoiView setTitle:[self.sortPoiView.items objectAtIndex:index]];
             [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
             [self loadData];
         }
         
@@ -209,6 +213,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
             _requestUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", _urlArray[_currentListTypeIndex]];
             [self.sortCityView setTitle:[self.sortCityView.items objectAtIndex:index]];
             [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
             [self loadData];
         }
     }

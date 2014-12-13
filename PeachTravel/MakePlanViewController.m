@@ -62,7 +62,7 @@
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
-        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49, self.view.bounds.size.width-62.5, 49) andNextBtnTitle:nil];
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49.5, self.view.bounds.size.width-62.5, 49.5) andNextBtnTitle:nil];
         _destinationToolBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
         _destinationToolBar.delegate = self;
     }

@@ -39,6 +39,7 @@
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
         _guideUrl = [json objectForKey:@"guideUrl"];
         _kengdieUrl = [json objectForKey:@"kengdieUrl"];
+        _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
     }
     return self;
 }

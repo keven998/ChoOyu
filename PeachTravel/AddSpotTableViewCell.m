@@ -18,6 +18,9 @@
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _addBtn.layer.cornerRadius = 2.0;
+    _headerImageView.layer.cornerRadius = 2.0;
+    _headerImageView.clipsToBounds = YES;
 }
 
 - (void)setTripPoi:(TripPoi *)tripPoi

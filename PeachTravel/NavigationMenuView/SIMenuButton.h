@@ -17,7 +17,11 @@
 @property (unsafe_unretained) CGPoint spotlightCenter;
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UIImageView *arrow;
+@property (nonatomic, copy) NSString *backgroundImage;
 
 - (UIImageView *)defaultGradient;
+
+- (id)initWithFrame:(CGRect)frame withImage:(NSString *)image;
+
 
 @end
