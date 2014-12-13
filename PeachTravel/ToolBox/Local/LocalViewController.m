@@ -25,12 +25,19 @@
 #define PAGE_SHOPPING           2
 #define PAGE_STAY               3
 
-@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate> {
+    CLLocationManager* locationManager;
+}
 
 @property (nonatomic, strong) DMFilterView *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *dataSource;
+
+@property (nonatomic, strong) UILabel *locLabel;
+@property (nonatomic, strong) UIButton *reLocBtn;
+
+@property (strong, nonatomic) CLLocation *location;
 
 @end
 
@@ -59,6 +66,104 @@
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
     [self loadData];
+    
+    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 28.0, CGRectGetWidth(self.view.bounds), 28.0)];
+    fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.45];
+    fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:fbar];
+    
+    _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 28.0)];
+    _locLabel.textColor = [UIColor whiteColor];
+    _locLabel.font = [UIFont systemFontOfSize:10.0];
+    [fbar addSubview:_locLabel];
+    
+    _reLocBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(fbar.frame) - 48.0 , 0.0, 48.0, 28.0)];
+    [_reLocBtn addTarget:self action:@selector(relocal:) forControlEvents:UIControlEventTouchUpInside];
+    [_reLocBtn setImage:[UIImage imageNamed:@"ic_refresh_white_18.png"] forState:UIControlStateNormal];
+    [fbar addSubview:_reLocBtn];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate= self;
+    if (IS_IOS8) {
+        [locationManager requestAlwaysAuthorization];
+    } else {
+        [locationManager startUpdatingLocation];
+    }
+}
+
+- (IBAction)relocal:(id)sender {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
+    rotationAnimation.duration = 0.8;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = INFINITY;
+    [_reLocBtn.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    
+    [locationManager startUpdatingLocation];
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [locationManager stopUpdatingLocation];
+    CLLocation *location = [locations firstObject];
+    _location = location;
+    [self getReverseGeocode];
+    [_reLocBtn.layer removeAnimationForKey:@"rotationAnimation"];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    [locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            [locationManager stopUpdatingLocation];
+            break;
+        case kCLAuthorizationStatusAuthorizedAlways:
+            [locationManager startUpdatingLocation];
+            
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [locationManager startUpdatingLocation];
+            
+        default:
+            break;
+    }
+}
+
+- (void)getReverseGeocode
+{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    CLLocationCoordinate2D myCoOrdinate;
+    
+    myCoOrdinate.latitude = _location.coordinate.latitude;
+    myCoOrdinate.longitude = _location.coordinate.longitude;
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error)
+        {
+            NSLog(@"failed with error: %@", error);
+            return;
+        }
+        if(placemarks.count > 0)
+        {
+            CLPlacemark *clPlaceMark = [placemarks firstObject];
+//            NSDictionary *dictionary = clPlaceMark.addressDictionary;
+            NSString *city = [clPlaceMark.addressDictionary objectForKey:@"Name"];
+            _locLabel.text = city;
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }
+    }];
 }
 
 #pragma mark - getter & getter
