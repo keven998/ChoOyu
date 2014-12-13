@@ -67,6 +67,7 @@ const CGFloat kAnimationSpeed = 0.20;
             [button setTitle:string forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:[noremalImages objectAtIndex:tag]] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:[highLightedImages objectAtIndex:tag]] forState:UIControlStateDisabled];
+            [button setTitleColor:APP_THEME_COLOR forState:UIControlStateDisabled];
 
             [button addTarget:self
                        action:@selector(onButton:)

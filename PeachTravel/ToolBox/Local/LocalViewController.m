@@ -16,7 +16,7 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 
-#define LOCAL_PAGE_TITLES       @[@"桃∙景", @"桃∙食", @"桃∙购", @"桃∙宿"]
+#define LOCAL_PAGE_TITLES       @[@"桃∙景", @"桃∙吃", @"桃∙购", @"桃∙住"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
 #define LOCAL_PAGE_HIGHLIGHTEDIMAGES       @[@"nearby_ic_tab_spot_select.png", @"nearby_ic_tab_delicacy_select", @"nearby_ic_tab_shopping_select.png", @"nearby_ic_tab_stay_select.png"]
 
@@ -54,6 +54,8 @@
     [self.filterView attachToContainerView];
     [self.filterView setDelegate:self];
     _filterView.backgroundColor = [UIColor whiteColor];
+    _filterView.titlesColor = UIColorFromRGB(0x999999);
+    _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
     _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
 
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
@@ -66,6 +68,11 @@
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
     [self loadData];
+    
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), 1.0)];
+    divider.backgroundColor = APP_PAGE_COLOR;
+    [self.view addSubview:divider];
+    
     
     UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 28.0, CGRectGetWidth(self.view.bounds), 28.0)];
     fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.45];
@@ -84,11 +91,6 @@
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
-    if (IS_IOS8) {
-        [locationManager requestAlwaysAuthorization];
-    } else {
-        [locationManager startUpdatingLocation];
-    }
 }
 
 - (IBAction)relocal:(id)sender {
@@ -101,7 +103,11 @@
     rotationAnimation.repeatCount = INFINITY;
     [_reLocBtn.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     
-    [locationManager startUpdatingLocation];
+    if (IS_IOS8) {
+        [locationManager requestAlwaysAuthorization];
+    } else {
+        [locationManager startUpdatingLocation];
+    }
 }
 
 #pragma mark - MKMapViewDelegate
