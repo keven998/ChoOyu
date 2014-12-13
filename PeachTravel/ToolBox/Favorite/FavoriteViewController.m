@@ -30,6 +30,8 @@
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, assign) BOOL isLoadingMore;
 @property (nonatomic, assign) BOOL didEndScroll;
+@property (nonatomic, assign) BOOL enableLoadMore;
+
 @end
 
 @implementation FavoriteViewController
@@ -56,6 +58,7 @@
     _currentPage = 0;
     _isLoadingMore = YES;
     _didEndScroll = YES;
+    _enableLoadMore = NO;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
@@ -203,6 +206,10 @@
     }
     
     [self.tableView reloadData];
+    
+    if (_dataSource.count >= 15) {
+        _enableLoadMore = YES;
+    }
 }
 
 
@@ -345,7 +352,7 @@
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!_isLoadingMore && _didEndScroll) {
+    if (!_isLoadingMore && _didEndScroll && _enableLoadMore) {
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
         if (scrollPosition < 44.0) {
             _didEndScroll = NO;

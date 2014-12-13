@@ -32,6 +32,7 @@
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, assign) BOOL isLoadingMore;
 @property (nonatomic, assign) BOOL didEndScroll;
+@property (nonatomic, assign) BOOL enableLoadMore;
 
 @end
 
@@ -71,6 +72,7 @@ static NSString *reusableCell = @"myGuidesCell";
     _currentPage = 0;
     _isLoadingMore = YES;
     _didEndScroll = YES;
+    _enableLoadMore = NO;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
@@ -386,6 +388,10 @@ static NSString *reusableCell = @"myGuidesCell";
         [self.dataSource addObject:guideSummary];
     }
     [self.tableView reloadData];
+    
+    if (_dataSource.count >= 10) {
+        _enableLoadMore = YES;
+    }
 }
 
 - (void) setupEmptyView {
@@ -528,7 +534,6 @@ static NSString *reusableCell = @"myGuidesCell";
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
         _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _footerView.backgroundColor = APP_PAGE_COLOR;
-        
         _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
         [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
         [_footerView addSubview:_indicatroView];
@@ -556,7 +561,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!_isLoadingMore && _didEndScroll) {
+    if (!_isLoadingMore && _didEndScroll && _enableLoadMore) {
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
         if (scrollPosition < 44.0) {
             _didEndScroll = NO;

@@ -76,6 +76,5 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _timeLabel.text = [NSString stringWithFormat:@"%@", _guideSummary.updateTimeStr];
     [_titleBtn setTitle:_guideSummary.title forState:UIControlStateNormal];
-    
 }
 @end
