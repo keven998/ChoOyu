@@ -91,15 +91,25 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这个冬天不会冷,我是棒子，我自豪" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaK-fc-wvS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这个冬天不会冷,我是棒子， 擦擦擦擦擦擦哈哈哈哈哈哈哈哈哈哈哈" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaK-fc-wvS">
                                 <rect key="frame" x="71" y="39" width="230" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="npO-Ac-4qq"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.47450980390000003" green="0.47450980390000003" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6a-9N-6C5">
+                                <rect key="frame" x="266" y="30" width="44" height="25"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="1KW-6B-Uc2"/>
+                                    <constraint firstAttribute="width" constant="44" id="djD-yH-jwA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="发送">
+                                    <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -109,24 +119,27 @@
                             <constraint firstAttribute="bottom" secondItem="EEo-5d-aqa" secondAttribute="bottom" id="Au5-61-ia7"/>
                             <constraint firstAttribute="trailing" secondItem="mof-Ww-3c3" secondAttribute="trailing" constant="8" id="BpH-yj-6ZF"/>
                             <constraint firstItem="liI-Sb-Sph" firstAttribute="leading" secondItem="WD4-vq-Rpq" secondAttribute="leading" constant="8" id="DGu-vI-tYs"/>
+                            <constraint firstItem="J6a-9N-6C5" firstAttribute="top" secondItem="WD4-vq-Rpq" secondAttribute="top" constant="30" id="Fgl-gg-1gJ"/>
                             <constraint firstItem="7tB-ZX-D4w" firstAttribute="top" secondItem="WD4-vq-Rpq" secondAttribute="top" constant="18" id="GHg-zF-41x"/>
                             <constraint firstAttribute="bottom" secondItem="liI-Sb-Sph" secondAttribute="bottom" constant="7" id="GoQ-f8-tDJ"/>
-                            <constraint firstItem="aaK-fc-wvS" firstAttribute="top" secondItem="7tB-ZX-D4w" secondAttribute="bottom" id="Hcr-zr-1Ng"/>
+                            <constraint firstItem="aaK-fc-wvS" firstAttribute="top" secondItem="7tB-ZX-D4w" secondAttribute="bottom" id="JOX-l8-LNa"/>
                             <constraint firstItem="Khj-AV-s3G" firstAttribute="top" secondItem="WD4-vq-Rpq" secondAttribute="top" constant="20" id="K5l-sp-X4m"/>
                             <constraint firstAttribute="trailing" secondItem="EEo-5d-aqa" secondAttribute="trailing" constant="8" id="ObH-15-ooB"/>
                             <constraint firstAttribute="trailing" secondItem="ugQ-ud-Hg1" secondAttribute="trailing" constant="10" id="PXP-22-msa"/>
                             <constraint firstAttribute="trailing" secondItem="10e-Qt-GPq" secondAttribute="trailing" constant="162" id="Rt8-3o-7R0"/>
+                            <constraint firstAttribute="trailing" secondItem="J6a-9N-6C5" secondAttribute="trailing" constant="10" id="RyT-nA-7lL"/>
                             <constraint firstItem="7tB-ZX-D4w" firstAttribute="leading" secondItem="Khj-AV-s3G" secondAttribute="trailing" constant="13" id="TXJ-kd-WUB"/>
                             <constraint firstItem="mof-Ww-3c3" firstAttribute="leading" secondItem="WD4-vq-Rpq" secondAttribute="leading" constant="56" id="XNR-VO-5sE"/>
                             <constraint firstAttribute="bottom" secondItem="mof-Ww-3c3" secondAttribute="bottom" constant="21" id="Z47-p8-f46"/>
                             <constraint firstAttribute="bottom" secondItem="10e-Qt-GPq" secondAttribute="bottom" id="czC-SA-dT1"/>
-                            <constraint firstItem="aaK-fc-wvS" firstAttribute="leading" secondItem="Khj-AV-s3G" secondAttribute="trailing" constant="13" id="giY-MH-GkV"/>
                             <constraint firstItem="998-2F-Ldr" firstAttribute="leading" secondItem="WD4-vq-Rpq" secondAttribute="leading" id="iLt-ge-nf6"/>
                             <constraint firstAttribute="trailing" secondItem="7tB-ZX-D4w" secondAttribute="trailing" constant="19" id="oW1-Wx-yA1"/>
+                            <constraint firstItem="aaK-fc-wvS" firstAttribute="leading" secondItem="Khj-AV-s3G" secondAttribute="trailing" constant="13" id="ppA-fL-QIa"/>
+                            <constraint firstItem="998-2F-Ldr" firstAttribute="top" secondItem="aaK-fc-wvS" secondAttribute="bottom" constant="14" id="tGS-Y5-sGi"/>
                             <constraint firstItem="ugQ-ud-Hg1" firstAttribute="top" secondItem="WD4-vq-Rpq" secondAttribute="top" constant="38" id="vm7-SV-n7F"/>
                             <constraint firstItem="mof-Ww-3c3" firstAttribute="top" secondItem="998-2F-Ldr" secondAttribute="bottom" constant="8" id="xGu-YE-VM1"/>
                             <constraint firstItem="10e-Qt-GPq" firstAttribute="leading" secondItem="WD4-vq-Rpq" secondAttribute="leading" constant="56" id="ycI-Xr-CIG"/>
-                            <constraint firstItem="ugQ-ud-Hg1" firstAttribute="leading" secondItem="aaK-fc-wvS" secondAttribute="trailing" constant="3" id="ytG-nM-EBD"/>
+                            <constraint firstItem="aaK-fc-wvS" firstAttribute="trailing" secondItem="7tB-ZX-D4w" secondAttribute="trailing" id="z9Z-Qm-8Q3"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -143,9 +156,13 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="accessImageView" destination="ugQ-ud-Hg1" id="vdb-Zf-p3f"/>
                 <outlet property="authorImageView" destination="liI-Sb-Sph" id="nfQ-D2-1k4"/>
                 <outlet property="authorNameLabel" destination="mof-Ww-3c3" id="wOw-oC-oIf"/>
+                <outlet property="descLabel" destination="aaK-fc-wvS" id="KPB-5x-TA2"/>
                 <outlet property="resourceLabel" destination="10e-Qt-GPq" id="GMr-Is-uui"/>
+                <outlet property="rightSpaceConstraint" destination="oW1-Wx-yA1" id="zkq-Ys-Ch8"/>
+                <outlet property="sendBtn" destination="J6a-9N-6C5" id="5sb-bC-fJy"/>
                 <outlet property="spaceView" destination="998-2F-Ldr" id="CQs-Cx-VUX"/>
                 <outlet property="timeLabel" destination="EEo-5d-aqa" id="gQN-Ks-KAV"/>
                 <outlet property="titleLabel" destination="7tB-ZX-D4w" id="irs-x3-pHA"/>
@@ -156,6 +173,6 @@
     </objects>
     <resources>
         <image name="cell_accessory_pink.png" width="6" height="10"/>
-        <image name="ic_dotted_line" width="7" height="7"/>
+        <image name="ic_dotted_line" width="31" height="31"/>
     </resources>
 </document>

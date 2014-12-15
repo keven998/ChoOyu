@@ -9,8 +9,10 @@
 #import "TravelNoteListViewController.h"
 #import "TravelNote.h"
 #import "TravelNoteTableViewCell.h"
+#import "TravelNoteDetailViewController.h"
+#import "TaoziChatMessageBaseViewController.h"
 
-@interface TravelNoteListViewController () 
+@interface TravelNoteListViewController () <UISearchBarDelegate, TaoziMessageSendDelegate>
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 
@@ -31,7 +33,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     CGFloat y;
     if (_isSearch) {
         y = self.searchBar.frame.size.height+self.searchBar.frame.origin.y+10;
-        
+        [self.view addSubview:self.searchBar];
     } else {
         y = 64+10;
     }
@@ -58,6 +60,21 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
+}
+
+- (UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kWindowWidth, 40)];
+        _searchBar.searchBarStyle = UISearchBarStyleProminent;
+        _searchBar.delegate = self;
+        [_searchBar setPlaceholder:@"请输入游记名称"];
+        _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _searchBar.translucent = YES;
+        [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    }
+    return _searchBar;
 }
 
 #pragma mark - private methods
@@ -129,6 +146,26 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     }
 }
 
+/**
+ *  发送游记给好友
+ *
+ */
+
+- (void)sendTravelNote:(UIButton *)sender
+{
+    TravelNote *travelNote = [self.dataSource objectAtIndex:sender.tag];
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatType = TZChatTypeTravelNote;
+    taoziMessageCtl.messageId = travelNote.travelNoteId;
+    taoziMessageCtl.messageName = travelNote.title;
+    taoziMessageCtl.messageDesc = travelNote.summary;
+    taoziMessageCtl.messageImage = travelNote.cover;
+    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^{
+        
+    }];
+}
+
 #pragma mark - UITableViewDataSource & Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -157,8 +194,66 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     cell.authorAvatar = travelNote.authorAvatar;
     cell.resource = travelNote.source;
     cell.time = travelNote.publishDateStr;
+    cell.canSelect = _isSearch;
+    if (_isSearch) {
+        [cell.sendBtn addTarget:self action:@selector(sendTravelNote:) forControlEvents:UIControlEventTouchUpInside];
+        cell.sendBtn.tag = indexPath.row;
+    } 
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
+    TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
+    travelNoteCtl.urlStr = travelNote.sourceUrl;
+    travelNoteCtl.title = travelNote.title;
+
+    travelNoteCtl.travelNoteTitle = travelNote.title;
+    travelNoteCtl.desc = travelNote.summary;
+    travelNoteCtl.travelNoteCover = travelNote.cover;
+    travelNoteCtl.travelNoteId = travelNote.travelNoteId;
+    [self.navigationController pushViewController:travelNoteCtl animated:YES];
+}
+
+#pragma mark - searchBar Delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.dataSource removeAllObjects];
+    _currentPage = 0;
+    [self loadDataWithPageNo:_currentPage andKeyWork:searchBar.text];
+}
+
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送景点给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    
+    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+        }];
+    }
+}
+
 @end
 
 

@@ -98,7 +98,7 @@
 }
 
 // 发送消息
-+(EMMessage *)sendMessage:(NSString *)username
++ (EMMessage *)sendMessage:(NSString *)username
               messageBody:(id<IEMMessageBody>)body
               isChatGroup:(BOOL)isChatGroup
         requireEncryption:(BOOL)requireEncryption
@@ -107,7 +107,7 @@
 }
 
 // 发送消息
-+(EMMessage *)sendMessage:(NSString *)username
++ (EMMessage *)sendMessage:(NSString *)username
               messageBody:(id<IEMMessageBody>)body
                messageExt:(NSDictionary *)extMsg
               isChatGroup:(BOOL)isChatGroup
@@ -134,7 +134,7 @@
     return message;
 }
 
-+(EMMessage *)sendCMDMessage:(NSString *)username
++ (EMMessage *)sendCMDMessage:(NSString *)username
                   messageExt:(NSDictionary *)extMsg
                  isChatGroup:(BOOL)isChatGroup
            requireEncryption:(BOOL)requireEncryption

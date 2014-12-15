@@ -569,6 +569,7 @@
 		D9EF98B21A3C16DC00DB480F /* SuperWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF98B11A3C16DC00DB480F /* SuperWebViewController.m */; };
 		D9EF98B41A3C1EFF00DB480F /* ic_standard_travelnote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF98B31A3C1EFF00DB480F /* ic_standard_travelnote@2x.png */; };
 		D9EF98B71A3C219800DB480F /* TravelNoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF98B61A3C219800DB480F /* TravelNoteListViewController.m */; };
+		D9EF98F01A3E808100DB480F /* TravelNoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF98EF1A3E808100DB480F /* TravelNoteDetailViewController.m */; };
 		D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613519E41A51000F379F /* MineTableViewController.m */; };
 		D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613D19E42360000F379F /* LoginTableViewCell.m */; };
 		D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F3613E19E42360000F379F /* LoginTableViewCell.xib */; };
@@ -1399,6 +1400,8 @@
 		D9EF98B31A3C1EFF00DB480F /* ic_standard_travelnote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_standard_travelnote@2x.png"; sourceTree = "<group>"; };
 		D9EF98B51A3C219800DB480F /* TravelNoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelNoteListViewController.h; sourceTree = "<group>"; };
 		D9EF98B61A3C219800DB480F /* TravelNoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelNoteListViewController.m; sourceTree = "<group>"; };
+		D9EF98EE1A3E808100DB480F /* TravelNoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelNoteDetailViewController.h; sourceTree = "<group>"; };
+		D9EF98EF1A3E808100DB480F /* TravelNoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelNoteDetailViewController.m; sourceTree = "<group>"; };
 		D9F3613419E41A51000F379F /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
 		D9F3613519E41A51000F379F /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
 		D9F3613C19E42360000F379F /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
@@ -2694,8 +2697,7 @@
 				D9907B071A202EC900C7CF0C /* RestaurantDetail */,
 				D98CC68B1A19BA3400FA5A76 /* SpotDetail */,
 				D955E3A519E773CA00047F2B /* CityDetail */,
-				D9EF98B51A3C219800DB480F /* TravelNoteListViewController.h */,
-				D9EF98B61A3C219800DB480F /* TravelNoteListViewController.m */,
+				D9EF98ED1A3E804100DB480F /* TravelNote */,
 			);
 			name = PoiDetail;
 			sourceTree = "<group>";
@@ -2715,8 +2717,6 @@
 			children = (
 				D902ADCB1A15F0E300E36A93 /* CityPoi.h */,
 				D902ADCC1A15F0E300E36A93 /* CityPoi.m */,
-				D902ADCE1A15F47100E36A93 /* TravelNote.h */,
-				D902ADCF1A15F47100E36A93 /* TravelNote.m */,
 				D9B476881A2475CE0014136C /* RecommendsOfCity.h */,
 				D9B476891A2475CE0014136C /* RecommendsOfCity.m */,
 			);
@@ -2733,9 +2733,6 @@
 				D9EF988D1A3ABB2E00DB480F /* PoisOfCityViewController.m */,
 				D902ADBB1A15E15E00E36A93 /* CityHeaderView.h */,
 				D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */,
-				D902ADC61A15EC9300E36A93 /* TravelNoteTableViewCell.h */,
-				D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */,
-				D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3672,6 +3669,22 @@
 			name = Local;
 			sourceTree = "<group>";
 		};
+		D9EF98ED1A3E804100DB480F /* TravelNote */ = {
+			isa = PBXGroup;
+			children = (
+				D902ADC61A15EC9300E36A93 /* TravelNoteTableViewCell.h */,
+				D902ADC71A15EC9300E36A93 /* TravelNoteTableViewCell.m */,
+				D902ADC81A15EC9300E36A93 /* TravelNoteTableViewCell.xib */,
+				D902ADCE1A15F47100E36A93 /* TravelNote.h */,
+				D902ADCF1A15F47100E36A93 /* TravelNote.m */,
+				D9EF98B51A3C219800DB480F /* TravelNoteListViewController.h */,
+				D9EF98B61A3C219800DB480F /* TravelNoteListViewController.m */,
+				D9EF98EE1A3E808100DB480F /* TravelNoteDetailViewController.h */,
+				D9EF98EF1A3E808100DB480F /* TravelNoteDetailViewController.m */,
+			);
+			name = TravelNote;
+			sourceTree = "<group>";
+		};
 		D9F57B3A19E93486005BB43B /* UMSocial_Sdk_4.1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4391,6 +4404,7 @@
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
 				D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */,
 				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
+				D9EF98F01A3E808100DB480F /* TravelNoteDetailViewController.m in Sources */,
 				D9117A7D1A2C9894000DBFCB /* SelectContactScrollView.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,
 				D9048F321A09F18500334AB5 /* ChatGroupSettingViewController.m in Sources */,

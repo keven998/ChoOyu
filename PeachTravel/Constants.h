@@ -117,7 +117,9 @@
 #define regectLoadAddressBookNoti       @ "regectLoadAddressBook"       //用户拒绝读取通讯录
 #define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
 #define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
-#define updateDestinationsSelectedNoti   @ "updatecontactList"           //更新好友请求列表
+#define updateDestinationsSelectedNoti  @ "updatecontactList"           //更新好友请求列表
+
+#define updateChateViewNoti      @"updateChatView"               //更新聊天界面
 
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {

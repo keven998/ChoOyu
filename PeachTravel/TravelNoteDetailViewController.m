@@ -1,37 +1,27 @@
 //
-//  SuperWebViewController.m
+//  TravelNoteDetailViewController.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 12/13/14.
+//  Created by liangpengshuai on 12/15/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "SuperWebViewController.h"
+#import "TravelNoteDetailViewController.h"
 
-@interface SuperWebViewController () <UIWebViewDelegate> {
+@interface TravelNoteDetailViewController () <UIWebViewDelegate> {
     UIWebView *_webView;
     UIActivityIndicatorView *_activeView;
 }
-
 @end
 
-@implementation SuperWebViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation TravelNoteDetailViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
     
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     [self.view addSubview:_webView];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
     _webView.delegate = self;
@@ -41,12 +31,6 @@
     [_activeView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2 - 64.0)];
     [_activeView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [self.view addSubview:_activeView];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) dealloc {
@@ -71,6 +55,15 @@
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [_activeView startAnimating];
+}
+
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+    taoziMessageCtl.messageId = _travelNoteId;
+    taoziMessageCtl.messageImage = _travelNoteCover;
+    taoziMessageCtl.messageDesc = _desc;
+    taoziMessageCtl.messageName = _travelNoteTitle;
+    taoziMessageCtl.chatType = TZChatTypeTravelNote;
 }
 
 @end

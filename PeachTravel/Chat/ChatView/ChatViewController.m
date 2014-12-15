@@ -46,6 +46,8 @@
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
 #import "SearchDestinationViewController.h"
+#import "TravelNoteListViewController.h"
+#import "TravelNoteDetailViewController.h"
 
 #define KPageCount 20
 
@@ -129,6 +131,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
+
     
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     loadChatPeopleQueue = dispatch_queue_create("loadChattingPeople", NULL);
@@ -350,6 +354,20 @@
         }
     }
     return contacts;
+}
+
+/**
+ *  在别的页面发送消息，本页面需要将发送的消息插入到 datasource 里
+ *
+ *  @param noti 包含新消息内容的 noti
+ */
+- (void)updateChatView:(NSNotification *)noti
+{
+    EMMessage *message = [noti.userInfo objectForKey:@"message"];
+    //如果是发送的消息是属于当前页面的
+    if ([message.to isEqualToString:_chatter]) {
+        [self addChatDataToMessage:[noti.userInfo objectForKey:@"message"]];
+    }
 }
 
 /**
@@ -922,6 +940,22 @@
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
+            break;
+            
+        case TZChatTypeTravelNote: {
+            TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
+            travelNoteCtl.travelNoteTitle = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            travelNoteCtl.desc = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
+            travelNoteCtl.travelNoteCover = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
+            travelNoteCtl.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            travelNoteCtl.titleStr = @"游记详情";
+#warning TODO : 游记详情的链接
+
+            [self.navigationController pushViewController:travelNoteCtl animated:YES];
+            
+        }
+            break;
+            
         default:
             break;
     }
@@ -1110,13 +1144,15 @@
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-    searchCtl.chatCtl = self;
     [self.navigationController pushViewController:searchCtl animated:YES];
 
 }
 
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
+    TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
+    travelNoteCtl.isSearch = YES;
+    [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView

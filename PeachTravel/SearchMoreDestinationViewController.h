@@ -8,7 +8,6 @@
 
 #import "TZViewController.h"
 #import "TripDetail.h"
-#import "ChatViewController.h"
 
 @interface SearchMoreDestinationViewController : TZViewController
 
@@ -20,8 +19,6 @@
  *  搜索的字段
  */
 @property (nonatomic, copy) NSString *keyWord;
-
-@property (nonatomic, weak) ChatViewController *chatCtl;
 
 
 

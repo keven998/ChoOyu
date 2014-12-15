@@ -15,6 +15,7 @@
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
 #import "TravelNoteListViewController.h"
+#import "TravelNoteDetailViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate>
 
@@ -232,8 +233,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 1;
+    if (self.cityPoi.travelNotes.count >= 1) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -296,6 +300,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     cell.authorAvatar = travelNote.authorAvatar;
     cell.resource = travelNote.source;
     cell.time = travelNote.publishDateStr;
+    cell.canSelect = NO;
     return cell;
 }
 
@@ -304,6 +309,16 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
+    TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
+    travelNoteCtl.urlStr = travelNote.sourceUrl;
+    travelNoteCtl.title = travelNote.title;
+    
+    travelNoteCtl.travelNoteTitle = travelNote.title;
+    travelNoteCtl.desc = travelNote.summary;
+    travelNoteCtl.travelNoteCover = travelNote.cover;
+    travelNoteCtl.travelNoteId = travelNote.travelNoteId;
+    [self.navigationController pushViewController:travelNoteCtl animated:YES];
     
 }
 
