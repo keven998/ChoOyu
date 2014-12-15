@@ -15,8 +15,11 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "CityDetailTableViewController.h"
+#import "SRRefreshView.h"
 
-@interface FavoriteViewController ()
+@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (nonatomic) BOOL isEditing;
 
@@ -32,13 +35,20 @@
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
+@property (strong, nonatomic) SRRefreshView *slimeView;
+
 @end
 
 @implementation FavoriteViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addSubview:self.tableView];
+    [self.tableView addSubview:self.slimeView];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationController.navigationBar.translucent = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
@@ -54,33 +64,56 @@
     _isEditing = NO;
     self.navigationItem.title = @"收藏夹";
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
-    
     _selectedIndex = -1;
     _currentPage = 0;
     _isLoadingMore = YES;
     _didEndScroll = YES;
     _enableLoadMore = NO;
+    [self pullToRefreash:nil];
+    [self.view addSubview:self.editBtn];
+    self.slimeView.loading = YES;
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
-    [self.refreshControl beginRefreshing];
-    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
-
-//    [self loadDataWithPageIndex:_currentPage];
-
 }
 
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        [_tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+        [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
+        
+    }
+    return _tableView;
+}
+
+- (SRRefreshView *)slimeView
+{
+    if (_slimeView == nil) {
+        _slimeView = [[SRRefreshView alloc] init];
+        _slimeView.delegate = self;
+        _slimeView.upInset = 0;
+        _slimeView.slimeMissWhenGoingBack = YES;
+        _slimeView.slime.bodyColor = [UIColor grayColor];
+        _slimeView.slime.skinColor = [UIColor grayColor];
+        _slimeView.slime.lineWith = 1;
+        _slimeView.slime.shadowBlur = 4;
+        _slimeView.slime.shadowColor = [UIColor grayColor];
+    }
+    
+    return _slimeView;
+}
+
+
 - (void)pullToRefreash:(id)sender {
-//    UIRefreshControl *refreshControl = (UIRefreshControl *)sender;
     [self loadDataWithPageIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.view addSubview:self.editBtn];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -165,13 +198,12 @@
     [params safeSetObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
-//    if (!self.refreshControl.isRefreshing) {
-//        [SVProgressHUD show];
-//    }
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (pageIndex == 0) {
+            [self.dataSource removeAllObjects];
+        }
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self bindDataToView:responseObject];
@@ -179,13 +211,11 @@
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        [self.refreshControl endRefreshing];
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self.refreshControl endRefreshing];
         [self loadMoreCompleted];
     }];
     
@@ -193,6 +223,9 @@
 
 - (void) bindDataToView:(id) responseObject {
     NSArray *datas = [responseObject objectForKey:@"result"];
+    if (self.slimeView.loading) {
+        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.5];
+    }
     if (datas.count == 0) {
         if (_dataSource.count == 0) {
             [self showHint:@"No收藏"];
@@ -201,9 +234,7 @@
         }
         return;
     }
-    if (self.refreshControl.isRefreshing) {
-        [_dataSource removeAllObjects];
-    }
+   
     for (NSDictionary *favoriteDic in datas) {
         Favorite *favorite = [[Favorite alloc] initWithJson:favoriteDic];
         [self.dataSource addObject:favorite];
@@ -214,8 +245,13 @@
     if (_dataSource.count >= 15) {
         _enableLoadMore = YES;
     }
+   
 }
 
+- (void)hideSlimeView
+{
+    [self.slimeView endRefresh];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -363,10 +399,24 @@
             [self beginLoadingMore];
         }
     }
+    if (_slimeView) {
+        [_slimeView scrollViewDidScroll];
+    }
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _didEndScroll = YES;
+    if (_slimeView) {
+        [_slimeView scrollViewDidEndDraging];
+    }
 }
+
+#pragma mark - slimeRefresh delegate
+//加载更多
+- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
+{
+    [self pullToRefreash:nil];
+}
+
 
 @end

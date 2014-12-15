@@ -26,7 +26,8 @@
 
 - (void)updateView
 {
-    _spotDetailView = [[SpotDetailView alloc] initWithFrame:self.view.frame];
+    CGRect frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
+    _spotDetailView = [[SpotDetailView alloc] initWithFrame:frame];
     _spotDetailView.spot = self.spotPoi;
     self.navigationItem.title = self.spotPoi.zhName;
     [self.view addSubview:_spotDetailView];
