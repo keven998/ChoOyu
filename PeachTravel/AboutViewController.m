@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"关于";
+    self.navigationItem.title = @"关于桃子旅行";
     
     self.view.backgroundColor = [UIColor whiteColor];
     

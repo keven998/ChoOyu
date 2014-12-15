@@ -47,6 +47,10 @@
     [rightBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
     self.navigationItem.rightBarButtonItem = rightBtn;
     
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+    
     _isEditing = NO;
     self.navigationItem.title = @"收藏夹";
     

@@ -49,6 +49,10 @@ static NSString *reusableCell = @"myGuidesCell";
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
     
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+    
     UIButton *mp = [UIButton buttonWithType:UIButtonTypeCustom];
     mp.frame = CGRectMake(0.0, 0.0, 40.0, 32.0);
     [mp setTitle:@"新建" forState:UIControlStateNormal];

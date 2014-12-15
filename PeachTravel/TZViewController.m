@@ -21,6 +21,9 @@
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"]];
     self.navigationItem.leftBarButtonItem = backBtn;
 
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 - (void)goBackToAllPets
