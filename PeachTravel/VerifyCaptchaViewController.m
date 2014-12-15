@@ -55,7 +55,7 @@
         
     }
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 14.0)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
     ul.textColor = TEXT_COLOR_TITLE;
     ul.font = [UIFont systemFontOfSize:14.0];
@@ -63,7 +63,7 @@
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 14.0)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 16.0)];
     pl.text = @"验证码:";
     pl.textColor = TEXT_COLOR_TITLE;
     pl.font = [UIFont systemFontOfSize:14.0];

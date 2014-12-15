@@ -35,7 +35,7 @@
 //    _confirmPasswordLabel.layer.borderWidth = 1.0;
     _confirmPasswordLabel.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _oldPasswordLabel.bounds.size.height - 14.0)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _oldPasswordLabel.bounds.size.height - 16.0)];
     ul.text = @"  当前密码:";
     ul.textColor = UIColorFromRGB(0x393939);
     ul.font = [UIFont systemFontOfSize:13.0];
@@ -43,7 +43,7 @@
     _oldPasswordLabel.leftView = ul;
     _oldPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _presentPasswordLabel.bounds.size.height - 14.0)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _presentPasswordLabel.bounds.size.height - 16.0)];
     pl.text = @"  新密码:";
     pl.textColor = UIColorFromRGB(0x393939);
     pl.font = [UIFont systemFontOfSize:14.0];
@@ -51,7 +51,7 @@
     _presentPasswordLabel.leftView = pl;
     _presentPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _presentPasswordLabel.bounds.size.height - 14.0)];
+    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _presentPasswordLabel.bounds.size.height - 16.0)];
     npl.text = @"确认新密码:";
     npl.textColor = UIColorFromRGB(0x393939);
     npl.font = [UIFont systemFontOfSize:12.0];
