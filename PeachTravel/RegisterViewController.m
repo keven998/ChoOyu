@@ -31,7 +31,7 @@
 //    _passwordLabel.layer.borderWidth = 1.0;
     _passwordLabel.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 14.0)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @" 账户:";
     ul.textColor = TEXT_COLOR_TITLE;
     ul.font = [UIFont systemFontOfSize:14.0];
@@ -39,7 +39,7 @@
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 14.0)];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
     pl.text = @" 密码:";
     pl.textColor = TEXT_COLOR_TITLE;
     pl.font = [UIFont systemFontOfSize:14.0];

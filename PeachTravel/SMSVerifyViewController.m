@@ -36,7 +36,7 @@
     
 //    _verifyCodeTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
 //    _verifyCodeTextField.layer.borderWidth = 1.0;
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _verifyCodeTextField.bounds.size.height - 14.0)];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _verifyCodeTextField.bounds.size.height - 16.0)];
     ul.text = @" 验证码:";
     ul.textColor = TEXT_COLOR_TITLE;
     ul.font = [UIFont systemFontOfSize:14.0];
