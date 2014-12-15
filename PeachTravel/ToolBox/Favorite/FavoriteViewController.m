@@ -83,9 +83,8 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+        [_tableView setContentOffset:CGPointMake(0, 10)];
         [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
-        
     }
     return _tableView;
 }
@@ -224,7 +223,7 @@
 - (void) bindDataToView:(id) responseObject {
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (self.slimeView.loading) {
-        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.7];
     }
     if (datas.count == 0) {
         if (_dataSource.count == 0) {
@@ -416,6 +415,7 @@
 - (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
 {
     [self pullToRefreash:nil];
+    [_slimeView endRefresh];
 }
 
 
