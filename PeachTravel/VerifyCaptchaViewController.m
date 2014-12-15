@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 54.0, 30)];
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34.0, 30)];
     registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
     [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
