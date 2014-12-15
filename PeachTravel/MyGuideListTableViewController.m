@@ -513,7 +513,7 @@ static NSString *reusableCell = @"myGuidesCell";
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
         taoziMessageCtl.delegate = self;
         taoziMessageCtl.chatType = TZChatTypeStrategy;
-        taoziMessageCtl.chatCtl = _chatCtl;
+
         taoziMessageCtl.chatTitle = @"攻略";
         taoziMessageCtl.messageId = guideSummary.guideId;
         taoziMessageCtl.messageDesc = guideSummary.summary;

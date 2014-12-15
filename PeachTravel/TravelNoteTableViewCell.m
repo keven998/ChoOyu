@@ -18,7 +18,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *resourceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
+/**
+ *  可以发送的情况下显示发送按钮，否则显示进入详情的标记
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *accessImageView;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSpaceConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *spaceView;
+
+
+
 @end
 
 @implementation TravelNoteTableViewCell
@@ -28,6 +38,11 @@
     _authorImageView.clipsToBounds = YES;
     _travelNoteImageView.layer.cornerRadius = 3.0;
     _travelNoteImageView.clipsToBounds = YES;
+    _sendBtn.layer.cornerRadius = 2.0;
+    /**
+     *  发送按钮默认隐藏，是否显示需要设置 canSelecte
+     */
+    _sendBtn.hidden = NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -77,7 +92,19 @@
 }
 
 
-
+- (void)setCanSelect:(BOOL)canSelect
+{
+    _canSelect = canSelect ;
+    if (_canSelect) {
+        _sendBtn.hidden = NO;
+        _accessImageView.hidden = YES;
+        _rightSpaceConstraint.constant = 63.0;
+    } else {
+        _sendBtn.hidden = YES;
+        _accessImageView.hidden = NO;
+        _rightSpaceConstraint.constant = 19.0;
+    }
+}
 
 
 

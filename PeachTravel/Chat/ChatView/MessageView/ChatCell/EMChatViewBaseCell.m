@@ -142,18 +142,12 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         {
             switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
                     
-                case TZChatTypeTravelNote: {
-                    identifier = [identifier stringByAppendingString:@"travelNote"];
-                }
-                    break;
-                    
-                    
                 case TZChatTypeCity: {
                     identifier = [identifier stringByAppendingString:@"city"];
                 }
                     break;
                     
-                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
+                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: case TZChatTypeTravelNote:{
                     identifier = [identifier stringByAppendingString:@"taoziExt"];
                 }
                     break;

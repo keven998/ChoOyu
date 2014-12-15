@@ -10,6 +10,7 @@
 #import "ChatSendHelper.h"
 
 @interface TaoziChatMessageBaseViewController ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleHightConstraint;
 
 @end
 
@@ -26,8 +27,20 @@
     _cancelBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
     _sendBtn.layer.borderWidth = 1.0;
     _cancelBtn.layer.borderWidth = 1.0;
+    _headerImageView.layer.cornerRadius = 2.0;
+    _headerImageView.clipsToBounds = YES;
+    [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
+    if (_chatType == TZChatTypeTravelNote) {
+        _titleBtn.titleLabel.numberOfLines = 2;
+        _titleHightConstraint.constant = 34;
+        _propertyBtn.hidden = YES;
+
+    } else {
+        _titleBtn.titleLabel.numberOfLines = 1;
+        _titleHightConstraint.constant = 17;
+        _propertyBtn.hidden = NO;
+    }
     
-    _titleLabel.text = _messageName;
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_messageImage] placeholderImage:nil];
     
     switch (_chatType) {
@@ -45,7 +58,7 @@
             break;
             
         case TZChatTypeFood: {
-            _headerLabel.text = @"  美食";
+            _headerLabel.text = @"   美食";
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -54,19 +67,25 @@
             break;
             
         case TZChatTypeHotel:
-            _headerLabel.text = @"  酒店";
+            _headerLabel.text = @"   酒店";
             
             break;
             
         case TZChatTypeShopping:
-            _headerLabel.text = @"  购物";
+            _headerLabel.text = @"   购物";
             
             break;
             
         case TZChatTypeCity:
-            _headerLabel.text = @"  城市";
+            _headerLabel.text = @"   城市";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
+            break;
+            
+        case TZChatTypeTravelNote:
+            _headerLabel.text = @"   游记";
+            _descLabel.text = _messageDesc;
+            break;
             
             
         default:
@@ -111,18 +130,14 @@
 }
 
 - (IBAction)confirmSend:(UIButton *)sender {
-    if (_chatCtl) {
-        [_chatCtl sendTaoziMessage:[self dataToSend]];
-        [_delegate sendSuccess:nil];
+   
+    ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
+    temtChatCtl.title = _chatTitle;
+    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
+    
+    [_delegate sendSuccess:temtChatCtl];
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
 
-    } else {
-        
-        ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
-        temtChatCtl.title = _chatTitle;
-        [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
-        
-        [_delegate sendSuccess:temtChatCtl];
-    }
 }
 
 - (IBAction)cancel:(UIButton *)sender {
@@ -172,6 +187,11 @@
             break;
             
         case TZChatTypeCity:
+            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+            break;
+            
+        case TZChatTypeTravelNote:
+            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
             break;
             
         default:

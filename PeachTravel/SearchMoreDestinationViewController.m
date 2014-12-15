@@ -300,7 +300,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
         taoziMessageCtl.delegate = self;
-        taoziMessageCtl.chatCtl = _chatCtl;
         switch (_poiType) {
             case tripCityPoi:
                 taoziMessageCtl.chatType = TZChatTypeCity;

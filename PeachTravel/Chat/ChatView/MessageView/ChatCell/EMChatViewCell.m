@@ -260,18 +260,13 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
                     
-                case TZChatTypeTravelNote: {
-                }
-                    break;
-                    
-                    
                 case TZChatTypeCity: {
                     return [TaoziChatCityBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
 
                 }
                     break;
                     
-                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
+                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: case TZChatTypeTravelNote: {
                     return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
                 }
                     break;

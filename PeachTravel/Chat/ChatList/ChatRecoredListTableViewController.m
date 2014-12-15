@@ -100,20 +100,24 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     } else {
         [_chattingPeople removeAllObjects];
     }
+    BOOL neeUpdate = NO;
     for (EMConversation *conversation in self.dataSource) {
         if (!conversation.isGroup) {
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
             } else {
-                NSLog(@"loadChattingPeople我要删除会话");
-
                 [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+                neeUpdate = YES;
             }
         } else {
             [_chattingPeople addObject:conversation.chatter];
         }
     }
+    if (neeUpdate) {
+        self.dataSource = [self loadDataSource];
+    }
     [self.tableView reloadData];
+
 }
 
 #pragma mark - CreateConversationDelegate

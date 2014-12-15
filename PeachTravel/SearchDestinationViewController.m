@@ -53,7 +53,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.view addSubview:_searchBar];
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,7 +64,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+50, kWindowWidth-22, kWindowHeight - 114)];
         _tableView.backgroundColor = APP_PAGE_COLOR;
 
@@ -77,7 +75,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [_tableView addGestureRecognizer:_tap];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        
+
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowHeight-22, 40)];
         footerView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = footerView;
@@ -138,7 +136,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         } else {
             [SVProgressHUD showErrorWithStatus:@"搜索失败"];
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"搜索失败"];
     }];
@@ -372,8 +369,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatCtl = _chatCtl;
-    taoziMessageCtl.chatTitle = @"攻略";
     switch (poi.poiType) {
         case tripCityPoi:
             taoziMessageCtl.chatType = TZChatTypeCity;

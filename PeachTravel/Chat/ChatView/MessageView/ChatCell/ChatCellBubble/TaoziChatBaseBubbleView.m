@@ -21,7 +21,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
 @property (nonatomic, strong) UILabel *typeLabel;
 @property (nonatomic, strong) UIImageView *pictureImageView;
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) UIButton *propertyBtn;
 @property (nonatomic, strong) UILabel *descLabel;
 @end
@@ -36,10 +36,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _typeLabel.textColor = [UIColor whiteColor];
         _typeLabel.backgroundColor = [UIColor clearColor];
         
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont boldSystemFontOfSize:12.0];
-        _titleLabel.textColor = [UIColor blackColor];
-        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleBtn = [[UIButton alloc] init];
+        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        _titleBtn.titleLabel.textColor = [UIColor blackColor];
+        [_titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        _titleBtn.backgroundColor = [UIColor clearColor];
+        _titleBtn.userInteractionEnabled = NO;
         
         _pictureImageView = [[UIImageView alloc] init];
         _pictureImageView.layer.cornerRadius = 2.0;
@@ -58,7 +60,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         _descLabel.numberOfLines = 2;
         
         [self addSubview:_typeLabel];
-        [self addSubview:_titleLabel];
+        [self addSubview:_titleBtn];
         [self addSubview:_propertyBtn];
         [self addSubview:_pictureImageView];
         [self addSubview:_descLabel];
@@ -70,26 +72,36 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 {
     [super layoutSubviews];
     [_typeLabel setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 0, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH-10, TaoziBubbleTypeHeight)];
+    _titleBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
 
     if (_model.isSender) {
         _typeLabel.textAlignment = NSTextAlignmentRight;
-        _titleLabel.textAlignment = NSTextAlignmentRight;
+        _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _descLabel.textAlignment = NSTextAlignmentRight;
         [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth - 40 - 8 -BUBBLE_ARROW_WIDTH, 4+TaoziBubbleTypeHeight, 40, 40)];
-        [_titleLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
+        if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote) {
+             [_titleBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 40)];
+        } else {
+            [_titleBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
+        }
         [_propertyBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
         [_descLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
 
     } else {
         _typeLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _descLabel.textAlignment = NSTextAlignmentLeft;
 
         [_pictureImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 4+TaoziBubbleTypeHeight, 40, 40)];
-        [_titleLabel setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 20)];
-        [_propertyBtn setFrame:CGRectMake(_titleLabel.frame.origin.x, _pictureImageView.frame.origin.y+20, _titleLabel.frame.size.width, 20)];
+        if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote) {
+
+            [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 20)];
+        } else {
+            [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 40)];
+        }
+        [_propertyBtn setFrame:CGRectMake(_titleBtn.frame.origin.x, _pictureImageView.frame.origin.y+20, _titleBtn.frame.size.width, 20)];
         [_descLabel setFrame:CGRectMake(8+BUBBLE_ARROW_WIDTH, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
 
     }
@@ -113,8 +125,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     
     if (model.taoziMessage) {
         NSDictionary *content = [model.taoziMessage objectForKey:@"content"];
-        _titleLabel.text = [content objectForKey:@"name"];
+        [_titleBtn setTitle:[content objectForKey:@"name"] forState:UIControlStateNormal];
         [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:[content objectForKey:@"image"]] placeholderImage:nil];
+        /**
+         *  默认标题一行，但是游记的话是两行
+         */
+        _titleBtn.titleLabel.numberOfLines = 1;
         switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
             case TZChatTypeSpot:
                 _typeLabel.text = @"景点";
@@ -156,6 +172,14 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"desc"];
                 break;
+                
+            case TZChatTypeTravelNote:
+                _typeLabel.text = @"游记";
+                _titleBtn.titleLabel.numberOfLines = 2;
+                _propertyBtn.hidden = YES;
+                _descLabel.text = [content objectForKey:@"desc"];
+                break;
+
                 
             default:
                 break;

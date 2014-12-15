@@ -18,4 +18,12 @@
 @property (nonatomic, copy) NSString *resource;
 @property (nonatomic, copy) NSString *time;
 
+
+@property (weak, nonatomic) IBOutlet UIButton *sendBtn;
+
+/**
+ *游记是否可以选择后发送
+ */
+@property (nonatomic) BOOL canSelect;
+
 @end
