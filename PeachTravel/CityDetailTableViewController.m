@@ -13,6 +13,8 @@
 #import "TravelNote.h"
 #import "PoisOfCityViewController.h"
 #import "AccountManager.h"
+#import "SuperWebViewController.h"
+#import "TravelNoteListViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate>
 
@@ -175,7 +177,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)viewSpots:(id)sender
 {
-    NSLog(@"应该进入城市的景点信息");
+    SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
+    funOfCityWebCtl.urlStr = FUN_CITY_HTML;
+    funOfCityWebCtl.titleStr = _cityPoi.zhName;
+    [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
 - (IBAction)viewRestaurants:(id)sender
@@ -203,8 +208,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     shoppingOfCityCtl.poiType = TripShoppingPoi;
     
     [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
+}
 
-    
+- (IBAction)showMoreTravelNote:(id)sender
+{
+    TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
+    travelListCtl.isSearch = NO;
+    travelListCtl.cityId = self.cityPoi.cityId;
+    [self.navigationController pushViewController:travelListCtl animated:YES];
 }
 
 #pragma mark - CityHeaderViewDelegate
@@ -230,8 +241,49 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     return 149.0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 30.0;
+    }
+    return 0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.cityPoi.travelNotes.count;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateHighlighted];
+
+    [btn setTitle:@"精选游记" forState:UIControlStateNormal];
+    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    btn.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *moreTravelNoteBtn = [[UIButton alloc] initWithFrame:CGRectMake(btn.frame.size.width-48, 0, 40, 30)];
+    [moreTravelNoteBtn setTitle:@"更多游记" forState:UIControlStateNormal];
+    [moreTravelNoteBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    moreTravelNoteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    moreTravelNoteBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
+    
+    [moreTravelNoteBtn addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [btn addSubview:moreTravelNoteBtn];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, btn.frame.size.width, 1)];
+    spaceView.backgroundColor = APP_DIVIDER_COLOR;
+    [btn addSubview:spaceView];
+
+    return btn;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

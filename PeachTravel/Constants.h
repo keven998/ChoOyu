@@ -84,6 +84,13 @@
 #define API_DELETE_CONTACTS             (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
 
+
+/**
+ html 接口
+ */
+#define FUN_CITY_HTML                   @"http://wap.lvxingpai.com/h5/tabpage.php"
+#define MORE_COMMENT_HTML               @"http://wap.lvxingpai.com/h5/morecomment.php"
+
 //IM相关接口
 #define API_GET_CONTACTS                (BASE_URL @"users/contacts")   //获得联系人列表
 

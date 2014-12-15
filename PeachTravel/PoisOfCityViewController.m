@@ -62,7 +62,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     _currentPage = 0;
     self.enableLoadingMore = NO;
-    [self loadData:0];
+    [self loadData:_currentPage];
 }
 
 #pragma mark - setter & getter
@@ -171,22 +171,23 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_currentCity.cityId];
     }
     
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
-    [SVProgressHUD show];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInt:pageNO] forKey:@"page"];
     
     //获取城市的美食列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.dataSource.recommendList = [responseObject objectForKey:@"result"];
             [self updateView];
             _currentPage = pageNO;
-            if (_dataSource.recommendList.count > 0) {
+            if (_dataSource.recommendList.count >= 15) {
                 self.enableLoadingMore = YES;
+                _currentPage++;
+            } else {
+                [self showHint:@"人家没有那么多啦"];
             }
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -196,7 +197,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
         [self loadMoreCompleted];
     }];
 }
@@ -262,7 +262,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _currentCity.cityId = destination.cityId;
     _currentCity.zhName = destination.zhName;
     [_titleMenu setTitle:_currentCity.zhName];
-    [self loadData:0];
+    _currentPage = 0;
+    [self loadData:_currentPage];
 }
 
 #pragma mark - UITableViewDataSource & delegate
