@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60.0, 30)];
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 54.0, 30)];
     registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
     [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
@@ -70,6 +70,8 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
+    
+    _captchaBtn.layer.cornerRadius = 2.0;
 }
 
 #pragma mark - Private Methods
@@ -132,13 +134,13 @@
     [SVProgressHUD show];
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-            [SVProgressHUD showSuccessWithStatus:@"验证码发送成功"];
-            
+            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
         } else {
             [SVProgressHUD showErrorWithStatus:@"验证码发送失败"];
             _captchaBtn.userInteractionEnabled = YES;

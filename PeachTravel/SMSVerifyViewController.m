@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *verifyCodeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *verifyCodeBtn;
-@property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 
 @end
 
@@ -27,11 +27,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.0, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
+    [registerBtn setTitle:@"确认" forState:UIControlStateNormal];
+    [registerBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = registerItem;
+    
     count = _coolDown;
     self.navigationItem.title = @"验证";
-    _titleLabel.text = [NSString stringWithFormat:@"已发送短信验证码至%@\n网络有延迟，请稍候", _phoneNumber];
+    _titleLabel.text = [NSString stringWithFormat:@"已发送验证码短信至%@\n网络有延迟，请耐心等待", _phoneNumber];
     [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
     _verifyCodeBtn.userInteractionEnabled = NO;
+    _verifyCodeBtn.layer.cornerRadius = 2.0;
     [self startTimer];
     
 //    _verifyCodeTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
@@ -43,9 +53,10 @@
     ul.textAlignment = NSTextAlignmentCenter;
     _verifyCodeTextField.leftView = ul;
     _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
+    [_verifyCodeTextField becomeFirstResponder];
 
-    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
-    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
+//    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
+//    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -95,6 +106,11 @@
 }
 
 - (IBAction)confirm:(UIButton *)sender {
+    if (_verifyCodeTextField.text == nil || [_verifyCodeTextField.text isEqualToString:@""]) {
+        [SVProgressHUD showSuccessWithStatus:@"请输入验证码"];
+        return;
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -123,7 +139,6 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
                     [SVProgressHUD showSuccessWithStatus:@"注册成功"];
-
                 }
             }];
             
