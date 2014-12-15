@@ -52,10 +52,6 @@ static NSString *reusableCell = @"myGuidesCell";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
-    self.navigationController.navigationBar.translucent = YES;
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
-    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-    self.navigationItem.leftBarButtonItem = backBtn;
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -142,12 +138,12 @@ static NSString *reusableCell = @"myGuidesCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+        [_tableView setContentOffset:CGPointMake(0, 10)];
         [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
 
     }
@@ -405,7 +401,7 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (self.slimeView.loading) {
-        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.7];
     }
     if (datas.count == 0) {
         if (_dataSource.count == 0) {
@@ -531,11 +527,15 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
-//    cell.editTitleBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
-//    [cell.editTitleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
 
-    cell.isEditing = self.isEditing;
+    cell.isEditing = _isEditing;
+    if (_isEditing) {
+        cell.titleBtn.userInteractionEnabled = YES;
+        [cell.titleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        cell.titleBtn.userInteractionEnabled = NO;
+    }
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.row];
     return cell;
 }
