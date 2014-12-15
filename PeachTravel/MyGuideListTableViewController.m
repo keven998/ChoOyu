@@ -57,7 +57,7 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     
-    UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新建" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
+    UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新建 " style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
     mp.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = mp;
     

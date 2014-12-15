@@ -72,7 +72,7 @@
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleBordered target:self action:@selector(userRegister:)];
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册 " style:UIBarButtonItemStyleBordered target:self action:@selector(userRegister:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     

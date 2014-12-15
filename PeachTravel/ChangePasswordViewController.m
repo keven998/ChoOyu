@@ -59,7 +59,7 @@
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStyleBordered target:self action:@selector(changePassword:)];
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(changePassword:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
 }

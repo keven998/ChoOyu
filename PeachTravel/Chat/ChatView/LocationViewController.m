@@ -88,7 +88,7 @@ static LocationViewController *defaultLocation = nil;
 //        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sendButton]];
 //        self.navigationItem.rightBarButtonItem.enabled = NO;
         
-        UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送" style:UIBarButtonItemStyleBordered target:self action:@selector(sendLocation)];
+        UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendLocation)];
         sendButton.tintColor = APP_THEME_COLOR;
         self.navigationItem.rightBarButtonItem = sendButton;
         self.navigationItem.rightBarButtonItem.enabled = NO;

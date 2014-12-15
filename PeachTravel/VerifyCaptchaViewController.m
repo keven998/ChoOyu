@@ -40,12 +40,12 @@
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
 //            [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
-            self.navigationItem.rightBarButtonItem.title = @"绑定";
+            self.navigationItem.rightBarButtonItem.title = @"绑定 ";
         } else {
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"真羡慕有两个手机的美眉";
 //            [registerBtn setTitle:@"更换" forState:UIControlStateNormal];
-            self.navigationItem.rightBarButtonItem.title = @"更换";
+            self.navigationItem.rightBarButtonItem.title = @"更换 ";
         }
        
     } else {

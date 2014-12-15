@@ -65,7 +65,7 @@
     contentEditor = suggestion;
     [contentEditor becomeFirstResponder];
     
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送" style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
     backBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = backBtn;
 }

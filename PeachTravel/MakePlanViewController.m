@@ -54,7 +54,7 @@
 //    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
-    UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
+    UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索 " style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
     searchBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = searchBtn;
     

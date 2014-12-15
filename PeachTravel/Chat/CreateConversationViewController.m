@@ -59,10 +59,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
     
     if (!_isPushed) {
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
-        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+//        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
+//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+        
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
+        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+        self.navigationItem.leftBarButtonItem = backBtn;
     }
 }
 

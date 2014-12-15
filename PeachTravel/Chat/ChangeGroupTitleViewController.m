@@ -21,7 +21,7 @@
     _titleLable.text = _oldTitle;
     self.navigationItem.title = @"修改群名称";
     
-    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
     addBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = addBtn;
     
