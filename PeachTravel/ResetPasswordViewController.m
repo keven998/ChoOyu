@@ -10,7 +10,7 @@
 #import "AccountManager.h"
 
 @interface ResetPasswordViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
 @property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 
@@ -20,6 +20,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.0, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
+    [registerBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [registerBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = registerItem;
+    
+    self.navigationItem.title = @"设置新密码";
+    
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
+    ul.text = @" 新密码:";
+    ul.textColor = TEXT_COLOR_TITLE;
+    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textAlignment = NSTextAlignmentCenter;
+    _passwordLabel.leftView = ul;
+    _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+    [_passwordLabel becomeFirstResponder];
 }
 
 #pragma mark - IBAction Methods
@@ -83,7 +102,7 @@
 
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _passwordLabel.bounds.size.height - 16.0)];
     ul.text = @"新密码:";
-    ul.textColor = UIColorFromRGB(0x393939);
+    ul.textColor = TEXT_COLOR_TITLE;
     ul.font = [UIFont systemFontOfSize:15.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = ul;

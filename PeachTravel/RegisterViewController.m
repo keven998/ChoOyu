@@ -23,6 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.0, 30)];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
+    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
+    [registerBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [registerBtn addTarget:self action:@selector(confirmRegister:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = registerItem;
+    
     self.navigationItem.title = @"注册";
     
 //    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
@@ -32,9 +40,9 @@
     _passwordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
-    ul.text = @" 账户:";
+    ul.text = @"手机号:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.font = [UIFont systemFontOfSize:13.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
