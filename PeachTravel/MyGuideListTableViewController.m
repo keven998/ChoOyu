@@ -17,9 +17,12 @@
 #import "Destinations.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
+#import "SRRefreshView.h"
 
-@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate>
 
+@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
 @property (nonatomic) BOOL isEditing;
 @property (nonatomic) NSUInteger currentPage;
@@ -34,6 +37,8 @@
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
+@property (strong, nonatomic) SRRefreshView *slimeView;
+
 @end
 
 @implementation MyGuideListTableViewController
@@ -43,7 +48,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的攻略";
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.tableView];
+    [self.tableView addSubview:self.slimeView];
     self.navigationController.navigationBar.translucent = YES;
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
@@ -63,11 +71,6 @@ static NSString *reusableCell = @"myGuidesCell";
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithCustomView:mp];
     self.navigationItem.rightBarButtonItem = rightBtn;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-    
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
@@ -77,18 +80,15 @@ static NSString *reusableCell = @"myGuidesCell";
     _isLoadingMore = YES;
     _didEndScroll = YES;
     _enableLoadMore = NO;
-    
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
-    [self.refreshControl beginRefreshing];
-    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
-    
-//    [self loadDataWithPageIndex:_currentPage];
+    [self pullToRefreash:nil];
+
+    [self.view addSubview:self.editBtn];
+    self.slimeView.loading = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.view addSubview:self.editBtn];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -96,11 +96,18 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.editBtn removeFromSuperview];
 }
 
+- (void)dealloc
+{
+    _slimeView.delegate = nil;
+    _slimeView = nil;
+}
+
 #pragma mark - navigation action
 
 - (void)goBackToAllPets
 {
     [self.navigationController popViewControllerAnimated:YES];
+   
 }
 
 - (void)makePlan {
@@ -132,13 +139,42 @@ static NSString *reusableCell = @"myGuidesCell";
     return _dataSource;
 }
 
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        [_tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+        [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
+
+    }
+    return _tableView;
+}
+
+- (SRRefreshView *)slimeView
+{
+    if (_slimeView == nil) {
+        _slimeView = [[SRRefreshView alloc] init];
+        _slimeView.delegate = self;
+        _slimeView.upInset = 0;
+        _slimeView.slimeMissWhenGoingBack = YES;
+        _slimeView.slime.bodyColor = [UIColor grayColor];
+        _slimeView.slime.skinColor = [UIColor grayColor];
+        _slimeView.slime.lineWith = 1;
+        _slimeView.slime.shadowBlur = 4;
+        _slimeView.slime.shadowColor = [UIColor grayColor];
+    }
+    
+    return _slimeView;
+}
+
 - (DKCircleButton *)editBtn
 {
     if (!_editBtn) {
         _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.tableView.bounds.size.width-60, self.tableView.bounds.size.height-70.0, 50, 50)];
-//        _editBtn.backgroundColor = APP_THEME_COLOR;
-//        _editBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-//        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
         [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
@@ -153,7 +189,6 @@ static NSString *reusableCell = @"myGuidesCell";
  *  @param sender
  */
 - (void)pullToRefreash:(id)sender {
-    //    UIRefreshControl *refreshControl = (UIRefreshControl *)sender;
     [self loadDataWithPageIndex:0];
 }
 
@@ -253,8 +288,6 @@ static NSString *reusableCell = @"myGuidesCell";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
@@ -323,7 +356,6 @@ static NSString *reusableCell = @"myGuidesCell";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
-
 }
 
 /**
@@ -344,14 +376,14 @@ static NSString *reusableCell = @"myGuidesCell";
     [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
-//    if (!self.refreshControl.isRefreshing) {
-//        [SVProgressHUD show];
-//    }
-    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取我的攻略列表
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        NSLog(@"正在获取我的攻略列表，页数是：%d", pageIndex);
+        if (pageIndex == 0) {
+            [self.dataSource removeAllObjects];
+        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self bindDataToView:responseObject];
@@ -359,24 +391,25 @@ static NSString *reusableCell = @"myGuidesCell";
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-//        [SVProgressHUD dismiss];
-        [self.refreshControl endRefreshing];
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [self.refreshControl endRefreshing];
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
 
-- (void) bindDataToView:(id) responseObject {
+- (void) bindDataToView:(id)responseObject
+{
     NSArray *datas = [responseObject objectForKey:@"result"];
+    if (self.slimeView.loading) {
+        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.5];
+    }
     if (datas.count == 0) {
         if (_dataSource.count == 0) {
-            [self setupEmptyView];
+            [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
         } else {
             [self showHint:@"已取完所有内容啦"];
         }
@@ -384,13 +417,14 @@ static NSString *reusableCell = @"myGuidesCell";
     } else {
         [self removeEmptyView];
     }
-    if (self.refreshControl.isRefreshing) {
-        [_dataSource removeAllObjects];
-    }
+    
     for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
         MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
         [self.dataSource addObject:guideSummary];
     }
+    
+    NSLog(@"我的个数是%d", self.dataSource.count);
+    
     [self.tableView reloadData];
     
     if (_dataSource.count >= 10) {
@@ -398,7 +432,12 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void) setupEmptyView {
+- (void)hideSlimeView
+{
+    [self.slimeView endRefresh];
+}
+
+- (void)setupEmptyView {
     if (self.emptyView != nil) {
         return;
     }
@@ -530,7 +569,6 @@ static NSString *reusableCell = @"myGuidesCell";
             
         }];
     }
-
 }
 
 - (UIView *)footerView {
@@ -572,10 +610,25 @@ static NSString *reusableCell = @"myGuidesCell";
             [self beginLoadingMore];
         }
     }
+    if (_slimeView) {
+        [_slimeView scrollViewDidScroll];
+    }
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _didEndScroll = YES;
+    if (_slimeView) {
+        [_slimeView scrollViewDidEndDraging];
+    }
+
 }
+
+#pragma mark - slimeRefresh delegate
+//加载更多
+- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
+{
+    [self pullToRefreash:nil];
+}
+
 
 @end

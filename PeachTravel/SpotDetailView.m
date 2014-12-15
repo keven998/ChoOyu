@@ -57,7 +57,7 @@
     CGFloat oy = 0;
     CGFloat width = self.frame.size.width;
     
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(11, 10+64, width-22, 260)];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(11, 10, width-22, 260)];
     _headerView.backgroundColor = [UIColor whiteColor];
     _headerView.layer.cornerRadius = 2.0;
     _headerView.clipsToBounds = YES;
