@@ -23,13 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    [registerBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(confirmRegister:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = registerItem;
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(confirmRegister:)];
+    registerBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = registerBtn;
     
     self.navigationItem.title = @"注册";
     

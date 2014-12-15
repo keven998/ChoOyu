@@ -57,15 +57,9 @@ static NSString *reusableCell = @"myGuidesCell";
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     
-    UIButton *mp = [UIButton buttonWithType:UIButtonTypeCustom];
-    mp.frame = CGRectMake(0.0, 0.0, 40.0, 32.0);
-    [mp setTitle:@"新建" forState:UIControlStateNormal];
-    mp.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    [mp setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [mp setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    [mp addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithCustomView:mp];
-    self.navigationItem.rightBarButtonItem = rightBtn;
+    UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新建" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
+    mp.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = mp;
     
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;

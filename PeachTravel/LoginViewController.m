@@ -72,13 +72,9 @@
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(userRegister:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    self.navigationItem.rightBarButtonItem = registerItem;
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleBordered target:self action:@selector(userRegister:)];
+    registerBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = registerBtn;
     
 }
 

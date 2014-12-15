@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UIButton *searchBtn;
+//@property (nonatomic, strong) UIButton *searchBtn;
 
 @end
 
@@ -47,12 +47,16 @@
     
     [self.view addSubview:_searchBar];
 
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    _searchBar.hidden = YES;
-    [_searchBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+//    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+//    _searchBar.hidden = YES;
+//    [_searchBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+    
+    UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
+    searchBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = searchBtn;
     
     [self.view addSubview:self.destinationToolBar];
     [self.view addSubview:self.nextView];

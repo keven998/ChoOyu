@@ -14,6 +14,7 @@
     // Initialization code
     self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     self.contentView.layer.borderWidth = 0.25;
+    [_snsSwitch setOnTintColor:APP_THEME_COLOR];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

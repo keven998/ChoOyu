@@ -27,13 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    [registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = registerItem;
+   
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
+    registerBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = registerBtn;
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
@@ -42,16 +39,19 @@
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
-            [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
+//            [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
+            self.navigationItem.rightBarButtonItem.title = @"绑定";
         } else {
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"真羡慕有两个手机的美眉";
-            [registerBtn setTitle:@"更换" forState:UIControlStateNormal];
+//            [registerBtn setTitle:@"更换" forState:UIControlStateNormal];
+            self.navigationItem.rightBarButtonItem.title = @"更换";
         }
        
     } else {
         self.navigationItem.title = @"找回密码";
-        [registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
+//        [registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem.title = @"下一步";
         
     }
     
