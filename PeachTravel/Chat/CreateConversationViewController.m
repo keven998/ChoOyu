@@ -99,7 +99,7 @@
     if (!_contactTableView) {
         CGFloat offsetY = 64+10;
         if (_showRefrence) {
-            offsetY += self.tzScrollView.frame.size.height;
+            offsetY += self.tzScrollView.frame.size.height + 10;
         }
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY)];
         _contactTableView.dataSource = self;

@@ -294,8 +294,10 @@
             _rating = [[json objectForKey:@"rating"] floatValue];
         }
         _telephone = [json objectForKey:@"telephone"];
-        _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
-        _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        if ([json objectForKey:@"location"] != [NSNull null]) {
+            _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
+            _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        }
         NSMutableArray *tempLocArray = [[NSMutableArray alloc] init];
         for (id destinationDic in [json objectForKey:@"locList"]) {
             CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationDic];
