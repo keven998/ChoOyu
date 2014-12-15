@@ -94,7 +94,7 @@
     label.numberOfLines = 2;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
-    label.text = @"快邀爱旅行的蜜蜜们到旅行圈来吧，旅行交流更方便啦~";
+    label.text = @"快邀爱旅行的蜜蜜们到Talk来吧，旅行交流更方便啦~";
     [self.emptyView addSubview:label];
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];

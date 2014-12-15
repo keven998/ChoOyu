@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchUserInfoViewController">
@@ -139,12 +139,6 @@
                         </mask>
                         <mask key="constraints">
                             <exclude reference="f0Y-ng-Ub1"/>
-                            <exclude reference="8pp-GG-sAb"/>
-                            <exclude reference="TGJ-rJ-lKV"/>
-                            <exclude reference="dUQ-41-3Js"/>
-                            <exclude reference="4ZZ-2U-U0m"/>
-                            <exclude reference="L9x-pz-NvZ"/>
-                            <exclude reference="t9g-7L-UaU"/>
                             <exclude reference="IvQ-5Y-gQz"/>
                             <exclude reference="rA9-DR-LyK"/>
                             <exclude reference="zEr-1S-6n6"/>
@@ -152,6 +146,12 @@
                             <exclude reference="NEJ-Lf-7aF"/>
                             <exclude reference="XbQ-IR-ELh"/>
                             <exclude reference="wvE-jV-ka0"/>
+                            <exclude reference="8pp-GG-sAb"/>
+                            <exclude reference="TGJ-rJ-lKV"/>
+                            <exclude reference="dUQ-41-3Js"/>
+                            <exclude reference="4ZZ-2U-U0m"/>
+                            <exclude reference="L9x-pz-NvZ"/>
+                            <exclude reference="t9g-7L-UaU"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -163,12 +163,6 @@
                         </mask>
                         <mask key="constraints">
                             <include reference="f0Y-ng-Ub1"/>
-                            <include reference="8pp-GG-sAb"/>
-                            <include reference="TGJ-rJ-lKV"/>
-                            <include reference="dUQ-41-3Js"/>
-                            <include reference="4ZZ-2U-U0m"/>
-                            <include reference="L9x-pz-NvZ"/>
-                            <include reference="t9g-7L-UaU"/>
                             <include reference="IvQ-5Y-gQz"/>
                             <include reference="rA9-DR-LyK"/>
                             <include reference="zEr-1S-6n6"/>
@@ -176,6 +170,12 @@
                             <include reference="NEJ-Lf-7aF"/>
                             <include reference="XbQ-IR-ELh"/>
                             <include reference="wvE-jV-ka0"/>
+                            <include reference="8pp-GG-sAb"/>
+                            <include reference="TGJ-rJ-lKV"/>
+                            <include reference="dUQ-41-3Js"/>
+                            <include reference="4ZZ-2U-U0m"/>
+                            <include reference="L9x-pz-NvZ"/>
+                            <include reference="t9g-7L-UaU"/>
                         </mask>
                     </variation>
                 </view>
@@ -186,7 +186,7 @@
                         <constraint firstAttribute="width" constant="141" id="Afr-56-E0t"/>
                         <constraint firstAttribute="height" constant="34" id="LY5-z0-J4c"/>
                     </constraints>
-                    <state key="normal" title="添加到旅行圈">
+                    <state key="normal" title="添加到桃·Talk">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -228,11 +228,11 @@
                     <exclude reference="1AD-KL-y6V"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="oOG-1z-P4B"/>
+                    <exclude reference="vPK-wy-dZt"/>
                     <exclude reference="UM8-sV-9nQ"/>
                     <exclude reference="fQZ-Ws-bhp"/>
                     <exclude reference="fhu-0T-cI6"/>
-                    <exclude reference="oOG-1z-P4B"/>
-                    <exclude reference="vPK-wy-dZt"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -241,11 +241,11 @@
                     <include reference="1AD-KL-y6V"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="oOG-1z-P4B"/>
+                    <include reference="vPK-wy-dZt"/>
                     <include reference="UM8-sV-9nQ"/>
                     <include reference="fQZ-Ws-bhp"/>
                     <include reference="fhu-0T-cI6"/>
-                    <include reference="oOG-1z-P4B"/>
-                    <include reference="vPK-wy-dZt"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="226" y="231"/>

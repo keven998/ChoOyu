@@ -15,6 +15,8 @@
     
     self.contentView.layer.borderWidth = 0.25f;
     self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    
+    [_switchButton setOnTintColor:APP_THEME_COLOR];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
