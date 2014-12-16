@@ -29,6 +29,7 @@
 #import "TZViewController.h"
 #import "TZTableViewController.h"
 #import "TZButton.h"
+#import "JGProgressHUD.h"
 
 #endif
 

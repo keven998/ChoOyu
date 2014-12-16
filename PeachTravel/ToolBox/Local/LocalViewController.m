@@ -25,9 +25,7 @@
 #define PAGE_SHOPPING           2
 #define PAGE_STAY               3
 
-@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate> {
-    CLLocationManager* locationManager;
-}
+@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) DMFilterView *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
@@ -37,7 +35,8 @@
 @property (nonatomic, strong) UILabel *locLabel;
 @property (nonatomic, strong) UIButton *reLocBtn;
 
-@property (strong, nonatomic) CLLocation *location;
+@property (strong, nonatomic) CLLocationManager* locationManager;
+
 
 @end
 
@@ -92,9 +91,7 @@
     [_reLocBtn addTarget:self action:@selector(relocal:) forControlEvents:UIControlEventTouchUpInside];
     [_reLocBtn setImage:[UIImage imageNamed:@"ic_refresh_white_18.png"] forState:UIControlStateNormal];
     [fbar addSubview:_reLocBtn];
-    
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate= self;
+    [self getReverseGeocode];
 }
 
 - (IBAction)relocal:(id)sender {
@@ -108,17 +105,27 @@
     [_reLocBtn.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     
     if (IS_IOS8) {
-        [locationManager requestAlwaysAuthorization];
-    } else {
-        [locationManager startUpdatingLocation];
+        [self.locationManager requestWhenInUseAuthorization];
     }
+    
+    [self.locationManager startUpdatingLocation];
+
+}
+
+- (CLLocationManager *)locationManager
+{
+    if (!_locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate= self;
+    }
+    return _locationManager;
 }
 
 #pragma mark - MKMapViewDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    [locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
     CLLocation *location = [locations firstObject];
     _location = location;
     [self getReverseGeocode];
@@ -128,21 +135,19 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    [locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     switch (status) {
         case kCLAuthorizationStatusNotDetermined:
-            [locationManager stopUpdatingLocation];
+            [self.locationManager stopUpdatingLocation];
             break;
         case kCLAuthorizationStatusAuthorizedAlways:
-            [locationManager startUpdatingLocation];
             
             break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-            [locationManager startUpdatingLocation];
             
         default:
             break;
@@ -168,10 +173,12 @@
         if(placemarks.count > 0)
         {
             CLPlacemark *clPlaceMark = [placemarks firstObject];
-//            NSDictionary *dictionary = clPlaceMark.addressDictionary;
             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"Name"];
-            _locLabel.text = city;
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            if (![_locLabel.text isEqualToString:city]) {
+                _locLabel.text = city;
+                [self loadData];
+            }
         }
     }];
 }
@@ -202,8 +209,8 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
-    [params setObject:[NSNumber numberWithFloat:_lat] forKey:@"lat"];
-    [params setObject:[NSNumber numberWithFloat:_lng] forKey:@"lng"];
+    [params setObject:[NSNumber numberWithFloat:_location.coordinate.latitude] forKey:@"lat"];
+    [params setObject:[NSNumber numberWithFloat:_location.coordinate.longitude] forKey:@"lng"];
     
     switch (_currentPage) {
         case PAGE_FUN:
@@ -278,7 +285,7 @@
         PoiSummary *poiSummary = [[PoiSummary alloc] initWithJson:poiDic];
         [currentList addObject:poiSummary];
         CLLocation *current=[[CLLocation alloc] initWithLatitude:poiSummary.lat longitude:poiSummary.lng];
-        CLLocation *before=[[CLLocation alloc] initWithLatitude:_lat longitude:_lng];
+        CLLocation *before=[[CLLocation alloc] initWithLatitude:_location.coordinate.latitude longitude:_location.coordinate.longitude];
         CLLocationDistance meters=[current distanceFromLocation:before];
         if (meters>1000) {
             poiSummary.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
@@ -327,14 +334,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    switch (_currentPage) {
-//        case PAGE_FOOD:
-//            
-//            break;
-//            
-//        default:
-//            break;
-//    }
     switch (_currentPage) {
         case PAGE_FUN:
             return 138.0;

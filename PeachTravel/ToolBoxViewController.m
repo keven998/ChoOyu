@@ -273,81 +273,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
-
-#pragma mark - MKMapViewDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    [locationManager stopUpdatingLocation];
-    if (!locationIsGotten) {
-        locationIsGotten = YES;
-        CLLocation *location = [locations firstObject];
-        NSLog(@"oh my god我被定位到了：%f, %f", location.coordinate.latitude, location.coordinate.longitude);
-        _location = location;
-        [self updateWeatherWithLocation:location];
-    }
-}
-
-- (void)updateWeatherWithLocation:(CLLocation *)location
-{
-    YWeatherUtils* yweatherUtils = [YWeatherUtils getInstance];
-    [yweatherUtils setMAfterRecieveDataDelegate: self];
-    [yweatherUtils queryYahooWeather:location.coordinate.latitude andLng:location.coordinate.longitude apiKey:@""];
-}
-
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error
-{
-    [locationManager stopUpdatingLocation];
-}
-
-
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
-    switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
-            [locationManager stopUpdatingLocation];
-            break;
-        case kCLAuthorizationStatusAuthorizedAlways:
-            [locationManager startUpdatingLocation];
-            
-            break;
-        case kCLAuthorizationStatusAuthorizedWhenInUse:
-            [locationManager startUpdatingLocation];
-            
-        default:
-            break;
-    } 
-}
-
-
-- (void)getReverseGeocode
-{
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-
-    CLLocationCoordinate2D myCoOrdinate;
-    
-    myCoOrdinate.latitude = _location.coordinate.latitude;
-    myCoOrdinate.longitude = _location.coordinate.longitude;
-    
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-         if (error)
-         {
-             NSLog(@"failed with error: %@", error);
-             return;
-         }
-         if(placemarks.count > 0)
-         {
-             CLPlacemark *clPlaceMark = [placemarks firstObject];
-             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"City"];
-             [self updateWeatherLabelWithCityName:city];
-         }
-     }];
-}
-
 #pragma mark - YWeatherInfoDelegate
 - (void)gotWeatherInfo:(WeatherInfo *)weatherInfo
 {
@@ -405,9 +330,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (IBAction)nearBy:(UIButton *)sender {
+    if (!(self.location.coordinate.latitude && self.location.coordinate.longitude)) {
+        [SVProgressHUD showWithStatus:@"正在定位"];
+        [locationManager startUpdatingLocation];
+        return;
+    }
     LocalViewController *lvc = [[LocalViewController alloc] init];
-    lvc.lat = self.location.coordinate.latitude;
-    lvc.lng = self.location.coordinate.longitude;
+    lvc.location = self.location;
     lvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:lvc animated:YES];
 }
@@ -483,6 +412,100 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         return YES;
     }
     return NO;
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [locationManager stopUpdatingLocation];
+    if (!locationIsGotten) {
+        locationIsGotten = YES;
+        CLLocation *location = [locations firstObject];
+        NSLog(@"oh my god我被定位到了：%f, %f", location.coordinate.latitude, location.coordinate.longitude);
+        _location = location;
+        [self updateWeatherWithLocation:location];
+    }
+}
+
+- (void)updateWeatherWithLocation:(CLLocation *)location
+{
+    YWeatherUtils* yweatherUtils = [YWeatherUtils getInstance];
+    [yweatherUtils setMAfterRecieveDataDelegate: self];
+    [yweatherUtils queryYahooWeather:location.coordinate.latitude andLng:location.coordinate.longitude apiKey:@""];
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    [SVProgressHUD dismiss];
+    [locationManager stopUpdatingLocation];
+    NSString *errorString;
+    NSLog(@"Error: %@",[error localizedDescription]);
+    switch([error code]) {
+        case kCLErrorDenied:
+            //Access denied by user
+            errorString = @"去设置里把定位服务打开呗~";
+            //Do something...
+            break;
+        case kCLErrorLocationUnknown:
+            //Probably temporary...
+            errorString = @"定位失败了，待会再试试吧";
+            //Do something else...
+            break;
+        default:
+            errorString = @"定位失败了，待会再试试吧";
+            break;
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorString delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            [locationManager stopUpdatingLocation];
+            break;
+        case kCLAuthorizationStatusAuthorizedAlways:
+            [locationManager startUpdatingLocation];
+            
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [locationManager startUpdatingLocation];
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)getReverseGeocode
+{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    CLLocationCoordinate2D myCoOrdinate;
+    
+    myCoOrdinate.latitude = _location.coordinate.latitude;
+    myCoOrdinate.longitude = _location.coordinate.longitude;
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error)
+        {
+            NSLog(@"failed with error: %@", error);
+            return;
+        }
+        if(placemarks.count > 0)
+        {
+            CLPlacemark *clPlaceMark = [placemarks firstObject];
+            NSString *city = [clPlaceMark.addressDictionary objectForKey:@"City"];
+            [self updateWeatherLabelWithCityName:city];
+        }
+    }];
 }
 
 #pragma mark - IChatManagerDelegate 消息变化

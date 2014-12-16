@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LocalViewController : TZViewController
-@property (nonatomic) double lat;
-@property (nonatomic) double lng;
+@property (strong, nonatomic) CLLocation *location;
+
 
 @end

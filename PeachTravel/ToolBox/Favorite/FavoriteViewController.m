@@ -18,7 +18,7 @@
 #import "SRRefreshView.h"
 #import "SINavigationMenuView.h"
 
-@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate>
+@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate, TaoziMessageSendDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -370,34 +370,45 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Favorite *item = [_dataSource objectAtIndex:indexPath.row];
     NSString *type = item.type;
-    if ([type isEqualToString:@"vs"]) {
-        [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
-    } else if ([type isEqualToString:@"hotel"]) {
-//        [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
+    if (!_selectToSend) {
+        if ([type isEqualToString:@"vs"]) {
+            [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
+        } else if ([type isEqualToString:@"hotel"]) {
+            //        [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
 #warning no detailpage
-    } else if ([type isEqualToString:@"restaurant"]) {
-        [self.navigationController pushViewController:[[RestaurantDetailViewController alloc] init] animated:YES];
-    } else if ([type isEqualToString:@"shopping"]) {
-        [self.navigationController pushViewController:[[ShoppingDetailViewController alloc] init] animated:YES];
-    } else if ([type isEqualToString:@"travelNote"]) {
+        } else if ([type isEqualToString:@"restaurant"]) {
+            [self.navigationController pushViewController:[[RestaurantDetailViewController alloc] init] animated:YES];
+        } else if ([type isEqualToString:@"shopping"]) {
+            [self.navigationController pushViewController:[[ShoppingDetailViewController alloc] init] animated:YES];
+        } else if ([type isEqualToString:@"travelNote"]) {
 #warning no detailpage
+        } else {
+            [self.navigationController pushViewController:[[CityDetailTableViewController alloc] init] animated:YES];
+        }
     } else {
-        [self.navigationController pushViewController:[[CityDetailTableViewController alloc] init] animated:YES];
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+        
+//TODO:点击发送
+        TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+//        taoziMessageCtl.delegate = self;
+//        taoziMessageCtl.chatType = TZChatTypeStrategy;
+//        taoziMessageCtl.chatter = _chatter;
+//        taoziMessageCtl.chatTitle = @"攻略";
+//        taoziMessageCtl.messageId = item.itemId;
+//        taoziMessageCtl.messageDesc = item.summary;
+//        taoziMessageCtl.messageName = guideSummary.title;
+//        TaoziImage *image = [guideSummary.images firstObject];
+//        taoziMessageCtl.messageImage = image.imageUrl;
+//        taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", guideSummary.dayCount];
+        
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
+            
+        }];
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+    }
+}
 
 - (UIView *)footerView {
     if (!_footerView) {
