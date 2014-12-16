@@ -47,6 +47,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) UIImageView *contentFrame;
 @property (nonatomic, strong) UIView *weatherFrame;
 
+@property (nonatomic) BOOL showToastWhenLocaionError;
+
 @end
 
 @implementation ToolBoxViewController
@@ -333,6 +335,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (!(self.location.coordinate.latitude && self.location.coordinate.longitude)) {
         [SVProgressHUD showWithStatus:@"正在定位"];
         [locationManager startUpdatingLocation];
+        _showToastWhenLocaionError = YES;
         return;
     }
     LocalViewController *lvc = [[LocalViewController alloc] init];
@@ -458,8 +461,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             errorString = @"定位失败了，待会再试试吧";
             break;
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorString delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-    [alert show];
+    if (_showToastWhenLocaionError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorString delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 

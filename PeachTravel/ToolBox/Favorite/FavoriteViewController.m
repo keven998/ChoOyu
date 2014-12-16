@@ -105,6 +105,20 @@
     return _tableView;
 }
 
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.backgroundColor = APP_PAGE_COLOR;
+        
+        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [_footerView addSubview:_indicatroView];
+        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+    }
+    return _footerView;
+}
+
 - (SRRefreshView *)slimeView
 {
     if (_slimeView == nil) {
@@ -336,12 +350,6 @@
     CGPoint viewPos = [btn convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
     
-//    if (_selectedIndex != -1 && _selectedIndex != indexPath.row) {
-//        NSIndexPath *pi = [NSIndexPath indexPathForRow:_selectedIndex inSection:0];
-//        FavoriteTableViewCell *pc = (FavoriteTableViewCell *)[self.tableView cellForRowAtIndexPath:pi];
-//        pc.contentDescExpandView.selected = NO;
-//    }
-    
     if (!btn.isSelected) {
         _selectedIndex = indexPath.row;
         btn.selected = YES;
@@ -352,6 +360,17 @@
     
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
+}
+
+#pragma mark - TaoziMessageSendDelegate
+
+- (void)sendCancel
+{
+    
+}
+
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
 }
 
 #pragma mark - UITableViewDelegate
@@ -410,19 +429,6 @@
     }
 }
 
-- (UIView *)footerView {
-    if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
-        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _footerView.backgroundColor = APP_PAGE_COLOR;
-        
-        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
-        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-        [_footerView addSubview:_indicatroView];
-        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
-    }
-    return _footerView;
-}
 
 - (void) beginLoadingMore {
     if (self.tableView.tableFooterView == nil) {
