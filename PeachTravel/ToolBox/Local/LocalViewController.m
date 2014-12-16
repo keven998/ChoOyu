@@ -479,7 +479,6 @@
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
             }
-            [self loadDataWithPageIndex:0];
             [self.currentPageList removeAllObjects];
             self.currentPageList = nil;
         }
