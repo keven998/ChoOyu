@@ -22,6 +22,12 @@
         _tripTitle = [json objectForKey:@"title"];
         _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
         
+        NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+        for (id imageDic in [json objectForKey:@"images"]) {
+            [imageArray addObject:[[TaoziImage alloc] initWithJson:imageDic]];
+        }
+        _images = imageArray;
+        
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (id destinationsDic in [json objectForKey:@"localities"]) {
             CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationsDic];

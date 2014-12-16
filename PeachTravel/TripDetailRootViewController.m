@@ -16,8 +16,13 @@
 #import "DestinationsView.h"
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
+#import "ShareActivity.h"
+#import "TaoziChatMessageBaseViewController.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocial.h"
+#import "CityDestinationPoi.h"
 
-@interface TripDetailRootViewController ()
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -42,6 +47,11 @@
     } else {
         [self checkTripData];
     }
+    
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
 }
 
 /**
@@ -158,6 +168,20 @@
 }
 
 /**
+ *  点击分享按钮
+ *
+ *  @param sender
+ */
+- (IBAction)share:(id)sender
+{
+    NSArray *shareButtonimageArray = @[@"ic_sns_talk.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
+    NSArray *shareButtonTitleArray = @[@"桃∙talk", @"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
+    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
+    [shareActivity showInView:self.view];
+
+}
+
+/**
  *  更新三账单的路线数据
  */
 - (void)reloadTripData
@@ -229,6 +253,151 @@
         index++;
     }
 }
+
+#pragma mark AvtivityDelegate
+
+- (void)didClickOnImageIndex:(NSInteger)imageIndex
+{
+    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"我搞了一条去北京的游玩的路线."];
+    NSString *shareContentWithUrl = [NSString stringWithFormat:@"我搞了一条去北京玩的路线"];
+    NSData *shareImageData;
+    NSArray *_shareUrls;
+    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:@"http://www.lvxingpai.cn"];
+    [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
+    switch (imageIndex) {
+            
+        case 0: {
+            TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+            taoziMessageCtl.delegate = self;
+            taoziMessageCtl.chatType = TZChatTypeStrategy;
+            taoziMessageCtl.chatTitle = @"攻略";
+            taoziMessageCtl.messageId = self.tripDetail.tripId;
+            
+            NSMutableString *summary;
+            for (CityDestinationPoi *poi in self.tripDetail.destinations) {
+                NSString *s;
+                if ([poi isEqual:[self.tripDetail.destinations lastObject]]) {
+                    s = poi.zhName;
+                } else {
+                    s = [NSString stringWithFormat:@"%@-", poi.zhName];
+                }
+                [summary appendString:s];
+            }
+            
+            taoziMessageCtl.messageDesc = summary;
+            taoziMessageCtl.messageName = self.tripDetail.tripTitle;
+            TaoziImage *image = [self.tripDetail.images firstObject];
+            taoziMessageCtl.messageImage = image.imageUrl;
+            taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", self.tripDetail.dayCount];
+            
+            [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
+                
+            }];
+
+            break;
+        }
+            
+        case 1: {
+            [UMSocialData defaultData].extConfig.wechatTimelineData.url = [_shareUrls firstObject];
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    NSLog(@"分享成功！");
+                }
+            }];
+        }
+            break;
+            
+        case 2: {
+            [UMSocialData defaultData].extConfig.wechatSessionData.url = [_shareUrls firstObject];
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    NSLog(@"分享成功！");
+                }
+            }];
+        }
+            break;
+            
+        case 3: {
+            [UMSocialData defaultData].extConfig.qqData.url = [_shareUrls firstObject];
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    NSLog(@"分享成功！");
+                }
+            }];
+        }
+            break;
+            
+        case 4: {
+            [UMSocialData defaultData].extConfig.qzoneData.url = [_shareUrls firstObject];
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:shareImageData location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    NSLog(@"分享成功！");
+                }
+            }];
+            
+        }
+            break;
+            
+        case 5:
+            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:shareImageData socialUIDelegate:nil];
+            
+            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+            
+            break;
+            
+        case 6:
+            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:shareImageData socialUIDelegate:nil];
+            
+            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToDouban].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+            
+            break;
+            
+        
+            
+            
+        default:
+            break;
+    }
+}
+
+- (void)didClickOnCancelButton
+{
+    
+}
+
+#pragma mark - TaoziMsgSendDelegate
+
+//用户确定发送poi给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    
+    /*发送完成后不进入聊天界面
+     [self.navigationController pushViewController:chatCtl animated:YES];
+     */
+    
+    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+}
+
 
 @end
 

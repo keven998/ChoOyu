@@ -396,6 +396,14 @@
 		D95F8A3F1A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A321A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m */; };
 		D95F8A401A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A341A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m */; };
 		D95F8A411A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A361A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m */; };
+		D95F8A461A40343E003F4275 /* ShareActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A451A40343E003F4275 /* ShareActivity.m */; };
+		D95F8A4F1A403467003F4275 /* ic_sns_qq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A481A403467003F4275 /* ic_sns_qq@2x.png */; };
+		D95F8A501A403467003F4275 /* ic_sns_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A491A403467003F4275 /* ic_sns_weixin@2x.png */; };
+		D95F8A511A403467003F4275 /* ic_sns_sina@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4A1A403467003F4275 /* ic_sns_sina@2x.png */; };
+		D95F8A521A403467003F4275 /* ic_sns_pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4B1A403467003F4275 /* ic_sns_pengyouquan@2x.png */; };
+		D95F8A531A403467003F4275 /* ic_sns_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4C1A403467003F4275 /* ic_sns_talk@2x.png */; };
+		D95F8A541A403467003F4275 /* ic_sns_qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4D1A403467003F4275 /* ic_sns_qzone@2x.png */; };
+		D95F8A551A403467003F4275 /* ic_sns_douban@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4E1A403467003F4275 /* ic_sns_douban@2x.png */; };
 		D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */; };
 		D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */; };
 		D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964201519EBCA3300CC8057 /* SettingTableViewController.m */; };
@@ -1151,6 +1159,15 @@
 		D95F8A341A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDRingIndicatorView.m; sourceTree = "<group>"; };
 		D95F8A351A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDSuccessIndicatorView.h; sourceTree = "<group>"; };
 		D95F8A361A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDSuccessIndicatorView.m; sourceTree = "<group>"; };
+		D95F8A441A40343E003F4275 /* ShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActivity.h; sourceTree = "<group>"; };
+		D95F8A451A40343E003F4275 /* ShareActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareActivity.m; sourceTree = "<group>"; };
+		D95F8A481A403467003F4275 /* ic_sns_qq@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_qq@2x.png"; sourceTree = "<group>"; };
+		D95F8A491A403467003F4275 /* ic_sns_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_weixin@2x.png"; sourceTree = "<group>"; };
+		D95F8A4A1A403467003F4275 /* ic_sns_sina@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_sina@2x.png"; sourceTree = "<group>"; };
+		D95F8A4B1A403467003F4275 /* ic_sns_pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_pengyouquan@2x.png"; sourceTree = "<group>"; };
+		D95F8A4C1A403467003F4275 /* ic_sns_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_talk@2x.png"; sourceTree = "<group>"; };
+		D95F8A4D1A403467003F4275 /* ic_sns_qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_qzone@2x.png"; sourceTree = "<group>"; };
+		D95F8A4E1A403467003F4275 /* ic_sns_douban@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_douban@2x.png"; sourceTree = "<group>"; };
 		D964200819EBC3B800CC8057 /* VerifyCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCaptchaViewController.h; sourceTree = "<group>"; };
 		D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCaptchaViewController.m; sourceTree = "<group>"; };
 		D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyCaptchaViewController.xib; sourceTree = "<group>"; };
@@ -2407,6 +2424,7 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D95F8A471A40344A003F4275 /* Share */,
 				D98835591A3F1331006BF326 /* ic_text_cover_bg@2x.png */,
 				C6A0C6B61A3AAA22009D9768 /* ic_nav_filter_normal@2x.png */,
 				C6A0C6B01A3A89A6009D9768 /* ic_layer_edit_done@2x.png */,
@@ -2513,6 +2531,7 @@
 		D9545FC51A22F23B00688D72 /* TripListDetail */ = {
 			isa = PBXGroup;
 			children = (
+				D95F8A431A403436003F4275 /* Share */,
 				D92A48981A3979CE00B00D91 /* TripListCommon */,
 				D96550ED1A257B2800928DB0 /* AddPoi */,
 				D9B476521A24259A0014136C /* DestinationsView.h */,
@@ -2972,6 +2991,29 @@
 				D95F8A361A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m */,
 			);
 			path = JGProgressHUD;
+			sourceTree = "<group>";
+		};
+		D95F8A431A403436003F4275 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				D95F8A441A40343E003F4275 /* ShareActivity.h */,
+				D95F8A451A40343E003F4275 /* ShareActivity.m */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
+		D95F8A471A40344A003F4275 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				D95F8A481A403467003F4275 /* ic_sns_qq@2x.png */,
+				D95F8A491A403467003F4275 /* ic_sns_weixin@2x.png */,
+				D95F8A4A1A403467003F4275 /* ic_sns_sina@2x.png */,
+				D95F8A4B1A403467003F4275 /* ic_sns_pengyouquan@2x.png */,
+				D95F8A4C1A403467003F4275 /* ic_sns_talk@2x.png */,
+				D95F8A4D1A403467003F4275 /* ic_sns_qzone@2x.png */,
+				D95F8A4E1A403467003F4275 /* ic_sns_douban@2x.png */,
+			);
+			name = Share;
 			sourceTree = "<group>";
 		};
 		D964200D19EBC3C300CC8057 /* LosePassword */ = {
@@ -3932,6 +3974,7 @@
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
 				C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */,
+				D95F8A531A403467003F4275 /* ic_sns_talk@2x.png in Resources */,
 				D9048F331A09F18500334AB5 /* ChatGroupSettingViewController.xib in Resources */,
 				D93696F81A301C0C001922F4 /* chatBar_more_myfavorite@2x.png in Resources */,
 				D90C638019FB44D300C2E440 /* VoiceSearchFeedback010@2x.png in Resources */,
@@ -4008,6 +4051,7 @@
 				C6A0C6BF1A3AB60A009D9768 /* ic_fav_city@2x.png in Resources */,
 				D9E81E6D1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png in Resources */,
 				D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */,
+				D95F8A551A403467003F4275 /* ic_sns_douban@2x.png in Resources */,
 				D93697151A31617B001922F4 /* TZScrollView_indicator@2x.png in Resources */,
 				D93696EB1A30107A001922F4 /* chatBar_record@2x.png in Resources */,
 				D9CC36B91A3747D300E72A7F /* third_selected@2x.png in Resources */,
@@ -4020,6 +4064,7 @@
 				D906CBDA1A2068C800BE2588 /* LocationTableViewCell.xib in Resources */,
 				C60C0D611A297A16006033C9 /* ic_app_message@2x.png in Resources */,
 				D93696FA1A301C0C001922F4 /* chatBar_more_travelNote@2x.png in Resources */,
+				D95F8A501A403467003F4275 /* ic_sns_weixin@2x.png in Resources */,
 				D90C638E19FB44D300C2E440 /* VoiceSearchFeedback017@2x.png in Resources */,
 				D9EF98A91A3ABC1F00DB480F /* nearby_ic_tab_stay_select@2x.png in Resources */,
 				D9EF98AF1A3BE4B400DB480F /* ic_nav_filter_normal@2x.png in Resources */,
@@ -4032,12 +4077,14 @@
 				C6BC34991A28171B002C19D3 /* ic_setting_avatar@2x.png in Resources */,
 				C63344DD1A1C3F5400A27F86 /* OptionTableViewCell.xib in Resources */,
 				C63344E21A1C3F5F00A27F86 /* ic_menu_add@2x.png in Resources */,
+				D95F8A541A403467003F4275 /* ic_sns_qzone@2x.png in Resources */,
 				D92A488B1A38816600B00D91 /* ic_star_yellow@2x.png in Resources */,
 				C63344E11A1C3F5F00A27F86 /* ic_extender@2x.png in Resources */,
 				D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */,
 				D92A48931A38923400B00D91 /* ic_recommend@2x.png in Resources */,
 				D9386C4F1A31A6600085FC36 /* chat_receiver_audio_playing001@2x.png in Resources */,
 				D9E81E6F1A35EB0F00D3BFD0 /* chatBar_more@2x.png in Resources */,
+				D95F8A521A403467003F4275 /* ic_sns_pengyouquan@2x.png in Resources */,
 				C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */,
 				D90C639219FB44D300C2E440 /* VoiceSearchFeedback019@2x.png in Resources */,
 				D9EF98A41A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png in Resources */,
@@ -4083,6 +4130,7 @@
 				D90C637F19FB44D300C2E440 /* VoiceSearchFeedback010.png in Resources */,
 				C6BC348F1A274FEB002C19D3 /* ic_share_to_friend@2x.png in Resources */,
 				D9EF98A51A3ABC1F00DB480F /* nearby_ic_tab_shopping_select@2x.png in Resources */,
+				D95F8A511A403467003F4275 /* ic_sns_sina@2x.png in Resources */,
 				D90F361219F63B3300E26FA9 /* chatBar_recordSelected@2x.png in Resources */,
 				D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */,
 				D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */,
@@ -4214,6 +4262,7 @@
 				D97C17D819FE516A00895B62 /* SenderImageNodeBorder@2x.png in Resources */,
 				D90C638F19FB44D300C2E440 /* VoiceSearchFeedback018.png in Resources */,
 				D90C638D19FB44D300C2E440 /* VoiceSearchFeedback017.png in Resources */,
+				D95F8A4F1A403467003F4275 /* ic_sns_qq@2x.png in Resources */,
 				D9F57B9019E93486005BB43B /* UMSCommentInputController.xib in Resources */,
 				D9545F9C1A207D3500688D72 /* RecommendsTableViewCell.xib in Resources */,
 				D955E54919E7A91300047F2B /* sns_icon_pengyouquan@2x.png in Resources */,
@@ -4333,6 +4382,7 @@
 				D95460071A22FAAB00688D72 /* TripPoiListTableViewCell.m in Sources */,
 				D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */,
 				D90F364D19F63C2F00E26FA9 /* UIViewController+HUD.m in Sources */,
+				D95F8A461A40343E003F4275 /* ShareActivity.m in Sources */,
 				D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */,
 				D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */,
 				D96550F81A2580E900928DB0 /* AddPoiTableViewController.m in Sources */,

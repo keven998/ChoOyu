@@ -82,14 +82,15 @@
 - (UserInfoInputError)checkInput
 {
     NSString * regex = @"^[A-Za-z0-9]{6,16}$";
+
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     if (![pred evaluateWithObject:_oldPasswordLabel.text]) {
         return PasswordError;
     }
-    if (![pred evaluateWithObject:_presentPasswordLabel]) {
+    if (![pred evaluateWithObject:_presentPasswordLabel.text]) {
         return PresentPasswordError;
     }
-    if (![pred evaluateWithObject:_confirmPasswordLabel]) {
+    if (![pred evaluateWithObject:_confirmPasswordLabel.text]) {
         return ConfirmPasswordError;
     }
     if (![_presentPasswordLabel.text isEqualToString:_confirmPasswordLabel.text]) {
@@ -98,9 +99,55 @@
     return NoError;
 }
 
+- (void)changePassword
+{
+    [SVProgressHUD show];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:_oldPasswordLabel.text forKey:@"oldPwd"];
+    [params safeSetObject:_presentPasswordLabel.text forKey:@"newPwd"];
+    [params safeSetObject:accountManager.account.userId forKey:@"userId"];
+    
+    [manager POST:API_CHANGE_PWD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        
+        } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+    }];
+
+}
+
 #pragma mark - IBActiong Methods
 
 - (IBAction)changePassword:(UIButton *)sender {
+    UserInfoInputError errorCode = [self checkInput];
+    if (errorCode == NoError) {
+        [self changePassword];
+    } else {
+        if (errorCode == PasswordNotMatchedError) {
+            [SVProgressHUD showErrorWithStatus:@"两次新密码输入不一致"];
+            return;
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"密码至少六位，只能为数字或字母"];
+            return;
+        }
+    }
+    
     
 }
 

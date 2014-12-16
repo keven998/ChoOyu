@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *itineraryList;
 @property (nonatomic, strong) NSMutableArray *shoppingList;
 @property (nonatomic, strong) NSMutableArray *restaurantsList;
+@property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSInteger dayCount;         //行程单一共有几天
 
 - (id)initWithJson:(id)json;
@@ -31,6 +32,7 @@
  *  保存所有的路线，包含三张单的内容,但是你别小瞧了这个函数，这个函数可厉害了，他会自动判断你哪张单做了改动，要是没做改动是不会上传的。
  */
 - (void)saveTrip:(void(^)(BOOL isSuccesss))completion;
+
 
 @end
 
@@ -68,6 +70,7 @@ typedef enum : NSUInteger {
 - (id) initWithJson:(id)json;
 
 - (NSDictionary *)prepareAllDataForUpload;     //将完整的数据结构转换成上传的 json 数据
+
 
 @end
 
