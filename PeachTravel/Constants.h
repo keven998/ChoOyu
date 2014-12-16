@@ -119,7 +119,9 @@
 #define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti  @ "updatecontactList"           //更新好友请求列表
 
-#define updateChateViewNoti      @"updateChatView"               //更新聊天界面
+#define updateChateViewNoti             @"updateChatView"               //更新聊天界面
+
+#define updateFavoriteListNoti          @"updateFavoriteListView"    //更新收藏列表
 
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {

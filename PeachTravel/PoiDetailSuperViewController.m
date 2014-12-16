@@ -29,13 +29,6 @@
     UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"Talk" style:UIBarButtonItemStyleBordered target:self action:@selector(chat:)];
     searchBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = searchBtn;
-    
-//    _rightItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    [_rightItemBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-//    [_rightItemBtn setTitle:@"chat" forState:UIControlStateNormal];
-//    [_rightItemBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
-//    [_rightItemBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightItemBtn];
 }
 
 #pragma mark - IBAction Methods
@@ -128,6 +121,7 @@
             if (code == 0) {
                 
                 [self showHint:@"收藏成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
@@ -148,6 +142,7 @@
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
                 [self showHint:@"取消收藏成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);

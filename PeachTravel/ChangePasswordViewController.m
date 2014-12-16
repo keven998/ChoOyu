@@ -109,17 +109,6 @@
     [super touchesEnded:touches withEvent:event];
 }
 
-//- (void)tapBackground:(id)sender
-//{
-//    if ([_oldPasswordLabel isFirstResponder]) {
-//        [_oldPasswordLabel resignFirstResponder];
-//    } else if ([_presentPasswordLabel isFirstResponder]) {
-//        [_presentPasswordLabel resignFirstResponder];
-//    } else if ([_confirmPasswordLabel isFirstResponder]) {
-//        [_confirmPasswordLabel resignFirstResponder];
-//    }
-//}
-
 @end
 
 

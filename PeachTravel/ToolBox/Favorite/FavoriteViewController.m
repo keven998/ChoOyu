@@ -37,6 +37,9 @@
 
 @property (strong, nonatomic) SRRefreshView *slimeView;
 
+
+@property (nonatomic) BOOL isVisible;
+
 @end
 
 @implementation FavoriteViewController
@@ -72,6 +75,9 @@
     [self pullToRefreash:nil];
     [self.view addSubview:self.editBtn];
     self.slimeView.loading = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
+    _isVisible = YES;
     
 }
 
@@ -113,11 +119,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    _isVisible = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.editBtn removeFromSuperview];
+    _isVisible = NO;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)goBackToAllPets
@@ -227,7 +239,10 @@
     }
     if (datas.count == 0) {
         if (_dataSource.count == 0) {
-            [self showHint:@"No收藏"];
+            if (_isVisible) {
+                [self showHint:@"No收藏"];
+            }
+            [self.tableView reloadData];
         } else {
             [self showHint:@"已取完所有内容啦"];
         }
