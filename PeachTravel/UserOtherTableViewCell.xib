@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -57,11 +57,13 @@
                             </mask>
                         </variation>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_accessory.png" translatesAutoresizingMaskIntoConstraints="NO" id="34x-YJ-AhG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_accessory_pink.png" translatesAutoresizingMaskIntoConstraints="NO" id="34x-YJ-AhG">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="6" id="KwT-dT-nW1"/>
-                            <constraint firstAttribute="height" constant="13" id="U1l-IG-iPN"/>
+                            <constraint firstAttribute="height" constant="13" id="U1l-IG-iPN">
+                                <variation key="widthClass=compact" constant="10"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -121,14 +123,14 @@
                         <exclude reference="qRP-a6-LMu"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="T0v-sA-dFY"/>
-                        <exclude reference="baU-4j-BmJ"/>
                         <exclude reference="Ra9-JE-qJt"/>
                         <exclude reference="eZQ-KT-TSR"/>
                         <exclude reference="pz2-yQ-BFP"/>
                         <exclude reference="4Ln-NW-0b8"/>
                         <exclude reference="YTX-sk-1ho"/>
                         <exclude reference="noK-rI-08n"/>
+                        <exclude reference="T0v-sA-dFY"/>
+                        <exclude reference="baU-4j-BmJ"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -139,14 +141,14 @@
                         <include reference="qRP-a6-LMu"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="T0v-sA-dFY"/>
-                        <include reference="baU-4j-BmJ"/>
                         <include reference="Ra9-JE-qJt"/>
                         <include reference="eZQ-KT-TSR"/>
                         <include reference="pz2-yQ-BFP"/>
                         <include reference="4Ln-NW-0b8"/>
                         <include reference="YTX-sk-1ho"/>
                         <include reference="noK-rI-08n"/>
+                        <include reference="T0v-sA-dFY"/>
+                        <include reference="baU-4j-BmJ"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
@@ -159,6 +161,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="cell_accessory.png" width="6" height="10"/>
+        <image name="cell_accessory_pink.png" width="6" height="10"/>
     </resources>
 </document>

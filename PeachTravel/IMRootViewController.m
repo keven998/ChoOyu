@@ -27,13 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"桃•Talk";
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(addAction:)];
+    [makePlanBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"]];
+    self.navigationItem.rightBarButtonItem = makePlanBtn;
 
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
-    [addBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"] forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    
     
     for (MHChildViewController *ctl in self.viewControllers) {
         ctl.delegate = self;

@@ -39,14 +39,10 @@
     
     _contentTextField.text = _content;
     
-    
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [registerBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(saveChange:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    self.navigationItem.rightBarButtonItem = registerItem;
+
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
+    registerBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = registerBtn;
     
 //    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
 //    tapBackground.numberOfTapsRequired = 1;

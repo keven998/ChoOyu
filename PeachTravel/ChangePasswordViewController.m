@@ -35,37 +35,33 @@
 //    _confirmPasswordLabel.layer.borderWidth = 1.0;
     _confirmPasswordLabel.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _oldPasswordLabel.bounds.size.height - 16.0)];
-    ul.text = @"  当前密码:";
-    ul.textColor = UIColorFromRGB(0x393939);
-    ul.font = [UIFont systemFontOfSize:13.0];
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _oldPasswordLabel.bounds.size.height - 16.0)];
+    ul.text = @"当前密码:";
+    ul.textColor = TEXT_COLOR_TITLE;
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _oldPasswordLabel.leftView = ul;
     _oldPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _presentPasswordLabel.bounds.size.height - 16.0)];
-    pl.text = @"  新密码:";
-    pl.textColor = UIColorFromRGB(0x393939);
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _presentPasswordLabel.bounds.size.height - 16.0)];
+    pl.text = @"新密码:";
+    pl.textColor = TEXT_COLOR_TITLE;
     pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _presentPasswordLabel.leftView = pl;
     _presentPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 96.0, _presentPasswordLabel.bounds.size.height - 16.0)];
+    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _presentPasswordLabel.bounds.size.height - 16.0)];
     npl.text = @"确认新密码:";
-    npl.textColor = UIColorFromRGB(0x393939);
+    npl.textColor = TEXT_COLOR_TITLE;
     npl.font = [UIFont systemFontOfSize:12.0];
     npl.textAlignment = NSTextAlignmentCenter;
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [registerBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(changePassword:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    self.navigationItem.rightBarButtonItem = registerItem;
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(changePassword:)];
+    registerBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = registerBtn;
 }
 
 #pragma mark - UITextFieldDelegate

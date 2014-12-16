@@ -80,12 +80,17 @@ static LocationViewController *defaultLocation = nil;
     if (_isSendLocation) {
         _mapView.showsUserLocation = YES;//显示当前位置
         
-        UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-        [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-        [sendButton setTitleColor:[UIColor colorWithRed:32 / 255.0 green:134 / 255.0 blue:158 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-        [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [sendButton addTarget:self action:@selector(sendLocation) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sendButton]];
+//        UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        [sendButton setTitle:@"发送" forState:UIControlStateNormal];
+//        [sendButton setTitleColor:[UIColor colorWithRed:32 / 255.0 green:134 / 255.0 blue:158 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+//        [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+//        [sendButton addTarget:self action:@selector(sendLocation) forControlEvents:UIControlEventTouchUpInside];
+//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sendButton]];
+//        self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+        UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendLocation)];
+        sendButton.tintColor = APP_THEME_COLOR;
+        self.navigationItem.rightBarButtonItem = sendButton;
         self.navigationItem.rightBarButtonItem.enabled = NO;
         
         [self startLocation];

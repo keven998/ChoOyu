@@ -20,12 +20,10 @@
     [super viewDidLoad];
     _titleLable.text = _oldTitle;
     self.navigationItem.title = @"修改群名称";
-    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [addBtn setTitle:@"确定" forState:UIControlStateNormal];
-    addBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [addBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [addBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    
+    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    addBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = addBtn;
     
     _titleLable.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     _titleLable.layer.borderWidth = 0.5;

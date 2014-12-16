@@ -48,19 +48,16 @@
     _indexCollation = [UILocalizedIndexedCollation currentCollation];
     
     if (!self.defaultEditing) {
-        UIButton *chooseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+        UIButton *chooseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 40)];
         [chooseButton setTitle:@"选择" forState:UIControlStateNormal];
         [chooseButton setTitle:@"完成" forState:UIControlStateSelected];
         [chooseButton setBackgroundColor:[UIColor clearColor]];
         [chooseButton addTarget:self action:@selector(chooseAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:chooseButton]];
-    }
-    else{
-        UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
-        [doneButton setTitle:@"完成" forState:UIControlStateNormal];
-        [doneButton setBackgroundColor:[UIColor clearColor]];
-        [doneButton addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:doneButton]];
+    } else {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStyleBordered target:self action:@selector(doneAction:)];
+        doneButton.tintColor = APP_THEME_COLOR;
+        self.navigationItem.rightBarButtonItem = doneButton;
     }
     
     [self.view addSubview:self.tableView];

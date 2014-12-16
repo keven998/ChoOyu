@@ -473,7 +473,7 @@ static UIColor *titleColor;
 - (void)setupButtons
 {
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"完成", nil)
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"完成 ", nil)
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(finishPickingAssets:)];
@@ -787,7 +787,7 @@ static UIColor *titleColor;
     if (picker.showCancelButton)
     {
         self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"取消", nil)
+        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"取消 ", nil)
                                          style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(dismiss:)];

@@ -41,7 +41,7 @@
         cell.titleView.text = @"贴心旅行消息推送";
         [cell.switchButton addTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
     } else if (indexPath.row == 1) {
-        cell.titleView.text = @"旅行圈消息提醒";
+        cell.titleView.text = @"桃·Talk消息提醒";
         [cell.switchButton addTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
     }
     return cell;

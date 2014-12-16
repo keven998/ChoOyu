@@ -42,14 +42,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     self.collectionView.collectionViewLayout = self.flowLayout;
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     [self loadDataSource];
-    
-    UIButton *makePlanBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
-    [makePlanBtn setTitle:@"做攻略" forState:UIControlStateNormal];
-    makePlanBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [makePlanBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
-    [makePlanBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:makePlanBtn];
 
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"做攻略" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
+    makePlanBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = makePlanBtn;
 }
 
 #pragma mark - setter & getter

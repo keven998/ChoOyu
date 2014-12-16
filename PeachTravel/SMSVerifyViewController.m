@@ -27,14 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIButton *registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.0, 30)];
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    UIBarButtonItem *registerItem = [[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-    [registerBtn setTitle:@"确认" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = registerItem;
+ 
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确认 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    registerBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = registerBtn;
     
     count = _coolDown;
     self.navigationItem.title = @"验证";

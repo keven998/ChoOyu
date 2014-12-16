@@ -65,13 +65,9 @@
     contentEditor = suggestion;
     [contentEditor becomeFirstResponder];
     
-    UIButton *send = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40., 40.)];
-    [send setTitle:@"发送" forState:UIControlStateNormal];
-    [send setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [send setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    send.titleLabel.font = [UIFont systemFontOfSize:17.];
-    [send addTarget:self action:@selector(sendFeedback:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:send];
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
+    backBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = backBtn;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
