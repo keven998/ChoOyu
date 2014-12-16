@@ -49,9 +49,9 @@
         }
        
     } else {
-        self.navigationItem.title = @"找回密码";
+        self.navigationItem.title = @"验证账户";
 //        [registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
-        self.navigationItem.rightBarButtonItem.title = @"下一步";
+        self.navigationItem.rightBarButtonItem.title = @"提交 ";
         
     }
     
