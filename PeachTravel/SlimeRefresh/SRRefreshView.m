@@ -167,6 +167,7 @@
                             }
                         } completion:^(BOOL finished) {
                             //_notSetFrame = NO;
+                            
                         }];
         
     }
