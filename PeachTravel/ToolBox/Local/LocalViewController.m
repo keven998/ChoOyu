@@ -103,6 +103,7 @@
     [_reLocBtn setImage:[UIImage imageNamed:@"ic_refresh_white_18.png"] forState:UIControlStateNormal];
     [fbar addSubview:_reLocBtn];
     [self getReverseGeocode];
+    
 }
 
 - (IBAction)relocal:(id)sender {
@@ -472,15 +473,15 @@
             CLPlacemark *clPlaceMark = [placemarks firstObject];
             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"Name"];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            if ([_locLabel.text isEqualToString:city]) {
-                _locLabel.text = city;
-                for (NSMutableArray *array in self.dataSource) {
-                    [array removeAllObjects];
-                }
-                [self loadDataWithPageIndex:0];
+            _locLabel.text = city;
+            [self loadDataWithPageIndex:0];
+
+            for (NSMutableArray *array in self.dataSource) {
+                [array removeAllObjects];
+            }
+            [self loadDataWithPageIndex:0];
             [self.currentPageList removeAllObjects];
             self.currentPageList = nil;
-            }
         }
     }];
 }
@@ -537,7 +538,6 @@
             }
         }
     }
-    
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

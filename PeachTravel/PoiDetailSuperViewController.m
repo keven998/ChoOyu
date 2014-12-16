@@ -12,11 +12,6 @@
 
 @interface PoiDetailSuperViewController () <CreateConversationDelegate, TaoziMessageSendDelegate>
 
-
-//@property (nonatomic, strong) UIButton *rightItemBtn;
-
-
-
 @end
 
 @implementation PoiDetailSuperViewController
@@ -25,10 +20,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"Talk" style:UIBarButtonItemStyleBordered target:self action:@selector(chat:)];
-    searchBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = searchBtn;
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
+    self.navigationItem.rightBarButtonItem = rightBarItem;
 }
 
 #pragma mark - IBAction Methods
