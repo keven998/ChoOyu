@@ -472,9 +472,14 @@
             CLPlacemark *clPlaceMark = [placemarks firstObject];
             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"Name"];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            if (![_locLabel.text isEqualToString:city]) {
+            if ([_locLabel.text isEqualToString:city]) {
                 _locLabel.text = city;
+                for (NSMutableArray *array in self.dataSource) {
+                    [array removeAllObjects];
+                }
                 [self loadDataWithPageIndex:0];
+            [self.currentPageList removeAllObjects];
+            self.currentPageList = nil;
             }
         }
     }];
