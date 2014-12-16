@@ -170,7 +170,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (DKCircleButton *)editBtn
 {
     if (!_editBtn) {
-        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.tableView.bounds.size.width-60, self.tableView.bounds.size.height-70.0, 50, 50)];
+        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-70.0, 50, 50)];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
         [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
@@ -556,7 +556,7 @@ static NSString *reusableCell = @"myGuidesCell";
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
         taoziMessageCtl.delegate = self;
         taoziMessageCtl.chatType = TZChatTypeStrategy;
-
+        taoziMessageCtl.chatter = _chatter;
         taoziMessageCtl.chatTitle = @"攻略";
         taoziMessageCtl.messageId = guideSummary.guideId;
         taoziMessageCtl.messageDesc = guideSummary.summary;

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#include "ChatViewController.h"
 
 @interface MyGuideListTableViewController : TZViewController
 
@@ -16,7 +15,7 @@
  */
 @property (nonatomic) BOOL selectToSend;
 
-@property (nonatomic, weak) ChatViewController *chatCtl;
+@property (nonatomic, copy) NSString *chatter;
 
 
 

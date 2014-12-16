@@ -170,6 +170,10 @@
     }
     BOOL neeUpdate = NO;
     for (EMConversation *conversation in self.dataSource) {
+        if (!conversation.chatter) {
+            [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+            neeUpdate = YES;
+        }
         if (!conversation.isGroup) {
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
@@ -460,6 +464,7 @@
         cell = [[ChatListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
     }
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+    
     id chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
     if (!conversation.isGroup) {
         cell.name = ((Contact *)chatPeople).nickName;

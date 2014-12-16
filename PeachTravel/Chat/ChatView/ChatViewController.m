@@ -365,7 +365,7 @@
 {
     EMMessage *message = [noti.userInfo objectForKey:@"message"];
     //如果是发送的消息是属于当前页面的
-    if ([message.to isEqualToString:_chatter]) {
+    if ([message.conversation.chatter isEqualToString:_chatter]) {
         [self addChatDataToMessage:[noti.userInfo objectForKey:@"message"]];
     }
 }
@@ -1130,7 +1130,7 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
-    myGuideListTableCtl.chatCtl = self;
+    myGuideListTableCtl.chatter = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
 }
