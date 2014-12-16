@@ -40,11 +40,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
     if (!self.isPushed) {
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
-        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-        [backBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+//        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+//        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+//        [backBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//        [backBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+        
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl)];
+        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+        self.navigationItem.leftBarButtonItem = backBtn;
     }
     _userNameTextField.delegate = self;
     _passwordTextField.delegate = self;

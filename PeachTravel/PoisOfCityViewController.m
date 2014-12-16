@@ -53,11 +53,16 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     if (self.shouldEdit) {
-        UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [leftBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [leftBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
-        [leftBtn addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+//        UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//        [leftBtn setTitle:@"完成" forState:UIControlStateNormal];
+//        [leftBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
+//        [leftBtn addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
+//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+        
+        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
+//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+        leftBtn.tintColor = APP_THEME_COLOR;
+        self.navigationItem.leftBarButtonItem = leftBtn;
     }
     
     _currentPage = 0;
