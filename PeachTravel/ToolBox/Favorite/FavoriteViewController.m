@@ -16,8 +16,9 @@
 #import "ShoppingDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "SRRefreshView.h"
+#import "SINavigationMenuView.h"
 
-@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -37,7 +38,17 @@
 
 @property (strong, nonatomic) SRRefreshView *slimeView;
 
+@property (nonatomic, strong) SINavigationMenuView *sortPoiView;
 
+@property (nonatomic, strong) NSArray *urlArray;
+/**
+ *  当前显示的收藏类型
+ */
+@property (nonatomic, copy) NSString *currentFavoriteType;
+
+/**
+ *  当前页面是否可见，如果可见显示提示，如果不可见不显示提示
+ */
 @property (nonatomic) BOOL isVisible;
 
 @end
@@ -46,7 +57,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _urlArray = @[@"all", @"city", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
+    _currentFavoriteType = [_urlArray objectAtIndex:0];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -55,10 +67,8 @@
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
-    
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filtContents)];
-    [rightBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-    self.navigationItem.rightBarButtonItem = rightBtn;
+    UIBarButtonItem *barItem= [[UIBarButtonItem alloc] initWithCustomView:self.sortPoiView];
+    self.navigationItem.rightBarButtonItem = barItem;
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -112,9 +122,21 @@
     return _slimeView;
 }
 
+- (SINavigationMenuView *)sortPoiView
+{
+    if (!_sortPoiView) {
+        CGRect frame = CGRectMake(0, 0, 50, 30);
+        _sortPoiView = [[SINavigationMenuView alloc] initWithFrame:frame withImage:@"ic_nav_filter_normal.png"];
+        [_sortPoiView displayMenuInView:self.navigationController.view];
+        _sortPoiView.items = @[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
+        _sortPoiView.delegate = self;
+    }
+    return _sortPoiView;
+}
 
 - (void)pullToRefreash:(id)sender {
-    [self loadDataWithPageIndex:0];
+    
+    [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -135,11 +157,6 @@
 - (void)goBackToAllPets
 {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void) filtContents
-{
-    
 }
 
 - (NSMutableArray *)dataSource
@@ -195,7 +212,7 @@
  *  获取我的收藏列表
  */
 
-- (void)loadDataWithPageIndex:(NSInteger)pageIndex
+- (void)loadDataWithPageIndex:(NSInteger)pageIndex andFavoriteType:(NSString *)faType
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -208,6 +225,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    [params safeSetObject:faType forKey:@"faType"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -265,6 +283,14 @@
 - (void)hideSlimeView
 {
     [self.slimeView endRefresh];
+}
+
+#pragma mark - SINavigationMenuDelegate
+
+- (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
+{
+    _currentFavoriteType = [_urlArray objectAtIndex:index];
+    [self pullToRefreash:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -393,7 +419,7 @@
     }
     _isLoadingMore = YES;
     [_indicatroView startAnimating];
-    [self loadDataWithPageIndex:(_currentPage + 1)];
+    [self loadDataWithPageIndex:(_currentPage + 1) andFavoriteType:_currentFavoriteType];
 }
 
 - (void) loadMoreCompleted {

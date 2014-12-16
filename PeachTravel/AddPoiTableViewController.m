@@ -188,7 +188,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     
 }
 
-
 #pragma mark - SINavigationMenuDelegate
 
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
