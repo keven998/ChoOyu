@@ -385,6 +385,17 @@
 		D955E5D219E7D24700047F2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D955E5D119E7D24700047F2B /* Images.xcassets */; };
 		D955E5D419E7D41200047F2B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955E5D319E7D41200047F2B /* Default-568h@2x.png */; };
 		D958E36A1A0256A60026EF7E /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D958E3691A0256A60026EF7E /* KxMenu.m */; };
+		D95F8A371A3FE5F2003F4275 /* JGProgressHUD Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A221A3FE5F2003F4275 /* JGProgressHUD Resources.bundle */; };
+		D95F8A381A3FE5F2003F4275 /* JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A241A3FE5F2003F4275 /* JGProgressHUD.m */; };
+		D95F8A391A3FE5F2003F4275 /* JGProgressHUDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A261A3FE5F2003F4275 /* JGProgressHUDAnimation.m */; };
+		D95F8A3A1A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A281A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.m */; };
+		D95F8A3B1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A2A1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m */; };
+		D95F8A3C1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A2C1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.m */; };
+		D95F8A3D1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A2E1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m */; };
+		D95F8A3E1A3FE5F2003F4275 /* JGProgressHUDIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A301A3FE5F2003F4275 /* JGProgressHUDIndicatorView.m */; };
+		D95F8A3F1A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A321A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m */; };
+		D95F8A401A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A341A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m */; };
+		D95F8A411A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8A361A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m */; };
 		D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */; };
 		D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */; };
 		D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964201519EBCA3300CC8057 /* SettingTableViewController.m */; };
@@ -1119,6 +1130,27 @@
 		D955E5D319E7D41200047F2B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D958E3681A0256A60026EF7E /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
 		D958E3691A0256A60026EF7E /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
+		D95F8A221A3FE5F2003F4275 /* JGProgressHUD Resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "JGProgressHUD Resources.bundle"; sourceTree = "<group>"; };
+		D95F8A231A3FE5F2003F4275 /* JGProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUD.h; sourceTree = "<group>"; };
+		D95F8A241A3FE5F2003F4275 /* JGProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUD.m; sourceTree = "<group>"; };
+		D95F8A251A3FE5F2003F4275 /* JGProgressHUDAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDAnimation.h; sourceTree = "<group>"; };
+		D95F8A261A3FE5F2003F4275 /* JGProgressHUDAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDAnimation.m; sourceTree = "<group>"; };
+		D95F8A271A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDErrorIndicatorView.h; sourceTree = "<group>"; };
+		D95F8A281A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDErrorIndicatorView.m; sourceTree = "<group>"; };
+		D95F8A291A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDFadeAnimation.h; sourceTree = "<group>"; };
+		D95F8A2A1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDFadeAnimation.m; sourceTree = "<group>"; };
+		D95F8A2B1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDFadeZoomAnimation.h; sourceTree = "<group>"; };
+		D95F8A2C1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDFadeZoomAnimation.m; sourceTree = "<group>"; };
+		D95F8A2D1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDIndeterminateIndicatorView.h; sourceTree = "<group>"; };
+		D95F8A2E1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDIndeterminateIndicatorView.m; sourceTree = "<group>"; };
+		D95F8A2F1A3FE5F2003F4275 /* JGProgressHUDIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDIndicatorView.h; sourceTree = "<group>"; };
+		D95F8A301A3FE5F2003F4275 /* JGProgressHUDIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDIndicatorView.m; sourceTree = "<group>"; };
+		D95F8A311A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDPieIndicatorView.h; sourceTree = "<group>"; };
+		D95F8A321A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDPieIndicatorView.m; sourceTree = "<group>"; };
+		D95F8A331A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDRingIndicatorView.h; sourceTree = "<group>"; };
+		D95F8A341A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDRingIndicatorView.m; sourceTree = "<group>"; };
+		D95F8A351A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDSuccessIndicatorView.h; sourceTree = "<group>"; };
+		D95F8A361A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDSuccessIndicatorView.m; sourceTree = "<group>"; };
 		D964200819EBC3B800CC8057 /* VerifyCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCaptchaViewController.h; sourceTree = "<group>"; };
 		D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCaptchaViewController.m; sourceTree = "<group>"; };
 		D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyCaptchaViewController.xib; sourceTree = "<group>"; };
@@ -2651,6 +2683,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D95F8A211A3FE5F2003F4275 /* JGProgressHUD */,
 				C6A0C6C91A3AD233009D9768 /* TZTBViewController */,
 				C6A0C6A11A398A18009D9768 /* EDStarRating */,
 				C6999FB21A2DE460009032D8 /* DMFilterView */,
@@ -2911,6 +2944,34 @@
 			);
 			name = KxMenu;
 			path = Source;
+			sourceTree = "<group>";
+		};
+		D95F8A211A3FE5F2003F4275 /* JGProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				D95F8A221A3FE5F2003F4275 /* JGProgressHUD Resources.bundle */,
+				D95F8A231A3FE5F2003F4275 /* JGProgressHUD.h */,
+				D95F8A241A3FE5F2003F4275 /* JGProgressHUD.m */,
+				D95F8A251A3FE5F2003F4275 /* JGProgressHUDAnimation.h */,
+				D95F8A261A3FE5F2003F4275 /* JGProgressHUDAnimation.m */,
+				D95F8A271A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.h */,
+				D95F8A281A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.m */,
+				D95F8A291A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.h */,
+				D95F8A2A1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m */,
+				D95F8A2B1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.h */,
+				D95F8A2C1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.m */,
+				D95F8A2D1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.h */,
+				D95F8A2E1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m */,
+				D95F8A2F1A3FE5F2003F4275 /* JGProgressHUDIndicatorView.h */,
+				D95F8A301A3FE5F2003F4275 /* JGProgressHUDIndicatorView.m */,
+				D95F8A311A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.h */,
+				D95F8A321A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m */,
+				D95F8A331A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.h */,
+				D95F8A341A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m */,
+				D95F8A351A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.h */,
+				D95F8A361A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m */,
+			);
+			path = JGProgressHUD;
 			sourceTree = "<group>";
 		};
 		D964200D19EBC3C300CC8057 /* LosePassword */ = {
@@ -3878,6 +3939,7 @@
 				D90C637D19FB44D300C2E440 /* VoiceSearchFeedback009.png in Resources */,
 				C60C0D731A29A40C006033C9 /* ic_login_weixin_highlight@2x.png in Resources */,
 				C6A0C6C41A3AB60A009D9768 /* ic_fav_tnote@2x.png in Resources */,
+				D95F8A371A3FE5F2003F4275 /* JGProgressHUD Resources.bundle in Resources */,
 				D92A48921A38923400B00D91 /* ic_comment@2x.png in Resources */,
 				D94772EE1A32D9C900BF9F8B /* ic_remove_select_one@2x.png in Resources */,
 				D9117A7A1A2C4710000DBFCB /* ChatRecordListTableViewCell.xib in Resources */,
@@ -4257,6 +4319,7 @@
 				D9545FA61A20896700688D72 /* RecommendDetail.m in Sources */,
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
+				D95F8A3F1A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
@@ -4301,6 +4364,7 @@
 				D90F362D19F63B3300E26FA9 /* EMChatLocationBubbleView.m in Sources */,
 				D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */,
 				D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */,
+				D95F8A411A3FE5F2003F4275 /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 				D9CDD71A19EBA4A3001AC9F2 /* AccountManager.m in Sources */,
 				D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */,
 				D9545FCC1A22F36300688D72 /* SpotsListViewController.m in Sources */,
@@ -4314,7 +4378,9 @@
 				D9EF98921A3ABB2E00DB480F /* PoisOfCityViewController.m in Sources */,
 				D9B476831A2468D30014136C /* SIMenuCell.m in Sources */,
 				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
+				D95F8A3B1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
+				D95F8A401A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m in Sources */,
 				D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */,
 				D9E81E7C1A36DD3E00D3BFD0 /* SearchResultTableViewCell.m in Sources */,
 				D9EF98B21A3C16DC00DB480F /* SuperWebViewController.m in Sources */,
@@ -4322,6 +4388,7 @@
 				D90F363119F63B3300E26FA9 /* EMChatTimeCell.m in Sources */,
 				D90F356C19F6391E00E26FA9 /* ToolBoxViewController.m in Sources */,
 				D9DE34F01A0B92AA00DDCCAB /* Account.m in Sources */,
+				D95F8A3C1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				D97C17DB19FE5C5900895B62 /* UIImage+Utils.m in Sources */,
 				D95460211A23531200688D72 /* ShoppingListViewController.m in Sources */,
 				D902ADC91A15EC9300E36A93 /* TravelNoteTableViewCell.m in Sources */,
@@ -4391,9 +4458,11 @@
 				D9AC9BB41A1F2A2300E0C4CE /* YWeatherUtils.m in Sources */,
 				D9681A071A109BF600122793 /* ICETutorialPage.m in Sources */,
 				D99D8ECB19C8600C0021C25B /* main.m in Sources */,
+				D95F8A3E1A3FE5F2003F4275 /* JGProgressHUDIndicatorView.m in Sources */,
 				D90F35FF19F63B3300E26FA9 /* DXChatBarMoreView.m in Sources */,
 				D9D9D9001A1AE159005BE754 /* IMRootViewController.m in Sources */,
 				D902AD071A14789400E36A93 /* HotDestinationCollectionViewController.m in Sources */,
+				D95F8A3A1A3FE5F2003F4275 /* JGProgressHUDErrorIndicatorView.m in Sources */,
 				D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */,
 				D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */,
 				D90F363519F63B3300E26FA9 /* MessageModel.m in Sources */,
@@ -4404,6 +4473,7 @@
 				D9DE34ED1A0B92A900DDCCAB /* Group.m in Sources */,
 				D96551351A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m in Sources */,
 				D90F364B19F63C2F00E26FA9 /* UIResponder+Router.m in Sources */,
+				D95F8A391A3FE5F2003F4275 /* JGProgressHUDAnimation.m in Sources */,
 				D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				D90F362A19F63B3300E26FA9 /* EMChatAudioBubbleView.m in Sources */,
 				D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */,
@@ -4441,6 +4511,7 @@
 				D9A717A51A03B04A005BDEFE /* CreateConversationViewController.m in Sources */,
 				D97C47321A1A3D8F0045E1E1 /* NSString+TaoziString.m in Sources */,
 				D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */,
+				D95F8A3D1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				D96550EC1A256CE500928DB0 /* TripDetail.m in Sources */,
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
 				D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */,
@@ -4450,6 +4521,7 @@
 				D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */,
 				C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */,
 				D9545FB41A22D68100688D72 /* ShoppingPoi.m in Sources */,
+				D95F8A381A3FE5F2003F4275 /* JGProgressHUD.m in Sources */,
 				D9545FBA1A22D7DB00688D72 /* ShoppingDetailViewController.m in Sources */,
 				D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */,
 				D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */,
