@@ -585,6 +585,9 @@ static NSString *reusableCell = @"myGuidesCell";
     _isLoadingMore = YES;
     [_indicatroView startAnimating];
     [self loadDataWithPageIndex:(_currentPage + 1)];
+    
+    NSLog(@"我要加载到第%d",_currentPage+1);
+    
 }
 
 - (void) loadMoreCompleted {
