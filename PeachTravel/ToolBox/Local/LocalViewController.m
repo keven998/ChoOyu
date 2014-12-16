@@ -70,7 +70,6 @@
     _swipeView.pagingEnabled = YES;
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
-    [self loadData];
     
     UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), 1.0)];
     divider.backgroundColor = APP_PAGE_COLOR;
@@ -400,6 +399,11 @@
         tbView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tbView.tag = 1;
         tbView.backgroundColor = APP_PAGE_COLOR;
+        
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.swipeView.bounds.size.width, 20)];
+        footerView.backgroundColor = APP_PAGE_COLOR;
+        tbView.tableFooterView = footerView;
+        
         [view addSubview:tbView];
         if (index == PAGE_FUN) {
             [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
