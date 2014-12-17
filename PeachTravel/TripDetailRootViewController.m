@@ -21,12 +21,14 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocial.h"
 #import "CityDestinationPoi.h"
+#import "ChatRecoredListTableViewController.h"
 
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
+@property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 /**
  *  目的地titile 列表，三个界面共享
  */
@@ -267,33 +269,11 @@
     switch (imageIndex) {
             
         case 0: {
-            TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
-            taoziMessageCtl.delegate = self;
-            taoziMessageCtl.chatType = TZChatTypeStrategy;
-            taoziMessageCtl.chatTitle = @"攻略";
-            taoziMessageCtl.messageId = self.tripDetail.tripId;
+            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+            _chatRecordListCtl.delegate = self;
+            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            [self presentViewController:nCtl animated:YES completion:nil];
             
-            NSMutableString *summary;
-            for (CityDestinationPoi *poi in self.tripDetail.destinations) {
-                NSString *s;
-                if ([poi isEqual:[self.tripDetail.destinations lastObject]]) {
-                    s = poi.zhName;
-                } else {
-                    s = [NSString stringWithFormat:@"%@-", poi.zhName];
-                }
-                [summary appendString:s];
-            }
-            
-            taoziMessageCtl.messageDesc = summary;
-            taoziMessageCtl.messageName = self.tripDetail.tripTitle;
-            TaoziImage *image = [self.tripDetail.images firstObject];
-            taoziMessageCtl.messageImage = image.imageUrl;
-            taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", self.tripDetail.dayCount];
-            
-            [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-                
-            }];
-
             break;
         }
             
@@ -363,6 +343,48 @@
 - (void)didClickOnCancelButton
 {
     
+}
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    [self setChatMessageModel:taoziMessageCtl];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatTitle = chatTitle;
+    taoziMessageCtl.chatter = chatter;
+    taoziMessageCtl.isGroup = isGroup;
+    
+    [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
+        }];
+    }];
+}
+
+
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatType = TZChatTypeStrategy;
+    taoziMessageCtl.messageId = self.tripDetail.tripId;
+    
+    NSMutableString *summary;
+    for (CityDestinationPoi *poi in self.tripDetail.destinations) {
+        NSString *s;
+        if ([poi isEqual:[self.tripDetail.destinations lastObject]]) {
+            s = poi.zhName;
+        } else {
+            s = [NSString stringWithFormat:@"%@-", poi.zhName];
+        }
+        [summary appendString:s];
+    }
+    
+    taoziMessageCtl.messageDesc = summary;
+    taoziMessageCtl.messageName = self.tripDetail.tripTitle;
+    TaoziImage *image = [self.tripDetail.images firstObject];
+    taoziMessageCtl.messageImage = image.imageUrl;
+    taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", self.tripDetail.dayCount];
 }
 
 #pragma mark - TaoziMsgSendDelegate
