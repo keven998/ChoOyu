@@ -9,8 +9,11 @@
 #import "ContactDetailViewController.h"
 #import "ChatViewController.h"
 #import "ALDBlurImageProcessor.h"
+#import "RNGridMenu.h"
+#import "AccountManager.h"
 
-@interface ContactDetailViewController ()<UIScrollViewDelegate> {
+@interface ContactDetailViewController ()<UIScrollViewDelegate, RNGridMenuDelegate>
+{
 
     ALDBlurImageProcessor *blurImageProcessor;
 
@@ -32,11 +35,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     self.navigationItem.title = @"信息";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-//    CGFloat width = kWindowWidth;
+    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
+    [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
+    self.navigationItem.rightBarButtonItem = moreBarItem;
+    
     CGFloat width = self.view.bounds.size.width;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -71,7 +77,6 @@
     
     _smallHeaderFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 64.0, 64.0)];
     _smallHeaderFrame.backgroundColor = [UIColor whiteColor];
-//    smallHeaderFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _smallHeaderFrame.layer.cornerRadius = 32.0;
     _smallHeaderFrame.center = CGPointMake(self.view.bounds.size.width/2.0, 172.0 + 64.0);
     [self.view addSubview:_smallHeaderFrame];
@@ -92,7 +97,6 @@
     UILabel *nickPanel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, oy, width - 20.0, 50.0)];
     nickPanel.backgroundColor = [UIColor whiteColor];
     nickPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    nickPanel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     nickPanel.textColor = UIColorFromRGB(0x393939);
     nickPanel.font = [UIFont systemFontOfSize:15.0];
     nickPanel.text = [NSString stringWithFormat:@"   昵称：%@", contact.nickName];
@@ -133,7 +137,6 @@
     _chatBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:_chatBtn];
-    
 }
 
 - (void) viewDidLayoutSubviews {
@@ -165,7 +168,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) dealloc {
@@ -174,6 +176,7 @@
 }
 
 #pragma - mark IBAction
+
 - (IBAction)chat:(id)sender {
     
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
@@ -188,7 +191,63 @@
     [self.navigationController pushViewController:chatCtl animated:YES];
 }
 
+- (IBAction)moreAction:(UIButton *)sender
+{
+    NSInteger numberOfOptions = 1;
+    NSArray *items = @[
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"删除"],
+                       ];
+    
+    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+    av.backgroundColor = [UIColor clearColor];
+    av.delegate = self;
+    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
+}
+
+- (void)removeContact
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, self.contact.userId];
+    
+    [SVProgressHUD show];
+    
+    //删除联系人
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [accountManager removeContact:self.contact.userId];
+            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+    }];
+    
+}
+
+#pragma mark - RNGridMenuDelegate
+
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
+    if (itemIndex == 0) {
+        [self removeContact];
+    }
+}
+
+
 #pragma UIScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _scrollView) {
         CGFloat y = _scrollView.contentOffset.y;

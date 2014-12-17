@@ -31,7 +31,7 @@
         _images = tempArray;
         _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
-        _imageCount = [[json objectForKey:@"imageCount"] integerValue];
+        _imageCount = [[json objectForKey:@"imageCnt"] integerValue];
         _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
         
     }

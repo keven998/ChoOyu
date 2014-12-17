@@ -60,7 +60,8 @@
     [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _imagePageIndicator.userInteractionEnabled = NO;
     _imagePageIndicator.layer.cornerRadius = 1.0;
-    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _cityPoi.images.count] forState:UIControlStateNormal];
+    _imagePageIndicator.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"共%d张", _cityPoi.imageCount] forState:UIControlStateNormal];
     [_headerView addSubview:_imagePageIndicator];
     
     int count = _cityPoi.images.count;
@@ -327,7 +328,6 @@
         [self loadScrollViewWithPage:page - 1];
         [self loadScrollViewWithPage:page];
         [self loadScrollViewWithPage:page + 1];
-        [_imagePageIndicator setTitle:[NSString stringWithFormat:@"%d/%d",page+1, _cityPoi.images.count] forState:UIControlStateNormal];
     }
 }
 

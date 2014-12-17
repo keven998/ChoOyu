@@ -39,7 +39,6 @@
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
-    
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
 }
 
@@ -206,36 +205,6 @@
                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
-- (void)removeContact:(NSNumber *)userId atIndex:(NSIndexPath *)indexPath
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@",self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, userId];
-    
-    [SVProgressHUD show];
-    
-    //删除联系人
-    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [self.accountManager removeContact:userId];
-            [self updateContactList];
-            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
-        } else {
-            [SVProgressHUD showErrorWithStatus:@"删除失败"];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [SVProgressHUD showErrorWithStatus:@"删除失败"];
-    }];
-
-}
-
 #pragma mark - TZScollViewDelegate
 
 - (void)moveToIndex:(NSInteger)index
@@ -344,23 +313,6 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        return UITableViewCellEditingStyleNone;
-    } else {
-        return UITableViewCellEditingStyleDelete;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-        [self removeContact:contact.userId atIndex:indexPath];
-    }
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -64,8 +64,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 74, self.view.frame.size.width-22, self.view.frame.size.height-74) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = APP_PAGE_COLOR;
+        [_tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+        
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
