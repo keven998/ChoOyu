@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 
-@property (nonatomic, strong) UITapGestureRecognizer *tap;
+//@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @property (nonatomic, copy) NSString *keyWord;
 
@@ -35,9 +35,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouch)];
-    _tap.numberOfTapsRequired = 1;
-    _tap.numberOfTouchesRequired = 1;
+//    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouch)];
+//    _tap.numberOfTapsRequired = 1;
+//    _tap.numberOfTouchesRequired = 1;
 
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"发送目的地";
@@ -72,7 +72,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
         _tableView.layer.cornerRadius = 2.0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView addGestureRecognizer:_tap];
+//        [_tableView addGestureRecognizer:_tap];
         _tableView.dataSource = self;
         _tableView.delegate = self;
 
@@ -94,7 +94,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)tapTouch
 {
     [self.searchBar endEditing:YES];
-    [self.tableView removeGestureRecognizer:_tap];
+//    [self.tableView removeGestureRecognizer:_tap];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -412,20 +412,24 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [_searchBar endEditing:YES];
+}
+
 #pragma mark - UISearchBar Delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSLog(@"开始搜索");
     [_searchBar endEditing:YES];
-    [self.tableView removeGestureRecognizer:_tap];
+//    [self.tableView removeGestureRecognizer:_tap];
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [self.tableView addGestureRecognizer:_tap];
-}
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+//{
+//    [self.tableView addGestureRecognizer:_tap];
+//}
 
 #pragma mark - TaoziMessageSendDelegate
 

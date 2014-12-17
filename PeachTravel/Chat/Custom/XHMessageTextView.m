@@ -98,13 +98,13 @@
     _placeHolderTextColor = [UIColor lightGrayColor];
     
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.scrollIndicatorInsets = UIEdgeInsetsMake(10.0f, 0.0f, 10.0f, 8.0f);
+//    self.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 5.0f);
     self.contentInset = UIEdgeInsetsZero;
-    self.scrollEnabled = YES;
+    self.scrollEnabled = NO;
     self.scrollsToTop = NO;
     self.userInteractionEnabled = YES;
-    self.font = [UIFont systemFontOfSize:16.0f];
-    self.textColor = [UIColor blackColor];
+    self.font = [UIFont systemFontOfSize:14.0f];
+//    self.textColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
     self.keyboardAppearance = UIKeyboardAppearanceDefault;
     self.keyboardType = UIKeyboardTypeDefault;

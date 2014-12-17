@@ -147,8 +147,8 @@
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
     }
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
-    [self.view addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
+//    [self.view addGestureRecognizer:tap];
     
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
@@ -1685,6 +1685,9 @@
     [self addChatDataToMessage:tempMessage];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self keyBoardHidden];
+}
 
 - (void)sendTaoziMessage:(NSDictionary *)taoziMsg
 {

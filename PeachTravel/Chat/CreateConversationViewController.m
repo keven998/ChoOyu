@@ -49,6 +49,7 @@
     }
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     _confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     [_confirm setTitle:@"确定" forState:UIControlStateNormal];
     _confirm.titleLabel.font = [UIFont systemFontOfSize:17.0];
@@ -64,8 +65,9 @@
 //        [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
 //        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
         
-        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
-        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
+//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+        backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.leftBarButtonItem = backBtn;
     }
 }
