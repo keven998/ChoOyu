@@ -166,6 +166,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     }];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [_searchBar endEditing:YES];
+}
+
 #pragma mark - UITableViewDataSource & Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

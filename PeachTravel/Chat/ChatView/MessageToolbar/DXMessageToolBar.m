@@ -316,7 +316,7 @@
     CGFloat width = CGRectGetWidth(self.bounds) - (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2));
     // 初始化输入框
     self.inputTextView = [[XHMessageTextView  alloc] initWithFrame:CGRectMake(textViewLeftMargin, kVerticalPadding, width, kInputTextViewMinHeight)];
-    self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.inputTextView.contentMode = UIViewContentModeCenter;
     _inputTextView.scrollEnabled = YES;
     _inputTextView.returnKeyType = UIReturnKeySend;
@@ -324,9 +324,12 @@
     _inputTextView.placeHolder = @"输入新消息";
     _inputTextView.delegate = self;
     _inputTextView.backgroundColor = [UIColor clearColor];
-    _inputTextView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
+    _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
     _inputTextView.layer.borderWidth = 0.65f;
     _inputTextView.layer.cornerRadius = 2.0f;
+    _inputTextView.textColor = TEXT_COLOR_TITLE;
+    _inputTextView.font = [UIFont systemFontOfSize:14.0];
+    _inputTextView.showsVerticalScrollIndicator = NO;
     _previousTextViewContentHeight = [self getTextViewContentH:_inputTextView];
     
     //录制
