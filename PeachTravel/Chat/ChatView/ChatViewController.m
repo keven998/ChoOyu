@@ -1148,6 +1148,7 @@
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    searchCtl.chatter = _chatter;
     [self.navigationController pushViewController:searchCtl animated:YES];
 
 }

@@ -47,18 +47,22 @@
         case TZChatTypeSpot:
             _headerLabel.text = @"  景点";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
+            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
             
             break;
             
         case TZChatTypeStrategy:
             _headerLabel.text = @"  攻略";
+            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
+
             _descLabel.text = _messageDesc;
             break;
             
         case TZChatTypeFood: {
             _headerLabel.text = @"   美食";
+            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
             _descLabel.text = _messageAddress;
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
@@ -66,18 +70,30 @@
         }
             break;
             
-        case TZChatTypeHotel:
+        case TZChatTypeHotel: {
             _headerLabel.text = @"   酒店";
+            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
+            _descLabel.text = _messageAddress;
+            [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
+        }
             
             break;
             
-        case TZChatTypeShopping:
+        case TZChatTypeShopping: {
             _headerLabel.text = @"   购物";
+            [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+            NSString *propertyStr = [NSString stringWithFormat:@"%.1f",_messageRating];
+            _descLabel.text = _messageAddress;
+            [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
+
+        }
             
             break;
             
         case TZChatTypeCity:
             _headerLabel.text = @"   城市";
+            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
             break;
@@ -170,19 +186,19 @@
             break;
             
         case TZChatTypeFood:
-            [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
+            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
             [contentDic safeSetObject:_messagePrice forKey:@"price"];
             [contentDic safeSetObject:_messageAddress forKey:@"address"];
             break;
             
         case TZChatTypeHotel:
-            [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
+            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
             [contentDic safeSetObject:_messagePrice forKey:@"price"];
             [contentDic safeSetObject:_messageAddress forKey:@"address"];
             break;
             
         case TZChatTypeShopping:
-            [contentDic safeSetObject:[NSNumber numberWithFloat:_messageRating] forKey:@"rating"];
+            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
             [contentDic safeSetObject:_messageAddress forKey:@"address"];
             break;
             
@@ -198,6 +214,7 @@
             break;
     }
     [retDic setObject:contentDic forKey:@"content"];
+    
     return retDic;
 }
 

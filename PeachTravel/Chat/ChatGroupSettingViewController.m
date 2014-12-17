@@ -60,6 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     for (EMGroup *tempGroup in [[EaseMob sharedInstance].chatManager groupList]) {
         if ([_group.groupId isEqualToString:tempGroup.groupId]) {
             _group = tempGroup;

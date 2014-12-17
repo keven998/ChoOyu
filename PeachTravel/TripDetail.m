@@ -297,7 +297,7 @@
         if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
             _rating = 3.5;
         } else {
-            _rating = [[json objectForKey:@"rating"] floatValue];
+            _rating = [[json objectForKey:@"rating"] floatValue]*5;
         }
         _telephone = [json objectForKey:@"telephone"];
         if ([json objectForKey:@"location"] != [NSNull null]) {
