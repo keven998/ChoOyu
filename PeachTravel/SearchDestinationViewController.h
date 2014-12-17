@@ -10,5 +10,7 @@
 
 @interface SearchDestinationViewController : TZViewController
 
+@property (nonatomic, copy) NSString *chatter;
+
 
 @end

@@ -15,6 +15,8 @@
 
 @property (nonatomic, copy) NSString *poiTypeDesc;
 
+@property (nonatomic, copy) NSString *chatter;
+
 /**
  *  搜索的字段
  */

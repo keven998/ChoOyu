@@ -336,6 +336,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         taoziMessageCtl.messageAddress = poi.address;
         taoziMessageCtl.messagePrice = poi.priceDesc;
         taoziMessageCtl.messageRating = poi.rating;
+        taoziMessageCtl.chatter = _chatter;
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
             
         }];
