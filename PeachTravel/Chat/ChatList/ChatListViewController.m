@@ -118,14 +118,12 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 10, kWindowWidth - 22, self.view.frame.size.height-10 - 64 - 44) style:UITableViewStylePlain];
-        
-        NSLog(@"%f", self.view.frame.size.height);
-        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, kWindowWidth - 22, self.view.frame.size.height - 64 - 44) style:UITableViewStylePlain];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
@@ -224,7 +222,7 @@
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
     btn.backgroundColor = APP_THEME_COLOR;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"去聊聊" forState:UIControlStateNormal];
+    [btn setTitle:@"开始Talk" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
     btn.layer.cornerRadius = 2.0;

@@ -129,7 +129,7 @@
     _chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 108.0, 34.0)];
     _chatBtn.backgroundColor = UIColorFromRGB(0xee528c);
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_chatBtn setTitle:@"发消息" forState:UIControlStateNormal];
+    [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
     _chatBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:_chatBtn];

@@ -106,7 +106,7 @@
     btn.backgroundColor = UIColorFromRGB(0xee528c);
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"添加好友" forState:UIControlStateNormal];
+    [btn setTitle:@"添加桃友" forState:UIControlStateNormal];
     btn.center = CGPointMake(width/2.0, 108.0);
     btn.layer.cornerRadius = 2.0;
     [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
@@ -138,8 +138,10 @@
         _tzScrollView.itemBackgroundColor = [UIColor grayColor];
         _tzScrollView.backgroundColor = [UIColor whiteColor];
         _tzScrollView.delegate = self;
+        _tzScrollView.layer.borderWidth = 1.0;
+        _tzScrollView.layer.borderColor = APP_PAGE_COLOR.CGColor;
         NSMutableArray *titles = [[NSMutableArray alloc] init];
-        [titles addObject:@"好友请求"];
+        [titles addObject:@"@"];
         for (NSString *s in [self.dataSource objectForKey:@"headerKeys"]) {
             [titles addObject:s];
         }
@@ -158,10 +160,11 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height + 10, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height-64 - 10 - 44) ];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height - 64 - 44) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
+        _contactTableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
@@ -261,7 +264,7 @@
     if (section == 0) {
         return 0;
     }
-    return 25.0;
+    return 26.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -274,8 +277,12 @@
         label.backgroundColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:12.0];
         label.textColor = UIColorFromRGB(0xadadad);
-        label.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-        label.layer.borderWidth = 0.5;
+        label.clipsToBounds = YES;
+        label.layer.cornerRadius = 2.0;
+        label.layer.shadowColor = APP_PAGE_COLOR.CGColor;
+        label.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        label.layer.shadowOpacity = 1.0;
+        label.layer.shadowRadius = 1.0;
         [view addSubview:label];
         return view;
     }

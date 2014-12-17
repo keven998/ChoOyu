@@ -53,8 +53,8 @@
             break;
             
         case TZChatTypeStrategy:
-            _headerLabel.text = @"  攻略";
             [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+            _headerLabel.text = @"  Memo";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
 
             _descLabel.text = _messageDesc;

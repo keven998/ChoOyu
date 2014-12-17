@@ -164,7 +164,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 76.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
     [_planBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
-    [_planBtn setTitle:@"我的攻略" forState:UIControlStateNormal];
+    [_planBtn setTitle:@"旅行Memo" forState:UIControlStateNormal];
     _planBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
     _planBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
@@ -307,7 +307,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if ([accountManager isLogin]) {
 
         ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-        contactListCtl.title = @"好友";
+        contactListCtl.title = @"桃友";
         if ([accountManager numberOfUnReadFrendRequest]) {
             contactListCtl.notify = YES;
         } else {
@@ -315,7 +315,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }
         
         ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
-        chatListCtl.title = @"消息";
+        chatListCtl.title = @"Talk";
         chatListCtl.notify = NO;
         
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
@@ -707,7 +707,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         //发送本地推送
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.fireDate = [NSDate date]; //触发通知的时间
-        notification.alertBody = [NSString stringWithFormat:@"%@ %@", username, @"添加你为好友"];
+        notification.alertBody = [NSString stringWithFormat:@"%@ %@", username, @"添加你为桃友"];
         notification.alertAction = @"打开";
         notification.timeZone = [NSTimeZone defaultTimeZone];
     }

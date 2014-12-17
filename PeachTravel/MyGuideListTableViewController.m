@@ -47,7 +47,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我的攻略";
+    self.navigationItem.title = @"旅行Memo";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
@@ -447,7 +447,7 @@ static NSString *reusableCell = @"myGuidesCell";
     desc.font = [UIFont systemFontOfSize:15.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"木有任何旅行攻略\n这么好的旅行助手不用可惜了";
+    desc.text = @"木有任何旅行Memo\n这么好的旅行助手不用可惜了";
     [self.emptyView addSubview:desc];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -551,7 +551,7 @@ static NSString *reusableCell = @"myGuidesCell";
         taoziMessageCtl.delegate = self;
         taoziMessageCtl.chatType = TZChatTypeStrategy;
         taoziMessageCtl.chatter = _chatter;
-        taoziMessageCtl.chatTitle = @"攻略";
+        taoziMessageCtl.chatTitle = @"Memo";
         taoziMessageCtl.messageId = guideSummary.guideId;
         taoziMessageCtl.messageDesc = guideSummary.summary;
         taoziMessageCtl.messageName = guideSummary.title;

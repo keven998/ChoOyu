@@ -43,7 +43,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     [self loadDataSource];
 
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"做攻略" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = makePlanBtn;
 }

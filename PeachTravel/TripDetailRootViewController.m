@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"制作攻略";
+    self.navigationItem.title = @"新Memo";
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
