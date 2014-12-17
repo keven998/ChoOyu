@@ -140,6 +140,8 @@
              EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
              options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
              [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
+             //设置环信自动登录
+             [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
              if (completion) {
                  completion(YES);
                  

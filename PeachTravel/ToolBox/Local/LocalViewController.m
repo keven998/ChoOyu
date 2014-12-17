@@ -479,7 +479,7 @@
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
             }
-            [self.currentPageList removeAllObjects];
+            self.currentPageList = nil;
             self.currentPageList = nil;
         }
     }];
@@ -487,10 +487,6 @@
 
 - (void) beginLoadingMoreWithTableView:(UITableView *)tableView
 {
-    //如果当前界面没有内容那么不加载内容，因为在点击的时候会加载内容
-    if ([[self.dataSource objectAtIndex:_currentPage] count] == 0) {
-        return;
-    }
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
     footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     footerView.backgroundColor = APP_PAGE_COLOR;
@@ -530,13 +526,22 @@
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    UIView *view = [self.swipeView itemViewAtIndex:_currentPage];
+    UITableView *tableView = (UITableView *)[view viewWithTag:1];
+    if (![tableView isEqual:scrollView]) {
+        NSLog(@"警告。。。我已经销毁掉了，所以不应该加载数据了");
+        return;
+    }
     if ([scrollView isKindOfClass:[UITableView class]]) {
         BOOL isLoadingMore = [self.isLoaddingMoreList[_currentPage] boolValue];
         if (!isLoadingMore && _didEndScroll) {
             CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
             if (scrollPosition < 44) {
                 NSLog(@"哈哈哈哈哈。滑倒地步了，我要加载了");
-                [self beginLoadingMoreWithTableView:(UITableView *)scrollView];
+                //如果当前界面没有内容那么不加载内容，因为在点击的时候会加载内容
+                if (![[self.dataSource objectAtIndex:_currentPage] count] == 0) {
+                    [self beginLoadingMoreWithTableView:(UITableView *)scrollView];
+                }
                 _didEndScroll = NO;
             }
         }
