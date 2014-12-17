@@ -30,10 +30,7 @@
     
     [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
     [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xffffff)] forBarMetrics:UIBarMetricsDefault];
-    
-    //设置环信自动登录
-    [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
-    
+        
     [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
