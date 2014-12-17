@@ -487,6 +487,10 @@
 
 - (void) beginLoadingMoreWithTableView:(UITableView *)tableView
 {
+    //如果当前界面没有内容那么不加载内容，因为在点击的时候会加载内容
+    if ([[self.dataSource objectAtIndex:_currentPage] count] == 0) {
+        return;
+    }
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
     footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     footerView.backgroundColor = APP_PAGE_COLOR;
