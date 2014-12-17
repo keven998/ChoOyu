@@ -52,7 +52,7 @@
             break;
             
         case TZChatTypeStrategy:
-            _headerLabel.text = @"  攻略";
+            _headerLabel.text = @"  Memo";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
             break;

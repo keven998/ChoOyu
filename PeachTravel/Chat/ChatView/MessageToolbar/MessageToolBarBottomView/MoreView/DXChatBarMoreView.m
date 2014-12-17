@@ -42,7 +42,7 @@
     [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_more_guide_selected.png"] forState:UIControlStateHighlighted];
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
     _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_myStrategyButton setTitle:@"我的攻略" forState:UIControlStateNormal];
+    [_myStrategyButton setTitle:@"旅行Memo" forState:UIControlStateNormal];
     [_myStrategyButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
     _myStrategyButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myStrategyButton.titleLabel.adjustsFontSizeToFitWidth = YES;

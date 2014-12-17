@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"添加好友";
+    self.navigationItem.title = @"添加桃友";
     
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 
@@ -46,7 +46,7 @@
 - (NSArray *)normalDataSource
 {
     if (!_normalDataSource) {
-        _normalDataSource = @[@"手机通讯录", @"邀请微信好友"];
+        _normalDataSource = @[@"手机通讯录", @"邀请微信桃友"];
     }
     return _normalDataSource;
 }
@@ -111,7 +111,7 @@
             [SVProgressHUD dismiss];
             for (Contact *contact in accountManager.account.contacts) {
                 if ([contact.userId integerValue] == userId) {
-                    NSLog(@"我应该进入好友详情界面");
+                    NSLog(@"我应该进入桃友详情界面");
                     return;
                 }
             }

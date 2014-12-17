@@ -106,7 +106,7 @@
     btn.backgroundColor = UIColorFromRGB(0xee528c);
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"添加好友" forState:UIControlStateNormal];
+    [btn setTitle:@"添加桃友" forState:UIControlStateNormal];
     btn.center = CGPointMake(width/2.0, 108.0);
     btn.layer.cornerRadius = 2.0;
     [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
@@ -139,7 +139,7 @@
         _tzScrollView.backgroundColor = [UIColor whiteColor];
         _tzScrollView.delegate = self;
         NSMutableArray *titles = [[NSMutableArray alloc] init];
-        [titles addObject:@"好友请求"];
+        [titles addObject:@"桃友请求"];
         for (NSString *s in [self.dataSource objectForKey:@"headerKeys"]) {
             [titles addObject:s];
         }
