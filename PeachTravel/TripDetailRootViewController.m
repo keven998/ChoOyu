@@ -52,6 +52,7 @@
     
     UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
     [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+    [moreBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
 }

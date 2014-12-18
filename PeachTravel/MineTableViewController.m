@@ -18,6 +18,7 @@
 #import "UserInfoTableViewController.h"
 #import "OptionTableViewCell.h"
 #import "PushMsgsViewController.h"
+#import "UMSocial.h"
 
 #define dataSource               @[@[@"分享账户管理", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
@@ -78,6 +79,15 @@
 {
     UIViewController *controller = [noti.userInfo objectForKey:@"poster"];
     [controller.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)shareToWeChat
+{
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"给你推荐个桃子旅行，专为美女们旅行服务的贴心小助手,去APPStore 搜素桃子滤芯" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            NSLog(@"分享成功！");
+        }
+    }];
 }
 
 #pragma mark - IBAction Methods
@@ -214,7 +224,7 @@
             ctl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ctl animated:YES];
         } else if (indexPath.row == 2) {
-            
+            [self shareToWeChat];
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {

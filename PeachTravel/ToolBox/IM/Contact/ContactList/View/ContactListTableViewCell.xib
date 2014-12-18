@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -55,17 +55,27 @@
                             <constraint firstItem="4RI-Xp-0RI" firstAttribute="leading" secondItem="FHU-Vx-ioE" secondAttribute="leading" constant="8" id="uq8-19-wu3"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3L-1f-LAp">
+                        <rect key="frame" x="0.0" y="59" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="kYt-ip-rN7"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
+                    <constraint firstItem="K3L-1f-LAp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0RP-sv-odU"/>
                     <constraint firstItem="FHU-Vx-ioE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5Ff-Kh-3Jl"/>
                     <constraint firstItem="FHU-Vx-ioE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HJo-Ve-9rB"/>
                     <constraint firstAttribute="bottom" secondItem="FHU-Vx-ioE" secondAttribute="bottom" id="JTv-7V-4Q8"/>
+                    <constraint firstAttribute="trailing" secondItem="K3L-1f-LAp" secondAttribute="trailing" id="NqZ-iK-JC9"/>
                     <constraint firstItem="FHU-Vx-ioE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ezx-yB-J7y"/>
                     <constraint firstAttribute="trailing" secondItem="FHU-Vx-ioE" secondAttribute="trailing" id="fBB-5l-Tec"/>
                     <constraint firstAttribute="trailing" secondItem="FHU-Vx-ioE" secondAttribute="trailing" id="oSo-IX-YNE"/>
                     <constraint firstItem="FHU-Vx-ioE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="orR-Ib-kyy"/>
                     <constraint firstAttribute="bottom" secondItem="FHU-Vx-ioE" secondAttribute="bottom" id="thl-nS-jgS"/>
+                    <constraint firstAttribute="bottom" secondItem="K3L-1f-LAp" secondAttribute="bottom" constant="-0.5" id="v2z-3J-BY7"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

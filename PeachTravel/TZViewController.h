@@ -10,4 +10,6 @@
 
 @interface TZViewController : UIViewController
 
+- (void)goBack;
+
 @end

@@ -10,7 +10,8 @@
 #import "ResetPasswordViewController.h"
 #import "AccountManager.h"
 
-@interface VerifyCaptchaViewController () {
+@interface VerifyCaptchaViewController ()
+{
     NSTimer *timer;
     NSInteger count;
 }
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *captchaLabel;
 @property (weak, nonatomic) IBOutlet UIButton *captchaBtn;
 @property (nonatomic) BOOL shouldSetPasswordWhenBindTel;   //标记当验证成功手机号后是否需要跳转到下一个页面设置密码
+@property (nonatomic, strong) UIButton *registerBtn;
 
 @end
 
@@ -28,10 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = registerBtn;
-    
+    _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+    [_registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_registerBtn];;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
     
@@ -39,19 +43,17 @@
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
-//            [registerBtn setTitle:@"绑定" forState:UIControlStateNormal];
             self.navigationItem.rightBarButtonItem.title = @"绑定 ";
         } else {
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"真羡慕有两个手机的美眉";
-//            [registerBtn setTitle:@"更换" forState:UIControlStateNormal];
             self.navigationItem.rightBarButtonItem.title = @"更换 ";
+            [_registerBtn setTitle:@"更换" forState:UIControlStateNormal];
         }
        
     } else {
         self.navigationItem.title = @"验证账户";
-//        [registerBtn setTitle:@"下一步" forState:UIControlStateNormal];
-        self.navigationItem.rightBarButtonItem.title = @"提交 ";
+        [_registerBtn setTitle:@"提交" forState:UIControlStateNormal];
         
     }
     
@@ -70,7 +72,6 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
-    
     _captchaBtn.layer.cornerRadius = 2.0;
 }
 
@@ -78,7 +79,6 @@
 
 - (UserInfoInputError)checkInput
 {
-    NSLog(@"%d", _phoneLabel.text.length);
     if (_phoneLabel.text.length != 11) {
         return PhoneNumberError;
     }
@@ -134,15 +134,13 @@
     [SVProgressHUD show];
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
             [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"验证码发送失败"];
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             _captchaBtn.userInteractionEnabled = YES;
         }
         
@@ -192,7 +190,7 @@
             [self.navigationController pushViewController:resetPasswordCtl animated:YES];
             
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"msg"]];
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         [SVProgressHUD dismiss];
         
@@ -229,7 +227,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         [SVProgressHUD dismiss];
         
@@ -245,7 +243,7 @@
 
 - (IBAction)receiveVerifyCode:(UIButton *)sender {
     if ([self checkInput] == PhoneNumberError) {
-        NSLog(@"手机号码错误");
+        [self showHint:@"手机号输错了"];
     } else {
         _captchaBtn.userInteractionEnabled = NO;
         [self getCaptcha];
@@ -253,6 +251,16 @@
 }
 
 - (IBAction)nextStep:(UIButton *)sender {
+    NSString * regex0 = @"^1\\d{10}$";
+    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
+    if (![pred0 evaluateWithObject:_phoneLabel.text]) {
+        [self showHint:@"手机号输错了"];
+        return;
+    }
+    if ([_captchaLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
+        [self showHint:@"验证码不能为空"];
+        return;
+    }
     [self stopTimer];
     [self virifyCaptcha];
 }
@@ -261,7 +269,6 @@
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
-
 @end
 
 

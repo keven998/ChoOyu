@@ -40,8 +40,6 @@
     _verifyCodeBtn.layer.cornerRadius = 2.0;
     [self startTimer];
     
-//    _verifyCodeTextField.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _verifyCodeTextField.layer.borderWidth = 1.0;
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _verifyCodeTextField.bounds.size.height - 16.0)];
     ul.text = @" 验证码:";
     ul.textColor = TEXT_COLOR_TITLE;
@@ -50,9 +48,6 @@
     _verifyCodeTextField.leftView = ul;
     _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
     [_verifyCodeTextField becomeFirstResponder];
-
-//    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
-//    [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -95,10 +90,7 @@
 
 //重新获取验证码
 - (IBAction)reloadVerifyCode:(UIButton *)sender {
-    count = _coolDown;
-    [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
-    [self startTimer];
-    _verifyCodeBtn.userInteractionEnabled = NO;
+    [self getCaptcha];
 }
 
 - (IBAction)confirm:(UIButton *)sender {
@@ -148,12 +140,42 @@
     }];
 }
 
-//- (void)tapBackground:(id)sender
-//{
-//    if ([_verifyCodeTextField isFirstResponder]) {
-//        [_verifyCodeTextField resignFirstResponder];
-//    }
-//}
+/**
+ *  获取验证码
+ */
+- (void)getCaptcha
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:_phoneNumber forKey:@"tel"];
+    [params setObject:kUserRegister forKey:@"actionCode"];
+    [SVProgressHUD show];
+    //获取注册码
+    [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        
+        if (code == 0) {
+            [SVProgressHUD dismiss];
+            
+            //获取成功开始计时
+            count = _coolDown;
+            [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
+            [self startTimer];
+            _verifyCodeBtn.userInteractionEnabled = NO;
+            
+        } else {
+            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"重新获取一下吧"];
+    }];
+}
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

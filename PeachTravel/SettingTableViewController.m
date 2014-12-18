@@ -33,6 +33,32 @@
 - (void)mark {
 }
 
+- (void)clearMemo
+{
+    
+    JGProgressHUD *HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
+    HUD.textLabel.text = @"正在清除";
+    
+    [HUD showInView:self.navigationController.view];
+    
+    [[SDImageCache sharedImageCache] cleanDiskWithCompletionBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            HUD.indicatorView = nil;
+            
+            HUD.textLabel.font = [UIFont systemFontOfSize:20.0f];
+            
+            HUD.textLabel.text = @"Done";
+            
+            HUD.position = JGProgressHUDPositionBottomCenter;
+            
+            [HUD dismissAfterDelay:0.8];
+        });
+        HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 10.0f, 0.0f);
+    }];
+    
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -59,7 +85,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -83,7 +108,7 @@
     int index = indexPath.section*2 + indexPath.row;
     switch (index) {
         case 0: {
-            
+            [self clearMemo];
         }
             break;
             

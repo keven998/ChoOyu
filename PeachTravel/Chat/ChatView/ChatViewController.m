@@ -48,6 +48,7 @@
 #import "SearchDestinationViewController.h"
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
+#import "IMRootViewController.h"
 
 #define KPageCount 20
 
@@ -147,8 +148,8 @@
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
     }
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
-//    [self.view addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
+    [self.view addGestureRecognizer:tap];
     
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
@@ -229,6 +230,24 @@
 }
 
 #pragma mark - IBAction Methods
+
+/**
+ * 实现父类的后退按钮
+ */
+- (void)goBack
+{
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSArray *ctls = self.navigationController.viewControllers;
+    UIViewController *ctl = [ctls objectAtIndex:1];
+    if ([ctl isKindOfClass:[IMRootViewController class]]) {
+        [((IMRootViewController *)ctl) setSelectedIndex:0 animated:YES];
+        [self.navigationController popToViewController:ctl animated:YES];
+        return;
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
+}
 
 /**
  *  显示群组联系人列表
@@ -728,7 +747,6 @@
             }
         }
     }
-    
     return nil;
 }
 
