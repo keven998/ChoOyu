@@ -405,6 +405,8 @@
 		D95F8A541A403467003F4275 /* ic_sns_qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4D1A403467003F4275 /* ic_sns_qzone@2x.png */; };
 		D95F8A551A403467003F4275 /* ic_sns_douban@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A4E1A403467003F4275 /* ic_sns_douban@2x.png */; };
 		D95F8A571A40633D003F4275 /* ic_chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D95F8A561A40633D003F4275 /* ic_chat@2x.png */; };
+		D95F8DEC1A42F932003F4275 /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8DE91A42F932003F4275 /* CycleScrollView.m */; };
+		D95F8DED1A42F932003F4275 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F8DEB1A42F932003F4275 /* NSTimer+Addition.m */; };
 		D964200B19EBC3B800CC8057 /* VerifyCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */; };
 		D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */; };
 		D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964201519EBCA3300CC8057 /* SettingTableViewController.m */; };
@@ -1170,6 +1172,10 @@
 		D95F8A4D1A403467003F4275 /* ic_sns_qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_qzone@2x.png"; sourceTree = "<group>"; };
 		D95F8A4E1A403467003F4275 /* ic_sns_douban@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_douban@2x.png"; sourceTree = "<group>"; };
 		D95F8A561A40633D003F4275 /* ic_chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_chat@2x.png"; sourceTree = "<group>"; };
+		D95F8DE81A42F932003F4275 /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
+		D95F8DE91A42F932003F4275 /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
+		D95F8DEA1A42F932003F4275 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		D95F8DEB1A42F932003F4275 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
 		D964200819EBC3B800CC8057 /* VerifyCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCaptchaViewController.h; sourceTree = "<group>"; };
 		D964200919EBC3B800CC8057 /* VerifyCaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCaptchaViewController.m; sourceTree = "<group>"; };
 		D964200A19EBC3B800CC8057 /* VerifyCaptchaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyCaptchaViewController.xib; sourceTree = "<group>"; };
@@ -2489,6 +2495,10 @@
 		D9545FB01A22D63800688D72 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				D95F8DE81A42F932003F4275 /* CycleScrollView.h */,
+				D95F8DE91A42F932003F4275 /* CycleScrollView.m */,
+				D95F8DEA1A42F932003F4275 /* NSTimer+Addition.h */,
+				D95F8DEB1A42F932003F4275 /* NSTimer+Addition.m */,
 				D906CBD61A2068C800BE2588 /* LocationTableViewCell.h */,
 				D906CBD71A2068C800BE2588 /* LocationTableViewCell.m */,
 				D906CBD81A2068C800BE2588 /* LocationTableViewCell.xib */,
@@ -4406,6 +4416,7 @@
 				D9117A621A297628000DBFCB /* MyGuideSummary.m in Sources */,
 				C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */,
 				C6A0C6CC1A3AD246009D9768 /* TZTBViewController.m in Sources */,
+				D95F8DEC1A42F932003F4275 /* CycleScrollView.m in Sources */,
 				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9117A801A2C9C6B000DBFCB /* TZSelectView.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
@@ -4449,6 +4460,7 @@
 				D97C17D419FE301B00895B62 /* MessageModelManager.m in Sources */,
 				D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */,
 				D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */,
+				D95F8DED1A42F932003F4275 /* NSTimer+Addition.m in Sources */,
 				D9DE78DD1A033724008A8576 /* MHTabBarController.m in Sources */,
 				D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */,
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
