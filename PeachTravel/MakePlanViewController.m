@@ -27,13 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"想去的城市";
+    self.navigationItem.title = @"选择想去的城市";
     
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"请输入城市名或拼音"];
+    [_searchBar setPlaceholder:@"输入城市名或拼音"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.translucent = YES;
@@ -196,6 +196,11 @@
 {
     _searchBar.hidden = YES;
 }
+
+- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    [_searchController.searchBar becomeFirstResponder];
+}
+
 @end
 
 
