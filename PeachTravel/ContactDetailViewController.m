@@ -59,9 +59,10 @@
     contentView.autoresizesSubviews = YES;
     [_scrollView addSubview:contentView];
     
-    _bigHeaderView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 64.0, width, 108.0)];
+    _bigHeaderView = [[UIImageView alloc] initWithFrame:CGRectMake(11.0, 74.0, width-22, 100.0)];
     _bigHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _bigHeaderView.clipsToBounds = YES;
+    _bigHeaderView.layer.cornerRadius = 2.0;
     [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"ic_setting_avatar.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
         if (image == nil) return ;
         blurImageProcessor = [[ALDBlurImageProcessor alloc] initWithImage: image];
@@ -76,52 +77,57 @@
     _bigHeaderView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_bigHeaderView];
     
-    _smallHeaderFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 64.0, 64.0)];
+    _smallHeaderFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 68.0, 68.0)];
     _smallHeaderFrame.backgroundColor = [UIColor whiteColor];
-    _smallHeaderFrame.layer.cornerRadius = 32.0;
-    _smallHeaderFrame.center = CGPointMake(self.view.bounds.size.width/2.0, 172.0 + 64.0);
+    _smallHeaderFrame.layer.cornerRadius = 34.0;
+    _smallHeaderFrame.center = CGPointMake(self.view.bounds.size.width/2.0, 172.0 + 66.0);
     [self.view addSubview:_smallHeaderFrame];
     
-    UIImageView *smallHeaderView = [[UIImageView alloc] initWithFrame:CGRectMake(2.0, 2.0, 60.0, 60.0)];
+    UIImageView *smallHeaderView = [[UIImageView alloc] initWithFrame:CGRectMake(3.0, 3.0, 62.0, 62.0)];
     smallHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [smallHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
     smallHeaderView.layer.cornerRadius = 30.0;
     smallHeaderView.clipsToBounds = YES;
+    [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"ic_setting_avatar.png"]];
     [_smallHeaderFrame addSubview:smallHeaderView];
     
-    UIView *wp = [[UIView alloc] initWithFrame:CGRectMake(10.0, 172.0 + 5.0, width - 20.0, 44.0)];
+    UIView *wp = [[UIView alloc] initWithFrame:CGRectMake(11.0, 175.0 + 5.0, width - 22.0, 34.0)];
     wp.backgroundColor = [UIColor whiteColor];
+    wp.layer.cornerRadius = 2.0;
     wp.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [contentView addSubview:wp];
     
-    CGFloat oy = 172.0 + 5.0 + 44.0 + 10.0;
-    UILabel *nickPanel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, oy, width - 20.0, 50.0)];
+    CGFloat oy = 172.0 + 5.0 + 34.0 + 10.0;
+    UILabel *nickPanel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, oy, width - 22.0, 54.0)];
     nickPanel.backgroundColor = [UIColor whiteColor];
     nickPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    nickPanel.textColor = UIColorFromRGB(0x393939);
-    nickPanel.font = [UIFont systemFontOfSize:15.0];
+    nickPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    nickPanel.font = [UIFont systemFontOfSize:14.0];
+    nickPanel.layer.cornerRadius = 2.0;
     nickPanel.text = [NSString stringWithFormat:@"   昵称：%@", contact.nickName];
     [contentView addSubview:nickPanel];
     
-    oy += 51.0;
-    UILabel *idPanel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, oy, width - 20.0, 50.0)];
+    oy += 55.0;
+    UILabel *idPanel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, oy, width - 22.0, 54.0)];
     idPanel.backgroundColor = [UIColor whiteColor];
     idPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    idPanel.textColor = UIColorFromRGB(0x393939);
-    idPanel.font = [UIFont systemFontOfSize:15.0];
+    idPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    idPanel.font = [UIFont systemFontOfSize:14.0];
+    idPanel.layer.cornerRadius = 2.0;
     idPanel.text = [NSString stringWithFormat:@"   桃号：%@", contact.userId];
     [contentView addSubview:idPanel];
     
-    oy += 51.0;
-    _signPanel = [[UIView alloc] initWithFrame:CGRectMake(10.0, oy, width - 20.0, 50.0)];
+    oy += 55.0;
+    _signPanel = [[UIView alloc] initWithFrame:CGRectMake(11.0, oy, width - 22.0, 54.0)];
     _signPanel.backgroundColor = [UIColor whiteColor];
     _signPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [contentView addSubview:_signPanel];
     
-    _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, oy, width - 20.0, 50.0)];
+    _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, oy, width - 20.0, 54.0)];
     _signLabel.numberOfLines = 0.;
-    _signLabel.textColor = UIColorFromRGB(0x393939);
-    _signLabel.font = [UIFont systemFontOfSize:15.0];
+    _signLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _signLabel.font = [UIFont systemFontOfSize:14.0];
+    _signLabel.layer.cornerRadius = 2.0;
     if (contact.signature) {
         _signLabel.text = [NSString stringWithFormat:@"   旅行签名：%@",contact.signature];
     } else {
@@ -131,11 +137,12 @@
     [_signPanel addSubview:_signLabel];
     
     
-    _chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 108.0, 34.0)];
-    _chatBtn.backgroundColor = UIColorFromRGB(0xee528c);
+    _chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 120.0, 30.0)];
+    _chatBtn.backgroundColor = APP_THEME_COLOR;
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
-    _chatBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _chatBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    _chatBtn.layer.cornerRadius = 2.0;
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:_chatBtn];
 }
@@ -264,15 +271,13 @@
         }
     
         CGRect rect = _bigHeaderView.frame;
-        rect.size.height = 108.0 - y;
-        rect.origin.y = 64.0;
+        rect.size.height = 100.0 - y;
+        rect.origin.y = 74.0;
         _bigHeaderView.frame = rect;
         
         CGRect rect1 = _smallHeaderFrame.frame;
         rect1.origin.y = 140.0 - y;
         _smallHeaderFrame.frame = rect1;
-        
-        
     }
 }
 

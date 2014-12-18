@@ -73,7 +73,7 @@
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"hello,我是%@,加个好友呗", accountManager.account.nickName];
     }
-    [params safeSetObject:helloStr forKey:@"hello"];
+    [params safeSetObject:helloStr forKey:@"message"];
 
     [SVProgressHUD show];
 

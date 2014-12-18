@@ -113,7 +113,7 @@
         _contactTableView.delegate = self;
         _contactTableView.separatorStyle = UITableViewCellSelectionStyleNone;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
-
+        _contactTableView.showsVerticalScrollIndicator = NO;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
     }
     return _contactTableView;

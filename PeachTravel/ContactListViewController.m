@@ -179,6 +179,7 @@
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _contactTableView.showsVerticalScrollIndicator = NO;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
     }
