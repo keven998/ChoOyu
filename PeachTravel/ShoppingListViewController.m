@@ -84,9 +84,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 {
     if (!_tableViewFooterView) {
         _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 80, 30)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 160.0, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addOneDayBtn setTitle:@"添加想去" forState:UIControlStateNormal];
+        [addOneDayBtn setTitle:@"备忘想逛的shopping" forState:UIControlStateNormal];
         addOneDayBtn.backgroundColor = APP_THEME_COLOR;
         [addOneDayBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
         addOneDayBtn.layer.cornerRadius = 2.0;

@@ -235,7 +235,7 @@
     UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
 
     NSArray *tabBarItemImages = @[@"first", @"second", @"third"];
-    NSArray *tabBarItemTitles = @[@"线路日程", @"美食清单", @"爱购清单"];
+    NSArray *tabBarItemTitles = @[@"玩安排", @"吃清单", @"买清单"];
     
     NSInteger index = 0;
     for (RDVTabBarItem *item in [[self tabBar] items]) {
