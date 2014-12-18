@@ -74,8 +74,14 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _searchBar.translucent = YES;
         [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+        [_searchBar becomeFirstResponder];
     }
     return _searchBar;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_searchBar endEditing:YES];
 }
 
 #pragma mark - private methods

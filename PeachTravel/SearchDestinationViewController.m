@@ -49,6 +49,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.translucent = YES;
     [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    [_searchBar becomeFirstResponder];
     
     [self.view addSubview:_searchBar];
     [self.view addSubview:self.tableView];
@@ -59,6 +60,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [super viewWillAppear:animated];
     NSLog(@"***%@", NSStringFromCGSize(self.tableView.contentSize));
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_searchBar endEditing:YES];
 }
 
 - (UITableView *)tableView

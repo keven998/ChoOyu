@@ -40,7 +40,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     self.collectionView.collectionViewLayout = self.flowLayout;
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 10.0, 5);
     [self loadDataSource];
 
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
