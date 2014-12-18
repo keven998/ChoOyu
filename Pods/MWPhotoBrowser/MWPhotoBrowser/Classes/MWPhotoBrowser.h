@@ -54,6 +54,11 @@
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
 
+/**
+ *  图片合集
+ */
+@property (nonatomic, strong) NSArray *imageList;
+
 //tzlx
 @property (nonatomic, strong) NSMutableArray *defaultPhotos;
 
@@ -71,8 +76,5 @@
 // Navigation
 - (void)showNextPhotoAnimated:(BOOL)animated;
 - (void)showPreviousPhotoAnimated:(BOOL)animated;
-
-//tzlx
-- (void) loadTZLXdata:(id)params;
 
 @end

@@ -49,36 +49,16 @@
 	return self;
 }
 
-- (void) loadTZLXdata:(id)params {
-    [SVProgressHUD show];
-    [self performSelector:@selector(test) withObject:nil afterDelay:2.0];
-}
-
-- (void)test {
-    [SVProgressHUD dismiss];
+- (void)setImageList:(NSArray *)imageList
+{
+    _imageList = imageList;
     _defaultPhotos = [[NSMutableArray alloc] init];
-    MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://pic3.bbzhi.com/fengjingbizhi/gaoqingkuanpingfengguangsheyingps/show_fengjingta_281299_11.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    photo = [MWPhoto photoWithURL:[NSURL URLWithString:@"http://www.kkdesk.com/d/file/5ba79a5699fa657442f6385f12c98fd9.jpg"]];
-    [_defaultPhotos addObject:photo];
-    [self reloadData];
-    [_gridController.collectionView reloadData];
+    for (NSString *imageStr in _imageList) {
+        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:imageStr]];
+        [_defaultPhotos addObject:photo];
+        [self reloadData];
+        [_gridController.collectionView reloadData];
+    }
 }
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {

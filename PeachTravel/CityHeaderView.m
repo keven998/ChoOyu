@@ -307,9 +307,6 @@
 #pragma mark - UITabGestureAction
 - (void)viewImage:(UITapGestureRecognizer *)viewImage {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-//    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-//    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [browser loadTZLXdata:nil];
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
@@ -317,12 +314,48 @@
         if ([nextResponder isKindOfClass:[UIViewController class]])
         {
              UIViewController *ctl = (UIViewController*)nextResponder;
-//            [ctl presentViewController:nc animated:YES completion:nil];
+            [self loadAlbumDataWithAlbumCtl:browser];
             [ctl.navigationController pushViewController:browser animated:YES];
             break;
         }
     }
 }
+
+/**
+ *  获取城市的详细信息
+ */
+- (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@5473ccd7b8ce043a64108c46/album", API_GET_ALBUM];
+    
+    [SVProgressHUD show];
+    
+    [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD dismiss];
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
+                [tempArray addObject:[imageDic objectForKey:@"url"]];
+            }
+            albumCtl.imageList = tempArray;
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
+}
+
 
 
 @end
