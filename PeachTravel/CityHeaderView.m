@@ -193,30 +193,33 @@
     CGFloat widthPerItem = width/3;
     
     _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, widthPerItem-0.5, 50)];
-    [_showSpotsBtn setTitle:@"游玩" forState:UIControlStateNormal];
+    [_showSpotsBtn setTitle:@"玩" forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     _showSpotsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"ic_standard_travel.png"] forState:UIControlStateNormal];
     [_showSpotsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     _showSpotsBtn.backgroundColor = [UIColor whiteColor];
+    _showSpotsBtn.layer.cornerRadius = 2.0;
     [_detailView addSubview:_showSpotsBtn];
     
     _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthPerItem+0.5, doy, widthPerItem-0.5, 50)];
-    [_showRestaurantsBtn setTitle:@"美食" forState:UIControlStateNormal];
+    [_showRestaurantsBtn setTitle:@"吃" forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     _showRestaurantsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"ic_standard_food.png"] forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     _showRestaurantsBtn.backgroundColor = [UIColor whiteColor];
+    _showRestaurantsBtn.layer.cornerRadius = 2.0;
     [_detailView addSubview:_showRestaurantsBtn];
     
     _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthPerItem*2+1, doy, widthPerItem-0.5, 50)];
-    [_showShoppingBtn setTitle:@"购物" forState:UIControlStateNormal];
+    [_showShoppingBtn setTitle:@"买" forState:UIControlStateNormal];
     [_showShoppingBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     _showShoppingBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"ic_standard_shopping.png"] forState:UIControlStateNormal];
     [_showShoppingBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     _showShoppingBtn.backgroundColor = [UIColor whiteColor];
+    _showShoppingBtn.layer.cornerRadius = 2.0;
     [_detailView addSubview:_showShoppingBtn];
     
     doy += 60;

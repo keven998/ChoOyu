@@ -31,7 +31,7 @@
             </objects>
             <point key="canvasLocation" x="2928" y="-631"/>
         </scene>
-        <!--工具箱-->
+        <!--Tool Box View Controller-->
         <scene sceneID="fRP-vO-oT5">
             <objects>
                 <viewController storyboardIdentifier="toolsSB" id="TWu-LE-aWR" customClass="ToolBoxViewController" sceneMemberID="viewController">
@@ -44,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="工具箱" id="a2R-vV-Pbx"/>
+                    <navigationItem key="navigationItem" id="a2R-vV-Pbx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WlI-Au-m3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -128,11 +128,11 @@
             </objects>
             <point key="canvasLocation" x="2293.5" y="1283"/>
         </scene>
-        <!--工具箱-->
+        <!--首页-->
         <scene sceneID="DW2-Vo-WXg">
             <objects>
                 <navigationController storyboardIdentifier="toolsHostSB" automaticallyAdjustsScrollViewInsets="NO" id="7qq-iv-VRy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="工具箱" id="otW-Eu-z4z"/>
+                    <tabBarItem key="tabBarItem" title="首页" id="otW-Eu-z4z"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wbK-Xy-aZ3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

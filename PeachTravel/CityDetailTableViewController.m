@@ -47,10 +47,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityHeaderView.delegate = self;
     _cityHeaderView.backgroundColor = APP_PAGE_COLOR;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 0)];
-    NSLog(@"%@",NSStringFromCGRect(_cityHeaderView.frame));
     _cityHeaderView.cityPoi = _cityPoi;
     _tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-    NSLog(@"%@",NSStringFromCGRect(_cityHeaderView.frame));
     self.tableView.tableHeaderView = _tableHeaderView;
     [self.tableView addSubview:_cityHeaderView];
     [_cityHeaderView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
@@ -286,9 +284,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     [btn addSubview:moreTravelNoteBtn];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, btn.frame.size.width, 1)];
-    spaceView.backgroundColor = APP_DIVIDER_COLOR;
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, btn.frame.size.width, 0.5)];
+    spaceView.backgroundColor = APP_PAGE_COLOR;
     [btn addSubview:spaceView];
+    btn.layer.cornerRadius = 2.0;
 
     return btn;
 }

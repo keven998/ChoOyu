@@ -101,9 +101,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     if (!_tableViewFooterView) {
         _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 80, 30)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 120.0, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addOneDayBtn setTitle:@"添加一天" forState:UIControlStateNormal];
+        [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
         addOneDayBtn.backgroundColor = APP_THEME_COLOR;
         [addOneDayBtn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
         addOneDayBtn.layer.cornerRadius = 2.0;
