@@ -88,6 +88,9 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)dealloc
 {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _tableView = nil;
     _slimeView.delegate = nil;
     _slimeView = nil;
 }
