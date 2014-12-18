@@ -48,6 +48,7 @@
 #import "SearchDestinationViewController.h"
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
+#import "IMRootViewController.h"
 
 #define KPageCount 20
 
@@ -229,6 +230,24 @@
 }
 
 #pragma mark - IBAction Methods
+
+/**
+ * 实现父类的后退按钮
+ */
+- (void)goBack
+{
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSArray *ctls = self.navigationController.viewControllers;
+    UIViewController *ctl = [ctls objectAtIndex:1];
+    if ([ctl isKindOfClass:[IMRootViewController class]]) {
+        [((IMRootViewController *)ctl) setSelectedIndex:0 animated:YES];
+        [self.navigationController popToViewController:ctl animated:YES];
+        return;
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
+}
 
 /**
  *  显示群组联系人列表
