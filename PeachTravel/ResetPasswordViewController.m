@@ -12,7 +12,6 @@
 @interface ResetPasswordViewController ()
 //@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passwordLabel;
-@property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 
 @end
 
@@ -41,6 +40,13 @@
 
 - (IBAction)confirm:(UIButton *)sender {
     
+    NSString * regex = @"^[A-Za-z0-9]{6,16}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if (![pred evaluateWithObject:_passwordLabel.text]) {
+        [self showHint:@"密码只能为6-16位数字，字母"];
+        return;
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -48,9 +54,9 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:_phoneNumber forKey:@"tel"];
-    [params setObject:_passwordLabel.text forKey:@"pwd"];
-    [params setObject:_token forKey:@"token"];
+    [params safeSetObject:_phoneNumber forKey:@"tel"];
+    [params safeSetObject:_passwordLabel.text forKey:@"pwd"];
+    [params safeSetObject:_token forKey:@"token"];
     NSString *urlStr;
     
     if (_verifyCaptchaType == UserBindTel) {

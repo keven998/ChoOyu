@@ -51,9 +51,6 @@
     
     UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(0., 109.0, width, 86.0)];
     eborder.backgroundColor = [UIColor whiteColor];
-//    eborder.layer.borderColor = UIColorFromRGB(0xdbdbdb).CGColor;
-//    eborder.layer.borderWidth = 1.0;
-//    eborder.layer.cornerRadius = 3.0;
     [self.view addSubview:eborder];
     
     UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 5.0, width - 10.0, 76.0)];

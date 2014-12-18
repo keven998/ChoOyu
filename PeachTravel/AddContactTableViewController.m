@@ -13,6 +13,7 @@
 #import "AccountManager.h"
 #import "SearchUserInfoViewController.h"
 #import "ConvertMethods.h"
+#import "ContactDetailViewController.h"
 
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
@@ -108,10 +109,15 @@
             [SVProgressHUD showErrorWithStatus:@"不能添加自己到通讯录"];
             
         } else {
+            [_searchBar resignFirstResponder];
             [SVProgressHUD dismiss];
+            
+            //如果已经是好友了，进入好友详情界面
             for (Contact *contact in accountManager.account.contacts) {
                 if ([contact.userId integerValue] == userId) {
-                    NSLog(@"我应该进入桃友详情界面");
+                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+                    contactDetailCtl.contact = contact;
+                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
                     return;
                 }
             }
@@ -135,6 +141,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
+        return 0;
+    }
     return 12.0;
 }
 
@@ -175,6 +184,9 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
+        return nil;
+    }
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = APP_PAGE_COLOR;
     return view;
@@ -182,8 +194,6 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     
     if (tableView == _searchTableViewController.searchResultsTableView) {
         

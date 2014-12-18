@@ -41,6 +41,7 @@
     
     UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
     [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
+    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     self.navigationItem.rightBarButtonItem = moreBarItem;
     
     CGFloat width = self.view.bounds.size.width;

@@ -25,7 +25,10 @@
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) SelectContactScrollView *selectContactView;
+
+//是否显示字母索引，当少于15个人的时候不显示
 @property (nonatomic) BOOL showRefrence;
+
 @property (nonatomic, strong)  UIButton *confirm;
 
 @end
@@ -35,14 +38,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.title = @"创建会话";
     /**
      *  如果联系人的个数大于15，那显示索引，反之不现实
      */
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager.account.contacts count] < 15) {
+    if ([accountManager.account.contacts count] > 15) {
         _showRefrence = YES;
     }
-    self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.selectContactView];
     if (_showRefrence) {
         [self.view addSubview:self.tzScrollView];
@@ -60,13 +64,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
     
     if (!_isPushed) {
-//        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
-//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//        [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-        
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
-//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
         backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.leftBarButtonItem = backBtn;
     }

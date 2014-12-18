@@ -26,6 +26,9 @@
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
 
+//是否显示字母索引，当少于15个人的时候不显示
+@property (nonatomic) BOOL showRefrence;
+
 @property (strong, nonatomic) UIView *emptyView;
 
 @end
@@ -35,11 +38,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    [self.view addSubview:self.tzScrollView];
-    [self.view addSubview:self.contactTableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.accountManager loadContactsFromServer];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager.account.contacts count] > 15) {
+        _showRefrence = YES;
+    }
+    
+    if (_showRefrence) {
+        [self.view addSubview:self.tzScrollView];
+    }
+    [self.view addSubview:self.contactTableView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -159,11 +170,14 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, self.tzScrollView.frame.origin.y+self.tzScrollView.frame.size.height, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - self.tzScrollView.frame.origin.y - self.tzScrollView.frame.size.height - 64 - 44) ];
+        CGFloat offsetY = 10;
+        if (_showRefrence) {
+            offsetY += self.tzScrollView.frame.size.height;
+        }
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY - 64 - 44) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
-        _contactTableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
         _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];

@@ -147,8 +147,8 @@
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
     }
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
-//    [self.view addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
+    [self.view addGestureRecognizer:tap];
     
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
@@ -728,7 +728,6 @@
             }
         }
     }
-    
     return nil;
 }
 

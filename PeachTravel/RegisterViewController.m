@@ -20,6 +20,7 @@
 @implementation RegisterViewController
 
 #pragma mark - LifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -29,10 +30,6 @@
     
     self.navigationItem.title = @"注册";
     
-//    _phoneLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _phoneLabel.layer.borderWidth = 1.0;
-//    _passwordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _passwordLabel.layer.borderWidth = 1.0;
     _passwordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
@@ -42,6 +39,7 @@
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
+    _phoneLabel.text = _defaultPhone;
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
     pl.text = @" 密码:";
@@ -50,6 +48,7 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = pl;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+    _passwordLabel.text = _defaultPassword;
 
     [_registerBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
     [_registerBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
@@ -80,11 +79,11 @@
             break;
             
         case PhoneNumberError:
-            NSLog(@"手机号输入非法");
+            [self showHint:@"手机号输错了"];
             break;
             
         case PasswordError:
-            NSLog(@"密码输入非法");
+            [self showHint:@"密码只能是6-16位的数字或字母"];
             break;
             
         default:
@@ -126,21 +125,21 @@
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        _registerBtn.userInteractionEnabled = YES;
         if (code == 0) {
+            [SVProgressHUD dismiss];
             SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
             smsVerifyCtl.phoneNumber = self.phoneLabel.text;
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
-            [SVProgressHUD dismiss];
             
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            _registerBtn.userInteractionEnabled = YES;
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"注册失败,是我们的原因"];
         NSLog(@"%@", error);
         _registerBtn.userInteractionEnabled = YES;
     }];

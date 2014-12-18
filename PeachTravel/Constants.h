@@ -81,6 +81,7 @@
 #define API_SEARCH_USER                 (BASE_URL @"users/search")      //搜索好友
 #define API_SEARCH_USER                 (BASE_URL @"users/search")      //搜索好友
 #define API_ADD_CONTACT                 (BASE_URL @"users/contacts")   //添加好友
+#define API_REQUEST_ADD_CONTACT         (BASE_URL @"users/request-contacts")   //请求添加好友
 #define API_DELETE_CONTACTS             (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
 #define API_CHANGE_PWD                  (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个桃子用户信息数组

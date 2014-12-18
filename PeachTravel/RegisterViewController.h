@@ -10,4 +10,7 @@
 
 @interface RegisterViewController : TZViewController
 
+@property (nonatomic, strong) NSString *defaultPhone;
+@property (nonatomic, strong) NSString *defaultPassword;
+
 @end

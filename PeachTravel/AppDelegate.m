@@ -49,6 +49,7 @@
 #if DEBUG
     [[EaseMob sharedInstance] enableUncaughtExceptionHandler];
 #endif
+    
     [[[EaseMob sharedInstance] chatManager] setAutoFetchBuddyList:YES];
     
     //以下一行代码的方法里实现了自动登录，异步登录，需要监听[didLoginWithInfo: error:]
@@ -57,8 +58,6 @@
     
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    
-    [self loginStateChange:nil];
     
     /******设置个推*****/
     [self startGeTuiSdk];
@@ -195,6 +194,18 @@
     [self saveContext];
 }
 
+/**
+ *  环信绑定失败
+ *
+ *  @param error
+ */
+- (void)didBindDeviceWithError:(EMError *)error
+{
+    if (error) {
+        NSLog(@"环信推送绑定失败");
+    }
+}
+
 
 - (void)onResp:(BaseResp *)resp
 {
@@ -261,21 +272,6 @@
     
 }
 
-#pragma mark - private
-
--(void)loginStateChange:(NSNotification *)notification
-{
-    BOOL isAutoLogin = [[[EaseMob sharedInstance] chatManager] isAutoLoginEnabled];
-    BOOL loginSuccess = [notification.object boolValue];
-    
-    if (isAutoLogin || loginSuccess) {
-        NSLog(@"登录成功");
-        
-    }else{
-       
-    }
-}
-
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -283,12 +279,10 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.aizou.SuperDB" in the application's documents directory.
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
-    // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
@@ -311,14 +305,11 @@
                                        NSInferMappingModelAutomaticallyOption, nil];
 
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:optionsDictionary error:&error]) {
-        // Report any error we got.
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
         dict[NSLocalizedFailureReasonErrorKey] = failureReason;
         dict[NSUnderlyingErrorKey] = error;
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        // Replace this with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }

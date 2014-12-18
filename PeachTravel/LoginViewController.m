@@ -104,6 +104,8 @@
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
+    registerCtl.defaultPhone = _userNameTextField.text;
+    registerCtl.defaultPassword = _passwordTextField.text;
     [self.navigationController pushViewController:registerCtl animated:YES];
 }
 
@@ -114,6 +116,19 @@
 
 //帐号密码登录
 - (IBAction)login:(UIButton *)sender {
+    
+    if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
+        [self showHint:@"不输帐号或密码，是没法登录滴"];
+        return;
+    }
+    
+    NSString * regex0 = @"^1\\d{10}$";
+    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
+    if (![pred0 evaluateWithObject:_userNameTextField.text]) {
+        [self showHint:@"手机号输错了"];
+        return;
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
