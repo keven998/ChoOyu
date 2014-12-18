@@ -47,11 +47,12 @@
     _headerView.clipsToBounds = YES;
     
     UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 167.5)];
-    gallery.pagingEnabled = YES;
+    gallery.scrollEnabled = NO;
     gallery.showsHorizontalScrollIndicator = NO;
     gallery.showsVerticalScrollIndicator = NO;
     gallery.delegate = self;
     gallery.bounces = YES;
+    
     [_headerView addSubview:gallery];
     _galleryPageView = gallery;
     
@@ -65,7 +66,7 @@
     [_headerView addSubview:_imagePageIndicator];
     
     int count = _cityPoi.images.count;
-    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame) * count, CGRectGetHeight(_galleryPageView.frame));
+    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame), CGRectGetHeight(_galleryPageView.frame));
     
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
@@ -74,9 +75,6 @@
     }
     _imageViews = images;
     [self loadScrollViewWithPage:0];
-    if (count > 1) {
-        [self loadScrollViewWithPage:1];
-    }
     
     oy += 175;
     
@@ -106,6 +104,7 @@
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _cityPoi.desc;
     _descView.numberOfLine = 3.0;
+    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_descView];
     
     oy += 40;
@@ -246,6 +245,8 @@
      self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
     [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
     [self.delegate updateCityHeaderView];
 }
 
@@ -263,6 +264,8 @@
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
     [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [self.delegate updateCityHeaderView];
 }
 
@@ -304,9 +307,6 @@
 #pragma mark - UITabGestureAction
 - (void)viewImage:(UITapGestureRecognizer *)viewImage {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
-//    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-//    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [browser loadTZLXdata:nil];
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
@@ -314,24 +314,48 @@
         if ([nextResponder isKindOfClass:[UIViewController class]])
         {
              UIViewController *ctl = (UIViewController*)nextResponder;
-//            [ctl presentViewController:nc animated:YES completion:nil];
+            [self loadAlbumDataWithAlbumCtl:browser];
             [ctl.navigationController pushViewController:browser animated:YES];
             break;
         }
     }
 }
 
-#pragma scrolldelegate
-    
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+/**
+ *  获取城市的详细信息
+ */
+- (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
 {
-    if (scrollView == _galleryPageView) {
-        CGFloat pageWidth = CGRectGetWidth(self.galleryPageView.frame);
-        NSUInteger page = floor((self.galleryPageView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        [self loadScrollViewWithPage:page - 1];
-        [self loadScrollViewWithPage:page];
-        [self loadScrollViewWithPage:page + 1];
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@5473ccd7b8ce043a64108c46/album", API_GET_ALBUM];
+    
+    [SVProgressHUD show];
+    
+    [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD dismiss];
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
+                [tempArray addObject:[imageDic objectForKey:@"url"]];
+            }
+            albumCtl.imageList = tempArray;
+        } else {
+            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+    }];
 }
+
+
 
 @end
