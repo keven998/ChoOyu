@@ -68,9 +68,10 @@
 {
     if (!self.table) {
         UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-        CGRect frame = mainWindow.frame;
-        frame.origin.y += self.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height+15;
-        self.table = [[SIMenuTable alloc] initWithFrame:frame items:self.items];
+//        CGRect frame = mainWindow.frame;
+//        frame.origin.y += self.frame.size.height + 64.0;
+        self.table = [[SIMenuTable alloc] initWithFrame:CGRectMake(0, 64.0, mainWindow.frame.size.width, mainWindow.frame.size.height - 64.0) items:self.items];
+        self.table.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.table.menuDelegate = self;
     }
     [self.menuContainer addSubview:self.table];

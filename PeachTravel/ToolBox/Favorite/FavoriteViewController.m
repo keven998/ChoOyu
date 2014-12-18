@@ -55,15 +55,27 @@
 
 @implementation FavoriteViewController
 
+- (id)init {
+    if (self = [super init]) {
+        _urlArray = @[@"all", @"city", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
+        _currentFavoriteType = [_urlArray objectAtIndex:0];
+        _isEditing = NO;
+        _selectedIndex = -1;
+        _currentPage = 0;
+        _isLoadingMore = YES;
+        _didEndScroll = YES;
+        _enableLoadMore = NO;
+        _isVisible = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _urlArray = @[@"all", @"city", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
-    _currentFavoriteType = [_urlArray objectAtIndex:0];
-    [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.title = @"收藏夹";
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
@@ -74,21 +86,13 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     
-    _isEditing = NO;
-    self.navigationItem.title = @"收藏夹";
-    
-    _selectedIndex = -1;
-    _currentPage = 0;
-    _isLoadingMore = YES;
-    _didEndScroll = YES;
-    _enableLoadMore = NO;
-    [self pullToRefreash:nil];
-    [self.view addSubview:self.editBtn];
-    self.slimeView.loading = YES;
+    [self.view addSubview:self.tableView];
+    [self.tableView addSubview:self.slimeView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
-    _isVisible = YES;
-    
+    [self pullToRefreash:nil];
+    self.slimeView.loading = YES;
+    [self.view addSubview:self.editBtn];
 }
 
 - (UITableView *)tableView
@@ -99,7 +103,8 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentOffset:CGPointMake(0, 10)];
+        [_tableView setContentInset:UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0)];
+//        [_tableView setContentOffset:CGPointMake(0, 10)];
         [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
     }
     return _tableView;
@@ -126,11 +131,11 @@
         _slimeView.delegate = self;
         _slimeView.upInset = 0;
         _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = [UIColor grayColor];
-        _slimeView.slime.skinColor = [UIColor grayColor];
-        _slimeView.slime.lineWith = 1;
-        _slimeView.slime.shadowBlur = 4;
-        _slimeView.slime.shadowColor = [UIColor grayColor];
+        _slimeView.slime.bodyColor = APP_THEME_COLOR;
+        _slimeView.slime.skinColor = [UIColor clearColor];
+        _slimeView.slime.lineWith = 0.7;
+        _slimeView.slime.shadowBlur = 0;
+        _slimeView.slime.shadowColor = [UIColor clearColor];
     }
     
     return _slimeView;
@@ -139,7 +144,7 @@
 - (SINavigationMenuView *)sortPoiView
 {
     if (!_sortPoiView) {
-        CGRect frame = CGRectMake(0, 0, 50, 30);
+        CGRect frame = CGRectMake(0, 0, 22.5, 20);
         _sortPoiView = [[SINavigationMenuView alloc] initWithFrame:frame withImage:@"ic_nav_filter_normal.png"];
         [_sortPoiView displayMenuInView:self.navigationController.view];
         _sortPoiView.items = @[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
@@ -166,6 +171,11 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _tableView = nil;
+    _slimeView.delegate = nil;
+    _slimeView = nil;
 }
 
 - (void)goBackToAllPets
@@ -246,7 +256,6 @@
         if (pageIndex == 0) {
             [self.dataSource removeAllObjects];
         }
-        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self bindDataToView:responseObject];
@@ -257,7 +266,6 @@
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompleted];
     }];
@@ -383,9 +391,9 @@
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
-        return 210 + rect.size.height - 34.0 + 20.0;
+        return 212 + rect.size.height - 34.0 + 28.0;
     }
-    return 210.;
+    return 212;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -440,7 +448,7 @@
 }
 
 - (void) loadMoreCompleted {
-    if (!_isLoadingMore) return;
+//    if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
 }
