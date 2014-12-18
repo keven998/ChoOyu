@@ -265,6 +265,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
     [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateHighlighted];
+    
+    btn.layer.cornerRadius = 2.0;
 
     [btn setTitle:@"精选游记" forState:UIControlStateNormal];
     [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];

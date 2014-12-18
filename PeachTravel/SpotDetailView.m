@@ -8,10 +8,11 @@
 
 #import "SpotDetailView.h"
 #import "ResizableView.h"
+#import "CycleScrollView.h"
 
 @interface SpotDetailView ()
 
-@property (nonatomic, strong) UIScrollView *galleryPageView;
+@property (nonatomic, strong) CycleScrollView *galleryPageView;
 
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *detailView;
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) UILabel *travelGuideLabel;
 @property (nonatomic, strong) UILabel *kengdieLabel;
 @property (nonatomic, strong) UILabel *trafficGuideLabel;
+
 
 @end
 
@@ -62,25 +64,7 @@
     _headerView.layer.cornerRadius = 2.0;
     _headerView.clipsToBounds = YES;
     
-    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, oy, width-22, 167.5)];
-    gallery.pagingEnabled = YES;
-    gallery.showsHorizontalScrollIndicator = NO;
-    gallery.showsVerticalScrollIndicator = NO;
-    gallery.delegate = self;
-    gallery.bounces = YES;
-    [_headerView addSubview:gallery];
-    _galleryPageView = gallery;
-    
-    _imagePageIndicator = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, gallery.frame.size.height-33, 47.5, 23)];
-    _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-    [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _imagePageIndicator.userInteractionEnabled = NO;
-    _imagePageIndicator.layer.cornerRadius = 1.0;
-    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
-    [_headerView addSubview:_imagePageIndicator];
-    
     int count = _spot.images.count;
-    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame) * count, CGRectGetHeight(_galleryPageView.frame));
     
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
@@ -88,10 +72,36 @@
         [images addObject:[NSNull null]];
     }
     _imageViews = images;
-    [self loadScrollViewWithPage:0];
-    if (count > 1) {
-        [self loadScrollViewWithPage:1];
-    }
+    
+    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, oy, width-22, 167.5) animationDuration:0];
+    
+    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
+    
+    __weak typeof(SpotDetailView *)weakSelf = self;
+    
+    _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
+        
+        NSLog(@"%d", pageIndex);
+        return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
+    };
+    
+    _galleryPageView.totalPagesCount = ^NSInteger(void){
+        return weakSelf.spot.images.count;
+    };
+    
+    _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
+    };
+    
+    [_headerView addSubview:_galleryPageView];
+    
+    _imagePageIndicator = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, _headerView.frame.size.height-33, 47.5, 23)];
+    _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+    [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _imagePageIndicator.userInteractionEnabled = NO;
+    _imagePageIndicator.layer.cornerRadius = 1.0;
+    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
+//    [_headerView addSubview:_imagePageIndicator];
+
     
     oy += 175;
     
@@ -107,13 +117,12 @@
     [_headerView addSubview:_titleBtn];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-85, oy, 60, 30)];
-    if (_spot.isMyFavorite) {
-        [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateNormal];
-    } else {
-        [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
-    }
-    
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateHighlighted];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateSelected];
     [_headerView addSubview:_favoriteBtn];
+    
+    _favoriteBtn.selected = _spot.isMyFavorite;
     
     oy += 35;
     
@@ -123,6 +132,8 @@
     _descView.contentFont = [UIFont systemFontOfSize:11.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _spot.desc;
+    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+
     [_headerView addSubview:_descView];
     
     oy += 35;
@@ -451,9 +462,9 @@ _spot.kengdieUrl = @"http://";
     
 }
 
-- (void)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= _spot.images.count) {
-        return;
+- (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
+    if (page >= _spot.images.count ) {
+        return nil;
     }
     
     UIImageView *img = [_imageViews objectAtIndex:page];
@@ -472,11 +483,11 @@ _spot.kengdieUrl = @"http://";
         CGRect frame = img.frame;
         frame.origin.x = CGRectGetWidth(frame) * page;
         img.frame = frame;
-        [self.galleryPageView insertSubview:img atIndex:0];
         TaoziImage *taoziImage = [_spot.images objectAtIndex:page];
         NSString *url = taoziImage.imageUrl;
         [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
+    return img;
 }
 
 #pragma mark - IBAction Methods
@@ -493,6 +504,8 @@ _spot.kengdieUrl = @"http://";
     [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height+_descView.resizeHeight)];
     [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (IBAction)hideContent:(id)sender
@@ -509,25 +522,13 @@ _spot.kengdieUrl = @"http://";
     [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height-_descView.resizeHeight)];
     [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (IBAction)viewImage:(id)sender
 {
     
-}
-
-#pragma scrolldelegate
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    if (scrollView == _galleryPageView) {
-        CGFloat pageWidth = CGRectGetWidth(self.galleryPageView.frame);
-        NSUInteger page = floor((self.galleryPageView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        [self loadScrollViewWithPage:page - 1];
-        [self loadScrollViewWithPage:page];
-        [self loadScrollViewWithPage:page + 1];
-        [_imagePageIndicator setTitle:[NSString stringWithFormat:@"%d/%d",page+1, _spot.images.count] forState:UIControlStateNormal];
-    }
 }
 
 

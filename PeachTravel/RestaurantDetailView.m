@@ -170,9 +170,9 @@ static NSString *commentCellIdentifier = @"commentCell";
 
 }
 
-- (void)loadScrollViewWithPage:(NSUInteger)page {
+- (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
     if (page >= _restaurantPoi.images.count) {
-        return;
+        return nil;
     }
     
     UIImageView *img = [_imageViews objectAtIndex:page];
@@ -196,6 +196,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         NSString *url = taoziImage.imageUrl;
         [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
+    return img;
 }
 
 #pragma mark - IBAction Methods

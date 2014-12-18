@@ -27,6 +27,8 @@
 {
     _contentColor = contentColor;
     [self setTitleColor:contentColor forState:UIControlStateNormal];
+    [self setTitleColor:contentColor forState:UIControlStateHighlighted];
+
 }
 
 - (void)setNumberOfLine:(NSUInteger)numberOfLine
@@ -94,8 +96,7 @@
     if (self) {
         _resetFrame = frame;
         self.layer.cornerRadius = 2.0;
-        self.titleLabel.numberOfLines = 2;
-        self.userInteractionEnabled = NO;
+        self.titleLabel.numberOfLines = 2;  
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     }
