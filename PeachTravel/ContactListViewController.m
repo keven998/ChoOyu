@@ -263,10 +263,10 @@
         label.textColor = UIColorFromRGB(0xadadad);
         label.clipsToBounds = YES;
         label.layer.cornerRadius = 2.0;
-        label.layer.shadowColor = APP_PAGE_COLOR.CGColor;
-        label.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        label.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+        label.layer.shadowOffset = CGSizeMake(0.0, 0.5);
         label.layer.shadowOpacity = 1.0;
-        label.layer.shadowRadius = 1.0;
+        label.layer.shadowRadius = 0.5;
         [view addSubview:label];
         return view;
     }

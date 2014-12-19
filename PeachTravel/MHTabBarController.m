@@ -161,9 +161,9 @@ static const NSInteger TAG_OFFSET = 1000;
 	tabButtonsContainerView = [[UIView alloc] initWithFrame:rect];
 	tabButtonsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     tabButtonsContainerView.backgroundColor = [UIColor whiteColor];
-    tabButtonsContainerView.layer.shadowColor = UIColorFromRGB(0xdcdcdc).CGColor;
-    tabButtonsContainerView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-    tabButtonsContainerView.layer.shadowRadius = 1.0;
+    tabButtonsContainerView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+    tabButtonsContainerView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
+    tabButtonsContainerView.layer.shadowRadius = 0.5;
     tabButtonsContainerView.layer.shadowOpacity = 1.0;
 	[self.view addSubview:tabButtonsContainerView];
 

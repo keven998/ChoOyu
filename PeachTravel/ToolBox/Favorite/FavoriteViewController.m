@@ -17,6 +17,7 @@
 #import "CityDetailTableViewController.h"
 #import "SRRefreshView.h"
 #import "SINavigationMenuView.h"
+#import "TMCache.h"
 
 @interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate, TaoziMessageSendDelegate>
 
@@ -88,11 +89,25 @@
     
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
+    [self.view addSubview:self.editBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
-    [self pullToRefreash:nil];
-    self.slimeView.loading = YES;
-    [self.view addSubview:self.editBtn];
+    
+    [self initDataFromCache];
+}
+
+- (void) initDataFromCache {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self bindDataToView:object];
+            });
+        } else {
+            [self pullToRefreash:nil];
+            self.slimeView.loading = YES;
+        }
+    }];
 }
 
 - (UITableView *)tableView
@@ -253,32 +268,49 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (pageIndex == 0) {
-            [self.dataSource removeAllObjects];
-        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            if (pageIndex == 0) {
+                [self.dataSource removeAllObjects];
+            }
             [self bindDataToView:responseObject];
+            if (pageIndex == 0) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [self cacheFirstPage:responseObject];
+                });
+            }
             _currentPage = pageIndex;
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompleted];
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
     }];
-    
 }
 
-- (void) bindDataToView:(id) responseObject {
-    NSArray *datas = [responseObject objectForKey:@"result"];
-    if (self.slimeView.loading) {
-        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.7];
+- (void) cacheFirstPage:(id)responseObject {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if (_dataSource.count > 0) {
+        [[TMCache sharedCache] setObject:responseObject forKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
+    } else {
+        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
     }
+}
+
+- (void) bindDataToView:(id)responseObject {
+    NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
-        if (_dataSource.count == 0) {
+        if (_currentPage == 0) {
             if (_isVisible) {
                 [self showHint:@"No收藏"];
             }
