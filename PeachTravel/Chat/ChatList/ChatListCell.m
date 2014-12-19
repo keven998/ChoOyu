@@ -38,10 +38,10 @@
         frameView.backgroundColor = [UIColor whiteColor];
         frameView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         frameView.layer.cornerRadius = 2.0;
-        frameView.layer.shadowColor = UIColorFromRGB(0xdcdcdc).CGColor;
+        frameView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
         frameView.layer.shadowOpacity = 1.0;
-        frameView.layer.shadowRadius = 0.7;
-        frameView.layer.shadowOffset = CGSizeMake(0.0, 0.7);
+        frameView.layer.shadowRadius = 0.5;
+        frameView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
         [self.contentView addSubview:frameView];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];

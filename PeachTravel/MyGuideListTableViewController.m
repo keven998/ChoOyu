@@ -454,7 +454,7 @@ static NSString *reusableCell = @"myGuidesCell";
     desc.font = [UIFont systemFontOfSize:15.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"木有任何旅行Memo\n这么好的旅行助手不用可惜了";
+    desc.text = @"木有任何旅行Memo\n这么好的旅行棒手不用可惜了";
     [self.emptyView addSubview:desc];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

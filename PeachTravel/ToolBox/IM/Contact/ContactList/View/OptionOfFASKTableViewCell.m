@@ -16,9 +16,9 @@
     
     _cellFrameBg.layer.cornerRadius = 2.0;
     _cellFrameBg.layer.shadowColor = APP_PAGE_COLOR.CGColor;
-    _cellFrameBg.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    _cellFrameBg.layer.shadowOffset = CGSizeMake(0.0, 0.5);
     _cellFrameBg.layer.shadowOpacity = 1.0;
-    _cellFrameBg.layer.shadowRadius = 1.0;
+    _cellFrameBg.layer.shadowRadius = 0.5;
     
     _notifyFlag.layer.cornerRadius = 5.0;
 }

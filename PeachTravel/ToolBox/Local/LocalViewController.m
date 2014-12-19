@@ -53,23 +53,24 @@
 
 @implementation LocalViewController
 
+- (id)init {
+    if (self = [super init]) {
+        _didEndScroll = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我身边";
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
-    _didEndScroll = YES;
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
     
     _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES normatlImages:LOCAL_PAGE_NORMALIMAGES highLightedImages:LOCAL_PAGE_HIGHLIGHTEDIMAGES containerView:self.view];
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.filterView attachToContainerView];
     [self.filterView setDelegate:self];
     _filterView.backgroundColor = [UIColor whiteColor];
-    _filterView.titlesColor = UIColorFromRGB(0x999999);
+    _filterView.titlesColor = TEXT_COLOR_TITLE_HINT;
     _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
     _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
 
@@ -83,8 +84,12 @@
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
     
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), 1.0)];
-    divider.backgroundColor = APP_PAGE_COLOR;
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), 0.6)];
+    divider.backgroundColor = APP_DIVIDER_COLOR;
+    divider.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+    divider.layer.shadowOffset = CGSizeMake(0.0, 0.5);
+    divider.layer.shadowRadius = 0.5;
+    divider.layer.shadowOpacity = 1.0;
     [self.view addSubview:divider];
     
     
@@ -102,8 +107,8 @@
     [_reLocBtn addTarget:self action:@selector(relocal:) forControlEvents:UIControlEventTouchUpInside];
     [_reLocBtn setImage:[UIImage imageNamed:@"ic_refresh_white_18.png"] forState:UIControlStateNormal];
     [fbar addSubview:_reLocBtn];
-    [self getReverseGeocode];
     
+    [self getReverseGeocode];
 }
 
 - (IBAction)relocal:(id)sender {
