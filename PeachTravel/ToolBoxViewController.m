@@ -17,6 +17,7 @@
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "LocalViewController.h"
+#import "CycleScrollView.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -30,11 +31,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (strong, nonatomic) CLLocation *currentLocation;
 
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
-@property (nonatomic, strong) NSArray *operationDataArray;
+@property (nonatomic, strong) NSMutableArray *operationDataArray;
 @property (nonatomic, strong) NSMutableArray *imageViews;
 
 @property (strong, nonatomic) UILabel *weatherLabel;
-@property (nonatomic, strong) UIScrollView *galleryPageView;
+@property (nonatomic, strong) CycleScrollView *galleryPageView;
 @property (nonatomic, strong) UIButton *planBtn;
 @property (nonatomic, strong) UIButton *favoriteBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
@@ -91,18 +92,16 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     CGFloat offsetY = 64.0;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _galleryPageView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, 176.0)];
-    _galleryPageView.pagingEnabled = YES;
-    _galleryPageView.showsHorizontalScrollIndicator = NO;
-    _galleryPageView.showsVerticalScrollIndicator = NO;
-    _galleryPageView.delegate = self;
-    _galleryPageView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 167.5) animationDuration:5];
+    
+    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
+    
     [self.view addSubview:_galleryPageView];
     
     _weatherFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, 24.0)];
     _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     _weatherFrame.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
-//    [self.view addSubview:_weatherFrame];
     
     _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(19.0, 0.0, w - 38.0, 24.0)];
     _weatherLabel.textAlignment = NSTextAlignmentLeft;
@@ -179,21 +178,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _aroundBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
-
-#warning 测试数据
-    _operationDataArray = [[NSArray alloc] init];
-    OperationData *testData = [[OperationData alloc] init];
-    testData.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
-    OperationData *testData1 = [[OperationData alloc] init];
-    testData1.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/612e622e2604f4f0c59cdfa75b422805.jpg";
-    OperationData *testData2 = [[OperationData alloc] init];
-    testData2.imageUrl = @"http://lvxingpai-img-store.qiniudn.com/assets/images/orig.3419768e362f13d103ce61664610738c.jpg";
-    _operationDataArray = @[testData, testData1,testData2];
-    [self setupSubView];
-}
-
-- (void)viewWillLayoutSubviews {
-
+    
+    [self loadRecommendData];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -214,20 +200,31 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self unregisterNotifications];
 }
 
-- (void) setupSubView
+- (void) setUpGallaryView
 {
     int count = [_operationDataArray count];
-    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.bounds) * count, 0);
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
     {
         [images addObject:[NSNull null]];
     }
+    
     _imageViews = images;
-    [self loadScrollViewWithPage:0];
-    if (count > 1) {
-        [self loadScrollViewWithPage:1];
-    }
+    __weak typeof(ToolBoxViewController *)weakSelf = self;
+    
+    _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
+        
+        NSLog(@"%d", pageIndex);
+        return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
+    };
+    
+    _galleryPageView.totalPagesCount = ^NSInteger(void){
+        return weakSelf.operationDataArray.count;
+    };
+    
+    _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
+    };
+    
     if (!self.weatherInfo) {
         [_weatherFrame removeFromSuperview];
     } else {
@@ -237,14 +234,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
 }
 
-- (void)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= _operationDataArray.count) {
-        return;
+- (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
+    if (page >= _operationDataArray.count ) {
+        return nil;
     }
-
+    
     UIImageView *img = [_imageViews objectAtIndex:page];
     if ((NSNull *)img == [NSNull null]) {
-        img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, CGRectGetWidth(_galleryPageView.bounds), CGRectGetHeight(_galleryPageView.bounds))];
+        img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, CGRectGetWidth(self.galleryPageView.frame), CGRectGetHeight(self.galleryPageView.frame))];
         img.contentMode = UIViewContentModeScaleAspectFill;
         img.clipsToBounds = YES;
         img.userInteractionEnabled = YES;
@@ -258,12 +255,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         CGRect frame = img.frame;
         frame.origin.x = CGRectGetWidth(frame) * page;
         img.frame = frame;
-        [_galleryPageView insertSubview:img atIndex:0];
-        OperationData *opreateData = [_operationDataArray objectAtIndex:page];
-        NSString *url = opreateData.imageUrl;
-        [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
+        NSString *imageStr = ((OperationData *)[_operationDataArray objectAtIndex:page]).imageUrl;
+        [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
+    return img;
 }
+
 
 - (void)setWeatherInfo:(WeatherInfo *)weatherInfo
 {
@@ -271,6 +268,42 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if(_weatherInfo) {
         [self getReverseGeocode];
     }
+}
+
+/**
+ *  获取运营位推荐
+ */
+- (void)loadRecommendData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    //获取首页数据
+    [manager GET:API_GET_COLUMNS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if (!_operationDataArray) {
+                _operationDataArray = [[NSMutableArray alloc] init];
+            }
+            for (id operationDic in [responseObject objectForKey:@"result"]) {
+                OperationData *operation = [[OperationData alloc] initWithJson:operationDic];
+                [_operationDataArray addObject:operation];
+            }
+            [self setUpGallaryView];
+            
+        } else {
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
+
 }
 
 #pragma mark - YWeatherInfoDelegate
@@ -842,19 +875,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self showHint:@"重连失败，稍候将继续重连"];
     }else{
         [self showHint:@"重连成功！"];
-    }
-}
-
-#pragma scrolldelegate
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    if (scrollView == _galleryPageView) {
-        CGFloat pageWidth = CGRectGetWidth(self.galleryPageView.frame);
-        NSUInteger page = floor((self.galleryPageView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        [self loadScrollViewWithPage:page - 1];
-        [self loadScrollViewWithPage:page];
-        [self loadScrollViewWithPage:page + 1];
     }
 }
 

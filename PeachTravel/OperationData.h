@@ -11,7 +11,8 @@
 @interface OperationData : NSObject
 
 @property (nonatomic, copy) NSString *imageUrl;
-@property (nonatomic, copy) NSString *linkType;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *linkUrl;
+
+- (id)initWithJson:(id)json;
 @end
