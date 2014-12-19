@@ -8,8 +8,15 @@
 
 #import "HomeViewController.h"
 #import "ICETutorialController.h"
+#import "ToolBoxViewController.h"
+#import "HotDestinationCollectionViewController.h"
+#import "MineTableViewController.h"
 
 @interface HomeViewController ()<UIGestureRecognizerDelegate, ICETutorialControllerDelegate>
+{
+    UIImageView *_tabBarView; //自定义的覆盖原先的tarbar的控件
+    UIButton *_previousBtn; //记录前一次选中的按钮
+}
 
 @property (nonatomic, strong) UIImageView *coverView;
 @property (nonatomic, strong) ICETutorialController *viewController;
@@ -22,7 +29,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = YES;
+
+    _tabBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 49)];
+    _tabBarView.userInteractionEnabled = YES; 
+    _tabBarView.backgroundColor = [UIColor whiteColor];
+    
+    [self creatButtonWithNormalName:@"ic_tao_normal" andSelectName:@"ic_tao_selected.png" andTitle:nil andIndex:0];
+    [self creatButtonWithNormalName:@"ic_loc_normal.png" andSelectName:@"ic_loc_selected.png" andTitle:nil andIndex:1];
+    [self creatButtonWithNormalName:@"ic_person_normal.png" andSelectName:@"ic_person_selected.png" andTitle:nil andIndex:2];
+    
+    [self.tabBar addSubview:_tabBarView];
+
     [self setupConverView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabbar.hidden = YES;
+    NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
+    [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error) {
+            _coverView.image = [UIImage imageNamed:@"tutorial_background_01.jpg"];
+        }
+    }];
+    [self loadData];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _tabBarView.hidden = YES;
 }
 
 - (void) setupConverView {
@@ -104,19 +142,6 @@
             view.frame = frame;
         }
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
-    [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (error) {
-            _coverView.image = [UIImage imageNamed:@"tutorial_background_01.jpg"];
-        }
-    }];
-    [self loadData];
-
 }
 
 #pragma mark - IBActions
@@ -234,14 +259,49 @@
 }
 
 
-/*
-#pragma mark - Navigation
+- (void)creatButtonWithNormalName:(NSString *)normal andSelectName:(NSString *)selected andTitle:(NSString *)title andIndex:(int)index
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.tag = index;
+    
+    CGFloat buttonW = _tabBarView.frame.size.width / 3;
+    CGFloat buttonH = _tabBarView.frame.size.height;
+    button.frame = CGRectMake(buttonW *index, 0, buttonW, buttonH);
+   
+    [button setImage:[UIImage imageNamed:normal] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:selected] forState:UIControlStateDisabled];
+//    [button setTitle:title forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(changeViewController:) forControlEvents:UIControlEventTouchDown];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    button.imageView.contentMode = UIViewContentModeCenter; // 让图片在按钮内居中
+    button.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width-1, 10, 1, button.frame.size.height-20)];
+    spaceView.backgroundColor = APP_PAGE_COLOR;
+    [button addSubview:spaceView];
+    
+    //如果是第一次，默认设为选中状态
+    if (index == 0) {
+        _previousBtn = button;
+        button.enabled = NO;
+    }
+    
+   [_tabBarView addSubview:button];
+
 }
-*/
+
+- (void)changeViewController:(UIButton *)sender
+{
+    self.selectedIndex = sender.tag; //切换不同控制器的界面
+    
+    sender.enabled = NO;
+    
+    if (_previousBtn != sender) {
+        
+        _previousBtn.enabled = YES;
+    }
+
+    _previousBtn = sender;
+}
 
 @end
