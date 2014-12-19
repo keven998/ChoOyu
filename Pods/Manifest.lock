@@ -43,12 +43,13 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - EaseMobSDK (from `https://github.com/easemob/sdk-ios-cocoapods.git`)
   - iRate (~> 1.11)
+  - MBProgressHUD (~> 0.9)
   - MWPhotoBrowser (~> 1.4.1)
   - OpenUDID (~> 1.0.0)
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.1)
   - SVProgressHUD (~> 1.0)
-  - TMCache (~> 1.2.2)
+  - TMCache (~> 1.2)
 
 EXTERNAL SOURCES:
   EaseMobSDK:
