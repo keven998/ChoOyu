@@ -59,6 +59,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"旅行Memo";
+    self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新建 " style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
