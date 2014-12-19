@@ -19,6 +19,7 @@
 #import "LocalViewController.h"
 #import "CycleScrollView.h"
 #import "NSTimer+Addition.h"
+#import "TZButton.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -37,9 +38,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 @property (strong, nonatomic) UILabel *weatherLabel;
 @property (nonatomic, strong) CycleScrollView *galleryPageView;
-@property (nonatomic, strong) UIButton *planBtn;
-@property (nonatomic, strong) UIButton *favoriteBtn;
-@property (nonatomic, strong) UIButton *aroundBtn;
+@property (nonatomic, strong) TZButton *planBtn;
+@property (nonatomic, strong) TZButton *favoriteBtn;
+@property (nonatomic, strong) TZButton *aroundBtn;
 @property (strong, nonatomic) UIButton *IMBtn;
 /**
  *  未读消息的 label
@@ -47,7 +48,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (strong, nonatomic) UILabel *unReadMsgLabel;
 
 @property (nonatomic, strong) UIImageView *contentFrame;
-@property (nonatomic, strong) UIView *weatherFrame;
+@property (nonatomic, strong) UIImageView *weatherFrame;
 
 @end
 
@@ -95,13 +96,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 167.5) animationDuration:5];
-    _galleryPageView.backgroundColor = [APP_PAGE_COLOR colorWithAlphaComponent:0.1];
+    _galleryPageView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_galleryPageView];
     
-    _weatherFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
+    _weatherFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
+    _weatherFrame.image = [UIImage imageNamed:@"weatherbackground.png"];
+    _weatherFrame.contentMode = UIViewContentModeScaleToFill;
+    _weatherFrame.clipsToBounds = YES;
     _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    _weatherFrame.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
     
     _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, 0.0, w - 22.0, 40.0)];
     _weatherLabel.textAlignment = NSTextAlignmentLeft;
@@ -109,6 +112,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _weatherLabel.textColor = [UIColor whiteColor];
     _weatherLabel.font = [UIFont systemFontOfSize:14.0];
     [_weatherFrame addSubview:_weatherLabel];
+    
+    NSLog(@"%f", _galleryPageView.frame.size.height + _galleryPageView.frame.origin.y);
+    
+    NSLog(@"%f",offsetY+167.5);
     
     _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, h, w, 64.0)];
     _IMBtn.backgroundColor = [UIColor greenColor];
@@ -133,6 +140,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _contentFrame.contentMode = UIViewContentModeScaleAspectFill;
     _contentFrame.userInteractionEnabled = YES;
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _contentFrame.image = [UIImage imageNamed:@"bg_home_mid"];
+    _contentFrame.clipsToBounds = YES;
+    _contentFrame.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_contentFrame];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 20.0, w, 21.0)];
@@ -143,39 +153,33 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     title.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     [_contentFrame addSubview:title];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
+    _favoriteBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
     _favoriteBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _favoriteBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_home_fav.png"] forState:UIControlStateNormal];
     [_favoriteBtn setTitle:@"收藏夹" forState:UIControlStateNormal];
-    _favoriteBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
-    _favoriteBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
     [_favoriteBtn addTarget:self action:@selector(myFavorite:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_favoriteBtn];
     
-    _planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
+    _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
     _planBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 76.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
-    [_planBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 90.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    [_planBtn setImage:[UIImage imageNamed:@"ic_home_guide.png"] forState:UIControlStateNormal];
     [_planBtn setTitle:@"旅行Memo" forState:UIControlStateNormal];
-    _planBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
-    _planBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_planBtn];
     
-    _aroundBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
+    _aroundBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
     _aroundBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_aroundBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_aroundBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 76.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
-    [_aroundBtn setImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 90.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    [_aroundBtn setImage:[UIImage imageNamed:@"ic_home_around.png"] forState:UIControlStateNormal];
     [_aroundBtn setTitle:@"我身边" forState:UIControlStateNormal];
-    _aroundBtn.titleEdgeInsets = UIEdgeInsetsMake(20.0, -20.0, -20.0, 20.0);
-    _aroundBtn.imageEdgeInsets = UIEdgeInsetsMake(-20.0, 20.0, 20.0, -20.0);
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
     
