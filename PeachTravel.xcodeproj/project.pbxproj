@@ -454,6 +454,12 @@
 		D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */; };
 		D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */; };
 		D988355A1A3F1331006BF326 /* ic_text_cover_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98835591A3F1331006BF326 /* ic_text_cover_bg@2x.png */; };
+		D98BDA631A43D5CD0093C559 /* ic_loc_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA5D1A43D5CD0093C559 /* ic_loc_normal@2x.png */; };
+		D98BDA641A43D5CD0093C559 /* ic_loc_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA5E1A43D5CD0093C559 /* ic_loc_selected@2x.png */; };
+		D98BDA651A43D5CD0093C559 /* ic_person_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA5F1A43D5CD0093C559 /* ic_person_normal@2x.png */; };
+		D98BDA661A43D5CD0093C559 /* ic_person_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA601A43D5CD0093C559 /* ic_person_selected@2x.png */; };
+		D98BDA671A43D5CD0093C559 /* ic_tao_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA611A43D5CD0093C559 /* ic_tao_normal@2x.png */; };
+		D98BDA681A43D5CD0093C559 /* ic_tao_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA621A43D5CD0093C559 /* ic_tao_selected@2x.png */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6831A19AD1D00FA5A76 /* ResizableView.m */; };
 		D98CC68E1A19BE5000FA5A76 /* SpotDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC68D1A19BE5000FA5A76 /* SpotDetailViewController.m */; };
@@ -1246,6 +1252,12 @@
 		D982F9131A073A5100ECF18A /* SearchUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserInfoViewController.m; sourceTree = "<group>"; };
 		D982F9141A073A5100ECF18A /* SearchUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchUserInfoViewController.xib; sourceTree = "<group>"; };
 		D98835591A3F1331006BF326 /* ic_text_cover_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_text_cover_bg@2x.png"; sourceTree = "<group>"; };
+		D98BDA5D1A43D5CD0093C559 /* ic_loc_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_loc_normal@2x.png"; sourceTree = "<group>"; };
+		D98BDA5E1A43D5CD0093C559 /* ic_loc_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_loc_selected@2x.png"; sourceTree = "<group>"; };
+		D98BDA5F1A43D5CD0093C559 /* ic_person_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person_normal@2x.png"; sourceTree = "<group>"; };
+		D98BDA601A43D5CD0093C559 /* ic_person_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person_selected@2x.png"; sourceTree = "<group>"; };
+		D98BDA611A43D5CD0093C559 /* ic_tao_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tao_normal@2x.png"; sourceTree = "<group>"; };
+		D98BDA621A43D5CD0093C559 /* ic_tao_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tao_selected@2x.png"; sourceTree = "<group>"; };
 		D98CC6821A19AD1D00FA5A76 /* ResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizableView.h; sourceTree = "<group>"; };
 		D98CC6831A19AD1D00FA5A76 /* ResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizableView.m; sourceTree = "<group>"; };
 		D98CC68C1A19BE5000FA5A76 /* SpotDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotDetailViewController.h; sourceTree = "<group>"; };
@@ -2432,6 +2444,7 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D98BDA5C1A43D5940093C559 /* Tabbar */,
 				D95F8A471A40344A003F4275 /* Share */,
 				D98835591A3F1331006BF326 /* ic_text_cover_bg@2x.png */,
 				D95F8A561A40633D003F4275 /* ic_chat@2x.png */,
@@ -3197,6 +3210,19 @@
 				D97B670019E90C70004439A3 /* LoginViewController.xib */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		D98BDA5C1A43D5940093C559 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				D98BDA5D1A43D5CD0093C559 /* ic_loc_normal@2x.png */,
+				D98BDA5E1A43D5CD0093C559 /* ic_loc_selected@2x.png */,
+				D98BDA5F1A43D5CD0093C559 /* ic_person_normal@2x.png */,
+				D98BDA601A43D5CD0093C559 /* ic_person_selected@2x.png */,
+				D98BDA611A43D5CD0093C559 /* ic_tao_normal@2x.png */,
+				D98BDA621A43D5CD0093C559 /* ic_tao_selected@2x.png */,
+			);
+			name = Tabbar;
 			sourceTree = "<group>";
 		};
 		D98CC68B1A19BA3400FA5A76 /* SpotDetail */ = {
@@ -4047,6 +4073,7 @@
 				D955E54719E7A91300047F2B /* sns_icon_douban@2x.png in Resources */,
 				C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */,
 				D955E54D19E7A91300047F2B /* sns_icon_renren@2x.png in Resources */,
+				D98BDA661A43D5CD0093C559 /* ic_person_selected@2x.png in Resources */,
 				D90C639419FB44D300C2E440 /* VoiceSearchFeedback020@2x.png in Resources */,
 				D90C636D19FB44D300C2E440 /* VoiceSearchFeedback001.png in Resources */,
 				D92A48891A38803B00B00D91 /* ic_star_gray@2x.png in Resources */,
@@ -4106,6 +4133,7 @@
 				D90C63B519FB44D300C2E440 /* chat_sender_audio_playing_000@2x.png in Resources */,
 				D9DE78E01A03774D008A8576 /* MHTabBarIndicator.png in Resources */,
 				D955E5D219E7D24700047F2B /* Images.xcassets in Resources */,
+				D98BDA631A43D5CD0093C559 /* ic_loc_normal@2x.png in Resources */,
 				D9F57B9319E93486005BB43B /* UMShareEditViewControlleriPad.xib in Resources */,
 				C6A0C6C11A3AB60A009D9768 /* ic_fav_shopping@2x.png in Resources */,
 				D90C636619FB44D300C2E440 /* chatFire_audioPlaying0@2x.png in Resources */,
@@ -4152,6 +4180,7 @@
 				D9EF98B41A3C1EFF00DB480F /* ic_standard_travelnote@2x.png in Resources */,
 				C60C0D651A297A16006033C9 /* ic_score_app@2x.png in Resources */,
 				D9CC36BB1A3747D300E72A7F /* second_selected@2x.png in Resources */,
+				D98BDA671A43D5CD0093C559 /* ic_tao_normal@2x.png in Resources */,
 				D90C63A919FB44D300C2E440 /* chat_receiver_audio_playing000@2x.png in Resources */,
 				D9681A0B1A109BF600122793 /* background-gradient@2x.png in Resources */,
 				D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */,
@@ -4173,6 +4202,7 @@
 				D9E81E6B1A35C6D500D3BFD0 /* message_taozi_city_send@2x.png in Resources */,
 				D90F363019F63B3300E26FA9 /* imageDownloadFail@2x.png in Resources */,
 				D9A19CAD1A2F063E00B189CB /* 声音1.png in Resources */,
+				D98BDA651A43D5CD0093C559 /* ic_person_normal@2x.png in Resources */,
 				D9F57B9519E93486005BB43B /* UMSnsAccountViewController.xib in Resources */,
 				C6BC348C1A274FEB002C19D3 /* ic_setting_notify@2x.png in Resources */,
 				D9CC36C91A37F7FD00E72A7F /* ic_travel@2x.png in Resources */,
@@ -4196,6 +4226,7 @@
 				D955E54A19E7A91300047F2B /* sns_icon_qq@2x.png in Resources */,
 				D92A488F1A388D8D00B00D91 /* ic_navigation_normal@2x.png in Resources */,
 				D9386C571A31A6E10085FC36 /* chat_sender_audio_playing_001@2x.png in Resources */,
+				D98BDA641A43D5CD0093C559 /* ic_loc_selected@2x.png in Resources */,
 				D9EF98A61A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png in Resources */,
 				D90C639319FB44D300C2E440 /* VoiceSearchFeedback020.png in Resources */,
 				D95460081A22FAAB00688D72 /* TripPoiListTableViewCell.xib in Resources */,
@@ -4262,6 +4293,7 @@
 				C6999FBF1A2EB136009032D8 /* LocalTableViewCell.xib in Resources */,
 				D90C637119FB44D300C2E440 /* VoiceSearchFeedback003.png in Resources */,
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
+				D98BDA681A43D5CD0093C559 /* ic_tao_selected@2x.png in Resources */,
 				D9DE349E1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.xib in Resources */,
 				D93696E51A3002D9001922F4 /* rating_star_gray@2x.png in Resources */,
 				D93696E41A3002D9001922F4 /* rating_star@2x.png in Resources */,
