@@ -104,8 +104,8 @@
                 [self bindDataToView:object];
             });
         } else {
-            [self pullToRefreash:nil];
             self.slimeView.loading = YES;
+            [self pullToRefreash:nil];
         }
     }];
 }
@@ -273,13 +273,14 @@
             if (pageIndex == 0) {
                 [self.dataSource removeAllObjects];
             }
+            _currentPage = pageIndex;
             [self bindDataToView:responseObject];
             if (pageIndex == 0) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [self cacheFirstPage:responseObject];
                 });
             }
-            _currentPage = pageIndex;
+            
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
