@@ -10,6 +10,14 @@
 
 @implementation OperationData
 
-
+- (id)initWithJson:(id)json
+{
+    if (self = [super init]) {
+        _imageUrl = [json objectForKey:@"cover"];
+        _content = [json objectForKey:@"title"];
+        _linkUrl = [json objectForKey:@"link"];
+    }
+    return self;
+}
 
 @end

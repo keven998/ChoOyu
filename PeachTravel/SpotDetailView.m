@@ -80,8 +80,6 @@
     __weak typeof(SpotDetailView *)weakSelf = self;
     
     _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
-        
-        NSLog(@"%d", pageIndex);
         return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
     };
     
