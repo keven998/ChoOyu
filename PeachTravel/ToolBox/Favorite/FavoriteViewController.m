@@ -212,7 +212,7 @@
     UIButton *btn = sender;
     BOOL isEditing = btn.isSelected;
     _isEditing = !isEditing;
-    btn.selected = !isEditing;
+//    btn.selected = !isEditing;
     [self.tableView reloadData];
 }
 
@@ -336,7 +336,6 @@
     cell.contentTitle.text = item.zhName;
     cell.contentLocation.text = item.locality.zhName;
     cell.contentTypeFlag.image = [UIImage imageNamed:[item getTypeFlagName]];
-    [cell.contentDescExpandView setTitle:item.desc forState:UIControlStateNormal];
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:item.createTime/1000];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -344,9 +343,15 @@
     cell.timeLabel.text = [dateFormatter stringFromDate:date];
     
     
-    if (indexPath.row != _selectedIndex) {
-        cell.contentDescExpandView.selected = NO;
-    }
+    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:item.desc];
+    [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 4.0;
+    [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
+    [cell.contentDescExpandView setAttributedTitle:desc forState:UIControlStateNormal];
+//    if (indexPath.row != _selectedIndex) {
+//        cell.contentDescExpandView.selected = NO;
+//    } 
     
     [cell.contentDescExpandView addTarget:self action:@selector(expandDesc:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -358,12 +363,18 @@
     CGPoint viewPos = [btn convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
     
-    if (!btn.isSelected) {
+//    if (!btn.isSelected) {
+//        _selectedIndex = indexPath.row;
+//        btn.selected = YES;
+//    } else {
+//        _selectedIndex = -1;
+//        btn.selected = NO;
+//    }
+    
+    if (_selectedIndex != indexPath.row) {
         _selectedIndex = indexPath.row;
-        btn.selected = YES;
     } else {
         _selectedIndex = -1;
-        btn.selected = NO;
     }
     
     [self.tableView beginUpdates];
@@ -386,14 +397,24 @@
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == _selectedIndex) {
         NSString *text = ((Favorite *)[_dataSource objectAtIndex:indexPath.row]).desc;
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13.0]};
-        CGRect rect = [text boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width, MAXFLOAT)
+        
+//        NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:text];
+//        [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = 4.0;
+//        [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
+        
+//        CGRect rect = [desc boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+        
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13.0],
+                                     NSParagraphStyleAttributeName : style};
+        CGRect rect = [text boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
-        return 212 + rect.size.height - 34.0 + 28.0;
+        return 210 + rect.size.height - 24.0;
     }
-    return 212;
+    return 216;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
