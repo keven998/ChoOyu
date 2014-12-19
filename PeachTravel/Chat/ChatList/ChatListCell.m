@@ -20,7 +20,7 @@
     UIView *_lineView;
     
     UIView *frameView;
-    UIImageView *popBgView;
+//    UIImageView *popBgView;
 }
 
 @end
@@ -45,30 +45,29 @@
         [self.contentView addSubview:frameView];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:10.0];
+        _timeLabel.font = [UIFont italicSystemFontOfSize:10.0];
         _timeLabel.textColor = UIColorFromRGB(0x999999);
         _timeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [frameView addSubview:_timeLabel];
         
-        popBgView = [[UIImageView alloc] init];
-        popBgView.autoresizesSubviews = YES;
-        popBgView.contentMode = UIViewContentModeScaleToFill;
-        [frameView addSubview:popBgView];
+//        popBgView = [[UIImageView alloc] init];
+//        popBgView.autoresizesSubviews = YES;
+//        popBgView.contentMode = UIViewContentModeScaleToFill;
+//        [frameView addSubview:popBgView];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:11];
-        _detailLabel.textColor = [UIColor whiteColor];
+        _detailLabel.font = [UIFont systemFontOfSize:12];
+        _detailLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [popBgView addSubview:_detailLabel];
+        [frameView addSubview:_detailLabel];
         
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _unreadLabel.textColor = [UIColor whiteColor];
-        _unreadLabel.backgroundColor = [UIColor redColor];
+        _unreadLabel.backgroundColor = APP_THEME_COLOR;
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
         _unreadLabel.font = [UIFont systemFontOfSize:13.0];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
-        _unreadLabel.layer.cornerRadius = 8.0;
+        _unreadLabel.layer.cornerRadius = 3.0;
         _unreadLabel.clipsToBounds = YES;
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
     }
@@ -83,14 +82,14 @@
 {
     [super setSelected:selected animated:animated];
     if (![_unreadLabel isHidden]) {
-        _unreadLabel.backgroundColor = [UIColor redColor];
+        _unreadLabel.backgroundColor = APP_THEME_COLOR;
     }
 }
 
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
     if (![_unreadLabel isHidden]) {
-        _unreadLabel.backgroundColor = [UIColor redColor];
+        _unreadLabel.backgroundColor = APP_THEME_COLOR;
     }
 }
 
@@ -105,20 +104,20 @@
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont systemFontOfSize:11.0];
+    self.textLabel.font = [UIFont systemFontOfSize:13.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(70.0, 5.0, width - 110.0, 20.0);
+    self.textLabel.frame = CGRectMake(65.0, 14.0, width - 110.0, 15.0);
     
-    _timeLabel.frame = CGRectMake(width - 100.0, 10.0, 90.0, 15.0);
+    _timeLabel.frame = CGRectMake(width - 100.0, 22, 90.0, 15.0);
     frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height);
     
     _detailLabel.text = _detailMsg;
     CGSize size = [_detailMsg sizeWithAttributes:@{NSFontAttributeName : _detailLabel.font}];
-    CGFloat popW = size.width > self.textLabel.frame.size.width ? self.textLabel.frame.size.width : size.width;
-    popBgView.frame = CGRectMake(60.0, 26.0, popW + 30.0, 26.0);
+    CGFloat popW = size.width > (self.textLabel.frame.size.width-50) ? (self.textLabel.frame.size.width-50) : size.width;
+//    popBgView.frame = CGRectMake(60.0, 26.0, popW + 30.0, 26.0);
     
-    popBgView.image = [[UIImage imageNamed:@"chat_list_cell_bubble.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:17];
-    _detailLabel.frame = CGRectMake(15, 0.0, popBgView.frame.size.width - 23.0, popBgView.frame.size.height);
+//    popBgView.image = [[UIImage imageNamed:@"chat_list_cell_bubble.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:17];
+    _detailLabel.frame = CGRectMake(65, 26.0, popW+30, 26);
     
     _timeLabel.text = _time;
     
@@ -132,8 +131,9 @@
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
-        _unreadLabel.text = [NSString stringWithFormat:@"%d",_unreadCount];
-        _unreadLabel.frame = CGRectMake(42.0, 3.0, 16.0, 16.0);
+//        _unreadLabel.text = [NSString stringWithFormat:@"%d",_unreadCount];
+        
+        _unreadLabel.frame = CGRectMake(width-11, 5.0, 6.0, 6.0);
     }else{
         [_unreadLabel setHidden:YES];
     }

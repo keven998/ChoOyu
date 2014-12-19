@@ -76,13 +76,13 @@
     layer.shadowRadius = 2.5;
     [self.view addSubview:_coverView];
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 48.0, w, 48.0)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 49.0, w, 49.0)];
     bottomView.backgroundColor = APP_THEME_COLOR;
     bottomView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     bottomView.userInteractionEnabled = YES;
     [_coverView addSubview:bottomView];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(w - 128.0, 0.0, 128.0, 48.0)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(w - 128.0, 0.0, 128.0, 49.0)];
     [button setTitle:@"开启旅行>>" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

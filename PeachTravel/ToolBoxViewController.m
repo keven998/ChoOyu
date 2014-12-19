@@ -18,6 +18,7 @@
 #import "FavoriteViewController.h"
 #import "LocalViewController.h"
 #import "CycleScrollView.h"
+#import "NSTimer+Addition.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -94,20 +95,19 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 167.5) animationDuration:5];
-    
-    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
+    _galleryPageView.backgroundColor = [APP_PAGE_COLOR colorWithAlphaComponent:0.1];
     
     [self.view addSubview:_galleryPageView];
     
-    _weatherFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, 24.0)];
+    _weatherFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
     _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     _weatherFrame.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.33];
     
-    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(19.0, 0.0, w - 38.0, 24.0)];
+    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, 0.0, w - 22.0, 40.0)];
     _weatherLabel.textAlignment = NSTextAlignmentLeft;
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = [UIColor whiteColor];
-    _weatherLabel.font = [UIFont systemFontOfSize:13.0];
+    _weatherLabel.font = [UIFont systemFontOfSize:14.0];
     [_weatherFrame addSubview:_weatherLabel];
     
     _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, h, w, 64.0)];
@@ -182,10 +182,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self loadRecommendData];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if ([self isUnReadMsg]) {
@@ -193,6 +189,16 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         _unReadMsgLabel.hidden = YES;
     }
+    if (!_operationDataArray || _operationDataArray.count == 0) {
+        [self loadRecommendData];
+    }
+    [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_galleryPageView.animationTimer pauseTimer];
 }
 
 - (void)dealloc
@@ -317,12 +323,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)updateWeatherLabelWithCityName:(NSString *)city
 {
     NSString *currentDate = [ConvertMethods getCurrentDataWithFormat:@"yyyy-MM-dd"];
-    NSLog(@"%@", _location.description);
-    NSString *cityName = city? city:@"当前位置";
+    NSString *tempCityName = city? city:@"当前位置";
+    //将城市名字包含“市辖区”字眼的去掉
+    NSString *cityName = [tempCityName stringByReplacingOccurrencesOfString:@"市辖区" withString:@""];
     NSString *s = [NSString stringWithFormat:@"  %@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
     _weatherLabel.text = s;
     [_weatherFrame removeFromSuperview];
     [self.view addSubview:_weatherFrame];
+    [_galleryPageView.pagerControl setFrame:CGRectMake(_galleryPageView.pagerControl.frame.origin.x,_galleryPageView.pagerControl.frame.origin.y-40, _galleryPageView.pagerControl.frame.size.width, _galleryPageView.pagerControl.frame.size.height)];
 }
 
 #pragma mark - IBAction Methods
