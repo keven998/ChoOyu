@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TaoziImage : NSObject
+@interface TaoziImage : NSObject<NSCoding>
 
 @property (nonatomic ,copy) NSString *imageUrl;
 

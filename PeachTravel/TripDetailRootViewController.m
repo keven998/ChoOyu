@@ -43,6 +43,11 @@
     [super viewDidLoad];
     self.navigationItem.title = @"新Memo";
     
+    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(share:)];
+//    addBtn.tintColor = APP_THEME_COLOR;
+    [addBtn setImage:[UIImage imageNamed:@"ic_more.png"]];
+    self.navigationItem.rightBarButtonItem = addBtn;
+    
     [self setupViewControllers];
     if (_isMakeNewTrip) {
         [self loadNewTripData];
@@ -50,11 +55,11 @@
         [self checkTripData];
     }
     
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
-    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-    [moreBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    [moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+//    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+//    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//    [moreBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+//    [moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
 }
 
 /**
@@ -178,7 +183,7 @@
 - (IBAction)share:(id)sender
 {
     NSArray *shareButtonimageArray = @[@"ic_sns_talk.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
-    NSArray *shareButtonTitleArray = @[@"桃∙talk", @"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
+    NSArray *shareButtonTitleArray = @[@"桃∙Talk", @"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.view];
 
@@ -197,22 +202,21 @@
 
 - (void)setupViewControllers {
     _spotsListCtl = [[SpotsListViewController alloc] init];
-    UIViewController *firstNavigationController = [[UINavigationController alloc]
+    UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                    initWithRootViewController:_spotsListCtl];
     _spotsListCtl.rootViewController = self;
     _spotsListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
-    UIViewController *secondNavigationController = [[UINavigationController alloc]
+    UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                     initWithRootViewController:_restaurantListCtl];
     _restaurantListCtl.rootViewController = self;
     _restaurantListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
-    UIViewController *thirdNavigationController = [[UINavigationController alloc]
+    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                    initWithRootViewController:_shoppingListCtl];
     _shoppingListCtl.destinationsHeaderView = self.destinationsHeaderView;
-
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                            thirdNavigationController]];

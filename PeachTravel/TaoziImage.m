@@ -17,4 +17,17 @@
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _imageUrl = [aDecoder decodeObjectForKey:@"url"];
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_imageUrl forKey:@"url"];
+}
+
 @end

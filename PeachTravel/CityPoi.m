@@ -38,6 +38,38 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _cityId = [aDecoder decodeObjectForKey:@"id"];
+        _zhName = [aDecoder decodeObjectForKey:@"zhName"];
+        _enName = [aDecoder decodeObjectForKey:@"enName"];
+        _desc = [aDecoder decodeObjectForKey:@"desc"];
+        _lng = [aDecoder decodeDoubleForKey:@"lng"];
+        _lat = [aDecoder decodeDoubleForKey:@"lat"];
+        _images = [aDecoder decodeObjectForKey:@"images"];
+        _timeCostDesc = [aDecoder decodeObjectForKey:@"timeCostDesc"];
+        _travelMonth = [aDecoder decodeObjectForKey:@"travelMonth"];
+        _imageCount = [aDecoder decodeIntegerForKey:@"imageCnt"];
+        _isMyFavorite = [aDecoder decodeBoolForKey:@"isFavorite"];
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_cityId forKey:@"id"];
+    [aCoder encodeObject:_zhName forKey:@"zhName"];
+    [aCoder encodeObject:_enName forKey:@"enName"];
+    [aCoder encodeObject:_desc forKey:@"desc"];
+    [aCoder encodeDouble:_lng forKey:@"lng"];
+    [aCoder encodeDouble:_lat forKey:@"lat"];
+    [aCoder encodeObject:_images forKey:@"images"];
+    [aCoder encodeObject:_timeCostDesc forKey:@"timeCostDesc"];
+    [aCoder encodeObject:_travelMonth forKey:@"travelMonth"];
+    [aCoder encodeInteger:_imageCount forKey:@"imageCnt"];
+    [aCoder encodeBool:_isMyFavorite forKey:@"isFavorite"];
+}
+
 - (void)setTravelNotes:(NSArray *)travelNotes
 {
     NSMutableArray *tempTravelNotes = [[NSMutableArray alloc] init];

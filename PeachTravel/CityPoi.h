@@ -9,7 +9,7 @@
 #import "SuperPoi.h"
 #import "RecommendsOfCity.h"
 
-@interface CityPoi : NSObject
+@interface CityPoi : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *cityId;
 @property (nonatomic, copy) NSString *zhName;

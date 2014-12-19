@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CityPoi.h"
 
-@interface Favorite : NSObject
+@interface Favorite : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *favoriteId;
 @property (nonatomic, copy) NSString *itemId;

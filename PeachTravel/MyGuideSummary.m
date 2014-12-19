@@ -29,4 +29,28 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _guideId = [aDecoder decodeObjectForKey:@"id"];
+        _title = [aDecoder decodeObjectForKey:@"title"];
+        _updateTime = [aDecoder decodeInt64ForKey:@"updateTime"];
+        _summary = [aDecoder decodeObjectForKey:@"summary"];
+        _updateTimeStr = [aDecoder decodeObjectForKey:@"updateTimeStr"];
+        _images = [aDecoder decodeObjectForKey:@"images"];
+        _dayCount = [aDecoder decodeIntForKey:@"dayCnt"];
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_guideId forKey:@"id"];
+    [aCoder encodeObject:_title forKey:@"title"];
+    [aCoder encodeInt64:_updateTime forKey:@"updateTime"];
+    [aCoder encodeObject:_summary forKey:@"summary"];
+    [aCoder encodeObject:_updateTimeStr forKey:@"updateTimeStr"];
+    [aCoder encodeObject:_images forKey:@"images"];
+    [aCoder encodeInt:_dayCount forKey:@"dayCnt"];
+}
+
 @end

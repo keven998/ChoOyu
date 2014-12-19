@@ -19,6 +19,8 @@
 #import "SINavigationMenuView.h"
 #import "TMCache.h"
 
+#define PAGE_COUNT 15
+
 @interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate, TaoziMessageSendDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -101,11 +103,12 @@
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self bindDataToView:object];
+                [self.dataSource addObjectsFromArray:object];
+                [self.tableView reloadData];
             });
         } else {
-            [self pullToRefreash:nil];
             self.slimeView.loading = YES;
+            [self pullToRefreash:nil];
         }
     }];
 }
@@ -242,6 +245,10 @@
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             
+            
+//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                [self cacheFirstPage];
+//            });
         }
     }];
 }
@@ -262,7 +269,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     [params safeSetObject:faType forKey:@"faType"];
     
@@ -273,13 +280,14 @@
             if (pageIndex == 0) {
                 [self.dataSource removeAllObjects];
             }
+            _currentPage = pageIndex;
             [self bindDataToView:responseObject];
             if (pageIndex == 0) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [self cacheFirstPage:responseObject];
+                    [self cacheFirstPage];
                 });
             }
-            _currentPage = pageIndex;
+            
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
@@ -298,10 +306,12 @@
     }];
 }
 
-- (void) cacheFirstPage:(id)responseObject {
+- (void) cacheFirstPage {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (_dataSource.count > 0) {
-        [[TMCache sharedCache] setObject:responseObject forKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
+    int count = _dataSource.count;
+    if (count > 0) {
+        NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
+        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
     } else {
         [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];
     }

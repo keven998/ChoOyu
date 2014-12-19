@@ -19,6 +19,7 @@
 #import "ForeignViewController.h"
 #import "SRRefreshView.h"
 
+#define PAGE_COUNT 10
 
 @interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -72,12 +73,27 @@ static NSString *reusableCell = @"myGuidesCell";
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
-    
-    self.slimeView.loading = YES;
-    [self pullToRefreash:nil];
-
     [self.view addSubview:self.editBtn];
     
+//    self.slimeView.loading = YES;
+//    [self pullToRefreash:nil];
+
+    [self initDataFromCache];
+}
+
+- (void) initDataFromCache {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.dataSource addObjectsFromArray:object];
+                [self.tableView reloadData];
+            });
+        } else {
+            self.slimeView.loading = YES;
+            [self pullToRefreash:nil];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,7 +103,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.editBtn removeFromSuperview];
+//    [self.editBtn removeFromSuperview];
 }
 
 - (void)dealloc
@@ -297,6 +313,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showSuccessWithStatus:@"删除成功"];
@@ -307,12 +324,16 @@ static NSString *reusableCell = @"myGuidesCell";
             if (_dataSource.count == 0) {
                 [self setupEmptyView];
             }
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [self cacheFirstPage:responseObject];
+            });
         } else {
             [SVProgressHUD showErrorWithStatus:@"删除失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
         [SVProgressHUD showErrorWithStatus:@"删除失败"];
     }];
     
@@ -349,6 +370,9 @@ static NSString *reusableCell = @"myGuidesCell";
             guideSummary.title = title;
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [self cacheFirstPage:responseObject];
+            });
         } else {
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
@@ -373,46 +397,67 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
+    [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取我的攻略列表
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        NSLog(@"正在获取我的攻略列表，页数是：%d", pageIndex);
-        if (pageIndex == 0) {
-            [self.dataSource removeAllObjects];
-        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self bindDataToView:responseObject];
+            if (pageIndex == 0) {
+                [self.dataSource removeAllObjects];
+            }
             _currentPage = pageIndex;
+            [self bindDataToView:responseObject];
+            if (pageIndex == 0) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [self cacheFirstPage:responseObject];
+                });
+            }
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
     }];
     
+}
+
+- (void) cacheFirstPage:(id)responseObject {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    int count = _dataSource.count;
+    if (count > 0) {
+        NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
+        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId]];
+    } else {
+        [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId]];
+    }
 }
 
 - (void) bindDataToView:(id)responseObject
 {
     NSArray *datas = [responseObject objectForKey:@"result"];
-    if (self.slimeView.loading) {
-        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.7];
-    }
+//    if (self.slimeView.loading) {
+//        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.7];
+//    }
     if (datas.count == 0) {
-        if (_dataSource.count == 0) {
+        if (_currentPage == 0) {
             [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
         } else {
             [self showHint:@"已取完所有内容啦"];
         }
+        [self.tableView reloadData];
         return;
     } else {
         [self removeEmptyView];
@@ -455,7 +500,7 @@ static NSString *reusableCell = @"myGuidesCell";
     desc.font = [UIFont systemFontOfSize:15.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"木有任何旅行Memo\n这么好的旅行棒手不用可惜了";
+    desc.text = @"木有任何旅行Memo\n这么好的旅行帮手不用可惜了";
     [self.emptyView addSubview:desc];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

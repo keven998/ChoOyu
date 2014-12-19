@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MyGuideSummary : NSObject
+@interface MyGuideSummary : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *guideId;
 @property (nonatomic, copy) NSString *title;
