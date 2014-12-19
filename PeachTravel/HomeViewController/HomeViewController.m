@@ -22,11 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 48)];
-    imageView.image = [UIImage imageNamed:@"ic_loc_normal"];
-    
-    [_tabbar setItems:@[imageView, imageView, imageView] animated:YES];
-    
     [self setupConverView];
 }
 
