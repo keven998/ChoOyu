@@ -38,7 +38,7 @@
         [_titleBtn setImage:[UIImage imageNamed:@"ic_plan_title_edit.png"] forState:UIControlStateNormal];
         _titleBtn.imageView.alpha = 0.0;
         CGRect frame = _titleBtn.titleLabel.frame;
-        frame.origin.x = 20.0;
+        frame.origin.x = 28.0;
         [UIView animateWithDuration:0.3 animations:^{
             _deleteBtn.alpha = 0.7;
             _titleBtn.imageView.alpha = 0.7;

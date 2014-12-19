@@ -45,35 +45,38 @@
 
 static NSString *reusableCell = @"myGuidesCell";
 
+- (id)init {
+    if (self = [super init]) {
+        _isEditing = NO;
+        _currentPage = 0;
+        _isLoadingMore = YES;
+        _didEndScroll = YES;
+        _enableLoadMore = NO;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"旅行Memo";
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
     
     UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新建 " style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
     mp.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = mp;
     
+    [self.view addSubview:self.tableView];
+    [self.tableView addSubview:self.slimeView];
+    
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
     
-    _isEditing = NO;
-    _currentPage = 0;
-    _isLoadingMore = YES;
-    _didEndScroll = YES;
-    _enableLoadMore = NO;
+    self.slimeView.loading = YES;
     [self pullToRefreash:nil];
 
     [self.view addSubview:self.editBtn];
-    self.slimeView.loading = YES;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,6 +96,7 @@ static NSString *reusableCell = @"myGuidesCell";
     _tableView = nil;
     _slimeView.delegate = nil;
     _slimeView = nil;
+    _tapRecognizer = nil;
 }
 
 #pragma mark - navigation action
@@ -135,14 +139,14 @@ static NSString *reusableCell = @"myGuidesCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentOffset:CGPointMake(0, 10)];
+        _tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0);
+//        [_tableView setContentOffset:CGPointMake(0, 10)];
         [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-
     }
     return _tableView;
 }
@@ -228,9 +232,9 @@ static NSString *reusableCell = @"myGuidesCell";
     _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
     [self.view addGestureRecognizer:_tapRecognizer];
-    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
-    [self presentPopupViewController:_confirmRouteViewController atHeight:70.0 animated:YES completion:^(void) {
-    }];
+    
+//    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
+    [self presentPopupViewController:_confirmRouteViewController atHeight:70.0 animated:YES completion:nil];
     _confirmRouteViewController.routeTitle.text = guideSummary.title;
     _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
     [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
@@ -247,6 +251,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
     if ([guideSummary.title isEqualToString:_confirmRouteViewController.routeTitle.text]) {
         [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        [self dismissPopup:nil];
         return;
     }
     [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text atIndex:sender.tag];
@@ -335,18 +340,19 @@ static NSString *reusableCell = @"myGuidesCell";
 
     [manager POST:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            [self dismissPopup:nil];
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             guideSummary.title = title;
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
         } else {
-            
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
         [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
 }
@@ -415,8 +421,6 @@ static NSString *reusableCell = @"myGuidesCell";
         MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
         [self.dataSource addObject:guideSummary];
     }
-    
-    NSLog(@"我的个数是%d", self.dataSource.count);
     
     [self.tableView reloadData];
     
