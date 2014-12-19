@@ -11,6 +11,9 @@
 @interface CycleScrollView : UIView
 
 @property (nonatomic , readonly) UIScrollView *scrollView;
+@property (nonatomic, strong) UIPageControl *pagerControl;
+@property (nonatomic , strong) NSTimer *animationTimer;
+
 /**
  *  初始化
  *

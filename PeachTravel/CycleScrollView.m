@@ -16,9 +16,7 @@
 @property (nonatomic , strong) NSMutableArray *contentViews;
 @property (nonatomic , strong) UIScrollView *scrollView;
 
-@property (nonatomic , strong) NSTimer *animationTimer;
 @property (nonatomic , assign) NSTimeInterval animationDuration;
-@property (nonatomic, strong) UIPageControl *pagerControl;
 
 @end
 
@@ -57,6 +55,8 @@
         self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         self.scrollView.autoresizingMask = 0xFF;
         self.scrollView.contentMode = UIViewContentModeCenter;
+        self.scrollView.showsHorizontalScrollIndicator = NO;
+        self.scrollView.showsVerticalScrollIndicator = NO;
         self.scrollView.contentSize = CGSizeMake(3 * CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame));
         self.scrollView.delegate = self;
         self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0);
@@ -175,14 +175,5 @@
         self.TapActionBlock(self.currentPageIndex);
     }
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
