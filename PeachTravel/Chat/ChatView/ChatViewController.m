@@ -124,6 +124,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
+    self.peopleInGroup = [self loadContactsFromDB];
+    
     [[[EaseMob sharedInstance] deviceManager] addDelegate:self onQueue:nil];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -158,11 +160,6 @@
 
 - (void)setupBarButtonItem
 {
-//    UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-//    [detailButton setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-//    [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
-    
     UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showRoomContact:)];
     [registerBtn setImage:[UIImage imageNamed:@"ic_more.png"]];
     self.navigationItem.rightBarButtonItem = registerBtn;
@@ -258,7 +255,6 @@
 {
     [_titleBtn removeTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
     [_titleBtn addTarget:self action:@selector(hideGroupList) forControlEvents:UIControlEventTouchUpInside];
-    self.peopleInGroup = [self loadContactsFromDB];
     if (self.peopleInGroup.count > 0) {
         self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
         if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
@@ -268,7 +264,16 @@
             self.chatScrollView.shouldshowDeleteBtn = NO;
         }
     }
-    [self asyncLoadGroupFromEasemobServer];
+    [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
+        if (isSuccess) {
+            self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
+            if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
+                self.chatScrollView.shouldshowDeleteBtn = YES;
+            } else {
+                self.chatScrollView.shouldshowDeleteBtn = NO;
+            }
+        }
+    }];
     self.chatScrollView.addBtn.hidden = NO;
     [UIView animateWithDuration:0.4 animations:^{
         CGRect rect = CGRectMake(0, 64, self.view.frame.size.width, 150);
@@ -313,24 +318,71 @@
     self.chatScrollView.deleteBtn.hidden = YES;
 }
 
+/**
+ *  点击进入联系人信息
+ *
+ *  @param sender 
+ */
 - (IBAction)showUserInfo:(UIButton *)sender
 {
     Contact *selectPerson = self.peopleInGroup[sender.tag];
-    if ([self.accountManager isMyFrend:selectPerson.userId]) {
+    [self  showUserInfoWithContactInfo:selectPerson];
+
+}
+
+/**
+ *  点击进入联系人信息
+ *
+ *  @param sender
+ */
+- (void)showUserInfoWithModel:(MessageModel *)model
+{
+    Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
+    if (!contact) {
+        for (Contact *tempContact in self.peopleInGroup) {
+            if ([tempContact.easemobUser isEqualToString:model.username]) {
+                [self  showUserInfoWithContactInfo:tempContact];
+                break;
+            }
+        }
+        if (!contact) {
+            [SVProgressHUD show];
+            [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [SVProgressHUD dismiss];
+                    for (Contact *tempContact in self.peopleInGroup) {
+                        if ([tempContact.easemobUser isEqualToString:model.username]) {
+                            [self  showUserInfoWithContactInfo:tempContact];
+                            break;
+                        }
+                    }
+                }
+            }];
+        }
+    } else {
+        [self  showUserInfoWithContactInfo:contact];
+    }
+
+}
+
+- (void)showUserInfoWithContactInfo:(Contact *)contact
+{
+    if ([self.accountManager isMyFrend:contact.userId]) {
         ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        contactDetailCtl.contact = selectPerson;
+        contactDetailCtl.contact = contact;
+        contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
+        
     } else {
         SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-        searchUserInfoCtl.userInfo = @{@"userId":selectPerson.userId,
-                                       @"avatar":selectPerson.avatar,
-                                       @"nickName":selectPerson.nickName,
-                                       @"signature":selectPerson.signature,
-                                       @"easemobUser":selectPerson.easemobUser
+        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
+                                       @"avatar":contact.avatar,
+                                       @"nickName":contact.nickName,
+                                       @"signature":contact.signature,
+                                       @"easemobUser":contact.easemobUser
                                        };
         [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
     }
-    
 }
 
 /**
@@ -396,16 +448,16 @@
 /**
  *  异步从环信服务器上取群组的信息
  */
-- (void)asyncLoadGroupFromEasemobServer
+- (void)asyncLoadGroupFromEasemobServerWithCompletion:(void(^)(BOOL isSuccess))completion
 {
     [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:_chatter completion:^(EMGroup *group, EMError *error){
         if (!error) {
-            [self loadContactsFromTZServerWithGroup:group];
+            [self loadContactsFromTZServerWithGroup:group withCompletion:completion];
         }
     } onQueue:nil];
 }
 
-- (void)loadContactsFromTZServerWithGroup:(EMGroup *)emgroup
+- (void)loadContactsFromTZServerWithGroup:(EMGroup *)emgroup withCompletion:(void(^)(BOOL))completion
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -420,13 +472,14 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self updateGroupInDB:[responseObject objectForKey:@"result"] andEMGroup:emgroup];
-            
+            completion(YES);
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            completion(NO);
+            [SVProgressHUD showErrorWithStatus:@"网络加载失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        completion(NO);
     }];
 
 }
@@ -441,13 +494,6 @@
     NSMutableArray *datas = [[NSMutableArray alloc] init];
     for (Contact *contact in self.peopleInGroup) {
         [datas addObject:contact.avatar];
-    }
-    self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
-    
-    if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
-        self.chatScrollView.shouldshowDeleteBtn = YES;
-    } else {
-        self.chatScrollView.shouldshowDeleteBtn = NO;
     }
 }
 
@@ -856,8 +902,11 @@
         id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
         [chatManager asyncResendMessage:messageModel.message progress:nil];
         
-    } else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]){
+    } else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]) {
         [self chatVideoCellPressed:model];
+    
+    } else if ([eventName isEqualToString:kRouterEventChatHeadImageTapEventName]) {   //点击头像
+        [self showUserInfoWithModel:model];
     }
 }
 

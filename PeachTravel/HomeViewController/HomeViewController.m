@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UIImageView *coverView;
 @property (nonatomic, strong) ICETutorialController *viewController;
+@property (weak, nonatomic) IBOutlet UITabBar *tabbar;
 
 @end
 
@@ -20,7 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 48)];
+    imageView.image = [UIImage imageNamed:@"ic_loc_normal"];
+    
+    [_tabbar setItems:@[imageView, imageView, imageView] animated:YES];
+    
     [self setupConverView];
 }
 

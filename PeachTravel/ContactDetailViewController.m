@@ -186,7 +186,10 @@
 #pragma - mark IBAction
 
 - (IBAction)chat:(id)sender {
-    
+    if (_goBackToChatViewWhenClickTalk) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
     chatCtl.title = contact.nickName;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
@@ -281,14 +284,5 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
