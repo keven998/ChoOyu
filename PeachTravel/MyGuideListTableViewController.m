@@ -19,6 +19,7 @@
 #import "ForeignViewController.h"
 #import "SRRefreshView.h"
 
+#define PAGE_COUNT 10
 
 @interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -85,7 +86,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self bindDataToView:object];
+                [self.dataSource addObjectsFromArray:object];
+                [self.tableView reloadData];
             });
         } else {
             self.slimeView.loading = YES;
@@ -101,7 +103,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.editBtn removeFromSuperview];
+//    [self.editBtn removeFromSuperview];
 }
 
 - (void)dealloc
@@ -322,6 +324,9 @@ static NSString *reusableCell = @"myGuidesCell";
             if (_dataSource.count == 0) {
                 [self setupEmptyView];
             }
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [self cacheFirstPage:responseObject];
+            });
         } else {
             [SVProgressHUD showErrorWithStatus:@"删除失败"];
         }
@@ -365,6 +370,9 @@ static NSString *reusableCell = @"myGuidesCell";
             guideSummary.title = title;
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [self cacheFirstPage:responseObject];
+            });
         } else {
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
@@ -389,7 +397,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
+    [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -412,20 +420,26 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self hideSlimeView];
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self hideSlimeView];
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
     }];
     
 }
 
 - (void) cacheFirstPage:(id)responseObject {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (_dataSource.count > 0) {
-        [[TMCache sharedCache] setObject:responseObject forKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId]];
+    int count = _dataSource.count;
+    if (count > 0) {
+        NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
+        [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId]];
     } else {
         [[TMCache sharedCache] removeObjectForKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId]];
     }

@@ -31,6 +31,35 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _favoriteId = [aDecoder decodeObjectForKey:@"id"];
+        _itemId = [aDecoder decodeObjectForKey:@"itemId"];
+        _type = [aDecoder decodeObjectForKey:@"type"];
+        _zhName = [aDecoder decodeObjectForKey:@"zhName"];
+        _enName = [aDecoder decodeObjectForKey:@"enName"];
+        _desc = [aDecoder decodeObjectForKey:@"desc"];
+        _createTime = [aDecoder decodeInt64ForKey:@"createTime"];
+        _images = [aDecoder decodeObjectForKey:@"images"];
+        _locality = [aDecoder decodeObjectForKey:@"locality"];
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_favoriteId forKey:@"id"];
+    [aCoder encodeObject:_itemId forKey:@"itemId"];
+    [aCoder encodeObject:_type forKey:@"type"];
+    [aCoder encodeObject:_zhName forKey:@"zhName"];
+    [aCoder encodeObject:_enName forKey:@"enName"];
+    [aCoder encodeObject:_desc forKey:@"desc"];
+    [aCoder encodeInt64:_createTime forKey:@"createTime"];
+    [aCoder encodeObject:_images forKey:@"images"];
+    [aCoder encodeObject:_locality forKey:@"locality"];
+
+}
+
 - (NSString *)getTypeDesc {
     if ([_type isEqualToString:@"vs"]) {
         return @"景点";
