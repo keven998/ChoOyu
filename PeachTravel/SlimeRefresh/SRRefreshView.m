@@ -294,7 +294,7 @@
         //_notSetFrame = YES;
         [self performSelector:@selector(restore)
                    withObject:nil
-                   afterDelay:0];
+                   afterDelay:0.35];
     }
     _oldLength = 0;
 }
