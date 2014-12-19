@@ -27,7 +27,8 @@
 - (void)updateView
 {
     self.navigationItem.title = _restaurantPoi.zhName;
-    RestaurantDetailView *restaurantView = [[RestaurantDetailView alloc] initWithFrame:CGRectMake(11, 74, self.view.bounds.size.width-22, self.view.bounds.size.height-74)];
+    RestaurantDetailView *restaurantView = [[RestaurantDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-74)];
+    restaurantView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     restaurantView.restaurantPoi = self.restaurantPoi;
     [self.view addSubview:restaurantView];
 }

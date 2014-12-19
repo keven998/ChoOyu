@@ -52,6 +52,9 @@
 - (void)setTravelNoteImage:(NSString *)travelNoteImage
 {
     _travelNoteImage = travelNoteImage;
+    if ([_travelNoteImage isEqual: [NSNull null]]) {
+        return;
+    }
     [_travelNoteImageView sd_setImageWithURL:[NSURL URLWithString:_travelNoteImage] placeholderImage:nil];
 }
 

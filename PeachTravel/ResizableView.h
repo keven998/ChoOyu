@@ -27,4 +27,6 @@
  */
 - (NSInteger)maxNumberOfLine;
 
+- (instancetype)initWithFrame:(CGRect)frame andNumberOfLine:(NSUInteger)numberOfLine;
+
 @end

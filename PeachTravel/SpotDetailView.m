@@ -124,12 +124,13 @@
     
     oy += 35;
     
-    _spot.desc = @"位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈";
+    _spot.desc = @"位于哈哈哈哈哈哈位于哈哈哈哈\n哈哈位于哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位\n于哈哈哈哈哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于\n哈哈哈哈哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈\n位于哈";
     
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-44, 40)];
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-44, 30) andNumberOfLine:2];
     _descView.contentFont = [UIFont systemFontOfSize:11.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _spot.desc;
+    
     [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
 
     [_headerView addSubview:_descView];

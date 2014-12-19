@@ -45,7 +45,8 @@
 
 - (NSInteger)maxNumberOfLine
 {
-    CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
+    NSString *handelStr = [_content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    CGSize size = [handelStr sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
     NSInteger lineCount = (size.width / self.frame.size.width) + 1;
     return lineCount;
 }
@@ -59,24 +60,35 @@
 - (void)updateView
 {
     if (_shouldShowMoreContent) {
-        CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
-        NSInteger lineCount = (size.width / self.frame.size.width) + 1;
+        
+        NSString *handelStr = [_content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+
+        CGSize sizeWithoutBread = [handelStr sizeWithAttributes:@{NSFontAttributeName :_contentFont}];
+        
+        CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :_contentFont}];
+        
+        NSLog(@"%d", (int)(size.height/sizeWithoutBread.height));
+        
+        NSInteger exterCount = size.height/sizeWithoutBread.height;
+        
+        NSInteger lineCount = (sizeWithoutBread.width / self.frame.size.width) + exterCount;
+
+        NSLog(@"%f", (size.width / self.frame.size.width) );
+        
+        NSLog(@"%f", self.frame.size.width);
+        
         self.titleLabel.numberOfLines = lineCount;
-        self.alpha = 0.6;
-        [UIView animateWithDuration:0.3 animations:^{
-            CGFloat height = size.height * lineCount;
-            [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
-                                      , self.frame.size.width, height)];
-            self.alpha = 1;
-        }];
+
+        CGFloat height = sizeWithoutBread.height * lineCount;
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
+                                  , self.frame.size.width, height)];
+
         _resizeHeight = self.frame.size.height - _resetFrame.size.height;
+        
     } else {
-        self.alpha = 0.6;
         self.titleLabel.numberOfLines = _numberOfLine;
-        [UIView animateWithDuration:0.3 animations:^{
-            [self setFrame:_resetFrame];
-            self.alpha = 1;
-        }];
+
+        [self setFrame:_resetFrame];
     }
 }
 
@@ -90,13 +102,14 @@
     self.shouldShowMoreContent = NO;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame andNumberOfLine:(NSUInteger)numberOfLine
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _numberOfLine = numberOfLine;
         _resetFrame = frame;
         self.layer.cornerRadius = 2.0;
-        self.titleLabel.numberOfLines = 2;  
+        self.titleLabel.numberOfLines = _numberOfLine;
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     }

@@ -99,11 +99,10 @@
     
     oy += 40;
     
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(8, oy, width-16, 40)];
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(8, oy, width-16, 40) andNumberOfLine:2];
     _descView.contentFont = [UIFont systemFontOfSize:11.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _cityPoi.desc;
-    _descView.numberOfLine = 3.0;
     [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_descView];
     
@@ -239,9 +238,9 @@
         [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y+_descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
         [_detailView setFrame:CGRectMake(_detailView.frame.origin.x, _detailView.frame.origin.y+_descView.resizeHeight, _detailView.frame.size.width, _detailView.frame.size.height)];
         _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
-
     } completion:^(BOOL finished) {
     }];
+    
      self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
     [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
@@ -256,11 +255,12 @@
     [UIView animateWithDuration:0.3 animations:^{
         [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height - _descView.resizeHeight)];
         [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y - _descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
+        _descView.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         [_detailView setFrame:CGRectMake(_detailView.frame.origin.x, _detailView.frame.origin.y-_descView.resizeHeight, _detailView.frame.size.width, _detailView.frame.size.height)];
         _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
 
-    } completion:^(BOOL finished) {
     }];
+    
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
     [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
@@ -322,7 +322,7 @@
 }
 
 /**
- *  获取城市的详细信息
+ *  获取城市的图集信息
  */
 - (void)loadAlbumDataWithAlbumCtl:(MWPhotoBrowser *)albumCtl
 {

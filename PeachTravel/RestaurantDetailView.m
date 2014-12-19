@@ -59,6 +59,8 @@ static NSString *commentCellIdentifier = @"commentCell";
     self.dataSource = self;
     self.delegate = self;
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
 
     CGFloat oy = 0;
     CGFloat width = self.frame.size.width;
