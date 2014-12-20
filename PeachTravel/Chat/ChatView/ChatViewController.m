@@ -340,6 +340,7 @@
     if (model.isSender) {
         return;
     }
+    
     Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
     
     if (!model.isChatGroup) {
@@ -350,7 +351,7 @@
         for (Contact *tempContact in self.peopleInGroup) {
             if ([tempContact.easemobUser isEqualToString:model.username]) {
                 [self  showUserInfoWithContactInfo:tempContact];
-                break;
+                return;
             }
         }
         if (!contact) {
