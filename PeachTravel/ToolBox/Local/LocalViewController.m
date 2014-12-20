@@ -170,6 +170,9 @@
 
 - (void)loadDataWithPageIndex:(NSInteger)pageIndex
 {
+    if (!_location) {
+        return;
+    }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 
     manager.requestSerializer = [AFJSONRequestSerializer serializer];

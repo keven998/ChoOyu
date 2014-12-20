@@ -319,7 +319,7 @@
 }
 
 /**
- *  点击进入联系人信息
+ *  点击群组联系人列表的头像进入联系人信息
  *
  *  @param sender 
  */
@@ -331,13 +331,21 @@
 }
 
 /**
- *  点击进入联系人信息
+ *  点击聊天的头像进入联系人信息
  *
  *  @param sender
  */
 - (void)showUserInfoWithModel:(MessageModel *)model
 {
+    if (model.isSender) {
+        return;
+    }
     Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
+    
+    if (!model.isChatGroup) {
+        return;
+    }
+    
     if (!contact) {
         for (Contact *tempContact in self.peopleInGroup) {
             if ([tempContact.easemobUser isEqualToString:model.username]) {

@@ -42,11 +42,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-//    [backBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-//    [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.title = @"选择会话";
     
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
@@ -54,6 +50,9 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
+    
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
 
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
@@ -149,20 +148,26 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
-        return 20;
+        return 40;
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44.0;
+    if (indexPath.section == 0) {
+        return 50.0;
+    }
+    return 60.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCreateConversationCell forIndexPath:indexPath];
         cell.textLabel.text = @"创建新的聊天";
+        cell.textLabel.textColor = TEXT_COLOR_TITLE;
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
         
@@ -191,11 +196,13 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
-        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 20)];
-        label.text = @"最近聊天";
+        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, 30)];
+        label.text = @"    最近聊天";
         label.font = [UIFont systemFontOfSize:13.0];
-        label.textColor = [UIColor lightGrayColor];
+        label.backgroundColor = [UIColor whiteColor];
+        sectionView.backgroundColor = APP_PAGE_COLOR;
+        label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         [sectionView addSubview:label];
         return sectionView;
     }
