@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.tableView setContentInset:UIEdgeInsetsMake(-35, 0, 0, 0)];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
@@ -210,7 +210,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (self.accountManager.isLogin) {
+    
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
+
             userInfoCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:userInfoCtl animated:YES];
         }

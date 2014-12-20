@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationItem.title = @"个人信息";
     [self.tableView setContentInset:UIEdgeInsetsMake(10.0, 0, 0, 0)];
     self.tableView.tableFooterView = self.footerView;
