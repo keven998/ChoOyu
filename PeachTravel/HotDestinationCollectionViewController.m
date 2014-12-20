@@ -21,9 +21,13 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 
-@interface HotDestinationCollectionViewController ()
-@property (strong, nonatomic) UICollectionViewFlowLayout *flowLayout;
+@interface HotDestinationCollectionViewController () <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
+
 @property (strong, nonatomic) NSMutableArray *dataSource;
+
+@property (strong, nonatomic) UICollectionViewFlowLayout *flowLayout;
+
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
@@ -33,16 +37,19 @@ static NSString * const reuseIdentifier = @"Cell";
 static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
+    self.navigationItem.title = @"想去";
+    
+    [self.view addSubview:self.collectionView];
+
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
-    self.collectionView.collectionViewLayout = self.flowLayout;
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 10.0, 5);
     [self loadDataSource];
-
+    
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = makePlanBtn;
@@ -50,10 +57,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark - setter & getter
 
-- (UICollectionViewLayout *)flowLayout
+- (UICollectionView *)collectionView
 {
-    CGFloat width = self.view.bounds.size.width;
-    if (!_flowLayout) {
+    if (!_collectionView) {
+        CGFloat width = kWindowWidth;
         _flowLayout = [[UICollectionViewFlowLayout alloc] init];
         _flowLayout.itemSize = CGSizeMake((width-40)/2, (width-40)/2);
         _flowLayout.minimumInteritemSpacing = 10.;
@@ -61,10 +68,32 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
         [_flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
         _flowLayout.headerReferenceSize = CGSizeMake(width, 40);
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight-49-64) collectionViewLayout:_flowLayout];
+        
+        NSLog(@"%@", NSStringFromCGRect(self.view.bounds));
+        
+        _collectionView.backgroundColor = APP_PAGE_COLOR;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
     }
-    
-    return _flowLayout;
+    return _collectionView;
 }
+
+//- (UICollectionViewFlowLayout *)flowLayout
+//{
+//    CGFloat width = self.view.bounds.size.width;
+//    if (!_flowLayout) {
+//        _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+//        _flowLayout.itemSize = CGSizeMake((width-40)/2, (width-40)/2);
+//        _flowLayout.minimumInteritemSpacing = 10.;
+//        _flowLayout.minimumLineSpacing = 10.;
+//        _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
+//        [_flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+//        _flowLayout.headerReferenceSize = CGSizeMake(width, 40);
+//    }
+//    
+//    return _flowLayout;
+//}
 
 - (NSMutableArray *)dataSource
 {
@@ -107,7 +136,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];
     }];
-
+    
 }
 
 #pragma mark - IBAciton Methods
@@ -129,7 +158,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     foreignCtl.makePlanCtl = makePlanCtl;
     domestic.notify = NO;
     foreignCtl.notify = NO;
-    [self.navigationController pushViewController:makePlanCtl animated:YES];
+    [_rootCtl.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -172,28 +201,28 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
         cityDetailCtl.cityId = recommend.recommondId;
         cityDetailCtl.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:cityDetailCtl animated:YES];
+        [_rootCtl.navigationController pushViewController:cityDetailCtl animated:YES];
     }
-   
-
+    
+    
     if  (indexPath.row == 1) {
         SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
         spotCtl.hidesBottomBarWhenPushed = YES;
-
-        [self.navigationController pushViewController:spotCtl animated:YES];
+        
+        [_rootCtl.navigationController pushViewController:spotCtl animated:YES];
     }
     if (indexPath.row == 2) {
         RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.hidesBottomBarWhenPushed = YES;
-
-        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        
+        [_rootCtl.navigationController pushViewController:restaurantDetailCtl animated:YES];
     }
     
     if (indexPath.row == 3) {
         ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
         shoppingCtl.hidesBottomBarWhenPushed = YES;
-
-        [self.navigationController pushViewController:shoppingCtl animated:YES];
+        
+        [_rootCtl.navigationController pushViewController:shoppingCtl animated:YES];
     }
 }
 

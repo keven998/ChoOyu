@@ -37,7 +37,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = @"我";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
@@ -97,14 +99,14 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     loginCtl.hidesBottomBarWhenPushed = YES;
     loginCtl.isPushed = YES;
-    [self.navigationController pushViewController:loginCtl animated:YES];
+    [_rootCtl.navigationController pushViewController:loginCtl animated:YES];
 }
 
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     registerCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:registerCtl animated:YES];
+    [_rootCtl.navigationController pushViewController:registerCtl animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -214,17 +216,17 @@
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
 
             userInfoCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:userInfoCtl animated:YES];
+            [_rootCtl.navigationController pushViewController:userInfoCtl animated:YES];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
             accountManagerCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:accountManagerCtl animated:YES];
+            [_rootCtl.navigationController pushViewController:accountManagerCtl animated:YES];
         } else if (indexPath.row == 1) {
             PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
             ctl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ctl animated:YES];
+            [_rootCtl.navigationController pushViewController:ctl animated:YES];
         } else if (indexPath.row == 2) {
             [self shareToWeChat];
         }
@@ -232,11 +234,11 @@
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
             settingCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:settingCtl animated:YES];
+            [_rootCtl.navigationController pushViewController:settingCtl animated:YES];
         } else if (indexPath.row == 1) {
             AboutController *aboutCtl = [[AboutController alloc] init];
             aboutCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:aboutCtl animated:YES];
+            [_rootCtl.navigationController pushViewController:aboutCtl animated:YES];
         }
     }
     

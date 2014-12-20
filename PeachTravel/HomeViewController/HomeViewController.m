@@ -11,16 +11,16 @@
 #import "ToolBoxViewController.h"
 #import "HotDestinationCollectionViewController.h"
 #import "MineTableViewController.h"
+#import "RDVTabBarItem.h"
 
 @interface HomeViewController ()<UIGestureRecognizerDelegate, ICETutorialControllerDelegate>
-{
-    UIImageView *_tabBarView; //自定义的覆盖原先的tarbar的控件
-    UIButton *_previousBtn; //记录前一次选中的按钮
-}
 
 @property (nonatomic, strong) UIImageView *coverView;
 @property (nonatomic, strong) ICETutorialController *viewController;
-@property (weak, nonatomic) IBOutlet UITabBar *tabbar;
+
+@property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
+@property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
+@property (nonatomic, strong) MineTableViewController *mineCtl;
 
 @end
 
@@ -30,23 +30,15 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
-
-    _tabBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 49)];
-    _tabBarView.userInteractionEnabled = YES; 
-    _tabBarView.backgroundColor = [UIColor whiteColor];
-    
-    [self creatButtonWithNormalName:@"ic_tao_normal" andSelectName:@"ic_tao_selected.png" andTitle:nil andIndex:0];
-    [self creatButtonWithNormalName:@"ic_loc_normal.png" andSelectName:@"ic_loc_selected.png" andTitle:nil andIndex:1];
-    [self creatButtonWithNormalName:@"ic_person_normal.png" andSelectName:@"ic_person_selected.png" andTitle:nil andIndex:2];
-    
-    [self.tabBar addSubview:_tabBarView];
-
+    [self setupViewControllers];
     [self setupConverView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    NSLog(@"home viewWillAppear");
+
     if (_coverView != nil) {
         NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
         [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -56,17 +48,15 @@
         }];
         [self loadData];
     }
+    self.navigationController.navigationBar.hidden = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    _tabBarView.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+    NSLog(@"home Dissappear");
 }
 
 - (void) setupConverView {
@@ -263,50 +253,58 @@
     }];
 }
 
-
-- (void)creatButtonWithNormalName:(NSString *)normal andSelectName:(NSString *)selected andTitle:(NSString *)title andIndex:(int)index
+- (void)setupViewControllers
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.tag = index;
+    _toolBoxCtl = [[ToolBoxViewController alloc] init];
+    _toolBoxCtl.rootCtl = self;
+    UINavigationController *firstNavigationController = [[UINavigationController alloc]
+                                                         initWithRootViewController:_toolBoxCtl];
     
-    CGFloat buttonW = _tabBarView.frame.size.width / 3;
-    CGFloat buttonH = _tabBarView.frame.size.height;
-    button.frame = CGRectMake(buttonW *index, 0, buttonW, buttonH);
-   
-    [button setImage:[UIImage imageNamed:normal] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:selected] forState:UIControlStateDisabled];
-//    [button setTitle:title forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(changeViewController:) forControlEvents:UIControlEventTouchDown];
-
-    button.imageView.contentMode = UIViewContentModeCenter; // 让图片在按钮内居中
-    button.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
+    _hotDestinationCtl.rootCtl = self;
+    UINavigationController *secondNavigationController = [[UINavigationController alloc]
+                                                          initWithRootViewController:_hotDestinationCtl];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width-1, 10, 1, button.frame.size.height-20)];
-    spaceView.backgroundColor = APP_PAGE_COLOR;
-    [button addSubview:spaceView];
+    _mineCtl = [[MineTableViewController alloc] init];
+    _mineCtl.rootCtl = self;
+    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
+                                                         initWithRootViewController:_mineCtl];
     
-    //如果是第一次，默认设为选中状态
-    if (index == 0) {
-        _previousBtn = button;
-        button.enabled = NO;
-    }
-    
-   [_tabBarView addSubview:button];
-
+    [self setViewControllers:@[firstNavigationController, secondNavigationController,
+                               thirdNavigationController]];
+    [self customizeTabBarForController];
 }
 
-- (void)changeViewController:(UIButton *)sender
+- (void)customizeTabBarForController
 {
-    self.selectedIndex = sender.tag; //切换不同控制器的界面
+    self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 49);
+    self.tabBar.backgroundColor = [UIColor whiteColor];
     
-    sender.enabled = NO;
+    UIImage *finishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
     
-    if (_previousBtn != sender) {
+    NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
+    
+    NSInteger index = 0;
+    for (RDVTabBarItem *item in [[self tabBar] items]) {
+        item.titlePositionAdjustment = UIOffsetMake(0, 6);
+        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
+        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : UIColorFromRGB(0x797979)};
         
-        _previousBtn.enabled = YES;
+        item.itemHeight = 49.0;
+        
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(item.bounds.size.width-1, 8, 1, 33)];
+        spaceView.backgroundColor = APP_PAGE_COLOR;
+        [item addSubview:spaceView];
+        
+        [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
+        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
+                                                      [tabBarItemImages objectAtIndex:index]]];
+        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
+                                                        [tabBarItemImages objectAtIndex:index]]];
+        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
+        
+        index++;
     }
-
-    _previousBtn = sender;
 }
-
 @end

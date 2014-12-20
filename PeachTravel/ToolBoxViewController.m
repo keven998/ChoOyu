@@ -68,6 +68,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = APP_PAGE_COLOR;
+
     [self setupView];
     
     self.navigationItem.title = @"桃子旅行";
@@ -89,9 +91,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void) setupView {
     CGFloat w = CGRectGetWidth(self.view.bounds);
-    CGFloat h = CGRectGetHeight(self.view.bounds) - 64.0 - 49.0;
+    CGFloat h = CGRectGetHeight(self.view.bounds) - 64;
     
-    CGFloat offsetY = 64.0;
+    CGFloat offsetY = 0;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -117,7 +119,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     NSLog(@"%f",offsetY+167.5);
     
-    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, h, w, 64.0)];
+    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, self.view.bounds.size.height-64, w, 64.0)];
     _IMBtn.backgroundColor = [UIColor greenColor];
     [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _IMBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
@@ -366,7 +368,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         IMRootCtl.delegate = self;
         IMRootCtl.viewControllers = viewControllers;
         IMRootCtl.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:IMRootCtl animated:YES];
+        [_rootCtl.navigationController pushViewController:IMRootCtl animated:YES];
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
@@ -378,7 +380,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     LocalViewController *lvc = [[LocalViewController alloc] init];
     lvc.location = self.location;
     lvc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:lvc animated:YES];
+    [_rootCtl.navigationController pushViewController:lvc animated:YES];
 }
 
 - (IBAction)myFavorite:(id)sender {
@@ -389,7 +391,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
         fvc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:fvc animated:YES];
+        [_rootCtl.navigationController pushViewController:fvc animated:YES];
     }
 }
 
@@ -401,7 +403,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:myGuidesCtl animated:YES];
+        [_rootCtl.navigationController pushViewController:myGuidesCtl animated:YES];
     }
 }
 
@@ -411,7 +413,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
     loginCtl.hidesBottomBarWhenPushed = YES;
     loginCtl.isPushed = NO;
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    [_rootCtl.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 #pragma mark - private
