@@ -37,7 +37,21 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
-    [self loadForeignDataFromServer];
+//    [self loadForeignDataFromServer];
+    [self initData];
+}
+
+- (void) initData {
+    [[TMCache sharedCache] objectForKey:@"destination_foreign" block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_destinations initForeignCountriesWithJson:object];
+                [_foreignCollectionView reloadData];
+            });
+        } else {
+            [self loadForeignDataFromServer];
+        }
+    }];
 }
 
 - (void)dealloc
@@ -64,9 +78,12 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [_destinations initForeignCountriesWithJson:[responseObject objectForKey:@"result"]];
+            id result = [responseObject objectForKey:@"result"];
+            [_destinations initForeignCountriesWithJson:result];
             [_foreignCollectionView reloadData];
-            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[TMCache sharedCache] setObject:result forKey:@"destination_foreign"];
+            });
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
@@ -105,7 +122,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 //        [self.foreignCollectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:1]]];
 //        [self.foreignCollectionView reloadData];
 //    } completion:nil];
-
 }
 
 #pragma mark - notification
@@ -170,12 +186,10 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
     if (section == _showCitiesIndex) {
         return ((CountryDestination *)_destinations.foreignCountries[section]).cities.count;
     }
     return 0;
-
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -232,7 +246,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     cell.titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     cell.statusImageView.image = [UIImage imageNamed:@"ic_view_add.png"];
     return  cell;
-
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -256,7 +269,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
         [_makePlanCtl.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
         [self.foreignCollectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
-
 }
 
 @end
