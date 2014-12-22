@@ -13,12 +13,13 @@
 #import "TripDetailRootViewController.h"
 #import "AccountManager.h"
 #import "LoginViewController.h"
+#import "SearchDestinationTableViewCell.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, DestinationToolBarDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
-//@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) NSMutableArray *searchResultArray;
 
 @end
 
@@ -43,16 +44,10 @@
     _searchController.active = NO;
     _searchController.searchResultsDataSource = self;
     _searchController.searchResultsDelegate = self;
+    [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SearchDestinationTableViewCell" bundle:nil] forCellReuseIdentifier:@"searchCell"];
     _searchController.delegate = self;
     
     [self.view addSubview:_searchBar];
-
-//    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-//    _searchBar.hidden = YES;
-//    [_searchBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
     UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索 " style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
     searchBtn.tintColor = APP_THEME_COLOR;
@@ -71,6 +66,14 @@
         _destinationToolBar.delegate = self;
     }
     return _destinationToolBar;
+}
+
+- (NSMutableArray *)searchResultArray
+{
+    if (!_searchResultArray) {
+        _searchResultArray = [[NSMutableArray alloc] init];
+    }
+    return _searchResultArray;
 }
 
 - (UIView *)nextView
@@ -150,11 +153,55 @@
         self.nextView.alpha = 0.9;
         self.destinationToolBar.alpha = 0.9;
     } completion:^(BOOL finished) {
-//        self.nextView.alpha = 1;
-//        self.destinationToolBar.alpha = 1;
     }];
 }
 
+/**
+ *  开始搜索
+ */
+- (void)loadDataSourceWithKeyWord:(NSString *)keyWord
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:keyWord forKey:@"keyWord"];
+    [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
+    [params setObject:[NSNumber numberWithBool:NO] forKey:@"vs"];
+    [params setObject:[NSNumber numberWithBool:NO] forKey:@"restaurant"];
+    [params setObject:[NSNumber numberWithBool:NO] forKey:@"hotel"];
+    [params setObject:[NSNumber numberWithBool:NO] forKey:@"shopping"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageCnt"];
+    
+    [SVProgressHUD show];
+    
+    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD dismiss];
+            [self analysisData:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"搜索失败"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"搜索失败"];
+    }];
+    
+}
+
+- (void)analysisData:(id)json
+{
+    [self.searchResultArray removeAllObjects];
+    for (id dic in [json objectForKey:@"locality"]) {
+        CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:dic];
+        [self.searchResultArray addObject:poi];
+    }
+    [self.searchController.searchResultsTableView reloadData];
+}
 
 #pragma mark - DestinationToolBarDelegate
 
@@ -170,19 +217,66 @@
 
 #pragma mark - tableview datasource & delegate
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return 1;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.searchResultArray.count;
 }
 
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    return 44.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CityDestinationPoi *city = [self.searchResultArray objectAtIndex:indexPath.row];
+    SearchDestinationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell" forIndexPath:indexPath];
+    CityDestinationPoi *poi = [self.searchResultArray objectAtIndex:indexPath.row];
+    cell.titleLabel.text = poi.zhName;
+    BOOL find = NO;
+    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
+        if ([city.cityId isEqualToString:cityPoi.cityId]) {
+            find = YES;
+            break;
+        }
+    }
+    if (!find) {
+        cell.statusBtn.hidden = YES;
+    } else {
+        cell.statusBtn.hidden = NO;
+    }
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CityDestinationPoi *city = [self.searchResultArray objectAtIndex:indexPath.row];
+    BOOL find = NO;
+    for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
+        if ([city.cityId isEqualToString:cityPoi.cityId]) {
+            NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
+            [self.destinationToolBar removeUnitAtIndex:index];
+            find = YES;
+            break;
+        }
+    }
+    if (!find) {
+        if (_destinations.destinationsSelected.count == 0) {
+            [self showDestinationBar];
+        }
+        [_destinations.destinationsSelected addObject:city];
+        
+        [self.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
+    }
+    SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.statusBtn.hidden = !cell.statusBtn.hidden;
 }
 
 #pragma mark - searchBar
@@ -199,6 +293,11 @@
 
 - (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     [_searchController.searchBar becomeFirstResponder];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self loadDataSourceWithKeyWord:searchBar.text];
 }
 
 @end

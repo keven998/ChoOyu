@@ -428,14 +428,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     NSLog(@"开始搜索");
     [_searchBar endEditing:YES];
-//    [self.tableView removeGestureRecognizer:_tap];
     [self loadDataSourceWithKeyWord:searchBar.text];
 }
-
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-//{
-//    [self.tableView addGestureRecognizer:_tap];
-//}
 
 #pragma mark - TaoziMessageSendDelegate
 

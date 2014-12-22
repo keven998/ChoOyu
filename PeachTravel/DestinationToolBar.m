@@ -16,7 +16,7 @@
 
 #define defaultHeight  40.0      // 每一个unitCell的默认高度
 #define defaultPace   10.0       // unitCell之间的间距
-#define duration      0.3     // 动画执行时间
+#define duration      0.2     // 动画执行时间
 #define defaultVisibleCount 3 //默认显示的unitCell的个数
 
 /*
@@ -134,7 +134,7 @@
     DestinationUnit *lastUnit = [_unitList lastObject];
     NSLog(@"最后一个%@", NSStringFromCGRect(lastUnit.frame));
     _scrollView.contentSize = CGSizeMake(lastUnit.frame.size.width + lastUnit.frame.origin.x, _scrollView.frame.size.height);
-    [_scrollView scrollRectToVisible:lastUnit.frame animated:YES];
+    [_scrollView scrollRectToVisible:lastUnit.frame animated:NO];
 }
 
 /*
@@ -325,13 +325,13 @@
         // step_4: 删除被点击的unitCell
         offsetX -= (unitCell.frame.size.width + defaultPace);
         [unitCell removeFromSuperview];
-        [_unitList removeObject:unitCell];
         if (offsetX < _scrollView.frame.size.width)
             [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         if (_frontMove) {
             [self isNeedResetFrameWithWidth:unitCell.frame.size.width];
         }
     }];
+    [_unitList removeObject:unitCell];
     
 }
 
