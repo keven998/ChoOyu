@@ -58,7 +58,7 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@547bfdfdb8ce043eb2d860e6", API_GET_SPOT_DETAIL];
+    NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取景点详情数据****\n%@", responseObject);

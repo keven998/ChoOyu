@@ -50,6 +50,7 @@
     return _backUpTrip;
 }
 
+
 - (void)saveTrip:(void (^)(BOOL))completion
 {
     
@@ -58,46 +59,73 @@
         return;
     }
     
-    NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
-    
+    //保存时候用来上传的 dic， 只储存 id 和 type
+    NSMutableDictionary *uploadDicToSave = [[NSMutableDictionary alloc] init];
+    //保存成功后用来更新备份路线的 dic，储存所有字段的内容
+    NSMutableDictionary *uploadDicToUpdateBackUpTrip = [[NSMutableDictionary alloc] init];
+
     if ([self itineraryListIsChange]) {
         NSLog(@"******保存路线列表**********");
+        //保存时候用来上传的 dic， 只储存 id 和 type
         NSMutableArray *itineraryListToServer = [[NSMutableArray alloc] init];
+        //保存成功后用来更新备份路线的 dic，储存所有字段的内容
+        NSMutableArray *itineraryListToUpdateBackUpTrip = [[NSMutableArray alloc] init];
+
         for (int i = 0; i < _itineraryList.count; i++) {
             for (int j = 0; j < [[_itineraryList objectAtIndex:i] count]; j++) {
                 NSMutableDictionary *oneDayDic = [[NSMutableDictionary alloc] init];
+                NSMutableDictionary *oneDayToUpdateBackUpTrip = [[NSMutableDictionary alloc] init];
                 [oneDayDic setObject:[NSNumber numberWithInt:i] forKeyedSubscript:@"dayIndex"];
+                [oneDayToUpdateBackUpTrip setObject:[NSNumber numberWithInt:i] forKeyedSubscript:@"dayIndex"];
+
                 TripPoi *tripPoi = [[_itineraryList objectAtIndex:i] objectAtIndex:j];
-                [oneDayDic safeSetObject:[tripPoi prepareAllDataForUpload] forKey:@"poi"];
+                [oneDayToUpdateBackUpTrip safeSetObject:[tripPoi prepareAllDataForUpload] forKey:@"poi"];
+                [oneDayDic safeSetObject:[tripPoi prepareSummaryDataForUpdateBackUpTrip] forKey:@"poi"];
+
                 [itineraryListToServer addObject:oneDayDic];
+                [itineraryListToUpdateBackUpTrip addObject:oneDayToUpdateBackUpTrip];
             }
         }
-        [uploadDic safeSetObject:itineraryListToServer forKey:@"itinerary"];
-        [uploadDic safeSetObject:[NSNumber numberWithInt:_dayCount] forKey:@"itineraryDays"];
+        [uploadDicToSave safeSetObject:itineraryListToServer forKey:@"itinerary"];
+        [uploadDicToUpdateBackUpTrip safeSetObject:itineraryListToUpdateBackUpTrip forKey:@"itinerary"];
+
+        [uploadDicToSave safeSetObject:[NSNumber numberWithInt:_dayCount] forKey:@"itineraryDays"];
+        [uploadDicToUpdateBackUpTrip safeSetObject:[NSNumber numberWithInt:_dayCount] forKey:@"itineraryDays"];
+
     }
    
     if ([self restaurantListIsChange]) {
         NSLog(@"******保存美食列表**********");
 
         NSMutableArray *restaurantListToServer = [[NSMutableArray alloc] init];
+        NSMutableArray *restaurantListToUpdateBackUpTrip = [[NSMutableArray alloc] init];
+
         for (TripPoi *tripPoi in _restaurantsList) {
-            [restaurantListToServer addObject:[tripPoi prepareAllDataForUpload]];
+            [restaurantListToUpdateBackUpTrip addObject:[tripPoi prepareAllDataForUpload]];
+            [restaurantListToServer addObject:[tripPoi prepareSummaryDataForUpdateBackUpTrip]];
         }
-        [uploadDic safeSetObject:restaurantListToServer forKey:@"restaurant"];
+        [uploadDicToSave safeSetObject:restaurantListToServer forKey:@"restaurant"];
+        [uploadDicToUpdateBackUpTrip safeSetObject:restaurantListToUpdateBackUpTrip forKey:@"restaurant"];
+
     }
     
     if ([self shoppingListIsChange]) {
         NSLog(@"******保存购物列表**********");
 
         NSMutableArray *shoppingListToServer = [[NSMutableArray alloc] init];
+        NSMutableArray *shoppingListToUpdateBackUpTrip = [[NSMutableArray alloc] init];
+
         for (TripPoi *tripPoi in _shoppingList) {
-            [shoppingListToServer addObject:[tripPoi prepareAllDataForUpload]];
+            [shoppingListToUpdateBackUpTrip addObject:[tripPoi prepareAllDataForUpload]];
+            [shoppingListToServer addObject:[tripPoi prepareSummaryDataForUpdateBackUpTrip]];
         }
-        [uploadDic safeSetObject:shoppingListToServer forKey:@"shopping"];
+        [uploadDicToSave safeSetObject:shoppingListToServer forKey:@"shopping"];
+        [uploadDicToUpdateBackUpTrip safeSetObject:shoppingListToUpdateBackUpTrip forKey:@"shopping"];
+
     }
     
-    [uploadDic safeSetObject:_tripId forKey:@"id"];
-    [uploadDic safeSetObject:_tripTitle forKey:@"title"];
+    [uploadDicToSave safeSetObject:_tripId forKey:@"id"];
+    [uploadDicToSave safeSetObject:_tripTitle forKey:@"title"];
     
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _destinations) {
@@ -108,17 +136,17 @@
         [destinationsArray addObject:poiDic];
     }
     
-    [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
+    [uploadDicToSave safeSetObject:destinationsArray forKey:@"localities"];
     
-    NSData *data = [NSJSONSerialization dataWithJSONObject:uploadDic options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:uploadDicToSave options:NSJSONWritingPrettyPrinted error:nil];
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
     NSLog(@"经过辛辛苦苦的增删改查终于编辑好了,路线内容为：\n%@",str);
     
-    [self uploadTripData:(NSDictionary *)uploadDic completionBlock:completion];
+    [self uploadTripData:uploadDicToSave andUpdateDicToUpdateBackUpTrip:uploadDicToUpdateBackUpTrip completionBlock:completion];
 }
 
-- (void)uploadTripData:(NSDictionary *)uploadDic completionBlock:(void(^)(BOOL))completion
+- (void)uploadTripData:(NSDictionary *)uploadDic andUpdateDicToUpdateBackUpTrip:(NSDictionary *)updateBackUpTripDic completionBlock:(void(^)(BOOL))completion
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
@@ -133,7 +161,7 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self updateBackupTripJson:uploadDic];
+            [self updateBackupTripJson:updateBackUpTripDic];
             completion(YES);
         } else {
             completion(NO);
@@ -145,6 +173,11 @@
 
 }
 
+/**
+ *  当保存成功后将备份的路线更新
+ *
+ *  @param uploadDic 最新的路线
+ */
 - (void)updateBackupTripJson:(NSDictionary *)uploadDic
 {
     NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
@@ -158,6 +191,8 @@
     if ([uploadDic objectForKey:@"shopping"]) {
         [tempDic setObject:[uploadDic objectForKey:@"shopping"] forKey:@"shopping"];
     }
+    _backUpJson = tempDic;
+    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 
@@ -263,6 +298,14 @@
 @end
 
 
+
+
+
+
+
+
+
+
 @implementation TripPoi
 
 - (id)initWithJson:(id)json
@@ -315,7 +358,7 @@
 }
 
 /**
- *
+ * 将所有的字段信息储存为 Dictionary 类型。虽然保存上传的时候只需要上传 id 和 type，但是这里之所以要把所有的字段都集合起来是为了更新“备份路线”
  *
  *  @return 
  */
@@ -381,6 +424,41 @@
 
     return retDic;
 }
+
+/**
+ *  保存时候用来上传的 只包含 id 和类型的路线信息
+ *
+ *  @return
+ */
+- (NSDictionary *)prepareSummaryDataForUpdateBackUpTrip
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    [retDic safeSetObject:_poiId forKey:@"id"];
+    
+    NSString *poiTypeStr;
+    switch (_poiType) {
+        case TripSpotPoi:
+            poiTypeStr = @"vs";
+            break;
+            
+        case TripRestaurantPoi:
+            poiTypeStr = @"restaurant";
+            break;
+        case TripShoppingPoi:
+            poiTypeStr = @"shopping";
+            break;
+        case TripHotelPoi:
+            poiTypeStr = @"hotel";
+            break;
+            
+        default:
+            break;
+    }
+    
+    [retDic safeSetObject:poiTypeStr forKey:@"type"];
+    return retDic;
+}
+
 
 @end
 

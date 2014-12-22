@@ -124,8 +124,6 @@
     
     oy += 35;
     
-    _spot.desc = @"位于哈哈哈哈哈哈位于哈哈哈哈\n哈哈位于哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位\n于哈哈哈哈哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于\n哈哈哈哈哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈位于哈哈哈哈哈哈\n位于哈";
-    
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-44, 30) andNumberOfLine:2];
     _descView.contentFont = [UIFont systemFontOfSize:11.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
@@ -164,12 +162,13 @@
     doy += 35;
     oy += 35;
     
-   
-    _spot.priceDesc = @"淡季哈哈哈淡季哈哈";
-    
     CGSize size = [_spot.priceDesc sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+    
+    //这个取只有一行的时候，需要的高度
+    CGFloat ticketHeightPerLine = [@" " sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}].height;
+                                                       
     NSInteger lineCount = (size.width / (width-90)) + 1;
-    CGFloat ticketHeight = lineCount*size.height < 45 ? 45:lineCount*size.height + 20;
+    CGFloat ticketHeight = lineCount*ticketHeightPerLine < 45 ? 45:lineCount*ticketHeightPerLine + 20;
     
     _ticketDescBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, width-22, ticketHeight)];
     [_ticketDescBtn setTitle:_spot.priceDesc forState:UIControlStateNormal];
@@ -214,14 +213,8 @@
     oy += 45;
     NSMutableParagraphStyle * paragraphStyle1 = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle1 setLineSpacing:5];
-    
-    _spot.travelMonth = @"最佳月份最佳月份最佳月份最佳月份最佳月份最佳月份";
-    _spot.timeCostStr = @"最佳月份最佳月份最佳月份最佳月份最佳月份最佳月份";
-    _spot.openTime = @"最佳月份最佳月份最佳月份最佳月份最佳月份最佳月份";
 
     if (![_spot.travelMonth isBlankString]) {
-        
-      
         
         NSAttributedString *travelMonthDetail = [[NSAttributedString alloc] initWithString:_spot.travelMonth
                                                                                attributes:@{
@@ -238,12 +231,15 @@
         NSMutableAttributedString *travelStr = [[NSMutableAttributedString alloc] init];
         [travelStr appendAttributedString:travelMonthTitle];
         [travelStr appendAttributedString:travelMonthDetail];
+        
+        //这个取只有一行的时候，需要的高度
+        CGFloat travelHeightPerLine = [@" " sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}].height;
 
         CGSize size = travelStr.size;
         NSInteger lineCount = (size.width / (width-80-50)) + 1;
-        CGFloat height = lineCount * 20+20;
+        CGFloat height = lineCount * travelHeightPerLine+20;
         
-        _travelMonthBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-40, height)];
+        _travelMonthBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-42, height)];
         _travelMonthBtn.layer.cornerRadius = 4.0;
         [_travelMonthBtn setAttributedTitle:travelStr forState:UIControlStateNormal];
         _travelMonthBtn.layer.borderColor = [UIColor grayColor].CGColor;
@@ -281,12 +277,13 @@
         NSMutableAttributedString *travelStr = [[NSMutableAttributedString alloc] init];
         [travelStr appendAttributedString:opentTimeTitle];
         [travelStr appendAttributedString:opentTimeDetail];
-        
+        //这个取只有一行的时候，需要的高度
+        CGFloat openTimeHeightPerLine = [@" " sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}].height;
         CGSize size = travelStr.size;
         NSInteger lineCount = (size.width / (width-80 - 50)) + 1;
-        CGFloat height = lineCount * 20+20;
+        CGFloat height = lineCount * openTimeHeightPerLine+20;
         
-        _openTimeBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-40, height)];
+        _openTimeBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-42, height)];
         _openTimeBtn.layer.cornerRadius = 4.0;
         [_openTimeBtn setAttributedTitle:travelStr forState:UIControlStateNormal];
         _openTimeBtn.layer.borderColor = [UIColor grayColor].CGColor;
@@ -297,7 +294,7 @@
         _openTimeBtn.frame = CGRectMake(_openTimeBtn.frame.origin.x, _openTimeBtn.frame.origin.y, _openTimeBtn.frame.size.width, height);
         [_openTimeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         
-        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _travelMonthBtn.frame.size.height)];
+        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _openTimeBtn.frame.size.height)];
         [subTitle setTitle:@"开放时间" forState:UIControlStateNormal];
         [subTitle setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         subTitle.titleLabel.font = [UIFont systemFontOfSize:11.0];
@@ -325,11 +322,14 @@
         [travelStr appendAttributedString:timeCostTitle];
         [travelStr appendAttributedString:timeCostDetail];
         
+        //这个取只有一行的时候，需要的高度
+        CGFloat timeCostTimeHeightPerLine = [@" " sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}].height;
+        
         CGSize size = travelStr.size;
         NSInteger lineCount = (size.width / (width-80-50)) + 1;
-        CGFloat height = lineCount * 20+20;
+        CGFloat height = lineCount * timeCostTimeHeightPerLine+20;
         
-        _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-40, height)];
+        _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-42, height)];
         _timeCostBtn.layer.cornerRadius = 4.0;
         [_timeCostBtn setAttributedTitle:travelStr forState:UIControlStateNormal];
         _timeCostBtn.layer.borderColor = [UIColor grayColor].CGColor;
@@ -338,7 +338,7 @@
         _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 10);
         _timeCostBtn.frame = CGRectMake(_timeCostBtn.frame.origin.x, _timeCostBtn.frame.origin.y, _timeCostBtn.frame.size.width, height);
         [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _travelMonthBtn.frame.size.height)];
+        UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _timeCostBtn.frame.size.height)];
         [subTitle setTitle:@"参考时长" forState:UIControlStateNormal];
         [subTitle setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         subTitle.titleLabel.font = [UIFont systemFontOfSize:11.0];
@@ -349,12 +349,12 @@
         doy += height+10;
     }
     
-#warning 测试数据
-    _spot.address = @"位于平顶山，平顶庙，平顶嘀dsfsSD 见风使舵离开家发了斯";
-    
     size = [_spot.address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:12.0]}];
     lineCount = (size.width / (width-100)) + 1;
-    CGFloat addressHeight = lineCount*size.height+20 < 57.5 ? 57.5 : lineCount*size.height+20;
+    //这个取只有一行的时候，需要的高度
+    CGFloat addressHeightPerLine = [@" " sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:12.0]}].height;
+    
+    CGFloat addressHeight = lineCount*addressHeightPerLine+20 < 57.5 ? 57.5 : lineCount*size.height+20;
     
     _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, width-22, addressHeight)];
     _addressBtn.titleLabel.numberOfLines = lineCount;
