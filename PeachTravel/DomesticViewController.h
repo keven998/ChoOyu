@@ -17,5 +17,7 @@
 
 @property (nonatomic, weak) MakePlanViewController *makePlanCtl;     //将控制类传入本 controller
 
+- (void)reloadData;
+
 
 @end

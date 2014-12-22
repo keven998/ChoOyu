@@ -264,7 +264,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     return nil;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isEqual:self.tableView]) {

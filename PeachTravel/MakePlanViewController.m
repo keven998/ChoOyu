@@ -276,18 +276,26 @@
     }
     SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.statusBtn.hidden = !cell.statusBtn.hidden;
+    
+    DomesticViewController *domesticCtl = [self.viewControllers firstObject];
+    [domesticCtl reloadData];
+    ForeignViewController *foreignCtl = [self.viewControllers lastObject];
+    [foreignCtl reloadData];
+    
 }
 
 #pragma mark - searchBar
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+    [self.searchResultArray removeAllObjects];
     _searchBar.hidden = YES;
 }
 
 - (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
 {
     _searchBar.hidden = YES;
+    [self.searchResultArray removeAllObjects];
 }
 
 - (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {

@@ -76,6 +76,11 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     }];
 }
 
+- (void)reloadData
+{
+    [self.foreignCollectionView reloadData];
+}
+
 #pragma mark - IBAction Methods
 
 - (IBAction)showCities:(UIButton *)sender

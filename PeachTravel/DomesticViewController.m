@@ -73,6 +73,11 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     return _tzScrollView;
 }
 
+- (void)reloadData
+{
+    [self.domesticCollectionView reloadData];
+}
+
 - (void)updateView
 {
     _dataSource = [_destinations destinationsGroupByPin];
