@@ -4,7 +4,6 @@ pod 'AFNetworking', '~> 2.0'
 pod 'iRate', '~> 1.11'
 pod 'OpenUDID', '~> 1.0.0'
 pod 'SDWebImage', '~> 3.7.1'
-pod 'EaseMobSDK', :git => 'https://github.com/easemob/sdk-ios-cocoapods.git'
 pod 'MWPhotoBrowser', '~> 1.4.1'
 pod 'SVProgressHUD', '~> 1.0'
 pod "Qiniu", "~> 7.0"

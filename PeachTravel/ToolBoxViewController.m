@@ -571,9 +571,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self setupUnreadMessageCount];
 }
 
-#warning TODO:
 - (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
 {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"我收到了很多透传消息" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+    [alert show];
+    for (EMMessage *cmdMessage in offlineCmdMessages) {
+        [TZCMDChatHelper distributeCMDMsg:cmdMessage];
+    }
     NSLog(@"我收到了很多透传消息");
 }
 

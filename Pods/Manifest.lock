@@ -1,11 +1,11 @@
 PODS:
   - AFNetworking (2.4.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
+    - AFNetworking/NSURLConnection (= 2.4.1)
+    - AFNetworking/NSURLSession (= 2.4.1)
+    - AFNetworking/Reachability (= 2.4.1)
+    - AFNetworking/Security (= 2.4.1)
+    - AFNetworking/Serialization (= 2.4.1)
+    - AFNetworking/UIKit (= 2.4.1)
   - AFNetworking/NSURLConnection (2.4.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -21,7 +21,6 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - DACircularProgress (2.2.0)
-  - EaseMobSDK (2.1.1)
   - iRate (1.11.3)
   - MBProgressHUD (0.9)
   - MWPhotoBrowser (1.4.1):
@@ -34,14 +33,13 @@ PODS:
   - Qiniu (7.0.6):
     - AFNetworking (~> 2.0)
   - SDWebImage (3.7.1):
-    - SDWebImage/Core
+    - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
   - SVProgressHUD (1.0)
   - TMCache (1.2.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - EaseMobSDK (from `https://github.com/easemob/sdk-ios-cocoapods.git`)
   - iRate (~> 1.11)
   - MBProgressHUD (~> 0.9)
   - MWPhotoBrowser (~> 1.4.1)
@@ -51,14 +49,9 @@ DEPENDENCIES:
   - SVProgressHUD (~> 1.0)
   - TMCache (~> 1.2)
 
-EXTERNAL SOURCES:
-  EaseMobSDK:
-    :git: https://github.com/easemob/sdk-ios-cocoapods.git
-
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
-  EaseMobSDK: 0b70b16c47048a3e5866ae629d72ea3f7e4d6e95
   iRate: 5e1978bac8b3f3f0296dbeccc0dd7b50e6e50657
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   MWPhotoBrowser: be05b3b7521e961382a4ba5579685bf5a00b93d8
@@ -69,4 +62,4 @@ SPEC CHECKSUMS:
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   TMCache: e2c9225de7a107b529d1d04baa58eb5eab3051f3
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.35.0
