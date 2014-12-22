@@ -194,11 +194,111 @@
     [self saveContext];
 }
 
+#pragma mark - IChatManagerDelegate 好友变化
+
+- (void)didReceiveBuddyRequest:(NSString *)username
+                       message:(NSString *)message
+{
+    if (!username) {
+        return;
+    }
+    if (!message) {
+        message = [NSString stringWithFormat:@"%@ 添加你为好友", username];
+    }
+}
+
+#pragma mark - IChatManagerDelegate 群组变化
+
+- (void)didReceiveGroupInvitationFrom:(NSString *)groupId
+                              inviter:(NSString *)username
+                              message:(NSString *)message
+{
+    if (!groupId || !username) {
+        return;
+    }
+    
+    NSString *groupName = groupId;
+    if (!message || message.length == 0) {
+        message = [NSString stringWithFormat:@"%@ 邀请你加入群组\'%@\'", username, groupName];
+    }
+    NSLog(@"%@",message);
+}
+
+//接收到入群申请
+- (void)didReceiveApplyToJoinGroup:(NSString *)groupId
+                         groupname:(NSString *)groupname
+                     applyUsername:(NSString *)username
+                            reason:(NSString *)reason
+                             error:(EMError *)error
+{
+    if (!groupId || !username) {
+        return;
+    }
+    
+    if (!reason || reason.length == 0) {
+        reason = [NSString stringWithFormat:@"%@ 申请加入群组\'%@\'", username, groupname];
+    }
+    else{
+        reason = [NSString stringWithFormat:@"%@ 申请加入群组\'%@\'：%@", username, groupname, reason];
+    }
+    
+    if (error) {
+        NSString *message = [NSString stringWithFormat:@"发送申请失败:%@\n原因：%@", reason, error.description];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"错误" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    else{
+        NSLog(@"%@", reason);
+    }
+}
+
+- (void)didReceiveRejectApplyToJoinGroupFrom:(NSString *)fromId
+                                   groupname:(NSString *)groupname
+                                      reason:(NSString *)reason
+{
+    if (!reason || reason.length == 0) {
+        reason = [NSString stringWithFormat:@"被拒绝加入群组\'%@\'", groupname];
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"申请提示" message:reason delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alertView show];
+}
+
+- (void)group:(EMGroup *)group didLeave:(EMGroupLeaveReason)reason error:(EMError *)error
+{
+    NSString *tmpStr = group.groupSubject;
+    NSString *str;
+    if (!tmpStr || tmpStr.length == 0) {
+        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+        for (EMGroup *obj in groupArray) {
+            if ([obj.groupId isEqualToString:group.groupId]) {
+                tmpStr = obj.groupSubject;
+                break;
+            }
+        }
+    }
+    
+    if (reason == eGroupLeaveReason_BeRemoved) {
+        str = [NSString stringWithFormat:@"你被从群组\'%@\'中踢出", tmpStr];
+    }
+    if (str.length > 0) {
+    }
+}
+
+#pragma mark - IChatManagerDelegate
+
+- (void)didConnectionStateChanged:(EMConnectionState)connectionState
+{
+    NSLog(@"网络状态发生变化");
+}
+
+#pragma mark - EMChatManagerPushNotificationDelegate
+
 /**
  *  环信绑定失败
  *
  *  @param error
  */
+
 - (void)didBindDeviceWithError:(EMError *)error
 {
     if (error) {
@@ -271,6 +371,8 @@
 #endif
     
 }
+
+
 
 #pragma mark - Core Data stack
 

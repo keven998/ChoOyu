@@ -21,6 +21,7 @@
     _addBtn.layer.cornerRadius = 2.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
+    self.backgroundColor = APP_PAGE_COLOR;
 }
 
 - (void)setTripPoi:(TripPoi *)tripPoi

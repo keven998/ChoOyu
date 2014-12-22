@@ -50,8 +50,6 @@
 		C68D9B951A2D5C3B008A9D4B /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C68D9B941A2D5C3B008A9D4B /* LocalViewController.m */; };
 		C6999FB11A2DDA4F009032D8 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FB01A2DDA4F009032D8 /* SwipeView.m */; };
 		C6999FB51A2DE460009032D8 /* DMFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FB41A2DE460009032D8 /* DMFilterView.m */; };
-		C6999FBE1A2EB136009032D8 /* LocalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */; };
-		C6999FBF1A2EB136009032D8 /* LocalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */; };
 		C6A0C6A41A398A18009D9768 /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A0C6A31A398A18009D9768 /* EDStarRating.m */; };
 		C6A0C6A91A39C032009D9768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6A81A39C032009D9768 /* MessageUI.framework */; };
 		C6A0C6AB1A39C03C009D9768 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AA1A39C03C009D9768 /* QuartzCore.framework */; };
@@ -706,9 +704,6 @@
 		C6999FB01A2DDA4F009032D8 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		C6999FB31A2DE460009032D8 /* DMFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMFilterView.h; sourceTree = "<group>"; };
 		C6999FB41A2DE460009032D8 /* DMFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMFilterView.m; sourceTree = "<group>"; };
-		C6999FBB1A2EB136009032D8 /* LocalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTableViewCell.h; sourceTree = "<group>"; };
-		C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTableViewCell.m; sourceTree = "<group>"; };
-		C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalTableViewCell.xib; sourceTree = "<group>"; };
 		C6A0C6A21A398A18009D9768 /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDStarRating.h; sourceTree = "<group>"; };
 		C6A0C6A31A398A18009D9768 /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDStarRating.m; sourceTree = "<group>"; };
 		C6A0C6A81A39C032009D9768 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1818,9 +1813,6 @@
 		C6999FBA1A2EB128009032D8 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				C6999FBB1A2EB136009032D8 /* LocalTableViewCell.h */,
-				C6999FBC1A2EB136009032D8 /* LocalTableViewCell.m */,
-				C6999FBD1A2EB136009032D8 /* LocalTableViewCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -4638,7 +4630,6 @@
 				D93697121A307260001922F4 /* unread_msg_node@2x.png in Resources */,
 				D90C63A119FB44D300C2E440 /* chat_location_annotation_someone@2x.png in Resources */,
 				D9E81E751A36CD2600D3BFD0 /* ic_search@2x.png in Resources */,
-				C6999FBF1A2EB136009032D8 /* LocalTableViewCell.xib in Resources */,
 				D90C637119FB44D300C2E440 /* VoiceSearchFeedback003.png in Resources */,
 				D90F360819F63B3300E26FA9 /* chatBar_keyboardSelected@2x.png in Resources */,
 				D98BDA681A43D5CD0093C559 /* ic_tao_selected@2x.png in Resources */,
@@ -4940,7 +4931,6 @@
 				D955E35B19E6634100047F2B /* Destinations.m in Sources */,
 				D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */,
 				C63344F11A1C8AA200A27F86 /* OptionOfFASKTableViewCell.m in Sources */,
-				C6999FBE1A2EB136009032D8 /* LocalTableViewCell.m in Sources */,
 				D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */,
 				D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */,
 				D90F367A19F63EBF00E26FA9 /* SRSlimeView.m in Sources */,

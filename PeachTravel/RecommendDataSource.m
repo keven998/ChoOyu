@@ -14,7 +14,7 @@
     if (self = [super init]) {
         _typeName = [data objectForKey:@"title"];
         NSMutableArray *tempLocalities = [[NSMutableArray alloc] init];
-        for (id locality in [data objectForKey:@"contentsList"]) {
+        for (id locality in [data objectForKey:@"contents"]) {
             Recommend *recommend = [[Recommend alloc] initWithJsonData:locality];
             [tempLocalities addObject:recommend];
         }

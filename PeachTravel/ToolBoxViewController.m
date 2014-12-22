@@ -197,14 +197,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
+    } else {
+        [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
     }
-    [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [_galleryPageView.animationTimer pauseTimer];
+    if (!(!_operationDataArray || _operationDataArray.count == 0)) {
+        [_galleryPageView.animationTimer pauseTimer];
+    }
 }
 
 - (void)dealloc
@@ -556,6 +559,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 #pragma mark - IChatManagerDelegate 消息变化
 
+- (void)networkChanged:(EMConnectionState)connectionState
+{
+    NSLog(@"网络状态发生变化");
+}
+
 - (void)didUpdateConversationList:(NSArray *)conversationList
 {
     NSLog(@"聊天的内容发生变化");
@@ -573,8 +581,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"我收到了很多透传消息" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-    [alert show];
     for (EMMessage *cmdMessage in offlineCmdMessages) {
         [TZCMDChatHelper distributeCMDMsg:cmdMessage];
     }
