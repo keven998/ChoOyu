@@ -218,10 +218,12 @@
         }
         
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
-
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
         [SVProgressHUD showErrorWithStatus:@"加载失败"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
     }];
     
 }
@@ -269,7 +271,7 @@
         }
 
     }
-    UITableView *currentTableView =  (UITableView *)[_swipeView viewWithTag:1];
+    UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:1];
     if (currentTableView) {
         [currentTableView reloadData];
     }
@@ -332,7 +334,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_currentPage == PAGE_FUN) {
+    if (_swipeView.currentItemIndex == PAGE_FUN) {
         AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
         PoiSummary *poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
         TripPoi *trippoi = [[TripPoi alloc] init];
@@ -386,7 +388,6 @@
         } else {
             [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
         }
-    
     } else {
         tbView = (UITableView *)[view viewWithTag:1];
         if (index == PAGE_FUN) {
@@ -410,7 +411,7 @@
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
     if (![[self.dataSource objectAtIndex:_currentPage] count]) {
-        NSLog(@"点击我，我要加载数据");
+        NSLog(@"我在加载数据 = %d", _currentPage);
         [self loadDataWithPageIndex:0];
     }
 
@@ -498,6 +499,8 @@
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
             }
+            UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:1];
+            [tbView reloadData];
             self.currentPageList = nil;
             [self loadDataWithPageIndex:0];
         }
