@@ -323,6 +323,8 @@
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
 		D93C50C11A47EEFA00FFE2FA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */; };
+		D93C50C51A48214100FFE2FA /* SearchDestinationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93C50C31A48214100FFE2FA /* SearchDestinationTableViewCell.m */; };
+		D93C50C61A48214100FFE2FA /* SearchDestinationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C41A48214100FFE2FA /* SearchDestinationTableViewCell.xib */; };
 		D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94772D51A31E49600BF9F8B /* TZViewController.m */; };
 		D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E11A32C3AF00BF9F8B /* 切图.png */; };
 		D94772EA1A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E91A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png */; };
@@ -1140,6 +1142,9 @@
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93C50BE1A47EE0100FFE2FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		D93C50C21A48214100FFE2FA /* SearchDestinationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationTableViewCell.h; sourceTree = "<group>"; };
+		D93C50C31A48214100FFE2FA /* SearchDestinationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationTableViewCell.m; sourceTree = "<group>"; };
+		D93C50C41A48214100FFE2FA /* SearchDestinationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationTableViewCell.xib; sourceTree = "<group>"; };
 		D94772D41A31E49600BF9F8B /* TZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZViewController.h; sourceTree = "<group>"; };
 		D94772D51A31E49600BF9F8B /* TZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZViewController.m; sourceTree = "<group>"; };
 		D94772E11A32C3AF00BF9F8B /* 切图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切图.png"; sourceTree = "<group>"; };
@@ -2994,6 +2999,9 @@
 				D955E39B19E6B69100047F2B /* ForeignDestinationCell.h */,
 				D955E39C19E6B69100047F2B /* ForeignDestinationCell.m */,
 				D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */,
+				D93C50C21A48214100FFE2FA /* SearchDestinationTableViewCell.h */,
+				D93C50C31A48214100FFE2FA /* SearchDestinationTableViewCell.m */,
+				D93C50C41A48214100FFE2FA /* SearchDestinationTableViewCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -4609,6 +4617,7 @@
 				D90C639719FB44D300C2E440 /* chatBar_more_card@2x.png in Resources */,
 				C63344F21A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib in Resources */,
 				C6BC348D1A274FEB002C19D3 /* ic_setting_share@2x.png in Resources */,
+				D93C50C61A48214100FFE2FA /* SearchDestinationTableViewCell.xib in Resources */,
 				D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */,
 				D92A489E1A399C5600B00D91 /* arrow_down@2x.png in Resources */,
 				D955E35719E65D1B00047F2B /* DomesticDestinationCell.xib in Resources */,
@@ -4860,6 +4869,7 @@
 				D9545FB71A22D6E200688D72 /* ShoppingDetailView.m in Sources */,
 				D9B476811A2468D30014136C /* SICellSelection.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
+				D93C50C51A48214100FFE2FA /* SearchDestinationTableViewCell.m in Sources */,
 				D954600C1A22FF5B00688D72 /* RestaurantsListViewController.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */,
