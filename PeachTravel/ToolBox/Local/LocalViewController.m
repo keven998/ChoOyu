@@ -334,7 +334,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_swipeView.currentItemIndex == PAGE_FUN) {
+    if (_currentPage == PAGE_FUN) {
         AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
         PoiSummary *poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
         TripPoi *trippoi = [[TripPoi alloc] init];
