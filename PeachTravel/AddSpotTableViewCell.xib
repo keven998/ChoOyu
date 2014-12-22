@@ -122,7 +122,6 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="TKh-S5-Sgd" firstAttribute="leading" secondItem="yeS-P4-RXC" secondAttribute="leading" constant="11" id="8O6-fz-nSL"/>
                     <constraint firstAttribute="trailing" secondItem="TKh-S5-Sgd" secondAttribute="trailing" constant="11" id="csV-tZ-ApC"/>
@@ -130,7 +129,6 @@
                     <constraint firstAttribute="bottom" secondItem="TKh-S5-Sgd" secondAttribute="bottom" constant="4.5" id="yYY-TM-HoG"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="addBtn" destination="FWn-Gb-f3n" id="3sY-2R-PeU"/>
                 <outlet property="descLabel" destination="GQW-KR-s2v" id="CLh-0d-CVT"/>

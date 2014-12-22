@@ -38,6 +38,7 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
+    self.contentView.backgroundColor = APP_PAGE_COLOR;
 }
 
 - (void)setPoi:(PoiSummary *)poi
