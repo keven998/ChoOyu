@@ -250,7 +250,6 @@
     } else {
         cell.statusBtn.hidden = NO;
     }
-
     return cell;
 }
 

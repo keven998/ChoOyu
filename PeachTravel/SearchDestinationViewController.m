@@ -271,6 +271,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
     searchMoreCtl.poiTypeDesc = poiTypeDesc;
     searchMoreCtl.keyWord = _keyWord;
+    searchMoreCtl.chatter = _chatter;
+    searchMoreCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:searchMoreCtl animated:YES];
 }
 
@@ -412,6 +414,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     taoziMessageCtl.messagePrice = poi.priceDesc;
     taoziMessageCtl.messageRating = poi.rating;
     taoziMessageCtl.chatter = _chatter;
+    taoziMessageCtl.isGroup = _isChatGroup;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
         
     }];

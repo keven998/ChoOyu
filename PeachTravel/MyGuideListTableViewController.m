@@ -608,6 +608,7 @@ static NSString *reusableCell = @"myGuidesCell";
         taoziMessageCtl.messageId = guideSummary.guideId;
         taoziMessageCtl.messageDesc = guideSummary.summary;
         taoziMessageCtl.messageName = guideSummary.title;
+        taoziMessageCtl.isGroup = _isChatGroup;
         TaoziImage *image = [guideSummary.images firstObject];
         taoziMessageCtl.messageImage = image.imageUrl;
         taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", guideSummary.dayCount];

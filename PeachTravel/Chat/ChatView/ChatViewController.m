@@ -1212,12 +1212,14 @@
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
     myGuideListTableCtl.chatter = _chatter;
     myGuideListTableCtl.selectToSend = YES;
+    myGuideListTableCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
 }
 
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
+    favoriteCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:favoriteCtl animated:YES];
 }
 
@@ -1225,6 +1227,7 @@
 {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.chatter = _chatter;
+    searchCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:searchCtl animated:YES];
 
 }
@@ -1233,6 +1236,8 @@
 {
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;
+    travelNoteCtl.chatter = _chatter;
+    travelNoteCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }
 

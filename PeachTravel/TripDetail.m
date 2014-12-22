@@ -39,7 +39,6 @@
         _restaurantsList = [self analysisRestaurantData:[json objectForKey:@"restaurant"]];
         _shoppingList = [self analysisShoppingData:[json objectForKey:@"shopping"]];
     }
-    
     return self;
 }
 

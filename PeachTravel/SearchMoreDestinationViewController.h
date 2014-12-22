@@ -17,6 +17,8 @@
 
 @property (nonatomic, copy) NSString *chatter;
 
+@property (nonatomic) BOOL isChatGroup;
+
 /**
  *  搜索的字段
  */

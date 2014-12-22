@@ -18,4 +18,7 @@
 
 @property (nonatomic, copy) NSString *cityId;
 
+@property (nonatomic, copy) NSString *chatter;
+@property (nonatomic) BOOL isChatGroup;
+
 @end
