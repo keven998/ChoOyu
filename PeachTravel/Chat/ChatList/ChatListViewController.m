@@ -513,7 +513,7 @@
     chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:conversation.isGroup];
     chatController.title = title;
     
-    [conversation markMessagesAsRead:YES];
+    [conversation markAllMessagesAsRead:YES];
     [self.navigationController pushViewController:chatController animated:YES];
 }
 

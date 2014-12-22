@@ -173,7 +173,8 @@ static MessageReadManager *detailInstance = nil;
                     if (![[dict objectForKey:@"isPlayed"] boolValue]) {
                         [dict setObject:@YES forKey:@"isPlayed"];
                         chatMessage.ext = dict;
-                        [[EaseMob sharedInstance].chatManager saveMessage:chatMessage];
+                        [[EaseMob sharedInstance].chatManager insertMessageToDB:chatMessage append2Chat:YES];
+
                     }
                 }
             }

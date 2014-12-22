@@ -70,7 +70,6 @@
 - (void)insertMsgToEasemobDB:(FrendRequest *)frendRequest
 {
     id  chatManager = [[EaseMob sharedInstance] chatManager];
-    EMConversation *conversation = [chatManager conversationForChatter:frendRequest.easemobUser isGroup:NO];
     NSDictionary *loginInfo = [chatManager loginInfo];
     NSString *account = [loginInfo objectForKey:kSDKUsername];
     EMChatText *chatText = [[EMChatText alloc] initWithText:@""];
@@ -83,16 +82,16 @@
                     @"content":str
                     };
     [message setIsGroup:NO];
-    [message setIsAcked:NO];
+    [message setIsReadAcked:NO];
     [message setTo:account];
     [message setFrom:frendRequest.easemobUser];
     [message setIsGroup:NO];
+    message.conversationChatter = frendRequest.easemobUser;
     
     NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
     NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
     [message setMessageId:messageID];
     
-    [chatManager saveConversation:conversation];
     [chatManager importMessage:message
                    append2Chat:YES];
 }

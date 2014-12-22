@@ -51,23 +51,22 @@
             [accountManager addContact:[extDic objectForKey:@"content"]];
             
             id  chatManager = [[EaseMob sharedInstance] chatManager];
-            EMConversation *conversation = [chatManager conversationForChatter:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"] isGroup:NO];
             NSDictionary *loginInfo = [chatManager loginInfo];
             NSString *account = [loginInfo objectForKey:kSDKUsername];
             EMChatText *chatText = [[EMChatText alloc] initWithText:@"我已经同意了你的桃友请求，现在我们可以聊天了"];
             EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
             EMMessage *message = [[EMMessage alloc] initWithReceiver:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"] bodies:@[textBody]];
             [message setIsGroup:NO];
-            [message setIsAcked:NO];
+            [message setIsReadAcked:NO];
             [message setTo:account];
             [message setFrom:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"]];
             [message setIsGroup:NO];
+            message.conversationChatter = [[extDic objectForKey:@"content"] objectForKey:@"easemobUser"];
             
             NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
             NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
             [message setMessageId:messageID];
             
-            [chatManager saveConversation:conversation];
             [chatManager importMessage:message
                            append2Chat:YES];
             

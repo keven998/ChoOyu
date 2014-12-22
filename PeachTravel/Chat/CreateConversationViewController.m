@@ -183,7 +183,7 @@
                 if (group && !error) {
                     NSLog(@"%@", [NSThread currentThread]);
                     [weakSelf showHint:@"创建群组成功"];
-                    [[EaseMob sharedInstance].chatManager setNickname:groupName];
+                    [[EaseMob sharedInstance].chatManager setApnsNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
                         [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];

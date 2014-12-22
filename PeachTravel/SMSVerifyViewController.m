@@ -125,7 +125,7 @@
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
-                    [[EaseMob sharedInstance].chatManager setNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
+                    [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
                     [SVProgressHUD showSuccessWithStatus:@"注册成功"];
                 }
             }];
