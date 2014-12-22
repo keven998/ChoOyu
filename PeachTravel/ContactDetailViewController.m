@@ -195,7 +195,7 @@
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     for (EMConversation *conversation in conversations) {
         if ([conversation.chatter isEqualToString:contact.easemobUser]) {
-            [conversation markMessagesAsRead:YES];
+            [conversation markAllMessagesAsRead:YES];
             break;
         }
     }

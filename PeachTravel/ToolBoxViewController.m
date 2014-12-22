@@ -571,10 +571,20 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self setupUnreadMessageCount];
 }
 
+- (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"我收到了很多透传消息" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+    [alert show];
+    for (EMMessage *cmdMessage in offlineCmdMessages) {
+        [TZCMDChatHelper distributeCMDMsg:cmdMessage];
+    }
+    NSLog(@"我收到了很多透传消息");
+}
+
 - (BOOL)needShowNotification:(NSString *)fromChatter
 {
     BOOL ret = YES;
-    NSArray *igGroupIds = [[EaseMob sharedInstance].chatManager ignoredGroupList];
+    NSArray *igGroupIds = [[EaseMob sharedInstance].chatManager ignoredGroupIds];
     for (NSString *str in igGroupIds) {
         if ([str isEqualToString:fromChatter]) {
             ret = NO;
@@ -614,14 +624,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     NSLog(@"收到消息，消息为%@", message);
     _unReadMsgLabel.hidden = NO;
-    id<IEMMessageBody> messageBody = [message.messageBodies firstObject];
-    if (messageBody.messageBodyType == eMessageBodyType_Command) {
-        [TZCMDChatHelper distributeCMDMsg:message];
-        UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"接收到透传消息" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-        [a show];
-        
-    }
-    BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversation.chatter] : YES;
+    
+    BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversationChatter] : YES;
     if (needShowNotification) {
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
@@ -632,6 +636,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }
 #endif
     }
+}
+
+/**
+ *  接收到透传消息的回掉
+ *
+ *  @param cmdMessage
+ */
+- (void)didReceiveCmdMessage:(EMMessage *)cmdMessage
+{
+    [TZCMDChatHelper distributeCMDMsg:cmdMessage];
+    UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"接收到透传消息" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [a show];
 }
 
 - (void)playSoundAndVibration{
@@ -696,7 +712,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         if (message.isGroup) {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:message.conversation.chatter]) {
+                if ([group.groupId isEqualToString:message.conversationChatter]) {
                     title = [NSString stringWithFormat:@"%@(%@)", message.groupSenderName, group.groupSubject];
                     break;
                 }

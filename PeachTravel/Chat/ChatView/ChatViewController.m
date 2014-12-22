@@ -197,7 +197,7 @@
     [super viewWillDisappear:animated];
     
     // 设置当前conversation的所有message为已读
-    [_conversation markMessagesAsRead:YES];
+    [_conversation markAllMessagesAsRead:YES];
     
 }
 
@@ -449,7 +449,7 @@
 {
     EMMessage *message = [noti.userInfo objectForKey:@"message"];
     //如果是发送的消息是属于当前页面的
-    if ([message.conversation.chatter isEqualToString:_chatter]) {
+    if ([message.conversationChatter isEqualToString:_chatter]) {
         [self addChatDataToMessage:[noti.userInfo objectForKey:@"message"]];
     }
 }
@@ -1125,7 +1125,7 @@
 - (void)reloadTableViewDataWithMessage:(EMMessage *)message{
     __weak ChatViewController *weakSelf = self;
     dispatch_async(_messageQueue, ^{
-        if ([weakSelf.conversation.chatter isEqualToString:message.conversation.chatter])
+        if ([weakSelf.conversation.chatter isEqualToString:message.conversationChatter])
         {
             for (int i = 0; i < weakSelf.dataSource.count; i ++) {
                 id object = [weakSelf.dataSource objectAtIndex:i];
@@ -1182,7 +1182,7 @@
 
 -(void)didReceiveMessage:(EMMessage *)message
 {
-    if ([_conversation.chatter isEqualToString:message.conversation.chatter]) {
+    if ([_conversation.chatter isEqualToString:message.conversationChatter]) {
         [self addChatDataToMessage:message];
     }
 }
@@ -1200,7 +1200,7 @@
     [_chatToolBar cancelTouchRecord];
     
     // 设置当前conversation的所有message为已读
-    [_conversation markMessagesAsRead:YES];
+    [_conversation markAllMessagesAsRead:YES];
     
     [self stopAudioPlaying];
 }
@@ -1433,7 +1433,7 @@
     if (_longPressIndexPath && _longPressIndexPath.row > 0) {
         MessageModel *model = [self.dataSource objectAtIndex:_longPressIndexPath.row];
         NSMutableArray *messages = [NSMutableArray arrayWithObjects:model, nil];
-        [_conversation removeMessage:model.messageId];
+        [_conversation removeMessage:model.message];
         NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:_longPressIndexPath, nil];;
         if (_longPressIndexPath.row - 1 >= 0) {
             id nextMessage = nil;
@@ -1681,7 +1681,7 @@
 
 - (void)removeAllMessages:(id)sender
 {
-    if (_conversation.messages.count == 0) {
+    if (_dataSource.count == 0) {
         [self showHint:@"消息已经清空"];
         return;
     }
@@ -1736,7 +1736,7 @@
     [_chatToolBar cancelTouchRecord];
     
     // 设置当前conversation的所有message为已读
-    [_conversation markMessagesAsRead:YES];
+    [_conversation markAllMessagesAsRead:YES];
 }
 
 #pragma mark - send message

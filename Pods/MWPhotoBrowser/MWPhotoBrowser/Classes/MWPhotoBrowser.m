@@ -53,9 +53,15 @@
 {
     _imageList = imageList;
     _defaultPhotos = [[NSMutableArray alloc] init];
-    for (NSString *imageStr in _imageList) {
-        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:imageStr]];
+    for (id image in _imageList) {
+        if ([image isKindOfClass:[NSString class]]) {
+        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:image]];
         [_defaultPhotos addObject:photo];
+        }
+        if ([image isKindOfClass:[MWPhoto class]]) {
+            [_defaultPhotos addObject:image];
+        }
+       
         [self reloadData];
         [_gridController.collectionView reloadData];
     }
