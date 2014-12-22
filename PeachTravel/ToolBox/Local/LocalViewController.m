@@ -78,7 +78,6 @@
     _swipeView.dataSource = self;
     _swipeView.delegate = self;
     _swipeView.bounces = NO;
-    _swipeView.backgroundColor = [UIColor redColor];
     _swipeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _swipeView.pagingEnabled = YES;
     _swipeView.itemsPerPage = 1;
@@ -92,23 +91,23 @@
     divider.layer.shadowOpacity = 1.0;
     [self.view addSubview:divider];
     
-    
-    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 28.0, CGRectGetWidth(self.view.bounds), 28.0)];
-    fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.45];
+    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 30.0, CGRectGetWidth(self.view.bounds), 30.0)];
+    fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:fbar];
     
-    _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 28.0)];
+    _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 30.0)];
     _locLabel.textColor = [UIColor whiteColor];
-    _locLabel.font = [UIFont systemFontOfSize:10.0];
+    _locLabel.font = [UIFont systemFontOfSize:11.0];
     [fbar addSubview:_locLabel];
     
-    _reLocBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(fbar.frame) - 48.0 , 0.0, 48.0, 28.0)];
+    _reLocBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(fbar.frame) - 48.0 , 0.0, 48.0, 30.0)];
     [_reLocBtn addTarget:self action:@selector(relocal:) forControlEvents:UIControlEventTouchUpInside];
     [_reLocBtn setImage:[UIImage imageNamed:@"ic_refresh_white_18.png"] forState:UIControlStateNormal];
     [fbar addSubview:_reLocBtn];
     
-    [self getReverseGeocode];
+//    [self getReverseGeocode];
+    [self relocal:nil];
 }
 
 - (IBAction)relocal:(id)sender {
@@ -120,6 +119,8 @@
     rotationAnimation.cumulative = YES;
     rotationAnimation.repeatCount = INFINITY;
     [_reLocBtn.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    
+    _locLabel.text = @"正在定位...";
     
     if (IS_IOS8) {
         [self.locationManager requestWhenInUseAuthorization];
@@ -143,7 +144,7 @@
 {
     if (!_dataSource) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             NSMutableArray *oneList = [[NSMutableArray alloc] init];
             [tempArray addObject:oneList];
         }
@@ -219,7 +220,6 @@
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
         [SVProgressHUD showErrorWithStatus:@"加载失败"];
     }];
@@ -236,20 +236,20 @@
             key = @"vs";
             type = TripSpotPoi;
             break;
+            
         case PAGE_FOOD:
             key = @"restaurant";
             type = TripRestaurantPoi;
-
             break;
+            
         case PAGE_SHOPPING:
             key = @"shopping";
             type = TripShoppingPoi;
-
             break;
+            
         case PAGE_STAY:
             key = @"hotel";
             type = TripHotelPoi;
-
             break;
             
         default:
@@ -266,7 +266,6 @@
             poiSummary.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
         } else {
             poiSummary.distanceStr = [NSString stringWithFormat:@"%dm",(int)meters];
-
         }
 
     }
@@ -371,9 +370,10 @@
     {
         view = [[UIView alloc] initWithFrame:self.swipeView.bounds];
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        view.backgroundColor = APP_PAGE_COLOR;
         tbView = [[UITableView alloc] initWithFrame:view.bounds];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        tbView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
+        tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         tbView.dataSource = self;
         tbView.delegate = self;
         tbView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -410,7 +410,7 @@
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
     if (![[self.dataSource objectAtIndex:_currentPage] count]) {
-        NSLog(@"点击我，我要加载数据") ;
+        NSLog(@"点击我，我要加载数据");
         [self loadDataWithPageIndex:0];
     }
 
@@ -435,13 +435,21 @@
     CLLocation *location = [locations firstObject];
     _location = location;
     [self getReverseGeocode];
-    [_reLocBtn.layer removeAnimationForKey:@"rotationAnimation"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
     [self.locationManager stopUpdatingLocation];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self performSelector:@selector(stopRefreashWithStatus:) withObject:@"获取当前位置失败" afterDelay:0.8];
+//    if (_location != nil && _dataSource) {
+//    }
+}
+
+- (void)stopRefreashWithStatus:(NSString *)msg {
+    [_reLocBtn.layer removeAnimationForKey:@"rotationAnimation"];
+    _locLabel.text = msg;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -450,10 +458,14 @@
         case kCLAuthorizationStatusNotDetermined:
             [self.locationManager stopUpdatingLocation];
             break;
+            
         case kCLAuthorizationStatusAuthorizedAlways:
             
             break;
+            
         case kCLAuthorizationStatusAuthorizedWhenInUse:
+            
+            break;
             
         default:
             break;
@@ -463,7 +475,6 @@
 - (void)getReverseGeocode
 {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
     CLLocationCoordinate2D myCoOrdinate;
     
     myCoOrdinate.latitude = _location.coordinate.latitude;
@@ -471,24 +482,24 @@
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (error)
         {
             NSLog(@"failed with error: %@", error);
+            [self performSelector:@selector(stopRefreashWithStatus:) withObject:@"获取位置信息失败" afterDelay:0.8];
             return;
         }
         if(placemarks.count > 0)
         {
             CLPlacemark *clPlaceMark = [placemarks firstObject];
             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"Name"];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            _locLabel.text = city;
-            [self loadDataWithPageIndex:0];
-
+//              _locLabel.text = city;
+            [self performSelector:@selector(stopRefreashWithStatus:) withObject:city afterDelay:0.8];
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
             }
             self.currentPageList = nil;
-            self.currentPageList = nil;
+            [self loadDataWithPageIndex:0];
         }
     }];
 }
@@ -513,7 +524,6 @@
     [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1];
     
     NSLog(@"我开始加载新的内容了，新的内容是在横向第%d页，纵向第%d页", _currentPage,[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1 );
-
 }
 
 - (void) loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
@@ -529,6 +539,19 @@
     tableView.tableFooterView = nil;
 }
 
+- (void)dealloc {
+    _swipeView.delegate = nil;
+    _swipeView.dataSource = nil;
+    _swipeView = nil;
+    _filterView.delegate = nil;
+    _filterView = nil;
+    self.dataSource = nil;
+    [_currentPageList removeAllObjects];
+    _currentPageList = nil;
+    [_locationManager stopUpdatingLocation];
+    _locationManager.delegate = nil;
+    _locationManager = nil;
+}
 
 #pragma mark - UIScrollViewDelegate
 
