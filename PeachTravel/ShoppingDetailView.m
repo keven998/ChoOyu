@@ -237,7 +237,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         return nil;
     }
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
-    sectionView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    sectionView.backgroundColor = APP_PAGE_COLOR;
     UIButton *sectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 9, self.frame.size.width, 30)];
     [sectionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17];

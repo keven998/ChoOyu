@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    self.view.backgroundColor = APP_PAGE_COLOR;
     [self loadData];
 }
 

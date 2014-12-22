@@ -381,7 +381,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (IBAction)nearBy:(UIButton *)sender {
     LocalViewController *lvc = [[LocalViewController alloc] init];
-    lvc.location = self.location;
+//    lvc.location = self.location;
     lvc.hidesBottomBarWhenPushed = YES;
     [_rootCtl.navigationController pushViewController:lvc animated:YES];
 }
