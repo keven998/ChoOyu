@@ -50,6 +50,7 @@
     return _backUpTrip;
 }
 
+
 - (void)saveTrip:(void (^)(BOOL))completion
 {
     
@@ -145,6 +146,11 @@
 
 }
 
+/**
+ *  当保存成功后将备份的路线更新
+ *
+ *  @param uploadDic 最新的路线
+ */
 - (void)updateBackupTripJson:(NSDictionary *)uploadDic
 {
     NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
@@ -158,6 +164,8 @@
     if ([uploadDic objectForKey:@"shopping"]) {
         [tempDic setObject:[uploadDic objectForKey:@"shopping"] forKey:@"shopping"];
     }
+    _backUpJson = tempDic;
+    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
 
@@ -261,6 +269,14 @@
 }
 
 @end
+
+
+
+
+
+
+
+
 
 
 @implementation TripPoi
