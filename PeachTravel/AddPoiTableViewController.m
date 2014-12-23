@@ -49,6 +49,10 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
@@ -76,6 +80,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     
     _currentPage = 0;
     [self loadDataWithPageNo:_currentPage];
+    [SVProgressHUD show];
 }
 
 
@@ -185,11 +190,13 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    [SVProgressHUD show];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:pageNo] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     
     //获取列表信息
-    [manager GET:_requestUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+    [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -197,6 +204,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
                 [self.dataSource addObject:[[TripPoi alloc] initWithJson:poiDic]];
                 [self.tableView reloadData];
             }
+            _currentPage = pageNo;
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
