@@ -23,7 +23,6 @@
     for (id cityDic in json) {
         CityDestinationPoi *cityPoi = [[CityDestinationPoi alloc] initWithJson:cityDic];
         [_domesticCities addObject:cityPoi];
-
     }
 }
 
