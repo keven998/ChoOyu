@@ -228,6 +228,9 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
+    Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
+
     if (indexPath.row == 0) {
         RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
         Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
@@ -240,6 +243,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     
     if  (indexPath.row == 1) {
         SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
+        spotCtl.spotId = recommend.recommondId;
         spotCtl.hidesBottomBarWhenPushed = YES;
         
         [_rootCtl.navigationController pushViewController:spotCtl animated:YES];

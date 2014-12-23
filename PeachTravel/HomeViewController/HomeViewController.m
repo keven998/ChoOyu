@@ -280,6 +280,10 @@
     self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 49);
     self.tabBar.backgroundColor = APP_PAGE_COLOR;
     
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
+    spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
+    [self.tabBar addSubview:spaceView];
+    
     UIImage *finishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
     UIImage *unfinishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
     

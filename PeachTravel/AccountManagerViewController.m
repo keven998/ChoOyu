@@ -103,20 +103,6 @@
             }
             accountCell.snsSwitch.tag = 1;
             break;
-            
-//        case 2:
-//            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_qqweibo.png"];
-//            if (![self.snsAccnout objectForKey:@"tencent"]) {
-//                accountCell.snsTitle.text = @"腾讯微博";
-//                [accountCell.snsSwitch setOn:NO animated:YES];
-//
-//            } else {
-//                UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"tencent"];
-//                accountCell.snsTitle.text = [NSString stringWithFormat:@"腾讯微博 (%@)",accountEntity.userName];
-//                [accountCell.snsSwitch setOn:YES animated:YES];
-//            }
-//            accountCell.snsSwitch.tag = 2;
-//            break;
         
         case 2:
             accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_douban.png"];
@@ -129,21 +115,8 @@
                 accountCell.snsTitle.text = [NSString stringWithFormat:@"豆瓣 (%@)",accountEntity.userName];
                 [accountCell.snsSwitch setOn:YES animated:YES];
             }
-            accountCell.snsSwitch.tag = 3;
+            accountCell.snsSwitch.tag = 2;
             break;
-            
-//        case 4:
-//            accountCell.snsFlag.image = [UIImage imageNamed:@"sns_icon_renren.png"];
-//            if (![self.snsAccnout objectForKey:@"renren"]) {
-//                accountCell.snsTitle.text = @"人人";
-//                [accountCell.snsSwitch setOn:NO animated:YES];
-//            } else {
-//                UMSocialAccountEntity *accountEntity = [self.snsAccnout objectForKey:@"renren"];
-//                accountCell.snsTitle.text = [NSString stringWithFormat:@"人人 (%@)",accountEntity.userName];
-//                [accountCell.snsSwitch setOn:YES animated:YES];
-//            }
-//            accountCell.snsSwitch.tag = 4;
-//            break;
 
         default:
             break;
@@ -200,18 +173,6 @@
         }
             break;
             
-//        case 2: {
-//            [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToTencent completion:^(UMSocialResponseEntity * response) {
-//                NSLog(@"%@", response);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.snsAccnout = [UMSocialAccountManager socialAccountDictionary];
-//                    [self.accountTableView reloadData];
-//                });
-//                
-//            }];
-//        }
-//            break;
-            
         case 2: {
             [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToDouban completion:^(UMSocialResponseEntity * response) {
                 NSLog(@"%@", response);
@@ -222,17 +183,6 @@
             }];
         }
             break;
-            
-//        case 4: {
-//            [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToRenren completion:^(UMSocialResponseEntity * response) {
-//                NSLog(@"%@", response);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.snsAccnout = [UMSocialAccountManager socialAccountDictionary];
-//                    [self.accountTableView reloadData];
-//                });
-//            }];
-//        }
-//            break;
             
         default:
             break;
@@ -267,19 +217,7 @@
         }
             
             break;
-            
-//        case 2: {
-//            UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToTencent];
-//            snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-//                NSLog(@"response is %@",response);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.snsAccnout = [UMSocialAccountManager socialAccountDictionary];
-//                    [self.accountTableView reloadData];
-//                });
-//            });
-//        }
-//            break;
-            
+        
         case 2: {
             UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToDouban];
             snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
@@ -291,18 +229,7 @@
             });
         }
             break;
-            
-//        case 4: {
-//            UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToRenren];
-//            snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-//                NSLog(@"response is %@",response);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.snsAccnout = [UMSocialAccountManager socialAccountDictionary];
-//                    [self.accountTableView reloadData];
-//                });
-//            });
-//        }
-//            break;
+
 
         default:
             break;

@@ -49,6 +49,7 @@
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
 #import "IMRootViewController.h"
+#import "TripDetailRootViewController.h"
 
 #define KPageCount 20
 
@@ -379,7 +380,11 @@
     if ([self.accountManager isMyFrend:contact.userId]) {
         ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         contactDetailCtl.contact = contact;
-        contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
+        if (_isChatGroup) {
+            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
+        } else {
+            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
+        }
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
         
     } else {
@@ -1032,9 +1037,15 @@
 #warning TODO : 游记详情的链接
 
             [self.navigationController pushViewController:travelNoteCtl animated:YES];
-            
         }
             break;
+            
+        case TZChatTypeStrategy: {
+            TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+            tripDetailCtl.tripId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            tripDetailCtl.isMakeNewTrip = NO;
+            [self.navigationController pushViewController:tripDetailCtl animated:YES];
+        }
             
         default:
             break;
