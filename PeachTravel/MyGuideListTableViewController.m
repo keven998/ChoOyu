@@ -103,7 +103,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [self.editBtn removeFromSuperview];
 }
 
 - (void)dealloc
@@ -249,9 +248,7 @@ static NSString *reusableCell = @"myGuidesCell";
     _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
     [self.view addGestureRecognizer:_tapRecognizer];
-    
-//    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
-    [self presentPopupViewController:_confirmRouteViewController atHeight:70.0 animated:YES completion:nil];
+    [self presentPopupViewController:_confirmRouteViewController atHeight:170.0 animated:YES completion:nil];
     _confirmRouteViewController.routeTitle.text = guideSummary.title;
     _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
     [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
@@ -360,13 +357,14 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:title forKey:@"title"];
 
-    [manager POST:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self dismissPopup:nil];
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            
+            [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:0.3];
+
             guideSummary.title = title;
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -377,7 +375,6 @@ static NSString *reusableCell = @"myGuidesCell";
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
         [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
 }

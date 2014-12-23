@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.view.layer.cornerRadius = 3.0;
     _routeTitle.layer.cornerRadius = 3.0;
+    [_routeTitle becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
