@@ -9,6 +9,7 @@
 #import "SpotDetailView.h"
 #import "ResizableView.h"
 #import "CycleScrollView.h"
+#import "TZButton.h"
 
 @interface SpotDetailView ()
 
@@ -28,10 +29,6 @@
 @property (nonatomic, strong) UIButton *travelMonthBtn;
 @property (nonatomic, strong) UIButton *openTimeBtn;
 @property (nonatomic, strong) UIButton *timeCostBtn;
-
-@property (nonatomic, strong) UILabel *travelGuideLabel;
-@property (nonatomic, strong) UILabel *kengdieLabel;
-@property (nonatomic, strong) UILabel *trafficGuideLabel;
 
 
 @end
@@ -386,44 +383,43 @@ _spot.trafficInfoUrl = @"http://";
 _spot.kengdieUrl = @"http://";
 
     if (![_spot.guideUrl isBlankString]) {
-        _travelGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
+        _travelGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_unselected.png"] forState:UIControlStateNormal];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_selected.png"] forState:UIControlStateHighlighted];
+        [_travelGuideBtn setTitle:@"游玩指南" forState:UIControlStateNormal];
+        [_travelGuideBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [_travelGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+        _travelGuideBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
         
-        _travelGuideLabel = [[UILabel alloc] initWithFrame:CGRectMake(ox, doy+65, 60, 20)];
-        _travelGuideLabel.font = [UIFont systemFontOfSize:11.0];
-        _travelGuideLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-        _travelGuideLabel.text = @"游玩指南";
-        _travelGuideLabel.textAlignment = NSTextAlignmentCenter;
         ox += space+60;
         hasAdd = YES;
     }
     
     if (![_spot.kengdieUrl isBlankString]) {
-        _kendieBtn = [[UIButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
+        _kendieBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_unselected.png"] forState:UIControlStateNormal];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_selected.png"] forState:UIControlStateHighlighted];
         
-        _kengdieLabel = [[UILabel alloc] initWithFrame:CGRectMake(ox, doy+65, 60, 20)];
-        _kengdieLabel.text = @"防坑攻略";
-        _kengdieLabel.textAlignment = NSTextAlignmentCenter;
-        _kengdieLabel.font = [UIFont systemFontOfSize:11.0];
-        _kengdieLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        [_kendieBtn setTitle:@"防坑攻略" forState:UIControlStateNormal];
+        [_kendieBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [_kendieBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+        _kendieBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+
         ox += space+60;
         hasAdd = YES;
 
     }
     
     if (![_spot.trafficInfoUrl isBlankString]) {
-        _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
+        _trafficGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_trafficGuideBtn setImage:[UIImage imageNamed:@"traffic_guide_unselected.png"] forState:UIControlStateNormal];
         [_trafficGuideBtn setImage:[UIImage imageNamed:@"traffic_guide_selected.png"] forState:UIControlStateHighlighted];
         
-        _trafficGuideLabel = [[UILabel alloc] initWithFrame:CGRectMake(ox, doy+65, 60, 20)];
-        _trafficGuideLabel.text = @"交通指南";
-        _trafficGuideLabel.textAlignment = NSTextAlignmentCenter;
-        _trafficGuideLabel.font = [UIFont systemFontOfSize:11.0];
-        _trafficGuideLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        [_trafficGuideBtn setTitle:@"交通指南" forState:UIControlStateNormal];
+        [_trafficGuideBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [_trafficGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+        _trafficGuideBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+
         hasAdd = YES;
     }
     if (hasAdd) {
@@ -448,9 +444,9 @@ _spot.kengdieUrl = @"http://";
     [_detailView addSubview:_travelGuideBtn];
     [_detailView addSubview:_kendieBtn];
     [_detailView addSubview:_trafficGuideBtn];
-    [_detailView addSubview:_travelGuideLabel];
-    [_detailView addSubview:_kengdieLabel];
-    [_detailView addSubview:_trafficGuideLabel];
+//    [_detailView addSubview:_travelGuideLabel];
+//    [_detailView addSubview:_kengdieLabel];
+//    [_detailView addSubview:_trafficGuideLabel];
 
     [self addSubview:_detailView];
     
