@@ -48,7 +48,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     
     NSLog(@"%@", NSStringFromCGRect(_destinationsHeaderView.frame));
     
-    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
+    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110, 40, 40)];
     _editBtn.backgroundColor = UIColorFromRGB(0x797979);
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];

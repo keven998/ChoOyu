@@ -69,6 +69,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self setupView];
     
@@ -94,8 +96,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
     CGFloat offsetY = 0;
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 167.5) animationDuration:5];
     _galleryPageView.backgroundColor = [UIColor whiteColor];
@@ -138,7 +138,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _favoriteBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _favoriteBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    _favoriteBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0, CGRectGetHeight(_contentFrame.bounds)-250);
+    
+    NSLog(@"%@", NSStringFromCGRect( _contentFrame.bounds));
+    
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_home_fav.png"] forState:UIControlStateNormal];
     [_favoriteBtn setTitle:@"收藏夹" forState:UIControlStateNormal];
     [_favoriteBtn addTarget:self action:@selector(myFavorite:) forControlEvents:UIControlEventTouchUpInside];
@@ -148,7 +151,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _planBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 90.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 90.0, _favoriteBtn.center.y);
     [_planBtn setImage:[UIImage imageNamed:@"ic_home_guide.png"] forState:UIControlStateNormal];
     [_planBtn setTitle:@"旅行Memo" forState:UIControlStateNormal];
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
@@ -158,7 +161,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _aroundBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_aroundBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_aroundBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 90.0, CGRectGetHeight(_contentFrame.bounds)/2.0);
+    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 90.0, _favoriteBtn.center.y);
     [_aroundBtn setImage:[UIImage imageNamed:@"ic_home_around.png"] forState:UIControlStateNormal];
     [_aroundBtn setTitle:@"我身边" forState:UIControlStateNormal];
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
