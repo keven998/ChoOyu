@@ -43,11 +43,30 @@
     UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
-    
-//    UITapGestureRecognizer *tapBackground = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground:)];
-//    tapBackground.numberOfTapsRequired = 1;
-//    tapBackground.numberOfTouchesRequired = 1;
-//    [self.view addGestureRecognizer:tapBackground];
+}
+
+/**
+ *  重写父类的返回方法
+ */
+- (void)goBack
+{
+    if (![_content isEqualToString:_contentTextField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不需要保存吗" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"保存", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                [self dismiss];
+            } else {
+                [self saveChange:nil];
+            }
+        }];
+    } else {
+        [self dismiss];
+    }
+}
+
+- (void)dismiss
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Private Methods
@@ -125,7 +144,7 @@
             if (_changeType == ChangeName) {
                 [[EaseMob sharedInstance].chatManager setApnsNickname:_contentTextField.text];
             }
-            [self.navigationController popViewControllerAnimated:YES];
+            [self dismiss];
         } else {
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }

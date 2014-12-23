@@ -32,6 +32,12 @@
  *  @param completion 收藏回掉
  */
 - (void)asyncFavorite:(NSString *)poiId poiType:(NSString *)type isFavorite:(BOOL)isFavorite completion:(void (^) (BOOL isSuccess))completion;
+
+/**
+ *  发送到桃talk
+ */
+- (IBAction)chat:(id)sender;
+
 @end
 
 

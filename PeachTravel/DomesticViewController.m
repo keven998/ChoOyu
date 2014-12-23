@@ -127,12 +127,9 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    //获取活内目的地的话 abroad 为0
-    [params setObject:[NSNumber numberWithInt:0] forKey:@"abroad"];
     [SVProgressHUD show];
     
-    [manager GET:API_GET_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

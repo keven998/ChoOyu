@@ -60,7 +60,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        _urlArray = @[@"all", @"city", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
+        _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
         _currentFavoriteType = [_urlArray objectAtIndex:0];
         _isEditing = NO;
         _selectedIndex = -1;

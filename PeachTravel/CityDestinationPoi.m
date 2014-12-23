@@ -16,7 +16,7 @@
         _cityId = [json objectForKey:@"id"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
-        _pinyin = [ConvertMethods chineseToPinyin:_zhName];
+        _pinyin = [json objectForKey:@"pinyin"];
     }
     return self;
 }
