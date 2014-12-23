@@ -7,11 +7,13 @@
 //
 
 #import "TravelNoteDetailViewController.h"
+#import "RNGridMenu.h"
 
-@interface TravelNoteDetailViewController () <UIWebViewDelegate> {
+@interface TravelNoteDetailViewController () <UIWebViewDelegate, RNGridMenuDelegate> {
     UIWebView *_webView;
     UIActivityIndicatorView *_activeView;
 }
+
 @end
 
 @implementation TravelNoteDetailViewController
@@ -31,6 +33,11 @@
     [_activeView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2 - 64.0)];
     [_activeView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [self.view addSubview:_activeView];
+    
+    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
+    [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
+    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    self.navigationItem.rightBarButtonItem = moreBarItem;
 }
 
 - (void) dealloc {
@@ -38,6 +45,38 @@
     _webView.delegate = nil;
     _webView = nil;
 }
+
+- (IBAction)moreAction:(UIButton *)sender
+{
+    NSInteger numberOfOptions = 2;
+    NSArray *items = @[
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"发送"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"收藏"],
+                       ];
+    
+    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+    av.backgroundColor = [UIColor clearColor];
+    av.delegate = self;
+    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
+}
+
+#pragma mark - RNGridMenuDelegate
+
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
+{
+    if (itemIndex == 0) {
+        [self chat:nil];
+    }
+    if (itemIndex == 1) {
+        [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:YES completion:^(BOOL isSuccess) {
+            if (isSuccess) {
+
+            }
+        }];
+    }
+}
+
+#pragma mark - WebViewDelegate
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
