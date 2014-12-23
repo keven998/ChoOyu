@@ -14,6 +14,8 @@
 #import "ChangeUserInfoViewController.h"
 #import "VerifyCaptchaViewController.h"
 #import <QiniuSDK.h>
+#import "JGProgressHUDPieIndicatorView.h"
+#import "JGProgressHUDSuccessIndicatorView.h"
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -27,6 +29,8 @@
 
 @property (nonatomic, strong) UIActionSheet *avatarAS;
 @property (nonatomic, strong) UIActionSheet *genderAS;
+
+@property (nonatomic, strong) JGProgressHUD *HUD;
 
 @end
 
@@ -138,20 +142,67 @@
  */
 - (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
  {
+     [SVProgressHUD dismiss];
      NSData *data = UIImageJPEGRepresentation(image, 1.0);
      QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    
+     [self.HUD showInView:self.view animated:YES];
+     
+     typedef void (^QNUpProgressHandler)(NSString *key, float percent);
+     
+     QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"text/plain"
+                                                progressHandler:^(NSString *key, float percent) {[self incrementWithProgress:percent];}
+                                                         params:@{ @"x:foo":@"fooval" }
+                                                       checkCrc:YES
+                                             cancellationSignal:nil];
      
      [upManager putData:data key:key token:uploadToken
                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                   [SVProgressHUD showSuccessWithStatus:@"修改成功"];
                    [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
                    UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
                    [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:nil];
 
-               } option:nil];
- }
+               } option:opt];
+}
+
+- (JGProgressHUD *)HUD {
+    
+    if (!_HUD) {
+        _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
+        _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];
+        
+        _HUD.detailTextLabel.text = @"0% Complete";
+        
+        _HUD.textLabel.text = @"正在上传...";
+        _HUD.layoutChangeAnimationDuration = 0.0;
+    }
+    return _HUD;
+}
+
+- (void)incrementWithProgress:(float)progress {
+    
+    NSLog(@"%f", progress);
+    [self.HUD setProgress:progress animated:NO];
+    _HUD.detailTextLabel.text = [NSString stringWithFormat:@"%d%% Complete", (int)(progress*100)];
+    
+    if (progress == 1.0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            _HUD.textLabel.text = @"Success";
+            _HUD.detailTextLabel.text = nil;
+            
+            _HUD.layoutChangeAnimationDuration = 0.3;
+            _HUD.indicatorView = [[JGProgressHUDSuccessIndicatorView alloc] init];
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_HUD dismiss];
+            _HUD = nil;
+        });
+    }
+}
+
 
 /**
  *  更改用户性别信息

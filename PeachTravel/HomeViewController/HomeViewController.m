@@ -37,7 +37,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSLog(@"home viewWillAppear");
 
     if (_coverView != nil) {
         NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
@@ -56,7 +55,6 @@
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    NSLog(@"home Dissappear");
 }
 
 - (void) setupConverView {
