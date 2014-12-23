@@ -11,8 +11,12 @@
 @implementation DomesticDestinationCell
 
 - (void)awakeFromNib {
-    self.layer.borderWidth = 1.0;
+    self.layer.borderWidth = 0.5;
     self.layer.cornerRadius = 2.0;
+    self.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+    self.layer.shadowOffset = CGSizeMake(0.0, 0.5);
+    self.layer.shadowOpacity = 1.0;
+    self.layer.shadowRadius = 0.5;
 }
 
 @end

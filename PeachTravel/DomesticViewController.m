@@ -13,6 +13,7 @@
 #import "DomesticDestinationCell.h"
 #import "TZScrollView.h"
 #import "MakePlanViewController.h"
+#import "TMCache.h"
 
 @interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, TZScrollViewDelegate>
 
@@ -34,16 +35,34 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     [(TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout setDelegate:self];
-    [self loadDomesticDataFromServer];
+//    [self loadDomesticDataFromServer];
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+    
+    [self initData];
+}
+
+- (void) initData {
+    [[TMCache sharedCache] objectForKey:@"destination_demostic" block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_destinations initDomesticCitiesWithJson:object];
+                [self updateView];
+            });
+        } else {
+            [self loadDomesticDataFromServer];
+        }
+    }];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tzScrollView.delegate = nil;
+    _domesticCollectionView.delegate = nil;
+    _domesticCollectionView.dataSource = nil;
 }
 
 - (NSDictionary *)dataSource
@@ -88,14 +107,9 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
 {
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:currentIndex];
-    
     [_domesticCollectionView scrollToItemAtIndexPath:scrollIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-    
     CGFloat offsetY = [_domesticCollectionView layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:scrollIndexPath].frame.origin.y;
-    
-    
     [_domesticCollectionView setContentOffset:CGPointMake(0, offsetY) animated:YES];
-    
 }
 
 /**
@@ -119,8 +133,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [_destinations initDomesticCitiesWithJson:[responseObject objectForKey:@"result"]];
+            id result = [responseObject objectForKey:@"result"];
+            [_destinations initDomesticCitiesWithJson:result];
             [self updateView];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[TMCache sharedCache] setObject:result forKey:@"destination_demostic"];
+            });
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
@@ -142,7 +160,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)updateDestinationsSelected:(NSNotification *)noti
 {
     CityDestinationPoi *city = [noti.userInfo objectForKey:@"city"];
-
     for (int i=0; i<[[self.dataSource objectForKey:@"content"] count]; i++) {
         NSArray *cities = [[self.dataSource objectForKey:@"content"] objectAtIndex:i];
         for (int j=0; j<cities.count; j++) {
@@ -178,7 +195,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 23.0, size.height+10);
+    return CGSizeMake(size.width + 23.0, size.height + 10);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
@@ -224,7 +241,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
             return  cell;
         }
     }
-    cell.layer.borderColor = UIColorFromRGB(0xb3b3b3).CGColor;
+    cell.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     cell.statusImageView.image = [UIImage imageNamed:@"ic_view_add.png"];
     return  cell;
@@ -265,7 +282,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-    
     NSInteger firstSection = INT_MAX;
     
     for (UICollectionViewCell *cell in visiableCells) {
@@ -279,7 +295,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 {
     NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-    
     NSInteger firstSection = INT_MAX;
     
     for (UICollectionViewCell *CELL in visiableCells) {
