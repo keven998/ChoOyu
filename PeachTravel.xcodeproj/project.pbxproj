@@ -328,6 +328,7 @@
 		D93C50CA1A4906FD00FFE2FA /* ic_im_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C71A4906FD00FFE2FA /* ic_im_background@2x.png */; };
 		D93C50CB1A4906FD00FFE2FA /* ic_im_text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */; };
 		D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */; };
+		D93C50CF1A49906900FFE2FA /* login_btn_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50CE1A49906900FFE2FA /* login_btn_highlight@2x.png */; };
 		D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94772D51A31E49600BF9F8B /* TZViewController.m */; };
 		D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E11A32C3AF00BF9F8B /* 切图.png */; };
 		D94772EA1A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E91A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png */; };
@@ -1151,6 +1152,7 @@
 		D93C50C71A4906FD00FFE2FA /* ic_im_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_background@2x.png"; sourceTree = "<group>"; };
 		D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_text@2x.png"; sourceTree = "<group>"; };
 		D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_arrow@2x.png"; sourceTree = "<group>"; };
+		D93C50CE1A49906900FFE2FA /* login_btn_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_btn_highlight@2x.png"; sourceTree = "<group>"; };
 		D94772D41A31E49600BF9F8B /* TZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZViewController.h; sourceTree = "<group>"; };
 		D94772D51A31E49600BF9F8B /* TZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZViewController.m; sourceTree = "<group>"; };
 		D94772E11A32C3AF00BF9F8B /* 切图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切图.png"; sourceTree = "<group>"; };
@@ -3753,6 +3755,7 @@
 				C6BC348B1A274FEB002C19D3 /* ic_share_to_friend@2x.png */,
 				C6BC34861A274BF3002C19D3 /* avatar_placeholder@2x.png */,
 				C6BC34841A274B1B002C19D3 /* avatar_line@2x.png */,
+				D93C50CE1A49906900FFE2FA /* login_btn_highlight@2x.png */,
 				C6BC34821A273181002C19D3 /* login_btn_frame@2x.png */,
 				C6BC347F1A272DB1002C19D3 /* login_frame_bg@2x.png */,
 			);
@@ -4550,6 +4553,7 @@
 				D9EF98AE1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png in Resources */,
 				D9117A6C1A2C0E90000DBFCB /* ConfirmRouteViewController.xib in Resources */,
 				D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */,
+				D93C50CF1A49906900FFE2FA /* login_btn_highlight@2x.png in Resources */,
 				D9CC36BC1A3747D300E72A7F /* second_normal@2x.png in Resources */,
 				D90C637E19FB44D300C2E440 /* VoiceSearchFeedback009@2x.png in Resources */,
 				D9A19CB31A2F063E00B189CB /* check_selected@2x.png in Resources */,

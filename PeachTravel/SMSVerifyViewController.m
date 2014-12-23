@@ -119,7 +119,6 @@
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
             __weak SMSVerifyViewController *weakSelf = self;
             //注册完成后要登录环信
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
@@ -127,6 +126,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
                     [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
                 }
             }];
             

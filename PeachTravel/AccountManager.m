@@ -136,7 +136,7 @@
              [SVProgressHUD showSuccessWithStatus:@"登录成功"];
              [self easeMobDidLogin];
              [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-             
+
              EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
              options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
              [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
