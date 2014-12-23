@@ -22,7 +22,7 @@
     if (icon) {
         tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+30, frame.size.height);
     } else {
-        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+20, frame.size.height);
+        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+30, frame.size.height);
     }
     
     NSLog(@"%@", NSStringFromCGRect(tempFrame));
@@ -30,7 +30,7 @@
     if (self = [super initWithFrame:tempFrame]) {
         self.frame = tempFrame;
         self.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.layer.borderWidth = 1.0;
+        self.layer.borderWidth = 0.5;
         [self setTitle:name forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont systemFontOfSize:13.0];

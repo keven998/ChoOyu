@@ -43,13 +43,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:commonPoiListReusableIdentifier];
-
+    
     [self.view addSubview:self.tableView];
     
-    NSLog(@"%@", NSStringFromCGRect(_destinationsHeaderView.frame));
-    
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110, 40, 40)];
-    _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+    _editBtn.backgroundColor = TEXT_COLOR_TITLE_SUBTITLE;
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editBtn];
@@ -80,6 +78,23 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _editBtn.hidden = YES;
     } else {
         _editBtn.hidden = NO;
+        int count = _tripDetail.itineraryList.count;
+        if (!tripDetail || count == 0) {
+            [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+        } else {
+            BOOL ed = true;
+            for (int i = 0; i < count; ++i) {
+                if ([[_tripDetail.itineraryList objectAtIndex:i] count] > 0) {
+                    ed = false;
+                    break;
+                }
+            }
+            if (ed) {
+                [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+        
+        
     }
     [_tableView reloadData];
 }
@@ -87,12 +102,13 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64+55, self.view.frame.size.width-16, self.view.frame.size.height-64-62-25)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width-20, self.view.frame.size.height-64-32)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+        _tableView.contentInset = UIEdgeInsetsMake(55.0, 0.0, 0.0, 0.0);
     }
     return _tableView;
 }
@@ -181,6 +197,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     } else {
         [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
+            [SVProgressHUD dismiss];
             if (isSuccesss) {
                 _editBtn.backgroundColor = UIColorFromRGB(0x797979);
                 [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
@@ -190,7 +207,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             } else {
                 [SVProgressHUD showErrorWithStatus:@"保存失败"];
             }
-           
         }];
     }
 }
@@ -301,7 +317,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     } else {
         headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 35)];
     }
-    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   D%d  ", section+1];
+    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   第%d天  ", section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (TripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
@@ -446,8 +462,25 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     return UITableViewCellEditingStyleDelete;
 }
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _tableView = nil;
+    _rootViewController = nil;
+    
+}
 
 #pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y > 20.0) {
+        [_rootViewController showDHView:NO];
+        [self.tableView setContentInset:UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0)];
+    } else {
+        [_rootViewController showDHView:YES];
+        [_tableView setContentInset:UIEdgeInsetsMake(55.0, 0.0, 0.0, 0.0)];
+    }
+}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {

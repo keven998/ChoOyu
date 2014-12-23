@@ -48,8 +48,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             _editBtn.backgroundColor = UIColorFromRGB(0x797979);
             [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
         } else {
-            [self.tableView setEditing:YES];
-            [self updateTableView];
+//            [self.tableView setEditing:YES];
+//            [self updateTableView];
+            [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
     }
 }
@@ -177,6 +178,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     } else {
         [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
+            [SVProgressHUD dismiss];
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
                 [SVProgressHUD showSuccessWithStatus:@"保存成功"];
@@ -286,7 +288,25 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _tableView = nil;
+    _rootViewController = nil;
+    
+}
+
 #pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y > 20.0) {
+        [_rootViewController showDHView:NO];
+        [self.tableView setContentInset:UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0)];
+    } else {
+        [_rootViewController showDHView:YES];
+        [_tableView setContentInset:UIEdgeInsetsMake(55.0, 0.0, 0.0, 0.0)];
+    }
+}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {

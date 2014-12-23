@@ -47,7 +47,7 @@
 - (NSArray *)normalDataSource
 {
     if (!_normalDataSource) {
-        _normalDataSource = @[@"手机通讯录", @"邀请微信桃友"];
+        _normalDataSource = @[@"添加通讯录桃友", @"邀请微信好友"];
     }
     return _normalDataSource;
 }

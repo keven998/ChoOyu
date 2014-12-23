@@ -26,4 +26,6 @@
 
 @property (nonatomic, copy) NSString *tripId;
 
+- (void)showDHView:(BOOL) show;
+
 @end
