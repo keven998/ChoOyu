@@ -26,6 +26,11 @@
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) NSInteger dayCount;         //行程单一共有几天
 
+/**
+ *  攻略是否发生了变化
+ */
+@property (nonatomic) BOOL tripIsChange;
+
 - (id)initWithJson:(id)json;
 
 /**

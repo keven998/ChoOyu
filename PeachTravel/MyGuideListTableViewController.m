@@ -593,6 +593,7 @@ static NSString *reusableCell = @"myGuidesCell";
         TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
         tripDetailRootCtl.isMakeNewTrip = NO;
         tripDetailRootCtl.tripId = guideSummary.guideId;
+        tripDetailRootCtl.canEdit = YES;
         [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
         
         //弹出发送菜单

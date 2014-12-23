@@ -17,5 +17,7 @@
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
+@property (nonatomic) BOOL canEdit;
+
 
 @end

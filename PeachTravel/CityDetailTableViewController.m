@@ -87,7 +87,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     
-    NSString *requsetUrl = [NSString stringWithFormat:@"%@5473ccd7b8ce043a64108c46", API_GET_CITYDETAIL];
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_CITYDETAIL, _cityId];
     
     [SVProgressHUD show];
     
@@ -190,8 +190,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSLog(@"应该进入城市的美食信息");
 
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
-#warning 测试数据
-    _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.currentCity = _cityPoi;
     restaurantOfCityCtl.poiType = TripRestaurantPoi;

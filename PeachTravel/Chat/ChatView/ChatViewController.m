@@ -372,7 +372,6 @@
     } else {
         [self  showUserInfoWithContactInfo:contact];
     }
-
 }
 
 - (void)showUserInfoWithContactInfo:(Contact *)contact
@@ -1044,6 +1043,12 @@
             TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
             tripDetailCtl.tripId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             tripDetailCtl.isMakeNewTrip = NO;
+            if (model.isSender) {
+                tripDetailCtl.canEdit = YES;
+            } else {
+                tripDetailCtl.canEdit = NO;
+            }
+            
             [self.navigationController pushViewController:tripDetailCtl animated:YES];
         }
             

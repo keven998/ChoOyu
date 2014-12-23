@@ -12,4 +12,6 @@
 
 - (void)goBack;
 
+@property (nonatomic, strong) UIButton *backButton;
+
 @end

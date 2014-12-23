@@ -56,6 +56,7 @@
 #define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
 #define API_DELETE_GUIDE                        (BASE_URL @"guides/")    //删除攻略列表
 #define API_SAVE_TRIPINFO                       (BASE_URL @"guides/info/")    //保存攻略信息
+#define API_FORK_TRIP                           (BASE_URL @"copy-guide/")     //复制攻略
 
 #define API_GET_FAVORITES                       (BASE_URL @"misc/favorites")    //获取我的收藏列表
 
@@ -64,7 +65,7 @@
 
 #define API_SEARCH_TRAVELNOTE                   (BASE_URL @"misc/notes/search")      //搜索游记
 
-#define API_NEARBY                               (BASE_URL @"poi/nearby")      //我身边
+#define API_NEARBY                              (BASE_URL @"poi/nearby")      //我身边
 
 
 

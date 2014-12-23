@@ -36,18 +36,22 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
-    if (_tripDetail.restaurantsList.count > 0) {
-        [self.tableView setEditing:NO];
-        _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
-    } else {
-        [self.tableView setEditing:YES];
-        [self updateTableView];
-    }
+   
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
     [self.view addSubview:_editBtn];
-    
+    if (!_tripDetail || !_canEdit) {
+        _editBtn.hidden = YES;
+    } else {
+        if (_tripDetail.restaurantsList.count > 0) {
+            [self.tableView setEditing:NO];
+            _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+            [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
+        } else {
+            [self.tableView setEditing:YES];
+            [self updateTableView];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -108,7 +112,15 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     return _tableViewFooterView;
 }
 
-
+- (void)setCanEdit:(BOOL)canEdit
+{
+    _canEdit = canEdit;
+    if (!_canEdit) {
+        _editBtn.hidden = YES;
+    } else {
+        _editBtn.hidden = NO;
+    }
+}
 
 #pragma mark Private Methods
 

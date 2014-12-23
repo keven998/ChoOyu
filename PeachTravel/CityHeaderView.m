@@ -122,9 +122,6 @@
     CGFloat doy = 0;
     _detailView.backgroundColor = APP_PAGE_COLOR;
     
-#warning 测试数据
-    _cityPoi.timeCostDesc = @"最佳游玩时间，最佳游玩时间 最佳游玩时时间";
-    
     NSAttributedString *timeCostDetail = [[NSAttributedString alloc] initWithString:_cityPoi.timeCostDesc
                                                                          attributes:@{
                                                                                       NSFontAttributeName : [UIFont systemFontOfSize:11.0],
@@ -332,7 +329,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSString *requsetUrl = [NSString stringWithFormat:@"%@5473ccd7b8ce043a64108c46/album", API_GET_ALBUM];
+    NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/album", API_GET_ALBUM, _cityPoi.cityId];
     
     [SVProgressHUD show];
     

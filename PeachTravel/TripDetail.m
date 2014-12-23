@@ -51,6 +51,11 @@
 }
 
 
+- (BOOL)tripIsChange
+{
+    return !(![self restaurantListIsChange] && ![self itineraryListIsChange] && ![self shoppingListIsChange]);
+}
+
 - (void)saveTrip:(void (^)(BOOL))completion
 {
     
@@ -166,7 +171,6 @@
         } else {
             completion(NO);
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO);
     }];

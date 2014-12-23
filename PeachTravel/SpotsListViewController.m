@@ -53,7 +53,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editBtn];
-    if (!_tripDetail) {
+    if (!_tripDetail || !_canEdit) {
         _editBtn.hidden = YES;
     }
 }
@@ -76,7 +76,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
-    if (!_tripDetail) {
+    if (!_tripDetail || !_canEdit) {
         _editBtn.hidden = YES;
     } else {
         _editBtn.hidden = NO;
@@ -122,6 +122,16 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
     }
     return _tableViewFooterView;
+}
+
+- (void)setCanEdit:(BOOL)canEdit
+{
+    _canEdit = canEdit;
+    if (!_canEdit) {
+        _editBtn.hidden = YES;
+    } else {
+        _editBtn.hidden = NO;
+    }
 }
 
 #pragma makr - IBAction Methods
@@ -184,7 +194,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }];
     }
 }
-
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
