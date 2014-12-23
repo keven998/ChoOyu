@@ -325,6 +325,9 @@
 		D93C50C11A47EEFA00FFE2FA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50C01A47EEFA00FFE2FA /* libresolv.dylib */; };
 		D93C50C51A48214100FFE2FA /* SearchDestinationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93C50C31A48214100FFE2FA /* SearchDestinationTableViewCell.m */; };
 		D93C50C61A48214100FFE2FA /* SearchDestinationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C41A48214100FFE2FA /* SearchDestinationTableViewCell.xib */; };
+		D93C50CA1A4906FD00FFE2FA /* ic_im_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C71A4906FD00FFE2FA /* ic_im_background@2x.png */; };
+		D93C50CB1A4906FD00FFE2FA /* ic_im_text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */; };
+		D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */; };
 		D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94772D51A31E49600BF9F8B /* TZViewController.m */; };
 		D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E11A32C3AF00BF9F8B /* 切图.png */; };
 		D94772EA1A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E91A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png */; };
@@ -1145,6 +1148,9 @@
 		D93C50C21A48214100FFE2FA /* SearchDestinationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationTableViewCell.h; sourceTree = "<group>"; };
 		D93C50C31A48214100FFE2FA /* SearchDestinationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationTableViewCell.m; sourceTree = "<group>"; };
 		D93C50C41A48214100FFE2FA /* SearchDestinationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationTableViewCell.xib; sourceTree = "<group>"; };
+		D93C50C71A4906FD00FFE2FA /* ic_im_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_background@2x.png"; sourceTree = "<group>"; };
+		D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_text@2x.png"; sourceTree = "<group>"; };
+		D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_arrow@2x.png"; sourceTree = "<group>"; };
 		D94772D41A31E49600BF9F8B /* TZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZViewController.h; sourceTree = "<group>"; };
 		D94772D51A31E49600BF9F8B /* TZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZViewController.m; sourceTree = "<group>"; };
 		D94772E11A32C3AF00BF9F8B /* 切图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切图.png"; sourceTree = "<group>"; };
@@ -3556,6 +3562,9 @@
 		D98BDA6D1A4441F50093C559 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				D93C50C71A4906FD00FFE2FA /* ic_im_background@2x.png */,
+				D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */,
+				D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */,
 				D98BDA741A44434B0093C559 /* weatherbackground@2x.png */,
 				D98BDA6E1A4442130093C559 /* ic_home_around@2x.png */,
 				D98BDA6F1A4442130093C559 /* ic_home_fav@2x.png */,
@@ -4396,6 +4405,7 @@
 				D90C637319FB44D300C2E440 /* VoiceSearchFeedback004.png in Resources */,
 				D9386C501A31A6600085FC36 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				C6BC34A11A2832C7002C19D3 /* theme_btn_normal@2x.png in Resources */,
+				D93C50CA1A4906FD00FFE2FA /* ic_im_background@2x.png in Resources */,
 				D9EF98A81A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png in Resources */,
 				D9F57B9619E93486005BB43B /* UMSShareListController.xib in Resources */,
 				C6BC34911A2751E0002C19D3 /* cell_accessory_pink@2x.png in Resources */,
@@ -4434,6 +4444,7 @@
 				C688AADF1A35445600372A39 /* ic_dotted_line@2x.png in Resources */,
 				D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */,
 				D90857B219EE0C330041A4E2 /* SMSVerifyViewController.xib in Resources */,
+				D93C50CB1A4906FD00FFE2FA /* ic_im_text@2x.png in Resources */,
 				C6A0C6BF1A3AB60A009D9768 /* ic_fav_city@2x.png in Resources */,
 				D9E81E6D1A35C6DB00D3BFD0 /* message_taozi_city_receive@2x.png in Resources */,
 				D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */,
@@ -4633,6 +4644,7 @@
 				D93697021A3026BC001922F4 /* chat_time@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				D9681A0E1A109BF600122793 /* Default-568h@2x.png in Resources */,
+				D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */,
 				D9545FA11A20809C00688D72 /* RecommendCollectionViewCell.xib in Resources */,
 				D9681A101A109BF600122793 /* Default@2x.png in Resources */,
 				C60C0D741A29A40C006033C9 /* ic_login_weixin@2x.png in Resources */,

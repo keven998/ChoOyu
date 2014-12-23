@@ -91,7 +91,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void) setupView {
     CGFloat w = CGRectGetWidth(self.view.bounds);
-    CGFloat h = CGRectGetHeight(self.view.bounds) - 64;
+    CGFloat h = CGRectGetHeight(self.view.bounds);
     
     CGFloat offsetY = 0;
     
@@ -114,27 +114,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _weatherLabel.textColor = [UIColor whiteColor];
     _weatherLabel.font = [UIFont systemFontOfSize:14.0];
     [_weatherFrame addSubview:_weatherLabel];
-    
-    NSLog(@"%f", _galleryPageView.frame.size.height + _galleryPageView.frame.origin.y);
-    
-    NSLog(@"%f",offsetY+167.5);
-    
-    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, self.view.bounds.size.height-64, w, 64.0)];
-    _IMBtn.backgroundColor = [UIColor greenColor];
-    [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _IMBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-    _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [_IMBtn setTitle:@"桃·Talk" forState:UIControlStateNormal];
-    [_IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_IMBtn];
-    
-    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 6, 6)];
-    [_unReadMsgLabel setCenter:CGPointMake(_IMBtn.center.x + 30, 20)];
-    _unReadMsgLabel.layer.cornerRadius = 3.0;
-    _unReadMsgLabel.clipsToBounds = YES;
-    _unReadMsgLabel.backgroundColor = APP_THEME_COLOR;
-    _unReadMsgLabel.hidden = YES;
-    [_IMBtn addSubview:_unReadMsgLabel];
     
     offsetY += CGRectGetHeight(_galleryPageView.frame);
     
@@ -184,6 +163,34 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_aroundBtn setTitle:@"我身边" forState:UIControlStateNormal];
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
+    
+    NSLog(@"%f",offsetY+167.5);
+    
+    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, self.view.bounds.size.height-67, w-22, 57.0)];
+    [_IMBtn setBackgroundImage:[UIImage imageNamed:@"ic_im_background.png"] forState:UIControlStateNormal];
+    [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [_IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImageView *imTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_im_text.png"]];
+    imTextImageView.center = CGPointMake(_IMBtn.bounds.size.width/2, _IMBtn.bounds.size.height/2);
+    [_IMBtn addSubview:imTextImageView];
+    
+    UIImageView *accessImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_im_arrow.png"]];
+    accessImageView.center = CGPointMake(_IMBtn.bounds.size.width-30,  _IMBtn.bounds.size.height/2);
+    [_IMBtn addSubview:accessImageView];
+    
+    
+    [self.view addSubview:_IMBtn];
+    
+    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 10, 10)];
+    [_unReadMsgLabel setCenter:CGPointMake(_IMBtn.center.x + 15, 10)];
+    _unReadMsgLabel.layer.cornerRadius = 5.0;
+    _unReadMsgLabel.clipsToBounds = YES;
+    _unReadMsgLabel.backgroundColor = APP_THEME_COLOR;
+    _unReadMsgLabel.hidden = YES;
+    [_IMBtn addSubview:_unReadMsgLabel];
+
     
     [self loadRecommendData];
 }

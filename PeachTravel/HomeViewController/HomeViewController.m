@@ -278,10 +278,10 @@
 - (void)customizeTabBarForController
 {
     self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 49);
-    self.tabBar.backgroundColor = [UIColor whiteColor];
+    self.tabBar.backgroundColor = APP_PAGE_COLOR;
     
-    UIImage *finishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
-    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+    UIImage *finishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
+    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
     
     NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
     

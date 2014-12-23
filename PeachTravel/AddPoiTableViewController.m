@@ -196,7 +196,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
