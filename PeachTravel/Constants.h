@@ -105,6 +105,7 @@
 #define API_SEARCH                      (BASE_URL @"search")  //联合搜索
 #define API_GET_ALBUM                   (BASE_URL @"geo/localities/")      //获取城市图集
 #define API_GET_COLUMNS                 (BASE_URL @"columns")     //获取首页运营位置推荐
+#define API_FEEDBACK                    (BASE_URL @"misc/feedback")    //反馈
 
 
 

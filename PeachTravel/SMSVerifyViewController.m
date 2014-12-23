@@ -126,7 +126,6 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
                     [SVProgressHUD showSuccessWithStatus:@"注册成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
                 }
             }];
             

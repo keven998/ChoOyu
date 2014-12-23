@@ -103,6 +103,11 @@
     [self.navigationController pushViewController:registerCtl animated:YES];
 }
 
+/**
+ *  忘记密码
+ *
+ *  @param sender 
+ */
 - (IBAction)losePassword:(UIButton *)sender {
     VerifyCaptchaViewController *losePasswordCtl = [[VerifyCaptchaViewController alloc] init];
     [self.navigationController pushViewController:losePasswordCtl animated:YES];

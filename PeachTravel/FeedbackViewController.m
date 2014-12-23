@@ -79,6 +79,8 @@
 - (void) feedback {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    [SVProgressHUD show];
+    
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([trimText length] < 1) {
@@ -94,10 +96,24 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager POST:nil parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+
+    [manager POST:API_FEEDBACK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:@"code"] integerValue] == 0) {
+            [SVProgressHUD showSuccessWithStatus:@"Yes! 吐槽成功~"];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
     }];
 }
 
+- (void)dismissCtl
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

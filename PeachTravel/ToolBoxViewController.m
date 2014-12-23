@@ -437,24 +437,24 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)myFavorite:(id)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
+        _nextActionWhenDidLogin = GoFavorite;
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
         FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
         [_rootCtl.navigationController pushViewController:fvc animated:YES];
-        _nextActionWhenDidLogin = GoFavorite;
     }
 }
 
 - (IBAction)myTravelNote:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
+        _nextActionWhenDidLogin = GoMemo;   
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
         [_rootCtl.navigationController pushViewController:myGuidesCtl animated:YES];
-        _nextActionWhenDidLogin = GoMemo;
     }
 }
 
