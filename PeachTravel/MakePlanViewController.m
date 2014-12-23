@@ -116,7 +116,10 @@
         tripDetailCtl.canEdit = YES;
         tripDetailCtl.destinations = self.destinations.destinationsSelected;
         tripDetailCtl.isMakeNewTrip = YES;
-        [self.navigationController pushViewController:tripDetailCtl animated:YES];
+//        [self.navigationController pushViewController:tripDetailCtl animated:YES];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+        [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
+        [self.navigationController setViewControllers:array animated:YES];
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
