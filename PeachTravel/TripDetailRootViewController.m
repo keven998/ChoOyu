@@ -55,7 +55,7 @@
     [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem=temporaryBarButtonItem;
+    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -67,13 +67,10 @@
         [_backButton setTitle:@"完成" forState:UIControlStateNormal];
         [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        
         [_actionBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-        
     } else {
-         [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-        
+        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
         [_actionBtn setTitle:@"复制路线" forState:UIControlStateNormal];
         _actionBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -107,7 +104,7 @@
             if (buttonIndex == 1) {
                 [self.tripDetail saveTrip:^(BOOL isSuccesss) {
                     if (isSuccesss) {
-                        [SVProgressHUD showSuccessWithStatus:@"已保存到你的攻略列表里了"];
+                        [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
                         [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
                     } else {
                         [SVProgressHUD showErrorWithStatus:@"保存失败"];
@@ -116,7 +113,7 @@
             }
         }];
     } else {
-        [self showHint:@"已保存到你的攻略列表里了"];
+        [self showHint:@"已保存到\"旅行memo\""];
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
     }
 }
@@ -150,9 +147,9 @@
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
         } else {
@@ -161,6 +158,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
         [SVProgressHUD showErrorWithStatus:@"加载失败"];
     }];
 }
@@ -168,7 +166,7 @@
 - (DestinationsView *)destinationsHeaderView
 {
     if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:70];
+        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:10];
         _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
     }
     return _destinationsHeaderView;
@@ -332,6 +330,30 @@
     [self updateDestinationsHeaderView];
 }
 
+- (void)showDHView:(BOOL) show {
+    CGRect rect = _destinationsHeaderView.frame;
+    if (show) {
+        if (rect.origin.y != 64.0) {
+            rect.origin.y = 64.0;
+        } else {
+            return;
+        }
+        [UIView animateWithDuration:0.35 animations:^{
+            _destinationsHeaderView.frame = rect;
+        } completion:^(BOOL finished) {
+        }];
+    } else {
+        if (rect.origin.y == 64.0) {
+            rect.origin.y -= rect.size.height;
+            [UIView animateWithDuration:0.35 animations:^{
+                _destinationsHeaderView.frame = rect;
+            } completion:^(BOOL finished) {
+            }];
+        }
+    }
+    
+}
+
 - (void)setupViewControllers
 {
     _spotsListCtl = [[SpotsListViewController alloc] init];
@@ -382,7 +404,7 @@
         [item setTitle:tabBarItemTitles[index]];
         item.titlePositionAdjustment = UIOffsetMake(0, 6);
         item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : UIColorFromRGB(0x797979)};
+        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
 
         item.itemHeight = 62.0;
 

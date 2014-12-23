@@ -35,13 +35,26 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     [self.view addSubview:self.tableView];
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.showsHorizontalScrollIndicator = NO;
-    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
+    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110, 40, 40)];
     _editBtn.backgroundColor = UIColorFromRGB(0x797979);
     [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
     [self.view addSubview:_editBtn];
     
+//    if (!_tripDetail || !_canEdit) {
+//        _editBtn.hidden = YES;
+//    } else {
+        if (_tripDetail.restaurantsList.count > 0) {
+            [self.tableView setEditing:NO];
+            _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+            [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
+        } else {
+            //            [self.tableView setEditing:YES];
+            //            [self updateTableView];
+            [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -155,6 +168,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     } else {
         [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
+            [SVProgressHUD dismiss];
             if (isSuccesss) {
                 _editBtn.backgroundColor = UIColorFromRGB(0x797979);
                 [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
