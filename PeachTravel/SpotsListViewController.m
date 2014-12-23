@@ -102,7 +102,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 64, self.view.frame.size.width-16, self.view.frame.size.height-64-32)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width-20, self.view.frame.size.height-64-32)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
