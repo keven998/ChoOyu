@@ -213,6 +213,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 #pragma mark - IBAction Methods
 
+/**
+ *  添加一个 poi
+ *
+ *  @param sender
+ */
 - (IBAction)addPoi:(UIButton *)sender
 {
     TripPoi *tripPoi = [[TripPoi alloc] init];

@@ -36,8 +36,14 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-100, 40, 40)];
-    _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-    [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
+    if (_tripDetail.restaurantsList.count > 0) {
+        [self.tableView setEditing:NO];
+        _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
+    } else {
+        [self.tableView setEditing:YES];
+        [self updateTableView];
+    }
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
     [self.view addSubview:_editBtn];
@@ -139,8 +145,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 {
     if (self.tableView.isEditing) {
         self.tableView.tableFooterView = self.tableViewFooterView;
+        _editBtn.backgroundColor = APP_THEME_COLOR;
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
     } else {
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+        _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     }
     [self.tableView reloadData];
 }
@@ -149,16 +159,13 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 {
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES]; 
-        _editBtn.backgroundColor = APP_THEME_COLOR;
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
+
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
         [SVProgressHUD show];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             if (isSuccesss) {
-                _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-                [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
                 [self.tableView setEditing:NO animated:YES];
                 [SVProgressHUD showSuccessWithStatus:@"保存成功"];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];

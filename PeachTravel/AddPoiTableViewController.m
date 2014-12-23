@@ -19,12 +19,13 @@
 #import "PoisOfCityTableViewCell.h"
 
 
-@interface AddPoiTableViewController () <SINavigationMenuDelegate, UISearchBarDelegate>
+@interface AddPoiTableViewController () <SINavigationMenuDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
 @property (nonatomic, strong) NSArray *urlArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic) NSUInteger currentPage;
 
 @property (nonatomic, strong) SINavigationMenuView *sortPoiView;
 @property (nonatomic, strong) SINavigationMenuView *sortCityView;
@@ -71,9 +72,12 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.sortCityView];
     self.navigationItem.rightBarButtonItems = @[barItem2, barItem1];
     CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
-//    _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
-        _requestUrl = [NSString stringWithFormat:@"%@547aebffb8ce043deccfed0b", API_GET_SPOTLIST_CITY];
+    _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
+    
+    _currentPage = 0;
+    [self loadDataWithPageNo:_currentPage];
 }
+
 
 #pragma mark - setter & getter
 
@@ -153,11 +157,27 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     TripPoi *poi = [self.dataSource objectAtIndex:sender.tag];
     [oneDayArray addObject:poi];
     [_delegate finishEdit];
+    NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (IBAction)deletePoi:(UIButton *)sender
+{
+    TripPoi *poi = [self.dataSource objectAtIndex:sender.tag];
+    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    for (TripPoi *tripPoi in oneDayArray) {
+        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+            [oneDayArray removeObject:tripPoi];
+            break;
+        }
+    }
+    NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Private Methods
 
-- (void)loadData
+- (void)loadDataWithPageNo:(NSUInteger)pageNo
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -180,13 +200,22 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        
+        [self loadMoreCompleted];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
     }];
-    
 }
+
+/**
+ *  实现父类加载更多的方法
+ */
+- (void)beginLoadingMore {
+    [super beginLoadingMore];
+    [self loadDataWithPageNo:_currentPage+1];
+}
+
 
 #pragma mark - SINavigationMenuDelegate
 
@@ -196,24 +225,24 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         if (_currentListTypeIndex != index) {
             _currentListTypeIndex = index;
             CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-//            _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-            _requestUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", _urlArray[_currentListTypeIndex]];
+            _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
             [self.sortPoiView setTitle:[self.sortPoiView.items objectAtIndex:index]];
             [self.dataSource removeAllObjects];
             [self.tableView reloadData];
-            [self loadData];
+            _currentPage = 0;
+            [self loadDataWithPageNo:_currentPage];
         }
         
     } else {
         if (_currentCityIndex != index) {
             _currentCityIndex = index;
             CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-//            _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-            _requestUrl = [NSString stringWithFormat:@"%@53aa9a6410114e3fd47833bd", _urlArray[_currentListTypeIndex]];
+            _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
             [self.sortCityView setTitle:[self.sortCityView.items objectAtIndex:index]];
             [self.dataSource removeAllObjects];
             [self.tableView reloadData];
-            [self loadData];
+            _currentPage = 0;
+            [self loadDataWithPageNo:_currentPage];
         }
     }
     
@@ -240,16 +269,30 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TripPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
+    BOOL isAdded = NO;
+    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    for (TripPoi *tripPoi in oneDayArray) {
+        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+            isAdded = YES;
+        }
+    }
+    
     if (poi.poiType == TripSpotPoi) {
         AddSpotTableViewCell *addSpotCell = [tableView dequeueReusableCellWithIdentifier:addSpotCellIndentifier];
         addSpotCell.tripPoi = poi;
         addSpotCell.shouldEdit = YES;
+        addSpotCell.isAdded = isAdded;
         addSpotCell.addBtn.tag = indexPath.row;
-        [addSpotCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        if (isAdded) {
+            [addSpotCell.addBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+
+        } else {
+            [addSpotCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        }
         return addSpotCell;
     }
     
-    if (poi.poiType == TripRestaurantPoi) {
+    if (poi.poiType == TripRestaurantPoi || poi.poiType == TripShoppingPoi) {
         PoiSummary *restaurantPoi = [[PoiSummary alloc] init];
         restaurantPoi.poiId = poi.poiId;
         restaurantPoi.zhName = poi.zhName;
@@ -266,11 +309,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         [restaurantCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         return restaurantCell;
     }
-    
-    if (poi.poiType == TripShoppingPoi) {
-        
-        
-    }
+
     if (poi.poiType == TripHotelPoi) {
         AddHotelTableViewCell *addHotelCell = [tableView dequeueReusableCellWithIdentifier:addHotelCellIndentifier forIndexPath:indexPath];
         addHotelCell.tripPoi = poi;
@@ -312,7 +351,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         default:
             break;
     }
-    
 }
 
 @end

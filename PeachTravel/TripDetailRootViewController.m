@@ -44,7 +44,6 @@
     self.navigationItem.title = @"新Memo";
     
     UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(share:)];
-//    addBtn.tintColor = APP_THEME_COLOR;
     [addBtn setImage:[UIImage imageNamed:@"ic_more.png"]];
     self.navigationItem.rightBarButtonItem = addBtn;
     
@@ -54,12 +53,7 @@
     } else {
         [self checkTripData];
     }
-    
-//    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
-//    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-//    [moreBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-//    [moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+
 }
 
 /**
@@ -105,7 +99,6 @@
 {
     if (!_destinationsHeaderView) {
         _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:70];
-#warning 测试数据
         _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
     }
     return _destinationsHeaderView;
@@ -134,7 +127,6 @@
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
-            [self updateDestinationsHeaderView];
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }

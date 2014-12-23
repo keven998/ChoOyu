@@ -17,9 +17,18 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeCostBtn;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
-@property (nonatomic) BOOL shouldEdit;
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+
+/**
+ *  是否显示添加按钮
+ */
+@property (nonatomic) BOOL shouldEdit;
+/**
+ *  是否已经添加到路线里了
+ */
+@property (nonatomic) BOOL isAdded;
+
 
 @property (nonatomic, strong) TripPoi *tripPoi;
 

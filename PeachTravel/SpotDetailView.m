@@ -128,14 +128,13 @@
     _descView.contentFont = [UIFont systemFontOfSize:11.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _spot.desc;
-    
-    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
 
     [_headerView addSubview:_descView];
     
     oy += 35;
     
     if (_descView.maxNumberOfLine > 2) {
+        [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
         _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, oy+3, 20, 10)];
         [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
         [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];

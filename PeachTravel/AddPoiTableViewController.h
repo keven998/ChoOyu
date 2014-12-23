@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
+#import "TZTBViewController.h"
 
 @protocol addPoiDelegate <NSObject>
 
@@ -15,13 +16,13 @@
 
 @end
 
-@interface AddPoiTableViewController :TZTableViewController
+@interface AddPoiTableViewController :TZTBViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
+
 @property (nonatomic) NSUInteger currentDayIndex;    //标识添加到哪一天
 
 @property (nonatomic, assign) id <addPoiDelegate> delegate;
 
-- (void)loadData;
 
 @end

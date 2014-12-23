@@ -51,8 +51,8 @@
         NSString *title = [_destinations objectAtIndex:i];
         DestinationUnit *unit = [_destinationToolBar addUnit:nil withName:title andUnitHeight:25 userInteractionEnabled:NO];
         unit.tag = i;
-        [unit setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
-        unit.layer.borderColor = UIColorFromRGB(0x797979).CGColor;
+        [unit setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        unit.layer.borderColor = TEXT_COLOR_TITLE_SUBTITLE.CGColor;
         unit.layer.cornerRadius = 2.0;
         unit.titleLabel.font = [UIFont systemFontOfSize:13.0];
         [destinationItemsArray addObject:unit];

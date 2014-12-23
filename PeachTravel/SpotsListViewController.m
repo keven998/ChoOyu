@@ -204,7 +204,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addPoiCtl.currentDayIndex = actionSheet.tag;
         UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
         [self presentViewController:nctl animated:YES completion:^{
-            [addPoiCtl loadData];
         }];
     }
 }

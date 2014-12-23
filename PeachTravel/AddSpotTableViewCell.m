@@ -55,6 +55,36 @@
         [_addBtn setImage:[UIImage imageNamed:@"ic_navigation_normal.png"] forState:UIControlStateNormal];
         [_addBtn setImage:[UIImage imageNamed:@"ic_navigation_highlight.png"] forState:UIControlStateHighlighted];
     }
-
 }
+
+- (void)setIsAdded:(BOOL)isAdded
+{
+    _isAdded = isAdded;
+    if (_isAdded) {
+        [_addBtn setTitle:@"已添加" forState:UIControlStateNormal];
+        _addBtn.backgroundColor = [UIColor grayColor];
+    } else {
+        _addBtn.backgroundColor = APP_THEME_COLOR;
+        [_addBtn setTitle:@"添加" forState:UIControlStateNormal];
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
