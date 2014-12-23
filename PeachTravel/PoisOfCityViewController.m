@@ -191,7 +191,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             if (_dataSource.recommendList.count >= 15) {
                 self.enableLoadingMore = YES;
                 _currentPage++;
-            } else {
+            } else if (pageNO > 0){
                 [self showHint:@"人家没有那么多啦"];
             }
         } else {

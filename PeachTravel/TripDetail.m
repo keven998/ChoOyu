@@ -350,12 +350,9 @@
             _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
             _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         }
-        NSMutableArray *tempLocArray = [[NSMutableArray alloc] init];
-        for (id destinationDic in [json objectForKey:@"locList"]) {
-            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:destinationDic];
-            [tempLocArray addObject:poi];
-        }
-        _locList = tempLocArray;
+
+        _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
+
         _timeCost = [json objectForKey:@"timeCostDesc"];
     }
     return self;
@@ -415,16 +412,12 @@
     
     [retDic safeSetObject:imageArray forKey:@"images"];
     
-    NSMutableArray *localListArray = [[NSMutableArray alloc] init];
-    for (CityDestinationPoi *poi in _locList) {
-        NSMutableDictionary *destinationDic = [[NSMutableDictionary alloc] init];
-        [destinationDic safeSetObject:poi.cityId forKey:@"id"];
-        [destinationDic safeSetObject:poi.zhName forKey:@"zhName"];
-        [destinationDic safeSetObject:poi.enName forKey:@"enName"];
-        [localListArray addObject:destinationDic];
-    }
+    NSMutableDictionary *destinationDic = [[NSMutableDictionary alloc] init];
+    [destinationDic safeSetObject:_locality.cityId forKey:@"id"];
+    [destinationDic safeSetObject:_locality.zhName forKey:@"zhName"];
+    [destinationDic safeSetObject:_locality.enName forKey:@"enName"];
     
-    [retDic safeSetObject:localListArray forKey:@"locList"];
+    [retDic safeSetObject:destinationDic forKey:@"locality"];
 
     return retDic;
 }

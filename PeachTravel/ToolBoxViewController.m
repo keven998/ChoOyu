@@ -219,6 +219,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)dealloc
 {
+    NSLog(@"***********最重要的页面销毁掉了*************");
     [self unregisterNotifications];
 }
 

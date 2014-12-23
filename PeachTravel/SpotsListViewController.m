@@ -304,9 +304,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   D%d  ", section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (TripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
-        CityDestinationPoi *poi = [tripPoi.locList lastObject];
-        if (poi.zhName) {
-            [set addObject:poi.zhName];
+        if (tripPoi.locality.zhName) {
+            [set addObject:tripPoi.locality.zhName];
         }
     }
 

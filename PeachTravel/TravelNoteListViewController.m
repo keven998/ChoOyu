@@ -116,12 +116,14 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         if (code == 0) {
             [self parseData:[responseObject objectForKey:@"result"]];
 
-            _currentPage = pageNo;
-            if (self.dataSource.count >= 15) {
+            if ([[responseObject objectForKey:@"result"] count] >= 15) {
                 self.enableLoadingMore = YES;
-                _currentPage++;
+                _currentPage = pageNo;
             } else {
-                [self showHint:@"人家没有那么多啦"];
+                if (pageNo > 0){
+                    self.enableLoadingMore = NO;
+                    [self showHint:@"已加载全部"];
+                }
             }
         } else {
             [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];

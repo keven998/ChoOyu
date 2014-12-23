@@ -11,6 +11,7 @@
  ****************/
 
 #import <Foundation/Foundation.h>
+#import "CityDestinationPoi.h"
 
 @interface TripDetail : NSObject
 
@@ -30,7 +31,6 @@
  *  攻略是否发生了变化
  */
 @property (nonatomic) BOOL tripIsChange;
-
 - (id)initWithJson:(id)json;
 
 /**
@@ -68,7 +68,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *telephone;
 @property (nonatomic) double lng;
 @property (nonatomic) double lat;
-@property (nonatomic, strong) NSArray *locList;
+@property (nonatomic, strong) CityDestinationPoi *locality;
 @property (nonatomic, copy) NSString *timeCost;
 @property (nonatomic, copy) NSString *distanceStr;
 
