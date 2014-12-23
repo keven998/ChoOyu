@@ -15,17 +15,17 @@
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 #import "Destinations.h"
+#import "TaoziCollectionLayout.h"
+
 
 #warning 测试景点详情数据。
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 
-@interface HotDestinationCollectionViewController () <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
+@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
-
-@property (strong, nonatomic) UICollectionViewFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -47,7 +47,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 5, 10.0, 5);
     [self loadDataSource];
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
@@ -60,15 +59,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (UICollectionView *)collectionView
 {
     if (!_collectionView) {
-        CGFloat width = kWindowWidth;
-        _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        _flowLayout.itemSize = CGSizeMake((width-40)/2, (width-40)/2);
-        _flowLayout.minimumInteritemSpacing = 10.;
-        _flowLayout.minimumLineSpacing = 10.;
-        _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
-        [_flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _flowLayout.headerReferenceSize = CGSizeMake(width, 40);
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, kWindowHeight-49-64) collectionViewLayout:_flowLayout];
+        TaoziCollectionLayout *tzLayout = [[TaoziCollectionLayout alloc] init];
+        tzLayout.delegate = self;
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, kWindowHeight-49-64) collectionViewLayout:tzLayout];
+        
+        _collectionView.showsVerticalScrollIndicator = NO;
         
         NSLog(@"%@", NSStringFromCGRect(self.view.bounds));
         
@@ -78,22 +73,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     }
     return _collectionView;
 }
-
-//- (UICollectionViewFlowLayout *)flowLayout
-//{
-//    CGFloat width = self.view.bounds.size.width;
-//    if (!_flowLayout) {
-//        _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//        _flowLayout.itemSize = CGSizeMake((width-40)/2, (width-40)/2);
-//        _flowLayout.minimumInteritemSpacing = 10.;
-//        _flowLayout.minimumLineSpacing = 10.;
-//        _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
-//        [_flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-//        _flowLayout.headerReferenceSize = CGSizeMake(width, 40);
-//    }
-//    
-//    return _flowLayout;
-//}
 
 - (NSMutableArray *)dataSource
 {
@@ -160,6 +139,60 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     foreignCtl.notify = NO;
     [_rootCtl.navigationController pushViewController:makePlanCtl animated:YES];
 }
+
+
+#pragma mark TaoziLayouteDelegate
+
+- (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
+{
+    return self.dataSource.count;
+}
+
+- (CGFloat)tzcollectionLayoutWidth
+{
+    return self.collectionView.frame.size.width;
+}
+
+- (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:section];
+    return recommedDataSource.localities.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize size;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            CGFloat width = ((collectionView.frame.size.width-7)/3*2);
+            CGFloat heigh = width *0.75;
+            size = CGSizeMake(width, heigh);
+            return size;
+        } else if (indexPath.row == 1) {
+            CGFloat width = ((collectionView.frame.size.width-17)/3*1);
+            CGFloat heigh = ((collectionView.frame.size.width-7)/3*2)*0.75;
+            size = CGSizeMake(width, heigh);
+            return size;
+        } else {
+            CGFloat width = ((collectionView.frame.size.width-20)/3);
+            size = CGSizeMake(width, width);
+            return size;
+        }
+    }
+    if (indexPath.section > 0) {
+        size = CGSizeMake(self.collectionView.frame.size.width/2-5, self.collectionView.frame.size.width/2-5);
+        return size;
+    }
+    size = CGSizeMake(self.collectionView.frame.size.width/2-40, 100);
+    return size;
+}
+
+- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+{
+    CGSize size = CGSizeMake(self.collectionView.frame.size.width, 30);
+    return size;
+}
+
 
 #pragma mark <UICollectionViewDataSource>
 

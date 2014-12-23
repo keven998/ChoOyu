@@ -32,7 +32,7 @@
     _sectionAttributes = [NSMutableArray new];
     offsetY = 0;
     for (int i=0; i<sections; i++) {
-        CGFloat offsetX = 10.0;
+        CGFloat offsetX = _margin;
         NSInteger itemsCountPerSection = [_delegate tzcollectionView:self.collectionView numberOfItemsInSection:i];
        
         NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:i];
@@ -49,19 +49,23 @@
         if (itemsCountPerSection > 0) {
             offsetY += 10.0;
         }
+        
         for (int j=0; j < itemsCountPerSection; j++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
             UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
             CGSize itemSize = [_delegate collectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
-            if (offsetX + itemSize.width > (_width-20)) {
-                offsetX = 10;
-                offsetY += itemSize.height + 10;
+            
+            if (offsetX + itemSize.width > (_width-_margin*2)) {
+                offsetX = _margin;
+                offsetY += heighest + 10;
+                heighest = 0;
             }
             attributes.frame = CGRectMake(offsetX, offsetY, itemSize.width, itemSize.height);
             offsetX += 10 + itemSize.width;
             
             (heighest < itemSize.height)? (heighest=itemSize.height):(heighest=heighest);
+
             [tempArray addObject:attributes];
         }
         if (heighest > 0) {
@@ -75,20 +79,22 @@
         if (lastIndex < 0)
             continue;
         
-        UICollectionViewLayoutAttributes *firstItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
-        UICollectionViewLayoutAttributes *lastItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:lastIndex inSection:i]];
-        
-        CGRect frame = CGRectUnion(firstItem.frame, lastItem.frame);
-        frame.origin.x -= 10.0;
-        frame.origin.y -= 10.0;
-        frame.size.width = self.collectionView.frame.size.width;
-        frame.size.height += self.sectionInset.top + self.sectionInset.bottom + 20.0;
-        
-        UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:@"CityCardReusableView" withIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
-        attributes.zIndex = -1;
-        attributes.frame = frame;
-        [_sectionAttributes addObject:attributes];
-        [self registerClass:[CityCardReusableView class] forDecorationViewOfKind:@"CityCardReusableView"];
+        if (_showDecorationView) {
+            UICollectionViewLayoutAttributes *firstItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+            UICollectionViewLayoutAttributes *lastItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:lastIndex inSection:i]];
+            
+            CGRect frame = CGRectUnion(firstItem.frame, lastItem.frame);
+            frame.origin.x -= 10.0;
+            frame.origin.y -= 10.0;
+            frame.size.width = self.collectionView.frame.size.width;
+            frame.size.height += self.sectionInset.top + self.sectionInset.bottom + 20.0;
+            
+            UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:@"CityCardReusableView" withIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+            attributes.zIndex = -1;
+            attributes.frame = frame;
+            [_sectionAttributes addObject:attributes];
+            [self registerClass:[CityCardReusableView class] forDecorationViewOfKind:@"CityCardReusableView"];
+        }
     }
 }
 
@@ -117,8 +123,6 @@
     }
     for (UICollectionViewLayoutAttributes *attribute in self.sectionAttributes)
     {
-//        if (!CGRectIntersectsRect(rect, attribute.frame))
-//            continue;
         [attributes addObject:attribute];
     }
     return attributes;
@@ -131,7 +135,7 @@
 
 -(CGSize)collectionViewContentSize{
     CGSize retVal = self.collectionView.bounds.size;
-    retVal.height = offsetY + 100; //?
+    retVal.height = offsetY + 64;
     return retVal;
 }
 

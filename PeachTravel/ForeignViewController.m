@@ -33,11 +33,14 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"ForeignDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"ForeignDestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
     
-    [(TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout setDelegate:self];
+    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
+    layout.delegate = self;
+    layout.showDecorationView = YES;
+    layout.margin = 10;
+    
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
-//    [self loadForeignDataFromServer];
     [self initData];
 }
 

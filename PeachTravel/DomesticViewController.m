@@ -34,8 +34,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
-    [(TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout setDelegate:self];
-//    [self loadDomesticDataFromServer];
+    
+    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
+    layout.delegate = self;
+    layout.showDecorationView = YES;
+    layout.margin = 10;
+    
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];
     }
@@ -76,7 +80,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (TZScrollView *)tzScrollView
 {
     if (!_tzScrollView) {
-        
         _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10.0, kWindowWidth, 52.0)];
         _tzScrollView.itemWidth = 22;
         _tzScrollView.itemHeight = 22;
@@ -202,6 +205,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 {
     return CGSizeMake(self.domesticCollectionView.frame.size.width, 40);
 }
+
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {

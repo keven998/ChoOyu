@@ -294,7 +294,7 @@
         item.itemHeight = 49.0;
         
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(item.bounds.size.width-1, 8, 1, 33)];
-        spaceView.backgroundColor = APP_PAGE_COLOR;
+        spaceView.backgroundColor = UIColorFromRGB(0xd3d3d3) ;
         [item addSubview:spaceView];
         
         [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];

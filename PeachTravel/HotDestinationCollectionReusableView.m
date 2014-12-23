@@ -11,7 +11,6 @@
 @implementation HotDestinationCollectionReusableView
 
 - (void)awakeFromNib {
-    // Initialization code
 }
 
 @end

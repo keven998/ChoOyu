@@ -11,7 +11,7 @@
 @implementation HotDestinationCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.layer.cornerRadius = 2.0;
 }
 
 @end
