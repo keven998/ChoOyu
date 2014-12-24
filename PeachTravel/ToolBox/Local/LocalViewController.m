@@ -56,6 +56,7 @@
 - (id)init {
     if (self = [super init]) {
         _didEndScroll = YES;
+        _currentPage = 0;
     }
     return self;
 }
@@ -405,7 +406,7 @@
 #pragma mark - SwipeViewDelegate
 
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
-    _currentPage = swipeView.currentPage;
+//    _currentPage = swipeView.currentPage;
     [_filterView setSelectedIndex:_currentPage];
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
@@ -424,8 +425,8 @@
 #pragma mark - DMFilterViewDelegate
 
 - (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
+//    _currentPage = index;
     [_swipeView setCurrentPage:index];
-    _currentPage = index;
 }
 
 #pragma mark - MKMapViewDelegate
@@ -526,7 +527,7 @@
     
     [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1];
     
-    NSLog(@"我开始加载新的内容了，新的内容是在横向第%d页，纵向第%d页", _currentPage,[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1 );
+//    NSLog(@"我开始加载新的内容了，新的内容是在横向第%d页，纵向第%d页", _currentPage,[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1 );
 }
 
 - (void) loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
