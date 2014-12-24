@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIView *signPanel;
 @property (nonatomic, strong) UILabel *signLabel;
 @property (nonatomic, strong) UIButton *chatBtn;
+@property (nonatomic, strong) RNGridMenu *av;
 
 @end
 
@@ -206,13 +207,13 @@
 {
     NSInteger numberOfOptions = 1;
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"删除"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete_user.png"] title:@"删除"],
                        ];
     
-    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    av.backgroundColor = [UIColor clearColor];
-    av.delegate = self;
-    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
+    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+    _av.backgroundColor = [UIColor clearColor];
+    _av.delegate = self;
+    [_av showInViewController:self.navigationController center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
 
 - (void)removeContact
@@ -254,8 +255,13 @@
     if (itemIndex == 0) {
         [self removeContact];
     }
+    _av = nil;
 }
 
+- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
+{
+    _av = nil;
+}
 
 #pragma UIScrollViewDelegate
 

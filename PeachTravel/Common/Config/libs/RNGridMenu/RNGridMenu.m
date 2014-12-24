@@ -340,14 +340,14 @@ static RNGridMenu *rn_visibleGridMenu;
         _cornerRadius = 8.f;
         _blurLevel = kRNGridMenuDefaultBlur;
         _animationDuration = kRNGridMenuDefaultDuration;
-        _itemTextColor = [UIColor grayColor];
+        _itemTextColor = [UIColor whiteColor];
         _itemFont = [UIFont systemFontOfSize:14.f];
         _highlightColor = [UIColor colorWithRed:.02f green:.549f blue:.961f alpha:1.f];
         _menuStyle = RNGridMenuStyleGrid;
         _itemTextAlignment = NSTextAlignmentCenter;
         _menuView = [UIView new];
-        _backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
         _bounces = YES;
+        self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
 
         BOOL hasImages = [items filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(RNGridMenuItem *item, NSDictionary *bindings) {
             return item.image != nil;
@@ -386,6 +386,11 @@ static RNGridMenu *rn_visibleGridMenu;
     return nil;
 }
 
+- (void)dealloc
+{
+    NSLog(@"~~~~~~~~~~我被销毁掉了");
+}
+
 #pragma mark - UIResponder
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -402,6 +407,7 @@ static RNGridMenu *rn_visibleGridMenu;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     id<RNGridMenuDelegate> delegate = self.delegate;
+    [self dismissAnimated:NO];
 
     if (self.selectedItemView != nil) {
         RNGridMenuItem *item = self.items[self.selectedItemView.itemIndex];
@@ -415,13 +421,13 @@ static RNGridMenu *rn_visibleGridMenu;
         if (item.action != nil) {
             item.action();
         }
+        self.selectedItemView = nil;
     } else {
         if ([delegate respondsToSelector:@selector(gridMenuWillDismiss:)]) {
             [delegate gridMenuWillDismiss:self];
         }
     }
 
-    [self dismissAnimated:YES];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -603,10 +609,14 @@ static RNGridMenu *rn_visibleGridMenu;
 
     if (rn_visibleGridMenu != nil) {
         [rn_visibleGridMenu dismissAnimated:NO];
+        self.selectedItemView = nil;
     }
-
+    
     [self rn_addToParentViewController:parentViewController callingAppearanceMethods:YES];
     self.menuCenter = [self.view convertPoint:center toView:self.view];
+    
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+    
     self.view.frame = parentViewController.view.bounds;
 
     [self showAnimated:YES];
@@ -701,7 +711,6 @@ static RNGridMenu *rn_visibleGridMenu;
 }
 
 - (void)cleanupGridMenu {
-    self.selectedItemView = nil;
     [self rn_removeFromParentViewControllerCallingAppearanceMethods:YES];
 }
 
@@ -711,7 +720,7 @@ static RNGridMenu *rn_visibleGridMenu;
     if (self.parentViewController != nil) {
         [self rn_removeFromParentViewControllerCallingAppearanceMethods:callAppearanceMethods];
     }
-
+    
     if (callAppearanceMethods) [self beginAppearanceTransition:YES animated:NO];
     [parentViewController addChildViewController:self];
     [parentViewController.view addSubview:self.view];

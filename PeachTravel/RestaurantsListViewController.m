@@ -307,21 +307,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-//    CGPoint currentOffset = scrollView.contentOffset;
-//    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
-//    
-//    if ([scrollView isEqual:self.tableView]) {
-//        if (currentOffset.y < 20) {
-//            [self.tableView setContentOffset:CGPointZero animated:YES];
-//        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
-//            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
-//        }
-//    }
-}
-
-
 @end
 
 

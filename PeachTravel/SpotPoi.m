@@ -25,10 +25,7 @@
         NSMutableArray *tempImages = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *taoziImage = [[TaoziImage alloc] initWithJson:imageDic];
-            if (tempImages.count < 3) {
-                [tempImages addObject:taoziImage];
-
-            }
+            [tempImages addObject:taoziImage];
         }
         _images = tempImages;
         _address = [json objectForKey:@"address"];

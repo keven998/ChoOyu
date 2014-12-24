@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) CreateConversationViewController *createCoversationCtl;
 
+@property (nonatomic, strong) RNGridMenu *av;
+
 @end
 
 @implementation IMRootViewController
@@ -32,8 +34,6 @@
     self.navigationItem.rightBarButtonItem = makePlanBtn;
 
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
-    
     
     for (MHChildViewController *ctl in self.viewControllers) {
         ctl.delegate = self;
@@ -76,14 +76,14 @@
 {
     NSInteger numberOfOptions = 2;
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"开始Talk"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_add_friend.png"] title:@"添加桃友"]
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"开始Talk"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"添加桃友"]
                        ];
     
-    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    av.backgroundColor = [UIColor clearColor];
-    av.delegate = self;
-    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
+    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+    _av.backgroundColor = [UIColor clearColor];
+    _av.delegate = self;
+    [_av showInViewController:self.navigationController center:CGPointMake(self.navigationController.view.bounds.size.width/2.f, self.navigationController.view.bounds.size.height/2.f)];
 }
 
 #pragma mark - RNGridMenuDelegate
@@ -94,6 +94,12 @@
     } else {
         [self addUserContact:nil];
     }
+    _av = nil;
+}
+
+- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
+{
+    _av = nil;
 }
 
 #pragma mark - CreateConversationDelegate

@@ -403,7 +403,7 @@
     [self.view addSubview:toolBarViewRight];
     
     //分割线
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 0.5)];
     spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
     [self.view addSubview:spaceView];
     

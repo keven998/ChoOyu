@@ -103,26 +103,12 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 
 - (IBAction)showCities:(UIButton *)sender
 {
-//    if (_showCitiesIndex != -1 && _showCitiesIndex != sender.tag) {
-//        [self.foreignCollectionView performBatchUpdates:^{
-//            [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndex:_showCitiesIndex]];
-//        } completion:nil];
-//    }
-    
     if (_showCitiesIndex == sender.tag) {
         _showCitiesIndex = -1;
     } else {
         _showCitiesIndex = sender.tag;
     }
     [self.foreignCollectionView reloadData];
-    
-//    _showCitiesIndex = 1;
-
-//    [self.foreignCollectionView performBatchUpdates:^{
-//        [self.foreignCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-//        [self.foreignCollectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:1]]];
-//        [self.foreignCollectionView reloadData];
-//    } completion:nil];
 }
 
 #pragma mark - notification
@@ -150,7 +136,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
     CountryDestination *country = _destinations.foreignCountries[indexPath.section];
-    country.desc = @"hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello";
     CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
     NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width - 20) + 1 ;
     CGFloat height = lineCount*size.height + 120.0 + 20 + 12.0;
@@ -205,7 +190,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 //    [headerView.titleBtn setTitle:country.zhName forState:UIControlStateNormal];
     headerView.titleBtn.text = country.zhName;
     
-    country.desc = @"hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello";
     headerView.descLabel.text = country.desc;
     
     CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName: headerView.descLabel.font}];

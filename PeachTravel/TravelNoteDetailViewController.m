@@ -14,6 +14,8 @@
     UIActivityIndicatorView *_activeView;
 }
 
+@property (nonatomic, strong) RNGridMenu *av;
+
 @end
 
 @implementation TravelNoteDetailViewController
@@ -50,14 +52,14 @@
 {
     NSInteger numberOfOptions = 2;
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"发送"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"收藏"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"桃Talk"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_favorite.png"] title:@"收藏"],
                        ];
     
-    RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    av.backgroundColor = [UIColor clearColor];
-    av.delegate = self;
-    [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
+    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+    _av.backgroundColor = [UIColor clearColor];
+    _av.delegate = self;
+    [_av showInViewController:self.navigationController center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
 
 #pragma mark - RNGridMenuDelegate
@@ -74,6 +76,12 @@
             }
         }];
     }
+    _av = nil;
+}
+
+- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
+{
+    _av = nil;
 }
 
 #pragma mark - WebViewDelegate
