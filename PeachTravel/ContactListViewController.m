@@ -170,15 +170,17 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        CGFloat offsetY = 10;
+        CGFloat offsetY = 0;
         if (_showRefrence) {
             offsetY += self.tzScrollView.frame.size.height;
         }
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY - 64 - 44) ];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, CGRectGetWidth(self.view.bounds)-22, CGRectGetHeight(self.view.bounds) - offsetY - 64 - 44) ];
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
+        _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _contactTableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0);
         _contactTableView.showsVerticalScrollIndicator = NO;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];

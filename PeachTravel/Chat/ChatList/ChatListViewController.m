@@ -118,7 +118,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, kWindowWidth - 22, self.view.frame.size.height - 64 - 44) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, self.view.frame.size.width - 22, self.view.frame.size.height - 64 - 44) style:UITableViewStylePlain];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
