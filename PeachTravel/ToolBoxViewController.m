@@ -21,17 +21,6 @@
 #import "NSTimer+Addition.h"
 #import "TZButton.h"
 
-/**
- 当登录成功后要做的事情
- */
-typedef enum : NSUInteger {
-    DoNoting = 0,
-    GoMemo = 1,
-    GoFavorite = 2,
-    GoTaoTalk = 3
-    
-} NextStepWhenDidLogin;
-
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
@@ -53,11 +42,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) TZButton *favoriteBtn;
 @property (nonatomic, strong) TZButton *aroundBtn;
 @property (strong, nonatomic) UIButton *IMBtn;
-
-/**
- 当登录成功后要做的事情
- */
-@property (nonatomic) NextStepWhenDidLogin nextActionWhenDidLogin;
 
 /**
  *  未读消息的 label
@@ -84,8 +68,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _nextActionWhenDidLogin = DoNoting;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -378,27 +360,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
 }
 
-/**
- *  当登录完成需要做的一些事情，未登录的情况下点击我的攻略，make a break point，and you will be clear
- */
-- (void)doSometingWhenLogin
-{
-    if (_nextActionWhenDidLogin == DoNoting) {
-        return;
-    }
-    if (_nextActionWhenDidLogin == GoTaoTalk) {
-        [self jumpIM:nil];
-    }
-    if (_nextActionWhenDidLogin == GoFavorite) {
-        [self myFavorite:nil];
-    }
-    if (_nextActionWhenDidLogin == GoMemo) {
-        [self myTravelNote:nil];
-    }
-    //单进入到相应界面后将状态标记为  DoNoting
-    _nextActionWhenDidLogin = DoNoting;
-}
-
 //进入聊天功能
 - (IBAction)jumpIM:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -424,7 +385,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
-        _nextActionWhenDidLogin = GoTaoTalk;
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.8];
     }
 }
@@ -439,7 +399,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)myFavorite:(id)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
-        _nextActionWhenDidLogin = GoFavorite;
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
@@ -451,7 +410,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)myTravelNote:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
-        _nextActionWhenDidLogin = GoMemo;   
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
@@ -473,7 +431,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 -(void)registerNotifications
 {
     [self unregisterNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doSometingWhenLogin) name:userDidLoginNoti object:nil];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
 }
 

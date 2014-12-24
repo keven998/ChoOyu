@@ -333,6 +333,7 @@
 		D93C50D31A4A5CBA00FFE2FA /* ic_share_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50D11A4A5CBA00FFE2FA /* ic_share_normal@2x.png */; };
 		D93C50D61A4A822C00FFE2FA /* ic_add_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50D41A4A822C00FFE2FA /* ic_add_friend@2x.png */; };
 		D93C50D71A4A822C00FFE2FA /* ic_new_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50D51A4A822C00FFE2FA /* ic_new_talk@2x.png */; };
+		D93C50E31A4AA3A600FFE2FA /* ic_add_favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50E21A4AA3A600FFE2FA /* ic_add_favorite@2x.png */; };
 		D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94772D51A31E49600BF9F8B /* TZViewController.m */; };
 		D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E11A32C3AF00BF9F8B /* 切图.png */; };
 		D94772EA1A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E91A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png */; };
@@ -1161,6 +1162,7 @@
 		D93C50D11A4A5CBA00FFE2FA /* ic_share_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_share_normal@2x.png"; sourceTree = "<group>"; };
 		D93C50D41A4A822C00FFE2FA /* ic_add_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_friend@2x.png"; sourceTree = "<group>"; };
 		D93C50D51A4A822C00FFE2FA /* ic_new_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_talk@2x.png"; sourceTree = "<group>"; };
+		D93C50E21A4AA3A600FFE2FA /* ic_add_favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_favorite@2x.png"; sourceTree = "<group>"; };
 		D94772D41A31E49600BF9F8B /* TZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZViewController.h; sourceTree = "<group>"; };
 		D94772D51A31E49600BF9F8B /* TZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZViewController.m; sourceTree = "<group>"; };
 		D94772E11A32C3AF00BF9F8B /* 切图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切图.png"; sourceTree = "<group>"; };
@@ -1851,6 +1853,7 @@
 		C6A0C6B81A3AB60A009D9768 /* favorite */ = {
 			isa = PBXGroup;
 			children = (
+				D93C50E21A4AA3A600FFE2FA /* ic_add_favorite@2x.png */,
 				C6A0C6B91A3AB60A009D9768 /* ic_fav_city@2x.png */,
 				C6A0C6BA1A3AB60A009D9768 /* ic_fav_delicacy@2x.png */,
 				C6A0C6BB1A3AB60A009D9768 /* ic_fav_shopping@2x.png */,
@@ -4421,6 +4424,7 @@
 				D9386C501A31A6600085FC36 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				C6BC34A11A2832C7002C19D3 /* theme_btn_normal@2x.png in Resources */,
 				D93C50CA1A4906FD00FFE2FA /* ic_im_background@2x.png in Resources */,
+				D93C50E31A4AA3A600FFE2FA /* ic_add_favorite@2x.png in Resources */,
 				D9EF98A81A3ABC1F00DB480F /* nearby_ic_tab_stay_normal@2x.png in Resources */,
 				D9F57B9619E93486005BB43B /* UMSShareListController.xib in Resources */,
 				C6BC34911A2751E0002C19D3 /* cell_accessory_pink@2x.png in Resources */,

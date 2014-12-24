@@ -121,7 +121,9 @@
                 completion(YES);
             } else {
                 completion(NO);
-                [self showHint:@"收藏失败"];
+                if (code == 402) {
+                    [self showHint:@"已经收藏过了~"];
+                }
                
             }
             
