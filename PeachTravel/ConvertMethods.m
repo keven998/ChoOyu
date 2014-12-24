@@ -84,19 +84,19 @@
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://com.autonavi.amap"]]) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:@"高德地图" forKey:@"platform"];
-//        [dic setObject:[NSNumber numberWithInteger:kAMap] forKey:@"type"];
+        [dic setObject:[NSNumber numberWithInteger:kAMap] forKey:@"type"];
         [retArray addObject:dic];
     }
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://com.baidu.map"]]) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:@"百度地图" forKey:@"platform"];
-//        [dic setObject:[NSNumber numberWithInteger:kBaiduMap] forKey:@"type"];
+        [dic setObject:[NSNumber numberWithInteger:kBaiduMap] forKey:@"type"];
         [retArray addObject:dic];
     }
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:@"苹果自带地图" forKey:@"platform"];
-//    [dic setObject:[NSNumber numberWithInteger:kAppleMap] forKey:@"type"];
+    [dic setObject:[NSNumber numberWithInteger:kAppleMap] forKey:@"type"];
     [retArray addObject:dic];
     return retArray;
 }

@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, RNGridMenuStyle) {
 @end
 
 
-@interface RNGridMenu : TZViewController
+@interface RNGridMenu : UIViewController
 
 + (instancetype)visibleGridMenu;
 

@@ -9,6 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+/**
+ 地图类型
+ */
+typedef enum {
+    kBaiduMap = 1,
+    kAMap,
+    kAppleMap
+} MAP_PLATFORM;
+
 @interface ConvertMethods : NSObject
 
 + (CLLocationDistance) getDistanceFrom:(CLLocationCoordinate2D)startPoint to:(CLLocationCoordinate2D)endPoint;
