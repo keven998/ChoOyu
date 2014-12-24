@@ -10,6 +10,7 @@
 #import "ResizableView.h"
 #import "CycleScrollView.h"
 #import "TZButton.h"
+#import "NSTimer+Addition.h"
 
 @interface SpotDetailView ()
 
@@ -43,6 +44,11 @@
         self.backgroundColor = APP_PAGE_COLOR;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_galleryPageView stopTimer];
 }
 
 - (void)setSpot:(SpotPoi *)spot
@@ -97,7 +103,6 @@
     [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
 //    [_headerView addSubview:_imagePageIndicator];
 
-    
     oy += 175;
     
     _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-44, 30)];
@@ -153,7 +158,6 @@
     [_ticketBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
     _ticketBtn.userInteractionEnabled = NO;
     _titleBtn.layer.cornerRadius = 2.0;
-    
     
     doy += 35;
     oy += 35;
