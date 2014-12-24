@@ -190,7 +190,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 //    [headerView.titleBtn setTitle:country.zhName forState:UIControlStateNormal];
     headerView.titleBtn.text = country.zhName;
     
-    country.desc = @"hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello";
     headerView.descLabel.text = country.desc;
     
     CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName: headerView.descLabel.font}];

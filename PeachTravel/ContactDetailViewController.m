@@ -207,7 +207,7 @@
 {
     NSInteger numberOfOptions = 1;
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_circle_chat.png"] title:@"删除"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete_user.png"] title:@"删除"],
                        ];
     
     _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
