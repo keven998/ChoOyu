@@ -222,7 +222,7 @@
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
     btn.backgroundColor = APP_THEME_COLOR;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"开始Talk" forState:UIControlStateNormal];
+    [btn setTitle:@"Talk" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
     btn.layer.cornerRadius = 2.0;
