@@ -186,8 +186,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
     
-    NSLog(@"%f",offsetY+167.5);
-    
     _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, self.view.bounds.size.height-67, w-22, 57.0)];
     [_IMBtn setBackgroundImage:[UIImage imageNamed:@"ic_im_background.png"] forState:UIControlStateNormal];
     [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

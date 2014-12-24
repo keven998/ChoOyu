@@ -29,11 +29,9 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"关于桃子旅行";
-    
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     CGFloat width = self.view.frame.size.width;
-    
     CGFloat offsetY = 32.;
     
     UIImageView *logo = [[UIImageView alloc]initWithFrame:CGRectMake((width - 60.0)/2, offsetY, 60.0, 60.0)];
