@@ -329,6 +329,8 @@
 		D93C50CB1A4906FD00FFE2FA /* ic_im_text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */; };
 		D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */; };
 		D93C50CF1A49906900FFE2FA /* login_btn_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50CE1A49906900FFE2FA /* login_btn_highlight@2x.png */; };
+		D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50D01A4A5CBA00FFE2FA /* ic_share_high@2x.png */; };
+		D93C50D31A4A5CBA00FFE2FA /* ic_share_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93C50D11A4A5CBA00FFE2FA /* ic_share_normal@2x.png */; };
 		D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94772D51A31E49600BF9F8B /* TZViewController.m */; };
 		D94772E21A32C3AF00BF9F8B /* 切图.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E11A32C3AF00BF9F8B /* 切图.png */; };
 		D94772EA1A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94772E91A32CA5B00BF9F8B /* SenderImageNodeBorder_back@2x.png */; };
@@ -1153,6 +1155,8 @@
 		D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_text@2x.png"; sourceTree = "<group>"; };
 		D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_im_arrow@2x.png"; sourceTree = "<group>"; };
 		D93C50CE1A49906900FFE2FA /* login_btn_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_btn_highlight@2x.png"; sourceTree = "<group>"; };
+		D93C50D01A4A5CBA00FFE2FA /* ic_share_high@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_share_high@2x.png"; sourceTree = "<group>"; };
+		D93C50D11A4A5CBA00FFE2FA /* ic_share_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_share_normal@2x.png"; sourceTree = "<group>"; };
 		D94772D41A31E49600BF9F8B /* TZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZViewController.h; sourceTree = "<group>"; };
 		D94772D51A31E49600BF9F8B /* TZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZViewController.m; sourceTree = "<group>"; };
 		D94772E11A32C3AF00BF9F8B /* 切图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切图.png"; sourceTree = "<group>"; };
@@ -2561,6 +2565,8 @@
 				D98835591A3F1331006BF326 /* ic_text_cover_bg@2x.png */,
 				D95F8A561A40633D003F4275 /* ic_chat@2x.png */,
 				C6A0C6B61A3AAA22009D9768 /* ic_nav_filter_normal@2x.png */,
+				D93C50D01A4A5CBA00FFE2FA /* ic_share_high@2x.png */,
+				D93C50D11A4A5CBA00FFE2FA /* ic_share_normal@2x.png */,
 				C6A0C6B01A3A89A6009D9768 /* ic_layer_edit_done@2x.png */,
 				C6A0C6B11A3A89A6009D9768 /* ic_layer_edit_highlight@2x.png */,
 				C6A0C6B21A3A89A6009D9768 /* ic_layer_edit@2x.png */,
@@ -4646,6 +4652,7 @@
 				C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */,
 				D90F35F819F63B3300E26FA9 /* delete@2x.png in Resources */,
 				D93697021A3026BC001922F4 /* chat_time@2x.png in Resources */,
+				D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				D9681A0E1A109BF600122793 /* Default-568h@2x.png in Resources */,
 				D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */,
@@ -4686,6 +4693,7 @@
 				D92998181A28B05000795986 /* MyGuidesTableViewCell.xib in Resources */,
 				D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */,
 				D95F8A571A40633D003F4275 /* ic_chat@2x.png in Resources */,
+				D93C50D31A4A5CBA00FFE2FA /* ic_share_normal@2x.png in Resources */,
 				C62A7A361A39744F00526928 /* ic_cell_item_chooesed@2x.png in Resources */,
 				D9CC36CB1A37F81500E72A7F /* ic_ticket@2x.png in Resources */,
 				D90C636919FB44D300C2E440 /* chatFire_audioPlaying2.png in Resources */,

@@ -67,7 +67,8 @@
         [_backButton setTitle:@"完成" forState:UIControlStateNormal];
         [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_actionBtn setImage:[UIImage imageNamed:@"ic_share_normal.png"] forState:UIControlStateNormal];
+        [_actionBtn setImage:[UIImage imageNamed:@"ic_share_high.png"] forState:UIControlStateHighlighted];
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
