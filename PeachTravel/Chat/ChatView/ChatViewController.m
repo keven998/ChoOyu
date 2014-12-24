@@ -674,11 +674,11 @@
         _slimeView.delegate = self;
         _slimeView.upInset = 0;
         _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = [UIColor grayColor];
-        _slimeView.slime.skinColor = [UIColor grayColor];
-        _slimeView.slime.lineWith = 1;
-        _slimeView.slime.shadowBlur = 4;
-        _slimeView.slime.shadowColor = [UIColor grayColor];
+        _slimeView.slime.bodyColor = APP_THEME_COLOR;
+        _slimeView.slime.skinColor = [UIColor clearColor];
+        _slimeView.slime.lineWith = 0.7;
+        _slimeView.slime.shadowBlur = 0;
+        _slimeView.slime.shadowColor = [UIColor clearColor];
     }
     
     return _slimeView;
