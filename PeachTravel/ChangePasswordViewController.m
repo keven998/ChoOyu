@@ -117,16 +117,16 @@
     [params safeSetObject:accountManager.account.userId forKey:@"userId"];
     
     [manager POST:API_CHANGE_PWD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-        
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
         [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
 
@@ -143,7 +143,7 @@
             [SVProgressHUD showErrorWithStatus:@"两次新密码输入不一致"];
             return;
         } else {
-            [SVProgressHUD showErrorWithStatus:@"密码至少六位，只能为数字或字母"];
+            [SVProgressHUD showErrorWithStatus:@"请正确输入6～16位数字、字母"];
             return;
         }
     }

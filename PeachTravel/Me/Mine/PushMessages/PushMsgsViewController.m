@@ -18,7 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = @"消息中心";
+    self.navigationItem.title = @"我收到的消息";
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
 }
 

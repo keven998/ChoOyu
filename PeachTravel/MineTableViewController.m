@@ -20,7 +20,7 @@
 #import "PushMsgsViewController.h"
 #import "UMSocial.h"
 
-#define dataSource               @[@[@"分享账户管理", @"消息中心", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define dataSource               @[@[@"分享账户管理", @"我收到的消息", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -87,7 +87,7 @@
 
 - (void)shareToWeChat
 {
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"给你推荐个旅行App，专为美女们旅行服务的贴心小助手,去APPStore 搜素桃子旅行" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是 桃子旅行，专为各位爱旅行的美眉们提供服务的贴心小助手。http://****" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }
