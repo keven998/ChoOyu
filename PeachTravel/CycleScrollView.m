@@ -1,4 +1,4 @@
-//
+    //
 //  CycleScrollView.m
 //  PagedScrollView
 //
@@ -30,6 +30,10 @@
         [self configContentViews];
         [self.animationTimer resumeTimerAfterTimeInterval:self.animationDuration];
     }
+    if (_totalPageCount > 1) {
+        self.scrollView.contentSize = CGSizeMake(3 * CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame));
+        self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0);
+    }
 }
 
 - (id)initWithFrame:(CGRect)frame animationDuration:(NSTimeInterval)animationDuration
@@ -50,16 +54,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         self.autoresizesSubviews = YES;
         self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         self.scrollView.autoresizingMask = 0xFF;
         self.scrollView.contentMode = UIViewContentModeCenter;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
-        self.scrollView.contentSize = CGSizeMake(3 * CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame));
+        
         self.scrollView.delegate = self;
-        self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0);
         self.scrollView.pagingEnabled = YES;
         [self addSubview:self.scrollView];
         self.currentPageIndex = 0;
@@ -75,8 +77,22 @@
     return self;
 }
 
+- (void)dealloc
+{
+}
+
 #pragma mark -
 #pragma mark - 私有函数
+
+- (void)stopTimer
+{
+    if (_animationTimer) {
+        if ([_animationTimer isValid]) {
+            [_animationTimer invalidate];
+            _animationTimer = nil;
+        }
+    }
+}
 
 - (void)configContentViews
 {
@@ -94,7 +110,9 @@
         contentView.frame = rightRect;
         [self.scrollView addSubview:contentView];
     }
-    [_scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0)];
+    if (_totalPageCount>1) {
+        [_scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0)];
+    } 
 }
 
 /**
@@ -109,11 +127,25 @@
     }
     [self.contentViews removeAllObjects];
     
-    if (self.fetchContentViewAtIndex) {
-        [self.contentViews addObject:self.fetchContentViewAtIndex(previousPageIndex)];
-        [self.contentViews addObject:self.fetchContentViewAtIndex(_currentPageIndex)];
-        [self.contentViews addObject:self.fetchContentViewAtIndex(rearPageIndex)];
+    if (_totalPageCount > 1) {
+        if (self.fetchContentViewAtIndex) {
+            if (self.fetchContentViewAtIndex(previousPageIndex)) {
+                [self.contentViews addObject:self.fetchContentViewAtIndex(previousPageIndex)];
+            }
+            if (self.fetchContentViewAtIndex(_currentPageIndex)) {
+                [self.contentViews addObject:self.fetchContentViewAtIndex(_currentPageIndex)];
+            }
+            if (self.fetchContentViewAtIndex(rearPageIndex)) {
+                [self.contentViews addObject:self.fetchContentViewAtIndex(rearPageIndex)];
+            }
+        }
+    } else {
+        if (self.fetchContentViewAtIndex(_currentPageIndex)) {
+            [self.contentViews addObject:self.fetchContentViewAtIndex(_currentPageIndex)];
+        }
     }
+    
+   
 }
 
 - (NSInteger)getValidNextPageIndexWithPageIndex:(NSInteger)currentPageIndex;

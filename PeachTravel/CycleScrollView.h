@@ -37,4 +37,9 @@
  **/
 @property (nonatomic , copy) void (^TapActionBlock)(NSInteger pageIndex);
 
+/**
+ *  停止计时器。回收 view,必须在外部调用。。。而且必须调用
+ */
+- (void)stopTimer;
+
 @end
