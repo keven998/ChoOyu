@@ -102,13 +102,14 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 64, self.view.frame.size.width-20, self.view.frame.size.height-64-32)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 64 + 10, self.view.frame.size.width-20, self.view.frame.size.height-64-32)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-        _tableView.contentInset = UIEdgeInsetsMake(55.0, 0.0, 0.0, 0.0);
+        
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
     }
     return _tableView;
 }
@@ -310,6 +311,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
     headerView.layer.cornerRadius = 2.0;
+    headerView.backgroundColor = APP_PAGE_COLOR;
     headerView.clipsToBounds = YES;
     UILabel *headerTitle;
     if (self.tableView.isEditing) {
@@ -475,26 +477,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y > 20.0) {
         [_rootViewController showDHView:NO];
-        [self.tableView setContentInset:UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0)];
     } else {
         [_rootViewController showDHView:YES];
-        [_tableView setContentInset:UIEdgeInsetsMake(55.0, 0.0, 0.0, 0.0)];
     }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    CGPoint currentOffset = scrollView.contentOffset;
-    NSLog(@"***%@",NSStringFromCGPoint(currentOffset));
-
-    if ([scrollView isEqual:self.tableView]) {
-        if (currentOffset.y < 20) {
-            [self.tableView setContentOffset:CGPointZero animated:YES];
-        } else if ((currentOffset.y > 20) && (currentOffset.y < 60)) {
-            [self.tableView setContentOffset:CGPointMake(0, 60) animated:YES];
-        }
-    }
-}
 
 
 @end

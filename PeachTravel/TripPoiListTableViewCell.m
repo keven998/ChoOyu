@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     _nearBy.layer.borderColor = UIColorFromRGB(0x797979).CGColor;
-    _nearBy.layer.borderWidth = 1.0;
+    _nearBy.layer.borderWidth = 0.5;
     _nearBy.layer.cornerRadius = 2.0;
     self.layer.cornerRadius = 2.0;
     self.clipsToBounds = YES;

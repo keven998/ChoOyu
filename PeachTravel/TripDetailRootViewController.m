@@ -90,9 +90,12 @@
     } else {
         [self checkTripData];
     }
-
 }
 
+
+/**
+ *  不同情况的返回按钮相应的操作不一致
+ */
 - (void)goBack
 {
     if (self.tripDetail.tripIsChange) {
@@ -330,6 +333,11 @@
     [self updateDestinationsHeaderView];
 }
 
+/**
+ *  是否显示目的地那一栏
+ *
+ *  @param show 
+ */
 - (void)showDHView:(BOOL) show {
     CGRect rect = _destinationsHeaderView.frame;
     if (show) {
@@ -386,12 +394,18 @@
     self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 60, 0, 60);
     self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 62);
     self.tabBar.backgroundColor = [UIColor whiteColor];
+    
     UIView *toolBarViewLeft = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, 60, 62)];
     toolBarViewLeft.backgroundColor = [UIColor whiteColor];
     UIView *toolBarViewRight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-62, 60, 62)];
     toolBarViewRight.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolBarViewLeft];
     [self.view addSubview:toolBarViewRight];
+    
+    //分割线
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 1)];
+    spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
+    [self.view addSubview:spaceView];
     
     UIImage *finishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
     UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];

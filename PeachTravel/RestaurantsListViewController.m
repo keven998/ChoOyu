@@ -48,8 +48,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             _editBtn.backgroundColor = UIColorFromRGB(0x797979);
             [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
         } else {
-//            [self.tableView setEditing:YES];
-//            [self updateTableView];
             [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
     }
@@ -80,7 +78,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+55, self.view.frame.size.width-22, self.view.frame.size.height-64 - 62 - 45)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+10, self.view.frame.size.width-22, self.view.frame.size.height-64 - 62 - 45)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
@@ -89,6 +87,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+        
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
+
     }
     return _tableView;
 }
@@ -301,10 +302,8 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y > 20.0) {
         [_rootViewController showDHView:NO];
-        [self.tableView setContentInset:UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0)];
     } else {
         [_rootViewController showDHView:YES];
-        [_tableView setContentInset:UIEdgeInsetsMake(55.0, 0.0, 0.0, 0.0)];
     }
 }
 

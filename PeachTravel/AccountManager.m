@@ -151,10 +151,8 @@
              [self easeMobUnlogin];
              if (completion) {
                  completion(NO);
-                 
              }
          }
-         
      } onQueue:nil];
 }
 

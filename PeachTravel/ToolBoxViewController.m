@@ -379,6 +379,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
 }
 
+/**
+ *  当登录完成需要做的一些事情，未登录的情况下点击我的攻略，make a break point，and you will be clear
+ */
 - (void)doSometingWhenLogin
 {
     if (_nextActionWhenDidLogin == DoNoting) {
