@@ -276,14 +276,14 @@
 - (void)customizeTabBarForController
 {
     self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 49);
-    self.tabBar.backgroundColor = APP_PAGE_COLOR;
+    self.tabBar.backgroundColor = [UIColor whiteColor];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
     spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
     [self.tabBar addSubview:spaceView];
     
-    UIImage *finishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
-    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
+//    UIImage *finishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
+//    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
     
     NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
     
@@ -291,15 +291,16 @@
     for (RDVTabBarItem *item in [[self tabBar] items]) {
         item.titlePositionAdjustment = UIOffsetMake(0, 6);
         item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : UIColorFromRGB(0x797979)};
+        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
         
         item.itemHeight = 49.0;
+        item.backgroundColor = [UIColor whiteColor];
         
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(item.bounds.size.width-1, 8, 1, 33)];
-        spaceView.backgroundColor = UIColorFromRGB(0xd3d3d3) ;
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(item.bounds.size.width-1, 8, 0.5, 33)];
+        spaceView.backgroundColor = APP_DIVIDER_COLOR;
         [item addSubview:spaceView];
         
-        [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
+//        [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                       [tabBarItemImages objectAtIndex:index]]];
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
