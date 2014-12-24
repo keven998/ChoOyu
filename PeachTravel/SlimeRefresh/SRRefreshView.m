@@ -58,10 +58,9 @@
         _refleshView.bounds = CGRectMake(0.0f, 0.0f, kRefreshImageWidth, kRefreshImageWidth);
         [self addSubview:_refleshView];
         
-        _activityIndicatorView = [[UIActivityIndicatorView alloc]
-                                  initWithActivityIndicatorStyle:
-                                  UIActivityIndicatorViewStyleGray];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [_activityIndicatorView stopAnimating];
+        _activityIndicatorView.color = APP_THEME_COLOR;
         _activityIndicatorView.center = _slime.startPoint;
         [self addSubview:_activityIndicatorView];
         

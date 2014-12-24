@@ -230,7 +230,7 @@
     UIButton *btn = sender;
     BOOL isEditing = btn.isSelected;
     _isEditing = !isEditing;
-//    btn.selected = !isEditing;
+    btn.selected = !isEditing;
     [self.tableView reloadData];
 }
 
