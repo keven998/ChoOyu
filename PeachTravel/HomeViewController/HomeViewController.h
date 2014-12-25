@@ -11,4 +11,14 @@
 
 @interface HomeViewController : RDVTabBarController
 
+/**
+ *  跳转到 web 界面
+ */
+- (void)jumpToWebViewCtl;
+
+/**
+ *  当程序启动的时候是否应该进入聊天列表界面
+ */
+@property (nonatomic)BOOL shouldJumpToChatListWhenAppLaunch;
+
 @end

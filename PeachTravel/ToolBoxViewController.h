@@ -17,5 +17,12 @@
 
 @property (nonatomic, weak) HomeViewController *rootCtl;
 
+/**
+ *  进入的聊天列表界面
+ *
+ *  @param sender 
+ */
+- (IBAction)jumpIM:(UIButton *)sender;
+
 
 @end

@@ -26,18 +26,31 @@
 
 @implementation HomeViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setupViewControllers];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.automaticallyAdjustsScrollViewInsets = YES;
-    [self setupViewControllers];
     [self setupConverView];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 
+    if (_shouldJumpToChatListWhenAppLaunch && _coverView != nil) {
+        [_coverView removeFromSuperview];
+        _coverView = nil;
+        [self jumpToChatListCtl];
+    }
+    
     if (_coverView != nil) {
         NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
         [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -154,10 +167,27 @@
     }];
 }
 
+/**
+ *  跳转到聊天列表
+ */
+- (void)jumpToChatListCtl
+{
+    if (_toolBoxCtl) {
+        [_toolBoxCtl jumpIM:nil];
+    }
+}
+
+/**
+ *  跳转到web 界面
+ */
+- (void)jumpToWebViewCtl
+{
+    
+}
+
 #pragma mark - loadStroy
 - (void)loadData
 {
-    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

@@ -494,7 +494,6 @@
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
 		D99D8ECB19C8600C0021C25B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECA19C8600C0021C25B /* main.m */; };
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
-		D99D8ED419C8600C0021C25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED219C8600C0021C25B /* Main.storyboard */; };
 		D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED719C8600C0021C25B /* LaunchScreen.xib */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */; };
@@ -1402,7 +1401,6 @@
 		D99D8ECA19C8600C0021C25B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D99D8ECC19C8600C0021C25B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D99D8ECD19C8600C0021C25B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D99D8ED319C8600C0021C25B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D99D8ED819C8600C0021C25B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3656,7 +3654,6 @@
 				D9A5939219E3DA9D004A6072 /* ToolBox */,
 				D9A5939319E3DAB3004A6072 /* Me */,
 				D9E1EF8219F0E2B8006348A3 /* Others */,
-				D99D8ED219C8600C0021C25B /* Main.storyboard */,
 				D955E5D119E7D24700047F2B /* Images.xcassets */,
 				D955E3F819E7A86800047F2B /* Resources */,
 				D99D8EC819C8600C0021C25B /* Supporting Files */,
@@ -4439,7 +4436,6 @@
 				D90C63C719FBA07700C2E440 /* ZYQAssetPicker.Bundle in Resources */,
 				C608ED621A2C3B4E00B76934 /* PushMsgsViewController.xib in Resources */,
 				D9681A191A109C4700122793 /* tutorial_background_03@2x.jpg in Resources */,
-				D99D8ED419C8600C0021C25B /* Main.storyboard in Resources */,
 				D90C637419FB44D300C2E440 /* VoiceSearchFeedback004@2x.png in Resources */,
 				D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */,
 				D90C639C19FB44D300C2E440 /* chatBar_more_faceSelected.png in Resources */,
@@ -5047,14 +5043,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D99D8ED219C8600C0021C25B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D99D8ED319C8600C0021C25B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D99D8ED719C8600C0021C25B /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
