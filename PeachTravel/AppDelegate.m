@@ -13,12 +13,14 @@
 #import "UMSocialQQHandler.h"
 #import "AccountManager.h"
 #import "GexinSdk.h"
+#import "HomeViewController.h"
 
 @interface AppDelegate () <GexinSdkDelegate>
 
 @property (strong, nonatomic) GexinSdk *gexinPusher;
 @property (assign, nonatomic) int lastPayloadIndex;
 @property (retain, nonatomic) NSString *payloadId;
+@property (nonatomic, strong) HomeViewController *homeViewController;
 
 @end
 
@@ -26,11 +28,18 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    application.keyWindow.backgroundColor = APP_PAGE_COLOR;
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = APP_PAGE_COLOR;
+    _homeViewController = [[HomeViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
+    [self.window makeKeyAndVisible];
+
     
     [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
     [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xffffff)] forBarMetrics:UIBarMetricsDefault];
-        
+    
+    /** 设置友盟 **/
     [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
@@ -38,24 +47,18 @@
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
     
-       /****** 设置环信 ******/
-    
+    /*****注册推送*****/
     [self registerRemoteNotification];
     
+    /****** 设置环信 ******/
     NSString *apnsCertName = @"taoziAPNS";
-
     [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#xiaofang" apnsCertName:apnsCertName];
-    
 #if DEBUG
     [[EaseMob sharedInstance] enableUncaughtExceptionHandler];
 #endif
-    
     [[[EaseMob sharedInstance] chatManager] setIsAutoFetchBuddyList:YES];
-    
     //以下一行代码的方法里实现了自动登录，异步登录，需要监听[didLoginWithInfo: error:]
-    //demo中此监听方法在MainViewController中
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-    
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
@@ -64,10 +67,14 @@
     
     NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (message) {
-        NSString *payloadMsg = [message objectForKey:@"payload"];
-        NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
-        NSLog(@"/*****个推消息*****/:%@", record);
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"$$$$$$didFinishLaunchingWithOptions,推送消息**"
+                                                        message:[NSString stringWithFormat:@"%@", message]
+                                                       delegate:self
+                                              cancelButtonTitle:@"关闭"
+                                              otherButtonTitles:nil,nil];
+        [alert show];
     }
+    
     
     return YES;
 }
@@ -88,12 +95,6 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册推送失败"
-                                                    message:error.description
-                                                   delegate:nil
-                                          cancelButtonTitle:@"确定"
-                                          otherButtonTitles:nil];
-    [alert show];
     
     // [3-EXT]:如果APNS注册失败，通知个推服务器
     if (_gexinPusher) {
@@ -123,24 +124,15 @@
     return  result;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"**推送消息**"
-                                                    message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    // 处理APN
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"^^^^^^^^didReceiveRemoteNotification_completionHandler,推送消息**"
+                                                    message:[NSString stringWithFormat:@"%@",userInfo]
                                                    delegate:self
                                           cancelButtonTitle:@"关闭"
                                           otherButtonTitles:@"处理",nil];
     [alert show];
-    [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
     
-    //设置个推
-    NSString *payloadMsg = [userInfo objectForKey:@"payload"];
-    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
-    NSLog(@"/***收到个推消息****/:%@", record);
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    // [4-EXT]:处理APN
     NSString *payloadMsg = [userInfo objectForKey:@"payload"];
     
     NSDictionary *aps = [userInfo objectForKey:@"aps"];
@@ -152,9 +144,26 @@
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"&&&&&didReceiveRemoteNotification,推送消息**"
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:@"关闭"
+                                          otherButtonTitles:@"处理",nil];
+    [alert show];
+    [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
+    
+    //设置个推
+    NSString *payloadMsg = [userInfo objectForKey:@"payload"];
+    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
+    NSLog(@"/***didReceiveRemoteNotification,收到个推消息****/:%@", record);
+}
+
+
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"**推送消息**"
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"######**didReceiveLocalNotification,推送消息**"
                                                     message:@""
                                                    delegate:self
                                           cancelButtonTitle:@"关闭"
@@ -326,7 +335,6 @@
 - (void)startGeTuiSdk
 {
     if (!_gexinPusher) {
-        
         NSError *err = nil;
         _gexinPusher = [GexinSdk createSdkWithAppId:kGeTuiAppId
                                              appKey:kGeTuiAppKey
@@ -354,6 +362,7 @@
 - (void)registerRemoteNotification {
 #if !TARGET_IPHONE_SIMULATOR
     UIApplication *application = [UIApplication sharedApplication];
+    application.applicationIconBadgeNumber = 0;
     
     //iOS8 注册APNS
     if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
@@ -372,7 +381,30 @@
     
 }
 
+#pragma mark - GexinSdkDelegate
+- (void)GexinSdkDidRegisterClient:(NSString *)clientId
+{
+}
 
+/**
+ *  程序在 runing
+ *
+ *  @param payloadId
+ *  @param appId
+ */
+- (void)GexinSdkDidReceivePayload:(NSString *)payloadId fromApplication:(NSString *)appId
+{
+    // [4]: 收到个推消息
+    NSData *payload = [_gexinPusher retrivePayloadById:payloadId];
+    NSString *payloadMsg = nil;
+    if (payload) {
+        payloadMsg = [[NSString alloc] initWithBytes:payload.bytes
+                                              length:payload.length
+                                            encoding:NSUTF8StringEncoding];
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"*****GexinSdkDidReceivePayload_推送%@", payloadMsg] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [alert show];
+}
 
 #pragma mark - Core Data stack
 
