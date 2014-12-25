@@ -102,7 +102,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
-        [SVProgressHUD showErrorWithStatus:@"请先登录"];
+        [self showHint:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
         return;
     }

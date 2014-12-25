@@ -25,6 +25,8 @@
 #define PAGE_SHOPPING           2
 #define PAGE_STAY               3
 
+#define RECYCLE_PAGE_TAG        100
+
 @interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) DMFilterView *filterView;
@@ -272,7 +274,7 @@
         }
 
     }
-    UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:100];
+    UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
     if (currentTableView) {
         [currentTableView reloadData];
     }
@@ -384,7 +386,7 @@
         tbView.dataSource = self;
         tbView.delegate = self;
         tbView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        tbView.tag = 100; //maginc number for subview
+        tbView.tag = RECYCLE_PAGE_TAG;
         tbView.backgroundColor = APP_PAGE_COLOR;
         
         [view addSubview:tbView];
@@ -395,7 +397,7 @@
         }
     } else {
         view.tag = index;
-        tbView = (UITableView *)[view viewWithTag:100];
+        tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
         if (index == PAGE_FUN) {
             [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
         } else {
@@ -503,7 +505,7 @@
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
             }
-            UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:100];
+            UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
             [tbView reloadData];
             self.currentPageList = nil;
             [self loadDataWithPageIndex:0];
@@ -541,7 +543,7 @@
     [self.isLoaddingMoreList replaceObjectAtIndex:pageIndex withObject:@NO];
 
     UIView *view = [self.swipeView itemViewAtIndex:pageIndex];
-    UITableView *tableView = (UITableView *)[view viewWithTag:100];
+    UITableView *tableView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
     tableView.tableFooterView = nil;
 }
 
@@ -564,7 +566,7 @@
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
     UIView *view = [self.swipeView currentItemView];
-    UITableView *tableView = (UITableView *)[view viewWithTag:100];
+    UITableView *tableView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
     if (![tableView isEqual:scrollView]) {
         NSLog(@"警告。。。我已经销毁掉了，所以不应该加载数据了");
         return;
