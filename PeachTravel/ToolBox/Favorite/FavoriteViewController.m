@@ -497,13 +497,14 @@
         } else if ([type isEqualToString:@"travelNote"]) {
             TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
             ctl.travelNoteId = item.itemId;
+            ctl.travelNoteTitle = item.zhName;
+            ctl.travelNoteCover = item.desc;
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else {
             CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
             ctl.cityId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
-            
         }
     } else {
         

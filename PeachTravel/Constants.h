@@ -95,6 +95,7 @@
  */
 #define FUN_CITY_HTML                   @"http://wap.lvxingpai.com/h5/tabpage.php"
 #define MORE_COMMENT_HTML               @"http://wap.lvxingpai.com/h5/morecomment.php"
+#define TRAVELNOTE_DETAIL_HTML          @"http://h5.taozilvxing.com/detail.php?id="
 
 //IM相关接口
 #define API_GET_CONTACTS                (BASE_URL @"users/contacts")   //获得联系人列表

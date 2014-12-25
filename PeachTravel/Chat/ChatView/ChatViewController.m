@@ -1035,7 +1035,7 @@
             travelNoteCtl.travelNoteCover = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
             travelNoteCtl.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             travelNoteCtl.titleStr = @"游记详情";
-#warning TODO : 游记详情的链接
+            
 
             [self.navigationController pushViewController:travelNoteCtl animated:YES];
         }

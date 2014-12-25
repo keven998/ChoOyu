@@ -145,11 +145,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = TripRestaurantPoi;
     
-#warning 测试数据
-    for (CityDestinationPoi *poi in restaurantOfCityCtl.tripDetail.destinations) {
-        poi.cityId = @"53aa9a6410114e3fd47833bd";
-    }
-    
     restaurantOfCityCtl.shouldEdit = YES;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
