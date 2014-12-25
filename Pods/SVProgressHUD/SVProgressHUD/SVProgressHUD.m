@@ -23,11 +23,11 @@ NSString * const SVProgressHUDDidAppearNotification = @"SVProgressHUDDidAppearNo
 NSString * const SVProgressHUDStatusUserInfoKey = @"SVProgressHUDStatusUserInfoKey";
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-CGFloat SVProgressHUDRingRadius = 14;
-CGFloat SVProgressHUDRingThickness = 1;
+CGFloat SVProgressHUDRingRadius = 4.0;
+CGFloat SVProgressHUDRingThickness = 0.5;
 #else
-CGFloat SVProgressHUDRingRadius = 14;
-CGFloat SVProgressHUDRingThickness = 6;
+CGFloat SVProgressHUDRingRadius = 4.0;
+CGFloat SVProgressHUDRingThickness = 0.5;
 #endif
 
 @interface SVProgressHUD ()
@@ -231,9 +231,9 @@ CGFloat SVProgressHUDRingThickness = 6;
 
 - (void)updatePosition {
 	
-    CGFloat hudWidth = 100;
-    CGFloat hudHeight = 100;
-    CGFloat stringHeightBuffer = 20;
+    CGFloat hudWidth = 80;
+    CGFloat hudHeight = 80;
+    CGFloat stringHeightBuffer = 18.0;
     CGFloat stringAndImageHeightBuffer = 80;
 
     CGFloat stringWidth = 0;
@@ -266,7 +266,7 @@ CGFloat SVProgressHUDRingThickness = 6;
         
         CGFloat labelRectY = imageUsed ? 66 : 9;
         
-        if(hudHeight > 100) {
+        if(hudHeight > 80) {
             labelRect = CGRectMake(12, labelRectY, hudWidth, stringHeight);
             hudWidth+=24;
         } else {
@@ -741,7 +741,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 #endif
 #endif
 
-        hudView.layer.cornerRadius = 10;
+        hudView.layer.cornerRadius = 2.0;
         hudView.layer.masksToBounds = YES;
         
         hudView.autoresizingMask = (UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin |
@@ -789,14 +789,15 @@ CGFloat SVProgressHUDRingThickness = 6;
     if(!imageView.superview)
         [self.hudView addSubview:imageView];
     
-    return imageView;
+//    return imageView;
+    return nil;
 }
 
 - (UIActivityIndicatorView *)spinnerView {
     if (spinnerView == nil) {
         spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		spinnerView.hidesWhenStopped = YES;
-		spinnerView.bounds = CGRectMake(0, 0, 37, 37);
+		spinnerView.bounds = CGRectMake(0, 0, 24, 24);
         
         if([spinnerView respondsToSelector:@selector(setColor:)]) // setColor is iOS 5+
             spinnerView.color = self.hudForegroundColor;
@@ -841,9 +842,9 @@ CGFloat SVProgressHUDRingThickness = 6;
 #endif
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    return [UIColor whiteColor];
+    return [UIColor colorWithWhite:0.25 alpha:0.75];
 #else
-    return [UIColor colorWithWhite:0 alpha:0.8];
+    return [UIColor colorWithWhite:0 alpha:0.7];
 #endif
 }
 
@@ -859,7 +860,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 #endif
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    return [UIColor colorWithWhite:0 alpha:0.8];
+    return [UIColor whiteColor];
 #else
     return [UIColor whiteColor];
 #endif
@@ -879,7 +880,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
     return [UIColor whiteColor];
 #else
-    return [UIColor colorWithWhite:0 alpha:0.8];
+    return [UIColor colorWithWhite:0.33 alpha:0.67];
 #endif
 }
 
@@ -933,7 +934,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
     return [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
 #else
-    return [UIFont boldSystemFontOfSize:16];
+    return [UIFont boldSystemFontOfSize:14];
 #endif
 }
 
@@ -949,7 +950,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    return [UIImage imageNamed:@"SVProgressHUD.bundle/success-black"];
+    return [UIImage imageNamed:@"SVProgressHUD.bundle/success.png"];
 #else
     return [UIImage imageNamed:@"SVProgressHUD.bundle/success.png"];
 #endif
@@ -967,7 +968,7 @@ CGFloat SVProgressHUDRingThickness = 6;
 #endif
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    return [UIImage imageNamed:@"SVProgressHUD.bundle/error-black"];
+    return [UIImage imageNamed:@"SVProgressHUD.bundle/error.png"];
 #else
     return [UIImage imageNamed:@"SVProgressHUD.bundle/error.png"];
 #endif

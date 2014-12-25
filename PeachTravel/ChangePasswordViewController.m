@@ -143,10 +143,12 @@
         [self changePassword];
     } else {
         if (errorCode == PasswordNotMatchedError) {
-            [SVProgressHUD showErrorWithStatus:@"两次新密码输入不一致"];
+//            [SVProgressHUD showErrorWithStatus:@"两次新密码输入不一致"];
+            [self showHint:@"两次新密码输入不一致"];
             return;
         } else {
-            [SVProgressHUD showErrorWithStatus:@"请正确输入6～16位数字、字母"];
+//            [SVProgressHUD showErrorWithStatus:@"请正确输入6～16位数字、字母"];
+            [self showHint:@"请正确输入6～16位密码"];
             return;
         }
     }
