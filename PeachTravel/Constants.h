@@ -105,11 +105,7 @@
 #define API_SEARCH                      (BASE_URL @"search")  //联合搜索
 #define API_GET_ALBUM                   (BASE_URL @"geo/localities/")      //获取城市图集
 #define API_GET_COLUMNS                 (BASE_URL @"columns")     //获取首页运营位置推荐
-#define API_FEEDBACK                    (BASE_URL @"misc/feedback")    //反馈
-
-
-
-
+#define API_FEEDBACK                    (BASE_URL @"misc/feedback")    //反馈接口
 
 /***** Notification name *******/
 
@@ -125,8 +121,7 @@
 #define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
 #define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti  @ "updatecontactList"           //更新好友请求列表
-
-#define updateChateViewNoti             @"updateChatView"               //更新聊天界面
+#define updateChateViewNoti             @ "updateChatView"               //更新聊天界面
 
 #define updateFavoriteListNoti          @"updateFavoriteListView"    //更新收藏列表
 

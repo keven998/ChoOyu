@@ -239,8 +239,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     __weak typeof(ToolBoxViewController *)weakSelf = self;
     
     _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
-        
-        NSLog(@"%d", pageIndex);
         return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
     };
     
@@ -660,8 +658,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didReceiveCmdMessage:(EMMessage *)cmdMessage
 {
     [TZCMDChatHelper distributeCMDMsg:cmdMessage];
-    UIAlertView *a = [[UIAlertView alloc] initWithTitle:@"接收到透传消息" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-    [a show];
+    NSLog(@"接收到透传消息:  %@",cmdMessage);
 }
 
 - (void)playSoundAndVibration{
@@ -885,7 +882,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                   otherButtonTitles:nil,
                                   nil];
         alertView.tag = 100;
-        [alertView show];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            [accountManager logout];
+        }];
     } onQueue:nil];
 }
 

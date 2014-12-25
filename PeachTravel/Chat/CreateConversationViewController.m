@@ -64,10 +64,18 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
     
     if (!_isPushed) {
-        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
         backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.leftBarButtonItem = backBtn;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
     }
+}
+
+- (void)dealloc
+{
+     if (!_isPushed) {
+         [[NSNotificationCenter defaultCenter] removeObserver:self];
+     }
 }
 
 #pragma mark - setter & getter
@@ -138,7 +146,7 @@
 
 #pragma mark - IBAction Methods
 
-- (IBAction)back:(id)sender
+- (IBAction)dismissCtl:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -54,7 +54,7 @@
 
 #pragma mark - ZYQAssetViewController
 
-@interface ZYQAssetViewController :TZTableViewController
+@interface ZYQAssetViewController :UITableViewController
 
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 @property (nonatomic, strong) NSMutableArray *indexPathsForSelectedItems;
@@ -129,7 +129,7 @@
 
 #pragma mark - ZYQAssetGroupViewController
 
-@interface ZYQAssetGroupViewController :TZTableViewController
+@interface ZYQAssetGroupViewController :UITableViewController
 
 @end
 

@@ -79,7 +79,7 @@
     self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"收藏夹";
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
     UIBarButtonItem *barItem= [[UIBarButtonItem alloc] initWithCustomView:self.sortPoiView];
@@ -94,6 +94,8 @@
     [self.view addSubview:self.editBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
     [self initDataFromCache];
 }
@@ -196,7 +198,13 @@
     _slimeView = nil;
 }
 
-- (void)goBackToAllPets
+- (void)userDidLogout
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
+}
+
+- (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

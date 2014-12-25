@@ -88,6 +88,7 @@
     //退出环信聊天系统
     [[EaseMob sharedInstance].chatManager asyncLogoff];
     _account = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
 }
 
 //用户桃子系统登录成功

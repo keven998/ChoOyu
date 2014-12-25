@@ -74,11 +74,9 @@ static NSString *reusableCell = @"myGuidesCell";
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
     [self.view addSubview:self.editBtn];
-    
-//    self.slimeView.loading = YES;
-//    [self pullToRefreash:nil];
 
     [self initDataFromCache];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
 }
 
 - (void) initDataFromCache {
@@ -117,7 +115,13 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - navigation action
 
-- (void)goBackToAllPets
+- (void)userDidLogout
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
+
+- (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];
    

@@ -44,7 +44,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     
     self.navigationItem.title = @"选择会话";
     
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(back:)];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
     
@@ -58,7 +58,12 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     _dataSource = [self loadDataSource];
     [self loadChattingPeople];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
+}
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - getter
@@ -73,7 +78,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 #pragma mark - Private Methods
 
-- (IBAction)back:(id)sender
+- (IBAction)dismissCtl:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -10,4 +10,9 @@
 
 @interface TZTableViewController : UITableViewController
 
+/**
+ *  退出
+ */
+- (void)goBack;
+
 @end

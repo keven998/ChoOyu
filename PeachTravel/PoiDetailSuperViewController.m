@@ -31,10 +31,16 @@
 
 - (IBAction)chat:(id)sender
 {
-    _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-    _chatRecordListCtl.delegate = self;
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        
+        [SVProgressHUD showErrorWithStatus:@"请先登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+    } else {
+        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+        _chatRecordListCtl.delegate = self;
+        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+        [self presentViewController:nCtl animated:YES completion:nil];
+    }
 }
 
 #pragma mark - CreateConversationDelegate
@@ -96,7 +102,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
-        [SVProgressHUD showErrorWithStatus:@"请登录"];
+        [SVProgressHUD showErrorWithStatus:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
         return;
     }
@@ -121,7 +127,7 @@
                 completion(YES);
             } else {
                 completion(NO);
-                if (code == 402) {
+                if (code == 401) {
                     [self showHint:@"已经收藏过了~"];
                 }
                

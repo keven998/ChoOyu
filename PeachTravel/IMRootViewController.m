@@ -45,11 +45,12 @@
             [ctl.delegate updateNotify:ctl notify:YES];
         }
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
 }
 
-- (void)goBackToAllPets
+- (void)goBack
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

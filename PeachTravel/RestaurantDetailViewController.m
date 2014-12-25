@@ -45,7 +45,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@53b05a1210114e05e448131d", API_GET_RESTAURANT_DETAIL];
+    NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, _restaurantId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取美食详情数据****\n%@", responseObject);

@@ -235,7 +235,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
         Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
         CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
-        cityDetailCtl.cityId = recommend.recommondId;
+        cityDetailCtl.cityId = @"5473ccd7b8ce043a64108c46";
         cityDetailCtl.hidesBottomBarWhenPushed = YES;
         [_rootCtl.navigationController pushViewController:cityDetailCtl animated:YES];
     }
@@ -243,7 +243,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     
     if  (indexPath.row == 1) {
         SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
-        spotCtl.spotId = recommend.recommondId;
+        spotCtl.spotId = @"5463d11b10114e2215b7e669";
         spotCtl.hidesBottomBarWhenPushed = YES;
         
         [_rootCtl.navigationController pushViewController:spotCtl animated:YES];
