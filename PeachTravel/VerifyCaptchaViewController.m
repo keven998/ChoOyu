@@ -137,18 +137,22 @@
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        [SVProgressHUD dismiss];
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
+//            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
+            [self showHint:@"已发送验证码,请稍候"];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             _captchaBtn.userInteractionEnabled = YES;
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];
         _captchaBtn.userInteractionEnabled = YES;
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -192,12 +196,15 @@
             [self.navigationController pushViewController:resetPasswordCtl animated:YES];
             
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"验证码验证失败"];
+//        [SVProgressHUD showErrorWithStatus:@"验证码验证失败"];
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -223,20 +230,24 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [self showHint:@"OK!已成功修改"];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager updateUserInfo:_phoneLabel.text withChangeType:ChangeTel];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
         NSLog(@"%@", error);
         _captchaBtn.userInteractionEnabled = YES;
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }

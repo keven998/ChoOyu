@@ -116,51 +116,51 @@
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setObject:poiId forKey:@"itemId"];
         [params setObject:type forKey:@"type"];
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [manager POST:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                
-                [self showHint:@"收藏成功"];
+                [self showHint:@"OK!成功收藏"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
                 if (code == 401) {
-                    [self showHint:@"已经收藏过了~"];
+                    [self showHint:@"亲，你已经收藏过啦"];
+                } else {
+                    [self showHint:@"请求也是失败了"];
                 }
-               
             }
-            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             completion(NO);
-            [self showHint:@"收藏失败"];
+//            [self showHint:@"收藏失败"];
+            [self showHint:@"呃～好像没找到网络"];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
         
     } else {
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, poiId];
         [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                [self showHint:@"取消收藏成功"];
+//                [self showHint:@"取消收藏成功"];
+                [self showHint:@"OK!成功取消收藏"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
-               
-                [self showHint:@"取消收藏失败"];
-                
+                [self showHint:@"请求也是失败了"];
             }
-            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             completion(NO);
             NSLog(@"%@", error);
-
-            [self showHint:@"取消收藏失败"];
-
+            [self showHint:@"呃～好像没找到网络"];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
     }
    

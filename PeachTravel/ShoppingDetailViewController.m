@@ -46,17 +46,21 @@
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取购物详情数据****\n%@", responseObject);
+        [SVProgressHUD dismiss];
         if (result == 0) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
             _shoppingPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
+//            [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
+            [self showHint:@"请求也是失败了"];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
+        [SVProgressHUD dismiss];
+//        [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
     

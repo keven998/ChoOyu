@@ -120,14 +120,17 @@
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [self showHint:@"修改成功"];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 
 }

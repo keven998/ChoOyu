@@ -79,8 +79,9 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
     
     _currentPage = 0;
-    [self loadDataWithPageNo:_currentPage];
     [SVProgressHUD show];
+    [self loadDataWithPageNo:_currentPage];
+//    [SVProgressHUD show];
 }
 
 
@@ -206,13 +207,15 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
             }
             _currentPage = pageNo;
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         [self loadMoreCompleted];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 

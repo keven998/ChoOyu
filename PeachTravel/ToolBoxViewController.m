@@ -306,7 +306,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取首页数据
     [manager GET:API_GET_COLUMNS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -320,12 +320,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                 [_operationDataArray addObject:operation];
             }
             [self setUpGallaryView];
-            
         } else {
+            
         }
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 
 }

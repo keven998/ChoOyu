@@ -231,20 +231,25 @@
     //删除联系人
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [accountManager removeContact:self.contact.userId];
-            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+            [self showHint:@"成功删除～"];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
             [self.navigationController popViewControllerAnimated:YES];
 
         } else {
-            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }
