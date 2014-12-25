@@ -59,20 +59,20 @@
     } else {
         _distanceLabel.hidden = YES;
     }
-//    if (restaurantPoi.comments.count) {
-//        _commentDetail.hidden = NO;
-//        _commentAuthor.hidden = NO;
-//        _jumpCommentBtn.hidden = NO;
-//        CommentDetail *comment = [restaurantPoi.comments firstObject];
-//        _commentAuthor.text = comment.nickName;
-//        _commentDetail.text = comment.commentDetails;
-//        _spaceView.hidden = NO;
-//    } else {
-//        _commentDetail.hidden = YES;
-//        _commentAuthor.hidden = YES;
-//        _jumpCommentBtn.hidden = YES;
-//        _spaceView.hidden = YES;
-//    }
+    if (poi.comments.count) {
+        _commentDetail.hidden = NO;
+        _commentAuthor.hidden = NO;
+        _jumpCommentBtn.hidden = NO;
+        CommentDetail *comment = [poi.comments firstObject];
+        _commentAuthor.text = comment.nickName;
+        _commentDetail.text = comment.commentDetails;
+        _spaceView.hidden = NO;
+    } else {
+        _commentDetail.hidden = YES;
+        _commentAuthor.hidden = YES;
+        _jumpCommentBtn.hidden = YES;
+        _spaceView.hidden = YES;
+    }
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit

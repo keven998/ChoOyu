@@ -48,6 +48,13 @@
     NSString *handelStr = [_content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     CGSize size = [handelStr sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
     NSInteger lineCount = (size.width / self.frame.size.width) + 1;
+    
+    CGSize normalSize = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
+    NSInteger normalCount = normalSize.height / size.height + 1;
+    if (normalCount > lineCount) {
+        return normalCount;
+    }
+    
     return lineCount;
 }
 

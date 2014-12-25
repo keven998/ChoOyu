@@ -293,13 +293,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-//    if ([restaurantPoi.comments count]) {
-//        return 187.0;
-//        NSLog(@"有评论");
-//    }
-//    return 141;
-    
-    if (indexPath.row/2) {
+    if ([poi.comments count]) {
         return 187.0;
     }
     return 141;

@@ -12,5 +12,5 @@
 
 @interface RestaurantDetailView : UITableView
 
-@property (nonatomic, strong) PoiSummary *restaurantPoi;
+@property (nonatomic, strong) PoiSummary *poi;
 @end

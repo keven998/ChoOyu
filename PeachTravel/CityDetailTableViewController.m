@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
-@property (nonatomic, strong) UIView *tableHeaderView;
 
 @end
 
@@ -48,8 +47,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityHeaderView.backgroundColor = APP_PAGE_COLOR;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 0)];
     _cityHeaderView.cityPoi = _cityPoi;
-    _tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-    self.tableView.tableHeaderView = _tableHeaderView;
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    self.tableView.tableHeaderView = tableHeaderView;
     [self.tableView addSubview:_cityHeaderView];
     [_cityHeaderView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
@@ -226,9 +225,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateCityHeaderView
 {
-    _tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    tableHeaderView.backgroundColor = APP_PAGE_COLOR;
     [self.tableView beginUpdates];
-    [self.tableView setTableHeaderView:_tableHeaderView];
+    [self.tableView setTableHeaderView:tableHeaderView];
     [self.tableView endUpdates];
     [self.tableView bringSubviewToFront:_cityHeaderView];
 }

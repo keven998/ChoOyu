@@ -13,4 +13,7 @@
 
 @property (nonatomic, strong) CommentDetail *commentDetail;
 
++ (CGFloat)heightForCommentCellWithComment:(NSString *)comment;
+
+
 @end
