@@ -29,7 +29,6 @@
 
 @property (nonatomic, strong) DMFilterView *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
-@property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *dataSource;
 
 /**
@@ -56,7 +55,6 @@
 - (id)init {
     if (self = [super init]) {
         _didEndScroll = YES;
-        _currentPage = 0;
     }
     return self;
 }
@@ -181,13 +179,13 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSInteger realPageIndex = _currentPage;
+    NSInteger realPageIndex = _swipeView.currentItemView.tag;
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.latitude] forKey:@"lat"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.longitude] forKey:@"lng"];
     
-    switch (_currentPage) {
+    switch (realPageIndex) {
         case PAGE_FUN:
             [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
             break;
@@ -274,7 +272,7 @@
         }
 
     }
-    UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:1];
+    UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:100];
     if (currentTableView) {
         [currentTableView reloadData];
     }
@@ -289,8 +287,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    PoiSummary *poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
-    switch (_currentPage) {
+    int tag = [tableView superview].tag;
+    PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
+    switch (tag) {
         case PAGE_FUN: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = poi.poiId;
@@ -317,7 +316,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (_currentPage) {
+    int page = [tableView superview].tag;
+    switch (page) {
         case PAGE_FUN:
             return 138.0;
             break;
@@ -332,14 +332,16 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *datas = [self.dataSource objectAtIndex:_currentPage];
+    int page = [tableView superview].tag;
+    NSArray *datas = [self.dataSource objectAtIndex:page];
     return datas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_currentPage == PAGE_FUN) {
+    int page = [tableView superview].tag;
+    if (page == PAGE_FUN) {
         AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
-        PoiSummary *poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
+        PoiSummary *poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
         TripPoi *trippoi = [[TripPoi alloc] init];
         trippoi.poiId = poi.poiId;
         trippoi.images = poi.images;
@@ -358,7 +360,7 @@
     }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
     cell.shouldEdit = NO;
-    cell.poi = [[_dataSource objectAtIndex:_currentPage] objectAtIndex:indexPath.row];
+    cell.poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -370,19 +372,19 @@
 
 - (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view {
     UITableView *tbView = nil;
-    _currentPage = index;
     if (view == nil)
     {
         view = [[UIView alloc] initWithFrame:self.swipeView.bounds];
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.backgroundColor = APP_PAGE_COLOR;
+        view.tag = index;
         tbView = [[UITableView alloc] initWithFrame:view.bounds];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         tbView.dataSource = self;
         tbView.delegate = self;
         tbView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        tbView.tag = 1;
+        tbView.tag = 100; //maginc number for subview
         tbView.backgroundColor = APP_PAGE_COLOR;
         
         [view addSubview:tbView];
@@ -392,7 +394,8 @@
             [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
         }
     } else {
-        tbView = (UITableView *)[view viewWithTag:1];
+        view.tag = index;
+        tbView = (UITableView *)[view viewWithTag:100];
         if (index == PAGE_FUN) {
             [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
         } else {
@@ -408,16 +411,15 @@
 #pragma mark - SwipeViewDelegate
 
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
-//    _currentPage = swipeView.currentPage;
-    [_filterView setSelectedIndex:_currentPage];
+    int page = swipeView.currentPage;
+    [_filterView setSelectedIndex:page];
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
-    if (![[self.dataSource objectAtIndex:_currentPage] count]) {
-        NSLog(@"我在加载数据 = %d", _currentPage);
+    if (![[self.dataSource objectAtIndex:page] count]) {
+        NSLog(@"我在加载数据 = %d", page);
         [self loadDataWithPageIndex:0];
     }
-
 }
 
 - (CGSize)swipeViewItemSize:(SwipeView *)swipeView {
@@ -427,7 +429,6 @@
 #pragma mark - DMFilterViewDelegate
 
 - (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
-//    _currentPage = index;
     [_swipeView setCurrentPage:index];
 }
 
@@ -502,7 +503,7 @@
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
             }
-            UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:1];
+            UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:100];
             [tbView reloadData];
             self.currentPageList = nil;
             [self loadDataWithPageIndex:0];
@@ -524,12 +525,11 @@
     tableView.tableFooterView = footerView;
     
     //将对应页面正在加载的状态改为 yes
-    [self.isLoaddingMoreList replaceObjectAtIndex:_currentPage withObject:@YES];
+    int page = [tableView superview].tag;
+    [self.isLoaddingMoreList replaceObjectAtIndex:page withObject:@YES];
     [indicatroView startAnimating];
     
-    [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1];
-    
-//    NSLog(@"我开始加载新的内容了，新的内容是在横向第%d页，纵向第%d页", _currentPage,[[self.currentPageList objectAtIndex:_currentPage] integerValue]+1 );
+    [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:page] integerValue]+1];
 }
 
 - (void) loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
@@ -541,7 +541,7 @@
     [self.isLoaddingMoreList replaceObjectAtIndex:pageIndex withObject:@NO];
 
     UIView *view = [self.swipeView itemViewAtIndex:pageIndex];
-    UITableView *tableView = (UITableView *)[view viewWithTag:1];
+    UITableView *tableView = (UITableView *)[view viewWithTag:100];
     tableView.tableFooterView = nil;
 }
 
@@ -563,20 +563,20 @@
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    UIView *view = [self.swipeView itemViewAtIndex:_currentPage];
-    UITableView *tableView = (UITableView *)[view viewWithTag:1];
+    UIView *view = [self.swipeView currentItemView];
+    UITableView *tableView = (UITableView *)[view viewWithTag:100];
     if (![tableView isEqual:scrollView]) {
         NSLog(@"警告。。。我已经销毁掉了，所以不应该加载数据了");
         return;
     }
     if ([scrollView isKindOfClass:[UITableView class]]) {
-        BOOL isLoadingMore = [self.isLoaddingMoreList[_currentPage] boolValue];
+        BOOL isLoadingMore = [self.isLoaddingMoreList[view.tag] boolValue];
         if (!isLoadingMore && _didEndScroll) {
             CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
             if (scrollPosition < 44) {
                 NSLog(@"哈哈哈哈哈。滑倒地步了，我要加载了");
                 //如果当前界面没有内容那么不加载内容，因为在点击的时候会加载内容
-                if (![[self.dataSource objectAtIndex:_currentPage] count] == 0) {
+                if (![[self.dataSource objectAtIndex:view.tag] count] == 0) {
                     [self beginLoadingMoreWithTableView:(UITableView *)scrollView];
                 }
                 _didEndScroll = NO;
