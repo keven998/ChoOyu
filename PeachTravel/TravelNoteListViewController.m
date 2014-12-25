@@ -222,7 +222,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-    travelNoteCtl.urlStr = travelNote.sourceUrl;
     travelNoteCtl.title = travelNote.title;
 
     travelNoteCtl.travelNoteTitle = travelNote.title;

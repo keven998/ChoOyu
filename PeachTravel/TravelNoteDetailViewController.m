@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, strong) RNGridMenu *av;
+@property (nonatomic, copy) NSString *urlStr;
 
 @end
 
@@ -24,7 +25,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
-    
+    _urlStr = [NSString stringWithFormat:@"%@%@",TRAVELNOTE_DETAIL_HTML, _travelNoteId];
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     [self.view addSubview:_webView];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];

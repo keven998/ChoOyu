@@ -313,7 +313,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-    travelNoteCtl.urlStr = travelNote.sourceUrl;
     travelNoteCtl.title = travelNote.title;
     
     travelNoteCtl.travelNoteTitle = travelNote.title;

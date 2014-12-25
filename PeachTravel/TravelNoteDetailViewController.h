@@ -11,7 +11,6 @@
 
 @interface TravelNoteDetailViewController : PoiDetailSuperViewController
 
-@property (nonatomic, copy) NSString *urlStr;
 @property (nonatomic, copy) NSString *titleStr;
 
 @property (nonatomic, copy) NSString *travelNoteTitle;
