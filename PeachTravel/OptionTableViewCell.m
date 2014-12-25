@@ -15,8 +15,8 @@
     
 //    self.backgroundColor = APP_PAGE_COLOR;
     
-    _bgFrame.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
-    _bgFrame.layer.borderWidth = 0.5;
+    _bgFrame.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    _bgFrame.layer.borderWidth = 0.25;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -63,7 +63,7 @@ static NSString *reusableCell = @"myGuidesCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新建 " style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
+    UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
     mp.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = mp;
     
@@ -508,7 +508,7 @@ static NSString *reusableCell = @"myGuidesCell";
     btn.frame = CGRectMake(0.0, 0.0, 90.0, 34.0);
     btn.backgroundColor = APP_THEME_COLOR;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"新建" forState:UIControlStateNormal];
+    [btn setTitle:@"新Memo" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
     btn.layer.cornerRadius = 2.0;

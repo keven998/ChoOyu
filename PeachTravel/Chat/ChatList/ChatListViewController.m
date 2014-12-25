@@ -104,12 +104,11 @@
         _slimeView.delegate = self;
         _slimeView.upInset = 0;
         _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = [UIColor grayColor];
-        _slimeView.slime.skinColor = [UIColor grayColor];
-        _slimeView.slime.lineWith = 1;
-        _slimeView.slime.shadowBlur = 4;
-        _slimeView.slime.shadowColor = [UIColor grayColor];
-        _slimeView.backgroundColor = [UIColor whiteColor];
+        _slimeView.slime.bodyColor = APP_THEME_COLOR;
+        _slimeView.slime.skinColor = [UIColor clearColor];
+        _slimeView.slime.lineWith = 0.7;
+        _slimeView.slime.shadowBlur = 0;
+        _slimeView.slime.shadowColor = [UIColor clearColor];
     }
     
     return _slimeView;
@@ -118,7 +117,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, kWindowWidth - 22, self.view.frame.size.height - 64 - 44) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, self.view.frame.size.width - 22, self.view.frame.size.height - 64 - 44) style:UITableViewStylePlain];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
@@ -222,7 +221,7 @@
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
     btn.backgroundColor = APP_THEME_COLOR;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"开始Talk" forState:UIControlStateNormal];
+    [btn setTitle:@"Talk" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
     btn.layer.cornerRadius = 2.0;

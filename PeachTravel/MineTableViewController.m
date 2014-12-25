@@ -243,7 +243,9 @@
             [_rootCtl.navigationController pushViewController:aboutCtl animated:YES];
         }
     }
-    
+//    if ([_rootCtl.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        _rootCtl.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
