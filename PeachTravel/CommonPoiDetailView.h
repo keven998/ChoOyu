@@ -1,5 +1,5 @@
 //
-//  RestaurantDetailView.h
+//  CommonPoiDetailView.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/22/14.
@@ -10,7 +10,7 @@
 #import "PoiSummary.h"
 
 
-@interface RestaurantDetailView : UITableView
+@interface CommonPoiDetailView : UITableView
 
 @property (nonatomic, strong) PoiSummary *poi;
 @end

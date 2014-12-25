@@ -1,12 +1,12 @@
 //
-//  RestaurantDetailView.m
+//  CommonPoiDetailView.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/22/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "RestaurantDetailView.h"
+#import "CommonPoiDetailView.h"
 #import "ResizableView.h"
 #import "LocationTableViewCell.h"
 #import "RecommendsTableViewCell.h"
@@ -14,8 +14,9 @@
 #import "EDStarRating.h"
 #import "CycleScrollView.h"
 #import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
 
-@interface RestaurantDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface CommonPoiDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) CycleScrollView *galleryPageView;
 
@@ -36,7 +37,7 @@
 
 @end
 
-@implementation RestaurantDetailView
+@implementation CommonPoiDetailView
 
 static NSString *locationCellIdentifier = @"locationCell";
 static NSString *recommendCellIdentifier = @"recommendCell";
@@ -86,7 +87,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     }
     _imageViews = images;
     
-    __weak typeof(RestaurantDetailView *)weakSelf = self;
+    __weak typeof(CommonPoiDetailView *)weakSelf = self;
     
     _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
         return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
@@ -387,25 +388,41 @@ static NSString *commentCellIdentifier = @"commentCell";
     //先将收藏的状态改变
     _favoriteBtn.selected = !_poi.isMyFavorite;
     _favoriteBtn.userInteractionEnabled = NO;
-    RestaurantDetailViewController *rootCtl;
+
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
         
-        if ([nextResponder isKindOfClass:[UIViewController class]])
+        if ([nextResponder isKindOfClass:[ShoppingDetailViewController class]])
         {
+            ShoppingDetailViewController *rootCtl;
+            rootCtl = (ShoppingDetailViewController*)nextResponder;
+            [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
+                _favoriteBtn.userInteractionEnabled = YES;
+                if (isSuccess) {
+                    _poi.isMyFavorite = !_poi.isMyFavorite;
+                } else {      //如果失败了，再把状态改回来
+                    _favoriteBtn.selected = !_poi.isMyFavorite;
+                }
+            }];
+            break;
+        }
+        
+        if ([nextResponder isKindOfClass:[RestaurantDetailViewController class]])
+        {
+            RestaurantDetailViewController *rootCtl;
             rootCtl = (RestaurantDetailViewController*)nextResponder;
+            [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
+                _favoriteBtn.userInteractionEnabled = YES;
+                if (isSuccess) {
+                    _poi.isMyFavorite = !_poi.isMyFavorite;
+                } else {      //如果失败了，再把状态改回来
+                    _favoriteBtn.selected = !_poi.isMyFavorite;
+                }
+            }];
             break;
         }
     }
-    [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
-        _favoriteBtn.userInteractionEnabled = YES;
-        if (isSuccess) {
-            _poi.isMyFavorite = !_poi.isMyFavorite;
-        } else {      //如果失败了，再把状态改回来
-            _favoriteBtn.selected = !_poi.isMyFavorite;
-        }
-    }];
 }
 
 @end

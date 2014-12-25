@@ -18,6 +18,7 @@
 #import "SRRefreshView.h"
 #import "SINavigationMenuView.h"
 #import "TMCache.h"
+#import "TravelNoteDetailViewController.h"
 
 #define PAGE_COUNT 15
 
@@ -475,18 +476,34 @@
     NSString *type = item.type;
     if (!_selectToSend) {
         if ([type isEqualToString:@"vs"]) {
-            [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
+            SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
+            ctl.spotId = item.itemId;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         } else if ([type isEqualToString:@"hotel"]) {
             //        [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
 #warning no detailpage
+            
         } else if ([type isEqualToString:@"restaurant"]) {
-            [self.navigationController pushViewController:[[RestaurantDetailViewController alloc] init] animated:YES];
+            RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
+            ctl.restaurantId = item.itemId;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         } else if ([type isEqualToString:@"shopping"]) {
-            [self.navigationController pushViewController:[[ShoppingDetailViewController alloc] init] animated:YES];
+            ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
+            ctl.shoppingId = item.itemId;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         } else if ([type isEqualToString:@"travelNote"]) {
-#warning no detailpage
+            TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
+            ctl.travelNoteId = item.itemId;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         } else {
-            [self.navigationController pushViewController:[[CityDetailTableViewController alloc] init] animated:YES];
+            CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+            ctl.cityId = item.itemId;
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         }
     } else {
         

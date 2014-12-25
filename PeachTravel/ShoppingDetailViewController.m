@@ -7,7 +7,7 @@
 //
 
 #import "ShoppingDetailViewController.h"
-#import "ShoppingDetailView.h"
+#import "CommonPoiDetailView.h"
 
 @interface ShoppingDetailViewController ()
 @property (nonatomic, strong) PoiSummary *shoppingPoi;
@@ -24,8 +24,10 @@
 
 - (void)updateView
 {
-    ShoppingDetailView *shoppingView = [[ShoppingDetailView alloc] initWithFrame:CGRectMake(8, 0, self.view.bounds.size.width-16, self.view.bounds.size.height)];
-    shoppingView.shoppingPoi = self.shoppingPoi;
+    CommonPoiDetailView *shoppingView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-64)];
+    shoppingView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    self.tabBarItem.title = self.shoppingPoi.zhName;
+    shoppingView.poi = self.shoppingPoi;
     [self.view addSubview:shoppingView];
 }
 
@@ -47,6 +49,7 @@
         NSLog(@"/***获取购物详情数据****\n%@", responseObject);
         if (result == 0) {
             _shoppingPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            _shoppingPoi.poiType = TripShoppingPoi;
             [self updateView];
             [SVProgressHUD dismiss];
         } else {

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PoiDetailSuperViewController.h"
 
-@interface ShoppingDetailViewController : TZViewController
+@interface ShoppingDetailViewController : PoiDetailSuperViewController
 
 @property (nonatomic, copy) NSString *shoppingId;
 

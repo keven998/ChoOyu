@@ -50,9 +50,9 @@
     [_HeaderImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     [_addressBtn setTitle:_poi.address forState:UIControlStateNormal];
     _addressBtn.titleLabel.numberOfLines = 2;
-    _priceLabel.text = @"179/人";
+    _priceLabel.text = _poi.priceDesc;
     _ratingView.rating = _poi.rating;
-    [_addressBtn setTitle:@"位于北京位于北京位于北京位于北京" forState:UIControlStateNormal];
+    [_addressBtn setTitle:_poi.address forState:UIControlStateNormal];
     if (_poi.distanceStr) {
         _distanceLabel.hidden = NO;
         _distanceLabel.text = _poi.distanceStr;
