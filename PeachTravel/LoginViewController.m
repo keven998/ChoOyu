@@ -226,7 +226,7 @@
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
-                    [SVProgressHUD dismiss];
+                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
 //                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
                     [SVProgressHUD showHint:@"登录失败"];

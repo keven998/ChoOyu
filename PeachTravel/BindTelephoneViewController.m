@@ -41,6 +41,7 @@
 - (IBAction)bindTelephone:(UIButton *)sender {
     if ([self checkInput] == PhoneNumberError) {
         NSLog(@"请输入11位手机号");
+        [self showHint:@"请正确输入11位手机号"];
     } else {
         [self getCaptcha];
     }
