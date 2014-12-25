@@ -149,6 +149,10 @@ CGFloat SVProgressHUDRingThickness = 0.5;
     [self showImage:[[self sharedView] hudErrorImage] status:string];
 }
 
++ (void) showHint:(NSString *)string {
+    [self showImage:nil status:string];
+}
+
 + (void)showImage:(UIImage *)image status:(NSString *)string {
     NSTimeInterval displayInterval = [[SVProgressHUD sharedView] displayDurationForString:string];
     [[self sharedView] showImage:image status:string duration:displayInterval];
@@ -167,7 +171,7 @@ CGFloat SVProgressHUDRingThickness = 0.5;
     if ([self isVisible]) {
         [[self sharedView] dismiss];
     }
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 
@@ -592,6 +596,8 @@ CGFloat SVProgressHUDRingThickness = 0.5;
                              
                              [overlayView removeFromSuperview];
                              overlayView = nil;
+                             
+                             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
                              UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
 
@@ -741,7 +747,7 @@ CGFloat SVProgressHUDRingThickness = 0.5;
 #endif
 #endif
 
-        hudView.layer.cornerRadius = 2.0;
+        hudView.layer.cornerRadius = 3.5;
         hudView.layer.masksToBounds = YES;
         
         hudView.autoresizingMask = (UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin |

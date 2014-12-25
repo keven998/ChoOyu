@@ -85,19 +85,16 @@
     [SVProgressHUD show];
     //搜索好友
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self parseSearchResult:[responseObject objectForKey:@"result"]];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
-        NSLog(@"%@", error);
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 
 }

@@ -99,7 +99,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             for (id json in [responseObject objectForKey:@"result"]) {
@@ -107,15 +107,15 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 [self.dataSource addObject:data];
                 [self.collectionView reloadData];
             }
-            
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
 }

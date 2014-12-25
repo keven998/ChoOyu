@@ -127,19 +127,18 @@
     
     [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+        
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
-            
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"修改失败"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [SVProgressHUD showErrorWithStatus:@"修改失败"];
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
 }
@@ -235,11 +234,12 @@
     [params safeSetObject:gender forKey:@"gender"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [SVProgressHUD show];
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [SVProgressHUD showHint:@"修改成功"];
             NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:1];
             UserOtherTableViewCell *cell = (UserOtherTableViewCell *)[self.tableView cellForRowAtIndexPath:ip];
             if ([gender isEqualToString:@"F"]) {
@@ -255,14 +255,14 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"修改失败"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
 //        [SVProgressHUD showErrorWithStatus:@"修改失败"];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHint:@"呃～好像没找到网络"];
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

@@ -336,7 +336,7 @@
     
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD dismiss];
@@ -346,15 +346,12 @@
             }
             albumCtl.imageList = tempArray;
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
 //            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
-//        [self showHint:@"请求也是失败了"];
-        [SVProgressHUD showErrorWithStatus:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

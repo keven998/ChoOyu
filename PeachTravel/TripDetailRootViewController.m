@@ -162,20 +162,19 @@
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"加载失败"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
 //        [SVProgressHUD showErrorWithStatus:@"加载失败"];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -236,20 +235,19 @@
 
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -321,23 +319,21 @@
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
 //            [SVProgressHUD showErrorWithStatus:@"复制成功"];
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
-            [self showHint:@"已成功复制到旅行Memo"];
+            [SVProgressHUD showHint:@"已成功复制到旅行Memo"];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"复制失败"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
 //        [SVProgressHUD showErrorWithStatus:@"复制失败"];
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

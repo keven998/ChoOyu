@@ -79,19 +79,18 @@
 
     [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        [SVProgressHUD dismiss];
         if (code == 0) {
             [SVProgressHUD showSuccessWithStatus:@"邀请成功"];
             [self.navigationController popViewControllerAnimated:YES];
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [SVProgressHUD showErrorWithStatus:@"邀请失败了"];
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
 
     }];
 
