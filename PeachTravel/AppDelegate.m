@@ -28,13 +28,17 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = APP_PAGE_COLOR;
     _homeViewController = [[HomeViewController alloc] init];
+    
+    //TODO:区分出是 个退 的推送还是 环信 的推送
+    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (message) {
+        _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
+    }
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
     [self.window makeKeyAndVisible];
-
     
     [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
     [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xffffff)] forBarMetrics:UIBarMetricsDefault];
@@ -64,17 +68,6 @@
     
     /******设置个推*****/
     [self startGeTuiSdk];
-    
-    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (message) {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"$$$$$$didFinishLaunchingWithOptions,推送消息**"
-                                                        message:[NSString stringWithFormat:@"%@", message]
-                                                       delegate:self
-                                              cancelButtonTitle:@"关闭"
-                                              otherButtonTitles:nil,nil];
-        [alert show];
-    }
-    
     
     return YES;
 }
@@ -125,53 +118,24 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    // 处理APN
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"^^^^^^^^didReceiveRemoteNotification_completionHandler,推送消息**"
-                                                    message:[NSString stringWithFormat:@"%@",userInfo]
-                                                   delegate:self
-                                          cancelButtonTitle:@"关闭"
-                                          otherButtonTitles:@"处理",nil];
-    [alert show];
-    
-    NSString *payloadMsg = [userInfo objectForKey:@"payload"];
-    
-    NSDictionary *aps = [userInfo objectForKey:@"aps"];
-    NSNumber *contentAvailable = aps == nil ? nil : [aps objectForKeyedSubscript:@"content-available"];
-    
-    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@, [content-available: %@]", [NSDate date], payloadMsg, contentAvailable];
-    NSLog(@"/***收到个推消息****/:%@", record);
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"&&&&&didReceiveRemoteNotification,推送消息**"
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:@"关闭"
-                                          otherButtonTitles:@"处理",nil];
-    [alert show];
     [[EaseMob sharedInstance] application:application didReceiveRemoteNotification:userInfo];
-    
-    //设置个推
-    NSString *payloadMsg = [userInfo objectForKey:@"payload"];
-    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
-    NSLog(@"/***didReceiveRemoteNotification,收到个推消息****/:%@", record);
 }
 
-
+/**
+ *  程序收到本地推送消息
+ *
+ *  @param application
+ *  @param notification 
+ */
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"######**didReceiveLocalNotification,推送消息**"
-                                                    message:@""
-                                                   delegate:self
-                                          cancelButtonTitle:@"关闭"
-                                          otherButtonTitles:@"处理推送内容",nil];
-    [alert show];
-
     [[EaseMob sharedInstance] application:application didReceiveLocalNotification:notification];
-    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
