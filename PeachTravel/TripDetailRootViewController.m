@@ -22,6 +22,7 @@
 #import "UMSocial.h"
 #import "CityDestinationPoi.h"
 #import "ChatRecoredListTableViewController.h"
+#import "MakePlanViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate>
 
@@ -91,6 +92,12 @@
     } else {
         [self checkTripData];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /**
@@ -102,13 +109,13 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"路线发生变化，真的不保存吗" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
-                [self dismiss];
+                [self dismissCtl];
             }
             if (buttonIndex == 1) {
                 [self.tripDetail saveTrip:^(BOOL isSuccesss) {
                     if (isSuccesss) {
                         [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
-                        [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
+                        [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
                     } else {
                         [SVProgressHUD showErrorWithStatus:@"保存失败"];
                     }
@@ -117,13 +124,18 @@
         }];
     } else {
         [self showHint:@"已保存到\"旅行memo\""];
-        [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
+        [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
     }
 }
 
-- (void)dismiss
+- (void)dismissCtl
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)userDidLogout
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**
@@ -359,7 +371,6 @@
             }];
         }
     }
-    
 }
 
 - (void)setupViewControllers

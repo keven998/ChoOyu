@@ -438,6 +438,10 @@ static UIColor *titleColor;
     }
 }
 
+- (void)dealloc
+{
+
+}
 
 #pragma mark - Rotation
 
@@ -756,6 +760,12 @@ static UIColor *titleColor;
     [self setupButtons];
     [self localize];
     [self setupGroup];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismiss:) name:userDidLogoutNoti object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

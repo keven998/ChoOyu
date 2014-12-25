@@ -17,13 +17,41 @@
 
 + (AccountManager *)shareAccountManager;
 
+/**
+ *  用户是否登录
+ *
+ *  @return
+ */
 - (BOOL)isLogin;
 
+/**
+ *  用户桃子系统登录成功
+ *
+ *  @param userInfo
+ */
 - (void)userDidLoginWithUserInfo:(id)userInfo;
+
+/**
+ *  环信系统已经登录成功
+ */
 - (void)easeMobDidLogin;
+
+/**
+ *  环信系统登录失败
+ */
 - (void)easeMobUnlogin;
+
+/**
+ *  退出登录
+ */
 - (void)logout;
-- (BOOL)accountIsBindTel;    //账户是否绑定了手机号，返回 yes 是绑定了
+
+/**
+ *  账户是否绑定了手机号，返回 yes 是绑定了
+ *
+ *  @return
+ */
+- (BOOL)accountIsBindTel;
 
 /**
  *  登录环信服务器
@@ -40,9 +68,20 @@
  */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
-- (BOOL)isMyFrend:(NSNumber *)userId;       //判读是不是我的好友
+/**
+ *  判读是不是我的好友
+ *
+ *  @param userId
+ *
+ *  @return
+ */
+- (BOOL)isMyFrend:(NSNumber *)userId;
 
-//将好友加入到数据库当中
+/**
+ *  将好友加入到数据库当中
+ *
+ *  @param userInfo
+ */
 - (void)addContact:(id)userInfo;
 
 /**
@@ -50,29 +89,65 @@
  */
 - (void)loadContactsFromServer;
 
-//得到按照拼音区分的联系人列表，是以组的形式展现
+/**
+ *  得到按照拼音区分的联系人列表，是以组的形式展现
+ *
+ *  @return
+ */
 - (NSDictionary *)contactsByPinyin;
 
-//解析好友申请
+/**
+ *  解析好友申请
+ *
+ *  @param frendRequestDic
+ */
 - (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic;
 
-//移除好友申请
+/**
+ *  移除好友申请
+ *
+ *  @param frendRequest
+ */
 - (void)removeFrendRequest:(FrendRequest *)frendRequest;
 
-//同意好友申请
+/**
+ *  同意好友申请
+ *
+ *  @param frendRequest
+ */
 - (void)agreeFrendRequest:(FrendRequest *)frendRequest;
 
-//更新好友列表
+/**
+ *  更新好友列表
+ */
 - (void)updateContact;
 
-//通过环信 id 删除好友
+/**
+ *  通过环信 id 删除好友
+ *
+ *  @param userId
+ */
 - (void)removeContact:(NSNumber *)userId;
 
-//通过环信 id 获取桃子用户信息
+/**
+ *  通过环信 id 获取桃子用户信息
+ *
+ *  @param easemobUser
+ *
+ *  @return
+ */
 - (Contact *)TZContactByEasemobUser:(NSString *)easemobUser;
 
 
 #pragma mark *******群组相关信息******
+
+/**
+ *  通过群组 id 得到去租信息
+ *
+ *  @param groupId
+ *
+ *  @return
+ */
 - (Group *)groupWithGroupId:(NSString *)groupId;
 
 - (Group *)updateGroup:(NSString *)groupId
@@ -96,10 +171,21 @@
           groupSubject:(NSString *)subject
              groupInfo:(NSString *)groupDescription;
 
-
+/**
+ *  添加一个成员到群组里
+ *
+ *  @param groupId
+ *  @param numbers
+ */
 - (void)addNumberToGroup:(NSString *)groupId
                  numbers:(NSSet *)numbers;
 
+/**
+ *  从移除一个成员
+ *
+ *  @param groupId
+ *  @param numbers
+ */
 - (void)removeNumberToGroup:(NSString *)groupId
                  numbers:(NSSet *)numbers;
 

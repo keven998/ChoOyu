@@ -48,6 +48,13 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
+
+}
+
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc
@@ -432,7 +439,6 @@
     if (buttonIndex == 1) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [accountManager logout];
-        [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

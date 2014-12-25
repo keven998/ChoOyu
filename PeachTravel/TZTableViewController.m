@@ -21,7 +21,7 @@
     backButton.frame = CGRectMake(0.0, 0.0, 40.0, 27.0);
     backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(goBackToAllPets) forControlEvents:UIControlEventTouchUpInside];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
     self.navigationItem.leftBarButtonItem=temporaryBarButtonItem;
@@ -31,7 +31,7 @@
     }
 }
 
-- (void)goBackToAllPets
+- (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
