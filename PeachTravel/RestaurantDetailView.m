@@ -13,6 +13,7 @@
 #import "CommentTableViewCell.h"
 #import "EDStarRating.h"
 #import "CycleScrollView.h"
+#import "RestaurantDetailViewController.h"
 
 @interface RestaurantDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -100,12 +101,15 @@ static NSString *commentCellIdentifier = @"commentCell";
 
     [_headerView addSubview:_galleryPageView];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, _headerView.frame.size.height-33, 47.5, 23)];
-//    _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-//    [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    _imagePageIndicator.userInteractionEnabled = NO;
-//    _imagePageIndicator.layer.cornerRadius = 1.0;
-//    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-65, oy+10, 60, 30)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateHighlighted];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateSelected];
+    if (_poi.isMyFavorite) {
+        _favoriteBtn.selected = YES;
+    }
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_favoriteBtn];
     
     oy += 140;
 
@@ -376,9 +380,33 @@ static NSString *commentCellIdentifier = @"commentCell";
 
     [self beginUpdates];
     [self endUpdates];
-
 }
 
+- (IBAction)favorite:(id)sender
+{
+    //先将收藏的状态改变
+    _favoriteBtn.selected = !_poi.isMyFavorite;
+    _favoriteBtn.userInteractionEnabled = NO;
+    RestaurantDetailViewController *rootCtl;
+    for (UIView* next = [self superview]; next; next = next.superview)
+    {
+        UIResponder* nextResponder = [next nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]])
+        {
+            rootCtl = (RestaurantDetailViewController*)nextResponder;
+            break;
+        }
+    }
+    [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
+        _favoriteBtn.userInteractionEnabled = YES;
+        if (isSuccess) {
+            _poi.isMyFavorite = !_poi.isMyFavorite;
+        } else {      //如果失败了，再把状态改回来
+            _favoriteBtn.selected = !_poi.isMyFavorite;
+        }
+    }];
+}
 
 @end
 

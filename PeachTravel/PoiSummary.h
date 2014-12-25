@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TripDetail.h"
 
 @interface PoiSummary : NSObject
 
 @property (nonatomic, copy) NSString *poiId;
+@property (nonatomic) tripPoiType poiType;
+@property (nonatomic, copy) NSString *poiTypeDesc;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *priceDesc;
@@ -26,7 +29,7 @@
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
 @property (nonatomic, copy) NSString *distanceStr;
-
+@property (nonatomic) BOOL isMyFavorite;
 
 - (id)initWithJson:(id)json;
 

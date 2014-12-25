@@ -171,7 +171,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _cityPoi.isMyFavorite = !_cityPoi.isMyFavorite;
-            
         } else {      //如果失败了，再把状态改回来
             _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
         }
@@ -203,7 +202,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSLog(@"应该进入城市的购物信息");
 
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
-    _cityPoi.cityId = @"53aa9a6410114e3fd47833bd";
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.currentCity = _cityPoi;
     shoppingOfCityCtl.poiType = TripShoppingPoi;

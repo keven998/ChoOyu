@@ -51,8 +51,38 @@
         }
         _comments = commnentArray;
         _commentCount = [[json objectForKey:@"commentCnt"] integerValue];
+        _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
     }
     return self;
+}
+
+- (void)setPoiType:(tripPoiType)poiType
+{
+    _poiType = poiType;
+    switch (_poiType) {
+        case TripRestaurantPoi:
+            _poiTypeDesc = @"restaurant";
+            break;
+            
+        case tripCityPoi:
+            _poiTypeDesc = @"locality";
+            break;
+        
+        case TripSpotPoi:
+            _poiTypeDesc = @"spot";
+            break;
+        
+        case TripHotelPoi:
+            _poiTypeDesc = @"hotel";
+            break;
+            
+        case TripShoppingPoi:
+            _poiTypeDesc = @"shopping";
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
