@@ -81,9 +81,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     locationManager.delegate= self;
     if (IS_IOS8) {
         [locationManager requestAlwaysAuthorization];
-    } else {
-        [locationManager startUpdatingLocation];
     }
+    [locationManager startUpdatingLocation];
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
@@ -884,7 +883,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         alertView.tag = 100;
         [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager logout];
+            [accountManager asyncLogout:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    
+                } else {
+                    [self showHint:@"退出失败"];
+                }
+            }];
         }];
     } onQueue:nil];
 }

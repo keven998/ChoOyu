@@ -77,18 +77,35 @@
 }
 
 //用户退出登录
-- (void)logout
+- (void)asyncLogout:(void (^)(BOOL))completion
 {
     [self.context deleteObject:self.account];
     NSError *error = nil;
     [self.context save:&error];
     if (error) {
-        [NSException raise:@"用户退出登录发生错误" format:@"%@",[error localizedDescription]];
+        completion(NO);
+        return;
     }
-    //退出环信聊天系统
-    [[EaseMob sharedInstance].chatManager asyncLogoff];
-    _account = nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+
+    //如果环信帐号正在登录中，那么退出环信帐号
+    if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
+        //退出环信聊天系统
+        [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
+            if (error) {
+                completion(NO);
+                return;
+            }
+            else{
+                completion(YES);
+                _account = nil;
+                [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+            }
+        } onQueue:nil];
+    } else {
+        completion(YES);
+        _account = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+    }
 }
 
 //用户桃子系统登录成功

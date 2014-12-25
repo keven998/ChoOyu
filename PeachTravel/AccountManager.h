@@ -42,9 +42,9 @@
 - (void)easeMobUnlogin;
 
 /**
- *  退出登录
+ *  异步退出登录
  */
-- (void)logout;
+- (void)asyncLogout:(void(^)(BOOL isSuccess))completion;
 
 /**
  *  账户是否绑定了手机号，返回 yes 是绑定了

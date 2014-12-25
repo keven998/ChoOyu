@@ -436,7 +436,10 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
-        [accountManager logout];
+        [self showHint:@"正在退出"];
+        [accountManager asyncLogout:^(BOOL isSuccess) {
+            [self showHint:@"退出成功"];
+        }];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
