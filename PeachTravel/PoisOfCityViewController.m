@@ -192,10 +192,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 self.enableLoadingMore = YES;
                 _currentPage++;
             } else if (pageNO > 0){
-                [self showHint:@"人家没有那么多啦"];
+                [self showHint:@"没有了,别强求~"];
             }
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
         [self loadMoreCompleted];
@@ -203,6 +204,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompleted];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 

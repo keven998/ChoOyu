@@ -94,18 +94,22 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //获取城市信息
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _cityPoi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
             [self loadTravelNoteOfCityData];
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD dismiss];
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -134,12 +138,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             _cityPoi.travelNotes = [responseObject objectForKey:@"result"];
             [self.tableView reloadData];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"加载失败"];
+//            [SVProgressHUD showErrorWithStatus:@"加载失败"];
+            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD showErrorWithStatus:@"加载失败"];
+//        [SVProgressHUD showErrorWithStatus:@"加载失败"];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 
 }

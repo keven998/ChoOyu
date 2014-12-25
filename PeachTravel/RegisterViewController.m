@@ -126,22 +126,23 @@
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         _registerBtn.userInteractionEnabled = YES;
+        [SVProgressHUD dismiss];
         if (code == 0) {
-            [SVProgressHUD dismiss];
             SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
             smsVerifyCtl.phoneNumber = self.phoneLabel.text;
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
-            
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"注册失败,是我们的原因"];
+//        [SVProgressHUD showErrorWithStatus:@"注册失败,是我们的原因"];
         NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
         _registerBtn.userInteractionEnabled = YES;
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 

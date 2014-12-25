@@ -30,12 +30,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-    [_registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
+//    _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+//    [_registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_registerBtn];;
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
+    addBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = addBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _shouldSetPasswordWhenBindTel = !accountManager.accountIsBindTel;    //如果之前账户已经有手机号了那么不需要进入下一页面设置密码了
     
@@ -47,14 +49,14 @@
         } else {
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"真羡慕有两个手机的美眉";
-            self.navigationItem.rightBarButtonItem.title = @"更换 ";
-            [_registerBtn setTitle:@"更换" forState:UIControlStateNormal];
+            self.navigationItem.rightBarButtonItem.title = @"提交 ";
+//            [_registerBtn setTitle:@"更换" forState:UIControlStateNormal];
         }
        
     } else {
         self.navigationItem.title = @"验证账户";
-        [_registerBtn setTitle:@"提交" forState:UIControlStateNormal];
-        
+//        [_registerBtn setTitle:@"提交" forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem.title = @"提交 ";
     }
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
@@ -135,18 +137,22 @@
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        [SVProgressHUD dismiss];
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
+//            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
+            [self showHint:@"已发送验证码,请稍候"];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             _captchaBtn.userInteractionEnabled = YES;
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];
         _captchaBtn.userInteractionEnabled = YES;
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -190,12 +196,15 @@
             [self.navigationController pushViewController:resetPasswordCtl animated:YES];
             
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"验证码验证失败"];
+//        [SVProgressHUD showErrorWithStatus:@"验证码验证失败"];
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -221,20 +230,24 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [self showHint:@"OK!已成功修改"];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager updateUserInfo:_phoneLabel.text withChangeType:ChangeTel];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
         NSLog(@"%@", error);
         _captchaBtn.userInteractionEnabled = YES;
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }
@@ -243,7 +256,7 @@
 
 - (IBAction)receiveVerifyCode:(UIButton *)sender {
     if ([self checkInput] == PhoneNumberError) {
-        [self showHint:@"手机号输错了"];
+        [self showHint:@"手机号没get到"];
     } else {
         _captchaBtn.userInteractionEnabled = NO;
         [self getCaptcha];
@@ -251,14 +264,14 @@
 }
 
 - (IBAction)nextStep:(UIButton *)sender {
-    NSString * regex0 = @"^1\\d{10}$";
-    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
-    if (![pred0 evaluateWithObject:_phoneLabel.text]) {
-        [self showHint:@"手机号输错了"];
-        return;
-    }
+//    NSString * regex0 = @"^1\\d{10}$";
+//    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
+//    if (![pred0 evaluateWithObject:_phoneLabel.text]) {
+//        [self showHint:@"手机号输错了"];
+//        return;
+//    }
     if ([_captchaLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
-        [self showHint:@"验证码不能为空"];
+        [self showHint:@"亲，你的验证码呢"];
         return;
     }
     [self stopTimer];

@@ -127,15 +127,19 @@
     
     [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
             
         } else {
-            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+            [self showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }
@@ -231,7 +235,7 @@
     [params safeSetObject:gender forKey:@"gender"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -250,11 +254,15 @@
             [accountManager updateUserInfo:gender withChangeType:ChangeGender];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+            [self showHint:@"请求也是失败了"];
         }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -357,6 +365,8 @@
             changeUserInfo.changeType = ChangeName;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.nickName;
+        } else if (indexPath.row == 2) {
+            [self showHint:@"猥琐攻城师不让修改这个～"];
         }
         
     } else if (indexPath.section ==  1) {

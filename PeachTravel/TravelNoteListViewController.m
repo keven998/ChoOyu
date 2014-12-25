@@ -122,11 +122,12 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
             } else {
                 if (pageNo > 0){
                     self.enableLoadingMore = NO;
-                    [self showHint:@"已加载全部"];
+                    [self showHint:@"没有了,别强求~"];
                 }
             }
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
         [self loadMoreCompleted];
@@ -134,6 +135,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompleted];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 

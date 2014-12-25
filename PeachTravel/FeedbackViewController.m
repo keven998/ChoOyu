@@ -101,14 +101,19 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
     [manager POST:API_FEEDBACK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
         if ([[responseObject objectForKey:@"code"] integerValue] == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"Yes! 吐槽成功~"];
+//            [SVProgressHUD showSuccessWithStatus:@"Yes! 吐槽成功~"];
+            [self showHint:@"我们已get√"];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
+//            [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
+            [self showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
+//        [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～网络也是醉了"];
     }];
 }
 

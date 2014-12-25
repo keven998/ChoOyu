@@ -488,11 +488,13 @@
             completion(YES);
         } else {
             completion(NO);
-            [SVProgressHUD showErrorWithStatus:@"网络加载失败"];
+//            [SVProgressHUD showErrorWithStatus:@"网络加载失败"];
+            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO);
+        [self showHint:@"呃～好像没找到网络"];
     }];
 
 }

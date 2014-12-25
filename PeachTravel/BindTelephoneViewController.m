@@ -77,11 +77,12 @@
             SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
         } else {
-            
+            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }

@@ -251,7 +251,6 @@
 //从服务器上获取好友列表
 - (void)loadContactsFromServer
 {
-    NSLog(@"开始从服务器上加载好友列表");
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];

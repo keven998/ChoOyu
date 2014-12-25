@@ -116,6 +116,7 @@
     //获取用户信息
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        [SVProgressHUD dismiss];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
@@ -125,17 +126,19 @@
                 if (isSuccess) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-                    [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+//                    [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+                    [self showHint:@"OK!注册成功，欢迎加入桃子大家庭"];
                 }
             }];
-            
-
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -157,9 +160,9 @@
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        
+        [SVProgressHUD dismiss];
         if (code == 0) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
             
             //获取成功开始计时
             count = _coolDown;
@@ -168,11 +171,14 @@
             _verifyCodeBtn.userInteractionEnabled = NO;
             
         } else {
-            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"重新获取一下吧"];
+//        [SVProgressHUD showErrorWithStatus:@"重新获取一下吧"];
+        [SVProgressHUD dismiss];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 

@@ -215,15 +215,17 @@
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"] withRealPageIndex:realPageIndex];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"加载失败"];
+//            [SVProgressHUD showErrorWithStatus:@"加载失败"];
+            [self showHint:@"请求也是失败了"];
         }
         
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self loadMoreCompletedWithCurrentPage:realPageIndex];
-        [SVProgressHUD showErrorWithStatus:@"加载失败"];
+//        [SVProgressHUD showErrorWithStatus:@"加载失败"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:@"呃～好像没找到网络"];
         
     }];
     

@@ -297,7 +297,8 @@
             }
             
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         if (self.slimeView.loading) {
             [self hideSlimeView];
@@ -311,6 +312,7 @@
         if (self.slimeView.loading) {
             [self hideSlimeView];
         }
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 

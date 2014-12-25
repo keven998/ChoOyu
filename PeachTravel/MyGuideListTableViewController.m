@@ -317,7 +317,8 @@ static NSString *reusableCell = @"myGuidesCell";
         [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+            [self showHint:@"OK!成功删除"];
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
@@ -329,13 +330,15 @@ static NSString *reusableCell = @"myGuidesCell";
                 [self cacheFirstPage:responseObject];
             });
         } else {
-            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }
@@ -360,13 +363,14 @@ static NSString *reusableCell = @"myGuidesCell";
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",API_SAVE_TRIPINFO, guideSummary.guideId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:title forKey:@"title"];
-
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-            
+//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [self showHint:@"OK!修改成功"];
             [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:0.3];
 
             guideSummary.title = title;
@@ -376,10 +380,12 @@ static NSString *reusableCell = @"myGuidesCell";
                 [self cacheFirstPage:responseObject];
             });
         } else {
-            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+            [self showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -417,7 +423,8 @@ static NSString *reusableCell = @"myGuidesCell";
                 });
             }
         } else {
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -431,6 +438,7 @@ static NSString *reusableCell = @"myGuidesCell";
         if (self.slimeView.loading) {
             [self hideSlimeView];
         }
+        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }
