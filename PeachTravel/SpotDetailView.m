@@ -120,9 +120,8 @@
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateHighlighted];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateSelected];
-    [_headerView addSubview:_favoriteBtn];
-    
     _favoriteBtn.selected = _spot.isMyFavorite;
+    [_headerView addSubview:_favoriteBtn];
     
     oy += 35;
     

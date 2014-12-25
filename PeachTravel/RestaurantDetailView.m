@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *priceBtn;
+@property (nonatomic, strong) UIButton *favoriteBtn;
 
 @property (nonatomic) CGRect finalFrame;
 
@@ -98,6 +99,13 @@ static NSString *commentCellIdentifier = @"commentCell";
     };
 
     [_headerView addSubview:_galleryPageView];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, _headerView.frame.size.height-33, 47.5, 23)];
+//    _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+//    [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    _imagePageIndicator.userInteractionEnabled = NO;
+//    _imagePageIndicator.layer.cornerRadius = 1.0;
+//    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
     
     oy += 140;
 
