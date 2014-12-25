@@ -350,6 +350,8 @@
             changeUserInfo.changeType = ChangeName;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.nickName;
+        } else if (indexPath.row == 2) {
+            [self showHint:@"猥琐攻城师不让修改这个～"];
         }
         
     } else if (indexPath.section ==  1) {

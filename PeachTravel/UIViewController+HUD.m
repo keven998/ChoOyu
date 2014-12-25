@@ -35,19 +35,31 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 }
 
 - (void)showHint:(NSString *)hint {
-    if ([hint isEqualToString:@"录音没有开始"]) {
-        NSLog(@"dd");
-    }
+//    if ([hint isEqualToString:@"录音没有开始"]) {
+//        NSLog(@"dd");
+//    }
+    
+//    UIWindow *toastDisplaywindow = [[[UIApplication sharedApplication] delegate] window];
+//    for (UIWindow *testWindow in [[UIApplication sharedApplication] windows])
+//    {
+//        if (![[testWindow class] isEqual:[UIWindow class]])
+//        {
+//            toastDisplaywindow = testWindow;
+//            break;
+//        }
+//    }
+    
+    UIWindow *toastDisplaywindow = [UIApplication sharedApplication].windows.lastObject;
     
     //显示提示信息
-    UIView *view = [[UIApplication sharedApplication].delegate window];
+    UIView *view = toastDisplaywindow;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.userInteractionEnabled = NO;
     // Configure for text only and offset down
     hud.mode = MBProgressHUDModeText;
     hud.labelText = hint;
     hud.margin = 10.f;
-    hud.yOffset = IS_IPHONE_5?200.f:150.f;
+    hud.yOffset = IS_IPHONE_5 ? 176.f : 128.f;
     hud.removeFromSuperViewOnHide = YES;
     [hud hide:YES afterDelay:2];
 }

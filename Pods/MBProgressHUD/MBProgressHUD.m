@@ -50,7 +50,7 @@
 
 
 static const CGFloat kPadding = 4.f;
-static const CGFloat kLabelFontSize = 16.f;
+static const CGFloat kLabelFontSize = 13.f;
 static const CGFloat kDetailsLabelFontSize = 12.f;
 
 
@@ -170,18 +170,18 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		self.mode = MBProgressHUDModeIndeterminate;
 		self.labelText = nil;
 		self.detailsLabelText = nil;
-		self.opacity = 0.8f;
+		self.opacity = 0.75f;
 		self.color = nil;
 		self.labelFont = [UIFont boldSystemFontOfSize:kLabelFontSize];
 		self.labelColor = [UIColor whiteColor];
-		self.detailsLabelFont = [UIFont boldSystemFontOfSize:kDetailsLabelFontSize];
+		self.detailsLabelFont = [UIFont systemFontOfSize:kDetailsLabelFontSize];
 		self.detailsLabelColor = [UIColor whiteColor];
 		self.activityIndicatorColor = [UIColor whiteColor];
 		self.xOffset = 0.0f;
 		self.yOffset = 0.0f;
 		self.dimBackground = NO;
 		self.margin = 20.0f;
-		self.cornerRadius = 10.0f;
+		self.cornerRadius = 2.0f;
 		self.graceTime = 0.0f;
 		self.minShowTime = 0.0f;
 		self.removeFromSuperViewOnHide = NO;
