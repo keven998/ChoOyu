@@ -192,7 +192,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _unReadMsgLabel.hidden = YES;
     [_IMBtn addSubview:_unReadMsgLabel];
 
-    
     [self loadRecommendData];
 }
 
@@ -387,9 +386,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
-- (IBAction)nearBy:(UIButton *)sender {
+- (IBAction)nearBy:(UIButton *)sender {    
     LocalViewController *lvc = [[LocalViewController alloc] init];
-//    lvc.location = self.location;
     lvc.hidesBottomBarWhenPushed = YES;
     [_rootCtl.navigationController pushViewController:lvc animated:YES];
 }
@@ -593,6 +591,43 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSLog(@"我收到了很多透传消息");
 }
 
+// 收到消息回调
+-(void)didReceiveMessage:(EMMessage *)message
+{
+    NSLog(@"收到消息，消息为%@", message);
+    _unReadMsgLabel.hidden = NO;
+    
+    BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversationChatter] : YES;
+    if (needShowNotification) {
+#if !TARGET_IPHONE_SIMULATOR
+        [self playSoundAndVibration];
+        
+        BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+        if (!isAppActivity) {
+            [self showNotificationWithMessage:message];
+        }
+#endif
+    }
+}
+
+/**
+ *  接收到透传消息的回调，当程序 activity 的时候
+ *
+ *  @param cmdMessage
+ */
+- (void)didReceiveCmdMessage:(EMMessage *)cmdMessage
+{
+    [TZCMDChatHelper distributeCMDMsg:cmdMessage];
+    NSLog(@"接收到透传消息:  %@",cmdMessage);
+}
+
+/**
+ *  是否需要显示推送通知
+ *
+ *  @param fromChatter
+ *
+ *  @return
+ */
 - (BOOL)needShowNotification:(NSString *)fromChatter
 {
     BOOL ret = YES;
@@ -631,38 +666,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     return ret;
 }
 
-// 收到消息回调
--(void)didReceiveMessage:(EMMessage *)message
-{
-    NSLog(@"收到消息，消息为%@", message);
-    _unReadMsgLabel.hidden = NO;
-    
-    BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversationChatter] : YES;
-    if (needShowNotification) {
-#if !TARGET_IPHONE_SIMULATOR
-        [self playSoundAndVibration];
-        
-        BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
-        if (!isAppActivity) {
-            [self showNotificationWithMessage:message];
-        }
-#endif
-    }
-}
-
-/**
- *  接收到透传消息的回掉
- *
- *  @param cmdMessage
- */
-- (void)didReceiveCmdMessage:(EMMessage *)cmdMessage
-{
-    [TZCMDChatHelper distributeCMDMsg:cmdMessage];
-    NSLog(@"接收到透传消息:  %@",cmdMessage);
-}
-
 - (void)playSoundAndVibration{
-    
     //如果距离上次响铃和震动时间太短, 则跳过响铃
     NSLog(@"%@, %@", [NSDate date], self.lastPlaySoundDate);
     
@@ -749,14 +753,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (error) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-            if (isSuccess) {
-                NSLog(@"自动登录失败后的 登录成功");
-            } else {
-                NSLog(@"自动登录失败后的 登录失败");
-            }
-        }];
+        NSLog(@"自动登录失败");
     } else {
         NSLog(@"自动登录成功");
     }
@@ -874,6 +871,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didLoginFromOtherDevice
 {
+    __weak typeof (ToolBoxViewController *)weakSelf = self;
     [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:@"你的账号已在其他地方登录"
@@ -886,9 +884,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager asyncLogout:^(BOOL isSuccess) {
                 if (isSuccess) {
-                    
                 } else {
-                    [self showHint:@"退出失败"];
+                    [weakSelf showHint:@"退出失败"];
                 }
             }];
         }];
@@ -916,15 +913,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 #pragma mark -
 
 - (void)willAutoReconnect{
-    [self showHudInView:self.view hint:@"正在重连中..."];
+    NSLog(@"正在重连中");
 }
 
 - (void)didAutoReconnectFinishedWithError:(NSError *)error{
-    [self hideHud];
     if (error) {
-        [self showHint:@"重连失败，稍候将继续重连"];
+        NSLog(@"重连失败，稍候将继续重连");
     }else{
-        [self showHint:@"重连成功！"];
+        NSLog(@"重连成功");
     }
 }
 

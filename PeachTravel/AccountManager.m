@@ -23,12 +23,12 @@
 + (AccountManager *)shareAccountManager
 {
     static AccountManager *accountManager;
-    @synchronized(self) {
-        if (!accountManager) {
-            accountManager = [[AccountManager alloc] init];
-        }
-        return accountManager;
-    }
+    static dispatch_once_t token;
+    dispatch_once(&token,^{
+        //这里调用私有的initSingle方法
+        accountManager = [[AccountManager alloc] init];
+    });
+    return accountManager;
 }
 
 #pragma mark - setter & getter

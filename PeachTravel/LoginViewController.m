@@ -220,6 +220,7 @@
 //        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            NSLog(@"%@", responseObject);
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {

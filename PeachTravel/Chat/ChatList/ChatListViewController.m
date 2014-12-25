@@ -27,7 +27,6 @@
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
-@property (nonatomic, strong) UIView                *networkStateView;
 @property (nonatomic, strong) AccountManager *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 
@@ -66,7 +65,6 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
-    [self networkStateView];
     [self searchController];
 }
 
@@ -117,7 +115,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, self.view.frame.size.width - 22, self.view.frame.size.height - 64 - 44) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0.0, self.view.frame.size.width - 22, self.view.frame.size.height) style:UITableViewStylePlain];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
@@ -129,27 +127,6 @@
     }
     
     return _tableView;
-}
-
-- (UIView *)networkStateView
-{
-    if (_networkStateView == nil) {
-        _networkStateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44)];
-        _networkStateView.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:199 / 255.0 blue:199 / 255.0 alpha:0.5];
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (_networkStateView.frame.size.height - 20) / 2, 20, 20)];
-        imageView.image = [UIImage imageNamed:@"messageSendFail"];
-        [_networkStateView addSubview:imageView];
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame) + 5, 0, _networkStateView.frame.size.width - (CGRectGetMaxX(imageView.frame) + 15), _networkStateView.frame.size.height)];
-        label.font = [UIFont systemFontOfSize:15.0];
-        label.textColor = [UIColor grayColor];
-        label.backgroundColor = [UIColor clearColor];
-        label.text = @"当前网络连接失败";
-        [_networkStateView addSubview:label];
-    }
-    
-    return _networkStateView;
 }
 
 #pragma mark - private
@@ -597,10 +574,8 @@
 - (void)networkChanged:(EMConnectionState)connectionState
 {
     if (connectionState == eEMConnectionDisconnected) {
-        _tableView.tableHeaderView = _networkStateView;
     }
     else{
-        _tableView.tableHeaderView = nil;
     }
 }
 
