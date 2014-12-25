@@ -279,7 +279,6 @@
     }
 }
 
-
 - (void)onResp:(BaseResp *)resp
 {
     SendAuthResp * result = (SendAuthResp *)resp;

@@ -90,10 +90,11 @@
     [_headerView addSubview:_titleBtn];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-65, oy, 60, 30)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateHighlighted];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateSelected];
     if (_cityPoi.isMyFavorite) {
-        [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateNormal];
-    } else {
-        [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
+        _favoriteBtn.selected = YES;
     }
     
     [_headerView addSubview:_favoriteBtn];

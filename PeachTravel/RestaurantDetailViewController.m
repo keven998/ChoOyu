@@ -27,9 +27,9 @@
 - (void)updateView
 {
     self.navigationItem.title = _restaurantPoi.zhName;
-    RestaurantDetailView *restaurantView = [[RestaurantDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-74)];
+    RestaurantDetailView *restaurantView = [[RestaurantDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-64)];
     restaurantView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
-    restaurantView.restaurantPoi = self.restaurantPoi;
+    restaurantView.poi = self.restaurantPoi;
     [self.view addSubview:restaurantView];
 }
 
@@ -54,13 +54,9 @@
             _restaurantPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
         [SVProgressHUD dismiss];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];

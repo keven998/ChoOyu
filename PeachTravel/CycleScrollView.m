@@ -66,7 +66,7 @@
         [self addSubview:self.scrollView];
         self.currentPageIndex = 0;
         
-        self.pagerControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 146, frame.size.width, 20.0)];
+        self.pagerControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height-20, frame.size.width, 20.0)];
         self.pagerControl.hidesForSinglePage = YES;
         self.pagerControl.pageIndicatorTintColor = [UIColor whiteColor];
         self.pagerControl.currentPageIndicatorTintColor = APP_THEME_COLOR;

@@ -12,10 +12,11 @@
 #import "RecommendsTableViewCell.h"
 #import "CommentTableViewCell.h"
 #import "EDStarRating.h"
+#import "CycleScrollView.h"
 
 @interface RestaurantDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *galleryPageView;
+@property (nonatomic, strong) CycleScrollView *galleryPageView;
 
 @property (nonatomic, strong) UIView *headerView;
 
@@ -25,7 +26,9 @@
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *priceBtn;
+@property (nonatomic, strong) UIButton *favoriteBtn;
 
+@property (nonatomic) CGRect finalFrame;
 
 @property (nonatomic, strong) UIButton *telephoneBtn;
 
@@ -48,9 +51,9 @@ static NSString *commentCellIdentifier = @"commentCell";
     return self;
 }
 
-- (void)setRestaurantPoi:(PoiSummary *)restaurantPoi
+- (void)setPoi:(PoiSummary *)poi
 {
-    _restaurantPoi = restaurantPoi;
+    _poi = poi;
     [self setupSubView];
 }
 
@@ -70,28 +73,40 @@ static NSString *commentCellIdentifier = @"commentCell";
     _headerView.layer.cornerRadius = 2.0;
     _headerView.clipsToBounds = YES;
     
-    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 130.0)];
-    gallery.pagingEnabled = YES;
-    gallery.showsHorizontalScrollIndicator = NO;
-    gallery.showsVerticalScrollIndicator = NO;
-    gallery.delegate = self;
-    gallery.bounces = YES;
-    [_headerView addSubview:gallery];
-    _galleryPageView = gallery;
+    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 130.0) animationDuration:0];
     
-    int count = _restaurantPoi.images.count;
-    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame) * count, CGRectGetHeight(_galleryPageView.frame));
+    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
     
+    int count = _poi.images.count;
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
     {
         [images addObject:[NSNull null]];
     }
     _imageViews = images;
-    [self loadScrollViewWithPage:0];
-    if (count > 1) {
-        [self loadScrollViewWithPage:1];
-    }
+    
+    __weak typeof(RestaurantDetailView *)weakSelf = self;
+    
+    _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
+        return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
+    };
+    
+    _galleryPageView.totalPagesCount = ^NSInteger(void){
+        return count;
+    };
+    
+    _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
+    };
+
+    [_headerView addSubview:_galleryPageView];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, _headerView.frame.size.height-33, 47.5, 23)];
+//    _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+//    [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    _imagePageIndicator.userInteractionEnabled = NO;
+//    _imagePageIndicator.layer.cornerRadius = 1.0;
+//    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
+    
     oy += 140;
 
     UIButton *decorationView = [[UIButton alloc] initWithFrame:CGRectMake((width-30)/2, oy, 20, 20)];
@@ -100,7 +115,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     oy += 30;
     
     _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 20)];
-    [_titleBtn setTitle:_restaurantPoi.zhName forState:UIControlStateNormal];
+    [_titleBtn setTitle:_poi.zhName forState:UIControlStateNormal];
     [_titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_titleBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
@@ -108,6 +123,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     [_headerView addSubview:_titleBtn];
     
     oy += 30;
+    
     
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((width - 73.0)/2, oy, 73.0
                                                                  , 15)];
@@ -118,13 +134,13 @@ static NSString *commentCellIdentifier = @"commentCell";
     _ratingView.editable = NO;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [_ratingView setRating:_restaurantPoi.rating];
+    [_ratingView setRating:_poi.rating];
     [_headerView addSubview:_ratingView];
     
     oy += 10;
     
     _priceBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 20)];
-    [_priceBtn setTitle:_restaurantPoi.priceDesc forState:UIControlStateNormal];
+    [_priceBtn setTitle:_poi.priceDesc forState:UIControlStateNormal];
     [_priceBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_priceBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     _priceBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
@@ -133,18 +149,22 @@ static NSString *commentCellIdentifier = @"commentCell";
     
     oy += 20;
     
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 30)];
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 30) andNumberOfLine:2];
     _descView.contentFont = [UIFont systemFontOfSize:12.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _descView.content = _restaurantPoi.desc;
+    _descView.content = _poi.desc;
     _descView.numberOfLine = 2.0;
 
     [_headerView addSubview:_descView];
     
     oy += 25;
     
-    _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-30, oy, 20, 20)];
-    [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
+    if (_descView.maxNumberOfLine > 2) {
+        [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-30, oy, 20, 20)];
+        [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
+        [_headerView addSubview:_showMoreDescContentBtn];
+    }
     
     if (_descView.maxNumberOfLine > 2) {
         [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
@@ -159,21 +179,17 @@ static NSString *commentCellIdentifier = @"commentCell";
 
     _headerView.frame = CGRectMake(0, 0, width, oy);
     
+    _finalFrame = _headerView.frame;
     
-    UIView *tempHeaderView = [[UIView alloc] initWithFrame:_headerView.frame];
-    tempHeaderView.backgroundColor = [UIColor clearColor];
-    self.tableHeaderView = tempHeaderView;
+    self.tableHeaderView = _headerView;
     
-    [self addSubview:_headerView];
     [self registerNib:[UINib nibWithNibName:@"LocationTableViewCell" bundle:nil] forCellReuseIdentifier:locationCellIdentifier];
     [self registerNib:[UINib nibWithNibName:@"RecommendsTableViewCell" bundle:nil] forCellReuseIdentifier:recommendCellIdentifier];
     [self registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:commentCellIdentifier];
-    
-
 }
 
 - (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= _restaurantPoi.images.count) {
+    if (page >= _poi.images.count) {
         return nil;
     }
     
@@ -194,7 +210,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         frame.origin.x = CGRectGetWidth(frame) * page;
         img.frame = frame;
         [self.galleryPageView insertSubview:img atIndex:0];
-        TaoziImage *taoziImage = [_restaurantPoi.images objectAtIndex:page];
+        TaoziImage *taoziImage = [_poi.images objectAtIndex:page];
         NSString *url = taoziImage.imageUrl;
         [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
@@ -219,7 +235,7 @@ static NSString *commentCellIdentifier = @"commentCell";
         return 1;
     }
     if (section == 2) {
-        return _restaurantPoi.comments.count;
+        return _poi.comments.count;
     }
     return 0;
 }
@@ -241,21 +257,15 @@ static NSString *commentCellIdentifier = @"commentCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        CGSize size = [_restaurantPoi.address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-        NSInteger lineCount = (size.width / (self.frame.size.width-60)) + 1;
-        CGFloat addressHeight = lineCount*size.height+10;
-        return addressHeight+60;
+        
+        return [LocationTableViewCell heightForAddressCellWithAddress:_poi.address];
     }
     if (indexPath.section == 1) {
         return 95;
     }
     if (indexPath.section == 2) {
-        NSString *commentDetail = ((CommentDetail *)[_restaurantPoi.comments objectAtIndex:indexPath.row]).commentDetails;
-        
-        CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}];
-        NSInteger lineCount = (size.width / (self.frame.size.width-16)) + 1;
-        CGFloat commentHeight = lineCount*size.height+10;
-        return commentHeight+60;
+        NSString *commentDetail = ((CommentDetail *)[_poi.comments objectAtIndex:indexPath.row]).commentDetails;
+        return [CommentTableViewCell heightForCommentCellWithComment:commentDetail];
     }
     return 0;
 }
@@ -300,17 +310,17 @@ static NSString *commentCellIdentifier = @"commentCell";
 {
     if (indexPath.section == 0) {
         LocationTableViewCell *locationCell = [tableView dequeueReusableCellWithIdentifier:locationCellIdentifier];
-        locationCell.address = _restaurantPoi.address;
+        locationCell.address = _poi.address;
         return locationCell;
     }
     if (indexPath.section == 1) {
         RecommendsTableViewCell *recommendsCell = [tableView dequeueReusableCellWithIdentifier:recommendCellIdentifier];
-        recommendsCell.recommends = _restaurantPoi.recommends;
+        recommendsCell.recommends = _poi.recommends;
         return recommendsCell;
         
     } if (indexPath.section == 2) {
         CommentTableViewCell *commentCell = [tableView dequeueReusableCellWithIdentifier:commentCellIdentifier];
-        commentCell.commentDetail = [_restaurantPoi.comments objectAtIndex:indexPath.row];
+        commentCell.commentDetail = [_poi.comments objectAtIndex:indexPath.row];
         return commentCell;
     }
     return nil;
@@ -326,36 +336,47 @@ static NSString *commentCellIdentifier = @"commentCell";
 - (IBAction)showMoreContent:(id)sender
 {
     [_descView showMoreContent];
-    UIView *tempHeaderView = [[UIView alloc] initWithFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height + _descView.resizeHeight+64+10)];
-    [self beginUpdates];
-    self.tableHeaderView = tempHeaderView;
-    [self endUpdates];
-    [self bringSubviewToFront:_headerView];
 
     [UIView animateWithDuration:0.2 animations:^{
         [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height + _descView.resizeHeight)];
         [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y+_descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
+        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
+
     }];
     [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height+_descView.resizeHeight)];
+    
     [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setTableHeaderView:_headerView];
+
+    [self beginUpdates];
+    [self endUpdates];
+
 }
 
 - (IBAction)hideContent:(id)sender
 {
     [_descView hideContent];
-    UIView *tempHeaderView = [[UIView alloc] initWithFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height - _descView.resizeHeight+64+10)];
     
-    [self beginUpdates];
-    self.tableHeaderView = tempHeaderView;
-    [self endUpdates];
-    [self bringSubviewToFront:_headerView];
     [UIView animateWithDuration:0.2 animations:^{
         [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height - _descView.resizeHeight)];
         [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y - _descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
+        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
+
     }];
     [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
     [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setTableHeaderView:_headerView];
+
+    [self beginUpdates];
+    [self endUpdates];
+
 }
 
 

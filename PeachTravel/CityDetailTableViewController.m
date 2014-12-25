@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
-@property (nonatomic, strong) UIView *tableHeaderView;
 
 @end
 
@@ -48,8 +47,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityHeaderView.backgroundColor = APP_PAGE_COLOR;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 0)];
     _cityHeaderView.cityPoi = _cityPoi;
-    _tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-    self.tableView.tableHeaderView = _tableHeaderView;
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    self.tableView.tableHeaderView = tableHeaderView;
     [self.tableView addSubview:_cityHeaderView];
     [_cityHeaderView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
@@ -102,7 +101,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             [self updateView];
             [self loadTravelNoteOfCityData];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
@@ -136,8 +134,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             _cityPoi.travelNotes = [responseObject objectForKey:@"result"];
             [self.tableView reloadData];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"加载失败"];
-//            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -168,15 +164,16 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)favorite:(id)sender
 {
+    //先将收藏的状态改变
+    _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
     _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_cityPoi.cityId poiType:@"localities" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    [super asyncFavorite:_cityPoi.cityId poiType:@"vs" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
         _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _cityPoi.isMyFavorite = !_cityPoi.isMyFavorite;
-            NSString *imageName = _cityPoi.isMyFavorite ? @"ic_favorite.png":@"ic_unFavorite.png";
-            [_cityHeaderView.favoriteBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-        } else {
             
+        } else {      //如果失败了，再把状态改回来
+            _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
         }
     }];
 }
@@ -226,9 +223,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateCityHeaderView
 {
-    _tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    tableHeaderView.backgroundColor = APP_PAGE_COLOR;
     [self.tableView beginUpdates];
-    [self.tableView setTableHeaderView:_tableHeaderView];
+    [self.tableView setTableHeaderView:tableHeaderView];
     [self.tableView endUpdates];
     [self.tableView bringSubviewToFront:_cityHeaderView];
 }

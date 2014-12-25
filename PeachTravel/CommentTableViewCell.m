@@ -49,4 +49,12 @@
 
 }
 
++ (CGFloat)heightForCommentCellWithComment:(NSString *)commentDetail
+{
+    CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}];
+    NSInteger lineCount = (size.width / (kWindowWidth-16)) + 1;
+    CGFloat commentHeight = lineCount*size.height+10;
+    return commentHeight+60;
+}
+
 @end

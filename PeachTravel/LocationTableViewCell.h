@@ -15,4 +15,6 @@
 @property (copy, nonatomic) NSString *address;
 @property (weak, nonatomic) IBOutlet UIButton *navigationBtn;
 
++ (CGFloat)heightForAddressCellWithAddress:(NSString *)address;
+
 @end
