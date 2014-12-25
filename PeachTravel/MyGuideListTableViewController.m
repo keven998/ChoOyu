@@ -314,11 +314,11 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
 //            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
-            [self showHint:@"OK!成功删除"];
+            [SVProgressHUD showHint:@"OK!成功删除"];
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
@@ -330,15 +330,12 @@ static NSString *reusableCell = @"myGuidesCell";
                 [self cacheFirstPage:responseObject];
             });
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"删除失败"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
-//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
 }

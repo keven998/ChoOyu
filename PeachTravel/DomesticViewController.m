@@ -130,9 +130,10 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [SVProgressHUD show];
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            [SVProgressHUD dismiss];
             id result = [responseObject objectForKey:@"result"];
             [_destinations initDomesticCitiesWithJson:result];
             [self updateView];
@@ -141,12 +142,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
             });
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

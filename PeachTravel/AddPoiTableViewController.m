@@ -198,7 +198,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             for (id poiDic in [responseObject objectForKey:@"result"]) {
@@ -208,14 +207,14 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
             _currentPage = pageNo;
         } else {
 //            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         [self loadMoreCompleted];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

@@ -76,7 +76,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [SVProgressHUD show];
     
     [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id result = [responseObject objectForKey:@"result"];
@@ -87,12 +87,12 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
             });
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

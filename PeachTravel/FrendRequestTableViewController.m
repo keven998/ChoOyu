@@ -129,23 +129,23 @@
     [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         if (code == 0) {
             [self.accountManager agreeFrendRequest:frendRequest];
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
 //            [SVProgressHUD showSuccessWithStatus:@"添加成功"];
             [self insertMsgToEasemobDB:frendRequest];
-            [self showHint:@"OK! 添加成功了"];
+            [SVProgressHUD showHint:@"OK! 添加成功了"];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [SVProgressHUD showErrorWithStatus:@"添加失败"];
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 

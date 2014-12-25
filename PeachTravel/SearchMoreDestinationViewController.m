@@ -147,18 +147,18 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"搜索失败"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [SVProgressHUD showErrorWithStatus:@"搜索失败"];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
 }

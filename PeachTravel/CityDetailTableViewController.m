@@ -97,19 +97,18 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            [SVProgressHUD dismiss];
             _cityPoi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
             [self loadTravelNoteOfCityData];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-            [SVProgressHUD dismiss];
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -132,20 +131,19 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _cityPoi.travelNotes = [responseObject objectForKey:@"result"];
             [self.tableView reloadData];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"加载失败"];
-            [self showHint:@"请求也是失败了"];
+//            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
 //        [SVProgressHUD showErrorWithStatus:@"加载失败"];
-        [self showHint:@"呃～好像没找到网络"];
+//        [self showHint:@"呃～好像没找到网络"];
     }];
 
 }

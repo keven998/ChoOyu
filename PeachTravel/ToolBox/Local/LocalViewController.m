@@ -216,7 +216,7 @@
             [self analysisData:[responseObject objectForKey:@"result"] withRealPageIndex:realPageIndex];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"加载失败"];
-            [self showHint:@"请求也是失败了"];
+//            [self showHint:@"请求也是失败了"];
         }
         
         [self loadMoreCompletedWithCurrentPage:realPageIndex];

@@ -62,20 +62,19 @@
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取景点详情数据****\n%@", responseObject);
-        [SVProgressHUD dismiss];
         if (result == 0) {
             _spotPoi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
-            [self showHint:@"请求也是失败了"];
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
 //        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 //        [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 
     

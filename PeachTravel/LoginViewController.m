@@ -143,7 +143,7 @@
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -151,20 +151,21 @@
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+                    [SVProgressHUD dismiss];
                 } else {
 //                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
-                    [self showHint:@"登录失败"];
+                    [SVProgressHUD showHint:@"登录失败"];
                 }
             }];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -216,7 +217,7 @@
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"%@", responseObject);
@@ -225,9 +226,10 @@
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+                    [SVProgressHUD dismiss];
                 } else {
 //                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
-                    [self showHint:@"登录失败"];
+                    [SVProgressHUD showHint:@"登录失败"];
                 }
             }];
             
@@ -237,8 +239,8 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
-        [self showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
