@@ -351,7 +351,7 @@
 }
 
 /**
- *  程序在 runing
+ *  启动程序收到个退的推送
  *
  *  @param payloadId
  *  @param appId
