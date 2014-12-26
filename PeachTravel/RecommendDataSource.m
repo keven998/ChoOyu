@@ -17,12 +17,6 @@
         for (id locality in [data objectForKey:@"contents"]) {
             Recommend *recommend = [[Recommend alloc] initWithJsonData:locality];
             [tempLocalities addObject:recommend];
-            
-#warning 测试数据
-            [tempLocalities addObject:recommend];
-            [tempLocalities addObject:recommend];
-
-            
         }
         _localities = tempLocalities;
     }

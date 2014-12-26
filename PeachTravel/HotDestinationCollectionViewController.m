@@ -17,8 +17,6 @@
 #import "Destinations.h"
 #import "TaoziCollectionLayout.h"
 
-
-#warning 测试景点详情数据。
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
@@ -234,8 +232,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
 
     if (indexPath.row == 0) {
-        RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
-        Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
         CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
         cityDetailCtl.cityId = @"5473ccd7b8ce043a64108c46";
         cityDetailCtl.hidesBottomBarWhenPushed = YES;
@@ -245,13 +241,14 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     
     if  (indexPath.row == 1) {
         SpotDetailViewController *spotCtl = [[SpotDetailViewController alloc] init];
-        spotCtl.spotId = @"5463d11b10114e2215b7e669";
+        spotCtl.spotId = recommend.recommondId;
         spotCtl.hidesBottomBarWhenPushed = YES;
         
         [_rootCtl.navigationController pushViewController:spotCtl animated:YES];
     }
     if (indexPath.row == 2) {
         RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+        
         restaurantDetailCtl.hidesBottomBarWhenPushed = YES;
         
         [_rootCtl.navigationController pushViewController:restaurantDetailCtl animated:YES];

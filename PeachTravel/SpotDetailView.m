@@ -379,11 +379,6 @@
     CGFloat ox = 40;
     
     BOOL hasAdd = NO;
-    
-#warning 测试数据
-_spot.guideUrl = @"http://";
-_spot.trafficInfoUrl = @"http://";
-_spot.kengdieUrl = @"http://";
 
     if (![_spot.guideUrl isBlankString]) {
         _travelGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
