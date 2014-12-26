@@ -120,7 +120,7 @@ static CGRect keyboardFrame = (CGRect){{0.0f, 0.0f}, {0.0f, 0.0f}};
         self.hidden = YES;
         self.backgroundColor = [UIColor clearColor];
         
-        self.contentInsets = UIEdgeInsetsMake(20.0f, 20.0f, 20.0f, 20.0f);
+        self.contentInsets = UIEdgeInsetsMake(10.0f, 20.0f, 10.0f, 20.0f);
         self.marginInsets = UIEdgeInsetsMake(20.0f, 20.0f, 20.0f, 20.0f);
         
         self.layoutChangeAnimationDuration = 0.3;
@@ -129,7 +129,7 @@ static CGRect keyboardFrame = (CGRect){{0.0f, 0.0f}, {0.0f, 0.0f}};
         
         _indicatorView = [[JGProgressHUDIndeterminateIndicatorView alloc] initWithHUDStyle:self.style];
         
-        _cornerRadius = 10.0f;
+        _cornerRadius = 3.5f;
     }
     
     return self;
@@ -148,7 +148,7 @@ static CGRect keyboardFrame = (CGRect){{0.0f, 0.0f}, {0.0f, 0.0f}};
     
     CGRect viewBounds = self.bounds;
     
-    CGPoint center = CGPointMake(viewBounds.origin.x+viewBounds.size.width/2.0f, viewBounds.origin.y+viewBounds.size.height/2.0f);
+    CGPoint center = CGPointMake(viewBounds.origin.x+viewBounds.size.width/2.0f, viewBounds.origin.y - 64.0 + viewBounds.size.height/2.0f);
     
     switch (self.position) {
         case JGProgressHUDPositionTopLeft:
