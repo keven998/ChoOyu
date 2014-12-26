@@ -14,6 +14,7 @@
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "HotelDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "SRRefreshView.h"
 #import "SINavigationMenuView.h"
@@ -450,15 +451,8 @@
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == _selectedIndex) {
         NSString *text = ((Favorite *)[_dataSource objectAtIndex:indexPath.row]).desc;
-        
-//        NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:text];
-//        [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         style.lineSpacing = 4.0;
-//        [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-        
-//        CGRect rect = [desc boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-        
         NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13.0],
                                      NSParagraphStyleAttributeName : style};
         CGRect rect = [text boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT)
@@ -481,8 +475,9 @@
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else if ([type isEqualToString:@"hotel"]) {
-            //        [self.navigationController pushViewController:[[SpotDetailViewController alloc] init] animated:YES];
-#warning no detailpage
+            HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
+            ctl.hotelId = item.itemId;
+            [self.navigationController pushViewController:ctl animated:YES];
             
         } else if ([type isEqualToString:@"restaurant"]) {
             RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];

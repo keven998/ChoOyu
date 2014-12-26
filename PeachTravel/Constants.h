@@ -40,11 +40,12 @@
 #define API_GET_DOMESTIC_DESTINATIONS           (BASE_URL @"geo/localities/domestic")     //获取国内目的地接口
 #define API_GET_FOREIGN_DESTINATIONS            (BASE_URL @"geo/localities/abroad")       //获取国外目的地接口
 
-
+//详情接口
 #define API_GET_CITYDETAIL                      (BASE_URL @"geo/localities/")
 #define API_GET_SPOT_DETAIL                     (BASE_URL @"poi/vs/")
 #define API_GET_RESTAURANT_DETAIL               (BASE_URL @"poi/restaurant/")
 #define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
+#define API_GET_HOTEL_DETAIL                    (BASE_URL @"poi/hotel/")
 
 #define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurant/localities/")
 #define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")
