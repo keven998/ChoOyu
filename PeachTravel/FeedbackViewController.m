@@ -84,6 +84,7 @@
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([trimText length] < 1) {
+        [SVProgressHUD showHint:@"你的吐槽呢，我读书少不要骗我"];
         return;
     }
     
