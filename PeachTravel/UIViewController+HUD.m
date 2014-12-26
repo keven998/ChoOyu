@@ -49,19 +49,22 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 //        }
 //    }
     
-    UIWindow *toastDisplaywindow = [UIApplication sharedApplication].windows.lastObject;
+    /***************/
+//    UIWindow *toastDisplaywindow = [UIApplication sharedApplication].windows.lastObject;
+//    
+//    //显示提示信息
+//    UIView *view = toastDisplaywindow;
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+//    hud.userInteractionEnabled = NO;
+//    // Configure for text only and offset down
+//    hud.mode = MBProgressHUDModeText;
+//    hud.labelText = hint;
+//    hud.margin = 10.f;
+//    hud.yOffset = IS_IPHONE_5 ? 176.f : 128.f;
+//    hud.removeFromSuperViewOnHide = YES;
+//    [hud hide:YES afterDelay:2];
     
-    //显示提示信息
-    UIView *view = toastDisplaywindow;
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.userInteractionEnabled = NO;
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = hint;
-    hud.margin = 10.f;
-    hud.yOffset = IS_IPHONE_5 ? 176.f : 128.f;
-    hud.removeFromSuperViewOnHide = YES;
-    [hud hide:YES afterDelay:2];
+    [SVProgressHUD showHint:hint];
 }
 
 - (void)showHint:(NSString *)hint yOffset:(float)yOffset {

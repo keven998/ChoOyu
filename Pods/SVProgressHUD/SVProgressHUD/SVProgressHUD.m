@@ -848,9 +848,9 @@ CGFloat SVProgressHUDRingThickness = 0.5;
 #endif
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    return [UIColor colorWithWhite:0.25 alpha:0.75];
+    return [UIColor colorWithWhite:0.0 alpha:0.75];
 #else
-    return [UIColor colorWithWhite:0 alpha:0.7];
+    return [UIColor colorWithWhite:0 alpha:0.75];
 #endif
 }
 

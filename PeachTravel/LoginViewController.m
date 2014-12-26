@@ -117,7 +117,8 @@
 - (IBAction)login:(UIButton *)sender {
     [self.view endEditing:YES];
     if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
-        [self showHint:@"不输帐号或密码，是没法登录滴"];
+//        [self showHint:@"不输帐号或密码，是没法登录滴"];
+        [SVProgressHUD showHint:@"账号密码、我都要"];
         return;
     }
     
