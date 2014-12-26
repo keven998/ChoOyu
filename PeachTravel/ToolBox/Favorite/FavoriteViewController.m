@@ -109,6 +109,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dataSource addObjectsFromArray:object];
                 [self.tableView reloadData];
+                if (_dataSource.count >= PAGE_COUNT) {
+                    _enableLoadMore = YES;
+                }
             });
         } else {
             self.slimeView.loading = YES;
