@@ -459,6 +459,9 @@
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
+        if (rect.size.height <= 24) {
+            return 216.0;
+        }
         return 210 + rect.size.height - 24.0;
     }
     return 216;
