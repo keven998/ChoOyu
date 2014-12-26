@@ -151,7 +151,7 @@
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
          if (loginInfo && !error) {
-             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+//             [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
              [self easeMobDidLogin];
              [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
 
@@ -162,14 +162,13 @@
              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
              if (completion) {
                  completion(YES);
-                 
              }
          } else {
-             
              [self easeMobUnlogin];
              if (completion) {
                  completion(NO);
              }
+//             [SVProgressHUD showHint:@"请求也是失败了~"];
          }
      } onQueue:nil];
 }

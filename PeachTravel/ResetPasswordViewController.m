@@ -76,14 +76,14 @@
         if (code == 0) {
             if (_verifyCaptchaType == UserBindTel) {     //如果是绑定手机号过程中的设置密码
 //                [SVProgressHUD showSuccessWithStatus:@"设置成功"];
-                [SVProgressHUD showHint:@"OK!成功设置"];
+                [SVProgressHUD showHint:@"OK~成功设置"];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager updateUserInfo:_phoneNumber withChangeType:ChangeTel];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                 [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
             } else {
 //                [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-                [SVProgressHUD showHint:@"OK!成功修改"];
+                [SVProgressHUD showHint:@"OK~成功修改"];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
                 [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
