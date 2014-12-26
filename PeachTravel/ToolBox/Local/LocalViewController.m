@@ -93,7 +93,7 @@
     [self.view addSubview:divider];
     
     UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 30.0, CGRectGetWidth(self.view.bounds), 30.0)];
-    fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.67];
     fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:fbar];
     
