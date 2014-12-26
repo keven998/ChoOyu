@@ -88,15 +88,6 @@
 #define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
 #define API_CHANGE_PWD                  (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个桃子用户信息数组
 
-
-
-/**
- html 接口
- */
-#define FUN_CITY_HTML                   @"http://wap.lvxingpai.com/h5/tabpage.php"
-#define MORE_COMMENT_HTML               @"http://wap.lvxingpai.com/h5/morecomment.php"
-#define TRAVELNOTE_DETAIL_HTML          @"http://h5.taozilvxing.com/detail.php?id="
-
 //IM相关接口
 #define API_GET_CONTACTS                (BASE_URL @"users/contacts")   //获得联系人列表
 
@@ -107,6 +98,15 @@
 #define API_GET_ALBUM                   (BASE_URL @"geo/localities/")      //获取城市图集
 #define API_GET_COLUMNS                 (BASE_URL @"columns")     //获取首页运营位置推荐
 #define API_FEEDBACK                    (BASE_URL @"misc/feedback")    //反馈接口
+
+/**
+ html 接口
+ */
+#define FUN_CITY_HTML                   @"http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
+#define RESTAURANT_CITY_HTML            @"http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
+#define SHOPPING_CITY_HTML              @"http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
+#define MORE_COMMENT_HTML               @"http://wap.lvxingpai.com/h5/morecomment.php"   //更多点评
+#define TRAVELNOTE_DETAIL_HTML          @"http://h5.taozilvxing.com/detail.php?id="   //游记详情
 
 /***** Notification name *******/
 

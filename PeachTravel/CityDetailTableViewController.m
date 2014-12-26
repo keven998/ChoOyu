@@ -180,7 +180,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)viewSpots:(id)sender
 {
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
-    funOfCityWebCtl.urlStr = FUN_CITY_HTML;
+    funOfCityWebCtl.urlStr = [NSString stringWithFormat:@"%@%@", FUN_CITY_HTML, _cityPoi.cityId];
     funOfCityWebCtl.titleStr = _cityPoi.zhName;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
@@ -191,7 +191,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
-    restaurantOfCityCtl.currentCity = _cityPoi;
+    restaurantOfCityCtl.cityId = _cityPoi.cityId;
+    restaurantOfCityCtl.zhName = _cityPoi.zhName;
     restaurantOfCityCtl.poiType = TripRestaurantPoi;
     
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
@@ -203,7 +204,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
-    shoppingOfCityCtl.currentCity = _cityPoi;
+    shoppingOfCityCtl.cityId = _cityPoi.cityId;
+    shoppingOfCityCtl.zhName = _cityPoi.zhName;
     shoppingOfCityCtl.poiType = TripShoppingPoi;
     
     [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];

@@ -15,10 +15,12 @@
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, strong) NSArray *images;
-@property (nonatomic, strong) NSArray *recommendList;
+@property (nonatomic, strong) NSMutableArray *recommendList;
 @property (nonatomic) float rating;
 
 - (id)initWithJson:(id)json;
+
+- (void)addRecommendList:(id)json;
 
 
 @end

@@ -35,7 +35,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    [self.view addSubview:self.tableView];
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView = self.tableHeaderView;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
@@ -45,22 +45,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (self.tripDetail.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
         CityDestinationPoi *poi = [self.tripDetail.destinations firstObject];
-        _currentCity = [[CityPoi alloc] init];
-        _currentCity.cityId = poi.cityId;
-        _currentCity.zhName = poi.zhName;
+        _cityId = poi.cityId;
+        _zhName = poi.zhName;
     } else {
-        self.navigationItem.title = _currentCity.zhName;
+        self.navigationItem.title = _zhName;
     }
     
     if (self.shouldEdit) {
-//        UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//        [leftBtn setTitle:@"完成" forState:UIControlStateNormal];
-//        [leftBtn setTitleColor:UIColorFromRGB(0xee528c) forState:UIControlStateNormal];
-//        [leftBtn addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-        
         UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
-//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
         leftBtn.tintColor = APP_THEME_COLOR;
         self.navigationItem.leftBarButtonItem = leftBtn;
     }
@@ -96,21 +88,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     return _titleMenu;
 }
-
-//- (UITableView *)tableView
-//{
-//    if (!_tableView) {
-//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64.0)];
-//        _tableView.delegate = self;
-//        _tableView.dataSource = self;
-//        _tableView.tableHeaderView = self.tableHeaderView;
-//        [_tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        _tableView.backgroundColor = APP_PAGE_COLOR;
-//        _tableView.showsVerticalScrollIndicator = NO;
-//    }
-//    return _tableView;
-//}
 
 - (UIView *)tableHeaderView
 {
@@ -169,11 +146,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *requsetUrl;
     if (_poiType == TripRestaurantPoi) {
-         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_currentCity.cityId];
+         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
 
     }
     if (_poiType == TripShoppingPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_currentCity.cityId];
+        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
     }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -185,7 +162,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            self.dataSource.recommendList = [responseObject objectForKey:@"result"];
+            [self.dataSource addRecommendList:[responseObject objectForKey:@"result"]];
             [self updateView];
             _currentPage = pageNO;
             if (_dataSource.recommendList.count >= 15) {
@@ -195,7 +172,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 [self showHint:@"没有了,别强求~"];
             }
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
@@ -270,10 +246,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
 {
     CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:index];
-    _currentCity = [[CityPoi alloc] init];
-    _currentCity.cityId = destination.cityId;
-    _currentCity.zhName = destination.zhName;
-    [_titleMenu setTitle:_currentCity.zhName];
+    _cityId = destination.cityId;
+    _zhName = destination.zhName;
+    [_titleMenu setTitle:_zhName];
+    [_dataSource.recommendList removeAllObjects];
     _currentPage = 0;
     [self loadData:_currentPage];
 }

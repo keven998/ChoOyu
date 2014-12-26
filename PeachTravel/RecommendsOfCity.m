@@ -30,14 +30,14 @@
     return self;
 }
 
-- (void)setRecommendList:(id)json
+- (void)addRecommendList:(id)json
 {
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    if (!_recommendList) {
+        _recommendList = [[NSMutableArray alloc] init];
+    }
     for (NSDictionary *poiDic in json) {
         PoiSummary *poi = [[PoiSummary alloc] initWithJson:poiDic];
-        [tempArray addObject:poi];
+        [_recommendList addObject:poi];
     }
-    
-    _recommendList = tempArray;
 }
 @end

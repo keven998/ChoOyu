@@ -19,7 +19,8 @@
 
 @interface PoisOfCityViewController : TZTBViewController
 
-@property (nonatomic, strong) CityPoi *currentCity; //当前显示的城市
+@property (nonatomic, copy) NSString *cityId; //当前显示的城市
+@property (nonatomic, copy) NSString *zhName; //当前显示的城市
 
 @property (nonatomic) BOOL shouldEdit;
 
