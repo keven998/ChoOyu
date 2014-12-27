@@ -20,10 +20,11 @@
 #import "SINavigationMenuView.h"
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
+#import "TZFilterViewController.h"
 
 #define PAGE_COUNT 15
 
-@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate, TaoziMessageSendDelegate>
+@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate, TaoziMessageSendDelegate, TZFilterViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -44,6 +45,8 @@
 @property (strong, nonatomic) SRRefreshView *slimeView;
 
 @property (nonatomic, strong) SINavigationMenuView *sortPoiView;
+
+@property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 @property (nonatomic, strong) NSArray *urlArray;
 /**
@@ -84,8 +87,16 @@
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
+    
+    /*
     UIBarButtonItem *barItem= [[UIBarButtonItem alloc] initWithCustomView:self.sortPoiView];
     self.navigationItem.rightBarButtonItem = barItem;
+     */
+    
+    UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+    self.navigationItem.rightBarButtonItem = filterBtn;
+    [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+    
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -126,7 +137,6 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         [_tableView setContentInset:UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0)];
-//        [_tableView setContentOffset:CGPointMake(0, 10)];
         [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
     }
     return _tableView;
@@ -144,6 +154,20 @@
         [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
     }
     return _footerView;
+}
+
+- (TZFilterViewController *)filterCtl
+{
+    if (!_filterCtl) {
+        _filterCtl = [[TZFilterViewController alloc] init];
+        _filterCtl.filterItemsArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"], @[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店"]];
+        _filterCtl.filterTitles = @[@"类型", @"城市"];
+        _filterCtl.lineCountPerFilterType = @[@1,@2];
+        _filterCtl.selectedItmesIndex = @[@0,@1];
+        _filterCtl.delegate = self;
+
+    }
+    return _filterCtl;
 }
 
 - (SRRefreshView *)slimeView
@@ -173,6 +197,16 @@
         _sortPoiView.delegate = self;
     }
     return _sortPoiView;
+}
+
+- (void)filter:(id)sender
+{
+    if (!self.filterCtl.filterViewIsShowing) {
+        typeof(FavoriteViewController *)weakSelf = self;
+        [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
+    } else {
+        [self.filterCtl hideFilterView];
+    }
 }
 
 - (void)pullToRefreash:(id)sender {
@@ -299,7 +333,6 @@
             }
             
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         if (self.slimeView.loading) {
@@ -359,6 +392,13 @@
 - (void)hideSlimeView
 {
     [self.slimeView endRefresh];
+}
+
+#pragma makr - TZFilterViewDelegate
+-(void)didSelectedItems:(NSArray *)itemIndexPath
+{
+    _currentFavoriteType = [_urlArray objectAtIndex:[[itemIndexPath firstObject] integerValue]];
+    [self pullToRefreash:nil];
 }
 
 #pragma mark - SINavigationMenuDelegate
@@ -462,6 +502,9 @@
         if (rect.size.height <= 24) {
             return 216.0;
         }
+        
+        NSLog(@"高度为:%f",(210+rect.size.height-24.0));
+
         return 210 + rect.size.height - 24.0;
     }
     return 216;

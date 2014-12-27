@@ -34,6 +34,7 @@
 @implementation TravelNoteTableViewCell
 
 - (void)awakeFromNib {
+    self.backgroundColor = APP_PAGE_COLOR;
     _authorImageView.layer.cornerRadius = 15.0;
     _authorImageView.clipsToBounds = YES;
     _travelNoteImageView.layer.cornerRadius = 3.0;

@@ -241,7 +241,6 @@
             [self reloadTripData];
             [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         

@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     _deleteBtn.alpha = 0;
+    self.backgroundColor = APP_PAGE_COLOR;
     self.deleteBtn.layer.cornerRadius = 15.0;
     
     _frameView.layer.cornerRadius = 2.0;
