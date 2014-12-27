@@ -25,8 +25,6 @@
 
 @property (nonatomic, weak) UIViewController *rootViewController;
 
-@property (nonatomic, strong) UIImage *screenShotImage;
-
 @end
 
 @implementation TZFilterViewController
@@ -62,6 +60,8 @@
         _filterView.selectedItmesIndex = _selectedItmesIndex;
         _filterView.filterItemsArray = _filterItemsArray;
         [_filterView.comfirmBtn addTarget:self action:@selector(comfirm:) forControlEvents:UIControlEventTouchUpInside];
+        [_filterView.cancelBtn addTarget:self action:@selector(hideFilterView) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return _filterView;
 }
@@ -74,8 +74,7 @@
         _backGroundImageView.layer.cornerRadius = 5.0;
         _backGroundImageView.clipsToBounds = YES;
         _backGroundImageView.userInteractionEnabled = YES;
-        [self screenShotWithView:_rootViewController.view];
-        _backGroundImageView.image = self.screenShotImage;
+        _backGroundImageView.image = [self screenShotWithView:_rootViewController.view];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideFilterView)];
         tap.numberOfTapsRequired = 1;
         tap.numberOfTouchesRequired = 1;
@@ -85,16 +84,15 @@
     return _backGroundImageView;
 }
 
-- (void)screenShotWithView:(UIView *)view
+- (UIImage *)screenShotWithView:(UIView *)view
 {
     UIGraphicsBeginImageContext(view.bounds.size);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
     image = [UIImage imageWithData:imageData];
-    
-    _screenShotImage = image;
+    return image;
 }
 
 /**
@@ -114,6 +112,10 @@
             }
         }
     }
+    /**
+     *  更新选中的 item 的 index
+     */
+    _selectedItmesIndex = selectedItems;
     [_delegate didSelectedItems:selectedItems];
     [self hideFilterView];
 }
@@ -122,12 +124,13 @@
 {
     _filterViewIsShowing = YES;
     _rootViewController = parentViewController;
-
+    _filterView.selectedItmesIndex = _selectedItmesIndex;
+    _backGroundImageView.image = [self screenShotWithView:_rootViewController.view];
     self.backGroundImageView.frame = CGRectMake(4,4,self.rootViewController.view.bounds.size.width-8,self.rootViewController.view.bounds.size.height-8);
+
     [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:self.view];
-    [self screenShotWithView:_rootViewController.view];
-    self.backGroundImageView.image = [_screenShotImage drn_boxblurImageWithBlur:0.17];
+    self.backGroundImageView.image = [[self screenShotWithView:_rootViewController.view] drn_boxblurImageWithBlur:0.17];
     [UIView animateWithDuration:0.35 animations:^{
         _filterView.frame = CGRectMake(0, self.view.bounds.size.height-_filterView.frame.size.height, self.view.bounds.size.width, 305);
         _backGroundImageView.frame = CGRectMake(30, 30, self.view.bounds.size.width-60, self.view.bounds.size.height-60);
@@ -139,7 +142,7 @@
 - (void)hideFilterView
 {
     _filterViewIsShowing = NO;
-    _backGroundImageView.frame = CGRectMake(35, 35, self.view.bounds.size.width-70, self.view.bounds.size.height-70);
+    _backGroundImageView.frame = CGRectMake(34, 34, self.view.bounds.size.width-68, self.view.bounds.size.height-68);
     [UIView animateWithDuration:0.35 animations:^{
         _filterView.frame = CGRectMake(0, self.view.bounds.size.height+50, self.view.bounds.size.width, 305);
         _backGroundImageView.frame = self.view.bounds;

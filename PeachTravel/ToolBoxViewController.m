@@ -191,8 +191,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _unReadMsgLabel.backgroundColor = APP_THEME_COLOR;
     _unReadMsgLabel.hidden = YES;
     [_IMBtn addSubview:_unReadMsgLabel];
-
-    [self loadRecommendData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -323,7 +321,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD dismiss];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 

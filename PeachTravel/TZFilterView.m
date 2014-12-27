@@ -50,6 +50,10 @@
         [_comfirmBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_comfirmBtn];
+        
+        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-40), 10, 30, 20)];
+        [_cancelBtn setImage:[UIImage imageNamed:@"ic_filter_cancel.png"] forState:UIControlStateNormal];
+        [self addSubview:_cancelBtn];
 
     }
     return self;
@@ -59,6 +63,26 @@
 {
     _filterItemsArray = filterItemsArray;
     [self setNeedsDisplay];
+}
+
+- (void)setSelectedItmesIndex:(NSArray *)selectedItmesIndex
+{
+    _selectedItmesIndex = selectedItmesIndex;
+    for (int i=0; i<_itemsArray.count; i++) {
+        NSInteger index = [[_selectedItmesIndex objectAtIndex:i] integerValue];
+        NSArray *items = [_itemsArray objectAtIndex:i];
+        for (int j=0; j<items.count ; j++) {
+            UIButton *btn = [items objectAtIndex:j];
+            if (index == j) {
+                btn.selected = YES;
+                btn.layer.borderWidth = 0;
+            }
+            if (btn.selected && j!=index) {
+                btn.selected = NO;
+                btn.layer.borderWidth = 1.0;
+            }
+        }
+    }
 }
 
 - (void)drawRect:(CGRect)rect
@@ -80,7 +104,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 15)];
             titleLabel.text = title;
             titleLabel.textColor = TEXT_COLOR_TITLE;
-            titleLabel.font = [UIFont systemFontOfSize:14.0];
+            titleLabel.font = [UIFont systemFontOfSize:13.0];
             [_filterScrollView addSubview:titleLabel];
             offsetY += 20;
         }
@@ -162,7 +186,7 @@
                 offsetX += (size.width+40);
                 [totalItemsPerType addObject:btn];
             }
-            scrollView.contentSize = CGSizeMake(60*items.count, 40);
+            scrollView.contentSize = CGSizeMake(offsetX, 40);
         }
         [_filterScrollView addSubview:scrollView];
         
