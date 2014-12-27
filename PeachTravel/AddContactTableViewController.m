@@ -73,6 +73,11 @@
 
 - (void)searchUsersWithSearchText:(NSString *)searchText
 {
+    if (searchText.length == 0) {
+        [SVProgressHUD showHint:@"你想找谁呢～"];
+        return;
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -106,8 +111,7 @@
     if ([searchResult count] > 0) {
         NSInteger userId = [[[searchResult firstObject] objectForKey:@"userId"] integerValue];
         if (userId == [accountManager.account.userId integerValue]) {
-            [SVProgressHUD showErrorWithStatus:@"不能添加自己到通讯录"];
-            
+            [SVProgressHUD showHint:@"不能添加自己到通讯录"];
         } else {
             [_searchBar resignFirstResponder];
             [SVProgressHUD dismiss];
@@ -126,7 +130,7 @@
             [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
         }
     } else {
-        [SVProgressHUD dismiss];
+        [SVProgressHUD showHint:@"没有找到她~"];
     }
 
 }
