@@ -14,7 +14,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7r-7c-aRb" customClass="UIButton">
                     <rect key="frame" x="0.0" y="10" width="320" height="180"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="country.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="8y4-z8-RJs" customClass="ANBlurredImageView">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8y4-z8-RJs">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -80,7 +80,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="contentBtn" destination="V7r-7c-aRb" id="nMw-cQ-ny5"/>
+                <outlet property="contentBtn" destination="V7r-7c-aRb" id="hOE-rc-5jd"/>
                 <outlet property="descLabel" destination="8aP-p2-afE" id="ery-X5-ofv"/>
                 <outlet property="headerImageView" destination="8y4-z8-RJs" id="quf-VW-Etg"/>
                 <outlet property="spaceLineView" destination="jRo-t4-oiO" id="I6K-hY-zF6"/>
@@ -90,7 +90,6 @@
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="country.jpg" width="640" height="400"/>
         <image name="ic_dotted_line.png" width="1" height="1"/>
     </resources>
 </document>

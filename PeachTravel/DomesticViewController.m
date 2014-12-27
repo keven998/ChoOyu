@@ -130,7 +130,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [SVProgressHUD show];
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD dismiss];
@@ -141,12 +140,10 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 [[TMCache sharedCache] setObject:result forKey:@"destination_demostic"];
             });
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD dismiss];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -230,7 +227,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }
     return nil;
 }
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
