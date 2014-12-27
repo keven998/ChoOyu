@@ -56,7 +56,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"viewwillapper");
 }
 
 - (IBAction)addUserContact:(id)sender
@@ -78,7 +77,7 @@
     NSInteger numberOfOptions = 2;
     NSArray *items = @[
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"Talk"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"添加桃友"]
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"加桃友"]
                        ];
     
     _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
