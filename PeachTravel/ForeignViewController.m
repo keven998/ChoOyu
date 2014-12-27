@@ -41,7 +41,9 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
+
     [self initData];
+//    [self loadForeignDataFromServer];
 }
 
 - (void) initData {
@@ -60,6 +62,9 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _foreignCollectionView.delegate = nil;
+    _foreignCollectionView.dataSource = nil;
+    _foreignCollectionView = nil;
 }
 
 /**
@@ -79,6 +84,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 //        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            [SVProgressHUD dismiss];
             id result = [responseObject objectForKey:@"result"];
             [_destinations initForeignCountriesWithJson:result];
             [_foreignCollectionView reloadData];

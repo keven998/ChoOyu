@@ -181,29 +181,31 @@
     self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.emptyView];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_notify_flag.png"]];
-    imageView.contentMode = UIViewContentModeScaleToFill;
-    imageView.center = CGPointMake(width/2.0, 100.0);
-    [self.emptyView addSubview:imageView];
-    
-    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
-    desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont systemFontOfSize:15.0];
-    desc.numberOfLines = 2;
-    desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"旅行那些事\n还有比桃·Talk更方便的么";
-    [self.emptyView addSubview:desc];
+//    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_notify_flag.png"]];
+//    imageView.contentMode = UIViewContentModeScaleToFill;
+//    imageView.center = CGPointMake(width/2.0, 100.0);
+//    [self.emptyView addSubview:imageView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
-    btn.backgroundColor = APP_THEME_COLOR;
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"Talk" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
-    btn.layer.cornerRadius = 2.0;
+    btn.frame = CGRectMake(0.0, 0.0, 108.0, 64.0);
+    btn.center = CGPointMake(width/2.0, 132.0);
+//    btn.backgroundColor = APP_THEME_COLOR;
+//    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [btn setTitle:@"Talk" forState:UIControlStateNormal];
+//    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+//    btn.layer.cornerRadius = 2.0;
+    [btn setImage:[UIImage imageNamed:@"ic_new_talk.png"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
     [self.emptyView addSubview:btn];
+
+    
+    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
+    desc.textColor = UIColorFromRGB(0x797979);
+    desc.font = [UIFont systemFontOfSize:12.0];
+    desc.numberOfLines = 2;
+    desc.textAlignment = NSTextAlignmentCenter;
+    desc.text = @"聊旅行\n还有比桃·Talk更方便的么";
+    [self.emptyView addSubview:desc];
 }
 
 - (IBAction)addConversation:(id)sender

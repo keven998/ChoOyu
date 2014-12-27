@@ -15,6 +15,7 @@
 #import "ContactListTableViewCell.h"
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
+#import "ConvertMethods.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
@@ -99,11 +100,10 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(25.0, 0.0, width - 50.0, 32.0)];
     label.font = [UIFont systemFontOfSize:13.0];
-    label.textColor = UIColorFromRGB(0x999999);
-    label.numberOfLines = 2;
+    label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
-    label.text = @"快邀爱旅行的蜜蜜们到Talk来吧，旅行交流更方便啦~";
+    label.text = @"快邀爱旅行的蜜蜜们加入Talk成为桃友吧~";
     [self.emptyView addSubview:label];
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
@@ -111,13 +111,15 @@
     [self.emptyView addSubview:imgView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 108.0, 34.0);
-    btn.backgroundColor = UIColorFromRGB(0xee528c);
-    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    btn.frame = CGRectMake(0.0, 0.0, 108.0, 32.0);
+//    btn.backgroundColor = UIColorFromRGB(0xee528c);
+    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"添加桃友" forState:UIControlStateNormal];
-    btn.center = CGPointMake(width/2.0, 108.0);
+    [btn setTitle:@"加桃友" forState:UIControlStateNormal];
+    btn.center = CGPointMake(width/2.0, 90.0);
     btn.layer.cornerRadius = 2.0;
+    btn.clipsToBounds = YES;
     [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
     [self.emptyView addSubview:btn];
     

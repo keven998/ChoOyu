@@ -14,6 +14,8 @@
 - (void)awakeFromNib {
     
     _avatarPlaceholder.layer.cornerRadius = 31.0;
+    [_loginBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateHighlighted];
+    [_registerBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateHighlighted];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
