@@ -110,7 +110,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Gesture
@@ -250,7 +249,6 @@
                                                             duration:3.0];
     NSArray *tutorialLayers = @[layer1,layer2,layer3,layer4,layer5];
     
-    // Set the common style for the title.
     ICETutorialLabelStyle *titleStyle = [[ICETutorialLabelStyle alloc] init];
     [titleStyle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17.0f]];
     [titleStyle setTextColor:[UIColor whiteColor]];
@@ -258,16 +256,13 @@
     [titleStyle setOffset:180];
     [[ICETutorialStyle sharedInstance] setTitleStyle:titleStyle];
     
-    // Set the subTitles style with few properties and let the others by default.
     [[ICETutorialStyle sharedInstance] setSubTitleColor:[UIColor whiteColor]];
     [[ICETutorialStyle sharedInstance] setSubTitleOffset:150];
     
-    // Init tutorial.
     self.viewController = [[ICETutorialController alloc] initWithPages:tutorialLayers
                                                               delegate:self];
     [self.view addSubview:self.viewController.view];
     
-    // Run it.
     [self.viewController startScrolling];
 }
 
@@ -277,6 +272,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         self.viewController.view.alpha = 0;
     } completion:^(BOOL finished) {
+        [self.viewController stopScrolling];
         [self.viewController.view removeFromSuperview];
         self.viewController = nil;
     }];
@@ -313,9 +309,6 @@
     spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
     [self.tabBar addSubview:spaceView];
     
-//    UIImage *finishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
-//    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:APP_PAGE_COLOR];
-    
     NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
     
     NSInteger index = 0;
@@ -331,7 +324,6 @@
         spaceView.backgroundColor = APP_DIVIDER_COLOR;
         [item addSubview:spaceView];
         
-//        [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                       [tabBarItemImages objectAtIndex:index]]];
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",

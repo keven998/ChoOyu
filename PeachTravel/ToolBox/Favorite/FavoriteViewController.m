@@ -17,14 +17,13 @@
 #import "HotelDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "SRRefreshView.h"
-#import "SINavigationMenuView.h"
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
 #import "TZFilterViewController.h"
 
 #define PAGE_COUNT 15
 
-@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, SINavigationMenuDelegate, TaoziMessageSendDelegate, TZFilterViewDelegate>
+@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, TaoziMessageSendDelegate, TZFilterViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -43,8 +42,6 @@
 @property (nonatomic, assign) BOOL enableLoadMore;
 
 @property (strong, nonatomic) SRRefreshView *slimeView;
-
-@property (nonatomic, strong) SINavigationMenuView *sortPoiView;
 
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
@@ -163,10 +160,10 @@
 {
     if (!_filterCtl) {
         _filterCtl = [[TZFilterViewController alloc] init];
-        _filterCtl.filterItemsArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"], @[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店"]];
-        _filterCtl.filterTitles = @[@"类型", @"城市"];
-        _filterCtl.lineCountPerFilterType = @[@1,@2];
-        _filterCtl.selectedItmesIndex = @[@0,@1];
+        _filterCtl.filterItemsArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"]];
+        _filterCtl.filterTitles = @[@"类型"];
+        _filterCtl.lineCountPerFilterType = @[@2];
+        _filterCtl.selectedItmesIndex = @[@0];
         _filterCtl.delegate = self;
 
     }
@@ -188,18 +185,6 @@
     }
     
     return _slimeView;
-}
-
-- (SINavigationMenuView *)sortPoiView
-{
-    if (!_sortPoiView) {
-        CGRect frame = CGRectMake(0, 0, 22.5, 20);
-        _sortPoiView = [[SINavigationMenuView alloc] initWithFrame:frame withImage:@"ic_nav_filter_normal.png"];
-        [_sortPoiView displayMenuInView:self.navigationController.view];
-        _sortPoiView.items = @[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
-        _sortPoiView.delegate = self;
-    }
-    return _sortPoiView;
 }
 
 - (void)filter:(id)sender

@@ -288,6 +288,8 @@
 		D92A489E1A399C5600B00D91 /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92A489D1A399C5600B00D91 /* arrow_down@2x.png */; };
 		D934D8481A4D57BF003AFFCF /* blur_backGround@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */; };
 		D934D84D1A4D7968003AFFCF /* TZFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D934D84C1A4D7968003AFFCF /* TZFilterView.m */; };
+		D934D8501A4E7064003AFFCF /* ic_filter_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D934D84F1A4E7064003AFFCF /* ic_filter_cancel@2x.png */; };
+		D934D8541A4E85D4003AFFCF /* country@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D934D8531A4E85D4003AFFCF /* country@2x.jpg */; };
 		D93696E11A2FFD7E001922F4 /* message_taozi_receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93696E01A2FFD7E001922F4 /* message_taozi_receive@2x.png */; };
 		D93696E41A3002D9001922F4 /* rating_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93696E21A3002D9001922F4 /* rating_star@2x.png */; };
 		D93696E51A3002D9001922F4 /* rating_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93696E31A3002D9001922F4 /* rating_star_gray@2x.png */; };
@@ -514,7 +516,6 @@
 		D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9AFC1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib */; };
 		D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */; };
 		D9AC9B031A1C5F8C00E0C4CE /* ForeignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */; };
-		D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9B041A1C8AAD00E0C4CE /* country.jpg */; };
 		D9AC9B091A1C93BB00E0C4CE /* DestinationUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */; };
 		D9AC9B0C1A1E01B200E0C4CE /* OperationData.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B0B1A1E01B200E0C4CE /* OperationData.m */; };
 		D9AC9BB21A1F2A2300E0C4CE /* WeatherInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BAB1A1F2A2300E0C4CE /* WeatherInfo.m */; };
@@ -1037,6 +1038,8 @@
 		D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blur_backGround@2x.png"; sourceTree = "<group>"; };
 		D934D84B1A4D7968003AFFCF /* TZFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZFilterView.h; sourceTree = "<group>"; };
 		D934D84C1A4D7968003AFFCF /* TZFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZFilterView.m; sourceTree = "<group>"; };
+		D934D84F1A4E7064003AFFCF /* ic_filter_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter_cancel@2x.png"; sourceTree = "<group>"; };
+		D934D8531A4E85D4003AFFCF /* country@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "country@2x.jpg"; sourceTree = "<group>"; };
 		D93696E01A2FFD7E001922F4 /* message_taozi_receive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_taozi_receive@2x.png"; path = "../../resource/2x/message_taozi_receive@2x.png"; sourceTree = "<group>"; };
 		D93696E21A3002D9001922F4 /* rating_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating_star@2x.png"; sourceTree = "<group>"; };
 		D93696E31A3002D9001922F4 /* rating_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating_star_gray@2x.png"; sourceTree = "<group>"; };
@@ -1432,7 +1435,6 @@
 		D9AC9AFF1A1C5F8C00E0C4CE /* ForeignViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignViewController.h; sourceTree = "<group>"; };
 		D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignViewController.m; sourceTree = "<group>"; };
 		D9AC9B011A1C5F8C00E0C4CE /* ForeignViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignViewController.xib; sourceTree = "<group>"; };
-		D9AC9B041A1C8AAD00E0C4CE /* country.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = country.jpg; sourceTree = "<group>"; };
 		D9AC9B071A1C93BB00E0C4CE /* DestinationUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationUnit.h; sourceTree = "<group>"; };
 		D9AC9B081A1C93BB00E0C4CE /* DestinationUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationUnit.m; sourceTree = "<group>"; };
 		D9AC9B0A1A1E01B200E0C4CE /* OperationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationData.h; sourceTree = "<group>"; };
@@ -2532,6 +2534,18 @@
 			name = TripListCommon;
 			sourceTree = "<group>";
 		};
+		D934D84E1A4E7050003AFFCF /* TZFilter */ = {
+			isa = PBXGroup;
+			children = (
+				D934D84F1A4E7064003AFFCF /* ic_filter_cancel@2x.png */,
+				D934D84B1A4D7968003AFFCF /* TZFilterView.h */,
+				D934D84C1A4D7968003AFFCF /* TZFilterView.m */,
+				D93C50EA1A4D282600FFE2FA /* TZFilterViewController.h */,
+				D93C50EB1A4D282600FFE2FA /* TZFilterViewController.m */,
+			);
+			name = TZFilter;
+			sourceTree = "<group>";
+		};
 		D93696F01A301B08001922F4 /* createconversation */ = {
 			isa = PBXGroup;
 			children = (
@@ -3050,10 +3064,7 @@
 				D955E36019E6699700047F2B /* SuperClass */,
 				D98CC6981A19D93400FA5A76 /* TaoziImage.h */,
 				D98CC6991A19D93400FA5A76 /* TaoziImage.m */,
-				D934D84B1A4D7968003AFFCF /* TZFilterView.h */,
-				D934D84C1A4D7968003AFFCF /* TZFilterView.m */,
-				D93C50EA1A4D282600FFE2FA /* TZFilterViewController.h */,
-				D93C50EB1A4D282600FFE2FA /* TZFilterViewController.m */,
+				D934D84E1A4E7050003AFFCF /* TZFilter */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -3852,7 +3863,7 @@
 			children = (
 				D9117A6D1A2C1B58000DBFCB /* trip_name_confirm@2x.png */,
 				D9B476911A24A7140014136C /* test@2x.png */,
-				D9AC9B041A1C8AAD00E0C4CE /* country.jpg */,
+				D934D8531A4E85D4003AFFCF /* country@2x.jpg */,
 			);
 			name = "临时图片文件记得删掉";
 			sourceTree = "<group>";
@@ -4540,7 +4551,6 @@
 				D90C638B19FB44D300C2E440 /* VoiceSearchFeedback016.png in Resources */,
 				D982F9161A073A5100ECF18A /* SearchUserInfoViewController.xib in Resources */,
 				D93C50E51A4AA8E400FFE2FA /* ic_delete_user@2x.png in Resources */,
-				D9AC9B051A1C8AAD00E0C4CE /* country.jpg in Resources */,
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
 				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
@@ -4651,6 +4661,7 @@
 				D964204419EBF42E00CC8057 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D90C636F19FB44D300C2E440 /* VoiceSearchFeedback002.png in Resources */,
 				D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */,
+				D934D8501A4E7064003AFFCF /* ic_filter_cancel@2x.png in Resources */,
 				D90C638719FB44D300C2E440 /* VoiceSearchFeedback014.png in Resources */,
 				D9CC36DB1A38179800E72A7F /* ic_unFavorite@2x.png in Resources */,
 				D90F35FC19F63B3300E26FA9 /* faceDelete.png in Resources */,
@@ -4663,6 +4674,7 @@
 				D9386C521A31A6600085FC36 /* chat_receiver_audio_playing_full@2x.png in Resources */,
 				D90C639719FB44D300C2E440 /* chatBar_more_card@2x.png in Resources */,
 				C63344F21A1C8AA200A27F86 /* OptionOfFASKTableViewCell.xib in Resources */,
+				D934D8541A4E85D4003AFFCF /* country@2x.jpg in Resources */,
 				C6BC348D1A274FEB002C19D3 /* ic_setting_share@2x.png in Resources */,
 				D93C50C61A48214100FFE2FA /* SearchDestinationTableViewCell.xib in Resources */,
 				D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */,

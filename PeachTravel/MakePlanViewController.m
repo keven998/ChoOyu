@@ -116,7 +116,6 @@
         tripDetailCtl.canEdit = YES;
         tripDetailCtl.destinations = self.destinations.destinationsSelected;
         tripDetailCtl.isMakeNewTrip = YES;
-//        [self.navigationController pushViewController:tripDetailCtl animated:YES];
         NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
         [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
         [self.navigationController setViewControllers:array animated:YES];
@@ -178,18 +177,14 @@
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
             [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"搜索失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"搜索失败"];
-//        [SVProgressHUD dismiss];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
