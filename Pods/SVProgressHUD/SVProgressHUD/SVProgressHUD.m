@@ -803,7 +803,7 @@ CGFloat SVProgressHUDRingThickness = 0.5;
     if (spinnerView == nil) {
         spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		spinnerView.hidesWhenStopped = YES;
-		spinnerView.bounds = CGRectMake(0, 0, 15, 15);
+		spinnerView.frame = CGRectMake(0, 0, 12, 12);
         
         if([spinnerView respondsToSelector:@selector(setColor:)]) // setColor is iOS 5+
             spinnerView.color = self.hudForegroundColor;
@@ -848,9 +848,9 @@ CGFloat SVProgressHUDRingThickness = 0.5;
 #endif
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    return [UIColor colorWithWhite:0.25 alpha:0.75];
+    return [UIColor colorWithWhite:0.0 alpha:0.75];
 #else
-    return [UIColor colorWithWhite:0 alpha:0.7];
+    return [UIColor colorWithWhite:0 alpha:0.75];
 #endif
 }
 

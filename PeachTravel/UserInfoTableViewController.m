@@ -183,33 +183,32 @@
         _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
         _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];
         
-        _HUD.detailTextLabel.text = @"0% Complete";
+        _HUD.detailTextLabel.text = nil;
         
-        _HUD.textLabel.text = @"正在上传...";
+        _HUD.textLabel.text = @"正在上传";
         _HUD.layoutChangeAnimationDuration = 0.0;
     }
     return _HUD;
 }
 
 - (void)incrementWithProgress:(float)progress {
-    
-    NSLog(@"%f", progress);
-    [self.HUD setProgress:progress animated:NO];
-    _HUD.detailTextLabel.text = [NSString stringWithFormat:@"%d%% Complete", (int)(progress*100)];
+    _HUD.textLabel.text = [NSString stringWithFormat:@"%d%%", (int)(progress*100)];
+    [self.HUD setProgress:progress animated:YES];
     
     if (progress == 1.0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _HUD.textLabel.text = @"Success";
-            _HUD.detailTextLabel.text = nil;
-            
-            _HUD.layoutChangeAnimationDuration = 0.3;
-            _HUD.indicatorView = [[JGProgressHUDSuccessIndicatorView alloc] init];
-        });
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            _HUD.textLabel.text = @"Success";
+//            _HUD.layoutChangeAnimationDuration = 0.3;
+//            _HUD.indicatorView = [[JGProgressHUDSuccessIndicatorView alloc] init];
             [_HUD dismiss];
             _HUD = nil;
+            [SVProgressHUD showHint:@"修改成功"];
         });
+        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [_HUD dismiss];
+//            _HUD = nil;
+//        });
     }
 }
 

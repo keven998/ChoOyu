@@ -117,7 +117,8 @@
 - (IBAction)login:(UIButton *)sender {
     [self.view endEditing:YES];
     if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
-        [self showHint:@"不输帐号或密码，是没法登录滴"];
+//        [self showHint:@"不输帐号或密码，是没法登录滴"];
+        [SVProgressHUD showHint:@"我要账号和密码"];
         return;
     }
     
@@ -151,7 +152,8 @@
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
-                    [SVProgressHUD dismiss];
+//                    [SVProgressHUD dismiss];
+                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
 //                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
                     [SVProgressHUD showHint:@"登录失败"];

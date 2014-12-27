@@ -126,7 +126,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
 //                    [SVProgressHUD showSuccessWithStatus:@"注册成功"];
-                    [SVProgressHUD showHint:@"OK!注册成功，欢迎加入桃子大家庭"];
+                    [SVProgressHUD showHint:@"注册成功，欢迎加入桃子旅行"];
                 }
             }];
         } else {
