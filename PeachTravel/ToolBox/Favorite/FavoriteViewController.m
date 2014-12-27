@@ -295,7 +295,7 @@
             }
             _currentPage = pageIndex;
             [self bindDataToView:responseObject];
-            if (pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) {
+            if ((pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) && [_urlArray[0] isEqual:faType]) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [self cacheFirstPage];
                 });
