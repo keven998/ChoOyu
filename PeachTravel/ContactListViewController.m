@@ -98,7 +98,15 @@
     self.emptyView.userInteractionEnabled = YES;
     self.emptyView.center = CGPointMake(self.view.frame.size.width/2.0, 160.0);
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(25.0, 0.0, width - 50.0, 32.0)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 20.0, width - 50.0, 16.0)];
+    label1.font = [UIFont systemFontOfSize:13.0];
+    label1.textColor = APP_THEME_COLOR;
+    label1.textAlignment = NSTextAlignmentCenter;
+    label1.textAlignment = NSTextAlignmentLeft;
+    label1.text = @"蜜蜜新标签-桃友";
+    [self.emptyView addSubview:label1];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 36.0, width - 50.0, 16.0)];
     label.font = [UIFont systemFontOfSize:13.0];
     label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
@@ -107,7 +115,7 @@
     [self.emptyView addSubview:label];
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
-    imgView.center = CGPointMake(width*0.30, 55.0);
+    imgView.center = CGPointMake(width*0.30, 75.0);
     [self.emptyView addSubview:imgView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -117,7 +125,7 @@
     btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitle:@"加桃友" forState:UIControlStateNormal];
-    btn.center = CGPointMake(width/2.0, 90.0);
+    btn.center = CGPointMake(width/2.0, 110.0);
     btn.layer.cornerRadius = 2.0;
     btn.clipsToBounds = YES;
     [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
