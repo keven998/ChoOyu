@@ -90,6 +90,7 @@ static NSString *reusableCell = @"myGuidesCell";
                     _enableLoadMore = YES;
                 }
             });
+            [self loadDataWithPageIndex:0];
         } else {
             self.slimeView.loading = YES;
             [self pullToRefreash:nil];
@@ -274,7 +275,7 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
     if ([guideSummary.title isEqualToString:_confirmRouteViewController.routeTitle.text]) {
-        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        [SVProgressHUD showHint:@"修改成功"];
         [self dismissPopup:nil];
         return;
     }

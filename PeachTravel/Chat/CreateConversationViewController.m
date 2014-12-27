@@ -29,7 +29,7 @@
 //是否显示字母索引，当少于15个人的时候不显示
 @property (nonatomic) BOOL showRefrence;
 
-@property (nonatomic, strong)  UIButton *confirm;
+//@property (nonatomic, strong)  UIButton *confirm;
 
 @end
 
@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.title = @"创建会话";
+    self.navigationController.title = @"选择Talk桃友";
     /**
      *  如果联系人的个数大于15，那显示索引，反之不现实
      */
@@ -54,14 +54,18 @@
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-    [_confirm setTitle:@"确定" forState:UIControlStateNormal];
-    _confirm.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
-    _confirm.userInteractionEnabled = NO;
-    _confirm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [_confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
+//    _confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+//    [_confirm setTitle:@"确定" forState:UIControlStateNormal];
+//    _confirm.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//    [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
+//    _confirm.userInteractionEnabled = NO;
+//    _confirm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    [_confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
+    
+    UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(createConversation:)];
+    confirm.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = confirm;
     
     if (!_isPushed) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
@@ -157,9 +161,9 @@
         [self didAddNumberToGroup];
 
     } else {
-        NSLog(@"我选择的聊天好友为：%@", self.selectedContacts);
+//        NSLog(@"我选择的聊天好友为：%@", self.selectedContacts);
         if (self.selectedContacts.count == 0) {
-            [SVProgressHUD showErrorWithStatus:@"一个都不选聊天球啊"];
+            [SVProgressHUD showErrorWithStatus:@"呃~我还不知道你想和谁Talk"];
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             Contact *contact = [self.selectedContacts firstObject];
@@ -190,7 +194,7 @@
                 [weakSelf hideHud];
                 if (group && !error) {
                     NSLog(@"%@", [NSThread currentThread]);
-                    [weakSelf showHint:@"创建群组成功"];
+//                    [weakSelf showHint:@"创建群组成功"];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
@@ -199,7 +203,7 @@
 
                 }
                 else{
-                    [weakSelf showHint:@"创建群组失败，请重新操作"];
+                    [weakSelf showHint:@"吖~好像请求失败了"];
                 }
             } onQueue:nil];
 
@@ -265,7 +269,7 @@
         [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showSuccessWithStatus:@"添加成功"];
+//                [SVProgressHUD showSuccessWithStatus:@"添加成功"];
                 [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
@@ -273,7 +277,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
-            [SVProgressHUD showErrorWithStatus:@"添加失败"];
+            [SVProgressHUD showErrorWithStatus:@"好像请求失败了"];
         }
     });
 }
@@ -305,12 +309,15 @@
         } completion:^(BOOL finished) {
             self.selectContactView.alpha = 0;
         }];
-        [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
-        [_confirm setTitle:[NSString stringWithFormat:@"确定"] forState:UIControlStateNormal];
-
-        _confirm.userInteractionEnabled = NO;
+//        [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
+//        [_confirm setTitle:[NSString stringWithFormat:@"确定"] forState:UIControlStateNormal];
+//        _confirm.userInteractionEnabled = NO;
+        self.navigationItem.rightBarButtonItem.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
+        self.navigationItem.rightBarButtonItem.title = @"确定 ";
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     } else {
-        [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
+//        [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count];
     }
     [self.contactTableView reloadData];
 }
@@ -396,15 +403,19 @@
             } completion:^(BOOL finished) {
                 self.selectContactView.alpha = 1.0;
             }];
-            [_confirm setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-            _confirm.userInteractionEnabled = YES;
+//            [_confirm setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//            _confirm.userInteractionEnabled = YES;
+            
+            self.navigationItem.rightBarButtonItem.tintColor = APP_THEME_COLOR;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
         }
         [self.selectedContacts addObject:contact];
         SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
         [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
         unitView.nickNameLabel.text = contact.nickName;
         [self.selectContactView addSelectUnit:unitView];
-         [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
+//         [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

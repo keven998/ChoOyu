@@ -121,6 +121,7 @@
                     _enableLoadMore = YES;
                 }
             });
+            [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
         } else {
             self.slimeView.loading = YES;
             [self pullToRefreash:nil];
@@ -321,7 +322,7 @@
             }
             
         } else {
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         if (self.slimeView.loading) {
             [self hideSlimeView];
