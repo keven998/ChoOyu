@@ -195,10 +195,11 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 {
     CountryDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     ForeignDestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
-//    [headerView.titleBtn setTitle:country.zhName forState:UIControlStateNormal];
     headerView.titleBtn.text = country.zhName;
-    
     headerView.descLabel.text = country.desc;
+    
+    TaoziImage *image = [country.images firstObject];
+    [headerView.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:[UIImage imageNamed:@"country.jpg"]];
     
     CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName: headerView.descLabel.font}];
     CGRect frame = headerView.descLabel.frame;
@@ -208,9 +209,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     CGRect frame1 = headerView.contentBtn.frame;
     frame1.size.height = frame.origin.y + frame.size.height + 10.0;
     headerView.contentBtn.frame = frame1;
-    
-//    NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width-20)+1;
-//    headerView.descLabel.numberOfLines = lineCount;
+
     if (indexPath.section != _showCitiesIndex) {
         headerView.spaceLineView.hidden = YES;
     } else {
