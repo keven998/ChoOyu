@@ -168,7 +168,6 @@ static NSString *reusableCell = @"myGuidesCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0);
-//        [_tableView setContentOffset:CGPointMake(0, 10)];
         [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
     }
     return _tableView;
@@ -254,12 +253,16 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
-    [self.view addGestureRecognizer:_tapRecognizer];
-    [self presentPopupViewController:_confirmRouteViewController atHeight:170.0 animated:YES completion:nil];
+    [self.navigationController.view addGestureRecognizer:_tapRecognizer];
+    
+    CGFloat y = kWindowHeight-260-176;
+    if (y>100) {
+        y = 100;
+    }
+    [self.navigationController presentPopupViewController:_confirmRouteViewController atHeight:y animated:YES completion:nil];
     _confirmRouteViewController.routeTitle.text = guideSummary.title;
     _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
     [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
-
 }
 
 /**
@@ -285,12 +288,12 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (IBAction)dismissPopup:(id)sender
 {
-    if (self.popupViewController != nil) {
+    if (self.navigationController.popupViewController != nil) {
         if ([_confirmRouteViewController.routeTitle isFirstResponder]) {
             [_confirmRouteViewController.routeTitle resignFirstResponder];
         }
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-            [self.view removeGestureRecognizer:_tapRecognizer];
+        [self.navigationController dismissPopupViewControllerAnimated:YES completion:^{
+            [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
         }];
     }
 }
@@ -310,17 +313,14 @@ static NSString *reusableCell = @"myGuidesCell";
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_DELETE_GUIDE, guideSummary.guideId];
     
     [SVProgressHUD show];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
             [SVProgressHUD showHint:@"OK!成功删除"];
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
@@ -369,7 +369,6 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             [self showHint:@"OK!修改成功"];
             [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:0.3];
 
@@ -383,7 +382,6 @@ static NSString *reusableCell = @"myGuidesCell";
             [self showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self showHint:@"呃～好像没找到网络"];
     }];
@@ -392,7 +390,6 @@ static NSString *reusableCell = @"myGuidesCell";
 /**
  *  获取我的攻略列表
  */
-
 - (void)loadDataWithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -423,7 +420,6 @@ static NSString *reusableCell = @"myGuidesCell";
                 });
             }
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         [self loadMoreCompleted];
@@ -440,7 +436,6 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         [self showHint:@"呃～好像没找到网络"];
     }];
-    
 }
 
 - (void) cacheFirstPage:(id)responseObject {
@@ -457,9 +452,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void) bindDataToView:(id)responseObject
 {
     NSArray *datas = [responseObject objectForKey:@"result"];
-//    if (self.slimeView.loading) {
-//        [self performSelector:@selector(hideSlimeView) withObject:nil afterDelay:0.7];
-//    }
     if (datas.count == 0) {
         if (_currentPage == 0) {
             [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];

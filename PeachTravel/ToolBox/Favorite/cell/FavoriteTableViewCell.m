@@ -15,12 +15,6 @@
     _deleteBtn.alpha = 0;
     self.backgroundColor = APP_PAGE_COLOR;
     self.deleteBtn.layer.cornerRadius = 15.0;
-    
-    _frameView.layer.cornerRadius = 2.0;
-    _frameView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-    _frameView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
-    _frameView.layer.shadowOpacity = 1.0;
-    _frameView.layer.shadowRadius = 0.5;
 
     _standardImageView.clipsToBounds = YES;
     _contentDescExpandView.titleLabel.numberOfLines = 0;

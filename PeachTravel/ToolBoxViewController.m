@@ -734,7 +734,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         notification.alertBody = [NSString stringWithFormat:@"%@:%@", title, messageStr];
     }
     else{
-        notification.alertBody = @"您有一条新桃子消息";
+        notification.alertBody = @"您有一条新消息";
     }
     
     notification.alertAction = @"打开";
@@ -870,6 +870,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     __weak typeof (ToolBoxViewController *)weakSelf = self;
     [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        [accountManager asyncLogout:^(BOOL isSuccess) {
+            if (isSuccess) {
+            } else {
+                [weakSelf showHint:@"退出失败"];
+            }
+        }];
+
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:@"你的账号已在其他地方登录"
                                                            delegate:self
@@ -877,15 +885,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                   otherButtonTitles:nil,
                                   nil];
         alertView.tag = 100;
-        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager asyncLogout:^(BOOL isSuccess) {
-                if (isSuccess) {
-                } else {
-                    [weakSelf showHint:@"退出失败"];
-                }
-            }];
-        }];
+        [alertView show];
     } onQueue:nil];
 }
 
@@ -904,7 +904,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
-
+    
 }
 
 #pragma mark -

@@ -79,14 +79,6 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    [self.context deleteObject:self.account];
-    NSError *error = nil;
-    [self.context save:&error];
-    if (error) {
-        completion(NO);
-        return;
-    }
-
     //如果环信帐号正在登录中，那么退出环信帐号
     if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
         //退出环信聊天系统
@@ -96,14 +88,28 @@
                 return;
             }
             else{
-                completion(YES);
+                [self.context deleteObject:self.account];
+                NSError *error = nil;
+                [self.context save:&error];
+                if (error) {
+                    completion(NO);
+                    return;
+                }
                 _account = nil;
+                completion(YES);
                 [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
             }
         } onQueue:nil];
     } else {
-        completion(YES);
+        [self.context deleteObject:self.account];
+        NSError *error = nil;
+        [self.context save:&error];
+        if (error) {
+            completion(NO);
+            return;
+        }
         _account = nil;
+        completion(YES);
         [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
     }
 }
