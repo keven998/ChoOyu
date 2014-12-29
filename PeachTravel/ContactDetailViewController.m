@@ -132,7 +132,7 @@
     if (contact.signature) {
         _signLabel.text = [NSString stringWithFormat:@"   旅行签名：%@",contact.signature];
     } else {
-        _signLabel.text = [NSString stringWithFormat:@"   旅行签名：未设置签名"];
+        _signLabel.text = [NSString stringWithFormat:@"   旅行签名：no签名"];
         
     }
     [_signPanel addSubview:_signLabel];
