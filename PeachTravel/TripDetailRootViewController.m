@@ -168,12 +168,10 @@
             [self reloadTripData];
             [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"加载失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-//        [SVProgressHUD showErrorWithStatus:@"加载失败"];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -320,18 +318,15 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showErrorWithStatus:@"复制成功"];
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
             [SVProgressHUD showHint:@"已成功复制到旅行Memo"];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"复制失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-//        [SVProgressHUD showErrorWithStatus:@"复制失败"];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
