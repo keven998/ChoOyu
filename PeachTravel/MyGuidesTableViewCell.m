@@ -54,7 +54,7 @@
 - (void)setGuideSummary:(MyGuideSummary *)guideSummary
 {
     _guideSummary = guideSummary;
-    [_titleBtn setTitle:[NSString stringWithFormat:@"%d天", _guideSummary.dayCount] forState:UIControlStateNormal];
+    [_countBtn setTitle:[NSString stringWithFormat:@"%d天", _guideSummary.dayCount] forState:UIControlStateNormal];
     _descLabel.text = _guideSummary.summary;
     TaoziImage *image = [_guideSummary.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];

@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
-//@property (weak, nonatomic) IBOutlet UIButton *editTitleBtn;
 @property (weak, nonatomic) IBOutlet UIButton *countBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UIView *frameView;
