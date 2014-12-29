@@ -38,10 +38,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PushSettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"push_cell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        cell.titleView.text = @"贴心旅行消息推送";
+        cell.titleView.text = @"贴心旅行相关推送";
         [cell.switchButton addTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
     } else if (indexPath.row == 1) {
-        cell.titleView.text = @"桃·Talk消息提醒";
+        cell.titleView.text = @"桃·Talk提醒";
         [cell.switchButton addTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
     }
     return cell;
