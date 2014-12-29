@@ -71,7 +71,6 @@
  */
 - (NSDictionary *)prepareSummaryDataForUpdateBackUpTrip;
 
-
 @end
 
 

@@ -32,6 +32,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString * linkUrl;
 @property (nonatomic) LinkType linkType;
 @property (nonatomic, strong) NSString * cover;
+@property (nonatomic) TZPoiType poiType;
 
 - (id) initWithJsonData:(id)data;
 

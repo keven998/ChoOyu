@@ -535,6 +535,8 @@
 		D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767C1A2468D30014136C /* UIColor+Extension.m */; };
 		D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476891A2475CE0014136C /* RecommendsOfCity.m */; };
 		D9B476921A24A7140014136C /* test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B476911A24A7140014136C /* test@2x.png */; };
+		D9B5EEAA1A51141100D4894B /* AddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */; };
+		D9B5EEAB1A51141100D4894B /* AddressBookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -596,7 +598,6 @@
 		D9E81E801A36EA6400D3BFD0 /* TZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E7F1A36EA6400D3BFD0 /* TZTableViewController.m */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
-		D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7A019FFDBD1003F70F6 /* AddressBook.m */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
 		D9E9F7A519FFDCB9003F70F6 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */; };
 		D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7AA1A00A3C7003F70F6 /* AddContactTableViewController.m */; };
@@ -1474,6 +1475,9 @@
 		D9B476881A2475CE0014136C /* RecommendsOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendsOfCity.h; sourceTree = "<group>"; };
 		D9B476891A2475CE0014136C /* RecommendsOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendsOfCity.m; sourceTree = "<group>"; };
 		D9B476911A24A7140014136C /* test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test@2x.png"; sourceTree = "<group>"; };
+		D9B5EEA71A51141100D4894B /* AddressBookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewCell.h; sourceTree = "<group>"; };
+		D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewCell.m; sourceTree = "<group>"; };
+		D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookTableViewCell.xib; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -1561,8 +1565,6 @@
 		D9E81E7F1A36EA6400D3BFD0 /* TZTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZTableViewController.m; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		D9E9F79F19FFDBD1003F70F6 /* AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBook.h; sourceTree = "<group>"; };
-		D9E9F7A019FFDBD1003F70F6 /* AddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBook.m; sourceTree = "<group>"; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		D9E9F7A91A00A3C7003F70F6 /* AddContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactTableViewController.h; sourceTree = "<group>"; };
@@ -4139,11 +4141,12 @@
 		D9E9F79E19FFDB7C003F70F6 /* Address Book */ = {
 			isa = PBXGroup;
 			children = (
-				D9E9F79F19FFDBD1003F70F6 /* AddressBook.h */,
-				D9E9F7A019FFDBD1003F70F6 /* AddressBook.m */,
 				D9E9F7AE1A00AC6D003F70F6 /* AddressBookTableViewController.h */,
 				D9E9F7AF1A00AC6D003F70F6 /* AddressBookTableViewController.m */,
 				D9E9F7B01A00AC6D003F70F6 /* AddressBookTableViewController.xib */,
+				D9B5EEA71A51141100D4894B /* AddressBookTableViewCell.h */,
+				D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */,
+				D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */,
 			);
 			name = "Address Book";
 			sourceTree = "<group>";
@@ -4645,6 +4648,7 @@
 				C6A0C6B31A3A89A6009D9768 /* ic_layer_edit_done@2x.png in Resources */,
 				D93696FC1A301C0C001922F4 /* chatBar_more_album@2x.png in Resources */,
 				D90F360419F63B3300E26FA9 /* chatBar_faceSelected@2x.png in Resources */,
+				D9B5EEAB1A51141100D4894B /* AddressBookTableViewCell.xib in Resources */,
 				D9CC36D51A380E4E00E72A7F /* traffic_guide_selected@2x.png in Resources */,
 				D90C639B19FB44D300C2E440 /* chatBar_more_face@2x.png in Resources */,
 				D90F35FD19F63B3300E26FA9 /* faceDelete@2x.png in Resources */,
@@ -4865,7 +4869,6 @@
 				C63345001A1C9AF000A27F86 /* ContactListTableViewCell.m in Sources */,
 				C6A0C6CC1A3AD246009D9768 /* TZTBViewController.m in Sources */,
 				D95F8DEC1A42F932003F4275 /* CycleScrollView.m in Sources */,
-				D9E9F7A119FFDBD1003F70F6 /* AddressBook.m in Sources */,
 				D9117A801A2C9C6B000DBFCB /* TZSelectView.m in Sources */,
 				D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */,
 				D9117A791A2C4710000DBFCB /* ChatRecordListTableViewCell.m in Sources */,
@@ -5025,6 +5028,7 @@
 				D90F368119F63ED200E26FA9 /* EmojiEmoticons.m in Sources */,
 				D9A717A51A03B04A005BDEFE /* CreateConversationViewController.m in Sources */,
 				D97C47321A1A3D8F0045E1E1 /* NSString+TaoziString.m in Sources */,
+				D9B5EEAA1A51141100D4894B /* AddressBookTableViewCell.m in Sources */,
 				D9DE34D81A0B1F2500DDCCAB /* ChatScrollView.m in Sources */,
 				D95F8A3D1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				D96550EC1A256CE500928DB0 /* TripDetail.m in Sources */,
@@ -5130,7 +5134,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "10ec3284-9a09-4bfb-a34c-40d847b9865d";
+				PROVISIONING_PROFILE = "b40aec9b-1a7a-40e7-abba-151122c46f0b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -5166,7 +5170,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "10ec3284-9a09-4bfb-a34c-40d847b9865d";
+				PROVISIONING_PROFILE = "b40aec9b-1a7a-40e7-abba-151122c46f0b";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -5200,7 +5204,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "10ec3284-9a09-4bfb-a34c-40d847b9865d";
+				PROVISIONING_PROFILE = "b40aec9b-1a7a-40e7-abba-151122c46f0b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -5233,7 +5237,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "10ec3284-9a09-4bfb-a34c-40d847b9865d";
+				PROVISIONING_PROFILE = "b40aec9b-1a7a-40e7-abba-151122c46f0b";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
@@ -5242,8 +5246,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -5253,10 +5257,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PeachTravelTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "10ec3284-9a09-4bfb-a34c-40d847b9865d";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeachTravel.app/PeachTravel";
 			};
 			name = Debug;
@@ -5265,17 +5269,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PeachTravelTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "10ec3284-9a09-4bfb-a34c-40d847b9865d";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeachTravel.app/PeachTravel";
 			};
 			name = Release;
