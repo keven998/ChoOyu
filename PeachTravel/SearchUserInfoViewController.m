@@ -24,6 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = [_userInfo objectForKey:@"nickName"];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    
     [self showUserInfo:_userInfo];
 }
 
@@ -40,11 +43,11 @@
 }
 
 - (IBAction)addContact:(UIButton *)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"打个招呼吧" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"输入验证信息" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     UITextField *nameTextField = [alert textFieldAtIndex:0];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    nameTextField.text = [NSString stringWithFormat:@"hello,我是%@,加个好友呗", accountManager.account.nickName];
+    nameTextField.text = [NSString stringWithFormat:@"Hi, 我是桃友%@", accountManager.account.nickName];
     [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [self requestAddContactWithHello:nameTextField.text];
@@ -71,7 +74,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[_userInfo objectForKey:@"userId"] forKey:@"userId"];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
-        helloStr = [NSString stringWithFormat:@"hello,我是%@,加个好友呗", accountManager.account.nickName];
+        helloStr = [NSString stringWithFormat:@"Hi, 我是桃友%@", accountManager.account.nickName];
     }
     [params safeSetObject:helloStr forKey:@"message"];
 
@@ -80,9 +83,9 @@
     [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showSuccessWithStatus:@"邀请成功"];
+            [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
             [self.navigationController popViewControllerAnimated:YES];
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];

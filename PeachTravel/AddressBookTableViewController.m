@@ -24,8 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"****%@", [[NSThread currentThread] name]);
-
     AddressBook *addressBook = [[AddressBook alloc] init];
     [addressBook getAllPerson];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:addressBookCell];
