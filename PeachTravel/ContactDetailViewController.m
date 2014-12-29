@@ -37,12 +37,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"桃友信息";
+    self.navigationItem.title = contact.nickName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
     [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
-    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+//    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     self.navigationItem.rightBarButtonItem = moreBarItem;
     
     CGFloat width = self.view.bounds.size.width;
@@ -138,8 +138,9 @@
     [_signPanel addSubview:_signLabel];
     
     
-    _chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 120.0, 30.0)];
-    _chatBtn.backgroundColor = APP_THEME_COLOR;
+    _chatBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 108.0, 30.0)];
+    [_chatBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    _chatBtn.clipsToBounds = YES;
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
     _chatBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
@@ -182,6 +183,10 @@
 - (void) dealloc {
     _scrollView.delegate = nil;
     _scrollView = nil;
+    
+    [blurImageProcessor cancelAsyncBlurOperations];
+    blurImageProcessor = nil;
+    _bigHeaderView = nil;
 }
 
 #pragma - mark IBAction

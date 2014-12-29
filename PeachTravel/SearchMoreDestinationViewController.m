@@ -38,7 +38,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"发送目的地";
+    self.navigationItem.title = @"发送地点";
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
         UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
         positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
@@ -360,7 +360,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [self dismissPopup];
     
-    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     
 }
 

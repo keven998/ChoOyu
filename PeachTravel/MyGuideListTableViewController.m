@@ -59,13 +59,17 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"旅行Memo";
+    if (_selectToSend) {
+        self.navigationItem.title = @"发送Memo";
+    } else {
+        self.navigationItem.title = @"旅行Memo";
+        UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
+        mp.tintColor = APP_THEME_COLOR;
+        self.navigationItem.rightBarButtonItem = mp;
+    }
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
-    mp.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = mp;
     
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
@@ -535,7 +539,7 @@ static NSString *reusableCell = @"myGuidesCell";
      [self.navigationController pushViewController:chatCtl animated:YES];
      */
     
-    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     
 }
 

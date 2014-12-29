@@ -48,7 +48,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         self.navigationItem.title = @"相关游记";
         [self loadDataWithPageNo:_currentPage andKeyWork:nil];
     } else {
-        self.navigationItem.title = @"搜索游记";
+        self.navigationItem.title = @"发送游记";
         self.enableLoadingMore = NO;
     }
 }
@@ -69,7 +69,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kWindowWidth, 40)];
         _searchBar.searchBarStyle = UISearchBarStyleProminent;
         _searchBar.delegate = self;
-        [_searchBar setPlaceholder:@"请输入游记名称"];
+        [_searchBar setPlaceholder:@"游记名、景点、城市名等"];
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _searchBar.translucent = YES;
@@ -122,7 +122,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
             } else {
                 if (pageNo > 0){
                     self.enableLoadingMore = NO;
-                    [self showHint:@"没有了,别强求~"];
+                    [self showHint:@"没有了~"];
                 }
             }
         } else {
@@ -151,7 +151,12 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)beginLoadingMore {
     [super beginLoadingMore];
     if (_isSearch) {
-        [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
+        NSString *text = _searchBar.text;
+        if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
+            [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
+        } else {
+            [self loadMoreCompleted];
+        }
     } else {
         [self loadDataWithPageNo:_currentPage + 1 andKeyWork:nil];
     }
@@ -237,7 +242,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 {
     [self.dataSource removeAllObjects];
     _currentPage = 0;
-    [self loadDataWithPageNo:_currentPage andKeyWork:searchBar.text];
+//    [self loadDataWithPageNo:_currentPage andKeyWork:searchBar.text];
+    if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
+        [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
+    }
 }
 
 #pragma mark - TaoziMessageSendDelegate
@@ -247,7 +255,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 {
     [self dismissPopup];
     
-    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     
 }
 

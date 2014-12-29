@@ -80,7 +80,12 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"收藏夹";
+    if (_selectToSend) {
+        self.navigationItem.title = @"发送收藏";
+    } else {
+        self.navigationItem.title = @"收藏夹";
+    }
+    
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
