@@ -10,8 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Accelerate/Accelerate.h>
 
-CGFloat const kRNGridMenuDefaultDuration = 0.25f;
-CGFloat const kRNGridMenuDefaultBlur = 0.3f;
+CGFloat const kRNGridMenuDefaultDuration = 0.5f;
+CGFloat const kRNGridMenuDefaultBlur = 0.15f;
 CGFloat const kRNGridMenuDefaultWidth = 280;
 
 #pragma mark - Functions
@@ -202,7 +202,6 @@ CGPoint RNCentroidOfTouchesInView(NSSet *touches, UIView *view) {
     if (self = [super init]) {
         self.backgroundColor = [UIColor clearColor];
 
-
         _imageView = [[UIImageView alloc] init];
         _imageView.backgroundColor = [UIColor clearColor];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -337,17 +336,17 @@ static RNGridMenu *rn_visibleGridMenu;
 - (instancetype)initWithItems:(NSArray *)items {
     if ((self = [super init])) {
         _itemSize = CGSizeMake(100.f, 100.f);
-        _cornerRadius = 8.f;
+        _cornerRadius = 0.f;
         _blurLevel = kRNGridMenuDefaultBlur;
         _animationDuration = kRNGridMenuDefaultDuration;
-        _itemTextColor = [UIColor whiteColor];
-        _itemFont = [UIFont systemFontOfSize:14.f];
-        _highlightColor = [UIColor colorWithRed:.02f green:.549f blue:.961f alpha:1.f];
+        _itemTextColor = TEXT_COLOR_TITLE;
+        _itemFont = [UIFont systemFontOfSize:13.f];
+        _highlightColor = nil;
         _menuStyle = RNGridMenuStyleGrid;
         _itemTextAlignment = NSTextAlignmentCenter;
         _menuView = [UIView new];
         _bounces = YES;
-        self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+        self.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
 
         BOOL hasImages = [items filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(RNGridMenuItem *item, NSDictionary *bindings) {
             return item.image != nil;
@@ -614,8 +613,6 @@ static RNGridMenu *rn_visibleGridMenu;
     
     [self rn_addToParentViewController:parentViewController callingAppearanceMethods:YES];
     self.menuCenter = [self.view convertPoint:center toView:self.view];
-    
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
     
     self.view.frame = parentViewController.view.bounds;
 

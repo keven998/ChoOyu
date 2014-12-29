@@ -18,7 +18,7 @@
     self.countBtn.layer.borderWidth = 2.0;
     self.countBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.deleteBtn.layer.cornerRadius = 15.0;
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

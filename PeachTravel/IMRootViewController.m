@@ -81,7 +81,7 @@
                        ];
     
     _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    _av.backgroundColor = [UIColor clearColor];
+//    _av.backgroundColor = [UIColor whiteColor];
     _av.delegate = self;
     [_av showInViewController:self.navigationController center:CGPointMake(self.navigationController.view.bounds.size.width/2.f, self.navigationController.view.bounds.size.height/2.f)];
 }

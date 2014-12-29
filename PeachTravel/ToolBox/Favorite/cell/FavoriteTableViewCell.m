@@ -23,6 +23,8 @@
     _contentDescExpandView.clipsToBounds = YES;
     _contentDescExpandView.selected = NO;
     [_contentDescExpandView.titleLabel sizeToFit];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setIsEditing:(BOOL)isEditing
