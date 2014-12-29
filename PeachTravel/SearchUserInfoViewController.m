@@ -9,6 +9,7 @@
 #import "SearchUserInfoViewController.h"
 #import "TZCMDChatHelper.h"
 #import "AccountManager.h"
+#import "ConvertMethods.h"
 
 @interface SearchUserInfoViewController ()
 
@@ -17,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *signatureSimLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *cardView;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 
 @end
 
@@ -26,14 +29,28 @@
     [super viewDidLoad];
     self.navigationItem.title = [_userInfo objectForKey:@"nickName"];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    _cardView.layer.cornerRadius = 2.0;
+    _cardView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+    _cardView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
+    _cardView.layer.shadowOpacity = 1.0;
+    _cardView.layer.shadowRadius = 0.5;
+
+    _signatureSimLabel.titleLabel.numberOfLines = 2.0;
+    _signatureSimLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _signatureSimLabel.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    
+    [_addButton setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [_addButton setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
+    [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _addButton.layer.cornerRadius = 2.0;
     
     [self showUserInfo:_userInfo];
 }
 
 - (void)showUserInfo:(NSDictionary *)userInfo
 {
-    _avatarImageFrame.layer.cornerRadius = 48.0;
-    _avatarImageView.layer.cornerRadius = 45.0;
+    _avatarImageFrame.layer.cornerRadius = 34.0;
+    _avatarImageView.layer.cornerRadius = 31.0;
     _avatarImageView.clipsToBounds = YES;
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[userInfo objectForKey:@"avatar"]] placeholderImage:nil];
     _nickNameLabel.text = [userInfo objectForKey:@"nickName"];

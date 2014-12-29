@@ -106,8 +106,8 @@
     label1.text = @"蜜蜜新标签-桃友";
     [self.emptyView addSubview:label1];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 36.0, width - 50.0, 16.0)];
-    label.font = [UIFont systemFontOfSize:13.0];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 38.0, width - 50.0, 16.0)];
+    label.font = [UIFont systemFontOfSize:12.0];
     label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
@@ -115,7 +115,7 @@
     [self.emptyView addSubview:label];
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
-    imgView.center = CGPointMake(width*0.30, 75.0);
+    imgView.center = CGPointMake(width*0.33, 75.0);
     [self.emptyView addSubview:imgView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -125,7 +125,7 @@
     btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitle:@"加桃友" forState:UIControlStateNormal];
-    btn.center = CGPointMake(width/2.0, 110.0);
+    btn.center = CGPointMake(width/2.0, 114.0);
     btn.layer.cornerRadius = 2.0;
     btn.clipsToBounds = YES;
     [btn addTarget:self action:@selector(addUserContact:) forControlEvents:UIControlEventTouchUpInside];
@@ -316,7 +316,7 @@
         if (contact.signature) {
             cell.phoneLabel.text = contact.signature;
         } else {
-            cell.phoneLabel.text = @"未设置签名";
+            cell.phoneLabel.text = @"no签名";
         }
         return cell;
     }

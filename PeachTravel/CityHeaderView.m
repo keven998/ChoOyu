@@ -337,10 +337,9 @@
     
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
+        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
             for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
                 [tempArray addObject:[imageDic objectForKey:@"url"]];
