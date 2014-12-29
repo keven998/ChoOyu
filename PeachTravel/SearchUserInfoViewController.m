@@ -42,6 +42,7 @@
     [_addButton setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_addButton setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR_HIGHLIGHT] forState:UIControlStateHighlighted];
     [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_addButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _addButton.layer.cornerRadius = 2.0;
     
     [self showUserInfo:_userInfo];
