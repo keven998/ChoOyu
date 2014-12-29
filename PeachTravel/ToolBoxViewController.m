@@ -211,6 +211,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     [super viewWillDisappear:animated];
     if (!(!_operationDataArray || _operationDataArray.count == 0)) {
+        [_galleryPageView.scrollView setContentOffset:CGPointZero];
         [_galleryPageView.animationTimer pauseTimer];
     }
 }
