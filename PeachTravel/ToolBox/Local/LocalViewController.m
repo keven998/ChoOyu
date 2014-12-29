@@ -450,8 +450,6 @@
     [self.locationManager stopUpdatingLocation];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self performSelector:@selector(stopRefreashWithStatus:) withObject:@"获取当前位置失败" afterDelay:0.8];
-//    if (_location != nil && _dataSource) {
-//    }
 }
 
 - (void)stopRefreashWithStatus:(NSString *)msg {

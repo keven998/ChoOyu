@@ -50,7 +50,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.tintColor = APP_THEME_COLOR;
-    _rootCtl.navigationItem.rightBarButtonItem = makePlanBtn;
+    self.navigationItem.rightBarButtonItem = makePlanBtn;
 }
 
 #pragma mark - setter & getter

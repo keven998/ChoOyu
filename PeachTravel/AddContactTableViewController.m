@@ -27,6 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
+
 @end
 
 @implementation AddContactTableViewController
@@ -38,10 +39,6 @@
     self.navigationItem.title = @"加桃友";
     
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
-
-//    _searchBar.backgroundColor = APP_PAGE_COLOR;
-//    _searchBar.tintColor = [UIColor redColor];
-//    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
     
 }
 
