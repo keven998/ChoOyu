@@ -18,11 +18,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <searchBar key="tableHeaderView" contentMode="redraw" placeholder="用户昵称、手机号" id="ENa-kd-BSx">
+            <color key="sectionIndexBackgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <searchBar key="tableHeaderView" contentMode="redraw" placeholder="用户昵称、手机号" translucent="NO" backgroundImage="app_background.png" id="ENa-kd-BSx">
                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                <textInputTraits key="textInputTraits"/>
+                <color key="barTintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                 <connections>
                     <outlet property="delegate" destination="-1" id="yua-nN-VRX"/>
                 </connections>
@@ -43,4 +44,7 @@
             </connections>
         </searchDisplayController>
     </objects>
+    <resources>
+        <image name="app_background.png" width="25" height="14"/>
+    </resources>
 </document>

@@ -30,7 +30,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [SVProgressHUD showWithStatus:@"正在加载通讯录"];
+//    [SVProgressHUD showWithStatus:@"正在加载通讯录"];
+    [SVProgressHUD show];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark - setter & getter
