@@ -95,7 +95,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             for (id json in [responseObject objectForKey:@"result"]) {
@@ -105,12 +104,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             }
             [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD dismiss];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
@@ -209,7 +206,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
     HotDestinationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [cell.cellImageView sd_setImageWithURL:[NSURL URLWithString:recommend.cover] placeholderImage:nil];
-    cell.cellTitleLabel.text = recommend.zhName;
+    cell.cellTitleLabel.text = recommend.title;
     cell.cellDescLabel.text = recommend.desc;
     return cell;
 }

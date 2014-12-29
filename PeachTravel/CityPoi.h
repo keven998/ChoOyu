@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "SuperPoi.h"
 #import "RecommendsOfCity.h"
 
 @interface CityPoi : NSObject<NSCoding>

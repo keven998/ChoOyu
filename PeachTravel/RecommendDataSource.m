@@ -31,12 +31,17 @@
 - (id) initWithJsonData:(id)data {
     if (self = [super init]) {
         _recommondId = [data objectForKey:@"id"];
-        _zhName = [data objectForKey:@"zhName"];
-        _enName = [data objectForKey:@"enName"];
+        _title = [data objectForKey:@"title"];
         _desc = [data objectForKey:@"desc"];
         _linkType = [[data objectForKey:@"linkType"] integerValue];
+        if ([[data objectForKey:@"linkType"] isEqualToString:@"app"]) {
+            _linkType = LinkNative;
+        } else if ([[data objectForKey:@"linkType"] isEqualToString:@"html"]) {
+            _linkType = LinkHtml;
+        }
         _linkUrl = [data objectForKey:@"linkUrl"];
         _cover = [data objectForKey:@"cover"];
+        
     }
     return self;
 }

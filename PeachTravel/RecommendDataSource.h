@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "SuperPoi.h"
-
 typedef enum : NSUInteger {
     LinkNative = 1,
     LinkHtml,
@@ -29,8 +27,7 @@ typedef enum : NSUInteger {
 @interface Recommend : NSObject
 
 @property (nonatomic, strong) NSString * recommondId;
-@property (nonatomic, strong) NSString * zhName;
-@property (nonatomic, strong) NSString * enName;
+@property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * desc;
 @property (nonatomic, strong) NSString * linkUrl;
 @property (nonatomic) LinkType linkType;

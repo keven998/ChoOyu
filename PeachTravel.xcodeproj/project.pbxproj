@@ -377,7 +377,6 @@
 		D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35419E65D1B00047F2B /* DomesticDestinationCell.m */; };
 		D955E35719E65D1B00047F2B /* DomesticDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E35519E65D1B00047F2B /* DomesticDestinationCell.xib */; };
 		D955E35B19E6634100047F2B /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E35A19E6634100047F2B /* Destinations.m */; };
-		D955E36319E669B000047F2B /* SuperPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E36219E669AF00047F2B /* SuperPoi.m */; };
 		D955E39E19E6B69100047F2B /* ForeignDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E39C19E6B69100047F2B /* ForeignDestinationCell.m */; };
 		D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */; };
 		D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D955E3B319E7A09200047F2B /* AccountManagerViewController.m */; };
@@ -1232,8 +1231,6 @@
 		D955E35519E65D1B00047F2B /* DomesticDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticDestinationCell.xib; sourceTree = "<group>"; };
 		D955E35919E6634100047F2B /* Destinations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Destinations.h; sourceTree = "<group>"; };
 		D955E35A19E6634100047F2B /* Destinations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Destinations.m; sourceTree = "<group>"; };
-		D955E36119E669AF00047F2B /* SuperPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPoi.h; sourceTree = "<group>"; };
-		D955E36219E669AF00047F2B /* SuperPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperPoi.m; sourceTree = "<group>"; };
 		D955E39B19E6B69100047F2B /* ForeignDestinationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignDestinationCell.h; sourceTree = "<group>"; };
 		D955E39C19E6B69100047F2B /* ForeignDestinationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignDestinationCell.m; sourceTree = "<group>"; };
 		D955E39D19E6B69100047F2B /* ForeignDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCell.xib; sourceTree = "<group>"; };
@@ -3072,8 +3069,6 @@
 		D955E36019E6699700047F2B /* SuperClass */ = {
 			isa = PBXGroup;
 			children = (
-				D955E36119E669AF00047F2B /* SuperPoi.h */,
-				D955E36219E669AF00047F2B /* SuperPoi.m */,
 				D94772D41A31E49600BF9F8B /* TZViewController.h */,
 				D94772D51A31E49600BF9F8B /* TZViewController.m */,
 				D9E81E7E1A36EA6400D3BFD0 /* TZTableViewController.h */,
@@ -4814,7 +4809,6 @@
 				D9B476851A2468D30014136C /* SIMenuTable.m in Sources */,
 				D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */,
 				C6BEEE411A31D8E5009C1027 /* CityCardReusableView.m in Sources */,
-				D955E36319E669B000047F2B /* SuperPoi.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
 				D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */,
 				D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */,
