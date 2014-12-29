@@ -30,8 +30,9 @@
 
 - (id) initWithJsonData:(id)data {
     if (self = [super init]) {
-        _recommondId = [data objectForKey:@"id"];
+        _recommondId = [data objectForKey:@"itemId"];
         _title = [data objectForKey:@"title"];
+        
         _desc = [data objectForKey:@"desc"];
         _linkType = [[data objectForKey:@"linkType"] integerValue];
         if ([[data objectForKey:@"linkType"] isEqualToString:@"app"]) {

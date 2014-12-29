@@ -26,10 +26,10 @@ typedef enum : NSUInteger {
 
 @interface Recommend : NSObject
 
-@property (nonatomic, strong) NSString * recommondId;
-@property (nonatomic, strong) NSString * title;
-@property (nonatomic, strong) NSString * desc;
-@property (nonatomic, strong) NSString * linkUrl;
+@property (nonatomic, strong) NSString *recommondId;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *desc;
+@property (nonatomic, strong) NSString *linkUrl;
 @property (nonatomic) LinkType linkType;
 @property (nonatomic, strong) NSString * cover;
 @property (nonatomic) TZPoiType poiType;

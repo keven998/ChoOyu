@@ -20,6 +20,7 @@
 #import "CycleScrollView.h"
 #import "NSTimer+Addition.h"
 #import "TZButton.h"
+#import "SuperWebViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -244,6 +245,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     };
     
     _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
+        NSLog(@"点击了第%d个", pageIndex);
+        OperationData *data = [weakSelf.operationDataArray objectAtIndex:pageIndex];
+        SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+        webCtl.titleStr = data.title;
+        webCtl.urlStr = data.linkUrl;
+        [weakSelf.rootCtl.navigationController pushViewController:webCtl animated:YES];
     };
     
     if (!self.weatherInfo) {

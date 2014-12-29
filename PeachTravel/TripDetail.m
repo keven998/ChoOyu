@@ -174,7 +174,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO);
     }];
-
 }
 
 /**

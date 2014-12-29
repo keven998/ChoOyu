@@ -14,8 +14,9 @@
 {
     if (self = [super init]) {
         _imageUrl = [json objectForKey:@"cover"];
-        _content = [json objectForKey:@"title"];
+        _title = [json objectForKey:@"title"];
         _linkUrl = [json objectForKey:@"link"];
+        _operationId = [json objectForKey:@"id"];
     }
     return self;
 }
