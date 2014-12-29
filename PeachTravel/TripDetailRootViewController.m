@@ -105,26 +105,30 @@
  */
 - (void)goBack
 {
-    if (self.tripDetail.tripIsChange) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"路线发生变化，真的不保存吗" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
-        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 0) {
-                [self dismissCtl];
-            }
-            if (buttonIndex == 1) {
-                [self.tripDetail saveTrip:^(BOOL isSuccesss) {
-                    if (isSuccesss) {
-                        [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
-                        [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
-                    } else {
-                        [SVProgressHUD showErrorWithStatus:@"保存失败"];
-                    }
-                }];
-            }
-        }];
+    if (_tripDetail) {
+        if (self.tripDetail.tripIsChange) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"路线发生变化，真的不保存吗" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
+            [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+                if (buttonIndex == 0) {
+                    [self dismissCtl];
+                }
+                if (buttonIndex == 1) {
+                    [self.tripDetail saveTrip:^(BOOL isSuccesss) {
+                        if (isSuccesss) {
+                            [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
+                            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
+                        } else {
+                            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+                        }
+                    }];
+                }
+            }];
+        } else {
+            [self showHint:@"已保存到\"旅行memo\""];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
+        }
     } else {
-        [self showHint:@"已保存到\"旅行memo\""];
-        [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
+        [self dismissCtl];
     }
 }
 

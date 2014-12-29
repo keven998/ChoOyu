@@ -311,28 +311,34 @@
     [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     [params safeSetObject:faType forKey:@"faType"];
     
+    //加载前备份一些，如果加载后用户已经切换界面了，那么就不加载了
+    NSString *backupTypeForCheck = faType;
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            if (pageIndex == 0) {
-                [self.dataSource removeAllObjects];
+        if ([_currentFavoriteType isEqualToString:backupTypeForCheck]) {
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                if (pageIndex == 0) {
+                    [self.dataSource removeAllObjects];
+                }
+                _currentPage = pageIndex;
+                [self bindDataToView:responseObject];
+                if ((pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) && [_urlArray[0] isEqual:faType]) {
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        [self cacheFirstPage];
+                    });
+                }
+            } else {
             }
-            _currentPage = pageIndex;
-            [self bindDataToView:responseObject];
-            if ((pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) && [_urlArray[0] isEqual:faType]) {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [self cacheFirstPage];
-                });
+            if (self.slimeView.loading) {
+                [self hideSlimeView];
             }
-            
+            [self loadMoreCompleted];
+
         } else {
-//            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            NSLog(@"用户切换界面了，我不需要加载了");
         }
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
-        }
-        [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

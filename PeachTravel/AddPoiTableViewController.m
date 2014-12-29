@@ -28,7 +28,6 @@
 @property (nonatomic) NSUInteger currentPage;
 
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UISearchDisplayController *searchController;
 
 @property (nonatomic, copy) NSString *requestUrl;
 
@@ -66,7 +65,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     self.tableView.tableHeaderView = self.searchBar;
     
     UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-//    [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
     finishBtn.layer.cornerRadius = 2.0;
     finishBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
@@ -84,7 +82,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
     
     _currentPage = 0;
-    [SVProgressHUD show];
     [self loadDataWithPageNo:_currentPage];
 }
 
@@ -101,21 +98,8 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _searchBar.translucent = YES;
-        _searchController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
-        _searchController.active = NO;
-        _searchController.searchResultsDataSource = self;
-        _searchController.searchResultsDelegate = self;
-
     }
     return _searchBar;
-}
-
-- (NSMutableArray *)searchResultArray
-{
-    if (!_searchResultArray) {
-        _searchResultArray = [[NSMutableArray alloc] init];
-    }
-    return _searchResultArray;
 }
 
 - (TZFilterViewController *)filterCtl
@@ -199,16 +183,24 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     [params setObject:[NSNumber numberWithInt:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     
+    NSString *backUrlForCheck = _requestUrl;
+    [SVProgressHUD show];
+
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            for (id poiDic in [responseObject objectForKey:@"result"]) {
-                [self.dataSource addObject:[[TripPoi alloc] initWithJson:poiDic]];
-                [self.tableView reloadData];
+            if ([backUrlForCheck isEqualToString:_requestUrl]) {
+                for (id poiDic in [responseObject objectForKey:@"result"]) {
+                    [self.dataSource addObject:[[TripPoi alloc] initWithJson:poiDic]];
+                    [self.tableView reloadData];
+                }
+                _currentPage = pageNo;
+            } else {
+                NSLog(@"用户切换页面了，我不应该加载数据");
             }
-            _currentPage = pageNo;
+            
             [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
