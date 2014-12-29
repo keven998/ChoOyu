@@ -279,37 +279,43 @@
 - (void)setupSubviews
 {
     CGFloat allButtonWidth = 0.0;
-    CGFloat textViewLeftMargin = 6.0;
+    CGFloat textViewLeftMargin = 0.0;
     
     //转变输入样式
-    self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(kHorizontalPadding, kVerticalPadding, kInputTextViewMinHeight, kInputTextViewMinHeight)];
+    self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kInputTextViewMinHeight + 2*kHorizontalPadding, kInputTextViewMinHeight + 2*kVerticalPadding)];
     self.styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.styleChangeButton setImage:[UIImage imageNamed:@"chatBar_record"] forState:UIControlStateNormal];
     [self.styleChangeButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
+//    self.styleChangeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    self.styleChangeButton.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
     [self.styleChangeButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.styleChangeButton.tag = 0;
     allButtonWidth += CGRectGetMaxX(self.styleChangeButton.frame);
     textViewLeftMargin += CGRectGetMaxX(self.styleChangeButton.frame);
     
     //更多
-    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - kHorizontalPadding - kInputTextViewMinHeight, kVerticalPadding, kInputTextViewMinHeight, kInputTextViewMinHeight)];
+    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - kInputTextViewMinHeight - 1.5*kHorizontalPadding, 0, kInputTextViewMinHeight + 1.5*kHorizontalPadding, kInputTextViewMinHeight + 2*kVerticalPadding)];
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more"] forState:UIControlStateNormal];
-    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
+//    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
     [self.moreButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
     [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0.5*kHorizontalPadding, 0, 0);
+    self.moreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.moreButton.tag = 2;
-    allButtonWidth += CGRectGetWidth(self.moreButton.frame) + kHorizontalPadding * 2.5;
+    allButtonWidth += CGRectGetWidth(self.moreButton.frame);
     
     //表情
-    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.moreButton.frame) - kInputTextViewMinHeight - kHorizontalPadding, kVerticalPadding, kInputTextViewMinHeight, kInputTextViewMinHeight)];
+    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.moreButton.frame) - kInputTextViewMinHeight - 1.5*kHorizontalPadding, 0, kInputTextViewMinHeight + 1.5*kHorizontalPadding, kInputTextViewMinHeight + 2*kVerticalPadding)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
-    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
+//    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
     [self.faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
     [self.faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.faceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
     self.faceButton.tag = 1;
-    allButtonWidth += CGRectGetWidth(self.faceButton.frame) + kHorizontalPadding * 1.5;
+    allButtonWidth += CGRectGetWidth(self.faceButton.frame);
     
     
     // 输入框的高度和宽度
