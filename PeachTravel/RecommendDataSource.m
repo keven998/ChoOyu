@@ -39,6 +39,23 @@
         } else if ([[data objectForKey:@"linkType"] isEqualToString:@"html"]) {
             _linkType = LinkHtml;
         }
+        
+        if ([[data objectForKey:@"itemType"] isEqualToString:@"vs"]) {
+            _poiType = kSpotPoi;
+        }
+        if ([[data objectForKey:@"itemType"] isEqualToString:@"restaurant"]) {
+            _poiType = kRestaurantPoi;
+        }
+        if ([[data objectForKey:@"itemType"] isEqualToString:@"shopping"]) {
+            _poiType = kShoppingPoi;
+        }
+        if ([[data objectForKey:@"itemType"] isEqualToString:@"hotel"]) {
+            _poiType = kHotelPoi;
+        }
+        if ([[data objectForKey:@"itemType"] isEqualToString:@"locality"]) {
+            _poiType = kCityPoi;
+        }
+
         _linkUrl = [data objectForKey:@"linkUrl"];
         _cover = [data objectForKey:@"cover"];
         
