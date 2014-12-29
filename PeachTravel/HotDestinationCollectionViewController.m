@@ -50,7 +50,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = makePlanBtn;
+    _rootCtl.navigationItem.rightBarButtonItem = makePlanBtn;
 }
 
 #pragma mark - setter & getter
@@ -230,42 +230,42 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.title = recommend.title;
         webCtl.urlStr = recommend.linkUrl;
-        [self.navigationController pushViewController:webCtl animated:YES];
+        [_rootCtl.navigationController pushViewController:webCtl animated:YES];
     }
     if (recommend.linkType == LinkNative) {
         switch (recommend.poiType) {
             case kCityPoi: {
                 CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                [_rootCtl.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 
             case kSpotPoi: {
                 SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
                 ctl.spotId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                [_rootCtl.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 
             case kRestaurantPoi: {
                 RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
                 ctl.restaurantId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                [_rootCtl.navigationController pushViewController:ctl animated:YES];
             }
                 break;
             
             case kShoppingPoi: {
                 ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
                 ctl.shoppingId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                [_rootCtl.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 
             case kHotelPoi: {
                 HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
                 ctl.hotelId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                [_rootCtl.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 

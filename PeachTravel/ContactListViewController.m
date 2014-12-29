@@ -60,7 +60,7 @@
     } else {
         self.notify = NO;
     }
-    if (self.contactTableView.numberOfSections > 0) {
+    if (self.contactTableView.numberOfSections > 0 && _dataSource) {
         NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
         [self.contactTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
@@ -120,7 +120,6 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 32.0);
-//    btn.backgroundColor = UIColorFromRGB(0xee528c);
     [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

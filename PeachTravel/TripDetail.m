@@ -350,7 +350,7 @@
             _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         }
 
-        _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
+        _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"localities"]];
 
         _timeCost = [json objectForKey:@"timeCostDesc"];
     }
