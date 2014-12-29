@@ -137,9 +137,7 @@
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-//        [SVProgressHUD dismiss];
         if (code == 0) {
-//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             [SVProgressHUD showHint:@"修改成功"];
             [accountManager updateUserInfo:_contentTextField.text withChangeType:_changeType];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
@@ -148,7 +146,6 @@
             }
             [self dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"修改失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -88,6 +88,7 @@
 #define API_DELETE_CONTACTS             (BASE_URL @"users/contacts")   //删除好友
 #define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
 #define API_CHANGE_PWD                  (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个桃子用户信息数组
+#define API_UPLOAD_ADDRESSBOOK          (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
 
 //IM相关接口
 #define API_GET_CONTACTS                (BASE_URL @"users/contacts")   //获得联系人列表
@@ -118,8 +119,6 @@
 #define userDidRegistedNoti             @ "userDidRegisted"                //用户完成所有注册登录工作。
 #define userDidLogoutNoti               @ "userDidLogout"               //用户完成所有退出登录工作。
 #define updateUserInfoNoti              @ "updateUserInfo"              //用户信息有更改。
-#define loadedAddressBookNoti           @ "loadedAddressBook"           //通讯录联系人加载完成。
-#define regectLoadAddressBookNoti       @ "regectLoadAddressBook"       //用户拒绝读取通讯录
 #define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
 #define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
 #define updateDestinationsSelectedNoti  @ "updatecontactList"           //更新好友请求列表

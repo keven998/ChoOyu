@@ -8,6 +8,7 @@
 
 #import "AddressBookTableViewController.h"
 #import <AddressBook/AddressBook.h>
+#import "AccountManager.h"
 
 #define addressBookCell    @"addressBookCell"
 
@@ -25,18 +26,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"添加通讯录好友";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:addressBookCell];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    [SVProgressHUD showWithStatus:@"正在加载通讯录"];
+    [self loadContactsInAddrBook];
     [SVProgressHUD show];
-}
-
-- (void) viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
 }
 
 #pragma mark - setter & getter
@@ -49,15 +40,10 @@
     return _dataSource;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark - Private Methods
 
 //  展示所有联系人
--(void)getAllPerson
+-(void)loadContactsInAddrBook
 {
     NSMutableArray *addressBookList = [[NSMutableArray alloc] init];
     CFErrorRef error = NULL;
@@ -72,7 +58,7 @@
             CFErrorRef error = NULL;
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
             NSArray *array = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addressBook));
-            NSInteger index = 0;
+            NSInteger entryId = 0;
             for (int i = 0; i < array.count; i++) {
                 ABRecordRef thisPerson = CFBridgingRetain([array objectAtIndex:i]);
                 NSString *firstName = CFBridgingRelease(ABRecordCopyValue(thisPerson, kABPersonFirstNameProperty));
@@ -83,15 +69,15 @@
                 
                 ABMultiValueRef phoneNumberProperty = ABRecordCopyValue(thisPerson, kABPersonPhoneProperty);
                 NSArray* phoneNumberArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(phoneNumberProperty));
-                for(int y = 0; y< [phoneNumberArray count]; y++){
+                for(int j = 0; j< [phoneNumberArray count]; j++){
                     NSMutableDictionary *onePerson = [[NSMutableDictionary alloc] init];
-                    NSString *phoneNumber = [phoneNumberArray objectAtIndex:y];
+                    NSString *phoneNumber = [phoneNumberArray objectAtIndex:j];
                     [onePerson setObject:name forKey:@"name"];
                     [onePerson setObject:phoneNumber forKey:@"tel"];
-                    [onePerson setObject:[NSNumber numberWithInt:index] forKey:@"entryId"];
-                    [onePerson setObject:[NSNumber numberWithInt:y] forKey:@"sourceId"];
+                    [onePerson setObject:[NSNumber numberWithInt:entryId] forKey:@"entryId"];
+                    [onePerson setObject:[NSNumber numberWithInt:i] forKey:@"sourceId"];
                     [addressBookList addObject:onePerson];
-                    index++;
+                    entryId++;
                 }
                 
                 CFRelease(phoneNumberProperty);
@@ -99,11 +85,42 @@
             NSLog(@"成功读取通讯录");
             CFRelease(addressBook);
             
+            [self uploadAddressBook:addressBookList];
+            
         } else {
         }
     });
     
     CFRelease(addressBook);
+}
+
+- (void)uploadAddressBook:(NSArray *)addressBookList
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:addressBookList forKey:@"contacts"];
+    
+    [manager POST:API_UPLOAD_ADDRESSBOOK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            
+        } else {
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+    }];
+
 }
 
 - (void)dismissCtl
