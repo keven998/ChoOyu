@@ -7,7 +7,7 @@
 //
 
 #import "AddressBookTableViewController.h"
-#import "AddressBook.h"
+#import <AddressBook/AddressBook.h>
 
 #define addressBookCell    @"addressBookCell"
 
@@ -23,13 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    AddressBook *addressBook = [[AddressBook alloc] init];
-    [addressBook getAllPerson];
+    self.navigationItem.title = @"添加通讯录好友";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:addressBookCell];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl) name:regectLoadAddressBookNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadedAddressBook:) name:loadedAddressBookNoti object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,14 +50,54 @@
 
 #pragma mark - Private Methods
 
-- (void)loadedAddressBook:(NSNotification *)noti
+//  展示所有联系人
+-(void)getAllPerson
 {
-    self.dataSource = [noti.userInfo objectForKey:@"addressBook"];
+    NSMutableArray *addressBookList = [[NSMutableArray alloc] init];
+    CFErrorRef error = NULL;
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [SVProgressHUD dismiss];
-        [self.tableView reloadData];
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    NSLog(@"开始读取通讯录");
+    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+        if (granted) {
+            if (ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized) {
+                return ;
+            }
+            CFErrorRef error = NULL;
+            ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+            NSArray *array = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(addressBook));
+            NSInteger index = 0;
+            for (int i = 0; i < array.count; i++) {
+                ABRecordRef thisPerson = CFBridgingRetain([array objectAtIndex:i]);
+                NSString *firstName = CFBridgingRelease(ABRecordCopyValue(thisPerson, kABPersonFirstNameProperty));
+                firstName = firstName != nil?firstName:@"";
+                NSString *lastName =  CFBridgingRelease(ABRecordCopyValue(thisPerson, kABPersonLastNameProperty));
+                lastName = lastName != nil?lastName:@"";
+                NSString *name = [NSString stringWithFormat:@"%@%@", firstName, lastName];
+                
+                ABMultiValueRef phoneNumberProperty = ABRecordCopyValue(thisPerson, kABPersonPhoneProperty);
+                NSArray* phoneNumberArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(phoneNumberProperty));
+                for(int y = 0; y< [phoneNumberArray count]; y++){
+                    NSMutableDictionary *onePerson = [[NSMutableDictionary alloc] init];
+                    NSString *phoneNumber = [phoneNumberArray objectAtIndex:y];
+                    [onePerson setObject:name forKey:@"name"];
+                    [onePerson setObject:phoneNumber forKey:@"tel"];
+                    [onePerson setObject:[NSNumber numberWithInt:index] forKey:@"entryId"];
+                    [onePerson setObject:[NSNumber numberWithInt:y] forKey:@"sourceId"];
+                    [addressBookList addObject:onePerson];
+                    index++;
+                }
+                
+                CFRelease(phoneNumberProperty);
+            }
+            NSLog(@"成功读取通讯录");
+            CFRelease(addressBook);
+            
+        } else {
+        }
     });
+    
+    CFRelease(addressBook);
 }
 
 - (void)dismissCtl
@@ -85,55 +120,5 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@      %@", [self.dataSource[indexPath.row] objectForKey:@"name"],[self.dataSource[indexPath.row] objectForKey:@"phoneNumber"]];
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
-    
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
-*/
 
 @end

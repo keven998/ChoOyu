@@ -94,7 +94,6 @@
         if (code == 0) {
             [self parseSearchResult:[responseObject objectForKey:@"result"]];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
@@ -115,7 +114,6 @@
         } else {
             [_searchBar resignFirstResponder];
             [SVProgressHUD dismiss];
-            
             //如果已经是好友了，进入好友详情界面
             for (Contact *contact in accountManager.account.contacts) {
                 if ([contact.userId integerValue] == userId) {
