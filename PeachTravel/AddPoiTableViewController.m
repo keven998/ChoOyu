@@ -82,7 +82,6 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
     
     _currentPage = 0;
-    [SVProgressHUD show];
     [self loadDataWithPageNo:_currentPage];
 }
 
@@ -185,7 +184,8 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     
     NSString *backUrlForCheck = _requestUrl;
-    
+    [SVProgressHUD show];
+
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
