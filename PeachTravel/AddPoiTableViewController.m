@@ -285,7 +285,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         }
     }
     
-    if (poi.poiType == TripSpotPoi) {
+    if (poi.poiType == kSpotPoi) {
         AddSpotTableViewCell *addSpotCell = [tableView dequeueReusableCellWithIdentifier:addSpotCellIndentifier];
         addSpotCell.tripPoi = poi;
         addSpotCell.shouldEdit = YES;
@@ -300,7 +300,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         return addSpotCell;
     }
     
-    if (poi.poiType == TripRestaurantPoi || poi.poiType == TripShoppingPoi) {
+    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi) {
         PoiSummary *restaurantPoi = [[PoiSummary alloc] init];
         restaurantPoi.poiId = poi.poiId;
         restaurantPoi.zhName = poi.zhName;
@@ -318,7 +318,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         return restaurantCell;
     }
 
-    if (poi.poiType == TripHotelPoi) {
+    if (poi.poiType == kHotelPoi) {
         AddHotelTableViewCell *addHotelCell = [tableView dequeueReusableCellWithIdentifier:addHotelCellIndentifier forIndexPath:indexPath];
         addHotelCell.tripPoi = poi;
         addHotelCell.addBtn.tag = indexPath.row;
@@ -332,27 +332,27 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 {
     TripPoi *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
     switch (tripPoi.poiType) {
-        case TripSpotPoi: {
+        case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
             [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
-        case TripRestaurantPoi: {
+        case kRestaurantPoi: {
             RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.restaurantId = tripPoi.poiId;
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             
             break;
-        case TripShoppingPoi: {
+        case kShoppingPoi: {
             ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
             shoppingDetailCtl.shoppingId = tripPoi.poiId;
             [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
         }
             
             break;
-        case TripHotelPoi:
+        case kHotelPoi:
             
             break;
             

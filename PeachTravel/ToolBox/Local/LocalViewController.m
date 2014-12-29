@@ -235,26 +235,26 @@
 {
     NSString *key;
     NSMutableArray *currentList = [self.dataSource objectAtIndex:realPageIndex];
-    tripPoiType type;
+    TZPoiType type;
     switch (realPageIndex) {
         case PAGE_FUN:
             key = @"vs";
-            type = TripSpotPoi;
+            type = kSpotPoi;
             break;
             
         case PAGE_FOOD:
             key = @"restaurant";
-            type = TripRestaurantPoi;
+            type = kRestaurantPoi;
             break;
             
         case PAGE_SHOPPING:
             key = @"shopping";
-            type = TripShoppingPoi;
+            type = kShoppingPoi;
             break;
             
         case PAGE_STAY:
             key = @"hotel";
-            type = TripHotelPoi;
+            type = kHotelPoi;
             break;
             
         default:

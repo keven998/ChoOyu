@@ -111,10 +111,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     if (!_searchBar) {
         NSString *searchPlaceHolder;
-        if (_poiType == TripRestaurantPoi) {
+        if (_poiType == kRestaurantPoi) {
             searchPlaceHolder = @"请输入美食名字";
         }
-        if (_poiType == TripShoppingPoi) {
+        if (_poiType == kShoppingPoi) {
             searchPlaceHolder = @"请输入购物名字";
         }
         
@@ -145,11 +145,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *requsetUrl;
-    if (_poiType == TripRestaurantPoi) {
+    if (_poiType == kRestaurantPoi) {
          requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
 
     }
-    if (_poiType == TripShoppingPoi) {
+    if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
     }
     
@@ -207,7 +207,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     tripPoi.priceDesc = restaurantPoi.priceDesc;
     tripPoi.desc = restaurantPoi.desc;
     tripPoi.address = restaurantPoi.address;
-    tripPoi.poiType = TripRestaurantPoi;
+    tripPoi.poiType = kRestaurantPoi;
     [self.tripDetail.restaurantsList addObject:tripPoi];
 }
 
@@ -297,12 +297,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    if (_poiType == TripRestaurantPoi) {
+    if (_poiType == kRestaurantPoi) {
         RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.restaurantId = poi.poiId;
         [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
     }
-    if (_poiType == TripShoppingPoi) {
+    if (_poiType == kShoppingPoi) {
         ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
         shoppingDetailCtl.shoppingId = poi.poiId;
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];

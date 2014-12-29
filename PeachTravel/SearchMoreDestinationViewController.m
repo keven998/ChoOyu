@@ -39,7 +39,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"发送目的地";
-    if (_poiType == TripHotelPoi || _poiType == TripRestaurantPoi || _poiType == TripShoppingPoi) {
+    if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
         UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
         positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
 
@@ -85,7 +85,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        if (_poiType == TripHotelPoi || _poiType == TripRestaurantPoi || _poiType == TripShoppingPoi) {
+        if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
 
             _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+50, kWindowWidth-22, kWindowHeight - 114)];
         } else {
@@ -168,7 +168,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.dataSource removeAllObjects];
     for (id dic in [json objectForKey:_poiTypeDesc]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
-        poi.poiType = TripSpotPoi;
+        poi.poiType = kSpotPoi;
         [self.dataSource addObject:poi];
     }
     [self.tableView reloadData];
@@ -228,23 +228,23 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         }
         NSString *desc;
         switch (_poiType) {
-            case tripCityPoi:
+            case kCityPoi:
                 desc = @"相关城市";
                 
                 break;
-            case TripSpotPoi:
+            case kSpotPoi:
                 desc = @"相关景点";
                 
                 break;
-            case TripRestaurantPoi:
+            case kRestaurantPoi:
                 desc = @"相关美食";
                 
                 break;
-            case TripShoppingPoi:
+            case kShoppingPoi:
                 desc = @"相关购物";
                 
                 break;
-            case TripHotelPoi:
+            case kHotelPoi:
                 desc = @"相关酒店";
                 break;
                 
@@ -272,7 +272,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         TripPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
         SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
         
-        if (poi.poiType == TripRestaurantPoi || poi.poiType == TripShoppingPoi || poi.poiType == TripHotelPoi) {
+        if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
             TaoziImage *image = [poi.images firstObject];
             [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
             cell.titleLabel.text = poi.zhName;
@@ -302,26 +302,26 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
         taoziMessageCtl.delegate = self;
         switch (_poiType) {
-            case tripCityPoi:
+            case kCityPoi:
                 taoziMessageCtl.chatType = TZChatTypeCity;
                 
                 break;
-            case TripSpotPoi:
+            case kSpotPoi:
                 taoziMessageCtl.chatType = TZChatTypeSpot;
                 
                 break;
                 
-            case TripRestaurantPoi:
+            case kRestaurantPoi:
                 taoziMessageCtl.chatType = TZChatTypeFood;
                 
                 break;
                 
-            case TripShoppingPoi:
+            case kShoppingPoi:
                 taoziMessageCtl.chatType = TZChatTypeShopping;
                 
                 break;
                 
-            case TripHotelPoi:
+            case kHotelPoi:
                 taoziMessageCtl.chatType = TZChatTypeHotel;
                 
                 break;

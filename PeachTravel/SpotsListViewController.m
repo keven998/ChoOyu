@@ -399,27 +399,27 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     switch (tripPoi.poiType) {
-        case TripSpotPoi: {
+        case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
             [self.rootViewController.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
-        case TripRestaurantPoi: {
+        case kRestaurantPoi: {
             RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.restaurantId = tripPoi.poiId;
             [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             
             break;
-        case TripShoppingPoi: {
+        case kShoppingPoi: {
             ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
             shoppingDetailCtl.shoppingId = tripPoi.poiId;
             [self.rootViewController.navigationController pushViewController:shoppingDetailCtl animated:YES];
         }
             
             break;
-        case TripHotelPoi:
+        case kHotelPoi:
             
             break;
             

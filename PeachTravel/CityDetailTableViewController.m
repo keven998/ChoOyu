@@ -193,7 +193,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = _cityPoi.cityId;
     restaurantOfCityCtl.zhName = _cityPoi.zhName;
-    restaurantOfCityCtl.poiType = TripRestaurantPoi;
+    restaurantOfCityCtl.poiType = kRestaurantPoi;
     
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
@@ -206,7 +206,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.cityId = _cityPoi.cityId;
     shoppingOfCityCtl.zhName = _cityPoi.zhName;
-    shoppingOfCityCtl.poiType = TripShoppingPoi;
+    shoppingOfCityCtl.poiType = kShoppingPoi;
     
     [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
 }

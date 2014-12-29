@@ -127,6 +127,17 @@
 
 #define updateFavoriteListNoti          @"updateFavoriteListView"    //更新收藏列表
 
+
+#pragma mark - ***********各种枚举信息*************
+
+typedef enum : NSUInteger {
+    kSpotPoi = 1,
+    kRestaurantPoi,
+    kShoppingPoi,
+    kHotelPoi,
+    kCityPoi,
+} TZPoiType;
+
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {
     PhoneNumberError = 1,           //手机号号输入非法
@@ -151,6 +162,9 @@ typedef enum : NSUInteger {
 #define    kUserLosePassword     @"2"        //用户忘记密码
 #define    kUserBindTel          @"3"         //用户绑定手机
 
+/**
+ 修改个人信息的类型
+ */
 typedef enum : NSUInteger {
     ChangeName,
     ChangeSignature,

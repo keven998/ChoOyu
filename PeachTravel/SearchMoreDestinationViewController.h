@@ -11,7 +11,7 @@
 
 @interface SearchMoreDestinationViewController : TZViewController
 
-@property (nonatomic) tripPoiType poiType;
+@property (nonatomic) TZPoiType poiType;
 
 @property (nonatomic, copy) NSString *poiTypeDesc;
 

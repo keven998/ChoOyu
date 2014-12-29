@@ -317,16 +317,16 @@
     if (self = [super init]) {
         _poiId = [json objectForKey:@"id"];
         if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
-            _poiType = TripSpotPoi;
+            _poiType = kSpotPoi;
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"restaurant"]) {
-            _poiType = TripRestaurantPoi;
+            _poiType = kRestaurantPoi;
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"shopping"]) {
-            _poiType = TripShoppingPoi;
+            _poiType = kShoppingPoi;
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"hotel"]) {
-            _poiType = TripHotelPoi;
+            _poiType = kHotelPoi;
         }
         
         _zhName = [json objectForKey:@"zhName"];
@@ -378,17 +378,17 @@
     
     NSString *poiTypeStr;
     switch (_poiType) {
-        case TripSpotPoi:
+        case kSpotPoi:
             poiTypeStr = @"vs";
             break;
             
-        case TripRestaurantPoi:
+        case kRestaurantPoi:
             poiTypeStr = @"restaurant";
             break;
-        case TripShoppingPoi:
+        case kShoppingPoi:
             poiTypeStr = @"shopping";
             break;
-        case TripHotelPoi:
+        case kHotelPoi:
             poiTypeStr = @"hotel";
             break;
             
@@ -434,17 +434,17 @@
     
     NSString *poiTypeStr;
     switch (_poiType) {
-        case TripSpotPoi:
+        case kSpotPoi:
             poiTypeStr = @"vs";
             break;
             
-        case TripRestaurantPoi:
+        case kRestaurantPoi:
             poiTypeStr = @"restaurant";
             break;
-        case TripShoppingPoi:
+        case kShoppingPoi:
             poiTypeStr = @"shopping";
             break;
-        case TripHotelPoi:
+        case kHotelPoi:
             poiTypeStr = @"hotel";
             break;
             

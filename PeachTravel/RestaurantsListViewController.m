@@ -143,7 +143,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.delegate = self;
-    restaurantOfCityCtl.poiType = TripRestaurantPoi;
+    restaurantOfCityCtl.poiType = kRestaurantPoi;
     
     restaurantOfCityCtl.shouldEdit = YES;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];

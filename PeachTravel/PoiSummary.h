@@ -12,7 +12,7 @@
 @interface PoiSummary : NSObject
 
 @property (nonatomic, copy) NSString *poiId;
-@property (nonatomic) tripPoiType poiType;
+@property (nonatomic) TZPoiType poiType;
 @property (nonatomic, copy) NSString *poiTypeDesc;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;

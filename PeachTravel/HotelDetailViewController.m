@@ -52,7 +52,7 @@
         if (result == 0) {
             [SVProgressHUD dismiss];
             _hotelPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            _hotelPoi.poiType  = TripHotelPoi;
+            _hotelPoi.poiType  = kHotelPoi;
             [self updateView];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];

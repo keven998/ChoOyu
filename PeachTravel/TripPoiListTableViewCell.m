@@ -50,7 +50,7 @@
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
-    if (_tripPoi.poiType == TripSpotPoi) {
+    if (_tripPoi.poiType == kSpotPoi) {
         NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
         [_property setTitle:timeStr forState:UIControlStateNormal];
         _ratingBackgroundView.hidden = YES;
@@ -59,10 +59,10 @@
         _ratingView.rating = tripPoi.rating;
         
         [_property setImage:nil forState:UIControlStateNormal];
-        if (_tripPoi.poiType == TripRestaurantPoi) {
+        if (_tripPoi.poiType == kRestaurantPoi) {
             [_property setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
         }
-        if (_tripPoi.poiType == TripHotelPoi) {
+        if (_tripPoi.poiType == kHotelPoi) {
             [_property setTitle:@"" forState:UIControlStateNormal];
         }
     }

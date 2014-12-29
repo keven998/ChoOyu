@@ -56,27 +56,27 @@
     return self;
 }
 
-- (void)setPoiType:(tripPoiType)poiType
+- (void)setPoiType:(TZPoiType)poiType
 {
     _poiType = poiType;
     switch (_poiType) {
-        case TripRestaurantPoi:
+        case kRestaurantPoi:
             _poiTypeDesc = @"restaurant";
             break;
             
-        case tripCityPoi:
+        case kCityPoi:
             _poiTypeDesc = @"locality";
             break;
         
-        case TripSpotPoi:
+        case kSpotPoi:
             _poiTypeDesc = @"spot";
             break;
         
-        case TripHotelPoi:
+        case kHotelPoi:
             _poiTypeDesc = @"hotel";
             break;
             
-        case TripShoppingPoi:
+        case kShoppingPoi:
             _poiTypeDesc = @"shopping";
             break;
             

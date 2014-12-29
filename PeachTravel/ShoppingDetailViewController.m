@@ -49,7 +49,7 @@
         NSLog(@"/***获取购物详情数据****\n%@", responseObject);
         if (result == 0) {
             _shoppingPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            _shoppingPoi.poiType = TripShoppingPoi;
+            _shoppingPoi.poiType = kShoppingPoi;
             [self updateView];
             [SVProgressHUD dismiss];
         } else {

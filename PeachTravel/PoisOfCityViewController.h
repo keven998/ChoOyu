@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 
-@property (nonatomic) tripPoiType poiType;
+@property (nonatomic) TZPoiType poiType;
 
 
 @property (nonatomic, assign) id <PoisOfCityDelegate>delegate;

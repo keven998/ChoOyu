@@ -158,13 +158,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableArray *cities = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"loc"]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
-        poi.poiType = tripCityPoi;
+        poi.poiType = kCityPoi;
         [cities addObject:poi];
     }
     if (cities.count > 0) {
         [cityDic setObject:cities forKey:@"content"];
         [self.dataSource addObject:cityDic];
-        [cityDic setObject:[NSNumber numberWithInt:tripCityPoi] forKey:@"type"];
+        [cityDic setObject:[NSNumber numberWithInt:kCityPoi] forKey:@"type"];
     }
     NSMutableDictionary *spotDic = [[NSMutableDictionary alloc] init];
 
@@ -172,12 +172,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableArray *spots = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"vs"]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
-        poi.poiType = TripSpotPoi;
+        poi.poiType = kSpotPoi;
         [spots addObject:poi];
     }
     if (spots.count > 0) {
         [spotDic setObject:spots forKey:@"content"];
-        [spotDic setObject:[NSNumber numberWithInt:TripSpotPoi] forKey:@"type"];
+        [spotDic setObject:[NSNumber numberWithInt:kSpotPoi] forKey:@"type"];
 
         [self.dataSource addObject:spotDic];
     }
@@ -188,12 +188,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableArray *restaurants = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"restaurant"]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
-        poi.poiType = TripRestaurantPoi;
+        poi.poiType = kRestaurantPoi;
         [restaurants addObject:poi];
     }
     if (restaurants.count > 0) {
         [restaurantDic setObject:restaurants forKey:@"content"];
-        [restaurantDic setObject:[NSNumber numberWithInt:TripRestaurantPoi] forKey:@"type"];
+        [restaurantDic setObject:[NSNumber numberWithInt:kRestaurantPoi] forKey:@"type"];
 
         [self.dataSource addObject:restaurantDic];
     }
@@ -204,12 +204,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableArray *shoppingArray = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"shopping"]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
-        poi.poiType = TripShoppingPoi;
+        poi.poiType = kShoppingPoi;
         [shoppingArray addObject:poi];
     }
     if (shoppingArray.count > 0) {
         [shoppingDic setObject:shoppingArray forKey:@"content"];
-        [shoppingDic setObject:[NSNumber numberWithInt:TripShoppingPoi] forKey:@"type"];
+        [shoppingDic setObject:[NSNumber numberWithInt:kShoppingPoi] forKey:@"type"];
 
         [self.dataSource addObject:shoppingDic];
     }
@@ -220,12 +220,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableArray *hotels = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"hotel"]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
-        poi.poiType = TripHotelPoi;
+        poi.poiType = kHotelPoi;
         [hotels addObject:poi];
     }
     if (hotels.count > 0) {
         [hotelDic setObject:hotels forKey:@"content"];
-        [hotelDic setObject:[NSNumber numberWithInt:TripHotelPoi] forKey:@"type"];
+        [hotelDic setObject:[NSNumber numberWithInt:kHotelPoi] forKey:@"type"];
 
         [self.dataSource addObject:hotelDic];
     }
@@ -246,23 +246,23 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     searchMoreCtl.poiType = [[dic objectForKey:@"type"] integerValue];
     NSString *poiTypeDesc;
     switch ([[dic objectForKey:@"type"] integerValue]) {
-        case tripCityPoi:
+        case kCityPoi:
             poiTypeDesc = @"loc";
             
             break;
-        case TripSpotPoi:
+        case kSpotPoi:
             poiTypeDesc = @"vs";
             
             break;
-        case TripRestaurantPoi:
+        case kRestaurantPoi:
             poiTypeDesc = @"restaurant";
             
             break;
-        case TripShoppingPoi:
+        case kShoppingPoi:
             poiTypeDesc = @"shopping";
             
             break;
-        case TripHotelPoi:
+        case kHotelPoi:
             poiTypeDesc = @"hotel";
             break;
             
@@ -357,7 +357,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     TripPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
 
-    if (poi.poiType == TripRestaurantPoi || poi.poiType == TripShoppingPoi || poi.poiType == TripHotelPoi) {
+    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
         TaoziImage *image = [poi.images firstObject];
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         cell.titleLabel.text = poi.zhName;
@@ -379,26 +379,26 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
     switch (poi.poiType) {
-        case tripCityPoi:
+        case kCityPoi:
             taoziMessageCtl.chatType = TZChatTypeCity;
 
             break;
-        case TripSpotPoi:
+        case kSpotPoi:
             taoziMessageCtl.chatType = TZChatTypeSpot;
             
             break;
             
-        case TripRestaurantPoi:
+        case kRestaurantPoi:
             taoziMessageCtl.chatType = TZChatTypeFood;
             
             break;
             
-        case TripShoppingPoi:
+        case kShoppingPoi:
             taoziMessageCtl.chatType = TZChatTypeShopping;
             
             break;
             
-        case TripHotelPoi:
+        case kHotelPoi:
             taoziMessageCtl.chatType = TZChatTypeHotel;
             
             break;

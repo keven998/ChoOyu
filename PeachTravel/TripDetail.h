@@ -41,18 +41,6 @@
 
 @end
 
-/**
- 路线 poi类型
- */
-typedef enum : NSUInteger {
-    TripSpotPoi = 1,
-    TripRestaurantPoi,
-    TripShoppingPoi,
-    TripHotelPoi,
-    tripCityPoi,
-    
-} tripPoiType;
-
 @interface TripPoi : NSObject
 
 
@@ -62,7 +50,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *priceDesc;
 @property (nonatomic, copy) NSString *address;
-@property (nonatomic) tripPoiType poiType;
+@property (nonatomic) TZPoiType poiType;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic) float rating;
 @property (nonatomic, copy) NSString *telephone;
