@@ -44,11 +44,11 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kWindowWidth, 40)];
     _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"请输入城市名或拼音"];
+    [_searchBar setPlaceholder:@"城市、景点、美食购物酒店等"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.translucent = YES;
-    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
+//    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"ic_notify_flag.png"] forState:UIControlStateNormal];
     [_searchBar becomeFirstResponder];
     
     [self.view addSubview:_searchBar];
@@ -138,6 +138,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
+            [SVProgressHUD dismiss];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"搜索失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
@@ -306,7 +307,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (content.count < 5) {
         return 10;
     } else {
-        return 38;
+        return 50;
     }
 }
 
@@ -318,11 +319,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         footerView = [[UIView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 10)];
         footerView.backgroundColor = APP_PAGE_COLOR;
     } else {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 38)];
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 50)];
         footerView.backgroundColor = APP_PAGE_COLOR;
-        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth-22, 28)];
+        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth-22, 40)];
         showMoreBtn.backgroundColor = [UIColor whiteColor];
-        [showMoreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [showMoreBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.8] forState:UIControlStateNormal];
+        [showMoreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
         [showMoreBtn setTitle:@"查看全部结果" forState:UIControlStateNormal];
         showMoreBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         showMoreBtn.tag = section;
@@ -342,8 +344,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
     UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 28)];
-    headerView.textColor = UIColorFromRGB(0x797979);
-    headerView.text = [NSString stringWithFormat:@"   %@",typeDesc];
+    headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    headerView.text = [NSString stringWithFormat:@"   %@", typeDesc];
     headerView.backgroundColor = [UIColor whiteColor];
     headerView.font = [UIFont systemFontOfSize:12.0];
     headerView.layer.cornerRadius = 2.0;

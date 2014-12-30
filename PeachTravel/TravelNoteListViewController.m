@@ -103,6 +103,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
+    [SVProgressHUD show];
+    
     if (_isSearch) {
         [params setObject:keyWord forKey:@"keyWord"];
     } else {
@@ -120,7 +122,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
                 self.enableLoadingMore = YES;
                 _currentPage = pageNo;
             } else {
-                if (pageNo > 0){
+                if (pageNo > 0) {
                     self.enableLoadingMore = NO;
                     [self showHint:@"没有了~"];
                 }
