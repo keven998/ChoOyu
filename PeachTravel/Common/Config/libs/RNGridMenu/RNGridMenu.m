@@ -335,7 +335,7 @@ static RNGridMenu *rn_visibleGridMenu;
 
 - (instancetype)initWithItems:(NSArray *)items {
     if ((self = [super init])) {
-        _itemSize = CGSizeMake(100.f, 100.f);
+        _itemSize = CGSizeMake(90.f, 120.f);
         _cornerRadius = 0.f;
         _blurLevel = kRNGridMenuDefaultBlur;
         _animationDuration = kRNGridMenuDefaultDuration;

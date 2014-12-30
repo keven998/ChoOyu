@@ -29,7 +29,8 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchController;
-
+@property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
+@property (nonatomic, strong) UIView *footerView;
 
 @property (nonatomic, copy) NSString *requestUrl;
 
@@ -46,8 +47,8 @@
 //管理搜索 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageSearch;
 @property (nonatomic, assign) BOOL isLoadingMoreSearch;
-@property (nonatomic, assign) BOOL didEndScrollNormalSearch;
-@property (nonatomic, assign) BOOL enableLoadMoreNormalSearch;
+@property (nonatomic, assign) BOOL didEndScrollSearch;
+@property (nonatomic, assign) BOOL enableLoadMoreSearch;
 
 @property (nonatomic, copy) NSString *searchText;
 
@@ -58,6 +59,16 @@
 static NSString *addSpotCellIndentifier = @"addSpotCell";
 static NSString *addRestaurantCellIndentifier = @"poisOfCity";
 static NSString *addShoppingCellIndentifier = @"poisOfCity";
+
+- (id)init {
+    if (self = [super init]) {
+        _currentPageNormal = 0;
+        _isLoadingMoreNormal = YES;
+        _didEndScrollNormal = YES;
+        _enableLoadMoreNormal = NO;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -100,7 +111,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
     _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
     
-    _currentPageNormal = 0;
     [self loadDataWithPageNo:_currentPageNormal];
 }
 
@@ -138,6 +148,73 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
+}
+
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.backgroundColor = APP_PAGE_COLOR;
+        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [_footerView addSubview:_indicatroView];
+        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+    }
+    return _footerView;
+}
+
+#pragma mark - private methods
+
+/**
+ *  非搜索状态下上拉加载更多
+ */
+- (void) beginLoadingMoreNormal
+{
+    if (self.tableView.tableFooterView == nil) {
+        self.tableView.tableFooterView = self.footerView;
+    }
+    _isLoadingMoreNormal = YES;
+    [_indicatroView startAnimating];
+    [self loadDataWithPageNo:(_currentPageNormal + 1)];
+    
+    NSLog(@"我要加载到第%d",_currentPageNormal+1);
+    
+}
+
+/**
+ *  非搜索状态下加载完成
+ */
+- (void) loadMoreCompletedNormal
+{
+    if (!_isLoadingMoreNormal) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMoreNormal = NO;
+}
+
+/**
+ *  搜索状态下上拉加载更多
+ */
+- (void) beginLoadingSearch
+{
+    if (self.searchController.searchResultsTableView.tableFooterView == nil) {
+        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
+    }
+    _isLoadingMoreSearch = YES;
+    [_indicatroView startAnimating];
+    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
+    
+    NSLog(@"我要加载到第%d",_currentPageSearch+1);
+    
+}
+
+/**
+ *  搜索状态下加载完成
+ */
+- (void) loadMoreCompletedSearch
+{
+    if (!_isLoadingMoreSearch) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMoreSearch = NO;
 }
 
 #pragma mark - IBAction Methods
@@ -187,7 +264,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     } else {
         [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-
 }
 
 - (void)filter:(id)sender
@@ -215,7 +291,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     
     NSString *backUrlForCheck = _requestUrl;
-    [SVProgressHUD show];
     
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -223,6 +298,10 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if ([backUrlForCheck isEqualToString:_requestUrl]) {
+                NSArray *jsonDic = [responseObject objectForKey:@"result"];
+                if (jsonDic.count == 15) {
+                    _enableLoadMoreNormal = YES;
+                }
                 for (id poiDic in [responseObject objectForKey:@"result"]) {
                     [self.dataSource addObject:[[TripPoi alloc] initWithJson:poiDic]];
                 }
@@ -236,9 +315,12 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         } else {
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
+        [self loadMoreCompletedNormal];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [self loadMoreCompletedNormal];
+
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -306,7 +388,11 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                     default:
                         break;
                 }
-                for (id poiDic in [[responseObject objectForKey:@"result"] objectForKey:key]) {
+                NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
+                if (jsonDic.count == 15) {
+                    _enableLoadMoreSearch = YES;
+                }
+                for (id poiDic in jsonDic) {
                     [self.searchResultArray addObject:[[TripPoi alloc] initWithJson:poiDic]];
                 }
                 [self.searchController.searchResultsTableView reloadData];
@@ -314,14 +400,15 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
             } else {
                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             }
+            [self loadMoreCompletedSearch];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [self loadMoreCompletedSearch];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
-
 
 #pragma mark - TZFilterViewDelegate
 - (void)didSelectedItems:(NSArray *)itemIndexPath
@@ -329,6 +416,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     NSInteger filterCityIndex = [[itemIndexPath firstObject] integerValue];
     NSInteger filterPoiIndex = [[itemIndexPath lastObject] integerValue];
     if (_currentListTypeIndex != filterPoiIndex) {
+        _isLoadingMoreNormal = YES;
+        _didEndScrollNormal = YES;
+        _enableLoadMoreNormal = NO;
         _currentListTypeIndex = filterPoiIndex;
         CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
         _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
@@ -336,9 +426,13 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         [self.tableView reloadData];
         _currentPageNormal = 0;
         [self loadDataWithPageNo:_currentPageNormal];
+        
     }
     
     if (_currentCityIndex != filterCityIndex) {
+        _isLoadingMoreNormal = YES;
+        _didEndScrollNormal = YES;
+        _enableLoadMoreNormal = NO;
         _currentCityIndex = filterCityIndex;
         CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
         _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
@@ -484,7 +578,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
 {
-    
+    _isLoadingMoreSearch = YES;
+    _didEndScrollSearch = YES;
+    _enableLoadMoreSearch = NO;
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
@@ -494,6 +590,39 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [self.tableView reloadData];
 }
 
+#pragma mark - UIScrollViewDelegate
 
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.tableView]) {
+        if (!_isLoadingMoreNormal && _didEndScrollNormal && _enableLoadMoreNormal) {
+            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+            if (scrollPosition < 44.0) {
+                _didEndScrollNormal = NO;
+                [self beginLoadingMoreNormal];
+            }
+        }
+    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
+        if (!_isLoadingMoreSearch && _didEndScrollSearch && _enableLoadMoreSearch) {
+            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+            if (scrollPosition < 44.0) {
+                _didEndScrollSearch = NO;
+                [self beginLoadingSearch];
+            }
+        }
+
+    }
+   
+}
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.tableView]) {
+        _didEndScrollNormal = YES;
+    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
+        _didEndScrollSearch = YES;
+    }
+    
+}
 
 @end
