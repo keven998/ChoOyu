@@ -356,7 +356,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%@",tableView);
     if ([tableView isEqual:self.tableView]) {
         return self.dataSource.count;
     } else if ([tableView isEqual:self.searchController.searchResultsTableView]) {
@@ -392,30 +391,41 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         addSpotCell.isAdded = isAdded;
         addSpotCell.addBtn.tag = indexPath.row;
         if (isAdded) {
+            [addSpotCell.addBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
             [addSpotCell.addBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
             
         } else {
+            [addSpotCell.addBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
             [addSpotCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         }
         return addSpotCell;
     }
     
     if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
-        PoiSummary *poi = [[PoiSummary alloc] init];
-        poi.poiId = poi.poiId;
-        poi.zhName = poi.zhName;
-        poi.enName = poi.enName;
-        poi.desc = poi.desc;
-        poi.priceDesc = poi.priceDesc;
-        poi.commentCount = 0;
-        poi.telephone = poi.telephone;
-        poi.images = poi.images;
-        
-        PoisOfCityTableViewCell *restaurantCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
-        restaurantCell.poi = poi;
-        restaurantCell.actionBtn.tag = indexPath.row;
-        [restaurantCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        return restaurantCell;
+        PoiSummary *poiSummary = [[PoiSummary alloc] init];
+        poiSummary.poiId = poi.poiId;
+        poiSummary.zhName = poi.zhName;
+        poiSummary.enName = poi.enName;
+        poiSummary.desc = poi.desc;
+        poiSummary.priceDesc = poi.priceDesc;
+        poiSummary.commentCount = 0;
+        poiSummary.telephone = poi.telephone;
+        poiSummary.images = poi.images;
+        poiSummary.rating = poi.rating;
+        PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
+        poiCell.poi = poiSummary;
+        poiCell.actionBtn.tag = indexPath.row;
+        poiCell.isAdded = isAdded;
+        if (isAdded) {
+            [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+            [poiCell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+            
+        } else {
+            [poiCell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+            [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        }
+
+        return poiCell;
     }
     
     return nil;

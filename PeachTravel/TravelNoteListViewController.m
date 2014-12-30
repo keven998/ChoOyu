@@ -151,7 +151,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)beginLoadingMore {
     [super beginLoadingMore];
     if (_isSearch) {
-        NSString *text = _searchBar.text;
         if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
             [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
         } else {

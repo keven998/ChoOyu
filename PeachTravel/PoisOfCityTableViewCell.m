@@ -93,4 +93,17 @@
     }
 }
 
+- (void)setIsAdded:(BOOL)isAdded
+{
+    _isAdded = isAdded;
+    if (_isAdded) {
+        [_actionBtn setTitle:@"已添加" forState:UIControlStateNormal];
+        _actionBtn.backgroundColor = [UIColor grayColor];
+    } else {
+        _actionBtn.backgroundColor = APP_THEME_COLOR;
+        [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+    }
+}
+
+
 @end

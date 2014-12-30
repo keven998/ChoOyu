@@ -14,6 +14,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *jumpCommentBtn;
 
+/**
+ *  添加状态的是否添加
+ */
+@property (nonatomic) BOOL isAdded;
+
 @property (nonatomic, strong) PoiSummary *poi;
 
 @end
