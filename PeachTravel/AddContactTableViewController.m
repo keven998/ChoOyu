@@ -37,9 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"加桃友";
-    
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
-    
 }
 
 #pragma mark - setter & getter
@@ -106,7 +104,6 @@
 - (void)parseSearchResult:(id)searchResult
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
     if ([searchResult count] > 0) {
         NSInteger userId = [[[searchResult firstObject] objectForKey:@"userId"] integerValue];
         if (userId == [accountManager.account.userId integerValue]) {
@@ -130,13 +127,12 @@
     } else {
         [SVProgressHUD showHint:@"没有找到她~"];
     }
-
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView == _searchTableViewController.searchResultsTableView) {
+    if ([tableView isEqual: _searchTableViewController.searchResultsTableView ]) {
         return 1;
     }
     return 1;

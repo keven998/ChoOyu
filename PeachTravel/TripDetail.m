@@ -350,7 +350,9 @@
             _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         }
 
-        _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"localities"]];
+        if ([json objectForKey:@"locality"] != [NSNull null]) {
+            _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
+        }
 
         _timeCost = [json objectForKey:@"timeCostDesc"];
     }

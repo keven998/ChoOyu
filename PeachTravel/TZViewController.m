@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = YES;
-    
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backButton.frame = CGRectMake(0.0, 0.0, 40.0, 27.0);
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

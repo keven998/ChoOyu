@@ -10,30 +10,46 @@
 #import "AddSpotTableViewCell.h"
 #import "CityDestinationPoi.h"
 #import "TripDetail.h"
-#import "AddHotelTableViewCell.h"
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "HotelDetailViewController.h"
 #import "PoiSummary.h"
 #import "PoisOfCityTableViewCell.h"
 #import "TZFilterViewController.h"
 
 
-@interface AddPoiTableViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate>
+@interface AddPoiTableViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
 @property (nonatomic, strong) NSArray *urlArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic) NSUInteger currentPage;
 
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
+@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchController;
+
 
 @property (nonatomic, copy) NSString *requestUrl;
 
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
 
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
+
+//管理普通 tableview 的加载状态
+@property (nonatomic) NSUInteger currentPageNormal;
+@property (nonatomic, assign) BOOL isLoadingMoreNormal;
+@property (nonatomic, assign) BOOL didEndScrollNormal;
+@property (nonatomic, assign) BOOL enableLoadMoreNormal;
+
+//管理搜索 tableview 的加载状态
+@property (nonatomic) NSUInteger currentPageSearch;
+@property (nonatomic, assign) BOOL isLoadingMoreSearch;
+@property (nonatomic, assign) BOOL didEndScrollNormalSearch;
+@property (nonatomic, assign) BOOL enableLoadMoreNormalSearch;
+
+@property (nonatomic, copy) NSString *searchText;
 
 @end
 
@@ -42,27 +58,30 @@
 static NSString *addSpotCellIndentifier = @"addSpotCell";
 static NSString *addRestaurantCellIndentifier = @"poisOfCity";
 static NSString *addShoppingCellIndentifier = @"poisOfCity";
-static NSString *addHotelCellIndentifier = @"addHotelCell";
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
     self.navigationItem.title = @"添加想去";
+
+    [self setAutomaticallyAdjustsScrollViewInsets:YES];
+    [self setExtendedLayoutIncludesOpaqueBars:YES];
     
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"AddHotelTableViewCell" bundle:nil] forCellReuseIdentifier:addHotelCellIndentifier];
+    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
+    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
+    self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
+    self.searchController.searchResultsTableView.dataSource = self;
+    self.searchController.searchResultsTableView.delegate = self;
 
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.tableHeaderView = self.searchBar;
     
     UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
     [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
@@ -77,30 +96,16 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
     self.navigationItem.leftBarButtonItem = filterBtn;
     [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-
+    
     CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
     _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
     
-    _currentPage = 0;
-    [self loadDataWithPageNo:_currentPage];
+    _currentPageNormal = 0;
+    [self loadDataWithPageNo:_currentPageNormal];
 }
 
 
 #pragma mark - setter & getter
-
-- (UISearchBar *)searchBar
-{
-    if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
-        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-        _searchBar.delegate = self;
-        [_searchBar setPlaceholder:@"搜索好玩 好吃 好住"];
-        _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _searchBar.translucent = YES;
-    }
-    return _searchBar;
-}
 
 - (TZFilterViewController *)filterCtl
 {
@@ -119,6 +124,13 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     return _filterCtl;
 }
 
+- (NSMutableArray *)searchResultArray
+{
+    if (!_searchResultArray) {
+        _searchResultArray = [[NSMutableArray alloc] init];
+    }
+    return _searchResultArray;
+}
 
 - (NSMutableArray *)dataSource
 {
@@ -138,16 +150,30 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 - (IBAction)addPoi:(UIButton *)sender
 {
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    TripPoi *poi = [self.dataSource objectAtIndex:sender.tag];
+    TripPoi *poi;
+    if (self.searchController.isActive) {
+        poi = [self.searchResultArray objectAtIndex:sender.tag];
+    } else {
+        poi = [self.dataSource objectAtIndex:sender.tag];
+    }
     [oneDayArray addObject:poi];
     [_delegate finishEdit];
     NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (self.searchController.isActive) {
+        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (IBAction)deletePoi:(UIButton *)sender
 {
-    TripPoi *poi = [self.dataSource objectAtIndex:sender.tag];
+    TripPoi *poi;
+    if (self.searchController.isActive) {
+        poi = [self.searchResultArray objectAtIndex:sender.tag];
+    } else {
+        poi = [self.dataSource objectAtIndex:sender.tag];
+    }
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     for (TripPoi *tripPoi in oneDayArray) {
         if ([tripPoi.poiId isEqualToString:poi.poiId]) {
@@ -156,7 +182,12 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         }
     }
     NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (self.searchController.isActive) {
+        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+
 }
 
 - (void)filter:(id)sender
@@ -185,7 +216,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
     
     NSString *backUrlForCheck = _requestUrl;
     [SVProgressHUD show];
-
+    
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -194,9 +225,9 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
             if ([backUrlForCheck isEqualToString:_requestUrl]) {
                 for (id poiDic in [responseObject objectForKey:@"result"]) {
                     [self.dataSource addObject:[[TripPoi alloc] initWithJson:poiDic]];
-                    [self.tableView reloadData];
                 }
-                _currentPage = pageNo;
+                [self.tableView reloadData];
+                _currentPageNormal = pageNo;
             } else {
                 NSLog(@"用户切换页面了，我不应该加载数据");
             }
@@ -205,8 +236,7 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         } else {
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        [self loadMoreCompleted];
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
@@ -214,11 +244,82 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 }
 
 /**
- *  实现父类加载更多的方法
+ *  加载搜索的数据
+ *
+ *  @param pageNo     第几页
+ *  @param searchText 搜索关键字
  */
-- (void)beginLoadingMore {
-    [super beginLoadingMore];
-    [self loadDataWithPageNo:_currentPage+1];
+- (void)loadSearchDataWithPageNo:(NSUInteger)pageNo
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:pageNo] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    switch (_currentListTypeIndex) {
+        case 0:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
+            break;
+        case 1:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
+            break;
+        case 2:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
+            break;
+        case 3:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
+            break;
+        default:
+            break;
+    }
+    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+
+    [params setObject:poi.cityId forKey:@"locId"];
+    [params setObject:_searchText forKey:@"keyWord"];
+    [SVProgressHUD show];
+    
+    //获取搜索列表信息
+    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        if (self.searchDisplayController.isActive) {
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                NSString *key = nil;
+                switch (_currentListTypeIndex) {
+                    case 0:
+                        key = @"vs";
+                        break;
+                    case 1:
+                        key = @"restaurant";
+                        break;
+                    case 2:
+                        key = @"shopping";
+                        break;
+                    case 3:
+                        key = @"hotel";
+                        break;
+                    default:
+                        break;
+                }
+                for (id poiDic in [[responseObject objectForKey:@"result"] objectForKey:key]) {
+                    [self.searchResultArray addObject:[[TripPoi alloc] initWithJson:poiDic]];
+                }
+                [self.searchController.searchResultsTableView reloadData];
+                _currentPageSearch = pageNo;
+            } else {
+                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+    }];
 }
 
 
@@ -233,8 +334,8 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
         [self.dataSource removeAllObjects];
         [self.tableView reloadData];
-        _currentPage = 0;
-        [self loadDataWithPageNo:_currentPage];
+        _currentPageNormal = 0;
+        [self loadDataWithPageNo:_currentPageNormal];
     }
     
     if (_currentCityIndex != filterCityIndex) {
@@ -243,8 +344,8 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
         [self.dataSource removeAllObjects];
         [self.tableView reloadData];
-        _currentPage = 0;
-        [self loadDataWithPageNo:_currentPage];
+        _currentPageNormal = 0;
+        [self loadDataWithPageNo:_currentPageNormal];
     }
 }
 
@@ -255,11 +356,13 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"%@",tableView);
     if ([tableView isEqual:self.tableView]) {
         return self.dataSource.count;
-    } else {
+    } else if ([tableView isEqual:self.searchController.searchResultsTableView]) {
         return self.searchResultArray.count;
     }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -268,7 +371,12 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TripPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
+    TripPoi *poi;
+    if ([tableView isEqual:self.tableView]) {
+        poi = [self.dataSource objectAtIndex:indexPath.row];
+    } else {
+        poi = [self.searchResultArray objectAtIndex:indexPath.row];
+    }
     BOOL isAdded = NO;
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     for (TripPoi *tripPoi in oneDayArray) {
@@ -285,38 +393,31 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         addSpotCell.addBtn.tag = indexPath.row;
         if (isAdded) {
             [addSpotCell.addBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-
+            
         } else {
             [addSpotCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         }
         return addSpotCell;
     }
     
-    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi) {
-        PoiSummary *restaurantPoi = [[PoiSummary alloc] init];
-        restaurantPoi.poiId = poi.poiId;
-        restaurantPoi.zhName = poi.zhName;
-        restaurantPoi.enName = poi.enName;
-        restaurantPoi.desc = poi.desc;
-        restaurantPoi.priceDesc = poi.priceDesc;
-        restaurantPoi.commentCount = 0;
-        restaurantPoi.telephone = poi.telephone;
-        restaurantPoi.images = poi.images;
+    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
+        PoiSummary *poi = [[PoiSummary alloc] init];
+        poi.poiId = poi.poiId;
+        poi.zhName = poi.zhName;
+        poi.enName = poi.enName;
+        poi.desc = poi.desc;
+        poi.priceDesc = poi.priceDesc;
+        poi.commentCount = 0;
+        poi.telephone = poi.telephone;
+        poi.images = poi.images;
         
         PoisOfCityTableViewCell *restaurantCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
-        restaurantCell.poi = restaurantPoi;
+        restaurantCell.poi = poi;
         restaurantCell.actionBtn.tag = indexPath.row;
         [restaurantCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         return restaurantCell;
     }
-
-    if (poi.poiType == kHotelPoi) {
-        AddHotelTableViewCell *addHotelCell = [tableView dequeueReusableCellWithIdentifier:addHotelCellIndentifier forIndexPath:indexPath];
-        addHotelCell.tripPoi = poi;
-        addHotelCell.addBtn.tag = indexPath.row;
-        [addHotelCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        return addHotelCell;
-    }
+    
     return nil;
 }
 
@@ -344,13 +445,45 @@ static NSString *addHotelCellIndentifier = @"addHotelCell";
         }
             
             break;
-        case kHotelPoi:
-            
+        case kHotelPoi: {
+            HotelDetailViewController *hotelDetailCtl = [[HotelDetailViewController alloc] init];
+            hotelDetailCtl.hotelId = tripPoi.poiId;
+            [self.navigationController pushViewController:hotelDetailCtl animated:YES];
+        }
             break;
             
         default:
             break;
     }
 }
+
+#pragma mark - SearchBarDelegate
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchResultArray removeAllObjects];
+    _searchText = nil;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    _currentPageSearch = 0;
+    _searchText = searchBar.text;
+    [self loadSearchDataWithPageNo:_currentPageSearch];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
+{
+    
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+{
+    [self.searchResultArray removeAllObjects];
+    [self.searchController.searchResultsTableView reloadData];
+    [self.tableView reloadData];
+}
+
+
 
 @end

@@ -70,61 +70,59 @@
 
 #define API_NEARBY                              (BASE_URL @"poi/nearby")      //我身边
 
-
-
 //用户相关接口
-#define API_WEIXIN_LOGIN                (BASE_URL @"users/auth-signup")
-#define API_USERINFO                    (BASE_URL @"users/")
-#define API_GET_CAPTCHA                 (BASE_URL @"users/send-validation")    //接收验证码
-#define API_VERIFY_CAPTCHA              (BASE_URL @"users/check-validation")   //验证验证码
-#define API_RESET_PWD                   (BASE_URL @"users/reset-pwd")           //重新设置密码
-#define API_SIGNUP                      (BASE_URL @"users/signup")        //用户注册
-#define API_SIGNIN                      (BASE_URL @"users/signin")
-#define API_BINDTEL                     (BASE_URL @"users/bind")        //绑定手机号
-#define API_SEARCH_USER                 (BASE_URL @"users/search")      //搜索好友
-#define API_SEARCH_USER                 (BASE_URL @"users/search")      //搜索好友
-#define API_ADD_CONTACT                 (BASE_URL @"users/contacts")   //添加好友
-#define API_REQUEST_ADD_CONTACT         (BASE_URL @"users/request-contacts")   //请求添加好友
-#define API_DELETE_CONTACTS             (BASE_URL @"users/contacts")   //删除好友
-#define API_GET_USERINFO_WITHEASEMOB    (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
-#define API_CHANGE_PWD                  (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个桃子用户信息数组
-#define API_UPLOAD_ADDRESSBOOK          (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
+#define API_WEIXIN_LOGIN                        (BASE_URL @"users/auth-signup")
+#define API_USERINFO                            (BASE_URL @"users/")
+#define API_GET_CAPTCHA                         (BASE_URL @"users/send-validation")    //接收验证码
+#define API_VERIFY_CAPTCHA                      (BASE_URL @"users/check-validation")   //验证验证码
+#define API_RESET_PWD                           (BASE_URL @"users/reset-pwd")           //重新设置密码
+#define API_SIGNUP                              (BASE_URL @"users/signup")        //用户注册
+#define API_SIGNIN                              (BASE_URL @"users/signin")
+#define API_BINDTEL                             (BASE_URL @"users/bind")        //绑定手机号
+#define API_SEARCH_USER                         (BASE_URL @"users/search")      //搜索好友
+#define API_SEARCH_USER                         (BASE_URL @"users/search")      //搜索好友
+#define API_ADD_CONTACT                         (BASE_URL @"users/contacts")   //添加好友
+#define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")   //请求添加好友
+#define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友
+#define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
+#define API_CHANGE_PWD                          (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个桃子用户信息数组
+#define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
 
 //IM相关接口
-#define API_GET_CONTACTS                (BASE_URL @"users/contacts")   //获得联系人列表
+#define API_GET_CONTACTS                        (BASE_URL @"users/contacts")   //获得联系人列表
 
 //其他一些乱七八糟的接口
-#define API_GET_COVER_STORIES           (BASE_URL @"misc/cover-stories")  //获得封面故事接口
-#define API_POST_PHOTOIMAGE             (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
-#define API_SEARCH                      (BASE_URL @"search")  //联合搜索
-#define API_GET_ALBUM                   (BASE_URL @"geo/localities/")      //获取城市图集
-#define API_GET_COLUMNS                 (BASE_URL @"columns")     //获取首页运营位置推荐
-#define API_FEEDBACK                    (BASE_URL @"misc/feedback")    //反馈接口
+#define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")  //获得封面故事接口
+#define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
+#define API_SEARCH                              (BASE_URL @"search")  //联合搜索
+#define API_GET_ALBUM                           (BASE_URL @"geo/localities/")      //获取城市图集
+#define API_GET_COLUMNS                         (BASE_URL @"columns")     //获取首页运营位置推荐
+#define API_FEEDBACK                            (BASE_URL @"misc/feedback")    //反馈接口
 
 /**
  html 接口
  */
-#define FUN_CITY_HTML                   @"http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
-#define RESTAURANT_CITY_HTML            @"http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
-#define SHOPPING_CITY_HTML              @"http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
-#define MORE_COMMENT_HTML               @"http://wap.lvxingpai.com/h5/morecomment.php"   //更多点评
-#define TRAVELNOTE_DETAIL_HTML          @"http://h5.taozilvxing.com/detail.php?id="   //游记详情
+#define FUN_CITY_HTML                           @"http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
+#define RESTAURANT_CITY_HTML                    @"http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
+#define SHOPPING_CITY_HTML                      @"http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
+#define MORE_COMMENT_HTML                       @"http://wap.lvxingpai.com/h5/morecomment.php"   //更多点评
+#define TRAVELNOTE_DETAIL_HTML                  @"http://h5.taozilvxing.com/detail.php?id="   //游记详情
 
 /***** Notification name *******/
 
-#define weixinDidLoginNoti              @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
-#define userDidLoginNoti                @ "userDidLogin"                //用户完成所有登录工作。
-#define userDidResetPWDNoti             @ "userDidResetPWD"                //用户成功完成重设忘记密码的工作。
+#define weixinDidLoginNoti                      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
+#define userDidLoginNoti                        @ "userDidLogin"                //用户完成所有登录工作。
+#define userDidResetPWDNoti                     @ "userDidResetPWD"                //用户成功完成重设忘记密码的工作。
 
-#define userDidRegistedNoti             @ "userDidRegisted"                //用户完成所有注册登录工作。
-#define userDidLogoutNoti               @ "userDidLogout"               //用户完成所有退出登录工作。
-#define updateUserInfoNoti              @ "updateUserInfo"              //用户信息有更改。
-#define frendRequestListNeedUpdateNoti  @ "updateFrendRequestList"      //更新好友请求列表
-#define contactListNeedUpdateNoti       @ "updatecontactList"           //更新好友列表
-#define updateDestinationsSelectedNoti  @ "updatecontactList"           //更新好友请求列表
-#define updateChateViewNoti             @ "updateChatView"               //更新聊天界面
+#define userDidRegistedNoti                     @ "userDidRegisted"                //用户完成所有注册登录工作。
+#define userDidLogoutNoti                       @ "userDidLogout"               //用户完成所有退出登录工作。
+#define updateUserInfoNoti                      @ "updateUserInfo"              //用户信息有更改。
+#define frendRequestListNeedUpdateNoti          @ "updateFrendRequestList"      //更新好友请求列表
+#define contactListNeedUpdateNoti               @ "updatecontactList"           //更新好友列表
+#define updateDestinationsSelectedNoti          @ "updatecontactList"           //更新好友请求列表
+#define updateChateViewNoti                     @ "updateChatView"               //更新聊天界面
 
-#define updateFavoriteListNoti          @"updateFavoriteListView"    //更新收藏列表
+#define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表
 
 
 #pragma mark - ***********各种枚举信息*************

@@ -200,7 +200,6 @@
 		D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358619F63B3300E26FA9 /* ChatSendHelper.m */; };
 		D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358819F63B3300E26FA9 /* ChatViewController.m */; };
 		D90F35F719F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358A19F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m */; };
-		D90F35F819F63B3300E26FA9 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F358B19F63B3300E26FA9 /* delete@2x.png */; };
 		D90F35F919F63B3300E26FA9 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358D19F63B3300E26FA9 /* LocationViewController.m */; };
 		D90F35FA19F63B3300E26FA9 /* DXMessageToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F359019F63B3300E26FA9 /* DXMessageToolBar.m */; };
 		D90F35FB19F63B3300E26FA9 /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F359419F63B3300E26FA9 /* DXFaceView.m */; };
@@ -437,9 +436,6 @@
 		D96550EC1A256CE500928DB0 /* TripDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550EB1A256CE500928DB0 /* TripDetail.m */; };
 		D96550F41A257CA200928DB0 /* AddSpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */; };
 		D96550F51A257CA200928DB0 /* AddSpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */; };
-		D96550F81A2580E900928DB0 /* AddPoiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550F71A2580E900928DB0 /* AddPoiTableViewController.m */; };
-		D96551311A26E64A00928DB0 /* AddHotelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D965512F1A26E64A00928DB0 /* AddHotelTableViewCell.m */; };
-		D96551321A26E64A00928DB0 /* AddHotelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96551301A26E64A00928DB0 /* AddHotelTableViewCell.xib */; };
 		D96551351A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D96551341A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m */; };
 		D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A41A0DE3C600122793 /* ANBlurredImageView.m */; };
 		D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */; };
@@ -468,6 +464,8 @@
 		D97C8B3F1A514A8C00476C9C /* ic_home_around@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */; };
 		D97C8B401A514A8C00476C9C /* ic_home_fav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */; };
 		D97C8B411A514A8C00476C9C /* ic_home_guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3E1A514A8C00476C9C /* ic_home_guide@2x.png */; };
+		D97C8B4A1A51811600476C9C /* AddPoiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C8B481A51811600476C9C /* AddPoiTableViewController.m */; };
+		D97C8B4B1A51811600476C9C /* AddPoiTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */; };
 		D982F90D1A04BF4800ECF18A /* FrendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F90B1A04BF4800ECF18A /* FrendRequestTableViewCell.m */; };
 		D982F90E1A04BF4800ECF18A /* FrendRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D982F90C1A04BF4800ECF18A /* FrendRequestTableViewCell.xib */; };
 		D982F9111A071B6F00ECF18A /* TZCMDChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D982F9101A071B6F00ECF18A /* TZCMDChatHelper.m */; };
@@ -897,7 +895,6 @@
 		D90F358819F63B3300E26FA9 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		D90F358919F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertToCommonEmoticonsHelper.h; sourceTree = "<group>"; };
 		D90F358A19F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertToCommonEmoticonsHelper.m; sourceTree = "<group>"; };
-		D90F358B19F63B3300E26FA9 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		D90F358C19F63B3300E26FA9 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
 		D90F358D19F63B3300E26FA9 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		D90F358F19F63B3300E26FA9 /* DXMessageToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXMessageToolBar.h; sourceTree = "<group>"; };
@@ -1319,11 +1316,6 @@
 		D96550F11A257CA200928DB0 /* AddSpotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSpotTableViewCell.h; sourceTree = "<group>"; };
 		D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSpotTableViewCell.m; sourceTree = "<group>"; };
 		D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSpotTableViewCell.xib; sourceTree = "<group>"; };
-		D96550F61A2580E900928DB0 /* AddPoiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiTableViewController.h; sourceTree = "<group>"; };
-		D96550F71A2580E900928DB0 /* AddPoiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiTableViewController.m; sourceTree = "<group>"; };
-		D965512E1A26E64A00928DB0 /* AddHotelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddHotelTableViewCell.h; sourceTree = "<group>"; };
-		D965512F1A26E64A00928DB0 /* AddHotelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddHotelTableViewCell.m; sourceTree = "<group>"; };
-		D96551301A26E64A00928DB0 /* AddHotelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddHotelTableViewCell.xib; sourceTree = "<group>"; };
 		D96551331A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+MyDictionary.h"; sourceTree = "<group>"; };
 		D96551341A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+MyDictionary.m"; sourceTree = "<group>"; };
 		D96819A31A0DE3C600122793 /* ANBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredImageView.h; sourceTree = "<group>"; };
@@ -1363,6 +1355,9 @@
 		D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_around@2x.png"; sourceTree = "<group>"; };
 		D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_fav@2x.png"; sourceTree = "<group>"; };
 		D97C8B3E1A514A8C00476C9C /* ic_home_guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_guide@2x.png"; sourceTree = "<group>"; };
+		D97C8B471A51811600476C9C /* AddPoiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiTableViewController.h; sourceTree = "<group>"; };
+		D97C8B481A51811600476C9C /* AddPoiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiTableViewController.m; sourceTree = "<group>"; };
+		D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPoiTableViewController.xib; sourceTree = "<group>"; };
 		D982F90A1A04BF4800ECF18A /* FrendRequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrendRequestTableViewCell.h; sourceTree = "<group>"; };
 		D982F90B1A04BF4800ECF18A /* FrendRequestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrendRequestTableViewCell.m; sourceTree = "<group>"; };
 		D982F90C1A04BF4800ECF18A /* FrendRequestTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrendRequestTableViewCell.xib; sourceTree = "<group>"; };
@@ -2252,7 +2247,6 @@
 				D90F358819F63B3300E26FA9 /* ChatViewController.m */,
 				D90F358919F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.h */,
 				D90F358A19F63B3300E26FA9 /* ConvertToCommonEmoticonsHelper.m */,
-				D90F358B19F63B3300E26FA9 /* delete@2x.png */,
 				D90F358C19F63B3300E26FA9 /* LocationViewController.h */,
 				D90F358D19F63B3300E26FA9 /* LocationViewController.m */,
 				D90F358E19F63B3300E26FA9 /* MessageToolbar */,
@@ -3485,11 +3479,9 @@
 				D96550F11A257CA200928DB0 /* AddSpotTableViewCell.h */,
 				D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */,
 				D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */,
-				D96550F61A2580E900928DB0 /* AddPoiTableViewController.h */,
-				D96550F71A2580E900928DB0 /* AddPoiTableViewController.m */,
-				D965512E1A26E64A00928DB0 /* AddHotelTableViewCell.h */,
-				D965512F1A26E64A00928DB0 /* AddHotelTableViewCell.m */,
-				D96551301A26E64A00928DB0 /* AddHotelTableViewCell.xib */,
+				D97C8B471A51811600476C9C /* AddPoiTableViewController.h */,
+				D97C8B481A51811600476C9C /* AddPoiTableViewController.m */,
+				D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */,
 			);
 			name = AddPoi;
 			sourceTree = "<group>";
@@ -4653,7 +4645,6 @@
 				D9386C581A31A6E10085FC36 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D90C638119FB44D300C2E440 /* VoiceSearchFeedback011.png in Resources */,
 				D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */,
-				D96551321A26E64A00928DB0 /* AddHotelTableViewCell.xib in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
 				D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */,
@@ -4688,7 +4679,6 @@
 				D90C637019FB44D300C2E440 /* VoiceSearchFeedback002@2x.png in Resources */,
 				C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */,
 				D97C8B401A514A8C00476C9C /* ic_home_fav@2x.png in Resources */,
-				D90F35F819F63B3300E26FA9 /* delete@2x.png in Resources */,
 				D93697021A3026BC001922F4 /* chat_time@2x.png in Resources */,
 				D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
@@ -4725,6 +4715,7 @@
 				D9386C491A31A27F0085FC36 /* cell_accessory_pink_up@2x.png in Resources */,
 				C6A0C6C31A3AB60A009D9768 /* ic_fav_stay@2x.png in Resources */,
 				C60C0D621A297A16006033C9 /* ic_check_version@2x.png in Resources */,
+				D97C8B4B1A51811600476C9C /* AddPoiTableViewController.xib in Resources */,
 				D93696E11A2FFD7E001922F4 /* message_taozi_receive@2x.png in Resources */,
 				D90C639819FB44D300C2E440 /* chatBar_more_cardSelected.png in Resources */,
 				D93696FB1A301C0C001922F4 /* chatBar_more_destination@2x.png in Resources */,
@@ -4823,6 +4814,7 @@
 				D90F362C19F63B3300E26FA9 /* EMChatImageBubbleView.m in Sources */,
 				D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */,
 				D9545FA61A20896700688D72 /* RecommendDetail.m in Sources */,
+				D97C8B4A1A51811600476C9C /* AddPoiTableViewController.m in Sources */,
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D95F8A3F1A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m in Sources */,
@@ -4843,7 +4835,6 @@
 				D95F8A461A40343E003F4275 /* ShareActivity.m in Sources */,
 				D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */,
 				D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */,
-				D96550F81A2580E900928DB0 /* AddPoiTableViewController.m in Sources */,
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
 				D96550F41A257CA200928DB0 /* AddSpotTableViewCell.m in Sources */,
@@ -4936,7 +4927,6 @@
 				D9B476841A2468D30014136C /* SIMenuConfiguration.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D9E81E801A36EA6400D3BFD0 /* TZTableViewController.m in Sources */,
-				D96551311A26E64A00928DB0 /* AddHotelTableViewCell.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
 				C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */,
 				D93C50EC1A4D282600FFE2FA /* TZFilterViewController.m in Sources */,
