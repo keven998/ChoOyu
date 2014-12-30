@@ -18,7 +18,7 @@
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
 
-@interface AddContactTableViewController () <UISearchBarDelegate>
+@interface AddContactTableViewController() <UISearchBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchTableViewController;
 
@@ -26,7 +26,6 @@
 @property (strong, nonatomic) NSMutableArray *searchDataSource;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
 
 @end
 

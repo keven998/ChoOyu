@@ -189,7 +189,7 @@ CGPoint RNCentroidOfTouchesInView(NSSet *touches, UIView *view) {
 
 @interface RNMenuItemView : UIView
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIButton *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, assign) NSInteger itemIndex;
 
@@ -202,8 +202,9 @@ CGPoint RNCentroidOfTouchesInView(NSSet *touches, UIView *view) {
     if (self = [super init]) {
         self.backgroundColor = [UIColor clearColor];
 
-        _imageView = [[UIImageView alloc] init];
+        _imageView = [[UIButton alloc] init];
         _imageView.backgroundColor = [UIColor clearColor];
+        _imageView.userInteractionEnabled = NO;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_imageView];
 
@@ -220,7 +221,7 @@ CGPoint RNCentroidOfTouchesInView(NSSet *touches, UIView *view) {
     CGRect frame = self.bounds;
     CGFloat inset = floorf(CGRectGetHeight(frame) * 0.1f);
 
-    BOOL hasImage = self.imageView.image != nil;
+    BOOL hasImage = self.imageView.imageView.image != nil;
     BOOL hasText = [self.titleLabel.text length] > 0;
 
     if (hasImage) {
@@ -387,14 +388,14 @@ static RNGridMenu *rn_visibleGridMenu;
 
 - (void)dealloc
 {
-    NSLog(@"~~~~~~~~~~我被销毁掉了");
+//    NSLog(@"~~~~~~~~~~我被销毁掉了");
 }
 
 #pragma mark - UIResponder
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     CGPoint point = RNCentroidOfTouchesInView(touches, self.view);
-
+    
     [self selectItemViewAtPoint:point];
 }
 
@@ -504,7 +505,8 @@ static RNGridMenu *rn_visibleGridMenu;
 
     [self.items enumerateObjectsUsingBlock:^(RNGridMenuItem *item, NSUInteger idx, BOOL *stop) {
         RNMenuItemView *itemView = [[RNMenuItemView alloc] init];
-        itemView.imageView.image = item.image;
+//        itemView.imageView.image = item.image;
+        [itemView.imageView setImage:item.image forState:UIControlStateNormal];
         itemView.titleLabel.text = item.title;
         itemView.itemIndex = idx;
 
@@ -760,13 +762,15 @@ static RNGridMenu *rn_visibleGridMenu;
 - (void)selectItemViewAtPoint:(CGPoint)point {
     RNMenuItemView *selectedItemView = [self itemViewAtPoint:point];
     RNGridMenuItem *item = self.items[selectedItemView.itemIndex];
-
+    
     if (selectedItemView != self.selectedItemView) {
-        self.selectedItemView.backgroundColor = [UIColor clearColor];
+//        self.selectedItemView.backgroundColor = [UIColor clearColor];
+        [self.selectedItemView.imageView setHighlighted:NO];
     }
 
     if (![item isEmpty]) {
-        selectedItemView.backgroundColor = self.highlightColor;
+//        selectedItemView.backgroundColor = self.highlightColor;
+        [selectedItemView.imageView setHighlighted:YES];
         self.selectedItemView = selectedItemView;
     } else {
         self.selectedItemView = nil;

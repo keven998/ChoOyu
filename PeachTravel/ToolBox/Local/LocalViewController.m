@@ -16,7 +16,7 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 
-#define LOCAL_PAGE_TITLES       @[@"桃∙玩", @"桃∙吃", @"桃∙买", @"桃∙住"]
+#define LOCAL_PAGE_TITLES       @[@"玩", @"吃", @"买", @"住"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
 #define LOCAL_PAGE_HIGHLIGHTEDIMAGES       @[@"nearby_ic_tab_spot_select.png", @"nearby_ic_tab_delicacy_select", @"nearby_ic_tab_shopping_select.png", @"nearby_ic_tab_stay_select.png"]
 
