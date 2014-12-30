@@ -588,7 +588,7 @@
      [self.navigationController pushViewController:chatCtl animated:YES];
      */
     
-    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     
 }
 

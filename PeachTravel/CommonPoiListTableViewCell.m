@@ -28,6 +28,8 @@
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 4;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setIsEditing:(BOOL)isEditing

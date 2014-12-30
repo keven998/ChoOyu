@@ -31,6 +31,11 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];

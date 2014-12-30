@@ -40,7 +40,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 //    _tap.numberOfTouchesRequired = 1;
 
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"发送目的地";
+    self.navigationItem.title = @"发送地点";
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kWindowWidth, 40)];
     _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
@@ -442,7 +442,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [self dismissPopup];
     
-    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
     
 }
 

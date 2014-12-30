@@ -43,7 +43,7 @@
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
     _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_myStrategyButton setTitle:@"旅行Memo" forState:UIControlStateNormal];
-    [_myStrategyButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
+    [_myStrategyButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _myStrategyButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myStrategyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _myStrategyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -58,7 +58,7 @@
     [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite_selected.png"] forState:UIControlStateHighlighted];
     [_myFavoriteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
     [_myFavoriteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
-    [_myFavoriteButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
+    [_myFavoriteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _myFavoriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _myFavoriteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -74,7 +74,7 @@
     [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_destination_selected.png"] forState:UIControlStateHighlighted];
     [_destinationButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
     [_destinationButton setTitle:@"地点" forState:UIControlStateNormal];
-    [_destinationButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
+    [_destinationButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _destinationButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _destinationButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -89,7 +89,7 @@
     [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote_selected.png"] forState:UIControlStateHighlighted];
     [_travelNoteButton addTarget:self action:@selector(travelNoteAction) forControlEvents:UIControlEventTouchUpInside];
     [_travelNoteButton setTitle:@"游记" forState:UIControlStateNormal];
-    [_travelNoteButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
+    [_travelNoteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _travelNoteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -104,7 +104,7 @@
     [_photoButton setImage:[UIImage imageNamed:@"chatBar_more_album_selected.png"] forState:UIControlStateHighlighted];
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
     [_photoButton setTitle:@"相册" forState:UIControlStateNormal];
-    [_photoButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
+    [_photoButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _photoButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _photoButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _photoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -120,7 +120,7 @@
     [_takePicButton setImage:[UIImage imageNamed:@"chatBar_more_camera_selected.png"] forState:UIControlStateHighlighted];
     [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
     [_takePicButton setTitle:@"相机" forState:UIControlStateNormal];
-    [_takePicButton setTitleColor:UIColorFromRGB(0x33333) forState:UIControlStateNormal];
+    [_takePicButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _takePicButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _takePicButton.titleLabel.adjustsFontSizeToFitWidth = YES;

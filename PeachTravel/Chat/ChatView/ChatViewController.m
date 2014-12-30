@@ -1238,6 +1238,7 @@
 {
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.isChatGroup = _isChatGroup;
+    favoriteCtl.selectToSend = YES;
     [self.navigationController pushViewController:favoriteCtl animated:YES];
 }
 
