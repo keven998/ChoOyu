@@ -74,7 +74,7 @@
                     NSString *phoneNumber = [phoneNumberArray objectAtIndex:j];
                     [onePerson setObject:name forKey:@"name"];
                     [onePerson setObject:phoneNumber forKey:@"tel"];
-                    [onePerson setObject:[NSNumber numberWithInt:entryId] forKey:@"entryId"];
+                    [onePerson setObject:[NSNumber numberWithInteger:entryId] forKey:@"entryId"];
                     [onePerson setObject:[NSNumber numberWithInt:i] forKey:@"sourceId"];
                     [addressBookList addObject:onePerson];
                     entryId++;

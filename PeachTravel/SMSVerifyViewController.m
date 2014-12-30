@@ -35,7 +35,7 @@
     count = _coolDown;
     self.navigationItem.title = @"验证";
     _titleLabel.text = [NSString stringWithFormat:@"已发送验证码短信至%@\n网络有延迟，请耐心等待", _phoneNumber];
-    [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
+    [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
     _verifyCodeBtn.userInteractionEnabled = NO;
     _verifyCodeBtn.layer.cornerRadius = 2.0;
     [self startTimer];
@@ -81,8 +81,8 @@
         [_verifyCodeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
-        _verifyCodeBtn.titleLabel.text = [NSString stringWithFormat:@"%dS",count];
-        [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
+        _verifyCodeBtn.titleLabel.text = [NSString stringWithFormat:@"%ldS",(long)count];
+        [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
     }
 }
 
@@ -163,7 +163,7 @@
             
             //获取成功开始计时
             count = _coolDown;
-            [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
+            [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
             [self startTimer];
             _verifyCodeBtn.userInteractionEnabled = NO;
             

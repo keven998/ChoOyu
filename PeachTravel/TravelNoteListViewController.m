@@ -101,7 +101,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [params setObject:[NSNumber numberWithInt:pageNo] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
     if (_isSearch) {
         [params setObject:keyWord forKey:@"keyWord"];

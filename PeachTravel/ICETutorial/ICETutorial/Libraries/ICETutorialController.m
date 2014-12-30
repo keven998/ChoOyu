@@ -430,7 +430,7 @@
     [self.backLayerView setAlpha:backLayerAlpha];
     [self.frontLayerView setAlpha:frontLayerAlpha];
     
-    NSLog(@"offset:%d", nextPage);
+    NSLog(@"offset:%ld", (long)nextPage);
 
 }
 

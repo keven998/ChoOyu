@@ -155,7 +155,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [params setObject:[NSNumber numberWithInt:pageNO] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
     
     //获取城市的美食列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

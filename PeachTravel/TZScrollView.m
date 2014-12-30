@@ -95,7 +95,7 @@
 {
     CGPoint currentOffset = scrollView.contentOffset;
     
-    int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
+    NSInteger currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
     if (currentIndex > ([_viewsOnScrollView count] -1)) {
         currentIndex = [_viewsOnScrollView count] - 1;
     }
@@ -137,7 +137,7 @@
 {
     CGPoint currentOffset = scrollView.contentOffset;
     
-    int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
+    NSInteger currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
     if (currentIndex > ([_viewsOnScrollView count] -1)) {
         currentIndex = [_viewsOnScrollView count] - 1;
     }
@@ -152,7 +152,7 @@
 {
     CGPoint currentOffset = scrollView.contentOffset;
     
-    int currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
+    NSInteger currentIndex = (int)(currentOffset.x+10)/(_itemWidth + spaceWidth);
     if (currentIndex > ([_viewsOnScrollView count] -1)) {
         currentIndex = [_viewsOnScrollView count] - 1;
     }

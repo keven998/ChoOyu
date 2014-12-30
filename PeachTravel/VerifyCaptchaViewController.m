@@ -110,8 +110,8 @@
         [_captchaBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
-        _captchaBtn.titleLabel.text = [NSString stringWithFormat:@"%dS",count];
-        [_captchaBtn setTitle:[NSString stringWithFormat:@"%dS",count] forState:UIControlStateNormal];
+        _captchaBtn.titleLabel.text = [NSString stringWithFormat:@"%ldS",(long)count];
+        [_captchaBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
     }
 }
 

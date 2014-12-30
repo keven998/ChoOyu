@@ -79,7 +79,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     
     _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
     
-    int count = _poi.images.count;
+    NSInteger count = _poi.images.count;
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
     {

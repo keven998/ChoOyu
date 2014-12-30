@@ -78,7 +78,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _editBtn.hidden = YES;
     } else {
         _editBtn.hidden = NO;
-        int count = _tripDetail.itineraryList.count;
+        NSInteger count = _tripDetail.itineraryList.count;
         if (!tripDetail || count == 0) {
             [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         } else {
@@ -165,7 +165,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)showMore:(UIButton *)sender
 {
-    UIActionSheet *showMoreSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"第%d天", sender.tag+1] delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加目的地",@"删除" ,nil];
+    UIActionSheet *showMoreSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"第%ld天", (long)sender.tag+1] delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加目的地",@"删除" ,nil];
     showMoreSheet.tag = sender.tag;
     showMoreSheet.destructiveButtonIndex = 1;
     
@@ -321,7 +321,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     } else {
         headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 35)];
     }
-    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   第%d天  ", section+1];
+    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (TripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {

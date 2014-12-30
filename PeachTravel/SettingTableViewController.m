@@ -110,7 +110,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    int index = indexPath.section*2 + indexPath.row;
+    NSInteger index = indexPath.section*2 + indexPath.row;
     switch (index) {
         case 0: {
             [self clearMemo];

@@ -128,7 +128,7 @@ static int const kOpenUDIDRedundancySlots = 100;
     if (_openUDID==nil) {
         unsigned char result[16];
         const char *cStr = [[[NSProcessInfo processInfo] globallyUniqueString] UTF8String];
-        CC_MD5( cStr, strlen(cStr), result );
+        CC_MD5( cStr, (int)strlen(cStr), result );
         _openUDID = [NSString stringWithFormat:
                 @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%08llx",
                 result[0], result[1], result[2], result[3], 

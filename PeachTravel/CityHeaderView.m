@@ -63,10 +63,10 @@
     _imagePageIndicator.userInteractionEnabled = NO;
     _imagePageIndicator.layer.cornerRadius = 1.0;
     _imagePageIndicator.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"共%d张", _cityPoi.imageCount] forState:UIControlStateNormal];
+    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"共%ld张", (unsigned long)_cityPoi.imageCount] forState:UIControlStateNormal];
     [_headerView addSubview:_imagePageIndicator];
     
-    int count = _cityPoi.images.count;
+    NSInteger count = _cityPoi.images.count;
     _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame), CGRectGetHeight(_galleryPageView.frame));
     
     NSMutableArray *images = [[NSMutableArray alloc] init];

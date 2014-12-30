@@ -226,7 +226,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void) setUpGallaryView
 {
-    int count = [_operationDataArray count];
+    NSInteger count = [_operationDataArray count];
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
     {
@@ -245,7 +245,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     };
     
     _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
-        NSLog(@"点击了第%d个", pageIndex);
+        NSLog(@"点击了第%ld个", (long)(long)pageIndex);
         OperationData *data = [weakSelf.operationDataArray objectAtIndex:pageIndex];
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = data.title;

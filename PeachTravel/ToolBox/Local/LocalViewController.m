@@ -208,7 +208,7 @@
             break;
     }
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [params setObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
 
     [manager GET:API_NEARBY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -280,8 +280,8 @@
     }
     
     NSInteger oldPage = [[self.currentPageList objectAtIndex:realPageIndex] integerValue];
-    NSLog(@"我将第%d 页的纵向第%d 加了一页", realPageIndex, oldPage);
-    [self.currentPageList replaceObjectAtIndex:realPageIndex withObject:[NSNumber numberWithInt:++oldPage]];
+    NSLog(@"我将第%ld 页的纵向第%ld 加了一页", (long)realPageIndex, (long)oldPage);
+    [self.currentPageList replaceObjectAtIndex:realPageIndex withObject:[NSNumber numberWithInteger:++oldPage]];
 }
 
 
@@ -289,7 +289,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    int tag = [tableView superview].tag;
+    NSInteger tag = [tableView superview].tag;
     PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
     switch (tag) {
         case PAGE_FUN: {
@@ -318,7 +318,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    int page = [tableView superview].tag;
+    NSInteger page = [tableView superview].tag;
     switch (page) {
         case PAGE_FUN:
             return 138.0;
@@ -334,13 +334,13 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    int page = [tableView superview].tag;
+    NSInteger page = [tableView superview].tag;
     NSArray *datas = [self.dataSource objectAtIndex:page];
     return datas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    int page = [tableView superview].tag;
+    NSInteger page = [tableView superview].tag;
     if (page == PAGE_FUN) {
         AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
         PoiSummary *poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
@@ -413,13 +413,13 @@
 #pragma mark - SwipeViewDelegate
 
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
-    int page = swipeView.currentPage;
+    NSInteger page = swipeView.currentPage;
     [_filterView setSelectedIndex:page];
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
     if (![[self.dataSource objectAtIndex:page] count]) {
-        NSLog(@"我在加载数据 = %d", page);
+        NSLog(@"我在加载数据 = %ld", (long)page);
         [self loadDataWithPageIndex:0];
     }
 }
@@ -525,7 +525,7 @@
     tableView.tableFooterView = footerView;
     
     //将对应页面正在加载的状态改为 yes
-    int page = [tableView superview].tag;
+    NSInteger page = [tableView superview].tag;
     [self.isLoaddingMoreList replaceObjectAtIndex:page withObject:@YES];
     [indicatroView startAnimating];
     

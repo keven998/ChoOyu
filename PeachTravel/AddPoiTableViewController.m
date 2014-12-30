@@ -177,7 +177,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [_indicatroView startAnimating];
     [self loadDataWithPageNo:(_currentPageNormal + 1)];
     
-    NSLog(@"我要加载到第%d",_currentPageNormal+1);
+    NSLog(@"我要加载到第%lu",(long)_currentPageNormal+1);
     
 }
 
@@ -203,7 +203,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [_indicatroView startAnimating];
     [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
     
-    NSLog(@"我要加载到第%d",_currentPageSearch+1);
+    NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
     
 }
 
@@ -287,7 +287,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[NSNumber numberWithInt:pageNo] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     
     NSString *backUrlForCheck = _requestUrl;
@@ -340,7 +340,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[NSNumber numberWithInt:pageNo] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     switch (_currentListTypeIndex) {
         case 0:

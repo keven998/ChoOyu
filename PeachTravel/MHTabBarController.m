@@ -176,7 +176,7 @@ static const NSInteger TAG_OFFSET = 1000;
     spaceView.backgroundColor = [UIColor grayColor];
     [tabButtonsContainerView addSubview:spaceView];
     
-    int count = self.viewControllers.count;
+    NSInteger count = self.viewControllers.count;
     CGFloat w = floorf(self.view.bounds.size.width / count);
     for (int i = 1; i < count; ++i) {
         UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(w*i, 10.0 + tabButtonsContainerView.frame.origin.y, 0.8, TAB_BAR_HEIGHT - 2*10.0)];

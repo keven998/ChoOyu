@@ -574,7 +574,7 @@
     taoziMessageCtl.messageName = self.tripDetail.tripTitle;
     TaoziImage *image = [self.tripDetail.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
-    taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", self.tripDetail.dayCount];
+    taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)self.tripDetail.dayCount];
 }
 
 #pragma mark - TaoziMsgSendDelegate

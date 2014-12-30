@@ -308,7 +308,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
-    [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     [params safeSetObject:faType forKey:@"faType"];
     
     //加载前备份一些，如果加载后用户已经切换界面了，那么就不加载了
@@ -353,7 +353,7 @@
 
 - (void) cacheFirstPage {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    int count = _dataSource.count;
+    NSInteger count = _dataSource.count;
     if (count > 0) {
         NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
         [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId]];

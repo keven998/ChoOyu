@@ -94,8 +94,8 @@
         [uploadDicToSave safeSetObject:itineraryListToServer forKey:@"itinerary"];
         [uploadDicToUpdateBackUpTrip safeSetObject:itineraryListToUpdateBackUpTrip forKey:@"itinerary"];
 
-        [uploadDicToSave safeSetObject:[NSNumber numberWithInt:_dayCount] forKey:@"itineraryDays"];
-        [uploadDicToUpdateBackUpTrip safeSetObject:[NSNumber numberWithInt:_dayCount] forKey:@"itineraryDays"];
+        [uploadDicToSave safeSetObject:[NSNumber numberWithInteger:_dayCount] forKey:@"itineraryDays"];
+        [uploadDicToUpdateBackUpTrip safeSetObject:[NSNumber numberWithInteger:_dayCount] forKey:@"itineraryDays"];
 
     }
    

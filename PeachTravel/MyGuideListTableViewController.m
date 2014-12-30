@@ -243,7 +243,7 @@ static NSString *reusableCell = @"myGuidesCell";
         if (buttonIndex == 1) {
             CGPoint viewPos = [sender convertPoint:CGPointZero toView:self.tableView];
             NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
-            int index = indexPath.row;
+            NSInteger index = indexPath.row;
             MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index];
             [self deleteUserGuide:guideSummary];
         }
@@ -408,7 +408,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
-    [params safeSetObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取我的攻略列表
@@ -446,7 +446,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void) cacheFirstPage:(id)responseObject {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    int count = _dataSource.count;
+    NSInteger count = _dataSource.count;
     if (count > 0) {
         NSArray *cd = [_dataSource subarrayWithRange:NSMakeRange(0, count > PAGE_COUNT ? PAGE_COUNT : count)];
         [[TMCache sharedCache] setObject:cd forKey:[NSString stringWithFormat:@"%@_plans", accountManager.account.userId]];
@@ -619,7 +619,7 @@ static NSString *reusableCell = @"myGuidesCell";
         taoziMessageCtl.isGroup = _isChatGroup;
         TaoziImage *image = [guideSummary.images firstObject];
         taoziMessageCtl.messageImage = image.imageUrl;
-        taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", guideSummary.dayCount];
+        taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)guideSummary.dayCount];
 
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
             
@@ -648,7 +648,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [_indicatroView startAnimating];
     [self loadDataWithPageIndex:(_currentPage + 1)];
     
-    NSLog(@"我要加载到第%d",_currentPage+1);
+    NSLog(@"我要加载到第%lu",(long)_currentPage+1);
     
 }
 

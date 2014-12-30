@@ -317,7 +317,7 @@
         self.navigationItem.rightBarButtonItem.enabled = NO;
     } else {
 //        [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
-        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count];
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%lu)", (unsigned long)self.selectedContacts.count];
     }
     [self.contactTableView reloadData];
 }
@@ -415,7 +415,7 @@
         unitView.nickNameLabel.text = contact.nickName;
         [self.selectContactView addSelectUnit:unitView];
 //         [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
-        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count];
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

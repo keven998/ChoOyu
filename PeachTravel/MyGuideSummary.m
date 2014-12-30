@@ -50,7 +50,7 @@
     [aCoder encodeObject:_summary forKey:@"summary"];
     [aCoder encodeObject:_updateTimeStr forKey:@"updateTimeStr"];
     [aCoder encodeObject:_images forKey:@"images"];
-    [aCoder encodeInt:_dayCount forKey:@"dayCnt"];
+    [aCoder encodeInteger:_dayCount forKey:@"dayCnt"];
 }
 
 @end

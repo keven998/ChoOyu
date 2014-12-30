@@ -67,7 +67,7 @@
     _headerView.layer.cornerRadius = 2.0;
     _headerView.clipsToBounds = YES;
     
-    int count = _spot.images.count;
+    NSInteger count = _spot.images.count;
     
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < count; i++)
@@ -100,7 +100,7 @@
     [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _imagePageIndicator.userInteractionEnabled = NO;
     _imagePageIndicator.layer.cornerRadius = 1.0;
-    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%d", _spot.images.count] forState:UIControlStateNormal];
+    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"1/%ld", (unsigned long)_spot.images.count] forState:UIControlStateNormal];
 //    [_headerView addSubview:_imagePageIndicator];
 
     oy += 175;
