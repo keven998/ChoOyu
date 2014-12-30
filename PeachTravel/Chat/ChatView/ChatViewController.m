@@ -1706,7 +1706,7 @@
 - (void)removeAllMessages:(id)sender
 {
     if (_dataSource.count == 0) {
-        [self showHint:@"消息已经清空"];
+//        [self showHint:@"消息已经清空"];
         return;
     }
     
@@ -1716,12 +1716,12 @@
             [_conversation removeAllMessages];
             [_dataSource removeAllObjects];
             [_tableView reloadData];
-            [self showHint:@"消息已经清空"];
+//            [self showHint:@"消息已经清空"];
         } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
             [_conversation removeAllMessages];
             [_dataSource removeAllObjects];
             [_tableView reloadData];
-            [self showHint:@"消息已经清空"];
+//            [self showHint:@"消息已经清空"];
         }
     }
 }

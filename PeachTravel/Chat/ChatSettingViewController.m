@@ -40,7 +40,7 @@
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:_chatter];
-            
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }
