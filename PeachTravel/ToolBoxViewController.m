@@ -71,12 +71,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = @"桃子旅行";
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self setupView];
-    
-    self.navigationItem.title = @"桃子旅行";
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
@@ -98,7 +97,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     CGFloat offsetY = 0;
     
-    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 167.5) animationDuration:5];
+    CGFloat sscale = 1.0;
+    if (h <= 480.0) {
+        sscale = 960.0/1152.0;
+    }
+    
+    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 170.0*sscale) animationDuration:5];
     _galleryPageView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_galleryPageView];
@@ -113,66 +117,76 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _weatherLabel.textAlignment = NSTextAlignmentLeft;
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = [UIColor whiteColor];
-    _weatherLabel.font = [UIFont systemFontOfSize:14.0];
+    _weatherLabel.font = [UIFont systemFontOfSize:13.0];
     [_weatherFrame addSubview:_weatherLabel];
     
     offsetY += CGRectGetHeight(_galleryPageView.frame);
     
     _contentFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
-    _contentFrame.contentMode = UIViewContentModeScaleAspectFill;
+    _contentFrame.contentMode = UIViewContentModeTop;
     _contentFrame.userInteractionEnabled = YES;
+    _contentFrame.backgroundColor = [UIColor whiteColor];
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _contentFrame.image = [UIImage imageNamed:@"bg_home_mid"];
     _contentFrame.clipsToBounds = YES;
-    _contentFrame.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_contentFrame];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 20.0, w, 21.0)];
-    title.font = [UIFont systemFontOfSize:17.0];
+    CGFloat offsety = 38.0 * sscale;
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, offsety, w, 21.0)];
+    title.font = [UIFont italicSystemFontOfSize:17];
     title.textColor = TEXT_COLOR_TITLE;
     title.textAlignment = NSTextAlignmentCenter;
-    title.text = @"\"旅行助手\"";
+    title.text = @"桃子旅行助手";
     title.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     [_contentFrame addSubview:title];
     
-    _favoriteBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
-    _favoriteBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    UIImageView *limg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_toolbox_left.png"]];
+    limg.center = CGPointMake(w/2 - 77.5, offsety + 10.5);
+    [_contentFrame addSubview:limg];
+    
+    UIImageView *rimg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_toolbox_right.png"]];
+    rimg.center = CGPointMake(w/2 + 77.5, offsety + 10.5);
+    [_contentFrame addSubview:rimg];
+    
+    _favoriteBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84.0, 96.0*sscale)];
+    _favoriteBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _favoriteBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0, CGRectGetHeight(_contentFrame.bounds)-250);
-    
-    NSLog(@"%@", NSStringFromCGRect( _contentFrame.bounds));
-    
+    _favoriteBtn.center = CGPointMake(w/2.0, 112.0 * sscale);
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_home_fav.png"] forState:UIControlStateNormal];
     [_favoriteBtn setTitle:@"收藏夹" forState:UIControlStateNormal];
     [_favoriteBtn addTarget:self action:@selector(myFavorite:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_favoriteBtn];
     
-    _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
-    _planBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84, 96.0*sscale)];
+    _planBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 90.0, _favoriteBtn.center.y);
+    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 84, _favoriteBtn.center.y);
     [_planBtn setImage:[UIImage imageNamed:@"ic_home_guide.png"] forState:UIControlStateNormal];
     [_planBtn setTitle:@"旅行Memo" forState:UIControlStateNormal];
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_planBtn];
     
-    _aroundBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 76.0, 96.0)];
-    _aroundBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    _aroundBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84, 96.0*sscale)];
+    _aroundBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_aroundBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_aroundBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 90.0, _favoriteBtn.center.y);
+    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 84, _favoriteBtn.center.y);
     [_aroundBtn setImage:[UIImage imageNamed:@"ic_home_around.png"] forState:UIControlStateNormal];
     [_aroundBtn setTitle:@"我身边" forState:UIControlStateNormal];
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
     
-    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, self.view.bounds.size.height-67, w-22, 57.0)];
-    [_IMBtn setBackgroundImage:[UIImage imageNamed:@"ic_im_background.png"] forState:UIControlStateNormal];
+    offsetY = 210.0*sscale;
+    
+    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, offsetY, w-22, 57.0*sscale)];
+    [_IMBtn setImage:[UIImage imageNamed:@"ic_im_background.png"] forState:UIControlStateNormal];
     [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
+    [_contentFrame addSubview:_IMBtn];
     
     UIImageView *imTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_im_text.png"]];
     imTextImageView.center = CGPointMake(_IMBtn.bounds.size.width/2, _IMBtn.bounds.size.height/2);
@@ -181,9 +195,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIImageView *accessImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_im_arrow.png"]];
     accessImageView.center = CGPointMake(_IMBtn.bounds.size.width-30,  _IMBtn.bounds.size.height/2);
     [_IMBtn addSubview:accessImageView];
-    
-    
-    [self.view addSubview:_IMBtn];
     
     _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 10, 10)];
     [_unReadMsgLabel setCenter:CGPointMake(_IMBtn.center.x + 15, 10)];
@@ -221,7 +232,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     NSLog(@"***********最重要的页面销毁掉了*************");
     [_galleryPageView stopTimer];
+    _galleryPageView = nil;
     [self unregisterNotifications];
+    _rootCtl = nil;
+    locationManager.delegate = nil;
+    locationManager = nil;
 }
 
 - (void) setUpGallaryView
