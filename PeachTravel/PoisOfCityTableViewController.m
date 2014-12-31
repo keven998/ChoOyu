@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "PoisOfCityViewController.h"
+#import "PoisOfCityTableViewController.h"
 #import "PoisOfCityTableViewCell.h"
 #import "SINavigationMenuView.h"
 #import "CityDestinationPoi.h"
@@ -15,8 +15,9 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "PoiSummary.h"
+#import "SuperWebViewController.h"
 
-@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
+@interface PoisOfCityTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
 
 @property (strong, nonatomic) UIView *tableHeaderView;
 @property (strong, nonatomic) UISearchBar *searchBar;
@@ -28,7 +29,7 @@
 
 @end
 
-@implementation PoisOfCityViewController
+@implementation PoisOfCityTableViewController
 
 static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
@@ -37,11 +38,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableHeaderView = self.tableHeaderView;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
+
     if (self.tripDetail.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
         CityDestinationPoi *poi = [self.tripDetail.destinations firstObject];
@@ -58,8 +57,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     _currentPage = 0;
-    self.enableLoadingMore = NO;
-    [self loadData:_currentPage];
+    [self loadIntroductionOfCity];
 }
 
 #pragma mark - setter & getter
@@ -82,7 +80,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         CGRect frame = CGRectMake(0.0, 0.0, 100, self.navigationController.navigationBar.bounds.size.height);
         _titleMenu = [[SINavigationMenuView alloc] initWithFrame:frame title:[names firstObject]];
         [_titleMenu displayMenuInView:self.navigationController.view];
-       
+        
         _titleMenu.items = names;
         _titleMenu.delegate = self;
     }
@@ -127,17 +125,16 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         _searchBar.translucent = YES;
     }
     return _searchBar;
-
+    
 }
 
 - (void) beginLoadingMore {
-    [super beginLoadingMore];
-    [self loadData:_currentPage + 1];
+    [self loadDataPoisOfCity:_currentPage + 1];
 }
 
 #pragma mark - Private Methods
 
-- (void)loadData:(NSUInteger)pageNO
+- (void)loadIntroductionOfCity
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -146,8 +143,45 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *requsetUrl;
     if (_poiType == kRestaurantPoi) {
-         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
-
+        requsetUrl = [NSString stringWithFormat:@"%@%@/restaurant", API_GET_GUIDE_CITY,_cityId];
+        
+    }
+    if (_poiType == kShoppingPoi) {
+        requsetUrl = [NSString stringWithFormat:@"%@%@/shopping", API_GET_GUIDE_CITY,_cityId];
+    }
+    
+    //获取城市的美食列表信息
+    [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            self.dataSource = [[RecommendsOfCity alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            [self loadDataPoisOfCity:_currentPage];
+        } else {
+            [self showHint:@"呃～好像没找到网络"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self showHint:@"呃～好像没找到网络"];
+    }];
+    
+}
+/**
+ *  加载城市的poi列表
+ *
+ *  @param pageNO
+ */
+- (void)loadDataPoisOfCity:(NSUInteger)pageNO
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *requsetUrl;
+    if (_poiType == kRestaurantPoi) {
+        requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
+        
     }
     if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
@@ -166,7 +200,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [self updateView];
             _currentPage = pageNO;
             if (_dataSource.recommendList.count >= 15) {
-                self.enableLoadingMore = YES;
                 _currentPage++;
             } else if (pageNO > 0){
                 [self showHint:@"没有了,别强求~"];
@@ -175,11 +208,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
-        [self loadMoreCompleted];
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [self loadMoreCompleted];
         [self showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -241,6 +271,22 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     //TODO:进入评论列表
 }
 
+- (void)showIntruductionOfCity
+{
+    NSString *requsetUrl;
+    if (_poiType == kRestaurantPoi) {
+        requsetUrl = [NSString stringWithFormat:@"%@%@", RESTAURANT_CITY_HTML,_cityId];
+        
+    }
+    if (_poiType == kShoppingPoi) {
+        requsetUrl = [NSString stringWithFormat:@"%@%@", SHOPPING_CITY_HTML,_cityId];
+    }
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.urlStr = requsetUrl;
+    webCtl.titleStr = _zhName;
+    [self.navigationController pushViewController:webCtl animated:YES];
+}
+
 #pragma mark - SINavigationMenuDelegate
 
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
@@ -251,18 +297,31 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [_titleMenu setTitle:_zhName];
     [_dataSource.recommendList removeAllObjects];
     _currentPage = 0;
-    [self loadData:_currentPage];
+    [self loadDataPoisOfCity:_currentPage];
 }
 
 #pragma mark - UITableViewDataSource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (![_dataSource.desc isBlankString]) {
+        if (section == 0) {
+            return 0;
+        } else {
+            return _dataSource.recommendList.count;
+        }
+    }
     return _dataSource.recommendList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (!_dataSource) {
+        return 0;
+    }
+    if (![_dataSource.desc isBlankString]) {
+        return 2;
+    }
     return 1;
 }
 
@@ -273,6 +332,41 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         return 187.0;
     }
     return 141;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (![_dataSource.desc isBlankString]) {
+        if (section == 0) {
+            return 106;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (![_dataSource.desc isBlankString]) {
+        if (section == 0) {
+            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 106)];
+            sectionheaderView.backgroundColor = [UIColor whiteColor];
+            UIButton *btn = [[UIButton alloc] initWithFrame:sectionheaderView.frame];
+            [btn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+            [btn setAttributedTitle:[_dataSource.desc  stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE]forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
+            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            btn.titleLabel.numberOfLines = 4;
+            [btn setContentEdgeInsets:UIEdgeInsetsMake(8, 15, 8, 50)];
+            UIImageView *accessImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.frame.size.width-25, (sectionheaderView.frame.size.height-10)/2, 6, 10)];
+            accessImageView.image = [UIImage imageNamed:@"cell_accessory_pink.png"];
+            [sectionheaderView addSubview:accessImageView];
+            [sectionheaderView addSubview:btn];
+            return sectionheaderView;
+        }
+        return nil;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,7 +383,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     cell.actionBtn.tag = indexPath.row;
     cell.jumpCommentBtn.tag = indexPath.row;
     [cell.jumpCommentBtn addTarget:self action:@selector(jumpToCommentList:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     return cell;
 }
 
@@ -307,7 +401,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         shoppingDetailCtl.shoppingId = poi.poiId;
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
-   
 }
 
 

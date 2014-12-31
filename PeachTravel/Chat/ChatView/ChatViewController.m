@@ -137,7 +137,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
 
-    
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     loadChatPeopleQueue = dispatch_queue_create("loadChattingPeople", NULL);
     _isScrollToBottom = YES;
@@ -1227,6 +1226,7 @@
 
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
+    [self keyBoardHidden];
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
     myGuideListTableCtl.chatter = _chatter;
     myGuideListTableCtl.selectToSend = YES;
@@ -1236,6 +1236,7 @@
 
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
+    [self keyBoardHidden];
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.isChatGroup = _isChatGroup;
     favoriteCtl.selectToSend = YES;
@@ -1244,6 +1245,7 @@
 
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
+    [self keyBoardHidden];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.chatter = _chatter;
     searchCtl.isChatGroup = _isChatGroup;
@@ -1253,6 +1255,7 @@
 
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
+    [self keyBoardHidden];
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;
     travelNoteCtl.chatter = _chatter;
@@ -1706,7 +1709,6 @@
 - (void)removeAllMessages:(id)sender
 {
     if (_dataSource.count == 0) {
-//        [self showHint:@"消息已经清空"];
         return;
     }
     
@@ -1716,12 +1718,10 @@
             [_conversation removeAllMessages];
             [_dataSource removeAllObjects];
             [_tableView reloadData];
-//            [self showHint:@"消息已经清空"];
         } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
             [_conversation removeAllMessages];
             [_dataSource removeAllObjects];
             [_tableView reloadData];
-//            [self showHint:@"消息已经清空"];
         }
     }
 }

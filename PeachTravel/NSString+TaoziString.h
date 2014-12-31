@@ -12,4 +12,6 @@
 
 - (BOOL)isBlankString;
 
+- (NSAttributedString *)stringByAddLineSpacingAndTextColor:(UIColor *)textColor;
+
 @end

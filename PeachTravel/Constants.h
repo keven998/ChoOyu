@@ -47,10 +47,12 @@
 #define API_GET_SHOPPING_DETAIL                 (BASE_URL @"poi/shopping/")
 #define API_GET_HOTEL_DETAIL                    (BASE_URL @"poi/hotel/")
 
-#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurant/localities/")
-#define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")
-#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/vs/localities/")
-#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel/localities/")
+#define API_GET_RESTAURANTSLIST_CITY            (BASE_URL @"poi/restaurant/localities/")//城市的美食列表
+#define API_GET_SHOPPINGLIST_CITY               (BASE_URL @"poi/shopping/localities/")//城市的购物列表
+#define API_GET_SPOTLIST_CITY                   (BASE_URL @"poi/vs/localities/") //城市的景点列表
+#define API_GET_HOTELLIST_CITY                  (BASE_URL @"poi/hotel/localities/") //城市的酒店列表
+
+#define API_GET_GUIDE_CITY                      (BASE_URL @"guides/locality/")    //城市的美食购物攻略介绍
 
 #define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
 

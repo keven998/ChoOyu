@@ -11,7 +11,7 @@
 #import "TravelNoteTableViewCell.h"
 #import "CityPoi.h"
 #import "TravelNote.h"
-#import "PoisOfCityViewController.h"
+#import "PoisOfCityTableViewController.h"
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
 #import "TravelNoteListViewController.h"
@@ -131,7 +131,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            _cityPoi.travelNotes = [responseObject objectForKey:@"result"];
+            id travelNotes = [responseObject objectForKey:@"result"];
+            if ([travelNotes isKindOfClass:[NSArray class]]) {
+                _cityPoi.travelNotes = travelNotes;
+            }
             [self.tableView reloadData];
         } else {
         }
@@ -189,7 +192,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     NSLog(@"应该进入城市的美食信息");
 
-    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
+    PoisOfCityTableViewController *restaurantOfCityCtl = [[PoisOfCityTableViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = _cityPoi.cityId;
     restaurantOfCityCtl.zhName = _cityPoi.zhName;
@@ -202,7 +205,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     NSLog(@"应该进入城市的购物信息");
 
-    PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
+    PoisOfCityTableViewController *shoppingOfCityCtl = [[PoisOfCityTableViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.cityId = _cityPoi.cityId;
     shoppingOfCityCtl.zhName = _cityPoi.zhName;

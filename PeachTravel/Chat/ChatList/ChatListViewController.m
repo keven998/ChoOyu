@@ -180,20 +180,9 @@
     
     self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.emptyView];
-    
-//    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_notify_flag.png"]];
-//    imageView.contentMode = UIViewContentModeScaleToFill;
-//    imageView.center = CGPointMake(width/2.0, 100.0);
-//    [self.emptyView addSubview:imageView];
-    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 64.0);
     btn.center = CGPointMake(width/2.0, 132.0);
-//    btn.backgroundColor = APP_THEME_COLOR;
-//    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [btn setTitle:@"Talk" forState:UIControlStateNormal];
-//    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-//    btn.layer.cornerRadius = 2.0;
     [btn setImage:[UIImage imageNamed:@"ic_new_talk.png"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
     [self.emptyView addSubview:btn];
