@@ -212,7 +212,7 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHint:@"呃～好像没找到网络"];
+//        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }
