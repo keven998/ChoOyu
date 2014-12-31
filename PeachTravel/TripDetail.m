@@ -198,7 +198,6 @@
     _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
 }
 
-
 - (NSMutableArray *)analysisItineraryData:(id)json
 {
     NSMutableArray *retArray = [[NSMutableArray alloc] init];

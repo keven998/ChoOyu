@@ -19,13 +19,28 @@
 
 @interface PoisOfCityTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
 
-@property (strong, nonatomic) UIView *tableHeaderView;
-@property (strong, nonatomic) UISearchBar *searchBar;
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) SINavigationMenuView *titleMenu;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchController;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
+@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) NSMutableArray *searchResultArray;
 
-@property (nonatomic, assign) NSUInteger currentPage;
+//管理普通 tableview 的加载状态
+@property (nonatomic) NSUInteger currentPageNormal;
+@property (nonatomic, assign) BOOL isLoadingMoreNormal;
+@property (nonatomic, assign) BOOL didEndScrollNormal;
+@property (nonatomic, assign) BOOL enableLoadMoreNormal;
+
+//管理搜索 tableview 的加载状态
+@property (nonatomic) NSUInteger currentPageSearch;
+@property (nonatomic, assign) BOOL isLoadingMoreSearch;
+@property (nonatomic, assign) BOOL didEndScrollSearch;
+@property (nonatomic, assign) BOOL enableLoadMoreSearch;
+
+@property (nonatomic, copy) NSString *searchText;
 
 @end
 
@@ -40,7 +55,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
-
+    
+    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
+    
+    _searchBar.delegate = self;
+    _searchController.searchResultsTableView.delegate = self;
+    _searchController.searchResultsTableView.dataSource = self;
     if (self.tripDetail.destinations.count > 1) {
         self.navigationItem.titleView = self.titleMenu;
         CityDestinationPoi *poi = [self.tripDetail.destinations firstObject];
@@ -55,8 +77,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         leftBtn.tintColor = APP_THEME_COLOR;
         self.navigationItem.leftBarButtonItem = leftBtn;
     }
-    
-    _currentPage = 0;
+    NSString *searchPlaceHolder;
+    if (_poiType == kRestaurantPoi) {
+        searchPlaceHolder = @"请输入美食名字";
+    }
+    if (_poiType == kShoppingPoi) {
+        searchPlaceHolder = @"请输入购物名字";
+    }
+    _currentPageNormal = 0;
     [self loadIntroductionOfCity];
 }
 
@@ -87,49 +115,25 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     return _titleMenu;
 }
 
-- (UIView *)tableHeaderView
+- (NSMutableArray *)searchResultArray
 {
-    if (!_tableHeaderView) {
-        _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 145)];
-        UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, _tableHeaderView.frame.size.width, 100)];
-        headerImageView.image = [UIImage imageNamed:@"country.jpg"];
-        
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 80, _tableHeaderView.frame.size.width-50, 60)];
-        titleLabel.font = [UIFont systemFontOfSize:14.0];
-        titleLabel.numberOfLines = 4;
-        titleLabel.textColor = [UIColor whiteColor];
-        [_tableHeaderView addSubview:self.searchBar];
-        [_tableHeaderView addSubview:headerImageView];
-        [_tableHeaderView addSubview:titleLabel];
+    if (!_searchResultArray) {
+        _searchResultArray = [[NSMutableArray alloc] init];
     }
-    return _tableHeaderView;
+    return _searchResultArray;
 }
 
-- (UISearchBar *)searchBar
-{
-    if (!_searchBar) {
-        NSString *searchPlaceHolder;
-        if (_poiType == kRestaurantPoi) {
-            searchPlaceHolder = @"请输入美食名字";
-        }
-        if (_poiType == kShoppingPoi) {
-            searchPlaceHolder = @"请输入购物名字";
-        }
-        
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
-        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-        _searchBar.delegate = self;
-        [_searchBar setPlaceholder:searchPlaceHolder];
-        _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _searchBar.translucent = YES;
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.backgroundColor = APP_PAGE_COLOR;
+        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [_footerView addSubview:_indicatroView];
+        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
     }
-    return _searchBar;
-    
-}
-
-- (void) beginLoadingMore {
-    [self loadDataPoisOfCity:_currentPage + 1];
+    return _footerView;
 }
 
 #pragma mark - Private Methods
@@ -156,7 +160,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.dataSource = [[RecommendsOfCity alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            [self loadDataPoisOfCity:_currentPage];
+            
+            [self loadDataPoisOfCity:_currentPageNormal];
         } else {
             [self showHint:@"呃～好像没找到网络"];
         }
@@ -164,7 +169,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showHint:@"呃～好像没找到网络"];
     }];
-    
 }
 /**
  *  加载城市的poi列表
@@ -193,14 +197,19 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     //获取城市的美食列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadMoreCompletedNormal];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self.dataSource addRecommendList:[responseObject objectForKey:@"result"]];
+            NSArray *jsonDic = [responseObject objectForKey:@"result"];
+            if (jsonDic.count == 15) {
+                _enableLoadMoreNormal = YES;
+            }
+            [self.dataSource addRecommendList:jsonDic];
             [self updateView];
-            _currentPage = pageNO;
+            _currentPageNormal = pageNO;
             if (_dataSource.recommendList.count >= 15) {
-                _currentPage++;
+                _currentPageNormal++;
             } else if (pageNO > 0){
                 [self showHint:@"没有了,别强求~"];
             }
@@ -210,7 +219,81 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [self loadMoreCompletedNormal];
         [self showHint:@"呃～好像没找到网络"];
+    }];
+}
+
+/**
+ *  加载搜索的数据
+ *
+ *  @param pageNo     第几页
+ *  @param searchText 搜索关键字
+ */
+- (void)loadSearchDataWithPageNo:(NSUInteger)pageNo
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    switch (_poiType) {
+        case kRestaurantPoi:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
+            break;
+        case kShoppingPoi:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
+            break;
+        default:
+            break;
+    }
+    
+    [params setObject:_cityId forKey:@"locId"];
+    [params setObject:_searchText forKey:@"keyWord"];
+    [SVProgressHUD show];
+    
+    //获取搜索列表信息
+    [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [SVProgressHUD dismiss];
+        if (self.searchDisplayController.isActive) {
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                NSString *key = nil;
+                switch (_poiType) {
+                    case kRestaurantPoi:
+                        key = @"restaurant";
+                        break;
+                    case kShoppingPoi:
+                        key = @"shopping";
+                        break;
+                   
+                    default:
+                        break;
+                }
+                NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
+                if (jsonDic.count == 15) {
+                    _enableLoadMoreSearch = YES;
+                }
+                for (id poiDic in jsonDic) {
+                    [self.searchResultArray addObject:[[PoiSummary alloc] initWithJson:poiDic]];
+                }
+                [self.searchController.searchResultsTableView reloadData];
+                _currentPageSearch = pageNo;
+            } else {
+                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
+            [self loadMoreCompletedSearch];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [self loadMoreCompletedSearch];
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
@@ -287,6 +370,58 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
+/**
+ *  非搜索状态下上拉加载更多
+ */
+- (void) beginLoadingMoreNormal
+{
+    if (self.tableView.tableFooterView == nil) {
+        self.tableView.tableFooterView = self.footerView;
+    }
+    _isLoadingMoreNormal = YES;
+    [_indicatroView startAnimating];
+    [self loadDataPoisOfCity:(_currentPageNormal + 1)];
+    
+    NSLog(@"我要加载到第%lu",(long)_currentPageNormal+1);
+    
+}
+
+/**
+ *  非搜索状态下加载完成
+ */
+- (void) loadMoreCompletedNormal
+{
+    if (!_isLoadingMoreNormal) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMoreNormal = NO;
+}
+
+/**
+ *  搜索状态下上拉加载更多
+ */
+- (void) beginLoadingSearch
+{
+    if (self.searchController.searchResultsTableView.tableFooterView == nil) {
+        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
+    }
+    _isLoadingMoreSearch = YES;
+    [_indicatroView startAnimating];
+    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
+    
+    NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
+    
+}
+
+/**
+ *  搜索状态下加载完成
+ */
+- (void) loadMoreCompletedSearch
+{
+    if (!_isLoadingMoreSearch) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMoreSearch = NO;
+}
+
 #pragma mark - SINavigationMenuDelegate
 
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
@@ -296,14 +431,17 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _zhName = destination.zhName;
     [_titleMenu setTitle:_zhName];
     [_dataSource.recommendList removeAllObjects];
-    _currentPage = 0;
-    [self loadDataPoisOfCity:_currentPage];
+    _currentPageNormal = 0;
+    [self loadDataPoisOfCity:_currentPageNormal];
 }
 
 #pragma mark - UITableViewDataSource & delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (![tableView isEqual:self.tableView]) {
+        return self.searchResultArray.count;
+    }
     if (![_dataSource.desc isBlankString]) {
         if (section == 0) {
             return 0;
@@ -316,6 +454,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (![tableView isEqual:self.tableView]) {
+        return 1;
+    }
     if (!_dataSource) {
         return 0;
     }
@@ -336,6 +477,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (![tableView isEqual:self.tableView]) {
+        return 0;
+    }
     if (![_dataSource.desc isBlankString]) {
         if (section == 0) {
             return 106;
@@ -371,7 +515,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    PoiSummary *poi ;
+    if (![tableView isEqual:self.tableView]) {
+        poi = [self.searchResultArray objectAtIndex:indexPath.row];
+    } else {
+        poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier];
     cell.shouldEdit = _shouldEdit;
     if (_shouldEdit) {
@@ -403,7 +552,68 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
 }
 
+#pragma mark - SearchBarDelegate
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchResultArray removeAllObjects];
+    _searchText = nil;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    _currentPageSearch = 0;
+    _searchText = searchBar.text;
+    [self loadSearchDataWithPageNo:_currentPageSearch];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
+{
+    _isLoadingMoreSearch = YES;
+    _didEndScrollSearch = YES;
+    _enableLoadMoreSearch = NO;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+{
+    [self.searchResultArray removeAllObjects];
+    [self.searchController.searchResultsTableView reloadData];
+    [self.tableView reloadData];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.tableView]) {
+        if (!_isLoadingMoreNormal && _didEndScrollNormal && _enableLoadMoreNormal) {
+            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+            if (scrollPosition < 44.0) {
+                _didEndScrollNormal = NO;
+                [self beginLoadingMoreNormal];
+            }
+        }
+    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
+        if (!_isLoadingMoreSearch && _didEndScrollSearch && _enableLoadMoreSearch) {
+            CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+            if (scrollPosition < 44.0) {
+                _didEndScrollSearch = NO;
+                [self beginLoadingSearch];
+            }
+        }
+    }
+    
+}
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.tableView]) {
+        _didEndScrollNormal = YES;
+    } else if ([scrollView isEqual:self.searchController.searchResultsTableView]) {
+        _didEndScrollSearch = YES;
+    }
+    
+}
 
 
 @end
