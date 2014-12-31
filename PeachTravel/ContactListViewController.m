@@ -42,10 +42,9 @@
     [self.accountManager loadContactsFromServer];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
+
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager.account.contacts count] > 15) {
-        _showRefrence = YES;
-    }
+    _showRefrence = ([accountManager.account.contacts count] > 15);
     
     if (_showRefrence) {
         [self.view addSubview:self.tzScrollView];
@@ -77,6 +76,9 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tzScrollView.delegate = nil;
+    _contactTableView.delegate = nil;
+    _emptyView = nil;
 }
 
 #pragma mark - private method
@@ -167,6 +169,7 @@
     }
     return _tzScrollView;
 }
+
 - (AccountManager *)accountManager
 {
     if (!_accountManager) {

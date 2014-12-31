@@ -22,6 +22,7 @@
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
     self.backgroundColor = APP_PAGE_COLOR;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setTripPoi:(TripPoi *)tripPoi
