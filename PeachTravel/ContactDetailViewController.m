@@ -187,6 +187,9 @@
     [blurImageProcessor cancelAsyncBlurOperations];
     blurImageProcessor = nil;
     _bigHeaderView = nil;
+    
+    _av.delegate = nil;
+    _av = nil;
 }
 
 #pragma - mark IBAction
@@ -212,7 +215,7 @@
 {
     NSInteger numberOfOptions = 1;
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete_user.png"] title:@"从桃友列表删除"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete_user.png"] title:@"删除桃友"],
                        ];
     
     _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];

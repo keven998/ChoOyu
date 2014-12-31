@@ -248,7 +248,7 @@ CGPoint RNCentroidOfTouchesInView(NSSet *touches, UIView *view) {
         if (self.titleLabel.textAlignment == NSTextAlignmentLeft) {
             left = 10;
         }
-        self.titleLabel.frame = CGRectMake(left, y, CGRectGetWidth(frame), height);
+        self.titleLabel.frame = CGRectMake(left, y - 6, CGRectGetWidth(frame), height);
     }
     else {
         self.titleLabel.frame = CGRectZero;
@@ -521,6 +521,7 @@ static RNGridMenu *rn_visibleGridMenu;
     [self.itemViews enumerateObjectsUsingBlock:^(RNMenuItemView *itemView, NSUInteger idx, BOOL *stop) {
         itemView.titleLabel.textColor = self.itemTextColor;
         itemView.titleLabel.textAlignment = self.itemTextAlignment;
+        itemView.titleLabel.adjustsFontSizeToFitWidth = YES;
         itemView.titleLabel.font = self.itemFont;
     }];
 }

@@ -21,7 +21,7 @@
 #import "CreateConversationViewController.h"
 #import "IMRootViewController.h"
 
-@interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *dataSource;
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
@@ -61,9 +61,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    _dataSource = [NSMutableArray array];
+    
+//    _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
     [self searchController];
 }
@@ -79,10 +79,16 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self unregisterNotifications];
 }
 
 - (void)dealloc{
-    [self unregisterNotifications];
+    _slimeView.delegate = nil;
+    _slimeView = nil;
+    _createConversationCtl.delegate = nil;
+    _createConversationCtl = nil;
+    _searchController.delegate = nil;
+    _searchController = nil;
 }
 
 #pragma mark - getter

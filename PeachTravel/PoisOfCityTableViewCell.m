@@ -39,6 +39,7 @@
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
     self.contentView.backgroundColor = APP_PAGE_COLOR;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setPoi:(PoiSummary *)poi
