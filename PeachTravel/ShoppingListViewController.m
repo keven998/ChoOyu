@@ -99,7 +99,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
         UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 160.0, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addOneDayBtn setTitle:@"备忘想逛的shopping" forState:UIControlStateNormal];
+        [addOneDayBtn setTitle:@"添加想逛备忘" forState:UIControlStateNormal];
 //        addOneDayBtn.backgroundColor = APP_THEME_COLOR;
         addOneDayBtn.clipsToBounds = YES;
         [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];

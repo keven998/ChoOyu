@@ -121,10 +121,12 @@
     _detailView = [[UIView alloc] init];
     [self addSubview:_detailView];
     
-    CGFloat doy = 0;
+    CGFloat doy = 0.0;
     _detailView.backgroundColor = APP_PAGE_COLOR;
     
-    NSAttributedString *timeCostDetail = [[NSAttributedString alloc] initWithString:_cityPoi.timeCostDesc
+    NSAttributedString *timeCostDetail = [[NSAttributedString alloc] initWithString:
+//                                          [_cityPoi.timeCostDesc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                          [_cityPoi.timeCostDesc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                                                                          attributes:@{
                                                                                       NSFontAttributeName : [UIFont systemFontOfSize:11.0],
                                                                                       NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE
@@ -132,7 +134,7 @@
     
     CGSize timeCostSize = timeCostDetail.size;
     NSInteger timeCostLineCount = (timeCostSize.width / (width-80-70)) + 1;
-    CGFloat timeCostHeight = timeCostLineCount * 13.1+10;
+    CGFloat timeCostHeight = timeCostLineCount * 13.1 + 20;
     _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, width, timeCostHeight)];
     [_timeCostBtn setAttributedTitle:timeCostDetail forState:UIControlStateNormal];
     _timeCostBtn.titleLabel.numberOfLines = timeCostLineCount;
@@ -141,7 +143,7 @@
     _timeCostBtn.frame = CGRectMake(_timeCostBtn.frame.origin.x, _timeCostBtn.frame.origin.y, _timeCostBtn.frame.size.width, timeCostHeight);
     [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     UIButton *timeCostSubTitle = [[UIButton alloc] initWithFrame:CGRectMake(8, 0, 80, _timeCostBtn.frame.size.height)];
-    [timeCostSubTitle setTitle:@"最佳游玩时间" forState:UIControlStateNormal];
+    [timeCostSubTitle setTitle:@"建议游玩时间" forState:UIControlStateNormal];
     [timeCostSubTitle setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     timeCostSubTitle.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_timeCostBtn addSubview:timeCostSubTitle];
@@ -163,7 +165,7 @@
 
     CGSize size = travelStr.size;
     NSInteger lineCount = (size.width / (width-80-70)) + 1;
-    CGFloat height = lineCount * 13.1+10;
+    CGFloat height = lineCount * 13.1+20;
     
     _travelMonthBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, width, height)];
     _travelMonthBtn.layer.cornerRadius = 1.0;
