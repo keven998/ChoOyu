@@ -55,12 +55,22 @@
     [self registerRemoteNotification];
     
     /****** 设置环信 ******/
-    NSString *apnsCertName = @"taoziAPNS";
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#xiaofang" apnsCertName:apnsCertName];
+    
+    NSString *apnsCertName = nil;
+#if DEBUG
+    apnsCertName = @"taoziAPNS";
+#else
+    apnsCertName = @"taoziAPNS_Production";
+#endif
+
 #if DEBUG
     [[EaseMob sharedInstance] enableUncaughtExceptionHandler];
 #endif
+    
     [[[EaseMob sharedInstance] chatManager] setIsAutoFetchBuddyList:YES];
+    
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#xiaofang" apnsCertName:apnsCertName];
+
     //以下一行代码的方法里实现了自动登录，异步登录，需要监听[didLoginWithInfo: error:]
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
