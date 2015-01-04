@@ -11,6 +11,7 @@
 
 @interface PoisOfCityTableViewCell : UITableViewCell
 @property (nonatomic) BOOL shouldEdit;
+
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *jumpCommentBtn;
 

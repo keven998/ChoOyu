@@ -26,7 +26,7 @@
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 4;
+    _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -41,8 +41,8 @@
         
     } else {
         _mapViewBtn.hidden = NO;
-        _titleLabelConstraint.constant = 60;
-        _addressLabelConstraint.constant = 60;
+        _titleLabelConstraint.constant = 40;
+        _addressLabelConstraint.constant = 40;
 
     }
 }

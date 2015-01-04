@@ -11,9 +11,6 @@
 @implementation TripPoiListTableViewCell
 
 - (void)awakeFromNib {
-    _nearBy.layer.borderColor = UIColorFromRGB(0x797979).CGColor;
-    _nearBy.layer.borderWidth = 0.5;
-    _nearBy.layer.cornerRadius = 2.0;
     self.layer.cornerRadius = 2.0;
     self.clipsToBounds = YES;
     _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
@@ -31,17 +28,11 @@
 {
     if (isEditing) {
         _pictureHorizontalSpace.constant = 8;
-        _nearBy.hidden = YES;
         _spaceView.hidden = YES;
-        _timeCostConstraint.constant = 40;
-        _titleContstraint.constant = 40;
     } else
     {
         _pictureHorizontalSpace.constant = 28;
-        _nearBy.hidden = NO;
         _spaceView.hidden = NO;
-        _timeCostConstraint.constant = 78;
-        _titleContstraint.constant = 77;
     }
 }
 

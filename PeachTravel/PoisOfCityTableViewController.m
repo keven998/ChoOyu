@@ -63,7 +63,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchBar.delegate = self;
     _searchController.searchResultsTableView.delegate = self;
     _searchController.searchResultsTableView.dataSource = self;
-    if (self.tripDetail.destinations.count > 1) {
+    if (self.tripDetail) {
         UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
         self.navigationItem.rightBarButtonItem = filterBtn;
         [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
@@ -329,16 +329,79 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (IBAction)addPoi:(UIButton *)sender
 {
     TripPoi *tripPoi = [[TripPoi alloc] init];
-    PoiSummary *restaurantPoi = [_dataSource.recommendList objectAtIndex:sender.tag];
-    tripPoi.poiId = restaurantPoi.poiId;
-    tripPoi.zhName = restaurantPoi.zhName;
-    tripPoi.enName = restaurantPoi.enName;
-    tripPoi.images = restaurantPoi.images;
-    tripPoi.priceDesc = restaurantPoi.priceDesc;
-    tripPoi.desc = restaurantPoi.desc;
-    tripPoi.address = restaurantPoi.address;
-    tripPoi.poiType = kRestaurantPoi;
-    [self.tripDetail.restaurantsList addObject:tripPoi];
+    PoiSummary *poi;
+    if (self.searchController.isActive) {
+        poi = [_searchResultArray objectAtIndex:sender.tag];
+    } else {
+        poi = [_dataSource.recommendList objectAtIndex:sender.tag];
+    }
+    tripPoi.poiId = poi.poiId;
+    tripPoi.zhName = poi.zhName;
+    tripPoi.enName = poi.enName;
+    tripPoi.images = poi.images;
+    tripPoi.priceDesc = poi.priceDesc;
+    tripPoi.desc = poi.desc;
+    tripPoi.rating = poi.rating;
+    tripPoi.address = poi.address;
+    tripPoi.poiType = _poiType;
+    if (_poiType == kRestaurantPoi) {
+        [self.tripDetail.restaurantsList addObject:tripPoi];
+    }
+    if (_poiType == kShoppingPoi) {
+        [self.tripDetail.shoppingList addObject:tripPoi];
+    }
+    
+    NSIndexPath *path;
+       if (self.searchController.isActive) {
+           path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+           [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        if (self.tableView.numberOfSections>1) {
+            path = [NSIndexPath indexPathForItem:sender.tag inSection:1];
+        } else {
+            path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+        }
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+- (IBAction)deletePoi:(UIButton *)sender
+{
+    PoiSummary *poi;
+    if (self.searchController.isActive) {
+        poi = [_searchResultArray objectAtIndex:sender.tag];
+    } else {
+        poi = [_dataSource.recommendList objectAtIndex:sender.tag];
+        
+    }
+   
+    NSMutableArray *oneDayArray;
+    if (_poiType == kRestaurantPoi) {
+        oneDayArray = self.tripDetail.restaurantsList;
+    }
+    if (_poiType == kShoppingPoi) {
+        oneDayArray = self.tripDetail.shoppingList;
+    }
+    for (TripPoi *tripPoi in oneDayArray) {
+        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+            [oneDayArray removeObject:tripPoi];
+            break;
+        }
+    }
+    
+    NSIndexPath *path;
+    if (self.searchController.isActive) {
+        path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        if (self.tableView.numberOfSections>1) {
+            path = [NSIndexPath indexPathForItem:sender.tag inSection:1];
+        } else {
+            path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+        }
+        
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 /**
@@ -353,8 +416,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (IBAction)finishAdd:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
     [_delegate finishEdit];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)showMoreCities:(UIButton *)sender
@@ -541,15 +604,38 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier];
     cell.shouldEdit = _shouldEdit;
-    if (_shouldEdit) {
-        [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [cell.actionBtn addTarget:self action:@selector(viewMap:) forControlEvents:UIControlEventTouchUpInside];
-    }
     cell.poi = poi;
     cell.actionBtn.tag = indexPath.row;
     cell.jumpCommentBtn.tag = indexPath.row;
     [cell.jumpCommentBtn addTarget:self action:@selector(jumpToCommentList:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //如果从攻略列表进来想要添加美食或酒店
+    if (_shouldEdit) {
+        BOOL isAdded = NO;
+        NSMutableArray *tempArray;
+        if (_poiType == kShoppingPoi) {
+            tempArray = self.tripDetail.shoppingList;
+        }
+        if (_poiType == kRestaurantPoi) {
+            tempArray = self.tripDetail.restaurantsList;
+        }
+        for (TripPoi *tripPoi in tempArray) {
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                isAdded = YES;
+                break;
+            }
+        }
+        cell.isAdded = isAdded;
+        if (isAdded) {
+            [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            [cell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    } else {
+        [cell.actionBtn addTarget:self action:@selector(viewMap:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     return cell;
 }
@@ -580,6 +666,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [self.searchResultArray removeAllObjects];
+    [self.searchController.searchResultsTableView reloadData];
     _currentPageSearch = 0;
     _searchText = searchBar.text;
     [self loadSearchDataWithPageNo:_currentPageSearch];
