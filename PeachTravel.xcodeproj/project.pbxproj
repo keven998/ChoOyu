@@ -25,6 +25,8 @@
 		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C60C0D731A29A40C006033C9 /* ic_login_weixin_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D711A29A40C006033C9 /* ic_login_weixin_highlight@2x.png */; };
 		C60C0D741A29A40C006033C9 /* ic_login_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D721A29A40C006033C9 /* ic_login_weixin@2x.png */; };
+		C61F15691A59006200F4DF12 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = C61F15661A59006200F4DF12 /* NJKWebViewProgress.m */; };
+		C61F156A1A59006200F4DF12 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C61F15681A59006200F4DF12 /* NJKWebViewProgressView.m */; };
 		C62A7A361A39744F00526928 /* ic_cell_item_chooesed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */; };
 		C62A7A371A39744F00526928 /* ic_cell_item_unchoose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A341A39744F00526928 /* ic_cell_item_unchoose@2x.png */; };
 		C62A7A381A39744F00526928 /* ic_view_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A351A39744F00526928 /* ic_view_add@2x.png */; };
@@ -680,6 +682,10 @@
 		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C60C0D711A29A40C006033C9 /* ic_login_weixin_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin_highlight@2x.png"; sourceTree = "<group>"; };
 		C60C0D721A29A40C006033C9 /* ic_login_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin@2x.png"; sourceTree = "<group>"; };
+		C61F15651A59006200F4DF12 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
+		C61F15661A59006200F4DF12 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		C61F15671A59006200F4DF12 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
+		C61F15681A59006200F4DF12 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cell_item_chooesed@2x.png"; sourceTree = "<group>"; };
 		C62A7A341A39744F00526928 /* ic_cell_item_unchoose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cell_item_unchoose@2x.png"; sourceTree = "<group>"; };
 		C62A7A351A39744F00526928 /* ic_view_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_view_add@2x.png"; sourceTree = "<group>"; };
@@ -1723,6 +1729,18 @@
 			);
 			name = PushSetting;
 			path = Me/Setting/PushSetting;
+			sourceTree = "<group>";
+		};
+		C61F15641A59006200F4DF12 /* NJKWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				C61F15651A59006200F4DF12 /* NJKWebViewProgress.h */,
+				C61F15661A59006200F4DF12 /* NJKWebViewProgress.m */,
+				C61F15671A59006200F4DF12 /* NJKWebViewProgressView.h */,
+				C61F15681A59006200F4DF12 /* NJKWebViewProgressView.m */,
+			);
+			name = NJKWebViewProgress;
+			path = Common/Config/libs/NJKWebViewProgress;
 			sourceTree = "<group>";
 		};
 		C63344DE1A1C3F5F00A27F86 /* Resource */ = {
@@ -3100,6 +3118,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C61F15641A59006200F4DF12 /* NJKWebViewProgress */,
 				D9978B181A52B78300AB52B0 /* WeChatSDK_1.5 */,
 				D9978ADD1A52B75C00AB52B0 /* UMSocial_Sdk_4.2.1 */,
 				D9978AF81A52B75C00AB52B0 /* UMSocial_Sdk_Extra_Frameworks */,
@@ -4921,6 +4940,7 @@
 				D902ADC91A15EC9300E36A93 /* TravelNoteTableViewCell.m in Sources */,
 				D97C17D419FE301B00895B62 /* MessageModelManager.m in Sources */,
 				D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */,
+				C61F15691A59006200F4DF12 /* NJKWebViewProgress.m in Sources */,
 				D9AC9BB71A1F312900E0C4CE /* TBXML.m in Sources */,
 				D95F8DED1A42F932003F4275 /* NSTimer+Addition.m in Sources */,
 				D9978B2C1A53B37300AB52B0 /* PoisOfCityTableViewController.m in Sources */,
@@ -5060,6 +5080,7 @@
 				D9A717BC1A04945F005BDEFE /* FrendRequest.m in Sources */,
 				D98CC6971A19D7EE00FA5A76 /* SpotPoi.m in Sources */,
 				D9117A741A2C3836000DBFCB /* ChatRecoredListTableViewController.m in Sources */,
+				C61F156A1A59006200F4DF12 /* NJKWebViewProgressView.m in Sources */,
 				D9AC9BB21A1F2A2300E0C4CE /* WeatherInfo.m in Sources */,
 				D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */,
 				D90F366719F63E5300E26FA9 /* EMSearchBar.m in Sources */,
