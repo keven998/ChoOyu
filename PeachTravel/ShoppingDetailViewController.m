@@ -8,6 +8,7 @@
 
 #import "ShoppingDetailViewController.h"
 #import "CommonPoiDetailView.h"
+#import "AccountManager.h"
 
 @interface ShoppingDetailViewController ()
 @property (nonatomic, strong) PoiSummary *shoppingPoi;
@@ -42,6 +43,10 @@
 - (void) loadData
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPING_DETAIL, _shoppingId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

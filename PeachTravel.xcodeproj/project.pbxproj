@@ -516,6 +516,7 @@
 		D9978B1E1A52B78300AB52B0 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = D9978B1A1A52B78300AB52B0 /* read_me.txt */; };
 		D9978B2C1A53B37300AB52B0 /* PoisOfCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9978B2A1A53B37300AB52B0 /* PoisOfCityTableViewController.m */; };
 		D9978B2D1A53B37300AB52B0 /* PoisOfCityTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9978B2B1A53B37300AB52B0 /* PoisOfCityTableViewController.xib */; };
+		D9978B2F1A59013F00AB52B0 /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */; };
 		D99D8ECB19C8600C0021C25B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECA19C8600C0021C25B /* main.m */; };
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
 		D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED719C8600C0021C25B /* LaunchScreen.xib */; };
@@ -1447,6 +1448,7 @@
 		D9978B291A53B37300AB52B0 /* PoisOfCityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoisOfCityTableViewController.h; sourceTree = "<group>"; };
 		D9978B2A1A53B37300AB52B0 /* PoisOfCityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoisOfCityTableViewController.m; sourceTree = "<group>"; };
 		D9978B2B1A53B37300AB52B0 /* PoisOfCityTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewController.xib; sourceTree = "<group>"; };
+		D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete@2x.png"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EC919C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8ECA19C8600C0021C25B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -2608,6 +2610,7 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */,
 				D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */,
 				D98BDA6D1A4441F50093C559 /* HomePage */,
 				D98BDA5C1A43D5940093C559 /* Tabbar */,
@@ -4438,6 +4441,7 @@
 			files = (
 				D90C63A319FB44D300C2E440 /* chat_location_detail_disclosure@2x.png in Resources */,
 				D90C637619FB44D300C2E440 /* VoiceSearchFeedback005@2x.png in Resources */,
+				D9978B2F1A59013F00AB52B0 /* ic_delete@2x.png in Resources */,
 				D9681A0F1A109BF600122793 /* Default.png in Resources */,
 				D9CC36D91A380E4E00E72A7F /* kengdie_guide_selected@2x.png in Resources */,
 				D92A48971A3945CE00B00D91 /* ic_time@2x.png in Resources */,

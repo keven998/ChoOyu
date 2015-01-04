@@ -170,7 +170,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //先将收藏的状态改变
     _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
     _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_cityPoi.cityId poiType:@"vs" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    [super asyncFavorite:_cityPoi.cityId poiType:@"locality" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
         _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _cityPoi.isMyFavorite = !_cityPoi.isMyFavorite;

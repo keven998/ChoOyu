@@ -8,7 +8,7 @@
 
 #import "PoisOfCityTableViewController.h"
 #import "PoisOfCityTableViewCell.h"
-#import "SINavigationMenuView.h"
+#import "TZFilterViewController.h"
 #import "CityDestinationPoi.h"
 #import "PoiSummary.h"
 #import "RecommendsOfCity.h"
@@ -17,16 +17,16 @@
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
-@interface PoisOfCityTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SINavigationMenuDelegate>
+@interface PoisOfCityTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
-@property (nonatomic, strong) SINavigationMenuView *titleMenu;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
+@property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 //管理普通 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageNormal;
@@ -64,10 +64,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchController.searchResultsTableView.delegate = self;
     _searchController.searchResultsTableView.dataSource = self;
     if (self.tripDetail.destinations.count > 1) {
-        self.navigationItem.titleView = self.titleMenu;
-        CityDestinationPoi *poi = [self.tripDetail.destinations firstObject];
-        _cityId = poi.cityId;
-        _zhName = poi.zhName;
+        UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+        self.navigationItem.rightBarButtonItem = filterBtn;
+        [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+        CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
+        _zhName = destination.zhName;
+        _cityId = destination.cityId;
+
     } else {
         self.navigationItem.title = _zhName;
     }
@@ -98,23 +101,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     return _dataSource;
 }
 
-- (SINavigationMenuView *)titleMenu
-{
-    if (!_titleMenu) {
-        NSMutableArray *names = [[NSMutableArray alloc] init];
-        for (CityPoi *city in _tripDetail.destinations) {
-            [names addObject:city.zhName];
-        }
-        CGRect frame = CGRectMake(0.0, 0.0, 100, self.navigationController.navigationBar.bounds.size.height);
-        _titleMenu = [[SINavigationMenuView alloc] initWithFrame:frame title:[names firstObject]];
-        [_titleMenu displayMenuInView:self.navigationController.view];
-        
-        _titleMenu.items = names;
-        _titleMenu.delegate = self;
-    }
-    return _titleMenu;
-}
-
 - (NSMutableArray *)searchResultArray
 {
     if (!_searchResultArray) {
@@ -134,6 +120,23 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
     }
     return _footerView;
+}
+
+- (TZFilterViewController *)filterCtl
+{
+    if (!_filterCtl) {
+        _filterCtl = [[TZFilterViewController alloc] init];
+        NSMutableArray *titiles = [[NSMutableArray alloc] init];
+        for (CityDestinationPoi *poi in _tripDetail.destinations) {
+            [titiles addObject:poi.zhName];
+        }
+        _filterCtl.filterTitles = @[@"城市"];
+        _filterCtl.lineCountPerFilterType = @[@2];
+        _filterCtl.selectedItmesIndex = @[@0];
+        _filterCtl.filterItemsArray = @[titiles];
+        _filterCtl.delegate = self;
+    }
+    return _filterCtl;
 }
 
 #pragma mark - Private Methods
@@ -191,6 +194,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
     }
     
+    //加载之前备份一个城市的 id 与从网上取完数据后的 id 对比，如果不一致说明用户切换了城市
+    NSString *backUpCityId = _cityId;
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
@@ -198,22 +204,24 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     //获取城市的美食.购物列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self loadMoreCompletedNormal];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            NSArray *jsonDic = [responseObject objectForKey:@"result"];
-            if (jsonDic.count == 15) {
-                _enableLoadMoreNormal = YES;
+        if ([backUpCityId isEqualToString:_cityId]) {
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                NSArray *jsonDic = [responseObject objectForKey:@"result"];
+                if (jsonDic.count == 15) {
+                    _enableLoadMoreNormal = YES;
+                }
+                [self.dataSource addRecommendList:jsonDic];
+                [self updateView];
+                _currentPageNormal = pageNO;
+                if (_dataSource.recommendList.count >= 15) {
+                    
+                } else if (pageNO > 0){
+                    [self showHint:@"没有了,别强求~"];
+                }
+            } else {
+                [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             }
-            [self.dataSource addRecommendList:jsonDic];
-            [self updateView];
-            _currentPageNormal = pageNO;
-            if (_dataSource.recommendList.count >= 15) {
-                
-            } else if (pageNO > 0){
-                [self showHint:@"没有了,别强求~"];
-            }
-        } else {
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -299,6 +307,17 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     [self.tableView reloadData];
 }
+
+- (void)filter:(id)sender
+{
+    if (!self.filterCtl.filterViewIsShowing) {
+        typeof(PoisOfCityTableViewController *)weakSelf = self;
+        [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
+    } else {
+        [self.filterCtl hideFilterView];
+    }
+}
+
 
 #pragma mark - IBAction Methods
 
@@ -420,18 +439,19 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _isLoadingMoreSearch = NO;
 }
 
-#pragma mark - SINavigationMenuDelegate
-
-- (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
+#pragma mark - TZFilterViewDelegate
+-(void)didSelectedItems:(NSArray *)itemIndexPath
 {
-    CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:index];
+    CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
     _cityId = destination.cityId;
     _zhName = destination.zhName;
-    [_titleMenu setTitle:_zhName];
     [_dataSource.recommendList removeAllObjects];
     _currentPageNormal = 0;
-    [self loadDataPoisOfCity:_currentPageNormal];
+    [self.tableView reloadData];
+    [self loadIntroductionOfCity];
+
 }
+
 
 #pragma mark - UITableViewDataSource & delegate
 

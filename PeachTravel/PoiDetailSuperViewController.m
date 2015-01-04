@@ -20,13 +20,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    [talkBtn setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
-//    [talkBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
-    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(chat:)];
-    [moreBarItem setImage:[UIImage imageNamed:@"ic_chat.png"]];
-    self.navigationItem.rightBarButtonItem = moreBarItem;
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
+    self.navigationItem.rightBarButtonItem = rightBarItem;
 }
 
 #pragma mark - IBAction Methods
@@ -127,18 +125,16 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
+                completion(NO);
                 if (code == 401) {
-                    completion(YES);
-                    [self showHint:@"你已经收藏过了"];
+                    [self showHint:@"你已经收藏过啦"];
                 } else {
-                    completion(NO);
 //                    [self showHint:@"请求也是失败了"];
                 }
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             completion(NO);
-//            [self showHint:@"收藏失败"];
             [self showHint:@"呃～好像没找到网络"];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
@@ -150,13 +146,12 @@
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-//                [self showHint:@"取消收藏成功"];
-                [self showHint:@"取消收藏"];
+                [self showHint:@"收藏取消"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
-                [self showHint:@"请求也是失败了"];
+//                [self showHint:@"请求也是失败了"];
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -166,7 +161,6 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
     }
-   
 }
 
 - (void)login

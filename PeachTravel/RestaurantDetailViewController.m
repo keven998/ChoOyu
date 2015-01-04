@@ -8,6 +8,7 @@
 
 #import "RestaurantDetailViewController.h"
 #import "CommonPoiDetailView.h"
+#import "AccountManager.h"
 
 @interface RestaurantDetailViewController ()
 @property (nonatomic, strong) PoiSummary *restaurantPoi;
@@ -44,6 +45,10 @@
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, _restaurantId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
