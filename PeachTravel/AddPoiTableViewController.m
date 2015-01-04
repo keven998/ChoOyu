@@ -75,6 +75,23 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"添加想去";
+    
+//    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+//    [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
+//    finishBtn.layer.cornerRadius = 2.0;
+//    finishBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+//    finishBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+//    finishBtn.layer.borderWidth = 1.0;
+//    [finishBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//    [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
+    
+    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];    self.navigationItem.leftBarButtonItem = finishBtn;
+    
+    UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+    [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+    self.navigationItem.rightBarButtonItem = filterBtn;
+    
 
     [self setAutomaticallyAdjustsScrollViewInsets:YES];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
@@ -93,20 +110,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    
-    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-    [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
-    finishBtn.layer.cornerRadius = 2.0;
-    finishBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    finishBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
-    finishBtn.layer.borderWidth = 1.0;
-    [finishBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
-    
-    UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-    self.navigationItem.rightBarButtonItem = filterBtn;
-    [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
     
     CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
     _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];

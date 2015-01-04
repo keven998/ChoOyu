@@ -165,7 +165,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)showMore:(UIButton *)sender
 {
-    UIActionSheet *showMoreSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"第%ld天", (long)sender.tag+1] delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加目的地",@"删除" ,nil];
+    UIActionSheet *showMoreSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"第%ld天", (long)sender.tag+1] delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加想去",@"删除" ,nil];
     showMoreSheet.tag = sender.tag;
     showMoreSheet.destructiveButtonIndex = 1;
     

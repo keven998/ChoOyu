@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"新Memo";
+//    self.navigationItem.title = @"新Memo";
     
     self.navigationController.navigationBar.translucent = YES;
     
