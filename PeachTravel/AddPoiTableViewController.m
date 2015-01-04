@@ -102,10 +102,10 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     finishBtn.layer.borderWidth = 1.0;
     [finishBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
     
     UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-    self.navigationItem.leftBarButtonItem = filterBtn;
+    self.navigationItem.rightBarButtonItem = filterBtn;
     [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
     
     CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];

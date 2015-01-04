@@ -55,12 +55,18 @@
     [self registerRemoteNotification];
     
     /****** 设置环信 ******/
-    NSString *apnsCertName = @"taoziAPNS_Production";
-#if DEBUG
     
+    NSString *apnsCertName = nil;
+#if DEBUG
     apnsCertName = @"taoziAPNS";
+#else
+    apnsCertName = @"taoziAPNS_Production";
+#endif
+
+#if DEBUG
     [[EaseMob sharedInstance] enableUncaughtExceptionHandler];
 #endif
+    
     [[[EaseMob sharedInstance] chatManager] setIsAutoFetchBuddyList:YES];
     
     [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#xiaofang" apnsCertName:apnsCertName];
