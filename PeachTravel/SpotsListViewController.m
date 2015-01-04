@@ -121,7 +121,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 120.0, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
-//        addOneDayBtn.backgroundColor = APP_THEME_COLOR;
         addOneDayBtn.clipsToBounds = YES;
         [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         [addOneDayBtn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];

@@ -123,14 +123,17 @@
     
     CGFloat doy = 0.0;
     _detailView.backgroundColor = APP_PAGE_COLOR;
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2.0;
     
     _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, width, 0)];
     _timeCostBtn.titleLabel.numberOfLines = 0;
-    
+
     CGSize timeCostLabelSize = [_cityPoi.timeCostDesc boundingRectWithSize:CGSizeMake(self.bounds.size.width-108, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{
-                                                        NSFontAttributeName : [UIFont systemFontOfSize:11.0]
+                                                        NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                        NSParagraphStyleAttributeName : style
                                                         }
                                               context:nil].size;
     
@@ -138,9 +141,8 @@
     
     _timeCostBtn.frame = CGRectMake(0, doy, width, timeCostHeight);
 
-    [_timeCostBtn setTitle:_cityPoi.timeCostDesc forState:UIControlStateNormal];
+    [_timeCostBtn setAttributedTitle:[_cityPoi.timeCostDesc stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
     _timeCostBtn.backgroundColor = [UIColor whiteColor];
-    [_timeCostBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _timeCostBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 8);
     [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -167,7 +169,8 @@
     CGSize travelMonthLabelSize = [_cityPoi.travelMonth boundingRectWithSize:CGSizeMake(self.bounds.size.width-108, MAXFLOAT)
                                                                    options:NSStringDrawingUsesLineFragmentOrigin
                                                                 attributes:@{
-                                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0]
+                                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                                             NSParagraphStyleAttributeName : style
                                                                              }
                                                                    context:nil].size;
     
@@ -176,8 +179,7 @@
     
     _travelMonthBtn.frame = CGRectMake(0, doy, width, travelMonthHeight);
     _travelMonthBtn.layer.cornerRadius = 1.0;
-    [_travelMonthBtn setTitle:_cityPoi.travelMonth forState:UIControlStateNormal];
-    [_travelMonthBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_travelMonthBtn setAttributedTitle:[_cityPoi.travelMonth stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
     _travelMonthBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     _travelMonthBtn.backgroundColor = [UIColor whiteColor];
     

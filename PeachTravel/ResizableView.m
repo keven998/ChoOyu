@@ -20,7 +20,7 @@
 - (void)setContent:(NSString *)content
 {
     _content = content;
-    [self setTitle:_content forState:UIControlStateNormal];
+    [self setAttributedTitle:[_content stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
 }
 
 - (void)setContentColor:(UIColor *)contentColor
@@ -45,10 +45,14 @@
 
 - (NSInteger)maxNumberOfLine
 {
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2.0;
+
     CGSize labelSize = [_content boundingRectWithSize:CGSizeMake(self.bounds.size.width, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{
-                                                        NSFontAttributeName : _contentFont
+                                                        NSFontAttributeName : _contentFont,
+                                                        NSParagraphStyleAttributeName: style
                                                         }
                                               context:nil].size;
     CGFloat heightPerLine = [@"" sizeWithAttributes:@{ NSFontAttributeName : _contentFont}].height;
@@ -67,10 +71,15 @@
 {
     if (_shouldShowMoreContent) {
         self.titleLabel.numberOfLines = 0;
+        
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = 2.0;
+        
         CGSize labelSize = [_content boundingRectWithSize:CGSizeMake(self.bounds.size.width, MAXFLOAT)
                                                          options:NSStringDrawingUsesLineFragmentOrigin
                                                       attributes:@{
-                                                                   NSFontAttributeName : _contentFont
+                                                                   NSFontAttributeName : _contentFont,
+                                                                   NSParagraphStyleAttributeName : style
                                                                    }
                                                          context:nil].size;
         

@@ -31,9 +31,11 @@
 {
     NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 4.0;
+    style.lineSpacing = 2.0;
     [attributeString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, attributeString.length)];
-    [attributeString addAttributes:@{NSForegroundColorAttributeName:textColor} range:NSMakeRange(0, attributeString.length)];
+    if (textColor) {
+        [attributeString addAttributes:@{NSForegroundColorAttributeName:textColor} range:NSMakeRange(0, attributeString.length)];
+    }
     return attributeString;
 }
 
