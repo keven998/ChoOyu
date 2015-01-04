@@ -21,7 +21,7 @@
 #import "ShoppingDetailViewController.h"
 #import "CommonPoiListTableViewCell.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate, UIActionSheetDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -163,15 +163,27 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     _tripDetail.dayCount++;
 }
 
-- (IBAction)showMore:(UIButton *)sender
+- (IBAction)addPoi:(UIButton *)sender
 {
-    UIActionSheet *showMoreSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"第%ld天", (long)sender.tag+1] delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加想去",@"删除" ,nil];
-    showMoreSheet.tag = sender.tag;
-    showMoreSheet.destructiveButtonIndex = 1;
-    
-    [showMoreSheet showInView:self.view];
-    
-    
+    AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
+    addPoiCtl.tripDetail = self.tripDetail;
+    addPoiCtl.delegate = self;
+    addPoiCtl.currentDayIndex = sender.tag;
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
+    [self presentViewController:nctl animated:YES completion:^{
+    }];
+}
+
+- (IBAction)deleteOneDay:(UIButton *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除这一天吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [_tripDetail.itineraryList removeObjectAtIndex:sender.tag];
+            _tripDetail.dayCount--;
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sender.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }];
 }
 
 - (IBAction)mapView:(id)sender
@@ -214,27 +226,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [_tripDetail.itineraryList removeObjectAtIndex:actionSheet.tag];
-                _tripDetail.dayCount--;
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:actionSheet.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }];
-    } if (buttonIndex == 0) {
-        AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
-        addPoiCtl.tripDetail = self.tripDetail;
-        addPoiCtl.delegate = self;
-        addPoiCtl.currentDayIndex = actionSheet.tag;
-        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
-        [self presentViewController:nctl animated:YES completion:^{
-        }];
-    }
-}
 
 #pragma mark - AddPoiDelegate
 
@@ -317,7 +308,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     headerView.clipsToBounds = YES;
     UILabel *headerTitle;
     if (self.tableView.isEditing) {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-60, 35)];
+        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(43, 0, headerView.frame.size.width-103, 35)];
     } else {
         headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 35)];
     }
@@ -345,13 +336,38 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [headerView addSubview:headerTitle];
     
     if (self.tableView.isEditing) {
-        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
-        [moreBtn setBackgroundColor:[UIColor whiteColor]];
-        [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [moreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        moreBtn.tag = section;
-        [moreBtn addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
-        [headerView addSubview:moreBtn];
+        UIButton *addbtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-62, 0, 62, headerView.frame.size.height)];
+        addbtn.backgroundColor = [UIColor whiteColor];
+        addbtn.tag = section;
+        [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 8, 52, 20)];
+        [addSpotBtn setBackgroundColor:[UIColor whiteColor]];
+        [addSpotBtn setTitle:@"添加景点" forState:UIControlStateNormal];
+        [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        addSpotBtn.backgroundColor = APP_THEME_COLOR;
+        addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
+        addSpotBtn.layer.cornerRadius = 10.0;
+        addSpotBtn.userInteractionEnabled = NO;
+        [addbtn addSubview:addSpotBtn];
+        [headerView addSubview:addbtn];
+        
+        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, headerView.frame.size.height)];
+        deleteBtn.backgroundColor = [UIColor whiteColor];
+        deleteBtn.tag = section;
+        [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 7, 35, 20)];
+        [deleteSpotBtn setBackgroundColor:[UIColor whiteColor]];
+        [deleteSpotBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [deleteSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        deleteSpotBtn.backgroundColor = APP_THEME_COLOR;
+        deleteSpotBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
+        deleteSpotBtn.layer.cornerRadius = 10.0;
+        deleteSpotBtn.userInteractionEnabled = NO;
+        [deleteBtn addSubview:deleteSpotBtn];
+        [headerView addSubview:deleteBtn];
+        
     } else {
         UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
         [mapBtn setBackgroundColor:[UIColor whiteColor]];

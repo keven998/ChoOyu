@@ -74,12 +74,11 @@
 - (UserInfoInputError)checkInput
 {
     if (_changeType == ChangeName) {
-        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]*$";
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]{1,}$";
         NSString *regex2 = @"^[0-9]{6,}$";
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
         NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
         if (![pred1 evaluateWithObject:_contentTextField.text] || [pred2 evaluateWithObject:_contentTextField.text]) {
-            NSLog(@"输入中含有非法字符串");
             return IllegalCharacterError;
         }
     }
@@ -109,11 +108,20 @@
 {
     if (_changeType == ChangeName) {
         if (!([self checkInput] == NoError)) {
+            [SVProgressHUD showHint:@""];
+
             return;
         }
     }
     
     [SVProgressHUD show];
+    
+    if ([_content isEqualToString:_contentTextField.text]) {
+        [SVProgressHUD showHint:@"修改成功"];
+        [self dismiss];
+        return;
+    }
+    
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
