@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="height" constant="21" id="Xub-aj-CMZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HaD-5e-6HJ">
@@ -32,7 +32,7 @@
                                     <constraint firstAttribute="height" constant="21" id="AiI-Wm-CcF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4RI-Xp-0RI">
@@ -48,9 +48,13 @@
                             <constraint firstItem="UBo-DE-0lK" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="9" id="C17-KP-U7c"/>
                             <constraint firstItem="HaD-5e-6HJ" firstAttribute="top" secondItem="UBo-DE-0lK" secondAttribute="bottom" constant="-1" id="VOE-2N-RZ3"/>
                             <constraint firstAttribute="trailing" secondItem="UBo-DE-0lK" secondAttribute="trailing" constant="26" id="btR-fu-ddC"/>
-                            <constraint firstItem="HaD-5e-6HJ" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="9" id="h3j-2E-k1D"/>
+                            <constraint firstItem="HaD-5e-6HJ" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="9" id="h3j-2E-k1D">
+                                <variation key="widthClass=compact" constant="10"/>
+                            </constraint>
                             <constraint firstAttribute="centerY" secondItem="4RI-Xp-0RI" secondAttribute="centerY" id="jex-oi-boC"/>
-                            <constraint firstAttribute="trailing" secondItem="HaD-5e-6HJ" secondAttribute="trailing" constant="26" id="kTh-Ml-mXL"/>
+                            <constraint firstAttribute="trailing" secondItem="HaD-5e-6HJ" secondAttribute="trailing" constant="26" id="kTh-Ml-mXL">
+                                <variation key="widthClass=compact" constant="25"/>
+                            </constraint>
                             <constraint firstItem="UBo-DE-0lK" firstAttribute="top" secondItem="FHU-Vx-ioE" secondAttribute="top" constant="7" id="uM8-Fx-Ihv"/>
                             <constraint firstItem="4RI-Xp-0RI" firstAttribute="leading" secondItem="FHU-Vx-ioE" secondAttribute="leading" constant="8" id="uq8-19-wu3"/>
                         </constraints>

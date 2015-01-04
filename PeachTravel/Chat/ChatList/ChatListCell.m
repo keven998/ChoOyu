@@ -46,7 +46,7 @@
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont italicSystemFontOfSize:10.0];
-        _timeLabel.textColor = UIColorFromRGB(0x999999);
+        _timeLabel.textColor = TEXT_COLOR_TITLE_HINT;
         _timeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [frameView addSubview:_timeLabel];
@@ -57,7 +57,7 @@
 //        [frameView addSubview:popBgView];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:12];
+        _detailLabel.font = [UIFont systemFontOfSize:11];
         _detailLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [frameView addSubview:_detailLabel];
@@ -104,11 +104,11 @@
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont systemFontOfSize:13.0];
+    self.textLabel.font = [UIFont systemFontOfSize:14.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(65.0, 14.0, width - 110.0, 15.0);
+    self.textLabel.frame = CGRectMake(60.0, 10.0, width - 110.0, 18.0);
     
-    _timeLabel.frame = CGRectMake(width - 100.0, 22, 90.0, 15.0);
+    _timeLabel.frame = CGRectMake(width - 95.0, 12.0, 90.0, 18.0);
     frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height);
     
     _detailLabel.text = _detailMsg;
@@ -117,7 +117,7 @@
 //    popBgView.frame = CGRectMake(60.0, 26.0, popW + 30.0, 26.0);
     
 //    popBgView.image = [[UIImage imageNamed:@"chat_list_cell_bubble.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:17];
-    _detailLabel.frame = CGRectMake(65, 26.0, popW+30, 26);
+    _detailLabel.frame = CGRectMake(61, 28.0, popW+30, 26);
     
     _timeLabel.text = _time;
     

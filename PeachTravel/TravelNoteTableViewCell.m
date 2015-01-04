@@ -44,6 +44,7 @@
      *  发送按钮默认隐藏，是否显示需要设置 canSelecte
      */
     _sendBtn.hidden = NO;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -32,7 +32,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     CGFloat y;
     if (_isSearch) {
-        y = self.searchBar.frame.size.height+self.searchBar.frame.origin.y;
+        y = self.searchBar.frame.size.height + self.searchBar.frame.origin.y;
         [self.view addSubview:self.searchBar];
     } else {
         y = 64;
@@ -41,7 +41,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     self.tableView.frame = CGRectMake(11, y, self.view.frame.size.width-22, self.view.frame.size.height-y);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
     if (!_isSearch) {
@@ -103,7 +103,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
-    [SVProgressHUD show];
+//    [SVProgressHUD show];
     
     if (_isSearch) {
         [params setObject:keyWord forKey:@"keyWord"];
@@ -125,6 +125,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
                 if (pageNo > 0) {
                     self.enableLoadingMore = NO;
                     [self showHint:@"没有了~"];
+                } else {
+//                    [SVProgressHUD dismiss];
                 }
             }
         } else {

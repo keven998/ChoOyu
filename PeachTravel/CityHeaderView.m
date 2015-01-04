@@ -192,30 +192,39 @@
     _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, doy, widthPerItem-0.5, 50)];
     [_showSpotsBtn setTitle:@"玩" forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_showSpotsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showSpotsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"ic_standard_travel.png"] forState:UIControlStateNormal];
     [_showSpotsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    _showSpotsBtn.backgroundColor = [UIColor whiteColor];
+    [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+    _showSpotsBtn.clipsToBounds = YES;
     _showSpotsBtn.layer.cornerRadius = 2.0;
     [_detailView addSubview:_showSpotsBtn];
     
     _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthPerItem+0.5, doy, widthPerItem-0.5, 50)];
     [_showRestaurantsBtn setTitle:@"吃" forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_showRestaurantsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showRestaurantsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"ic_standard_food.png"] forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    _showRestaurantsBtn.backgroundColor = [UIColor whiteColor];
+    [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+    _showRestaurantsBtn.clipsToBounds = YES;
     _showRestaurantsBtn.layer.cornerRadius = 2.0;
     [_detailView addSubview:_showRestaurantsBtn];
     
     _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthPerItem*2+1, doy, widthPerItem-0.5, 50)];
     [_showShoppingBtn setTitle:@"买" forState:UIControlStateNormal];
     [_showShoppingBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_showShoppingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showShoppingBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"ic_standard_shopping.png"] forState:UIControlStateNormal];
     [_showShoppingBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    _showShoppingBtn.backgroundColor = [UIColor whiteColor];
+    [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+    _showShoppingBtn.clipsToBounds = YES;
     _showShoppingBtn.layer.cornerRadius = 2.0;
     [_detailView addSubview:_showShoppingBtn];
     
