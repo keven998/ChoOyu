@@ -15,7 +15,20 @@
     if (self = [super init]) {
         _favoriteId = [json objectForKey:@"id"];
         _itemId = [json objectForKey:@"itemId"];
-        _type = [json objectForKey:@"type"];
+        NSString *typeStr = [json objectForKey:@"type"];
+        if ([typeStr isEqualToString:@"vs"]) {
+            _type = kSpotPoi;
+        } else if ([typeStr isEqualToString:@"hotel"]) {
+            _type = kHotelPoi;
+        } else if ([typeStr isEqualToString:@"restaurant"]) {
+            _type = kRestaurantPoi;
+        } else if ([typeStr isEqualToString:@"shopping"]) {
+            _type = kShoppingPoi;
+        } else if ([typeStr isEqualToString:@"travelNote"]) {
+            _type = kTravelNotePoi;
+        } else if ([typeStr isEqualToString:@"loc"]) {
+            _type = kCityPoi;
+        }
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _desc = [json objectForKey:@"desc"];
@@ -31,12 +44,13 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super init];
     if (self) {
         _favoriteId = [aDecoder decodeObjectForKey:@"id"];
         _itemId = [aDecoder decodeObjectForKey:@"itemId"];
-        _type = [aDecoder decodeObjectForKey:@"type"];
+        _type = [[aDecoder decodeObjectForKey:@"type"] integerValue];
         _zhName = [aDecoder decodeObjectForKey:@"zhName"];
         _enName = [aDecoder decodeObjectForKey:@"enName"];
         _desc = [aDecoder decodeObjectForKey:@"desc"];
@@ -47,10 +61,11 @@
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
     [aCoder encodeObject:_favoriteId forKey:@"id"];
     [aCoder encodeObject:_itemId forKey:@"itemId"];
-    [aCoder encodeObject:_type forKey:@"type"];
+    [aCoder encodeObject:[NSNumber numberWithInteger:_type] forKey:@"type"];
     [aCoder encodeObject:_zhName forKey:@"zhName"];
     [aCoder encodeObject:_enName forKey:@"enName"];
     [aCoder encodeObject:_desc forKey:@"desc"];
@@ -60,16 +75,17 @@
 
 }
 
-- (NSString *)getTypeDesc {
-    if ([_type isEqualToString:@"vs"]) {
+- (NSString *)typeDescByType
+{
+    if (_type == kSpotPoi) {
         return @"景点";
-    } else if ([_type isEqualToString:@"hotel"]) {
+    } else if (_type == kHotelPoi) {
         return @"酒店";
-    } else if ([_type isEqualToString:@"restaurant"]) {
+    } else if (_type == kRestaurantPoi) {
         return @"美食";
-    } else if ([_type isEqualToString:@"shopping"]) {
+    } else if (_type == kShoppingPoi) {
         return @"购物";
-    } else if ([_type isEqualToString:@"travelNote"]) {
+    } else if (_type == kTravelNotePoi) {
         return @"游记";
     } else {
         return @"城市";
@@ -77,16 +93,17 @@
     return nil;
 }
 
-- (NSString *)getTypeFlagName {
-    if ([_type isEqualToString:@"vs"]) {
+- (NSString *)typeFlagName
+{
+    if (_type == kSpotPoi) {
         return @"ic_fav_spot.png";
-    } else if ([_type isEqualToString:@"hotel"]) {
+    } else if (_type == kHotelPoi) {
         return @"ic_fav_stay.png";
-    } else if ([_type isEqualToString:@"restaurant"]) {
+    } else if (_type == kRestaurantPoi) {
         return @"ic_fav_delicacy.png";
-    } else if ([_type isEqualToString:@"shopping"]) {
+    } else if (_type == kShoppingPoi) {
         return @"ic_fav_shopping.png";
-    } else if ([_type isEqualToString:@"travelNote"]) {
+    } else if (_type == kTravelNotePoi) {
         return @"ic_fav_tnote.png";
     } else {
         return @"ic_fav_city.png";

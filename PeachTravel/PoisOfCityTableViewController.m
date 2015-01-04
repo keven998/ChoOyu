@@ -195,10 +195,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
     
-    //获取城市的美食列表信息
+    //获取城市的美食.购物列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self loadMoreCompletedNormal];
-        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSArray *jsonDic = [responseObject objectForKey:@"result"];
@@ -209,7 +208,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [self updateView];
             _currentPageNormal = pageNO;
             if (_dataSource.recommendList.count >= 15) {
-                _currentPageNormal++;
+                
             } else if (pageNO > 0){
                 [self showHint:@"没有了,别强求~"];
             }
@@ -258,7 +257,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
         [SVProgressHUD dismiss];
         if (self.searchDisplayController.isActive) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];

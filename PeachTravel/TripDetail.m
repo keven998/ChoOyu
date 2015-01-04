@@ -340,9 +340,13 @@
         _images = tempArray;
         if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
             _rating = 3.5;
+        }
+        else  if ([[json objectForKey:@"rating"] floatValue] > 1){
+            _rating = [[json objectForKey:@"rating"] floatValue];
         } else {
             _rating = [[json objectForKey:@"rating"] floatValue]*5;
         }
+        
         _telephone = [json objectForKey:@"telephone"];
         if ([json objectForKey:@"location"] != [NSNull null]) {
             _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
