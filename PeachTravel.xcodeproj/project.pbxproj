@@ -290,7 +290,6 @@
 		D92A48931A38923400B00D91 /* ic_recommend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92A48911A38923400B00D91 /* ic_recommend@2x.png */; };
 		D92A48951A38949900B00D91 /* ic_dot_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92A48941A38949900B00D91 /* ic_dot_yellow@2x.png */; };
 		D92A48971A3945CE00B00D91 /* ic_time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92A48961A3945CE00B00D91 /* ic_time@2x.png */; };
-		D92A489E1A399C5600B00D91 /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92A489D1A399C5600B00D91 /* arrow_down@2x.png */; };
 		D934D8481A4D57BF003AFFCF /* blur_backGround@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */; };
 		D934D84D1A4D7968003AFFCF /* TZFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D934D84C1A4D7968003AFFCF /* TZFilterView.m */; };
 		D934D8501A4E7064003AFFCF /* ic_filter_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D934D84F1A4E7064003AFFCF /* ic_filter_cancel@2x.png */; };
@@ -544,13 +543,6 @@
 		D9AC9BD51A1F7AD400E0C4CE /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD41A1F7AD400E0C4CE /* ALDBlurImageProcessor.m */; };
 		D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */; };
 		D9B476541A24259A0014136C /* DestinationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476531A24259A0014136C /* DestinationsView.m */; };
-		D9B476811A2468D30014136C /* SICellSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476701A2468D30014136C /* SICellSelection.m */; };
-		D9B476821A2468D30014136C /* SIMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476721A2468D30014136C /* SIMenuButton.m */; };
-		D9B476831A2468D30014136C /* SIMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476741A2468D30014136C /* SIMenuCell.m */; };
-		D9B476841A2468D30014136C /* SIMenuConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476761A2468D30014136C /* SIMenuConfiguration.m */; };
-		D9B476851A2468D30014136C /* SIMenuTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476781A2468D30014136C /* SIMenuTable.m */; };
-		D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767A1A2468D30014136C /* SINavigationMenuView.m */; };
-		D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B4767C1A2468D30014136C /* UIColor+Extension.m */; };
 		D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476891A2475CE0014136C /* RecommendsOfCity.m */; };
 		D9B476921A24A7140014136C /* test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B476911A24A7140014136C /* test@2x.png */; };
 		D9B5EEAA1A51141100D4894B /* AddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */; };
@@ -1048,7 +1040,6 @@
 		D92A48911A38923400B00D91 /* ic_recommend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_recommend@2x.png"; sourceTree = "<group>"; };
 		D92A48941A38949900B00D91 /* ic_dot_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_dot_yellow@2x.png"; sourceTree = "<group>"; };
 		D92A48961A3945CE00B00D91 /* ic_time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_time@2x.png"; sourceTree = "<group>"; };
-		D92A489D1A399C5600B00D91 /* arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@2x.png"; sourceTree = "<group>"; };
 		D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blur_backGround@2x.png"; sourceTree = "<group>"; };
 		D934D84B1A4D7968003AFFCF /* TZFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZFilterView.h; sourceTree = "<group>"; };
 		D934D84C1A4D7968003AFFCF /* TZFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZFilterView.m; sourceTree = "<group>"; };
@@ -1500,20 +1491,6 @@
 		D9AC9BD71A1F7ADF00E0C4CE /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		D9B476521A24259A0014136C /* DestinationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationsView.h; sourceTree = "<group>"; };
 		D9B476531A24259A0014136C /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
-		D9B4766F1A2468D30014136C /* SICellSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SICellSelection.h; sourceTree = "<group>"; };
-		D9B476701A2468D30014136C /* SICellSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SICellSelection.m; sourceTree = "<group>"; };
-		D9B476711A2468D30014136C /* SIMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuButton.h; sourceTree = "<group>"; };
-		D9B476721A2468D30014136C /* SIMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuButton.m; sourceTree = "<group>"; };
-		D9B476731A2468D30014136C /* SIMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuCell.h; sourceTree = "<group>"; };
-		D9B476741A2468D30014136C /* SIMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuCell.m; sourceTree = "<group>"; };
-		D9B476751A2468D30014136C /* SIMenuConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuConfiguration.h; sourceTree = "<group>"; };
-		D9B476761A2468D30014136C /* SIMenuConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuConfiguration.m; sourceTree = "<group>"; };
-		D9B476771A2468D30014136C /* SIMenuTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMenuTable.h; sourceTree = "<group>"; };
-		D9B476781A2468D30014136C /* SIMenuTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMenuTable.m; sourceTree = "<group>"; };
-		D9B476791A2468D30014136C /* SINavigationMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINavigationMenuView.h; sourceTree = "<group>"; };
-		D9B4767A1A2468D30014136C /* SINavigationMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINavigationMenuView.m; sourceTree = "<group>"; };
-		D9B4767B1A2468D30014136C /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
-		D9B4767C1A2468D30014136C /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		D9B476881A2475CE0014136C /* RecommendsOfCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendsOfCity.h; sourceTree = "<group>"; };
 		D9B476891A2475CE0014136C /* RecommendsOfCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendsOfCity.m; sourceTree = "<group>"; };
 		D9B476911A24A7140014136C /* test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test@2x.png"; sourceTree = "<group>"; };
@@ -3138,7 +3115,6 @@
 				D9117A631A2C0E1D000DBFCB /* CWPopup */,
 				C67B4DBF1A270EF600CBF10B /* ZFDragableModalTransition */,
 				C653F5271A25C2BF00E7479F /* FBShimmering */,
-				D9B476691A2468D30014136C /* NavigationMenuView */,
 				D95460111A233D6C00688D72 /* DKCircleButton */,
 				D9545FBB1A22EF9700688D72 /* RDVTabBarController */,
 				D9AC9BBB1A1F795B00E0C4CE /* ALDBlurImageProcessor */,
@@ -4030,28 +4006,6 @@
 			path = Common/Config/libs/M13Checkbox;
 			sourceTree = "<group>";
 		};
-		D9B476691A2468D30014136C /* NavigationMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				D92A489D1A399C5600B00D91 /* arrow_down@2x.png */,
-				D9B4766F1A2468D30014136C /* SICellSelection.h */,
-				D9B476701A2468D30014136C /* SICellSelection.m */,
-				D9B476711A2468D30014136C /* SIMenuButton.h */,
-				D9B476721A2468D30014136C /* SIMenuButton.m */,
-				D9B476731A2468D30014136C /* SIMenuCell.h */,
-				D9B476741A2468D30014136C /* SIMenuCell.m */,
-				D9B476751A2468D30014136C /* SIMenuConfiguration.h */,
-				D9B476761A2468D30014136C /* SIMenuConfiguration.m */,
-				D9B476771A2468D30014136C /* SIMenuTable.h */,
-				D9B476781A2468D30014136C /* SIMenuTable.m */,
-				D9B476791A2468D30014136C /* SINavigationMenuView.h */,
-				D9B4767A1A2468D30014136C /* SINavigationMenuView.m */,
-				D9B4767B1A2468D30014136C /* UIColor+Extension.h */,
-				D9B4767C1A2468D30014136C /* UIColor+Extension.m */,
-			);
-			path = NavigationMenuView;
-			sourceTree = "<group>";
-		};
 		D9CC36AF1A372B2500E72A7F /* TravelPlan */ = {
 			isa = PBXGroup;
 			children = (
@@ -4724,7 +4678,6 @@
 				C6BC348D1A274FEB002C19D3 /* ic_setting_share@2x.png in Resources */,
 				D93C50C61A48214100FFE2FA /* SearchDestinationTableViewCell.xib in Resources */,
 				D9CDD70D19EB9C3C001AC9F2 /* UnLoginTableViewCell.xib in Resources */,
-				D92A489E1A399C5600B00D91 /* arrow_down@2x.png in Resources */,
 				D955E35719E65D1B00047F2B /* DomesticDestinationCell.xib in Resources */,
 				D90C638219FB44D300C2E440 /* VoiceSearchFeedback011@2x.png in Resources */,
 				D9B476921A24A7140014136C /* test@2x.png in Resources */,
@@ -4860,7 +4813,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9B476851A2468D30014136C /* SIMenuTable.m in Sources */,
 				D9907B101A203C0B00C7CF0C /* RestaurantDetailViewController.m in Sources */,
 				C6BEEE411A31D8E5009C1027 /* CityCardReusableView.m in Sources */,
 				D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */,
@@ -4934,7 +4886,6 @@
 				D9E81E781A36D95900D3BFD0 /* SearchMoreDestinationViewController.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
 				D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */,
-				D9B476831A2468D30014136C /* SIMenuCell.m in Sources */,
 				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
 				D95F8A3B1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
@@ -4962,7 +4913,6 @@
 				D955E59D19E7C87E00047F2B /* AccountManagerTableViewCell.m in Sources */,
 				D9117A6B1A2C0E90000DBFCB /* ConfirmRouteViewController.m in Sources */,
 				D95460181A2346D300688D72 /* CommonPoiListTableViewCell.m in Sources */,
-				D9B476821A2468D30014136C /* SIMenuButton.m in Sources */,
 				D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */,
 				D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */,
 				C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */,
@@ -4976,15 +4926,12 @@
 				C6999FB51A2DE460009032D8 /* DMFilterView.m in Sources */,
 				C63344E61A1C44BB00A27F86 /* RNGridMenu.m in Sources */,
 				D9CDD72D19EBBAAD001AC9F2 /* AppUtils.m in Sources */,
-				D9B476861A2468D30014136C /* SINavigationMenuView.m in Sources */,
 				D9AC9BD81A1F7ADF00E0C4CE /* M13Checkbox.m in Sources */,
-				D9B476811A2468D30014136C /* SICellSelection.m in Sources */,
 				D90F362B19F63B3300E26FA9 /* EMChatBaseBubbleView.m in Sources */,
 				D93C50C51A48214100FFE2FA /* SearchDestinationTableViewCell.m in Sources */,
 				D954600C1A22FF5B00688D72 /* RestaurantsListViewController.m in Sources */,
 				D955E3F219E7A31B00047F2B /* Constants.m in Sources */,
 				D9AC9BB31A1F2A2300E0C4CE /* WOEIDUtils.m in Sources */,
-				D9B476841A2468D30014136C /* SIMenuConfiguration.m in Sources */,
 				D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */,
 				D9E81E801A36EA6400D3BFD0 /* TZTableViewController.m in Sources */,
 				D902AD181A14919800E36A93 /* RecommendDataSource.m in Sources */,
@@ -5075,7 +5022,6 @@
 				D95F8A3D1A3FE5F2003F4275 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				D96550EC1A256CE500928DB0 /* TripDetail.m in Sources */,
 				D90F366A19F63E5300E26FA9 /* BaseViewController.m in Sources */,
-				D9B476871A2468D30014136C /* UIColor+Extension.m in Sources */,
 				D9E9F7B11A00AC6D003F70F6 /* AddressBookTableViewController.m in Sources */,
 				D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */,
 				D93697001A30257C001922F4 /* TipsChatTableViewCell.m in Sources */,
