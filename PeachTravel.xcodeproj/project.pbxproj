@@ -25,6 +25,8 @@
 		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C60C0D731A29A40C006033C9 /* ic_login_weixin_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D711A29A40C006033C9 /* ic_login_weixin_highlight@2x.png */; };
 		C60C0D741A29A40C006033C9 /* ic_login_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D721A29A40C006033C9 /* ic_login_weixin@2x.png */; };
+		C61BC2EF1A591A8D006A54BE /* ic_favorite_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C61BC2ED1A591A8D006A54BE /* ic_favorite_selected@2x.png */; };
+		C61BC2F01A591A8D006A54BE /* ic_favorite_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C61BC2EE1A591A8D006A54BE /* ic_favorite_unselected@2x.png */; };
 		C61F15691A59006200F4DF12 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = C61F15661A59006200F4DF12 /* NJKWebViewProgress.m */; };
 		C61F156A1A59006200F4DF12 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C61F15681A59006200F4DF12 /* NJKWebViewProgressView.m */; };
 		C62A7A361A39744F00526928 /* ic_cell_item_chooesed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */; };
@@ -683,6 +685,8 @@
 		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C60C0D711A29A40C006033C9 /* ic_login_weixin_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin_highlight@2x.png"; sourceTree = "<group>"; };
 		C60C0D721A29A40C006033C9 /* ic_login_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin@2x.png"; sourceTree = "<group>"; };
+		C61BC2ED1A591A8D006A54BE /* ic_favorite_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_favorite_selected@2x.png"; sourceTree = "<group>"; };
+		C61BC2EE1A591A8D006A54BE /* ic_favorite_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_favorite_unselected@2x.png"; sourceTree = "<group>"; };
 		C61F15651A59006200F4DF12 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
 		C61F15661A59006200F4DF12 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		C61F15671A59006200F4DF12 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
@@ -4061,6 +4065,8 @@
 		D9CC36B21A3747C900E72A7F /* MakePlan */ = {
 			isa = PBXGroup;
 			children = (
+				C61BC2ED1A591A8D006A54BE /* ic_favorite_selected@2x.png */,
+				C61BC2EE1A591A8D006A54BE /* ic_favorite_unselected@2x.png */,
 				C6C02A0E1A430DDB009475AD /* ic_plan_title_edit@2x.png */,
 				D9EF98AC1A3BE4B400DB480F /* ic_nav_filter_highlight@2x.png */,
 				C62A7A331A39744F00526928 /* ic_cell_item_chooesed@2x.png */,
@@ -4520,6 +4526,7 @@
 				D90C636A19FB44D300C2E440 /* chatFire_audioPlaying2@2x.png in Resources */,
 				D90F360219F63B3300E26FA9 /* chatBar_face@2x.png in Resources */,
 				D90C639019FB44D300C2E440 /* VoiceSearchFeedback018@2x.png in Resources */,
+				C61BC2EF1A591A8D006A54BE /* ic_favorite_selected@2x.png in Resources */,
 				C62A7A371A39744F00526928 /* ic_cell_item_unchoose@2x.png in Resources */,
 				C688AADF1A35445600372A39 /* ic_dotted_line@2x.png in Resources */,
 				D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */,
@@ -4727,6 +4734,7 @@
 				D90C636E19FB44D300C2E440 /* VoiceSearchFeedback001@2x.png in Resources */,
 				D90C637019FB44D300C2E440 /* VoiceSearchFeedback002@2x.png in Resources */,
 				D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */,
+				C61BC2F01A591A8D006A54BE /* ic_favorite_unselected@2x.png in Resources */,
 				C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */,
 				D97C8B401A514A8C00476C9C /* ic_home_fav@2x.png in Resources */,
 				D93697021A3026BC001922F4 /* chat_time@2x.png in Resources */,

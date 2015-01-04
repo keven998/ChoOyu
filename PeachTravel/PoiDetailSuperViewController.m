@@ -121,15 +121,15 @@
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                [self showHint:@"OK!成功收藏"];
+                [self showHint:@"已收藏"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
                 if (code == 401) {
-                    [self showHint:@"亲，你已经收藏过啦"];
+                    [self showHint:@"你已经收藏过啦"];
                 } else {
-                    [self showHint:@"请求也是失败了"];
+//                    [self showHint:@"请求也是失败了"];
                 }
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -146,12 +146,12 @@
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                [self showHint:@"OK!成功取消收藏"];
+                [self showHint:@"收藏取消"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
-                [self showHint:@"请求也是失败了"];
+//                [self showHint:@"请求也是失败了"];
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
