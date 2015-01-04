@@ -93,7 +93,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     //获取城市信息
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD dismiss];

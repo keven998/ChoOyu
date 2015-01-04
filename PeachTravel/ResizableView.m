@@ -45,16 +45,15 @@
 
 - (NSInteger)maxNumberOfLine
 {
-    NSString *handelStr = [_content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    CGSize size = [handelStr sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
-    NSInteger lineCount = (size.width / self.frame.size.width) + 1;
-    
-    CGSize normalSize = [_content sizeWithAttributes:@{NSFontAttributeName :self.titleLabel.font}];
-    NSInteger normalCount = normalSize.height / size.height + 1;
-    if (normalCount > lineCount) {
-        return normalCount;
-    }
-    
+    CGSize labelSize = [_content boundingRectWithSize:CGSizeMake(self.bounds.size.width, MAXFLOAT)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{
+                                                        NSFontAttributeName : _contentFont
+                                                        }
+                                              context:nil].size;
+    CGFloat heightPerLine = [@"" sizeWithAttributes:@{ NSFontAttributeName : _contentFont}].height;
+    NSInteger lineCount = (labelSize.height+1)/heightPerLine;
+   
     return lineCount;
 }
 
@@ -67,28 +66,17 @@
 - (void)updateView
 {
     if (_shouldShowMoreContent) {
+        self.titleLabel.numberOfLines = 0;
+        CGSize labelSize = [_content boundingRectWithSize:CGSizeMake(self.bounds.size.width, MAXFLOAT)
+                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                      attributes:@{
+                                                                   NSFontAttributeName : _contentFont
+                                                                   }
+                                                         context:nil].size;
         
-        NSString *handelStr = [_content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-
-        CGSize sizeWithoutBread = [handelStr sizeWithAttributes:@{NSFontAttributeName :_contentFont}];
         
-        CGSize size = [_content sizeWithAttributes:@{NSFontAttributeName :_contentFont}];
-        
-        NSLog(@"%d", (int)(size.height/sizeWithoutBread.height));
-        
-        NSInteger exterCount = size.height/sizeWithoutBread.height;
-        
-        NSInteger lineCount = (sizeWithoutBread.width / self.frame.size.width) + exterCount;
-
-        NSLog(@"%f", (size.width / self.frame.size.width) );
-        
-        NSLog(@"%f", self.frame.size.width);
-        
-        self.titleLabel.numberOfLines = lineCount;
-
-        CGFloat height = sizeWithoutBread.height * lineCount;
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
-                                  , self.frame.size.width, height)];
+                                  , self.frame.size.width, labelSize.height)];
 
         _resizeHeight = self.frame.size.height - _resetFrame.size.height;
         
