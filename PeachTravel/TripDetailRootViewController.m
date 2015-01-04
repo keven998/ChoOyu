@@ -400,7 +400,8 @@
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                    initWithRootViewController:_shoppingListCtl];
-    _spotsListCtl.canEdit = _canEdit;
+    _shoppingListCtl.canEdit = _canEdit;
+    _shoppingListCtl.rootViewController = self;
     _shoppingListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController,

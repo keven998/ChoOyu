@@ -21,10 +21,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIView *spaceView;
-@property (weak, nonatomic) IBOutlet UIButton *nearBy;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pictureHorizontalSpace;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *timeCostConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleContstraint;
 
 @end

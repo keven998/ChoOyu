@@ -224,6 +224,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 
 - (IBAction)addFinish:(id)sender
 {
+    [_delegate finishEdit];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -237,7 +238,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         poi = [self.dataSource objectAtIndex:sender.tag];
     }
     [oneDayArray addObject:poi];
-    [_delegate finishEdit];
     NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
     if (self.searchController.isActive) {
         [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -516,7 +516,6 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         if (isAdded) {
             [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
             [poiCell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-            
         } else {
             [poiCell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
             [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];

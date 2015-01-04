@@ -113,7 +113,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _weatherFrame.clipsToBounds = YES;
     _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     
-    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, 0.0, w - 22.0, 40.0)];
+    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, 7.5, w - 22.0, 40.0)];
     _weatherLabel.textAlignment = NSTextAlignmentLeft;
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = [UIColor whiteColor];
@@ -215,16 +215,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
     } else {
+        if (!(!_operationDataArray || _operationDataArray.count == 0)) {
+            [_galleryPageView.scrollView setContentOffset:CGPointZero];
+        }
         [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (!(!_operationDataArray || _operationDataArray.count == 0)) {
-        [_galleryPageView.scrollView setContentOffset:CGPointZero];
-        [_galleryPageView.animationTimer pauseTimer];
     }
 }
 
@@ -367,7 +361,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _weatherLabel.text = s;
     [_weatherFrame removeFromSuperview];
     [self.view addSubview:_weatherFrame];
-    [_galleryPageView.pagerControl setFrame:CGRectMake(_galleryPageView.pagerControl.frame.origin.x,_galleryPageView.pagerControl.frame.origin.y-40, _galleryPageView.pagerControl.frame.size.width, _galleryPageView.pagerControl.frame.size.height)];
+    [_galleryPageView.pagerControl setFrame:CGRectMake(_galleryPageView.pagerControl.frame.origin.x,_galleryPageView.pagerControl.frame.origin.y-20, _galleryPageView.pagerControl.frame.size.width, _galleryPageView.pagerControl.frame.size.height)];
 }
 
 #pragma mark - IBAction Methods
