@@ -13,7 +13,7 @@
 
 @property (nonatomic, copy) NSString *favoriteId;
 @property (nonatomic, copy) NSString *itemId;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic) TZPoiType type;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
@@ -23,7 +23,7 @@
 
 - (id)initWithJson:(id)json;
 
-- (NSString *)getTypeDesc;
-- (NSString *)getTypeFlagName;
+- (NSString *)typeDescByType;
+- (NSString *)typeFlagName;
 
 @end

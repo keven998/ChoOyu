@@ -28,9 +28,12 @@
         _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
             _rating = 3.5;
+        } else  if ([[json objectForKey:@"rating"] floatValue] > 1){
+            _rating = [[json objectForKey:@"rating"] floatValue];
         } else {
             _rating = [[json objectForKey:@"rating"] floatValue]*5;
         }
+        
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];

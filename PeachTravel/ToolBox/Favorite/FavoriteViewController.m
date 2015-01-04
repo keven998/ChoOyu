@@ -426,10 +426,10 @@
     } else {
         cell.standardImageView.image = [UIImage imageNamed:@"country.jpg"];
     }
-    cell.contentType.text = [item getTypeDesc];
+    cell.contentType.text = [item typeDescByType];
     cell.contentTitle.text = item.zhName;
     cell.contentLocation.text = item.locality.zhName;
-    cell.contentTypeFlag.image = [UIImage imageNamed:[item getTypeFlagName]];
+    cell.contentTypeFlag.image = [UIImage imageNamed:[item typeFlagName]];
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:item.createTime/1000];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -475,17 +475,6 @@
     [self.tableView endUpdates];
 }
 
-#pragma mark - TaoziMessageSendDelegate
-
-- (void)sendCancel
-{
-    
-}
-
-- (void)sendSuccess:(ChatViewController *)chatCtl
-{
-}
-
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -513,29 +502,28 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Favorite *item = [_dataSource objectAtIndex:indexPath.row];
-    NSString *type = item.type;
     if (!_selectToSend) {
-        if ([type isEqualToString:@"vs"]) {
+        if (item.type == kSpotPoi) {
             SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
             ctl.spotId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
             
-        } else if ([type isEqualToString:@"hotel"]) {
+        } else if (item.type == kHotelPoi) {
             HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
             ctl.hotelId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
             
-        } else if ([type isEqualToString:@"restaurant"]) {
+        } else if (item.type == kRestaurantPoi) {
             RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
             ctl.restaurantId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
             
-        } else if ([type isEqualToString:@"shopping"]) {
+        } else if (item.type == kShoppingPoi) {
             ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
             ctl.shoppingId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
             
-        } else if ([type isEqualToString:@"travelNote"]) {
+        } else if (item.type == kTravelNotePoi) {
             TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
             ctl.travelNoteId = item.itemId;
             ctl.travelNoteTitle = item.zhName;
@@ -551,17 +539,29 @@
         
 //TODO:点击发送
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
-//        taoziMessageCtl.delegate = self;
-//        taoziMessageCtl.chatType = TZChatTypeStrategy;
-//        taoziMessageCtl.chatter = _chatter;
-//        taoziMessageCtl.chatTitle = @"攻略";
-//        taoziMessageCtl.messageId = item.itemId;
-//        taoziMessageCtl.messageDesc = item.summary;
-//        taoziMessageCtl.messageName = guideSummary.title;
-//        TaoziImage *image = [guideSummary.images firstObject];
-//        taoziMessageCtl.messageImage = image.imageUrl;
-//        taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%d天", guideSummary.dayCount];
-        
+        taoziMessageCtl.delegate = self;
+        taoziMessageCtl.messageId = item.itemId;
+        taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
+        taoziMessageCtl.messageDesc = item.desc;
+        taoziMessageCtl.messageName = item.zhName;
+        taoziMessageCtl.chatter = self.chatter;
+        taoziMessageCtl.isGroup = self.isChatGroup;
+//        taoziMessageCtl.messageTimeCost = item.timeCostStr;
+        taoziMessageCtl.descLabel.text = item.desc;
+        if (item.type == kSpotPoi) {
+            taoziMessageCtl.chatType = TZChatTypeSpot;
+        } else if (item.type == kHotelPoi) {
+            taoziMessageCtl.chatType = TZChatTypeHotel;
+        } else if (item.type == kRestaurantPoi) {
+            taoziMessageCtl.chatType = TZChatTypeFood;
+        } else if (item.type == kShoppingPoi) {
+            taoziMessageCtl.chatType = TZChatTypeShopping;
+        } else if (item.type == kTravelNotePoi) {
+            taoziMessageCtl.chatType = TZChatTypeTravelNote;
+        } else {
+            taoziMessageCtl.chatType = TZChatTypeCity;
+        }
+
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
             
         }];
@@ -580,9 +580,41 @@
 }
 
 - (void) loadMoreCompleted {
-//    if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+}
+
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送poi给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    
+    /*发送完成后不进入聊天界面
+     [self.navigationController pushViewController:chatCtl animated:YES];
+     */
+    
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

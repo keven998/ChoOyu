@@ -1239,6 +1239,7 @@
     [self keyBoardHidden];
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.isChatGroup = _isChatGroup;
+    favoriteCtl.chatter = _chatter;
     favoriteCtl.selectToSend = YES;
     [self.navigationController pushViewController:favoriteCtl animated:YES];
 }

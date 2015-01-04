@@ -135,6 +135,7 @@ typedef enum : NSUInteger {
     kShoppingPoi,
     kHotelPoi,
     kCityPoi,
+    kTravelNotePoi
 } TZPoiType;
 
 /***** 登录注册时输入的错误码 *****/
