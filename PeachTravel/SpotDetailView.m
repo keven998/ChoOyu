@@ -338,7 +338,7 @@
         _timeCostBtn.frame = CGRectMake(_timeCostBtn.frame.origin.x, _timeCostBtn.frame.origin.y, _timeCostBtn.frame.size.width, height);
         [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 50, _timeCostBtn.frame.size.height)];
-        [subTitle setTitle:@"参考时长" forState:UIControlStateNormal];
+        [subTitle setTitle:@"参考游玩" forState:UIControlStateNormal];
         [subTitle setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         subTitle.titleLabel.font = [UIFont systemFontOfSize:11.0];
         [_timeCostBtn addSubview:subTitle];
