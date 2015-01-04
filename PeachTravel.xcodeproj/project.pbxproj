@@ -463,7 +463,6 @@
 		D97C47321A1A3D8F0045E1E1 /* NSString+TaoziString.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C47311A1A3D8F0045E1E1 /* NSString+TaoziString.m */; };
 		D97C8B3F1A514A8C00476C9C /* ic_home_around@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */; };
 		D97C8B401A514A8C00476C9C /* ic_home_fav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */; };
-		D97C8B411A514A8C00476C9C /* ic_home_guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3E1A514A8C00476C9C /* ic_home_guide@2x.png */; };
 		D97C8B4A1A51811600476C9C /* AddPoiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C8B481A51811600476C9C /* AddPoiTableViewController.m */; };
 		D97C8B4B1A51811600476C9C /* AddPoiTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
@@ -481,8 +480,6 @@
 		D98BDA661A43D5CD0093C559 /* ic_person_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA601A43D5CD0093C559 /* ic_person_selected@2x.png */; };
 		D98BDA671A43D5CD0093C559 /* ic_tao_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA611A43D5CD0093C559 /* ic_tao_normal@2x.png */; };
 		D98BDA681A43D5CD0093C559 /* ic_tao_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA621A43D5CD0093C559 /* ic_tao_selected@2x.png */; };
-		D98BDA6C1A4440010093C559 /* bg_home_mid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA6B1A4440010093C559 /* bg_home_mid@2x.png */; };
-		D98BDA751A44434B0093C559 /* weatherbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D98BDA741A44434B0093C559 /* weatherbackground@2x.png */; };
 		D98BDA7B1A4553E50093C559 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98BDA791A4553E50093C559 /* HotDestinationCollectionViewController.m */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98CC6831A19AD1D00FA5A76 /* ResizableView.m */; };
@@ -646,6 +643,9 @@
 		D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613519E41A51000F379F /* MineTableViewController.m */; };
 		D9F3613F19E42360000F379F /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3613D19E42360000F379F /* LoginTableViewCell.m */; };
 		D9F3614019E42360000F379F /* LoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F3613E19E42360000F379F /* LoginTableViewCell.xib */; };
+		D9F52BB11A595016009DFBC1 /* bg_home_mid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F52BB01A595016009DFBC1 /* bg_home_mid@2x.png */; };
+		D9F52BB31A595034009DFBC1 /* weatherbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F52BB21A595034009DFBC1 /* weatherbackground@2x.png */; };
+		D9F52BB51A595074009DFBC1 /* ic_home_guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F52BB41A595074009DFBC1 /* ic_home_guide@2x.png */; };
 		D9FCC79E1A0232D500AD7CBF /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = D9FCC79C1A0232D500AD7CBF /* pinyin.c */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -1363,7 +1363,6 @@
 		D97C47311A1A3D8F0045E1E1 /* NSString+TaoziString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TaoziString.m"; sourceTree = "<group>"; };
 		D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_around@2x.png"; sourceTree = "<group>"; };
 		D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_fav@2x.png"; sourceTree = "<group>"; };
-		D97C8B3E1A514A8C00476C9C /* ic_home_guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_guide@2x.png"; sourceTree = "<group>"; };
 		D97C8B471A51811600476C9C /* AddPoiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiTableViewController.h; sourceTree = "<group>"; };
 		D97C8B481A51811600476C9C /* AddPoiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiTableViewController.m; sourceTree = "<group>"; };
 		D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPoiTableViewController.xib; sourceTree = "<group>"; };
@@ -1385,8 +1384,6 @@
 		D98BDA601A43D5CD0093C559 /* ic_person_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person_selected@2x.png"; sourceTree = "<group>"; };
 		D98BDA611A43D5CD0093C559 /* ic_tao_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tao_normal@2x.png"; sourceTree = "<group>"; };
 		D98BDA621A43D5CD0093C559 /* ic_tao_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tao_selected@2x.png"; sourceTree = "<group>"; };
-		D98BDA6B1A4440010093C559 /* bg_home_mid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_home_mid@2x.png"; sourceTree = "<group>"; };
-		D98BDA741A44434B0093C559 /* weatherbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weatherbackground@2x.png"; sourceTree = "<group>"; };
 		D98BDA781A4553E50093C559 /* HotDestinationCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotDestinationCollectionViewController.h; sourceTree = "<group>"; };
 		D98BDA791A4553E50093C559 /* HotDestinationCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotDestinationCollectionViewController.m; sourceTree = "<group>"; };
 		D98CC6821A19AD1D00FA5A76 /* ResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizableView.h; sourceTree = "<group>"; };
@@ -1648,6 +1645,9 @@
 		D9F3613C19E42360000F379F /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
 		D9F3613D19E42360000F379F /* LoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewCell.m; sourceTree = "<group>"; };
 		D9F3613E19E42360000F379F /* LoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginTableViewCell.xib; sourceTree = "<group>"; };
+		D9F52BB01A595016009DFBC1 /* bg_home_mid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_home_mid@2x.png"; sourceTree = "<group>"; };
+		D9F52BB21A595034009DFBC1 /* weatherbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weatherbackground@2x.png"; sourceTree = "<group>"; };
+		D9F52BB41A595074009DFBC1 /* ic_home_guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_guide@2x.png"; sourceTree = "<group>"; };
 		D9FCC79C1A0232D500AD7CBF /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		D9FCC79D1A0232D500AD7CBF /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -3623,12 +3623,12 @@
 			children = (
 				D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */,
 				D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */,
-				D97C8B3E1A514A8C00476C9C /* ic_home_guide@2x.png */,
 				D93C50C71A4906FD00FFE2FA /* ic_im_background@2x.png */,
 				D93C50C81A4906FD00FFE2FA /* ic_im_text@2x.png */,
 				D93C50C91A4906FD00FFE2FA /* ic_im_arrow@2x.png */,
-				D98BDA741A44434B0093C559 /* weatherbackground@2x.png */,
-				D98BDA6B1A4440010093C559 /* bg_home_mid@2x.png */,
+				D9F52BB01A595016009DFBC1 /* bg_home_mid@2x.png */,
+				D9F52BB41A595074009DFBC1 /* ic_home_guide@2x.png */,
+				D9F52BB21A595034009DFBC1 /* weatherbackground@2x.png */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -4545,7 +4545,6 @@
 				D9CC36D71A380E4E00E72A7F /* travel_guide_selected@2x.png in Resources */,
 				C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */,
 				C6BC34931A276396002C19D3 /* cell_accessory_white@2x.png in Resources */,
-				D97C8B411A514A8C00476C9C /* ic_home_guide@2x.png in Resources */,
 				D90C639619FB44D300C2E440 /* chatBar_more_card.png in Resources */,
 				C6C637F51A53B52A00A9558A /* ic_toolbox_right@2x.png in Resources */,
 				C60C0D601A297A16006033C9 /* ic_app_introduction@2x.png in Resources */,
@@ -4574,7 +4573,6 @@
 				C6BC34851A274B1B002C19D3 /* avatar_line@2x.png in Resources */,
 				D90C639219FB44D300C2E440 /* VoiceSearchFeedback019@2x.png in Resources */,
 				D9EF98A41A3ABC1F00DB480F /* nearby_ic_tab_shopping_normal@2x.png in Resources */,
-				D98BDA751A44434B0093C559 /* weatherbackground@2x.png in Resources */,
 				D90F35EE19F63B3300E26FA9 /* call_out_h@2x.png in Resources */,
 				C6C637F41A53B52A00A9558A /* ic_toolbox_left@2x.png in Resources */,
 				D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */,
@@ -4603,6 +4601,7 @@
 				D90C636C19FB44D300C2E440 /* chatFire_audioPlaying3@2x.png in Resources */,
 				D9C64BB61A1B31CA00A4B9BF /* DomesticViewController.xib in Resources */,
 				D90C639F19FB44D300C2E440 /* chatBar_textBg@2x.png in Resources */,
+				D9F52BB31A595034009DFBC1 /* weatherbackground@2x.png in Resources */,
 				D92A487F1A3822D000B00D91 /* ic_Favorite@2x.png in Resources */,
 				D90C637819FB44D300C2E440 /* VoiceSearchFeedback006@2x.png in Resources */,
 				D90F360619F63B3300E26FA9 /* chatBar_keyboard@2x.png in Resources */,
@@ -4707,6 +4706,7 @@
 				D90C636F19FB44D300C2E440 /* VoiceSearchFeedback002.png in Resources */,
 				D964200C19EBC3B800CC8057 /* VerifyCaptchaViewController.xib in Resources */,
 				D934D8501A4E7064003AFFCF /* ic_filter_cancel@2x.png in Resources */,
+				D9F52BB51A595074009DFBC1 /* ic_home_guide@2x.png in Resources */,
 				D90C638719FB44D300C2E440 /* VoiceSearchFeedback014.png in Resources */,
 				D9CC36DB1A38179800E72A7F /* ic_unFavorite@2x.png in Resources */,
 				D90F35FC19F63B3300E26FA9 /* faceDelete.png in Resources */,
@@ -4738,6 +4738,7 @@
 				C63345011A1C9AF000A27F86 /* ContactListTableViewCell.xib in Resources */,
 				D97C8B401A514A8C00476C9C /* ic_home_fav@2x.png in Resources */,
 				D93697021A3026BC001922F4 /* chat_time@2x.png in Resources */,
+				D9F52BB11A595016009DFBC1 /* bg_home_mid@2x.png in Resources */,
 				D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				D9681A0E1A109BF600122793 /* Default-568h@2x.png in Resources */,
@@ -4800,7 +4801,6 @@
 				D9681A0D1A109BF600122793 /* button-background@2x.png in Resources */,
 				D9A19CA61A2F063E00B189CB /* message_taozi_send@2x.png in Resources */,
 				D9E9F7B21A00AC6D003F70F6 /* AddressBookTableViewController.xib in Resources */,
-				D98BDA6C1A4440010093C559 /* bg_home_mid@2x.png in Resources */,
 				D90C639A19FB44D300C2E440 /* chatBar_more_face.png in Resources */,
 				D90C637919FB44D300C2E440 /* VoiceSearchFeedback007.png in Resources */,
 				D955E54B19E7A91300047F2B /* sns_icon_qqweibo@2x.png in Resources */,
