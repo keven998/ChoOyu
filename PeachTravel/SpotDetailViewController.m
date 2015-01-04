@@ -11,7 +11,8 @@
 #import "SpotPoi.h"
 #import "AccountManager.h"
 
-@interface SpotDetailViewController () 
+@interface SpotDetailViewController () <UIActionSheetDelegate>
+
 @property (nonatomic, strong) SpotPoi *spotPoi;
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 
@@ -65,13 +66,9 @@
             [self updateView];
             [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        [SVProgressHUD showErrorWithStatus:@"无法获取数据"];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 
@@ -94,24 +91,55 @@
     taoziMessageCtl.chatType = TZChatTypeSpot;
 }
 
+/**
+ *  游玩指南
+ *
+ *  @param sender
+ */
 - (IBAction)travelGuide:(id)sender
 {
     
 }
 
+/**
+ *  坑爹攻略
+ *
+ *  @param sender
+ */
 - (IBAction)kengdie:(id)sender
 {
     
 }
 
+/**
+ *  交通指南
+ *
+ *  @param sender
+ */
 - (IBAction)trafficGuide:(id)sender
 {
     
 }
 
+/**
+ *  进入地图导航
+ *
+ *  @param sender
+ */
 - (IBAction)jumpToMapview:(id)sender
 {
-    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                     delegate:self
+                                            cancelButtonTitle:nil
+                                       destructiveButtonTitle:nil
+                                            otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
 }
 
 - (IBAction)favorite:(id)sender
@@ -129,6 +157,142 @@
         }
     }];
     
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap: {
+                    NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",self.spotPoi.zhName, self.spotPoi.lat, self.spotPoi.lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+                    }
+                }
+                    break;
+                    
+                case kBaiduMap: {
+                     NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",self.spotPoi.lat, self.spotPoi.lng, self.spotPoi.zhName, self.spotPoi.zhName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+                    }
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    CLLocationCoordinate2D from;
+                    from.latitude = self.spotPoi.lat;
+                    from.longitude = self.spotPoi.lng;
+                    
+                    MKMapItem *currentLocation;
+                    if (from.latitude != 0.0) {
+                        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
+                        currentLocation.name = self.spotPoi.zhName;
+                    }
+                    
+                    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil] forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap: {
+                    NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",self.spotPoi.zhName, self.spotPoi.lat, self.spotPoi.lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+                    }
+                }
+                    break;
+                    
+                case kBaiduMap: {
+                    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",self.spotPoi.lat, self.spotPoi.lng, self.spotPoi.zhName, self.spotPoi.zhName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+                    }
+                }
+                    break;
+
+                    
+                case kAppleMap: {
+                    CLLocationCoordinate2D from;
+                    from.latitude = self.spotPoi.lat;
+                    from.longitude = self.spotPoi.lng;
+                    
+                    MKMapItem *currentLocation;
+                    if (from.latitude != 0.0) {
+                        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
+                        currentLocation.name = self.spotPoi.zhName;
+                    }
+                    
+                    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil] forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap: {
+                     NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",self.spotPoi.zhName, self.spotPoi.lat, self.spotPoi.lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+                    }
+                }
+                    break;
+                    
+                case kBaiduMap: {
+                    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",self.spotPoi.lat, self.spotPoi.lng, self.spotPoi.zhName, self.spotPoi.zhName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+                    }
+                }
+                    break;
+
+                    
+                case kAppleMap: {
+                    CLLocationCoordinate2D from;
+                    from.latitude = self.spotPoi.lat;
+                    from.longitude = self.spotPoi.lng;
+                    
+                    MKMapItem *currentLocation;
+                    if (from.latitude != 0.0) {
+                        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
+                        currentLocation.name = self.spotPoi.zhName;
+                    }
+                    
+                    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil] forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

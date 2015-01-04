@@ -68,6 +68,16 @@
 				<string>wx26b58c7173483529</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>aizou.PeachTravel</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>taozi0601</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>8</string>

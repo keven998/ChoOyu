@@ -25,8 +25,8 @@
 @property (nonatomic, copy) NSString *kengdieUrl;
 @property (nonatomic) BOOL isMyFavorite;
 
-@property (nonatomic) long lat;
-@property (nonatomic) long lng;
+@property (nonatomic) double lat;
+@property (nonatomic) double lng;
 
 - (id)initWithJson:(id)json;
 

@@ -366,11 +366,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 #pragma mark - IBAction Methods
 
-- (IBAction)viewImage:(id)sender
-{
-    
-}
-
 //进入聊天功能
 - (IBAction)jumpIM:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];

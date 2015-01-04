@@ -78,7 +78,7 @@
     return url;
 }
 
-+ (NSArray *)getMapPlatformInPhone
++ (NSArray *)mapPlatformInPhone
 {
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://com.autonavi.amap"]]) {

@@ -34,7 +34,7 @@ typedef enum {
 + (NSString *)generateQiniuImageUrl: (NSString *)url width:(int)w height:(int)h;
 
 //得到手机上装的地图软件的名字
-+ (NSArray *)getMapPlatformInPhone;
++ (NSArray *)mapPlatformInPhone;
 
 //sha1
 + (NSString *)sha1:(NSString *)str;
