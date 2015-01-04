@@ -238,7 +238,7 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (IBAction)deleteGuide:(UIButton *)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             CGPoint viewPos = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -327,14 +327,14 @@ static NSString *reusableCell = @"myGuidesCell";
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showHint:@"OK!成功删除"];
+            [SVProgressHUD showHint:@"OK~成功删除"];
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            if (_dataSource.count == 0) {
-                [self setupEmptyView];
-            }
+//            if (_dataSource.count == 0) {
+//                [self setupEmptyView];
+//            }
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [self cacheFirstPage:responseObject];
             });
@@ -503,16 +503,26 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.emptyView addSubview:imageView];
     
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
-    desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont systemFontOfSize:15.0];
+//    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    desc.font = [UIFont systemFontOfSize:13.0];
     desc.numberOfLines = 2;
-    desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"木有任何旅行Memo\n这么好的旅行帮手不用可惜了";
+//    desc.textAlignment = NSTextAlignmentCenter;
+    NSString *text = @"旅行Memo\n你最贴心的行程助手";
+    NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
+    [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 4.0;
+    [style setAlignment:NSTextAlignmentCenter];
+    [attrDesc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
+    [desc setAttributedText:attrDesc];
+    
     [self.emptyView addSubview:desc];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.0, 0.0, 90.0, 34.0);
-    btn.backgroundColor = APP_THEME_COLOR;
+//    btn.backgroundColor = APP_THEME_COLOR;
+    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    btn.clipsToBounds = YES;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitle:@"新Memo" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];

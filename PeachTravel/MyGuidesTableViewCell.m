@@ -34,12 +34,12 @@
         CGRect frame = _titleBtn.titleLabel.frame;
         frame.origin.x = 28.0;
         [UIView animateWithDuration:0.3 animations:^{
-            _deleteBtn.alpha = 0.7;
-            _titleBtn.imageView.alpha = 0.7;
+            _deleteBtn.alpha = 1;
+            _titleBtn.imageView.alpha = 1;
             _titleBtn.titleLabel.frame = frame;
         } completion:^(BOOL finished) {
-            _deleteBtn.alpha = 1;
-            _titleBtn.imageView.alpha = 1.0;
+//            _deleteBtn.alpha = 1;
+//            _titleBtn.imageView.alpha = 1.0;
         }];
     } else {
         [UIView animateWithDuration:0.3 animations:^{
