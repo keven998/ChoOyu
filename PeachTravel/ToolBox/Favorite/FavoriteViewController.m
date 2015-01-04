@@ -90,11 +90,6 @@
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     self.navigationItem.leftBarButtonItem = backBtn;
     
-    /*
-    UIBarButtonItem *barItem= [[UIBarButtonItem alloc] initWithCustomView:self.sortPoiView];
-    self.navigationItem.rightBarButtonItem = barItem;
-     */
-    
     UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
     self.navigationItem.rightBarButtonItem = filterBtn;
     [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
@@ -193,6 +188,11 @@
     return _slimeView;
 }
 
+/**
+ *  点击筛选按钮
+ *
+ *  @param sender
+ */
 - (void)filter:(id)sender
 {
     if (!self.filterCtl.filterViewIsShowing) {
@@ -253,7 +253,7 @@
         _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-70.0, 50, 50)];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
-        [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
+        [_editBtn addTarget:self action:@selector(editMyFavorite:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _editBtn;
 }
@@ -263,7 +263,7 @@
  *
  *  @param sender
  */
-- (IBAction)editMyGuides:(id)sender
+- (IBAction)editMyFavorite:(id)sender
 {
     UIButton *btn = sender;
     BOOL isEditing = btn.isSelected;
@@ -277,16 +277,18 @@
  *
  *  @param sender
  */
-- (IBAction)deleteGuide:(UIButton *)sender
+- (IBAction)deleteFavorite:(UIButton *)sender
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            
-            
-//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//                [self cacheFirstPage];
-//            });
+            if (buttonIndex == 1) {
+                CGPoint viewPos = [sender convertPoint:CGPointZero toView:self.tableView];
+                NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
+                NSInteger index = indexPath.row;
+                Favorite *favorite = [self.dataSource objectAtIndex:index];
+                [self deleteUserFavorite:favorite];
+            }
         }
     }];
 }
@@ -351,7 +353,50 @@
     }];
 }
 
-- (void) cacheFirstPage {
+/**
+ *  删除我的攻略
+ *
+ *  @param guideSummary
+ */
+- (void)deleteUserFavorite:(Favorite *)favorite
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, favorite.itemId];
+    
+    [SVProgressHUD show];
+    
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showHint:@"OK!成功删除"];
+            NSInteger index = [self.dataSource indexOfObject:favorite];
+            [self.dataSource removeObject:favorite];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (_dataSource.count == 0) {
+            }
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [self cacheFirstPage];
+            });
+        } else {
+            [SVProgressHUD showHint:@"请求也是失败了"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+    }];
+    
+}
+
+- (void)cacheFirstPage
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     NSInteger count = _dataSource.count;
     if (count > 0) {
@@ -418,7 +463,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FavoriteTableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"favorite_cell" forIndexPath:indexPath];
     cell.isEditing = _isEditing;
-    [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.deleteBtn addTarget:self action:@selector(deleteFavorite:) forControlEvents:UIControlEventTouchUpInside];
     Favorite *item = [_dataSource objectAtIndex:indexPath.row];
     
     if (item.images != nil && item.images.count > 0) {

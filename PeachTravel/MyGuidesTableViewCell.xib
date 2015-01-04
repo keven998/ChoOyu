@@ -32,15 +32,14 @@
                                 <color key="textColor" red="0.70196078431372544" green="0.70196078431372544" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sti-HV-cLR">
-                                <rect key="frame" x="266" y="9" width="30" height="30"/>
-                                <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sti-HV-cLR">
+                                <rect key="frame" x="255" y="0.0" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="KZb-5i-6vg"/>
-                                    <constraint firstAttribute="height" constant="30" id="akG-Aj-GUk"/>
+                                    <constraint firstAttribute="width" constant="40" id="KZb-5i-6vg"/>
+                                    <constraint firstAttribute="height" constant="40" id="akG-Aj-GUk"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="edit">
+                                <inset key="contentEdgeInsets" minX="10" minY="-6" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" image="ic_delete.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -83,11 +82,11 @@
                             <constraint firstItem="quZ-MA-Mic" firstAttribute="top" secondItem="Z9l-fm-H4L" secondAttribute="top" id="1Pn-k9-ZLG"/>
                             <constraint firstAttribute="centerX" secondItem="7cf-jV-Fd7" secondAttribute="centerX" id="8VI-8z-Fmq"/>
                             <constraint firstItem="SbF-Mj-kFy" firstAttribute="top" secondItem="Z9l-fm-H4L" secondAttribute="top" constant="20" id="97C-C8-qar"/>
-                            <constraint firstAttribute="trailing" secondItem="Sti-HV-cLR" secondAttribute="trailing" constant="4" id="EOO-fW-35i"/>
+                            <constraint firstAttribute="trailing" secondItem="Sti-HV-cLR" secondAttribute="trailing" constant="5" id="EOO-fW-35i"/>
                             <constraint firstItem="UYn-S8-ka9" firstAttribute="leading" secondItem="Z9l-fm-H4L" secondAttribute="leading" constant="6" id="Ftb-mY-zqY"/>
                             <constraint firstItem="UYn-S8-ka9" firstAttribute="top" secondItem="7cf-jV-Fd7" secondAttribute="bottom" constant="10" id="J5X-xg-ulL"/>
                             <constraint firstItem="qEP-H1-aY1" firstAttribute="top" secondItem="SbF-Mj-kFy" secondAttribute="bottom" constant="1" id="LAW-VK-vo8"/>
-                            <constraint firstItem="Sti-HV-cLR" firstAttribute="top" secondItem="Z9l-fm-H4L" secondAttribute="top" constant="9" id="LRm-oD-WFL"/>
+                            <constraint firstItem="Sti-HV-cLR" firstAttribute="top" secondItem="Z9l-fm-H4L" secondAttribute="top" id="LRm-oD-WFL"/>
                             <constraint firstItem="SbF-Mj-kFy" firstAttribute="leading" secondItem="Z9l-fm-H4L" secondAttribute="leading" id="QyI-UU-XbA"/>
                             <constraint firstAttribute="trailing" secondItem="UYn-S8-ka9" secondAttribute="trailing" constant="6" id="RAr-op-2w1"/>
                             <constraint firstItem="qEP-H1-aY1" firstAttribute="top" secondItem="quZ-MA-Mic" secondAttribute="bottom" constant="1" id="RV3-2S-STj"/>
@@ -132,6 +131,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_delete.png" width="20" height="20"/>
         <image name="ic_text_cover_bg.png" width="19" height="21"/>
     </resources>
 </document>

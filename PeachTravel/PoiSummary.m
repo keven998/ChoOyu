@@ -72,7 +72,7 @@
             break;
         
         case kSpotPoi:
-            _poiTypeDesc = @"spot";
+            _poiTypeDesc = @"vs";
             break;
         
         case kHotelPoi:

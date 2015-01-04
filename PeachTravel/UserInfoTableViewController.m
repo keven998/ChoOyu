@@ -448,8 +448,8 @@
         [self showHint:@"正在退出"];
         [accountManager asyncLogout:^(BOOL isSuccess) {
             [self showHint:@"退出成功"];
+            [self.navigationController popViewControllerAnimated:YES];
         }];
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

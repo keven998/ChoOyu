@@ -131,7 +131,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _contentFrame.clipsToBounds = YES;
     [self.view addSubview:_contentFrame];
     
-    CGFloat offsety = 38.0 * sscale;
+    CGFloat offsety = 30.0 * sscale;
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, offsety, w, 21.0)];
     title.font = [UIFont italicSystemFontOfSize:17];

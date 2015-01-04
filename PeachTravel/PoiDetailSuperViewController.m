@@ -135,7 +135,6 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             completion(NO);
-//            [self showHint:@"收藏失败"];
             [self showHint:@"呃～好像没找到网络"];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
@@ -147,7 +146,6 @@
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-//                [self showHint:@"取消收藏成功"];
                 [self showHint:@"OK!成功取消收藏"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
@@ -163,7 +161,6 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
     }
-   
 }
 
 - (void)login
