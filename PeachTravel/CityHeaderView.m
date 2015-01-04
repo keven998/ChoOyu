@@ -195,7 +195,7 @@
     [_showSpotsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showSpotsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"ic_standard_travel.png"] forState:UIControlStateNormal];
-    [_showSpotsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [_showSpotsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
     [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     _showSpotsBtn.clipsToBounds = YES;
@@ -208,7 +208,7 @@
     [_showRestaurantsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showRestaurantsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"ic_standard_food.png"] forState:UIControlStateNormal];
-    [_showRestaurantsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [_showRestaurantsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
     [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     _showRestaurantsBtn.clipsToBounds = YES;
@@ -221,7 +221,7 @@
     [_showShoppingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showShoppingBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"ic_standard_shopping.png"] forState:UIControlStateNormal];
-    [_showShoppingBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [_showShoppingBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
     [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     _showShoppingBtn.clipsToBounds = YES;

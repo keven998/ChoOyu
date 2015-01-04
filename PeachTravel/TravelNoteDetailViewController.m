@@ -30,17 +30,27 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
-    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
-    [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
-    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 6, 0, 0)];
-    self.navigationItem.rightBarButtonItem = moreBarItem;
+//    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(doFavorite:)];
+//    [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
+//    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_favorite_unselected.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_favorite_selected.png"] forState:UIControlStateSelected];
+    [talkBtn addTarget:self action:@selector(doFavorite:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *moreBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
+    
+    UIBarButtonItem *chatItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(chat:)];
+    [chatItem setImage:[UIImage imageNamed:@"ic_chat.png"]];
+//    self.navigationItem.rightBarButtonItem = moreBarItem;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:moreBarItem, chatItem, nil];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
 //    _webView.delegate = _progressProxy;
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
     
-    CGFloat progressBarHeight = 1.f;
+    CGFloat progressBarHeight = 1.5f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
@@ -83,7 +93,7 @@
 {
     NSInteger numberOfOptions = 2;
     NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"桃Talk"],
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"Talk"],
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_favorite.png"] title:@"收藏"],
                        ];
     
@@ -115,25 +125,36 @@
     _av = nil;
 }
 
+- (IBAction)doFavorite:(id)sender {
+    UIButton *bi = sender;
+    [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:!bi.selected completion:^(BOOL isSuccess) {
+        if (!isSuccess) {
+//            bi.selected = !bi.selected;
+        } else {
+            bi.selected = !bi.selected;
+        }
+    }];
+}
+
 #pragma mark - WebViewDelegate
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//    [_activeView stopAnimating];
-}
+//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+//{
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+////    [_activeView stopAnimating];
+//}
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//    [_activeView stopAnimating];
-}
+//- (void)webViewDidFinishLoad:(UIWebView *)webView
+//{
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+////    [_activeView stopAnimating];
+//}
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//    [_activeView startAnimating];
-}
+//- (void)webViewDidStartLoad:(UIWebView *)webView
+//{
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+////    [_activeView startAnimating];
+//}
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
