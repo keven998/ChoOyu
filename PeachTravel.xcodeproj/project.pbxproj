@@ -309,6 +309,9 @@
 		D92F1AC21A5A84BB00CD1A63 /* rain_snow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92F1AB31A5A84BB00CD1A63 /* rain_snow@2x.png */; };
 		D92F1AC31A5A84BB00CD1A63 /* thunder_rain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92F1AB41A5A84BB00CD1A63 /* thunder_rain@2x.png */; };
 		D92F1AC41A5A84BB00CD1A63 /* fog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92F1AB51A5A84BB00CD1A63 /* fog@2x.png */; };
+		D92F1AC81A5A8DB800CD1A63 /* TZProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D92F1AC71A5A8DB800CD1A63 /* TZProgressHUD.m */; };
+		D92F1ACB1A5A8FBD00CD1A63 /* ic_pb_earth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92F1AC91A5A8FBD00CD1A63 /* ic_pb_earth@2x.png */; };
+		D92F1ACC1A5A8FBD00CD1A63 /* ic_progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92F1ACA1A5A8FBD00CD1A63 /* ic_progress@2x.png */; };
 		D934D8481A4D57BF003AFFCF /* blur_backGround@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */; };
 		D934D84D1A4D7968003AFFCF /* TZFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D934D84C1A4D7968003AFFCF /* TZFilterView.m */; };
 		D934D8501A4E7064003AFFCF /* ic_filter_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D934D84F1A4E7064003AFFCF /* ic_filter_cancel@2x.png */; };
@@ -1084,6 +1087,10 @@
 		D92F1AB31A5A84BB00CD1A63 /* rain_snow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rain_snow@2x.png"; sourceTree = "<group>"; };
 		D92F1AB41A5A84BB00CD1A63 /* thunder_rain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thunder_rain@2x.png"; sourceTree = "<group>"; };
 		D92F1AB51A5A84BB00CD1A63 /* fog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fog@2x.png"; sourceTree = "<group>"; };
+		D92F1AC61A5A8DB800CD1A63 /* TZProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressHUD.h; sourceTree = "<group>"; };
+		D92F1AC71A5A8DB800CD1A63 /* TZProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZProgressHUD.m; sourceTree = "<group>"; };
+		D92F1AC91A5A8FBD00CD1A63 /* ic_pb_earth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_pb_earth@2x.png"; sourceTree = "<group>"; };
+		D92F1ACA1A5A8FBD00CD1A63 /* ic_progress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_progress@2x.png"; sourceTree = "<group>"; };
 		D934D8471A4D57BF003AFFCF /* blur_backGround@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blur_backGround@2x.png"; sourceTree = "<group>"; };
 		D934D84B1A4D7968003AFFCF /* TZFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZFilterView.h; sourceTree = "<group>"; };
 		D934D84C1A4D7968003AFFCF /* TZFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZFilterView.m; sourceTree = "<group>"; };
@@ -2618,6 +2625,17 @@
 			path = "天气icon";
 			sourceTree = "<group>";
 		};
+		D92F1AC51A5A8A8000CD1A63 /* TZProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				D92F1AC91A5A8FBD00CD1A63 /* ic_pb_earth@2x.png */,
+				D92F1ACA1A5A8FBD00CD1A63 /* ic_progress@2x.png */,
+				D92F1AC61A5A8DB800CD1A63 /* TZProgressHUD.h */,
+				D92F1AC71A5A8DB800CD1A63 /* TZProgressHUD.m */,
+			);
+			name = TZProgressHUD;
+			sourceTree = "<group>";
+		};
 		D934D84E1A4E7050003AFFCF /* TZFilter */ = {
 			isa = PBXGroup;
 			children = (
@@ -3143,6 +3161,7 @@
 		D955E35F19E6698B00047F2B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D92F1AC51A5A8A8000CD1A63 /* TZProgressHUD */,
 				D9EF98941A3ABBFA00DB480F /* TZButton.h */,
 				D9EF98951A3ABBFA00DB480F /* TZButton.m */,
 				D9C64BBA1A1B677000A4B9BF /* ConvertMethods.h */,
@@ -4549,6 +4568,7 @@
 				D90C638419FB44D300C2E440 /* VoiceSearchFeedback012@2x.png in Resources */,
 				C679BB6A1A3C2F5A005592D8 /* ic_refresh_white_18@2x.png in Resources */,
 				D90C637319FB44D300C2E440 /* VoiceSearchFeedback004.png in Resources */,
+				D92F1ACB1A5A8FBD00CD1A63 /* ic_pb_earth@2x.png in Resources */,
 				D9386C501A31A6600085FC36 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				C6BC34A11A2832C7002C19D3 /* theme_btn_normal@2x.png in Resources */,
 				D93C50CA1A4906FD00FFE2FA /* ic_im_background@2x.png in Resources */,
@@ -4745,6 +4765,7 @@
 				D955E54A19E7A91300047F2B /* sns_icon_qq@2x.png in Resources */,
 				D92A488F1A388D8D00B00D91 /* ic_navigation_normal@2x.png in Resources */,
 				D9386C571A31A6E10085FC36 /* chat_sender_audio_playing_001@2x.png in Resources */,
+				D92F1ACC1A5A8FBD00CD1A63 /* ic_progress@2x.png in Resources */,
 				D98BDA641A43D5CD0093C559 /* ic_loc_selected@2x.png in Resources */,
 				D9978B0D1A52B75C00AB52B0 /* UMShareEditViewControlleriPad.xib in Resources */,
 				D9EF98A61A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png in Resources */,
@@ -4967,6 +4988,7 @@
 				D9C64BC61A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.m in Sources */,
 				D90F364D19F63C2F00E26FA9 /* UIViewController+HUD.m in Sources */,
 				D95F8A461A40343E003F4275 /* ShareActivity.m in Sources */,
+				D92F1AC81A5A8DB800CD1A63 /* TZProgressHUD.m in Sources */,
 				D94772D61A31E49600BF9F8B /* TZViewController.m in Sources */,
 				D98503DB1A5A3005001A4C30 /* MJPhotoToolbar.m in Sources */,
 				D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */,

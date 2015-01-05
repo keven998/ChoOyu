@@ -30,6 +30,7 @@
 #import "TZTableViewController.h"
 #import "TZButton.h"
 #import "JGProgressHUD.h"
+#import "TZProgressHUD.h"
 
 #endif
 

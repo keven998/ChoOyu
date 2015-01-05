@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
+@property (nonatomic, strong) TZProgressHUD *hud;
 
 @end
 
@@ -88,22 +89,25 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_CITYDETAIL, _cityId];
     
-    [SVProgressHUD show];
+    _hud = [[TZProgressHUD alloc] init];
+    __weak typeof(CityDetailTableViewController *)weakSelf = self;
+    [_hud showHUDInViewController:weakSelf.navigationController];
     
     //获取城市信息
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
             _cityPoi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
             [self loadTravelNoteOfCityData];
         } else {
+            [_hud hideTZHUD];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud hideTZHUD];
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
@@ -114,7 +118,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (void)loadTravelNoteOfCityData
 {
-
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -128,6 +131,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id travelNotes = [responseObject objectForKey:@"result"];
@@ -139,11 +143,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud hideTZHUD];
         NSLog(@"%@", error);
-//        [SVProgressHUD showErrorWithStatus:@"加载失败"];
-//        [self showHint:@"呃～好像没找到网络"];
     }];
-
 }
 
 /** 
