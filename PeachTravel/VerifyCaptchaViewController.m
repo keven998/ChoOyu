@@ -133,24 +133,25 @@
         [params setObject:kUserLosePassword forKey:@"actionCode"];
     }
 
-    [SVProgressHUD show];
+     __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         if (code == 0) {
             count = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self startTimer];
-//            [SVProgressHUD showSuccessWithStatus:@"已发送验证码"];
             [SVProgressHUD showHint:@"已发送验证码,请稍候"];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             _captchaBtn.userInteractionEnabled = YES;
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         _captchaBtn.userInteractionEnabled = YES;
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
@@ -174,10 +175,13 @@
         [params setObject:kUserLosePassword forKey:@"actionCode"];
     }
     [params setObject:_captchaLabel.text forKey:@"captcha"];
-    [SVProgressHUD show];
+     __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     //验证注册码
     [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        [hud hideTZHUD];
         if (code == 0) {
             ResetPasswordViewController *resetPasswordCtl = [[ResetPasswordViewController alloc] init];
             resetPasswordCtl.token = [[responseObject objectForKey:@"result"] objectForKey:@"token"];
@@ -194,14 +198,12 @@
             }
             resetPasswordCtl.verifyCaptchaType = _verifyCaptchaType;
             [self.navigationController pushViewController:resetPasswordCtl animated:YES];
-            [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"验证码验证失败"];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -222,24 +224,26 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [params setObject:accountManager.account.userId forKey:@"userId"];
     
-    [SVProgressHUD show];
+     __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     //修改手机号
     [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             [SVProgressHUD showHint:@"OK!已成功修改"];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager updateUserInfo:_phoneLabel.text withChangeType:ChangeTel];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        [hud hideTZHUD];
         NSLog(@"%@", error);
         _captchaBtn.userInteractionEnabled = YES;
         [SVProgressHUD showHint:@"呃～好像没找到网络"];

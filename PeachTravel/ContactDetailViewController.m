@@ -42,7 +42,6 @@
     
     UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
     [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
-//    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     self.navigationItem.rightBarButtonItem = moreBarItem;
     
     CGFloat width = self.view.bounds.size.width;
@@ -211,6 +210,11 @@
     [self.navigationController pushViewController:chatCtl animated:YES];
 }
 
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)moreAction:(UIButton *)sender
 {
     NSInteger numberOfOptions = 1;
@@ -234,26 +238,28 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, self.contact.userId];
     
-    [SVProgressHUD show];
+     __weak typeof(ContactDetailViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     //删除联系人
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [accountManager removeContact:self.contact.userId];
             [SVProgressHUD showHint:@"OK!成功删除～"];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
 
         } else {
-//            [self showHint:@"请求也是失败了"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     

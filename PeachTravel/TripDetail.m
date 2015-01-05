@@ -156,13 +156,16 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [SVProgressHUD show];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUD];
+
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -172,6 +175,7 @@
             completion(NO);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         completion(NO);
     }];
 }

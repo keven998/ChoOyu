@@ -352,11 +352,25 @@
     
     NSString *requsetUrl = [NSString stringWithFormat:@"%@%@/album", API_GET_ALBUM, _cityPoi.cityId];
     
-    [SVProgressHUD show];
+    UIViewController *ctl;
+    for (UIView* next = [self superview]; next; next = next.superview)
+    {
+        UIResponder* nextResponder = [next nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]])
+        {
+            ctl = (UIViewController*)nextResponder;
+            break;
+        }
+    }
+    
+     __weak typeof(UIViewController *)weakSelf = ctl;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -365,11 +379,10 @@
             }
             albumCtl.imageList = tempArray;
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-//            [self showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

@@ -143,21 +143,23 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
-    [SVProgressHUD show];
+     __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
-            [SVProgressHUD dismiss];
+              
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"搜索失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"搜索失败"];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     

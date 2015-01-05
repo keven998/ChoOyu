@@ -17,6 +17,12 @@
  */
 - (void)showHUDInViewController:(UIViewController *)viewController;
 
+- (void)showHUD;
+
+/**
+ *  隐藏
+ */
 - (void)hideTZHUD;
+
 
 @end

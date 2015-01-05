@@ -82,6 +82,18 @@
     }];
 }
 
+- (void)showHUD
+{
+    NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication]windows]reverseObjectEnumerator];
+    
+    for (UIWindow *window in frontToBackWindows) {
+        if (window.windowLevel == UIWindowLevelNormal) {
+            [self showHUDInViewController:window.rootViewController];
+            break;
+        }
+    }
+}
+
 - (void)hideTZHUD
 {
     [UIView animateWithDuration:0.2 animations:^{

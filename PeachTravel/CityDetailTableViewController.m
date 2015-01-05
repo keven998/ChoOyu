@@ -281,8 +281,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     btn.backgroundColor = [UIColor whiteColor];
     
     UIButton *moreTravelNoteBtn = [[UIButton alloc] initWithFrame:CGRectMake(btn.frame.size.width-75, 0, 80, 30)];
-//    [moreTravelNoteBtn setTitle:@"更多游记" forState:UIControlStateNormal];
-//    [moreTravelNoteBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     moreTravelNoteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     moreTravelNoteBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     moreTravelNoteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12.0);
@@ -290,13 +288,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
     [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.8]  range:NSMakeRange(0, 4)];
-//    [desc addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:1] range:NSMakeRange(0, 4)];
-//    [desc addAttribute:NSUnderlineColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.8] range:NSMakeRange(0, 4)];
     [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateNormal];
     desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
-//    [desc addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:1] range:NSMakeRange(0, 4)];
     [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.5]  range:NSMakeRange(0, 4)];
-//    [desc addAttribute:NSUnderlineColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.5] range:NSMakeRange(0, 4)];
     [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateHighlighted];
     
     [btn addSubview:moreTravelNoteBtn];

@@ -78,13 +78,15 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    [SVProgressHUD show];
+     __weak typeof(ForeignViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
+
             id result = [responseObject objectForKey:@"result"];
             [_destinations initForeignCountriesWithJson:result];
             [_foreignCollectionView reloadData];
@@ -92,12 +94,11 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
                 [[TMCache sharedCache] setObject:result forKey:@"destination_foreign"];
             });
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

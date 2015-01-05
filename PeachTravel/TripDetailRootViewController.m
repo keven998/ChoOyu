@@ -162,21 +162,23 @@
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:cityIds forKey:@"locId"];
-    [SVProgressHUD show];
+     __weak typeof(TripDetailRootViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
-            [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -236,20 +238,23 @@
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/all", API_GET_GUIDE, _tripId];
-    [SVProgressHUD show];
+     __weak typeof(TripDetailRootViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
 
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
-            [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
@@ -321,10 +326,13 @@
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_FORK_TRIP, _tripDetail.tripId];
-    [SVProgressHUD show];
+    __weak typeof(TripDetailRootViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
@@ -335,6 +343,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];

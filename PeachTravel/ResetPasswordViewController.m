@@ -67,22 +67,22 @@
         urlStr = API_RESET_PWD;
     }
     
-    [SVProgressHUD show];
+     __weak typeof(ResetPasswordViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
 
     //完成修改
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         if (code == 0) {
             if (_verifyCaptchaType == UserBindTel) {     //如果是绑定手机号过程中的设置密码
-//                [SVProgressHUD showSuccessWithStatus:@"设置成功"];
                 [SVProgressHUD showHint:@"OK~成功设置"];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager updateUserInfo:_phoneNumber withChangeType:ChangeTel];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                 [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
             } else {
-//                [SVProgressHUD showSuccessWithStatus:@"修改成功"];
                 [SVProgressHUD showHint:@"OK~成功修改"];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
@@ -90,18 +90,12 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:userDidResetPWDNoti object:nil];
             }
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-//        [SVProgressHUD dismiss];
-//        if (_verifyCaptchaType == UserBindTel) {     //如果是绑定手机号过程中的设置密码
-//            [SVProgressHUD showErrorWithStatus:@"设置失败"];
-//        } else {
-//            [SVProgressHUD showErrorWithStatus:@"修改失败"];
-//        }
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     

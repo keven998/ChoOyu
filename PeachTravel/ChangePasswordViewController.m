@@ -25,14 +25,8 @@
     
     self.navigationItem.title = @"修改密码";
 
-//    _oldPasswordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _oldPasswordLabel.layer.borderWidth = 1.0;
     _oldPasswordLabel.delegate = self;
-//    _presentPasswordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _presentPasswordLabel.layer.borderWidth = 1.0;
     _presentPasswordLabel.delegate = self;
-//    _confirmPasswordLabel.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
-//    _confirmPasswordLabel.layer.borderWidth = 1.0;
     _confirmPasswordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _oldPasswordLabel.bounds.size.height - 16.0)];
@@ -79,6 +73,11 @@
 
 #pragma mark - Private Methods
 
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (UserInfoInputError)checkInput
 {
     NSString * regex = @"^[A-Za-z0-9]{6,16}$";
@@ -101,8 +100,6 @@
 
 - (void)changePassword
 {
-    [SVProgressHUD show];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -116,18 +113,21 @@
     [params safeSetObject:_presentPasswordLabel.text forKey:@"newPwd"];
     [params safeSetObject:accountManager.account.userId forKey:@"userId"];
     
+    __weak typeof(ChangePasswordViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+    
     [manager POST:API_CHANGE_PWD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             [self showHint:@"修改成功"];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 

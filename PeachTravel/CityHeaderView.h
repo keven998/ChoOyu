@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UIButton *showRestaurantsBtn;
 @property (nonatomic, strong) UIButton *showShoppingBtn;
 
-
 - (CGFloat)headerViewHightWithCityData:(CityPoi *)poi;
 
 @property (nonatomic, strong) CityPoi *cityPoi;

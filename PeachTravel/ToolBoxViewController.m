@@ -503,7 +503,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    [SVProgressHUD dismiss];
+      
     [locationManager stopUpdatingLocation];
     NSString *errorString;
     NSLog(@"Error: %@",[error localizedDescription]);

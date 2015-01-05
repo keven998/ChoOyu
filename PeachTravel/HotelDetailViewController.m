@@ -44,13 +44,16 @@
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [SVProgressHUD show];
+     __weak typeof(HotelDetailViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_HOTEL_DETAIL, _hotelId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取酒店详情数据****\n%@", responseObject);
         if (result == 0) {
-            [SVProgressHUD dismiss];
             _hotelPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             _hotelPoi.poiType  = kHotelPoi;
             [self updateView];
@@ -58,6 +61,7 @@
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

@@ -47,21 +47,24 @@
     if ([accountManager isLogin]) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
-    [SVProgressHUD show];
+     __weak typeof(ShoppingDetailViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPING_DETAIL, _shoppingId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取购物详情数据****\n%@", responseObject);
         if (result == 0) {
             _shoppingPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             _shoppingPoi.poiType = kShoppingPoi;
             [self updateView];
-            [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

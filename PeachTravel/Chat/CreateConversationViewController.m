@@ -256,19 +256,21 @@
 
 - (void)didAddNumberToGroup
 {
-    __weak typeof(self) weakSelf = self;
-    [SVProgressHUD show];
+     __weak typeof(CreateConversationViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *source = [NSMutableArray array];
         for (Contact *contact in self.selectedContacts) {
             [source addObject:contact.easemobUser];
         }
-        [SVProgressHUD show];
+        
         EMError *error = nil;
         [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
         if (!error) {
+            [hud hideTZHUD];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
                 [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
@@ -276,6 +278,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
+            [hud hideTZHUD];
             [SVProgressHUD showErrorWithStatus:@"好像请求失败了"];
         }
     });

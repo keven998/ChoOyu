@@ -173,18 +173,21 @@
     [params setObject:[NSNumber numberWithBool:NO] forKey:@"shopping"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageCnt"];
     
-    [SVProgressHUD show];
+     __weak typeof(MakePlanViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
-            [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     

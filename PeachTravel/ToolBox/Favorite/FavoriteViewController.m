@@ -368,9 +368,12 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, favorite.itemId];
     
-    [SVProgressHUD show];
+    __weak typeof(FavoriteViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -385,6 +388,7 @@
                 [self cacheFirstPage];
             });
         } else {
+            [hud hideTZHUD];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
         

@@ -127,12 +127,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    [SVProgressHUD show];
+     __weak typeof(DomesticViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
             id result = [responseObject objectForKey:@"result"];
             [_destinations initDomesticCitiesWithJson:result];
             [self updateView];
@@ -144,6 +146,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

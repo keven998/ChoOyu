@@ -96,9 +96,13 @@
     }
     [params safeSetObject:helloStr forKey:@"message"];
 
-    [SVProgressHUD show];
+     __weak typeof(SearchUserInfoViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
 
     [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
@@ -108,8 +112,8 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
-
     }];
 
 }

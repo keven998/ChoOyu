@@ -356,10 +356,12 @@
             }
         }
         if (!contact) {
-            [SVProgressHUD show];
+             __weak typeof(ChatViewController *)weakSelf = self;
+            TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+            [hud showHUDInViewController:weakSelf.navigationController];
             [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
+                [hud hideTZHUD];
                 if (isSuccess) {
-                    [SVProgressHUD dismiss];
                     for (Contact *tempContact in self.peopleInGroup) {
                         if ([tempContact.easemobUser isEqualToString:model.username]) {
                             [self  showUserInfoWithContactInfo:tempContact];
@@ -408,8 +410,12 @@
     Contact *selectPerson = self.peopleInGroup[sender.tag];
 
     NSArray *occupants = @[selectPerson.easemobUser];
-    [SVProgressHUD show];
+     __weak typeof(ChatViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     [[EaseMob sharedInstance].chatManager asyncRemoveOccupants:occupants fromGroup:self.group.groupId completion:^(EMGroup *group, EMError *error) {
+        [hud hideTZHUD];
         if (!error) {
             [self.accountManager removeNumberToGroup:self.group.groupId numbers:[NSSet setWithObject:selectPerson]];
             self.peopleInGroup = [self loadContactsFromDB];
@@ -417,7 +423,6 @@
             for (UIButton *btn in self.numberDeleteBtns) {
                 btn.hidden = NO;
             }
-            [SVProgressHUD dismiss];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             NSString *messageStr = [NSString stringWithFormat:@"%@把%@移除了群组",accountManager.account.nickName, selectPerson.nickName];
             

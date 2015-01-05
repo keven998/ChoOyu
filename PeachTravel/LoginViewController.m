@@ -139,12 +139,14 @@
     [params setObject:_userNameTextField.text forKey:@"loginName"];
     [params setObject:_passwordTextField.text forKey:@"pwd"];
     
-    [SVProgressHUD show];
+     __weak typeof(LoginViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -152,20 +154,18 @@
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
-//                    [SVProgressHUD dismiss];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
-//                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
                     [SVProgressHUD showHint:@"登录失败"];
                 }
             }];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -213,12 +213,14 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:code forKey:@"code"];
     
-    [SVProgressHUD show];
-    
+     __weak typeof(LoginViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"%@", responseObject);
@@ -229,17 +231,16 @@
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
-//                    [SVProgressHUD showErrorWithStatus:@"登录失败"];
                     [SVProgressHUD showHint:@"登录失败"];
                 }
             }];
             
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

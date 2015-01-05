@@ -56,19 +56,23 @@
     if (accountManager.isLogin) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
-    [SVProgressHUD show];
+     __weak typeof(SpotDetailViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取景点详情数据****\n%@", responseObject);
         if (result == 0) {
             _spotPoi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
-            [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 

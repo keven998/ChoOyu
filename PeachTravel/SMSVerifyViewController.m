@@ -111,11 +111,14 @@
 
     [params setObject:_verifyCodeTextField.text forKey:@"captcha"];
     
-    [SVProgressHUD show];
-    
+     __weak typeof(SMSVerifyViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     //获取用户信息
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        [hud hideTZHUD];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
@@ -125,16 +128,15 @@
                 if (isSuccess) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-//                    [SVProgressHUD showSuccessWithStatus:@"注册成功"];
                     [SVProgressHUD showHint:@"注册成功，欢迎加入桃子旅行"];
                 }
             }];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
@@ -154,12 +156,15 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:_phoneNumber forKey:@"tel"];
     [params setObject:kUserRegister forKey:@"actionCode"];
-    [SVProgressHUD show];
+     __weak typeof(SMSVerifyViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD dismiss];
             
             //获取成功开始计时
             count = _coolDown;
@@ -168,12 +173,11 @@
             _verifyCodeBtn.userInteractionEnabled = NO;
             
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"重新获取一下吧"];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

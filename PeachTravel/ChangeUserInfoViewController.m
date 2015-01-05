@@ -114,13 +114,16 @@
         }
     }
     
-    [SVProgressHUD show];
     
     if ([_content isEqualToString:_contentTextField.text]) {
         [SVProgressHUD showHint:@"修改成功"];
         [self dismiss];
         return;
     }
+    
+    __weak typeof(ChangeUserInfoViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
@@ -144,6 +147,7 @@
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
@@ -152,11 +156,12 @@
             if (_changeType == ChangeName) {
                 [[EaseMob sharedInstance].chatManager setApnsNickname:_contentTextField.text];
             }
-            [self dismiss];
+            [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

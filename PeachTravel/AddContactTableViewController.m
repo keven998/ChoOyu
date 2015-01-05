@@ -84,9 +84,12 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:searchText forKey:@"keyword"];
     
-    [SVProgressHUD show];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(AddContactTableViewController *)weakSelf = self;
+    [hud showHUDInViewController:weakSelf.navigationController];
     //搜索好友
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self parseSearchResult:[responseObject objectForKey:@"result"]];
@@ -95,6 +98,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 
@@ -109,7 +113,7 @@
             [SVProgressHUD showHint:@"不能添加自己到通讯录"];
         } else {
             [_searchBar resignFirstResponder];
-            [SVProgressHUD dismiss];
+              
             //如果已经是好友了，进入好友详情界面
             for (Contact *contact in accountManager.account.contacts) {
                 if ([contact.userId integerValue] == userId) {
@@ -216,7 +220,7 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [SVProgressHUD dismiss];
+      
 }
 
 @end

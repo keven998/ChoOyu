@@ -321,10 +321,13 @@ static NSString *reusableCell = @"myGuidesCell";
 
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_DELETE_GUIDE, guideSummary.guideId];
     
-    [SVProgressHUD show];
+    __weak typeof(MyGuideListTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"OK~成功删除"];
@@ -332,9 +335,7 @@ static NSString *reusableCell = @"myGuidesCell";
             [self.dataSource removeObject:guideSummary];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//            if (_dataSource.count == 0) {
-//                [self setupEmptyView];
-//            }
+
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [self cacheFirstPage:responseObject];
             });
@@ -344,6 +345,7 @@ static NSString *reusableCell = @"myGuidesCell";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
@@ -360,7 +362,10 @@ static NSString *reusableCell = @"myGuidesCell";
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [SVProgressHUD show];
+     __weak typeof(MyGuideListTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -372,6 +377,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -388,6 +394,7 @@ static NSString *reusableCell = @"myGuidesCell";
             [self showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self showHint:@"呃～好像没找到网络"];
     }];

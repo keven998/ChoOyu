@@ -273,11 +273,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     [params setObject:_cityId forKey:@"locId"];
     [params setObject:_searchText forKey:@"keyWord"];
-    [SVProgressHUD show];
-    
+     __weak typeof(PoisOfCityTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         if (self.searchDisplayController.isActive) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
@@ -310,6 +312,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [hud hideTZHUD];
         [self loadMoreCompletedSearch];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];

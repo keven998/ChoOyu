@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SVProgressHUD dismiss];
+      
     self.navigationController.navigationBar.translucent = YES;
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backButton.frame = CGRectMake(0.0, 0.0, 40.0, 27.0);
@@ -38,7 +38,7 @@
 
 - (void)goBack
 {
-    [SVProgressHUD dismiss];
+      
     [self.navigationController popViewControllerAnimated:YES];
 }
 

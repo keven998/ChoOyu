@@ -172,9 +172,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
-        [SVProgressHUD show];
+         __weak typeof(RestaurantsListViewController *)weakSelf = self;
+        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf.navigationController];
+        
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
-            [SVProgressHUD dismiss];
+            [hud hideTZHUD];
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
                 [SVProgressHUD showSuccessWithStatus:@"保存成功"];

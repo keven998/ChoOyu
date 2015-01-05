@@ -118,26 +118,27 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [SVProgressHUD show];
+     __weak typeof(UserInfoTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+    
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
-    
     [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
-            [SVProgressHUD dismiss];
+              
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"修改失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
@@ -152,7 +153,6 @@
  */
 - (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
  {
-     [SVProgressHUD dismiss];
      NSData *data = UIImageJPEGRepresentation(image, 1.0);
      QNUploadManager *upManager = [[QNUploadManager alloc] init];
     
@@ -178,7 +178,6 @@
 }
 
 - (JGProgressHUD *)HUD {
-    
     if (!_HUD) {
         _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
         _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];
@@ -197,18 +196,10 @@
     
     if (progress == 1.0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            _HUD.textLabel.text = @"Success";
-//            _HUD.layoutChangeAnimationDuration = 0.3;
-//            _HUD.indicatorView = [[JGProgressHUDSuccessIndicatorView alloc] init];
             [_HUD dismiss];
             _HUD = nil;
             [SVProgressHUD showHint:@"修改成功"];
         });
-        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [_HUD dismiss];
-//            _HUD = nil;
-//        });
     }
 }
 
@@ -223,7 +214,10 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [SVProgressHUD show];
+     __weak typeof(UserInfoTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -233,8 +227,9 @@
     [params safeSetObject:gender forKey:@"gender"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
-    [SVProgressHUD show];
+
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
@@ -255,7 +250,8 @@
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        [hud hideTZHUD];
+
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

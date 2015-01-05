@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SVProgressHUD dismiss];
+      
     
 //    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    backButton.frame = CGRectMake(0.0, 0.0, 40.0, 27.0);
@@ -38,7 +38,7 @@
 
 - (void)goBack
 {
-    [SVProgressHUD dismiss];
+      
 
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -49,9 +49,13 @@
     if ([accountManager isLogin]) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
-    [SVProgressHUD show];
+     __weak typeof(RestaurantDetailViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+    
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, _restaurantId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取美食详情数据****\n%@", responseObject);
         if (result == 0) {
@@ -61,9 +65,9 @@
         } else {
 //            [SVProgressHUD showHint:@"请求也是失败了"];
         }
-        [SVProgressHUD dismiss];
+          
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

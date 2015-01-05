@@ -20,6 +20,7 @@
 @interface AddressBookTableViewController () <MFMessageComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) TZProgressHUD *hud;
 
 @end
 
@@ -38,14 +39,13 @@
         [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
     } else {
         [self loadContactsInAddrBook];
-        [SVProgressHUD show];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
+      
 }
 
 - (void)goBack
@@ -68,6 +68,10 @@
 //  展示所有联系人
 -(void)loadContactsInAddrBook
 {
+    _hud = [[TZProgressHUD alloc] init];
+    __weak typeof(AddressBookTableViewController *)weakSelf = self;
+    [_hud showHUDInViewController:weakSelf.navigationController];
+
     NSMutableArray *addressBookList = [[NSMutableArray alloc] init];
     CFErrorRef error = NULL;
     
@@ -129,7 +133,7 @@
     [params safeSetObject:addressBookList forKey:@"contacts"];
     
     [manager POST:API_UPLOAD_ADDRESSBOOK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+        [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self parseData:[responseObject objectForKey:@"result"] andSourceAddrBook:addressBookList];
@@ -137,6 +141,7 @@
 
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 
@@ -191,15 +196,16 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [SVProgressHUD show];
+    __weak typeof(AddressBookTableViewController *)weakSelf = self;
+    [_hud showHUDInViewController:weakSelf.navigationController];
+    
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
-    [SVProgressHUD show];
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+        [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
@@ -209,13 +215,14 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
 
 - (IBAction)invite:(UIButton *)sender
 {
-    [SVProgressHUD show];
+    [SVProgressHUD showHint:@"努力打开短信中....."];
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate = self;
     picker.recipients = @[[self.dataSource[sender.tag] objectForKey:@"tel"]];

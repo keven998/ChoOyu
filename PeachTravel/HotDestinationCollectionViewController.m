@@ -91,11 +91,13 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    [SVProgressHUD show];
+     __weak typeof(UIViewController *)weakSelf = _rootCtl;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             for (id json in [responseObject objectForKey:@"result"]) {
@@ -103,12 +105,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 [self.dataSource addObject:data];
                 [self.collectionView reloadData];
             }
-            [SVProgressHUD dismiss];
         } else {
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     

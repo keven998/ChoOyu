@@ -79,7 +79,9 @@
 - (void) feedback {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    [SVProgressHUD show];
+     __weak typeof(FeedbackController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -104,17 +106,15 @@
     }
 
     [manager POST:API_FEEDBACK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
         if ([[responseObject objectForKey:@"code"] integerValue] == 0) {
-//            [SVProgressHUD showSuccessWithStatus:@"Yes! 吐槽成功~"];
             [SVProgressHUD showHint:@"吐槽已被get√"];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"Oops~吐槽失败了"];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～网络也是醉了"];
     }];
 }

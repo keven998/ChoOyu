@@ -123,10 +123,13 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 
     [params setObject:frendRequest.userId forKey:@"userId"];
-    [SVProgressHUD show];
+    __weak typeof(FrendRequestTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     //同意添加好友
     [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -134,15 +137,11 @@
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
             [self insertMsgToEasemobDB:frendRequest];
-//            [SVProgressHUD showHint:@"已添加"];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
-//            [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
-        [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"添加失败"];
-//        [SVProgressHUD dismiss];
+        [hud hideTZHUD];
+
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

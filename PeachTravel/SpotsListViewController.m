@@ -208,9 +208,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
-        [SVProgressHUD show];
+         __weak typeof(SpotsListViewController *)weakSelf = self;
+        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf.navigationController];
+
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
-            [SVProgressHUD dismiss];
+            [hud hideTZHUD];
             if (isSuccesss) {
                 _editBtn.backgroundColor = UIColorFromRGB(0x797979);
                 [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];

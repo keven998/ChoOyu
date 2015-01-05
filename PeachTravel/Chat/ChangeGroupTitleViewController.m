@@ -35,25 +35,34 @@
     
 }
 
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)dealloc
 {
-    [SVProgressHUD dismiss];
 }
 
 - (IBAction)confirm:(id)sender
 {
+    TZProgressHUD *hud;
+    [_titleLable resignFirstResponder];
     NSString *title = [_titleLable.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (title.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"群标题不能为空"];
+        [SVProgressHUD showHint:@"群标题不能为空"];
     } else {
-        [SVProgressHUD show];
+        __weak typeof(ChangeGroupTitleViewController *)weakSelf = self;
+        hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf.navigationController];
         [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
                                                              forGroup:_groupId];
     }
     
     [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text forGroup:_groupId completion:^(EMGroup *group, EMError *error) {
-        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-        [self.navigationController popViewControllerAnimated:YES];
+        [hud hideTZHUD];
+        [SVProgressHUD showHint:@"修改成功"];
+        [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
     } onQueue:nil];
 }
 
