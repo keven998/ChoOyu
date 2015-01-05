@@ -70,18 +70,22 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
-
     } else {
-//        self.navigationItem.title = _zhName;
-        if (_poiType == kRestaurantPoi) {
-            self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
-        } else if (_poiType == kShoppingPoi) {
-            self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
-        }
+//        if (_poiType == kRestaurantPoi) {
+//            self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
+//        } else if (_poiType == kShoppingPoi) {
+//            self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
+//        }
+    }
+    
+    if (_poiType == kRestaurantPoi) {
+        self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
+    } else if (_poiType == kShoppingPoi) {
+        self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
     }
     
     if (self.shouldEdit) {
-        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
+        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
         leftBtn.tintColor = APP_THEME_COLOR;
         self.navigationItem.leftBarButtonItem = leftBtn;
     }
@@ -440,16 +444,17 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)showIntruductionOfCity
 {
     NSString *requsetUrl;
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", RESTAURANT_CITY_HTML,_cityId];
+        webCtl.titleStr = @"吃什么";//_zhName;
         
-    }
-    if (_poiType == kShoppingPoi) {
+    } else if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", SHOPPING_CITY_HTML,_cityId];
+        webCtl.titleStr = @"买什么";//_zhName;
     }
-    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.urlStr = requsetUrl;
-    webCtl.titleStr = @"吃什么";//_zhName;
+    
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -511,11 +516,17 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     CityDestinationPoi *destination = [self.tripDetail.destinations objectAtIndex:[[itemIndexPath firstObject] integerValue]];
     _cityId = destination.cityId;
     _zhName = destination.zhName;
+    
+    if (_poiType == kRestaurantPoi) {
+        self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
+    } else if (_poiType == kShoppingPoi) {
+        self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
+    }
+    
     [_dataSource.recommendList removeAllObjects];
     _currentPageNormal = 0;
     [self.tableView reloadData];
     [self loadIntroductionOfCity];
-
 }
 
 
