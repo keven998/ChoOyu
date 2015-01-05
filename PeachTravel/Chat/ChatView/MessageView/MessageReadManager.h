@@ -29,7 +29,7 @@ typedef void (^PlayBlock)(BOOL playing, MessageModel *messageModel);
 + (id)defaultManager;
 
 //default
-- (void)showBrowserWithImages:(NSArray *)imageArray;
+- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView;
 
 /**
  *  准备播放语音文件

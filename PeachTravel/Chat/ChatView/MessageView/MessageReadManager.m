@@ -12,6 +12,8 @@
 
 #import "MessageReadManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "MJPhotoBrowser.h"
+#import "MJPhoto.h"
 
 static MessageReadManager *detailInstance = nil;
 
@@ -113,31 +115,24 @@ static MessageReadManager *detailInstance = nil;
 
 #pragma mark - public
 
-- (void)showBrowserWithImages:(NSArray *)imageArray
+- (void)showBrowserWithImages:(NSArray *)imageArray andImageView:(UIImageView *)imageView
 {
-    if (imageArray && [imageArray count] > 0) {
-        NSMutableArray *photoArray = [NSMutableArray array];
-        for (id object in imageArray) {
-            MWPhoto *photo;
-            if ([object isKindOfClass:[UIImage class]]) {
-                photo = [MWPhoto photoWithImage:object];
-            }
-            else if ([object isKindOfClass:[NSURL class]])
-            {
-                photo = [MWPhoto photoWithURL:object];
-            }
-            else if ([object isKindOfClass:[NSString class]])
-            {
-                
-            }
-            [photoArray addObject:photo];
-        }
-        
-        self.photos = photoArray;
+    NSInteger count = imageArray.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (NSInteger i = 0; i<count; i++) {
+        // 替换为中等尺寸图片
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [imageArray objectAtIndex:i]; // 图片路径
+        photo.srcImageView = imageView; // 来源于哪个UIImageView
+        [photos addObject:photo];
     }
     
-    UIViewController *rootController = [self.keyWindow rootViewController];
-    [rootController presentViewController:self.photoNavigationController animated:YES completion:nil];
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
 }
 
 - (BOOL)prepareMessageAudioModel:(MessageModel *)messageModel

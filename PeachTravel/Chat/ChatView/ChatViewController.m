@@ -893,7 +893,7 @@
         [self chatAudioCellBubblePressed:model];
         
     } else if ([eventName isEqualToString:kRouterEventImageBubbleTapEventName]){
-        [self chatImageCellBubblePressed:model];
+        [self chatImageCellBubblePressed:model andImageView:[userInfo objectForKey:@"imageView"]];
         
     } else if ([eventName isEqualToString:kRouterEventLocationBubbleTapEventName]){
         [self chatLocationCellBubblePressed:model];
@@ -924,7 +924,11 @@
     }
 }
 
-//链接被点击
+/**
+ *  链接被点击
+ *
+ *  @param url
+ */
 - (void)chatTextCellUrlPressed:(NSURL *)url
 {
     if (url) {
@@ -932,7 +936,11 @@
     }
 }
 
-// 语音的bubble被点击
+/**
+ *  语音的bubble被点击
+ *
+ *  @param model
+ */
 -(void)chatAudioCellBubblePressed:(MessageModel *)model
 {
     id <IEMFileMessageBody> body = [model.message.messageBodies firstObject];
@@ -1084,7 +1092,7 @@
 }
 
 // 图片的bubble被点击
--(void)chatImageCellBubblePressed:(MessageModel *)model
+-(void)chatImageCellBubblePressed:(MessageModel *)model andImageView:(UIImageView *)imageView
 {
     __weak ChatViewController *weakSelf = self;
     id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
@@ -1099,11 +1107,11 @@
                     if (localPath && localPath.length > 0) {
                         NSURL *url = [NSURL fileURLWithPath:localPath];
                         weakSelf.isScrollToBottom = NO;
-                        [weakSelf.messageReadManager showBrowserWithImages:@[url]];
+                        [weakSelf.messageReadManager showBrowserWithImages:@[url] andImageView:imageView];
                         return ;
                     }
                 }
-                [weakSelf showHint:@"大图获取失败!"];
+                [weakSelf showHint:@"再点一下试试呗~"];
             } onQueue:nil];
         }else{
             //获取缩略图
@@ -1111,7 +1119,7 @@
                 if (!error) {
                     [weakSelf reloadTableViewDataWithMessage:model.message];
                 }else{
-                    [weakSelf showHint:@"缩略图获取失败!"];
+                    [weakSelf showHint:@"网络出了点小问题"];
                 }
                 
             } onQueue:nil];

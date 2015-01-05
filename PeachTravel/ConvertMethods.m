@@ -121,7 +121,6 @@
 //将每个汉字的第一个拼音字母组装起来
 + (NSString *)chineseToPinyin:(NSString *)chinese
 {
-    NSLog(@"需要转换的汉字为：%@", chinese);
     if(![chinese isEqualToString:@""]){
         //join the pinYin
         NSString *pinYinResult = [NSString string];
@@ -130,7 +129,6 @@
                                              pinyinFirstLetter([chinese characterAtIndex:j])]uppercaseString];
             pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
         }
-        NSLog(@"转换完成的字符为：%@", pinYinResult);
         return pinYinResult;
     } else {
         return @"";

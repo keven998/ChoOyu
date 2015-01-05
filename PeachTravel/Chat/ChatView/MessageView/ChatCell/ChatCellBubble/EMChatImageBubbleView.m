@@ -120,7 +120,9 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 -(void)bubbleViewPressed:(id)sender
 {
     [self routerEventWithName:kRouterEventImageBubbleTapEventName
-                     userInfo:@{KMESSAGEKEY:self.model}];
+                     userInfo:@{KMESSAGEKEY:self.model,
+                                @"imageView":self.imageView
+                                }];
 }
 
 +(CGFloat)heightForBubbleWithObject:(MessageModel *)object

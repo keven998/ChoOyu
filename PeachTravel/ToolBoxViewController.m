@@ -283,9 +283,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         img.clipsToBounds = YES;
         img.userInteractionEnabled = YES;
         [_imageViews replaceObjectAtIndex:page withObject:img];
-        img.tag = page;
-        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewImage:)];
-        [img addGestureRecognizer:tap];
     }
     
     if (img.superview == nil) {
