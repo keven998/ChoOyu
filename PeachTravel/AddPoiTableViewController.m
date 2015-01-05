@@ -74,7 +74,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"添加想去";
+    self.navigationItem.title = @"添加安排";
     
 //    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
 //    [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];

@@ -88,7 +88,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 145)];
     }
     return _tableView;
 }
@@ -96,10 +96,10 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (UIView *)tableViewFooterView
 {
     if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 108, 34)];
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 145)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 108, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addOneDayBtn setTitle:@"添加想逛的" forState:UIControlStateNormal];
+        [addOneDayBtn setTitle:@"添加想买的" forState:UIControlStateNormal];
 //        addOneDayBtn.backgroundColor = APP_THEME_COLOR;
         addOneDayBtn.clipsToBounds = YES;
         [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
@@ -108,9 +108,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [_tableViewFooterView addSubview:addOneDayBtn];
         
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, self.tableView.frame.size.width, 1)];
-        spaceView.backgroundColor = [UIColor lightGrayColor];
-        [_tableViewFooterView addSubview:spaceView];
+//        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, self.tableView.frame.size.width, 1)];
+//        spaceView.backgroundColor = [UIColor lightGrayColor];
+//        [_tableViewFooterView addSubview:spaceView];
     }
     return _tableViewFooterView;
 }
