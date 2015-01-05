@@ -56,7 +56,7 @@
     [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -65,14 +65,14 @@
     [_actionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     
     if (_canEdit) {
-        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
-        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+//        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
+//        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_actionBtn setImage:[UIImage imageNamed:@"ic_share_normal.png"] forState:UIControlStateNormal];
         [_actionBtn setImage:[UIImage imageNamed:@"ic_share_high.png"] forState:UIControlStateHighlighted];
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
         [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
         _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -94,9 +94,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
 }
 
+- (void) hint {
+    [SVProgressHUD showSuccessWithStatus:@"已保存到旅行Memo"];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _spotsListCtl = nil;
+    _restaurantListCtl = nil;
+    _shoppingListCtl = nil;
+    _chatRecordListCtl = nil;
 }
 
 /**
@@ -106,7 +114,7 @@
 {
     if (_tripDetail && _canEdit) {
         if (self.tripDetail.tripIsChange) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"路线发生变化，真的不保存吗" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Memo已编辑，是否保存" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
             [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
                 if (buttonIndex == 0) {
                     [self dismissCtl];
@@ -114,16 +122,16 @@
                 if (buttonIndex == 1) {
                     [self.tripDetail saveTrip:^(BOOL isSuccesss) {
                         if (isSuccesss) {
-                            [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
+//                            [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
                             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
                         } else {
-                            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+                            [SVProgressHUD showErrorWithStatus:@"保存失败了"];
                         }
                     }];
                 }
             }];
         } else {
-            [self showHint:@"已保存到\"旅行memo\""];
+//            [self showHint:@"已保存到\"旅行memo\""];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
         }
     } else {
@@ -174,6 +182,7 @@
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
+            [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
@@ -201,10 +210,10 @@
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
         
-        [_backButton setImage:nil forState:UIControlStateNormal];
-        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
-        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+//        [_backButton setImage:nil forState:UIControlStateNormal];
+//        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
+//        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
 
     } else {
         [_actionBtn setImage:nil forState:UIControlStateNormal];
@@ -213,9 +222,9 @@
         [_actionBtn removeTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         
-        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-        [_backButton setTitle:nil forState:UIControlStateNormal];
-        [_backButton setTitle:nil forState:UIControlStateHighlighted];
+//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+//        [_backButton setTitle:nil forState:UIControlStateNormal];
+//        [_backButton setTitle:nil forState:UIControlStateHighlighted];
     }
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;

@@ -86,7 +86,8 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 //    [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
     
-    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];    self.navigationItem.leftBarButtonItem = finishBtn;
+    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
+    self.navigationItem.leftBarButtonItem = finishBtn;
     
     UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
     [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];

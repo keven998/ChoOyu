@@ -87,7 +87,7 @@
 
 - (void)shareToWeChat
 {
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是 桃子旅行，专为各位爱旅行的美眉们提供服务的贴心小助手。http://****" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是桃子旅行，专为各位爱旅行的美眉们提供服务的贴心小助手。http://****" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }
@@ -214,9 +214,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (self.accountManager.isLogin) {
-    
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
-
             userInfoCtl.hidesBottomBarWhenPushed = YES;
             [_rootCtl.navigationController pushViewController:userInfoCtl animated:YES];
         }
