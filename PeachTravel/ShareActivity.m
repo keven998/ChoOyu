@@ -25,7 +25,7 @@
 #define SHARETITLE_HEIGHT                       20
 #define SHARETITLE_INTERVAL_WIDTH               14
 #define SHARETITLE_INTERVAL_HEIGHT              SHAREBUTTON_WIDTH+SHAREBUTTON_INTERVAL_HEIGHT
-#define SHARETITLE_FONT                         [UIFont fontWithName:@"Helvetica-Bold" size:19]
+#define SHARETITLE_FONT                         [UIFont fontWithName:@"Helvetica-Bold" size:16]
 
 #define TITLE_INTERVAL_HEIGHT                   15
 #define TITLE_HEIGHT                            35
@@ -268,10 +268,11 @@
 - (UIButton *)creatCancelButtonWith:(NSString *)cancelButtonTitle
 {
     
-    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.backGroundView.bounds)-100)/2, BUTTON_INTERVAL_HEIGHT, 100, 50)];
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, BUTTON_INTERVAL_HEIGHT, CGRectGetWidth(self.backGroundView.bounds), 50)];
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [cancelButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    [cancelButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.4] forState:UIControlStateHighlighted];
+    cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     return cancelButton;
 }
 
@@ -287,7 +288,7 @@
     
     shareLabel.backgroundColor = [UIColor clearColor];
     shareLabel.textAlignment = NSTextAlignmentCenter;
-    shareLabel.font = [UIFont systemFontOfSize:10.];
+    shareLabel.font = [UIFont systemFontOfSize:11.];
     shareLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     return shareLabel;
 }
