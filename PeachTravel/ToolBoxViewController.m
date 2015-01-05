@@ -357,6 +357,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSString *s = [NSString stringWithFormat:@"  %@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
     _weatherLabel.text = s;
     [_weatherFrame removeFromSuperview];
+    CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}].width;
+    UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX+5, 15, 15, 17.5)];
+    weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
+    [_weatherLabel addSubview:weatherImageview];
     [self.view addSubview:_weatherFrame];
     [_galleryPageView.pagerControl setFrame:CGRectMake(_galleryPageView.pagerControl.frame.origin.x,_galleryPageView.pagerControl.frame.origin.y-20, _galleryPageView.pagerControl.frame.size.width, _galleryPageView.pagerControl.frame.size.height)];
 }

@@ -245,7 +245,6 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
-
 }
 
 /**
@@ -1235,6 +1234,11 @@
 
 #pragma mark - EMChatBarMoreViewDelegate
 
+/**
+ *  发送我的攻略
+ *
+ *  @param moreView
+ */
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     [self keyBoardHidden];
@@ -1245,6 +1249,11 @@
     [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
 }
 
+/**
+ *  发送我的收藏夹里的内容
+ *
+ *  @param moreView
+ */
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
     [self keyBoardHidden];
@@ -1265,6 +1274,11 @@
 
 }
 
+/**
+ *  发送我的攻略
+ *
+ *  @param moreView
+ */
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
     [self keyBoardHidden];
@@ -1601,7 +1615,6 @@
  *  具体逻辑有点复杂，现在写下来以后别忘记，因为每次进入聊天界面都会维护一个包含在此界面聊天的，所有联系人最新信息。这个方法就是如何保证最新
  *  1.当发现信息比 chattingPeople 里所有的信息都新时，直接替换掉 2，如果chattingPeople 里的信息是最新的，则将messageModel的信息更新
  *  3.如果在 chattingPeople数组里没有发现messageModel则直接加入。。
- *  TODO: 逻辑有点多，而且方法野蛮，效率也有点低.将来有时间会优化的
  *  @param messageModel 需要更新的信息
  */
 - (void)updateModelData:(MessageModel *)messageModel
