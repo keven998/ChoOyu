@@ -19,15 +19,6 @@
       
     self.navigationController.navigationBar.translucent = YES;
     
-//    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _backButton.frame = CGRectMake(0.0, 0.0, 40.0, 27.0);
-//    _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-//    [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-//    temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
-//    self.navigationItem.leftBarButtonItem=temporaryBarButtonItem;
-    
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
     finishBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
     self.navigationItem.leftBarButtonItem = finishBtn;

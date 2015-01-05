@@ -46,8 +46,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.navigationItem.title = @"新Memo";
-    
     self.navigationController.navigationBar.translucent = YES;
     
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -57,6 +55,7 @@
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
     [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -65,14 +64,10 @@
     [_actionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     
     if (_canEdit) {
-//        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
-//        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_actionBtn setImage:[UIImage imageNamed:@"ic_share_normal.png"] forState:UIControlStateNormal];
         [_actionBtn setImage:[UIImage imageNamed:@"ic_share_high.png"] forState:UIControlStateHighlighted];
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
         [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
         _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -122,7 +117,6 @@
                 if (buttonIndex == 1) {
                     [self.tripDetail saveTrip:^(BOOL isSuccesss) {
                         if (isSuccesss) {
-//                            [SVProgressHUD showSuccessWithStatus:@"已保存到\"旅行memo\""];
                             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
                         } else {
                             [SVProgressHUD showErrorWithStatus:@"保存失败了"];
@@ -131,7 +125,6 @@
                 }
             }];
         } else {
-//            [self showHint:@"已保存到\"旅行memo\""];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.4];
         }
     } else {
@@ -170,14 +163,14 @@
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:cityIds forKey:@"locId"];
-     __weak typeof(TripDetailRootViewController *)weakSelf = self;
+    __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
@@ -187,7 +180,7 @@
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+//        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

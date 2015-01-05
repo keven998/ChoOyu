@@ -65,6 +65,13 @@
 - (void)showHUDInViewController:(UIViewController *)viewController
 {
     _rootViewController = viewController;
+    //如果要显示的位置不是一个 navigationcontroller。这么设置是为了达到全屏的效果
+    if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
+        UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _rootViewController.navigationController.view.frame.size.width, 64)];
+        backGroundView.tag = 100;
+        backGroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        [_rootViewController.navigationController.view addSubview:backGroundView];
+    }
     [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:self.view];
     CGPoint resetPoint = self.backGroundView.frame.origin;
@@ -85,7 +92,6 @@
 - (void)showHUD
 {
     NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication]windows]reverseObjectEnumerator];
-    
     for (UIWindow *window in frontToBackWindows) {
         if (window.windowLevel == UIWindowLevelNormal) {
             [self showHUDInViewController:window.rootViewController];
@@ -96,7 +102,17 @@
 
 - (void)hideTZHUD
 {
-    [UIView animateWithDuration:0.2 animations:^{
+    // 移除为了实现全屏效果而再 navigationcontroller 上加的一个阴影 view
+    if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
+        for (UIView *view in _rootViewController.navigationController.view.subviews) {
+            if (view.tag == 100) {
+                [view removeFromSuperview];
+                break;
+            }
+        }
+    }
+   
+    [UIView animateWithDuration:0.15 animations:^{
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview];
