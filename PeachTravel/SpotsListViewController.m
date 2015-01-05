@@ -107,8 +107,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-        
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 135)];
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
     }
     return _tableView;
@@ -117,8 +116,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UIView *)tableViewFooterView
 {
     if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 120.0, 34)];
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 135)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 108.0, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
         addOneDayBtn.clipsToBounds = YES;
@@ -340,14 +339,15 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addbtn.tag = section;
         [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 8, 52, 20)];
+        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 8, 60, 21)];
         [addSpotBtn setBackgroundColor:[UIColor whiteColor]];
-        [addSpotBtn setTitle:@"添加景点" forState:UIControlStateNormal];
+        [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        addSpotBtn.backgroundColor = APP_THEME_COLOR;
-        addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
-        addSpotBtn.layer.cornerRadius = 10.0;
-        addSpotBtn.userInteractionEnabled = NO;
+        [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        addSpotBtn.clipsToBounds = YES;
+        addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        addSpotBtn.layer.cornerRadius = 10.5;
+        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
         
@@ -356,14 +356,16 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         deleteBtn.tag = section;
         [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 7, 35, 20)];
+        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 7, 36, 21)];
         [deleteSpotBtn setBackgroundColor:[UIColor whiteColor]];
         [deleteSpotBtn setTitle:@"删除" forState:UIControlStateNormal];
         [deleteSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        deleteSpotBtn.backgroundColor = APP_THEME_COLOR;
-        deleteSpotBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
-        deleteSpotBtn.layer.cornerRadius = 10.0;
-        deleteSpotBtn.userInteractionEnabled = NO;
+//        deleteSpotBtn.backgroundColor = APP_THEME_COLOR;
+        [deleteSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        deleteSpotBtn.clipsToBounds = YES;
+        deleteSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        deleteSpotBtn.layer.cornerRadius = 10.5;
+        [deleteSpotBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
         [deleteBtn addSubview:deleteSpotBtn];
         [headerView addSubview:deleteBtn];
         

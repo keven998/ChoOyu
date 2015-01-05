@@ -85,8 +85,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     if (self.shouldEdit) {
-        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
-        leftBtn.tintColor = APP_THEME_COLOR;
+//        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
+//        leftBtn.tintColor = APP_THEME_COLOR;
+//        self.navigationItem.leftBarButtonItem = leftBtn;
+        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
+        leftBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
         self.navigationItem.leftBarButtonItem = leftBtn;
     }
     NSString *searchPlaceHolder;
@@ -217,15 +220,17 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 NSArray *jsonDic = [responseObject objectForKey:@"result"];
                 if (jsonDic.count == 15) {
                     _enableLoadMoreNormal = YES;
+                } else if (jsonDic.count == 0) {
+                    [self showHint:@"没有了~"];
                 }
                 [self.dataSource addRecommendList:jsonDic];
                 [self updateView];
                 _currentPageNormal = pageNO;
-                if (_dataSource.recommendList.count >= 15) {
-                    
-                } else if (pageNO > 0){
-                    [self showHint:@"没有了~"];
-                }
+//                if (_dataSource.recommendList.count >= 15) {
+//                    
+//                } else if (pageNO > 0){
+//                    [self showHint:@"没有了~"];
+//                }
             } else {
 //                [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             }
