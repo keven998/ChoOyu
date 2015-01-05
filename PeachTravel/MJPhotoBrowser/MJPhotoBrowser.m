@@ -162,8 +162,8 @@
     }
     
     CGRect visibleBounds = _photoScrollView.bounds;
-	int firstIndex = (int)floorf((CGRectGetMinX(visibleBounds)+kPadding*2) / CGRectGetWidth(visibleBounds));
-	int lastIndex  = (int)floorf((CGRectGetMaxX(visibleBounds)-kPadding*2-1) / CGRectGetWidth(visibleBounds));
+	NSInteger firstIndex = (int)floorf((CGRectGetMinX(visibleBounds)+kPadding*2) / CGRectGetWidth(visibleBounds));
+	NSInteger lastIndex  = (int)floorf((CGRectGetMaxX(visibleBounds)-kPadding*2-1) / CGRectGetWidth(visibleBounds));
     if (firstIndex < 0) firstIndex = 0;
     if (firstIndex >= _photos.count) firstIndex = _photos.count - 1;
     if (lastIndex < 0) lastIndex = 0;
@@ -192,7 +192,7 @@
 }
 
 #pragma mark 显示一个图片view
-- (void)showPhotoViewAtIndex:(int)index
+- (void)showPhotoViewAtIndex:(NSInteger)index
 {
     MJPhotoView *photoView = [self dequeueReusablePhotoView];
     if (!photoView) { // 添加新的图片view
@@ -218,7 +218,7 @@
 }
 
 #pragma mark 加载index附近的图片
-- (void)loadImageNearIndex:(int)index
+- (void)loadImageNearIndex:(NSInteger)index
 {
     if (index > 0) {
         MJPhoto *photo = _photos[index - 1];

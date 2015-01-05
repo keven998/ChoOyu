@@ -66,7 +66,7 @@
 {
     if (_photo.firstShow) { // 首次显示
         _imageView.image = _photo.placeholder; // 占位图片
-        _photo.srcImageView.image = nil;
+//        _photo.srcImageView.image = nil;
         
         // 不是gif，就马上开始下载
         if (![_photo.url.absoluteString hasSuffix:@"gif"]) {
@@ -179,6 +179,7 @@
             _imageView.frame = imageFrame;
         } completion:^(BOOL finished) {
             // 设置底部的小图片
+            _photo.srcImageView.image = nil;
             _photo.srcImageView.image = _photo.placeholder;
             [self photoStartLoad];
         }];
@@ -206,7 +207,6 @@
     self.contentOffset = CGPointZero;
     
     // 清空底部的小图
-    _photo.srcImageView.image = nil;
     
     CGFloat duration = 0.15;
     if (_photo.srcImageView.clipsToBounds) {
@@ -214,8 +214,8 @@
     }
     
     [UIView animateWithDuration:duration + 0.1 animations:^{
-        _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
-        
+        CGRect rect = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
+        _imageView.frame = CGRectMake(rect.size.width/2+rect.origin.x, rect.origin.y+rect.size.height/2, 0, 0);
         // gif图片仅显示第0张
         if (_imageView.image.images) {
             _imageView.image = _imageView.image.images[0];
@@ -227,6 +227,7 @@
         }
     } completion:^(BOOL finished) {
         // 设置底部的小图片
+        _photo.srcImageView.image = nil;
         _photo.srcImageView.image = _photo.placeholder;
         
         // 通知代理
@@ -256,6 +257,6 @@
 - (void)dealloc
 {
     // 取消请求
-    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
 }
 @end

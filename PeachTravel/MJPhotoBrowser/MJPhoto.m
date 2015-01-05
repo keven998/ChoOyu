@@ -15,7 +15,6 @@
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0.0);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
     return img;
 }
 
