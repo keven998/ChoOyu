@@ -125,8 +125,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    self.peopleInGroup = [self loadContactsFromDB];
-    
     [[[EaseMob sharedInstance] deviceManager] addDelegate:self onQueue:nil];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -139,8 +137,12 @@
 
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     loadChatPeopleQueue = dispatch_queue_create("loadChattingPeople", NULL);
-    _isScrollToBottom = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    if (_isChatGroup) {
+        self.peopleInGroup = [self loadContactsFromDB];
+    }
+
     [self setupBarButtonItem];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
@@ -152,10 +154,10 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
-    
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
-    
+    _isScrollToBottom = YES;
+
 }
 
 - (void)setupBarButtonItem
@@ -422,7 +424,8 @@
             
             NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
             
-            [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:self.group.groupId isChatGroup:YES requireEncryption:NO];
+            EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:self.group.groupId isChatGroup:YES requireEncryption:NO];
+            [self addChatDataToMessage:message];
         }
         else{
         }
@@ -1556,7 +1559,7 @@
                 NSLog(@"******结束加载聊天记录");
 
                 [weakSelf.tableView reloadData];
-                [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [weakSelf scrollViewToBottom:NO];
             });
         } else {
             NSLog(@"******不需要加载聊天记录");
@@ -1685,7 +1688,7 @@
     if (self.tableView.contentSize.height > self.tableView.frame.size.height)
     {
         CGPoint offset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height);
-        [self.tableView setContentOffset:offset animated:YES];
+        [self.tableView setContentOffset:offset animated:animated];
     }
 }
 

@@ -249,7 +249,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 #pragma mark - TaoziMessageSendDelegate
 
-//用户确定发送景点给朋友
+//用户确定发送游记给朋友
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];

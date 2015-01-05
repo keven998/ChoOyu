@@ -61,7 +61,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
         tap.numberOfTapsRequired = 1;
         tap.numberOfTouchesRequired = 1;
-        [self.scrollView addGestureRecognizer:tap];
+        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -95,7 +95,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, _lineCount*60+20);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, _lineCount*60+30);
     
     for (UIView *subView in self.scrollView.subviews) {
         [subView removeFromSuperview];

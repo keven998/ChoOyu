@@ -9,7 +9,13 @@
 
 @implementation MJPhoto
 
-#pragma mark 截图
+/**
+ *  截图
+ *
+ *  @param view
+ *
+ *  @return
+ */
 - (UIImage *)capture:(UIView *)view
 {
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0.0);

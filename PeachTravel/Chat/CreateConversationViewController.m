@@ -161,7 +161,6 @@
         [self didAddNumberToGroup];
 
     } else {
-//        NSLog(@"我选择的聊天好友为：%@", self.selectedContacts);
         if (self.selectedContacts.count == 0) {
             [SVProgressHUD showErrorWithStatus:@"呃~我还不知道你想和谁Talk"];
             
@@ -193,8 +192,6 @@
             [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:groupName description:@"" invitees:source initialWelcomeMessage:messageStr styleSetting:setting completion:^(EMGroup *group, EMError *error) {
                 [weakSelf hideHud];
                 if (group && !error) {
-                    NSLog(@"%@", [NSThread currentThread]);
-//                    [weakSelf showHint:@"创建群组成功"];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
@@ -225,7 +222,9 @@
     [messageStr appendString:@"加入了群聊"];
     NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
     
-    [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:groupId isChatGroup:YES requireEncryption:NO];
+    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:groupId isChatGroup:YES requireEncryption:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+
 }
 
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
@@ -269,7 +268,7 @@
         [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD showSuccessWithStatus:@"添加成功"];
+                [SVProgressHUD dismiss];
                 [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
@@ -403,8 +402,6 @@
             } completion:^(BOOL finished) {
                 self.selectContactView.alpha = 1.0;
             }];
-//            [_confirm setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//            _confirm.userInteractionEnabled = YES;
             
             self.navigationItem.rightBarButtonItem.tintColor = APP_THEME_COLOR;
             self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -414,7 +411,6 @@
         [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
         unitView.nickNameLabel.text = contact.nickName;
         [self.selectContactView addSelectUnit:unitView];
-//         [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
