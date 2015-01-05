@@ -103,14 +103,11 @@
         if (code == 0) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
             [self.navigationController popViewControllerAnimated:YES];
-//            [SVProgressHUD dismiss];
         } else {
-//            [SVProgressHUD showErrorWithStatus:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"邀请失败了"];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
 
     }];

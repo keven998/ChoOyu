@@ -63,7 +63,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-//    _dataSource = [NSMutableArray array];
     _dataSource = [self loadDataSource];
     [self searchController];
 }

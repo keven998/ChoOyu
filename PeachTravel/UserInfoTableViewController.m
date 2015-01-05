@@ -233,7 +233,6 @@
     [params safeSetObject:gender forKey:@"gender"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [SVProgressHUD show];
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -253,14 +252,10 @@
             [accountManager updateUserInfo:gender withChangeType:ChangeGender];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         } else {
-//            [SVProgressHUD showErrorWithStatus:@"修改失败"];
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-//        [SVProgressHUD showErrorWithStatus:@"修改失败"];
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

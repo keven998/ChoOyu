@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     self.backgroundColor = APP_PAGE_COLOR;
+    _frameView.layer.cornerRadius = 2.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
