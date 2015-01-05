@@ -183,7 +183,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = [NSString stringWithFormat:@"%@%@", FUN_CITY_HTML, _cityPoi.cityId];
-    funOfCityWebCtl.titleStr = _cityPoi.zhName;
+    funOfCityWebCtl.titleStr = [NSString stringWithFormat:@"玩转%@", _cityPoi.zhName];//_cityPoi.zhName;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 

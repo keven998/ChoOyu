@@ -72,7 +72,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         _cityId = destination.cityId;
 
     } else {
-        self.navigationItem.title = _zhName;
+//        self.navigationItem.title = _zhName;
+        if (_poiType == kRestaurantPoi) {
+            self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
+        } else if (_poiType == kShoppingPoi) {
+            self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
+        }
     }
     
     if (self.shouldEdit) {
@@ -83,8 +88,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     NSString *searchPlaceHolder;
     if (_poiType == kRestaurantPoi) {
         searchPlaceHolder = @"请输入美食名字";
-    }
-    if (_poiType == kShoppingPoi) {
+    } else if (_poiType == kShoppingPoi) {
         searchPlaceHolder = @"请输入购物名字";
     }
     _currentPageNormal = 0;
@@ -163,10 +167,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.dataSource = [[RecommendsOfCity alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            
             [self loadDataPoisOfCity:_currentPageNormal];
         } else {
-            [self showHint:@"呃～好像没找到网络"];
+//            [self showHint:@"呃～好像没找到网络"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -217,10 +220,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 if (_dataSource.recommendList.count >= 15) {
                     
                 } else if (pageNO > 0){
-                    [self showHint:@"没有了,别强求~"];
+                    [self showHint:@"没有了~"];
                 }
             } else {
-                [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//                [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             }
         }
         
@@ -446,7 +449,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.urlStr = requsetUrl;
-    webCtl.titleStr = _zhName;
+    webCtl.titleStr = @"吃什么";//_zhName;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -577,10 +580,25 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 106)];
             sectionheaderView.backgroundColor = [UIColor whiteColor];
             UIButton *btn = [[UIButton alloc] initWithFrame:sectionheaderView.frame];
-            [btn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-            [btn setAttributedTitle:[_dataSource.desc  stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE]forState:UIControlStateNormal];
+//            [btn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+//            [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+            
+            NSUInteger len = [_dataSource.desc length];
+            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
+            [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
+            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+            style.lineBreakMode = NSLineBreakByTruncatingTail;
+            style.lineSpacing = 3.0;
+            [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
+            [btn setAttributedTitle:desc forState:UIControlStateNormal];
+            
+            desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
+            [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE  range:NSMakeRange(0, len)];
+            [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
+            
+//            [btn setTitle:_dataSource.desc forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
-            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
             btn.titleLabel.numberOfLines = 4;
             [btn setContentEdgeInsets:UIEdgeInsetsMake(8, 15, 8, 50)];
             UIImageView *accessImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.frame.size.width-25, (sectionheaderView.frame.size.height-10)/2, 6, 10)];
