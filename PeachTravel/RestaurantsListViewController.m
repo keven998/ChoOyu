@@ -61,7 +61,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             return;
         }
     }
-    NSLog(@"我应该加载目的地列表");
     [self.view addSubview:_destinationsHeaderView];
 }
 

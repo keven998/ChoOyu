@@ -64,9 +64,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             return;
         }
     }
-    NSLog(@"我应该加载目的地列表");
     [self.view addSubview:_destinationsHeaderView];
-
 }
 
 #pragma mark - setter & getter
@@ -93,10 +91,14 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
                 [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
         }
-        
-        
     }
     [_tableView reloadData];
+    for (UIView *subview in self.view.subviews) {
+        if ([subview isEqual:_destinationsHeaderView]) {
+            return;
+        }
+    }
+    [self.view addSubview:_destinationsHeaderView];
 }
 
 - (UITableView *)tableView
