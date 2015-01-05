@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = [NSString stringWithFormat:@"玩转%@", _titleStr];
+    self.navigationItem.title = _titleStr;
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     //    _webView.delegate = _progressProxy;

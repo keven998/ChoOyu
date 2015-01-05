@@ -55,15 +55,15 @@
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取美食详情数据****\n%@", responseObject);
         if (result == 0) {
-            [SVProgressHUD dismiss];
             _restaurantPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             _restaurantPoi.poiType  = kRestaurantPoi;
             [self updateView];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+//            [SVProgressHUD showHint:@"请求也是失败了"];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD dismiss];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [SVProgressHUD dismiss];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

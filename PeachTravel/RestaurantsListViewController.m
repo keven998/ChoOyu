@@ -87,9 +87,8 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-        
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 55)];
-
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
     }
     return _tableView;
 }

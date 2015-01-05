@@ -61,7 +61,7 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
-    _actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    _actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 30)];
     [_actionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     
     if (_canEdit) {
@@ -73,8 +73,8 @@
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-        [_actionBtn setTitle:@"复制路线" forState:UIControlStateNormal];
-        _actionBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
+        _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_actionBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
@@ -83,7 +83,6 @@
     _actionBtn.hidden = YES;
     
     UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_actionBtn];
-    
     self.navigationItem.rightBarButtonItem = addBtn;
     
     [self setupViewControllers];
@@ -105,7 +104,7 @@
  */
 - (void)goBack
 {
-    if (_tripDetail) {
+    if (_tripDetail && _canEdit) {
         if (self.tripDetail.tripIsChange) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"路线发生变化，真的不保存吗" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
             [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
@@ -207,7 +206,7 @@
 
     } else {
         [_actionBtn setImage:nil forState:UIControlStateNormal];
-        [_actionBtn setTitle:@"复制路线" forState:UIControlStateNormal];
+        [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_actionBtn removeTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
@@ -330,7 +329,7 @@
         if (code == 0) {
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
-            [SVProgressHUD showHint:@"已成功复制到旅行Memo"];
+            [SVProgressHUD showHint:@"已复制到我的Memo"];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }

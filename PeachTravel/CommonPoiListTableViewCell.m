@@ -29,6 +29,9 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     
+    _photoImageView.layer.cornerRadius = 2.0;
+    _photoImageView.clipsToBounds = YES;
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
