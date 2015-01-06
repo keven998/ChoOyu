@@ -113,7 +113,8 @@
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
-        if (object != nil) {
+//        if (object != nil) {
+        if (false) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dataSource addObjectsFromArray:object];
                 [self.tableView reloadData];
@@ -333,15 +334,15 @@
                     });
                 }
             } else {
+                
             }
-            if (self.slimeView.loading) {
-                [self hideSlimeView];
-            }
-            [self loadMoreCompleted];
-
         } else {
             NSLog(@"用户切换界面了，我不需要加载了");
         }
+        if (self.slimeView.loading) {
+            [self hideSlimeView];
+        }
+        [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -441,7 +442,7 @@
 
 - (void)hideSlimeView
 {
-//    [self.slimeView endRefresh];
+    [self.slimeView endRefresh];
 }
 
 #pragma makr - TZFilterViewDelegate
