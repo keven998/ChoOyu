@@ -50,7 +50,7 @@
 
 - (void) loadData
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (accountManager.isLogin) {

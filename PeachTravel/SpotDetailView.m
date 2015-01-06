@@ -105,14 +105,15 @@
 
     oy += 175;
     
-    _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-44, 30)];
+    _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-90, 30)];
     [_titleBtn setTitle:_spot.zhName forState:UIControlStateNormal];
     [_titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_titleBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [_titleBtn setImage:[UIImage imageNamed:nil] forState:UIControlStateNormal];
     _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
     [_titleBtn setImage:[UIImage imageNamed:@"ic_spot.png"] forState:UIControlStateNormal];
     [_titleBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 6, 0, 0)];
+    _titleBtn.clipsToBounds = YES;
+    _titleBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _titleBtn.userInteractionEnabled = NO;
     [_headerView addSubview:_titleBtn];
     
@@ -126,17 +127,17 @@
     oy += 35;
     
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-44, 30) andNumberOfLine:2];
-    _descView.contentFont = [UIFont systemFontOfSize:11.0];
+    _descView.contentFont = [UIFont systemFontOfSize:12.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _spot.desc;
 
     [_headerView addSubview:_descView];
     
-    oy += 35;
+//    oy += 35;
     
     if (_descView.maxNumberOfLine > 2) {
         [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, oy+3, 20, 10)];
+        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, oy - 10, 20, 10)];
         [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
         [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
         [_headerView addSubview:_showMoreDescContentBtn];
@@ -321,8 +322,10 @@
     _addressBtn.frame = CGRectMake(0, doy, width-22, addressHeight);
     [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
     _addressBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    _addressBtn.backgroundColor = [UIColor whiteColor];
+//    _addressBtn.backgroundColor = [UIColor whiteColor];
+    [_addressBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     _addressBtn.layer.cornerRadius = 2.0;
+    _addressBtn.clipsToBounds = YES;
     _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_addressBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 6, 0, 30)];
     [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
@@ -345,10 +348,10 @@
         _travelGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_unselected.png"] forState:UIControlStateNormal];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_selected.png"] forState:UIControlStateHighlighted];
-        [_travelGuideBtn setTitle:@"游玩指南" forState:UIControlStateNormal];
-        [_travelGuideBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [_travelGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
-        _travelGuideBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [_travelGuideBtn setTitle:@"游玩贴士" forState:UIControlStateNormal];
+        [_travelGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_travelGuideBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        _travelGuideBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         
         ox += space+60;
         hasAdd = YES;
@@ -359,14 +362,13 @@
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_unselected.png"] forState:UIControlStateNormal];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_selected.png"] forState:UIControlStateHighlighted];
         
-        [_kendieBtn setTitle:@"防坑攻略" forState:UIControlStateNormal];
-        [_kendieBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [_kendieBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
-        _kendieBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [_kendieBtn setTitle:@"注意事项" forState:UIControlStateNormal];
+        [_kendieBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_kendieBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        _kendieBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
 
         ox += space+60;
         hasAdd = YES;
-
     }
     
     if (![_spot.trafficInfoUrl isBlankString]) {
@@ -374,13 +376,14 @@
         [_trafficGuideBtn setImage:[UIImage imageNamed:@"traffic_guide_unselected.png"] forState:UIControlStateNormal];
         [_trafficGuideBtn setImage:[UIImage imageNamed:@"traffic_guide_selected.png"] forState:UIControlStateHighlighted];
         
-        [_trafficGuideBtn setTitle:@"交通指南" forState:UIControlStateNormal];
-        [_trafficGuideBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [_trafficGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
-        _trafficGuideBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [_trafficGuideBtn setTitle:@"交通" forState:UIControlStateNormal];
+        [_trafficGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_trafficGuideBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        _trafficGuideBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
 
         hasAdd = YES;
     }
+    
     if (hasAdd) {
         oy += 100;
         doy += 100;
