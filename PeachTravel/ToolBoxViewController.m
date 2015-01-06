@@ -80,7 +80,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
     if (IS_IOS8) {
-        [locationManager requestAlwaysAuthorization];
+        [locationManager requestWhenInUseAuthorization];
     }
     [locationManager startUpdatingLocation];
 
