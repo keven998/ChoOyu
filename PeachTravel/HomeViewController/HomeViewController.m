@@ -7,20 +7,27 @@
 //
 
 #import "HomeViewController.h"
-#import "ICETutorialController.h"
 #import "ToolBoxViewController.h"
 #import "HotDestinationCollectionViewController.h"
 #import "MineTableViewController.h"
 #import "RDVTabBarItem.h"
+#import <QuartzCore/QuartzCore.h>
+#import "PageOne.h"
+#import "PageTwo.h"
+#import "PageThree.h"
+#import "EAIntroView.h"
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, ICETutorialControllerDelegate>
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate>
 
 @property (nonatomic, strong) UIImageView *coverView;
-@property (nonatomic, strong) ICETutorialController *viewController;
 
 @property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
 @property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
+
+@property (nonatomic, strong) PageOne *pageView1;
+@property (nonatomic, strong) PageTwo *pageView2;
+@property (nonatomic, strong) PageThree *pageView3;
 
 @end
 
@@ -101,7 +108,6 @@
     pan.delegate = self;
     [_coverView addGestureRecognizer:pan];
     _coverView.backgroundColor = [UIColor whiteColor];
-    
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
@@ -227,56 +233,66 @@
 - (void)beginIntroduce
 {
     _coverView.hidden = YES;
-    ICETutorialPage *layer1 = [[ICETutorialPage alloc] initWithTitle:@"Picture 1"
-                                                            subTitle:@"Champs-Elysées by night"
-                                                         pictureName:@"tutorial_background_00@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer2 = [[ICETutorialPage alloc] initWithTitle:@"Picture 2"
-                                                            subTitle:@"The Eiffel Tower with\n cloudy weather"
-                                                         pictureName:@"tutorial_background_01@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer3 = [[ICETutorialPage alloc] initWithTitle:@"Picture 3"
-                                                            subTitle:@"An other famous street of Paris"
-                                                         pictureName:@"tutorial_background_02@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer4 = [[ICETutorialPage alloc] initWithTitle:@"Picture 4"
-                                                            subTitle:@"The Eiffel Tower with a better weather"
-                                                         pictureName:@"tutorial_background_03@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer5 = [[ICETutorialPage alloc] initWithTitle:@"Picture 5"
-                                                            subTitle:@"The Louvre's Museum Pyramide"
-                                                         pictureName:@"tutorial_background_04@2x.jpg"
-                                                            duration:3.0];
-    NSArray *tutorialLayers = @[layer1,layer2,layer3,layer4,layer5];
+    EAIntroPage *page1 = [EAIntroPage page];
+    _pageView1 = [[PageOne alloc] initWithFrame:self.view.bounds];
+    page1.bgImage = _pageView1.backGroundImageView;
+    page1.titleIconView = _pageView1.titleView;
+    page1.titleIconPositionY = self.view.bounds.size.height/2-30;
     
-    ICETutorialLabelStyle *titleStyle = [[ICETutorialLabelStyle alloc] init];
-    [titleStyle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17.0f]];
-    [titleStyle setTextColor:[UIColor whiteColor]];
-    [titleStyle setLinesNumber:1];
-    [titleStyle setOffset:180];
-    [[ICETutorialStyle sharedInstance] setTitleStyle:titleStyle];
+    EAIntroPage *page2 = [EAIntroPage page];
+    _pageView2 = [[PageTwo alloc] initWithFrame:self.view.bounds];
+    page2.bgImage = _pageView2.backGroundImageView;
+    page2.titleIconView = _pageView2.titleView;
+    page2.titleIconPositionY = self.view.bounds.size.height/2-30;
     
-    [[ICETutorialStyle sharedInstance] setSubTitleColor:[UIColor whiteColor]];
-    [[ICETutorialStyle sharedInstance] setSubTitleOffset:150];
     
-    self.viewController = [[ICETutorialController alloc] initWithPages:tutorialLayers
-                                                              delegate:self];
-    [self.view addSubview:self.viewController.view];
+    EAIntroPage *page3 = [EAIntroPage page];
+    _pageView3 = [[PageThree alloc] initWithFrame:self.view.bounds];
+    page3.bgImage = _pageView3.backGroundImageView;
+    page3.titleIconView = _pageView3.titleView;
+    page3.titleIconPositionY = self.view.bounds.size.height/2-40;
     
-    [self.viewController startScrolling];
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
+    [intro setDelegate:self];
+    
+    [intro showInView:self.view animateDuration:0];
 }
 
-- (void)tutorialControllerDidReachLastPage:(ICETutorialController *)tutorialController
+- (void)intro:(EAIntroView *)introView pageAppeared:(EAIntroPage *)page withIndex:(NSInteger)pageIndex
 {
-    _coverView.hidden = NO;
-    [UIView animateWithDuration:0.5 animations:^{
-        self.viewController.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self.viewController stopScrolling];
-        [self.viewController.view removeFromSuperview];
-        self.viewController = nil;
-    }];
+    if (pageIndex == 0) {
+        [_pageView1 startAnimation];
+    }
+    if (pageIndex == 1) {
+        [_pageView2 startAnimation];
+    }
+    if (pageIndex == 2) {
+        [_pageView3 startAnimation];
+    }
 }
+
+- (void)intro:(EAIntroView *)introView pageStartScrolling:(EAIntroPage *)page withIndex:(NSInteger)pageIndex
+{
+    if (pageIndex == 0) {
+        [_pageView1 stopAnimation];
+    }
+}
+
+- (void)introDidFinish:(EAIntroView *)introView
+{
+    
+}
+//- (void)tutorialControllerDidReachLastPage:(ICETutorialController *)tutorialController
+//{
+//    _coverView.hidden = NO;
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.viewController.view.alpha = 0;
+//    } completion:^(BOOL finished) {
+//        [self.viewController stopScrolling];
+//        [self.viewController.view removeFromSuperview];
+//        self.viewController = nil;
+//    }];
+//}
 
 - (void)setupViewControllers
 {
