@@ -201,6 +201,15 @@
     }];
 }
 
+- (void) reset {
+    for (UIView *subview in _scrollView.subviews) {
+        [subview removeFromSuperview];
+    }
+    [_unitList removeAllObjects];
+    offsetX = defaultPace;
+    [self scrollViewAbleScroll];
+}
+
 - (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name
 {
     return [self addUnit:icon withName:name andUnitHeight:defaultHeight];

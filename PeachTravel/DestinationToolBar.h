@@ -41,7 +41,7 @@
  */
 - (DestinationUnit *)addUnit:(NSString *)icon withName:(NSString *)name andUnitHeight:(CGFloat)height userInteractionEnabled:(BOOL)userInteractionEnabled;
 
-
+- (void) reset;
 
 - (void) removeUnitAtIndex:(NSInteger)index;
 

@@ -221,7 +221,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
                 [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
                 [self.tableView setEditing:NO animated:YES];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+//                [SVProgressHUD showSuccessWithStatus:@"已保存"];
             } else {
                 [SVProgressHUD showErrorWithStatus:@"保存失败"];
             }

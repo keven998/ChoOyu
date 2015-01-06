@@ -46,11 +46,23 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
-    [self loadDataSource];
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = makePlanBtn;
+    
+    [self initData];
+}
+
+- (void) initData {
+    [[TMCache sharedCache] objectForKey:@"hot_destination" block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupViewFromData:object];
+            });
+        }
+        [self loadDataSource];
+    }];
 }
 
 #pragma mark - setter & getter
@@ -91,29 +103,38 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-     __weak typeof(UIViewController *)weakSelf = _rootCtl;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+//     __weak typeof(UIViewController *)weakSelf = _rootCtl;
+//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+//    [hud showHUDInViewController:weakSelf.navigationController];
     
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
+//        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            for (id json in [responseObject objectForKey:@"result"]) {
-                RecommendDataSource *data = [[RecommendDataSource alloc] initWithJsonData:json];
-                [self.dataSource addObject:data];
-                [self.collectionView reloadData];
-            }
+            id data = [responseObject objectForKey:@"result"];
+            [self setupViewFromData:data];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[TMCache sharedCache] setObject:data forKey:@"hot_destination"];
+            });
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+//            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+//        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
+}
+
+- (void)setupViewFromData:(id)data
+{
+    for (id json in data) {
+        RecommendDataSource *data = [[RecommendDataSource alloc] initWithJsonData:json];
+        [self.dataSource addObject:data];
+        [self.collectionView reloadData];
+    }
 }
 
 #pragma mark - IBAciton Methods

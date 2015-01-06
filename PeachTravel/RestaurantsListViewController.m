@@ -179,7 +179,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             [hud hideTZHUD];
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
-                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+//                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];
