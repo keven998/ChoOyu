@@ -634,6 +634,7 @@
 		D9E81E7C1A36DD3E00D3BFD0 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E7A1A36DD3E00D3BFD0 /* SearchResultTableViewCell.m */; };
 		D9E81E7D1A36DD3E00D3BFD0 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E7B1A36DD3E00D3BFD0 /* SearchResultTableViewCell.xib */; };
 		D9E81E801A36EA6400D3BFD0 /* TZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E7F1A36EA6400D3BFD0 /* TZTableViewController.m */; };
+		D9E97BCD1A5AD6E200F2364D /* FreshGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E97BCC1A5AD6E200F2364D /* FreshGuideViewController.m */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
@@ -1645,6 +1646,8 @@
 		D9E81E7B1A36DD3E00D3BFD0 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
 		D9E81E7E1A36EA6400D3BFD0 /* TZTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZTableViewController.h; sourceTree = "<group>"; };
 		D9E81E7F1A36EA6400D3BFD0 /* TZTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZTableViewController.m; sourceTree = "<group>"; };
+		D9E97BCB1A5AD6E200F2364D /* FreshGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshGuideViewController.h; sourceTree = "<group>"; };
+		D9E97BCC1A5AD6E200F2364D /* FreshGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshGuideViewController.m; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1759,6 +1762,8 @@
 			children = (
 				C608ED641A2C4D8E00B76934 /* HomeViewController.h */,
 				C608ED651A2C4D8E00B76934 /* HomeViewController.m */,
+				D9E97BCB1A5AD6E200F2364D /* FreshGuideViewController.h */,
+				D9E97BCC1A5AD6E200F2364D /* FreshGuideViewController.m */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -4999,6 +5004,7 @@
 				D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */,
 				D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,
+				D9E97BCD1A5AD6E200F2364D /* FreshGuideViewController.m in Sources */,
 				D90F364919F63C2F00E26FA9 /* NSDateFormatter+Category.m in Sources */,
 				D95460141A233D6C00688D72 /* DKCircleButton.m in Sources */,
 				D9D8410219F4F74200FEB197 /* BindTelephoneViewController.m in Sources */,

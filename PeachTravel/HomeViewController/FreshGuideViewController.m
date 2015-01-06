@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Patrick Trillsam. All rights reserved.
 //
 
-#import "ICETutorialController.h"
+#import "FreshGuideViewController.h"
 
-@interface ICETutorialController ()
+@interface FreshGuideViewController ()
+
 @property (nonatomic, strong, readonly) UIImageView *frontLayerView;
 @property (nonatomic, strong, readonly) UIImageView *backLayerView;
 @property (nonatomic, strong, readonly) UIImageView *gradientView;
@@ -25,7 +26,7 @@
 
 @end
 
-@implementation ICETutorialController
+@implementation FreshGuideViewController
 
 - (instancetype)initWithPages:(NSArray *)pages {
     self = [self init];
@@ -81,13 +82,13 @@
     [self.scrollView setDelegate:self];
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setContentSize:CGSizeMake([self numberOfPages] * self.view.frame.size.width,
-                                                self.scrollView.contentSize.height)];
-
+                                               self.scrollView.contentSize.height)];
+    
     // Title.
     [self.overlayTitle setTextColor:[UIColor whiteColor]];
     [self.overlayTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:32.0]];
     [self.overlayTitle setTextAlignment:NSTextAlignmentCenter];
-
+    
     // PageControl configuration.
     [self.pageControl setNumberOfPages:[self numberOfPages]];
     [self.pageControl setCurrentPage:0];
@@ -106,7 +107,7 @@
     [self.rightButton addTarget:self
                          action:@selector(didClickOnButton2:)
                forControlEvents:UIControlEventTouchUpInside];
-
+    
     [self.view addSubview:self.frontLayerView];
     [self.view addSubview:self.backLayerView];
     [self.view addSubview:self.gradientView];
@@ -122,7 +123,7 @@
 #pragma mark - Constraints management.
 - (void)addAllConstraints {
     [self.frontLayerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-	[self.backLayerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [self.backLayerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_overlayTitle, _leftButton, _rightButton, _pageControl, _gradientView);
     NSMutableArray *constraints = [NSMutableArray array];
@@ -138,12 +139,12 @@
     [constraints addObject:@"V:[_leftButton(==36)]-20-|"];
     [constraints addObject:@"V:[_rightButton(==36)]-20-|"];
     [constraints addObject:@"H:|-20-[_leftButton(==_rightButton)]-20-[_rightButton(>=130)]-20-|"];
-
+    
     // PageControl.
     [self.pageControl setTranslatesAutoresizingMaskIntoConstraints:NO];
     [constraints addObject:@"V:[_pageControl(==32)]-60-|"];
     [constraints addObject:@"H:|-140-[_pageControl(==40)]"];
-
+    
     // GradientView.
     [self.gradientView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [constraints addObject:@"V:[_gradientView(==200)]-0-|"];
@@ -173,7 +174,7 @@
 
 - (IBAction)didClickOnPageControl:(UIPageControl *)sender {
     [self stopScrolling];
-
+    
     // Make the scrollView animation.
     [self scrollToNextPageIndex:sender.currentPage];
 }
@@ -228,7 +229,7 @@
 // Call the next animation after X seconds.
 - (void)autoScrollToNextPage {
     ICETutorialPage *page = self.pages[self.currentPageIndex];
-
+    
     if (self.autoScrollEnabled) {
         [self performSelector:@selector(animateScrolling)
                    withObject:nil
@@ -240,7 +241,7 @@
     // Make the scrollView animation.
     [self.scrollView setContentOffset:CGPointMake(nextPageIndex * self.view.frame.size.width,0)
                              animated:YES];
-
+    
     // Set the PageControl on the right page.
     [self.pageControl setCurrentPage:nextPageIndex];
 }
@@ -271,7 +272,7 @@
 
 // Setup the Title/Subtitle style/text.
 - (void)setOverlayTexts {
-    int index = 0;    
+    int index = 0;
     for (ICETutorialPage *page in self.pages) {
         // SubTitles.
         if ([[[page title] text] length]) {
@@ -300,15 +301,15 @@
                                                                       TUTORIAL_LABEL_HEIGHT)];
     [overlayLabel setNumberOfLines:[commonStyle linesNumber]];
     [overlayLabel setBackgroundColor:[UIColor clearColor]];
-    [overlayLabel setTextAlignment:NSTextAlignmentCenter];  
-
+    [overlayLabel setTextAlignment:NSTextAlignmentCenter];
+    
     // Datas and style.
     [overlayLabel setText:[style text]];
     [style font] ? [overlayLabel setFont:[style font]] :
-                   [overlayLabel setFont:[commonStyle font]];
+    [overlayLabel setFont:[commonStyle font]];
     [style textColor] ? [overlayLabel setTextColor:[style textColor]] :
-                        [overlayLabel setTextColor:[commonStyle textColor]];
-  
+    [overlayLabel setTextColor:[commonStyle textColor]];
+    
     [self.scrollView addSubview:overlayLabel];
 }
 
@@ -328,7 +329,7 @@
     if (index >= [self.pages count]) {
         [imageView setImage:nil];
         return;
-    } 
+    }
     
     [imageView setImage:[UIImage imageNamed:[self.pages[index] pictureName]]];
 }
@@ -392,7 +393,7 @@
     // Set alpha.
     [self.backLayerView setAlpha:backLayerAlpha];
     [self.frontLayerView setAlpha:frontLayerAlpha];
-
+    
 }
 
 // Handle alpha on layers when we are scrolling to the next/previous page.
@@ -406,11 +407,8 @@
     }
     NSInteger nextPage = (int)offset;
     
-    // Keep only the float value.
     float alphaValue = offset - nextPage;
     
-    // This is only when you scroll to the right on the first page.
-    // That will fade-in black the first picture.
     if (alphaValue < 0 && self.currentPageIndex == 0){
         [self.backLayerView setImage:nil];
         [self.frontLayerView setAlpha:(1 + alphaValue)];
@@ -419,7 +417,7 @@
     
     // Switch pictures, and imageView alpha.
     if (nextPage != self.currentPageIndex ||
-       ((nextPage == self.currentPageIndex) && (0.0 < offset) && (offset < 1.0)))
+        ((nextPage == self.currentPageIndex) && (0.0 < offset) && (offset < 1.0)))
         [self setLayersPicturesWithIndex:nextPage];
     
     // Invert alpha for the front picture.
@@ -431,7 +429,7 @@
     [self.frontLayerView setAlpha:frontLayerAlpha];
     
     NSLog(@"offset:%ld", (long)nextPage);
-
+    
 }
 
 #pragma mark - ScrollView delegate
@@ -455,7 +453,7 @@
     if (self.nextPageIndex == [self numberOfPages] - 1 && self.currentState != ScrollingStateManual) {
         [self performSelector:@selector(hide) withObject:nil afterDelay:2];
     }
-
+    
     // Animate.
     [self disolveBackgroundWithContentOffset:scrollingPosition];
 }
