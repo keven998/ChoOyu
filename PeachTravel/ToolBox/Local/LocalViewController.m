@@ -15,6 +15,7 @@
 #import "SpotDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "HotelDetailViewController.h"
 
 #define LOCAL_PAGE_TITLES       @[@"玩", @"吃", @"买", @"住"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
@@ -307,10 +308,18 @@
             break;
         
         case PAGE_SHOPPING: {
-            ShoppingDetailViewController *restaurant = [[ShoppingDetailViewController alloc] init];
-            restaurant.shoppingId = poi.poiId;
-            [self.navigationController pushViewController:restaurant animated:YES];
+            ShoppingDetailViewController *shopping = [[ShoppingDetailViewController alloc] init];
+            shopping.shoppingId = poi.poiId;
+            [self.navigationController pushViewController:shopping animated:YES];
         }
+            break;
+            
+        case PAGE_STAY: {
+            HotelDetailViewController *hotel = [[HotelDetailViewController alloc] init];
+            hotel.hotelId = poi.poiId;
+            [self.navigationController pushViewController:hotel animated:YES];
+        }
+            break;
             
         default:
             break;

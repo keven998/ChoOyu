@@ -133,11 +133,11 @@
 
     [_headerView addSubview:_descView];
     
-//    oy += 35;
+    oy += 35;
     
     if (_descView.maxNumberOfLine > 2) {
         [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, oy - 10, 20, 10)];
+        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-50, oy, 20, 10)];
         [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
         [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
         [_headerView addSubview:_showMoreDescContentBtn];
