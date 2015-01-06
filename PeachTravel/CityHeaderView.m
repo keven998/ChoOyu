@@ -364,13 +364,8 @@
         }
     }
     
-     __weak typeof(UIViewController *)weakSelf = ctl;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
-    
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -382,7 +377,6 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }

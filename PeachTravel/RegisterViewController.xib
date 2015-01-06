@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -76,13 +76,62 @@
                         </mask>
                     </variation>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击“提交”说明你已阅读并同意 桃子旅行用户协议" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qg-hh-eSa">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qg-hh-eSa">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="YeW-zT-ccP"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <attributedString key="attributedText">
+                        <fragment content="点击">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="“">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="提交">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="”">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="说明你已阅读并同意">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content=" ">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="《桃子旅行用户协议》">
+                            <attributes>
+                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="12" name="STHeitiSC-Light"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <nil key="highlightedColor"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -90,6 +139,7 @@
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <mask key="constraints">
                             <include reference="YeW-zT-ccP"/>
                         </mask>
@@ -134,18 +184,18 @@
                     <exclude reference="0qg-hh-eSa"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="7g2-ce-VeE"/>
-                    <exclude reference="B43-PK-5N4"/>
-                    <exclude reference="hNm-U6-hYY"/>
-                    <exclude reference="Tzj-LL-MEC"/>
-                    <exclude reference="p77-hj-kQS"/>
-                    <exclude reference="pct-ha-asv"/>
-                    <exclude reference="4Tf-8U-eb7"/>
-                    <exclude reference="Y4B-ep-TGK"/>
-                    <exclude reference="rEz-5J-ehq"/>
                     <exclude reference="VwJ-sM-vvu"/>
                     <exclude reference="c6S-WJ-C88"/>
                     <exclude reference="fFK-x4-8EO"/>
+                    <exclude reference="4Tf-8U-eb7"/>
+                    <exclude reference="Y4B-ep-TGK"/>
+                    <exclude reference="rEz-5J-ehq"/>
+                    <exclude reference="Tzj-LL-MEC"/>
+                    <exclude reference="p77-hj-kQS"/>
+                    <exclude reference="pct-ha-asv"/>
+                    <exclude reference="7g2-ce-VeE"/>
+                    <exclude reference="B43-PK-5N4"/>
+                    <exclude reference="hNm-U6-hYY"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -156,18 +206,18 @@
                     <include reference="0qg-hh-eSa"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="7g2-ce-VeE"/>
-                    <include reference="B43-PK-5N4"/>
-                    <include reference="hNm-U6-hYY"/>
-                    <include reference="Tzj-LL-MEC"/>
-                    <include reference="p77-hj-kQS"/>
-                    <include reference="pct-ha-asv"/>
-                    <include reference="4Tf-8U-eb7"/>
-                    <include reference="Y4B-ep-TGK"/>
-                    <include reference="rEz-5J-ehq"/>
                     <include reference="VwJ-sM-vvu"/>
                     <include reference="c6S-WJ-C88"/>
                     <include reference="fFK-x4-8EO"/>
+                    <include reference="4Tf-8U-eb7"/>
+                    <include reference="Y4B-ep-TGK"/>
+                    <include reference="rEz-5J-ehq"/>
+                    <include reference="Tzj-LL-MEC"/>
+                    <include reference="p77-hj-kQS"/>
+                    <include reference="pct-ha-asv"/>
+                    <include reference="7g2-ce-VeE"/>
+                    <include reference="B43-PK-5N4"/>
+                    <include reference="hNm-U6-hYY"/>
                 </mask>
             </variation>
         </view>

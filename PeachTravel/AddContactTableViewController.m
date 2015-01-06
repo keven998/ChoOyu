@@ -27,6 +27,8 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
+@property (nonatomic, strong) UIViewController *nextViewController;
+
 @end
 
 @implementation AddContactTableViewController
@@ -119,17 +121,24 @@
                 if ([contact.userId integerValue] == userId) {
                     ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
                     contactDetailCtl.contact = contact;
-                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+                    _nextViewController = contactDetailCtl;
+                    [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
                     return;
                 }
             }
             SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
             searchUserInfoCtl.userInfo = [searchResult firstObject];
-            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+            _nextViewController = searchUserInfoCtl;
+            [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
         }
     } else {
         [SVProgressHUD showHint:@"没有找到她~"];
     }
+}
+
+- (void)jumpToNextCtl
+{
+    [self.navigationController pushViewController:_nextViewController animated:YES];
 }
 
 #pragma mark - Table view data source

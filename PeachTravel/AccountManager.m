@@ -152,12 +152,14 @@
  */
 - (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password withCompletion:(void(^)(BOOL))completion
 {
+    if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
+        [[EaseMob sharedInstance].chatManager logoffWithError:nil];
+    }
     [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:userName
                                                         password:password
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
          if (loginInfo && !error) {
-//             [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
              [self easeMobDidLogin];
              [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
 
@@ -174,7 +176,6 @@
              if (completion) {
                  completion(NO);
              }
-//             [SVProgressHUD showHint:@"请求也是失败了~"];
          }
      } onQueue:nil];
 }
