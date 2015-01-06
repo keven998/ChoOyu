@@ -45,11 +45,11 @@
 {
     if (!_backGroundView) {
         
-        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
         _backGroundView.center = self.view.center;
         _backGroundView.backgroundColor = [UIColor whiteColor];
         _backGroundView.layer.cornerRadius = 5.0;
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 59, 59)];
+        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_pb_earth.png"]];
         _imageView.image = [UIImage imageNamed:@"ic_pb_earth.png"];
         _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
         _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_progress.png"]];
@@ -67,10 +67,10 @@
     _rootViewController = viewController;
     //如果要显示的位置不是一个 navigationcontroller。这么设置是为了达到全屏的效果
     if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
-        UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _rootViewController.navigationController.view.frame.size.width, 64)];
-        backGroundView.tag = 100;
-        backGroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-        [_rootViewController.navigationController.view addSubview:backGroundView];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _rootViewController.navigationController.view.frame.size.width, 64)];
+        view.tag = 100;
+        view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        [_rootViewController.navigationController.view addSubview:view];
     }
     [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:self.view];
@@ -81,8 +81,7 @@
     [self startAnimation];
 
     [UIView animateWithDuration:0.3 animations:^{
-        NSLog(@"%@",NSStringFromCGPoint(_progressView.center));
-        [self.backGroundView setFrame:CGRectMake(resetPoint.x-2.5, resetPoint.y-2.5, 200, 150)];
+        [self.backGroundView setFrame:CGRectMake(resetPoint.x-2.5, resetPoint.y-2.5, 150, 100)];
         _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
         _progressView.center = _imageView.center;
     } completion:^(BOOL finished) {

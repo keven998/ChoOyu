@@ -54,6 +54,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self initData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void) initData {
     [[TMCache sharedCache] objectForKey:@"hot_destination" block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
@@ -103,13 +108,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-//     __weak typeof(UIViewController *)weakSelf = _rootCtl;
-//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-//    [hud showHUDInViewController:weakSelf.navigationController];
-    
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id data = [responseObject objectForKey:@"result"];
@@ -118,11 +118,9 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 [[TMCache sharedCache] setObject:data forKey:@"hot_destination"];
             });
         } else {
-//            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
@@ -130,6 +128,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)setupViewFromData:(id)data
 {
+    [self.dataSource removeAllObjects];
     for (id json in data) {
         RecommendDataSource *data = [[RecommendDataSource alloc] initWithJsonData:json];
         [self.dataSource addObject:data];

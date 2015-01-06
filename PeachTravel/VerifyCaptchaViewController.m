@@ -115,6 +115,9 @@
     }
 }
 
+/**
+ *  获取验证吗
+ */
 - (void)getCaptcha
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -177,7 +180,7 @@
     [params setObject:_captchaLabel.text forKey:@"captcha"];
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     //验证注册码
     [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -211,7 +214,6 @@
 //修改手机号
 - (void)bindTelwithToken:(NSString *)token
 {
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -254,6 +256,7 @@
 #pragma mark - IBAction Methods
 
 - (IBAction)receiveVerifyCode:(UIButton *)sender {
+    [self.view endEditing:YES];
     if ([self checkInput] == PhoneNumberError) {
         [self showHint:@"手机号没get到"];
     } else {
@@ -263,16 +266,11 @@
 }
 
 - (IBAction)nextStep:(UIButton *)sender {
-//    NSString * regex0 = @"^1\\d{10}$";
-//    NSPredicate *pred0 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex0];
-//    if (![pred0 evaluateWithObject:_phoneLabel.text]) {
-//        [self showHint:@"手机号输错了"];
-//        return;
-//    }
     if ([_captchaLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         [self showHint:@"亲，你的验证码呢"];
         return;
     }
+    [self.view endEditing:YES];
     [self stopTimer];
     [self virifyCaptcha];
 }

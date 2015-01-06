@@ -63,7 +63,6 @@
             _restaurantPoi.poiType  = kRestaurantPoi;
             [self updateView];
         } else {
-//            [SVProgressHUD showHint:@"请求也是失败了"];
         }
           
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

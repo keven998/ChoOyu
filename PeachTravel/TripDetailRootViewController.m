@@ -92,9 +92,9 @@
                         _tripDetail = td;
                         [self reloadTripData];
                     }
+                    [self checkTripData];
                 });
             }
-            [self checkTripData];
         }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
@@ -183,7 +183,7 @@
     
     //获取路线模板数据,新制作路线的情况下
     [manager POST:API_CREATE_GUIDE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [hud hideTZHUD];
+        [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -194,7 +194,7 @@
             [SVProgressHUD showHint:@"请求也是失败了"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [hud hideTZHUD];
+        [hud hideTZHUD];
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -216,21 +216,12 @@
         [_actionBtn removeTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
-        
-//        [_backButton setImage:nil forState:UIControlStateNormal];
-//        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
-//        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
     } else {
         [_actionBtn setImage:nil forState:UIControlStateNormal];
         [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_actionBtn removeTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
-        
-//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-//        [_backButton setTitle:nil forState:UIControlStateNormal];
-//        [_backButton setTitle:nil forState:UIControlStateHighlighted];
     }
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
@@ -253,14 +244,14 @@
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/all", API_GET_GUIDE, _tripId];
-    TZProgressHUD *hud = nil;
+    TZProgressHUD *hud;
     if (_tripDetail == nil) {
-         __weak typeof(TripDetailRootViewController *)weakSelf = self;
-         hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf.navigationController];
+        __weak typeof(TripDetailRootViewController *)weakSelf = self;
+        hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf];
     }
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
+        if (hud) [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -269,7 +260,7 @@
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+        if (hud) [hud hideTZHUD];
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
@@ -349,7 +340,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_FORK_TRIP, _tripDetail.tripId];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
