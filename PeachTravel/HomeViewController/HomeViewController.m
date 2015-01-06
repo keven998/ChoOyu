@@ -62,7 +62,7 @@
         NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
         [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (error) {
-                _coverView.image = [UIImage imageNamed:@"tutorial_background_01.jpg"];
+                _coverView.image = [UIImage imageNamed:@"story_default.png"];
             }
         }];
         [self loadData];
@@ -90,16 +90,17 @@
     layer.shadowRadius = 2.5;
     [self.view addSubview:_coverView];
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 49.0, w, 49.0)];
-    bottomView.backgroundColor = APP_THEME_COLOR;
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 44.0, w, 44.0)];
+    bottomView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.4];
     bottomView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     bottomView.userInteractionEnabled = YES;
     [_coverView addSubview:bottomView];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(w - 128.0, 0.0, 128.0, 49.0)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(w - 128.0, 0, 128.0, 44.0)];
     [button setTitle:@"开启旅行>>" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:17.0];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.8] forState:UIControlStateHighlighted];
     button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
     [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:button];
@@ -226,7 +227,7 @@
 
 - (void)updateBackgroundData:(NSString *)imageUrl
 {
-    [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"tutorial_background_01.jpg"]];
+    [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"story_default.png"]];
     [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:@"backGroundImage"];
 }
 
