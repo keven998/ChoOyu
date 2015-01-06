@@ -286,7 +286,7 @@
         CGFloat y = _scrollView.contentOffset.y;
         
         if (blurImageProcessor != nil) {
-            if (99 + y > 0) {
+            if (99 + y >= 0) {
                 [blurImageProcessor asyncBlurWithRadius: 99 + y
                                              iterations: 1
                                            successBlock: ^(UIImage *bimg) {
