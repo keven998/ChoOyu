@@ -21,7 +21,7 @@
 
 #define PAGE_COUNT 10
 
-@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate, TripUpdateDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -511,7 +511,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
 //    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    desc.font = [UIFont systemFontOfSize:13.0];
+    desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
 //    desc.textAlignment = NSTextAlignmentCenter;
     NSString *text = @"旅行Memo\n你最贴心的行程助手";
@@ -621,8 +621,8 @@ static NSString *reusableCell = @"myGuidesCell";
         tripDetailRootCtl.isMakeNewTrip = NO;
         tripDetailRootCtl.tripId = guideSummary.guideId;
         tripDetailRootCtl.canEdit = YES;
+        tripDetailRootCtl.contentMgrDelegate = self;
         [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
-        
         //弹出发送菜单
     } else {
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
@@ -696,7 +696,6 @@ static NSString *reusableCell = @"myGuidesCell";
     if (_slimeView) {
         [_slimeView scrollViewDidEndDraging];
     }
-
 }
 
 #pragma mark - slimeRefresh delegate
@@ -706,5 +705,10 @@ static NSString *reusableCell = @"myGuidesCell";
     [self pullToRefreash:nil];
 }
 
+- (void) tripUpdate:(id)jsonString {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
+    });
+}
 
 @end

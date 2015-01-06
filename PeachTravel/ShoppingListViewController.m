@@ -178,7 +178,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
                 _editBtn.backgroundColor = UIColorFromRGB(0x797979);
                 [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
                 [self.tableView setEditing:NO animated:YES];
-                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+//                [SVProgressHUD showSuccessWithStatus:@"已保存"];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];

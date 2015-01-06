@@ -84,7 +84,18 @@
     if (_isMakeNewTrip) {
         [self loadNewTripData];
     } else {
-        [self checkTripData];
+        [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
+            if (object != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    TripDetail *td = [[TripDetail alloc] initWithJson:object];
+                    if ([td.tripId isEqualToString:_tripId]) {
+                        _tripDetail = td;
+                        [self reloadTripData];
+                    }
+                });
+            }
+            [self checkTripData];
+        }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
 }
@@ -95,6 +106,9 @@
 
 - (void)dealloc
 {
+    if (_contentMgrDelegate != nil) {
+        [_contentMgrDelegate tripUpdate:_tripDetail.backUpJson];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _spotsListCtl = nil;
     _restaurantListCtl = nil;
@@ -207,7 +221,6 @@
 //        [_backButton setTitle:@"完成" forState:UIControlStateNormal];
 //        [_backButton setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
 //        [_backButton setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-
     } else {
         [_actionBtn setImage:nil forState:UIControlStateNormal];
         [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
@@ -240,26 +253,32 @@
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/all", API_GET_GUIDE, _tripId];
-     __weak typeof(TripDetailRootViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
-
+    TZProgressHUD *hud = nil;
+    if (_tripDetail == nil) {
+         __weak typeof(TripDetailRootViewController *)weakSelf = self;
+         hud = [[TZProgressHUD alloc] init];
+        [hud showHUDInViewController:weakSelf.navigationController];
+    }
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            [self reloadTripData];
+            [self setupViewWithData:[responseObject objectForKey:@"result"]];
         } else {
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         NSLog(@"%@", error);
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
+}
+
+- (void)setupViewWithData:(id)data
+{
+    _tripDetail = [[TripDetail alloc] initWithJson:data];
+    [self reloadTripData];
 }
 
 /**
@@ -339,7 +358,7 @@
         if (code == 0) {
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
-            [SVProgressHUD showHint:@"已复制到我的Memo"];
+            [SVProgressHUD showHint:@"已保存到我的Memo"];
         } else {
             [SVProgressHUD showHint:@"请求也是失败了"];
         }

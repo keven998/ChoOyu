@@ -51,6 +51,7 @@
 {
     NSMutableArray *destinationItemsArray = [[NSMutableArray alloc] init];
     _destinations = destinations;
+    [_destinationToolBar reset];
     for (int i = 0; i < _destinations.count; i++) {
         NSString *title = [_destinations objectAtIndex:i];
         DestinationUnit *unit = [_destinationToolBar addUnit:nil withName:title andUnitHeight:28 userInteractionEnabled:NO];
