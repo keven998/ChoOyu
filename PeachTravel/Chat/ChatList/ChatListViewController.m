@@ -78,10 +78,10 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self unregisterNotifications];
 }
 
 - (void)dealloc{
+    [self unregisterNotifications];
     _slimeView.delegate = nil;
     _slimeView = nil;
     _createConversationCtl.delegate = nil;
