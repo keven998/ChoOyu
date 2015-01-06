@@ -286,13 +286,15 @@
         CGFloat y = _scrollView.contentOffset.y;
         
         if (blurImageProcessor != nil) {
-            [blurImageProcessor asyncBlurWithRadius: 99 + y
-                                         iterations: 1
-                                       successBlock: ^(UIImage *bimg) {
-                                           _bigHeaderView.image = bimg;
-                                       } errorBlock: ^( NSNumber *errorCode ) {
-                                           NSLog( @"Error code: %d", [errorCode intValue] );
-                                       }];
+            if (99 + y > 0) {
+                [blurImageProcessor asyncBlurWithRadius: 99 + y
+                                             iterations: 1
+                                           successBlock: ^(UIImage *bimg) {
+                                               _bigHeaderView.image = bimg;
+                                           } errorBlock: ^( NSNumber *errorCode ) {
+                                               NSLog( @"Error code: %d", [errorCode intValue] );
+                                           }];
+            }
         }
     
         CGRect rect = _bigHeaderView.frame;
