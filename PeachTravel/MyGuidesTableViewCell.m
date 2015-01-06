@@ -11,6 +11,7 @@
 @implementation MyGuidesTableViewCell
 
 - (void)awakeFromNib {
+    self.backgroundColor = APP_PAGE_COLOR;
     _deleteBtn.alpha = 0;
     self.countBtn.layer.cornerRadius = 25.0;
     self.countBtn.clipsToBounds = YES;

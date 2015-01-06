@@ -223,7 +223,6 @@
     
     EMMessage *message = [_conversation latestMessage];
     if (message == nil) {
-        NSLog(@"delloc 我也要删除了");
         [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:YES];
     }
 }

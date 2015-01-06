@@ -128,7 +128,6 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="HcY-cs-vUE" secondAttribute="bottom" constant="-1" id="0iA-U3-UQQ"/>
                     <constraint firstItem="HcY-cs-vUE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="8gH-VJ-XlB"/>

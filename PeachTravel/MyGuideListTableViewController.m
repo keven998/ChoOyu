@@ -147,7 +147,6 @@ static NSString *reusableCell = @"myGuidesCell";
     foreignCtl.title = @"国外";
     domestic.title = @"国内";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    makePlanCtl.hidesBottomBarWhenPushed = YES;
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;
     domestic.notify = NO;
@@ -173,7 +172,6 @@ static NSString *reusableCell = @"myGuidesCell";
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0);
         [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
     }
     return _tableView;

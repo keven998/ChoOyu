@@ -30,9 +30,6 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
-//    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(doFavorite:)];
-//    [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
-//    [moreBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_favorite_unselected.png"] forState:UIControlStateNormal];
@@ -42,11 +39,9 @@
     
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(chat:)];
     [chatItem setImage:[UIImage imageNamed:@"ic_chat.png"]];
-//    self.navigationItem.rightBarButtonItem = moreBarItem;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:moreBarItem, chatItem, nil];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
-//    _webView.delegate = _progressProxy;
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
     
@@ -62,11 +57,6 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
     _webView.delegate = _progressProxy;
     [_webView loadRequest:request];
-    
-//    _activeView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-//    [_activeView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2 - 64.0)];
-//    [_activeView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-//    [self.view addSubview:_activeView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,36 +79,6 @@
     _progressView = nil;
 }
 
-- (IBAction)moreAction:(UIButton *)sender
-{
-    NSInteger numberOfOptions = 2;
-    NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"Talk"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_favorite.png"] title:@"收藏"],
-                       ];
-    
-    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    _av.backgroundColor = [UIColor clearColor];
-    _av.delegate = self;
-    [_av showInViewController:self.navigationController center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
-}
-
-#pragma mark - RNGridMenuDelegate
-
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
-{
-    if (itemIndex == 0) {
-        [self chat:nil];
-    }
-    if (itemIndex == 1) {
-        [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:YES completion:^(BOOL isSuccess) {
-            if (isSuccess) {
-
-            }
-        }];
-    }
-    _av = nil;
-}
 
 - (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
 {
@@ -135,26 +95,6 @@
         }
     }];
 }
-
-#pragma mark - WebViewDelegate
-
-//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-//{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-////    [_activeView stopAnimating];
-//}
-
-//- (void)webViewDidFinishLoad:(UIWebView *)webView
-//{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-////    [_activeView stopAnimating];
-//}
-
-//- (void)webViewDidStartLoad:(UIWebView *)webView
-//{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-////    [_activeView startAnimating];
-//}
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {

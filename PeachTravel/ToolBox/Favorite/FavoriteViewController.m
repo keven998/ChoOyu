@@ -133,11 +133,12 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentInset:UIEdgeInsetsMake(0.0, 0.0, 10.0, 0.0)];
         [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
     }
     return _tableView;
@@ -440,7 +441,7 @@
 
 - (void)hideSlimeView
 {
-    [self.slimeView endRefresh];
+//    [self.slimeView endRefresh];
 }
 
 #pragma makr - TZFilterViewDelegate
@@ -694,7 +695,6 @@
 - (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
 {
     [self pullToRefreash:nil];
-    [_slimeView endRefresh];
 }
 
 
