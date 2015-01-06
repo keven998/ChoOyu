@@ -108,6 +108,7 @@
     pan.delegate = self;
     [_coverView addGestureRecognizer:pan];
     _coverView.backgroundColor = [UIColor whiteColor];
+
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];

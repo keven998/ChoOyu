@@ -153,7 +153,7 @@
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
-                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
@@ -215,7 +215,7 @@
     
      __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -228,7 +228,7 @@
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
-                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.5];
+                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
