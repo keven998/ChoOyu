@@ -146,12 +146,12 @@
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
+                [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
@@ -220,13 +220,13 @@
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             NSLog(@"%@", responseObject);
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
+                [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
