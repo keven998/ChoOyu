@@ -59,7 +59,7 @@
 {
     EMChatImage *chatImage = [[EMChatImage alloc] initWithUIImage:image displayName:@"image.jpg"];
     id <IChatImageOptions> options = [[ChatImageOptions alloc] init];
-    [options setCompressionQuality:0.6];
+    [options setCompressionQuality:0.75];
     [chatImage setImageOptions:options];
 
     EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithImage:chatImage thumbnailImage:nil];

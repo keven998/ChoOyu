@@ -704,9 +704,12 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void) tripUpdate:(id)jsonString {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
-    });
+    NSString *str = [jsonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (str.length > 0) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
+        });
+    }
 }
 
 @end
