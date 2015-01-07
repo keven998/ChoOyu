@@ -121,7 +121,7 @@
 #define updateUserInfoNoti                      @ "updateUserInfo"              //用户信息有更改。
 #define frendRequestListNeedUpdateNoti          @ "updateFrendRequestList"      //更新好友请求列表
 #define contactListNeedUpdateNoti               @ "updatecontactList"           //更新好友列表
-#define updateDestinationsSelectedNoti          @ "updatecontactList"           //更新好友请求列表
+#define updateDestinationsSelectedNoti          @ "updateDestinationsSelected"           //更新目的地列表
 #define updateChateViewNoti                     @ "updateChatView"               //更新聊天界面
 
 #define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表

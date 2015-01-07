@@ -51,7 +51,11 @@
         _backGroundView.layer.cornerRadius = 5.0;
         _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_pb_earth.png"]];
         _imageView.image = [UIImage imageNamed:@"ic_pb_earth.png"];
-        _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
+        if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
+            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-30);
+        } else {
+            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
+        }
         _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_progress.png"]];
         _progressView.center = _imageView.center;
         [_backGroundView addSubview:_progressView];

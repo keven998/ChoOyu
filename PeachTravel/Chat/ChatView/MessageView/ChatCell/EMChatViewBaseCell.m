@@ -126,16 +126,6 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
             identifier = [identifier stringByAppendingString:@"Audio"];
         }
             break;
-        case eMessageBodyType_Location:
-        {
-            identifier = [identifier stringByAppendingString:@"Location"];
-        }
-            break;
-        case eMessageBodyType_Video:
-        {
-            identifier = [identifier stringByAppendingString:@"Video"];
-        }
-            break;
             
         case eMessageBodyType_Taozi:
         {
@@ -151,14 +141,20 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
                 }
                     break;
                 
-                    
-                default:
+                default: {
+                    model.content = @"升级新版本才可以查看这条神秘消息哦";
+                    identifier = [identifier stringByAppendingString:@"Text"];
+
+                }
                     break;
             }
         }
             break;
             
-        default:
+        default: {
+            model.content = @"升级新版本才可以查看这条神秘消息哦";
+            identifier = [identifier stringByAppendingString:@"Text"];
+        }
             break;
     }
     

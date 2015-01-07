@@ -1066,6 +1066,7 @@
             
             [self.navigationController pushViewController:tripDetailCtl animated:YES];
         }
+            break;
             
         default:
             break;
@@ -1268,6 +1269,11 @@
     [self.navigationController pushViewController:favoriteCtl animated:YES];
 }
 
+/**
+ *  发送目的地
+ *
+ *  @param moreView 
+ */
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
     [self keyBoardHidden];

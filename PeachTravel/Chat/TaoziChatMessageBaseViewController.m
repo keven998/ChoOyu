@@ -47,7 +47,11 @@
         case TZChatTypeSpot:
             _headerLabel.text = @"  景点";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+            if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
+                [_propertyBtn setImage:nil forState:UIControlStateNormal];
+            } else {
+                [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+            }
             _descLabel.text = _messageDesc;
             
             break;
@@ -93,7 +97,11 @@
             
         case TZChatTypeCity:
             _headerLabel.text = @"   城市";
-            [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+            if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
+                [_propertyBtn setImage:nil forState:UIControlStateNormal];
+            } else {
+                [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
+            }
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             _descLabel.text = _messageDesc;
             break;

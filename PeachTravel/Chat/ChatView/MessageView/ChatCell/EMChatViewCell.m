@@ -174,16 +174,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [[EMChatAudioBubbleView alloc] init];
         }
             break;
-        case eMessageBodyType_Location:
-        {
-            return [[EMChatLocationBubbleView alloc] init];
-        }
-            break;
-        case eMessageBodyType_Video:
-        {
-            return [[EMChatVideoBubbleView alloc] init];
-        }
-            break;
             
         case eMessageBodyType_Taozi:
         {
@@ -203,13 +193,19 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 }
                     break;
                     
-                default:
+                default: {
+                    messageModel.content = @"升级新版本才可以查看这条神秘消息哦";
+                    return [[EMChatTextBubbleView alloc] init];
+                }
                     break;
             }
         }
             break;
             
-        default:
+        default: {
+            messageModel.content = @"升级新版本才可以查看这条神秘消息哦";
+            return [[EMChatTextBubbleView alloc] init];
+        }
             break;
     }
     
@@ -245,17 +241,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
-        case eMessageBodyType_Location:
-        {
-            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
-        }
-            break;
-        case eMessageBodyType_Video:
-        {
-            return [EMChatVideoBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
-        }
-            break;
-            
+                
         case eMessageBodyType_Taozi:
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
@@ -271,15 +257,17 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 }
                     break;
             
-                    
-                    
-                default:
+                default: {
+                    return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+                }
                     break;
             }
         }
             break;
             
-        default:
+        default: {
+            return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+        }
             break;
     }
     

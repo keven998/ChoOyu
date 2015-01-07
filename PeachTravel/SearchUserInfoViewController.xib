@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -11,6 +11,7 @@
                 <outlet property="avatarImageFrame" destination="aRR-8h-4gK" id="ZS0-SA-eT4"/>
                 <outlet property="avatarImageView" destination="Hnk-sX-kDs" id="S1N-69-rjq"/>
                 <outlet property="cardView" destination="XXe-8x-6lH" id="lsD-ye-x14"/>
+                <outlet property="genderImageView" destination="MqF-ER-nSd" id="EOI-vU-qs7"/>
                 <outlet property="nickNameLabel" destination="1wQ-PY-Vi3" id="JaY-sx-kHy"/>
                 <outlet property="signatureSimLabel" destination="ZWa-P7-rcQ" id="qRT-3o-WJ4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -118,6 +119,25 @@
                                 </mask>
                             </variation>
                         </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MqF-ER-nSd">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="17" id="95c-Re-YD5"/>
+                                <constraint firstAttribute="width" constant="17" id="vV1-Hf-HQN"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="95c-Re-YD5"/>
+                                    <exclude reference="vV1-Hf-HQN"/>
+                                </mask>
+                            </variation>
+                            <variation key="widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="95c-Re-YD5"/>
+                                    <include reference="vV1-Hf-HQN"/>
+                                </mask>
+                            </variation>
+                        </imageView>
                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWa-P7-rcQ">
                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                             <constraints>
@@ -151,9 +171,15 @@
                         <constraint firstAttribute="trailing" secondItem="ZWa-P7-rcQ" secondAttribute="trailing" constant="10" id="Egk-Xa-tEM"/>
                         <constraint firstAttribute="trailing" secondItem="1wQ-PY-Vi3" secondAttribute="trailing" constant="8" id="VGG-w9-ElC"/>
                         <constraint firstItem="1wQ-PY-Vi3" firstAttribute="top" secondItem="XXe-8x-6lH" secondAttribute="top" constant="16" id="VGh-3T-c2X"/>
+                        <constraint firstItem="MqF-ER-nSd" firstAttribute="top" secondItem="XXe-8x-6lH" secondAttribute="top" constant="55" id="W5n-qM-NSF">
+                            <variation key="widthClass=compact" constant="60"/>
+                        </constraint>
                         <constraint firstItem="1wQ-PY-Vi3" firstAttribute="leading" secondItem="tqZ-F3-1Yf" secondAttribute="trailing" constant="13" id="Yjo-rO-zaW"/>
                         <constraint firstItem="ZWa-P7-rcQ" firstAttribute="leading" secondItem="xTP-2D-FDN" secondAttribute="trailing" constant="21" id="a5N-SK-2nd"/>
                         <constraint firstItem="xTP-2D-FDN" firstAttribute="leading" secondItem="XXe-8x-6lH" secondAttribute="leading" id="bjR-xI-6RD"/>
+                        <constraint firstItem="MqF-ER-nSd" firstAttribute="leading" secondItem="XXe-8x-6lH" secondAttribute="leading" constant="65" id="dr7-oo-gMZ">
+                            <variation key="widthClass=compact" constant="70"/>
+                        </constraint>
                         <constraint firstAttribute="bottom" secondItem="aRR-8h-4gK" secondAttribute="bottom" constant="11" id="esC-hF-8g2"/>
                         <constraint firstItem="aRR-8h-4gK" firstAttribute="leading" secondItem="XXe-8x-6lH" secondAttribute="leading" constant="21" id="fA7-hw-4Sc"/>
                         <constraint firstItem="xTP-2D-FDN" firstAttribute="top" secondItem="XXe-8x-6lH" secondAttribute="top" id="g07-Jb-2Hj"/>
@@ -166,6 +192,7 @@
                             <exclude reference="xTP-2D-FDN"/>
                             <exclude reference="aRR-8h-4gK"/>
                             <exclude reference="tqZ-F3-1Yf"/>
+                            <exclude reference="MqF-ER-nSd"/>
                             <exclude reference="ZWa-P7-rcQ"/>
                         </mask>
                         <mask key="constraints">
@@ -176,6 +203,8 @@
                             <exclude reference="5zz-Y0-tJD"/>
                             <exclude reference="esC-hF-8g2"/>
                             <exclude reference="fA7-hw-4Sc"/>
+                            <exclude reference="W5n-qM-NSF"/>
+                            <exclude reference="dr7-oo-gMZ"/>
                             <exclude reference="33w-hu-j9L"/>
                             <exclude reference="zk9-9T-jgC"/>
                             <exclude reference="VGG-w9-ElC"/>
@@ -192,6 +221,7 @@
                             <include reference="xTP-2D-FDN"/>
                             <include reference="aRR-8h-4gK"/>
                             <include reference="tqZ-F3-1Yf"/>
+                            <include reference="MqF-ER-nSd"/>
                             <include reference="ZWa-P7-rcQ"/>
                         </mask>
                         <mask key="constraints">
@@ -202,6 +232,8 @@
                             <include reference="5zz-Y0-tJD"/>
                             <include reference="esC-hF-8g2"/>
                             <include reference="fA7-hw-4Sc"/>
+                            <include reference="W5n-qM-NSF"/>
+                            <include reference="dr7-oo-gMZ"/>
                             <include reference="33w-hu-j9L"/>
                             <include reference="zk9-9T-jgC"/>
                             <include reference="VGG-w9-ElC"/>
@@ -255,11 +287,11 @@
                     <exclude reference="1AD-KL-y6V"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="Ya9-ZL-qBK"/>
+                    <exclude reference="eOd-aj-jhE"/>
                     <exclude reference="S75-Za-qLP"/>
                     <exclude reference="WSb-gg-lCv"/>
                     <exclude reference="ZfT-b1-DQy"/>
-                    <exclude reference="Ya9-ZL-qBK"/>
-                    <exclude reference="eOd-aj-jhE"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -268,11 +300,11 @@
                     <include reference="1AD-KL-y6V"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="Ya9-ZL-qBK"/>
+                    <include reference="eOd-aj-jhE"/>
                     <include reference="S75-Za-qLP"/>
                     <include reference="WSb-gg-lCv"/>
                     <include reference="ZfT-b1-DQy"/>
-                    <include reference="Ya9-ZL-qBK"/>
-                    <include reference="eOd-aj-jhE"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="226" y="231"/>

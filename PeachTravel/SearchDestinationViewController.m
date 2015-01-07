@@ -78,7 +78,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
         _tableView.layer.cornerRadius = 2.0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        [_tableView addGestureRecognizer:_tap];
         _tableView.dataSource = self;
         _tableView.delegate = self;
 

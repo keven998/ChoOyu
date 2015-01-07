@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *signatureSimLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *genderImageView;
 
 @property (weak, nonatomic) IBOutlet UIView *cardView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
@@ -58,6 +59,17 @@
     _signatureSimLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _signatureSimLabel.titleLabel.numberOfLines = 3;
     [_signatureSimLabel setTitle:[userInfo objectForKey:@"signature"] forState:UIControlStateNormal];
+    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"M"]) {
+        self.genderImageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
+        
+    }
+    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"F"]) {
+        self.genderImageView.image  = [UIImage imageNamed:@"ic_gender_lady.png"];
+    }
+    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"U"]) {
+        self.genderImageView.image  = nil;
+    }
+
 }
 
 - (IBAction)addContact:(UIButton *)sender {

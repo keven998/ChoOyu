@@ -14,4 +14,9 @@
 
 @property (nonatomic, strong) UIButton *backButton;
 
+/**
+ *  当前 controller 是否正在显示
+ */
+@property (nonatomic) BOOL isShowing;
+
 @end

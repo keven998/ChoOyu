@@ -15,7 +15,7 @@
 @interface ChatSendHelper : NSObject
 
 /**
- *  发送文字消息（包括系统表情）
+ *  发送桃子消息
  *
  *  @param str               发送的文字
  *  @param str               发送的自定义消息

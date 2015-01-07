@@ -106,6 +106,7 @@
 
 -(IBAction)saveChange:(id)sender
 {
+    [self.view endEditing:YES];
     if (_changeType == ChangeName) {
         if (!([self checkInput] == NoError)) {
             [SVProgressHUD showHint:@""];
@@ -113,7 +114,6 @@
             return;
         }
     }
-    
     
     if ([_content isEqualToString:_contentTextField.text]) {
         [SVProgressHUD showHint:@"修改成功"];
@@ -146,7 +146,6 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

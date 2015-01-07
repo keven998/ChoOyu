@@ -197,6 +197,10 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
 }
 
 - (void)addBlurView {
+    UITapGestureRecognizer *tapGester = [[UITapGestureRecognizer alloc] init];
+    [tapGester addTarget:self action:@selector(dismissPopupViewControllerAnimated:completion:)];
+    tapGester.numberOfTapsRequired = 1;
+    tapGester.numberOfTouchesRequired = 1;
     UIImageView *blurView = [UIImageView new];
     if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
         blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
@@ -207,6 +211,8 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
     blurView.image = [self getBlurredImage:[self getScreenImage]];
     [self.view addSubview:blurView];
     [self.view bringSubviewToFront:self.popupViewController.view];
+    blurView.userInteractionEnabled = YES;
+    [blurView addGestureRecognizer:tapGester];
     objc_setAssociatedObject(self, &CWBlurViewKey, blurView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -222,16 +228,7 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
         CGRect finalFrame = [self getPopupFrameForViewController:viewControllerToPresent atHeight:height];
         // parallax setup if iOS7+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-//        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//            UIInterpolatingMotionEffect *interpolationHorizontal = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-//            interpolationHorizontal.minimumRelativeValue = @-5.0;
-//            interpolationHorizontal.maximumRelativeValue = @5.0;
-//            UIInterpolatingMotionEffect *interpolationVertical = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-//            interpolationHorizontal.minimumRelativeValue = @-5.0;
-//            interpolationHorizontal.maximumRelativeValue = @5.0;
-//            [self.popupViewController.view addMotionEffect:interpolationHorizontal];
-//            [self.popupViewController.view addMotionEffect:interpolationVertical];
-//        }
+
 #endif
         // shadow setup
         viewControllerToPresent.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
@@ -239,13 +236,16 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
         viewControllerToPresent.view.layer.shadowRadius = 3.0f;
         viewControllerToPresent.view.layer.shadowOpacity = 0.8f;
         viewControllerToPresent.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:viewControllerToPresent.view.layer.bounds].CGPath;
-        // rounded corners
-//        viewControllerToPresent.view.layer.cornerRadius = 5.0f;
-        // blurview
+
         if (self.useBlurForPopup) {
             [self addBlurView];
         } else {
+            UITapGestureRecognizer *tapGester = [[UITapGestureRecognizer alloc] init];
+            [tapGester addTarget:self action:@selector(dismissCtl)];
+            tapGester.numberOfTapsRequired = 1;
+            tapGester.numberOfTouchesRequired = 1;
             UIView *fadeView = [UIView new];
+            [fadeView addGestureRecognizer:tapGester];
             if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
                 fadeView.frame = [UIScreen mainScreen].bounds;
             } else {
@@ -278,6 +278,12 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
         // if screen orientation changed
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenOrientationChanged) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     }
+}
+
+- (void)dismissCtl {
+    [self dismissPopupViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void)dismissPopupViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {

@@ -68,6 +68,7 @@
             }
         }
             break;
+            
         case eMessageBodyType_Image:
         {
             EMImageMessageBody *imgMessageBody = (EMImageMessageBody*)messageBody;
@@ -85,6 +86,7 @@
             break;
         case eMessageBodyType_Location:
         {
+            model.content = @"升级新版本才可以查看这条神秘消息哦";
             model.address = ((EMLocationMessageBody *)messageBody).address;
             model.latitude = ((EMLocationMessageBody *)messageBody).latitude;
             model.longitude = ((EMLocationMessageBody *)messageBody).longitude;
@@ -109,6 +111,7 @@
         }
             break;
         case eMessageBodyType_Video:{
+            model.content = @"升级新版本才可以查看这条神秘消息哦";
             EMVideoMessageBody *videoMessageBody = (EMVideoMessageBody*)messageBody;
             model.thumbnailSize = videoMessageBody.size;
             model.size = videoMessageBody.size;
@@ -118,7 +121,9 @@
         }
             break;
 
-        default:
+        default: {
+            model.content = @"升级新版本才可以查看这条神秘消息哦";
+        }
             break;
     }
     

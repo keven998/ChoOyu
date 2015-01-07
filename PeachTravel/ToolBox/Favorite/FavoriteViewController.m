@@ -620,7 +620,6 @@
     }
 }
 
-
 - (void) beginLoadingMore {
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;

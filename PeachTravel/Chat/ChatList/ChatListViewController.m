@@ -309,22 +309,23 @@
                             NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
                                                         convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
                             ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
-
                         }
                             break;
                             
                         case TZChatTypeStrategy: case TZChatTypeTravelNote: case TZChatTypeSpot: case TZChatTypeCity: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping:{
 
                             ret = [NSString stringWithFormat:@"%@:[链接]%@", nickName, [[lastMessage.ext objectForKey:@"content"] objectForKey:@"name"]];
-                            
                         }
                             break;
                             
                         case TZTipsMsg: {
                             ret = [lastMessage.ext objectForKey:@"content"];
                         }
+                            break;
                             
-                        default:
+                        default: {
+                            ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
+                        }
                             break;
                     }
 
@@ -338,18 +339,20 @@
                     break;
                     
                 case eMessageBodyType_Location: {
-                    ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
+                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
 
                 }
                     break;
                     
                 case eMessageBodyType_Video: {
-                    ret = [NSString stringWithFormat:@"%@:[视频]", nickName];
+                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
 
                 }
                     break;
                     
                 default: {
+                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
+
                 } break;
             }
 
@@ -385,8 +388,11 @@
                         case TZTipsMsg: {
                             ret = [lastMessage.ext objectForKey:@"content"];
                         }
+                            break;
                             
-                        default:
+                        default: {
+                            ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
+                        }
                             break;
                     }
                     
@@ -403,6 +409,7 @@
                     ret = @"[视频]";
                 } break;
                 default: {
+                    ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
                 } break;
             }
         }
