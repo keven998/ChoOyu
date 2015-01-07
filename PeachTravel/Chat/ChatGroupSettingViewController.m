@@ -13,15 +13,16 @@
 
 @interface ChatGroupSettingViewController () <IChatManagerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *disturbBtn;
 @property (weak, nonatomic) IBOutlet UIButton *groupTitle;
 @property (weak, nonatomic) IBOutlet UIButton *quitBtn;
 /**
  *  
  */
-@property (weak, nonatomic) IBOutlet UIImageView *groupMsgStatusImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *groupMsgStatusImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *accessoryImageView;
 
-@property (nonatomic) BOOL isPushNotificationEnable;
+//@property (nonatomic) BOOL isPushNotificationEnable;
 
 @end
 
@@ -29,8 +30,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"讨论组设置";
+    self.navigationItem.title = @"聊天设置";
+    
     [_groupTitle setTitle:_group.groupSubject forState:UIControlStateNormal];
+    _groupTitle.titleEdgeInsets = UIEdgeInsetsMake(0, 88, 0, 20);
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     //只有管理员可以修改群组名称
@@ -38,20 +41,16 @@
         _groupTitle.userInteractionEnabled = YES;
         [_quitBtn setTitle:@"解散该群" forState:UIControlStateNormal];
     } else {
-        _groupTitle.userInteractionEnabled = NO;
+        _groupTitle.userInteractionEnabled = YES;
         _accessoryImageView.hidden = YES;
         [_quitBtn setTitle:@"退出该群" forState:UIControlStateNormal];
     }
+    
+    _quitBtn.layer.cornerRadius = 2.0;
+    [_quitBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    _quitBtn.clipsToBounds = YES;
 
-    if ( _group.isPushNotificationEnabled) {
-        _isPushNotificationEnable = YES;
-        [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_border.png"]];
-    } else {
-        _isPushNotificationEnable = NO;
-        [_groupMsgStatusImageView setImage:[UIImage imageNamed:@"check_selected.png"]];
-
-    }
-
+    _disturbBtn.selected = _group.isPushNotificationEnabled;
     
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -90,29 +89,34 @@
  */
 - (IBAction)changeMsgStatus:(UIButton *)sender {
     __weak ChatGroupSettingViewController *weakSelf = self;
-    sender.userInteractionEnabled = NO;
+//    sender.userInteractionEnabled = NO;
     [self showHudInView:self.view hint:@"正在设置"];
-    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:_isPushNotificationEnable completion:^(NSArray *ignoreGroupsList, EMError *error) {
+    sender.selected = !sender.selected;
+    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:!sender.selected completion:^(NSArray *ignoreGroupsList, EMError *error) {
         [weakSelf hideHud];
         if (!error) {
-            [weakSelf showHint:@"设置成功"];
-            _isPushNotificationEnable = !_isPushNotificationEnable;
-            NSString *imageName = _isPushNotificationEnable? @"check_border.png":@"check_selected.png";
-            [_groupMsgStatusImageView setImage:[UIImage imageNamed:imageName]];
-        }
-        else{
+//            [weakSelf showHint:@"设置成功"];
+//            _isPushNotificationEnable = !_isPushNotificationEnable;
+//            NSString *imageName = _isPushNotificationEnable? @"check_border.png":@"check_selected.png";
+//            [_groupMsgStatusImageView setImage:[UIImage imageNamed:imageName]];
+        } else {
             [weakSelf showHint:@"设置失败"];
+            sender.selected = !sender.selected;
         }
-        sender.userInteractionEnabled = YES;
+//        sender.userInteractionEnabled = YES;
     } onQueue:nil];
 
 }
 
 - (IBAction)changeGroupTitle:(UIButton *)sender {
-    ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
-    changeCtl.groupId = _group.groupId;
-    changeCtl.oldTitle = _group.groupSubject;
-    [self.navigationController pushViewController:changeCtl animated:YES];
+    if ([_group.owner isEqualToString: [AccountManager shareAccountManager].account.easemobUser]) {
+        ChangeGroupTitleViewController *changeCtl = [[ChangeGroupTitleViewController alloc] init];
+        changeCtl.groupId = _group.groupId;
+        changeCtl.oldTitle = _group.groupSubject;
+        [self.navigationController pushViewController:changeCtl animated:YES];
+    } else {
+        [SVProgressHUD showHint:@"不是群主，无法修改"];
+    }
 }
 
 - (IBAction)deleteMsg:(UIButton *)sender {
