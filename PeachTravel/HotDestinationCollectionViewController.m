@@ -57,6 +57,13 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    _isShowing = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _isShowing = NO;
 }
 
 - (void) initData {
@@ -121,7 +128,9 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
     
 }

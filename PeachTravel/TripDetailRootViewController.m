@@ -100,6 +100,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _isShowing = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _isShowing = NO;
+}
+
 - (void) hint {
     [SVProgressHUD showSuccessWithStatus:@"已保存到旅行Memo"];
 }
@@ -192,11 +203,15 @@
             [self reloadTripData];
             [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+             if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 
@@ -258,12 +273,16 @@
         if (code == 0) {
             [self setupViewWithData:[responseObject objectForKey:@"result"]];
         } else {
-            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            if (self.isShowing) {
+                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (hud) [hud hideTZHUD];
         NSLog(@"%@", error);
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 
@@ -352,13 +371,17 @@
             self.canEdit = YES;
             [SVProgressHUD showHint:@"已保存到我的Memo"];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+             if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         NSLog(@"%@", error);
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

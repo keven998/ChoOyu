@@ -157,11 +157,15 @@
             }
             [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+             if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

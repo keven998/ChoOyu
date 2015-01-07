@@ -305,7 +305,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
             } else {
+                if (self.isShowing) {
                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
             }
             [self loadMoreCompletedSearch];
         }
@@ -314,7 +316,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         NSLog(@"%@", error);
         [hud hideTZHUD];
         [self loadMoreCompletedSearch];
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

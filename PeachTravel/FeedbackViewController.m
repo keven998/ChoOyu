@@ -111,7 +111,9 @@
             [SVProgressHUD showHint:@"吐槽已被get√"];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+             if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];

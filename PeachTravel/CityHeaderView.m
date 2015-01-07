@@ -9,6 +9,7 @@
 #import "CityHeaderView.h"
 #import "ResizableView.h"
 #import "MWPhotoBrowser.h"
+#import "CityDetailTableViewController.h"
 
 @interface CityHeaderView () <UIScrollViewDelegate>
 
@@ -377,7 +378,9 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (((CityDetailTableViewController *)ctl).isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 
