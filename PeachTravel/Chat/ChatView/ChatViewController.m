@@ -1577,7 +1577,7 @@
                 NSLog(@"******结束加载聊天记录");
 
                 [weakSelf.tableView reloadData];
-                [weakSelf scrollViewToBottom:NO];
+                [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             });
         } else {
             NSLog(@"******不需要加载聊天记录");
