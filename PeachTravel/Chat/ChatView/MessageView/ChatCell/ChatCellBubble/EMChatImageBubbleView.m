@@ -98,8 +98,6 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
         retSize.height = MAX_SIZE;
     }
     
-//    NSInteger leftCapWidth = model.isSender?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_TOP_CAP_HEIGHT;
-//    UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:30];
     UIImage *resizableMaskImage = [UIImage imageNamed:maskImageName];
     resizableMaskImage = [resizableMaskImage resizableImageWithCapInsets:UIEdgeInsetsMake(30, 15, 10, 15) resizingMode:UIImageResizingModeTile];
     
@@ -108,19 +106,6 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     [resizableMaskImage drawInRect:CGRectMake(0, 0, retSize.width, retSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
-//    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-//        if ([[UIScreen mainScreen] scale] == 2.0) {
-//            UIGraphicsBeginImageContextWithOptions(retSize, YES, 2.0);
-//        } else {
-//            UIGraphicsBeginImageContext(retSize);
-//        }
-//    } else {
-//        UIGraphicsBeginImageContext(retSize);
-//    }
-//    [resizableMaskImage drawInRect:CGRectMake(0, 0, retSize.width, retSize.height)];
-//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
     
     CALayer *mask = [CALayer layer];
     mask.contents = (id)[newImage CGImage];
