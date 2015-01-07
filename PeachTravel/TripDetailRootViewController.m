@@ -106,6 +106,7 @@
 
 - (void)dealloc
 {
+    //只用从我的攻略进来 _contentMgrDelegate 才不会是 nil, 才会进行备份
     if (_contentMgrDelegate != nil) {
         [_contentMgrDelegate tripUpdate:_tripDetail.backUpJson];
     }
