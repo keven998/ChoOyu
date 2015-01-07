@@ -160,6 +160,7 @@
                 }
             }];
         } else {
+            [hud hideTZHUD];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         
@@ -236,6 +237,7 @@
             }];
             
         } else {
+            [hud hideTZHUD];
             [self showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         

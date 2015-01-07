@@ -65,7 +65,6 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
         frame.origin.x = BUBBLE_ARROW_WIDTH;
     }
     
-
     [self.imageView setFrame:frame];
 }
 
@@ -98,21 +97,34 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     }
     
     NSInteger leftCapWidth = model.isSender?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_TOP_CAP_HEIGHT;
+//    UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:30];
+    UIImage *resizableMaskImage = [UIImage imageNamed:maskImageName];
+    resizableMaskImage = [resizableMaskImage resizableImageWithCapInsets:UIEdgeInsetsMake(30, 15, 5, 15)];
     
-    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:20];
+    UIGraphicsBeginImageContextWithOptions(retSize, NO, 0.0);
+    [resizableMaskImage drawInRect:CGRectMake(0, 0, retSize.width, retSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
-    [self resizeImage:image withMaskImage:resizableMaskImage andSize:retSize];
-
-}
-
-- (void) resizeImage:(UIImage *)image withMaskImage:(const UIImage *)maskImage andSize:(CGSize) size;
-{
+//    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+//        if ([[UIScreen mainScreen] scale] == 2.0) {
+//            UIGraphicsBeginImageContextWithOptions(retSize, YES, 2.0);
+//        } else {
+//            UIGraphicsBeginImageContext(retSize);
+//        }
+//    } else {
+//        UIGraphicsBeginImageContext(retSize);
+//    }
+//    [resizableMaskImage drawInRect:CGRectMake(0, 0, retSize.width, retSize.height)];
+//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
     
-   
-
-    const UIImage *maskImageDrawnToSize = [maskImage renderAtSize:size];
-    self.imageView.image = [image maskWithImage: maskImageDrawnToSize];
-
+    CALayer *mask = [CALayer layer];
+    mask.contents = (id)[newImage CGImage];
+    mask.frame = CGRectMake(0, 0, retSize.width, retSize.height);
+    self.imageView.layer.mask = mask;
+    self.imageView.layer.masksToBounds = YES;
+    self.imageView.image = image;
 }
 
 #pragma mark - public
