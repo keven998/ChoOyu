@@ -20,7 +20,7 @@
 #import "TaoziChatBaseBubbleView.h"
 #import "TaoziChatCityBubbleView.h"
 
-#define SEND_STATUS_SIZE 17 // 发送状态View的Size
+#define SEND_STATUS_SIZE 18 // 发送状态View的Size
 #define ACTIVTIYVIEW_BUBBLE_PADDING 5 // 菊花和bubbleView之间的间距
 
 extern NSString *const kResendButtonTapEventName;
