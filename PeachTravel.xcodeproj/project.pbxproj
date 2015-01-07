@@ -233,7 +233,6 @@
 		D90F363119F63B3300E26FA9 /* EMChatTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F35DD19F63B3300E26FA9 /* EMChatTimeCell.m */; };
 		D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F35DF19F63B3300E26FA9 /* EMChatViewBaseCell.m */; };
 		D90F363319F63B3300E26FA9 /* EMChatViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F35E119F63B3300E26FA9 /* EMChatViewCell.m */; };
-		D90F363419F63B3300E26FA9 /* messageSendFail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F35E219F63B3300E26FA9 /* messageSendFail@2x.png */; };
 		D90F363519F63B3300E26FA9 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F35E419F63B3300E26FA9 /* MessageModel.m */; };
 		D90F363719F63B3300E26FA9 /* MessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F35E819F63B3300E26FA9 /* MessageReadManager.m */; };
 		D90F363B19F63BE000E26FA9 /* THProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F363A19F63BE000E26FA9 /* THProgressView.m */; };
@@ -272,6 +271,7 @@
 		D9117A831A2CA377000DBFCB /* SelectContactUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A821A2CA377000DBFCB /* SelectContactUnitView.m */; };
 		D9117A8C1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */; };
 		D9117A8D1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */; };
+		D91DEA6F1A5D5618002F4F0A /* MessageSendFail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91DEA6E1A5D5618002F4F0A /* MessageSendFail@2x.png */; };
 		D91F4B0C1A2F376E00DA2B24 /* PoiDetailSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91F4B0B1A2F376E00DA2B24 /* PoiDetailSuperViewController.m */; };
 		D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D925BBF41A08A8210026FEAC /* CreateConversationTableViewCell.m */; };
 		D925BBF71A08A8210026FEAC /* CreateConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D925BBF51A08A8210026FEAC /* CreateConversationTableViewCell.xib */; };
@@ -1014,7 +1014,6 @@
 		D90F35DF19F63B3300E26FA9 /* EMChatViewBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMChatViewBaseCell.m; sourceTree = "<group>"; };
 		D90F35E019F63B3300E26FA9 /* EMChatViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatViewCell.h; sourceTree = "<group>"; };
 		D90F35E119F63B3300E26FA9 /* EMChatViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMChatViewCell.m; sourceTree = "<group>"; };
-		D90F35E219F63B3300E26FA9 /* messageSendFail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageSendFail@2x.png"; sourceTree = "<group>"; };
 		D90F35E319F63B3300E26FA9 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
 		D90F35E419F63B3300E26FA9 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
 		D90F35E719F63B3300E26FA9 /* MessageReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageReadManager.h; sourceTree = "<group>"; };
@@ -1086,6 +1085,7 @@
 		D9117A891A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatMessageBaseViewController.h; sourceTree = "<group>"; };
 		D9117A8A1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatMessageBaseViewController.m; sourceTree = "<group>"; };
 		D9117A8B1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaoziChatMessageBaseViewController.xib; sourceTree = "<group>"; };
+		D91DEA6E1A5D5618002F4F0A /* MessageSendFail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageSendFail@2x.png"; sourceTree = "<group>"; };
 		D91F4B0A1A2F376E00DA2B24 /* PoiDetailSuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailSuperViewController.h; sourceTree = "<group>"; };
 		D91F4B0B1A2F376E00DA2B24 /* PoiDetailSuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetailSuperViewController.m; sourceTree = "<group>"; };
 		D925BBF31A08A8210026FEAC /* CreateConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateConversationTableViewCell.h; sourceTree = "<group>"; };
@@ -2181,6 +2181,7 @@
 		D90C630219FB44D300C2E440 /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
+				D91DEA6E1A5D5618002F4F0A /* MessageSendFail@2x.png */,
 				D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */,
 				D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */,
 				D93697011A3026BC001922F4 /* chat_time@2x.png */,
@@ -2522,7 +2523,6 @@
 				D90F35DF19F63B3300E26FA9 /* EMChatViewBaseCell.m */,
 				D90F35E019F63B3300E26FA9 /* EMChatViewCell.h */,
 				D90F35E119F63B3300E26FA9 /* EMChatViewCell.m */,
-				D90F35E219F63B3300E26FA9 /* messageSendFail@2x.png */,
 				D93696FE1A30257C001922F4 /* TipsChatTableViewCell.h */,
 				D93696FF1A30257C001922F4 /* TipsChatTableViewCell.m */,
 			);
@@ -4808,6 +4808,7 @@
 				D94772FB1A32EEAA00BF9F8B /* ChatSettingViewController.xib in Resources */,
 				C6E1502D1A5123FA0059E470 /* search_avatar_bg@2x.png in Resources */,
 				D9E97D0D1A5C063800F2364D /* ic_guide2_4_normal@2x.png in Resources */,
+				D91DEA6F1A5D5618002F4F0A /* MessageSendFail@2x.png in Resources */,
 				D9E97D151A5C063800F2364D /* ic_guide2_8_normal@2x.png in Resources */,
 				D9CC36D71A380E4E00E72A7F /* travel_guide_selected@2x.png in Resources */,
 				C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */,
@@ -5016,7 +5017,6 @@
 				D955E35719E65D1B00047F2B /* DomesticDestinationCell.xib in Resources */,
 				D90C638219FB44D300C2E440 /* VoiceSearchFeedback011@2x.png in Resources */,
 				D9B476921A24A7140014136C /* test@2x.png in Resources */,
-				D90F363419F63B3300E26FA9 /* messageSendFail@2x.png in Resources */,
 				D9CC36D61A380E4E00E72A7F /* travel_guide_unselected@2x.png in Resources */,
 				D955E54819E7A91300047F2B /* sns_icon_imessage@2x.png in Resources */,
 				D90C636E19FB44D300C2E440 /* VoiceSearchFeedback001@2x.png in Resources */,

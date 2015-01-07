@@ -140,10 +140,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         [self.contentView addSubview:_activityView];
         
         // 重发按钮
-        _retryButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _retryButton = [[UIButton alloc] init];
         _retryButton.frame = CGRectMake(0, 0, SEND_STATUS_SIZE, SEND_STATUS_SIZE);
         [_retryButton addTarget:self action:@selector(retryButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_retryButton setImage:[UIImage imageNamed:@"messageSendFail"] forState:UIControlStateNormal];
+        [_retryButton setImage:[UIImage imageNamed:@"MessageSendFail.png"] forState:UIControlStateNormal];
         [_activityView addSubview:_retryButton];
         
         // 菊花
