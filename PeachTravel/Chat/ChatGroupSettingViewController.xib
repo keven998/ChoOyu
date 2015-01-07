@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatGroupSettingViewController">
             <connections>
                 <outlet property="accessoryImageView" destination="ujW-BC-73m" id="YYv-ar-fqt"/>
-                <outlet property="groupMsgStatusImageView" destination="LVl-rD-h44" id="WQq-hr-2jh"/>
+                <outlet property="disturbBtn" destination="CFQ-2z-2I0" id="2ed-wd-YNc"/>
                 <outlet property="groupTitle" destination="tOz-cj-hGX" id="FmQ-xZ-Vog"/>
                 <outlet property="quitBtn" destination="Tcg-SS-RGu" id="1Hx-GM-9Pe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -131,30 +131,14 @@
                                 </mask>
                             </variation>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LVl-rD-h44">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="15" id="H1T-Cp-LnO"/>
-                                <constraint firstAttribute="height" constant="15" id="NO4-1w-C8j"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="H1T-Cp-LnO"/>
-                                    <exclude reference="NO4-1w-C8j"/>
-                                </mask>
-                            </variation>
-                            <variation key="widthClass=compact">
-                                <mask key="constraints">
-                                    <include reference="H1T-Cp-LnO"/>
-                                    <include reference="NO4-1w-C8j"/>
-                                </mask>
-                            </variation>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CFQ-2z-2I0">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CFQ-2z-2I0">
                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                            <state key="normal">
+                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
+                            <state key="normal" image="check_border.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <state key="selected" image="check_selected.png"/>
+                            <state key="highlighted" image="check_selected.png"/>
                             <connections>
                                 <action selector="changeMsgStatus:" destination="-1" eventType="touchUpInside" id="kNE-SB-ilF"/>
                             </connections>
@@ -163,24 +147,26 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="lSl-9X-1gb" secondAttribute="trailing" id="0Sb-dO-3GG"/>
-                        <constraint firstAttribute="trailing" secondItem="LVl-rD-h44" secondAttribute="trailing" constant="5" id="1aw-1v-GQC">
-                            <variation key="widthClass=compact" constant="15"/>
-                        </constraint>
                         <constraint firstItem="0mM-gT-wo8" firstAttribute="leading" secondItem="9G6-tb-hRo" secondAttribute="leading" id="6Q5-tI-0xd"/>
-                        <constraint firstItem="0mM-gT-wo8" firstAttribute="top" secondItem="tOz-cj-hGX" secondAttribute="bottom" constant="6" id="AlB-k5-r38"/>
-                        <constraint firstItem="tOz-cj-hGX" firstAttribute="top" secondItem="9G6-tb-hRo" secondAttribute="top" constant="9" id="Giq-dx-9rg"/>
+                        <constraint firstAttribute="trailing" secondItem="CFQ-2z-2I0" secondAttribute="trailing" id="7gR-O1-eRb"/>
+                        <constraint firstItem="0mM-gT-wo8" firstAttribute="top" secondItem="tOz-cj-hGX" secondAttribute="bottom" constant="6" id="AlB-k5-r38">
+                            <variation key="widthClass=compact" constant="-1"/>
+                        </constraint>
+                        <constraint firstItem="tOz-cj-hGX" firstAttribute="top" secondItem="9G6-tb-hRo" secondAttribute="top" constant="9" id="Giq-dx-9rg">
+                            <variation key="widthClass=compact" constant="0.0"/>
+                        </constraint>
                         <constraint firstItem="Iwn-2c-1e1" firstAttribute="leading" secondItem="9G6-tb-hRo" secondAttribute="leading" constant="20" id="GpF-Hk-VfP"/>
                         <constraint firstItem="cOA-i3-C6S" firstAttribute="top" secondItem="0mM-gT-wo8" secondAttribute="bottom" constant="13" id="LFK-H9-dTt">
                             <variation key="widthClass=compact" constant="11"/>
                         </constraint>
-                        <constraint firstItem="LVl-rD-h44" firstAttribute="top" secondItem="0mM-gT-wo8" secondAttribute="bottom" constant="19" id="N7h-Lu-FiD">
-                            <variation key="widthClass=compact" constant="17"/>
+                        <constraint firstItem="ujW-BC-73m" firstAttribute="leading" secondItem="tOz-cj-hGX" secondAttribute="trailing" constant="6" id="PO2-Dd-NTA">
+                            <variation key="widthClass=compact" constant="-21"/>
                         </constraint>
-                        <constraint firstItem="ujW-BC-73m" firstAttribute="leading" secondItem="tOz-cj-hGX" secondAttribute="trailing" constant="6" id="PO2-Dd-NTA"/>
+                        <constraint firstItem="CFQ-2z-2I0" firstAttribute="leading" secondItem="9G6-tb-hRo" secondAttribute="leading" constant="20" id="PXG-lU-7i5"/>
                         <constraint firstItem="ujW-BC-73m" firstAttribute="top" secondItem="9G6-tb-hRo" secondAttribute="top" constant="16" id="XL6-e0-cqn">
                             <variation key="widthClass=compact" constant="19"/>
                         </constraint>
-                        <constraint firstItem="CFQ-2z-2I0" firstAttribute="leading" secondItem="cOA-i3-C6S" secondAttribute="trailing" constant="56" id="cF3-ZQ-H8a"/>
+                        <constraint firstItem="lSl-9X-1gb" firstAttribute="top" secondItem="CFQ-2z-2I0" secondAttribute="bottom" constant="1" id="YBE-7n-thj"/>
                         <constraint firstItem="0mM-gT-wo8" firstAttribute="top" secondItem="9G6-tb-hRo" secondAttribute="top" constant="50" id="chc-z6-w7b">
                             <variation key="widthClass=compact" constant="45"/>
                         </constraint>
@@ -188,18 +174,18 @@
                         <constraint firstItem="lSl-9X-1gb" firstAttribute="top" secondItem="9G6-tb-hRo" secondAttribute="top" constant="100" id="hnq-Lz-NeZ">
                             <variation key="widthClass=compact" constant="90"/>
                         </constraint>
-                        <constraint firstItem="tOz-cj-hGX" firstAttribute="leading" secondItem="Iwn-2c-1e1" secondAttribute="trailing" constant="17" id="hrS-ov-AqQ"/>
+                        <constraint firstItem="tOz-cj-hGX" firstAttribute="leading" secondItem="Iwn-2c-1e1" secondAttribute="trailing" constant="17" id="hrS-ov-AqQ">
+                            <variation key="widthClass=compact" constant="-80"/>
+                        </constraint>
                         <constraint firstItem="0mM-gT-wo8" firstAttribute="top" secondItem="Iwn-2c-1e1" secondAttribute="bottom" constant="11" id="lFf-I0-RNH"/>
                         <constraint firstAttribute="trailing" secondItem="ujW-BC-73m" secondAttribute="trailing" constant="8" id="mTG-CG-kDs">
                             <variation key="widthClass=compact" constant="15"/>
                         </constraint>
-                        <constraint firstAttribute="trailing" secondItem="CFQ-2z-2I0" secondAttribute="trailing" constant="8" id="mod-1f-eFf"/>
                         <constraint firstItem="cOA-i3-C6S" firstAttribute="leading" secondItem="9G6-tb-hRo" secondAttribute="leading" constant="8" id="pbE-Kx-FSW">
                             <variation key="widthClass=compact" constant="20"/>
                         </constraint>
-                        <constraint firstItem="CFQ-2z-2I0" firstAttribute="top" secondItem="0mM-gT-wo8" secondAttribute="bottom" constant="7" id="unv-Jh-cEt"/>
+                        <constraint firstItem="CFQ-2z-2I0" firstAttribute="top" secondItem="tOz-cj-hGX" secondAttribute="bottom" id="ppF-nm-VcM"/>
                         <constraint firstItem="lSl-9X-1gb" firstAttribute="leading" secondItem="9G6-tb-hRo" secondAttribute="leading" id="vua-8u-7h5"/>
-                        <constraint firstItem="lSl-9X-1gb" firstAttribute="top" secondItem="CFQ-2z-2I0" secondAttribute="bottom" constant="7" id="wz9-Tz-TUJ"/>
                         <constraint firstAttribute="trailing" secondItem="0mM-gT-wo8" secondAttribute="trailing" id="xnS-N2-mnv"/>
                         <constraint firstAttribute="height" constant="150" id="zSm-1H-oPl">
                             <variation key="widthClass=compact" constant="90"/>
@@ -213,11 +199,12 @@
                             <exclude reference="cOA-i3-C6S"/>
                             <exclude reference="tOz-cj-hGX"/>
                             <exclude reference="ujW-BC-73m"/>
-                            <exclude reference="LVl-rD-h44"/>
                             <exclude reference="CFQ-2z-2I0"/>
                         </mask>
                         <mask key="constraints">
                             <exclude reference="zSm-1H-oPl"/>
+                            <exclude reference="Giq-dx-9rg"/>
+                            <exclude reference="hrS-ov-AqQ"/>
                             <exclude reference="GpF-Hk-VfP"/>
                             <exclude reference="hAe-GF-cef"/>
                             <exclude reference="6Q5-tI-0xd"/>
@@ -225,19 +212,15 @@
                             <exclude reference="chc-z6-w7b"/>
                             <exclude reference="lFf-I0-RNH"/>
                             <exclude reference="xnS-N2-mnv"/>
+                            <exclude reference="7gR-O1-eRb"/>
+                            <exclude reference="PXG-lU-7i5"/>
+                            <exclude reference="ppF-nm-VcM"/>
                             <exclude reference="LFK-H9-dTt"/>
                             <exclude reference="pbE-Kx-FSW"/>
                             <exclude reference="0Sb-dO-3GG"/>
+                            <exclude reference="YBE-7n-thj"/>
                             <exclude reference="hnq-Lz-NeZ"/>
                             <exclude reference="vua-8u-7h5"/>
-                            <exclude reference="wz9-Tz-TUJ"/>
-                            <exclude reference="Giq-dx-9rg"/>
-                            <exclude reference="hrS-ov-AqQ"/>
-                            <exclude reference="cF3-ZQ-H8a"/>
-                            <exclude reference="mod-1f-eFf"/>
-                            <exclude reference="unv-Jh-cEt"/>
-                            <exclude reference="1aw-1v-GQC"/>
-                            <exclude reference="N7h-Lu-FiD"/>
                             <exclude reference="PO2-Dd-NTA"/>
                             <exclude reference="XL6-e0-cqn"/>
                             <exclude reference="mTG-CG-kDs"/>
@@ -251,11 +234,12 @@
                             <include reference="cOA-i3-C6S"/>
                             <include reference="tOz-cj-hGX"/>
                             <include reference="ujW-BC-73m"/>
-                            <include reference="LVl-rD-h44"/>
                             <include reference="CFQ-2z-2I0"/>
                         </mask>
                         <mask key="constraints">
                             <include reference="zSm-1H-oPl"/>
+                            <include reference="Giq-dx-9rg"/>
+                            <include reference="hrS-ov-AqQ"/>
                             <include reference="GpF-Hk-VfP"/>
                             <include reference="hAe-GF-cef"/>
                             <include reference="6Q5-tI-0xd"/>
@@ -263,19 +247,15 @@
                             <include reference="chc-z6-w7b"/>
                             <include reference="lFf-I0-RNH"/>
                             <include reference="xnS-N2-mnv"/>
+                            <include reference="7gR-O1-eRb"/>
+                            <include reference="PXG-lU-7i5"/>
+                            <include reference="ppF-nm-VcM"/>
                             <include reference="LFK-H9-dTt"/>
                             <include reference="pbE-Kx-FSW"/>
                             <include reference="0Sb-dO-3GG"/>
+                            <include reference="YBE-7n-thj"/>
                             <include reference="hnq-Lz-NeZ"/>
                             <include reference="vua-8u-7h5"/>
-                            <include reference="wz9-Tz-TUJ"/>
-                            <include reference="Giq-dx-9rg"/>
-                            <include reference="hrS-ov-AqQ"/>
-                            <include reference="cF3-ZQ-H8a"/>
-                            <include reference="mod-1f-eFf"/>
-                            <include reference="unv-Jh-cEt"/>
-                            <include reference="1aw-1v-GQC"/>
-                            <include reference="N7h-Lu-FiD"/>
                             <include reference="PO2-Dd-NTA"/>
                             <include reference="XL6-e0-cqn"/>
                             <include reference="mTG-CG-kDs"/>
@@ -311,7 +291,6 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tcg-SS-RGu">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="107" id="44N-HO-ocf"/>
                         <constraint firstAttribute="height" constant="30" id="gcv-wi-yqP"/>
@@ -394,5 +373,7 @@
     </objects>
     <resources>
         <image name="cell_accessory_gray.png" width="6" height="10"/>
+        <image name="check_border.png" width="9" height="9"/>
+        <image name="check_selected.png" width="15" height="15"/>
     </resources>
 </document>
