@@ -135,11 +135,15 @@
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
               
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+             if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
     
 }
@@ -247,12 +251,16 @@
             [accountManager updateUserInfo:gender withChangeType:ChangeGender];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         } else {
-            [SVProgressHUD showHint:@"请求也是失败了"];
+             if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
 
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

@@ -144,7 +144,9 @@
         NSLog(@"%@", error);
         [hud hideTZHUD];
         _registerBtn.userInteractionEnabled = YES;
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

@@ -46,6 +46,20 @@
         }
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestStatus) name:receiveFrendRequestNoti object:nil];
+
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//收到好友请求
+- (void)updateFrendRequestStatus
+{
+    ContactListViewController *ctl = [self.viewControllers lastObject];
+    [ctl.delegate updateNotify:ctl notify:YES];
 }
 
 - (void)goBack
@@ -53,10 +67,6 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
 - (IBAction)addUserContact:(id)sender
 {

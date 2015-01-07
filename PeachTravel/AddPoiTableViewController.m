@@ -317,7 +317,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
             
               
         } else {
-            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            if (self.isShowing) {
+                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
         }
         [self loadMoreCompletedNormal];
         
@@ -325,7 +327,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
 
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 
@@ -405,7 +409,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
             } else {
+                if (self.isShowing) {
                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
             }
             [self loadMoreCompletedSearch];
         }
@@ -414,7 +420,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         NSLog(@"%@", error);
         [hud hideTZHUD];
         [self loadMoreCompletedSearch];
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

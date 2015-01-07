@@ -110,6 +110,17 @@
     [self initDataFromCache];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _isVisible = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _isVisible = NO;
+}
+
+
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
@@ -208,16 +219,6 @@
 - (void)pullToRefreash:(id)sender {
     
     [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    _isVisible = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    _isVisible = NO;
 }
 
 - (void)dealloc
@@ -391,12 +392,16 @@
             });
         } else {
             [hud hideTZHUD];
-            [SVProgressHUD showHint:@"请求也是失败了"];
+            if (self.isVisible) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isVisible) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
     
 }

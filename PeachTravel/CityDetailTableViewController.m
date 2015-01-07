@@ -103,13 +103,17 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             [self loadTravelNoteOfCityData];
         } else {
             [_hud hideTZHUD];
-            [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            if (self.isShowing) {
+                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud hideTZHUD];
         NSLog(@"%@", error);
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
     }];
 }
 

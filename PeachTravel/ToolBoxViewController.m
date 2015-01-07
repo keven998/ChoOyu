@@ -207,11 +207,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([self isUnReadMsg]) {
-        _unReadMsgLabel.hidden = NO;
-    } else {
-        _unReadMsgLabel.hidden = YES;
-    }
+    [self updateUnReadMsgStatus];
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
     } else {
@@ -269,6 +265,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self.view addSubview:_weatherFrame];
     }
     
+}
+
+/**
+ *  更新未读消息的状态
+ */
+- (void)updateUnReadMsgStatus
+{
+    if ([self isUnReadMsg]) {
+        _unReadMsgLabel.hidden = NO;
+    } else {
+        _unReadMsgLabel.hidden = YES;
+    }
 }
 
 - (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
@@ -437,6 +445,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 -(void)registerNotifications
 {
     [self unregisterNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnReadMsgStatus) name:receiveFrendRequestNoti object:nil];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
 }
 
