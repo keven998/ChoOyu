@@ -195,7 +195,7 @@
     
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
     desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont systemFontOfSize:13.0];
+    desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
     desc.text = @"桃·Talk\n你的旅行交流集";

@@ -507,12 +507,13 @@ static NSString *reusableCell = @"myGuidesCell";
     self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.emptyView];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"first_selected.png"]];
-    imageView.contentMode = UIViewContentModeScaleToFill;
-    imageView.center = CGPointMake(width/2.0, 100.0);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+//    imageView.contentMode = UIViewContentModeCenter;
+    imageView.image = [UIImage imageNamed:@"ic_guide_earth.png"];
+    imageView.center = CGPointMake(width/2.0, 144);
     [self.emptyView addSubview:imageView];
     
-    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0+imageView.frame.size.height/2.0, width, 64.0)];
+    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 144+imageView.frame.size.height/2.0, width, 64.0)];
 //    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;

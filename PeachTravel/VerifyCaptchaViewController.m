@@ -75,7 +75,7 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
-    _captchaBtn.layer.cornerRadius = 2.0;
+    _captchaBtn.layer.cornerRadius = 5.0;
 }
 
 #pragma mark - Private Methods
