@@ -85,16 +85,16 @@
         [self loadNewTripData];
     } else {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
+            dispatch_async(dispatch_get_main_queue(), ^{
             if (object != nil) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    TripDetail *td = [[TripDetail alloc] initWithJson:object];
-                    if ([td.tripId isEqualToString:_tripId]) {
-                        _tripDetail = td;
-                        [self reloadTripData];
-                    }
-                    [self checkTripData];
-                });
+                TripDetail *td = [[TripDetail alloc] initWithJson:object];
+                if ([td.tripId isEqualToString:_tripId]) {
+                    _tripDetail = td;
+                    [self reloadTripData];
+                }
             }
+            [self checkTripData];
+            });
         }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];

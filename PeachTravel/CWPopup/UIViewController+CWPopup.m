@@ -160,6 +160,7 @@ NSString const *CWPopupKey = @"CWPopupkey";
 NSString const *CWBlurViewKey = @"CWFadeViewKey";
 NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
 
+
 @implementation UIViewController (CWPopup)
 
 @dynamic popupViewController, useBlurForPopup;
@@ -240,12 +241,7 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
         if (self.useBlurForPopup) {
             [self addBlurView];
         } else {
-            UITapGestureRecognizer *tapGester = [[UITapGestureRecognizer alloc] init];
-            [tapGester addTarget:self action:@selector(dismissCtl)];
-            tapGester.numberOfTapsRequired = 1;
-            tapGester.numberOfTouchesRequired = 1;
             UIView *fadeView = [UIView new];
-            [fadeView addGestureRecognizer:tapGester];
             if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
                 fadeView.frame = [UIScreen mainScreen].bounds;
             } else {
@@ -280,9 +276,10 @@ NSString const *CWUseBlurForPopup = @"CWUseBlurForPopup";
     }
 }
 
-- (void)dismissCtl {
+- (void)dismissCtl:(UITapGestureRecognizer *)getster
+{
     [self dismissPopupViewControllerAnimated:YES completion:^{
-        
+        [getster.view removeGestureRecognizer:getster];
     }];
 }
 

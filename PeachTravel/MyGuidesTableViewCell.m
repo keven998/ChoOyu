@@ -24,6 +24,7 @@
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _headerImageView.clipsToBounds = YES;
 
 }
 
@@ -37,15 +38,10 @@
     if (_isEditing) {
         [_titleBtn setImage:[UIImage imageNamed:@"ic_plan_title_edit.png"] forState:UIControlStateNormal];
         _titleBtn.imageView.alpha = 0.0;
-//        CGRect frame = _titleBtn.titleLabel.frame;
-//        frame.origin.x = 32.0;
         [UIView animateWithDuration:0.3 animations:^{
             _deleteBtn.alpha = 1;
             _titleBtn.imageView.alpha = 1;
-//            _titleBtn.titleLabel.frame = frame;
         } completion:^(BOOL finished) {
-//            _deleteBtn.alpha = 1;
-//            _titleBtn.imageView.alpha = 1.0;
         }];
     } else {
         [UIView animateWithDuration:0.3 animations:^{

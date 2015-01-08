@@ -507,7 +507,6 @@
         {
             CLPlacemark *clPlaceMark = [placemarks firstObject];
             NSString *city = [clPlaceMark.addressDictionary objectForKey:@"Name"];
-//              _locLabel.text = city;
             [self performSelector:@selector(stopRefreashWithStatus:) withObject:city afterDelay:0.8];
             for (NSMutableArray *array in self.dataSource) {
                 [array removeAllObjects];
