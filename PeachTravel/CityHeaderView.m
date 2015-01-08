@@ -58,11 +58,11 @@
     [_headerView addSubview:gallery];
     _galleryPageView = gallery;
     
-    _imagePageIndicator = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, gallery.frame.size.height-33, 47.5, 23)];
+    _imagePageIndicator = [[UIButton alloc] initWithFrame:CGRectMake(_headerView.frame.size.width-53.5, gallery.frame.size.height-30, 47.5, 23)];
     _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     [_imagePageIndicator setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _imagePageIndicator.userInteractionEnabled = NO;
-    _imagePageIndicator.layer.cornerRadius = 1.0;
+    _imagePageIndicator.layer.cornerRadius = 2.0;
     _imagePageIndicator.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_imagePageIndicator setTitle:[NSString stringWithFormat:@"共%ld张", (unsigned long)_cityPoi.imageCount] forState:UIControlStateNormal];
     [_headerView addSubview:_imagePageIndicator];
