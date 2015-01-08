@@ -54,10 +54,12 @@
     [_destinationToolBar reset];
     for (int i = 0; i < _destinations.count; i++) {
         NSString *title = [_destinations objectAtIndex:i];
-        DestinationUnit *unit = [_destinationToolBar addUnit:nil withName:title andUnitHeight:28 userInteractionEnabled:NO];
+        DestinationUnit *unit = [_destinationToolBar addUnit:nil withName:title andUnitHeight:30 userInteractionEnabled:NO];
         unit.tag = i;
         [unit setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-        [unit setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+//        [unit setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+        [unit setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [unit setBackgroundImage:[ConvertMethods createImageWithColor:APP_DIVIDER_COLOR] forState:UIControlStateHighlighted];
         unit.layer.borderColor = TEXT_COLOR_TITLE_HINT.CGColor;
         unit.layer.cornerRadius = 2.0;
 //        unit.titleLabel.font = [UIFont systemFontOfSize:13.0];
