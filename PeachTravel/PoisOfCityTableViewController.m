@@ -368,13 +368,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     tripPoi.poiType = _poiType;
     if (_poiType == kRestaurantPoi) {
         [self.tripDetail.restaurantsList addObject:tripPoi];
-    }
-    if (_poiType == kShoppingPoi) {
+    } else if (_poiType == kShoppingPoi) {
         [self.tripDetail.shoppingList addObject:tripPoi];
     }
     
     NSIndexPath *path;
-       if (self.searchController.isActive) {
+    if (self.searchController.isActive) {
            path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
            [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else {
