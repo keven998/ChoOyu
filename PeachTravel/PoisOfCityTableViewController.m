@@ -385,6 +385,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         }
         [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+    
+    [SVProgressHUD showHint:@"已收集"];
 }
 
 - (IBAction)deletePoi:(UIButton *)sender

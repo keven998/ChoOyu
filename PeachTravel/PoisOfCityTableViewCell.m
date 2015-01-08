@@ -85,7 +85,7 @@
 
     if (_shouldEdit) {
         _actionBtn.backgroundColor = APP_THEME_COLOR;
-        [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+        [_actionBtn setTitle:@"收集" forState:UIControlStateNormal];
         [_actionBtn setImage:nil forState:UIControlStateNormal];
         [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
@@ -101,11 +101,11 @@
 {
     _isAdded = isAdded;
     if (_isAdded) {
-        [_actionBtn setTitle:@"已添加" forState:UIControlStateNormal];
+        [_actionBtn setTitle:@"已收集" forState:UIControlStateNormal];
         _actionBtn.backgroundColor = [UIColor grayColor];
     } else {
         _actionBtn.backgroundColor = APP_THEME_COLOR;
-        [_actionBtn setTitle:@"添加" forState:UIControlStateNormal];
+        [_actionBtn setTitle:@"收集" forState:UIControlStateNormal];
     }
 }
 
