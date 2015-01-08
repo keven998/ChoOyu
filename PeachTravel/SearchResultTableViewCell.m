@@ -16,6 +16,10 @@
     self.layer.cornerRadius = 2.0;
     self.headerImageView.layer.cornerRadius = 2.0;
     self.headerImageView.clipsToBounds = YES;
+    
+    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _headerImageView.layer.borderWidth = 0.5;
+    _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
 
 }
 

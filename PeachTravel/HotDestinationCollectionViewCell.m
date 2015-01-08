@@ -12,6 +12,10 @@
 
 - (void)awakeFromNib {
     self.layer.cornerRadius = 2.0;
+    
+    _cellImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _cellImageView.layer.borderWidth = 0.5;
+    _cellImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
 }
 
 @end

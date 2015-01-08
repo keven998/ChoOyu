@@ -20,6 +20,9 @@
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _headerImageView.layer.borderWidth = 0.5;
+    _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
 
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

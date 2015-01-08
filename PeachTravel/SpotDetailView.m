@@ -78,7 +78,9 @@
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, oy, width-22, 167.5) animationDuration:0];
     
-    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
+    _galleryPageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _galleryPageView.layer.borderWidth = 0.5;
+    _galleryPageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
     __weak typeof(SpotDetailView *)weakSelf = self;
     

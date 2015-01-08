@@ -77,7 +77,10 @@ static NSString *commentCellIdentifier = @"commentCell";
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 130.0) animationDuration:0];
     
-    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.1];
+    _galleryPageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _galleryPageView.layer.borderWidth = 0.5;
+    _galleryPageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    self.backgroundColor = APP_PAGE_COLOR;
     
     NSInteger count = _poi.images.count;
     NSMutableArray *images = [[NSMutableArray alloc] init];

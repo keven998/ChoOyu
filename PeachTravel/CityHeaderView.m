@@ -54,6 +54,10 @@
     gallery.showsVerticalScrollIndicator = NO;
     gallery.delegate = self;
     gallery.bounces = YES;
+    gallery.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    gallery.layer.borderWidth = 0.5;
+    gallery.backgroundColor = APP_IMAGEVIEW_COLOR;
+    self.backgroundColor = APP_PAGE_COLOR;
     
     [_headerView addSubview:gallery];
     _galleryPageView = gallery;
@@ -296,6 +300,7 @@
     }
     
     UIImageView *img = [_imageViews objectAtIndex:page];
+
     if ((NSNull *)img == [NSNull null]) {
         img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, CGRectGetWidth(self.galleryPageView.frame), CGRectGetHeight(self.galleryPageView.frame))];
         img.contentMode = UIViewContentModeScaleAspectFill;

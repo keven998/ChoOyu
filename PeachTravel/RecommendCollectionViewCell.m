@@ -16,6 +16,10 @@
     self.clipsToBounds = YES;
     self.layer.borderColor = UIColorFromRGB(0xeeeeee).CGColor;
     self.layer.borderWidth = 1.0;
+    
+    _backGroundImage.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _backGroundImage.layer.borderWidth = 0.5;
+    _backGroundImage.backgroundColor = APP_IMAGEVIEW_COLOR;
 }
 
 @end

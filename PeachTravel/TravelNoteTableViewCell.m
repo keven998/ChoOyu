@@ -40,6 +40,10 @@
     _travelNoteImageView.layer.cornerRadius = 3.0;
     _travelNoteImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 2.0;
+    
+    _travelNoteImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _travelNoteImageView.layer.borderWidth = 0.5;
+    _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     /**
      *  发送按钮默认隐藏，是否显示需要设置 canSelecte
      */

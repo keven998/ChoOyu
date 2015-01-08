@@ -20,6 +20,11 @@
     self.countBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.deleteBtn.layer.cornerRadius = 15.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _headerImageView.layer.borderWidth = 0.5;
+    _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

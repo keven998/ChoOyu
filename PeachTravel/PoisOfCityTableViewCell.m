@@ -38,6 +38,9 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
+    _HeaderImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _HeaderImageView.layer.borderWidth = 0.5;
+    _HeaderImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     self.contentView.backgroundColor = APP_PAGE_COLOR;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

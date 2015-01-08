@@ -103,7 +103,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 170.0*sscale) animationDuration:5];
-    _galleryPageView.backgroundColor = [UIColor whiteColor];
+    _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.2];
     
     [self.view addSubview:_galleryPageView];
     

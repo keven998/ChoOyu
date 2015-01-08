@@ -17,6 +17,11 @@
     self.deleteBtn.layer.cornerRadius = 15.0;
 
     _standardImageView.clipsToBounds = YES;
+    _standardImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _standardImageView.layer.borderWidth = 0.5;
+    _standardImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    
+    self.backgroundColor = APP_PAGE_COLOR;
     _contentDescExpandView.titleLabel.numberOfLines = 0;
     [_contentDescExpandView setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_contentDescExpandView setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateSelected];

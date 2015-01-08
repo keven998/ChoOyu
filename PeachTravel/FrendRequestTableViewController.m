@@ -176,7 +176,7 @@
     FrendRequest *request = [_dataSource objectAtIndex:indexPath.row];
     cell.nickNameLabel.text = request.nickName;
     cell.attachMsgLabel.text = request.attachMsg;
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:nil];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:request.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
     cell.requestBtn.tag = indexPath.row;
     if ([request.status integerValue] == TZFrendAgree) {
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
