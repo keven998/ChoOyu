@@ -15,7 +15,7 @@
 
 
 #define TEXTLABEL_MAX_WIDTH 200 //　textLaebl 最大宽度
-#define LABEL_FONT_SIZE 14
+#define LABEL_FONT_SIZE 15
 
 extern NSString *const kRouterEventTextURLTapEventName;
 

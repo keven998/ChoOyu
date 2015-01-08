@@ -82,7 +82,15 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        [self loadNewTripData];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"需要小桃为你推荐几个景点吗" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"需要", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                [self loadNewTripDataWithRecommendData:NO];
+            }
+            if (buttonIndex == 1) {
+                [self loadNewTripDataWithRecommendData:YES];
+            }
+        }];
     } else {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -171,7 +179,7 @@
 /**
  *  新制作路线，传入目的地 id 列表获取路线详情
  */
-- (void)loadNewTripData
+- (void)loadNewTripDataWithRecommendData:(BOOL)isNeedRecommend
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -188,6 +196,11 @@
         [cityIds addObject:poi.cityId];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (isNeedRecommend) {
+        [params setObject:@"recommend" forKey:@"action"];
+    } else {
+        [params setObject:@"" forKey:@"action"];
+    }
     [params setObject:cityIds forKey:@"locId"];
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];

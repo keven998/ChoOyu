@@ -56,7 +56,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         _textLabel.textColor = [UIColor whiteColor];
     }else{
         frame.origin.x = BUBBLE_VIEW_WIDTH_PADDING + BUBBLE_ARROW_WIDTH;
-        _textLabel.textColor = [UIColor lightGrayColor];
+        _textLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     }
     
     frame.origin.y = BUBBLE_VIEW_PADDING;
@@ -235,7 +235,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 
 #pragma mark - public
 
--(void)bubbleViewPressed:(id)sender
+- (void)bubbleViewPressed:(id)sender
 {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     CGPoint point = [tap locationInView:_textLabel];
@@ -258,7 +258,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     }
 }
 
-+(CGFloat)heightForBubbleWithObject:(MessageModel *)object
++ (CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
     CGSize size;
@@ -276,12 +276,12 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     return 2 * + size.height;
 }
 
-+(UIFont *)textLabelFont
++ (UIFont *)textLabelFont
 {
     return [UIFont systemFontOfSize:LABEL_FONT_SIZE];
 }
 
-+(NSLineBreakMode)textLabelLineBreakModel
++ (NSLineBreakMode)textLabelLineBreakModel
 {
     return NSLineBreakByCharWrapping;
 }

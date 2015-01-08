@@ -10,6 +10,7 @@
 #import "TripDetailRootViewController.h"
 #import "TripDetail.h"
 #import "DestinationsView.h"
+#import "DKCircleButton.h"
 
 @interface SpotsListViewController : TZViewController
 

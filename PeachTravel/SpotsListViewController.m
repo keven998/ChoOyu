@@ -8,7 +8,6 @@
 
 #import "SpotsListViewController.h"
 #import "TripPoiListTableViewCell.h"
-#import "DKCircleButton.h"
 #import "RNGridMenu.h"
 #import "DestinationsView.h"
 #import "AddPoiTableViewController.h"
@@ -24,8 +23,8 @@
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) DKCircleButton *editBtn;
 @property (strong, nonatomic) UIView *tableViewFooterView;
+@property (strong, nonatomic) DKCircleButton *editBtn;
 
 @end
 
@@ -72,13 +71,16 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
+    [_tableView reloadData];
     if (!_tripDetail || !_canEdit) {
         _editBtn.hidden = YES;
     } else {
         _editBtn.hidden = NO;
         NSInteger count = _tripDetail.itineraryList.count;
         if (!tripDetail || count == 0) {
-            [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            if (!_tableView.isEditing) {
+                [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
         } else {
             BOOL ed = true;
             for (int i = 0; i < count; ++i) {
@@ -88,11 +90,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
                 }
             }
             if (ed) {
-                [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+                if (!_tableView.isEditing) {
+                    [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+                }
             }
         }
     }
-    [_tableView reloadData];
     for (UIView *subview in self.view.subviews) {
         if ([subview isEqual:_destinationsHeaderView]) {
             return;
