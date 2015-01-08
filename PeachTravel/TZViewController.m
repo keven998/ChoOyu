@@ -19,12 +19,6 @@
       
     self.navigationController.navigationBar.translucent = YES;
     
-<<<<<<< HEAD
-    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-    finishBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
-    finishBtn.title = @"返回";
-    self.navigationItem.leftBarButtonItem = finishBtn;
-=======
 //    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
 //    finishBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -39,7 +33,6 @@
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
->>>>>>> d3994bc31a8e4dd2211fab09414d146cbf4438b1
 
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
