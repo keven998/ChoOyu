@@ -94,6 +94,7 @@
 }
 
 - (IBAction)confirm:(UIButton *)sender {
+    [self.view endEditing:YES];
     if (_verifyCodeTextField.text == nil || [_verifyCodeTextField.text isEqualToString:@""]) {
         [SVProgressHUD showSuccessWithStatus:@"请输入验证码"];
         return;
@@ -115,10 +116,9 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf.navigationController];
 
-    //获取用户信息
+    //确定注册
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        [hud hideTZHUD];
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
@@ -126,12 +126,14 @@
             //注册完成后要登录环信
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
+                    [hud hideTZHUD];
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
                     [SVProgressHUD showHint:@"注册成功，欢迎加入桃子旅行"];
                 }
             }];
         } else {
+            [hud hideTZHUD];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
         }
         

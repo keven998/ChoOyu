@@ -58,9 +58,9 @@
     
     NSString *apnsCertName = nil;
 #if DEBUG
-    apnsCertName = @"taoziAPNS";
+    apnsCertName = @"TaoziAPNS_Development";
 #else
-    apnsCertName = @"taoziAPNS_Production";
+    apnsCertName = @"TaoziAPNS_Production";
 #endif
 
 #if DEBUG
@@ -69,7 +69,7 @@
     
     [[[EaseMob sharedInstance] chatManager] setIsAutoFetchBuddyList:YES];
     
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#xiaofang" apnsCertName:apnsCertName];
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#taozi" apnsCertName:apnsCertName];
 
     //以下一行代码的方法里实现了自动登录，异步登录，需要监听[didLoginWithInfo: error:]
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
