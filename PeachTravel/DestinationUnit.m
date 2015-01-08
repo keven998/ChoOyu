@@ -20,9 +20,9 @@
     CGSize size = [name sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
     CGRect tempFrame;
     if (icon) {
-        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+30, frame.size.height);
+        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+32, frame.size.height);
     } else {
-        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+30, frame.size.height);
+        tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+32, frame.size.height);
     }
     
     NSLog(@"%@", NSStringFromCGRect(tempFrame));
