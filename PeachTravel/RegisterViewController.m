@@ -139,7 +139,7 @@
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
               
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:@"验证码获取失败~"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);

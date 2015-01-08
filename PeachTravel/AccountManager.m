@@ -131,6 +131,10 @@
 //环信系统登录失败
 - (void)easeMobUnlogin
 {
+    if (self.account) {
+        [self.context deleteObject:self.account];
+        [self save];
+    }
     _account = nil;
 }
 

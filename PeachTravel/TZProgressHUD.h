@@ -10,12 +10,25 @@
 
 @interface TZProgressHUD : UIViewController
 
+@property (nonatomic, copy) NSString *status;   //提示的语言
+
+
 /**
  *  开始显示
  *
  *  @param viewController 
  */
 - (void)showHUDInViewController:(UIViewController *)viewController;
+
+
+/**
+ *  开始显示带有提示的菊花
+ *
+ *  @param viewController
+ *  @param status 提示语
+ */
+- (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status;
+
 
 - (void)showHUD;
 

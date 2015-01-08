@@ -114,7 +114,7 @@
     
      __weak typeof(SMSVerifyViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf withStatus:@"正在注册..."];
 
     //确定注册
     [manager POST:API_SIGNUP parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -124,12 +124,18 @@
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
             __weak SMSVerifyViewController *weakSelf = self;
             //注册完成后要登录环信
+            hud.status = @"正在登录...";
             [accountManager loginEaseMobServer:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [hud hideTZHUD];
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-                    [SVProgressHUD showHint:@"注册成功，欢迎加入桃子旅行"];
+                    [SVProgressHUD showHint:@"登录成功，欢迎加入桃子旅行"];
+                } else {
+                    [hud hideTZHUD];
+                    [accountManager easeMobUnlogin];
+                    [SVProgressHUD showHint:@"登录失败"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                 }
             }];
         } else {

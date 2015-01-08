@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIImageView *progressView;   //旋转的 view
 @property (nonatomic, strong) UIView *backGroundView;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *statusLabel;   //提示的语言
 @property (nonatomic, weak) UIViewController *rootViewController;
 
 @end
@@ -41,34 +42,62 @@
     NSLog(@"ZTProgressHUD销毁掉了");
 }
 
-- (UIView *)backGroundView
+- (void)setStatus:(NSString *)status
 {
-    if (!_backGroundView) {
-        
+    _status = status;
+    _statusLabel.text = _status;
+}
+
+- (void)initLoadingViewWithStatus:(NSString *)status
+{
+    if (status) {
+        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 140)];
+        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 150, 30)];
+        _statusLabel.text = status;
+        _statusLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        _statusLabel.textAlignment = NSTextAlignmentCenter;
+        _statusLabel.font = [UIFont systemFontOfSize:13.0];
+        [_backGroundView addSubview:_statusLabel];
+    } else {
         _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
-        _backGroundView.center = self.view.center;
-        _backGroundView.backgroundColor = [UIColor whiteColor];
-        _backGroundView.layer.cornerRadius = 5.0;
-        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_pb_earth.png"]];
-        _imageView.image = [UIImage imageNamed:@"ic_pb_earth.png"];
-        if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
-            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-30);
+    }
+    _backGroundView.center = self.view.center;
+    _backGroundView.backgroundColor = [UIColor whiteColor];
+    _backGroundView.layer.cornerRadius = 5.0;
+    _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_pb_earth.png"]];
+    _imageView.image = [UIImage imageNamed:@"ic_pb_earth.png"];
+    if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
+        if (status) {
+            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
         } else {
             _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
         }
-        _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_progress.png"]];
-        _progressView.center = _imageView.center;
-        [_backGroundView addSubview:_progressView];
-        [_backGroundView addSubview:_imageView];
-        _backGroundView.clipsToBounds = YES;
-        [self.view addSubview:_backGroundView];
+    } else {
+        if (status) {
+            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
+        } else {
+            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
+        }
     }
-    return _backGroundView;
+    _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_progress.png"]];
+    _progressView.center = _imageView.center;
+    [_backGroundView addSubview:_progressView];
+    [_backGroundView addSubview:_imageView];
+    _backGroundView.clipsToBounds = YES;
+    
+    [self.view addSubview:_backGroundView];
+
 }
 
 - (void)showHUDInViewController:(UIViewController *)viewController
 {
+    [self showHUDInViewController:viewController withStatus:nil];
+}
+
+- (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status
+{
     _rootViewController = viewController;
+    [self initLoadingViewWithStatus:status];
     //如果要显示的位置不是一个 navigationcontroller。这么设置是为了达到全屏的效果
     if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _rootViewController.navigationController.view.frame.size.width, 64)];
@@ -78,18 +107,20 @@
     }
     [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:self.view];
-    CGPoint resetPoint = self.backGroundView.frame.origin;
+    CGRect resetFrame = self.backGroundView.frame;
+    CGPoint resetCenter = _imageView.center;
     _imageView.center = CGPointZero;
     _progressView.center =CGPointZero;
     [self.backGroundView setFrame:CGRectMake(self.backGroundView.center.x, self.backGroundView.center.y, 0, 0)];
     [self startAnimation];
-
+    
     [UIView animateWithDuration:0.3 animations:^{
-        [self.backGroundView setFrame:CGRectMake(resetPoint.x-2.5, resetPoint.y-2.5, 150, 100)];
-        _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
+        [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x-2.5, resetFrame.origin.y-2.5, resetFrame.size.width, resetFrame.size.height)];
+        _imageView.center = resetCenter;
         _progressView.center = _imageView.center;
     } completion:^(BOOL finished) {
     }];
+
 }
 
 - (void)showHUD
