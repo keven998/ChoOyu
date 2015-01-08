@@ -91,7 +91,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf.navigationController];
+    [_hud showHUDInViewController:weakSelf];
     
     //获取城市信息
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
