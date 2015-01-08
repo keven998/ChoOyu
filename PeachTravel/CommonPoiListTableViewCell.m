@@ -34,7 +34,7 @@
     _photoImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _photoImageView.layer.borderWidth = 0.5;
     _photoImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    self.backgroundColor = APP_PAGE_COLOR;
+    self.backgroundColor = [UIColor whiteColor];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

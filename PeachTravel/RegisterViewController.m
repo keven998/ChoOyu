@@ -71,6 +71,7 @@
 }
 
 - (IBAction)confirmRegister:(UIButton *)sender {
+    [self.view endEditing:YES];
     switch ([self checkInput]) {
         case NoError: {
             [self getCaptcha];
@@ -123,13 +124,13 @@
     [params setObject:kUserRegister forKey:@"actionCode"];
      __weak typeof(RegisterViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         _registerBtn.userInteractionEnabled = YES;
-        [hud hideTZHUD];
         if (code == 0) {
             SMSVerifyViewController *smsVerifyCtl = [[SMSVerifyViewController alloc] init];
             smsVerifyCtl.phoneNumber = self.phoneLabel.text;
