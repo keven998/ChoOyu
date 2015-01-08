@@ -24,16 +24,28 @@
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
-    self.navigationItem.title = @"设置新密码";
-    
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
-    ul.text = @" 新密码:";
-    ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
-    ul.textAlignment = NSTextAlignmentCenter;
-    _passwordLabel.leftView = ul;
-    _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
-    [_passwordLabel becomeFirstResponder];
+    if (_verifyCaptchaType == UserBindTel) {
+        self.navigationItem.title = @"设置密码";
+        UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 76.0, _passwordLabel.bounds.size.height - 16.0)];
+        ul.text = @" 设置密码:";
+        ul.textColor = TEXT_COLOR_TITLE;
+        ul.font = [UIFont systemFontOfSize:14.0];
+        ul.textAlignment = NSTextAlignmentCenter;
+        _passwordLabel.leftView = ul;
+        _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+        _passwordLabel.placeholder = @"给账户设置一个密码";
+        [_passwordLabel becomeFirstResponder];
+    } else {
+        self.navigationItem.title = @"设置新密码";
+        UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
+        ul.text = @" 新密码:";
+        ul.textColor = TEXT_COLOR_TITLE;
+        ul.font = [UIFont systemFontOfSize:14.0];
+        ul.textAlignment = NSTextAlignmentCenter;
+        _passwordLabel.leftView = ul;
+        _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
+        [_passwordLabel becomeFirstResponder];
+    }
 }
 
 #pragma mark - IBAction Methods
