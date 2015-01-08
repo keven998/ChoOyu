@@ -275,7 +275,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 20)];
         view.backgroundColor = APP_PAGE_COLOR;
         if (!self.tableView.isEditing) {
-            spaceView.backgroundColor = [UIColor lightGrayColor];
+            spaceView.backgroundColor = APP_THEME_COLOR;
             [view addSubview:spaceView];
         }
         return view;
@@ -295,7 +295,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [view addSubview:btn];
         
         UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 100)];
-        spaceView.backgroundColor = [UIColor lightGrayColor];
+        spaceView.backgroundColor = APP_THEME_COLOR;
         [view addSubview:spaceView];
         
         return view;
@@ -396,12 +396,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [headerView addSubview:nodeView];
         
         UIView *verticalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 19, 1, 16)];
-        verticalSpaceView.backgroundColor = [UIColor lightGrayColor];
+        verticalSpaceView.backgroundColor = APP_THEME_COLOR;
         [headerView addSubview:verticalSpaceView];
         
         if (section != 0) {
             UIView *verticalSpaceViewUp = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 11)];
-            verticalSpaceViewUp.backgroundColor = [UIColor lightGrayColor];
+            verticalSpaceViewUp.backgroundColor = APP_THEME_COLOR;
             [headerView addSubview:verticalSpaceViewUp];
         }
     }
