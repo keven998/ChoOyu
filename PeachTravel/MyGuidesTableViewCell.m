@@ -32,12 +32,12 @@
     if (_isEditing) {
         [_titleBtn setImage:[UIImage imageNamed:@"ic_plan_title_edit.png"] forState:UIControlStateNormal];
         _titleBtn.imageView.alpha = 0.0;
-        CGRect frame = _titleBtn.titleLabel.frame;
-        frame.origin.x = 28.0;
+//        CGRect frame = _titleBtn.titleLabel.frame;
+//        frame.origin.x = 32.0;
         [UIView animateWithDuration:0.3 animations:^{
             _deleteBtn.alpha = 1;
             _titleBtn.imageView.alpha = 1;
-            _titleBtn.titleLabel.frame = frame;
+//            _titleBtn.titleLabel.frame = frame;
         } completion:^(BOOL finished) {
 //            _deleteBtn.alpha = 1;
 //            _titleBtn.imageView.alpha = 1.0;
