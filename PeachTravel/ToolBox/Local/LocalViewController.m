@@ -440,7 +440,12 @@
 #pragma mark - DMFilterViewDelegate
 
 - (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
-    [_swipeView setCurrentPage:index];
+    if (_swipeView.currentPage == index) {
+        UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
+        [currentTableView setContentOffset:CGPointZero animated:YES];
+    } else {
+        [_swipeView setCurrentPage:index];
+    }
 }
 
 #pragma mark - MKMapViewDelegate

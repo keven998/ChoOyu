@@ -66,7 +66,9 @@ const CGFloat kAnimationSpeed = 0.20;
                                         self.frame.size.height)];
             [button setTitle:string forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:[noremalImages objectAtIndex:tag]] forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:[highLightedImages objectAtIndex:tag]] forState:UIControlStateDisabled];
+            [button setImage:[UIImage imageNamed:[highLightedImages objectAtIndex:tag]] forState:UIControlStateSelected];
+            
+            button.selected = YES;
             [button setTitleColor:APP_THEME_COLOR forState:UIControlStateDisabled];
 
             [button addTarget:self
@@ -122,7 +124,7 @@ const CGFloat kAnimationSpeed = 0.20;
         CGFloat animationSpeed;
         if ([self.delegate respondsToSelector:@selector(filterViewDisplayAnimatioSpeed:)]) {
             animationSpeed = [self.delegate filterViewDisplayAnimatioSpeed:self];
-        }
+        }   
         else{
             animationSpeed = kAnimationSpeed;
         }
@@ -151,10 +153,10 @@ const CGFloat kAnimationSpeed = 0.20;
     for (UIButton *btn in self.subviews) {
         if ([btn isKindOfClass:[UIButton class]]) {
             if ([button isEqual:btn]) {
-                btn.enabled = NO;
+                btn.selected = YES;
             }
             else{
-                btn.enabled = YES;
+                btn.selected = NO;
             }
         }
     }
