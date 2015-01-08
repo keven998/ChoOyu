@@ -96,8 +96,8 @@
                     return;
                 }
                 _account = nil;
-                completion(YES);
                 [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+                completion(YES);
             }
         } onQueue:nil];
     } else {
@@ -109,8 +109,8 @@
             return;
         }
         _account = nil;
-        completion(YES);
         [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+        completion(YES);
     }
 }
 
