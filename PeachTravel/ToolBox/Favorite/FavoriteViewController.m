@@ -282,7 +282,7 @@
  */
 - (IBAction)deleteFavorite:(UIButton *)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定移除收藏" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             if (buttonIndex == 1) {
@@ -380,16 +380,19 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showHint:@"OK!成功删除"];
+//            [SVProgressHUD showHint:@"OK!成功删除"];
             NSInteger index = [self.dataSource indexOfObject:favorite];
             [self.dataSource removeObject:favorite];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             if (_dataSource.count == 0) {
+                self.slimeView.loading = YES;
+                [self pullToRefreash:nil];
+            } else if (index < PAGE_COUNT) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [self cacheFirstPage];
+                });
             }
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [self cacheFirstPage];
-            });
         } else {
             [hud hideTZHUD];
             if (self.isVisible) {

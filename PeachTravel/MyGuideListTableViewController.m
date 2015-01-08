@@ -328,15 +328,20 @@ static NSString *reusableCell = @"myGuidesCell";
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [SVProgressHUD showHint:@"OK~成功删除"];
+//            [SVProgressHUD showHint:@"OK~成功删除"];
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [self cacheFirstPage:responseObject];
-            });
+            
+            if (self.dataSource.count == 0) {
+                self.slimeView.loading = YES;
+                [self pullToRefreash:nil];
+            } else if (index < PAGE_COUNT) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [self cacheFirstPage:responseObject];
+                });
+            }
         } else {
              if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
@@ -383,7 +388,7 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self showHint:@"OK!修改成功"];
+//            [self showHint:@"OK~修改成功"];
             [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:0.3];
 
             guideSummary.title = title;
