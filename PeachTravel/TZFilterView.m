@@ -45,7 +45,8 @@
         [self addSubview:spaceViewButtom];
         
         _comfirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-115)/2, self.bounds.size.height-42, 115, 32)];
-        _comfirmBtn.backgroundColor = APP_THEME_COLOR;
+//        _comfirmBtn.backgroundColor = APP_THEME_COLOR;
+        [_comfirmBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         _comfirmBtn.layer.cornerRadius = 2.0;
         [_comfirmBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -136,8 +137,10 @@
                 }
                 UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5+40*line, size.width+30, 30)];
                 [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateHighlighted];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
                 btn.layer.borderColor = APP_PAGE_COLOR.CGColor;
@@ -167,8 +170,10 @@
                 CGSize size = [itemTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
                 UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5, size.width+30, 30)];
                 [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateHighlighted];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
                 btn.clipsToBounds = YES;

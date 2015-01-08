@@ -101,15 +101,15 @@
     self.emptyView.center = CGPointMake(self.view.frame.size.width/2.0, 160.0);
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 20.0, width - 50.0, 16.0)];
-    label1.font = [UIFont systemFontOfSize:13.0];
+    label1.font = [UIFont systemFontOfSize:14.0];
     label1.textColor = APP_THEME_COLOR;
     label1.textAlignment = NSTextAlignmentCenter;
     label1.textAlignment = NSTextAlignmentLeft;
     label1.text = @"蜜蜜新标签-桃友";
     [self.emptyView addSubview:label1];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 38.0, width - 50.0, 16.0)];
-    label.font = [UIFont systemFontOfSize:12.0];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 40.0, width - 50.0, 16.0)];
+    label.font = [UIFont systemFontOfSize:13.0];
     label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
