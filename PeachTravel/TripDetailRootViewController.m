@@ -82,7 +82,7 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否需要小桃为你推荐行程，制作memo更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"为我推荐", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否需要小桃为你推荐行程，制作memo更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"给我推荐", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
