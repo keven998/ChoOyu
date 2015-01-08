@@ -50,6 +50,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -64,12 +65,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchController.searchResultsTableView.delegate = self;
     _searchController.searchResultsTableView.dataSource = self;
     if (self.tripDetail) {
-        UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-        self.navigationItem.rightBarButtonItem = filterBtn;
-        [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
+        if (self.tripDetail.destinations.count > 1) {
+            UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+            [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+            self.navigationItem.rightBarButtonItem = filterBtn;
+        }
     } else {
 //        if (_poiType == kRestaurantPoi) {
 //            self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];

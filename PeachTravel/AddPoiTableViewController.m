@@ -74,7 +74,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"添加安排";
+    self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
     
 //    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
 //    [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
@@ -86,7 +86,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 //    [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
     
-    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
+    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
     self.navigationItem.leftBarButtonItem = finishBtn;
     
     UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
@@ -245,6 +245,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     } else {
         [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+    [SVProgressHUD showHint:@"已添加"];
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
 }
 
 - (IBAction)deletePoi:(UIButton *)sender
@@ -268,6 +271,8 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     } else {
         [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
 }
 
 - (void)filter:(id)sender
