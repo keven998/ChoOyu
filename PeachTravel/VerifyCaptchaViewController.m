@@ -45,7 +45,7 @@
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
-            self.navigationItem.rightBarButtonItem.title = @"绑定 ";
+            self.navigationItem.rightBarButtonItem.title = @"提交 ";
         } else {
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"真羡慕有两个手机的美眉";
@@ -54,8 +54,9 @@
         }
        
     } else {
-        self.navigationItem.title = @"验证账户";
+        self.navigationItem.title = @"验证用户";
 //        [_registerBtn setTitle:@"提交" forState:UIControlStateNormal];
+        _phoneLabel.placeholder = @"请输入手机号";
         self.navigationItem.rightBarButtonItem.title = @"提交 ";
     }
     
