@@ -63,7 +63,8 @@
 
 - (void)shareToWeChat
 {
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"hei, 下载我们的桃子旅行吧，可以聊天泡妞哦" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+    
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:[NSString stringWithFormat:@"我正在用桃子旅行，最方便的美眉旅行助手。桃子旅行搜索: %@ 加我", [AccountManager shareAccountManager].account.nickName] image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }

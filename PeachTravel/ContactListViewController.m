@@ -113,7 +113,7 @@
     label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
-    label.text = @"快邀爱旅行的蜜蜜们加入Talk成为桃友吧~";
+    label.text = @"爱旅行的蜜蜜们之间的专属小天地~";
     [self.emptyView addSubview:label];
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_indicator.png"]];
