@@ -33,7 +33,6 @@
         _travelMonth = [json objectForKey:@"travelMonth"];
         _imageCount = [[json objectForKey:@"imageCnt"] integerValue];
         _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
-        
     }
     return self;
 }

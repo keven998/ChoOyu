@@ -120,7 +120,6 @@
     _isVisible = NO;
 }
 
-
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
@@ -234,7 +233,6 @@
 - (void)userDidLogout
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
-
 }
 
 - (void)goBack

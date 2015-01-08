@@ -20,14 +20,15 @@
 #import "PushMsgsViewController.h"
 #import "UMSocial.h"
 
-#define dataSource               @[@[@"分享账户管理", @"我收到的消息", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource               @[@[@"分享账户管理", @"我收到的消息", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
 
-@interface MineTableViewController ()
+@interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) AccountManager *accountManager;
+@property (strong, nonatomic) UITableView *tableView;
 
 @end
 
@@ -37,18 +38,45 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-50)];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"我";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
+//    if (self.rdv_tabBarController.tabBar.translucent) {
+//        UIEdgeInsets insets = UIEdgeInsetsMake(0,
+//                                               0,
+//                                               CGRectGetHeight(self.rdv_tabBarController.tabBar.frame),
+//                                               0);
+//        
+//        self.tableView.contentInset = insets;
+//        self.tableView.scrollIndicatorInsets = insets;
+//    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self rdv_tabBarController] setTabBarHidden:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[self rdv_tabBarController] setTabBarHidden:YES];
 }
 
 - (void)dealloc
@@ -99,16 +127,14 @@
 - (IBAction)userLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    loginCtl.hidesBottomBarWhenPushed = YES;
     loginCtl.isPushed = YES;
-    [_rootCtl.navigationController pushViewController:loginCtl animated:YES];
+    [self.navigationController pushViewController:loginCtl animated:YES];
 }
 
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
-    registerCtl.hidesBottomBarWhenPushed = YES;
-    [_rootCtl.navigationController pushViewController:registerCtl animated:YES];
+    [self.navigationController pushViewController:registerCtl animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -134,7 +160,7 @@
     if (section == 0) {
         return 1;
     } else {
-        return [dataSource[section-1] count];
+        return [cellDataSource[section-1] count];
     }
 }
 
@@ -175,7 +201,7 @@
         
     } else {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
-        cell.titleView.text = [[dataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        cell.titleView.text = [[cellDataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         if (indexPath.section == 1) {
             switch (indexPath.row) {
                 case 0:
@@ -215,30 +241,26 @@
     if (indexPath.section == 0) {
         if (self.accountManager.isLogin) {
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
-            userInfoCtl.hidesBottomBarWhenPushed = YES;
-            [_rootCtl.navigationController pushViewController:userInfoCtl animated:YES];
+            [self.navigationController pushViewController:userInfoCtl animated:YES];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
-            accountManagerCtl.hidesBottomBarWhenPushed = YES;
-            [_rootCtl.navigationController pushViewController:accountManagerCtl animated:YES];
+            [self.navigationController pushViewController:accountManagerCtl animated:YES];
         } else if (indexPath.row == 1) {
             PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
-            ctl.hidesBottomBarWhenPushed = YES;
-            [_rootCtl.navigationController pushViewController:ctl animated:YES];
+            [self.navigationController pushViewController:ctl animated:YES];
         } else if (indexPath.row == 2) {
             [self shareToWeChat];
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
-            settingCtl.hidesBottomBarWhenPushed = YES;
-            [_rootCtl.navigationController pushViewController:settingCtl animated:YES];
+
+            [self.navigationController pushViewController:settingCtl animated:YES];
         } else if (indexPath.row == 1) {
             AboutController *aboutCtl = [[AboutController alloc] init];
-            aboutCtl.hidesBottomBarWhenPushed = YES;
-            [_rootCtl.navigationController pushViewController:aboutCtl animated:YES];
+            [self.navigationController pushViewController:aboutCtl animated:YES];
         }
     }
 //    if ([_rootCtl.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {

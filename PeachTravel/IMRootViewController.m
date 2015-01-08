@@ -65,6 +65,7 @@
 - (void)goBack
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    [[self rdv_tabBarController] setTabBarHidden:NO];
 }
 
 

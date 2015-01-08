@@ -151,6 +151,9 @@
 - (NSInteger)getValidNextPageIndexWithPageIndex:(NSInteger)currentPageIndex;
 {
     if(currentPageIndex == -1) {
+        if (self.totalPageCount == 0) {
+            return 0;
+        }
         return self.totalPageCount - 1;
     } else if (currentPageIndex == self.totalPageCount) {
         return 0;
@@ -174,6 +177,9 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (_totalPageCount == 0) {
+        return;
+    }
     int contentOffsetX = scrollView.contentOffset.x;
     if(contentOffsetX >= (2 * CGRectGetWidth(scrollView.frame))) {
         self.currentPageIndex = [self getValidNextPageIndexWithPageIndex:self.currentPageIndex + 1];

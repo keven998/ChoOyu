@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
 
-@interface MineTableViewController : UITableViewController
-
-@property (nonatomic, weak) HomeViewController *rootCtl;
+@interface MineTableViewController : UIViewController
 
 
 @end

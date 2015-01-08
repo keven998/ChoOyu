@@ -20,9 +20,9 @@
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define dataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"旅行签名"], @[@"修改密码", @"手机绑定"]]
+#define cellDataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"旅行签名"], @[@"修改密码", @"手机绑定"]]
 
-@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>
+@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
+@property (nonatomic, strong) UITableView *tableView;
+
 @end
 
 @implementation UserInfoTableViewController
@@ -40,16 +42,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
     self.navigationItem.title = @"个人信息";
-    [self.tableView setContentInset:UIEdgeInsetsMake(10.0, 0, 0, 0)];
-    self.tableView.tableFooterView = self.footerView;
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:userInfoHeaderCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
-    
+    self.tableView.tableFooterView = self.footerView;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
-
 }
 
 - (void)goBack
@@ -284,15 +290,18 @@
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    }
     return 10.0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return dataSource.count;
+    return cellDataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [dataSource[section] count];
+    return [cellDataSource[section] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -302,13 +311,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
-        cell.cellLabel.text = dataSource[indexPath.section][indexPath.row];
+        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
         [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
-        cell.cellTitle.text = dataSource[indexPath.section][indexPath.row];
+        cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];

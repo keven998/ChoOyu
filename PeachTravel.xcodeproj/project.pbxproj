@@ -111,7 +111,6 @@
 		D906CBD91A2068C800BE2588 /* LocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D906CBD71A2068C800BE2588 /* LocationTableViewCell.m */; };
 		D906CBDA1A2068C800BE2588 /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D906CBD81A2068C800BE2588 /* LocationTableViewCell.xib */; };
 		D908579C19ED004C0041A4E2 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */; };
-		D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */; };
 		D90857A919ED0F890041A4E2 /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */; };
 		D90857AA19ED0F890041A4E2 /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */; };
 		D90857B119EE0C330041A4E2 /* SMSVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857AF19EE0C330041A4E2 /* SMSVerifyViewController.m */; };
@@ -865,7 +864,6 @@
 		D906CBD81A2068C800BE2588 /* LocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewCell.xib; sourceTree = "<group>"; };
 		D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
 		D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
-		D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoTableViewController.xib; sourceTree = "<group>"; };
 		D90857A619ED0F890041A4E2 /* UserHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeaderTableViewCell.h; sourceTree = "<group>"; };
 		D90857A719ED0F890041A4E2 /* UserHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeaderTableViewCell.m; sourceTree = "<group>"; };
 		D90857A819ED0F890041A4E2 /* UserHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -2142,7 +2140,6 @@
 			children = (
 				D908579919ED004C0041A4E2 /* UserInfoTableViewController.h */,
 				D908579A19ED004C0041A4E2 /* UserInfoTableViewController.m */,
-				D908579B19ED004C0041A4E2 /* UserInfoTableViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -5108,7 +5105,6 @@
 				C6A0C6B41A3A89A6009D9768 /* ic_layer_edit_highlight@2x.png in Resources */,
 				D9681A181A109C4700122793 /* tutorial_background_02@2x.jpg in Resources */,
 				C6A0C6C21A3AB60A009D9768 /* ic_fav_spot@2x.png in Resources */,
-				D908579D19ED004C0041A4E2 /* UserInfoTableViewController.xib in Resources */,
 				D90F35ED19F63B3300E26FA9 /* call_out_h.png in Resources */,
 				D955E59E19E7C87E00047F2B /* AccountManagerTableViewCell.xib in Resources */,
 				D92F1ABE1A5A84BB00CD1A63 /* bao_rain@2x.png in Resources */,

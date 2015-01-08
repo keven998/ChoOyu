@@ -21,6 +21,7 @@
     
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
     finishBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
+    finishBtn.title = @"返回";
     self.navigationItem.leftBarButtonItem = finishBtn;
 
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
