@@ -25,6 +25,7 @@
 
 - (void)prepareLayout
 {
+    NSLog(@"prepareLayout");
     NSInteger sections = [_delegate numberOfSectionsInTZCollectionView:self.collectionView];
     _width = [_delegate tzcollectionLayoutWidth];
     _itemsAttributes = [[NSMutableArray alloc] init];

@@ -605,6 +605,7 @@ static NSString *reusableCell = @"myGuidesCell";
     cell.isEditing = _isEditing;
     if (_isEditing) {
         cell.titleBtn.userInteractionEnabled = YES;
+        cell.titleBtn.tag = indexPath.row;
         [cell.titleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         cell.titleBtn.userInteractionEnabled = NO;
@@ -708,12 +709,9 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void) tripUpdate:(id)jsonString {
-    NSString *str = [jsonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (str.length > 0) {
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
-        });
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
+    });
 }
 
 @end
