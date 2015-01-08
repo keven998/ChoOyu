@@ -48,6 +48,7 @@
 //        _comfirmBtn.backgroundColor = APP_THEME_COLOR;
         [_comfirmBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         _comfirmBtn.layer.cornerRadius = 2.0;
+        _comfirmBtn.clipsToBounds = YES;
         [_comfirmBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_comfirmBtn];
