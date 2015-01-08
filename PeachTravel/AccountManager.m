@@ -51,7 +51,7 @@
 //用户是否登录
 - (BOOL)isLogin
 {
-    return self.account != nil;
+    return (self.account != nil) && [[EaseMob sharedInstance].chatManager isLoggedIn];
 }
 
 //用户是否曾绑定过手机号
@@ -90,7 +90,7 @@
             else{
                 [self.context deleteObject:self.account];
                 NSError *error = nil;
-                [self.context save:&error];
+                [self save];
                 if (error) {
                     completion(NO);
                     return;
@@ -103,7 +103,7 @@
     } else {
         [self.context deleteObject:self.account];
         NSError *error = nil;
-        [self.context save:&error];
+        [self save];
         if (error) {
             completion(NO);
             return;
@@ -117,6 +117,11 @@
 //用户桃子系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
+    if (self.account) {
+        [self.context deleteObject:self.account];
+        [self save];
+        _account = nil;
+    }
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
 }
