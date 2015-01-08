@@ -127,7 +127,7 @@
             } else {
                 completion(NO);
                 if (code == 401) {
-                    [self showHint:@"你已经收藏过啦"];
+                    [self showHint:@"已收藏"];
                 } else {
 //                    [self showHint:@"请求也是失败了"];
                 }
@@ -146,7 +146,7 @@
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                [self showHint:@"收藏取消"];
+//                [self showHint:@"收藏取消"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {

@@ -91,9 +91,19 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 //        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
 //        leftBtn.tintColor = APP_THEME_COLOR;
 //        self.navigationItem.leftBarButtonItem = leftBtn;
-        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
-        leftBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
-        self.navigationItem.leftBarButtonItem = leftBtn;
+        
+        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(finishAdd:)forControlEvents:UIControlEventTouchUpInside];
+        [button setFrame:CGRectMake(0, 0, 48, 30)];
+        [button setTitle:@"返回" forState:UIControlStateNormal];
+        [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+        button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+        button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.leftBarButtonItem = barButton;
     }
     NSString *searchPlaceHolder;
     if (_poiType == kRestaurantPoi) {

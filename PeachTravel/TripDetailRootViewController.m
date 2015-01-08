@@ -49,13 +49,17 @@
     self.navigationController.navigationBar.translucent = YES;
     
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _backButton.frame = CGRectMake(0.0, 0.0, 40.0, 27.0);
+    [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
+    [_backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    _backButton.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-    temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
-    [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
+    self.navigationItem.leftBarButtonItem = barButton;
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
