@@ -11,8 +11,7 @@
 #import "AppUtils.h"
 #import "AccountManager.h"
 
-@interface FeedbackController () {
-}
+@interface FeedbackController ()
 
 @property (nonatomic, strong) UITextView *contentEditor;
 
@@ -67,21 +66,24 @@
     self.navigationItem.rightBarButtonItem = backBtn;
 }
 
+- (void)goBack
+{
+    [contentEditor resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
 }
 
 - (IBAction)sendFeedback:(id)sender {
+    [contentEditor resignFirstResponder];
     [self feedback];
 }
 
 - (void) feedback {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-     __weak typeof(FeedbackController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
     
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -89,6 +91,11 @@
         [SVProgressHUD showHint:@"你的吐槽呢，我读书少不要骗我"];
         return;
     }
+    
+    __weak typeof(FeedbackController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf.navigationController];
+
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    trimText, @"body",
