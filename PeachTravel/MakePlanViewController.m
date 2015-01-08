@@ -286,6 +286,12 @@
     [domesticCtl reloadData];
     ForeignViewController *foreignCtl = [self.viewControllers lastObject];
     [foreignCtl reloadData];
+    if (cell.statusBtn.hidden) {
+        [SVProgressHUD showHint:@"删除目的地成功"];
+    } else {
+        [SVProgressHUD showHint:@"添加目的地成功"];
+    }
+    [_searchController setActive:NO animated:YES];
     
 }
 
