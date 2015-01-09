@@ -250,11 +250,13 @@
             break;
         }
     }
-    if (!find) {
-        cell.statusBtn.hidden = YES;
-    } else {
-        cell.statusBtn.hidden = NO;
-    }
+//    if (!find) {
+////        cell.statusBtn.hidden = YES;
+//        
+//    } else {
+////        cell.statusBtn.hidden = NO;
+//    }
+    cell.statusBtn.selected = find;
     return cell;
 }
 
@@ -280,19 +282,24 @@
         [self.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
     }
     SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.statusBtn.hidden = !cell.statusBtn.hidden;
+//    cell.statusBtn.hidden = !cell.statusBtn.hidden;
+    cell.statusBtn.selected = !cell.statusBtn.selected;
     
     DomesticViewController *domesticCtl = [self.viewControllers firstObject];
     [domesticCtl reloadData];
     ForeignViewController *foreignCtl = [self.viewControllers lastObject];
     [foreignCtl reloadData];
-    if (cell.statusBtn.hidden) {
-        [SVProgressHUD showHint:@"删除目的地成功"];
+    if (cell.statusBtn.selected) {
+        [SVProgressHUD showHint:@"已添加"];
     } else {
-        [SVProgressHUD showHint:@"添加目的地成功"];
+        [SVProgressHUD showHint:@"已取消"];
     }
-    [_searchController setActive:NO animated:YES];
     
+    [self performSelector:@selector(dismissSVC) withObject:nil afterDelay:1.1];
+}
+
+- (void) dismissSVC {
+    [_searchController setActive:NO animated:YES];
 }
 
 #pragma mark - searchBar
