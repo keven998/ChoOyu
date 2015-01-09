@@ -34,6 +34,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
+    _domesticCollectionView.contentInset = UIEdgeInsetsMake(10, 0, 60, 0);
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
     layout.delegate = self;
@@ -64,7 +65,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _tzScrollView.delegate = nil;
+//    _tzScrollView.delegate = nil;
     _domesticCollectionView.delegate = nil;
     _domesticCollectionView.dataSource = nil;
 }
@@ -77,23 +78,23 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     return _dataSource;
 }
 
-- (TZScrollView *)tzScrollView
-{
-    if (!_tzScrollView) {
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10.0, kWindowWidth, 52.0)];
-        _tzScrollView.itemWidth = 22;
-        _tzScrollView.itemHeight = 22;
-        _tzScrollView.itemBackgroundColor = UIColorFromRGB(0xd2d2d2);
-        _tzScrollView.backgroundColor = [UIColor whiteColor];
-        _tzScrollView.layer.shadowRadius = 0.5;
-        _tzScrollView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-        _tzScrollView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
-        _tzScrollView.layer.shadowOpacity = 1.0;
-        _tzScrollView.delegate = self;
-        _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
-    }
-    return _tzScrollView;
-}
+//- (TZScrollView *)tzScrollView
+//{
+//    if (!_tzScrollView) {
+//        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10.0, kWindowWidth, 52.0)];
+//        _tzScrollView.itemWidth = 22;
+//        _tzScrollView.itemHeight = 22;
+//        _tzScrollView.itemBackgroundColor = UIColorFromRGB(0xd2d2d2);
+//        _tzScrollView.backgroundColor = [UIColor whiteColor];
+//        _tzScrollView.layer.shadowRadius = 0.5;
+//        _tzScrollView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+//        _tzScrollView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
+//        _tzScrollView.layer.shadowOpacity = 1.0;
+//        _tzScrollView.delegate = self;
+//        _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
+//    }
+//    return _tzScrollView;
+//}
 
 - (void)reloadData
 {
@@ -103,7 +104,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)updateView
 {
     _dataSource = [_destinations destinationsGroupByPin];
-    [self.view addSubview:self.tzScrollView];
+//    [self.view addSubview:self.tzScrollView];
     [self.domesticCollectionView reloadData];
 }
 
@@ -294,7 +295,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
         (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
     }
-    self.tzScrollView.currentIndex = firstSection;
+//    self.tzScrollView.currentIndex = firstSection;
 
 }
 
@@ -308,7 +309,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
     }
     
-    self.tzScrollView.currentIndex = firstSection;
+//    self.tzScrollView.currentIndex = firstSection;
 }
 
 @end

@@ -85,10 +85,12 @@
         imageView.image = [UIImage imageNamed:@"ic_next_step.png"];
         UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
         nextBtn.layer.cornerRadius = 27.0;
-        nextBtn.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
+//        nextBtn.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
+        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:[APP_THEME_COLOR colorWithAlphaComponent:0.9]] forState:UIControlStateNormal];
+        nextBtn.clipsToBounds = YES;
         [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
         [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
         [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
         [_nextView addSubview:imageView];
         [_nextView addSubview:nextBtn];
@@ -120,7 +122,7 @@
         [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
         [self.navigationController setViewControllers:array animated:YES];
     } else {
-        [SVProgressHUD showErrorWithStatus:@"请先登录"];
+        [SVProgressHUD showHint:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
     }
 }
