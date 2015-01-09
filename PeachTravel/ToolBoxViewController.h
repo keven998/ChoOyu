@@ -15,8 +15,6 @@
 @property (strong, nonatomic) WeatherInfo *weatherInfo;
 @property (strong, nonatomic) CLLocation *location;
 
-@property (nonatomic, weak) HomeViewController *rootCtl;
-
 /**
  *  进入的聊天列表界面
  *

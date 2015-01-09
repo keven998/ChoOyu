@@ -259,8 +259,8 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
         if (self.isShowing) {
+            [hud hideTZHUD];
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];

@@ -60,14 +60,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.rootCtl setTabBarHidden:NO];
+
+    [[self rdv_tabBarController] setTabBarHidden:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.rootCtl setTabBarHidden:YES];
 }
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
+
 
 - (void)dealloc
 {
@@ -119,12 +125,14 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     loginCtl.isPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
+    [[self rdv_tabBarController] setTabBarHidden:YES];
 }
 
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:registerCtl animated:YES];
+    [[self rdv_tabBarController] setTabBarHidden:YES];
 }
 
 #pragma mark - Table view data source
@@ -231,14 +239,17 @@
         if (self.accountManager.isLogin) {
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
             [self.navigationController pushViewController:userInfoCtl animated:YES];
+            [[self rdv_tabBarController] setTabBarHidden:YES];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
             [self.navigationController pushViewController:accountManagerCtl animated:YES];
+            [[self rdv_tabBarController] setTabBarHidden:YES];
         } else if (indexPath.row == 1) {
             PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
             [self.navigationController pushViewController:ctl animated:YES];
+            [[self rdv_tabBarController] setTabBarHidden:YES];
         } else if (indexPath.row == 2) {
             [self shareToWeChat];
         }
@@ -247,9 +258,12 @@
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
 
             [self.navigationController pushViewController:settingCtl animated:YES];
+            [[self rdv_tabBarController] setTabBarHidden:YES];
+
         } else if (indexPath.row == 1) {
             AboutController *aboutCtl = [[AboutController alloc] init];
             [self.navigationController pushViewController:aboutCtl animated:YES];
+            [[self rdv_tabBarController] setTabBarHidden:YES];
         }
     }
 //    if ([_rootCtl.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
