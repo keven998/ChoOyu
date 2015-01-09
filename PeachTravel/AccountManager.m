@@ -530,7 +530,7 @@
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinyin" ascending:YES]];
     [chineseStringsArray sortUsingDescriptors:sortDescriptors];
     
-    NSMutableArray *arrayForArrays = [NSMutableArray array];
+    NSMutableArray *arrayForArrays = [[NSMutableArray alloc] init];
     BOOL checkValueAtIndex= NO;  //flag to check
     NSMutableArray *TempArrForGrouping = nil;
     

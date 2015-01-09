@@ -527,12 +527,8 @@
 - (void)changePage:(UIButton *)sender
 {
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
-    NSLog(@"***tag:%ld",newController.view.tag);
     
     if ([newController isEqual:_currentViewController]) {
-        NSLog(@"%ld",sender.tag);
-        NSLog(@"old: %ld new:%ld", newController.view.tag, _currentViewController.view.tag);
-        NSLog(@"不需要切换");
         return;
     }
     [self replaceController:_currentViewController newController:newController];

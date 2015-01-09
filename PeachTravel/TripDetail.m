@@ -144,9 +144,8 @@
     [uploadDicToSave safeSetObject:destinationsArray forKey:@"localities"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:uploadDicToSave options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-    NSLog(@"经过辛辛苦苦的增删改查终于编辑好了,路线内容为：\n%@",str);
+    NSLog(@"经过辛辛苦苦的增删改查终于编辑好了,路线内容为：\n%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     
     [self uploadTripData:uploadDicToSave andUpdateDicToUpdateBackUpTrip:uploadDicToUpdateBackUpTrip completionBlock:completion];
 }

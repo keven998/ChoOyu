@@ -104,9 +104,9 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
     if (_isSearch) {
-        [params setObject:keyWord forKey:@"keyWord"];
+        [params safeSetObject:keyWord forKey:@"keyWord"];
     } else {
-        [params setObject:_cityId forKey:@"locId"];
+        [params safeSetObject:_cityId forKey:@"locId"];
     }
     
     //获取城市的美食列表信息

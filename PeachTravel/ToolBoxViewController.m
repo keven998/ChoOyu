@@ -821,8 +821,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didRejectedByBuddy:(NSString *)username
 {
-    NSString *message = [NSString stringWithFormat:@"你被'%@'无耻的拒绝了", username];
-    NSLog(@"%@", message);
+    NSLog(@"%@", [NSString stringWithFormat:@"你被'%@'无耻的拒绝了", username]);
 }
 
 - (void)didAcceptBuddySucceed:(NSString *)username{
@@ -877,8 +876,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                           invitee:(NSString *)username
                            reason:(NSString *)reason
 {
-    NSString *message = [NSString stringWithFormat:@"你被'%@'无耻的拒绝了", username];
-    NSLog(@"%@", message);
+    NSLog(@"%@", [NSString stringWithFormat:@"你被'%@'无耻的拒绝了", username]);
 }
 
 
