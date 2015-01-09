@@ -385,7 +385,6 @@
 		D9545FC21A22EF9700688D72 /* RDVTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FBD1A22EF9700688D72 /* RDVTabBar.m */; };
 		D9545FC31A22EF9700688D72 /* RDVTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FBF1A22EF9700688D72 /* RDVTabBarController.m */; };
 		D9545FC41A22EF9700688D72 /* RDVTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FC11A22EF9700688D72 /* RDVTabBarItem.m */; };
-		D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */; };
 		D9545FCC1A22F36300688D72 /* SpotsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9545FCA1A22F36300688D72 /* SpotsListViewController.m */; };
 		D95460071A22FAAB00688D72 /* TripPoiListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95460051A22FAAB00688D72 /* TripPoiListTableViewCell.m */; };
 		D95460081A22FAAB00688D72 /* TripPoiListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95460061A22FAAB00688D72 /* TripPoiListTableViewCell.xib */; };
@@ -473,6 +472,7 @@
 		D9681A181A109C4700122793 /* tutorial_background_02@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9681A131A109C4700122793 /* tutorial_background_02@2x.jpg */; };
 		D9681A191A109C4700122793 /* tutorial_background_03@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9681A141A109C4700122793 /* tutorial_background_03@2x.jpg */; };
 		D9681A1A1A109C4700122793 /* tutorial_background_04@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9681A151A109C4700122793 /* tutorial_background_04@2x.jpg */; };
+		D976DDA51A5FAA1100D82168 /* TripDetailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D976DDA41A5FAA1100D82168 /* TripDetailRootViewController.m */; };
 		D97B670119E90C70004439A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97B66FF19E90C70004439A3 /* LoginViewController.m */; };
 		D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97B670019E90C70004439A3 /* LoginViewController.xib */; };
 		D97C17D419FE301B00895B62 /* MessageModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C17D319FE301B00895B62 /* MessageModelManager.m */; };
@@ -1300,7 +1300,6 @@
 		D9545FC01A22EF9700688D72 /* RDVTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDVTabBarItem.h; sourceTree = "<group>"; };
 		D9545FC11A22EF9700688D72 /* RDVTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDVTabBarItem.m; sourceTree = "<group>"; };
 		D9545FC61A22F26200688D72 /* TripDetailRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailRootViewController.h; sourceTree = "<group>"; };
-		D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailRootViewController.m; sourceTree = "<group>"; };
 		D9545FC91A22F36300688D72 /* SpotsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotsListViewController.h; sourceTree = "<group>"; };
 		D9545FCA1A22F36300688D72 /* SpotsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotsListViewController.m; sourceTree = "<group>"; };
 		D95460041A22FAAB00688D72 /* TripPoiListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripPoiListTableViewCell.h; sourceTree = "<group>"; };
@@ -1429,6 +1428,7 @@
 		D9681A131A109C4700122793 /* tutorial_background_02@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tutorial_background_02@2x.jpg"; sourceTree = "<group>"; };
 		D9681A141A109C4700122793 /* tutorial_background_03@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tutorial_background_03@2x.jpg"; sourceTree = "<group>"; };
 		D9681A151A109C4700122793 /* tutorial_background_04@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tutorial_background_04@2x.jpg"; sourceTree = "<group>"; };
+		D976DDA41A5FAA1100D82168 /* TripDetailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailRootViewController.m; sourceTree = "<group>"; };
 		D97B66FE19E90C70004439A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		D97B66FF19E90C70004439A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		D97B670019E90C70004439A3 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -3120,7 +3120,7 @@
 				D9B476521A24259A0014136C /* DestinationsView.h */,
 				D9B476531A24259A0014136C /* DestinationsView.m */,
 				D9545FC61A22F26200688D72 /* TripDetailRootViewController.h */,
-				D9545FC71A22F26200688D72 /* TripDetailRootViewController.m */,
+				D976DDA41A5FAA1100D82168 /* TripDetailRootViewController.m */,
 				D95460011A22FA4100688D72 /* SpotsList */,
 				D95460021A22FA5000688D72 /* RestaurantsList */,
 				D95460031A22FA5F00688D72 /* ShoppingList */,
@@ -5234,13 +5234,13 @@
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,
 				D9E81E781A36D95900D3BFD0 /* SearchMoreDestinationViewController.m in Sources */,
+				D976DDA51A5FAA1100D82168 /* TripDetailRootViewController.m in Sources */,
 				D90F364C19F63C2F00E26FA9 /* UIViewController+DismissKeyboard.m in Sources */,
 				D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */,
 				D9B476541A24259A0014136C /* DestinationsView.m in Sources */,
 				D95F8A3B1A3FE5F2003F4275 /* JGProgressHUDFadeAnimation.m in Sources */,
 				D90F35E919F63B3300E26FA9 /* ChatListCell.m in Sources */,
 				D95F8A401A3FE5F2003F4275 /* JGProgressHUDRingIndicatorView.m in Sources */,
-				D9545FC81A22F26200688D72 /* TripDetailRootViewController.m in Sources */,
 				D9E81E7C1A36DD3E00D3BFD0 /* SearchResultTableViewCell.m in Sources */,
 				D9EF98B21A3C16DC00DB480F /* SuperWebViewController.m in Sources */,
 				D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */,

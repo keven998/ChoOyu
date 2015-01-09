@@ -10,7 +10,7 @@
 #import "TripDetail.h"
 
 @protocol TripUpdateDelegate;
-@interface TripDetailRootViewController : RDVTabBarController
+@interface TripDetailRootViewController : UIViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic, strong) NSArray *destinations;

@@ -49,17 +49,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
-    
-//    if (self.rdv_tabBarController.tabBar.translucent) {
-//        UIEdgeInsets insets = UIEdgeInsetsMake(0,
-//                                               0,
-//                                               CGRectGetHeight(self.rdv_tabBarController.tabBar.frame),
-//                                               0);
-//        
-//        self.tableView.contentInset = insets;
-//        self.tableView.scrollIndicatorInsets = insets;
-//    }
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
@@ -70,13 +60,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[self rdv_tabBarController] setTabBarHidden:NO];
+    [self.rootCtl setTabBarHidden:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[self rdv_tabBarController] setTabBarHidden:YES];
+    [self.rootCtl setTabBarHidden:YES];
 }
 
 - (void)dealloc

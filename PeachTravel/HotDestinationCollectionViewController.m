@@ -59,7 +59,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillAppear:animated];
     _isShowing = YES;
     NSLog(@"Hot viewWillAppear");
-    [[self rdv_tabBarController] setTabBarHidden:NO];
+    [self.rootCtl setTabBarHidden:NO];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -67,8 +68,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillDisappear:animated];
     _isShowing = NO;
     NSLog(@"Hot viewWillDisAppear");
-    [[self rdv_tabBarController] setTabBarHidden:YES];
-
+    [self.rootCtl setTabBarHidden:YES];
 
 }
 

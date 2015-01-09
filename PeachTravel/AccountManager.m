@@ -51,7 +51,7 @@
 //用户是否登录
 - (BOOL)isLogin
 {
-    return (self.account != nil) && [[EaseMob sharedInstance].chatManager isLoggedIn];
+    return self.account != nil;
 }
 
 //用户是否曾绑定过手机号

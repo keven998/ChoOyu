@@ -137,10 +137,11 @@
 - (void)hideTZHUD
 {
     // 移除为了实现全屏效果而再 navigationcontroller 上加的一个阴影 view
+    UIView *viewInNavi;
     if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
         for (UIView *view in _rootViewController.navigationController.view.subviews) {
             if (view.tag == 100) {
-                [view removeFromSuperview];
+                viewInNavi = view;
                 break;
             }
         }
@@ -148,10 +149,12 @@
    
     [UIView animateWithDuration:0.15 animations:^{
         self.view.alpha = 0;
+        viewInNavi.alpha = 0;
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview];
         [self willMoveToParentViewController:nil];
         [self removeFromParentViewController];
+        [viewInNavi removeFromSuperview];
     }];
 }
 

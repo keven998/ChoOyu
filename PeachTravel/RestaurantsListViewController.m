@@ -35,7 +35,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110, 40, 40)];
+    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110-62, 40, 40)];
    
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
@@ -51,17 +51,26 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
     }
+    
+    NSLog(@"Rest didload");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    NSLog(@"Rest willAppear");
     for (UIView *subview in self.view.subviews) {
         if ([subview isEqual:_destinationsHeaderView]) {
             return;
         }
     }
     [self.view addSubview:_destinationsHeaderView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"Rest willdisappear");
 }
 
 
@@ -77,7 +86,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64 - 50)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-62-64)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
@@ -98,17 +107,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 108, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addOneDayBtn setTitle:@"收集想吃的" forState:UIControlStateNormal];
-//        addOneDayBtn.backgroundColor = APP_THEME_COLOR;
         addOneDayBtn.clipsToBounds = YES;
         [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         [addOneDayBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
         addOneDayBtn.layer.cornerRadius = 2.0;
         addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [_tableViewFooterView addSubview:addOneDayBtn];
-        
-//        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, self.tableView.frame.size.width, 1)];
-//        spaceView.backgroundColor = [UIColor lightGrayColor];
-//        [_tableViewFooterView addSubview:spaceView];
     }
     return _tableViewFooterView;
 }

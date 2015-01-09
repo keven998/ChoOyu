@@ -205,7 +205,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[self rdv_tabBarController] setTabBarHidden:NO];
+    self.rootCtl.tabBarHidden = NO;
     [self updateUnReadMsgStatus];
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
@@ -216,14 +216,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
     }
     NSLog(@"tool viewWillAppear");
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[self rdv_tabBarController] setTabBarHidden:YES];
-
+    _rootCtl.tabBarHidden = YES;
+    NSLog(@"tool viewWillDisappear");
 }
 
 - (void)dealloc
