@@ -117,12 +117,14 @@
     NSMutableDictionary *allExtMsg = [[NSMutableDictionary alloc] init];
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
-    [userInfo setObject:accountManager.account.userId forKey:@"userId"];
-    [userInfo setObject:accountManager.account.nickName forKey:@"nickName"];
-    [userInfo setObject:accountManager.account.avatar forKey:@"avatar"];
-    
-    [allExtMsg setObject:userInfo forKey:@"fromUser"];
+    //如果是群聊天，聊天信息里应该带上自己信息
+    if (isChatGroup) {
+        NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+        [userInfo setObject:accountManager.account.userId forKey:@"userId"];
+        [userInfo setObject:accountManager.account.nickName forKey:@"nickName"];
+        [userInfo setObject:accountManager.account.avatar forKey:@"avatar"];
+        [allExtMsg setObject:userInfo forKey:@"fromUser"];
+    }
     if (extMsg) {
         [allExtMsg addEntriesFromDictionary:extMsg];
     }
