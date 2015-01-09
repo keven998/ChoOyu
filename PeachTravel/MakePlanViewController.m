@@ -51,7 +51,7 @@
     
     UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索 " style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
     searchBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = searchBtn;
+//    self.navigationItem.rightBarButtonItem = searchBtn;   ／／UNUSE
     
     [self.view addSubview:self.destinationToolBar];
     [self.view addSubview:self.nextView];
