@@ -72,11 +72,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"桃子旅行";
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self setupView];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate= self;
     if (IS_IOS8) {
@@ -95,7 +93,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
-    CGFloat offsetY = 0;
+    CGFloat offsetY = 64.0;
     
     CGFloat sscale = 1.0;
     if (h <= 480.0) {
@@ -207,15 +205,24 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.rootCtl.tabBarHidden = NO;
     [self updateUnReadMsgStatus];
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
     } else {
-        if (!(!_operationDataArray || _operationDataArray.count == 0)) {
+        if (_operationDataArray && _operationDataArray.count > 1) {
             [_galleryPageView.scrollView setContentOffset:CGPointZero];
         }
         [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
     }
+    NSLog(@"tool viewWillAppear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _rootCtl.tabBarHidden = YES;
+    NSLog(@"tool viewWillDisappear");
 }
 
 - (void)dealloc
@@ -224,7 +231,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_galleryPageView stopTimer];
     _galleryPageView = nil;
     [self unregisterNotifications];
-    _rootCtl = nil;
     locationManager.delegate = nil;
     locationManager = nil;
 }
@@ -255,7 +261,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = data.title;
         webCtl.urlStr = data.linkUrl;
-        [weakSelf.rootCtl.navigationController pushViewController:webCtl animated:YES];
+        [weakSelf.navigationController pushViewController:webCtl animated:YES];
     };
     
     if (!self.weatherInfo) {
@@ -264,7 +270,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [_weatherFrame removeFromSuperview];
         [self.view addSubview:_weatherFrame];
     }
-    
 }
 
 /**
@@ -395,8 +400,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
         IMRootCtl.delegate = self;
         IMRootCtl.viewControllers = viewControllers;
-        IMRootCtl.hidesBottomBarWhenPushed = YES;
-        [_rootCtl.navigationController pushViewController:IMRootCtl animated:YES];
+        [self.navigationController pushViewController:IMRootCtl animated:YES];
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
@@ -406,8 +410,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (IBAction)nearBy:(UIButton *)sender {    
     LocalViewController *lvc = [[LocalViewController alloc] init];
-    lvc.hidesBottomBarWhenPushed = YES;
-    [_rootCtl.navigationController pushViewController:lvc animated:YES];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 - (IBAction)myFavorite:(id)sender {
@@ -417,7 +420,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
         FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
-        [_rootCtl.navigationController pushViewController:fvc animated:YES];
+        [self.navigationController pushViewController:fvc animated:YES];
     }
 }
 
@@ -428,7 +431,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
-        [_rootCtl.navigationController pushViewController:myGuidesCtl animated:YES];
+        [self.navigationController pushViewController:myGuidesCtl animated:YES];
     }
 }
 
@@ -437,7 +440,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    [_rootCtl.navigationController presentViewController:nctl animated:YES completion:nil];
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 #pragma mark - private

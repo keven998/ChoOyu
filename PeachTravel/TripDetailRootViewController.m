@@ -32,6 +32,12 @@
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 @property (nonatomic, strong) UIButton *actionBtn;
 
+@property (nonatomic, strong) NSArray *tabbarButtonArray;
+@property (nonatomic, strong) NSArray *tabbarPageControllerArray;
+@property (nonatomic, strong) UIViewController *currentViewController;
+@property (nonatomic, strong) UIView *tabBarView;
+
+
 /**
  *  目的地titile 列表，三个界面共享
  */
@@ -46,8 +52,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
@@ -79,8 +84,6 @@
         [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    _actionBtn.hidden = YES;
-    
     UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_actionBtn];
     self.navigationItem.rightBarButtonItem = addBtn;
     
@@ -110,6 +113,7 @@
         }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -235,7 +239,7 @@
 - (DestinationsView *)destinationsHeaderView
 {
     if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 45) andContentOffsetX:10];
+        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45) andContentOffsetX:10];
         _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
     }
     return _destinationsHeaderView;
@@ -422,8 +426,8 @@
 - (void)showDHView:(BOOL) show {
     CGRect rect = _destinationsHeaderView.frame;
     if (show) {
-        if (rect.origin.y != 64.0) {
-            rect.origin.y = 64.0;
+        if (rect.origin.y != 0) {
+            rect.origin.y = 0;
         } else {
             return;
         }
@@ -432,7 +436,7 @@
         } completion:^(BOOL finished) {
         }];
     } else {
-        if (rect.origin.y == 64.0) {
+        if (rect.origin.y == 0) {
             rect.origin.y -= rect.size.height;
             [UIView animateWithDuration:0.35 animations:^{
                 _destinationsHeaderView.frame = rect;
@@ -444,74 +448,120 @@
 
 - (void)setupViewControllers
 {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[SpotsListViewController alloc] init];
     _spotsListCtl.canEdit = _canEdit;
-    UINavigationController *firstNavigationController = [[UINavigationController alloc]
-                                                   initWithRootViewController:_spotsListCtl];
+
     _spotsListCtl.rootViewController = self;
     _spotsListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
-    UINavigationController *secondNavigationController = [[UINavigationController alloc]
-                                                    initWithRootViewController:_restaurantListCtl];
     _restaurantListCtl.canEdit = _canEdit;
     _restaurantListCtl.rootViewController = self;
     _restaurantListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
-    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
-                                                   initWithRootViewController:_shoppingListCtl];
     _shoppingListCtl.canEdit = _canEdit;
     _shoppingListCtl.rootViewController = self;
     _shoppingListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
-    [self setViewControllers:@[firstNavigationController, secondNavigationController,
-                                           thirdNavigationController]];
+    [self addChildViewController:_spotsListCtl];
+    [self.view addSubview:_spotsListCtl.view];
+    
+    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
+
+    
+    [array addObject:_spotsListCtl];
+    [array addObject:_restaurantListCtl];
+    [array addObject:_shoppingListCtl];
+    _tabbarPageControllerArray = array;
+    
     [self customizeTabBarForController];
+    _currentViewController = _spotsListCtl;
+    UIButton *btn = [_tabbarButtonArray firstObject];
+    btn.selected = YES;
 }
 
 - (void)customizeTabBarForController
 {
-    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 60, 0, 60);
-    self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 62);
-    self.tabBar.backgroundColor = [UIColor whiteColor];
-    
-    UIView *toolBarViewLeft = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, 60, 62)];
-    toolBarViewLeft.backgroundColor = [UIColor whiteColor];
-    UIView *toolBarViewRight = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-62, 60, 62)];
-    toolBarViewRight.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:toolBarViewLeft];
-    [self.view addSubview:toolBarViewRight];
+    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 62)];
+    _tabBarView.backgroundColor = [UIColor whiteColor];
     
     //分割线
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 0.5)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
     spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
-    [self.view addSubview:spaceView];
-    
-    UIImage *finishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
-    UIImage *unfinishedImage = [ConvertMethods createImageWithColor:[UIColor whiteColor]];
+    [_tabBarView addSubview:spaceView];
+    [self.view addSubview:_tabBarView];
 
     NSArray *tabBarItemImages = @[@"first", @"second", @"third"];
     NSArray *tabBarItemTitles = @[@"玩安排", @"吃清单", @"买清单"];
     
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
+    CGFloat width = _tabBarView.frame.size.width;
+
     NSInteger index = 0;
-    for (RDVTabBarItem *item in [[self tabBar] items]) {
-        [item setTitle:tabBarItemTitles[index]];
-        item.titlePositionAdjustment = UIOffsetMake(0, 6);
-        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
-
-        item.itemHeight = 62.0;
-
-        [item setBackgroundSelectedImage:finishedImage withUnselectedImage:unfinishedImage];
+    for (int i=0; i<3; i++) {
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                       [tabBarItemImages objectAtIndex:index]]];
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
                                                         [tabBarItemImages objectAtIndex:index]]];
-        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
+        
+        TZButton *button = [[TZButton alloc] initWithFrame:CGRectMake((50+(width-100)/3*i), 0, (width-100)/3, 62)];
+        [button setImage:unselectedimage forState:UIControlStateNormal];
+        [button setImage:selectedimage forState:UIControlStateSelected];
+        [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [button setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+        [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
+        [array addObject:button];
+        [_tabBarView addSubview:button];
+        button.tag = i;
+        button.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
         
         index++;
     }
+    _tabbarButtonArray = array;
+}
+
+- (void)changePage:(UIButton *)sender
+{
+    UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
+    NSLog(@"***tag:%ld",newController.view.tag);
+    
+    if ([newController isEqual:_currentViewController]) {
+        NSLog(@"%ld",sender.tag);
+        NSLog(@"old: %ld new:%ld", newController.view.tag, _currentViewController.view.tag);
+        NSLog(@"不需要切换");
+        return;
+    }
+    [self replaceController:_currentViewController newController:newController];
+}
+
+- (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
+{
+    [self addChildViewController:newController];
+    [self transitionFromViewController:oldController toViewController:newController duration:0 options:UIViewAnimationOptionTransitionNone animations:nil completion:^(BOOL finished) {
+        if (finished) {
+            [self.view bringSubviewToFront:_tabBarView];
+            [newController didMoveToParentViewController:self];
+            [oldController willMoveToParentViewController:nil];
+            [oldController removeFromParentViewController];
+            self.currentViewController = newController;
+            [newController.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
+
+            NSInteger newIndex = [_tabbarPageControllerArray indexOfObject:newController];
+            for (UIButton *btn in _tabbarButtonArray) {
+                if ([_tabbarButtonArray indexOfObject:btn] == newIndex) {
+                    btn.selected = YES;
+                } else {
+                    btn.selected = NO;
+                }
+            }
+        }else{
+            self.currentViewController = oldController;
+        }
+    }];
 }
 
 #pragma mark AvtivityDelegate

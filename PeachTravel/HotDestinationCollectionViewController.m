@@ -58,12 +58,18 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     [super viewWillAppear:animated];
     _isShowing = YES;
+    NSLog(@"Hot viewWillAppear");
+    [self.rootCtl setTabBarHidden:NO];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     _isShowing = NO;
+    NSLog(@"Hot viewWillDisAppear");
+    [self.rootCtl setTabBarHidden:YES];
+
 }
 
 - (void) initData {
@@ -159,12 +165,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     foreignCtl.title = @"国外";
     domestic.title = @"国内";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    makePlanCtl.hidesBottomBarWhenPushed = YES;
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;
     domestic.notify = NO;
     foreignCtl.notify = NO;
-    [_rootCtl.navigationController pushViewController:makePlanCtl animated:YES];
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 
@@ -261,42 +266,42 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.title = recommend.title;
         webCtl.urlStr = recommend.linkUrl;
-        [_rootCtl.navigationController pushViewController:webCtl animated:YES];
+        [self.navigationController pushViewController:webCtl animated:YES];
     }
     if (recommend.linkType == LinkNative) {
         switch (recommend.poiType) {
             case kCityPoi: {
                 CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
-                [_rootCtl.navigationController pushViewController:ctl animated:YES];
+                [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 
             case kSpotPoi: {
                 SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
                 ctl.spotId = recommend.recommondId;
-                [_rootCtl.navigationController pushViewController:ctl animated:YES];
+                [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 
             case kRestaurantPoi: {
                 RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
                 ctl.restaurantId = recommend.recommondId;
-                [_rootCtl.navigationController pushViewController:ctl animated:YES];
+                [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
             
             case kShoppingPoi: {
                 ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
                 ctl.shoppingId = recommend.recommondId;
-                [_rootCtl.navigationController pushViewController:ctl animated:YES];
+                [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 
             case kHotelPoi: {
                 HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
                 ctl.hotelId = recommend.recommondId;
-                [_rootCtl.navigationController pushViewController:ctl animated:YES];
+                [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
                 

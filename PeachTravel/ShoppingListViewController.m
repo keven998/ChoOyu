@@ -35,7 +35,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
-    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110, 40, 40)];
+    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110-62, 40, 40)];
     
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
@@ -51,6 +51,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
             [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
     }
+    NSLog(@"shopping didload");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,8 +63,14 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         }
     }
     [self.view addSubview:_destinationsHeaderView];
+    NSLog(@"shopping willAppear");
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"shopping willDisappear");
+}
 
 #pragma mark - setter & getter
 
@@ -77,7 +84,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64 - 50)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-62-64)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
@@ -105,10 +112,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         addOneDayBtn.layer.cornerRadius = 2.0;
         addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [_tableViewFooterView addSubview:addOneDayBtn];
-        
-        //        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, self.tableView.frame.size.width, 1)];
-        //        spaceView.backgroundColor = [UIColor lightGrayColor];
-        //        [_tableViewFooterView addSubview:spaceView];
     }
     return _tableViewFooterView;
 }

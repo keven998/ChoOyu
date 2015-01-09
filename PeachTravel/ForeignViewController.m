@@ -202,7 +202,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     headerView.descLabel.text = country.desc;
     
     TaoziImage *image = [country.images firstObject];
-    [headerView.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:[UIImage imageNamed:@"country.jpg"]];
+    [headerView.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
     CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName: headerView.descLabel.font}];
     CGRect frame = headerView.descLabel.frame;

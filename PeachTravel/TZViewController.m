@@ -19,8 +19,6 @@
       
     self.navigationController.navigationBar.translucent = YES;
     
-//    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-//    finishBtn.image = [UIImage imageNamed:@"ic_navigation_back.png"];
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];

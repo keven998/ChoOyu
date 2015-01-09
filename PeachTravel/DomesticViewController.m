@@ -51,14 +51,15 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void) initData {
     [[TMCache sharedCache] objectForKey:@"destination_demostic" block:^(TMCache *cache, NSString *key, id object)  {
-        if (object != nil) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (object != nil) {
                 [_destinations initDomesticCitiesWithJson:object];
                 [self updateView];
-            });
-        } else {
-            [self loadDomesticDataFromServer];
-        }
+            } else {
+                [self loadDomesticDataFromServer];
+            }
+        });
+
     }];
 }
 

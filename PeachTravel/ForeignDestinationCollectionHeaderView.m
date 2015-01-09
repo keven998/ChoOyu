@@ -11,6 +11,9 @@
 @implementation ForeignDestinationCollectionHeaderView
 
 - (void)awakeFromNib {
+    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _headerImageView.layer.borderWidth = 0.5;
+    _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
 }
 
 @end

@@ -311,14 +311,10 @@
         } completion:^(BOOL finished) {
             self.selectContactView.alpha = 0;
         }];
-//        [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
-//        [_confirm setTitle:[NSString stringWithFormat:@"确定"] forState:UIControlStateNormal];
-//        _confirm.userInteractionEnabled = NO;
         self.navigationItem.rightBarButtonItem.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.rightBarButtonItem.title = @"确定 ";
         self.navigationItem.rightBarButtonItem.enabled = NO;
     } else {
-//        [_confirm setTitle:[NSString stringWithFormat:@"确定(%d)", self.selectedContacts.count] forState:UIControlStateNormal];
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%lu)", (unsigned long)self.selectedContacts.count];
     }
     [self.contactTableView reloadData];

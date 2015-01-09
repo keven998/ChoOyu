@@ -11,11 +11,11 @@
 
 @interface HotDestinationCollectionViewController : UIViewController
 
-@property (nonatomic, weak) HomeViewController *rootCtl;
-
 /**
  *  当前 viewcontroller 是否正在显示
  */
 @property (nonatomic) BOOL isShowing;
+
+@property (nonatomic, weak) HomeViewController *rootCtl;
 
 @end

@@ -50,6 +50,15 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager addContact:[extDic objectForKey:@"content"]];
             
+            //如果收到同意好友的的联系人会话里已经有聊天记录了，那么就不添加下面的：“我已经同意。。。“的话了。
+            NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+            for (EMConversation *conversation in conversations) {
+                if ([conversation.chatter isEqualToString:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"]]) {
+                    if (!conversation.latestMessage) {
+                        return;
+                    }
+                }
+            }
             id  chatManager = [[EaseMob sharedInstance] chatManager];
             NSDictionary *loginInfo = [chatManager loginInfo];
             NSString *account = [loginInfo objectForKey:kSDKUsername];
