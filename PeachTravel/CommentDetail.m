@@ -13,15 +13,15 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        _nickName = [json objectForKey:@"nickName"];
-        _avatar = [json objectForKey:@"avatar"];
-        _commentDetails = [json objectForKey:@"commentDetails"];
-        _commentTime = [ConvertMethods timeIntervalToString:([[json objectForKey:@"commentTime"] longLongValue]/1000) withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+        _nickName = [json objectForKey:@"authorName"];
+        _avatar = [json objectForKey:@"authorAvatar"];
+        _commentDetails = [json objectForKey:@"contents"];
+        _commentTime = [ConvertMethods timeIntervalToString:([[json objectForKey:@"cTime"] longLongValue]/1000) withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
         
         if ([json objectForKey:@"rating"] == [NSNull null]) {
             _rating = 3.5;
         } else {
-            _rating = [[json objectForKey:@"rating"] floatValue];
+            _rating = [[json objectForKey:@"rating"] floatValue]*5;
         }
     }
     return self;

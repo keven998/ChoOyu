@@ -27,15 +27,24 @@
 - (void)setCommentDetail:(CommentDetail *)commentDetail
 {
     _commentDetail = commentDetail;
-    CGSize size = [_commentDetail.commentDetails sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11]}];
-    NSInteger lineCount = (size.width / (self.frame.size.width-60)) + 1;
-    _descLabel.numberOfLines = lineCount;
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.0;
+    
+    CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(self.frame.size.width-16, MAXFLOAT)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{
+                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                             NSParagraphStyleAttributeName : style
+                                                             }
+                                                   context:nil].size;
+    
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
+                              , self.frame.size.width, labelSize.height)];
     
     _descLabel.text = commentDetail.commentDetails;
     [_nickNameBtn setTitle:commentDetail.nickName forState:UIControlStateNormal];
     _dateLabel.text = _commentDetail.commentTime;
     
-
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
@@ -51,10 +60,17 @@
 
 + (CGFloat)heightForCommentCellWithComment:(NSString *)commentDetail
 {
-    CGSize size = [commentDetail sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:11.0]}];
-    NSInteger lineCount = (size.width / (kWindowWidth-16)) + 1;
-    CGFloat commentHeight = lineCount*size.height+10;
-    return commentHeight+60;
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.0;
+    
+    CGSize labelSize = [commentDetail boundingRectWithSize:CGSizeMake(kWindowWidth-16-22, MAXFLOAT)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{
+                                                        NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                        NSParagraphStyleAttributeName : style
+                                                        }
+                                              context:nil].size;
+    return labelSize.height+70;
 }
 
 @end

@@ -245,7 +245,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 //                    [self showHint:@"没有了~"];
 //                }
             } else {
-//                [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
             }
         }
         
@@ -617,8 +616,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 106)];
             sectionheaderView.backgroundColor = [UIColor whiteColor];
             UIButton *btn = [[UIButton alloc] initWithFrame:sectionheaderView.frame];
-//            [btn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//            [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
             
             NSUInteger len = [_dataSource.desc length];
             NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
@@ -633,7 +630,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE  range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             
-//            [btn setTitle:_dataSource.desc forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
             btn.titleLabel.numberOfLines = 4;

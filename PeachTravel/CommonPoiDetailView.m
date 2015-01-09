@@ -67,13 +67,17 @@ static NSString *commentCellIdentifier = @"commentCell";
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
 
-    CGFloat oy = 0;
+    CGFloat oy = 10;
     CGFloat width = self.frame.size.width;
     
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 283)];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 293)];
     _headerView.backgroundColor = [UIColor whiteColor];
     _headerView.layer.cornerRadius = 2.0;
     _headerView.clipsToBounds = YES;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 10)];
+    view.backgroundColor = APP_PAGE_COLOR;
+    [_headerView addSubview:view];
     
     _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 130.0) animationDuration:0];
     
@@ -131,7 +135,6 @@ static NSString *commentCellIdentifier = @"commentCell";
     [_headerView addSubview:_titleBtn];
     
     oy += 30;
-    
     
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((width - 73.0)/2, oy, 73.0
                                                                  , 15)];

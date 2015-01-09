@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
+@property (weak, nonatomic) IBOutlet UIButton *commentCntBtn;
 
 @end
 
@@ -70,11 +71,14 @@
         CommentDetail *comment = [poi.comments firstObject];
         _commentAuthor.text = comment.nickName;
         _commentDetail.text = comment.commentDetails;
+        [_commentCntBtn setTitle:[NSString stringWithFormat:@"%d", poi.commentCount] forState:UIControlStateNormal];
+        [_commentCntBtn setImage:[UIImage imageNamed:@"ic_comment_flag.png"] forState:UIControlStateNormal];
         _spaceView.hidden = NO;
     } else {
         _commentDetail.hidden = YES;
         _commentAuthor.hidden = YES;
         _jumpCommentBtn.hidden = YES;
+        _commentCntBtn.hidden= YES;
         _spaceView.hidden = YES;
     }
 }
