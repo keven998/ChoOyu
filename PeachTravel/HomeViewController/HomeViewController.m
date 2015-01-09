@@ -299,17 +299,14 @@
 - (void)setupViewControllers
 {
     _toolBoxCtl = [[ToolBoxViewController alloc] init];
-    _toolBoxCtl.rootCtl = self;
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
     _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
-    _hotDestinationCtl.rootCtl = self;
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:_hotDestinationCtl];
     
     _mineCtl = [[MineTableViewController alloc] init];
-    _mineCtl.rootCtl = self;
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_mineCtl];
     

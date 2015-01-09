@@ -11,6 +11,5 @@
 
 @interface MineTableViewController : UIViewController
 
-@property (nonatomic, weak) HomeViewController *rootCtl;
 
 @end

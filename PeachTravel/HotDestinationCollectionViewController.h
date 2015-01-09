@@ -16,6 +16,4 @@
  */
 @property (nonatomic) BOOL isShowing;
 
-@property (nonatomic, weak) HomeViewController *rootCtl;
-
 @end
