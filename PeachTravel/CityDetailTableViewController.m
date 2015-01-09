@@ -144,8 +144,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             }
             [self.tableView reloadData];
         } else {
+            
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud hideTZHUD];
         NSLog(@"%@", error);

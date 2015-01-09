@@ -105,7 +105,7 @@
 
 - (void)shareToWeChat
 {
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是桃子旅行，专为各位爱旅行的美眉们提供服务的贴心小助手。http://****" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是桃子旅行，专为各位爱旅行的美眉们提供服务的贴心小App，官方下载: http://****" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }
@@ -170,15 +170,14 @@
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
-            cell.userSign.text = accountManager.account.signature.length>0 ? accountManager.account.signature:@"编写签名";
+            cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"编写签名";
             if ([accountManager.account.gender isEqualToString:@"M"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
 
             }
             if ([accountManager.account.gender isEqualToString:@"F"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
-            }
-            if ([accountManager.account.gender isEqualToString:@"U"]) {
+            } else if ([accountManager.account.gender isEqualToString:@"U"]) {
                 cell.userGender.image = nil;
             }
             return cell;

@@ -136,7 +136,9 @@
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
             [self insertMsgToEasemobDB:frendRequest];
+            [SVProgressHUD showHint:@"已添加"];
         } else {
+            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
