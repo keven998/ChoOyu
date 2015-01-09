@@ -121,6 +121,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     //获取首页数据
     [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -131,12 +133,14 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 [[TMCache sharedCache] setObject:data forKey:@"hot_destination"];
             });
         } else {
+            
         }
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
