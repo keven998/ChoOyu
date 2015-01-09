@@ -81,7 +81,7 @@
     
      __weak typeof(ResetPasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     //完成修改
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

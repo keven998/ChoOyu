@@ -131,7 +131,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     
      __weak typeof(DomesticViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

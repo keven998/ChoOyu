@@ -177,7 +177,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     } else {
          __weak typeof(RestaurantsListViewController *)weakSelf = self;
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf.navigationController];
+        [hud showHUDInViewController:weakSelf];
         
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             [hud hideTZHUD];

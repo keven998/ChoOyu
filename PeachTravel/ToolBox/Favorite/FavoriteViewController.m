@@ -385,7 +385,7 @@
     
     __weak typeof(FavoriteViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

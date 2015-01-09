@@ -55,16 +55,13 @@
 - (void)loadView
 {
     [super loadView];
-
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
-    _dataSource = [self loadDataSource];
-    [self searchController];
+    [self.view addSubview:self.tableView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -113,7 +110,6 @@
         _slimeView.slime.shadowBlur = 0;
         _slimeView.slime.shadowColor = [UIColor clearColor];
     }
-    
     return _slimeView;
 }
 
@@ -126,11 +122,9 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
-        _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
+        [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell" ];
     }
-    
     return _tableView;
 }
 
@@ -165,7 +159,7 @@
         }
     }
     if (neeUpdate) {
-        self.dataSource = [self loadDataSource];
+        [self loadDataSource];
     }
     if (_chattingPeople.count <= 0) {
         [self setupEmptyView];
@@ -220,8 +214,9 @@
     }
 }
 
-- (NSMutableArray *)loadDataSource
+- (void)loadDataSource
 {
+    NSLog(@"loadDataSource start");
     NSMutableArray *ret = nil;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     NSArray* sorte = [conversations sortedArrayUsingComparator:
@@ -235,7 +230,8 @@
                }
            }];
     ret = [[NSMutableArray alloc] initWithArray:sorte];
-    return ret;
+    NSLog(@"loadDataSource end");
+    self.dataSource = ret;
 }
 
 /**
@@ -432,14 +428,11 @@
 
 #pragma mark - TableViewDelegate & TableViewDatasource
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *identify = @"chatListCell";
-    ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
-    
-    if (!cell) {
-        cell = [[ChatListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
-    }
+    ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
+
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     
     id chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
@@ -459,6 +452,7 @@
     cell.detailMsg = [self subTitleMessageByConversation:conversation];
     cell.time = [self lastMessageTimeByConversation:conversation];
     cell.unreadCount = [self unreadMessageCountByConversation:conversation];
+    
     return cell;
 }
 
@@ -476,6 +470,7 @@
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     ChatViewController *chatController;
     NSString *title;
+    NSString *avatar;
     if (conversation.isGroup) {
         NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
         for (EMGroup *group in groupArray) {
@@ -486,10 +481,13 @@
         }
     } else {
         title = ((Contact*)[self.chattingPeople objectAtIndex:indexPath.row]).nickName;
+        avatar = ((Contact*)[self.chattingPeople objectAtIndex:indexPath.row]).avatar;
     }
     
     NSString *chatter = conversation.chatter;
     chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:conversation.isGroup];
+    chatController.chatterAvatar = avatar;
+    chatController.chatterNickName = title;
     chatController.title = title;
     
     [conversation markAllMessagesAsRead:YES];
@@ -559,19 +557,21 @@
 
 -(void)refreshDataSource
 {
-    NSLog(@"开始刷新聊天DataSource");
-    self.dataSource = [self loadDataSource];
-    typeof(ChatListViewController) *weakSelf = self;
-    if ([self isUnReadMsg]) {
-        [self.delegate updateNotify:weakSelf notify:YES];
-    } else {
-        [self.delegate updateNotify:weakSelf notify:NO];
-    }
-    [self loadChattingPeople];
-    [_tableView reloadData];
-    [self hideHud];
-    NSLog(@"结束刷新聊天DataSource");
-
+    dispatch_async(dispatch_queue_create("refreshDadaSource", NULL), ^{
+        NSLog(@"开始刷新聊天DataSource");
+        [self loadDataSource];
+        [self loadChattingPeople];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(ChatListViewController) *weakSelf = self;
+            if ([self isUnReadMsg]) {
+                [self.delegate updateNotify:weakSelf notify:YES];
+            } else {
+                [self.delegate updateNotify:weakSelf notify:NO];
+            }
+            NSLog(@"结束刷新聊天DataSource");
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void)networkChanged:(EMConnectionState)connectionState

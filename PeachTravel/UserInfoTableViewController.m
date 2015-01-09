@@ -126,7 +126,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
      __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -226,7 +226,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
      __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];

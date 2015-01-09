@@ -145,7 +145,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
      __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

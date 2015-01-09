@@ -35,11 +35,10 @@
     model.isSender = isSender;
     model.isPlaying = NO;
     model.isChatGroup = message.isGroup;
-    model.nickName = [[message.ext objectForKey:@"fromUser"] objectForKey:@"nickName"];
     if (model.isChatGroup) {
+        model.nickName = [[message.ext objectForKey:@"fromUser"] objectForKey:@"nickName"];
         model.username = message.groupSenderName;
-    }
-    else{
+    } else{
         model.username = message.from;
     }
     
@@ -48,7 +47,9 @@
         model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", accountManager.account.avatar]];
         model.status = message.deliveryState;
     } else{
-        model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[message.ext objectForKey:@"fromUser"] objectForKey:@"avatar"]]];
+        if (model.isChatGroup) {
+            model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[message.ext objectForKey:@"fromUser"] objectForKey:@"avatar"]]];
+        }
         model.status = eMessageDeliveryState_Delivered;
     }
     

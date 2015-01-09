@@ -139,7 +139,7 @@
 
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -233,7 +233,7 @@
     
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     //修改手机号
     [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

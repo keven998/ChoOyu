@@ -49,6 +49,11 @@
     [self showUserInfo:_userInfo];
 }
 
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)showUserInfo:(NSDictionary *)userInfo
 {
     _avatarImageFrame.layer.cornerRadius = 34.0;
@@ -117,7 +122,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.2];
         } else {
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }

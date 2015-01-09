@@ -357,7 +357,7 @@
         if (!contact) {
              __weak typeof(ChatViewController *)weakSelf = self;
             TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-            [hud showHUDInViewController:weakSelf.navigationController];
+            [hud showHUDInViewController:weakSelf];
             [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
                 [hud hideTZHUD];
                 if (isSuccess) {
@@ -411,7 +411,7 @@
     NSArray *occupants = @[selectPerson.easemobUser];
      __weak typeof(ChatViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     [[EaseMob sharedInstance].chatManager asyncRemoveOccupants:occupants fromGroup:self.group.groupId completion:^(EMGroup *group, EMError *error) {
         [hud hideTZHUD];
@@ -799,7 +799,12 @@
                 return tipsCell;
                 
             }  else{
-                [self checkOutModel:model];
+                if (model.isChatGroup) {
+                    [self checkOutModel:model];
+                } else {
+                    model.nickName = _chatterNickName;
+                    model.headImageURL = [NSURL URLWithString:_chatterAvatar];
+                }
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
                 EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (cell == nil) {
@@ -1657,8 +1662,6 @@
             if ([model.username isEqualToString:messageModel.username] && (![model.nickName isEqualToString:messageModel.nickName] || ![model.headImageURL isEqual:messageModel.headImageURL])) {
                 messageModel.headImageURL = model.headImageURL;
                 messageModel.nickName = model.nickName;
-                
-                NSLog(@"更新了用户信息：%@  消息内容为：%@", messageModel.nickName, messageModel.content);
             }
         }
     });

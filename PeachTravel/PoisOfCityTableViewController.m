@@ -288,7 +288,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [params setObject:_searchText forKey:@"keyWord"];
      __weak typeof(PoisOfCityTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

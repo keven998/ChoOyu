@@ -342,6 +342,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                 OperationData *operation = [[OperationData alloc] initWithJson:operationDic];
                 [_operationDataArray addObject:operation];
             }
+
             [self setUpGallaryView];
         } else {
             
@@ -358,7 +359,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     NSLog(@"/*****接收到天气数据******/\n");
     self.weatherInfo = weatherInfo;
-    
 }
 
 - (void)updateWeatherLabelWithCityName:(NSString *)city
@@ -400,8 +400,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
         IMRootCtl.delegate = self;
         IMRootCtl.viewControllers = viewControllers;
-        [self.navigationController pushViewController:IMRootCtl animated:YES];
         [[self rdv_tabBarController] setTabBarHidden:YES];
+        [self.navigationController pushViewController:IMRootCtl animated:YES];
 
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];

@@ -378,7 +378,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(AddPoiTableViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

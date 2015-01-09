@@ -38,10 +38,6 @@
         frameView.backgroundColor = [UIColor whiteColor];
         frameView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         frameView.layer.cornerRadius = 2.0;
-        frameView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-        frameView.layer.shadowOpacity = 1.0;
-        frameView.layer.shadowRadius = 0.5;
-        frameView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
         [self.contentView addSubview:frameView];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -109,7 +105,7 @@
     self.textLabel.frame = CGRectMake(60.0, 10.0, width - 110.0, 18.0);
     
     _timeLabel.frame = CGRectMake(width - 95.0, 12.0, 90.0, 18.0);
-    frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height);
+    frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height-1);
     
     _detailLabel.text = _detailMsg;
     CGSize size = [_detailMsg sizeWithAttributes:@{NSFontAttributeName : _detailLabel.font}];

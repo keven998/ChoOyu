@@ -80,7 +80,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     
      __weak typeof(ForeignViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

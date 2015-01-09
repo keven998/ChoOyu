@@ -317,7 +317,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     __weak typeof(MyGuideListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -367,7 +367,7 @@ static NSString *reusableCell = @"myGuidesCell";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
      __weak typeof(MyGuideListTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];

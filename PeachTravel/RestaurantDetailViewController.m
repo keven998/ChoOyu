@@ -51,7 +51,7 @@
     }
      __weak typeof(RestaurantDetailViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, _restaurantId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

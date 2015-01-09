@@ -49,7 +49,7 @@
     }
      __weak typeof(ShoppingDetailViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
 
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPING_DETAIL, _shoppingId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

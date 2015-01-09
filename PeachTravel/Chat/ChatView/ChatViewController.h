@@ -16,6 +16,9 @@
 
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
 
+@property (nonatomic, copy) NSString *chatterNickName;
+@property (nonatomic, copy) NSString *chatterAvatar;
+
 /**
  *  发送桃子旅行消息
  *

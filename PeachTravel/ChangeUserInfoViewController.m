@@ -109,8 +109,7 @@
     [self.view endEditing:YES];
     if (_changeType == ChangeName) {
         if (!([self checkInput] == NoError)) {
-            [SVProgressHUD showHint:@""];
-
+            [SVProgressHUD showHint:@"纯数字或有特殊字符都是不行的哦"];
             return;
         }
     }
@@ -123,7 +122,7 @@
     
     __weak typeof(ChangeUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     

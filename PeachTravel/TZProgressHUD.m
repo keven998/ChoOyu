@@ -136,8 +136,11 @@
 
 - (void)hideTZHUD
 {
-    // 移除为了实现全屏效果而再 navigationcontroller 上加的一个阴影 view
+    if (!_rootViewController) {
+        return;
+    }
     UIView *viewInNavi;
+    // 移除为了实现全屏效果而再 navigationcontroller 上加的一个阴影 view
     if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
         for (UIView *view in _rootViewController.navigationController.view.subviews) {
             if (view.tag == 100) {
