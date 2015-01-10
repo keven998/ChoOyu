@@ -104,11 +104,11 @@
 /**
  html 接口
  */
-#define FUN_CITY_HTML                           @"http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
-#define RESTAURANT_CITY_HTML                    @"http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
-#define SHOPPING_CITY_HTML                      @"http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
-#define MORE_COMMENT_HTML                       @"http://wap.lvxingpai.com/h5/morecomment.php"   //更多点评
-#define TRAVELNOTE_DETAIL_HTML                  @"http://h5.taozilvxing.com/detail.php?id="   //游记详情
+#define FUN_CITY_HTML                           @ "http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
+#define RESTAURANT_CITY_HTML                    @ "http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
+#define SHOPPING_CITY_HTML                      @ "http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
+#define MORE_COMMENT_HTML                       @ "http://h5.taozilvxing.com/morecomment.php?pid="   //更多点评
+#define TRAVELNOTE_DETAIL_HTML                  @ "http://h5.taozilvxing.com/detail.php?id="   //游记详情
 
 /***** Notification name *******/
 

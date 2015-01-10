@@ -30,4 +30,5 @@
 
 
 @property (nonatomic, assign) id <PoisOfCityDelegate>delegate;
+
 @end

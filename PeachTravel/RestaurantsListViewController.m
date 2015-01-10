@@ -150,7 +150,8 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     
     restaurantOfCityCtl.shouldEdit = YES;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
-    [self presentViewController:nctl animated:YES completion:nil];
+    [self presentViewController:nctl animated:YES completion:^{
+    }];
 }
 
 - (void)updateTableView
@@ -175,6 +176,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
+        
+        if (!self.tripDetail.tripIsChange) {
+            [self.tableView setEditing:NO animated:YES];
+            [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+            return;
+        }
          __weak typeof(RestaurantsListViewController *)weakSelf = self;
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
         [hud showHUDInViewController:weakSelf];
@@ -183,7 +190,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             [hud hideTZHUD];
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
-//                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];

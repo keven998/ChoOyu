@@ -29,6 +29,8 @@
     shoppingView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     self.tabBarItem.title = self.shoppingPoi.zhName;
     shoppingView.poi = self.shoppingPoi;
+    shoppingView.rootCtl = self;
+
     [self.view addSubview:shoppingView];
 }
 

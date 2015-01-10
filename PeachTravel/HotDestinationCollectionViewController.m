@@ -22,7 +22,7 @@
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 
-@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
+@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
@@ -59,14 +59,21 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillAppear:animated];
     _isShowing = YES;
     NSLog(@"Hot viewWillAppear");
-    [[self rdv_tabBarController] setTabBarHidden:NO];
+    NSLog(@"%d",self.navigationController.viewControllers.count);
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    if ([self rdv_tabBarController].tabBarHidden) {
+        [[self rdv_tabBarController] setTabBarHidden:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     _isShowing = NO;
-    NSLog(@"Hot viewWillDisAppear");
+    if (self.navigationController.viewControllers.count == 2) {
+        [[self rdv_tabBarController] setTabBarHidden:YES];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -93,11 +100,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         TaoziCollectionLayout *tzLayout = [[TaoziCollectionLayout alloc] init];
         tzLayout.delegate = self;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, kWindowHeight-49) collectionViewLayout:tzLayout];
-        
         _collectionView.showsVerticalScrollIndicator = NO;
-        
         NSLog(@"%@", NSStringFromCGRect(self.view.bounds));
-        
         _collectionView.backgroundColor = APP_PAGE_COLOR;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -176,7 +180,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     domestic.notify = NO;
     foreignCtl.notify = NO;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
-    [[self rdv_tabBarController] setTabBarHidden:YES];
 }
 
 
@@ -274,7 +277,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         webCtl.title = recommend.title;
         webCtl.urlStr = recommend.linkUrl;
         [self.navigationController pushViewController:webCtl animated:YES];
-        [[self rdv_tabBarController] setTabBarHidden:YES];
     }
     if (recommend.linkType == LinkNative) {
         switch (recommend.poiType) {
@@ -282,7 +284,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
-                [[self rdv_tabBarController] setTabBarHidden:YES];
             }
                 break;
                 
@@ -290,7 +291,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
                 ctl.spotId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
-                [[self rdv_tabBarController] setTabBarHidden:YES];
             }
                 break;
                 
@@ -298,7 +298,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
                 ctl.restaurantId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
-                [[self rdv_tabBarController] setTabBarHidden:YES];
             }
                 break;
             
@@ -306,7 +305,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
                 ctl.shoppingId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
-                [[self rdv_tabBarController] setTabBarHidden:YES];
             }
                 break;
                 
@@ -314,7 +312,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
                 ctl.hotelId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
-                [[self rdv_tabBarController] setTabBarHidden:YES];
             }
                 break;
                 

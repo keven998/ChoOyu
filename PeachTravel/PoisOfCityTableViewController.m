@@ -42,6 +42,8 @@
 
 @property (nonatomic, copy) NSString *searchText;
 
+@property (nonatomic, strong) TZProgressHUD *hud;
+
 @end
 
 @implementation PoisOfCityTableViewController
@@ -73,14 +75,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
             self.navigationItem.rightBarButtonItem = filterBtn;
         }
-    } else {
-//        if (_poiType == kRestaurantPoi) {
-//            self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
-//        } else if (_poiType == kShoppingPoi) {
-//            self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
-//        }
     }
-    
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
     } else if (_poiType == kShoppingPoi) {
@@ -88,10 +83,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     if (self.shouldEdit) {
-//        UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(finishAdd:)];
-//        leftBtn.tintColor = APP_THEME_COLOR;
-//        self.navigationItem.leftBarButtonItem = leftBtn;
-        
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(finishAdd:)forControlEvents:UIControlEventTouchUpInside];
@@ -112,7 +103,15 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         searchPlaceHolder = @"请输入购物名字";
     }
     _currentPageNormal = 0;
+    
     [self loadIntroductionOfCity];
+    _hud = [[TZProgressHUD alloc] init];
+    [_hud showHUD];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - setter & getter
@@ -180,7 +179,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/shopping", API_GET_GUIDE_CITY,_cityId];
     }
-    
     //获取城市的美食列表信息
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -226,6 +224,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     //获取城市的美食.购物列表信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
         [self loadMoreCompletedNormal];
         if ([backUpCityId isEqualToString:_cityId]) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -249,6 +251,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
         [self showHint:@"呃～好像没找到网络"];

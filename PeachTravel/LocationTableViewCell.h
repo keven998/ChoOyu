@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *telephoneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *addressBtn;
 @property (copy, nonatomic) NSString *address;
+@property (nonatomic, copy) NSString *tel;
 @property (weak, nonatomic) IBOutlet UIButton *navigationBtn;
 
 + (CGFloat)heightForAddressCellWithAddress:(NSString *)address;

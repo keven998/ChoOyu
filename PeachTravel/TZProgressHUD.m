@@ -61,23 +61,15 @@
     } else {
         _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
     }
-    _backGroundView.center = self.view.center;
     _backGroundView.backgroundColor = [UIColor whiteColor];
     _backGroundView.layer.cornerRadius = 5.0;
     _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_pb_earth.png"]];
     _imageView.image = [UIImage imageNamed:@"ic_pb_earth.png"];
-    if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
-        if (status) {
-            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
-        } else {
-            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
-        }
+    _backGroundView.center = self.view.center;
+    if (status) {
+        _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
     } else {
-        if (status) {
-            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
-        } else {
-            _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
-        }
+        _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
     }
     _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_progress.png"]];
     _progressView.center = _imageView.center;

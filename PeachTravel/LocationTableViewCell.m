@@ -28,6 +28,13 @@
     _addressBtn.titleLabel.numberOfLines = lineCount;
 }
 
+- (void)setTel:(NSString *)tel
+{
+    _tel = tel;
+    NSLog(@"%@", _addressBtn.titleLabel.text);
+    [_telephoneBtn setTitle:_tel forState:UIControlStateNormal];
+}
+
 + (CGFloat)heightForAddressCellWithAddress:(NSString *)address
 {
     CGSize size = [address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:12.0]}];

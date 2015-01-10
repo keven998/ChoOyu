@@ -174,15 +174,19 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
+        
+        if (!self.tripDetail.tripIsChange) {
+            [self.tableView setEditing:NO animated:YES];
+            [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+            return;
+        }
         __weak typeof(ShoppingListViewController *)weakSelf = self;
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
         [hud showHUDInViewController:weakSelf];
-        
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             [hud hideTZHUD];
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
-                //                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];

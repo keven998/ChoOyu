@@ -30,7 +30,7 @@
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 1.0;
     
-    CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(self.frame.size.width-16, MAXFLOAT)
+    CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(kWindowWidth-18-22, MAXFLOAT)
                                                    options:NSStringDrawingUsesLineFragmentOrigin
                                                 attributes:@{
                                                              NSFontAttributeName : [UIFont systemFontOfSize:11.0],
@@ -63,7 +63,7 @@
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 1.0;
     
-    CGSize labelSize = [commentDetail boundingRectWithSize:CGSizeMake(kWindowWidth-16-22, MAXFLOAT)
+    CGSize labelSize = [commentDetail boundingRectWithSize:CGSizeMake(kWindowWidth-18-22, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{
                                                         NSFontAttributeName : [UIFont systemFontOfSize:11.0],

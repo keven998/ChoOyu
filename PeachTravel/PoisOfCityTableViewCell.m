@@ -14,7 +14,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *HeaderImageView;
-@property (weak, nonatomic) IBOutlet UIButton *addressBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *commentAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *commentDetail;
 @property (weak, nonatomic) IBOutlet UIImageView *spaceView;
@@ -53,11 +55,9 @@
     _priceLabel.text = _poi.priceDesc;
     TaoziImage *image = [_poi.images firstObject];
     [_HeaderImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-    [_addressBtn setTitle:_poi.address forState:UIControlStateNormal];
-    _addressBtn.titleLabel.numberOfLines = 2;
     _priceLabel.text = _poi.priceDesc;
     _ratingView.rating = _poi.rating;
-    [_addressBtn setTitle:_poi.address forState:UIControlStateNormal];
+    _addressLabel.text = _poi.address;
     if (_poi.distanceStr) {
         _distanceLabel.hidden = NO;
         _distanceLabel.text = _poi.distanceStr;

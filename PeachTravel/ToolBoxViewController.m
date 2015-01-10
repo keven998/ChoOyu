@@ -205,7 +205,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[self rdv_tabBarController] setTabBarHidden:NO];
+    if ([self rdv_tabBarController].tabBarHidden) {
+        [[self rdv_tabBarController] setTabBarHidden:NO];
+    }
     [self updateUnReadMsgStatus];
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
@@ -218,9 +220,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSLog(@"tool viewWillAppear");
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
+    if (self.navigationController.viewControllers.count == 2) {
+        [[self rdv_tabBarController] setTabBarHidden:YES];
+    }
 }
 
 - (void)dealloc
@@ -260,7 +265,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         webCtl.titleStr = data.title;
         webCtl.urlStr = data.linkUrl;
         [weakSelf.navigationController pushViewController:webCtl animated:YES];
-        [[weakSelf rdv_tabBarController] setTabBarHidden:YES];
 
     };
     
@@ -400,7 +404,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
         IMRootCtl.delegate = self;
         IMRootCtl.viewControllers = viewControllers;
-        [[self rdv_tabBarController] setTabBarHidden:YES];
         [self.navigationController pushViewController:IMRootCtl animated:YES];
 
     } else {
@@ -412,7 +415,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)nearBy:(UIButton *)sender {    
     LocalViewController *lvc = [[LocalViewController alloc] init];
     [self.navigationController pushViewController:lvc animated:YES];
-    [[self rdv_tabBarController] setTabBarHidden:YES];
 }
 
 - (IBAction)myFavorite:(id)sender {
@@ -423,7 +425,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
         [self.navigationController pushViewController:fvc animated:YES];
-        [[self rdv_tabBarController] setTabBarHidden:YES];
     }
 }
 
@@ -435,7 +436,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
-        [[self rdv_tabBarController] setTabBarHidden:YES];
     }
 }
 

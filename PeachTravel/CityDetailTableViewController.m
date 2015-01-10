@@ -104,7 +104,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         } else {
             [_hud hideTZHUD];
             if (self.isShowing) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
             }
         }
         

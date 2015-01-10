@@ -22,7 +22,9 @@
         _priceDesc = [json objectForKey:@"priceDesc"];
         _desc = [json objectForKey:@"desc"];
         _address = [json objectForKey:@"address"];
-        _telephone = [json objectForKey:@"telephone"];
+        if ([[json objectForKey:@"tel"] isKindOfClass:[NSArray class]]) {
+            _telephone = [[json objectForKey:@"tel"] firstObject];
+        }
         _timeCost = [json objectForKey:@"timeCost"];
         _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
         _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];

@@ -30,6 +30,7 @@
     self.navigationItem.title = _restaurantPoi.zhName;
     CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-64)];
     restaurantView.poi = self.restaurantPoi;
+    restaurantView.rootCtl = self;
     [self.view addSubview:restaurantView];
 }
 

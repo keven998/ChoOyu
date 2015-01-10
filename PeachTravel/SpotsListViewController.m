@@ -197,6 +197,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             [_tripDetail.itineraryList removeObjectAtIndex:sender.tag];
             _tripDetail.dayCount--;
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sender.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadData];
         }
     }];
 }
@@ -211,9 +212,16 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [self.tableView reloadData];
     if (self.tableView.isEditing) {
         self.tableView.tableFooterView = self.tableViewFooterView;
+        _editBtn.backgroundColor = APP_THEME_COLOR;
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
     } else {
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+        _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     }
+    
+//    [self.tableView reloadData];
+    
 }
 
 - (IBAction)editTrip:(id)sender
@@ -226,17 +234,20 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         
     } else {
          __weak typeof(SpotsListViewController *)weakSelf = self;
+        
+        if (!self.tripDetail.tripIsChange) {
+            [self.tableView setEditing:NO animated:YES];
+            [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+            return;
+        }
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUDInViewController:weakSelf.navigationController];
 
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             [hud hideTZHUD];
             if (isSuccesss) {
-                _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-                [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
                 [self.tableView setEditing:NO animated:YES];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-//                [SVProgressHUD showSuccessWithStatus:@"已保存"];
             } else {
                 [SVProgressHUD showErrorWithStatus:@"保存失败"];
             }
@@ -367,7 +378,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addSpotBtn.clipsToBounds = YES;
         addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         addSpotBtn.layer.cornerRadius = 10.5;
-        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        addSpotBtn.userInteractionEnabled = NO;
+//        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
         
@@ -385,7 +397,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         deleteSpotBtn.clipsToBounds = YES;
         deleteSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         deleteSpotBtn.layer.cornerRadius = 10.5;
-        [deleteSpotBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
+        deleteSpotBtn.userInteractionEnabled = NO;
         [deleteBtn addSubview:deleteSpotBtn];
         [headerView addSubview:deleteBtn];
         
@@ -469,7 +481,10 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if (self.tableView.isEditing) {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

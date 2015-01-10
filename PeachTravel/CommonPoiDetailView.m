@@ -15,6 +15,7 @@
 #import "CycleScrollView.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "SuperWebViewController.h"
 
 @interface CommonPoiDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -232,7 +233,10 @@ static NSString *commentCellIdentifier = @"commentCell";
 
 - (void)showMoreComments:(id)sender
 {
-    
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"更多点评";
+    webCtl.urlStr = [NSString stringWithFormat:@"%@%@",MORE_COMMENT_HTML,_poi.poiId];
+    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
 #pragma mark - UITableview datasource & delegate
@@ -293,7 +297,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     sectionBtn.backgroundColor = [UIColor whiteColor];
     sectionBtn.layer.cornerRadius = 1.0;
-    sectionBtn.userInteractionEnabled = NO;
+    sectionBtn.userInteractionEnabled = YES;
     [sectionBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 9, 0, 0)];
     [sectionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     if (section == 1) {
@@ -309,8 +313,9 @@ static NSString *commentCellIdentifier = @"commentCell";
         [moreCommentBtn setTitle:@"更多点评" forState:UIControlStateNormal];
         [moreCommentBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         moreCommentBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        moreCommentBtn.userInteractionEnabled = NO;
         [sectionBtn addSubview:moreCommentBtn];
-        [moreCommentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
+        [sectionBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
     }
     [sectionView addSubview:sectionBtn];
 
@@ -322,6 +327,7 @@ static NSString *commentCellIdentifier = @"commentCell";
     if (indexPath.section == 0) {
         LocationTableViewCell *locationCell = [tableView dequeueReusableCellWithIdentifier:locationCellIdentifier];
         locationCell.address = _poi.address;
+        locationCell.tel = _poi.telephone;
         return locationCell;
     }
     if (indexPath.section == 1) {
