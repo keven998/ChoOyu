@@ -11,7 +11,7 @@
 #import "EDStarRating.h"
 
 @interface TripPoiListTableViewCell : UITableViewCell
-@property (nonatomic) BOOL isEditing;
+@property (nonatomic) BOOL isShouldEditing;
 
 @property (strong, nonatomic) TripPoi *tripPoi;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

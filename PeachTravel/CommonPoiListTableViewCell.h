@@ -11,11 +11,12 @@
 
 @interface CommonPoiListTableViewCell : UITableViewCell
 
-@property (nonatomic) BOOL isEditing;
+@property (nonatomic) BOOL shouldEditing;
 
 @property (nonatomic, strong) TripPoi *tripPoi;
 
-@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 
 @property (weak, nonatomic) IBOutlet UIButton *priceBtn;

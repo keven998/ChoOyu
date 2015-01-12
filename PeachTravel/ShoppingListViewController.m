@@ -180,9 +180,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
             [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
             return;
         }
-        __weak typeof(ShoppingListViewController *)weakSelf = self;
+
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUD];
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             [hud hideTZHUD];
             if (isSuccesss) {
@@ -252,7 +252,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    cell.isEditing = self.tableView.isEditing;
+    cell.shouldEditing = self.tableView.isEditing;
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
     return cell;
 }

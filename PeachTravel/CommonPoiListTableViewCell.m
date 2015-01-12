@@ -39,25 +39,25 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setIsEditing:(BOOL)isEditing
+- (void)setShouldEditing:(BOOL)shouldEditing
 {
-    if (isEditing) {
+    _shouldEditing = shouldEditing;
+    if (_shouldEditing) {
         _mapViewBtn.hidden = YES;
         _titleLabelConstraint.constant = 0;
         _addressLabelConstraint.constant = 0;
         
     } else {
         _mapViewBtn.hidden = NO;
-        _titleLabelConstraint.constant = 40;
-        _addressLabelConstraint.constant = 40;
-
+        _titleLabelConstraint.constant = 60;
+        _addressLabelConstraint.constant = 60;
     }
 }
 
 - (void)setTripPoi:(TripPoi *)tripPoi
 {
     _tripPoi = tripPoi;
-    [_titleBtn setTitle:tripPoi.zhName forState:UIControlStateNormal];
+    _titleLabel.text = tripPoi.zhName;
     TaoziImage *image = [tripPoi.images firstObject];
     [_photoImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     [_priceBtn setTitle:tripPoi.priceDesc forState:UIControlStateNormal];

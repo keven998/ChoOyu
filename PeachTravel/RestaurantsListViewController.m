@@ -89,7 +89,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-62-64)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
-        [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
+        [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -182,9 +182,8 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
             return;
         }
-         __weak typeof(RestaurantsListViewController *)weakSelf = self;
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUD];
         
         [self.tripDetail saveTrip:^(BOOL isSuccesss) {
             [hud hideTZHUD];
@@ -255,7 +254,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.isEditing = self.tableView.isEditing;
+    cell.shouldEditing = self.tableView.isEditing;
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
     return cell;
 }
