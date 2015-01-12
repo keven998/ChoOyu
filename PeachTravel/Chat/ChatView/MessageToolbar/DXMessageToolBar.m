@@ -439,7 +439,7 @@
     }
     else if (toFrame.origin.y == [[UIScreen mainScreen] bounds].size.height)
     {
-        [self willShowBottomHeight:0];
+//        [self willShowBottomHeight:0];
     }
     else{
         [self willShowBottomHeight:toFrame.size.height];

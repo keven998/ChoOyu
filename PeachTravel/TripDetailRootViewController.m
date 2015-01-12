@@ -469,7 +469,8 @@
     [self.view addSubview:_spotsListCtl.view];
     
     [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
-
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
@@ -539,12 +540,10 @@
     [self addChildViewController:newController];
     [self transitionFromViewController:oldController toViewController:newController duration:0 options:UIViewAnimationOptionTransitionNone animations:nil completion:^(BOOL finished) {
         if (finished) {
-            [self.view bringSubviewToFront:_tabBarView];
             [newController didMoveToParentViewController:self];
             [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentViewController = newController;
-            [newController.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
 
             NSInteger newIndex = [_tabbarPageControllerArray indexOfObject:newController];
             for (UIButton *btn in _tabbarButtonArray) {
@@ -558,6 +557,7 @@
             self.currentViewController = oldController;
         }
     }];
+    [self.view bringSubviewToFront:_tabBarView];
 }
 
 #pragma mark AvtivityDelegate
