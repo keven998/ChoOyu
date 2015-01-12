@@ -50,7 +50,7 @@
     [_quitBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     _quitBtn.clipsToBounds = YES;
 
-    _disturbBtn.selected = _group.isPushNotificationEnabled;
+    _disturbBtn.selected = !_group.isPushNotificationEnabled;
     
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -92,13 +92,10 @@
 //    sender.userInteractionEnabled = NO;
     [self showHudInView:self.view hint:@"正在设置"];
     sender.selected = !sender.selected;
-    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:!sender.selected completion:^(NSArray *ignoreGroupsList, EMError *error) {
+    [[EaseMob sharedInstance].chatManager asyncIgnoreGroupPushNotification:_group.groupId isIgnore:sender.selected completion:^(NSArray *ignoreGroupsList, EMError *error) {
         [weakSelf hideHud];
         if (!error) {
-//            [weakSelf showHint:@"设置成功"];
-//            _isPushNotificationEnable = !_isPushNotificationEnable;
-//            NSString *imageName = _isPushNotificationEnable? @"check_border.png":@"check_selected.png";
-//            [_groupMsgStatusImageView setImage:[UIImage imageNamed:imageName]];
+            [weakSelf showHint:@"设置成功"];
         } else {
             [weakSelf showHint:@"设置失败"];
             sender.selected = !sender.selected;

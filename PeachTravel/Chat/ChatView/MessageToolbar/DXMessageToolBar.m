@@ -434,6 +434,8 @@
         [self willShowBottomHeight:toFrame.size.height];
         if (self.activityButtomView) {
             [self.activityButtomView removeFromSuperview];
+       
+        
         }
         self.activityButtomView = nil;
     }
