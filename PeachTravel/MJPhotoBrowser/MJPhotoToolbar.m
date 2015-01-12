@@ -45,8 +45,7 @@
     
     // 保存图片按钮
     CGFloat btnWidth = self.bounds.size.height;
-    _saveImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _saveImageBtn.frame = CGRectMake(20, 0, btnWidth, btnWidth);
+    _saveImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, btnWidth, btnWidth)];
     _saveImageBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [_saveImageBtn setImage:[UIImage imageNamed:@"MJPhotoBrowser.bundle/save_icon.png"] forState:UIControlStateNormal];
     [_saveImageBtn setImage:[UIImage imageNamed:@"MJPhotoBrowser.bundle/save_icon_highlighted.png"] forState:UIControlStateHighlighted];
@@ -56,6 +55,8 @@
 
 - (void)saveImage
 {
+    [SVProgressHUD showHint:@"正在保存"];
+    _saveImageBtn.enabled = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         MJPhoto *photo = _photos[_currentPhotoIndex];
         UIImageWriteToSavedPhotosAlbum(photo.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -65,6 +66,7 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     if (error) {
+        _saveImageBtn.enabled = YES;
         [SVProgressHUD showHint:@"保存失败"];
     } else {
         MJPhoto *photo = _photos[_currentPhotoIndex];
@@ -83,7 +85,7 @@
     
     MJPhoto *photo = _photos[_currentPhotoIndex];
     // 按钮
-    _saveImageBtn.enabled = photo.image != nil && !photo.save;
+    _saveImageBtn.enabled = !photo.save;
 }
 
 @end
