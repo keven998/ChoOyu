@@ -380,7 +380,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         addSpotBtn.layer.cornerRadius = 10.5;
         addSpotBtn.userInteractionEnabled = NO;
-//        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
         

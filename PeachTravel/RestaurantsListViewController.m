@@ -40,17 +40,10 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView reloadData];
     [self.view addSubview:_editBtn];
-    if (!_tripDetail || !_canEdit) {
-        _editBtn.hidden = YES;
-    } else {
-        if (_tripDetail.restaurantsList.count > 0) {
-            [self.tableView setEditing:NO];
-            _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-            [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
-        } else {
-            [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-        }
-    }
+    _editBtn.hidden = YES;
+    [self.tableView setEditing:NO];
+    _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+    [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     
     NSLog(@"Rest didload");
 }
@@ -81,6 +74,20 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     _tripDetail = tripDetail;
     [_tableView reloadData];
     [self updateDestinationsHeaderView];
+    if (!_tripDetail || !_canEdit) {
+        _editBtn.hidden = YES;
+    } else {
+        _editBtn.hidden = NO;
+        if (_tripDetail.restaurantsList.count > 0) {
+            [self.tableView setEditing:NO];
+            _editBtn.backgroundColor = UIColorFromRGB(0x797979);
+            [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
+        } else {
+            if (!_tableView.isEditing) {
+                [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+    }
 }
 
 - (UITableView *)tableView
@@ -180,6 +187,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         if (!self.tripDetail.tripIsChange) {
             [self.tableView setEditing:NO animated:YES];
             [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+
             return;
         }
         TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -190,6 +198,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+//                [self updateTableView];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];
             }
@@ -256,6 +265,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
     cell.shouldEditing = self.tableView.isEditing;
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+    
     return cell;
 }
 
@@ -272,11 +282,35 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    
+    NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
     TripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
+   
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
     [self.tableView reloadData];
+}
+
+//此举是为了在移动的时候保证顺序。过程有点复杂，慢慢看
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    if (proposedDestinationIndexPath.row > 0 && sourceIndexPath.section > proposedDestinationIndexPath.section) {
+        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section+1];
+        return path;
+    }
+    
+    if (sourceIndexPath.section < proposedDestinationIndexPath.section && proposedDestinationIndexPath.row == 0) {
+        NSIndexPath *path;
+        
+        if (proposedDestinationIndexPath.section == sourceIndexPath.section+1) {
+            path = [NSIndexPath indexPathForItem:0 inSection:proposedDestinationIndexPath.section-1];
+
+        } else {
+            path = [NSIndexPath indexPathForItem:1 inSection:proposedDestinationIndexPath.section-1];
+
+        }
+        return path;
+    }
+    return proposedDestinationIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
