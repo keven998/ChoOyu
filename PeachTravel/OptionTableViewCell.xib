@@ -14,55 +14,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loP-fX-WYJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-U2-dQN">
-                                <rect key="frame" x="19" y="15" width="17" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="17" id="IOk-yY-EKE"/>
-                                    <constraint firstAttribute="width" constant="17" id="iAD-pz-hMA"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-ja-dxp">
-                                <rect key="frame" x="56" y="13" width="229" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="pVY-eJ-ML1"/>
-                                    <constraint firstAttribute="width" constant="229" id="yMM-M9-DIJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_accessory_pink.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kvv-TO-HHs">
-                                <rect key="frame" x="301" y="21" width="6" height="10"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="10" id="3nA-VX-wXF"/>
-                                    <constraint firstAttribute="width" constant="6" id="6YG-ee-1RW"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-U2-dQN">
+                        <rect key="frame" x="17" y="16" width="17" height="17"/>
                         <constraints>
-                            <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="20" id="00e-70-37L"/>
-                            <constraint firstAttribute="trailing" secondItem="Kvv-TO-HHs" secondAttribute="trailing" constant="13" id="7bK-6R-2Oj"/>
-                            <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="loP-fX-WYJ" secondAttribute="leading" constant="19" id="hPp-bg-jNi"/>
-                            <constraint firstAttribute="centerY" secondItem="7ID-ja-dxp" secondAttribute="centerY" id="oEc-nR-i0Y"/>
-                            <constraint firstAttribute="centerY" secondItem="Kvv-TO-HHs" secondAttribute="centerY" constant="-1.5" id="sWw-py-yhI"/>
-                            <constraint firstAttribute="centerY" secondItem="FDg-U2-dQN" secondAttribute="centerY" constant="1" id="wc1-0V-6wt"/>
+                            <constraint firstAttribute="width" constant="17" id="Lff-NV-wz9"/>
+                            <constraint firstAttribute="height" constant="17" id="yvf-ND-a8e"/>
                         </constraints>
-                    </view>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-ja-dxp">
+                        <rect key="frame" x="54" y="13" width="229" height="22"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_accessory_pink.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kvv-TO-HHs">
+                        <rect key="frame" x="300" y="19" width="6" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="7nV-tz-jB1"/>
+                            <constraint firstAttribute="width" constant="6" id="iRV-I4-a1v"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="loP-fX-WYJ" secondAttribute="bottom" id="Cdo-26-EZ2"/>
-                    <constraint firstItem="loP-fX-WYJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vf8-N4-ixv"/>
-                    <constraint firstItem="loP-fX-WYJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jc6-i4-jU6"/>
-                    <constraint firstAttribute="trailing" secondItem="loP-fX-WYJ" secondAttribute="trailing" id="p4O-he-KUG"/>
+                    <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="20" id="PZ3-Qk-KuY"/>
+                    <constraint firstAttribute="bottom" secondItem="7ID-ja-dxp" secondAttribute="bottom" constant="13" id="Tki-IM-Fk5"/>
+                    <constraint firstAttribute="trailing" secondItem="Kvv-TO-HHs" secondAttribute="trailing" constant="14" id="U07-fa-VtF"/>
+                    <constraint firstAttribute="trailing" secondItem="7ID-ja-dxp" secondAttribute="trailing" constant="37" id="ao5-LR-sYH"/>
+                    <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="cdE-u1-BoV"/>
+                    <constraint firstAttribute="centerY" secondItem="Kvv-TO-HHs" secondAttribute="centerY" id="n1L-uU-mq6"/>
+                    <constraint firstItem="7ID-ja-dxp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="wXW-O4-w9f"/>
+                    <constraint firstAttribute="centerY" secondItem="FDg-U2-dQN" secondAttribute="centerY" id="xy2-dN-1SE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="bgFrame" destination="loP-fX-WYJ" id="35d-9o-2bL"/>
                 <outlet property="flagView" destination="FDg-U2-dQN" id="5aq-NK-vYc"/>
                 <outlet property="titleView" destination="7ID-ja-dxp" id="KoN-wR-dh8"/>
             </connections>

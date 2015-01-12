@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"分享设置";
+    self.navigationItem.title = @"分享绑定";
     
     _accountTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     _accountTableView.delegate = self;
