@@ -59,7 +59,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillAppear:animated];
     _isShowing = YES;
     NSLog(@"Hot viewWillAppear");
-    NSLog(@"%d",self.navigationController.viewControllers.count);
+    NSLog(@"%lu",(unsigned long)self.navigationController.viewControllers.count);
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     if ([self rdv_tabBarController].tabBarHidden) {

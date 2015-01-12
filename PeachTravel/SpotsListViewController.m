@@ -19,6 +19,7 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "CommonPoiListTableViewCell.h"
+#import "HotelDetailViewController.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
@@ -220,7 +221,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     }
     
-//    [self.tableView reloadData];
+    [self.tableView reloadData];
     
 }
 
@@ -440,7 +441,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
-    cell.isEditing = self.tableView.isEditing;
+    cell.isShouldEditing = self.tableView.isEditing;
     cell.tripPoi = tripPoi;
     return cell;
 }
@@ -470,7 +471,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
             
             break;
-        case kHotelPoi:
+        case kHotelPoi: {
+            HotelDetailViewController *hotelDetailCtl = [[HotelDetailViewController alloc] init];
+            hotelDetailCtl.hotelId = tripPoi.poiId;
+            [self.rootViewController.navigationController pushViewController:hotelDetailCtl animated:YES];
+        }
             
             break;
             

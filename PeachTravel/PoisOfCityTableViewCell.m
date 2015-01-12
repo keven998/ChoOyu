@@ -71,7 +71,7 @@
         CommentDetail *comment = [poi.comments firstObject];
         _commentAuthor.text = comment.nickName;
         _commentDetail.text = comment.commentDetails;
-        [_commentCntBtn setTitle:[NSString stringWithFormat:@"%d", poi.commentCount] forState:UIControlStateNormal];
+        [_commentCntBtn setTitle:[NSString stringWithFormat:@"%ld", (long)poi.commentCount] forState:UIControlStateNormal];
         [_commentCntBtn setImage:[UIImage imageNamed:@"ic_comment_flag.png"] forState:UIControlStateNormal];
         _spaceView.hidden = NO;
     } else {

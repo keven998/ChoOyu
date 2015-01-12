@@ -27,9 +27,10 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setIsEditing:(BOOL)isEditing
+- (void)setIsShouldEditing:(BOOL)isShouldEditing
 {
-    if (isEditing) {
+    _isShouldEditing = isShouldEditing;
+    if (_isShouldEditing) {
         _pictureHorizontalSpace.constant = 8;
         _spaceView.hidden = YES;
     } else
