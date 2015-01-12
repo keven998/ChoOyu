@@ -44,7 +44,7 @@
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"亲你这么吐槽真的好么";
+    desc1.text = @"美眉们有什么需要的请尽管吩咐";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     

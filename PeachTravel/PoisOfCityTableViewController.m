@@ -180,6 +180,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         requsetUrl = [NSString stringWithFormat:@"%@%@/shopping", API_GET_GUIDE_CITY,_cityId];
     }
     //获取城市的美食列表信息
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -189,9 +190,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         } else {
 //            [self showHint:@"呃～好像没找到网络"];
         }
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showHint:@"呃～好像没找到网络"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 /**
@@ -478,11 +480,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", RESTAURANT_CITY_HTML,_cityId];
-        webCtl.titleStr = @"吃什么";//_zhName;
+        webCtl.titleStr = [NSString stringWithFormat:@"%@吃什么", _zhName];
         
     } else if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", SHOPPING_CITY_HTML,_cityId];
-        webCtl.titleStr = @"买什么";//_zhName;
+        webCtl.titleStr = [NSString stringWithFormat:@"%@买什么", _zhName];
     }
     webCtl.urlStr = requsetUrl;
     

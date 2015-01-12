@@ -51,7 +51,7 @@
 - (void)goBack
 {
     if (![_content isEqualToString:_contentTextField.text]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不需要保存吗" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"保存", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不需要保存吗" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"先保存", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self dismiss];

@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
 }
 
@@ -49,16 +50,12 @@
     [[SDImageCache sharedImageCache] cleanDiskWithCompletionBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             HUD.indicatorView = nil;
-            
-            HUD.textLabel.font = [UIFont systemFontOfSize:20.0f];
-            
-            HUD.textLabel.text = @"Done";
-            
+            HUD.textLabel.font = [UIFont systemFontOfSize:17.0f];
+            HUD.textLabel.text = @"完成";
             HUD.position = JGProgressHUDPositionBottomCenter;
-            
             [HUD dismissAfterDelay:0.8];
         });
-        HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 10.0f, 0.0f);
+        HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 30.0f, 0.0f);
     }];
     
     

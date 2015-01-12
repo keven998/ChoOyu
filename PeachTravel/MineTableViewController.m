@@ -20,7 +20,7 @@
 #import "PushMsgsViewController.h"
 #import "UMSocial.h"
 
-#define cellDataSource               @[@[@"分享账户管理", @"我收到的消息", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource               @[@[@"分享绑定", @"我收到的消息", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -174,7 +174,7 @@
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
-            cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"编写签名";
+            cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"no签名";
             if ([accountManager.account.gender isEqualToString:@"M"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
 

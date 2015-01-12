@@ -234,7 +234,7 @@ static NSString *commentCellIdentifier = @"commentCell";
 - (void)showMoreComments:(id)sender
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = @"更多点评";
+//    webCtl.titleStr = @"更多点评";
     webCtl.urlStr = [NSString stringWithFormat:@"%@%@",MORE_COMMENT_HTML,_poi.poiId];
     [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }

@@ -1102,7 +1102,7 @@
 //            } else {
 //                photosText = NSLocalizedString(@"photos", @"Used in the context: '3 photos'");
 //            }
-            self.title = [NSString stringWithFormat:@"共%lu张图片", (unsigned long)numberOfPhotos];
+            self.title = [NSString stringWithFormat:@"共%lu图", (unsigned long)numberOfPhotos];
         }
     } else if (numberOfPhotos > 1) {
         if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
