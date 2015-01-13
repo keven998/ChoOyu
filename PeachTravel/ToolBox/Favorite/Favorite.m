@@ -38,6 +38,13 @@
             [imagesArray addObject:[[TaoziImage alloc] initWithJson:imageDic]];
         }
         _images = imagesArray;
+        _timeCostDesc = [json objectForKey:@"timeCostDesc"];
+        _priceDesc = [json objectForKey:@"priceDesc"];
+        if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
+            _rating = 3.5;
+        } else {
+            _rating = [[json objectForKey:@"rating"] floatValue]*5;
+        }
         
         _locality = [[CityPoi alloc] initWithJson:[json objectForKey:@"locality"]];
     }
@@ -57,6 +64,9 @@
         _createTime = [aDecoder decodeInt64ForKey:@"createTime"];
         _images = [aDecoder decodeObjectForKey:@"images"];
         _locality = [aDecoder decodeObjectForKey:@"locality"];
+        _timeCostDesc = [aDecoder decodeObjectForKey:@"timeCostDesc"];
+        _priceDesc = [aDecoder decodeObjectForKey:@"priceDesc"];
+        _rating = [aDecoder decodeFloatForKey:@"rating"];
     }
     return self;
 }
@@ -72,6 +82,9 @@
     [aCoder encodeInt64:_createTime forKey:@"createTime"];
     [aCoder encodeObject:_images forKey:@"images"];
     [aCoder encodeObject:_locality forKey:@"locality"];
+    [aCoder encodeObject:_priceDesc forKey:@"priceDesc"];
+    [aCoder encodeObject:_timeCostDesc forKey:@"timeCostDesc"];
+    [aCoder encodeFloat:_rating forKey:@"rating"];
 
 }
 

@@ -18,6 +18,9 @@
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *timeCostDesc;
+@property (nonatomic, copy) NSString *priceDesc;
+@property (nonatomic) float rating;
 @property (nonatomic) long long createTime;
 @property (nonatomic, strong) CityPoi *locality;
 

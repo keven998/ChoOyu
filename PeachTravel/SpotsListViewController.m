@@ -20,6 +20,8 @@
 #import "ShoppingDetailViewController.h"
 #import "CommonPoiListTableViewCell.h"
 #import "HotelDetailViewController.h"
+#import "MyTripSpotsMapViewController.h"
+#import "PositionBean.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
@@ -203,9 +205,25 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }];
 }
 
-- (IBAction)mapView:(id)sender
+- (IBAction)mapView:(UIButton *)sender
 {
-    //TODO:进入地图导航
+    MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
+    NSMutableArray *allPositions = [[NSMutableArray alloc] init];
+    for (NSArray *oneDay in _tripDetail.itineraryList) {
+        NSMutableArray *poipositions = [[NSMutableArray alloc] init];
+        for (TripPoi *poi in oneDay) {
+            PositionBean *position = [[PositionBean alloc] init];
+            position.latitude = poi.lat;
+            position.longitude = poi.lng;
+            position.poiName = poi.zhName;
+            position.poiId = poi.poiId;
+            [poipositions addObject:position];
+        }
+        [allPositions addObject:poipositions];
+    }
+    ctl.currentDay = sender.tag+1;
+    ctl.pois = allPositions;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)updateTableView

@@ -86,10 +86,6 @@
         self.navigationItem.title = @"收藏夹";
     }
     
-//    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-//    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//    self.navigationItem.leftBarButtonItem = backBtn;
-    
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
@@ -621,16 +617,23 @@
         taoziMessageCtl.descLabel.text = item.desc;
         if (item.type == kSpotPoi) {
             taoziMessageCtl.chatType = TZChatTypeSpot;
+            taoziMessageCtl.messageTimeCost = item.timeCostDesc;
         } else if (item.type == kHotelPoi) {
             taoziMessageCtl.chatType = TZChatTypeHotel;
+            taoziMessageCtl.messageRating = item.rating;
+            taoziMessageCtl.messagePrice = item.priceDesc;
         } else if (item.type == kRestaurantPoi) {
             taoziMessageCtl.chatType = TZChatTypeFood;
+            taoziMessageCtl.messageRating = item.rating;
+            taoziMessageCtl.messagePrice = item.priceDesc;
         } else if (item.type == kShoppingPoi) {
             taoziMessageCtl.chatType = TZChatTypeShopping;
+            taoziMessageCtl.messageRating = item.rating;
         } else if (item.type == kTravelNotePoi) {
             taoziMessageCtl.chatType = TZChatTypeTravelNote;
         } else {
             taoziMessageCtl.chatType = TZChatTypeCity;
+            taoziMessageCtl.messageTimeCost = item.timeCostDesc;
         }
 
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
