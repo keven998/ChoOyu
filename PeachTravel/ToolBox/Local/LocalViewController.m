@@ -429,7 +429,10 @@
 
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
     NSInteger page = swipeView.currentPage;
-    [_filterView setSelectedIndex:page];
+    
+    if (_filterView.selectedIndex != page) {
+        [_filterView setSelectedIndex:page];
+    }
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */

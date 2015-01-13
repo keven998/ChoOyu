@@ -188,8 +188,10 @@ const CGFloat kAnimationSpeed = 0.20;
                              }
                          }
                      }];
+    
     _selectedIndex = button.tag;
-    [self.delegate filterView:self didSelectedAtIndex:_selectedIndex];
+    [self.delegate filterView:self didSelectedAtIndex:button.tag];
+
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
