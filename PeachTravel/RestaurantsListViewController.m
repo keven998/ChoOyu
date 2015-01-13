@@ -17,7 +17,7 @@
 #import "RestaurantDetailViewController.h"
 #import "PoisOfCityTableViewController.h"
 
-@interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate>
+@interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DKCircleButton *editBtn;
@@ -58,6 +58,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         }
     }
     [self.view addSubview:_destinationsHeaderView];
+    [_rootViewController showDHView:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -198,13 +199,30 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
             if (isSuccesss) {
                 [self.tableView setEditing:NO animated:YES];
                 [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-//                [self updateTableView];
             } else {
                 [SVProgressHUD showSuccessWithStatus:@"保存失败"];
             }
         }];
     }
 }
+
+- (void)jumpMapView:(UIButton *)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.tag = sender.tag;
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
+}
+
 
 /**
  *  点击我的目的地进入城市详情
@@ -264,6 +282,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
     cell.shouldEditing = self.tableView.isEditing;
+    cell.mapViewBtn.tag = indexPath.section;
+    [cell.mapViewBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.mapViewBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
     
     return cell;
@@ -345,6 +366,83 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         [_rootViewController showDHView:YES];
     }
 }
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    TripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:actionSheet.tag];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 @end
 

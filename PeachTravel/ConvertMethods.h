@@ -36,6 +36,34 @@ typedef enum {
 //得到手机上装的地图软件的名字
 + (NSArray *)mapPlatformInPhone;
 
+/**
+ *  跳转到百度地图
+ *
+ *  @param poiName 名字
+ *  @param lat
+ *  @param lng
+ */
++ (void)jumpBaiduMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng;
+
+/**
+ *  跳转到高德地图
+ *
+ *  @param poiName 名字
+ *  @param lat
+ *  @param lng
+ */
++ (void)jumpGaodeMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng;
+
+/**
+ *  跳转到自带地图
+ *
+ *  @param poiName 名字
+ *  @param lat
+ *  @param lng
+ */
++ (void)jumpAppleMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng;
+
+
 //sha1
 + (NSString *)sha1:(NSString *)str;
 

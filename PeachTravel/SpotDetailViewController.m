@@ -50,7 +50,6 @@
 
 - (void) loadData
 {
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (accountManager.isLogin) {
@@ -178,38 +177,18 @@
     switch (buttonIndex) {
         case 0:
             switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
-                case kAMap: {
-                    NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",self.spotPoi.zhName, self.spotPoi.lat, self.spotPoi.lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    
-                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                    }
-                }
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                     break;
                     
                 case kBaiduMap: {
-                     NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",self.spotPoi.lat, self.spotPoi.lng, self.spotPoi.zhName, self.spotPoi.zhName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    
-                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                    }
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                 }
                     break;
                     
                 case kAppleMap: {
-                    CLLocationCoordinate2D from;
-                    from.latitude = self.spotPoi.lat;
-                    from.longitude = self.spotPoi.lng;
-                    
-                    MKMapItem *currentLocation;
-                    if (from.latitude != 0.0) {
-                        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
-                        currentLocation.name = self.spotPoi.zhName;
-                    }
-                    
-                    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil] forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
+                    [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                 }
-                    break;
                     
                 default:
                     break;
@@ -218,37 +197,17 @@
             
         case 1:
             switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
-                case kAMap: {
-                    NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",self.spotPoi.zhName, self.spotPoi.lat, self.spotPoi.lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    
-                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                    }
-                }
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                     break;
                     
                 case kBaiduMap: {
-                    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",self.spotPoi.lat, self.spotPoi.lng, self.spotPoi.zhName, self.spotPoi.zhName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    
-                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                    }
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                 }
                     break;
 
-                    
                 case kAppleMap: {
-                    CLLocationCoordinate2D from;
-                    from.latitude = self.spotPoi.lat;
-                    from.longitude = self.spotPoi.lng;
-                    
-                    MKMapItem *currentLocation;
-                    if (from.latitude != 0.0) {
-                        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
-                        currentLocation.name = self.spotPoi.zhName;
-                    }
-                    
-                    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil] forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
+                    [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                 }
                     break;
                     
@@ -259,39 +218,18 @@
             
         case 2:
             switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
-                case kAMap: {
-                     NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",self.spotPoi.zhName, self.spotPoi.lat, self.spotPoi.lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    
-                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                    }
-                }
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                     break;
                     
                 case kBaiduMap: {
-                    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",self.spotPoi.lat, self.spotPoi.lng, self.spotPoi.zhName, self.spotPoi.zhName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    
-                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-                    }
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
                 }
                     break;
-
                     
                 case kAppleMap: {
-                    CLLocationCoordinate2D from;
-                    from.latitude = self.spotPoi.lat;
-                    from.longitude = self.spotPoi.lng;
-                    
-                    MKMapItem *currentLocation;
-                    if (from.latitude != 0.0) {
-                        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
-                        currentLocation.name = self.spotPoi.zhName;
-                    }
-                    
-                    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeDriving, [NSNumber numberWithBool:YES], nil] forKeys:[NSArray arrayWithObjects:MKLaunchOptionsDirectionsModeKey, MKLaunchOptionsShowsTrafficKey, nil]]];
-                }
-                    break;
+                    [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                }                    break;
                     
                 default:
                     break;

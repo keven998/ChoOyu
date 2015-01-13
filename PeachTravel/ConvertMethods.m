@@ -101,6 +101,41 @@
     return retArray;
 }
 
++ (void)jumpBaiduMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng
+{
+    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",lat, lng, poiName, poiName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+    }
+}
+
++ (void)jumpGaodeMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng
+{
+    NSString *urlStr = [[NSString stringWithFormat:@"iosamap://viewMap?sourceApplication=PeachTravel&backScheme=taozi0601&poiname=%@&lat=%f&lon=%f&dev=1",poiName, lat, lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+    }
+
+}
+
++ (void)jumpAppleMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng
+{
+    CLLocationCoordinate2D from;
+    from.latitude = lat;
+    from.longitude = lng;
+    
+    MKMapItem *currentLocation;
+    if (from.latitude != 0.0) {
+        currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:from addressDictionary:nil]];
+        currentLocation.name = poiName;
+    }
+    
+    [MKMapItem openMapsWithItems:[NSArray arrayWithObjects:currentLocation, nil] launchOptions:nil];
+}
+
+
 + (NSString *)sha1:(NSString *)str
 {
     const char *cstr = [str cStringUsingEncoding:NSUTF8StringEncoding];

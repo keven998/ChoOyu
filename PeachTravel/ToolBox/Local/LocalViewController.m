@@ -220,6 +220,7 @@
     [manager GET:API_NEARBY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            //防止切换的时候重复加载
             [self analysisData:[responseObject objectForKey:@"result"] withRealPageIndex:realPageIndex];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"加载失败"];
@@ -287,7 +288,6 @@
     }
     
     NSInteger oldPage = [[self.currentPageList objectAtIndex:realPageIndex] integerValue];
-    NSLog(@"我将第%ld 页的纵向第%ld 加了一页", (long)realPageIndex, (long)oldPage);
     [self.currentPageList replaceObjectAtIndex:realPageIndex withObject:[NSNumber numberWithInteger:++oldPage]];
 }
 
@@ -433,7 +433,8 @@
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
-    if (![[self.dataSource objectAtIndex:page] count]) {
+    if (![[self.dataSource objectAtIndex:page] count] && ![[self.isLoaddingMoreList objectAtIndex:page] boolValue]) {
+        [self.isLoaddingMoreList replaceObjectAtIndex:page withObject:@YES];
         NSLog(@"我在加载数据 = %ld", (long)page);
         [self loadDataWithPageIndex:0];
     }
@@ -525,7 +526,10 @@
             UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
             [tbView reloadData];
             self.currentPageList = nil;
-            [self loadDataWithPageIndex:0];
+            if (![[self.isLoaddingMoreList objectAtIndex:0] boolValue]) {
+                [self loadDataWithPageIndex:0];
+                [self.isLoaddingMoreList replaceObjectAtIndex:0 withObject:@YES];
+            }
         }
     }];
 }

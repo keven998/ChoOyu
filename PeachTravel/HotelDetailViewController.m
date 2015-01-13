@@ -28,7 +28,6 @@
 {
     self.navigationItem.title = _hotelPoi.zhName;
     CommonPoiDetailView *hotelView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-64)];
-    hotelView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     hotelView.poi = self.hotelPoi;
     hotelView.rootCtl = self;
     [self.view addSubview:hotelView];

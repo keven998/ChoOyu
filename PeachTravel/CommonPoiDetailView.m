@@ -17,7 +17,7 @@
 #import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
 
-@interface CommonPoiDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface CommonPoiDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) CycleScrollView *galleryPageView;
 
@@ -328,6 +328,9 @@ static NSString *commentCellIdentifier = @"commentCell";
         LocationTableViewCell *locationCell = [tableView dequeueReusableCellWithIdentifier:locationCellIdentifier];
         locationCell.address = _poi.address;
         locationCell.tel = _poi.telephone;
+        [locationCell.navigationBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [locationCell.navigationBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+
         return locationCell;
     }
     if (indexPath.section == 1) {
@@ -348,6 +351,22 @@ static NSString *commentCellIdentifier = @"commentCell";
 - (IBAction)viewImage:(id)sender
 {
     
+}
+
+- (IBAction)jumpMapView:(id)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self];    
 }
 
 - (IBAction)showMoreContent:(id)sender
@@ -434,6 +453,81 @@ static NSString *commentCellIdentifier = @"commentCell";
             }];
             break;
         }
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                }                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
     }
 }
 

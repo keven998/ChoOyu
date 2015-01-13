@@ -26,7 +26,6 @@
 - (void)updateView
 {
     CommonPoiDetailView *shoppingView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-64)];
-    shoppingView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     self.tabBarItem.title = self.shoppingPoi.zhName;
     shoppingView.poi = self.shoppingPoi;
     shoppingView.rootCtl = self;

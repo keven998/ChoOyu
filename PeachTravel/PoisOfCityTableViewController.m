@@ -693,7 +693,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         }
     } else {
-        [cell.actionBtn addTarget:self action:@selector(viewMap:) forControlEvents:UIControlEventTouchUpInside];
+        cell.actionBtn.hidden = YES;
     }
     
     return cell;
@@ -767,7 +767,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             }
         }
     }
-    
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
