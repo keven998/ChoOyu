@@ -260,6 +260,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     
     MKPinAnnotationView *newAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
     UIButton *advertButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     advertButton.frame = CGRectMake(0, 0, 15, 23);
     advertButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     advertButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
