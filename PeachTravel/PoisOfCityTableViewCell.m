@@ -64,7 +64,9 @@
     } else {
         _distanceLabel.hidden = YES;
     }
-    if (poi.comments.count) {
+    
+    NSLog(@"%d", _poi.comments.count);
+    if (_poi.comments.count > 0) {
         _commentDetail.hidden = NO;
         _commentAuthor.hidden = NO;
         _jumpCommentBtn.hidden = NO;

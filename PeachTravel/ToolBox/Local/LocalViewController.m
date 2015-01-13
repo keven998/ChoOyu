@@ -28,7 +28,7 @@
 
 #define RECYCLE_PAGE_TAG        100
 
-@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
+@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) DMFilterView *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
@@ -134,7 +134,24 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+}
 
+- (IBAction)jumpToMapView:(UIButton *)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
+    sheet.tag = sender.tag;
+   
 }
 
 - (CLLocationManager *)locationManager
@@ -339,10 +356,16 @@
             return 138.0;
             break;
             
-        default:
+        default: {
+            NSInteger tag = [tableView superview].tag;
+            PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
+            if ([poi.comments count] > 0) {
+                return 187.0;
+            }
+            return 141;
+        }
             break;
     }
-    return 185.0;
 }
 
 
@@ -373,10 +396,17 @@
         cell.tripPoi = trippoi;
         cell.addBtn.tag = indexPath.row;
         cell.shouldEdit = NO;
+        [cell.addBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.addBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        
+
         return cell;
     }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
     cell.shouldEdit = NO;
+    cell.tag = indexPath.row;
+    [cell.actionBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.actionBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     cell.poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
     return cell;
 }
@@ -537,7 +567,7 @@
     }];
 }
 
-- (void) beginLoadingMoreWithTableView:(UITableView *)tableView
+- (void)beginLoadingMoreWithTableView:(UITableView *)tableView
 {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
     footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -558,7 +588,7 @@
     [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:page] integerValue]+1];
 }
 
-- (void) loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
+- (void)loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
     if (![[self.isLoaddingMoreList objectAtIndex:pageIndex] boolValue]) {
         return;
     }
@@ -571,7 +601,8 @@
     tableView.tableFooterView = nil;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _swipeView.delegate = nil;
     _swipeView.dataSource = nil;
     _swipeView = nil;
@@ -614,6 +645,83 @@
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSLog(@"scrollViewDidEndDecelerating");
     _didEndScroll = YES;
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    NSInteger tag = _swipeView.currentItemView.tag;
+    PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:actionSheet.tag];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
