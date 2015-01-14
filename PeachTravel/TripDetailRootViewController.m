@@ -77,7 +77,7 @@
         [_actionBtn setImage:[UIImage imageNamed:@"ic_share_high.png"] forState:UIControlStateHighlighted];
         [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
+        [_actionBtn setTitle:@"复制计划" forState:UIControlStateNormal];
         _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_actionBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
@@ -128,7 +128,7 @@
 }
 
 - (void) hint {
-    [SVProgressHUD showSuccessWithStatus:@"已保存到旅行Memo"];
+    [SVProgressHUD showSuccessWithStatus:@"已保存到旅行计划"];
 }
 
 - (void)dealloc
@@ -151,7 +151,7 @@
 {
     if (_tripDetail && _canEdit) {
         if (self.tripDetail.tripIsChange) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Memo已编辑，是否保存" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"计划已编辑，是否保存" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
             [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
                 if (buttonIndex == 0) {
                     [self dismissCtl];
@@ -261,7 +261,7 @@
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
     } else {
         [_actionBtn setImage:nil forState:UIControlStateNormal];
-        [_actionBtn setTitle:@"复制Memo" forState:UIControlStateNormal];
+        [_actionBtn setTitle:@"复制计划" forState:UIControlStateNormal];
         [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_actionBtn removeTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
@@ -410,7 +410,7 @@
         if (code == 0) {
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
-            [SVProgressHUD showHint:@"已保存到我的Memo"];
+            [SVProgressHUD showHint:@"已保存到旅行计划"];
         } else {
              if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];

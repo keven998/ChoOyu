@@ -167,7 +167,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 break;
                 
             case TZChatTypeStrategy:
-                _typeLabel.text = @"Memo";
+                _typeLabel.text = @"计划";
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
                 [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"desc"];

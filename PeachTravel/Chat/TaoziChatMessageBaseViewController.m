@@ -58,7 +58,7 @@
             
         case TZChatTypeStrategy:
             [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
-            _headerLabel.text = @"  Memo";
+            _headerLabel.text = @"  计划";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
 
             _descLabel.text = _messageDesc;

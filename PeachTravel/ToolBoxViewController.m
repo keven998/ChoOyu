@@ -168,7 +168,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 84, _favoriteBtn.center.y);
     [_planBtn setImage:[UIImage imageNamed:@"ic_home_guide.png"] forState:UIControlStateNormal];
-    [_planBtn setTitle:@"旅行Memo" forState:UIControlStateNormal];
+    [_planBtn setTitle:@"旅行计划" forState:UIControlStateNormal];
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_planBtn];
     

@@ -47,7 +47,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新计划" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = makePlanBtn;
     
