@@ -247,17 +247,15 @@ static NSString *commentCellIdentifier = @"commentCell";
         return 1;
     }
     if (section == 1) {
-        return 1;
-    }
-    if (section == 2) {
         return _poi.comments.count;
+
     }
     return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -276,12 +274,10 @@ static NSString *commentCellIdentifier = @"commentCell";
         return [LocationTableViewCell heightForAddressCellWithAddress:_poi.address];
     }
     if (indexPath.section == 1) {
-        return 95;
-    }
-    if (indexPath.section == 2) {
         NSString *commentDetail = ((CommentDetail *)[_poi.comments objectAtIndex:indexPath.row]).commentDetails;
         return [CommentTableViewCell heightForCommentCellWithComment:commentDetail];
     }
+    
     return 0;
 }
 
@@ -300,11 +296,11 @@ static NSString *commentCellIdentifier = @"commentCell";
     sectionBtn.userInteractionEnabled = YES;
     [sectionBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 9, 0, 0)];
     [sectionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+//    if (section == 1) {
+//        [sectionBtn setImage:[UIImage imageNamed:@"ic_recommend.png"] forState:UIControlStateNormal];
+//        [sectionBtn setTitle:@"网友推荐" forState:UIControlStateNormal];
+//    }
     if (section == 1) {
-        [sectionBtn setImage:[UIImage imageNamed:@"ic_recommend.png"] forState:UIControlStateNormal];
-        [sectionBtn setTitle:@"网友推荐" forState:UIControlStateNormal];
-    }
-    if (section == 2) {
         [sectionBtn setImage:[UIImage imageNamed:@"ic_comment.png"] forState:UIControlStateNormal];
 
         [sectionBtn setTitle:@"网友点评" forState:UIControlStateNormal];
@@ -333,12 +329,13 @@ static NSString *commentCellIdentifier = @"commentCell";
 
         return locationCell;
     }
+//    if (indexPath.section == 1) {
+//        RecommendsTableViewCell *recommendsCell = [tableView dequeueReusableCellWithIdentifier:recommendCellIdentifier];
+//        recommendsCell.recommends = _poi.recommends;
+//        return recommendsCell;
+//        
+//    }
     if (indexPath.section == 1) {
-        RecommendsTableViewCell *recommendsCell = [tableView dequeueReusableCellWithIdentifier:recommendCellIdentifier];
-        recommendsCell.recommends = _poi.recommends;
-        return recommendsCell;
-        
-    } if (indexPath.section == 2) {
         CommentTableViewCell *commentCell = [tableView dequeueReusableCellWithIdentifier:commentCellIdentifier];
         commentCell.commentDetail = [_poi.comments objectAtIndex:indexPath.row];
         return commentCell;
