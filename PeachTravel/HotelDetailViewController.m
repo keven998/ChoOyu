@@ -78,7 +78,7 @@
     taoziMessageCtl.messageName = _hotelPoi.zhName;
     taoziMessageCtl.messagePrice = _hotelPoi.priceDesc;
     taoziMessageCtl.messageRating = _hotelPoi.rating;
-    taoziMessageCtl.chatType = TZChatTypeFood;
+    taoziMessageCtl.chatType = TZChatTypeHotel;
     taoziMessageCtl.messageAddress = _hotelPoi.address;
 }
 

@@ -48,6 +48,8 @@
 #import "SearchDestinationViewController.h"
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
+#import "ShoppingDetailViewController.h"
+#import "HotelDetailViewController.h"
 #import "IMRootViewController.h"
 #import "TripDetailRootViewController.h"
 
@@ -1041,8 +1043,25 @@
             
         case TZChatTypeFood: {
             RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+            restaurantDetailCtl.restaurantId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        }
+            break;
+            
+        case TZChatTypeShopping: {
+            ShoppingDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
+            shoppingCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            shoppingCtl.shoppingId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            [self.navigationController pushViewController:shoppingCtl animated:YES];
+        }
+            break;
+            
+        case TZChatTypeHotel: {
+            HotelDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
+            hotelCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            hotelCtl.hotelId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            [self.navigationController pushViewController:hotelCtl animated:YES];
         }
             break;
             

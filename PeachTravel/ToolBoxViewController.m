@@ -876,6 +876,21 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
+/*!
+ @method
+ @brief 离开一个群组后的回调
+ @param group  所要离开的群组对象
+ @param reason 离开的原因
+ @param error  错误信息
+ @discussion
+ 离开的原因包含主动退出, 被别人请出, 和销毁群组三种情况
+ */
+
+- (void)group:(EMGroup *)group didLeave:(EMGroupLeaveReason)reason error:(EMError *)error
+{
+    NSLog(@"%@", group);
+}
+
 - (void)didReceiveGroupRejectFrom:(NSString *)groupId
                           invitee:(NSString *)username
                            reason:(NSString *)reason

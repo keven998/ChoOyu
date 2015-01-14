@@ -74,4 +74,16 @@
     }];
 }
 
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+    taoziMessageCtl.messageId = _shoppingPoi.poiId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[_shoppingPoi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = _shoppingPoi.desc;
+    taoziMessageCtl.messageName = _shoppingPoi.zhName;
+    taoziMessageCtl.messagePrice = _shoppingPoi.priceDesc;
+    taoziMessageCtl.messageRating = _shoppingPoi.rating;
+    taoziMessageCtl.chatType = TZChatTypeShopping;
+    taoziMessageCtl.messageAddress = _shoppingPoi.address;
+}
+
 @end

@@ -65,7 +65,6 @@
         _distanceLabel.hidden = YES;
     }
     
-    NSLog(@"%d", _poi.comments.count);
     if (_poi.comments.count > 0) {
         _commentDetail.hidden = NO;
         _commentAuthor.hidden = NO;
@@ -75,6 +74,7 @@
         _commentDetail.text = comment.commentDetails;
         [_commentCntBtn setTitle:[NSString stringWithFormat:@"%ld", (long)poi.commentCount] forState:UIControlStateNormal];
         [_commentCntBtn setImage:[UIImage imageNamed:@"ic_comment_flag.png"] forState:UIControlStateNormal];
+        [_commentCntBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
         _spaceView.hidden = NO;
     } else {
         _commentDetail.hidden = YES;
