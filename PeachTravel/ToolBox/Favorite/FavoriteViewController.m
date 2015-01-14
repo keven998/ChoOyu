@@ -311,7 +311,7 @@
 
 - (void)loadDataWithPageIndex:(NSInteger)pageIndex andFavoriteType:(NSString *)faType
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -323,6 +323,8 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     [params safeSetObject:faType forKey:@"faType"];
@@ -374,7 +376,7 @@
  */
 - (void)deleteUserFavorite:(Favorite *)favorite
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];

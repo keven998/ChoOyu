@@ -93,7 +93,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
  */
 - (void)loadDataWithPageNo:(NSInteger)pageNo andKeyWork:(NSString *)keyWord
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -103,6 +103,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:100];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
@@ -112,7 +114,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [params safeSetObject:_cityId forKey:@"locId"];
     }
     
-    //获取城市的美食列表信息
+    //获取游记列表信息
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];

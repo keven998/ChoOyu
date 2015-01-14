@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="country.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-yd-WJS">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-yd-WJS">
                         <rect key="frame" x="28" y="10" width="52" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="52" id="ou6-Ki-vMP"/>
@@ -119,7 +119,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="country.jpg" width="400" height="225"/>
         <image name="ic_time.png" width="8" height="8"/>
     </resources>
 </document>

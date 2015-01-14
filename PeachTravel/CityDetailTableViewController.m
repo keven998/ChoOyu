@@ -76,7 +76,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)loadCityData
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -96,8 +96,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
     [_hud showHUDInViewController:weakSelf];
     
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+   
     //获取城市信息
-    [manager GET:requsetUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -125,7 +129,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (void)loadTravelNoteOfCityData
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -135,6 +139,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:100];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
     [params setObject:_cityPoi.cityId forKey:@"locId"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];

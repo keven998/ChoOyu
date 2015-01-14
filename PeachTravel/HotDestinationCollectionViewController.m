@@ -121,7 +121,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)loadDataSource
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -131,9 +131,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:kWindowWidth];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     
     //获取首页数据
-    [manager GET:API_GET_RECOMMEND parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_GET_RECOMMEND parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id data = [responseObject objectForKey:@"result"];

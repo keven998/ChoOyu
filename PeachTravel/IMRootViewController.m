@@ -47,7 +47,6 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestStatus) name:receiveFrendRequestNoti object:nil];
-
 }
 
 - (void)dealloc

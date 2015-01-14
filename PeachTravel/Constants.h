@@ -209,11 +209,16 @@ typedef enum : NSUInteger {
 
 /***** 设备信息 *****/
 
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
+#define kWindowHeight  [UIApplication sharedApplication].keyWindow.frame.size.height
+
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define IS_IPHONE_5  (fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
 
@@ -234,10 +239,6 @@ typedef enum : NSUInteger {
 #define TEXT_COLOR_TITLE            UIColorFromRGB(0x333333)
 #define TEXT_COLOR_TITLE_SUBTITLE   UIColorFromRGB(0x797979)
 #define TEXT_COLOR_TITLE_HINT       UIColorFromRGB(0x999999)
-
-
-#define kWindowWidth   [UIApplication sharedApplication].keyWindow.frame.size.width
-#define kWindowHeight  [UIApplication sharedApplication].keyWindow.frame.size.height
 
 
 /*****应用启动时是否应该启动引导页******/

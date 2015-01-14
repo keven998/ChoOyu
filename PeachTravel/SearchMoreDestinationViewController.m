@@ -132,7 +132,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
  */
 - (void)loadDataSourceWithKeyWord:(NSString *)keyWord
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -142,6 +142,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:80];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params safeSetObject:keyWord forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];

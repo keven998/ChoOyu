@@ -199,7 +199,7 @@
     if (!_location) {
         return;
     }
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -211,6 +211,8 @@
     NSInteger realPageIndex = _swipeView.currentItemView.tag;
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:130];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.latitude] forKey:@"lat"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.longitude] forKey:@"lng"];
     

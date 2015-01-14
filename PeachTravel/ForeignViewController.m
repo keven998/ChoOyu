@@ -72,7 +72,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
  */
 - (void)loadForeignDataFromServer
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -81,11 +81,14 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-     __weak typeof(ForeignViewController *)weakSelf = self;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUD];
     
-    [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {

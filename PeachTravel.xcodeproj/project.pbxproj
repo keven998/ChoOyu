@@ -181,7 +181,6 @@
 		D90F35F019F63B3300E26FA9 /* call_silence@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F357F19F63B3300E26FA9 /* call_silence@2x.png */; };
 		D90F35F119F63B3300E26FA9 /* call_silence_h.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F358019F63B3300E26FA9 /* call_silence_h.png */; };
 		D90F35F219F63B3300E26FA9 /* call_silence_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F358119F63B3300E26FA9 /* call_silence_h@2x.png */; };
-		D90F35F319F63B3300E26FA9 /* callBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F358219F63B3300E26FA9 /* callBg@2x.png */; };
 		D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358419F63B3300E26FA9 /* CallViewController.m */; };
 		D90F35F519F63B3300E26FA9 /* ChatSendHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358619F63B3300E26FA9 /* ChatSendHelper.m */; };
 		D90F35F619F63B3300E26FA9 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F358819F63B3300E26FA9 /* ChatViewController.m */; };
@@ -470,9 +469,6 @@
 		D9681A0B1A109BF600122793 /* background-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A001A109BF600122793 /* background-gradient@2x.png */; };
 		D9681A0C1A109BF600122793 /* button-background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A011A109BF600122793 /* button-background.png */; };
 		D9681A0D1A109BF600122793 /* button-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A021A109BF600122793 /* button-background@2x.png */; };
-		D9681A0E1A109BF600122793 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A031A109BF600122793 /* Default-568h@2x.png */; };
-		D9681A0F1A109BF600122793 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A041A109BF600122793 /* Default.png */; };
-		D9681A101A109BF600122793 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9681A051A109BF600122793 /* Default@2x.png */; };
 		D976DDA51A5FAA1100D82168 /* TripDetailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D976DDA41A5FAA1100D82168 /* TripDetailRootViewController.m */; };
 		D97B670119E90C70004439A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97B66FF19E90C70004439A3 /* LoginViewController.m */; };
 		D97B670219E90C70004439A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97B670019E90C70004439A3 /* LoginViewController.xib */; };
@@ -542,7 +538,6 @@
 		D9978B2F1A59013F00AB52B0 /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */; };
 		D99D8ECB19C8600C0021C25B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECA19C8600C0021C25B /* main.m */; };
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
-		D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D99D8ED719C8600C0021C25B /* LaunchScreen.xib */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */; };
 		D9A19CA61A2F063E00B189CB /* message_taozi_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */; };
@@ -557,6 +552,8 @@
 		D9A717C11A04AD4F005BDEFE /* FrendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A717BF1A04AD4F005BDEFE /* FrendRequestTableViewController.m */; };
 		D9A717C21A04AD4F005BDEFE /* FrendRequestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
+		D9AC6D251A66886C001D858D /* TZConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC6D241A66886C001D858D /* TZConversation.m */; };
+		D9AC6D2B1A669CDA001D858D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC6D2A1A669CDA001D858D /* Launch Screen.xib */; };
 		D9AC9AFD1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9AFB1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m */; };
 		D9AC9AFE1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AC9AFC1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib */; };
 		D9AC9B021A1C5F8C00E0C4CE /* ForeignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC9B001A1C5F8C00E0C4CE /* ForeignViewController.m */; };
@@ -942,7 +939,6 @@
 		D90F357F19F63B3300E26FA9 /* call_silence@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "call_silence@2x.png"; sourceTree = "<group>"; };
 		D90F358019F63B3300E26FA9 /* call_silence_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_silence_h.png; sourceTree = "<group>"; };
 		D90F358119F63B3300E26FA9 /* call_silence_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "call_silence_h@2x.png"; sourceTree = "<group>"; };
-		D90F358219F63B3300E26FA9 /* callBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callBg@2x.png"; sourceTree = "<group>"; };
 		D90F358319F63B3300E26FA9 /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
 		D90F358419F63B3300E26FA9 /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
 		D90F358519F63B3300E26FA9 /* ChatSendHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSendHelper.h; sourceTree = "<group>"; };
@@ -1428,9 +1424,6 @@
 		D9681A001A109BF600122793 /* background-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-gradient@2x.png"; sourceTree = "<group>"; };
 		D9681A011A109BF600122793 /* button-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-background.png"; sourceTree = "<group>"; };
 		D9681A021A109BF600122793 /* button-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-background@2x.png"; sourceTree = "<group>"; };
-		D9681A031A109BF600122793 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		D9681A041A109BF600122793 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		D9681A051A109BF600122793 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D976DDA41A5FAA1100D82168 /* TripDetailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailRootViewController.m; sourceTree = "<group>"; };
 		D97B66FE19E90C70004439A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		D97B66FF19E90C70004439A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -1545,7 +1538,6 @@
 		D99D8ECA19C8600C0021C25B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D99D8ECC19C8600C0021C25B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D99D8ECD19C8600C0021C25B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D99D8ED819C8600C0021C25B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
@@ -1567,6 +1559,9 @@
 		D9A717C01A04AD4F005BDEFE /* FrendRequestTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrendRequestTableViewController.xib; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9AC6D231A66886C001D858D /* TZConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZConversation.h; sourceTree = "<group>"; };
+		D9AC6D241A66886C001D858D /* TZConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZConversation.m; sourceTree = "<group>"; };
+		D9AC6D2A1A669CDA001D858D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D9AC9AFA1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignDestinationCollectionHeaderView.h; sourceTree = "<group>"; };
 		D9AC9AFB1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignDestinationCollectionHeaderView.m; sourceTree = "<group>"; };
 		D9AC9AFC1A1C5D6900E0C4CE /* ForeignDestinationCollectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCollectionHeaderView.xib; sourceTree = "<group>"; };
@@ -2364,6 +2359,8 @@
 				D90F357619F63B3300E26FA9 /* ChatListCell.m */,
 				D90F357719F63B3300E26FA9 /* ChatListViewController.h */,
 				D90F357819F63B3300E26FA9 /* ChatListViewController.m */,
+				D9AC6D231A66886C001D858D /* TZConversation.h */,
+				D9AC6D241A66886C001D858D /* TZConversation.m */,
 				D9117A751A2C4698000DBFCB /* ChatRecoredList */,
 			);
 			path = ChatList;
@@ -2383,7 +2380,6 @@
 				D90F357F19F63B3300E26FA9 /* call_silence@2x.png */,
 				D90F358019F63B3300E26FA9 /* call_silence_h.png */,
 				D90F358119F63B3300E26FA9 /* call_silence_h@2x.png */,
-				D90F358219F63B3300E26FA9 /* callBg@2x.png */,
 				D90F358319F63B3300E26FA9 /* CallViewController.h */,
 				D90F358419F63B3300E26FA9 /* CallViewController.m */,
 				D90F358519F63B3300E26FA9 /* ChatSendHelper.h */,
@@ -3824,9 +3820,6 @@
 				D9681A001A109BF600122793 /* background-gradient@2x.png */,
 				D9681A011A109BF600122793 /* button-background.png */,
 				D9681A021A109BF600122793 /* button-background@2x.png */,
-				D9681A031A109BF600122793 /* Default-568h@2x.png */,
-				D9681A041A109BF600122793 /* Default.png */,
-				D9681A051A109BF600122793 /* Default@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -4053,6 +4046,7 @@
 				D955E3F819E7A86800047F2B /* Resources */,
 				D99D8EC819C8600C0021C25B /* Supporting Files */,
 				D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */,
+				D9AC6D2A1A669CDA001D858D /* Launch Screen.xib */,
 			);
 			path = PeachTravel;
 			sourceTree = "<group>";
@@ -4060,7 +4054,6 @@
 		D99D8EC819C8600C0021C25B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D99D8ED719C8600C0021C25B /* LaunchScreen.xib */,
 				D99D8ECC19C8600C0021C25B /* AppDelegate.h */,
 				D99D8ECD19C8600C0021C25B /* AppDelegate.m */,
 				D99D8EC919C8600C0021C25B /* Info.plist */,
@@ -4751,7 +4744,6 @@
 				D9978B2F1A59013F00AB52B0 /* ic_delete@2x.png in Resources */,
 				D9E97D171A5C063800F2364D /* ic_guide_dot2@2x.png in Resources */,
 				D92F1AA51A5A82A300CD1A63 /* chatBar_more@2x.png in Resources */,
-				D9681A0F1A109BF600122793 /* Default.png in Resources */,
 				D9CC36D91A380E4E00E72A7F /* kengdie_guide_selected@2x.png in Resources */,
 				D92A48971A3945CE00B00D91 /* ic_time@2x.png in Resources */,
 				D90C63A419FB44D300C2E440 /* chat_location_detail_disclosureHL.png in Resources */,
@@ -4820,7 +4812,6 @@
 				D90C63C719FBA07700C2E440 /* ZYQAssetPicker.Bundle in Resources */,
 				C608ED621A2C3B4E00B76934 /* PushMsgsViewController.xib in Resources */,
 				D90C637419FB44D300C2E440 /* VoiceSearchFeedback004@2x.png in Resources */,
-				D99D8ED919C8600C0021C25B /* LaunchScreen.xib in Resources */,
 				D90C639C19FB44D300C2E440 /* chatBar_more_faceSelected.png in Resources */,
 				D9978B0A1A52B75C00AB52B0 /* UMSCommentInputController.xib in Resources */,
 				D990FBE119F8FC970008A8FE /* ResetPasswordViewController.xib in Resources */,
@@ -4946,6 +4937,7 @@
 				D9E97D101A5C063800F2364D /* ic_guide2_5_select@2x.png in Resources */,
 				D955E39F19E6B69100047F2B /* ForeignDestinationCell.xib in Resources */,
 				D9E9F7AD1A00A3C7003F70F6 /* AddContactTableViewController.xib in Resources */,
+				D9AC6D2B1A669CDA001D858D /* Launch Screen.xib in Resources */,
 				D95460191A2346D300688D72 /* CommonPoiListTableViewCell.xib in Resources */,
 				C6BC348F1A274FEB002C19D3 /* ic_share_to_friend@2x.png in Resources */,
 				D92F1ABB1A5A84BB00CD1A63 /* s_rain@2x.png in Resources */,
@@ -4955,7 +4947,6 @@
 				D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */,
 				D9CDD72419EBAF70001AC9F2 /* RegisterViewController.xib in Resources */,
 				D90C638619FB44D300C2E440 /* VoiceSearchFeedback013@2x.png in Resources */,
-				D90F35F319F63B3300E26FA9 /* callBg@2x.png in Resources */,
 				D9EF98B41A3C1EFF00DB480F /* ic_standard_travelnote@2x.png in Resources */,
 				C60C0D651A297A16006033C9 /* ic_score_app@2x.png in Resources */,
 				D9CC36BB1A3747D300E72A7F /* second_selected@2x.png in Resources */,
@@ -5088,10 +5079,8 @@
 				D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				D9564C8A1A64CAFC007203E5 /* map12@2x.png in Resources */,
-				D9681A0E1A109BF600122793 /* Default-568h@2x.png in Resources */,
 				D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */,
 				D9545FA11A20809C00688D72 /* RecommendCollectionViewCell.xib in Resources */,
-				D9681A101A109BF600122793 /* Default@2x.png in Resources */,
 				D9564C981A64CAFC007203E5 /* map6@2x.png in Resources */,
 				D9E97D111A5C063800F2364D /* ic_guide2_6_normal@2x.png in Resources */,
 				D9564C551A601213007203E5 /* chatBar_keyboard@2x.png in Resources */,
@@ -5376,6 +5365,7 @@
 				D98CC6841A19AD1D00FA5A76 /* ResizableView.m in Sources */,
 				D9545FC31A22EF9700688D72 /* RDVTabBarController.m in Sources */,
 				D92998171A28B05000795986 /* MyGuidesTableViewCell.m in Sources */,
+				D9AC6D251A66886C001D858D /* TZConversation.m in Sources */,
 				D955E3B419E7A09200047F2B /* AccountManagerViewController.m in Sources */,
 				D990FBE019F8FC970008A8FE /* ResetPasswordViewController.m in Sources */,
 				D90F35FE19F63B3300E26FA9 /* FacialView.m in Sources */,
@@ -5493,14 +5483,6 @@
 			name = UMSocialLocalizable.strings;
 			sourceTree = "<group>";
 		};
-		D99D8ED719C8600C0021C25B /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D99D8ED819C8600C0021C25B /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -5590,6 +5572,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5624,6 +5607,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -72,6 +72,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"桃子旅行";
+    
+    NSLog(@"%f   %f",SCREEN_WIDTH, [UIApplication sharedApplication].keyWindow.frame.size.height);
+    NSLog(@"%f   %f",self.view.frame.size.width, self.view.frame.size.height);
 
     [self setupView];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -123,11 +126,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _contentFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
     _contentFrame.contentMode = UIViewContentModeTop;
     _contentFrame.userInteractionEnabled = YES;
-    _contentFrame.backgroundColor = [UIColor whiteColor];
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _contentFrame.image = [UIImage imageNamed:@"bg_home_mid"];
     _contentFrame.clipsToBounds = YES;
+    _contentFrame.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_contentFrame];
+    
+    NSLog(@"%@", NSStringFromCGRect(_contentFrame.frame));
     
     CGFloat offsety = 30.0 * sscale;
     
@@ -156,7 +161,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [_favoriteBtn setTitle:@"收藏夹" forState:UIControlStateNormal];
     [_favoriteBtn addTarget:self action:@selector(myFavorite:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_favoriteBtn];
-    
+
     _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84, 96.0*sscale)];
     _planBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_planBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
@@ -179,7 +184,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     offsetY = 210.0*sscale;
     
-    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, offsetY, w-22, 57.0*sscale)];
+    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, _contentFrame.frame.size.height-20-57*sscale-50, w-22, 57.0*sscale)];
     [_IMBtn setImage:[UIImage imageNamed:@"ic_im_background.png"] forState:UIControlStateNormal];
     [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -218,6 +223,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
     }
     NSLog(@"tool viewWillAppear");
+    
+    
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -326,7 +334,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 - (void)loadRecommendData
 {
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -336,6 +344,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取首页数据
     [manager GET:API_GET_COLUMNS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

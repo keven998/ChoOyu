@@ -375,9 +375,9 @@
         }
     }
     
-    NSDictionary *params = @{@"page" : @0,
-                             @"pageSize" : @100
-                             };
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@0 forKey:@"page"];
+    [params setObject:@100 forKey:@"pageSize"];
     
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

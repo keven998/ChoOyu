@@ -20,10 +20,10 @@
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
 #import "IMRootViewController.h"
+#import "TZConversation.h"
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *dataSource;
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
@@ -136,30 +136,46 @@
 - (void)loadChattingPeople
 {
     NSLog(@"开始加载正在聊天的人");
+    NSMutableArray *dataSource = [self loadConversations];
     if (!_chattingPeople) {
         _chattingPeople = [[NSMutableArray alloc] init];
     } else {
         [_chattingPeople removeAllObjects];
     }
-    BOOL neeUpdate = NO;
-    for (EMConversation *conversation in self.dataSource) {
+    for (EMConversation *conversation in dataSource) {
         if (!conversation.chatter) {
+            
+            NSLog(@"删除了1");
             [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
-            neeUpdate = YES;
         }
         if (!conversation.isGroup) {
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
-                [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
+                TZConversation *tzConversation = [[TZConversation alloc] init];
+                tzConversation.chatterNickName = [self.accountManager TZContactByEasemobUser:conversation.chatter].nickName;
+                tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatar;
+                tzConversation.conversation = conversation;
+                [_chattingPeople addObject:tzConversation];
             } else {
+                NSLog(@"删除了2");
                 [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
-                neeUpdate = YES;
             }
         } else {
-            [_chattingPeople addObject:conversation.chatter];
+            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+            BOOL find = NO;
+            for (EMGroup *group in groupArray) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    TZConversation *tzConversation = [[TZConversation alloc] init];
+                    tzConversation.chatterNickName = group.groupSubject;
+                    tzConversation.conversation = conversation;
+                    [_chattingPeople addObject:tzConversation];
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find) {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+            }
         }
-    }
-    if (neeUpdate) {
-        [self loadDataSource];
     }
     if (_chattingPeople.count <= 0) {
         [self setupEmptyView];
@@ -214,7 +230,7 @@
     }
 }
 
-- (void)loadDataSource
+- (NSMutableArray *)loadConversations
 {
     NSLog(@"loadDataSource start");
     NSMutableArray *ret = nil;
@@ -231,7 +247,7 @@
            }];
     ret = [[NSMutableArray alloc] initWithArray:sorte];
     NSLog(@"loadDataSource end");
-    self.dataSource = ret;
+    return ret;
 }
 
 /**
@@ -433,31 +449,23 @@
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
 
-    EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+    TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
     
-    id chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
-    if (!conversation.isGroup) {
-        cell.name = ((Contact *)chatPeople).nickName;
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", ((Contact *)chatPeople).avatar]] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+    if (!tzConversation.conversation.isGroup) {
+        cell.name = tzConversation.chatterNickName;
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
     } else{
-        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-        for (EMGroup *group in groupArray) {
-            if ([group.groupId isEqualToString:conversation.chatter]) {
-                cell.name = group.groupSubject;
-                break;
-            }
-        }
+        cell.name = tzConversation.chatterNickName;
         [cell.imageView setImage:[UIImage imageNamed:@"chatListCellHead.png"]];
     }
-    cell.detailMsg = [self subTitleMessageByConversation:conversation];
-    cell.time = [self lastMessageTimeByConversation:conversation];
-    cell.unreadCount = [self unreadMessageCountByConversation:conversation];
-    
+    cell.detailMsg = [self subTitleMessageByConversation:tzConversation.conversation];
+    cell.time = [self lastMessageTimeByConversation:tzConversation.conversation];
+    cell.unreadCount = [self unreadMessageCountByConversation:tzConversation.conversation];
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  self.dataSource.count;
+    return  self.chattingPeople.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -467,30 +475,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
+    TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
     ChatViewController *chatController;
     NSString *title;
     NSString *avatar;
-    if (conversation.isGroup) {
-        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-        for (EMGroup *group in groupArray) {
-            if ([group.groupId isEqualToString:conversation.chatter]) {
-                title = group.groupSubject;
-                break;
-            }
-        }
+    if (tzConversation.conversation.isGroup) {
+        title = tzConversation.chatterNickName;
     } else {
-        title = ((Contact*)[self.chattingPeople objectAtIndex:indexPath.row]).nickName;
-        avatar = ((Contact*)[self.chattingPeople objectAtIndex:indexPath.row]).avatar;
+        title = tzConversation.chatterNickName;
+        avatar = tzConversation.chatterAvatar;
     }
     
-    NSString *chatter = conversation.chatter;
-    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:conversation.isGroup];
+    NSString *chatter = tzConversation.conversation.chatter;
+    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:tzConversation.conversation.isGroup];
     chatController.chatterAvatar = avatar;
     chatController.chatterNickName = title;
     chatController.title = title;
     
-    [conversation markAllMessagesAsRead:YES];
+    [tzConversation.conversation markAllMessagesAsRead:YES];
     [self.navigationController pushViewController:chatController animated:YES];
 }
 
@@ -500,12 +502,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        EMConversation *converation = [self.dataSource objectAtIndex:indexPath.row];
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:converation.chatter deleteMessages:YES];
-        [self.dataSource removeObjectAtIndex:indexPath.row];
+        TZConversation *tzConveration = [self.chattingPeople objectAtIndex:indexPath.row];
+        [[EaseMob sharedInstance].chatManager removeConversationByChatter:tzConveration.conversation.chatter deleteMessages:YES];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        if (_dataSource.count == 0) {
+        if (_chattingPeople.count == 0) {
             [self setupEmptyView];
         }
     }
@@ -559,7 +560,6 @@
 {
     dispatch_async(dispatch_queue_create("refreshDadaSource", NULL), ^{
         NSLog(@"开始刷新聊天DataSource");
-        [self loadDataSource];
         [self loadChattingPeople];
         dispatch_async(dispatch_get_main_queue(), ^{
             typeof(ChatListViewController) *weakSelf = self;
