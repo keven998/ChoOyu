@@ -1090,18 +1090,15 @@
 
 - (void)updateNavigation {
     
-	// Title
+    if (!_imageList) {
+        self.title = @"加载中...";
+        return;
+    }
     NSUInteger numberOfPhotos = [self numberOfPhotos];
     if (_gridController) {
         if (_gridController.selectionMode) {
             self.title = NSLocalizedString(@"Select Photos", nil);
         } else {
-//            NSString *photosText;
-//            if (numberOfPhotos == 1) {
-//                photosText = NSLocalizedString(@"photo", @"Used in the context: '1 photo'");
-//            } else {
-//                photosText = NSLocalizedString(@"photos", @"Used in the context: '3 photos'");
-//            }
             self.title = [NSString stringWithFormat:@"共%lu图", (unsigned long)numberOfPhotos];
         }
     } else if (numberOfPhotos > 1) {
