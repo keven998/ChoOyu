@@ -61,10 +61,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_selectToSend) {
-        self.navigationItem.title = @"发送Memo";
+        self.navigationItem.title = @"发送计划";
     } else {
-        self.navigationItem.title = @"旅行Memo";
-        UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新Memo" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
+        self.navigationItem.title = @"旅行计划";
+        UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新计划" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
         mp.tintColor = APP_THEME_COLOR;
         self.navigationItem.rightBarButtonItem = mp;
     }
@@ -544,7 +544,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     btn.clipsToBounds = YES;
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"新Memo" forState:UIControlStateNormal];
+    [btn setTitle:@"新计划" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
     btn.layer.cornerRadius = 2.0;
@@ -643,7 +643,7 @@ static NSString *reusableCell = @"myGuidesCell";
         taoziMessageCtl.delegate = self;
         taoziMessageCtl.chatType = TZChatTypeStrategy;
         taoziMessageCtl.chatter = _chatter;
-        taoziMessageCtl.chatTitle = @"Memo";
+        taoziMessageCtl.chatTitle = @"计划";
         taoziMessageCtl.messageId = guideSummary.guideId;
         taoziMessageCtl.messageDesc = guideSummary.summary;
         taoziMessageCtl.messageName = guideSummary.title;
