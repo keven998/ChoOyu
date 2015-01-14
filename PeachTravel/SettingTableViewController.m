@@ -47,7 +47,7 @@
     
     [HUD showInView:self.navigationController.view];
     
-    [[SDImageCache sharedImageCache] cleanDiskWithCompletionBlock:^{
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             HUD.indicatorView = nil;
             HUD.textLabel.font = [UIFont systemFontOfSize:17.0f];
@@ -57,7 +57,6 @@
         });
         HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 30.0f, 0.0f);
     }];
-    
     
 }
 

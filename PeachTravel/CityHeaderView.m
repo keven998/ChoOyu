@@ -68,7 +68,9 @@
     _imagePageIndicator.userInteractionEnabled = NO;
     _imagePageIndicator.layer.cornerRadius = 2.0;
     _imagePageIndicator.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"共%ld图", (unsigned long)_cityPoi.imageCount] forState:UIControlStateNormal];
+//    [_imagePageIndicator setTitle:[NSString stringWithFormat:@"共%ld图", (unsigned long)_cityPoi.imageCount] forState:UIControlStateNormal];
+    [_imagePageIndicator setTitle:@"画册" forState:UIControlStateNormal];
+
     [_headerView addSubview:_imagePageIndicator];
     
     NSInteger count = _cityPoi.images.count;
