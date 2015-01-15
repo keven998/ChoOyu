@@ -43,6 +43,12 @@
         [_backGroundImageView addSubview:imageView2];
         UIImageView *dotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_guide_dot2.png"]];
         dotImageView.center = CGPointMake(_backGroundImageView.center.x, imageView.frame.origin.y+imageView.frame.size.height+70);
+        
+        UIImageView *labelView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_guide_title_2.png"]];
+        CGFloat y = imageView.frame.origin.y-20>120 ? 120:imageView.frame.origin.y-20;
+        labelView.center = CGPointMake(_backGroundImageView.center.x, y);
+        [_backGroundImageView addSubview:labelView];
+        
         [_backGroundImageView addSubview:dotImageView];
         _backGroundImageView.image = [self capture:_backGroundImageView];
     }
