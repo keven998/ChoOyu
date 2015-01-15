@@ -303,7 +303,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [moreTravelNoteBtn addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
-    [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.8]  range:NSMakeRange(0, 4)];
+    [desc addAttribute:NSForegroundColorAttributeName value:[APP_THEME_COLOR colorWithAlphaComponent:0.8]  range:NSMakeRange(0, 4)];
     [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateNormal];
     desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
     [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.5]  range:NSMakeRange(0, 4)];
