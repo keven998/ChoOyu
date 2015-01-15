@@ -584,11 +584,12 @@
 
 - (void)didClickOnImageIndex:(NSInteger)imageIndex
 {
-    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"我搞了一条去北京的游玩的路线."];
-    NSString *shareContentWithUrl = [NSString stringWithFormat:@"我搞了一条去北京玩的路线"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",TRIP_DETAIL_HTML, _tripDetail.tripId];
+    NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"我的《%@》来了，亲们快快来围观～",_tripDetail.tripTitle];
+    NSString *shareContentWithUrl = [NSString stringWithFormat:@"我的《%@》来了，亲们快快来围观~ %@",_tripDetail.tripTitle, url];
     NSData *shareImageData;
-    NSArray *_shareUrls;
-    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:@"http://www.lvxingpai.cn"];
+    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:nil];
+
     [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
     switch (imageIndex) {
             
@@ -602,8 +603,8 @@
         }
             
         case 1: {
-            [UMSocialData defaultData].extConfig.wechatTimelineData.url = [_shareUrls firstObject];
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+            [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"] location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -612,8 +613,8 @@
             break;
             
         case 2: {
-            [UMSocialData defaultData].extConfig.wechatSessionData.url = [_shareUrls firstObject];
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
+            [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"]  location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -622,8 +623,8 @@
             break;
             
         case 3: {
-            [UMSocialData defaultData].extConfig.qqData.url = [_shareUrls firstObject];
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+            [UMSocialData defaultData].extConfig.qqData.url = url;
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"] location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -632,8 +633,8 @@
             break;
             
         case 4: {
-            [UMSocialData defaultData].extConfig.qzoneData.url = [_shareUrls firstObject];
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:shareImageData location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+            [UMSocialData defaultData].extConfig.qzoneData.url = url;
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"] location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -643,21 +644,18 @@
             break;
             
         case 5:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:shareImageData socialUIDelegate:nil];
+            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:[UIImage imageNamed:@"logo.png"] socialUIDelegate:nil];
             
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
             break;
             
         case 6:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:shareImageData socialUIDelegate:nil];
+            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:[UIImage imageNamed:@"logo.png"]  socialUIDelegate:nil];
             
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToDouban].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
             break;
-            
-        
-            
             
         default:
             break;
@@ -685,7 +683,6 @@
         }];
     }];
 }
-
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {

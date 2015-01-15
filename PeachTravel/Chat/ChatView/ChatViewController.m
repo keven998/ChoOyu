@@ -808,7 +808,11 @@
                     [self checkOutModel:model];
                 } else {
                     model.nickName = _chatterNickName;
-                    model.headImageURL = [NSURL URLWithString:_chatterAvatar];
+                    if (model.isSender) {
+                        model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatar];
+                    } else {
+                        model.headImageURL = [NSURL URLWithString:_chatterAvatar];
+                    }
                 }
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
                 EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];

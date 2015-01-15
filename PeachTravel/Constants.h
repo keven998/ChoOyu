@@ -109,7 +109,7 @@
 #define SHOPPING_CITY_HTML                      @ "http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
 #define MORE_COMMENT_HTML                       @ "http://h5.taozilvxing.com/morecomment.php?pid="   //更多点评
 #define TRAVELNOTE_DETAIL_HTML                  @ "http://h5.taozilvxing.com/detail.php?id="   //游记详情
-
+#define TRIP_DETAIL_HTML                        @ "http://h5.taozilvxing.com/planshare.php?pid="  //三张单详情
 /***** Notification name *******/
 
 #define weixinDidLoginNoti                      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
