@@ -344,7 +344,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取首页数据

@@ -132,7 +132,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:kWindowWidth];
+    NSNumber *imageWidth = [NSNumber numberWithInt:kWindowWidth];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
     //获取首页数据

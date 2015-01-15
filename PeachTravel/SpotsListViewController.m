@@ -208,22 +208,21 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (IBAction)mapView:(UIButton *)sender
 {
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
+
     NSMutableArray *allPositions = [[NSMutableArray alloc] init];
-    for (NSArray *oneDay in _tripDetail.itineraryList) {
-        NSMutableArray *poipositions = [[NSMutableArray alloc] init];
-        for (TripPoi *poi in oneDay) {
-            PositionBean *position = [[PositionBean alloc] init];
-            position.latitude = poi.lat;
-            position.longitude = poi.lng;
-            position.poiName = poi.zhName;
-            position.poiId = poi.poiId;
-            [poipositions addObject:position];
-        }
-        [allPositions addObject:poipositions];
+    for (TripPoi *poi in _tripDetail.itineraryList[sender.tag]) {
+        PositionBean *position = [[PositionBean alloc] init];
+        position.latitude = poi.lat;
+        position.longitude = poi.lng;
+        position.poiName = poi.zhName;
+        position.poiId = poi.poiId;
+        [allPositions addObject:position];
     }
-    ctl.currentDay = sender.tag+1;
     ctl.pois = allPositions;
-    [self.navigationController pushViewController:ctl animated:YES];
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
+    [self presentViewController:nCtl animated:YES completion:^{
+        
+    }];
 }
 
 - (void)updateTableView

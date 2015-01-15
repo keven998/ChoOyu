@@ -52,7 +52,7 @@
     [hud showHUDInViewController:weakSelf];
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
 
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_HOTEL_DETAIL, _hotelId];

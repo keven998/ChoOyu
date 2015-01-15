@@ -53,13 +53,17 @@
 {
     _imageList = imageList;
     _defaultPhotos = [[NSMutableArray alloc] init];
+    _HDPhotos = [[NSMutableArray alloc] init];
     for (id image in _imageList) {
-        if ([image isKindOfClass:[NSString class]]) {
-        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:image]];
-        [_defaultPhotos addObject:photo];
+        if ([image isKindOfClass:[NSDictionary class]]) {
+            MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:[image objectForKey:@"url"]]];
+            [_defaultPhotos addObject:photo];
+            MWPhoto *HDPhoto = [MWPhoto photoWithURL:[NSURL URLWithString:[image objectForKey:@"originUrl"]]];
+            [_HDPhotos addObject:HDPhoto];
         }
         if ([image isKindOfClass:[MWPhoto class]]) {
             [_defaultPhotos addObject:image];
+            [_HDPhotos addObject:image];
         }
        
         [self reloadData];
@@ -72,7 +76,8 @@
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    return [_defaultPhotos objectAtIndex:index];
+//    return [_defaultPhotos objectAtIndex:index];
+    return [_HDPhotos objectAtIndex:index]; 
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {

@@ -207,7 +207,7 @@
         [cityIds addObject:poi.cityId];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:120];
     [params setObject:imageWidth forKey:@"imgWidth"];
     if (isNeedRecommend) {
         [params setObject:@"recommend" forKey:@"action"];
@@ -297,7 +297,7 @@
         [hud showHUDInViewController:weakSelf];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:120];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
     [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -400,7 +400,7 @@
     [hud showHUDInViewController:weakSelf];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:120];
     [params setObject:imageWidth forKey:@"imgWidth"];
 
     [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -587,8 +587,9 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",TRIP_DETAIL_HTML, _tripDetail.tripId];
     NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"我的《%@》来了，亲们快快来围观～",_tripDetail.tripTitle];
     NSString *shareContentWithUrl = [NSString stringWithFormat:@"我的《%@》来了，亲们快快来围观~ %@",_tripDetail.tripTitle, url];
-    NSData *shareImageData;
-    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:nil];
+    TaoziImage *image = [_tripDetail.images firstObject];
+    NSString *imageUrl = image.imageUrl;
+    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imageUrl];
 
     [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
     switch (imageIndex) {
@@ -604,7 +605,7 @@
             
         case 1: {
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"] location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -614,7 +615,7 @@
             
         case 2: {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"]  location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:nil completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -624,7 +625,7 @@
             
         case 3: {
             [UMSocialData defaultData].extConfig.qqData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"] location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareContentWithoutUrl image:nil location:nil urlResource:resource presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -634,7 +635,7 @@
             
         case 4: {
             [UMSocialData defaultData].extConfig.qzoneData.url = url;
-            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:[UIImage imageNamed:@"logo.png"] location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+            [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:shareContentWithoutUrl image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     NSLog(@"分享成功！");
                 }
@@ -644,14 +645,14 @@
             break;
             
         case 5:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:[UIImage imageNamed:@"logo.png"] socialUIDelegate:nil];
+            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:nil socialUIDelegate:nil];
             
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
             break;
             
         case 6:
-            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:[UIImage imageNamed:@"logo.png"]  socialUIDelegate:nil];
+            [[UMSocialControllerService defaultControllerService] setShareText:shareContentWithUrl shareImage:nil  socialUIDelegate:nil];
             
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToDouban].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             

@@ -10,7 +10,7 @@
 
 @class PositionBean;
 
-@interface MyTripSpotsMapViewController : UIViewController
+@interface MyTripSpotsMapViewController : TZViewController
 @property (nonatomic, strong) NSArray *pois;
 @property (nonatomic, assign) NSUInteger currentDay;         //标记当前是第几天
 
