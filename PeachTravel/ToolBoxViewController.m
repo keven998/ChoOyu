@@ -40,8 +40,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (strong, nonatomic) UILabel *weatherLabel;
 @property (nonatomic, strong) CycleScrollView *galleryPageView;
 @property (nonatomic, strong) TZButton *planBtn;
-@property (nonatomic, strong) TZButton *favoriteBtn;
 @property (nonatomic, strong) TZButton *aroundBtn;
+
 @property (strong, nonatomic) UIButton *IMBtn;
 
 /**
@@ -49,8 +49,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 @property (strong, nonatomic) UILabel *unReadMsgLabel;
 
-@property (nonatomic, strong) UIImageView *contentFrame;
-@property (nonatomic, strong) UIImageView *weatherFrame;
+@property (nonatomic, strong) UIView *contentFrame;
 
 @end
 
@@ -72,9 +71,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"桃子旅行";
-    
-    NSLog(@"%f   %f",SCREEN_WIDTH, [UIApplication sharedApplication].keyWindow.frame.size.height);
-    NSLog(@"%f   %f",self.view.frame.size.width, self.view.frame.size.height);
 
     [self setupView];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -96,95 +92,83 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
-    CGFloat offsetY = 64.0;
+    CGFloat offsetY = 74.0;
     
-    CGFloat sscale = 1.0;
-    if (h <= 480.0) {
-        sscale = 960.0/1152.0;
-    }
-    
-    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, 170.0*sscale) animationDuration:5];
+    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(10, offsetY, w - 20, 170.0) animationDuration:5];
     _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.2];
-    
+    _galleryPageView.layer.cornerRadius = 5.0;
+    _galleryPageView.clipsToBounds = YES;
     [self.view addSubview:_galleryPageView];
-    
-    _weatherFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
-    _weatherFrame.image = [UIImage imageNamed:@"weatherbackground.png"];
-    _weatherFrame.contentMode = UIViewContentModeScaleToFill;
-    _weatherFrame.clipsToBounds = YES;
-    _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    
-    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, 7.5, w - 22.0, 40.0)];
-    _weatherLabel.textAlignment = NSTextAlignmentLeft;
-    _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _weatherLabel.textColor = [UIColor whiteColor];
-    _weatherLabel.font = [UIFont systemFontOfSize:13.0];
-    [_weatherFrame addSubview:_weatherLabel];
     
     offsetY += CGRectGetHeight(_galleryPageView.frame);
     
-    _contentFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
-    _contentFrame.contentMode = UIViewContentModeTop;
-    _contentFrame.userInteractionEnabled = YES;
+    _contentFrame = [[UIView alloc] initWithFrame:CGRectMake(0.0, offsetY, w, h - offsetY)];
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _contentFrame.image = [UIImage imageNamed:@"bg_home_mid"];
-    _contentFrame.clipsToBounds = YES;
-    _contentFrame.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_contentFrame];
     
-    NSLog(@"%@", NSStringFromCGRect(_contentFrame.frame));
+    //    _weatherFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
+    //    _weatherFrame.image = [UIImage imageNamed:@"weatherbackground.png"];
+    //    _weatherFrame.contentMode = UIViewContentModeScaleToFill;
+    //    _weatherFrame.clipsToBounds = YES;
+    //    _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     
-    CGFloat offsety = 30.0 * sscale;
+    offsetY = 20.0;
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, offsety, w, 21.0)];
-    title.font = [UIFont italicSystemFontOfSize:17];
-    title.textColor = TEXT_COLOR_TITLE;
-    title.textAlignment = NSTextAlignmentCenter;
+    UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(12.0, offsetY, 5.0, 14.0)];
+    lv.backgroundColor = APP_THEME_COLOR;
+    lv.layer.cornerRadius = 1.5;
+    [_contentFrame addSubview:lv];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(21.0, offsetY-1, w, 16.0)];
+    title.font = [UIFont systemFontOfSize:16.0];
+    title.textColor = APP_THEME_COLOR;
+    title.textAlignment = NSTextAlignmentLeft;
     title.text = @"桃子旅行助手";
-    title.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+    title.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_contentFrame addSubview:title];
     
-    UIImageView *limg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_toolbox_left.png"]];
-    limg.center = CGPointMake(w/2 - 77.5, offsety + 10.5);
-    [_contentFrame addSubview:limg];
+    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(18.0, offsetY-6, w - 28, 24)];
+    _weatherLabel.textAlignment = NSTextAlignmentRight;
+    _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _weatherLabel.textColor = UIColorFromRGB(0x7a7a7a);
+    _weatherLabel.font = [UIFont systemFontOfSize:9.0];
+    _weatherLabel.numberOfLines = 2;
+    [_contentFrame addSubview:_weatherLabel];
     
-    UIImageView *rimg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_toolbox_right.png"]];
-    rimg.center = CGPointMake(w/2 + 77.5, offsety + 10.5);
-    [_contentFrame addSubview:rimg];
+    offsetY += 16 + 10;
     
-    _favoriteBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84.0, 96.0*sscale)];
-    _favoriteBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_favoriteBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _favoriteBtn.center = CGPointMake(w/2.0, 112.0 * sscale);
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_home_fav.png"] forState:UIControlStateNormal];
-    [_favoriteBtn setTitle:@"收藏夹" forState:UIControlStateNormal];
-    [_favoriteBtn addTarget:self action:@selector(myFavorite:) forControlEvents:UIControlEventTouchUpInside];
-    [_contentFrame addSubview:_favoriteBtn];
-
-    _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84, 96.0*sscale)];
-    _planBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [_planBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_planBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _planBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 - 84, _favoriteBtn.center.y);
-    [_planBtn setImage:[UIImage imageNamed:@"ic_home_guide.png"] forState:UIControlStateNormal];
-    [_planBtn setTitle:@"旅行计划" forState:UIControlStateNormal];
+    CGFloat cw = (w - 30)/2;
+    
+    _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(10.0, offsetY, cw, cw)];
+    _planBtn.title.text = @"行程助手";
+    _planBtn.simButton.text = @"我的行程";
+    NSString *str = @"最贴心的旅行计划助手\n专为美眉们打造\n";
+    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
+    [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 4.0;
+    [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
+    [_planBtn.subTitle setAttributedText:desc];
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_planBtn];
     
-    _aroundBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 84, 96.0*sscale)];
-    _aroundBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [_aroundBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_aroundBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _aroundBtn.center = CGPointMake(CGRectGetWidth(_contentFrame.bounds)/2.0 + 84, _favoriteBtn.center.y);
-    [_aroundBtn setImage:[UIImage imageNamed:@"ic_home_around.png"] forState:UIControlStateNormal];
-    [_aroundBtn setTitle:@"我身边" forState:UIControlStateNormal];
+    _aroundBtn = [[TZButton alloc] initWithFrame:CGRectMake(cw + 20, offsetY, cw, cw)];
+    _aroundBtn.title.text = @"身边发现";
+    _aroundBtn.simButton.text = @"去发现";
+    str = @"旅行有发现\n发现途中的灵感\n发现当下的乐趣";
+    desc = [[NSMutableAttributedString alloc] initWithString:str];
+    [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
+    style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 3.0;
+    [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
+    [_aroundBtn.subTitle setAttributedText:desc];
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
+
     
-    offsetY = 210.0*sscale;
+    offsetY = 210.0;
     
-    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, _contentFrame.frame.size.height-20-57*sscale-50, w-22, 57.0*sscale)];
+    _IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(11, _contentFrame.frame.size.height-20-57-50, w-22, 57.0)];
     [_IMBtn setImage:[UIImage imageNamed:@"ic_im_background.png"] forState:UIControlStateNormal];
     [_IMBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _IMBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -276,12 +260,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
     };
     
-    if (!self.weatherInfo) {
-        [_weatherFrame removeFromSuperview];
-    } else {
-        [_weatherFrame removeFromSuperview];
-        [self.view addSubview:_weatherFrame];
-    }
+//    if (!self.weatherInfo) {
+//        [_weatherFrame removeFromSuperview];
+//    } else {
+//        [_weatherFrame removeFromSuperview];
+//        [self.view addSubview:_weatherFrame];
+//    }
 }
 
 /**
@@ -384,15 +368,21 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSString *tempCityName = city? city:@"当前位置";
     //将城市名字包含“市辖区”字眼的去掉
     NSString *cityName = [tempCityName stringByReplacingOccurrencesOfString:@"市辖区" withString:@""];
-    NSString *s = [NSString stringWithFormat:@"  %@  %@  %@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
-    _weatherLabel.text = s;
-    [_weatherFrame removeFromSuperview];
-    CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]}].width;
-    UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX+5, 15, 15, 17.5)];
+    NSString *s = [NSString stringWithFormat:@"%@  %@\n%@",currentDate, cityName, [yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode]];
+//    _weatherLabel.text = s;
+    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:s];
+    [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [s length])];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2.5;
+    style.alignment = NSTextAlignmentRight;
+    [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, s.length)];
+    [_weatherLabel setAttributedText:desc];
+    
+    CGFloat offsetX = [[yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:9]}].width;
+    UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 13, 14, 9, 10.5)];
     weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
+    weatherImageview.backgroundColor = [UIColor grayColor];
     [_weatherLabel addSubview:weatherImageview];
-    [self.view addSubview:_weatherFrame];
-    [_galleryPageView.pagerControl setFrame:CGRectMake(_galleryPageView.pagerControl.frame.origin.x,_galleryPageView.pagerControl.frame.origin.y-20, _galleryPageView.pagerControl.frame.size.width, _galleryPageView.pagerControl.frame.size.height)];
 }
 
 #pragma mark - IBAction Methods
