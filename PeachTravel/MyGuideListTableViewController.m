@@ -529,7 +529,7 @@ static NSString *reusableCell = @"myGuidesCell";
     desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
 //    desc.textAlignment = NSTextAlignmentCenter;
-    NSString *text = @"为旅行准备memo\n让你的旅行更精彩～";
+    NSString *text = @"为旅行计划\n让你的旅行更精彩～";
     NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
     [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
