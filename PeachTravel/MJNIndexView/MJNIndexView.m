@@ -275,7 +275,7 @@
     
     // calculating size of all index items
     for (NSString *item in self.indexItems) {
-        CGSize currentItemSize = [item sizeWithFont:self.font];
+        CGSize currentItemSize = [item sizeWithAttributes:@{NSFontAttributeName : self.font}];
         
         // if index items are smaller than 5.0 points display alert and do not display index at all
         if (currentItemSize.height < 5.0) {
@@ -291,7 +291,8 @@
     
     // calculating if deflectionRange is not too small based on the width of the longest index item using the font for selected item
     for (NSString *item in self.indexItems) {
-        CGSize currentItemSize = [item sizeWithFont:self.selectedItemFont];
+        CGSize currentItemSize = [item sizeWithAttributes:@{NSFontAttributeName : self.selectedItemFont}];
+
         if (currentItemSize.width > self.maxWidth) {
             self.maxWidth = currentItemSize.width;
         }
@@ -346,7 +347,7 @@
         // if there is only one item in index there is no need to animate index
         self.actualRangeOfDeflection = 0;
     } else if (self.rangeOfDeflection > ([self.indexItems count]/2 - 1)) { // if items range of deflection is bigger than half of items in index we should set it to exact half of items number
-        self.actualRangeOfDeflection = [self.indexItems count]/2;
+        self.actualRangeOfDeflection = (int)[self.indexItems count]/2;
     } else self.actualRangeOfDeflection = self.rangeOfDeflection;
 }
 
@@ -399,11 +400,13 @@
         
         if (self.itemsAligment == NSTextAlignmentCenter){
             
-            CGSize itemSize = [item sizeWithFont:self.font];
+            CGSize itemSize = [item sizeWithAttributes:@{NSFontAttributeName : self.font}];
+
             point.x = self.firstItemOrigin.x - itemSize.width/2;
         } else if (self.itemsAligment == NSTextAlignmentRight) {
             
-            CGSize itemSize = [item sizeWithFont:self.font];
+            CGSize itemSize = [item sizeWithAttributes:@{NSFontAttributeName : self.font}];
+
             point.x = self.firstItemOrigin.x - itemSize.width;
         } else point.x = self.firstItemOrigin.x;
         
@@ -601,7 +604,7 @@
         NSLog(@"Running %@ '%@'",self.class, NSStringFromSelector(_cmd));
     }
     
-    float h, s, b, a;
+    CGFloat h, s, b, a;
     if ([color getHue:&h saturation:&s brightness:&b alpha:&a])
         return [UIColor colorWithHue:h
                           saturation:s
@@ -825,7 +828,7 @@
         
         // if we do not need the fading curtain we can use simple CALayer
         if (!self.gradientLayer) {
-            self.gradientLayer = [CALayer layer];
+            self.gradientLayer = (CAGradientLayer *)[CALayer layer];
             [self.layer insertSublayer:self.gradientLayer atIndex:0];
         }
         self.gradientLayer.backgroundColor = self.curtainColor.CGColor;
@@ -973,9 +976,9 @@
     
     
     // obtain size of drawn label
-    CGSize newSize = [label sizeWithFont:font
-                       constrainedToSize:size
-                           lineBreakMode:lineBreak];
+    
+    CGSize newSize = [label boundingRectWithSize:size options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : font} context:nil].size;
+
     
     // determine correct rect for this label
     CGRect rect = CGRectMake(point.x, point.y,
@@ -984,11 +987,11 @@
     // set text color in context
     CGContextSetFillColorWithColor(context, color.CGColor);
     
-    // draw text
-    [label drawInRect:rect
-             withFont:font
-        lineBreakMode:lineBreak
-            alignment:alignment];
+    NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    textStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    textStyle.alignment = alignment;
+    
+    [label drawInRect:rect withAttributes:@{NSFontAttributeName : font, NSParagraphStyleAttributeName : textStyle}];
     
     // restore context state
     CGContextRestoreGState(context);
