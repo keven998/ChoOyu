@@ -53,7 +53,7 @@
     }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
 
      __weak typeof(ShoppingDetailViewController *)weakSelf = self;

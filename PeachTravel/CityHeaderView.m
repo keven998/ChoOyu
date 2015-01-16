@@ -378,6 +378,8 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@0 forKey:@"page"];
     [params setObject:@100 forKey:@"pageSize"];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth/3)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -385,7 +387,7 @@
         if (code == 0) {
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
             for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
-                [tempArray addObject:[imageDic objectForKey:@"url"]];
+                [tempArray addObject:imageDic];
             }
             albumCtl.imageList = tempArray;
         } else {

@@ -97,7 +97,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_hud showHUDInViewController:weakSelf];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
    
     //获取城市信息
@@ -139,7 +139,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:100];
+    NSNumber *imageWidth = [NSNumber numberWithInt:100];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
     [params setObject:_cityPoi.cityId forKey:@"locId"];

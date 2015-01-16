@@ -125,7 +125,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:80];
+    NSNumber *imageWidth = [NSNumber numberWithInt:80];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:keyWord forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];

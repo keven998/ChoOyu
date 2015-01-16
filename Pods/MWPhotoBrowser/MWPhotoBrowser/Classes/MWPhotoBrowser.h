@@ -61,6 +61,8 @@
 
 //tzlx
 @property (nonatomic, strong) NSMutableArray *defaultPhotos;
+@property (nonatomic, strong) NSMutableArray *HDPhotos;
+
 
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated("Use initWithDelegate: instead"))); // Depreciated

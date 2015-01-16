@@ -78,41 +78,20 @@
 }
 
 - (void) setupConverView {
-    CGFloat w = CGRectGetWidth(self.view.bounds);
-    CGFloat h = CGRectGetHeight(self.view.bounds);
+
     _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     _coverView.userInteractionEnabled = YES;
     _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    CALayer *layer = [_coverView layer];
-    layer.shadowColor = [UIColor colorWithWhite:0. alpha:1.0].CGColor;
-    layer.shadowOffset = CGSizeMake(2.5, 0.0);
-    layer.shadowOpacity = 0.25;
-    layer.shadowRadius = 2.5;
+   
     [self.view addSubview:_coverView];
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0, h - 44.0, w, 44.0)];
-    bottomView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.4];
-    bottomView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    bottomView.userInteractionEnabled = YES;
-    [_coverView addSubview:bottomView];
-    
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(w - 128.0, 0, 128.0, 44.0)];
-    [button setTitle:@"开启旅行>>" forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.8] forState:UIControlStateHighlighted];
-    button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
-    [button addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:button];
-    
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
-    pan.delegate = self;
-    [_coverView addGestureRecognizer:pan];
     _coverView.backgroundColor = [UIColor whiteColor];
 
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+    } else {
+        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:2.5];
     }
 }
 
@@ -120,55 +99,15 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Gesture
-- (void) swipe:(UIPanGestureRecognizer*)gesture {
-    UIView *view = [gesture view];
-    CGPoint velocity = [gesture velocityInView:view];
-    CGFloat x = velocity.x;
-    CGPoint transtion = [gesture translationInView:view];
-    CGFloat panX = transtion.x;
-    
-    if (gesture.state == UIGestureRecognizerStateBegan) {
-        //
-    } else if (gesture.state == UIGestureRecognizerStateChanged) {
-        if (panX >= 0.0) return;
-        CGRect frame = view.frame;
-        frame.origin.x = panX;
-        view.frame = frame;
-    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
-        if (panX <= -CGRectGetWidth(self.view.bounds) * 0.33) {
-            [self dismiss:nil];
-        } else if (x < -10.0 && panX < 0.0) {
-            [self dismiss:nil];
-        } else if (x > 10.0 && panX < 0.0) {
-            CGRect srcFrame = _coverView.frame;
-            srcFrame.origin.x = 0.0;
-            void (^closeAnim)(void) = ^(void) {
-                _coverView.frame = srcFrame;
-            };
-            
-            UIViewAnimationOptions options = UIViewAnimationOptionTransitionFlipFromRight;
-            [UIView animateWithDuration:0.2 delay:0.0 options:options animations:closeAnim completion:nil];
-        } else {
-            CGRect frame = view.frame;
-            frame.origin.x = 0.0;
-            view.frame = frame;
-        }
-    }
-}
-
 #pragma mark - IBActions
 
 - (void)dismiss:(id)sender
 {
-    CGRect srcFrame = _coverView.frame;
-    srcFrame.origin.x = -srcFrame.size.width;
-    void (^closeAnim)(void) = ^(void) {
-        _coverView.frame = srcFrame;
-    };
-    
     UIViewAnimationOptions options = UIViewAnimationOptionTransitionFlipFromRight;
-    [UIView animateWithDuration:0.2 delay:0.0 options:options animations:closeAnim completion:^(BOOL finished) {
+    [UIView animateWithDuration:0.2 delay:0.0 options:options animations:^{
+        _coverView.alpha = 0.2;
+    }  completion:^(BOOL finished) {
+        _coverView.alpha = 0;
         [_coverView removeFromSuperview];
         _coverView = nil;
     }];
@@ -207,7 +146,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:(kWindowWidth)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithFloat:self.view.frame.size.width*2] forKey:@"width"];
     [params setObject:[NSNumber numberWithFloat:self.view.frame.size.height*2] forKey:@"height"];
@@ -225,7 +164,6 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        [self showHint:@"呃～好像没找到网络"];
     }];
     
 }

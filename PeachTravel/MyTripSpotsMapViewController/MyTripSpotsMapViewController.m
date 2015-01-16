@@ -13,17 +13,15 @@
 @interface MyTripSpotsMapViewController () <MKMapViewDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) NSMutableArray *poisWillShow;       //记录需要显示的poi坐标的数组
-@property (nonatomic, strong)  UILabel *currentDayLabel;
+@property (nonatomic, strong) UILabel *currentDayLabel;
 @property (nonatomic, strong) NSMutableArray *currentAnnotations;
 @property (nonatomic, assign) NSUInteger positionCount;      //记录是第几个
-@property (nonatomic, strong)  MKPolyline *line;
+@property (nonatomic, strong) MKPolyline *line;
 @end
 
 @implementation MyTripSpotsMapViewController
 
 @synthesize mapView;
-@synthesize pois;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,50 +35,13 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"地图";
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *stepBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 108, self.view.bounds.size.width, 44.)];
-    stepBar.backgroundColor = UIColorFromRGB(0x767f86);
-    CALayer *layer = [stepBar layer];
-    layer.shadowColor = [UIColor colorWithWhite:0. alpha:0.30].CGColor;
-    layer.shadowOffset = CGSizeMake(0, -0.5);
-    layer.shadowOpacity = 1.0;
-    layer.shadowRadius = 0.5;
-//    [self.view addSubview:stepBar];
-    
-    mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+    mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self showMapPin];
-    
-    UIButton *nextDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(125, 12., 35., 20.)];
-    [nextDayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [nextDayBtn setImage:[UIImage imageNamed:@"mapright.png"] forState:UIControlStateNormal];
-    [nextDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-    UIButton *formerDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 35., 20.)];
-    [formerDayBtn setImage:[UIImage imageNamed:@"mapleft.png"] forState:UIControlStateNormal];
-    [formerDayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [formerDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _currentDayLabel = [[UILabel alloc] initWithFrame:CGRectMake(60., 3., 60., 38.)];
-    
-    _currentDayLabel.text = [NSString stringWithFormat:@"第 1 天"];
-    _currentDayLabel.backgroundColor = [UIColor clearColor];
-    _currentDayLabel.textColor = [UIColor whiteColor];
-    [nextDayBtn addTarget:self action:@selector(nextDay:) forControlEvents:UIControlEventTouchUpInside];
-    [formerDayBtn addTarget:self action:@selector(formerDay:) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *showAllpositionBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-98.5, 6, 90, 32.)];
-    showAllpositionBtn.layer.cornerRadius = 2;
-    [showAllpositionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [showAllpositionBtn setTitle:@"全部" forState:UIControlStateNormal];
-    showAllpositionBtn.backgroundColor = UIColorFromRGB(0x13deac);
-    [showAllpositionBtn addTarget:self action:@selector(showAllposition:) forControlEvents:UIControlEventTouchUpInside];
-    [stepBar addSubview:showAllpositionBtn];
-    [stepBar addSubview:nextDayBtn];
-    [stepBar addSubview:formerDayBtn];
-    [stepBar addSubview:_currentDayLabel];
-//    [self.view addSubview:stepBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -91,8 +52,12 @@
     [super viewWillDisappear:animated];
 }
 
-- (void) dealloc {
+- (void)goBack
+{
     mapView = nil;
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,21 +70,14 @@
     if (!_currentAnnotations) {
         _currentAnnotations = [[NSMutableArray alloc] init];
     }
-    if (!_poisWillShow) {
-        _poisWillShow = [[NSMutableArray alloc] init];
-    }
     _positionCount = 0;
-    [_poisWillShow removeAllObjects];
+
     [mapView removeAnnotations:_currentAnnotations];
     [_currentAnnotations removeAllObjects];
-    for (PositionBean *position in [pois objectAtIndex:_currentDay-1]) {
-        [_poisWillShow addObject:position];
-    }
-    NSInteger count = _poisWillShow.count;
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    CLLocationCoordinate2D pointsToUse[3];
-    for (int i = 0; i < count; ++i) {
-        PositionBean *pb = [_poisWillShow objectAtIndex:i];
+    CLLocationCoordinate2D pointsToUse[_pois.count];
+    for (int i = 0; i < _pois.count; i++) {
+        PositionBean *pb = [_pois objectAtIndex:i];
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(pb.latitude, pb.longitude);
         MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
         item.coordinate = location;
@@ -133,71 +91,9 @@
             [mapView selectAnnotation:item animated:YES];
         }
     }
-    _line = [MKPolyline polylineWithCoordinates:pointsToUse count:count];
-    _line.title = @"red";
+    _line = [MKPolyline polylineWithCoordinates:pointsToUse count:_pois.count];
     [mapView addOverlay:_line level:MKOverlayLevelAboveLabels];
-    [self moveMapToCenteratMapView:mapView withArray:_poisWillShow];
-}
-
-#pragma mark - action methods
-
-- (void)nextDay:(id)sender
-{
-    ++_currentDay;
-    if (_currentDay == [pois count]+1) {
-        _currentDay = 1;
-    }
-    _currentDayLabel.text = [NSString stringWithFormat:@"第 %ld 天",(long)_currentDay];
-    [self showMapPin];
-}
-
-- (void)formerDay:(id)sender
-{
-    --_currentDay;
-    if (_currentDay == 0) {
-        _currentDay = [pois count];
-    }
-    _currentDayLabel.text = [NSString stringWithFormat:@"第 %ld 天",(long)_currentDay];
-    [self showMapPin];
-}
-
-- (void)showAllposition:(id)sender
-{
-    if (!_currentAnnotations) {
-        _currentAnnotations = [[NSMutableArray alloc] init];
-    }
-    if (!_poisWillShow) {
-        _poisWillShow = [[NSMutableArray alloc] init];
-    }
-    _currentDayLabel.text = @"全部";
-    [mapView removeAnnotations:_currentAnnotations];
-    
-    [_currentAnnotations removeAllObjects];
-    [_poisWillShow removeAllObjects];
-    _positionCount = 0;
-    
-    for (NSArray *oneDay in pois) {
-        for (PositionBean *position in oneDay) {
-            [_poisWillShow addObject:position];
-        }
-    }
-    NSInteger count = _poisWillShow.count;
-    
-    for (int i = 0; i < count; ++i) {
-        PositionBean *pb = [_poisWillShow objectAtIndex:i];
-        CLLocationCoordinate2D location = CLLocationCoordinate2DMake(pb.latitude, pb.longitude);
-        MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
-        
-        item.coordinate = location;
-        item.title = pb.poiName;
-        [_currentAnnotations addObject:item];
-        [mapView addAnnotation:item];
-        if (i == 0) {
-            [mapView selectAnnotation:item animated:YES];
-        }
-    }
-    
-    [self moveMapToCenteratMapView:mapView withArray:_poisWillShow];
+    [self moveMapToCenteratMapView:mapView withArray:_pois];
 }
 
 //设置百度地图缩放级别

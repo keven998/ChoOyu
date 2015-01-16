@@ -227,7 +227,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     NSString *backUpCityId = _cityId;
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:130];
+    NSNumber *imageWidth = [NSNumber numberWithInt:130];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
@@ -289,7 +289,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:130];
+    NSNumber *imageWidth = [NSNumber numberWithInt:130];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];

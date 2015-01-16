@@ -211,7 +211,7 @@
     NSInteger realPageIndex = _swipeView.currentItemView.tag;
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithFloat:130];
+    NSNumber *imageWidth = [NSNumber numberWithInt:130];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.latitude] forKey:@"lat"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.longitude] forKey:@"lng"];
