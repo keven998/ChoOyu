@@ -540,6 +540,7 @@
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D99FDFB41A67B43E00932550 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99FDFB31A67B43E00932550 /* logo@2x.png */; };
+		D99FE0041A68E44200932550 /* MJNIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0031A68E44200932550 /* MJNIndexView.m */; };
 		D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */; };
 		D9A19CA61A2F063E00B189CB /* message_taozi_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */; };
 		D9A19CA71A2F063E00B189CB /* chat_receiver_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C921A2F063E00B189CB /* chat_receiver_bg@2x.png */; };
@@ -1546,6 +1547,8 @@
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D99D8EE419C8600C0021C25B /* PeachTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeachTravelTests.m; sourceTree = "<group>"; };
 		D99FDFB31A67B43E00932550 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		D99FE0021A68E44200932550 /* MJNIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJNIndexView.h; sourceTree = "<group>"; };
+		D99FE0031A68E44200932550 /* MJNIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJNIndexView.m; sourceTree = "<group>"; };
 		D9A19C891A2EEE4A00B189CB /* TaoziChatBaseBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatBaseBubbleView.h; sourceTree = "<group>"; };
 		D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatBaseBubbleView.m; sourceTree = "<group>"; };
 		D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_taozi_send@2x.png"; path = "../../resource/2x/message_taozi_send@2x.png"; sourceTree = "<group>"; };
@@ -3275,6 +3278,7 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D99FE0011A68E44200932550 /* MJNIndexView */,
 				D98503C81A5A3005001A4C30 /* MJPhotoBrowser */,
 				C61F15641A59006200F4DF12 /* NJKWebViewProgress */,
 				D9978B181A52B78300AB52B0 /* WeChatSDK_1.5 */,
@@ -4087,6 +4091,15 @@
 				D99D8EE319C8600C0021C25B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D99FE0011A68E44200932550 /* MJNIndexView */ = {
+			isa = PBXGroup;
+			children = (
+				D99FE0021A68E44200932550 /* MJNIndexView.h */,
+				D99FE0031A68E44200932550 /* MJNIndexView.m */,
+			);
+			path = MJNIndexView;
 			sourceTree = "<group>";
 		};
 		D9A19C871A2EEE0100B189CB /* CommonMessageBubbuleView */ = {
@@ -5262,6 +5275,7 @@
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
 				D96550F41A257CA200928DB0 /* AddSpotTableViewCell.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
+				D99FE0041A68E44200932550 /* MJNIndexView.m in Sources */,
 				D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */,
 				D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */,
 				D9F3613619E41A51000F379F /* MineTableViewController.m in Sources */,

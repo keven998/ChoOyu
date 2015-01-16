@@ -16,16 +16,20 @@
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
+#import "MJNIndexView.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TZScrollViewDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TZScrollViewDelegate, MJNIndexViewDataSource>
 
 @property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
+
+//索引
+@property (nonatomic, strong) MJNIndexView *indexView;
 
 //是否显示字母索引，当少于15个人的时候不显示
 @property (nonatomic) BOOL showRefrence;
@@ -47,9 +51,18 @@
     _showRefrence = ([accountManager.account.contacts count] > 15);
     
     if (_showRefrence) {
-        [self.view addSubview:self.tzScrollView];
+//        [self.view addSubview:self.tzScrollView];
     }
     [self.view addSubview:self.contactTableView];
+    
+    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
+
+    self.indexView = [[MJNIndexView alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+    self.indexView.dataSource = self;
+    [self firstAttributesForMJNIndexView];
+    [self.view addSubview:self.indexView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -82,6 +95,32 @@
 }
 
 #pragma mark - private method
+
+- (void)firstAttributesForMJNIndexView
+{
+    self.indexView.getSelectedItemsAfterPanGestureIsFinished = YES;
+    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
+    self.indexView.selectedItemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:40.0];
+    self.indexView.backgroundColor = [UIColor clearColor];
+    self.indexView.curtainColor = nil;
+    self.indexView.curtainFade = 0.0;
+    self.indexView.curtainStays = NO;
+    self.indexView.curtainMoves = YES;
+    self.indexView.curtainMargins = NO;
+    self.indexView.ergonomicHeight = NO;
+    self.indexView.upperMargin = 22.0;
+    self.indexView.lowerMargin = 22.0;
+    self.indexView.rightMargin = 10.0;
+    self.indexView.itemsAligment = NSTextAlignmentCenter;
+    self.indexView.maxItemDeflection = 30.0;
+    self.indexView.rangeOfDeflection = 5;
+    self.indexView.fontColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0];
+    self.indexView.selectedItemFontColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    self.indexView.darkening = NO;
+    self.indexView.fading = YES;
+    
+}
+
 
 - (void) handleEmptyView {
     if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
@@ -187,7 +226,7 @@
         }
         
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, self.view.frame.size.width - 22, self.view.frame.size.height - offsetY) style:UITableViewStylePlain];
-        
+
         _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 22, 10)];
         
         _contactTableView.dataSource = self;
@@ -298,7 +337,6 @@
         return [contacts count];
     }
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -345,6 +383,19 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
+#pragma mark MJMIndexForTableView datasource methods
+
+- (NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
+- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index+1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+}
+
 
 #pragma mark - UIScrollViewDelegate
 
