@@ -91,7 +91,7 @@
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     } else {
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:2.5];
+        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.8];
     }
 }
 
@@ -170,7 +170,19 @@
 
 - (void)updateBackgroundData:(NSString *)imageUrl
 {
-    [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"story_default.png"]];
+    if (_coverView != nil) {
+        [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"story_default.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (image) {
+                if (_coverView != nil) {
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                                             selector:@selector(dismiss:)
+                                                               object:nil];
+                    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.2];
+                }
+            }
+        }];
+    }
+    
     [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:@"backGroundImage"];
 }
 
