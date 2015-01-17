@@ -170,6 +170,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUD];
     
+    
+    
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         
