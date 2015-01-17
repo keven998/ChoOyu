@@ -203,6 +203,8 @@
     [intro showInView:self.view animateDuration:0];
 }
 
+#pragma mark - EAIntroDelegate
+
 - (void)intro:(EAIntroView *)introView pageAppeared:(EAIntroPage *)page withIndex:(NSInteger)pageIndex
 {
     if (pageIndex == 0) {
@@ -227,17 +229,6 @@
 {
     
 }
-//- (void)tutorialControllerDidReachLastPage:(ICETutorialController *)tutorialController
-//{
-//    _coverView.hidden = NO;
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.viewController.view.alpha = 0;
-//    } completion:^(BOOL finished) {
-//        [self.viewController stopScrolling];
-//        [self.viewController.view removeFromSuperview];
-//        self.viewController = nil;
-//    }];
-//}
 
 - (void)setupViewControllers
 {
