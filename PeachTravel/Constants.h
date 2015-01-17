@@ -239,6 +239,7 @@ typedef enum : NSUInteger {
 #define TEXT_COLOR_TITLE            UIColorFromRGB(0x333333)
 #define TEXT_COLOR_TITLE_SUBTITLE   UIColorFromRGB(0x797979)
 #define TEXT_COLOR_TITLE_HINT       UIColorFromRGB(0x999999)
+#define TEXT_COLOR_TITLE_PH         UIColorFromRGB(0xaaaaaa)
 
 
 /*****应用启动时是否应该启动引导页******/
