@@ -354,6 +354,7 @@
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
         newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
+        newContact.signature = [contactDic objectForKey:@"signature"];
         [contacts addObject:newContact];
     }
     [self.account addContacts:contacts];
