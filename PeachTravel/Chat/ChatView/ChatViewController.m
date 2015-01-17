@@ -834,7 +834,7 @@
 
 #pragma mark - Table view delegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[NSString class]]) {
@@ -883,7 +883,7 @@
 #pragma mark - GestureRecognizer
 
 // 点击背景隐藏
--(void)keyBoardHidden
+- (void)keyBoardHidden
 {
     [self.chatToolBar endEditing:YES];
 }
@@ -963,7 +963,7 @@
  *
  *  @param model
  */
--(void)chatAudioCellBubblePressed:(MessageModel *)model
+- (void)chatAudioCellBubblePressed:(MessageModel *)model
 {
     id <IEMFileMessageBody> body = [model.message.messageBodies firstObject];
     EMAttachmentDownloadStatus downloadStatus = [body attachmentDownloadStatus];
@@ -1009,7 +1009,7 @@
 }
 
 // 位置的bubble被点击
--(void)chatLocationCellBubblePressed:(MessageModel *)model
+- (void)chatLocationCellBubblePressed:(MessageModel *)model
 {
     _isScrollToBottom = NO;
     LocationViewController *locationController = [[LocationViewController alloc] initWithLocation:CLLocationCoordinate2DMake(model.latitude, model.longitude)];
@@ -1132,8 +1132,9 @@
 }
 
 // 图片的bubble被点击
--(void)chatImageCellBubblePressed:(MessageModel *)model andImageView:(UIImageView *)imageView
+- (void)chatImageCellBubblePressed:(MessageModel *)model andImageView:(UIImageView *)imageView
 {
+    [self keyBoardHidden];
     __weak ChatViewController *weakSelf = self;
     id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
     if ([model.messageBody messageBodyType] == eMessageBodyType_Image) {
@@ -1181,7 +1182,7 @@
 
 #pragma mark - IChatManagerDelegate
 
--(void)didSendMessage:(EMMessage *)message error:(EMError *)error;
+- (void)didSendMessage:(EMMessage *)message error:(EMError *)error;
 {
     NSLog(@"发送结果：%@", error);
     [self reloadTableViewDataWithMessage:message];
@@ -1403,7 +1404,7 @@
 
 #pragma mark - LocationViewDelegate
 
--(void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
+- (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
 {
     EMMessage *locationMessage = [ChatSendHelper sendLocationLatitude:latitude longitude:longitude address:address toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
     [self addChatDataToMessage:locationMessage];
@@ -1484,7 +1485,8 @@
  *  @param picker
  *  @param assets
  */
--(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+- (void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+{
     [picker dismissViewControllerAnimated:YES completion:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *images = [[NSMutableArray alloc] init];
@@ -1697,7 +1699,7 @@
      
 }
 
--(NSMutableArray *)addChatToMessage:(EMMessage *)message
+- (NSMutableArray *)addChatToMessage:(EMMessage *)message
 {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
@@ -1715,7 +1717,7 @@
     return ret;
 }
 
--(void)addChatDataToMessage:(EMMessage *)message
+- (void)addChatDataToMessage:(EMMessage *)message
 {
     __weak ChatViewController *weakSelf = self;
     dispatch_async(_messageQueue, ^{
@@ -1847,7 +1849,7 @@
     }
 }
 
--(void)sendImageMessage:(UIImage *)imageMessage
+- (void)sendImageMessage:(UIImage *)imageMessage
 {
     EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:imageMessage toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
     [self addChatDataToMessage:tempMessage];

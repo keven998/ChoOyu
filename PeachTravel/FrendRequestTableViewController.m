@@ -126,9 +126,8 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 
     [params setObject:frendRequest.userId forKey:@"userId"];
-    __weak typeof(FrendRequestTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUD];
     
     //同意添加好友
     [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
