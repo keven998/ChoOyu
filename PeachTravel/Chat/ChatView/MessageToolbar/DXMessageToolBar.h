@@ -84,6 +84,16 @@
 - (instancetype)initWithFrame:(CGRect)frame;
 
 /**
+ *  注册通知
+ */
+- (void)registerNoti;
+
+/**
+ *  取消注册通知
+ */
+- (void)unRegisterNoti;
+
+/**
  *  默认高度
  *
  *  @return 默认高度

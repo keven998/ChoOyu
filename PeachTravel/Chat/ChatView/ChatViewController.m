@@ -172,6 +172,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [_chatToolBar registerNoti];
     if (_isChatGroup) {
         EMGroup *chatGroup = nil;
         NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
@@ -199,7 +200,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     [_conversation markAllMessagesAsRead:YES];
     
@@ -255,6 +256,7 @@
  */
 - (IBAction)showGroupList:(id)sender
 {
+    [self keyBoardHidden];
     [_titleBtn removeTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
     [_titleBtn addTarget:self action:@selector(hideGroupList) forControlEvents:UIControlEventTouchUpInside];
     if (self.peopleInGroup.count > 0) {
@@ -1298,6 +1300,7 @@
     favoriteCtl.chatter = _chatter;
     favoriteCtl.selectToSend = YES;
     [self.navigationController pushViewController:favoriteCtl animated:YES];
+
 }
 
 /**
@@ -1747,6 +1750,7 @@
 - (void)showRoomContact:(id)sender
 {
     [self.view endEditing:YES];
+    [self keyBoardHidden];
     if (_isChatGroup) {
         EMGroup *chatGroup = nil;
         NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];

@@ -29,7 +29,6 @@
     return self;
 }
 
-
 //width = 320, left/right-margin: 40, 240
 //top-margin: 10
 - (void)setupSubviewsForType:(ChatMoreType)type
@@ -51,7 +50,6 @@
     _myStrategyButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_myStrategyButton];
     
-    
     _myFavoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_myFavoriteButton setFrame:CGRectMake(insets + CHAT_BUTTON_SIZE, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite.png"] forState:UIControlStateNormal];
@@ -66,7 +64,6 @@
     _myFavoriteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
     _myFavoriteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_myFavoriteButton];
-    
     
     _destinationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_destinationButton setFrame:CGRectMake(insets + 2*CHAT_BUTTON_SIZE, 10, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
@@ -113,7 +110,6 @@
     _photoButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_photoButton];
     
-
     _takePicButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_takePicButton setFrame:CGRectMake(insets + 2*CHAT_BUTTON_SIZE, 10 + CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_takePicButton setImage:[UIImage imageNamed:@"chatBar_more_camera.png"] forState:UIControlStateNormal];
@@ -129,7 +125,6 @@
     _takePicButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_takePicButton];
     
-    
 //    _locationButton =[UIButton buttonWithType:UIButtonTypeCustom];
 //    [_locationButton setFrame:CGRectMake(insets * 3 + CHAT_BUTTON_SIZE*2, 10 * 2+CHAT_BUTTON_SIZE+CHAT_LABEL_HEIGHT, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
 //    [_locationButton setImage:[UIImage imageNamed:@"chatBar_colorMore_location"] forState:UIControlStateNormal];
@@ -141,7 +136,6 @@
 //    _locationLabel.font = [UIFont systemFontOfSize:12.0];
 //    [self addSubview:_locationLabel];
 //    [self addSubview:_locationButton];
-    
     
     /******暂时屏蔽掉发送视频功能*****/
     /*
