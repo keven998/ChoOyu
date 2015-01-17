@@ -23,6 +23,7 @@
 //索引
 @property (nonatomic, strong) MJNIndexView *indexView;
 
+@property (nonatomic, strong) TZProgressHUD *hud;
 @end
 
 @implementation DomesticViewController
@@ -69,9 +70,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 if ([object isKindOfClass:[NSDictionary class]]) {
                     [_destinations initDomesticCitiesWithJson:[object objectForKey:@"result"]];
                     [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+
                     [self updateView];
                 }
             } else {
+                _hud = [[TZProgressHUD alloc] init];
+                [_hud showHUD];
                 [self loadDomesticDataFromServerWithLastModified:@""];
 
             }
@@ -166,14 +170,11 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUD];
-    
-    
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
+        if (_hud) {
+            [_hud hideTZHUD];
+        }
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -187,14 +188,21 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 [[TMCache sharedCache] setObject:dic forKey:@"destination_demostic"];
             });
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            if (_hud) {
+                if (self.isShowing) {
+                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                }
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (_hud) {
+            [_hud hideTZHUD];
+            if (self.isShowing) {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            }
         }
+       
     }];
 }
 

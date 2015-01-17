@@ -272,8 +272,16 @@
     self.toolbarBackgroundImageView.frame = self.toolbarView.bounds;
     [self.toolbarView addSubview:self.toolbarBackgroundImageView];
     [self addSubview:self.toolbarView];
-    
+}
+
+- (void)registerNoti
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)unRegisterNoti
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)setupSubviews
