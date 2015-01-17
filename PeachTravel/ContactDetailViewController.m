@@ -252,7 +252,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [accountManager removeContact:self.contact.userId];
-            [SVProgressHUD showHint:@"OK!成功删除～"];
+            [SVProgressHUD showHint:@"OK~成功删除～"];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
 
