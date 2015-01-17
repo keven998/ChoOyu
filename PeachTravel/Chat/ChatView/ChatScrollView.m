@@ -95,7 +95,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, _lineCount*60+30);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, _lineCount*(60+gap)+30);
     
     for (UIView *subView in self.scrollView.subviews) {
         [subView removeFromSuperview];

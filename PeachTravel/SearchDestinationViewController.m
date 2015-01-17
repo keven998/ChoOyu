@@ -128,7 +128,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSNumber *imageWidth = [NSNumber numberWithInt:80];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:keyWord forKey:@"keyWord"];
-    [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
+    [params setObject:[NSNumber numberWithBool:YES] forKey:@"locality"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
@@ -166,7 +166,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *cityDic = [[NSMutableDictionary alloc] init];
     [cityDic setObject:@"相关城市" forKey:@"typeDesc"];
     NSMutableArray *cities = [[NSMutableArray alloc] init];
-    for (id dic in [json objectForKey:@"loc"]) {
+    for (id dic in [json objectForKey:@"locality"]) {
         TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
         poi.poiType = kCityPoi;
         [cities addObject:poi];
@@ -257,7 +257,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSString *poiTypeDesc;
     switch ([[dic objectForKey:@"type"] integerValue]) {
         case kCityPoi:
-            poiTypeDesc = @"loc";
+            poiTypeDesc = @"locality";
             
             break;
         case kSpotPoi:
@@ -378,6 +378,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         TaoziImage *image = [poi.images firstObject];
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         cell.titleLabel.text = poi.zhName;
+        cell.detailLabel.text = @"";
     }
     return cell;
 }

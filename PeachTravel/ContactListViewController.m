@@ -56,13 +56,16 @@
     [self.view addSubview:self.contactTableView];
     
     CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
-
-    self.indexView = [[MJNIndexView alloc]initWithFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+    if (height == 0) {
+        height = 100;
+    }
+    self.indexView = [[MJNIndexView alloc] init];
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
     self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-    self.indexView.dataSource = self;
     [self firstAttributesForMJNIndexView];
+    self.indexView.dataSource = self;
     [self.view addSubview:self.indexView];
+ 
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -264,6 +267,13 @@
 {
     self.dataSource = [self.accountManager contactsByPinyin];
     [self.contactTableView reloadData];
+    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
+    if (height == 0) {
+        height = 100;
+    }
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+    [_indexView refreshIndexItems];
     
     [self handleEmptyView];
 }

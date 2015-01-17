@@ -11,15 +11,17 @@
 #import "DestinationCollectionHeaderView.h"
 #import "Destinations.h"
 #import "DomesticDestinationCell.h"
-#import "TZScrollView.h"
 #import "MakePlanViewController.h"
 #import "TMCache.h"
+#import "MJNIndexView.h"
 
-@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, TZScrollViewDelegate>
+@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, MJNIndexViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *domesticCollectionView;
-@property (nonatomic, strong) TZScrollView *tzScrollView;
 @property (nonatomic, strong) NSDictionary *dataSource;
+
+//索引
+@property (nonatomic, strong) MJNIndexView *indexView;
 
 @end
 
@@ -34,6 +36,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [_domesticCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableHeaderIdentifier];
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
+    _domesticCollectionView.showsVerticalScrollIndicator = NO;
     _domesticCollectionView.contentInset = UIEdgeInsetsMake(10, 0, 60, 0);
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
@@ -46,6 +49,16 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
     
+    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
+    if (height == 0) {
+        height = 100;
+    }
+    self.indexView = [[MJNIndexView alloc] init];
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+    [self firstAttributesForMJNIndexView];
+    self.indexView.dataSource = self;
+    
     [self initData];
 }
 
@@ -53,10 +66,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [[TMCache sharedCache] objectForKey:@"destination_demostic" block:^(TMCache *cache, NSString *key, id object)  {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (object != nil) {
-                [_destinations initDomesticCitiesWithJson:object];
-                [self updateView];
+                if ([object isKindOfClass:[NSDictionary class]]) {
+                    [_destinations initDomesticCitiesWithJson:[object objectForKey:@"result"]];
+                    [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+                    [self updateView];
+                }
             } else {
-                [self loadDomesticDataFromServer];
+                [self loadDomesticDataFromServerWithLastModified:@""];
+
             }
         });
 
@@ -66,7 +83,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    _tzScrollView.delegate = nil;
     _domesticCollectionView.delegate = nil;
     _domesticCollectionView.dataSource = nil;
 }
@@ -79,23 +95,30 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     return _dataSource;
 }
 
-//- (TZScrollView *)tzScrollView
-//{
-//    if (!_tzScrollView) {
-//        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10.0, kWindowWidth, 52.0)];
-//        _tzScrollView.itemWidth = 22;
-//        _tzScrollView.itemHeight = 22;
-//        _tzScrollView.itemBackgroundColor = UIColorFromRGB(0xd2d2d2);
-//        _tzScrollView.backgroundColor = [UIColor whiteColor];
-//        _tzScrollView.layer.shadowRadius = 0.5;
-//        _tzScrollView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-//        _tzScrollView.layer.shadowOffset = CGSizeMake(0.0, 0.5);
-//        _tzScrollView.layer.shadowOpacity = 1.0;
-//        _tzScrollView.delegate = self;
-//        _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
-//    }
-//    return _tzScrollView;
-//}
+- (void)firstAttributesForMJNIndexView
+{
+    self.indexView.getSelectedItemsAfterPanGestureIsFinished = YES;
+    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
+    self.indexView.selectedItemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:40.0];
+    self.indexView.backgroundColor = [UIColor clearColor];
+    self.indexView.curtainColor = nil;
+    self.indexView.curtainFade = 0.0;
+    self.indexView.curtainStays = NO;
+    self.indexView.curtainMoves = YES;
+    self.indexView.curtainMargins = NO;
+    self.indexView.ergonomicHeight = NO;
+    self.indexView.upperMargin = 22.0;
+    self.indexView.lowerMargin = 22.0;
+    self.indexView.rightMargin = 10.0;
+    self.indexView.itemsAligment = NSTextAlignmentCenter;
+    self.indexView.maxItemDeflection = 30.0;
+    self.indexView.rangeOfDeflection = 5;
+    self.indexView.fontColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0];
+    self.indexView.selectedItemFontColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    self.indexView.darkening = NO;
+    self.indexView.fading = YES;
+    
+}
 
 - (void)reloadData
 {
@@ -105,8 +128,20 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)updateView
 {
     _dataSource = [_destinations destinationsGroupByPin];
-//    [self.view addSubview:self.tzScrollView];
+    
     [self.domesticCollectionView reloadData];
+    
+    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
+    if (height == 0) {
+        height = 100;
+    }
+
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+    [self.indexView refreshIndexItems];
+    [self.indexView removeFromSuperview];
+    [self.view addSubview:self.indexView];
+
 }
 
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
@@ -121,29 +156,33 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
  *  获取国内目的地
  */
 
-- (void)loadDomesticDataFromServer
+- (void)loadDomesticDataFromServerWithLastModified:(NSString *)modifiedTime
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
 
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUD];
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
+        
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id result = [responseObject objectForKey:@"result"];
+            [_destinations.domesticCities removeAllObjects];
             [_destinations initDomesticCitiesWithJson:result];
             [self updateView];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [[TMCache sharedCache] setObject:result forKey:@"destination_demostic"];
+                NSMutableDictionary *dic = [responseObject mutableCopy];
+                [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
+                [[TMCache sharedCache] setObject:dic forKey:@"destination_demostic"];
             });
         } else {
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
@@ -282,38 +321,50 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }
 }
 
+#pragma mark MJMIndexForTableView datasource methods
+
+- (NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
+- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [self.domesticCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+}
+
+
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-    NSInteger firstSection = INT_MAX;
-    
-    for (UICollectionViewCell *cell in visiableCells) {
-        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
-        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
-    }
-//    self.tzScrollView.currentIndex = firstSection;
-
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
-{
-    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-    NSInteger firstSection = INT_MAX;
-    
-    for (UICollectionViewCell *CELL in visiableCells) {
-        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:CELL];
-        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
-    }
-    
-//    self.tzScrollView.currentIndex = firstSection;
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//
+//}
+//
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
+//    NSInteger firstSection = INT_MAX;
+//    
+//    for (UICollectionViewCell *cell in visiableCells) {
+//        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
+//        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
+//    }
+//
+//}
+//
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
+//{
+//    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
+//    NSInteger firstSection = INT_MAX;
+//    
+//    for (UICollectionViewCell *CELL in visiableCells) {
+//        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:CELL];
+//        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
+//    }
+//    
+////    self.tzScrollView.currentIndex = firstSection;
+//}
 
 @end
 

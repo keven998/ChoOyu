@@ -18,12 +18,14 @@
 {
     if (!_domesticCities) {
         _domesticCities = [[NSMutableArray alloc] init];
-    }
+    } 
     
     CityDestinationPoi *cityPoi;
-    for (id cityDic in json) {
-        cityPoi = [[CityDestinationPoi alloc] initWithJson:cityDic];
-        [_domesticCities addObject:cityPoi];
+    if ([json isKindOfClass:[NSArray class]]) {
+        for (id cityDic in json) {
+            cityPoi = [[CityDestinationPoi alloc] initWithJson:cityDic];
+            [_domesticCities addObject:cityPoi];
+        }
     }
 }
 
