@@ -12,7 +12,7 @@
 
 #import "DXMessageToolBar.h"
 
-@interface DXMessageToolBar()<UITextViewDelegate, DXFaceDelegate>
+@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
 }
@@ -172,7 +172,7 @@
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+- (BOOL)growingTextViewShouldBeginEditing:(HPGrowingTextView *)growingTextView
 {
     if ([self.delegate respondsToSelector:@selector(inputTextViewWillBeginEditing:)]) {
         [self.delegate inputTextViewWillBeginEditing:self.inputTextView];
@@ -184,37 +184,31 @@
     return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
+- (void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView
 {
-    [textView becomeFirstResponder];
+    [growingTextView becomeFirstResponder];
     
     if ([self.delegate respondsToSelector:@selector(inputTextViewDidBeginEditing:)]) {
         [self.delegate inputTextViewDidBeginEditing:self.inputTextView];
     }
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
+- (void)growingTextViewDidEndEditing:(HPGrowingTextView *)growingTextView
 {
-    [textView resignFirstResponder];
+    [growingTextView resignFirstResponder];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
         if ([self.delegate respondsToSelector:@selector(didSendText:)]) {
-            [self.delegate didSendText:textView.text];
+            [self.delegate didSendText:growingTextView.text];
             self.inputTextView.text = @"";
-            [self willShowInputTextViewToHeight:[self getTextViewContentH:self.inputTextView]];;
         }
         
         return NO;
     }
     return YES;
-}
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-    [self willShowInputTextViewToHeight:[self getTextViewContentH:textView]];
 }
 
 #pragma mark - DXFaceDelegate
@@ -242,7 +236,7 @@
         }
     }
     
-    [self textViewDidChange:self.inputTextView];
+//    [self textViewDidChange:self.inputTextView.internalTextView];
 }
 
 - (void)sendFace
@@ -252,7 +246,6 @@
         if ([self.delegate respondsToSelector:@selector(didSendText:)]) {
             [self.delegate didSendText:chatText];
             self.inputTextView.text = @"";
-            [self willShowInputTextViewToHeight:[self getTextViewContentH:self.inputTextView]];;
         }
     }
 }
@@ -354,22 +347,46 @@
     // 输入框的高度和宽度
     CGFloat width = CGRectGetWidth(self.bounds) - (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2));
     // 初始化输入框
-    self.inputTextView = [[XHMessageTextView  alloc] initWithFrame:CGRectMake(textViewLeftMargin, kVerticalPadding, width, kInputTextViewMinHeight)];
-    self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.inputTextView.contentMode = UIViewContentModeCenter;
-    _inputTextView.scrollEnabled = YES;
-    _inputTextView.returnKeyType = UIReturnKeySend;
-    _inputTextView.enablesReturnKeyAutomatically = YES; // UITextView内部判断send按钮是否可以用
-    _inputTextView.placeHolder = @"输入新消息";
-    _inputTextView.delegate = self;
-    _inputTextView.backgroundColor = [UIColor clearColor];
-    _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
+//    self.inputTextView = [[HPGrowingTextView  alloc] initWithFrame:CGRectMake(textViewLeftMargin, kVerticalPadding, width, kInputTextViewMinHeight)];
+//    self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    self.inputTextView.contentMode = UIViewContentModeCenter;
+//    _inputTextView.scrollEnabled = YES;
+//    _inputTextView.returnKeyType = UIReturnKeySend;
+//    _inputTextView.enablesReturnKeyAutomatically = YES; // UITextView内部判断send按钮是否可以用
+//    _inputTextView.placeHolder = @"输入新消息";
+//    _inputTextView.delegate = self;
+//    _inputTextView.backgroundColor = [UIColor clearColor];
+//    _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
+//    _inputTextView.layer.borderWidth = 0.65f;
+//    _inputTextView.layer.cornerRadius = 2.0f;
+//    _inputTextView.scrollEnabled = NO;
+//    _inputTextView.textColor = TEXT_COLOR_TITLE;
+//    _inputTextView.showsVerticalScrollIndicator = NO;
+//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+//    style.lineSpacing = 2.0;
+//    style.lineBreakMode = NSLineBreakByTruncatingTail;
+//
+//    _inputTextView.typingAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0],
+//                                        NSParagraphStyleAttributeName : style
+//                                        };
+//    _previousTextViewContentHeight = [self getTextViewContentH:_inputTextView];
+    
+    self.inputTextView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(textViewLeftMargin, kVerticalPadding, width, kInputTextViewMinHeight)];
+    self.inputTextView.isScrollable = NO;
+    self.inputTextView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
+    
+    self.inputTextView.minNumberOfLines = 1;
+    self.inputTextView.maxNumberOfLines = 6;
     _inputTextView.layer.borderWidth = 0.65f;
     _inputTextView.layer.cornerRadius = 2.0f;
-    _inputTextView.textColor = TEXT_COLOR_TITLE;
-    _inputTextView.font = [UIFont systemFontOfSize:14.0];
-    _inputTextView.showsVerticalScrollIndicator = NO;
-    _previousTextViewContentHeight = [self getTextViewContentH:_inputTextView];
+    _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
+    self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
+    self.inputTextView.font = [UIFont systemFontOfSize:15.0f];
+    self.inputTextView.delegate = self;
+    self.inputTextView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
+    self.inputTextView.backgroundColor = [UIColor whiteColor];
+    self.inputTextView.placeholder = @"输入新消息";
+
     
     //录制
     self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(textViewLeftMargin, kVerticalPadding, width, kInputTextViewMinHeight)];
@@ -468,50 +485,28 @@
     }
 }
 
-- (void)willShowInputTextViewToHeight:(CGFloat)toHeight
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
 {
-    if (toHeight < kInputTextViewMinHeight) {
-        toHeight = kInputTextViewMinHeight;
-    }
-    if (toHeight > self.maxTextInputViewHeight) {
-        toHeight = self.maxTextInputViewHeight;
-    }
+    float diff = (growingTextView.frame.size.height - height);
     
-    if (toHeight == _previousTextViewContentHeight)
-    {
-        return;
+    CGRect rect = self.frame;
+    rect.size.height -= diff;
+    rect.origin.y += diff;
+    self.frame = rect;
+    
+    CGRect r = _toolbarView.frame;
+    r.size.height -= diff;
+    _toolbarView.frame = r;
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
+        [_delegate didChangeFrameToHeight:self.frame.size.height];
     }
-    else{
-        CGFloat changeHeight = toHeight - _previousTextViewContentHeight;
-        
-        CGRect rect = self.frame;
-        rect.size.height += changeHeight;
-        rect.origin.y -= changeHeight;
-        self.frame = rect;
-        
-        rect = self.toolbarView.frame;
-        rect.size.height += changeHeight;
-        self.toolbarView.frame = rect;
-        
-        if (self.version < 7.0) {
-            [self.inputTextView setContentOffset:CGPointMake(0.0f, (self.inputTextView.contentSize.height - self.inputTextView.frame.size.height) / 2) animated:YES];
-        }
-        _previousTextViewContentHeight = toHeight;
-        
-        if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
-            [_delegate didChangeFrameToHeight:self.frame.size.height];
-        }
-    }
+
 }
 
 - (CGFloat)getTextViewContentH:(UITextView *)textView
 {
-    if (self.version >= 7.0)
-    {
-        return ceilf([textView sizeThatFits:textView.frame.size].height);
-    } else {
-        return textView.contentSize.height;
-    }
+    return ceilf([textView sizeThatFits:textView.frame.size].height);
 }
 
 #pragma mark - action
@@ -533,7 +528,6 @@
                 
                 //将inputTextView内容置空，以使toolbarView回到最小高度
                 self.inputTextView.text = @"";
-                [self textViewDidChange:self.inputTextView];
                 [self.inputTextView resignFirstResponder];
             }
             else{
