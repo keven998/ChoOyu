@@ -119,8 +119,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (UITableView *)tableView
 {
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-62-44)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

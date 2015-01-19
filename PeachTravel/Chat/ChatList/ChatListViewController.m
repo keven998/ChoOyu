@@ -144,8 +144,7 @@
     }
     for (EMConversation *conversation in dataSource) {
         if (!conversation.chatter) {
-            
-            NSLog(@"删除了1");
+
             [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
         }
         if (!conversation.isGroup) {
@@ -156,24 +155,21 @@
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
             } else {
-                NSLog(@"删除了2");
                 [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
             }
         } else {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            BOOL find = NO;
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    TZConversation *tzConversation = [[TZConversation alloc] init];
-                    tzConversation.chatterNickName = group.groupSubject;
-                    tzConversation.conversation = conversation;
-                    [_chattingPeople addObject:tzConversation];
-                    find = YES;
+                    if (group.groupSubject) {
+                        TZConversation *tzConversation = [[TZConversation alloc] init];
+                        tzConversation.chatterNickName = group.groupSubject;
+                        tzConversation.conversation = conversation;
+                        [_chattingPeople addObject:tzConversation];
+                    }
+                   
                     break;
                 }
-            }
-            if (!find) {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
             }
         }
     }
@@ -464,15 +460,15 @@
     return cell;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return  self.chattingPeople.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
@@ -541,6 +537,10 @@
 
 - (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
 {
+    NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+    NSLog(@"%@",groupArray);
+    
+    NSLog(@"allgroups:%@", allGroups);
     [self refreshDataSource];
 }
 
@@ -558,19 +558,18 @@
 
 -(void)refreshDataSource
 {
-    dispatch_async(dispatch_queue_create("refreshDadaSource", NULL), ^{
-        NSLog(@"开始刷新聊天DataSource");
-        [self loadChattingPeople];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            typeof(ChatListViewController) *weakSelf = self;
-            if ([self isUnReadMsg]) {
-                [self.delegate updateNotify:weakSelf notify:YES];
-            } else {
-                [self.delegate updateNotify:weakSelf notify:NO];
-            }
-            NSLog(@"结束刷新聊天DataSource");
-            [self.tableView reloadData];
-        });
+    NSLog(@"%@",[NSThread currentThread]);
+    NSLog(@"开始刷新聊天DataSource");
+    [self loadChattingPeople];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        typeof(ChatListViewController) *weakSelf = self;
+        if ([self isUnReadMsg]) {
+            [self.delegate updateNotify:weakSelf notify:YES];
+        } else {
+            [self.delegate updateNotify:weakSelf notify:NO];
+        }
+        NSLog(@"结束刷新聊天DataSource");
+        [self.tableView reloadData];
     });
 }
 

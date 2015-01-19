@@ -123,6 +123,31 @@
     return _toolbarView;
 }
 
+- (DXChatBarMoreView *)moreView
+{
+    if (!_moreView) {
+        _moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 190) typw:ChatMoreTypeGroupChat];
+        _moreView.backgroundColor = APP_PAGE_COLOR;
+        _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        //将self注册为chatToolBar的moreView的代理
+        if (_rootCtl) {
+            [_moreView setDelegate:_rootCtl];
+        }
+    }
+    return _moreView;
+}
+
+- (UIView *)faceView
+{
+    if (!_faceView) {
+        _faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 200)];
+        [(DXFaceView *)self.faceView setDelegate:self];
+        _faceView.backgroundColor = [UIColor lightGrayColor];
+        _faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    }
+    return _faceView;
+}
+
 #pragma mark - setter
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage
@@ -361,19 +386,6 @@
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
     self.recordButton.hidden = YES;
-    
-    if (!self.moreView) {
-        self.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 190) typw:ChatMoreTypeGroupChat];
-        self.moreView.backgroundColor = [UIColor lightGrayColor];
-        self.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    }
-    
-    if (!self.faceView) {
-        self.faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 200)];
-        [(DXFaceView *)self.faceView setDelegate:self];
-        self.faceView.backgroundColor = [UIColor lightGrayColor];
-        self.faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    }
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];

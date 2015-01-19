@@ -40,6 +40,10 @@
 @property (nonatomic, weak) id <DXMessageToolBarDelegate> delegate;
 
 /**
+ *  管理的viewcontroller，也就是ChatViewController;
+ */
+@property (nonatomic, weak) UIViewController<DXChatBarMoreViewDelegate> *rootCtl;
+/**
  *  操作栏背景图片
  */
 @property (strong, nonatomic) UIImage *toolbarBackgroundImage;
@@ -52,7 +56,7 @@
 /**
  *  更多的附加页面
  */
-@property (strong, nonatomic) UIView *moreView;
+@property (strong, nonatomic) DXChatBarMoreView *moreView;
 
 /**
  *  表情的附加页面
@@ -186,5 +190,8 @@
  *  高度变到toHeight
  */
 - (void)didChangeFrameToHeight:(CGFloat)toHeight;
+
+//- (void)didChangeFrameToHeight:(CGFloat)toHeight withDuration:(CGFloat)duration;
+
 
 @end

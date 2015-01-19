@@ -72,6 +72,7 @@
 /**
  *  当退出一个群组，向群里发送一条退出语句
  */
+/*
 - (void)sendMsgWhileQuit
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -81,6 +82,7 @@
     
     [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:_group.groupId isChatGroup:YES requireEncryption:NO];
 }
+ */
 
 /**
  *  更新群组消息提醒状态，屏蔽和不屏蔽
@@ -138,13 +140,13 @@
             }
             else{
                 [weakSelf showHint:@"删除群组成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
 
             }
         } onQueue:nil];
 
     } else {
         [self showHudInView:self.view hint:@"退出群组"];
-        [self sendMsgWhileQuit];
         [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
             [weakSelf hideHud];
             if (error) {
@@ -152,6 +154,7 @@
             }
             else{
                 [weakSelf showHint:@"退出群组成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
             }
         } onQueue:nil];
         
@@ -167,24 +170,6 @@
 - (IBAction)upChatList:(UIButton *)sender {
 }
 
-
-#pragma mark - IChatManagerDelegate
-
--(void)didSendMessage:(EMMessage *)message error:(EMError *)error;
-{
-    NSLog(@"发送退出小组指令成功");
-    __weak typeof(self) weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_group.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-        [weakSelf hideHud];
-        if (error) {
-            [weakSelf showHint:@"退出群组失败"];
-        }
-        else{
-            NSLog(@"退出小组成功");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
-        }
-    } onQueue:nil];
-}
 
 
 

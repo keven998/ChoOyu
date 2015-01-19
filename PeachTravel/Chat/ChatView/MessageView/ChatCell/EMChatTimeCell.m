@@ -25,7 +25,6 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        NSLog(@"%@", NSStringFromCGRect(self.frame));
         _textBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth, self.frame.size.height)];
         [_textBtn setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
         _textBtn.userInteractionEnabled = NO;
@@ -57,6 +56,6 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    
 }
+
 @end

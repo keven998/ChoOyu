@@ -98,13 +98,11 @@
     _placeHolderTextColor = [UIColor lightGrayColor];
     
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    self.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 5.0f);
     self.contentInset = UIEdgeInsetsZero;
     self.scrollEnabled = NO;
     self.scrollsToTop = NO;
     self.userInteractionEnabled = YES;
     self.font = [UIFont systemFontOfSize:14.0f];
-//    self.textColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
     self.keyboardAppearance = UIKeyboardAppearanceDefault;
     self.keyboardType = UIKeyboardTypeDefault;
@@ -153,12 +151,6 @@
                                             NSParagraphStyleAttributeName : paragraphStyle }];
         }
         else {
-//            [self.placeHolder drawInRect:placeHolderRect
-//                                withFont:self.font
-//                           lineBreakMode:NSLineBreakByTruncatingTail
-//                               alignment:self.textAlignment];
-            
-            
             NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                             self.font, NSFontAttributeName,
                                             [NSNumber numberWithFloat:1.0], NSBaselineOffsetAttributeName, nil];
