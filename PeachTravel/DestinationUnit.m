@@ -25,8 +25,6 @@
         tempFrame = CGRectMake(frame.origin.x, frame.origin.y, size.width+32, frame.size.height);
     }
     
-    NSLog(@"%@", NSStringFromCGRect(tempFrame));
-    
     if (self = [super initWithFrame:tempFrame]) {
         self.frame = tempFrame;
         self.layer.borderColor = [UIColor whiteColor].CGColor;

@@ -10,6 +10,7 @@
 #import "FrendRequestTableViewCell.h"
 #import "FrendRequest.h"
 #import "AccountManager.h"
+#import "ContactDetailViewController.h"
 
 #define requestCell      @"requestCell"
 
@@ -126,9 +127,8 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 
     [params setObject:frendRequest.userId forKey:@"userId"];
-    __weak typeof(FrendRequestTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUD];
     
     //同意添加好友
     [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -139,7 +139,18 @@
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
             [self insertMsgToEasemobDB:frendRequest];
-            [SVProgressHUD showHint:@"已添加"];
+            
+//            [SVProgressHUD showHint:@"已添加"];
+            for (Contact *contact in self.accountManager.account.contacts) {
+                if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
+                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+                    contactDetailCtl.contact = contact;
+                    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+                    break;
+                }
+            }
+           
+            
         } else {
             
         }
@@ -187,9 +198,9 @@
         [cell.requestBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [cell.requestBtn setTitle:@"已添加" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = NO;
-
     } else if ([request.status integerValue] == TZFrendDefault) {
         [cell.requestBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [cell.requestBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [cell.requestBtn setTitle:@"同意" forState:UIControlStateNormal];
         cell.requestBtn.userInteractionEnabled = YES;
         [cell.requestBtn addTarget:self action:@selector(agreeFrendRequest:) forControlEvents:UIControlEventTouchUpInside];

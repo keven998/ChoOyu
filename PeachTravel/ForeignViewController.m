@@ -18,6 +18,7 @@
 @property (nonatomic) NSInteger showCitiesIndex;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *foreignCollectionView;
+@property (nonatomic, strong) TZProgressHUD *hud;
 
 @end
 
@@ -49,12 +50,18 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 - (void) initData {
     [[TMCache sharedCache] objectForKey:@"destination_foreign" block:^(TMCache *cache, NSString *key, id object)  {
         if (object != nil) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_destinations initForeignCountriesWithJson:object];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                [_destinations initForeignCountriesWithJson:[object objectForKey:@"result"]];
                 [_foreignCollectionView reloadData];
-            });
+                [self loadForeignDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
+            } else {
+                [self loadForeignDataFromServerWithLastModified:@""];
+            }
         } else {
-            [self loadForeignDataFromServer];
+            _hud = [[TZProgressHUD alloc] init];
+            [_hud showHUD];
+            [self loadForeignDataFromServerWithLastModified:@""];
+            
         }
     }];
 }
@@ -70,7 +77,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 /**
  * 获取国外目的地数据
  */
-- (void)loadForeignDataFromServer
+- (void)loadForeignDataFromServerWithLastModified:(NSString *)modifiedTime
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -80,16 +87,21 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
+    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
 
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUD];
+    if (_hud) {
+        [_hud showHUD];
+    }
     
     [manager GET:API_GET_FOREIGN_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
+        if (_hud) {
+            [_hud hideTZHUD];
+        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
 
@@ -97,16 +109,23 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
             [_destinations initForeignCountriesWithJson:result];
             [_foreignCollectionView reloadData];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [[TMCache sharedCache] setObject:result forKey:@"destination_foreign"];
+                NSMutableDictionary *dic = [responseObject mutableCopy];
+                [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
+                [[TMCache sharedCache] setObject:dic forKey:@"destination_foreign"];
             });
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            if (_hud) {
+                if (self.isShowing) {
+                    [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                }
+            }
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        if (_hud) {
+            [_hud hideTZHUD];
+            if (self.isShowing) {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            }
         }
     }];
 }

@@ -101,7 +101,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         tzLayout.delegate = self;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, kWindowHeight-49) collectionViewLayout:tzLayout];
         _collectionView.showsVerticalScrollIndicator = NO;
-        NSLog(@"%@", NSStringFromCGRect(self.view.bounds));
         _collectionView.backgroundColor = APP_PAGE_COLOR;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

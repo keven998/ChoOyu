@@ -70,8 +70,9 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 if ([object isKindOfClass:[NSDictionary class]]) {
                     [_destinations initDomesticCitiesWithJson:[object objectForKey:@"result"]];
                     [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
-
                     [self updateView];
+                } else {
+                    [self loadDomesticDataFromServerWithLastModified:@""];
                 }
             } else {
                 _hud = [[TZProgressHUD alloc] init];
@@ -169,6 +170,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
     
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -854,8 +854,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didAcceptInvitationFromGroup:(EMGroup *)group
                                error:(EMError *)error
 {
-    NSLog(@"didAcceptInvitationFromGroup");
-    
+    NSLog(@"didAcceptInvitationFromGroup");    
 }
 
 - (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error

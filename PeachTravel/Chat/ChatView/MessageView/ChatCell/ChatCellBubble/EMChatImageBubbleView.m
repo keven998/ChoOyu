@@ -88,11 +88,11 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
     if (retSize.width == 0 || retSize.height == 0) {
         retSize.width = MAX_SIZE;
         retSize.height = MAX_SIZE;
-    }else if (retSize.width > retSize.height) {
+    } else if (retSize.width > retSize.height) {
         CGFloat height =  MAX_SIZE / retSize.width  *  retSize.height;
         retSize.height = height;
         retSize.width = MAX_SIZE;
-    }else {
+    } else {
         CGFloat width = MAX_SIZE / retSize.height * retSize.width;
         retSize.width = width;
         retSize.height = MAX_SIZE;
@@ -117,7 +117,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
 
 #pragma mark - public
 
--(void)bubbleViewPressed:(id)sender
+- (void)bubbleViewPressed:(id)sender
 {
     [self routerEventWithName:kRouterEventImageBubbleTapEventName
                      userInfo:@{KMESSAGEKEY:self.model,
@@ -125,7 +125,7 @@ NSString *const kRouterEventImageBubbleTapEventName = @"kRouterEventImageBubbleT
                                 }];
 }
 
-+(CGFloat)heightForBubbleWithObject:(MessageModel *)object
++ (CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {
     CGSize retSize = object.size;
     if (retSize.width == 0 || retSize.height == 0) {
