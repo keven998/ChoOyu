@@ -19,8 +19,9 @@
 #import "OptionTableViewCell.h"
 #import "PushMsgsViewController.h"
 #import "UMSocial.h"
+#import "FavoriteViewController.h"
 
-#define cellDataSource               @[@[@"分享绑定", @"我收到的消息", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource               @[@[@"分享绑定", @"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -241,8 +242,16 @@
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
             [self.navigationController pushViewController:accountManagerCtl animated:YES];
         } else if (indexPath.row == 1) {
-            PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
-            [self.navigationController pushViewController:ctl animated:YES];
+//            PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
+//            [self.navigationController pushViewController:ctl animated:YES];
+            AccountManager *accountManager = [AccountManager shareAccountManager];
+            if (!accountManager.isLogin) {
+                [self performSelector:@selector(userLogin:) withObject:nil afterDelay:0.3];
+                [SVProgressHUD showHint:@"请先登录"];
+            } else {
+                FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
+                [self.navigationController pushViewController:fvc animated:YES];
+            }
         } else if (indexPath.row == 2) {
             [self shareToWeChat];
         }

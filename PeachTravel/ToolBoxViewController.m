@@ -420,17 +420,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self.navigationController pushViewController:lvc animated:YES];
 }
 
-- (IBAction)myFavorite:(id)sender {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if (!accountManager.isLogin) {
-        [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
-        [SVProgressHUD showErrorWithStatus:@"请先登录"];
-    } else {
-        FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
-        [self.navigationController pushViewController:fvc animated:YES];
-    }
-}
-
 - (IBAction)myTravelNote:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
