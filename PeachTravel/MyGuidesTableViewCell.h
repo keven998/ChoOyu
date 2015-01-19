@@ -7,19 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SWTableViewCell.h>
 #import "MyGuideSummary.h"
 
-@interface MyGuidesTableViewCell : UITableViewCell
+@interface MyGuidesTableViewCell : SWTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
-@property (weak, nonatomic) IBOutlet UIButton *countBtn;
+@property (weak, nonatomic) IBOutlet UILabel *titleBtn;
+@property (weak, nonatomic) IBOutlet UILabel *countBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
-@property (weak, nonatomic) IBOutlet UIView *frameView;
-
-@property (nonatomic) BOOL isEditing;
 
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 

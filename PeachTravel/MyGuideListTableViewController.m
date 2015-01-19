@@ -21,11 +21,9 @@
 
 #define PAGE_COUNT 10
 
-@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate, TripUpdateDelegate>
+@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate, TripUpdateDelegate, SWTableViewCellDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) DKCircleButton *editBtn;
-@property (nonatomic) BOOL isEditing;
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
@@ -49,7 +47,6 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (id)init {
     if (self = [super init]) {
-        _isEditing = NO;
         _currentPage = 0;
         _isLoadingMore = YES;
         _didEndScroll = YES;
@@ -60,14 +57,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_selectToSend) {
-        self.navigationItem.title = @"发送计划";
-    } else {
-        self.navigationItem.title = @"旅行计划";
-        UIBarButtonItem * mp = [[UIBarButtonItem alloc]initWithTitle:@"新计划" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan)];
-        mp.tintColor = APP_THEME_COLOR;
-        self.navigationItem.rightBarButtonItem = mp;
-    }
+    self.navigationItem.title = @"我的旅程";
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -78,7 +68,14 @@ static NSString *reusableCell = @"myGuidesCell";
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
-    [self.view addSubview:self.editBtn];
+    
+    if (!_selectToSend) {
+        UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
+        [editBtn setBackgroundImage:[UIImage imageNamed:@"ic_add_friend.png"] forState:UIControlStateNormal];
+        [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 42);
+        [self.view addSubview:editBtn];
+    }
 
     [self initDataFromCache];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
@@ -110,6 +107,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)dealloc
 {
+    [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
     _tableView.delegate = nil;
     _tableView.dataSource = nil;
     _tableView = nil;
@@ -123,7 +121,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)userDidLogout
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
-    
 }
 
 - (void)goBack
@@ -190,17 +187,6 @@ static NSString *reusableCell = @"myGuidesCell";
     return _slimeView;
 }
 
-- (DKCircleButton *)editBtn
-{
-    if (!_editBtn) {
-        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-70.0, 50, 50)];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
-        [_editBtn addTarget:self action:@selector(editMyGuides:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _editBtn;
-}
-
 #pragma mark - IBAction Methods
 /**
  *  下拉刷新
@@ -212,32 +198,16 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 /**
- *  点击编辑按钮
- *
- *  @param sender
- */
-- (IBAction)editMyGuides:(id)sender
-{
-    UIButton *btn = sender;
-    BOOL isEditing = btn.isSelected;
-    _isEditing = !isEditing;
-    btn.selected = !isEditing;
-    [self.tableView reloadData];
-}
-
-/**
  *  点击删除攻略按钮
  *
  *  @param sender
  */
-- (IBAction)deleteGuide:(UIButton *)sender
+- (void)deleteGuide:(NSIndexPath *)indexPath
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除这条行程" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            CGPoint viewPos = [sender convertPoint:CGPointZero toView:self.tableView];
-            NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
-            NSInteger index = indexPath.row;
+            NSInteger index = indexPath.section;
             MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index];
             [self deleteUserGuide:guideSummary];
         }
@@ -249,10 +219,10 @@ static NSString *reusableCell = @"myGuidesCell";
  *
  *  @param sender
  */
-- (IBAction)edit:(UIButton *)sender
+- (void)edit:(NSIndexPath *)index
 {
     _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index.section];
     [self.navigationController.view addGestureRecognizer:_tapRecognizer];
     
     CGFloat y = kWindowHeight-260-176;
@@ -261,7 +231,7 @@ static NSString *reusableCell = @"myGuidesCell";
     }
     [self.navigationController presentPopupViewController:_confirmRouteViewController atHeight:y animated:YES completion:nil];
     _confirmRouteViewController.routeTitle.text = guideSummary.title;
-    _confirmRouteViewController.confirmRouteTitle.tag = sender.tag;
+    _confirmRouteViewController.confirmRouteTitle.tag = index.section;
     [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -354,7 +324,6 @@ static NSString *reusableCell = @"myGuidesCell";
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
-    
 }
 
 /**
@@ -597,40 +566,36 @@ static NSString *reusableCell = @"myGuidesCell";
 
 #pragma mark - Table view data source
 
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.dataSource.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 216;
+    return 92;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
-    [cell.deleteBtn addTarget:self action:@selector(deleteGuide:) forControlEvents:UIControlEventTouchUpInside];
-
-    cell.isEditing = _isEditing;
-    if (_isEditing) {
-        cell.titleBtn.userInteractionEnabled = YES;
-        cell.titleBtn.tag = indexPath.row;
-        [cell.titleBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        cell.titleBtn.userInteractionEnabled = NO;
-    }
-    cell.guideSummary = [self.dataSource objectAtIndex:indexPath.row];
+    cell.rightUtilityButtons = [self rightButtons];
+    cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    cell.delegate = self;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.row];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     //进入攻略详情
     if (!_selectToSend) {
         TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
@@ -654,10 +619,16 @@ static NSString *reusableCell = @"myGuidesCell";
         taoziMessageCtl.messageImage = image.imageUrl;
         taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)guideSummary.dayCount];
 
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-            
-        }];
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
     }
+}
+
+- (NSArray *)rightButtons
+{
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor grayColor] title:@"Edit"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] title:@"Delete"];
+    return rightUtilityButtons;
 }
 
 - (UIView *)footerView {
@@ -682,13 +653,33 @@ static NSString *reusableCell = @"myGuidesCell";
     [self loadDataWithPageIndex:(_currentPage + 1)];
     
     NSLog(@"我要加载到第%lu",(long)_currentPage+1);
-    
 }
 
 - (void) loadMoreCompleted {
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+}
+
+#pragma mark - SWTableViewCellDelegate
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+        {
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            [self edit:cellIndexPath];
+            break;
+        }
+        case 1:
+        {
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            [self deleteGuide:cellIndexPath];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
