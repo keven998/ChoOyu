@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UILabel *signLabel;
 @property (nonatomic, strong) UIButton *chatBtn;
 @property (nonatomic, strong) RNGridMenu *av;
+@property (nonatomic, strong) UIView *contentView;
 
 @end
 
@@ -53,11 +54,16 @@
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
-    UIView *contentView = [[UIView alloc] initWithFrame:_scrollView.bounds];
-    contentView.backgroundColor = APP_PAGE_COLOR;
-    contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    contentView.autoresizesSubviews = YES;
-    [_scrollView addSubview:contentView];
+    _contentView = [[UIView alloc] initWithFrame:_scrollView.bounds];
+    _contentView.backgroundColor = APP_PAGE_COLOR;
+    _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _contentView.autoresizesSubviews = YES;
+    
+    CGSize size = [contact.signature sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0]}];
+    
+    [_contentView setFrame:CGRectMake(_contentView.frame.origin.x, _contentView.frame.origin.y, _contentView.frame.size.width, _contentView.frame.size.height+size.height+100)];
+
+    [_scrollView addSubview:_contentView];
     
     _bigHeaderView = [[UIImageView alloc] initWithFrame:CGRectMake(11.0, 74.0, width-22, 100.0)];
     _bigHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -95,7 +101,7 @@
     wp.backgroundColor = [UIColor whiteColor];
     wp.layer.cornerRadius = 2.0;
     wp.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [contentView addSubview:wp];
+    [_contentView addSubview:wp];
     
     CGFloat oy = 172.0 + 5.0 + 34.0 + 10.0;
     UILabel *nickPanel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, oy, width - 22.0, 54.0)];
@@ -105,7 +111,7 @@
     nickPanel.font = [UIFont systemFontOfSize:14.0];
     nickPanel.layer.cornerRadius = 2.0;
     nickPanel.text = [NSString stringWithFormat:@"   昵称：%@", contact.nickName];
-    [contentView addSubview:nickPanel];
+    [_contentView addSubview:nickPanel];
     
     oy += 55.0;
     UILabel *idPanel = [[UILabel alloc] initWithFrame:CGRectMake(11.0, oy, width - 22.0, 54.0)];
@@ -115,13 +121,13 @@
     idPanel.font = [UIFont systemFontOfSize:14.0];
     idPanel.layer.cornerRadius = 2.0;
     idPanel.text = [NSString stringWithFormat:@"   桃号：%@", contact.userId];
-    [contentView addSubview:idPanel];
+    [_contentView addSubview:idPanel];
     
     oy += 55.0;
     _signPanel = [[UIView alloc] initWithFrame:CGRectMake(11.0, oy, width - 22.0, 54.0)];
     _signPanel.backgroundColor = [UIColor whiteColor];
     _signPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [contentView addSubview:_signPanel];
+    [_contentView addSubview:_signPanel];
     
     _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, oy, width - 40.0, 54.0)];
     _signLabel.numberOfLines = 0.;
@@ -145,7 +151,7 @@
     _chatBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     _chatBtn.layer.cornerRadius = 2.0;
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    [contentView addSubview:_chatBtn];
+    [_contentView addSubview:_chatBtn];
 }
 
 - (void) viewDidLayoutSubviews {
