@@ -9,3 +9,4 @@ pod 'SVProgressHUD', '~> 1.0'
 pod "Qiniu", "~> 7.0"
 pod 'MBProgressHUD', '~> 0.9'
 pod 'TMCache', '~> 1.2'
+pod 'SWTableViewCell', '~> 0.3.7'

@@ -36,6 +36,7 @@ PODS:
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
   - SVProgressHUD (1.0)
+  - SWTableViewCell (0.3.7)
   - TMCache (1.2.2)
 
 DEPENDENCIES:
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.1)
   - SVProgressHUD (~> 1.0)
+  - SWTableViewCell (~> 0.3.7)
   - TMCache (~> 1.2)
 
 SPEC CHECKSUMS:
@@ -60,6 +62,7 @@ SPEC CHECKSUMS:
   Qiniu: 5f70ceaa3133ff3c368990bc99b595a3d155b010
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  SWTableViewCell: 25de71898e3fcd11cf75707ef90245acf990ec03
   TMCache: e2c9225de7a107b529d1d04baa58eb5eab3051f3
 
 COCOAPODS: 0.35.0
