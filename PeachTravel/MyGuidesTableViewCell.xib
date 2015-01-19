@@ -83,7 +83,7 @@
                             <constraint firstAttribute="height" constant="21" id="I2H-B5-z8p"/>
                             <constraint firstAttribute="width" constant="99" id="wty-4g-SMJ"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
@@ -181,14 +181,8 @@
                         <exclude reference="AUa-Ag-nis"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="ZJ7-7o-ynH"/>
-                        <exclude reference="gia-qH-1k2"/>
-                        <exclude reference="12n-uB-c9I"/>
-                        <exclude reference="9mX-9m-4UE"/>
-                        <exclude reference="YVr-oj-g7Y"/>
-                        <exclude reference="ZJ8-i6-DH8"/>
-                        <exclude reference="bEL-PR-u9O"/>
-                        <exclude reference="dxJ-m3-ic4"/>
+                        <exclude reference="4yX-DH-XTJ"/>
+                        <exclude reference="Nnz-Fe-MVc"/>
                         <exclude reference="FIO-cV-rnG"/>
                         <exclude reference="skp-Yi-RrS"/>
                         <exclude reference="zZP-YQ-oqb"/>
@@ -196,8 +190,14 @@
                         <exclude reference="DFe-do-lQk"/>
                         <exclude reference="SOk-9u-uYP"/>
                         <exclude reference="oJn-iJ-oVN"/>
-                        <exclude reference="4yX-DH-XTJ"/>
-                        <exclude reference="Nnz-Fe-MVc"/>
+                        <exclude reference="bEL-PR-u9O"/>
+                        <exclude reference="dxJ-m3-ic4"/>
+                        <exclude reference="12n-uB-c9I"/>
+                        <exclude reference="9mX-9m-4UE"/>
+                        <exclude reference="YVr-oj-g7Y"/>
+                        <exclude reference="ZJ8-i6-DH8"/>
+                        <exclude reference="ZJ7-7o-ynH"/>
+                        <exclude reference="gia-qH-1k2"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -211,14 +211,8 @@
                         <include reference="AUa-Ag-nis"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="ZJ7-7o-ynH"/>
-                        <include reference="gia-qH-1k2"/>
-                        <include reference="12n-uB-c9I"/>
-                        <include reference="9mX-9m-4UE"/>
-                        <include reference="YVr-oj-g7Y"/>
-                        <include reference="ZJ8-i6-DH8"/>
-                        <include reference="bEL-PR-u9O"/>
-                        <include reference="dxJ-m3-ic4"/>
+                        <include reference="4yX-DH-XTJ"/>
+                        <include reference="Nnz-Fe-MVc"/>
                         <include reference="FIO-cV-rnG"/>
                         <include reference="skp-Yi-RrS"/>
                         <include reference="zZP-YQ-oqb"/>
@@ -226,8 +220,14 @@
                         <include reference="DFe-do-lQk"/>
                         <include reference="SOk-9u-uYP"/>
                         <include reference="oJn-iJ-oVN"/>
-                        <include reference="4yX-DH-XTJ"/>
-                        <include reference="Nnz-Fe-MVc"/>
+                        <include reference="bEL-PR-u9O"/>
+                        <include reference="dxJ-m3-ic4"/>
+                        <include reference="12n-uB-c9I"/>
+                        <include reference="9mX-9m-4UE"/>
+                        <include reference="YVr-oj-g7Y"/>
+                        <include reference="ZJ8-i6-DH8"/>
+                        <include reference="ZJ7-7o-ynH"/>
+                        <include reference="gia-qH-1k2"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

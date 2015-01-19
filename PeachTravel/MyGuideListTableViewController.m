@@ -498,7 +498,7 @@ static NSString *reusableCell = @"myGuidesCell";
     desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
 //    desc.textAlignment = NSTextAlignmentCenter;
-    NSString *text = @"为旅行计划\n让你的旅行更精彩～";
+    NSString *text = @"竟然一个旅行计划都没有～";
     NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
     [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
@@ -508,19 +508,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [desc setAttributedText:attrDesc];
     
     [self.emptyView addSubview:desc];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 90.0, 34.0);
-//    btn.backgroundColor = APP_THEME_COLOR;
-    [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    btn.clipsToBounds = YES;
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"新计划" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    btn.center = CGPointMake(width/2.0, desc.frame.origin.y + 64.0 + 40.0);
-    btn.layer.cornerRadius = 2.0;
-    [btn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-    [self.emptyView addSubview:btn];
 }
 
 - (void) removeEmptyView {
