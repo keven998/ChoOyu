@@ -123,15 +123,15 @@
     _signPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [contentView addSubview:_signPanel];
     
-    _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, oy, width - 20.0, 54.0)];
+    _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, oy, width - 40.0, 54.0)];
     _signLabel.numberOfLines = 0.;
     _signLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     _signLabel.font = [UIFont systemFontOfSize:14.0];
     _signLabel.layer.cornerRadius = 2.0;
     if (contact.signature) {
-        _signLabel.text = [NSString stringWithFormat:@"   旅行签名：%@",contact.signature];
+        _signLabel.text = [NSString stringWithFormat:@"旅行签名：%@",contact.signature];
     } else {
-        _signLabel.text = [NSString stringWithFormat:@"   旅行签名：no签名"];
+        _signLabel.text = [NSString stringWithFormat:@"旅行签名：no签名"];
         
     }
     [_signPanel addSubview:_signLabel];
@@ -154,7 +154,6 @@
     CGSize size = [contact.signature sizeWithAttributes:@{NSFontAttributeName : _signLabel.font}];
     _signLabel.frame = CGRectMake(_signLabel.frame.origin.x, 16.0, _signLabel.frame.size.width, size.height);
     [_signLabel sizeToFit];
-    
     
     CGFloat h = _signLabel.frame.size.height + 30;
     h = h > 50.0 ? h : 50.0;
