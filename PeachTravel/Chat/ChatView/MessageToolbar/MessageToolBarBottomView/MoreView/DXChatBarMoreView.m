@@ -20,7 +20,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame typw:(ChatMoreType)type
 {
-    NSLog(@"ToolBar的尺寸为： %@", NSStringFromCGRect(frame));
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;

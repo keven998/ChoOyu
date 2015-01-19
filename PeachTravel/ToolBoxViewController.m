@@ -132,8 +132,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _contentFrame.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_contentFrame];
     
-    NSLog(@"%@", NSStringFromCGRect(_contentFrame.frame));
-    
     CGFloat offsety = 30.0 * sscale;
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0, offsety, w, 21.0)];

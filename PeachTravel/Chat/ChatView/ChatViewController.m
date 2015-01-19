@@ -140,7 +140,7 @@
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     loadChatPeopleQueue = dispatch_queue_create("loadChattingPeople", NULL);
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+
     if (_isChatGroup) {
         self.peopleInGroup = [self loadContactsFromDB];
     }
@@ -149,10 +149,6 @@
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
-    //将self注册为chatToolBar的moreView的代理
-    if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
-        [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
-    }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
@@ -172,6 +168,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    NSLog(@"viewWillAppear");
     [_chatToolBar registerNoti];
     if (_isChatGroup) {
         EMGroup *chatGroup = nil;
@@ -700,7 +697,7 @@
 
 - (UITableView *)tableView
 {
-    if (_tableView == nil) {
+    if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height - 64) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
@@ -719,15 +716,11 @@
 
 - (DXMessageToolBar *)chatToolBar
 {
-    if (_chatToolBar == nil) {
+    if (!_chatToolBar) {
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight], self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
         _chatToolBar.delegate = self;
-        
-        ChatMoreType type = _isChatGroup == YES ? ChatMoreTypeGroupChat : ChatMoreTypeChat;
-        _chatToolBar.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), _chatToolBar.frame.size.width, 190) typw:type];
-        _chatToolBar.moreView.backgroundColor = APP_PAGE_COLOR;
-        _chatToolBar.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        _chatToolBar.rootCtl = self;
     }
     
     return _chatToolBar;
@@ -735,7 +728,7 @@
 
 - (UIImagePickerController *)imagePicker
 {
-    if (_imagePicker == nil) {
+    if (!_imagePicker) {
         _imagePicker = [[UIImagePickerController alloc] init];
         _imagePicker.delegate = self;
     }
@@ -745,7 +738,7 @@
 
 - (MessageReadManager *)messageReadManager
 {
-    if (_messageReadManager == nil) {
+    if (!_messageReadManager) {
         _messageReadManager = [MessageReadManager defaultManager];
     }
     
@@ -754,7 +747,7 @@
 
 - (NSDate *)chatTagDate
 {
-    if (_chatTagDate == nil) {
+    if (!_chatTagDate) {
         _chatTagDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:0];
     }
     
@@ -1417,7 +1410,7 @@
 
 - (void)didChangeFrameToHeight:(CGFloat)toHeight
 {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
         rect.origin.y = 64;
         rect.size.height = self.view.frame.size.height - toHeight - 64;
@@ -1600,9 +1593,8 @@
 - (void)loadMoreMessages
 {
     __weak typeof(self) weakSelf = self;
-    dispatch_async(_messageQueue, ^{
-    
-        NSLog(@"******开始加载聊天记录");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSLog(@"******开始加载聊天记录0");
         NSInteger currentCount = [weakSelf.dataSource count];
         EMMessage *latestMessage = [weakSelf.conversation latestMessage];
         NSTimeInterval beforeTime = 0;
@@ -1613,6 +1605,8 @@
         }
         
         NSArray *chats = [weakSelf.conversation loadNumbersOfMessages:(currentCount + KPageCount) before:beforeTime];
+        NSLog(@"******开始加载聊天记录1");
+
         if ([chats count] > currentCount) {
             weakSelf.dataSource.array = [weakSelf sortChatSource:chats];
             dispatch_async(dispatch_get_main_queue(), ^{

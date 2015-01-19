@@ -120,7 +120,6 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
                 }
             }
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (_hud) {
             [_hud hideTZHUD];
