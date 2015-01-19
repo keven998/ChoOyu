@@ -90,6 +90,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _domesticCollectionView.delegate = nil;
     _domesticCollectionView.dataSource = nil;
+    _domesticCollectionView = nil;
 }
 
 - (NSDictionary *)dataSource

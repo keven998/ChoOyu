@@ -21,11 +21,14 @@
 #import "NSTimer+Addition.h"
 #import "TZButton.h"
 #import "SuperWebViewController.h"
+#import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
+@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 {
     CLLocationManager* locationManager;
     BOOL locationIsGotten;
@@ -71,6 +74,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"桃子旅行";
+    
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
+    makePlanBtn.image = [UIImage imageNamed:@"ic_menu_add.png"];
+    self.navigationItem.rightBarButtonItem = makePlanBtn;
 
     [self setupView];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -305,6 +312,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 
+
 - (void)setWeatherInfo:(WeatherInfo *)weatherInfo
 {
     _weatherInfo = weatherInfo;
@@ -437,6 +445,41 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
+}
+
+- (IBAction) showActionHint {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"新建旅程计划", nil];
+    [sheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self makePlan];
+    }
+}
+
+- (void)makePlan
+{
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    foreignCtl.title = @"国外";
+    domestic.title = @"国内";
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    domestic.notify = NO;
+    foreignCtl.notify = NO;
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 #pragma mark - private

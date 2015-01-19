@@ -178,7 +178,6 @@
             cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"no签名";
             if ([accountManager.account.gender isEqualToString:@"M"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
-
             }
             if ([accountManager.account.gender isEqualToString:@"F"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];

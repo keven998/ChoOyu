@@ -11,9 +11,6 @@
 #import "HotDestinationCollectionReusableView.h"
 #import "RecommendDataSource.h"
 #import "CityDetailTableViewController.h"
-#import "MakePlanViewController.h"
-#import "ForeignViewController.h"
-#import "DomesticViewController.h"
 #import "Destinations.h"
 #import "TaoziCollectionLayout.h"
 #import "SuperWebViewController.h"
@@ -40,16 +37,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    self.navigationItem.title = @"想去";
+    self.navigationItem.title = @"目的地";
     
     [self.view addSubview:self.collectionView];
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
-    
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:@"新计划" style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
-    makePlanBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = makePlanBtn;
     
     [self initData];
 }
@@ -164,27 +157,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         [self.dataSource addObject:data];
         [self.collectionView reloadData];
     }
-}
-
-#pragma mark - IBAciton Methods
-
-- (IBAction)makePlan:(id)sender
-{
-    Destinations *destinations = [[Destinations alloc] init];
-    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    foreignCtl.title = @"国外";
-    domestic.title = @"国内";
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    domestic.notify = NO;
-    foreignCtl.notify = NO;
-    [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 
