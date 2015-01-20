@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DestinationsViewDelegate <NSObject>
+
+- (void)distinationDidSelect:(UIButton *)button;
+
+@end
 @interface DestinationsView : UIView
 
 @property (nonatomic, strong) NSArray *destinations;
 
-- (instancetype)initWithFrame:(CGRect)frame andContentOffsetX:(CGFloat)offsetX;
-
-@property (nonatomic, strong) NSArray *destinationItmes;
+@property (nonatomic, assign) id <DestinationsViewDelegate> delegate;
 
 @end

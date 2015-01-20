@@ -23,7 +23,7 @@
 #import "MyTripSpotsMapViewController.h"
 #import "PositionBean.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate, DestinationsViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
@@ -214,7 +214,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-
 #pragma mark - AddPoiDelegate
 
 - (void)finishEdit
@@ -222,11 +221,23 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [self.tableView reloadData];
 }
 
+#pragma mark - DestinationsViewDelegate
+
+//TODO:进入城市详情
+- (void)distinationDidSelect:(UIButton *)button
+{
+    
+}
+
 #pragma mark - UITableViewDataSource & Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    if ([[_tripDetail.itineraryList objectAtIndex:section] count]) {
+        return 60;
+    } else {
+        return 30;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -258,13 +269,13 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60)];
     headerView.layer.cornerRadius = 2.0;
     headerView.backgroundColor = UIColorFromRGB(0xeaeaea);
     headerView.clipsToBounds = YES;
     UILabel *headerTitle;
     if (self.tableView.isEditing) {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-103, 30)];
+        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, headerView.frame.size.width-103, 30)];
     } else {
         headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-80, 30)];
     }
@@ -275,33 +286,36 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             [set addObject:tripPoi.locality.zhName];
         }
     }
-
-    for (int i=0; i<set.count; i++) {
-        NSString *str;
-        if (i == set.count-1) {
-            str = [set objectAtIndex:i];
-        } else {
-            str = [NSString stringWithFormat:@"%@--", [set objectAtIndex:i]];
+    
+    if (set.count) {
+        DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 30, tableView.bounds.size.width, 30)];
+        destinationView.backgroundColor = [UIColor whiteColor];
+        [headerView addSubview:destinationView];
+        NSMutableArray *distinationArray = [[NSMutableArray alloc] init];
+        for (NSString *s in set) {
+            [distinationArray addObject:s];
         }
-        [headerTitleStr appendString:str];
+        destinationView.destinations = distinationArray;
+        destinationView.tag = section;
+        destinationView.delegate = self;
     }
+    
     headerTitle.text = headerTitleStr;
-    headerTitle.font = [UIFont boldSystemFontOfSize:15.0];
+    headerTitle.font = [UIFont boldSystemFontOfSize:13.0];
     [headerView addSubview:headerTitle];
     
     if (self.tableView.isEditing) {
-        UIButton *addbtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-62, 0, 62, headerView.frame.size.height)];
-        addbtn.backgroundColor = [UIColor whiteColor];
+        UIButton *addbtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-72, 0, 72, 30)];
         addbtn.tag = section;
         [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 8, 60, 21)];
+        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 6, 60, 18)];
         [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         addSpotBtn.clipsToBounds = YES;
         addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        addSpotBtn.layer.cornerRadius = 10.5;
+        addSpotBtn.layer.cornerRadius = 9;
         addSpotBtn.userInteractionEnabled = NO;
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
@@ -332,9 +346,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [headerView addSubview:mapBtn];
     }
     
-    UIView *horizontalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, headerView.frame.size.height-1, headerView.frame.size.width, 1)];
-    horizontalSpaceView.backgroundColor = APP_PAGE_COLOR;
-    [headerView addSubview:horizontalSpaceView];
+    
     return headerView;
 }
 
