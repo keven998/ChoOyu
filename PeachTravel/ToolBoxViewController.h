@@ -15,12 +15,5 @@
 @property (strong, nonatomic) WeatherInfo *weatherInfo;
 @property (strong, nonatomic) CLLocation *location;
 
-/**
- *  进入的聊天列表界面
- *
- *  @param sender 
- */
-- (IBAction)jumpIM:(UIButton *)sender;
-
 
 @end
