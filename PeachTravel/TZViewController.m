@@ -23,8 +23,8 @@
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    //[button setTitle:@"返回" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     button.titleLabel.font = [UIFont systemFontOfSize:17.0];
     button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);

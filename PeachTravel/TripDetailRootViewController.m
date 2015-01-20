@@ -30,13 +30,20 @@
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
-@property (nonatomic, strong) UIButton *actionBtn;
 
 @property (nonatomic, strong) NSArray *tabbarButtonArray;
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIView *tabBarView;
 
+//编辑按钮
+@property (nonatomic, strong) UIButton *editBtn;
+//分享按钮
+@property (nonatomic, strong) UIButton *shareBtn;
+//复制行程按钮
+@property (nonatomic, strong) UIButton *forkBtn;
+//现实目的地按钮
+@property (nonatomic, strong) UIButton *destinationBtn;
 
 /**
  *  目的地titile 列表，三个界面共享
@@ -57,7 +64,6 @@
     [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-    [_backButton setTitle:@"返回" forState:UIControlStateNormal];
     [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _backButton.titleLabel.font = [UIFont systemFontOfSize:17.0];
@@ -69,23 +75,43 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
-    _actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 30)];
-    [_actionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    
+   
     if (_canEdit) {
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_share_normal.png"] forState:UIControlStateNormal];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_share_high.png"] forState:UIControlStateHighlighted];
-        [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_shareBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_shareBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_shareBtn]];
+        
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+        
+        _destinationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_destinationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateNormal];
+        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateHighlighted];
+        [_destinationBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_destinationBtn]];
+
+
+        self.navigationItem.rightBarButtonItems = barItems;
     } else {
-        [_actionBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _actionBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_actionBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
+        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
+        self.navigationItem.rightBarButtonItem = addBtn;
     }
     
-    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_actionBtn];
-    self.navigationItem.rightBarButtonItem = addBtn;
+   
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
@@ -184,6 +210,12 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)editTrip:(id)sender
+{
+    _spotsListCtl.shouldEdit = YES;
+    _restaurantListCtl.shouldEdit = YES;
+}
+
 /**
  *  新制作路线，传入目的地 id 列表获取路线详情
  */
@@ -255,19 +287,27 @@
 {
     _canEdit = canEdit;
     if (_canEdit) {
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_actionBtn removeTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [_actionBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-        [_actionBtn setTitle:nil forState:UIControlStateNormal];
+        _forkBtn = nil;
+        NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_shareBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_shareBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_shareBtn]];
+        self.navigationItem.rightBarButtonItems = barItems;
     } else {
-        [_actionBtn setImage:nil forState:UIControlStateNormal];
-        [_actionBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        [_actionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_actionBtn removeTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-        [_actionBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        _editBtn = nil;
+        _shareBtn = nil;
+        _destinationBtn = nil;
+        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
+        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
+        self.navigationItem.rightBarButtonItem = addBtn;
     }
-    _spotsListCtl.canEdit = _canEdit;
-    _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
 }
 
@@ -431,7 +471,6 @@
  */
 - (void)reloadTripData
 {
-    _actionBtn.hidden = NO;
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
@@ -470,15 +509,11 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[SpotsListViewController alloc] init];
-    _spotsListCtl.canEdit = _canEdit;
 
     _spotsListCtl.rootViewController = self;
-    _spotsListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
-    _restaurantListCtl.canEdit = _canEdit;
     _restaurantListCtl.rootViewController = self;
-    _restaurantListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _shoppingListCtl = [[ShoppingListViewController alloc] init];
     _shoppingListCtl.canEdit = _canEdit;
@@ -488,9 +523,9 @@
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-62-64)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
@@ -505,7 +540,7 @@
 
 - (void)customizeTabBarForController
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 62)];
+    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-54, self.view.frame.size.width, 54)];
     _tabBarView.backgroundColor = [UIColor whiteColor];
     
     //分割线

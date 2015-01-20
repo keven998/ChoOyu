@@ -40,10 +40,9 @@
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
     [self.window makeKeyAndVisible];
     
-    [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
-//    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xffffff)] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarTintColor:APP_THEME_COLOR];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
     
     /** 设置友盟 **/
     [UMSocialData openLog:NO];

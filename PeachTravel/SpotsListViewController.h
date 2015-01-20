@@ -10,7 +10,6 @@
 #import "TripDetailRootViewController.h"
 #import "TripDetail.h"
 #import "DestinationsView.h"
-#import "DKCircleButton.h"
 
 @interface SpotsListViewController : TZViewController
 
@@ -18,12 +17,10 @@
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 
-@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
-
 /**
  *  是否有资格更改路线，当从聊天界面点击别人发送的攻略进入此界面时，没有资格编辑路线
  */
-@property (nonatomic) BOOL canEdit;
+@property (nonatomic) BOOL shouldEdit;
 
 
 @end
