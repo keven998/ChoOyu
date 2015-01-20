@@ -36,8 +36,9 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
     self.navigationItem.title = @"目的地";
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_nav_action_search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goSearch:)];
+    self.navigationItem.rightBarButtonItem = barButton;
     
     [self.view addSubview:self.collectionView];
 
@@ -83,6 +84,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         }
         [self loadDataSource];
     }];
+}
+
+#pragma mark - IBAction
+
+- (IBAction)goSearch:(id)sender {
+    
 }
 
 #pragma mark - setter & getter
