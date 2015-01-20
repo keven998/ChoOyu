@@ -27,7 +27,6 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
-@property (strong, nonatomic) UIButton *editBtn;
 
 @end
 
@@ -49,14 +48,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     
     [self.view addSubview:self.tableView];
     
-    _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    _editBtn.backgroundColor = TEXT_COLOR_TITLE_SUBTITLE;
-    [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_editBtn];
-    if (!_tripDetail || !_canEdit) {
-        _editBtn.hidden = YES;
-    }
-    
     NSLog(@"spots didload");
 }
 
@@ -77,30 +68,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     _tripDetail = tripDetail;
     [_tableView reloadData];
-    if (!_tripDetail || !_canEdit) {
-        _editBtn.hidden = YES;
-    } else {
-        _editBtn.hidden = NO;
-        NSInteger count = _tripDetail.itineraryList.count;
-        if (!tripDetail || count == 0) {
-            if (!_tableView.isEditing) {
-                [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-        } else {
-            BOOL ed = true;
-            for (int i = 0; i < count; ++i) {
-                if ([[_tripDetail.itineraryList objectAtIndex:i] count] > 0) {
-                    ed = false;
-                    break;
-                }
-            }
-            if (ed) {
-                if (!_tableView.isEditing) {
-                    [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-                }
-            }
-        }
-    }
 }
 
 - (UITableView *)tableView
@@ -143,16 +110,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
     }
     return _tableViewFooterView;
-}
-
-- (void)setCanEdit:(BOOL)canEdit
-{
-    _canEdit = canEdit;
-    if (!_canEdit) {
-        _editBtn.hidden = YES;
-    } else {
-        _editBtn.hidden = NO;
-    }
 }
 
 #pragma makr - IBAction Methods
@@ -214,21 +171,24 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [self.tableView reloadData];
     if (self.tableView.isEditing) {
         self.tableView.tableFooterView = self.tableViewFooterView;
-        _editBtn.backgroundColor = APP_THEME_COLOR;
     } else {
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-        _editBtn.backgroundColor = UIColorFromRGB(0x797979);
     }
     
     [self.tableView reloadData];
     
 }
 
+- (void)setShouldEdit:(BOOL)shouldEdit
+{
+    _shouldEdit = shouldEdit;
+    [self editTrip:nil];
+}
+
 - (IBAction)editTrip:(id)sender
 {
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES];
-        _editBtn.backgroundColor = APP_THEME_COLOR;
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
@@ -271,11 +231,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if ([[_tripDetail.itineraryList objectAtIndex:section] count] || tableView.isEditing) {
-        return 18;
-    } else {
-        return 100;
-    }
+    return 18;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -295,31 +251,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if ([[_tripDetail.itineraryList objectAtIndex:section] count] || tableView.isEditing) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 18)];
-        view.backgroundColor = APP_PAGE_COLOR;
-        return view;
-    } else {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self
-                                                                .tableView.frame.size.width, 100)];
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width-20, 80)];
-        btn.backgroundColor = [UIColor whiteColor];
-        [btn setImage:[UIImage imageNamed:nil] forState:UIControlStateNormal];
-        [btn setTitle:@"还木有任何安排\n 快来添加安排把~" forState:UIControlStateNormal];
-        [btn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        btn.titleLabel.numberOfLines = 2;
-        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-        [btn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        btn.layer.cornerRadius = 2.0;
-        [view addSubview:btn];
-        
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 100)];
-        spaceView.backgroundColor = APP_THEME_COLOR;
-        [view addSubview:spaceView];
-        
-        return view;
-    }
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 18)];
+    view.backgroundColor = APP_PAGE_COLOR;
+    return view;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -390,8 +324,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         
     } else {
         UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
-        [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
-        [mapBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [mapBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
+        [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
         mapBtn.tag = section;
         mapBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];

@@ -52,12 +52,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 {
     [super viewWillAppear:animated];
     NSLog(@"Rest willAppear");
-    for (UIView *subview in self.view.subviews) {
-        if ([subview isEqual:_destinationsHeaderView]) {
-            return;
-        }
-    }
-    [self.view addSubview:_destinationsHeaderView];
     [_rootViewController showDHView:YES];
 }
 
@@ -75,26 +69,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     _tripDetail = tripDetail;
     [_tableView reloadData];
     [self updateDestinationsHeaderView];
-    if (!_tripDetail || !_canEdit) {
-        _editBtn.hidden = YES;
-    } else {
-        _editBtn.hidden = NO;
-        if (_tripDetail.restaurantsList.count > 0) {
-            [self.tableView setEditing:NO];
-            _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-            [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
-        } else {
-            if (!_tableView.isEditing) {
-                [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-        }
-    }
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-62-64)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-54)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
@@ -125,14 +105,10 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     return _tableViewFooterView;
 }
 
-- (void)setCanEdit:(BOOL)canEdit
+- (void)setShouldEdit:(BOOL)shouldEdit
 {
-    _canEdit = canEdit;
-    if (!_canEdit) {
-        _editBtn.hidden = YES;
-    } else {
-        _editBtn.hidden = NO;
-    }
+    _shouldEdit = shouldEdit;
+    [self editTrip:nil];
 }
 
 #pragma mark Private Methods
