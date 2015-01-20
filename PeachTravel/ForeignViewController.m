@@ -193,7 +193,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 //    CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
 //    NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width - 20) + 1 ;
 //    CGFloat height = lineCount*size.height + 120.0 + 20 + 12.0;
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 38.0);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 28.0);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -211,10 +211,10 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == _showCitiesIndex) {
+//    if (section == _showCitiesIndex) {
         return ((CountryDestination *)_destinations.foreignCountries[section]).cities.count;
-    }
-    return 0;
+//    }
+//    return 0;
 }
 
 - (CGFloat)tzcollectionLayoutWidth
@@ -226,10 +226,10 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == _showCitiesIndex) {
+//    if (section == _showCitiesIndex) {
         return ((CountryDestination *)_destinations.foreignCountries[section]).cities.count;
-    }
-    return 0;
+//    }
+//    return 0;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -242,15 +242,15 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     CountryDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     ForeignDestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
     [headerView.contentBtn setTitle:country.zhName forState:UIControlStateNormal];
-    headerView.contentBtn.tag = indexPath.section;
-    [headerView.contentBtn addTarget:self action:@selector(showCities:) forControlEvents:UIControlEventTouchUpInside];
-    if (_showCitiesIndex == indexPath.section) {
-        headerView.contentBtn.selected = YES;
-        headerView.cellAccessoryView.image = [UIImage imageNamed:@"cell_accessory_pink_up.png"];
-    } else {
-        headerView.contentBtn.selected = NO;
-        headerView.cellAccessoryView.image = [UIImage imageNamed:@"cell_accessory_pink_down.png"];
-    }
+//    headerView.contentBtn.tag = indexPath.section;
+//    [headerView.contentBtn addTarget:self action:@selector(showCities:) forControlEvents:UIControlEventTouchUpInside];
+//    if (_showCitiesIndex == indexPath.section) {
+//        headerView.contentBtn.selected = YES;
+//        headerView.cellAccessoryView.image = [UIImage imageNamed:@"cell_accessory_pink_up.png"];
+//    } else {
+//        headerView.contentBtn.selected = NO;
+//        headerView.cellAccessoryView.image = [UIImage imageNamed:@"cell_accessory_pink_down.png"];
+//    }
     return headerView;
 }
 
