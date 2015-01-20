@@ -36,8 +36,8 @@
 
 @property (strong, nonatomic) UILabel *weatherLabel;
 @property (nonatomic, strong) CycleScrollView *galleryPageView;
-@property (nonatomic, strong) TZButton *planBtn;
-@property (nonatomic, strong) TZButton *aroundBtn;
+@property (nonatomic, strong) UIButton *planBtn;
+@property (nonatomic, strong) UIButton *aroundBtn;
 
 @property (nonatomic, strong) UIView *contentFrame;
 
@@ -133,29 +133,76 @@
     
     CGFloat cw = (w - 30)/2;
     
-    _planBtn = [[TZButton alloc] initWithFrame:CGRectMake(10.0, offsetY, cw, cw)];
-    _planBtn.title.text = @"旅程助手";
-    _planBtn.simButton.text = @"我的旅程";
+    _planBtn = [[UIButton alloc] initWithFrame:CGRectMake(10.0, offsetY, cw, cw)];
+    _planBtn.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *myGuideTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, _planBtn.bounds.size.width - 20.0, 22)];
+    myGuideTitleLabel.font = [UIFont boldSystemFontOfSize:18];
+    myGuideTitleLabel.textColor = APP_THEME_COLOR;
+    [_planBtn addSubview:myGuideTitleLabel];
+    
+    UILabel *guideSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 35, _planBtn.bounds.size.width - 20.0, 60)];
+    guideSubTitle.font = [UIFont systemFontOfSize:12];
+    guideSubTitle.numberOfLines = 3;
+    guideSubTitle.textColor = TEXT_COLOR_TITLE_PH;
+    [_planBtn addSubview:guideSubTitle];
+    
+    UILabel *guideSimButton = [[UILabel alloc] initWithFrame:CGRectMake(10.0, _planBtn.bounds.size.height - 38, _planBtn.bounds.size.width - 20.0, 28)];
+    guideSimButton.textColor = [UIColor whiteColor];
+    guideSimButton.backgroundColor = APP_THEME_COLOR;
+    guideSimButton.font = [UIFont systemFontOfSize:13.];
+    guideSimButton.layer.cornerRadius = 4.0;
+    guideSimButton.textAlignment = NSTextAlignmentCenter;
+    guideSimButton.clipsToBounds = YES;
+    [_planBtn addSubview:guideSimButton];
+    
+    myGuideTitleLabel.text = @"旅程助手";
+    guideSimButton.text = @"我的旅程";
+    
     NSString *str = @"最贴心的旅行计划助手\n专为美眉们打造\n";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 4.0;
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
-    [_planBtn.subTitle setAttributedText:desc];
+    [guideSubTitle setAttributedText:desc];
+    
+
     [_planBtn addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_planBtn];
     
-    _aroundBtn = [[TZButton alloc] initWithFrame:CGRectMake(cw + 20, offsetY, cw, cw)];
-    _aroundBtn.title.text = @"身边发现";
-    _aroundBtn.simButton.text = @"去发现";
+    _aroundBtn = [[UIButton alloc] initWithFrame:CGRectMake(cw + 20, offsetY, cw, cw)];
+    _aroundBtn.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *nearByTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, _aroundBtn.bounds.size.width - 20.0, 22)];
+    nearByTitleLabel.font = [UIFont boldSystemFontOfSize:18];
+    nearByTitleLabel.textColor = APP_THEME_COLOR;
+    [_aroundBtn addSubview:nearByTitleLabel];
+    
+    UILabel *nearBySubTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 35, _aroundBtn.bounds.size.width - 20.0, 60)];
+    nearBySubTitle.font = [UIFont systemFontOfSize:12];
+    nearBySubTitle.numberOfLines = 3;
+    nearBySubTitle.textColor = TEXT_COLOR_TITLE_PH;
+    [_aroundBtn addSubview:nearBySubTitle];
+    
+    UILabel *nearBySimButton = [[UILabel alloc] initWithFrame:CGRectMake(10.0, _aroundBtn.bounds.size.height - 38, _aroundBtn.bounds.size.width - 20.0, 28)];
+    nearBySimButton.textColor = [UIColor whiteColor];
+    nearBySimButton.backgroundColor = APP_THEME_COLOR;
+    nearBySimButton.font = [UIFont systemFontOfSize:13.];
+    nearBySimButton.layer.cornerRadius = 4.0;
+    nearBySimButton.textAlignment = NSTextAlignmentCenter;
+    nearBySimButton.clipsToBounds = YES;
+    [_aroundBtn addSubview:nearBySimButton];
+    
+    nearByTitleLabel.text = @"身边发现";
+    nearBySimButton.text = @"去发现";
     str = @"旅途有发现\n发现途中的灵感\n发现当下的乐趣";
     desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 3.0;
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
-    [_aroundBtn.subTitle setAttributedText:desc];
+    [nearBySubTitle setAttributedText:desc];
     [_aroundBtn addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_aroundBtn];
 
@@ -492,7 +539,6 @@
             break;
     }
 }
-
 
 - (void)getReverseGeocode
 {

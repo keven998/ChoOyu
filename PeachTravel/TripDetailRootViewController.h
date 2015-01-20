@@ -38,7 +38,6 @@
 
 @end
 
-
 @protocol TripUpdateDelegate <NSObject>
 
 - (void) tripUpdate:(id)detail;

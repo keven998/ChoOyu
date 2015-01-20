@@ -24,7 +24,7 @@
 #import "ChatRecoredListTableViewController.h"
 #import "MakePlanViewController.h"
 
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -41,8 +41,8 @@
 
 //编辑按钮
 @property (nonatomic, strong) UIButton *editBtn;
-//分享按钮
-@property (nonatomic, strong) UIButton *shareBtn;
+//更多按钮
+@property (nonatomic, strong) UIButton *moreBtn;
 //复制行程按钮
 @property (nonatomic, strong) UIButton *forkBtn;
 //现实目的地按钮
@@ -81,12 +81,12 @@
    
     if (_canEdit) {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_shareBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
-        [_shareBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_shareBtn]];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -99,7 +99,7 @@
         [_destinationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateNormal];
         [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateHighlighted];
-        [_destinationBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        [_destinationBtn addTarget:self action:@selector(showDestination:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_destinationBtn]];
 
 
@@ -213,12 +213,6 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)editTrip:(id)sender
-{
-    _spotsListCtl.shouldEdit = YES;
-    _restaurantListCtl.shouldEdit = YES;
-}
-
 /**
  *  新制作路线，传入目的地 id 列表获取路线详情
  */
@@ -277,31 +271,22 @@
     }];
 }
 
-- (DestinationsView *)destinationsHeaderView
-{
-    if (!_destinationsHeaderView) {
-        _destinationsHeaderView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45) andContentOffsetX:10];
-        _destinationsHeaderView.backgroundColor = [UIColor whiteColor];
-    }
-    return _destinationsHeaderView;
-}
-
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
     if (_canEdit) {
         _forkBtn = nil;
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_shareBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_shareBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
-        [_shareBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_shareBtn]];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         self.navigationItem.rightBarButtonItems = barItems;
     } else {
         _editBtn = nil;
-        _shareBtn = nil;
+        _moreBtn = nil;
         _destinationBtn = nil;
         [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
         _forkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
@@ -380,10 +365,6 @@
             [destinationsArray addObject:poi.zhName];
         }
     }
-    _destinationsHeaderView.destinations = destinationsArray;
-    for (DestinationUnit *unit in _destinationsHeaderView.destinationItmes) {
-        [unit addTarget:self action:@selector(viewCityDetail:) forControlEvents:UIControlEventTouchUpInside];
-    }
 }
 
 /**
@@ -411,6 +392,42 @@
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.view];
 }
+
+/**
+ *  点击navigationbar上的更多按钮
+ *
+ *  @param sender
+ */
+- (IBAction)showMoreAction:(id)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"更多" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"设置", nil];
+    [sheet showInView:self.view];
+}
+
+/**
+ *  点击navigationbar上的目的地按钮
+ *
+ *  @param sender
+ */
+- (IBAction)showDestination:(id)sender
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [array addObject:poi.zhName];
+    }
+}
+
+/**
+ *  点击navigationbar上的编辑按钮
+ *
+ *  @param sender
+ */
+- (void)editTrip:(id)sender
+{
+    _spotsListCtl.shouldEdit = YES;
+    _restaurantListCtl.shouldEdit = YES;
+}
+
 
 /**
  *  复制路线
@@ -814,9 +831,15 @@
     }
 }
 
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self share:nil];
+    }
+}
 
 @end
-
-
 
 
