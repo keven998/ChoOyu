@@ -36,6 +36,9 @@
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIView *tabBarView;
 
+//指示哪个tabbar被选中了
+@property (nonatomic, strong) UIImageView *tabBarSelectedView;
+
 //编辑按钮
 @property (nonatomic, strong) UIButton *editBtn;
 //分享按钮
@@ -541,15 +544,13 @@
 - (void)customizeTabBarForController
 {
     _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-54, self.view.frame.size.width, 54)];
-    _tabBarView.backgroundColor = [UIColor whiteColor];
+    _tabBarView.backgroundColor = APP_THEME_COLOR;
     
-    //分割线
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
-    spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
-    [_tabBarView addSubview:spaceView];
+    _tabBarSelectedView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 14, 14)];
+    _tabBarSelectedView.image = [UIImage imageNamed:@"trip_tabbar_selected.png"];
+    
     [self.view addSubview:_tabBarView];
 
-    NSArray *tabBarItemImages = @[@"first", @"second", @"third"];
     NSArray *tabBarItemTitles = @[@"玩安排", @"吃清单", @"买清单"];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -558,31 +559,67 @@
 
     NSInteger index = 0;
     for (int i=0; i<3; i++) {
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
-                                                      [tabBarItemImages objectAtIndex:index]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
-                                                        [tabBarItemImages objectAtIndex:index]]];
         
-        TZButton *button = [[TZButton alloc] initWithFrame:CGRectMake((50+(width-100)/3*i), 0, (width-100)/3, 62)];
-        [button setImage:unselectedimage forState:UIControlStateNormal];
-        [button setImage:selectedimage forState:UIControlStateSelected];
-        [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [button setTitleColor:APP_THEME_COLOR forState:UIControlStateSelected];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 54)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor clearColor];
         [array addObject:button];
         [_tabBarView addSubview:button];
         button.tag = i;
         button.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(26, 0, -10, 0)];
         [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        view.userInteractionEnabled = NO;
+        view.backgroundColor = [UIColor whiteColor];
+        view.layer.cornerRadius = 5.0;
+        UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 6, 6)];
+        dotView.layer.cornerRadius = 3.0;
+        dotView.backgroundColor = APP_THEME_COLOR;
+        [view addSubview:dotView];
+        view.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2);
+        [button addSubview:view];
+        
+        if (i == 0) {
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+7, button.frame.size.height/2-2, button.frame.size.width/2-7, 4)];
+            lineView.backgroundColor = [UIColor whiteColor];
+            [button addSubview:lineView];
+            lineView.userInteractionEnabled = NO;
+            _tabBarSelectedView.center = button.center;
+
+        }
+        if (i == 1) {
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+7, button.frame.size.height/2-2, button.frame.size.width/2-7, 4)];
+            lineView.backgroundColor = [UIColor whiteColor];
+            lineView.userInteractionEnabled = NO;
+            [button addSubview:lineView];
+            
+            UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-2, button.frame.size.width/2-7, 4)];
+            lineView2.backgroundColor = [UIColor whiteColor];
+            lineView2.userInteractionEnabled = NO;
+            [button addSubview:lineView2];
+        }
+        if (i == 2) {
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-2, button.frame.size.width/2-7, 4)];
+            lineView.backgroundColor = [UIColor whiteColor];
+            lineView.userInteractionEnabled = NO;
+            [button addSubview:lineView];
+        }
         
         index++;
     }
+    [_tabBarView addSubview:_tabBarSelectedView];
     _tabbarButtonArray = array;
 }
 
 - (void)changePage:(UIButton *)sender
 {
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [_tabBarSelectedView setCenter:sender.center];
+    }];
     
     if ([newController isEqual:_currentViewController]) {
         return;
