@@ -85,8 +85,7 @@
         imageView.image = [UIImage imageNamed:@"ic_next_step.png"];
         UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
         nextBtn.layer.cornerRadius = 27.0;
-//        nextBtn.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
-        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:[APP_THEME_COLOR colorWithAlphaComponent:0.9]] forState:UIControlStateNormal];
+        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor redColor] colorWithAlphaComponent:0.9]] forState:UIControlStateNormal];
         nextBtn.clipsToBounds = YES;
         [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
         [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -283,22 +282,20 @@
             [self showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-        
         [self.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
     }
-    SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    cell.statusBtn.hidden = !cell.statusBtn.hidden;
-    cell.statusBtn.selected = !cell.statusBtn.selected;
     
+    SearchDestinationTableViewCell *cell = (SearchDestinationTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.statusBtn.selected = !cell.statusBtn.selected;
     DomesticViewController *domesticCtl = [self.viewControllers firstObject];
     [domesticCtl reloadData];
     ForeignViewController *foreignCtl = [self.viewControllers lastObject];
     [foreignCtl reloadData];
-    if (cell.statusBtn.selected) {
-        [SVProgressHUD showHint:@"已添加"];
-    } else {
-        [SVProgressHUD showHint:@"已取消"];
-    }
+//    if (cell.statusBtn.selected) {
+//        [SVProgressHUD showHint:@"已添加"];
+//    } else {
+//        [SVProgressHUD showHint:@"已取消"];
+//    }
     
     [self performSelector:@selector(dismissSVC) withObject:nil afterDelay:1.1];
 }

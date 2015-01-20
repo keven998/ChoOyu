@@ -113,7 +113,7 @@
     _scrollView.scrollEnabled = YES;
     _scrollView.directionalLockEnabled = YES;
     _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.showsHorizontalScrollIndicator = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.alwaysBounceHorizontal = YES;
     _scrollView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
     [self addSubview:_scrollView];

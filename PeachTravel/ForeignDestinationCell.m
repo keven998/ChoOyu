@@ -12,8 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.layer.cornerRadius = 2.0;
     self.layer.borderWidth = 1.0;
+    self.layer.cornerRadius = 13.0;
+    self.layer.borderColor = APP_THEME_COLOR.CGColor;
 }
 
 @end
