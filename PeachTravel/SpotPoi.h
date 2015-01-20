@@ -22,7 +22,7 @@
 @property (nonatomic, copy) NSString *timeCostStr;
 @property (nonatomic, copy) NSString *trafficInfoUrl;
 @property (nonatomic, copy) NSString *guideUrl;
-@property (nonatomic, copy) NSString *kengdieUrl;
+@property (nonatomic, copy) NSString *tipsUrl;
 @property (nonatomic) BOOL isMyFavorite;
 
 @property (nonatomic) double lat;

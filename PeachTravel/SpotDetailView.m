@@ -350,7 +350,7 @@
         _travelGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_unselected.png"] forState:UIControlStateNormal];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_selected.png"] forState:UIControlStateHighlighted];
-        [_travelGuideBtn setTitle:@"游玩贴士" forState:UIControlStateNormal];
+        [_travelGuideBtn setTitle:@"游玩指南" forState:UIControlStateNormal];
         [_travelGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_travelGuideBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
         _travelGuideBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
@@ -359,12 +359,12 @@
         hasAdd = YES;
     }
     
-    if (![_spot.kengdieUrl isBlankString]) {
+    if (![_spot.tipsUrl isBlankString]) {
         _kendieBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_unselected.png"] forState:UIControlStateNormal];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_selected.png"] forState:UIControlStateHighlighted];
         
-        [_kendieBtn setTitle:@"注意事项" forState:UIControlStateNormal];
+        [_kendieBtn setTitle:@"Tips" forState:UIControlStateNormal];
         [_kendieBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_kendieBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
         _kendieBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];

@@ -10,6 +10,7 @@
 #import "SpotDetailView.h"
 #import "SpotPoi.h"
 #import "AccountManager.h"
+#import "SuperWebViewController.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
 
@@ -122,7 +123,10 @@
  */
 - (IBAction)kengdie:(id)sender
 {
-    
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"Tips";
+    webCtl.urlStr = _spotPoi.tipsUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
 }
 
 /**

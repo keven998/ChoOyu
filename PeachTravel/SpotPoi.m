@@ -33,7 +33,7 @@
         _timeCostStr = [json objectForKey:@"timeCostDesc"];
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
         _guideUrl = [json objectForKey:@"guideUrl"];
-        _kengdieUrl = [json objectForKey:@"kengdieUrl"];
+        _tipsUrl = [json objectForKey:@"tipsUrl"];
         _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
     }
     return self;
