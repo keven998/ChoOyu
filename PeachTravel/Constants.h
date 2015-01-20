@@ -26,9 +26,9 @@
 
 /***** 个推相关 key *****/
 
-#define kGeTuiAppId           @"dajFCa9UMt7Ezo6kqOZ4C9"
-#define kGeTuiAppKey          @"2aMWW4drb67bQFixAQ5cj"
-#define kGeTuiAppSecret       @"BmkFKzmOqI7YSrQhYbhAn3"
+#define kGeTuiAppId             @"dajFCa9UMt7Ezo6kqOZ4C9"
+#define kGeTuiAppKey            @"2aMWW4drb67bQFixAQ5cj"
+#define kGeTuiAppSecret         @"BmkFKzmOqI7YSrQhYbhAn3"
 
 
 /***** API *****/

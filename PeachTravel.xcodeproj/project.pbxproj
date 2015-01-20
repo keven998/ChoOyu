@@ -543,6 +543,7 @@
 		D99FE0041A68E44200932550 /* MJNIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0031A68E44200932550 /* MJNIndexView.m */; };
 		D99FE00A1A6D050900932550 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0071A6D050900932550 /* HPGrowingTextView.m */; };
 		D99FE00B1A6D050900932550 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0091A6D050900932550 /* HPTextViewInternal.m */; };
+		D99FE00D1A6E06E700932550 /* ic_IM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99FE00C1A6E06E700932550 /* ic_IM@2x.png */; };
 		D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */; };
 		D9A19CA61A2F063E00B189CB /* message_taozi_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */; };
 		D9A19CA71A2F063E00B189CB /* chat_receiver_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C921A2F063E00B189CB /* chat_receiver_bg@2x.png */; };
@@ -1554,6 +1555,7 @@
 		D99FE0071A6D050900932550 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
 		D99FE0081A6D050900932550 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
 		D99FE0091A6D050900932550 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		D99FE00C1A6E06E700932550 /* ic_IM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM@2x.png"; sourceTree = "<group>"; };
 		D9A19C891A2EEE4A00B189CB /* TaoziChatBaseBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatBaseBubbleView.h; sourceTree = "<group>"; };
 		D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatBaseBubbleView.m; sourceTree = "<group>"; };
 		D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_taozi_send@2x.png"; path = "../../resource/2x/message_taozi_send@2x.png"; sourceTree = "<group>"; };
@@ -3875,6 +3877,7 @@
 		D98BDA5C1A43D5940093C559 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				D99FE00C1A6E06E700932550 /* ic_IM@2x.png */,
 				D98BDA5D1A43D5CD0093C559 /* ic_loc_normal@2x.png */,
 				D98BDA5E1A43D5CD0093C559 /* ic_loc_selected@2x.png */,
 				D98BDA5F1A43D5CD0093C559 /* ic_person_normal@2x.png */,
@@ -5124,6 +5127,7 @@
 				D9F52BB11A595016009DFBC1 /* bg_home_mid@2x.png in Resources */,
 				D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
+				D99FE00D1A6E06E700932550 /* ic_IM@2x.png in Resources */,
 				D9564C8A1A64CAFC007203E5 /* map12@2x.png in Resources */,
 				D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */,
 				D9545FA11A20809C00688D72 /* RecommendCollectionViewCell.xib in Resources */,

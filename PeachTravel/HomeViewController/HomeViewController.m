@@ -263,29 +263,45 @@
 
 - (void)customizeTabBarForController
 {
-    self.tabBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 49);
-    self.tabBar.backgroundColor = [UIColor whiteColor];
+    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 77);
+    self.tabBar.frame = frame;
+    self.tabBar.backgroundColor = [UIColor clearColor];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
-    spaceView.backgroundColor = UIColorFromRGB(0xcfcfcf);
-    [self.tabBar addSubview:spaceView];
+    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/4, 77.5)];
+    imView.backgroundColor = [UIColor clearColor];
+    
+    UIView *imBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 28, (self.view.frame.size.width)/4, 49)];
+    imBackView.backgroundColor = APP_THEME_COLOR;
+    [imView addSubview:imBackView];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    imageView.image = [UIImage imageNamed:@"ic_IM.png"];
+
+    imageView.center = CGPointMake(imView.bounds.size.width/2, imView.bounds.size.height/2-2.5);
+    [imView addSubview:imageView];
+    [self.tabBar addSubview:imView];
+    
+    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, (self.view.frame.size.width)/4, 0, 0);
     
     NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
-    
     NSInteger index = 0;
+    
     for (RDVTabBarItem *item in [[self tabBar] items]) {
         item.titlePositionAdjustment = UIOffsetMake(0, 6);
         item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
         item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
         
         item.itemHeight = 49.0;
-        item.backgroundColor = [UIColor whiteColor];
+        item.backgroundColor = APP_THEME_COLOR;
+
+        if ([[[self tabBar] items] indexOfObject:item] != 0) {
+            NSLog(@"%@", NSStringFromCGRect(item.frame));
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 33)];
+            spaceView.backgroundColor = APP_DIVIDER_COLOR;
+            [item addSubview:spaceView];
+        }
         
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(item.bounds.size.width-1, 8, 0.5, 33)];
-        spaceView.backgroundColor = APP_DIVIDER_COLOR;
-        [item addSubview:spaceView];
-        
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
+        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
                                                       [tabBarItemImages objectAtIndex:index]]];
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
                                                         [tabBarItemImages objectAtIndex:index]]];
