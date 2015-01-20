@@ -19,6 +19,7 @@
 #import "DXChatBarMoreView.h"
 #import "DXRecordView.h"
 #import "DXFaceView.h"
+#import "HPGrowingTextView.h"
 #import "EMChatViewCell.h"
 #import "TipsChatTableViewCell.h"
 #import "EMChatTimeCell.h"
@@ -1404,7 +1405,7 @@
 }
 
 #pragma mark - DXMessageToolBarDelegate
-- (void)inputTextViewWillBeginEditing:(XHMessageTextView *)messageInputTextView{
+- (void)inputTextViewWillBeginEditing:(HPGrowingTextView *)messageInputTextView{
     [_menuController setMenuItems:nil];
 }
 
@@ -1646,7 +1647,6 @@
             }
         }
     }
-    
     return resultArray;
 }
 

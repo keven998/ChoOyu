@@ -224,7 +224,6 @@
 		D90F366B19F63E5300E26FA9 /* EMChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F365F19F63E5300E26FA9 /* EMChooseViewController.m */; };
 		D90F366C19F63E5300E26FA9 /* EMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F366119F63E5300E26FA9 /* EMNavigationController.m */; };
 		D90F366D19F63E5300E26FA9 /* EMSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F366319F63E5300E26FA9 /* EMSearchDisplayController.m */; };
-		D90F366E19F63E5300E26FA9 /* XHMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F366519F63E5300E26FA9 /* XHMessageTextView.m */; };
 		D90F367719F63EBF00E26FA9 /* sr_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F367019F63EBF00E26FA9 /* sr_refresh.png */; };
 		D90F367819F63EBF00E26FA9 /* sr_refresh@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = D90F367119F63EBF00E26FA9 /* sr_refresh@2X.png */; };
 		D90F367919F63EBF00E26FA9 /* SRRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F367419F63EBF00E26FA9 /* SRRefreshView.m */; };
@@ -542,6 +541,8 @@
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D99FDFB41A67B43E00932550 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99FDFB31A67B43E00932550 /* logo@2x.png */; };
 		D99FE0041A68E44200932550 /* MJNIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0031A68E44200932550 /* MJNIndexView.m */; };
+		D99FE00A1A6D050900932550 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0071A6D050900932550 /* HPGrowingTextView.m */; };
+		D99FE00B1A6D050900932550 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0091A6D050900932550 /* HPTextViewInternal.m */; };
 		D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */; };
 		D9A19CA61A2F063E00B189CB /* message_taozi_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */; };
 		D9A19CA71A2F063E00B189CB /* chat_receiver_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C921A2F063E00B189CB /* chat_receiver_bg@2x.png */; };
@@ -1024,8 +1025,6 @@
 		D90F366119F63E5300E26FA9 /* EMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMNavigationController.m; sourceTree = "<group>"; };
 		D90F366219F63E5300E26FA9 /* EMSearchDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSearchDisplayController.h; sourceTree = "<group>"; };
 		D90F366319F63E5300E26FA9 /* EMSearchDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSearchDisplayController.m; sourceTree = "<group>"; };
-		D90F366419F63E5300E26FA9 /* XHMessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMessageTextView.h; sourceTree = "<group>"; };
-		D90F366519F63E5300E26FA9 /* XHMessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHMessageTextView.m; sourceTree = "<group>"; };
 		D90F367019F63EBF00E26FA9 /* sr_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sr_refresh.png; sourceTree = "<group>"; };
 		D90F367119F63EBF00E26FA9 /* sr_refresh@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sr_refresh@2X.png"; sourceTree = "<group>"; };
 		D90F367219F63EBF00E26FA9 /* SRDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefine.h; sourceTree = "<group>"; };
@@ -1551,6 +1550,10 @@
 		D99FDFB31A67B43E00932550 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		D99FE0021A68E44200932550 /* MJNIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJNIndexView.h; sourceTree = "<group>"; };
 		D99FE0031A68E44200932550 /* MJNIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJNIndexView.m; sourceTree = "<group>"; };
+		D99FE0061A6D050900932550 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
+		D99FE0071A6D050900932550 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
+		D99FE0081A6D050900932550 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
+		D99FE0091A6D050900932550 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
 		D9A19C891A2EEE4A00B189CB /* TaoziChatBaseBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatBaseBubbleView.h; sourceTree = "<group>"; };
 		D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatBaseBubbleView.m; sourceTree = "<group>"; };
 		D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_taozi_send@2x.png"; path = "../../resource/2x/message_taozi_send@2x.png"; sourceTree = "<group>"; };
@@ -2540,6 +2543,7 @@
 		D90F365119F63E5300E26FA9 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				D99FE0051A6D050900932550 /* HPGrowingTextView */,
 				D90F365219F63E5300E26FA9 /* BaseTableViewCell.h */,
 				D90F365319F63E5300E26FA9 /* BaseTableViewCell.m */,
 				D90F365419F63E5300E26FA9 /* EMSearchBar.h */,
@@ -2548,8 +2552,6 @@
 				D90F365719F63E5300E26FA9 /* EMTextView.m */,
 				D90F365819F63E5300E26FA9 /* View */,
 				D90F365B19F63E5300E26FA9 /* ViewController */,
-				D90F366419F63E5300E26FA9 /* XHMessageTextView.h */,
-				D90F366519F63E5300E26FA9 /* XHMessageTextView.m */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -4105,6 +4107,18 @@
 			path = MJNIndexView;
 			sourceTree = "<group>";
 		};
+		D99FE0051A6D050900932550 /* HPGrowingTextView */ = {
+			isa = PBXGroup;
+			children = (
+				D99FE0061A6D050900932550 /* HPGrowingTextView.h */,
+				D99FE0071A6D050900932550 /* HPGrowingTextView.m */,
+				D99FE0081A6D050900932550 /* HPTextViewInternal.h */,
+				D99FE0091A6D050900932550 /* HPTextViewInternal.m */,
+			);
+			name = HPGrowingTextView;
+			path = class;
+			sourceTree = "<group>";
+		};
 		D9A19C871A2EEE0100B189CB /* CommonMessageBubbuleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5258,6 +5272,7 @@
 				D95F8A3F1A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m in Sources */,
 				D93C50E91A4D09FB00FFE2FA /* HotelDetailViewController.m in Sources */,
 				D982F9151A073A5100ECF18A /* SearchUserInfoViewController.m in Sources */,
+				D99FE00A1A6D050900932550 /* HPGrowingTextView.m in Sources */,
 				D955E3F619E7A76400047F2B /* UIAlertView+Block.m in Sources */,
 				D955E35219E6538B00047F2B /* DestinationToolBar.m in Sources */,
 				D9CDD70C19EB9C3C001AC9F2 /* UnLoginTableViewCell.m in Sources */,
@@ -5413,7 +5428,6 @@
 				D955E35619E65D1B00047F2B /* DomesticDestinationCell.m in Sources */,
 				D902AD0B1A147B5600E36A93 /* HotDestinationCollectionViewCell.m in Sources */,
 				D90F363519F63B3300E26FA9 /* MessageModel.m in Sources */,
-				D90F366E19F63E5300E26FA9 /* XHMessageTextView.m in Sources */,
 				D90F366D19F63E5300E26FA9 /* EMSearchDisplayController.m in Sources */,
 				C608ED611A2C3B4E00B76934 /* PushMsgsViewController.m in Sources */,
 				D9EF98961A3ABBFA00DB480F /* TZButton.m in Sources */,
@@ -5427,6 +5441,7 @@
 				D98CC6911A19BF8700FA5A76 /* SpotDetailView.m in Sources */,
 				D9DE349D1A0A1BF700DDCCAB /* ChangeGroupTitleViewController.m in Sources */,
 				D9EF98F01A3E808100DB480F /* TravelNoteDetailViewController.m in Sources */,
+				D99FE00B1A6D050900932550 /* HPTextViewInternal.m in Sources */,
 				D9117A7D1A2C9894000DBFCB /* SelectContactScrollView.m in Sources */,
 				D98503D81A5A3005001A4C30 /* MJPhotoBrowser.m in Sources */,
 				D90F368419F63F5B00E26FA9 /* RealtimeSearchUtil.m in Sources */,

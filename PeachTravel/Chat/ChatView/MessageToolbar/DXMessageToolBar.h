@@ -12,7 +12,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "XHMessageTextView.h"
+//#import "XHMessageTextView.h"
+#import "HPGrowingTextView.h"
 
 #import "DXChatBarMoreView.h"
 #import "DXFaceView.h"
@@ -71,7 +72,7 @@
 /**
  *  用于输入文本消息的输入框
  */
-@property (strong, nonatomic) XHMessageTextView *inputTextView;
+@property (strong, nonatomic) HPGrowingTextView *inputTextView;
 
 /**
  *  文字输入区域最大高度，必须 > KInputTextViewMinHeight(最小高度)并且 < KInputTextViewMaxHeight，否则设置无效
@@ -141,14 +142,14 @@
  *
  *  @param inputTextView 输入框对象
  */
-- (void)inputTextViewDidBeginEditing:(XHMessageTextView *)messageInputTextView;
+- (void)inputTextViewDidBeginEditing:(HPGrowingTextView *)messageInputTextView;
 
 /**
  *  文字输入框将要开始编辑
  *
  *  @param inputTextView 输入框对象
  */
-- (void)inputTextViewWillBeginEditing:(XHMessageTextView *)messageInputTextView;
+- (void)inputTextViewWillBeginEditing:(HPGrowingTextView *)messageInputTextView;
 
 /**
  *  发送文字消息，可能包含系统自带表情

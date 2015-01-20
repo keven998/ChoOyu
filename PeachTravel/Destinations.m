@@ -18,7 +18,9 @@
 {
     if (!_domesticCities) {
         _domesticCities = [[NSMutableArray alloc] init];
-    } 
+    } else {
+        [_domesticCities removeAllObjects];
+    }
     
     CityDestinationPoi *cityPoi;
     if ([json isKindOfClass:[NSArray class]]) {
@@ -33,6 +35,8 @@
 {
     if (!_foreignCountries) {
         _foreignCountries = [[NSMutableArray alloc] init];
+    } else {
+        [_foreignCountries removeAllObjects];
     }
     CountryDestination *country;
     for (id CountryDic in json) {
