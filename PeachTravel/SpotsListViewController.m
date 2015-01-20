@@ -27,7 +27,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
-@property (strong, nonatomic) DKCircleButton *editBtn;
+@property (strong, nonatomic) UIButton *editBtn;
 
 @end
 
@@ -49,9 +49,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     
     [self.view addSubview:self.tableView];
     
-    _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-110-62, 40, 40)];
+    _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     _editBtn.backgroundColor = TEXT_COLOR_TITLE_SUBTITLE;
-    [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editBtn];
     if (!_tripDetail || !_canEdit) {
@@ -64,13 +63,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"spots willAppear");
-    for (UIView *subview in self.view.subviews) {
-        if ([subview isEqual:_destinationsHeaderView]) {
-            return;
-        }
-    }
-    [self.view addSubview:_destinationsHeaderView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -109,18 +101,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             }
         }
     }
-    for (UIView *subview in self.view.subviews) {
-        if ([subview isEqual:_destinationsHeaderView]) {
-            return;
-        }
-    }
-    [self.view addSubview:_destinationsHeaderView];
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-62-44)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, -35, self.view.bounds.size.width-22, self.view.bounds.size.height-62) style:UITableViewStyleGrouped];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
@@ -229,11 +215,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     if (self.tableView.isEditing) {
         self.tableView.tableFooterView = self.tableViewFooterView;
         _editBtn.backgroundColor = APP_THEME_COLOR;
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
     } else {
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
         _editBtn.backgroundColor = UIColorFromRGB(0x797979);
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit"] animated:YES];
     }
     
     [self.tableView reloadData];
@@ -245,7 +229,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES];
         _editBtn.backgroundColor = APP_THEME_COLOR;
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done"] animated:YES];
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
@@ -283,13 +266,13 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 35;
+    return 30;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if ([[_tripDetail.itineraryList objectAtIndex:section] count] || tableView.isEditing) {
-        return 20;
+        return 18;
     } else {
         return 100;
     }
@@ -297,7 +280,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 60;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -313,13 +296,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if ([[_tripDetail.itineraryList objectAtIndex:section] count] || tableView.isEditing) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 20)];
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 20)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 18)];
         view.backgroundColor = APP_PAGE_COLOR;
-        if (!self.tableView.isEditing) {
-            spaceView.backgroundColor = APP_THEME_COLOR;
-            [view addSubview:spaceView];
-        }
         return view;
     } else {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self
@@ -342,20 +320,19 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         
         return view;
     }
-    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
     headerView.layer.cornerRadius = 2.0;
-    headerView.backgroundColor = APP_PAGE_COLOR;
+    headerView.backgroundColor = UIColorFromRGB(0xeaeaea);
     headerView.clipsToBounds = YES;
     UILabel *headerTitle;
     if (self.tableView.isEditing) {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(43, 0, headerView.frame.size.width-103, 35)];
+        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-103, 30)];
     } else {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, headerView.frame.size.width-80, 35)];
+        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-80, 30)];
     }
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
@@ -373,11 +350,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             str = [NSString stringWithFormat:@"%@--", [set objectAtIndex:i]];
         }
         [headerTitleStr appendString:str];
-
     }
     headerTitle.text = headerTitleStr;
     headerTitle.font = [UIFont boldSystemFontOfSize:15.0];
-    headerTitle.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:headerTitle];
     
     if (self.tableView.isEditing) {
@@ -387,7 +362,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 8, 60, 21)];
-        [addSpotBtn setBackgroundColor:[UIColor whiteColor]];
         [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
@@ -399,12 +373,10 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [headerView addSubview:addbtn];
         
         UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, headerView.frame.size.height)];
-        deleteBtn.backgroundColor = [UIColor whiteColor];
         deleteBtn.tag = section;
         [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 7, 36, 21)];
-        [deleteSpotBtn setBackgroundColor:[UIColor whiteColor]];
         [deleteSpotBtn setTitle:@"删除" forState:UIControlStateNormal];
         [deleteSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //        deleteSpotBtn.backgroundColor = APP_THEME_COLOR;
@@ -418,36 +390,17 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         
     } else {
         UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
-        [mapBtn setBackgroundColor:[UIColor whiteColor]];
         [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
         [mapBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         mapBtn.tag = section;
         mapBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:mapBtn];
-
     }
     
     UIView *horizontalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, headerView.frame.size.height-1, headerView.frame.size.width, 1)];
     horizontalSpaceView.backgroundColor = APP_PAGE_COLOR;
     [headerView addSubview:horizontalSpaceView];
-    if (!tableView.isEditing) {
-        UIView *nodeView = [[UIView alloc] initWithFrame:CGRectMake(1, 11, 8, 8)];
-        nodeView.backgroundColor = APP_THEME_COLOR;
-        nodeView.layer.cornerRadius = 4.0;
-        [headerView addSubview:nodeView];
-        
-        UIView *verticalSpaceView = [[UIView alloc] initWithFrame:CGRectMake(5, 19, 1, 16)];
-        verticalSpaceView.backgroundColor = APP_THEME_COLOR;
-        [headerView addSubview:verticalSpaceView];
-        
-        if (section != 0) {
-            UIView *verticalSpaceViewUp = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 11)];
-            verticalSpaceViewUp.backgroundColor = APP_THEME_COLOR;
-            [headerView addSubview:verticalSpaceViewUp];
-        }
-    }
-    
     return headerView;
 }
 
@@ -545,15 +498,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     
 }
 
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y > 20.0) {
-        [_rootViewController showDHView:NO];
-    } else {
-        [_rootViewController showDHView:YES];
-    }
-}
 
 
 

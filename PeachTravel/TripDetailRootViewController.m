@@ -473,7 +473,6 @@
     _spotsListCtl.canEdit = _canEdit;
 
     _spotsListCtl.rootViewController = self;
-    _spotsListCtl.destinationsHeaderView = self.destinationsHeaderView;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     _restaurantListCtl.canEdit = _canEdit;
@@ -505,7 +504,7 @@
 
 - (void)customizeTabBarForController
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-62, self.view.frame.size.width, 62)];
+    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-54, self.view.frame.size.width, 54)];
     _tabBarView.backgroundColor = [UIColor whiteColor];
     
     //分割线
