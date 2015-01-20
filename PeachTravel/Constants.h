@@ -229,8 +229,8 @@ typedef enum : NSUInteger {
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define APP_PAGE_COLOR              UIColorFromRGB(0xf4f4f4)
-#define APP_THEME_COLOR             UIColorFromRGB(0xee528c)
+#define APP_PAGE_COLOR              UIColorFromRGB(0xf6f6f6)
+#define APP_THEME_COLOR             UIColorFromRGB(0xfc8383)
 #define APP_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0xcc306a)
 #define APP_BORDER_COLOR            UIColorFromRGB(0xe4e4e4)
 #define APP_IMAGEVIEW_COLOR         UIColorFromRGB(0xf8f8f8)

@@ -329,7 +329,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIButton *IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM.png"] forState:UIControlStateNormal];
     [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2, imView.bounds.size.height/2-2.5);
+    IMBtn.center = CGPointMake(imView.bounds.size.width/2, imView.bounds.size.height/2);
     [imView addSubview:IMBtn];
     [self.tabBar addSubview:imView];
     
@@ -355,7 +355,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
                                                       [tabBarItemImages objectAtIndex:index]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
+        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                         [tabBarItemImages objectAtIndex:index]]];
         [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
         
