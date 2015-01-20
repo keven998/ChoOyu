@@ -85,7 +85,6 @@
 		C6BC349D1A28171B002C19D3 /* ic_setting_password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34981A28171B002C19D3 /* ic_setting_password@2x.png */; };
 		C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */; };
 		C6BC34A11A2832C7002C19D3 /* theme_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */; };
-		C6BC34A31A2842C0002C19D3 /* ic_navigation_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */; };
 		C6BEEE411A31D8E5009C1027 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BEEE401A31D8E5009C1027 /* CityCardReusableView.m */; };
 		C6C02A0F1A430DDB009475AD /* ic_plan_title_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6C02A0E1A430DDB009475AD /* ic_plan_title_edit@2x.png */; };
 		C6C637F41A53B52A00A9558A /* ic_toolbox_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6C637F21A53B52A00A9558A /* ic_toolbox_left@2x.png */; };
@@ -120,6 +119,8 @@
 		D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857F019EE9AC20041A4E2 /* UserOtherTableViewCell.xib */; };
 		D90857F619EEA8CD0041A4E2 /* ChangeUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */; };
 		D90857F719EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */; };
+		D90BB4141A6E444D00D2035E /* ic_IM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90BB4131A6E444D00D2035E /* ic_IM@2x.png */; };
+		D90BB4161A6E4AE800D2035E /* ic_navigation_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90BB4151A6E4AE800D2035E /* ic_navigation_back@2x.png */; };
 		D90C636519FB44D300C2E440 /* chatFire_audioPlaying0.png in Resources */ = {isa = PBXBuildFile; fileRef = D90C630419FB44D300C2E440 /* chatFire_audioPlaying0.png */; };
 		D90C636619FB44D300C2E440 /* chatFire_audioPlaying0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D90C630519FB44D300C2E440 /* chatFire_audioPlaying0@2x.png */; };
 		D90C636719FB44D300C2E440 /* chatFire_audioPlaying1.png in Resources */ = {isa = PBXBuildFile; fileRef = D90C630619FB44D300C2E440 /* chatFire_audioPlaying1.png */; };
@@ -543,7 +544,6 @@
 		D99FE0041A68E44200932550 /* MJNIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0031A68E44200932550 /* MJNIndexView.m */; };
 		D99FE00A1A6D050900932550 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0071A6D050900932550 /* HPGrowingTextView.m */; };
 		D99FE00B1A6D050900932550 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D99FE0091A6D050900932550 /* HPTextViewInternal.m */; };
-		D99FE00D1A6E06E700932550 /* ic_IM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99FE00C1A6E06E700932550 /* ic_IM@2x.png */; };
 		D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */; };
 		D9A19CA61A2F063E00B189CB /* message_taozi_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */; };
 		D9A19CA71A2F063E00B189CB /* chat_receiver_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A19C921A2F063E00B189CB /* chat_receiver_bg@2x.png */; };
@@ -827,7 +827,6 @@
 		C6BC34981A28171B002C19D3 /* ic_setting_password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_setting_password@2x.png"; sourceTree = "<group>"; };
 		C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_btn_highlight@2x.png"; sourceTree = "<group>"; };
 		C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_btn_normal@2x.png"; sourceTree = "<group>"; };
-		C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigation_back@2x.png"; sourceTree = "<group>"; };
 		C6BEEE3F1A31D8E5009C1027 /* CityCardReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCardReusableView.h; sourceTree = "<group>"; };
 		C6BEEE401A31D8E5009C1027 /* CityCardReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityCardReusableView.m; sourceTree = "<group>"; };
 		C6C02A0E1A430DDB009475AD /* ic_plan_title_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_plan_title_edit@2x.png"; sourceTree = "<group>"; };
@@ -882,6 +881,8 @@
 		D90857F319EEA8CD0041A4E2 /* ChangeUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserInfoViewController.h; sourceTree = "<group>"; };
 		D90857F419EEA8CD0041A4E2 /* ChangeUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeUserInfoViewController.m; sourceTree = "<group>"; };
 		D90857F519EEA8CD0041A4E2 /* ChangeUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeUserInfoViewController.xib; sourceTree = "<group>"; };
+		D90BB4131A6E444D00D2035E /* ic_IM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM@2x.png"; sourceTree = "<group>"; };
+		D90BB4151A6E4AE800D2035E /* ic_navigation_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigation_back@2x.png"; sourceTree = "<group>"; };
 		D90C630419FB44D300C2E440 /* chatFire_audioPlaying0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatFire_audioPlaying0.png; sourceTree = "<group>"; };
 		D90C630519FB44D300C2E440 /* chatFire_audioPlaying0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatFire_audioPlaying0@2x.png"; sourceTree = "<group>"; };
 		D90C630619FB44D300C2E440 /* chatFire_audioPlaying1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatFire_audioPlaying1.png; sourceTree = "<group>"; };
@@ -1555,7 +1556,6 @@
 		D99FE0071A6D050900932550 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
 		D99FE0081A6D050900932550 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
 		D99FE0091A6D050900932550 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
-		D99FE00C1A6E06E700932550 /* ic_IM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM@2x.png"; sourceTree = "<group>"; };
 		D9A19C891A2EEE4A00B189CB /* TaoziChatBaseBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatBaseBubbleView.h; sourceTree = "<group>"; };
 		D9A19C8A1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaoziChatBaseBubbleView.m; sourceTree = "<group>"; };
 		D9A19C911A2F063E00B189CB /* message_taozi_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_taozi_send@2x.png"; path = "../../resource/2x/message_taozi_send@2x.png"; sourceTree = "<group>"; };
@@ -2766,6 +2766,7 @@
 		D93697131A31616E001922F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D90BB4151A6E4AE800D2035E /* ic_navigation_back@2x.png */,
 				D99FDFB31A67B43E00932550 /* logo@2x.png */,
 				C61624A91A5BE769004A3744 /* story_default@2x.png */,
 				D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */,
@@ -3877,7 +3878,7 @@
 		D98BDA5C1A43D5940093C559 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				D99FE00C1A6E06E700932550 /* ic_IM@2x.png */,
+				D90BB4131A6E444D00D2035E /* ic_IM@2x.png */,
 				D98BDA5D1A43D5CD0093C559 /* ic_loc_normal@2x.png */,
 				D98BDA5E1A43D5CD0093C559 /* ic_loc_selected@2x.png */,
 				D98BDA5F1A43D5CD0093C559 /* ic_person_normal@2x.png */,
@@ -4188,7 +4189,6 @@
 				C60C0D541A286654006033C9 /* ic_about@2x.png */,
 				C60C0D551A286654006033C9 /* ic_gender_lady@2x.png */,
 				C60C0D561A286654006033C9 /* ic_gender_man@2x.png */,
-				C6BC34A21A2842C0002C19D3 /* ic_navigation_back@2x.png */,
 				C6BC349E1A2832C7002C19D3 /* theme_btn_highlight@2x.png */,
 				C6BC349F1A2832C7002C19D3 /* theme_btn_normal@2x.png */,
 				C6BC34941A28171B002C19D3 /* ic_setting_avatar@2x.png */,
@@ -4906,6 +4906,7 @@
 				D91DEA6F1A5D5618002F4F0A /* MessageSendFail@2x.png in Resources */,
 				D9E97D151A5C063800F2364D /* ic_guide2_8_normal@2x.png in Resources */,
 				D9CC36D71A380E4E00E72A7F /* travel_guide_selected@2x.png in Resources */,
+				D90BB4141A6E444D00D2035E /* ic_IM@2x.png in Resources */,
 				C60C0D591A286654006033C9 /* ic_gender_man@2x.png in Resources */,
 				C6BC34931A276396002C19D3 /* cell_accessory_white@2x.png in Resources */,
 				D90C639619FB44D300C2E440 /* chatBar_more_card.png in Resources */,
@@ -5033,7 +5034,6 @@
 				D934D8481A4D57BF003AFFCF /* blur_backGround@2x.png in Resources */,
 				C6BC348C1A274FEB002C19D3 /* ic_setting_notify@2x.png in Resources */,
 				D9CC36C91A37F7FD00E72A7F /* ic_travel@2x.png in Resources */,
-				C6BC34A31A2842C0002C19D3 /* ic_navigation_back@2x.png in Resources */,
 				D9A717A61A03B04A005BDEFE /* CreateConversationViewController.xib in Resources */,
 				D9978B0E1A52B75C00AB52B0 /* UMSLoginViewController.xib in Resources */,
 				D9117A8D1A2DF66B000DBFCB /* TaoziChatMessageBaseViewController.xib in Resources */,
@@ -5127,7 +5127,6 @@
 				D9F52BB11A595016009DFBC1 /* bg_home_mid@2x.png in Resources */,
 				D93C50D21A4A5CBA00FFE2FA /* ic_share_high@2x.png in Resources */,
 				D90F361419F63B3300E26FA9 /* chatBar_recordSelectedBg@2x.png in Resources */,
-				D99FE00D1A6E06E700932550 /* ic_IM@2x.png in Resources */,
 				D9564C8A1A64CAFC007203E5 /* map12@2x.png in Resources */,
 				D93C50CC1A4906FD00FFE2FA /* ic_im_arrow@2x.png in Resources */,
 				D9545FA11A20809C00688D72 /* RecommendCollectionViewCell.xib in Resources */,
@@ -5173,6 +5172,7 @@
 				D93696FB1A301C0C001922F4 /* chatBar_more_destination@2x.png in Resources */,
 				D97C8B4F1A5270B200476C9C /* ic_new_talk@2x.png in Resources */,
 				D90F362919F63B3300E26FA9 /* messageToolbarBg@2x.png in Resources */,
+				D90BB4161A6E4AE800D2035E /* ic_navigation_back@2x.png in Resources */,
 				D9564C971A64CAFC007203E5 /* map5@2x.png in Resources */,
 				D92998181A28B05000795986 /* MyGuidesTableViewCell.xib in Resources */,
 				D9D8410319F4F74200FEB197 /* BindTelephoneViewController.xib in Resources */,
