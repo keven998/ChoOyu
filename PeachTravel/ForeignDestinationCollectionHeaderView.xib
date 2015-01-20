@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -14,57 +14,52 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7r-7c-aRb" customClass="UIButton">
                     <rect key="frame" x="0.0" y="10" width="320" height="180"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8y4-z8-RJs">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
-                            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tdd-bE-4UC">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="120" id="W9U-5l-saI"/>
+                                <constraint firstAttribute="width" constant="48" id="VOY-9b-PfT">
+                                    <variation key="widthClass=compact" constant="32"/>
+                                </constraint>
                             </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="VOY-9b-PfT"/>
+                                </mask>
+                            </variation>
+                            <variation key="widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="VOY-9b-PfT"/>
+                                </mask>
+                            </variation>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="8aP-p2-afE">
-                            <rect key="frame" x="8" y="127" width="304" height="45"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_dotted_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="jRo-t4-oiO">
-                            <rect key="frame" x="0.0" y="179" width="320" height="1"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="7OP-CZ-msb"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKh-yw-7RT">
-                            <rect key="frame" x="33" y="85" width="257" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="jAk-dX-2Ki"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="jRo-t4-oiO" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" id="DBv-xM-I2x"/>
-                        <constraint firstAttribute="trailing" secondItem="jRo-t4-oiO" secondAttribute="trailing" id="KcF-RP-GVQ"/>
-                        <constraint firstAttribute="trailing" secondItem="WKh-yw-7RT" secondAttribute="trailing" constant="30" id="MeY-zt-eKO"/>
-                        <constraint firstItem="jRo-t4-oiO" firstAttribute="top" secondItem="8aP-p2-afE" secondAttribute="bottom" constant="7" id="N7h-HO-fCK"/>
-                        <constraint firstItem="WKh-yw-7RT" firstAttribute="top" secondItem="V7r-7c-aRb" secondAttribute="top" constant="85" id="PqD-KZ-kr7"/>
-                        <constraint firstItem="8aP-p2-afE" firstAttribute="top" secondItem="8y4-z8-RJs" secondAttribute="bottom" constant="7" id="aIS-gO-ZWo"/>
-                        <constraint firstItem="WKh-yw-7RT" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" constant="33" id="aZs-oQ-5Om"/>
-                        <constraint firstItem="8y4-z8-RJs" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" id="bX7-w0-gxe"/>
-                        <constraint firstItem="8aP-p2-afE" firstAttribute="leading" secondItem="V7r-7c-aRb" secondAttribute="leading" constant="8" id="fFp-aQ-gL0"/>
-                        <constraint firstAttribute="bottom" secondItem="jRo-t4-oiO" secondAttribute="bottom" id="gFH-Oc-l6O"/>
-                        <constraint firstAttribute="trailing" secondItem="8y4-z8-RJs" secondAttribute="trailing" id="hrw-0V-uuH"/>
-                        <constraint firstItem="8y4-z8-RJs" firstAttribute="top" secondItem="V7r-7c-aRb" secondAttribute="top" id="sCb-5z-WZF"/>
-                        <constraint firstAttribute="trailing" secondItem="8aP-p2-afE" secondAttribute="trailing" constant="8" id="xMr-QQ-B6f"/>
+                        <constraint firstItem="Tdd-bE-4UC" firstAttribute="top" secondItem="V7r-7c-aRb" secondAttribute="top" id="6yC-Bd-yLT"/>
+                        <constraint firstAttribute="bottom" secondItem="Tdd-bE-4UC" secondAttribute="bottom" id="Ssa-3x-Jnj"/>
+                        <constraint firstAttribute="trailing" secondItem="Tdd-bE-4UC" secondAttribute="trailing" id="gpp-2a-b7b"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="Tdd-bE-4UC"/>
+                        </mask>
+                        <mask key="constraints">
+                            <exclude reference="6yC-Bd-yLT"/>
+                            <exclude reference="Ssa-3x-Jnj"/>
+                            <exclude reference="gpp-2a-b7b"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="subviews">
+                            <include reference="Tdd-bE-4UC"/>
+                        </mask>
+                        <mask key="constraints">
+                            <include reference="6yC-Bd-yLT"/>
+                            <include reference="Ssa-3x-Jnj"/>
+                            <include reference="gpp-2a-b7b"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,16 +75,10 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="cellAccessoryView" destination="Tdd-bE-4UC" id="fOL-1z-35m"/>
                 <outlet property="contentBtn" destination="V7r-7c-aRb" id="hOE-rc-5jd"/>
-                <outlet property="descLabel" destination="8aP-p2-afE" id="ery-X5-ofv"/>
-                <outlet property="headerImageView" destination="8y4-z8-RJs" id="quf-VW-Etg"/>
-                <outlet property="spaceLineView" destination="jRo-t4-oiO" id="I6K-hY-zF6"/>
-                <outlet property="titleBtn" destination="WKh-yw-7RT" id="78F-HK-sGa"/>
             </connections>
             <point key="canvasLocation" x="-19" y="161"/>
         </collectionReusableView>
     </objects>
-    <resources>
-        <image name="ic_dotted_line.png" width="1" height="1"/>
-    </resources>
 </document>

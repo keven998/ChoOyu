@@ -123,7 +123,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     self.indexView.selectedItemFontColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
     self.indexView.darkening = NO;
     self.indexView.fading = YES;
-    
 }
 
 - (void)reloadData
@@ -173,7 +172,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (_hud) {
             [_hud hideTZHUD];
@@ -197,7 +196,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 }
             }
         }
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (_hud) {
             [_hud hideTZHUD];
@@ -205,7 +204,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
                 [SVProgressHUD showHint:@"呃～好像没找到网络"];
             }
         }
-       
+       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 
@@ -261,7 +260,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 40);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 28);
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -297,15 +296,13 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     cell.tiltleLabel.text = city.zhName;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
-            cell.layer.borderColor = APP_THEME_COLOR.CGColor;
-            cell.tiltleLabel.textColor = APP_THEME_COLOR;
-            cell.statusImageView.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
+            cell.tiltleLabel.textColor = [UIColor whiteColor];
+            cell.backgroundColor = APP_THEME_COLOR;
             return  cell;
         }
     }
-    cell.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
-    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    cell.statusImageView.image = [UIImage imageNamed:@"ic_view_add.png"];
+    cell.tiltleLabel.textColor = APP_THEME_COLOR;
+    cell.backgroundColor = [UIColor whiteColor];
     return  cell;
 }
 

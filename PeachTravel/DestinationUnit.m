@@ -28,11 +28,12 @@
     if (self = [super initWithFrame:tempFrame]) {
         self.frame = tempFrame;
         self.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.layer.borderWidth = 0.5;
+        self.layer.cornerRadius = 4.0;
+        self.layer.borderWidth = 1.0;
+        self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.9];
         [self setTitle:name forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        
         if (icon) {
             [self setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
             _indictatorView = [[UIButton alloc] initWithFrame:CGRectMake(tempFrame.size.width-20, 0, 20, frame.size.height)];
