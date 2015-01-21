@@ -17,6 +17,9 @@
 
 @property (nonatomic, weak) id<TripUpdateDelegate> contentMgrDelegate;
 
+//编辑按钮
+@property (nonatomic, strong) UIButton *editBtn;
+
 /**
  *  进入三账单会有两种情况，一种是传目的地列表新制作攻略，另一种是传攻略 id 来查看攻略
  */

@@ -12,8 +12,6 @@
 
 @interface CommonPoiListTableViewCell : UITableViewCell
 
-@property (nonatomic) BOOL shouldEditing;
-
 @property (nonatomic, strong) TripPoi *tripPoi;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -27,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
 
 @end

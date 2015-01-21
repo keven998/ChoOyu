@@ -67,6 +67,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
+    if (_canEdit && _tripDetail) {
+        _tableView.tableFooterView = self.tableViewFooterView;
+    } else {
+        _tableView.tableFooterView = nil;
+    }
     [_tableView reloadData];
 }
 
@@ -78,7 +83,10 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = self.tableViewFooterView;
+        
+        if (_canEdit && _tripDetail) {
+            _tableView.tableFooterView = self.tableViewFooterView;
+        }
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
     }
     return _tableView;
@@ -101,10 +109,23 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     return _tableViewFooterView;
 }
 
+- (void)setCanEdit:(BOOL)canEdit
+{
+    _canEdit = canEdit;
+    if (_canEdit && _tripDetail) {
+        _tableView.tableFooterView = self.tableViewFooterView;
+    } else {
+        _tableView.tableFooterView = nil;
+    }
+}
+
 #pragma makr - IBAction Methods
 
 - (IBAction)addOneDay:(id)sender
 {
+    if (!_shouldEdit) {
+        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
     [_tripDetail.itineraryList addObject:[[NSMutableArray alloc] init]];
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:_tripDetail.itineraryList.count-1];
     [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -168,30 +189,13 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)editTrip:(id)sender
 {
-    if (!self.tableView.isEditing) {
+    if (_shouldEdit) {
         [self.tableView setEditing:YES animated:YES];
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
-         __weak typeof(SpotsListViewController *)weakSelf = self;
-        
-        if (!self.tripDetail.tripIsChange) {
-            [self.tableView setEditing:NO animated:YES];
-            [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-            return;
-        }
-        TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf.navigationController];
-
-        [self.tripDetail saveTrip:^(BOOL isSuccesss) {
-            [hud hideTZHUD];
-            if (isSuccesss) {
-                [self.tableView setEditing:NO animated:YES];
-                [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-            } else {
-                [SVProgressHUD showErrorWithStatus:@"保存失败"];
-            }
-        }];
+        [self.tableView setEditing:NO animated:YES];
+        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
     }
 }
 
@@ -305,14 +309,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         deleteBtn.tag = section;
         [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 7, 36, 21)];
-        [deleteSpotBtn setTitle:@"删除" forState:UIControlStateNormal];
-        [deleteSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        deleteSpotBtn.backgroundColor = APP_THEME_COLOR;
-        [deleteSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 3, 36, 21)];
+        [deleteSpotBtn setImage:[UIImage imageNamed:@"ic_delete.png"] forState:UIControlStateNormal];
         deleteSpotBtn.clipsToBounds = YES;
-        deleteSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        deleteSpotBtn.layer.cornerRadius = 10.5;
         deleteSpotBtn.userInteractionEnabled = NO;
         [deleteBtn addSubview:deleteSpotBtn];
         [headerView addSubview:deleteBtn];
@@ -335,7 +334,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
-    cell.isShouldEditing = self.tableView.isEditing;
     cell.tripPoi = tripPoi;
     return cell;
 }

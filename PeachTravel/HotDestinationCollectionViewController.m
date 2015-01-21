@@ -99,11 +99,15 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     if (!_collectionView) {
         TaoziCollectionLayout *tzLayout = [[TaoziCollectionLayout alloc] init];
         tzLayout.delegate = self;
+        tzLayout.spacePerItem = 6;
+        tzLayout.spacePerLine = 6;
+        
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, kWindowHeight-49) collectionViewLayout:tzLayout];
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.backgroundColor = APP_PAGE_COLOR;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+        
     }
     return _collectionView;
 }
@@ -190,23 +194,23 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     CGSize size;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            CGFloat width = ((collectionView.frame.size.width-7)/3*2);
+            CGFloat width = ((collectionView.frame.size.width-4)/3*2);
             CGFloat heigh = width *0.75;
             size = CGSizeMake(width, heigh);
             return size;
         } else if (indexPath.row == 1) {
-            CGFloat width = ((collectionView.frame.size.width-17)/3*1);
+            CGFloat width = ((collectionView.frame.size.width-10)/3*1);
             CGFloat heigh = ((collectionView.frame.size.width-7)/3*2)*0.75;
             size = CGSizeMake(width, heigh);
             return size;
         } else {
-            CGFloat width = ((collectionView.frame.size.width-20)/3);
+            CGFloat width = ((collectionView.frame.size.width-12)/3);
             size = CGSizeMake(width, width);
             return size;
         }
     }
     if (indexPath.section > 0) {
-        size = CGSizeMake(self.collectionView.frame.size.width/2-5, self.collectionView.frame.size.width/2-5);
+        size = CGSizeMake(self.collectionView.frame.size.width/2-3, self.collectionView.frame.size.width/2-3);
         return size;
     }
     size = CGSizeMake(self.collectionView.frame.size.width/2-40, 100);

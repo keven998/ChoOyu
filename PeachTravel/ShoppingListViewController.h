@@ -15,11 +15,11 @@
 
 @property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 @property (nonatomic, strong) TripDetail *tripDetail;
-@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
-/**
- *  是否有资格更改路线，当从聊天界面点击别人发送的攻略进入此界面时，没有资格编辑路线
- */
 @property (nonatomic) BOOL canEdit;
+/**
+ *  路线是否应该进入编辑状态
+ */
+@property (nonatomic) BOOL shouldEdit;
 
 @end

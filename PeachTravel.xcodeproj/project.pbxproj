@@ -583,6 +583,7 @@
 		D9B4768A1A2475CE0014136C /* RecommendsOfCity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B476891A2475CE0014136C /* RecommendsOfCity.m */; };
 		D9B5EEAA1A51141100D4894B /* AddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */; };
 		D9B5EEAB1A51141100D4894B /* AddressBookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */; };
+		D9C24ABB1A6F755200770FEF /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -1623,6 +1624,7 @@
 		D9B5EEA71A51141100D4894B /* AddressBookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewCell.h; sourceTree = "<group>"; };
 		D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewCell.m; sourceTree = "<group>"; };
 		D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookTableViewCell.xib; sourceTree = "<group>"; };
+		D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete@2x.png"; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -4344,6 +4346,7 @@
 		D9CC36B21A3747C900E72A7F /* MakePlan */ = {
 			isa = PBXGroup;
 			children = (
+				D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */,
 				D90BB41F1A6E622100D2035E /* trip_tabbar_selected@2x.png */,
 				D90BB41B1A6E4C5700D2035E /* ic_more@2x.png */,
 				D90BB41C1A6E4C5700D2035E /* ic_trip_edit@2x.png */,
@@ -5117,6 +5120,7 @@
 				D9CC36DB1A38179800E72A7F /* ic_unFavorite@2x.png in Resources */,
 				D92F1AA31A5A559100CD1A63 /* ic_gray_complete@2x.png in Resources */,
 				D90F35FC19F63B3300E26FA9 /* faceDelete.png in Resources */,
+				D9C24ABB1A6F755200770FEF /* ic_delete@2x.png in Resources */,
 				C6BC349B1A28171B002C19D3 /* ic_setting_memo@2x.png in Resources */,
 				D90F35EB19F63B3300E26FA9 /* call_out.png in Resources */,
 				D9564C961A64CAFC007203E5 /* map4@2x.png in Resources */,
