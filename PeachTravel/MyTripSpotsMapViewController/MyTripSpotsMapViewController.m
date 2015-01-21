@@ -54,10 +54,20 @@
 
 - (void)goBack
 {
-    mapView = nil;
     [self dismissViewControllerAnimated:YES completion:^{
-        
     }];
+}
+
+- (void)dealloc
+{
+    self.mapView.showsUserLocation = NO;
+    self.mapView.userTrackingMode  = MKUserTrackingModeNone;
+    [self.mapView.layer removeAllAnimations];
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.mapView removeOverlays:self.mapView.overlays];
+    [self.mapView removeFromSuperview];
+    self.mapView.delegate = nil;
+    self.mapView = nil;
 }
 
 - (void)didReceiveMemoryWarning

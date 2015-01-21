@@ -78,7 +78,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 135)];
+        _tableView.tableFooterView = self.tableViewFooterView;
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
     }
     return _tableView;
@@ -158,14 +158,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)updateTableView
 {
     [self.tableView reloadData];
-    if (self.tableView.isEditing) {
-        self.tableView.tableFooterView = self.tableViewFooterView;
-    } else {
-        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-    }
-    
-    [self.tableView reloadData];
-    
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit

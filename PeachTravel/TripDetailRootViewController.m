@@ -23,8 +23,9 @@
 #import "CityDestinationPoi.h"
 #import "ChatRecoredListTableViewController.h"
 #import "MakePlanViewController.h"
+#import "JGActionSheet.h"
 
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, JGActionSheetDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -79,42 +80,7 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
    
-    if (_canEdit) {
-        NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
-        [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
-        
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
-        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
-        
-        _destinationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_destinationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateNormal];
-        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateHighlighted];
-        [_destinationBtn addTarget:self action:@selector(showDestination:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_destinationBtn]];
-
-
-        self.navigationItem.rightBarButtonItems = barItems;
-    } else {
-        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        self.navigationItem.rightBarButtonItem = addBtn;
-    }
-    
-   
+    [self setNavigationItems];
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
@@ -156,6 +122,47 @@
     _isShowing = NO;
 }
 
+- (void)setNavigationItems
+{
+    if (_canEdit) {
+        NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
+        
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+        
+        _destinationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_destinationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateNormal];
+        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateHighlighted];
+        [_destinationBtn addTarget:self action:@selector(showDestination:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_destinationBtn]];
+        
+        self.navigationItem.rightBarButtonItems = barItems;
+    } else {
+        _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        _forkBtn.layer.cornerRadius = 2.0;
+        _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _forkBtn.layer.borderWidth = 1.0;
+        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
+        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
+        self.navigationItem.rightBarButtonItem = addBtn;
+    }
+
+}
 - (void) hint {
     [SVProgressHUD showSuccessWithStatus:@"已保存到旅行计划"];
 }
@@ -274,28 +281,7 @@
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-    if (_canEdit) {
-        _forkBtn = nil;
-        NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
-        [_moreBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
-        self.navigationItem.rightBarButtonItems = barItems;
-    } else {
-        _editBtn = nil;
-        _moreBtn = nil;
-        _destinationBtn = nil;
-        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        self.navigationItem.rightBarButtonItem = addBtn;
-    }
+    [self setNavigationItems];
     _shoppingListCtl.canEdit = _canEdit;
 }
 
@@ -372,11 +358,10 @@
  *
  *  @param sender
  */
-- (IBAction)viewCityDetail:(UIButton *)sender
+- (void)viewCityDetail:(NSString *)cityId
 {
-    CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:sender.tag];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
-    cityDetailCtl.cityId = poi.cityId;
+    cityDetailCtl.cityId = cityId;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
@@ -414,7 +399,25 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [array addObject:poi.zhName];
+
+
     }
+    JGActionSheet *sheet = [JGActionSheet actionSheetWithSections:@[[JGActionSheetSection sectionWithTitle:@"目的地" message:nil buttonTitles:array buttonStyle:JGActionSheetButtonStyleDefault], [JGActionSheetSection sectionWithTitle:nil message:nil buttonTitles:@[@"取消"] buttonStyle:JGActionSheetButtonStyleCancel]]];
+    
+    sheet.delegate = self;
+    
+    [sheet showInView:self.navigationController.view animated:YES];
+    
+    sheet.insets = UIEdgeInsetsMake(20.0f, 0.0f, 0.0f, 0.0f);
+    
+    
+    [sheet setButtonPressedBlock:^(JGActionSheet *sheet, NSIndexPath *indexPath) {
+        [sheet dismissAnimated:YES];
+        if (indexPath.section == 0) {
+            CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:indexPath.row];
+            [self viewCityDetail:poi.cityId];
+        }
+    }];
 }
 
 /**

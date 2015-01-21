@@ -280,9 +280,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
     cell.shouldEditing = self.tableView.isEditing;
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
-    cell.mapViewBtn.tag = indexPath.section;
-    [cell.mapViewBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.mapViewBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    cell.mapBtn.tag = indexPath.section;
+    [cell.mapBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
