@@ -17,7 +17,7 @@
 
 @end
 
-@interface PoisOfCityTableViewController : TZTableViewController
+@interface PoisOfCityTableViewController : TZViewController
 
 @property (nonatomic, copy) NSString *cityId; //当前显示的城市
 @property (nonatomic, copy) NSString *zhName; //当前显示的城市

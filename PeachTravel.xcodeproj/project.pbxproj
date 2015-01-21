@@ -540,7 +540,6 @@
 		D9978B1D1A52B78300AB52B0 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9978B191A52B78300AB52B0 /* libWeChatSDK.a */; };
 		D9978B1E1A52B78300AB52B0 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = D9978B1A1A52B78300AB52B0 /* read_me.txt */; };
 		D9978B2C1A53B37300AB52B0 /* PoisOfCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9978B2A1A53B37300AB52B0 /* PoisOfCityTableViewController.m */; };
-		D9978B2D1A53B37300AB52B0 /* PoisOfCityTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9978B2B1A53B37300AB52B0 /* PoisOfCityTableViewController.xib */; };
 		D9978B2F1A59013F00AB52B0 /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */; };
 		D99D8ECB19C8600C0021C25B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECA19C8600C0021C25B /* main.m */; };
 		D99D8ECE19C8600C0021C25B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8ECD19C8600C0021C25B /* AppDelegate.m */; };
@@ -584,6 +583,7 @@
 		D9B5EEAA1A51141100D4894B /* AddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */; };
 		D9B5EEAB1A51141100D4894B /* AddressBookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */; };
 		D9C24ABB1A6F755200770FEF /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */; };
+		D9C24ABD1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
 		D9C64BB11A1B2C4800A4B9BF /* TaoziCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB01A1B2C4800A4B9BF /* TaoziCollectionLayout.m */; };
 		D9C64BB51A1B31CA00A4B9BF /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64BB31A1B31CA00A4B9BF /* DomesticViewController.m */; };
@@ -694,7 +694,6 @@
 		D9E9F7B21A00AC6D003F70F6 /* AddressBookTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E9F7B01A00AC6D003F70F6 /* AddressBookTableViewController.xib */; };
 		D9E9F7F41A00DB00003F70F6 /* TZScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E9F7F31A00DB00003F70F6 /* TZScrollView.m */; };
 		D9EF98901A3ABB2E00DB480F /* PoisOfCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF988A1A3ABB2E00DB480F /* PoisOfCityTableViewCell.m */; };
-		D9EF98911A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9EF988B1A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib */; };
 		D9EF98931A3ABB2E00DB480F /* PoiSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF988F1A3ABB2E00DB480F /* PoiSummary.m */; };
 		D9EF98961A3ABBFA00DB480F /* TZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EF98951A3ABBFA00DB480F /* TZButton.m */; };
 		D9EF98A21A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EF98981A3ABC1F00DB480F /* nearby_ic_tab_delicacy_normal@2x.png */; };
@@ -1551,7 +1550,6 @@
 		D9978B1C1A52B78300AB52B0 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		D9978B291A53B37300AB52B0 /* PoisOfCityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoisOfCityTableViewController.h; sourceTree = "<group>"; };
 		D9978B2A1A53B37300AB52B0 /* PoisOfCityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoisOfCityTableViewController.m; sourceTree = "<group>"; };
-		D9978B2B1A53B37300AB52B0 /* PoisOfCityTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewController.xib; sourceTree = "<group>"; };
 		D9978B2E1A59013F00AB52B0 /* ic_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete@2x.png"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EC919C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1625,6 +1623,7 @@
 		D9B5EEA81A51141100D4894B /* AddressBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewCell.m; sourceTree = "<group>"; };
 		D9B5EEA91A51141100D4894B /* AddressBookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressBookTableViewCell.xib; sourceTree = "<group>"; };
 		D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete@2x.png"; sourceTree = "<group>"; };
+		D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewCell.xib; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
 		D9C64BAF1A1B2C4800A4B9BF /* TaoziCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziCollectionLayout.h; sourceTree = "<group>"; };
@@ -1770,7 +1769,6 @@
 		D9E9F7F31A00DB00003F70F6 /* TZScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZScrollView.m; sourceTree = "<group>"; };
 		D9EF98891A3ABB2E00DB480F /* PoisOfCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoisOfCityTableViewCell.h; sourceTree = "<group>"; };
 		D9EF988A1A3ABB2E00DB480F /* PoisOfCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoisOfCityTableViewCell.m; sourceTree = "<group>"; };
-		D9EF988B1A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewCell.xib; sourceTree = "<group>"; };
 		D9EF988E1A3ABB2E00DB480F /* PoiSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSummary.h; sourceTree = "<group>"; };
 		D9EF988F1A3ABB2E00DB480F /* PoiSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiSummary.m; sourceTree = "<group>"; };
 		D9EF98941A3ABBFA00DB480F /* TZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZButton.h; sourceTree = "<group>"; };
@@ -3394,12 +3392,11 @@
 			children = (
 				D9EF98891A3ABB2E00DB480F /* PoisOfCityTableViewCell.h */,
 				D9EF988A1A3ABB2E00DB480F /* PoisOfCityTableViewCell.m */,
-				D9EF988B1A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib */,
 				D902ADBB1A15E15E00E36A93 /* CityHeaderView.h */,
 				D902ADBC1A15E15E00E36A93 /* CityHeaderView.m */,
+				D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */,
 				D9978B291A53B37300AB52B0 /* PoisOfCityTableViewController.h */,
 				D9978B2A1A53B37300AB52B0 /* PoisOfCityTableViewController.m */,
-				D9978B2B1A53B37300AB52B0 /* PoisOfCityTableViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -4893,7 +4890,6 @@
 				D9EF98A71A3ABC1F00DB480F /* nearby_ic_tab_spot_select@2x.png in Resources */,
 				D9CC36D81A380E4E00E72A7F /* kengdie_guide_unselected@2x.png in Resources */,
 				D955E54719E7A91300047F2B /* sns_icon_douban@2x.png in Resources */,
-				D9978B2D1A53B37300AB52B0 /* PoisOfCityTableViewController.xib in Resources */,
 				C6BC34A01A2832C7002C19D3 /* theme_btn_highlight@2x.png in Resources */,
 				D955E54D19E7A91300047F2B /* sns_icon_renren@2x.png in Resources */,
 				D98BDA661A43D5CD0093C559 /* ic_person_selected@2x.png in Resources */,
@@ -5110,6 +5106,7 @@
 				D9564C8E1A64CAFC007203E5 /* map16@2x.png in Resources */,
 				D92F1ABA1A5A84BB00CD1A63 /* h_snow@2x.png in Resources */,
 				D9545FAE1A208EEF00688D72 /* CommentTableViewCell.xib in Resources */,
+				D9C24ABD1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib in Resources */,
 				D9564C5A1A603CE6007203E5 /* ic_comment_flag@2x.png in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
@@ -5125,7 +5122,6 @@
 				D90F35EB19F63B3300E26FA9 /* call_out.png in Resources */,
 				D9564C961A64CAFC007203E5 /* map4@2x.png in Resources */,
 				D92A48831A38553B00B00D91 /* ic_standard_food@2x.png in Resources */,
-				D9EF98911A3ABB2E00DB480F /* PoisOfCityTableViewCell.xib in Resources */,
 				D9CC36CD1A37F82200E72A7F /* ic_spot@2x.png in Resources */,
 				D955E54E19E7A91300047F2B /* sns_icon_sina@2x.png in Resources */,
 				D9386C521A31A6600085FC36 /* chat_receiver_audio_playing_full@2x.png in Resources */,

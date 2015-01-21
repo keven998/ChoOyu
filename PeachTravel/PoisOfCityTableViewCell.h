@@ -8,12 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "PoiSummary.h"
+#import "EDStarRating.h"
 
 @interface PoisOfCityTableViewCell : UITableViewCell
 @property (nonatomic) BOOL shouldEdit;
 
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
-@property (weak, nonatomic) IBOutlet UIButton *jumpCommentBtn;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
+@property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
 /**
  *  添加状态的是否添加

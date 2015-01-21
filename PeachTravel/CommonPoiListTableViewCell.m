@@ -51,17 +51,17 @@
 
 - (void)didTransitionToState:(UITableViewCellStateMask)state
 {
-    if (state == UITableViewCellStateShowingEditControlMask) {
-        _mapBtn.hidden = YES;
-        _distanceLabel.hidden = YES;
-        _deleteBtn.hidden = NO;
-        _titleLeftConstraint.constant = 20;
-    } else if (state == UITableViewCellStateDefaultMask) {
+    [super didTransitionToState:state];
+    if (state == UITableViewCellStateDefaultMask) {
         _mapBtn.hidden = NO;
         _deleteBtn.hidden = YES;
         _distanceLabel.hidden = NO;
         _titleLeftConstraint.constant = 0;
-
+    } else {
+        _mapBtn.hidden = YES;
+        _distanceLabel.hidden = YES;
+        _deleteBtn.hidden = NO;
+        _titleLeftConstraint.constant = 20;
     }
 }
 
