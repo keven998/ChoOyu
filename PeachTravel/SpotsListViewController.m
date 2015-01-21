@@ -87,27 +87,16 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UIView *)tableViewFooterView
 {
     if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 135)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 108.0, 34)];
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 135)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-135)/2, 5, 135.0, 34)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
         addOneDayBtn.clipsToBounds = YES;
-        [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
         [addOneDayBtn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
-        addOneDayBtn.layer.cornerRadius = 2.0;
+        addOneDayBtn.layer.cornerRadius = 17.0;
         addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [_tableViewFooterView addSubview:addOneDayBtn];
-        if (!self.tableView.isEditing) {
-            UIView *nodeView = [[UIView alloc] initWithFrame:CGRectMake(1, 16, 8, 8)];
-            nodeView.backgroundColor = APP_THEME_COLOR;
-            nodeView.layer.cornerRadius = 4.0;
-            [_tableViewFooterView addSubview:nodeView];
-            
-            UIView *verticalSpaceViewUp = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 1, 16)];
-            verticalSpaceViewUp.backgroundColor = [UIColor lightGrayColor];
-            [_tableViewFooterView addSubview:verticalSpaceViewUp];
-       
-        }
     }
     return _tableViewFooterView;
 }

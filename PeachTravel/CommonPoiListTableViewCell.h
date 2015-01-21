@@ -15,15 +15,4 @@
 
 @property (nonatomic, strong) TripPoi *tripPoi;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
-
-@property (weak, nonatomic) IBOutlet UIButton *priceBtn;
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-@property (weak, nonatomic) IBOutlet UIButton *mapViewBtn;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelConstraint;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressLabelConstraint;
 @end
