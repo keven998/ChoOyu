@@ -297,11 +297,15 @@ static NSString *reusableCell = @"myGuidesCell";
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showHint:@"OK~成功删除"];
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index];
+//            [self.tableView beginUpdates];
+//            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
+            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+            
             
             if (self.dataSource.count == 0) {
                 self.slimeView.loading = YES;
@@ -484,7 +488,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     CGFloat width = self.view.bounds.size.width;
     
-    self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-200)];
     [self.view addSubview:self.emptyView];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
