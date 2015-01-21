@@ -269,7 +269,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 30.0;
+        return 50.0;
     }
     return 0;
 }
@@ -280,43 +280,68 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
-    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateHighlighted];
+//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+//    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateNormal];
+//    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateHighlighted];
+//    
+//    btn.layer.cornerRadius = 2.0;
+//
+//    [btn setTitle:@"精选游记" forState:UIControlStateNormal];
+//    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+//    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//
+//    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+//    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+//    btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+//    btn.backgroundColor = [UIColor whiteColor];
+//    
+//    UIButton *moreTravelNoteBtn = [[UIButton alloc] initWithFrame:CGRectMake(btn.frame.size.width-75, 0, 80, 30)];
+//    moreTravelNoteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    moreTravelNoteBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+//    moreTravelNoteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12.0);
+//    [moreTravelNoteBtn addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
+//    [desc addAttribute:NSForegroundColorAttributeName value:[APP_THEME_COLOR colorWithAlphaComponent:0.8]  range:NSMakeRange(0, 4)];
+//    [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateNormal];
+//    desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
+//    [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.5]  range:NSMakeRange(0, 4)];
+//    [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateHighlighted];
+//    
+//    [btn addSubview:moreTravelNoteBtn];
+//    
+//    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, btn.frame.size.width, 0.5)];
+//    spaceView.backgroundColor = APP_PAGE_COLOR;
+//    [btn addSubview:spaceView];
+//    btn.layer.cornerRadius = 2.0;
     
-    btn.layer.cornerRadius = 2.0;
-
-    [btn setTitle:@"精选游记" forState:UIControlStateNormal];
-    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-    btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    btn.backgroundColor = [UIColor whiteColor];
     
-    UIButton *moreTravelNoteBtn = [[UIButton alloc] initWithFrame:CGRectMake(btn.frame.size.width-75, 0, 80, 30)];
-    moreTravelNoteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    moreTravelNoteBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    moreTravelNoteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12.0);
-    [moreTravelNoteBtn addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
+    CGFloat width = CGRectGetWidth(tableView.frame);
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
+    view.backgroundColor = APP_PAGE_COLOR;
     
-    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
-    [desc addAttribute:NSForegroundColorAttributeName value:[APP_THEME_COLOR colorWithAlphaComponent:0.8]  range:NSMakeRange(0, 4)];
-    [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateNormal];
-    desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
-    [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.5]  range:NSMakeRange(0, 4)];
-    [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateHighlighted];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, width, 30)];
+    titleView.backgroundColor = APP_THEME_COLOR;
+    [view addSubview:titleView];
     
-    [btn addSubview:moreTravelNoteBtn];
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 108, 30)];
+    text.text = @"精选游记";
+    text.textColor = [UIColor whiteColor];
+    text.font = [UIFont boldSystemFontOfSize:15.0];
+    text.userInteractionEnabled = YES;
+    [view addSubview:text];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, btn.frame.size.width, 0.5)];
-    spaceView.backgroundColor = APP_PAGE_COLOR;
-    [btn addSubview:spaceView];
-    btn.layer.cornerRadius = 2.0;
-
-    return btn;
+    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 0, 108, 30)];
+    [allNotes setTitle:@"更多游记" forState:UIControlStateNormal];
+    [allNotes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    allNotes.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [allNotes setImage:[UIImage imageNamed:@"cell_accessory_gray.png"] forState:UIControlStateNormal];
+    allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
+    allNotes.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    [view addSubview:allNotes];
+    
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
