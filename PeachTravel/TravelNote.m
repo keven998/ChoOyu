@@ -26,8 +26,12 @@
                 _summary = s;
             }
         }
-        
-        _cover = [json objectForKey:@"cover"];
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (id imageDic in [json objectForKey:@"images"]) {
+            TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
+            [tempArray addObject:image];
+        }
+        _images = tempArray;
         _authorName = [json objectForKey:@"authorName"];
         _authorAvatar = [json objectForKey:@"authorAvatar"];
         _source = [json objectForKey:@"source"];

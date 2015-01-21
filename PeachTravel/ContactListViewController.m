@@ -75,10 +75,7 @@
     } else {
         self.notify = NO;
     }
-    if (self.contactTableView.numberOfSections > 0 && _dataSource) {
-        NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.contactTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+    [self.contactTableView reloadData];
     __weak ContactListViewController *weakSelf = self;
     [self.delegate updateNotify:weakSelf notify:self.notify];
     [self handleEmptyView];

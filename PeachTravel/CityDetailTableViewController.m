@@ -322,7 +322,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
-    cell.travelNoteImage = travelNote.cover;
+    TaoziImage *image = [travelNote.images firstObject];
+    cell.travelNoteImage = image.imageUrl;
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
     cell.authorName = travelNote.authorName;
@@ -344,7 +345,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     travelNoteCtl.travelNoteTitle = travelNote.title;
     travelNoteCtl.desc = travelNote.summary;
-    travelNoteCtl.travelNoteCover = travelNote.cover;
+    TaoziImage *image = [travelNote.images firstObject];
+    travelNoteCtl.travelNoteCover = image.imageUrl;
     travelNoteCtl.travelNoteId = travelNote.travelNoteId;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
     

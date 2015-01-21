@@ -180,7 +180,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageId = travelNote.travelNoteId;
     taoziMessageCtl.messageName = travelNote.title;
     taoziMessageCtl.messageDesc = travelNote.summary;
-    taoziMessageCtl.messageImage = travelNote.cover;
+    TaoziImage *image = [travelNote.images firstObject];
+    taoziMessageCtl.messageImage = image.imageUrl;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^{
         
     }];
@@ -211,7 +212,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 {
     TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier forIndexPath:indexPath];
     TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
-    cell.travelNoteImage = travelNote.cover;
+    TaoziImage *image = [travelNote.images firstObject];
+    cell.travelNoteImage = image.imageUrl;
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
     cell.authorName = travelNote.authorName;
@@ -235,7 +237,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
     travelNoteCtl.travelNoteTitle = travelNote.title;
     travelNoteCtl.desc = travelNote.summary;
-    travelNoteCtl.travelNoteCover = travelNote.cover;
+    TaoziImage *image = [travelNote.images firstObject];
+    travelNoteCtl.travelNoteCover = image.imageUrl;
     travelNoteCtl.travelNoteId = travelNote.travelNoteId;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }

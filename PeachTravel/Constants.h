@@ -68,7 +68,7 @@
 #define API_FAVORITE                            (BASE_URL @"misc/favorites")       //收藏
 #define API_UNFAVORITE                          (BASE_URL @"misc/favorites")      //取消收藏
 
-#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"misc/notes/search")      //搜索游记
+#define API_SEARCH_TRAVELNOTE                   (BASE_URL @"travel-notes/search")      //搜索游记
 
 #define API_NEARBY                              (BASE_URL @"poi/nearby")      //我身边
 
