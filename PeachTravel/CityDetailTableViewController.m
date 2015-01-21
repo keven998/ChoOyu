@@ -395,7 +395,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 #pragma mark - IBAction
 - (IBAction)option:(id)sender {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"创建旅程", @"分享给Talk好友", nil];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加到旅程", @"发送给Talk好友", nil];
     [as showInView:self.view];
 }
 

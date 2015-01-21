@@ -63,7 +63,13 @@
 - (void)setDesc:(NSString *)desc
 {
     _desc = desc;
-    _descLabel.text = desc;
+    
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 4;
+    [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
+    _descLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _descLabel.attributedText = attrStr;
 }
 
 - (void)setAuthorAvatar:(NSString *)authorAvatar
