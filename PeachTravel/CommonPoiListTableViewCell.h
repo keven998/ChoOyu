@@ -8,11 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
+#import "EDStarRating.h"
 
 @interface CommonPoiListTableViewCell : UITableViewCell
 
 @property (nonatomic) BOOL shouldEditing;
 
 @property (nonatomic, strong) TripPoi *tripPoi;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *mapBtn;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
+@property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
 
 @end
