@@ -83,16 +83,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     if (self.shouldEdit) {
-        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(finishAdd:)forControlEvents:UIControlEventTouchUpInside];
-        [button setFrame:CGRectMake(0, 0, 48, 30)];
-        //[button setTitle:@"返回" forState:UIControlStateNormal];
-        [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-        button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-        button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
+        [button setTitle:@"完成" forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.layer.borderWidth = 1.0;
+        button.layer.borderColor = [UIColor whiteColor].CGColor;
+        button.layer.cornerRadius = 2.0;
+        [button addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.leftBarButtonItem = barButton;
     }
@@ -104,9 +102,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     _currentPageNormal = 0;
     
-    [self loadIntroductionOfCity];
-    _hud = [[TZProgressHUD alloc] init];
-    [_hud showHUD];
+    if (!_shouldEdit) {
+        _hud = [[TZProgressHUD alloc] init];
+        [_hud showHUD];
+        [self loadIntroductionOfCity];
+    } else {
+        [self loadDataPoisOfCity:_currentPageNormal];
+        [SVProgressHUD show];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -238,6 +241,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [_hud hideTZHUD];
             _hud = nil;
         }
+        [SVProgressHUD dismiss];
         [self loadMoreCompletedNormal];
         if ([backUpCityId isEqualToString:_cityId]) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -251,16 +255,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 [self.dataSource addRecommendList:jsonDic];
                 [self updateView];
                 _currentPageNormal = pageNO;
-//                if (_dataSource.recommendList.count >= 15) {
-//                    
-//                } else if (pageNO > 0){
-//                    [self showHint:@"没有了~"];
-//                }
-            } else {
             }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
         if (_hud) {
             [_hud hideTZHUD];
             _hud = nil;
@@ -470,6 +469,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (IBAction)finishAdd:(id)sender
 {
     [_delegate finishEdit];
+
+    [SVProgressHUD dismiss];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -572,7 +573,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [_dataSource.recommendList removeAllObjects];
     _currentPageNormal = 0;
     [self.tableView reloadData];
-    [self loadIntroductionOfCity];
+    [self loadDataPoisOfCity:_currentPageNormal];
 }
 
 
@@ -583,7 +584,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (![tableView isEqual:self.tableView]) {
         return self.searchResultArray.count;
     }
-    if (![_dataSource.desc isBlankString]) {
+    if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
             return 0;
         } else {
@@ -601,7 +602,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (!_dataSource) {
         return 0;
     }
-    if (![_dataSource.desc isBlankString]) {
+    if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         return 2;
     }
     return 1;
@@ -621,7 +622,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (![tableView isEqual:self.tableView]) {
         return 0;
     }
-    if (![_dataSource.desc isBlankString]) {
+    if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
             return 106;
         }
@@ -632,7 +633,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (![_dataSource.desc isBlankString]) {
+    if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
             UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 106)];
             sectionheaderView.backgroundColor = [UIColor whiteColor];

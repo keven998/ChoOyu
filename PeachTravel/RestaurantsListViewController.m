@@ -56,7 +56,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 {
     _tripDetail = tripDetail;
     [_tableView reloadData];
-    [self updateDestinationsHeaderView];
 }
 
 - (UITableView *)tableView
@@ -70,7 +69,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableFooterView = self.tableViewFooterView;
+        if (_canEdit) {
+            _tableView.tableFooterView = self.tableViewFooterView;
+        }
         _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
 
     }
@@ -98,17 +99,16 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     [self editTrip:nil];
 }
 
-#pragma mark Private Methods
-
-- (void)updateDestinationsHeaderView
+- (void)setCanEdit:(BOOL)canEdit
 {
-    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        if (poi.zhName) {
-            [destinationsArray addObject:poi.zhName];
-        }
+    _canEdit = canEdit;
+    if (_canEdit) {
+        _tableView.tableFooterView = self.tableViewFooterView;
+    } else {
+        _tableView.tableFooterView = nil;
     }
 }
+
 
 #pragma makr - IBAction Methods
 
@@ -132,7 +132,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)editTrip:(id)sender
 {
-    if (!self.tableView.isEditing) {
+    if (_shouldEdit) {
         [self.tableView setEditing:YES animated:YES]; 
 
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
@@ -195,6 +195,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)finishEdit
 {
+    if (!_shouldEdit) {
+        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
     [self.tableView reloadData];
 }
 
@@ -229,7 +232,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.shouldEditing = self.tableView.isEditing;
     cell.mapBtn.tag = indexPath.section;
     [cell.mapBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [cell.mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];

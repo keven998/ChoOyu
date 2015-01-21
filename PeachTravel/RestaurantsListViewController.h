@@ -16,6 +16,7 @@
 @property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 @property (nonatomic, strong) TripDetail *tripDetail;
 
+@property (nonatomic) BOOL canEdit;
 /**
  *  路线是否应该进入编辑状态
  */

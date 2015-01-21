@@ -219,7 +219,7 @@
     NSMutableParagraphStyle * paragraphStyle1 = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle1 setLineSpacing:5];
 
-    if (![_spot.travelMonth isBlankString]) {
+    if (![_spot.travelMonth isBlankString] && _spot.travelMonth != nil) {
         _travelMonthBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-42, 0)];
         _travelMonthBtn.titleLabel.numberOfLines = 0;
         CGSize labelSize = [_spot.travelMonth boundingRectWithSize:CGSizeMake(_travelMonthBtn.bounds.size.width-80, MAXFLOAT)
@@ -250,7 +250,7 @@
         oy += height+10;
         doy += height+10;
     }
-    if (![_spot.openTime isBlankString]) {
+    if (![_spot.openTime isBlankString] && _spot.openTime) {
         _openTimeBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-42, 0)];
         _openTimeBtn.titleLabel.numberOfLines = 0;
         CGSize labelSize = [_spot.openTime boundingRectWithSize:CGSizeMake(_openTimeBtn.bounds.size.width-80, MAXFLOAT)
@@ -282,7 +282,7 @@
         oy += height+10;
         doy += height+10;
     }
-    if (![_spot.timeCostStr isBlankString]) {
+    if (![_spot.timeCostStr isBlankString] && _spot.timeCostStr) {
         _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, doy, width-42, 0)];
         _timeCostBtn.titleLabel.numberOfLines = 0;
         CGSize labelSize = [_spot.timeCostStr boundingRectWithSize:CGSizeMake(_timeCostBtn.bounds.size.width-80, MAXFLOAT)
@@ -346,7 +346,7 @@
     
     BOOL hasAdd = NO;
 
-    if (![_spot.guideUrl isBlankString]) {
+    if (![_spot.guideUrl isBlankString] && _spot.guideUrl) {
         _travelGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_unselected.png"] forState:UIControlStateNormal];
         [_travelGuideBtn setImage:[UIImage imageNamed:@"travel_guide_selected.png"] forState:UIControlStateHighlighted];
@@ -359,7 +359,7 @@
         hasAdd = YES;
     }
     
-    if (![_spot.tipsUrl isBlankString]) {
+    if (![_spot.tipsUrl isBlankString] && _spot.tipsUrl) {
         _kendieBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_unselected.png"] forState:UIControlStateNormal];
         [_kendieBtn setImage:[UIImage imageNamed:@"kengdie_guide_selected.png"] forState:UIControlStateHighlighted];
@@ -373,7 +373,7 @@
         hasAdd = YES;
     }
     
-    if (![_spot.trafficInfoUrl isBlankString]) {
+    if (![_spot.trafficInfoUrl isBlankString] && _spot.trafficInfoUrl) {
         _trafficGuideBtn = [[TZButton alloc] initWithFrame:CGRectMake(ox, doy, 60, 60)];
         [_trafficGuideBtn setImage:[UIImage imageNamed:@"traffic_guide_unselected.png"] forState:UIControlStateNormal];
         [_trafficGuideBtn setImage:[UIImage imageNamed:@"traffic_guide_selected.png"] forState:UIControlStateHighlighted];

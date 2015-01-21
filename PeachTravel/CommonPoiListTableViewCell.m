@@ -10,6 +10,7 @@
 #import "EDStarRating.h"
 
 @interface CommonPoiListTableViewCell ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLeftConstraint;
 
 @end
 
@@ -29,27 +30,16 @@
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _deleteBtn.hidden = YES;
+    _deleteBtn.backgroundColor = APP_THEME_COLOR;
     self.backgroundColor = [UIColor whiteColor];
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (void)setShouldEditing:(BOOL)shouldEditing
-{
-    _shouldEditing = shouldEditing;
-    if (_shouldEditing) {
-        _mapBtn.hidden = YES;
-        _distanceLabel.hidden = YES;
-    } else {
-        _mapBtn.hidden = NO;
-        _distanceLabel.hidden = NO;
-    }
 }
 
 - (void)setTripPoi:(TripPoi *)tripPoi
 {
     _tripPoi = tripPoi;
-    _titleLabel.text = [NSString stringWithFormat:@"  %@", tripPoi.zhName];
+    _titleLabel.text = [NSString stringWithFormat:@"  %@", _tripPoi.zhName];
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _ratingView.rating = tripPoi.rating;
@@ -57,6 +47,22 @@
         _propertyLabel.text = _tripPoi.priceDesc;
     }
     _addressLabel.text = _tripPoi.address;
+}
+
+- (void)didTransitionToState:(UITableViewCellStateMask)state
+{
+    if (state == UITableViewCellStateShowingEditControlMask) {
+        _mapBtn.hidden = YES;
+        _distanceLabel.hidden = YES;
+        _deleteBtn.hidden = NO;
+        _titleLeftConstraint.constant = 20;
+    } else if (state == UITableViewCellStateDefaultMask) {
+        _mapBtn.hidden = NO;
+        _deleteBtn.hidden = YES;
+        _distanceLabel.hidden = NO;
+        _titleLeftConstraint.constant = 0;
+
+    }
 }
 
 @end

@@ -58,7 +58,6 @@
 
 - (void)saveTrip:(void (^)(BOOL))completion
 {
-    
     if (![self restaurantListIsChange] && ![self itineraryListIsChange] && ![self shoppingListIsChange] ) {
         completion(YES);
         return;
