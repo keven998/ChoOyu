@@ -37,7 +37,7 @@
         _source = [json objectForKey:@"source"];
         _sourceUrl = [json objectForKey:@"sourceUrl"];
         if ([json objectForKey:@"publishDate"] != [NSNull null]) {
-            _publishDateStr = [ConvertMethods timeIntervalToString:([[json objectForKey:@"publishDate"] longLongValue]/1000) withFormat:@"yyyy-MM-dd HH:mm:ss" withTimeZone:[NSTimeZone systemTimeZone]];
+            _publishDateStr = [ConvertMethods timeIntervalToString:([[json objectForKey:@"publishDate"] longLongValue]/1000) withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
         }
     }
     return self;

@@ -38,7 +38,6 @@
     [self setupSubView];
 }
 
-
 - (void)setupSubView
 {
     self.backgroundColor = APP_PAGE_COLOR;

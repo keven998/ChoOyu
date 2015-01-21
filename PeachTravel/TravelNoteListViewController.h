@@ -17,6 +17,7 @@
 @property (nonatomic) BOOL isSearch;
 
 @property (nonatomic, copy) NSString *cityId;
+@property (nonatomic, copy) NSString *cityName;
 
 @property (nonatomic, copy) NSString *chatter;
 @property (nonatomic) BOOL isChatGroup;

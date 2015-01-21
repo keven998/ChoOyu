@@ -13,15 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *travelNoteImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *authorImageView;
-@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *resourceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-
-/**
- *  可以发送的情况下显示发送按钮，否则显示进入详情的标记
- */
-@property (weak, nonatomic) IBOutlet UIImageView *accessImageView;
+@property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSpaceConstraint;
@@ -34,12 +26,10 @@
 @implementation TravelNoteTableViewCell
 
 - (void)awakeFromNib {
-    self.backgroundColor = APP_PAGE_COLOR;
-    _authorImageView.layer.cornerRadius = 15.0;
-    _authorImageView.clipsToBounds = YES;
-    _travelNoteImageView.layer.cornerRadius = 3.0;
+    self.backgroundColor = [UIColor whiteColor];
+    _travelNoteImageView.layer.cornerRadius = 4.0;
     _travelNoteImageView.clipsToBounds = YES;
-    _sendBtn.layer.cornerRadius = 2.0;
+    _sendBtn.layer.cornerRadius = 4.0;
     
     _travelNoteImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _travelNoteImageView.layer.borderWidth = 0.5;
@@ -79,25 +69,26 @@
 - (void)setAuthorAvatar:(NSString *)authorAvatar
 {
     _authorAvatar = authorAvatar;
-    [_authorImageView sd_setImageWithURL:[NSURL URLWithString:_authorAvatar] placeholderImage:nil];
 }
 
 - (void)setAuthorName:(NSString *)authorName
 {
     _authorName = authorName;
-    _authorNameLabel.text = _authorName;
 }
 
 - (void)setResource:(NSString *)resource
 {
     _resource = resource;
-    _resourceLabel.text = [NSString stringWithFormat:@"from %@", _resource];
 }
 
 - (void)setTime:(NSString *)time
 {
     _time = time;
-    _timeLabel.text = _time;
+}
+
+- (void) setProperty:(NSString *)property {
+    _property = property;
+    _propertyLabel.text = property;
 }
 
 
@@ -106,11 +97,9 @@
     _canSelect = canSelect ;
     if (_canSelect) {
         _sendBtn.hidden = NO;
-        _accessImageView.hidden = YES;
         _rightSpaceConstraint.constant = 63.0;
     } else {
         _sendBtn.hidden = YES;
-        _accessImageView.hidden = NO;
         _rightSpaceConstraint.constant = 19.0;
     }
 }
