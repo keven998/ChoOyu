@@ -44,6 +44,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     layout.delegate = self;
     layout.showDecorationView = YES;
     layout.margin = 10;
+    layout.spacePerItem = 10;
+    layout.spacePerLine = 10;
     
     if (_destinations.destinationsSelected.count == 0) {
         [self.makePlanCtl hideDestinationBar];

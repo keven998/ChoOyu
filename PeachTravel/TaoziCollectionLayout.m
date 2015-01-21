@@ -47,7 +47,7 @@
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         CGFloat heighest = 0;
         if (itemsCountPerSection > 0) {
-            offsetY += 10.0;
+            offsetY += _spacePerLine;
         }
         
         for (int j=0; j < itemsCountPerSection; j++) {
@@ -58,18 +58,18 @@
             
             if (offsetX + itemSize.width > (_width-_margin*2)) {
                 offsetX = _margin;
-                offsetY += heighest + 10;
+                offsetY += heighest + _spacePerLine;
                 heighest = 0;
             }
             attributes.frame = CGRectMake(offsetX, offsetY, itemSize.width, itemSize.height);
-            offsetX += 10 + itemSize.width;
+            offsetX += _spacePerItem + itemSize.width;
             
             (heighest < itemSize.height)? (heighest=itemSize.height):(heighest=heighest);
 
             [tempArray addObject:attributes];
         }
         if (heighest > 0) {
-            offsetY += 10 + heighest;
+            offsetY += _spacePerLine + heighest;
         }
         
         [_itemsAttributes addObject:tempArray];

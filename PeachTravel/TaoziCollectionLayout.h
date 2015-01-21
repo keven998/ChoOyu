@@ -70,8 +70,19 @@
 @property (nonatomic) CGFloat width;
 
 /**
- *  最坐标 cell 距离边线的距离
+ *  最左边 cell 距离边线的距离
  */
 @property (nonatomic) CGFloat margin;
+
+/**
+ *  两个cell的横向间距
+ */
+@property (nonatomic) CGFloat spacePerItem;
+
+/**
+ *  每行的间距
+ */
+@property (nonatomic) CGFloat spacePerLine;
+
 
 @end
