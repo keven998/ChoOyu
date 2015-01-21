@@ -15,7 +15,7 @@
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
 #import "RestaurantDetailViewController.h"
-#import "PoisOfCityTableViewController.h"
+#import "PoisOfCityViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
@@ -114,7 +114,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addWantTo:(id)sender
 {
-    PoisOfCityTableViewController *restaurantOfCityCtl = [[PoisOfCityTableViewController alloc] init];
+    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = kRestaurantPoi;

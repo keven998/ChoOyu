@@ -26,17 +26,18 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
+    _titleLabel.backgroundColor = UIColorFromRGB(0xeaeaea);
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    self.contentView.backgroundColor = [UIColor whiteColor];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = APP_PAGE_COLOR;
 }
 
 - (void)setPoi:(PoiSummary *)poi
 {
     _poi = poi;
-    _titleLabel.text = _poi.zhName;
+    NSString *title = [NSString stringWithFormat:@"  %@", _poi.zhName];
+    _titleLabel.text = title;
     if (_poi.poiType == kRestaurantPoi) {
         _propertyLabel.text = _poi.priceDesc;
 
@@ -70,8 +71,7 @@
     } else {
         _actionBtn.backgroundColor = [UIColor whiteColor];
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_navigation_normal.png"] forState:UIControlStateNormal];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_navigation_highlight.png"] forState:UIControlStateHighlighted];
+        [_actionBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  PoisOfCityTableViewController.h
+//  PoisOfCityViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/25/14.
@@ -17,7 +17,7 @@
 
 @end
 
-@interface PoisOfCityTableViewController : TZViewController
+@interface PoisOfCityViewController : TZViewController
 
 @property (nonatomic, copy) NSString *cityId; //当前显示的城市
 @property (nonatomic, copy) NSString *zhName; //当前显示的城市
