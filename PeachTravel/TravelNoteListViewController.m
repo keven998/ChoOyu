@@ -45,7 +45,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
     if (!_isSearch) {
-        self.navigationItem.title = @"相关游记";
+        self.navigationItem.title = [NSString stringWithFormat:@"%@精选游记", _cityName];
         [self loadDataWithPageNo:_currentPage andKeyWork:nil];
     } else {
         self.navigationItem.title = @"发送游记";

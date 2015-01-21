@@ -112,10 +112,11 @@
     if (self) {
         _numberOfLine = numberOfLine;
         _resetFrame = frame;
-        self.layer.cornerRadius = 2.0;
         self.titleLabel.numberOfLines = _numberOfLine;
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        self.clipsToBounds = YES;
+        self.layer.cornerRadius = 2.0;
     }
     return self;
 }

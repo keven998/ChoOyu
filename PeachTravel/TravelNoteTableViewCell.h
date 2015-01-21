@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *authorName;
 @property (nonatomic, copy) NSString *resource;
 @property (nonatomic, copy) NSString *time;
+@property (nonatomic, copy) NSString *property;
 
 
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
