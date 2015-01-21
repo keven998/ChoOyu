@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "PoisOfCityTableViewController.h"
+#import "PoisOfCityViewController.h"
 #import "PoisOfCityTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "CityDestinationPoi.h"
@@ -17,12 +17,12 @@
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
-@interface PoisOfCityTableViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchController;
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
@@ -44,28 +44,37 @@
 
 @property (nonatomic, strong) TZProgressHUD *hud;
 
+@property (nonatomic, strong) UITableView *tableView;
+
 @end
 
-@implementation PoisOfCityTableViewController
+@implementation PoisOfCityViewController
 
 static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64)];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.rowHeight = 190.0;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
-    
+    [self.view addSubview:self.tableView];
+
     [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
     self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-    
-    _searchBar.delegate = self;
     _searchController.searchResultsTableView.delegate = self;
     _searchController.searchResultsTableView.dataSource = self;
+    
+    _searchBar.delegate = self;
+    
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
         _zhName = destination.zhName;
@@ -194,7 +203,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             self.dataSource = [[RecommendsOfCity alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self loadDataPoisOfCity:_currentPageNormal];
         } else {
-//            [self showHint:@"呃～好像没找到网络"];
+            //            [self showHint:@"呃～好像没找到网络"];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -305,10 +314,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     [params setObject:_cityId forKey:@"locId"];
     [params setObject:_searchText forKey:@"keyWord"];
-     __weak typeof(PoisOfCityTableViewController *)weakSelf = self;
+    __weak typeof(PoisOfCityViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-
+    
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
@@ -323,7 +332,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                     case kShoppingPoi:
                         key = @"shopping";
                         break;
-                   
+                        
                     default:
                         break;
                 }
@@ -338,8 +347,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 _currentPageSearch = pageNo;
             } else {
                 if (self.isShowing) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-            }
+                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+                }
             }
             [self loadMoreCompletedSearch];
         }
@@ -362,7 +371,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)filter:(id)sender
 {
     if (!self.filterCtl.filterViewIsShowing) {
-        typeof(PoisOfCityTableViewController *)weakSelf = self;
+        typeof(PoisOfCityViewController *)weakSelf = self;
         [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
     } else {
         [self.filterCtl hideFilterView];
@@ -403,8 +412,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     NSIndexPath *path;
     if (self.searchController.isActive) {
-           path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-           [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+        path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else {
         if (self.tableView.numberOfSections>1) {
             path = [NSIndexPath indexPathForItem:sender.tag inSection:1];
@@ -424,9 +433,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         poi = [_searchResultArray objectAtIndex:sender.tag];
     } else {
         poi = [_dataSource.recommendList objectAtIndex:sender.tag];
-        
+
     }
-   
+    
     NSMutableArray *oneDayArray;
     if (_poiType == kRestaurantPoi) {
         oneDayArray = self.tripDetail.restaurantsList;
@@ -451,7 +460,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         } else {
             path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
         }
-        
+
         [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
@@ -469,7 +478,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (IBAction)finishAdd:(id)sender
 {
     [_delegate finishEdit];
-
+    
     [SVProgressHUD dismiss];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -608,15 +617,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-    if ([poi.comments count]) {
-        return 187.0;
-    }
-    return 141;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (![tableView isEqual:self.tableView]) {
@@ -624,7 +624,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            return 106;
+            return 150;
         }
         return 0;
     }
@@ -635,9 +635,21 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 106)];
-            sectionheaderView.backgroundColor = [UIColor whiteColor];
-            UIButton *btn = [[UIButton alloc] initWithFrame:sectionheaderView.frame];
+            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 150)];
+            sectionheaderView.backgroundColor = APP_PAGE_COLOR;
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, sectionheaderView.bounds.size.width, sectionheaderView.bounds.size.height-60)];
+            btn.layer.cornerRadius = 2.0;
+            
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, 30)];
+            if (_poiType == kRestaurantPoi) {
+                titleLabel.text = @"  吃什么";
+            }
+            if (_poiType == kShoppingPoi) {
+                titleLabel.text = @"  买什么";
+            }
+            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.backgroundColor = APP_THEME_COLOR;
+            [sectionheaderView addSubview:titleLabel];
             
             NSUInteger len = [_dataSource.desc length];
             NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
@@ -651,14 +663,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             desc = [[NSMutableAttributedString alloc] initWithAttributedString:desc];
             [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE  range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
-            
+            btn.backgroundColor = [UIColor whiteColor];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
             btn.titleLabel.numberOfLines = 4;
             [btn setContentEdgeInsets:UIEdgeInsetsMake(8, 15, 8, 50)];
-            UIImageView *accessImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.frame.size.width-25, (sectionheaderView.frame.size.height-10)/2, 6, 10)];
+            UIImageView *accessImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.frame.size.width-25, (btn.frame.size.height-10)/2, 6, 10)];
             accessImageView.image = [UIImage imageNamed:@"cell_accessory_pink.png"];
-            [sectionheaderView addSubview:accessImageView];
+            [btn addSubview:accessImageView];
             [sectionheaderView addSubview:btn];
             return sectionheaderView;
         }
@@ -679,8 +691,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     cell.shouldEdit = _shouldEdit;
     cell.poi = poi;
     cell.actionBtn.tag = indexPath.row;
-    cell.jumpCommentBtn.tag = indexPath.row;
-    [cell.jumpCommentBtn addTarget:self action:@selector(jumpToCommentList:) forControlEvents:UIControlEventTouchUpInside];
     
     //如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {

@@ -230,7 +230,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     return self.dataSource.count;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:section];
     return recommedDataSource.localities.count;

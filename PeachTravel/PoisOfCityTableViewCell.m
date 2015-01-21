@@ -11,20 +11,6 @@
 #import "EDStarRating.h"
 
 @interface PoisOfCityTableViewCell ()
-@property (weak, nonatomic) IBOutlet UIButton *titleBtn;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *HeaderImageView;
-
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *commentAuthor;
-@property (weak, nonatomic) IBOutlet UILabel *commentDetail;
-@property (weak, nonatomic) IBOutlet UIImageView *spaceView;
-@property (weak, nonatomic) IBOutlet UIView *ratingBackgroundView;
-@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-
-@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
-@property (weak, nonatomic) IBOutlet UIButton *commentCntBtn;
 
 @end
 
@@ -33,7 +19,6 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _ratingBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
@@ -41,21 +26,24 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
-    _HeaderImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _HeaderImageView.layer.borderWidth = 0.5;
-    _HeaderImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    self.contentView.backgroundColor = APP_PAGE_COLOR;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    _titleLabel.backgroundColor = UIColorFromRGB(0xeaeaea);
+    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _headerImageView.layer.borderWidth = 0.5;
+    _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    self.backgroundColor = APP_PAGE_COLOR;
 }
 
 - (void)setPoi:(PoiSummary *)poi
 {
     _poi = poi;
-    [_titleBtn setTitle:_poi.zhName forState:UIControlStateNormal];
-    _priceLabel.text = _poi.priceDesc;
+    NSString *title = [NSString stringWithFormat:@"  %@", _poi.zhName];
+    _titleLabel.text = title;
+    if (_poi.poiType == kRestaurantPoi) {
+        _propertyLabel.text = _poi.priceDesc;
+
+    }
     TaoziImage *image = [_poi.images firstObject];
-    [_HeaderImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-    _priceLabel.text = _poi.priceDesc;
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];;
     _ratingView.rating = _poi.rating;
     _addressLabel.text = _poi.address;
     if (_poi.distanceStr) {
@@ -65,24 +53,9 @@
         _distanceLabel.hidden = YES;
     }
     
-    if (_poi.comments.count > 0) {
-        _commentDetail.hidden = NO;
-        _commentAuthor.hidden = NO;
-        _jumpCommentBtn.hidden = NO;
-        CommentDetail *comment = [poi.comments firstObject];
-        _commentAuthor.text = comment.nickName;
-        _commentDetail.text = comment.commentDetails;
-        [_commentCntBtn setTitle:[NSString stringWithFormat:@"%ld", (long)poi.commentCount] forState:UIControlStateNormal];
-        [_commentCntBtn setImage:[UIImage imageNamed:@"ic_comment_flag.png"] forState:UIControlStateNormal];
-        [_commentCntBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-        _spaceView.hidden = NO;
-    } else {
-        _commentDetail.hidden = YES;
-        _commentAuthor.hidden = YES;
-        _jumpCommentBtn.hidden = YES;
-        _commentCntBtn.hidden= YES;
-        _spaceView.hidden = YES;
-    }
+    CommentDetail *comment = [poi.comments firstObject];
+    _authorNameLabel.text = comment.nickName;
+    _commentLabel.text = comment.commentDetails;
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit
@@ -98,8 +71,7 @@
     } else {
         _actionBtn.backgroundColor = [UIColor whiteColor];
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_navigation_normal.png"] forState:UIControlStateNormal];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_navigation_highlight.png"] forState:UIControlStateHighlighted];
+        [_actionBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
     }
 }
 

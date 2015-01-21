@@ -11,7 +11,7 @@
 #import "TravelNoteTableViewCell.h"
 #import "CityPoi.h"
 #import "TravelNote.h"
-#import "PoisOfCityTableViewController.h"
+#import "PoisOfCityViewController.h"
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
 #import "TravelNoteListViewController.h"
@@ -221,7 +221,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     NSLog(@"应该进入城市的美食信息");
 
-    PoisOfCityTableViewController *restaurantOfCityCtl = [[PoisOfCityTableViewController alloc] init];
+    PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = _cityPoi.cityId;
     restaurantOfCityCtl.zhName = _cityPoi.zhName;
@@ -234,7 +234,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     NSLog(@"应该进入城市的购物信息");
 
-    PoisOfCityTableViewController *shoppingOfCityCtl = [[PoisOfCityTableViewController alloc] init];
+    PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.cityId = _cityPoi.cityId;
     shoppingOfCityCtl.zhName = _cityPoi.zhName;
@@ -409,9 +409,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
         ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
         DomesticViewController *domestic = [[DomesticViewController alloc] init];
+        CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
+        poi.zhName = _cityPoi.zhName;
+        poi.cityId = _cityPoi.cityId;
+        [destinations.destinationsSelected addObject:poi];
+        makePlanCtl.destinations = destinations;
         domestic.destinations = destinations;
         foreignCtl.destinations = destinations;
-        makePlanCtl.destinations = destinations;
         foreignCtl.title = @"国外";
         domestic.title = @"国内";
         makePlanCtl.viewControllers = @[domestic, foreignCtl];

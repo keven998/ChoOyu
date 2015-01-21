@@ -362,12 +362,7 @@
             break;
             
         default: {
-            NSInteger tag = [tableView superview].tag;
-            PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
-            if ([poi.comments count] > 0) {
-                return 187.0;
-            }
-            return 141;
+            return 190;
         }
             break;
     }
@@ -430,7 +425,7 @@
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.backgroundColor = APP_PAGE_COLOR;
         view.tag = index;
-        tbView = [[UITableView alloc] initWithFrame:view.bounds];
+        tbView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, view.bounds.size.width-22, view.bounds.size.height)];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         tbView.dataSource = self;
