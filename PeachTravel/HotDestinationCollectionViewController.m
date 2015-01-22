@@ -16,8 +16,8 @@
 #import "SuperWebViewController.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "ShoppingDetailViewController.h"
-#import "HotelDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 
 @interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
@@ -285,21 +285,26 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
                 ctl.poiType = kRestaurantPoi;
                 ctl.poiId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                [self addChildViewController:ctl];
+                [self.view addSubview:ctl.view];
             }
                 break;
             
             case kShoppingPoi: {
-                ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
-                ctl.shoppingId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+                ctl.poiId = recommend.recommondId;
+                ctl.poiType = kShoppingPoi;
+                [self addChildViewController:ctl];
+                [self.view addSubview:ctl.view];
             }
                 break;
                 
             case kHotelPoi: {
-                HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
-                ctl.hotelId = recommend.recommondId;
-                [self.navigationController pushViewController:ctl animated:YES];
+                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+                ctl.poiId = recommend.recommondId;
+                ctl.poiType = kHotelPoi;
+                [self addChildViewController:ctl];
+                [self.view addSubview:ctl.view];
             }
                 break;
                 

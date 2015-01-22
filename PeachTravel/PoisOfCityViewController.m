@@ -13,7 +13,7 @@
 #import "PoiSummary.h"
 #import "RecommendsOfCity.h"
 #import "CommonPoiDetailViewController.h"
-#import "ShoppingDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
@@ -764,9 +764,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         NSLog(@"%@", self.navigationController);
     }
     if (_poiType == kShoppingPoi) {
-        ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
-        shoppingDetailCtl.shoppingId = poi.poiId;
-        [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
+        CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
+        shoppingDetailCtl.poiId = poi.poiId;
+        shoppingDetailCtl.poiType = kShoppingPoi;
+        [self addChildViewController:shoppingDetailCtl];
+        [self.view addSubview:shoppingDetailCtl.view];
+
     }
 }
 

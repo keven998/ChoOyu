@@ -14,8 +14,8 @@
 #import "PoiSummary.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "ShoppingDetailViewController.h"
-#import "HotelDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 
 #define LOCAL_PAGE_TITLES       @[@"玩", @"吃", @"买", @"住"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
@@ -332,21 +332,26 @@
             CommonPoiDetailViewController *restaurant = [[CommonPoiDetailViewController alloc] init];
             restaurant.poiId = poi.poiId;
             restaurant.poiType = kRestaurantPoi;
-            [self.navigationController pushViewController:restaurant animated:YES];
+            [self addChildViewController:restaurant];
+            [self.view addSubview:restaurant.view];
         }
             break;
         
         case PAGE_SHOPPING: {
-            ShoppingDetailViewController *shopping = [[ShoppingDetailViewController alloc] init];
-            shopping.shoppingId = poi.poiId;
-            [self.navigationController pushViewController:shopping animated:YES];
+            CommonPoiDetailViewController *shopping = [[CommonPoiDetailViewController alloc] init];
+            shopping.poiId = poi.poiId;
+            shopping.poiType = kShoppingPoi;
+            [self addChildViewController:shopping];
+            [self.view addSubview:shopping.view];
         }
             break;
             
         case PAGE_STAY: {
-            HotelDetailViewController *hotel = [[HotelDetailViewController alloc] init];
-            hotel.hotelId = poi.poiId;
-            [self.navigationController pushViewController:hotel animated:YES];
+            CommonPoiDetailViewController *hotel = [[CommonPoiDetailViewController alloc] init];
+            hotel.poiId = poi.poiId;
+            hotel.poiType = kHotelPoi;
+            [self addChildViewController:hotel];
+            [self.view addSubview:hotel.view];
         }
             break;
             

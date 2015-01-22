@@ -14,7 +14,7 @@
 #import "EDStarRating.h"
 #import "CycleScrollView.h"
 #import "CommonPoiDetailViewController.h"
-#import "ShoppingDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "SuperWebViewController.h"
 
 @interface CommonPoiDetailView () <UIScrollViewDelegate, UIActionSheetDelegate>
@@ -402,10 +402,10 @@
     {
         UIResponder* nextResponder = [next nextResponder];
         
-        if ([nextResponder isKindOfClass:[ShoppingDetailViewController class]])
+        if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
         {
-            ShoppingDetailViewController *rootCtl;
-            rootCtl = (ShoppingDetailViewController*)nextResponder;
+            CommonPoiDetailViewController *rootCtl;
+            rootCtl = (CommonPoiDetailViewController*)nextResponder;
             [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
                 _favoriteBtn.userInteractionEnabled = YES;
                 if (isSuccess) {

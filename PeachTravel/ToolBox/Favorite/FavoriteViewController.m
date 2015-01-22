@@ -12,8 +12,6 @@
 #import "Favorite.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "ShoppingDetailViewController.h"
-#import "HotelDetailViewController.h"
 #import "CityDetailTableViewController.h"
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
@@ -510,20 +508,25 @@
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else if (item.type == kHotelPoi) {
-            HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
-            ctl.hotelId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
+            CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+            ctl.poiId = item.itemId;
+            ctl.poiType = kHotelPoi;
+            [self addChildViewController:ctl];
+            [self.view addSubview:ctl.view];
             
         } else if (item.type == kRestaurantPoi) {
             CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
             ctl.poiType = kRestaurantPoi;
             ctl.poiId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
+            [self addChildViewController:ctl];
+            [self.view addSubview:ctl.view];
             
         } else if (item.type == kShoppingPoi) {
-            ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
-            ctl.shoppingId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
+            CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+            ctl.poiId = item.itemId;
+            ctl.poiType = kShoppingPoi;
+            [self addChildViewController:ctl];
+            [self.view addSubview:ctl.view];
             
         } else if (item.type == kTravelNotePoi) {
             TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
