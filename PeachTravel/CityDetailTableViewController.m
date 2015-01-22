@@ -125,11 +125,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [_hud hideTZHUD];
         NSLog(@"%@", error);
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
+        [_hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
