@@ -15,6 +15,8 @@
 
 @property (nonatomic, weak) UIViewController *rootCtl;
 
+@property (nonatomic, strong) UIButton *shareBtn;
+
 @property (nonatomic, strong) UIButton *closeBtn;
 
 @end

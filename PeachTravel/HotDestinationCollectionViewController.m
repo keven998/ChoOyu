@@ -15,7 +15,7 @@
 #import "TaoziCollectionLayout.h"
 #import "SuperWebViewController.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 
@@ -282,7 +282,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 break;
                 
             case kRestaurantPoi: {
-                RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
+                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
                 ctl.restaurantId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
             }

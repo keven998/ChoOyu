@@ -13,7 +13,7 @@
 #import "CommentTableViewCell.h"
 #import "EDStarRating.h"
 #import "CycleScrollView.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
 
@@ -32,7 +32,6 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UIButton *favoriteBtn;
 @property (nonatomic, strong) UIButton *telephoneBtn;
-@property (nonatomic, strong) UIButton *shareBtn;
 
 @property (nonatomic, strong) UIView *panelOneView;
 @property (nonatomic, strong) UIView *panelTwoView;
@@ -53,7 +52,7 @@
         [self addSubview:_scrollView];
         
         _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
-        _closeBtn.backgroundColor = APP_THEME_COLOR;
+        [_closeBtn setImage:[UIImage imageNamed:@"ic_close.png"] forState:UIControlStateNormal];
         [self addSubview:_closeBtn];
         
         _imageView = [[UIImageView alloc] init];
@@ -110,16 +109,16 @@
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 45, 25)];
     [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    _favoriteBtn.backgroundColor = APP_THEME_COLOR;
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_favorite.png"] forState:UIControlStateNormal];
     [_scrollView addSubview:_favoriteBtn];
     
-    _telephoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(_favoriteBtn.frame.size.width+_favoriteBtn.frame.origin.x+1, offsetY, 45, 25)];
+    _telephoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(_favoriteBtn.frame.size.width+_favoriteBtn.frame.origin.x, offsetY, 45, 25)];
     [_telephoneBtn addTarget:self action:@selector(makePhone:) forControlEvents:UIControlEventTouchUpInside];
-    _telephoneBtn.backgroundColor = APP_THEME_COLOR;
+    [_telephoneBtn setImage:[UIImage imageNamed:@"ic_telephone.png"] forState:UIControlStateNormal];
     [_scrollView addSubview:_telephoneBtn];
     
-    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_telephoneBtn.frame.size.width+_telephoneBtn.frame.origin.x+1, offsetY, 45, 25)];
-    _shareBtn.backgroundColor = APP_THEME_COLOR;
+    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_telephoneBtn.frame.size.width+_telephoneBtn.frame.origin.x, offsetY, 45, 25)];      
+    [_shareBtn setImage:[UIImage imageNamed:@"ic_share.png"] forState:UIControlStateNormal];
     [_scrollView addSubview:_shareBtn];
     
     offsetY += 40;
@@ -139,9 +138,9 @@
     addressDetailLabel.text = _poi.address;
     [_scrollView addSubview:addressDetailLabel];
     
-    UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-50, offsetY, 40, 30)];
+    UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-50, offsetY-5, 40, 40)];
     [mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    mapBtn.backgroundColor = APP_THEME_COLOR;
+    [mapBtn setImage:[UIImage imageNamed:@"ic_poidetail_map.png"] forState:UIControlStateNormal];
     [_scrollView addSubview:mapBtn];
     
     offsetY += 45;
@@ -168,8 +167,7 @@
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 50) andNumberOfLine:3];
     _descView.contentFont = [UIFont systemFontOfSize:13.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
-//    _descView.content = _poi.desc;
-    _descView.content = @"吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢哈哈";
+    _descView.content = _poi.desc;
     [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_descView];
 
@@ -177,7 +175,10 @@
     [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
     [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     _showMoreDescContentBtn.userInteractionEnabled = NO;
-    [_scrollView addSubview:_showMoreDescContentBtn];
+    
+    if (_descView.maxNumberOfLine > 3) {
+        [_scrollView addSubview:_showMoreDescContentBtn];
+    }
 
     offsetY += 50;
     
@@ -209,7 +210,9 @@
     [_showMoreRecommendContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
     [_showMoreRecommendContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     _showMoreRecommendContentBtn.userInteractionEnabled = NO;
-    [_panelOneView addSubview:_showMoreRecommendContentBtn];
+    if (_recommendDescView.maxNumberOfLine>3) {
+        [_panelOneView addSubview:_showMoreRecommendContentBtn];
+    }
     
     _panelTwoView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, _panelOneView.bounds.size.width, 100)];
     [_panelOneView addSubview:_panelTwoView];
@@ -252,12 +255,7 @@
 //    webCtl.titleStr = @"更多点评";
     webCtl.urlStr = [NSString stringWithFormat:@"%@%@",MORE_COMMENT_HTML,_poi.poiId];
     NSLog(@"%@", _rootCtl.navigationController);
-//    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
-    
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:webCtl];
-    [_rootCtl presentViewController:nCtl animated:YES completion:^{
-        
-    }];
+    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
 - (IBAction)viewImage:(id)sender
@@ -419,10 +417,10 @@
             break;
         }
         
-        if ([nextResponder isKindOfClass:[RestaurantDetailViewController class]])
+        if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
         {
-            RestaurantDetailViewController *rootCtl;
-            rootCtl = (RestaurantDetailViewController*)nextResponder;
+            CommonPoiDetailViewController *rootCtl;
+            rootCtl = (CommonPoiDetailViewController*)nextResponder;
             [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
                 _favoriteBtn.userInteractionEnabled = YES;
                 if (isSuccess) {

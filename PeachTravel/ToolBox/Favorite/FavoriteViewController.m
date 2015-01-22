@@ -11,7 +11,7 @@
 #import "AccountManager.h"
 #import "Favorite.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "CityDetailTableViewController.h"
@@ -515,7 +515,7 @@
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else if (item.type == kRestaurantPoi) {
-            RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
+            CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
             ctl.restaurantId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
             

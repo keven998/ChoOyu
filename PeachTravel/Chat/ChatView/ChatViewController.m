@@ -42,7 +42,7 @@
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
@@ -1045,7 +1045,7 @@
             break;
             
         case TZChatTypeFood: {
-            RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+            CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
             restaurantDetailCtl.restaurantId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];

@@ -13,7 +13,7 @@
 #import "AddSpotTableViewCell.h"
 #import "PoiSummary.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 
@@ -329,7 +329,7 @@
             break;
             
         case PAGE_FOOD: {
-            RestaurantDetailViewController *restaurant = [[RestaurantDetailViewController alloc] init];
+            CommonPoiDetailViewController *restaurant = [[CommonPoiDetailViewController alloc] init];
             restaurant.restaurantId = poi.poiId;
             [self.navigationController pushViewController:restaurant animated:YES];
         }
