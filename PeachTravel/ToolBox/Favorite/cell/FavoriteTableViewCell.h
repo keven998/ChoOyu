@@ -15,12 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *contentDescExpandView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLocation;
 @property (weak, nonatomic) IBOutlet UILabel *contentTitle;
-@property (weak, nonatomic) IBOutlet UIImageView *contentTypeFlag;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-
-@property (nonatomic) BOOL isEditing;
-@property (weak, nonatomic) IBOutlet UIView *frameView;
 
 - (void) resizeHeight:(BOOL)resize;
 
