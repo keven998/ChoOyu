@@ -12,43 +12,19 @@
 
 
 - (void)awakeFromNib {
-    _deleteBtn.alpha = 0;
     self.backgroundColor = APP_PAGE_COLOR;
-    self.deleteBtn.layer.cornerRadius = 15.0;
 
     _standardImageView.clipsToBounds = YES;
     _standardImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _standardImageView.layer.borderWidth = 0.5;
     _standardImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
-    self.backgroundColor = APP_PAGE_COLOR;
-    _contentDescExpandView.titleLabel.numberOfLines = 0;
-    [_contentDescExpandView setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [_contentDescExpandView setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateSelected];
+    _contentDescExpandView.titleLabel.numberOfLines = 4;
     _contentDescExpandView.clipsToBounds = YES;
-    _contentDescExpandView.selected = NO;
-    [_contentDescExpandView.titleLabel sizeToFit];
+    _contentDescExpandView.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [_contentDescExpandView sizeToFit];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (void)setIsEditing:(BOOL)isEditing
-{
-    _isEditing = isEditing;
-    if (_isEditing) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _deleteBtn.alpha = 0.7;
-
-        } completion:^(BOOL finished) {
-            _deleteBtn.alpha = 1;
-        }];
-    } else {
-        [UIView animateWithDuration:0.3 animations:^{
-            _deleteBtn.alpha = 0;
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
 }
 
 
