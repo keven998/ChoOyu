@@ -61,6 +61,21 @@
     return lineCount;
 }
 
+- (CGFloat)maxHeight
+{
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2.0;
+    
+    CGSize labelSize = [_content boundingRectWithSize:CGSizeMake(self.bounds.size.width, MAXFLOAT)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{
+                                                        NSFontAttributeName : _contentFont,
+                                                        NSParagraphStyleAttributeName: style
+                                                        }
+                                              context:nil].size;
+    return labelSize.height;
+}
+
 - (void)setShouldShowMoreContent:(BOOL)shouldShowMoreContent
 {
     _shouldShowMoreContent = shouldShowMoreContent;

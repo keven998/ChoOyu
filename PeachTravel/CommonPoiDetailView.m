@@ -17,39 +17,48 @@
 #import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
 
-@interface CommonPoiDetailView () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface CommonPoiDetailView () <UIScrollViewDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) CycleScrollView *galleryPageView;
-
-@property (nonatomic, strong) UIView *headerView;
-
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) NSMutableArray *imageViews;
-@property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) ResizableView *descView;
+@property (nonatomic, strong) ResizableView *recommendDescView;
+@property (nonatomic, strong) UIButton *commentBtn;
+@property (nonatomic, strong) UIButton *showMoreRecommendContentBtn;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) EDStarRating *ratingView;
-@property (nonatomic, strong) UIButton *priceBtn;
+@property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UIButton *favoriteBtn;
-
-@property (nonatomic) CGRect finalFrame;
-
 @property (nonatomic, strong) UIButton *telephoneBtn;
+@property (nonatomic, strong) UIButton *shareBtn;
 
+@property (nonatomic, strong) UIView *panelOneView;
+@property (nonatomic, strong) UIView *panelTwoView;
 
 @end
 
 @implementation CommonPoiDetailView
 
-static NSString *locationCellIdentifier = @"locationCell";
-static NSString *recommendCellIdentifier = @"recommendCell";
-static NSString *commentCellIdentifier = @"commentCell";
-
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = APP_PAGE_COLOR;
+        self.backgroundColor = [UIColor whiteColor];
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
+        [self addSubview:_scrollView];
+        
+        _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
+        _closeBtn.backgroundColor = APP_THEME_COLOR;
+        [self addSubview:_closeBtn];
+        
+        _imageView = [[UIImageView alloc] init];
+        [_scrollView addSubview:_imageView];
+        
     }
     return self;
 }
@@ -62,171 +71,177 @@ static NSString *commentCellIdentifier = @"commentCell";
 
 - (void)setupSubView
 {
-    self.dataSource = self;
-    self.delegate = self;
-    self.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.showsVerticalScrollIndicator = NO;
-    self.showsHorizontalScrollIndicator = NO;
-
-    CGFloat oy = 10;
-    CGFloat width = self.frame.size.width;
+    CGFloat offsetY = 20;
     
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 293)];
-    _headerView.backgroundColor = [UIColor whiteColor];
-    _headerView.layer.cornerRadius = 2.0;
-    _headerView.clipsToBounds = YES;
+    _imageView.frame = CGRectMake(10, 15, 100, 100);
+    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+    _imageView.layer.cornerRadius = 2.0;
+    _imageView.layer.borderWidth = 0.5;
+    _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    [_scrollView addSubview:_imageView];
+    TaoziImage *image = [_poi.images firstObject];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 10)];
-    view.backgroundColor = APP_PAGE_COLOR;
-    [_headerView addSubview:view];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x+_imageView.frame.size.width+10, offsetY, self.bounds.size.width-(_imageView.frame.origin.x+_imageView.frame.size.width+20)-20, 20)];
+    _titleLabel.textColor = APP_THEME_COLOR;
+    _titleLabel.text = _poi.zhName;
+    _titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [_scrollView addSubview:_titleLabel];
     
-    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, oy, width, 130.0) animationDuration:0];
+    offsetY += 25;
     
-    _galleryPageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _galleryPageView.layer.borderWidth = 0.5;
-    _galleryPageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    self.backgroundColor = APP_PAGE_COLOR;
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, _titleLabel.frame.size.width, 15)];
+    _priceLabel.textColor = TEXT_COLOR_TITLE;
+    _priceLabel.font = [UIFont systemFontOfSize:13.0];
+    _priceLabel.text = _poi.priceDesc;
+    offsetY += 25;
     
-    NSInteger count = _poi.images.count;
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i < count; i++)
-    {
-        [images addObject:[NSNull null]];
-    }
-    _imageViews = images;
-    
-    __weak typeof(CommonPoiDetailView *)weakSelf = self;
-    
-    _galleryPageView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
-        return (UIView *)[weakSelf loadScrollViewWithPage:pageIndex];
-    };
-    
-    _galleryPageView.totalPagesCount = ^NSInteger(void){
-        return count;
-    };
-    
-    _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
-    };
-
-    [_headerView addSubview:_galleryPageView];
-    
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-65, oy+10, 60, 30)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateHighlighted];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateSelected];
-    if (_poi.isMyFavorite) {
-        _favoriteBtn.selected = YES;
-    }
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [_headerView addSubview:_favoriteBtn];
-    
-    oy += 140;
-
-    UIButton *decorationView = [[UIButton alloc] initWithFrame:CGRectMake((width-30)/2, oy, 20, 20)];
-    [decorationView setImage:[UIImage imageNamed:@"ic_decoration.png"] forState:UIControlStateNormal];
-    [_headerView addSubview:decorationView];
-    oy += 30;
-    
-    _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 20)];
-    [_titleBtn setTitle:_poi.zhName forState:UIControlStateNormal];
-    [_titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [_titleBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-    _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    _titleBtn.userInteractionEnabled = NO;
-    [_headerView addSubview:_titleBtn];
-    
-    oy += 30;
-    
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((width - 73.0)/2, oy, 73.0
-                                                                 , 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 40, 15)];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
-    _ratingView.horizontalMargin = 5.0;
     _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
-    _ratingView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [_ratingView setRating:_poi.rating];
-    [_headerView addSubview:_ratingView];
+    _ratingView.rating = _poi.rating;
+    [_scrollView addSubview:_ratingView];
     
-    oy += 10;
+    offsetY += 20;
     
-    _priceBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, width-20, 20)];
-    [_priceBtn setTitle:_poi.priceDesc forState:UIControlStateNormal];
-    [_priceBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_priceBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-    _priceBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
-    _priceBtn.userInteractionEnabled = NO;
-    [_headerView addSubview:_priceBtn];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 45, 25)];
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    _favoriteBtn.backgroundColor = APP_THEME_COLOR;
+    [_scrollView addSubview:_favoriteBtn];
     
-    oy += 20;
+    _telephoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(_favoriteBtn.frame.size.width+_favoriteBtn.frame.origin.x+1, offsetY, 45, 25)];
+    [_telephoneBtn addTarget:self action:@selector(makePhone:) forControlEvents:UIControlEventTouchUpInside];
+    _telephoneBtn.backgroundColor = APP_THEME_COLOR;
+    [_scrollView addSubview:_telephoneBtn];
     
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy, width-20, 30) andNumberOfLine:2];
-    _descView.contentFont = [UIFont systemFontOfSize:12.0];
+    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_telephoneBtn.frame.size.width+_telephoneBtn.frame.origin.x+1, offsetY, 45, 25)];
+    _shareBtn.backgroundColor = APP_THEME_COLOR;
+    [_scrollView addSubview:_shareBtn];
+    
+    offsetY += 40;
+    
+    UILabel *addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 100, 15)];
+    addressTitle.textColor = APP_THEME_COLOR;
+    addressTitle.text = @"地址";
+    addressTitle.font = [UIFont systemFontOfSize:13.0];
+    [_scrollView addSubview:addressTitle];
+    
+    offsetY += 15;
+    
+    UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
+    addressDetailLabel.font = [UIFont systemFontOfSize:13.0];
+    addressDetailLabel.textColor = TEXT_COLOR_TITLE;
+    addressDetailLabel.numberOfLines = 2.0;
+    addressDetailLabel.text = _poi.address;
+    [_scrollView addSubview:addressDetailLabel];
+    
+    UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-50, offsetY, 40, 30)];
+    [mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    mapBtn.backgroundColor = APP_THEME_COLOR;
+    [_scrollView addSubview:mapBtn];
+    
+    offsetY += 45;
+    
+    UIView *dotView1 = [[UIView alloc] initWithFrame:CGRectMake(10, offsetY, 6, 15)];
+    dotView1.backgroundColor = APP_THEME_COLOR;
+    dotView1.layer.cornerRadius = 3.0;
+    [_scrollView addSubview:dotView1];
+    
+    UILabel *descTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, 100, 15)];
+    if (_poi.poiType == kShoppingPoi) {
+        descTitleLable.text = @"店铺简介";
+    }
+    if (_poi.poiType == kRestaurantPoi) {
+        descTitleLable.text = @"美食简介";
+    }
+
+    descTitleLable.textColor = APP_THEME_COLOR;
+    descTitleLable.font = [UIFont systemFontOfSize:15.0];
+    [_scrollView addSubview:descTitleLable];
+    
+    offsetY += 20;
+    
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 50) andNumberOfLine:3];
+    _descView.contentFont = [UIFont systemFontOfSize:13.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _descView.content = _poi.desc;
-    _descView.numberOfLine = 2.0;
+//    _descView.content = _poi.desc;
+    _descView.content = @"吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢哈哈";
+    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_descView];
 
-    [_headerView addSubview:_descView];
-    
-    oy += 25;
-    
-    if (_descView.maxNumberOfLine > 2) {
-        [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-30, oy, 20, 20)];
-        [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
-        [_headerView addSubview:_showMoreDescContentBtn];
-    }
-    
-    if (_descView.maxNumberOfLine > 2) {
-        [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_headerView addSubview:_showMoreDescContentBtn];
-    }
-    
-    if (_descView.maxNumberOfLine == 1) {
-        oy += 10;
-    } else {
-        oy += 25;
-    }
+    _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width - 25, offsetY+50, 10, 8)];
+    [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
+    [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    _showMoreDescContentBtn.userInteractionEnabled = NO;
+    [_scrollView addSubview:_showMoreDescContentBtn];
 
-    _headerView.frame = CGRectMake(0, 0, width, oy);
+    offsetY += 50;
     
-    _finalFrame = _headerView.frame;
+    _panelOneView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, self.bounds.size.width, 200)];
+    [_scrollView addSubview:_panelOneView];
     
-    self.tableHeaderView = _headerView;
+    UIView *spaceViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _panelOneView.bounds.size.width, 1)];
+    spaceViewOne.backgroundColor = APP_PAGE_COLOR;
+    [_panelOneView addSubview:spaceViewOne];
     
-    [self registerNib:[UINib nibWithNibName:@"LocationTableViewCell" bundle:nil] forCellReuseIdentifier:locationCellIdentifier];
-    [self registerNib:[UINib nibWithNibName:@"RecommendsTableViewCell" bundle:nil] forCellReuseIdentifier:recommendCellIdentifier];
-    [self registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:commentCellIdentifier];
-}
+    UIView *dotView2 = [[UIView alloc] initWithFrame:CGRectMake(10, 30, 6, 15)];
+    dotView2.backgroundColor = APP_THEME_COLOR;
+    dotView2.layer.cornerRadius = 3.0;
+    [_panelOneView addSubview:dotView2];
+    UILabel *recommendTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 100, 15)];
+    recommendTitleLabel.text = @"网友推荐";
+    recommendTitleLabel.textColor = APP_THEME_COLOR;
+    recommendTitleLabel.font = [UIFont systemFontOfSize:15.0];
+    [_panelOneView addSubview:recommendTitleLabel];
+    
+    _recommendDescView = [[ResizableView alloc] initWithFrame:CGRectMake(10, 50, self.bounds.size.width-20, 50) andNumberOfLine:3];
+    _recommendDescView.content = @"吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢";
+    _recommendDescView.contentFont = [UIFont systemFontOfSize:13.0];
+    _recommendDescView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
+    [_recommendDescView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    [_panelOneView addSubview:_recommendDescView];
+    
+    _showMoreRecommendContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_panelOneView.bounds.size.width - 25, 100, 10, 8)];
+    [_showMoreRecommendContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
+    [_showMoreRecommendContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+    _showMoreRecommendContentBtn.userInteractionEnabled = NO;
+    [_panelOneView addSubview:_showMoreRecommendContentBtn];
+    
+    _panelTwoView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, _panelOneView.bounds.size.width, 100)];
+    [_panelOneView addSubview:_panelTwoView];
+    
+    UIView *spaceViewTwo = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _panelTwoView.bounds.size.width, 1)];
+    spaceViewTwo.backgroundColor = APP_PAGE_COLOR;
+    [_panelTwoView addSubview:spaceViewTwo];
+    UIView *dotView3 = [[UIView alloc] initWithFrame:CGRectMake(10, 30, 6, 15)];
+    dotView3.backgroundColor = APP_THEME_COLOR;
+    dotView3.layer.cornerRadius = 3.0;
+    [_panelTwoView addSubview:dotView3];
+    UILabel *commentTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 100, 15)];
+    commentTitleLabel.text = @"网友点评";
+    commentTitleLabel.textColor = APP_THEME_COLOR;
+    commentTitleLabel.font = [UIFont systemFontOfSize:15.0];
+    [_panelTwoView addSubview:commentTitleLabel];
 
-- (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= _poi.images.count) {
-        return nil;
-    }
+    _commentBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 50, _panelTwoView.bounds.size.width-20, 30)];
+    _commentBtn.titleLabel.numberOfLines = 2;
+    [_commentBtn setTitle:@"吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢" forState:UIControlStateNormal];
+    [_commentBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    _commentBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [_commentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
+    [_commentBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    [_panelTwoView addSubview:_commentBtn];
+
+    UIImageView *accessImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory_gray.png"]];
+    accessImageView.center = CGPointMake(_panelTwoView.bounds.size.width-20, _commentBtn.center.y);
+    [_panelTwoView addSubview:accessImageView];
     
-    UIImageView *img = [_imageViews objectAtIndex:page];
-    if ((NSNull *)img == [NSNull null]) {
-        img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, self.bounds.size.width, CGRectGetHeight(self.galleryPageView.frame))];
-        img.contentMode = UIViewContentModeScaleAspectFill;
-        img.clipsToBounds = YES;
-        img.userInteractionEnabled = YES;
-        [_imageViews replaceObjectAtIndex:page withObject:img];
-        img.tag = page;
-        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewImage:)];
-        [img addGestureRecognizer:tap];
-    }
+    _scrollView.contentSize = CGSizeMake(self.bounds.size.width, offsetY+250);
     
-    if (img.superview == nil) {
-        CGRect frame = img.frame;
-        frame.origin.x = CGRectGetWidth(frame) * page;
-        img.frame = frame;
-        [self.galleryPageView insertSubview:img atIndex:0];
-        TaoziImage *taoziImage = [_poi.images objectAtIndex:page];
-        NSString *url = taoziImage.imageUrl;
-        [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
-    }
-    return img;
 }
 
 #pragma mark - IBAction Methods
@@ -236,114 +251,14 @@ static NSString *commentCellIdentifier = @"commentCell";
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
 //    webCtl.titleStr = @"更多点评";
     webCtl.urlStr = [NSString stringWithFormat:@"%@%@",MORE_COMMENT_HTML,_poi.poiId];
-    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
-}
-
-#pragma mark - UITableview datasource & delegate
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return 1;
-    }
-    if (section == 1) {
-        return _poi.comments.count;
-
-    }
-    return 0;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return 0;
-    } else {
-        return 43.0;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        
-        return [LocationTableViewCell heightForAddressCellWithAddress:_poi.address];
-    }
-    if (indexPath.section == 1) {
-        NSString *commentDetail = ((CommentDetail *)[_poi.comments objectAtIndex:indexPath.row]).commentDetails;
-        return [CommentTableViewCell heightForCommentCellWithComment:commentDetail];
-    }
+    NSLog(@"%@", _rootCtl.navigationController);
+//    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
     
-    return 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return nil;
-    }
-    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 43)];
-    sectionView.backgroundColor = APP_PAGE_COLOR;
-    UIButton *sectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 9, self.frame.size.width, 33)];
-    [sectionBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    sectionBtn.backgroundColor = [UIColor whiteColor];
-    sectionBtn.layer.cornerRadius = 1.0;
-    sectionBtn.userInteractionEnabled = YES;
-    [sectionBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 9, 0, 0)];
-    [sectionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-//    if (section == 1) {
-//        [sectionBtn setImage:[UIImage imageNamed:@"ic_recommend.png"] forState:UIControlStateNormal];
-//        [sectionBtn setTitle:@"网友推荐" forState:UIControlStateNormal];
-//    }
-    if (section == 1) {
-        [sectionBtn setImage:[UIImage imageNamed:@"ic_comment.png"] forState:UIControlStateNormal];
-
-        [sectionBtn setTitle:@"网友点评" forState:UIControlStateNormal];
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:webCtl];
+    [_rootCtl presentViewController:nCtl animated:YES completion:^{
         
-        UIButton *moreCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(sectionBtn.frame.size.width-60, 0, 60, 29)];
-        [moreCommentBtn setTitle:@"更多点评" forState:UIControlStateNormal];
-        [moreCommentBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        moreCommentBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
-        moreCommentBtn.userInteractionEnabled = NO;
-        [sectionBtn addSubview:moreCommentBtn];
-        [sectionBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    [sectionView addSubview:sectionBtn];
-
-    return sectionView;
+    }];
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        LocationTableViewCell *locationCell = [tableView dequeueReusableCellWithIdentifier:locationCellIdentifier];
-        locationCell.address = _poi.address;
-        locationCell.tel = _poi.telephone;
-        [locationCell.navigationBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [locationCell.navigationBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-
-        return locationCell;
-    }
-//    if (indexPath.section == 1) {
-//        RecommendsTableViewCell *recommendsCell = [tableView dequeueReusableCellWithIdentifier:recommendCellIdentifier];
-//        recommendsCell.recommends = _poi.recommends;
-//        return recommendsCell;
-//        
-//    }
-    if (indexPath.section == 1) {
-        CommentTableViewCell *commentCell = [tableView dequeueReusableCellWithIdentifier:commentCellIdentifier];
-        commentCell.commentDetail = [_poi.comments objectAtIndex:indexPath.row];
-        return commentCell;
-    }
-    return nil;
-}
-
-#pragma mark - IBAction Methods
 
 - (IBAction)viewImage:(id)sender
 {
@@ -366,48 +281,117 @@ static NSString *commentCellIdentifier = @"commentCell";
     [sheet showInView:self];    
 }
 
-- (IBAction)showMoreContent:(id)sender
+- (IBAction)showMoreContent:(UIButton *)sender
 {
-    [_descView showMoreContent];
-
-    [UIView animateWithDuration:0.2 animations:^{
-        [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height + _descView.resizeHeight)];
-        [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y+_descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
-        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
-
-    } completion:^(BOOL finished) {
-        [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height+_descView.resizeHeight)];
-        [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-        [self setTableHeaderView:_headerView];
-    }];
-    
-    [self beginUpdates];
-    [self endUpdates];
-
+    sender.userInteractionEnabled = NO;
+    if ([sender isEqual:_descView]) {
+        [_descView showMoreContent];
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = _showMoreDescContentBtn.frame;
+            frame.origin.y += _descView.resizeHeight;
+            _showMoreDescContentBtn.frame = frame;
+            
+            frame = _descView.frame;
+            frame.size.height += _descView.resizeHeight;
+            _descView.frame = frame;
+            
+            frame = _panelOneView.frame;
+            frame.origin.y += _descView.resizeHeight;
+            _panelOneView.frame = frame;
+            
+            _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
+        } completion:^(BOOL finished) {
+            sender.userInteractionEnabled = YES;
+            [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+            [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+           
+        }];
+       
+        CGSize size = _scrollView.contentSize;
+        size.height += _descView.resizeHeight;
+        [_scrollView setContentSize:size];
+       
+    } else {
+        [_recommendDescView showMoreContent];
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = _showMoreRecommendContentBtn.frame;
+            frame.origin.y += _recommendDescView.resizeHeight;
+            _showMoreRecommendContentBtn.frame = frame;
+            
+            frame = _descView.frame;
+            frame.size.height += _recommendDescView.resizeHeight;
+            _descView.frame = frame;
+            
+            frame = _panelTwoView.frame;
+            frame.origin.y += _recommendDescView.resizeHeight;
+            _panelTwoView.frame = frame;
+            
+            _showMoreRecommendContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
+        } completion:^(BOOL finished) {
+            sender.userInteractionEnabled = YES;
+            [_recommendDescView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+            [_recommendDescView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+          
+        }];
+        CGSize size = _scrollView.contentSize;
+        size.height += _recommendDescView.resizeHeight;
+        [_scrollView setContentSize:size];
+        
+    }
 }
 
-- (IBAction)hideContent:(id)sender
+- (IBAction)hideContent:(UIButton *)sender
 {
-    [_descView hideContent];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height - _descView.resizeHeight)];
-        [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y - _descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
-        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
+    sender.userInteractionEnabled = NO;
+    if ([sender isEqual:_descView]) {
+        [_descView hideContent];
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = _showMoreDescContentBtn.frame;
+            frame.origin.y -= _descView.resizeHeight;
+            _showMoreDescContentBtn.frame = frame;
+            
+            frame = _panelOneView.frame;
+            frame.origin.y -= _descView.resizeHeight;
+            _panelOneView.frame = frame;
+            
+            _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
+        } completion:^(BOOL finished) {
+            sender.userInteractionEnabled = YES;
+            [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+            [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+        }];
+        CGSize size = _scrollView.contentSize;
+        size.height -= _descView.resizeHeight;
+        [_scrollView setContentSize:size];
+       
+    } else {
+        [_recommendDescView hideContent];
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = _showMoreRecommendContentBtn.frame;
+            frame.origin.y -= _recommendDescView.resizeHeight;
+            _showMoreRecommendContentBtn.frame = frame;
+            
+            frame = _panelTwoView.frame;
+            frame.origin.y -= _recommendDescView.resizeHeight;
+            _panelTwoView.frame = frame;
+            
+            _showMoreRecommendContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
+        } completion:^(BOOL finished) {
+            sender.userInteractionEnabled = YES;
+            [_recommendDescView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
+            [_recommendDescView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
+        }];
+        
+        CGSize size = _scrollView.contentSize;
+        size.height -= _recommendDescView.resizeHeight;
+        [_scrollView setContentSize:size];
 
-    }];
-    [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self setTableHeaderView:_headerView];
+    }
+}
 
-    [self beginUpdates];
-    [self endUpdates];
+- (IBAction)makePhone:(id)sender
+{
+    
 }
 
 - (IBAction)favorite:(id)sender

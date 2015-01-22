@@ -36,7 +36,6 @@
     self.navigationItem.title = _titleStr;
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
-    //    _webView.delegate = _progressProxy;
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
     
@@ -84,29 +83,19 @@
     _progressView = nil;
 }
 
-//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-//{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//    [_activeView stopAnimating];
-//}
-//
-//- (void)webViewDidFinishLoad:(UIWebView *)webView
-//{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//    [_activeView stopAnimating];
-//}
-//
-//- (void)webViewDidStartLoad:(UIWebView *)webView
-//{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//    [_activeView startAnimating];
-//}
+- (void)goBack
+{
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
     [_progressView setProgress:progress animated:YES];
-    //    self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 @end

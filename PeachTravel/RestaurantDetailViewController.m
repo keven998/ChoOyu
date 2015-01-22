@@ -21,22 +21,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self loadData];
 }
 
 - (void)updateView
 {
     self.navigationItem.title = _restaurantPoi.zhName;
-    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(11, 64, self.view.bounds.size.width-22, self.view.bounds.size.height-64)];
-    restaurantView.poi = self.restaurantPoi;
+    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(10, 20, self.view.bounds.size.width-22, self.view.bounds.size.height-40)];
     restaurantView.rootCtl = self;
+    restaurantView.poi = self.restaurantPoi;
+    restaurantView.layer.cornerRadius = 2.0;
     [self.view addSubview:restaurantView];
+    restaurantView.alpha = 0.2;
+    [UIView animateWithDuration:0.3 animations:^{
+        restaurantView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [restaurantView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)dismissCtl
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self willMoveToParentViewController:nil];
+        [self removeFromParentViewController];
+        [self.view removeFromSuperview];
+    }];
+   
+}
+
+- (void)dealloc
+{
+    NSLog(@"RestaurantDetialViewController dealloc");
 }
 
 #pragma mark - Private Methods
@@ -55,9 +79,8 @@
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
-     __weak typeof(RestaurantDetailViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUD];
     
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, _restaurantId];
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

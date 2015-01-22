@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "PoiSummary.h"
 
-@interface CommonPoiDetailView : UITableView
+@interface CommonPoiDetailView : UIView
 
 @property (nonatomic, strong) PoiSummary *poi;
 
 @property (nonatomic, weak) UIViewController *rootCtl;
+
+@property (nonatomic, strong) UIButton *closeBtn;
+
 @end

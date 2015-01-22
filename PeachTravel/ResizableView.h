@@ -27,6 +27,13 @@
  */
 - (NSInteger)maxNumberOfLine;
 
+/**
+ *  全部展开最大的高度
+ *
+ *  @return 
+ */
+- (CGFloat)maxHeight;
+
 - (instancetype)initWithFrame:(CGRect)frame andNumberOfLine:(NSUInteger)numberOfLine;
 
 @end

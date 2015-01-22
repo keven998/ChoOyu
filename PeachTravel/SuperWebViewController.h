@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SuperWebViewController : UIViewController <UIWebViewDelegate>
+@interface SuperWebViewController : TZViewController <UIWebViewDelegate>
 
 @property (nonatomic, copy) NSString *urlStr;
 @property (nonatomic, copy) NSString *titleStr;

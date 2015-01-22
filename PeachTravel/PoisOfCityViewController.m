@@ -730,7 +730,18 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (_poiType == kRestaurantPoi) {
         RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.restaurantId = poi.poiId;
-        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+//        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        
+        [self.navigationController addChildViewController:restaurantDetailCtl];
+        [self.navigationController.view addSubview:restaurantDetailCtl.view];
+        
+        
+        
+        NSLog(@"%@", self.navigationController);
+        
+        
+        
+        
     }
     if (_poiType == kShoppingPoi) {
         ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
