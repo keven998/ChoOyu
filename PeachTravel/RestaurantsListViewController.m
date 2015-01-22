@@ -14,7 +14,7 @@
 #import "CityDestinationPoi.h"
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
@@ -300,7 +300,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TripPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
-    RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+    CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
     restaurantDetailCtl.restaurantId = tripPoi.poiId;
     [self.rootViewController.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }

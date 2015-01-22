@@ -12,12 +12,12 @@
 #import "CityDestinationPoi.h"
 #import "PoiSummary.h"
 #import "RecommendsOfCity.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
-@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
@@ -46,6 +46,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic) BOOL isShowing;
 @end
 
 @implementation PoisOfCityViewController
@@ -55,6 +56,22 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 48, 30)];
+    //[button setTitle:@"返回" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.backBarButtonItem = barButton;
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64)];
     self.tableView.dataSource = self;
@@ -121,9 +138,21 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    _isShowing = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _isShowing = NO;
+}
+
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - setter & getter
@@ -728,20 +757,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     if (_poiType == kRestaurantPoi) {
-        RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+        CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
         restaurantDetailCtl.restaurantId = poi.poiId;
-//        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         
-        [self.navigationController addChildViewController:restaurantDetailCtl];
-        [self.navigationController.view addSubview:restaurantDetailCtl.view];
-        
-        
+        [self addChildViewController:restaurantDetailCtl];
+        [self.view addSubview:restaurantDetailCtl.view];
         
         NSLog(@"%@", self.navigationController);
-        
-        
-        
-        
     }
     if (_poiType == kShoppingPoi) {
         ShoppingDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];

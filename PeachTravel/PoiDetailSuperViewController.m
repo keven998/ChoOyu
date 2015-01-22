@@ -20,11 +20,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
-    [talkBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
-    self.navigationItem.rightBarButtonItem = rightBarItem;
 }
 
 #pragma mark - IBAction Methods

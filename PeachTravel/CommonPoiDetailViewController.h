@@ -1,5 +1,5 @@
 //
-//  RestaurantDetailViewController.h
+//  CommonPoiDetailViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/22/14.
@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "PoiDetailSuperViewController.h"
 
-@interface RestaurantDetailViewController : PoiDetailSuperViewController
+@interface CommonPoiDetailViewController : PoiDetailSuperViewController
 
 @property (nonatomic, copy) NSString *restaurantId;
+
+@property (nonatomic) TZPoiType poiType;
 
 @end

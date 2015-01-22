@@ -11,7 +11,7 @@
 #import "CityDestinationPoi.h"
 #import "TripDetail.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "PoiSummary.h"
@@ -566,7 +566,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         }
             break;
         case kRestaurantPoi: {
-            RestaurantDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+            CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
             restaurantDetailCtl.restaurantId = tripPoi.poiId;
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
