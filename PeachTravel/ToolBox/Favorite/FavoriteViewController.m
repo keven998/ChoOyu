@@ -15,16 +15,15 @@
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "CityDetailTableViewController.h"
-#import "SRRefreshView.h"
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
 #import "TZFilterViewController.h"
 
 #define PAGE_COUNT 15
 
-@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, TaoziMessageSendDelegate, TZFilterViewDelegate>
+@interface FavoriteViewController () <TaoziMessageSendDelegate, TZFilterViewDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
+//@property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic) BOOL isEditing;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
@@ -38,8 +37,6 @@
 @property (nonatomic, assign) BOOL isLoadingMore;
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
-
-@property (strong, nonatomic) SRRefreshView *slimeView;
 
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
@@ -76,11 +73,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationController.navigationBar.translucent = YES;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     if (_selectToSend) {
         self.navigationItem.title = @"发送收藏";
     } else {
-        self.navigationItem.title = @"收藏夹";
+        self.navigationItem.title = @"我的收藏";
     }
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -96,18 +93,21 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    
     UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
     self.navigationItem.rightBarButtonItem = filterBtn;
     [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-    
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     
-    [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    [self.tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.tintColor = APP_THEME_COLOR;
+    [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
@@ -129,8 +129,7 @@
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
-//        if (object != nil) {
-        if (false) {
+        if (object != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dataSource addObjectsFromArray:object];
                 [self.tableView reloadData];
@@ -140,26 +139,28 @@
             });
             [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
         } else {
-            self.slimeView.loading = YES;
-            [self pullToRefreash:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            });
         }
     }];
 }
 
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _tableView.tableFooterView = [[UIView alloc] init];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
-    }
-    return _tableView;
-}
+//- (UITableView *)tableView
+//{
+//    if (!_tableView) {
+//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+//        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        _tableView.tableFooterView = [[UIView alloc] init];
+//        _tableView.dataSource = self;
+//        _tableView.delegate = self;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.backgroundColor = APP_PAGE_COLOR;
+//        [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
+//    }
+//    return _tableView;
+//}
 
 - (UIView *)footerView {
     if (!_footerView) {
@@ -184,26 +185,8 @@
         _filterCtl.lineCountPerFilterType = @[@2];
         _filterCtl.selectedItmesIndex = @[@0];
         _filterCtl.delegate = self;
-
     }
     return _filterCtl;
-}
-
-- (SRRefreshView *)slimeView
-{
-    if (_slimeView == nil) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    
-    return _slimeView;
 }
 
 /**
@@ -229,11 +212,9 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-    _tableView = nil;
-    _slimeView.delegate = nil;
-    _slimeView = nil;
+
+    [self.refreshControl endRefreshing];
+    self.refreshControl = nil;
 }
 
 - (void)userDidLogout
@@ -299,22 +280,15 @@
             } else {
                 
             }
-        } else {
-            NSLog(@"用户切换界面了，我不需要加载了");
-        }
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
         }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
+        [self.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompleted];
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
-        }
         [self showHint:@"呃～好像没找到网络"];
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -348,7 +322,6 @@
             [_dataSource removeObjectAtIndex:indexpath.section];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex: indexpath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
             if (_dataSource.count == 0) {
-                self.slimeView.loading = YES;
                 [self pullToRefreash:nil];
             } else if (indexpath.section < PAGE_COUNT) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -392,7 +365,7 @@
             }
             [self.tableView reloadData];
         } else {
-            [self showHint:@"已取完所有内容啦"];
+            [self showHint:@"已加载全部"];
         }
         return;
     }
@@ -408,11 +381,6 @@
         _enableLoadMore = YES;
     }
    
-}
-
-- (void)hideSlimeView
-{
-    [self.slimeView endRefresh];
 }
 
 #pragma makr - TZFilterViewDelegate
@@ -438,6 +406,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
+    view.backgroundColor = APP_PAGE_COLOR;
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -673,23 +647,10 @@
             [self beginLoadingMore];
         }
     }
-    if (_slimeView) {
-        [_slimeView scrollViewDidScroll];
-    }
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _didEndScroll = YES;
-    if (_slimeView) {
-        [_slimeView scrollViewDidEndDraging];
-    }
-}
-
-#pragma mark - slimeRefresh delegate
-//加载更多
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self pullToRefreash:nil];
 }
 
 
