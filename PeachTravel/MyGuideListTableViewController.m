@@ -17,13 +17,11 @@
 #import "Destinations.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
-#import "SRRefreshView.h"
 
 #define PAGE_COUNT 10
 
-@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, SRRefreshDelegate, UITableViewDataSource, UITableViewDelegate, TripUpdateDelegate, SWTableViewCellDelegate>
+@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, SWTableViewCellDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
@@ -36,8 +34,9 @@
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
-@property (strong, nonatomic) SRRefreshView *slimeView;
+@property (nonatomic, strong) UIButton *addBtn;
 
+@property (nonatomic) BOOL isShowing;
 
 @end
 
@@ -58,12 +57,25 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的旅程";
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBar.translucent = YES;
     
-    [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 48, 30)];
+    //[button setTitle:@"返回" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+    
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
     
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
@@ -74,11 +86,24 @@ static NSString *reusableCell = @"myGuidesCell";
         [editBtn setBackgroundImage:[UIImage imageNamed:@"ic_add_friend.png"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
         editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 42);
-        [self.view addSubview:editBtn];
+        _addBtn = editBtn;
     }
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.tintColor = APP_THEME_COLOR;
+    [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
 
     [self initDataFromCache];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+}
+
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) initDataFromCache {
@@ -94,25 +119,36 @@ static NSString *reusableCell = @"myGuidesCell";
             });
             [self loadDataWithPageIndex:0];
         } else {
-            self.slimeView.loading = YES;
-            [self pullToRefreash:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            });
         }
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _isShowing = YES;
+    if (!_selectToSend) {
+        [self.navigationController.view addSubview:_addBtn];
+    }
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    _isShowing = NO;
+    if (!_selectToSend) {
+        [_addBtn removeFromSuperview];
+    }
 }
 
 - (void)dealloc
 {
     [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-    _tableView = nil;
-    _slimeView.delegate = nil;
-    _slimeView = nil;
+
+    [self.refreshControl endRefreshing];
+    self.refreshControl = nil;
     _tapRecognizer = nil;
 }
 
@@ -121,12 +157,6 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)userDidLogout
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-- (void)goBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
-   
 }
 
 - (void)makePlan {
@@ -155,36 +185,6 @@ static NSString *reusableCell = @"myGuidesCell";
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
-}
-
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
-    }
-    return _tableView;
-}
-
-- (SRRefreshView *)slimeView
-{
-    if (_slimeView == nil) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    
-    return _slimeView;
 }
 
 #pragma mark - IBAction Methods
@@ -299,17 +299,12 @@ static NSString *reusableCell = @"myGuidesCell";
         if (code == 0) {
             NSInteger index = [self.dataSource indexOfObject:guideSummary];
             [self.dataSource removeObject:guideSummary];
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index];
-//            [self.tableView beginUpdates];
-//            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
             [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
             
-            
             if (self.dataSource.count == 0) {
-                self.slimeView.loading = YES;
-                [self pullToRefreash:nil];
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
             } else if (index < PAGE_COUNT) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [self cacheFirstPage:responseObject];
@@ -424,16 +419,12 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
-        }
+        [self.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
-        }
+        [self.refreshControl endRefreshing];
         [self showHint:@"呃～好像没找到网络"];
     }];
 }
@@ -474,11 +465,6 @@ static NSString *reusableCell = @"myGuidesCell";
     if (_dataSource.count >= 10) {
         _enableLoadMore = YES;
     }
-}
-
-- (void)hideSlimeView
-{
-    [self.slimeView endRefresh];
 }
 
 - (void)setupEmptyView {
@@ -684,23 +670,10 @@ static NSString *reusableCell = @"myGuidesCell";
             [self beginLoadingMore];
         }
     }
-    if (_slimeView) {
-        [_slimeView scrollViewDidScroll];
-    }
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _didEndScroll = YES;
-    if (_slimeView) {
-        [_slimeView scrollViewDidEndDraging];
-    }
-}
-
-#pragma mark - slimeRefresh delegate
-//加载更多
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self pullToRefreash:nil];
 }
 
 - (void) tripUpdate:(id)jsonString {
