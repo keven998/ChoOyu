@@ -11,7 +11,7 @@
 
 @interface CommonPoiDetailViewController : PoiDetailSuperViewController
 
-@property (nonatomic, copy) NSString *restaurantId;
+@property (nonatomic, copy) NSString *poiId;
 
 @property (nonatomic) TZPoiType poiType;
 

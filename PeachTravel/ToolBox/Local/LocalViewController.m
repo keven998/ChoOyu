@@ -330,7 +330,8 @@
             
         case PAGE_FOOD: {
             CommonPoiDetailViewController *restaurant = [[CommonPoiDetailViewController alloc] init];
-            restaurant.restaurantId = poi.poiId;
+            restaurant.poiId = poi.poiId;
+            restaurant.poiType = kRestaurantPoi;
             [self.navigationController pushViewController:restaurant animated:YES];
         }
             break;

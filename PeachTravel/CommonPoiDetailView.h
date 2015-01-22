@@ -19,4 +19,6 @@
 
 @property (nonatomic, strong) UIButton *closeBtn;
 
+@property (nonatomic) TZPoiType poiType;
+
 @end

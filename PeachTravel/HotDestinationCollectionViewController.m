@@ -283,7 +283,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 
             case kRestaurantPoi: {
                 CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-                ctl.restaurantId = recommend.recommondId;
+                ctl.poiType = kRestaurantPoi;
+                ctl.poiId = recommend.recommondId;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;

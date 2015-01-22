@@ -567,7 +567,8 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
             break;
         case kRestaurantPoi: {
             CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            restaurantDetailCtl.restaurantId = tripPoi.poiId;
+            restaurantDetailCtl.poiId = tripPoi.poiId;
+            restaurantDetailCtl.poiType = kRestaurantPoi;
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             

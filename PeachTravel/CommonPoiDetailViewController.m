@@ -12,7 +12,7 @@
 #import "UIImage+BoxBlur.h"
 
 @interface CommonPoiDetailViewController ()
-@property (nonatomic, strong) PoiSummary *restaurantPoi;
+@property (nonatomic, strong) PoiSummary *commonPoi;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
 @end
@@ -36,10 +36,11 @@
 
 - (void)updateView
 {
-    self.navigationItem.title = _restaurantPoi.zhName;
+    self.navigationItem.title = _commonPoi.zhName;
     CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 20, self.view.bounds.size.width-30, self.view.bounds.size.height-40)];
     restaurantView.rootCtl = self;
-    restaurantView.poi = self.restaurantPoi;
+    restaurantView.poiType = _poiType;
+    restaurantView.poi = self.commonPoi;
     restaurantView.layer.cornerRadius = 4.0;
     [self.view addSubview:restaurantView];
 
@@ -113,14 +114,27 @@
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUD];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, _restaurantId];
+    NSString *typeUrl;
+    if (_poiType == kRestaurantPoi) {
+        typeUrl = API_GET_RESTAURANT_DETAIL;
+    }
+    if (_poiType == kShoppingPoi) {
+        typeUrl = API_GET_SHOPPING_DETAIL;
+    }
+    if (_poiType == kHotelPoi) {
+        typeUrl = API_GET_HOTEL_DETAIL;
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", typeUrl, _poiId];
+    
+    
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-        NSLog(@"/***获取美食详情数据****\n%@", responseObject);
+        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
-            _restaurantPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            _restaurantPoi.poiType  = kRestaurantPoi;
+            _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            _commonPoi.poiType  = kRestaurantPoi;
             [self updateView];
         } else {
         }
@@ -135,14 +149,27 @@
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _restaurantPoi.poiId;
-    taoziMessageCtl.messageImage = ((TaoziImage *)[_restaurantPoi.images firstObject]).imageUrl;
-    taoziMessageCtl.messageDesc = _restaurantPoi.desc;
-    taoziMessageCtl.messageName = _restaurantPoi.zhName;
-    taoziMessageCtl.messagePrice = _restaurantPoi.priceDesc;
-    taoziMessageCtl.messageRating = _restaurantPoi.rating;
+    taoziMessageCtl.messageId = _commonPoi.poiId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[_commonPoi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = _commonPoi.desc;
+    taoziMessageCtl.messageName = _commonPoi.zhName;
+    taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+    taoziMessageCtl.messageRating = _commonPoi.rating;
     taoziMessageCtl.chatType = TZChatTypeFood;
-    taoziMessageCtl.messageAddress = _restaurantPoi.address;
+    if (_poiType == kHotelPoi) {
+        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.messageRating = _commonPoi.rating;
+        taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+    } else if (_poiType == kRestaurantPoi) {
+        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.messageRating = _commonPoi.rating;
+        taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+    } else if (_poiType == kShoppingPoi) {
+        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.messageRating = _commonPoi.rating;
+    } 
+
+    taoziMessageCtl.messageAddress = _commonPoi.address;
 }
 
 @end

@@ -513,7 +513,8 @@
             
         } else if (item.type == kRestaurantPoi) {
             CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-            ctl.restaurantId = item.itemId;
+            ctl.poiType = kRestaurantPoi;
+            ctl.poiId = item.itemId;
             [self.navigationController pushViewController:ctl animated:YES];
             
         } else if (item.type == kShoppingPoi) {

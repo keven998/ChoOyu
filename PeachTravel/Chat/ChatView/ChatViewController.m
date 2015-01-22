@@ -1046,7 +1046,8 @@
             
         case TZChatTypeFood: {
             CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            restaurantDetailCtl.restaurantId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            restaurantDetailCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            restaurantDetailCtl.poiType = kRestaurantPoi;
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }

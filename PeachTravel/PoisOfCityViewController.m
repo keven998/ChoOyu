@@ -70,8 +70,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.backBarButtonItem = barButton;
     
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64)];
     self.tableView.dataSource = self;
@@ -758,8 +756,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
-        restaurantDetailCtl.restaurantId = poi.poiId;
-        
+        restaurantDetailCtl.poiId = poi.poiId;
+        restaurantDetailCtl.poiType = kRestaurantPoi;
         [self addChildViewController:restaurantDetailCtl];
         [self.view addSubview:restaurantDetailCtl.view];
         
