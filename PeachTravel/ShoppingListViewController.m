@@ -298,8 +298,8 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
     shoppingDetailCtl.poiId = tripPoi.poiId;
     shoppingDetailCtl.poiType = kShoppingPoi;
-    [self addChildViewController:shoppingDetailCtl];
-    [self.view addSubview:shoppingDetailCtl.view];
+    [self.rootViewController addChildViewController:shoppingDetailCtl];
+    [self.rootViewController.view addSubview:shoppingDetailCtl.view];
 }
 
 - (void)dealloc {
