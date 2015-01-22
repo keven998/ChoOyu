@@ -322,7 +322,8 @@
             [_dataSource removeObjectAtIndex:indexpath.section];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex: indexpath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
             if (_dataSource.count == 0) {
-                [self pullToRefreash:nil];
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
             } else if (indexpath.section < PAGE_COUNT) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [self cacheFirstPage];
@@ -387,7 +388,8 @@
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
     _currentFavoriteType = [_urlArray objectAtIndex:[[itemIndexPath firstObject] integerValue]];
-    [self pullToRefreash:nil];
+    [self.refreshControl beginRefreshing];
+    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 #pragma mark - SINavigationMenuDelegate
@@ -395,7 +397,8 @@
 - (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
 {
     _currentFavoriteType = [_urlArray objectAtIndex:index];
-    [self pullToRefreash:nil];
+    [self.refreshControl beginRefreshing];
+    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 #pragma mark - UITableViewDataSource
