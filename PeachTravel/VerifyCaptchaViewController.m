@@ -32,7 +32,7 @@
    
 //    _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
 //    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+//    _registerBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
 //    [_registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
@@ -63,7 +63,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -71,7 +71,7 @@
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 16.0)];
     pl.text = @"验证码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;

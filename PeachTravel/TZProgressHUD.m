@@ -56,7 +56,7 @@
         _statusLabel.text = status;
         _statusLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _statusLabel.textAlignment = NSTextAlignmentCenter;
-        _statusLabel.font = [UIFont systemFontOfSize:13.0];
+        _statusLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         [_backGroundView addSubview:_statusLabel];
     } else {
         _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];

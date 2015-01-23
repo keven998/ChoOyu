@@ -299,7 +299,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         addSpotBtn.clipsToBounds = YES;
-        addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        addSpotBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         addSpotBtn.layer.cornerRadius = 9;
         addSpotBtn.userInteractionEnabled = NO;
         [addbtn addSubview:addSpotBtn];
@@ -321,7 +321,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [mapBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
         [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
         mapBtn.tag = section;
-        mapBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        mapBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:mapBtn];
     }

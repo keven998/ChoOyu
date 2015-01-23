@@ -29,7 +29,7 @@
         label.text = @"筛选";
         label.textColor = TEXT_COLOR_TITLE;
         label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont systemFontOfSize:15.0];
+        label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
         [self addSubview:label];
         
         _filterScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, self.bounds.size.width, self.bounds.size.height-40-50)];
@@ -106,7 +106,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 15)];
             titleLabel.text = title;
             titleLabel.textColor = TEXT_COLOR_TITLE;
-            titleLabel.font = [UIFont systemFontOfSize:13.0];
+            titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
             [_filterScrollView addSubview:titleLabel];
             offsetY += 20;
         }
@@ -130,7 +130,7 @@
             for (int j=0; j<items.count; j++) {
                 NSString *itemTitle = [items objectAtIndex:j];
                 
-                CGSize size = [itemTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
+                CGSize size = [itemTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
                 
                 if (offsetX + size.width+30 > scrollView.frame.size.width) {
                     offsetX = 0;
@@ -148,7 +148,7 @@
                 btn.layer.borderWidth = 1.0;
                 btn.clipsToBounds = YES;
                 [btn setTitle: itemTitle forState:UIControlStateNormal];
-                btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+                btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
                 btn.tag = j;
                 [btn addTarget:self action:@selector(choseItem:) forControlEvents:UIControlEventTouchUpInside];
                 
@@ -168,7 +168,7 @@
             for (int j=0; j<items.count; j++) {
                 NSString *itemTitle = [items objectAtIndex:j];
                 
-                CGSize size = [itemTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
+                CGSize size = [itemTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
                 UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5, size.width+30, 30)];
                 [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -181,7 +181,7 @@
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
                 [btn setTitle: itemTitle forState:UIControlStateNormal];
-                btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+                btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
                 btn.tag = j;
                 [btn addTarget:self action:@selector(choseItem:) forControlEvents:UIControlEventTouchUpInside]; 
                 if (j == selectedIndex) {

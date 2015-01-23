@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     _userPhoto.layer.cornerRadius = 20.5;
     _userPhoto.clipsToBounds = YES;
+    _cellLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     self.contentView.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     self.contentView.layer.borderWidth = 0.25;
 }

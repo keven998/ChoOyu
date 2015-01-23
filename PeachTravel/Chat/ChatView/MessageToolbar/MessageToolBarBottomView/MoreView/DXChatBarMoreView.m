@@ -42,7 +42,7 @@
     _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_myStrategyButton setTitle:@"旅行计划" forState:UIControlStateNormal];
     [_myStrategyButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _myStrategyButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _myStrategyButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _myStrategyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _myStrategyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     _myStrategyButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
@@ -56,7 +56,7 @@
     [_myFavoriteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
     [_myFavoriteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
     [_myFavoriteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _myFavoriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _myFavoriteButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _myFavoriteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _myFavoriteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -71,7 +71,7 @@
     [_destinationButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
     [_destinationButton setTitle:@"地点" forState:UIControlStateNormal];
     [_destinationButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _destinationButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _destinationButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _destinationButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _destinationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -86,7 +86,7 @@
     [_travelNoteButton addTarget:self action:@selector(travelNoteAction) forControlEvents:UIControlEventTouchUpInside];
     [_travelNoteButton setTitle:@"游记" forState:UIControlStateNormal];
     [_travelNoteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _travelNoteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _travelNoteButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _travelNoteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -101,7 +101,7 @@
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
     [_photoButton setTitle:@"相册" forState:UIControlStateNormal];
     [_photoButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _photoButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _photoButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _photoButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _photoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _photoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -116,7 +116,7 @@
     [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
     [_takePicButton setTitle:@"相机" forState:UIControlStateNormal];
     [_takePicButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _takePicButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _takePicButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _takePicButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _takePicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -132,7 +132,7 @@
 //    _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(insets * 3 + CHAT_BUTTON_SIZE*2, 10 * 2+CHAT_BUTTON_SIZE*2+CHAT_LABEL_HEIGHT, CHAT_BUTTON_SIZE, CHAT_LABEL_HEIGHT)];
 //    _locationLabel.text = @"我的位置";
 //    _locationLabel.textAlignment = NSTextAlignmentCenter;
-//    _locationLabel.font = [UIFont systemFontOfSize:12.0];
+//    _locationLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
 //    [self addSubview:_locationLabel];
 //    [self addSubview:_locationButton];
     

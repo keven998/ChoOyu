@@ -42,7 +42,8 @@
     
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarTintColor:APP_THEME_COLOR];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                           NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
     
     /** 设置友盟 **/
     [UMSocialData openLog:NO];

@@ -50,7 +50,7 @@
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             HUD.indicatorView = nil;
-            HUD.textLabel.font = [UIFont systemFontOfSize:17.0f];
+            HUD.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0f];
             HUD.textLabel.text = @"完成";
             HUD.position = JGProgressHUDPositionBottomCenter;
             [HUD dismissAfterDelay:0.8];

@@ -33,7 +33,7 @@
     CGSize labelSize = [_commentDetail.commentDetails boundingRectWithSize:CGSizeMake(kWindowWidth-18-22, MAXFLOAT)
                                                    options:NSStringDrawingUsesLineFragmentOrigin
                                                 attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                             NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0],
                                                              NSParagraphStyleAttributeName : style
                                                              }
                                                    context:nil].size;
@@ -66,7 +66,7 @@
     CGSize labelSize = [commentDetail boundingRectWithSize:CGSizeMake(kWindowWidth-18-22, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{
-                                                        NSFontAttributeName : [UIFont systemFontOfSize:11.0],
+                                                        NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0],
                                                         NSParagraphStyleAttributeName : style
                                                         }
                                               context:nil].size;

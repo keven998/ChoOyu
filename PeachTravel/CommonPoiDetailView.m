@@ -84,14 +84,14 @@
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x+_imageView.frame.size.width+10, offsetY, self.bounds.size.width-(_imageView.frame.origin.x+_imageView.frame.size.width+20)-20, 20)];
     _titleLabel.textColor = APP_THEME_COLOR;
     _titleLabel.text = _poi.zhName;
-    _titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [_scrollView addSubview:_titleLabel];
     
     offsetY += 25;
     
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, _titleLabel.frame.size.width, 15)];
     _priceLabel.textColor = TEXT_COLOR_TITLE;
-    _priceLabel.font = [UIFont systemFontOfSize:13.0];
+    _priceLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _priceLabel.text = _poi.priceDesc;
     offsetY += 25;
     
@@ -126,13 +126,13 @@
     UILabel *addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 100, 15)];
     addressTitle.textColor = APP_THEME_COLOR;
     addressTitle.text = @"地址";
-    addressTitle.font = [UIFont systemFontOfSize:13.0];
+    addressTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [_scrollView addSubview:addressTitle];
     
     offsetY += 15;
     
     UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
-    addressDetailLabel.font = [UIFont systemFontOfSize:13.0];
+    addressDetailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     addressDetailLabel.textColor = TEXT_COLOR_TITLE;
     addressDetailLabel.numberOfLines = 2.0;
     addressDetailLabel.text = _poi.address;
@@ -159,13 +159,13 @@
     }
 
     descTitleLable.textColor = APP_THEME_COLOR;
-    descTitleLable.font = [UIFont systemFontOfSize:15.0];
+    descTitleLable.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [_scrollView addSubview:descTitleLable];
     
     offsetY += 20;
     
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 55) andNumberOfLine:3];
-    _descView.contentFont = [UIFont systemFontOfSize:13.0];
+    _descView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _poi.desc;
     [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
@@ -229,7 +229,7 @@
     UILabel *commentTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 100, 15)];
     commentTitleLabel.text = @"网友点评";
     commentTitleLabel.textColor = APP_THEME_COLOR;
-    commentTitleLabel.font = [UIFont systemFontOfSize:15.0];
+    commentTitleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [_panelTwoView addSubview:commentTitleLabel];
 
     _commentBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 50, _panelTwoView.bounds.size.width-20, 30)];

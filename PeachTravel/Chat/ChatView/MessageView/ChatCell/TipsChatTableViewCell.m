@@ -19,7 +19,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.textAlignment = NSTextAlignmentCenter;
-    self.textLabel.font = [UIFont systemFontOfSize:14];
+    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
     self.textLabel.textColor = UIColorFromRGB(0x797979);
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.textLabel.numberOfLines = 2;

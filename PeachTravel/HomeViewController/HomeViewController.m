@@ -340,8 +340,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     for (RDVTabBarItem *item in [[self tabBar] items]) {
         item.titlePositionAdjustment = UIOffsetMake(0, 6);
-        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
+        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
+        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
         
         item.itemHeight = 49.0;
         item.backgroundColor = APP_THEME_COLOR;

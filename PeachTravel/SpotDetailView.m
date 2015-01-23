@@ -79,7 +79,7 @@
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x+_imageView.frame.size.width+10, offsetY, self.bounds.size.width-(_imageView.frame.origin.x+_imageView.frame.size.width+20)-20, 20)];
     _titleLabel.textColor = APP_THEME_COLOR;
     _titleLabel.text = _spot.zhName;
-    _titleLabel.font = [UIFont systemFontOfSize:15.0];
+    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [_scrollView addSubview:_titleLabel];
     
     offsetY += 25;
@@ -109,13 +109,13 @@
     UILabel *addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 100, 15)];
     addressTitle.textColor = APP_THEME_COLOR;
     addressTitle.text = @"地址";
-    addressTitle.font = [UIFont systemFontOfSize:13.0];
+    addressTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [_scrollView addSubview:addressTitle];
     
     offsetY += 15;
     
     UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
-    addressDetailLabel.font = [UIFont systemFontOfSize:13.0];
+    addressDetailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     addressDetailLabel.textColor = TEXT_COLOR_TITLE;
     addressDetailLabel.numberOfLines = 2.0;
     addressDetailLabel.text = _spot.address;

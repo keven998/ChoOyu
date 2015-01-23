@@ -366,7 +366,7 @@
 //    style.lineSpacing = 2.0;
 //    style.lineBreakMode = NSLineBreakByTruncatingTail;
 //
-//    _inputTextView.typingAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0],
+//    _inputTextView.typingAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:14.0],
 //                                        NSParagraphStyleAttributeName : style
 //                                        };
 //    _previousTextViewContentHeight = [self getTextViewContentH:_inputTextView];
@@ -381,7 +381,7 @@
     _inputTextView.layer.cornerRadius = 2.0f;
     _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
-    self.inputTextView.font = [UIFont systemFontOfSize:15.0f];
+    self.inputTextView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0f];
     self.inputTextView.delegate = self;
     self.inputTextView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
     self.inputTextView.backgroundColor = [UIColor whiteColor];
@@ -390,7 +390,7 @@
     
     //录制
     self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(textViewLeftMargin, kVerticalPadding, width, kInputTextViewMinHeight)];
-    self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    self.recordButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];

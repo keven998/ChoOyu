@@ -56,7 +56,7 @@
     
 //    _confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
 //    [_confirm setTitle:@"确定" forState:UIControlStateNormal];
-//    _confirm.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//    _confirm.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
 //    [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
 //    _confirm.userInteractionEnabled = NO;
 //    _confirm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;

@@ -67,7 +67,7 @@ static NSString *reusableCell = @"myGuidesCell";
     //[button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -485,7 +485,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 144+imageView.frame.size.height/2.0, width, 64.0)];
 //    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    desc.font = [UIFont systemFontOfSize:14.0];
+    desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     desc.numberOfLines = 2;
 //    desc.textAlignment = NSTextAlignmentCenter;
     NSString *text = @"竟然一个旅行计划都没有～";

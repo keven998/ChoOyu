@@ -32,7 +32,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 {
     if (self = [super initWithFrame:frame]) {
         _typeLabel = [[UILabel alloc] init];
-        _typeLabel.font = [UIFont systemFontOfSize:10.0];
+        _typeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
         _typeLabel.textColor = [UIColor whiteColor];
         _typeLabel.backgroundColor = [UIColor clearColor];
         
@@ -49,12 +49,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         
         _propertyBtn = [[UIButton alloc] init];
         [_propertyBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _propertyBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        _propertyBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         _propertyBtn.userInteractionEnabled = NO;
         _propertyBtn.backgroundColor = [UIColor clearColor];
         
         _descLabel = [[UILabel alloc] init];
-        _descLabel.font = [UIFont systemFontOfSize:10.0];
+        _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
         _descLabel.textColor = [UIColor lightGrayColor];
         _descLabel.backgroundColor = [UIColor clearColor];
         _descLabel.numberOfLines = 2;

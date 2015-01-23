@@ -114,7 +114,7 @@
     [_contentFrame addSubview:lv];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(21.0, offsetY-1, w, 16.0)];
-    title.font = [UIFont systemFontOfSize:16.0];
+    title.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
     title.textColor = APP_THEME_COLOR;
     title.textAlignment = NSTextAlignmentLeft;
     title.text = @"桃子旅行助手";
@@ -125,7 +125,7 @@
     _weatherLabel.textAlignment = NSTextAlignmentRight;
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = UIColorFromRGB(0x7a7a7a);
-    _weatherLabel.font = [UIFont systemFontOfSize:9.0];
+    _weatherLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
     
     _weatherLabel.numberOfLines = 2;
     [_contentFrame addSubview:_weatherLabel];
@@ -143,7 +143,7 @@
     [_planBtn addSubview:myGuideTitleLabel];
     
     UILabel *guideSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 35, _planBtn.bounds.size.width - 20.0, 60)];
-    guideSubTitle.font = [UIFont systemFontOfSize:12];
+    guideSubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     guideSubTitle.numberOfLines = 3;
     guideSubTitle.textColor = TEXT_COLOR_TITLE_PH;
     [_planBtn addSubview:guideSubTitle];
@@ -151,7 +151,7 @@
     UILabel *guideSimButton = [[UILabel alloc] initWithFrame:CGRectMake(10.0, _planBtn.bounds.size.height - 38, _planBtn.bounds.size.width - 20.0, 28)];
     guideSimButton.textColor = [UIColor whiteColor];
     guideSimButton.backgroundColor = APP_THEME_COLOR;
-    guideSimButton.font = [UIFont systemFontOfSize:13.];
+    guideSimButton.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.];
     guideSimButton.layer.cornerRadius = 4.0;
     guideSimButton.textAlignment = NSTextAlignmentCenter;
     guideSimButton.clipsToBounds = YES;
@@ -181,7 +181,7 @@
     [_aroundBtn addSubview:nearByTitleLabel];
     
     UILabel *nearBySubTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 35, _aroundBtn.bounds.size.width - 20.0, 60)];
-    nearBySubTitle.font = [UIFont systemFontOfSize:12];
+    nearBySubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     nearBySubTitle.numberOfLines = 3;
     nearBySubTitle.textColor = TEXT_COLOR_TITLE_PH;
     [_aroundBtn addSubview:nearBySubTitle];
@@ -189,7 +189,7 @@
     UILabel *nearBySimButton = [[UILabel alloc] initWithFrame:CGRectMake(10.0, _aroundBtn.bounds.size.height - 38, _aroundBtn.bounds.size.width - 20.0, 28)];
     nearBySimButton.textColor = [UIColor whiteColor];
     nearBySimButton.backgroundColor = APP_THEME_COLOR;
-    nearBySimButton.font = [UIFont systemFontOfSize:13.];
+    nearBySimButton.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.];
     nearBySimButton.layer.cornerRadius = 4.0;
     nearBySimButton.textAlignment = NSTextAlignmentCenter;
     nearBySimButton.clipsToBounds = YES;
@@ -383,7 +383,7 @@
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, s.length)];
     [_weatherLabel setAttributedText:desc];
     
-    CGFloat offsetX = [[yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:9]}].width;
+    CGFloat offsetX = [[yahooWeatherCode objectAtIndex:_weatherInfo.mCurrentCode] sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:9]}].width;
     UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 13, 14, 9, 10.5)];
     weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
     weatherImageview.backgroundColor = [UIColor grayColor];

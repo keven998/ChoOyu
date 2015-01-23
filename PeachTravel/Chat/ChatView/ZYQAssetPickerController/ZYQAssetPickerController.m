@@ -223,7 +223,7 @@ static UIColor *titleColor;
 
 + (void)initialize
 {
-    titleFont       = [UIFont systemFontOfSize:12];
+    titleFont       = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     titleHeight     = 20.0f;
     titleColor      = [UIColor whiteColor];
 }
@@ -527,7 +527,7 @@ static UIColor *titleColor;
         
         if (cell==nil) {
             cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellFooter"];
-            cell.textLabel.font=[UIFont systemFontOfSize:18];
+            cell.textLabel.font=[UIFont fontWithName:@"MicrosoftYaHei" size:18];
             cell.textLabel.backgroundColor=[UIColor clearColor];
             cell.textLabel.textAlignment=NSTextAlignmentCenter;
             cell.textLabel.textColor=[UIColor blackColor];
@@ -910,7 +910,7 @@ static UIColor *titleColor;
     title.numberOfLines     = 5;
     
     message.text            = NSLocalizedString(@"你可以在「隐私设置」中启用存取。", nil);
-    message.font            = [UIFont systemFontOfSize:14.0];
+    message.font            = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     message.textColor       = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
     message.textAlignment   = NSTextAlignmentCenter;
     message.numberOfLines   = 5;
@@ -952,13 +952,13 @@ static UIColor *titleColor;
     message.preferredMaxLayoutWidth = 304.0f;
     
     title.text              = NSLocalizedString(@"没有照片或视频。", nil);
-    title.font              = [UIFont systemFontOfSize:26.0];
+    title.font              = [UIFont fontWithName:@"MicrosoftYaHei" size:26.0];
     title.textColor         = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
     title.textAlignment     = NSTextAlignmentCenter;
     title.numberOfLines     = 5;
     
     message.text            = NSLocalizedString(@"您可以使用 iTunes 将照片和视频\n同步到 iPhone。", nil);
-    message.font            = [UIFont systemFontOfSize:18.0];
+    message.font            = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
     message.textColor       = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
     message.textAlignment   = NSTextAlignmentCenter;
     message.numberOfLines   = 5;

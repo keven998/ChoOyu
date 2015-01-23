@@ -74,7 +74,7 @@
     [self.filterView setDelegate:self];
     _filterView.backgroundColor = [UIColor whiteColor];
     _filterView.titlesColor = TEXT_COLOR_TITLE_HINT;
-    _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
+    _filterView.titlesFont = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
     _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
 
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
@@ -101,7 +101,7 @@
     
     _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 30.0)];
     _locLabel.textColor = [UIColor whiteColor];
-    _locLabel.font = [UIFont systemFontOfSize:11.0];
+    _locLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
     [fbar addSubview:_locLabel];
     
     _reLocBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(fbar.frame) - 48.0 , 0.0, 48.0, 30.0)];

@@ -53,7 +53,7 @@
 //        [frameView addSubview:popBgView];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:11];
+        _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
         _detailLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [frameView addSubview:_detailLabel];
@@ -61,7 +61,7 @@
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _unreadLabel.backgroundColor = APP_THEME_COLOR;
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
-        _unreadLabel.font = [UIFont systemFontOfSize:13.0];
+        _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
         _unreadLabel.layer.cornerRadius = 3.0;
         _unreadLabel.clipsToBounds = YES;
@@ -100,7 +100,7 @@
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont systemFontOfSize:14.0];
+    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
     self.textLabel.frame = CGRectMake(60.0, 10.0, width - 110.0, 18.0);
     
@@ -119,11 +119,11 @@
     
     if (_unreadCount > 0) {
         if (_unreadCount < 9) {
-            _unreadLabel.font = [UIFont systemFontOfSize:12];
+            _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
         }else if(_unreadCount > 9 && _unreadCount < 99){
-            _unreadLabel.font = [UIFont systemFontOfSize:11];
+            _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
         }else{
-            _unreadLabel.font = [UIFont systemFontOfSize:10];
+            _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];

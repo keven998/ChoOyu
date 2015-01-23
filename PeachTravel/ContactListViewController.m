@@ -140,7 +140,7 @@
     self.emptyView.center = CGPointMake(self.view.frame.size.width/2.0, 160.0);
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 20.0, width - 50.0, 16.0)];
-    label1.font = [UIFont systemFontOfSize:14.0];
+    label1.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     label1.textColor = APP_THEME_COLOR;
     label1.textAlignment = NSTextAlignmentCenter;
     label1.textAlignment = NSTextAlignmentLeft;
@@ -148,7 +148,7 @@
     [self.emptyView addSubview:label1];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 40.0, width - 50.0, 16.0)];
-    label.font = [UIFont systemFontOfSize:13.0];
+    label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
@@ -162,7 +162,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 32.0);
     [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitle:@"加桃友" forState:UIControlStateNormal];
     btn.center = CGPointMake(width/2.0, 114.0);
@@ -321,7 +321,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, 25.0)];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:12.0];
+        label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         label.textColor = UIColorFromRGB(0xadadad);
         label.clipsToBounds = YES;
         label.layer.cornerRadius = 2.0;

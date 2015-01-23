@@ -34,7 +34,7 @@
         _remarkLabel.clipsToBounds = YES;
         _remarkLabel.numberOfLines = 0;
         _remarkLabel.textAlignment = NSTextAlignmentCenter;
-        _remarkLabel.font = [UIFont systemFontOfSize:10.0];
+        _remarkLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
         _remarkLabel.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
         _remarkLabel.textColor = [UIColor whiteColor];
         [_imageView addSubview:_remarkLabel];

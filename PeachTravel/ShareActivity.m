@@ -200,7 +200,7 @@
         [self.backGroundView addSubview:taoziLabel];
         taoziLabel.backgroundColor = [UIColor clearColor];
         taoziLabel.textAlignment = NSTextAlignmentCenter;
-        taoziLabel.font = [UIFont systemFontOfSize:10.];
+        taoziLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.];
         taoziLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         
         if (shareButtonTitlesArray.count > 0 && shareButtonImagesNameArray.count > 0) {
@@ -288,7 +288,7 @@
     
     shareLabel.backgroundColor = [UIColor clearColor];
     shareLabel.textAlignment = NSTextAlignmentCenter;
-    shareLabel.font = [UIFont systemFontOfSize:11.];
+    shareLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.];
     shareLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     return shareLabel;
 }

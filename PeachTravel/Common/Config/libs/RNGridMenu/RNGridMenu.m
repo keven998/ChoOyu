@@ -341,7 +341,7 @@ static RNGridMenu *rn_visibleGridMenu;
         _blurLevel = kRNGridMenuDefaultBlur;
         _animationDuration = kRNGridMenuDefaultDuration;
         _itemTextColor = TEXT_COLOR_TITLE;
-        _itemFont = [UIFont systemFontOfSize:13.f];
+        _itemFont = [UIFont fontWithName:@"MicrosoftYaHei" size:13.f];
         _highlightColor = nil;
         _menuStyle = RNGridMenuStyleGrid;
         _itemTextAlignment = NSTextAlignmentCenter;

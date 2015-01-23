@@ -59,7 +59,7 @@
     _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.75];
     _imagePageIndicator.textColor = [UIColor whiteColor];
     _imagePageIndicator.layer.cornerRadius = 4.0;
-    _imagePageIndicator.font = [UIFont systemFontOfSize:13];
+    _imagePageIndicator.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
     _imagePageIndicator.text = @"画册";
     _imagePageIndicator.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_imagePageIndicator];
@@ -100,7 +100,7 @@
     CGFloat oy = 30;
     
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy + 15, width-20, 32) andNumberOfLine:2];
-    _descView.contentFont = [UIFont systemFontOfSize:12.0];
+    _descView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _cityPoi.desc;
     _descView.backgroundColor = [UIColor whiteColor];
@@ -139,7 +139,7 @@
     CGSize timeCostLabelSize = [_cityPoi.timeCostDesc boundingRectWithSize:CGSizeMake(self.bounds.size.width-114, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{
-                                                        NSFontAttributeName : [UIFont systemFontOfSize:13.0],
+                                                        NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
                                                         NSParagraphStyleAttributeName : style
                                                         }
                                               context:nil].size;
@@ -147,7 +147,7 @@
     CGFloat timeCostHeight = timeCostLabelSize.height + 20;
     _timeCostBtn.frame = CGRectMake(0, oy, width, timeCostHeight);
     [_timeCostBtn setAttributedTitle:[_cityPoi.timeCostDesc stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
-    _timeCostBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    _timeCostBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 110, 0, 10);
     _timeCostBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -155,7 +155,7 @@
     UIButton *timeCostSubTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 92, _timeCostBtn.frame.size.height)];
     [timeCostSubTitle setTitle:@"建议旅程安排" forState:UIControlStateNormal];
     [timeCostSubTitle setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    timeCostSubTitle.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    timeCostSubTitle.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     timeCostSubTitle.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_timeCostBtn addSubview:timeCostSubTitle];
     timeCostSubTitle.userInteractionEnabled = NO;
@@ -167,14 +167,14 @@
     UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, 92, 24)];
     [subTitle setTitle:@"最佳旅行季节" forState:UIControlStateNormal];
     [subTitle setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    subTitle.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    subTitle.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     subTitle.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_headerView addSubview:subTitle];
     subTitle.userInteractionEnabled = NO;
     
     
     _travelMonthBtn = [[ResizableView alloc] initWithFrame:CGRectMake(110, oy, width - 120, 48) andNumberOfLine:3];
-    _travelMonthBtn.contentFont = [UIFont systemFontOfSize:13.0];
+    _travelMonthBtn.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _travelMonthBtn.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _travelMonthBtn.content = _cityPoi.travelMonth;
 //    _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 110, 0, 10);
@@ -196,14 +196,14 @@
 //    CGSize travelMonthLabelSize = [_cityPoi.travelMonth boundingRectWithSize:CGSizeMake(self.bounds.size.width-114, MAXFLOAT)
 //                                                                   options:NSStringDrawingUsesLineFragmentOrigin
 //                                                                attributes:@{
-//                                                                             NSFontAttributeName : [UIFont systemFontOfSize:13.0],
+//                                                                             NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
 //                                                                             NSParagraphStyleAttributeName : style
 //                                                                             }
 //                                                                   context:nil].size;
 //    CGFloat travelMonthHeight = travelMonthLabelSize.height + 20;
 //    _travelMonthBtn.frame = CGRectMake(0, oy, width, travelMonthHeight);
 //    [_travelMonthBtn setAttributedTitle:[_cityPoi.travelMonth stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
-//    _travelMonthBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+//    _travelMonthBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
 //    _travelMonthBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
 //    _travelMonthBtn.backgroundColor = [UIColor whiteColor];
 //    _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 110, 0, 10);
@@ -278,7 +278,7 @@
 //    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 0, 108, 30)];
 //    [allNotes setTitle:@"更多游记" forState:UIControlStateNormal];
 //    [allNotes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    allNotes.titleLabel.font = [UIFont systemFontOfSize:13.0];
+//    allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
 //    [allNotes setImage:[UIImage imageNamed:@"cell_accessory_gray.png"] forState:UIControlStateNormal];
 //    allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
 //    allNotes.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);

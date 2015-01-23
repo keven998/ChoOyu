@@ -43,7 +43,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _verifyCodeTextField.bounds.size.height - 16.0)];
     ul.text = @" 验证码:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _verifyCodeTextField.leftView = ul;
     _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;

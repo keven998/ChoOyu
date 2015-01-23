@@ -256,7 +256,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 {
     NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
     return CGSizeMake(size.width + 23.0, size.height + 10);
 }
 

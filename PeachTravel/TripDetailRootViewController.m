@@ -71,7 +71,7 @@
     [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
     [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _backButton.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
@@ -122,7 +122,7 @@
         [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
         [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-        _backButton.titleLabel.font = [UIFont systemFontOfSize:17.0];
+        _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
         _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
         _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
@@ -131,7 +131,7 @@
     } else {
         _finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
         [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-        _finishBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        _finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _finishBtn.layer.borderWidth = 1.0;
         _finishBtn.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -186,7 +186,7 @@
         _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        _forkBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_forkBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
@@ -609,7 +609,7 @@
         [array addObject:button];
         [_tabBarView addSubview:button];
         button.tag = i;
-        button.titleLabel.font = [UIFont systemFontOfSize:11.0];
+        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(26, 0, -10, 0)];
         [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
         

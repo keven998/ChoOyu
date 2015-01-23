@@ -190,7 +190,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
 //    CountryDestination *country = _destinations.foreignCountries[indexPath.section];
-//    CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
+//    CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
 //    NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width - 20) + 1 ;
 //    CGFloat height = lineCount*size.height + 120.0 + 20 + 12.0;
     return CGSizeMake(self.foreignCollectionView.frame.size.width, 28.0);
@@ -200,7 +200,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 {
     CountryDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
+    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
     return CGSizeMake(size.width+30, size.height + 10);
 }
 

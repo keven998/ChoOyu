@@ -85,7 +85,7 @@
     //[button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -479,7 +479,7 @@
 //        NSString *text = ((Favorite *)[_dataSource objectAtIndex:indexPath.row]).desc;
 //        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 //        style.lineSpacing = 4.0;
-//        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13.0],
+//        NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
 //                                     NSParagraphStyleAttributeName : style};
 //        CGRect rect = [text boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT)
 //                                              options:NSStringDrawingUsesLineFragmentOrigin

@@ -306,12 +306,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //    [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
 //    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-//    btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+//    btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
 //    btn.backgroundColor = [UIColor whiteColor];
 //    
 //    UIButton *moreTravelNoteBtn = [[UIButton alloc] initWithFrame:CGRectMake(btn.frame.size.width-75, 0, 80, 30)];
 //    moreTravelNoteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//    moreTravelNoteBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+//    moreTravelNoteBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
 //    moreTravelNoteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12.0);
 //    [moreTravelNoteBtn addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
 //    
@@ -348,7 +348,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 20, 108, 30)];
     [allNotes setTitle:@"更多游记" forState:UIControlStateNormal];
     [allNotes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    allNotes.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [allNotes setImage:[UIImage imageNamed:@"cell_accessory_gray.png"] forState:UIControlStateNormal];
     allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
     allNotes.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);

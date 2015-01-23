@@ -41,7 +41,7 @@
     CGFloat width = self.view.frame.size.width;
     
     UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 84.0, width-30, 20.0)];
-    desc1.font = [UIFont systemFontOfSize:13.0];
+    desc1.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
     desc1.text = @"美眉们有什么需要的请尽管吩咐";
@@ -55,7 +55,7 @@
     UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 5.0, width - 10.0, 76.0)];
     suggestion.backgroundColor = [UIColor clearColor];
     suggestion.textColor = TEXT_COLOR_TITLE;
-    suggestion.font = [UIFont systemFontOfSize:14.0];
+    suggestion.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     suggestion.scrollEnabled = YES;
     [eborder addSubview:suggestion];
     contentEditor = suggestion;

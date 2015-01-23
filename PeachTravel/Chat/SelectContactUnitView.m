@@ -21,7 +21,7 @@
         [_deleteBtn setImage:[UIImage imageNamed:@"ic_remove_select_one.png"] forState:UIControlStateNormal];
         _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 40, 20)];
         _nickNameLabel.textAlignment = NSTextAlignmentCenter;
-        _nickNameLabel.font = [UIFont systemFontOfSize:12.0];
+        _nickNameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         _nickNameLabel.textColor = UIColorFromRGB(0x797979);
         [self addSubview:_avatarBtn];
         [self addSubview:_deleteBtn];

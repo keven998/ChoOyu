@@ -35,7 +35,7 @@
         [_textBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         _textBtn.titleLabel.numberOfLines = 2;
         _textBtn.backgroundColor = [UIColor clearColor];
-        _textBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
+        _textBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
         [self addSubview:_textBtn];
     }
    

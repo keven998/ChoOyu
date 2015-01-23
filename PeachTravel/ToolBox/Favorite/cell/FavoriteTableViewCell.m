@@ -13,6 +13,11 @@
 
 - (void)awakeFromNib {
     self.backgroundColor = APP_PAGE_COLOR;
+    
+    _contentType.font = [UIFont fontWithName:@"MicrosoftYaHei" size:26.0];
+    _contentLocation.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    _contentTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    _timeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
 
     _standardImageView.clipsToBounds = YES;
     _standardImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
@@ -22,6 +27,7 @@
     _contentDescExpandView.titleLabel.numberOfLines = 4;
     _contentDescExpandView.clipsToBounds = YES;
     _contentDescExpandView.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _contentDescExpandView.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
     [_contentDescExpandView sizeToFit];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;

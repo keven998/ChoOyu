@@ -118,7 +118,7 @@
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y+itemHeigh, itemWidth, 20)];
         label.text = [_titles objectAtIndex:i];
-        label.font = [UIFont systemFontOfSize:10.0];
+        label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
         label.textAlignment = NSTextAlignmentCenter;
         [self.scrollView addSubview:label];
     }

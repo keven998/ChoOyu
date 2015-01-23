@@ -25,7 +25,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
     self = [super initWithFrame:frame];
     if (self) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont systemFontOfSize:12.0];
+        _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         _titleLabel.textColor = [UIColor whiteColor];
         
         _titleImageView = [[UIImageView alloc] init];

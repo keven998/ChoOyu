@@ -51,7 +51,7 @@
         //[button setTitle:@"返回" forState:UIControlStateNormal];
         [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-        button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
         button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -63,7 +63,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     ul.text = @" 账户:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _userNameTextField.leftView = ul;
     _userNameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
@@ -72,7 +72,7 @@
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     pl.text = @" 密码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordTextField.leftView = pl;
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;

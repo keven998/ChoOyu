@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C106a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -109,10 +109,12 @@
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFJ-eP-Ebm">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="68" id="lNz-pT-fe8"/>
+                                    <constraint firstAttribute="height" constant="68" id="lNz-pT-fe8">
+                                        <variation key="widthClass=compact" constant="70"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Button">
+                                <state key="normal">
                                     <color key="titleColor" red="0.47450980392156861" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -167,17 +169,17 @@
                                 <exclude reference="WFJ-eP-Ebm"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="GxY-4I-kKO"/>
-                                <exclude reference="n1C-O0-zAd"/>
+                                <exclude reference="fH8-Dk-1pM"/>
+                                <exclude reference="k71-4r-obK"/>
                                 <exclude reference="fvk-S6-Z13"/>
                                 <exclude reference="h7A-oh-d5b"/>
+                                <exclude reference="GSh-92-xR0"/>
+                                <exclude reference="NaM-sz-XOP"/>
                                 <exclude reference="FNk-qq-auJ"/>
                                 <exclude reference="KWi-KH-Igy"/>
                                 <exclude reference="ZmO-DM-VRl"/>
-                                <exclude reference="GSh-92-xR0"/>
-                                <exclude reference="NaM-sz-XOP"/>
-                                <exclude reference="fH8-Dk-1pM"/>
-                                <exclude reference="k71-4r-obK"/>
+                                <exclude reference="GxY-4I-kKO"/>
+                                <exclude reference="n1C-O0-zAd"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -189,17 +191,17 @@
                                 <include reference="WFJ-eP-Ebm"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="GxY-4I-kKO"/>
-                                <include reference="n1C-O0-zAd"/>
+                                <include reference="fH8-Dk-1pM"/>
+                                <include reference="k71-4r-obK"/>
                                 <include reference="fvk-S6-Z13"/>
                                 <include reference="h7A-oh-d5b"/>
+                                <include reference="GSh-92-xR0"/>
+                                <include reference="NaM-sz-XOP"/>
                                 <include reference="FNk-qq-auJ"/>
                                 <include reference="KWi-KH-Igy"/>
                                 <include reference="ZmO-DM-VRl"/>
-                                <include reference="GSh-92-xR0"/>
-                                <include reference="NaM-sz-XOP"/>
-                                <include reference="fH8-Dk-1pM"/>
-                                <include reference="k71-4r-obK"/>
+                                <include reference="GxY-4I-kKO"/>
+                                <include reference="n1C-O0-zAd"/>
                             </mask>
                         </variation>
                     </view>
@@ -267,16 +269,16 @@
                         <exclude reference="IXM-Ku-4nM"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="bl8-7J-Bja"/>
+                        <exclude reference="cSs-l8-DEj"/>
+                        <exclude reference="jEB-Zy-GkJ"/>
+                        <exclude reference="Cos-yJ-Ev3"/>
+                        <exclude reference="JjD-qk-tnw"/>
+                        <exclude reference="svy-bT-2jR"/>
                         <exclude reference="6II-Sz-1Rj"/>
                         <exclude reference="G4w-m0-Hqa"/>
                         <exclude reference="Ywy-3m-RSo"/>
                         <exclude reference="dCu-Nw-cXy"/>
-                        <exclude reference="Cos-yJ-Ev3"/>
-                        <exclude reference="JjD-qk-tnw"/>
-                        <exclude reference="svy-bT-2jR"/>
-                        <exclude reference="bl8-7J-Bja"/>
-                        <exclude reference="cSs-l8-DEj"/>
-                        <exclude reference="jEB-Zy-GkJ"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -286,16 +288,16 @@
                         <include reference="IXM-Ku-4nM"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="bl8-7J-Bja"/>
+                        <include reference="cSs-l8-DEj"/>
+                        <include reference="jEB-Zy-GkJ"/>
+                        <include reference="Cos-yJ-Ev3"/>
+                        <include reference="JjD-qk-tnw"/>
+                        <include reference="svy-bT-2jR"/>
                         <include reference="6II-Sz-1Rj"/>
                         <include reference="G4w-m0-Hqa"/>
                         <include reference="Ywy-3m-RSo"/>
                         <include reference="dCu-Nw-cXy"/>
-                        <include reference="Cos-yJ-Ev3"/>
-                        <include reference="JjD-qk-tnw"/>
-                        <include reference="svy-bT-2jR"/>
-                        <include reference="bl8-7J-Bja"/>
-                        <include reference="cSs-l8-DEj"/>
-                        <include reference="jEB-Zy-GkJ"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

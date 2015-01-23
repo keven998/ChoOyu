@@ -31,7 +31,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _textLabel.numberOfLines = 0;
         _textLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _textLabel.font = [UIFont systemFontOfSize:LABEL_FONT_SIZE];
+        _textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:LABEL_FONT_SIZE];
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.userInteractionEnabled = NO;
         _textLabel.multipleTouchEnabled = NO;
@@ -278,7 +278,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 
 + (UIFont *)textLabelFont
 {
-    return [UIFont systemFontOfSize:LABEL_FONT_SIZE];
+    return [UIFont fontWithName:@"MicrosoftYaHei" size:LABEL_FONT_SIZE];
 }
 
 + (NSLineBreakMode)textLabelLineBreakModel

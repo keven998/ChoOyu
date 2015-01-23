@@ -15,7 +15,7 @@
     
     self.contentView.layer.borderWidth = 0.25f;
     self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
-    
+    _titleView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [_switchButton setOnTintColor:APP_THEME_COLOR];
 }
 

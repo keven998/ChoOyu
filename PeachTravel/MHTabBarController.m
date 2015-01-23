@@ -84,7 +84,7 @@ static const NSInteger TAG_OFFSET = 1000;
 		button.tag = TAG_OFFSET + index;
 		[button setTitle:viewController.title forState:UIControlStateNormal];
 		[button addTarget:self action:@selector(tabButtonPressed:) forControlEvents:UIControlEventTouchDown];
-		button.titleLabel.font = [UIFont systemFontOfSize:16.0];
+		button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
         [button setImageEdgeInsets:UIEdgeInsetsMake(-16.0, 70.0, 0.0, 0.0)];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 20.0, 0.0, 27.0)];
         if (viewController.notify) {

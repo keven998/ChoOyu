@@ -79,7 +79,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 //    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
 //    [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
 //    finishBtn.layer.cornerRadius = 2.0;
-//    finishBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+//    finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
 //    finishBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
 //    finishBtn.layer.borderWidth = 1.0;
 //    [finishBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];

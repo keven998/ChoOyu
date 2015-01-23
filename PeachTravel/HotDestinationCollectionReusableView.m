@@ -11,6 +11,7 @@
 @implementation HotDestinationCollectionReusableView
 
 - (void)awakeFromNib {
+    _collectionHeaderView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
 }
 
 @end
