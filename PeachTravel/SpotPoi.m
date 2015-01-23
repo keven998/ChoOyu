@@ -34,6 +34,14 @@
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
         _guideUrl = [json objectForKey:@"guideUrl"];
         _tipsUrl = [json objectForKey:@"tipsUrl"];
+        
+        if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
+            _rating = 3.5;
+        } else  if ([[json objectForKey:@"rating"] floatValue] > 1){
+            _rating = [[json objectForKey:@"rating"] floatValue];
+        } else {
+            _rating = [[json objectForKey:@"rating"] floatValue]*5;
+        }
         _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
     }
     return self;

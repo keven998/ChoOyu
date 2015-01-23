@@ -346,15 +346,17 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
-            [self.rootViewController.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self.rootViewController addChildViewController:spotDetailCtl];
+            [self.rootViewController.view addSubview:spotDetailCtl.view];
+
         }
             break;
         case kRestaurantPoi: {
             CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
             restaurantDetailCtl.poiId = tripPoi.poiId;
             restaurantDetailCtl.poiType = kRestaurantPoi;
-            [self addChildViewController:restaurantDetailCtl];
-            [self.view addSubview:restaurantDetailCtl.view];
+            [self.rootViewController addChildViewController:restaurantDetailCtl];
+            [self.rootViewController.view addSubview:restaurantDetailCtl.view];
         }
             
             break;
@@ -362,8 +364,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
             shoppingDetailCtl.poiId = tripPoi.poiId;
             shoppingDetailCtl.poiType = kShoppingPoi;
-            [self addChildViewController:shoppingDetailCtl];
-            [self.view addSubview:shoppingDetailCtl.view];
+            [self.rootViewController addChildViewController:shoppingDetailCtl];
+            [self.rootViewController.view addSubview:shoppingDetailCtl.view];
         }
             
             break;
@@ -371,8 +373,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             CommonPoiDetailViewController *hotelDetailCtl = [[CommonPoiDetailViewController alloc] init];
             hotelDetailCtl.poiId = tripPoi.poiId;
             hotelDetailCtl.poiType = kHotelPoi;
-            [self addChildViewController:hotelDetailCtl];
-            [self.view addSubview:hotelDetailCtl.view];
+            [self.rootViewController addChildViewController:hotelDetailCtl];
+            [self.rootViewController.view addSubview:hotelDetailCtl.view];
         }
             
             break;

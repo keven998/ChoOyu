@@ -191,7 +191,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
 - (MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay
 {
     MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:_line];
-    lineView.strokeColor = [UIColor blueColor];
+    lineView.strokeColor = APP_THEME_COLOR;
     lineView.lineWidth = 2;
     return lineView;
 }

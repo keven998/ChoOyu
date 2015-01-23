@@ -11,11 +11,13 @@
 #import "SpotPoi.h"
 #import "AccountManager.h"
 #import "SuperWebViewController.h"
+#import "UIImage+BoxBlur.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
 
 @property (nonatomic, strong) SpotPoi *spotPoi;
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
+@property (nonatomic, strong) UIImageView *backGroundImageView;
 
 @end
 
@@ -23,16 +25,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
+    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    [self.view addSubview:_backGroundImageView];
+    [self.view addSubview:view];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [view addGestureRecognizer:tap];
+    
     [self loadData];
 }
 
 - (void)updateView
 {
-    CGRect frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
-    _spotDetailView = [[SpotDetailView alloc] initWithFrame:frame];
+    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 20, self.view.bounds.size.width-30, self.view.bounds.size.height-40)];
     _spotDetailView.spot = self.spotPoi;
     self.navigationItem.title = self.spotPoi.zhName;
+    _spotDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:_spotDetailView];
+    
+    _spotDetailView.alpha = 0;
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _spotDetailView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+    [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
@@ -43,11 +67,47 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)dismissCtl
+{
+    [SVProgressHUD dismiss];
+    self.navigationController.navigationBar.hidden = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self willMoveToParentViewController:nil];
+        [self removeFromParentViewController];
+        [self.view removeFromSuperview];
+    }];
+    
+}
+
+- (void)dealloc
+{
+    NSLog(@"citydetailCtl dealloc");
 }
 
 
 #pragma mark - Private Methods
+
+- (UIImage *)screenShotWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+    image = [UIImage imageWithData:imageData];
+    return image;
+}
 
 - (void) loadData
 {
@@ -62,14 +122,10 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
-
-     __weak typeof(SpotDetailViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
-
+    [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
+        [SVProgressHUD dismiss];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取景点详情数据****\n%@", responseObject);
         if (result == 0) {
@@ -81,7 +137,7 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+        [SVProgressHUD dismiss];
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }

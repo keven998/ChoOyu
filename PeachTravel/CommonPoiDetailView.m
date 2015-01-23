@@ -164,14 +164,14 @@
     
     offsetY += 20;
     
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 50) andNumberOfLine:3];
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-20, 55) andNumberOfLine:3];
     _descView.contentFont = [UIFont systemFontOfSize:13.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _poi.desc;
     [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_descView];
 
-    _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width - 25, offsetY+50, 10, 8)];
+    _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width - 25, offsetY+55, 10, 8)];
     [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
     [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     _showMoreDescContentBtn.userInteractionEnabled = NO;
@@ -196,12 +196,14 @@
     UILabel *recommendTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 100, 15)];
     recommendTitleLabel.text = @"网友推荐";
     recommendTitleLabel.textColor = APP_THEME_COLOR;
-    recommendTitleLabel.font = [UIFont systemFontOfSize:15.0];
+    recommendTitleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+
     [_panelOneView addSubview:recommendTitleLabel];
     
-    _recommendDescView = [[ResizableView alloc] initWithFrame:CGRectMake(10, 50, self.bounds.size.width-20, 50) andNumberOfLine:3];
+    _recommendDescView = [[ResizableView alloc] initWithFrame:CGRectMake(10, 55, self.bounds.size.width-20, 55) andNumberOfLine:3];
     _recommendDescView.content = @"吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢";
-    _recommendDescView.contentFont = [UIFont systemFontOfSize:13.0];
+    _recommendDescView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+
     _recommendDescView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     [_recommendDescView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     [_panelOneView addSubview:_recommendDescView];
@@ -234,7 +236,8 @@
     _commentBtn.titleLabel.numberOfLines = 2;
     [_commentBtn setTitle:@"吃什么好呢吃什么好呢吃什么好呢吃什么好呢，吃什么好呢吃什么好呢吃什么好呢" forState:UIControlStateNormal];
     [_commentBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _commentBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    _commentBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+
     [_commentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
     [_commentBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     [_panelTwoView addSubview:_commentBtn];

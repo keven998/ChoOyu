@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *guideUrl;
 @property (nonatomic, copy) NSString *tipsUrl;
 @property (nonatomic) BOOL isMyFavorite;
+@property (nonatomic) float rating;
 
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;

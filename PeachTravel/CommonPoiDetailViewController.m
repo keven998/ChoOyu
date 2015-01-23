@@ -31,6 +31,11 @@
     [self.view addSubview:_backGroundImageView];
     [self.view addSubview:view];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [view addGestureRecognizer:tap];
+    
     [self loadData];
 }
 
@@ -68,8 +73,9 @@
 
 - (void)dismissCtl
 {
+    [SVProgressHUD dismiss];
     self.navigationController.navigationBar.hidden = NO;
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.15 animations:^{
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
@@ -111,8 +117,7 @@
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUD];
+    [SVProgressHUD show];
     
     NSString *typeUrl;
     if (_poiType == kRestaurantPoi) {
@@ -129,7 +134,7 @@
     
     
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
+        [SVProgressHUD dismiss];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
@@ -140,7 +145,7 @@
         }
           
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+        [SVProgressHUD dismiss];
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }

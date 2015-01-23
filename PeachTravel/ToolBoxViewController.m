@@ -126,6 +126,7 @@
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = UIColorFromRGB(0x7a7a7a);
     _weatherLabel.font = [UIFont systemFontOfSize:9.0];
+    
     _weatherLabel.numberOfLines = 2;
     [_contentFrame addSubview:_weatherLabel];
     
