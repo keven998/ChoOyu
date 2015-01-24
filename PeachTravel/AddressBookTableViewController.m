@@ -204,8 +204,7 @@
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    __weak typeof(AddressBookTableViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf.navigationController];
+
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -213,7 +212,6 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [_hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
@@ -223,7 +221,6 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud hideTZHUD];
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
