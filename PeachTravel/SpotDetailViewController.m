@@ -49,10 +49,11 @@
     self.navigationItem.title = self.spotPoi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:_spotDetailView];
-    
-    _spotDetailView.alpha = 0;
+
+    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _spotDetailView.alpha = 1;
+        _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
     } completion:^(BOOL finished) {
         
     }];

@@ -49,10 +49,12 @@
     restaurantView.layer.cornerRadius = 4.0;
     [self.view addSubview:restaurantView];
 
-    restaurantView.alpha = 0;
+    restaurantView.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        restaurantView.alpha = 1;
+        restaurantView.transform = CGAffineTransformMakeScale(1, 1);
+
     } completion:^(BOOL finished) {
+        restaurantView.transform = CGAffineTransformIdentity;
         [restaurantView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         [restaurantView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
 

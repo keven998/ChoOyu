@@ -25,6 +25,8 @@
 @property (nonatomic, strong) EDStarRating *ratingView;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) UILabel *ticketLabel;
+
+@property (nonatomic, strong) UIButton *spotDescBtn;
 @property (nonatomic, strong) UIButton *travelBtn;
 @property (nonatomic, strong) UIButton *travelMonthBtn;
 @property (nonatomic, strong) UIButton *openTimeBtn;
@@ -41,10 +43,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, self.bounds.size.width, self.bounds.size.height-30)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
+        _scrollView.scrollEnabled = NO;
         [self addSubview:_scrollView];
         
         _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
@@ -65,26 +68,38 @@
 
 - (void)setupSubView
 {
-    CGFloat offsetY = 20;
+    CGFloat offsetY = 0;
     
-    _imageView.frame = CGRectMake(10, 15, 100, 100);
+    _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, _scrollView.bounds.size.width/2);
     _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _imageView.layer.cornerRadius = 2.0;
     _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    
+    UIView *imageMaskView = [[UIView alloc] initWithFrame:_imageView.bounds];
+    imageMaskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
+    [_imageView addSubview:imageMaskView];
+    
     [_scrollView addSubview:_imageView];
     TaoziImage *image = [_spot.images firstObject];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x+_imageView.frame.size.width+10, offsetY, self.bounds.size.width-(_imageView.frame.origin.x+_imageView.frame.size.width+20)-20, 20)];
-    _titleLabel.textColor = APP_THEME_COLOR;
+    offsetY += _imageView.bounds.size.height + 15;
+    
+    
+    UIImageView *ticketBkgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY, _scrollView.bounds.size.width-30, 117)];
+    ticketBkgImageView.image = [UIImage imageNamed:@"ticketBkg.png"];
+    [_scrollView addSubview:ticketBkgImageView];
+     
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, _imageView.bounds.size.width-20, 30)];
+    _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.text = _spot.zhName;
-    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
-    [_scrollView addSubview:_titleLabel];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.font = [UIFont boldSystemFontOfSize:30.];
+
+    [_imageView addSubview:_titleLabel];
     
-    offsetY += 25;
-    
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 40, 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-60)/2, 60, 60, 15)];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
@@ -92,17 +107,20 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.rating = _spot.rating;
-    [_scrollView addSubview:_ratingView];
+    [_imageView addSubview:_ratingView];
     
-    offsetY += 40;
+    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 110);
+    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
+    [_imageView addSubview:viewImageBtn];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 45, 25)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_favorite.png"] forState:UIControlStateNormal];
-    [_scrollView addSubview:_favoriteBtn];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-80, _imageView.bounds.size.height-40, 30, 30)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
+    [_imageView addSubview:_favoriteBtn];
     
-    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_favoriteBtn.frame.size.width+_favoriteBtn.frame.origin.x, offsetY, 45, 25)];
-    [_shareBtn setImage:[UIImage imageNamed:@"ic_share.png"] forState:UIControlStateNormal];
-    [_scrollView addSubview:_shareBtn];
+    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-40, _imageView.bounds.size.height-40, 30, 30)];
+    [_shareBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
+    [_imageView addSubview:_shareBtn];
     
     offsetY += 40;
     
@@ -110,20 +128,46 @@
     addressTitle.textColor = APP_THEME_COLOR;
     addressTitle.text = @"地址";
     addressTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    [_scrollView addSubview:addressTitle];
+//    [_scrollView addSubview:addressTitle];
     
     offsetY += 15;
     
-    UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
+    
+    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, _scrollView.bounds.size.height-70, _scrollView.bounds.size.width, 57.5)];
+    btnBackView.backgroundColor = APP_PAGE_COLOR;
+    [_scrollView addSubview:btnBackView];
+    
+    UIImageView *addressImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_spot_address.png"]];
+    addressImageView.center = CGPointMake(_scrollView.bounds.size.width/2, _scrollView.bounds.size.height-120);
+    [_scrollView addSubview:addressImageView];
+    
+    UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _scrollView.bounds.size.height-105, _scrollView.bounds.size.width-20, 40)];
     addressDetailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     addressDetailLabel.textColor = TEXT_COLOR_TITLE;
     addressDetailLabel.numberOfLines = 2.0;
     addressDetailLabel.text = _spot.address;
+    addressDetailLabel.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:addressDetailLabel];
     
-    _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-50, offsetY-5, 40, 40)];
-    [_addressBtn setImage:[UIImage imageNamed:@"ic_poidetail_map.png"] forState:UIControlStateNormal];
-    [_scrollView addSubview:_addressBtn];
+    CGFloat spaceWidth = (_scrollView.bounds.size.width-45*4-70)/3;
+    
+    _spotDescBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, 6.5, 45, 45)];
+    [_spotDescBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [btnBackView addSubview:_spotDescBtn];
+    
+    _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(35+45+spaceWidth, 6.5, 45, 45)];
+    [_trafficGuideBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [btnBackView addSubview:_trafficGuideBtn];
+    
+    _travelGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(35+45*2+spaceWidth*2, 6.5, 45, 45)];
+    [_travelGuideBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [btnBackView addSubview:_travelGuideBtn];
+    
+    _kendieBtn = [[UIButton alloc] initWithFrame:CGRectMake(35+45*3+spaceWidth*3, 6.5, 45, 45)];
+    [_kendieBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [btnBackView addSubview:_kendieBtn];
+    
+    
 }
 
 #pragma mark - IBAction Methods

@@ -81,6 +81,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self loadData];
     }
     self.navigationController.navigationBar.hidden = YES;
+    
 }
 
 
@@ -211,7 +212,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                 [self updateBackgroundData:[[responseObject objectForKey:@"result"] objectForKey:@"image"]];
             }
         } else {
-            
+
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
