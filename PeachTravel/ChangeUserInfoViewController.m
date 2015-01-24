@@ -36,7 +36,7 @@
     _contentTextField.leftView = sv;
     _contentTextField.leftViewMode = UITextFieldViewModeAlways;
     [_contentTextField becomeFirstResponder];
-    
+    _contentTextField.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     _contentTextField.text = _content;
     
 

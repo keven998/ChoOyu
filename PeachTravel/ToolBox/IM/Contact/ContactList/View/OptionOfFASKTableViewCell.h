@@ -11,5 +11,6 @@
 @interface OptionOfFASKTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *cellFrameBg;
 @property (weak, nonatomic) IBOutlet UIView *notifyFlag;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

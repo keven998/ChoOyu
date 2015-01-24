@@ -1730,10 +1730,8 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView beginUpdates];
             [weakSelf.dataSource addObjectsFromArray:messages];
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            [weakSelf.tableView endUpdates];
             [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
     });

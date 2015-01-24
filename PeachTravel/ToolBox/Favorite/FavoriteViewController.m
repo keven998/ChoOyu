@@ -19,9 +19,10 @@
 
 #define PAGE_COUNT 15
 
-@interface FavoriteViewController () <TaoziMessageSendDelegate, TZFilterViewDelegate>
+@interface FavoriteViewController () <TaoziMessageSendDelegate, TZFilterViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-//@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (nonatomic) BOOL isEditing;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
@@ -39,6 +40,7 @@
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 @property (nonatomic, strong) NSArray *urlArray;
+
 /**
  *  当前显示的收藏类型
  */
@@ -78,6 +80,11 @@
         self.navigationItem.title = @"我的收藏";
     }
     
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
+    
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
@@ -98,7 +105,7 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
-    
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
@@ -106,6 +113,8 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = APP_THEME_COLOR;
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:self.refreshControl];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
@@ -435,7 +444,7 @@
     
     
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:item.desc];
-//    [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
+    [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 2.0;
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
@@ -505,7 +514,8 @@
         if (item.type == kSpotPoi) {
             SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
             ctl.spotId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
+            [self addChildViewController:ctl];
+            [self.view addSubview:ctl.view];
             
         } else if (item.type == kHotelPoi) {
             CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];

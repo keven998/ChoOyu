@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavoriteViewController : UITableViewController
+@interface FavoriteViewController : UIViewController
 
 /**
  *  进入此页面，点击每条攻略是发送还是进入详情，yes：发送

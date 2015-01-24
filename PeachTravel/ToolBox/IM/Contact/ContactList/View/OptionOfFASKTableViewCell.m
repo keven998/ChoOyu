@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     // Initialization code
     self.backgroundColor = APP_PAGE_COLOR;
-    
+    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     _cellFrameBg.layer.cornerRadius = 2.0;
     _cellFrameBg.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
     _cellFrameBg.layer.shadowOffset = CGSizeMake(0.0, 0.5);
