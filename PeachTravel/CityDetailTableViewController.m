@@ -37,14 +37,38 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more.png"] style:UIBarButtonItemStylePlain target:self action:@selector(option:)];
-    self.navigationItem.rightBarButtonItem = rightBarItem;
+//    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more.png"] style:UIBarButtonItemStylePlain target:self action:@selector(option:)];
+//    self.navigationItem.rightBarButtonItem = rightBarItem;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.tableView];
     [self loadCityData];
+    
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 72, 64.0)];
+    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 15, 0, 0);
+    [self.view addSubview:leftBtn];
+    
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 72, 0, 72, 64.0)];
+    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(option:) forControlEvents:UIControlEventTouchUpInside];
+    moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    moreBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 15);
+    [self.view addSubview:moreBtn];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)updateView
@@ -62,6 +86,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showRestaurantsBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
+    [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.tableView reloadData];
 }
@@ -69,9 +94,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentInset:UIEdgeInsetsMake(10, 0, 0, 0)];
+        [_tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
         
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -211,9 +236,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)viewSpots:(id)sender
 {
+    
+}
+
+- (IBAction)play:(id)sender {
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = [NSString stringWithFormat:@"%@%@", FUN_CITY_HTML, _cityPoi.cityId];
-    funOfCityWebCtl.titleStr = [NSString stringWithFormat:@"玩转%@", _cityPoi.zhName];//_cityPoi.zhName;
+    funOfCityWebCtl.titleStr = @"畅游攻略";//_cityPoi.zhName;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
@@ -395,7 +424,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 #pragma mark - IBAction
 - (IBAction)option:(id)sender {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"添加到旅程", @"发送给Talk好友", nil];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"制作旅程", @"Talk分享", nil];
     [as showInView:self.view];
 }
 
