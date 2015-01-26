@@ -293,6 +293,7 @@
     NSArray *dataList = [json objectForKey:key];
     for (id poiDic in dataList) {
         PoiSummary *poiSummary = [[PoiSummary alloc] initWithJson:poiDic];
+        poiSummary.poiType = type;
         [currentList addObject:poiSummary];
         CLLocation *current=[[CLLocation alloc] initWithLatitude:poiSummary.lat longitude:poiSummary.lng];
         CLLocation *before=[[CLLocation alloc] initWithLatitude:_location.coordinate.latitude longitude:_location.coordinate.longitude];
@@ -324,7 +325,8 @@
         case PAGE_FUN: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = poi.poiId;
-            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self addChildViewController:spotDetailCtl];
+            [self.view addSubview:spotDetailCtl.view];
         }
             break;
             
@@ -361,17 +363,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger page = [tableView superview].tag;
-    switch (page) {
-        case PAGE_FUN:
-            return 138.0;
-            break;
-            
-        default: {
-            return 190;
-        }
-            break;
-    }
+    return 190;
 }
 
 
@@ -385,29 +377,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger page = [tableView superview].tag;
-    if (page == PAGE_FUN) {
-        AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
-        PoiSummary *poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
-        TripPoi *trippoi = [[TripPoi alloc] init];
-        trippoi.poiId = poi.poiId;
-        trippoi.images = poi.images;
-        trippoi.zhName = poi.zhName;
-        trippoi.enName = poi.enName;
-        trippoi.desc = poi.desc;
-        trippoi.rating = poi.rating;
-        trippoi.timeCost = poi.timeCost;
-        trippoi.lat = poi.lat;
-        trippoi.lng = poi.lng;
-        trippoi.distanceStr = poi.distanceStr;
-        cell.tripPoi = trippoi;
-        cell.addBtn.tag = indexPath.row;
-        cell.shouldEdit = NO;
-        [cell.addBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.addBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-        
-
-        return cell;
-    }
+   
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
     cell.shouldEdit = NO;
     cell.tag = indexPath.row;
@@ -441,11 +411,7 @@
         tbView.backgroundColor = APP_PAGE_COLOR;
         
         [view addSubview:tbView];
-        if (index == PAGE_FUN) {
-            [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
-        } else {
-            [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
-        }
+        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
     } else {
         view.tag = index;
         tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];

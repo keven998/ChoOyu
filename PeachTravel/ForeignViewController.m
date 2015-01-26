@@ -38,6 +38,8 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     layout.delegate = self;
     layout.showDecorationView = YES;
     layout.margin = 10;
+    layout.spacePerItem = 10;
+    layout.spacePerLine = 10;
     
     _foreignCollectionView.dataSource = self;
     _foreignCollectionView.delegate = self;
