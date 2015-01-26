@@ -12,6 +12,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    MSGSended = 1,
+    MSGSending,
+    MSGSendFaild,
+} MSG_SEND_STATUS;
+
 @interface ChatListCell : UITableViewCell
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) NSURL *placeholderImageUrl;
@@ -20,6 +26,7 @@
 @property (nonatomic, strong) NSString *detailMsg;
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic) NSInteger unreadCount;
+@property (nonatomic) MSG_SEND_STATUS sendStatus;
 
 +(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath;

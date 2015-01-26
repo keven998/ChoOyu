@@ -148,8 +148,8 @@
         _backGroundImageView.frame = self.view.bounds;
     } completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
-        [self removeFromParentViewController];
         [self.view removeFromSuperview];
+        [self removeFromParentViewController];
     }];
 }
 

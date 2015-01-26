@@ -34,6 +34,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
 @property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
+@property (nonatomic, strong) IMRootViewController *IMRootCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -96,6 +97,30 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
 }
 
+- (IMRootViewController *)IMRootCtl
+{
+    if (!_IMRootCtl) {
+        _IMRootCtl = [[IMRootViewController alloc] init];
+        _IMRootCtl.delegate = self;
+        
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+        contactListCtl.title = @"桃友";
+        if ([accountManager numberOfUnReadFrendRequest]) {
+            contactListCtl.notify = YES;
+        } else {
+            contactListCtl.notify = NO;
+        }
+        
+        ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
+        chatListCtl.title = @"Talk";
+        chatListCtl.notify = NO;
+        NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
+        _IMRootCtl.viewControllers = viewControllers;
+    }
+    return _IMRootCtl;
+}
+
 - (void) setupConverView {
 
     _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -144,23 +169,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)jumpIM:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-        contactListCtl.title = @"桃友";
-        if ([accountManager numberOfUnReadFrendRequest]) {
-            contactListCtl.notify = YES;
-        } else {
-            contactListCtl.notify = NO;
-        }
-        
-        ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
-        chatListCtl.title = @"Talk";
-        chatListCtl.notify = NO;
-        
-        NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
-        IMRootViewController *IMRootCtl = [[IMRootViewController alloc] init];
-        IMRootCtl.delegate = self;
-        IMRootCtl.viewControllers = viewControllers;
-        [self.navigationController pushViewController:IMRootCtl animated:YES];
+        [self.navigationController pushViewController:self.IMRootCtl animated:YES];
         
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
@@ -385,12 +394,19 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)networkChanged:(EMConnectionState)connectionState
 {
-    NSLog(@"网络状态发生变化");
+    NSLog(@"networkChanged网络发生变化");
+
 }
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
 {
     NSLog(@"聊天的内容发生变化");
+}
+
+- (void)willReceiveOfflineMessages
+{
+    NSLog(@"*****将要收取消息");
+    self.IMRootCtl.IMState = IM_RECEIVING;
 }
 
 // 未读消息数量变化回调
@@ -400,6 +416,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
+    self.IMRootCtl.IMState = IM_RECEIVED;
     [self setupUnreadMessageCount];
 }
 
@@ -738,20 +755,25 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
-    
+    if (connectionState == eEMConnectionDisconnected) {
+        _IMRootCtl.IMState = IM_DISCONNECTED;
+    }
+
 }
 
 #pragma mark -
 
 - (void)willAutoReconnect{
-    NSLog(@"正在重连中");
+    NSLog(@"正在重练中");
+    self.IMRootCtl.IMState = IM_CONNECTING;
 }
 
 - (void)didAutoReconnectFinishedWithError:(NSError *)error{
     if (error) {
         NSLog(@"重连失败，稍候将继续重连");
     }else{
-        NSLog(@"重连成功");
+        NSLog(@"重练成功");
+        self.IMRootCtl.IMState = IM_CONNECTED;
     }
 }
 

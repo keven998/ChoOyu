@@ -20,7 +20,8 @@
     UIView *_lineView;
     
     UIView *frameView;
-//    UIImageView *popBgView;
+    UIActivityIndicatorView *activityView;
+    UIImageView *sendFailedImageView;
 }
 
 @end
@@ -47,16 +48,23 @@
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [frameView addSubview:_timeLabel];
         
-//        popBgView = [[UIImageView alloc] init];
-//        popBgView.autoresizesSubviews = YES;
-//        popBgView.contentMode = UIViewContentModeScaleToFill;
-//        [frameView addSubview:popBgView];
-        
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
         _detailLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [frameView addSubview:_detailLabel];
+        
+        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [activityView.layer setValue:[NSNumber numberWithFloat:0.7f]
+                           forKeyPath:@"transform.scale"];
+        activityView.hidesWhenStopped = YES;
+        [activityView stopAnimating];
+        activityView.color = [UIColor lightGrayColor];
+        [frameView addSubview:activityView];
+        
+        sendFailedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MessageSendFail.png"]];
+        sendFailedImageView.hidden = YES;
+        [frameView addSubview:sendFailedImageView];
         
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _unreadLabel.backgroundColor = APP_THEME_COLOR;
@@ -68,10 +76,6 @@
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
     }
     return self;
-}
-
-- (void)awakeFromNib
-{
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -108,12 +112,30 @@
     frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height-1);
     
     _detailLabel.text = _detailMsg;
+    
+    
     CGSize size = [_detailMsg sizeWithAttributes:@{NSFontAttributeName : _detailLabel.font}];
     CGFloat popW = size.width > (self.textLabel.frame.size.width-50) ? (self.textLabel.frame.size.width-50) : size.width;
-//    popBgView.frame = CGRectMake(60.0, 26.0, popW + 30.0, 26.0);
+
+    CGFloat offsetX = 0;
+    if (_sendStatus == MSGSending) {
+        offsetX = 15;
+        sendFailedImageView.hidden = YES;
+        [activityView startAnimating];
+        
+    } if (_sendStatus == MSGSended) {
+        sendFailedImageView.hidden = YES;
+        [activityView stopAnimating];
+        
+    } if (_sendStatus == MSGSendFaild) {
+        sendFailedImageView.hidden = NO;
+        offsetX = 15;
+        [activityView stopAnimating];
+    }
     
-//    popBgView.image = [[UIImage imageNamed:@"chat_list_cell_bubble.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:17];
-    _detailLabel.frame = CGRectMake(61, 28.0, popW+30, 26);
+    sendFailedImageView.frame = CGRectMake(61, 33, 12, 12);
+    activityView.frame = CGRectMake(61, 40, 8, 8);
+    _detailLabel.frame = CGRectMake(61+offsetX, 28.0, popW+30-offsetX, 26);
     
     _timeLabel.text = _time;
     

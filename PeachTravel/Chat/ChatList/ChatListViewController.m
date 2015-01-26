@@ -144,7 +144,6 @@
     }
     for (EMConversation *conversation in dataSource) {
         if (!conversation.chatter) {
-
             [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
         }
         if (!conversation.isGroup) {
@@ -154,8 +153,6 @@
                 tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatar;
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
-            } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
             }
         } else {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
@@ -198,7 +195,6 @@
     [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
     [self.emptyView addSubview:btn];
 
-    
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
     desc.textColor = UIColorFromRGB(0x797979);
     desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
@@ -454,6 +450,25 @@
         cell.name = tzConversation.chatterNickName;
         [cell.imageView setImage:[UIImage imageNamed:@"chatListCellHead.png"]];
     }
+    
+    EMMessage *message = tzConversation.conversation.latestMessage;
+    NSDictionary *userInfo = [[EaseMob sharedInstance].chatManager loginInfo];
+    NSString *login = [userInfo objectForKey:kSDKUsername];
+    BOOL isSender = [login isEqualToString:message.from] ? YES : NO;
+    
+    if (isSender) {
+        if (message.deliveryState == eMessageDeliveryState_Delivering) {
+            cell.sendStatus = MSGSending;
+        }
+        if (message.deliveryState == eMessageDeliveryState_Failure) {
+            cell.sendStatus = MSGSendFaild;
+        }
+        if (message.deliveryState == eMessageDeliveryState_Delivered) {
+            cell.sendStatus = MSGSended;
+        }
+    } else {
+        cell.sendStatus = MSGSended;
+    }
     cell.detailMsg = [self subTitleMessageByConversation:tzConversation.conversation];
     cell.time = [self lastMessageTimeByConversation:tzConversation.conversation];
     cell.unreadCount = [self unreadMessageCountByConversation:tzConversation.conversation];
@@ -543,6 +558,18 @@
     NSLog(@"allgroups:%@", allGroups);
     [self refreshDataSource];
 }
+
+- (void)didSendMessage:(EMMessage *)message error:(EMError *)error;
+{
+    for (int i = 0; i < self.chattingPeople.count; i++) {
+        TZConversation *tzConversation = [self.chattingPeople objectAtIndex:i];
+        if ([tzConversation.conversation.latestMessage.messageId isEqualToString:message.messageId]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }
+}
+
 
 #pragma mark - registerNotifications
 -(void)registerNotifications{
