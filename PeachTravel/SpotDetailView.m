@@ -10,6 +10,8 @@
 #import "ResizableView.h"
 #import "TZButton.h"
 #import "EDStarRating.h"
+#import "MJPhotoBrowser/MJPhoto.h"
+#import "MJPhotoBrowser.h"
 
 @interface SpotDetailView ()
 
@@ -71,6 +73,7 @@
     _imageView.layer.cornerRadius = 2.0;
     _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _imageView.userInteractionEnabled = YES;
     
     UIView *imageMaskView = [[UIView alloc] initWithFrame:_imageView.bounds];
     imageMaskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
@@ -101,6 +104,7 @@
     UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 110);
     [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
+    [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
     [_imageView addSubview:viewImageBtn];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-80, _imageView.bounds.size.height-40, 30, 30)];
@@ -194,7 +198,23 @@
 
 - (IBAction)viewImage:(id)sender
 {
+    NSInteger count = _spot.images.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (NSInteger i = 0; i<count; i++) {
+        // 替换为中等尺寸图片
+        TaoziImage *image = [_spot.images objectAtIndex:i];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:image.imageUrl]; // 图片路径
+        photo.srcImageView = _imageView; // 来源于哪个UIImageView
+        [photos addObject:photo];
+    }
     
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
 }
 
 
