@@ -57,13 +57,13 @@
     
     CGFloat oy = CGRectGetHeight(_galleryPageView.frame);
     
-    _imagePageIndicator = [[UILabel alloc] initWithFrame:CGRectMake(width/2.0 - 32, oy - 33, 64, 23)];
+    _imagePageIndicator = [[UILabel alloc] initWithFrame:CGRectMake(width/2.0 - 20, oy - 33, 40, 23)];
     _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.75];
     _imagePageIndicator.textColor = [UIColor whiteColor];
-    _imagePageIndicator.layer.cornerRadius = 5.0;
+    _imagePageIndicator.layer.cornerRadius = 4.0;
     _imagePageIndicator.clipsToBounds = YES;
     _imagePageIndicator.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
-    _imagePageIndicator.text = @"城市画册";//[NSString stringWithFormat:@"%ld图", _cityPoi.imageCount];
+    _imagePageIndicator.text = @"画册";//[NSString stringWithFormat:@"%ld图", _cityPoi.imageCount];
     _imagePageIndicator.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_imagePageIndicator];
     
@@ -171,7 +171,7 @@
     [_detailView addSubview:_headerView];
     
     _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, 0, 72, 72)];
-    [_showSpotsBtn setTitle:@"景点" forState:UIControlStateNormal];
+    [_showSpotsBtn setTitle:@"美景" forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showSpotsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
