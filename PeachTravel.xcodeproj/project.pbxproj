@@ -645,6 +645,8 @@
 		D9E3D3FA1A73866100068A55 /* ic_spot_tips@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E3D3F91A73866100068A55 /* ic_spot_tips@2x.png */; };
 		D9E3D3FC1A73866B00068A55 /* ic_spot_travel_guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E3D3FB1A73866B00068A55 /* ic_spot_travel_guide@2x.png */; };
 		D9E3D4001A738EA700068A55 /* ic_spot_address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E3D3FF1A738EA700068A55 /* ic_spot_address@2x.png */; };
+		D9E3D4041A763AD000068A55 /* AFgzipRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4031A763AD000068A55 /* AFgzipRequestSerializer.m */; };
+		D9E3D40A1A76435200068A55 /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4091A76435200068A55 /* NSData+Godzippa.m */; };
 		D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */; };
 		D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */; };
 		D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E681A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m */; };
@@ -1716,6 +1718,10 @@
 		D9E3D3F91A73866100068A55 /* ic_spot_tips@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_spot_tips@2x.png"; sourceTree = "<group>"; };
 		D9E3D3FB1A73866B00068A55 /* ic_spot_travel_guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_spot_travel_guide@2x.png"; sourceTree = "<group>"; };
 		D9E3D3FF1A738EA700068A55 /* ic_spot_address@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_spot_address@2x.png"; sourceTree = "<group>"; };
+		D9E3D4021A763AD000068A55 /* AFgzipRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFgzipRequestSerializer.h; sourceTree = "<group>"; };
+		D9E3D4031A763AD000068A55 /* AFgzipRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFgzipRequestSerializer.m; sourceTree = "<group>"; };
+		D9E3D4081A76435200068A55 /* NSData+Godzippa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Godzippa.h"; sourceTree = "<group>"; };
+		D9E3D4091A76435200068A55 /* NSData+Godzippa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Godzippa.m"; sourceTree = "<group>"; };
 		D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_expand@2x.png"; sourceTree = "<group>"; };
 		D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_unexpand@2x.png"; sourceTree = "<group>"; };
 		D9E81E671A35C30A00D3BFD0 /* TaoziChatCityBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatCityBubbleView.h; sourceTree = "<group>"; };
@@ -3307,6 +3313,8 @@
 		D955E36519E67ACD00047F2B /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9E3D4071A76435200068A55 /* Godzippa */,
+				D9E3D4011A763AD000068A55 /* AFgzipRequestSerializer */,
 				D90BB4211A6F56E100D2035E /* JGActionSheet */,
 				D99FE0011A68E44200932550 /* MJNIndexView */,
 				D98503C81A5A3005001A4C30 /* MJPhotoBrowser */,
@@ -4488,6 +4496,24 @@
 			name = Guide;
 			sourceTree = "<group>";
 		};
+		D9E3D4011A763AD000068A55 /* AFgzipRequestSerializer */ = {
+			isa = PBXGroup;
+			children = (
+				D9E3D4021A763AD000068A55 /* AFgzipRequestSerializer.h */,
+				D9E3D4031A763AD000068A55 /* AFgzipRequestSerializer.m */,
+			);
+			path = AFgzipRequestSerializer;
+			sourceTree = "<group>";
+		};
+		D9E3D4071A76435200068A55 /* Godzippa */ = {
+			isa = PBXGroup;
+			children = (
+				D9E3D4081A76435200068A55 /* NSData+Godzippa.h */,
+				D9E3D4091A76435200068A55 /* NSData+Godzippa.m */,
+			);
+			path = Godzippa;
+			sourceTree = "<group>";
+		};
 		D9E6BFAC19E3E4AF00C750AC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -5429,6 +5455,7 @@
 				D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */,
 				D9A19C8B1A2EEE4A00B189CB /* TaoziChatBaseBubbleView.m in Sources */,
 				C653F52E1A25C2BF00E7479F /* FBShimmeringLayer.m in Sources */,
+				D9E3D40A1A76435200068A55 /* NSData+Godzippa.m in Sources */,
 				D902ADCD1A15F0E300E36A93 /* CityPoi.m in Sources */,
 				D9545FA01A20809C00688D72 /* RecommendCollectionViewCell.m in Sources */,
 				D90F366819F63E5300E26FA9 /* EMTextView.m in Sources */,
@@ -5532,6 +5559,7 @@
 				D9C64BC21A1B6BD600A4B9BF /* CountryDestination.m in Sources */,
 				D90F366B19F63E5300E26FA9 /* EMChooseViewController.m in Sources */,
 				D9DE789E1A027965008A8576 /* ContactListViewController.m in Sources */,
+				D9E3D4041A763AD000068A55 /* AFgzipRequestSerializer.m in Sources */,
 				D90857B119EE0C330041A4E2 /* SMSVerifyViewController.m in Sources */,
 				D90F368119F63ED200E26FA9 /* EmojiEmoticons.m in Sources */,
 				D9A717A51A03B04A005BDEFE /* CreateConversationViewController.m in Sources */,

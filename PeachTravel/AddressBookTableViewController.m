@@ -10,6 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import <MessageUI/MessageUI.h>
 
+#import "AFgzipRequestSerializer.h"
 #import "AccountManager.h"
 #import "AddressBookTableViewCell.h"
 #import "ContactDetailViewController.h"
@@ -121,6 +122,7 @@
 - (void)uploadAddressBook:(NSArray *)addressBookList
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+     manager.requestSerializer = [AFgzipRequestSerializer serializerWithSerializer:[AFJSONRequestSerializer serializer]];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
@@ -201,6 +203,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+   
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];

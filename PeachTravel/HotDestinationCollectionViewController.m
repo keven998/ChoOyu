@@ -19,11 +19,14 @@
 #import "CommonPoiDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 
-@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
+@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UIButton *searchBtn;
 
 @end
 
@@ -37,13 +40,22 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"目的地";
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_nav_action_search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goSearch:)];
-    self.navigationItem.rightBarButtonItem = barButton;
+    
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search.png"] forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
     [self.view addSubview:self.collectionView];
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
+    
+    _searchBar = [[UISearchBar alloc] init];
+    _searchBar.showsCancelButton = YES;
+    _searchBar.hidden = YES;
+    _searchBar.delegate = self;
+//    self.navigationItem.titleView = _searchBar;
     
     [self initData];
 }
@@ -88,8 +100,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark - IBAction
 
-- (IBAction)goSearch:(id)sender {
-    
+- (IBAction)goSearch:(UIButton *)sender {
+//    sender.hidden = YES;
+//    _searchBar.hidden = NO;
+//    [_searchBar becomeFirstResponder];
 }
 
 #pragma mark - setter & getter
