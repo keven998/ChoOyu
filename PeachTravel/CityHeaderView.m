@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UILabel *imagePageIndicator;
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UILabel *titleBtn;
-@property (nonatomic, strong) ResizableView *descView;
 @property (nonatomic, strong) UIButton *showMoreDescContentBtn;
 @property (nonatomic, strong) ResizableView *travelMonthBtn;
 @property (nonatomic, strong) UIButton *showMoreInfoContentBtn;
@@ -48,6 +47,7 @@
     gallery.scrollEnabled = NO;
     gallery.showsHorizontalScrollIndicator = NO;
     gallery.showsVerticalScrollIndicator = NO;
+    gallery.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     gallery.delegate = self;
     gallery.layer.borderColor = APP_BORDER_COLOR.CGColor;
     gallery.layer.borderWidth = 0.5;
@@ -55,12 +55,14 @@
     [self addSubview:gallery];
     _galleryPageView = gallery;
     
-    _imagePageIndicator = [[UILabel alloc] initWithFrame:CGRectMake(10, 167.5-33, 47.5, 23)];
+    _imagePageIndicator = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 23)];
     _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.75];
     _imagePageIndicator.textColor = [UIColor whiteColor];
-    _imagePageIndicator.layer.cornerRadius = 4.0;
-    _imagePageIndicator.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
-    _imagePageIndicator.text = @"画册";
+    _imagePageIndicator.layer.cornerRadius = 5.0;
+    _imagePageIndicator.clipsToBounds = YES;
+    _imagePageIndicator.center = CGPointMake(width/2.0, 23);
+    _imagePageIndicator.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    _imagePageIndicator.text = [NSString stringWithFormat:@"%ld图", _cityPoi.imageCount];
     _imagePageIndicator.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_imagePageIndicator];
     
@@ -75,223 +77,148 @@
     _imageViews = images;
     [self loadScrollViewWithPage:0];
     
-    _detailView = [[UIView alloc] init];
-    _detailView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:_detailView];
+    CGFloat oy = CGRectGetHeight(_galleryPageView.frame);
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
-    view.backgroundColor = APP_THEME_COLOR;
-    [_detailView addSubview:view];
-    
-    _titleBtn = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, width - 108, 30)];
-    _titleBtn.text = _cityPoi.zhName;
-    _titleBtn.textColor = [UIColor whiteColor];
-    _titleBtn.font = [UIFont boldSystemFontOfSize:15.0];
-    _titleBtn.userInteractionEnabled = YES;
-    [view addSubview:_titleBtn];
-    
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-65, 0, 60, 30)];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 64, oy - 64, 64, 64)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateHighlighted];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_Favorite.png"] forState:UIControlStateSelected];
     _favoriteBtn.selected = _cityPoi.isMyFavorite;
-    [view addSubview:_favoriteBtn];
+    [self addSubview:_favoriteBtn];
     
-    CGFloat oy = 30;
+    UIButton *guideBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, oy - 20, 75, 75)];
+    [guideBtn setTitle:@"旅行\n必读" forState:UIControlStateNormal];
+    guideBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    guideBtn.titleLabel.numberOfLines = 2;
+    [guideBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    guideBtn.backgroundColor = [UIColor yellowColor];
+    guideBtn.layer.cornerRadius = 37.5;
+    [self addSubview:guideBtn];
+    _playNotes = guideBtn;
     
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(10, oy + 15, width-20, 32) andNumberOfLine:2];
-    _descView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _descView.content = _cityPoi.desc;
-    _descView.backgroundColor = [UIColor whiteColor];
-    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_detailView addSubview:_descView];
+    _titleBtn = [[UILabel alloc] initWithFrame:CGRectMake(105, oy + 12, width - 130, 20)];
+    _titleBtn.text = _cityPoi.zhName;
+    _titleBtn.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _titleBtn.font = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
+    [self addSubview:_titleBtn];
     
-    oy += (15 + 32);
+    UILabel *entitle = [[UILabel alloc] initWithFrame:CGRectMake(105, oy + 32, width - 130, 15)];
+    entitle.text = _cityPoi.enName;
+    entitle.textColor = TEXT_COLOR_TITLE_PH;
+    entitle.font = [UIFont systemFontOfSize:12];
+    [self addSubview:entitle];
     
-    if (_descView.maxNumberOfLine > 2) {
-        _showMoreDescContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 50, oy, 50, 20)];
-        [_showMoreDescContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
-        [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        _showMoreDescContentBtn.backgroundColor = [UIColor whiteColor];
-        [_detailView addSubview:_showMoreDescContentBtn];
-        oy += 24;
-    }
-    
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, oy, width, 0)];
-    _headerView.backgroundColor = [UIColor whiteColor];
-    [_detailView addSubview:_headerView];
+    _detailView = [[UIView alloc] initWithFrame:CGRectMake(10, oy + 75, width - 20, 20)];
+    _detailView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:_detailView];
     
     oy = 0;
     
-    UIImageView *spaceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, oy+3, width-40, 1)];
-    spaceImageView.image = [UIImage imageNamed:@"ic_dotted_line.png"];
-    [_headerView addSubview:spaceImageView];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width - 20, 3.0)];
+    spaceView.backgroundColor = APP_THEME_COLOR;
+    [_detailView addSubview:spaceView];
     
+    UILabel *ttitle = [[UILabel alloc] initWithFrame:CGRectMake(45, oy + 20, width - 110, 30)];
+    ttitle.textColor = APP_THEME_COLOR;
+    ttitle.text = [NSString stringWithFormat:@"旅行在%@", _cityPoi.zhName];
+    ttitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    ttitle.textAlignment = NSTextAlignmentCenter;
+    [_detailView addSubview:ttitle];
+    
+    oy += 50 + 10;
+    
+    _timeCostBtn = [[UIButton alloc] init];
+    _timeCostBtn.titleLabel.numberOfLines = 0;
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 2.0;
-    
-    oy += 4 + 15;
-    
-    _timeCostBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, oy, width, 0)];
-    _timeCostBtn.titleLabel.numberOfLines = 0;
-
-    CGSize timeCostLabelSize = [_cityPoi.timeCostDesc boundingRectWithSize:CGSizeMake(self.bounds.size.width-114, MAXFLOAT)
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:@{
-                                                        NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
-                                                        NSParagraphStyleAttributeName : style
-                                                        }
-                                              context:nil].size;
-    
-    CGFloat timeCostHeight = timeCostLabelSize.height + 20;
-    _timeCostBtn.frame = CGRectMake(0, oy, width, timeCostHeight);
-    [_timeCostBtn setAttributedTitle:[_cityPoi.timeCostDesc stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
+    CGSize timeCostLabelSize = [_cityPoi.timeCostDesc boundingRectWithSize:CGSizeMake(width-70, MAXFLOAT)
+                                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                                attributes:@{
+                                                                             NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
+                                                                             NSParagraphStyleAttributeName : style
+                                                                             }
+                                                                   context:nil].size;
+    CGFloat timeCostHeight = timeCostLabelSize.height + 10;
+    _timeCostBtn.frame = CGRectMake(25, oy, width - 70, timeCostHeight);
+    [_timeCostBtn setAttributedTitle:[[NSString stringWithFormat:@"推荐行程安排 %@", _cityPoi.timeCostDesc] stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
     _timeCostBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    _timeCostBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 110, 0, 10);
     _timeCostBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    
-    UIButton *timeCostSubTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 92, _timeCostBtn.frame.size.height)];
-    [timeCostSubTitle setTitle:@"建议旅程安排" forState:UIControlStateNormal];
-    [timeCostSubTitle setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    timeCostSubTitle.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-    timeCostSubTitle.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    [_timeCostBtn addSubview:timeCostSubTitle];
-    timeCostSubTitle.userInteractionEnabled = NO;
-    
-    [_headerView addSubview:_timeCostBtn];
+    [_detailView addSubview:_timeCostBtn];
     
     oy += _timeCostBtn.frame.size.height;
     
-    UIButton *subTitle = [[UIButton alloc] initWithFrame:CGRectMake(10, oy, 92, 24)];
-    [subTitle setTitle:@"最佳旅行季节" forState:UIControlStateNormal];
-    [subTitle setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    subTitle.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-    subTitle.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    [_headerView addSubview:subTitle];
-    subTitle.userInteractionEnabled = NO;
-    
-    
-    _travelMonthBtn = [[ResizableView alloc] initWithFrame:CGRectMake(110, oy, width - 120, 48) andNumberOfLine:3];
+    _travelMonthBtn = [[ResizableView alloc] initWithFrame:CGRectMake(25, oy, width-70, 36) andNumberOfLine:2];
     _travelMonthBtn.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _travelMonthBtn.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _travelMonthBtn.content = _cityPoi.travelMonth;
-//    _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 110, 0, 10);
-    [_travelMonthBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
+    _travelMonthBtn.content = [NSString stringWithFormat:@"最佳旅行时节 %@", _cityPoi.travelMonth];
+    _travelMonthBtn.backgroundColor = [UIColor whiteColor];
+    [_detailView addSubview:_travelMonthBtn];
     
-    oy += 48;
+    oy += 36;
     
-    if (_travelMonthBtn.maxNumberOfLine > 3) {
-        _showMoreInfoContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 50, oy, 50, 20)];
+    if (_travelMonthBtn.maxNumberOfLine > 2) {
+        [_travelMonthBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
+        _showMoreInfoContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 90, oy, 70, 20)];
         [_showMoreInfoContentBtn setImage:[UIImage imageNamed:@"cell_accessory_pink_down.png"] forState:UIControlStateNormal];
         [_showMoreInfoContentBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
         _showMoreInfoContentBtn.backgroundColor = [UIColor whiteColor];
-        [_headerView addSubview:_showMoreInfoContentBtn];
+        [_detailView addSubview:_showMoreInfoContentBtn];
         oy += 24;
     }
     
-    [_headerView addSubview:_travelMonthBtn];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, oy, width - 20, 72)];
+    _headerView.backgroundColor = [UIColor whiteColor];
+    [_detailView addSubview:_headerView];
     
-//    CGSize travelMonthLabelSize = [_cityPoi.travelMonth boundingRectWithSize:CGSizeMake(self.bounds.size.width-114, MAXFLOAT)
-//                                                                   options:NSStringDrawingUsesLineFragmentOrigin
-//                                                                attributes:@{
-//                                                                             NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
-//                                                                             NSParagraphStyleAttributeName : style
-//                                                                             }
-//                                                                   context:nil].size;
-//    CGFloat travelMonthHeight = travelMonthLabelSize.height + 20;
-//    _travelMonthBtn.frame = CGRectMake(0, oy, width, travelMonthHeight);
-//    [_travelMonthBtn setAttributedTitle:[_cityPoi.travelMonth stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
-//    _travelMonthBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-//    _travelMonthBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-//    _travelMonthBtn.backgroundColor = [UIColor whiteColor];
-//    _travelMonthBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 110, 0, 10);
-//    [_travelMonthBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    
-    oy += 10;
-    
-    CGFloat widthPerItem = width/3;
-    
-    UIView *pv = [[UIView alloc] initWithFrame:CGRectMake(0, oy, width, 50)];
-    pv.backgroundColor = [UIColor whiteColor];
-    [_headerView addSubview:pv];
-    
-    _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, widthPerItem-0.5, 50)];
-    [_showSpotsBtn setTitle:@"游玩攻略" forState:UIControlStateNormal];
-    [_showSpotsBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    _showSpotsBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, 0, 72, 72)];
+    [_showSpotsBtn setTitle:@"景点" forState:UIControlStateNormal];
+    [_showSpotsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showSpotsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"ic_standard_travel.png"] forState:UIControlStateNormal];
-    [_showSpotsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-    [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
     [_showSpotsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     _showSpotsBtn.clipsToBounds = YES;
     _showSpotsBtn.layer.cornerRadius = 2.0;
-    [pv addSubview:_showSpotsBtn];
+    [_headerView addSubview:_showSpotsBtn];
     
-    _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthPerItem+0.5, 0, widthPerItem-0.5, 50)];
-    [_showRestaurantsBtn setTitle:@"美食攻略" forState:UIControlStateNormal];
-    [_showRestaurantsBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    _showRestaurantsBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+    [_showRestaurantsBtn setTitle:@"美食" forState:UIControlStateNormal];
+    [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showRestaurantsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"ic_standard_food.png"] forState:UIControlStateNormal];
-    [_showRestaurantsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-    [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
     [_showRestaurantsBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     _showRestaurantsBtn.clipsToBounds = YES;
+    _showRestaurantsBtn.center = CGPointMake((width - 20)/2.0, 36);
     _showRestaurantsBtn.layer.cornerRadius = 2.0;
-    [pv addSubview:_showRestaurantsBtn];
+    [_headerView addSubview:_showRestaurantsBtn];
     
-    _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthPerItem*2+1, 0, widthPerItem-0.5, 50)];
-    [_showShoppingBtn setTitle:@"购物攻略" forState:UIControlStateNormal];
-    [_showShoppingBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    _showShoppingBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 20 - 25 - 72, 0, 72, 72)];
+    [_showShoppingBtn setTitle:@"购物" forState:UIControlStateNormal];
+    [_showShoppingBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showShoppingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     _showShoppingBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"ic_standard_shopping.png"] forState:UIControlStateNormal];
-    [_showShoppingBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-    [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
     [_showShoppingBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     _showShoppingBtn.clipsToBounds = YES;
     _showShoppingBtn.layer.cornerRadius = 2.0;
-    [pv addSubview:_showShoppingBtn];
+    [_headerView addSubview:_showShoppingBtn];
     
-    oy += 60;
+
+    oy += 72 + 20;
     
-//    view = [[UIView alloc] initWithFrame:CGRectMake(0, oy, width, 20)];
-//    view.backgroundColor = APP_PAGE_COLOR;
-//    [_headerView addSubview:view];
-//    
-//    oy += 20;
-//    
-//    view = [[UIView alloc] initWithFrame:CGRectMake(0, oy, width, 30)];
-//    view.backgroundColor = APP_THEME_COLOR;
-//    [_headerView addSubview:view];
-//    
-//    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 108, 30)];
-//    text.text = @"精选游记";
-//    text.textColor = [UIColor whiteColor];
-//    text.font = [UIFont boldSystemFontOfSize:15.0];
-//    text.userInteractionEnabled = YES;
-//    [view addSubview:text];
-//    
-//    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 0, 108, 30)];
-//    [allNotes setTitle:@"更多游记" forState:UIControlStateNormal];
-//    [allNotes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-//    [allNotes setImage:[UIImage imageNamed:@"cell_accessory_gray.png"] forState:UIControlStateNormal];
-//    allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
-//    allNotes.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-//    [view addSubview:allNotes];
-//    
-//    oy += 30;
+    CGRect frame = _detailView.frame;
+    frame.size.height = oy;
+    _detailView.frame = frame;
     
-    CGRect frame = _headerView.frame;
-    frame.size.height = oy + 20;
-    _headerView.frame = frame;
-     [_detailView setFrame:CGRectMake(0, gallery.frame.size.height+gallery.frame.origin.y+20, width, frame.origin.y + frame.size.height)];
-    
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, _detailView.frame.origin.y + _detailView.frame.size.height);
+    CGRect frame1 = self.frame;
+    frame1.size.height = oy + _detailView.frame.origin.y;
+    frame1.size.width = width;
+    self.frame = frame1;
     
 }
 
@@ -308,10 +235,9 @@
         frame.size.height += _travelMonthBtn.resizeHeight;
         _detailView.frame = frame;
         
-        UIView *view = _showSpotsBtn.superview;
-        frame = view.frame;
+        frame = _headerView.frame;
         frame.origin.y += _travelMonthBtn.resizeHeight;
-        view.frame = frame;
+        _headerView.frame = frame;
         _showMoreInfoContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
     } completion:^(BOOL finished) {
         [_showMoreInfoContentBtn removeTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
@@ -334,10 +260,9 @@
         frame.size.height -= _travelMonthBtn.resizeHeight;
         _detailView.frame = frame;
         
-        UIView *view = _showSpotsBtn.superview;
-        frame = view.frame;
+        frame = _headerView.frame;
         frame.origin.y -= _travelMonthBtn.resizeHeight;
-        view.frame = frame;
+        _headerView.frame = frame;
         _showMoreInfoContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
     } completion:^(BOOL finished) {
         [_travelMonthBtn hideContent];
@@ -345,59 +270,6 @@
         [_showMoreInfoContentBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
         [_travelMonthBtn removeTarget:self action:@selector(hideInfo:) forControlEvents:UIControlEventTouchUpInside];
         [_travelMonthBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
-    }];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
-    [self.delegate updateCityHeaderView];
-}
-
-- (IBAction)showMoreContent:(id)sender
-{
-    [_descView showMoreContent];
-    [UIView animateWithDuration:0.3 animations:^{
-       CGRect frame = _showMoreDescContentBtn.frame;
-       frame.origin.y += _descView.resizeHeight;
-       _showMoreDescContentBtn.frame = frame;
-       
-       frame = _detailView.frame;
-       frame.size.height += _descView.resizeHeight;
-       _detailView.frame = frame;
-       
-       frame = _headerView.frame;
-       frame.origin.y += _descView.resizeHeight;
-       _headerView.frame = frame;
-        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
-    } completion:^(BOOL finished) {
-        [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-    }];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
-    [self.delegate updateCityHeaderView];
-}
-
-- (IBAction)hideContent:(id)sender
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect frame = _showMoreDescContentBtn.frame;
-        frame.origin.y -= _descView.resizeHeight;
-        _showMoreDescContentBtn.frame = frame;
-        
-        frame = _detailView.frame;
-        frame.size.height -= _descView.resizeHeight;
-        _detailView.frame = frame;
-        
-        frame = _headerView.frame;
-        frame.origin.y -= _descView.resizeHeight;
-        _headerView.frame = frame;
-        
-        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
-    } completion:^(BOOL finished) {
-        [_descView hideContent];
-        [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-        [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
     }];
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, _detailView.frame.origin.y + _detailView.frame.size.height);
     [self.delegate updateCityHeaderView];
