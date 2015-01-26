@@ -56,8 +56,6 @@
 
 - (void)setIMState:(IM_CONNECT_STATE)IMState
 {
-    NSLog(@"%@", [NSThread currentThread]);
-    
     _IMState = IMState;
     switch (_IMState) {
         case IM_CONNECTING: {

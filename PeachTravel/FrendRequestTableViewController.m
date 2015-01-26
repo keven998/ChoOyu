@@ -128,7 +128,8 @@
 
     [params setObject:frendRequest.userId forKey:@"userId"];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUD];
+    __weak FrendRequestTableViewController *weakSelf = self;
+    [hud showHUDInViewController:weakSelf];
     
     //同意添加好友
     [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

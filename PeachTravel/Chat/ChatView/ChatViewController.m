@@ -1184,35 +1184,27 @@
 
 - (void)didSendMessage:(EMMessage *)message error:(EMError *)error;
 {
-    NSLog(@"发送结果：%@", error);
     [self reloadTableViewDataWithMessage:message];
 }
 
 - (void)reloadTableViewDataWithMessage:(EMMessage *)message{
     __weak ChatViewController *weakSelf = self;
-    dispatch_async(_messageQueue, ^{
-        if ([weakSelf.conversation.chatter isEqualToString:message.conversationChatter])
-        {
-            for (int i = 0; i < weakSelf.dataSource.count; i ++) {
-                id object = [weakSelf.dataSource objectAtIndex:i];
-                if ([object isKindOfClass:[MessageModel class]]) {
-                    EMMessage *currMsg = [weakSelf.dataSource objectAtIndex:i];
-                    if ([message.messageId isEqualToString:currMsg.messageId]) {
-                        MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [weakSelf.tableView beginUpdates];
-                            [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
-                            [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-                            [weakSelf.tableView endUpdates];
-                            
-                        });
-                        
-                        break;
-                    }
+    if ([weakSelf.conversation.chatter isEqualToString:message.conversationChatter])
+    {
+        for (int i = weakSelf.dataSource.count-1; i >=0; i --) {
+            id object = [weakSelf.dataSource objectAtIndex:i];
+            if ([object isKindOfClass:[MessageModel class]]) {
+                EMMessage *currMsg = [weakSelf.dataSource objectAtIndex:i];
+                if ([message.messageId isEqualToString:currMsg.messageId]) {
+                    MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
+                    [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
+                    [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                    
+                    break;
                 }
             }
         }
-    });
+    }
 }
 
 - (void)didMessageAttachmentsStatusChanged:(EMMessage *)message error:(EMError *)error{

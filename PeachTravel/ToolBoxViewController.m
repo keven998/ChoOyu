@@ -23,7 +23,7 @@
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 
-@interface ToolBoxViewController () <UIAlertViewDelegate, IChatManagerDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
+@interface ToolBoxViewController () <UIAlertViewDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 {
     CLLocationManager* locationManager;
     BOOL locationIsGotten;
