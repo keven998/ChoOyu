@@ -37,9 +37,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more.png"] style:UIBarButtonItemStylePlain target:self action:@selector(option:)];
-//    self.navigationItem.rightBarButtonItem = rightBarItem;
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     self.automaticallyAdjustsScrollViewInsets = NO;
