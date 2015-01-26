@@ -16,7 +16,7 @@
 
 @end
 
-@interface AddPoiTableViewController :TZTableViewController
+@interface AddPoiViewController :TZViewController
 
 @property (nonatomic, strong) TripDetail *tripDetail;
 

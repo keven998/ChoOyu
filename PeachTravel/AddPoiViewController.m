@@ -1,12 +1,12 @@
 //
-//  AddPoiTableViewController.m
+//  AddPoiViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 11/26/14.
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "AddPoiTableViewController.h"
+#import "AddPoiViewController.h"
 #import "AddSpotTableViewCell.h"
 #import "CityDestinationPoi.h"
 #import "TripDetail.h"
@@ -19,12 +19,14 @@
 #import "TZFilterViewController.h"
 
 
-@interface AddPoiTableViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate>
+@interface AddPoiViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
 @property (nonatomic, strong) NSArray *urlArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -54,7 +56,7 @@
 
 @end
 
-@implementation AddPoiTableViewController
+@implementation AddPoiViewController
 
 static NSString *addSpotCellIndentifier = @"addSpotCell";
 static NSString *addRestaurantCellIndentifier = @"poisOfCity";
@@ -76,15 +78,10 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
     
-//    UIButton *finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-//    [finishBtn setImage:[UIImage imageNamed:@"ic_cell_item_chooesed.png"] forState:UIControlStateNormal];
-//    finishBtn.layer.cornerRadius = 2.0;
-//    finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-//    finishBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
-//    finishBtn.layer.borderWidth = 1.0;
-//    [finishBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//    [finishBtn addTarget:self action:@selector(addFinish:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:finishBtn];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
     
     UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
     self.navigationItem.leftBarButtonItem = finishBtn;
@@ -93,7 +90,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
     self.navigationItem.rightBarButtonItem = filterBtn;
     
-
+    
     [self setAutomaticallyAdjustsScrollViewInsets:YES];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
     
@@ -107,7 +104,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
     self.searchController.searchResultsTableView.dataSource = self;
     self.searchController.searchResultsTableView.delegate = self;
-
+    
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -278,7 +275,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 - (void)filter:(id)sender
 {
     if (!self.filterCtl.filterViewIsShowing) {
-        typeof(AddPoiTableViewController *)weakSelf = self;
+        typeof(AddPoiViewController *)weakSelf = self;
         [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
     } else {
         [self.filterCtl hideFilterView];
@@ -325,7 +322,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                 NSLog(@"用户切换页面了，我不应该加载数据");
             }
             
-              
+            
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -336,7 +333,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
-
+        
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
@@ -382,12 +379,12 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
             break;
     }
     CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-
+    
     [params setObject:poi.cityId forKey:@"locId"];
     [params setObject:_searchText forKey:@"keyWord"];
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(AddPoiTableViewController *)weakSelf = self;
+    __weak typeof(AddPoiViewController *)weakSelf = self;
     [hud showHUDInViewController:weakSelf];
     
     //获取搜索列表信息
@@ -425,8 +422,8 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                 _currentPageSearch = pageNo;
             } else {
                 if (self.isShowing) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-            }
+                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+                }
             }
             [self loadMoreCompletedSearch];
         }
@@ -491,7 +488,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 138.0;
+    return 190.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -509,60 +506,46 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         }
     }
     
-    if (poi.poiType == kSpotPoi) {
-        AddSpotTableViewCell *addSpotCell = [tableView dequeueReusableCellWithIdentifier:addSpotCellIndentifier];
-        addSpotCell.tripPoi = poi;
-        addSpotCell.shouldEdit = YES;
-        addSpotCell.isAdded = isAdded;
-        addSpotCell.addBtn.tag = indexPath.row;
-        if (isAdded) {
-            [addSpotCell.addBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-            [addSpotCell.addBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-            
-        } else {
-            [addSpotCell.addBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-            [addSpotCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        return addSpotCell;
+    PoiSummary *poiSummary = [[PoiSummary alloc] init];
+    poiSummary.poiId = poi.poiId;
+    poiSummary.zhName = poi.zhName;
+    poiSummary.enName = poi.enName;
+    poiSummary.desc = poi.desc;
+    poiSummary.address = poi.address;
+    poiSummary.priceDesc = poi.priceDesc;
+    poiSummary.commentCount = 0;
+    poiSummary.telephone = poi.telephone;
+    poiSummary.images = poi.images;
+    poiSummary.rating = poi.rating;
+    poiSummary.poiType = poi.poiType;
+    
+    PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
+    poiCell.poi = poiSummary;
+    poiCell.actionBtn.tag = indexPath.row;
+    poiCell.isAdded = isAdded;
+    poiCell.shouldEdit = YES;
+    if (isAdded) {
+        [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [poiCell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
-        PoiSummary *poiSummary = [[PoiSummary alloc] init];
-        poiSummary.poiId = poi.poiId;
-        poiSummary.zhName = poi.zhName;
-        poiSummary.enName = poi.enName;
-        poiSummary.desc = poi.desc;
-        poiSummary.priceDesc = poi.priceDesc;
-        poiSummary.commentCount = 0;
-        poiSummary.telephone = poi.telephone;
-        poiSummary.images = poi.images;
-        poiSummary.rating = poi.rating;
-        PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
-        poiCell.poi = poiSummary;
-        poiCell.actionBtn.tag = indexPath.row;
-        poiCell.isAdded = isAdded;
-        if (isAdded) {
-            [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-            [poiCell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [poiCell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-            [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        }
-
-        return poiCell;
-    }
-    
-    return nil;
+    return poiCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     TripPoi *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
     switch (tripPoi.poiType) {
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
-            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self addChildViewController:spotDetailCtl];
+            [self.view addSubview:spotDetailCtl.view];
+            
         }
             break;
         case kRestaurantPoi: {
@@ -646,9 +629,9 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                 [self beginLoadingSearch];
             }
         }
-
+        
     }
-   
+    
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView

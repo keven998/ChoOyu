@@ -125,7 +125,7 @@
     openTimeBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
     
     NSMutableString *str = [@"" mutableCopy];
-    if (_spot.timeCostStr) {
+    if (_spot.timeCostStr && ![_spot.timeCostStr isBlankString]) {
         [str appendString:[NSString stringWithFormat:@"建议游玩:%@, ", _spot.timeCostStr]];
     }
     [str appendString:_spot.openTime];

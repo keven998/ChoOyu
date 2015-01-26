@@ -487,8 +487,6 @@
 		D97C47321A1A3D8F0045E1E1 /* NSString+TaoziString.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C47311A1A3D8F0045E1E1 /* NSString+TaoziString.m */; };
 		D97C8B3F1A514A8C00476C9C /* ic_home_around@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */; };
 		D97C8B401A514A8C00476C9C /* ic_home_fav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */; };
-		D97C8B4A1A51811600476C9C /* AddPoiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97C8B481A51811600476C9C /* AddPoiTableViewController.m */; };
-		D97C8B4B1A51811600476C9C /* AddPoiTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D97C8B4F1A5270B200476C9C /* ic_new_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4E1A5270B200476C9C /* ic_new_talk@2x.png */; };
 		D97C8B511A5270E300476C9C /* ic_add_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B501A5270E300476C9C /* ic_add_friend@2x.png */; };
@@ -647,6 +645,7 @@
 		D9E3D4001A738EA700068A55 /* ic_spot_address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E3D3FF1A738EA700068A55 /* ic_spot_address@2x.png */; };
 		D9E3D4041A763AD000068A55 /* AFgzipRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4031A763AD000068A55 /* AFgzipRequestSerializer.m */; };
 		D9E3D40A1A76435200068A55 /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4091A76435200068A55 /* NSData+Godzippa.m */; };
+		D9E3D40D1A76790500068A55 /* AddPoiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D40C1A76790500068A55 /* AddPoiViewController.m */; };
 		D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */; };
 		D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */; };
 		D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E681A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m */; };
@@ -1472,9 +1471,6 @@
 		D97C47311A1A3D8F0045E1E1 /* NSString+TaoziString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TaoziString.m"; sourceTree = "<group>"; };
 		D97C8B3C1A514A8C00476C9C /* ic_home_around@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_around@2x.png"; sourceTree = "<group>"; };
 		D97C8B3D1A514A8C00476C9C /* ic_home_fav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_fav@2x.png"; sourceTree = "<group>"; };
-		D97C8B471A51811600476C9C /* AddPoiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiTableViewController.h; sourceTree = "<group>"; };
-		D97C8B481A51811600476C9C /* AddPoiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiTableViewController.m; sourceTree = "<group>"; };
-		D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPoiTableViewController.xib; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D97C8B4E1A5270B200476C9C /* ic_new_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_talk@2x.png"; sourceTree = "<group>"; };
 		D97C8B501A5270E300476C9C /* ic_add_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_friend@2x.png"; sourceTree = "<group>"; };
@@ -1722,6 +1718,8 @@
 		D9E3D4031A763AD000068A55 /* AFgzipRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFgzipRequestSerializer.m; sourceTree = "<group>"; };
 		D9E3D4081A76435200068A55 /* NSData+Godzippa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Godzippa.h"; sourceTree = "<group>"; };
 		D9E3D4091A76435200068A55 /* NSData+Godzippa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Godzippa.m"; sourceTree = "<group>"; };
+		D9E3D40B1A76790500068A55 /* AddPoiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiViewController.h; sourceTree = "<group>"; };
+		D9E3D40C1A76790500068A55 /* AddPoiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiViewController.m; sourceTree = "<group>"; };
 		D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_expand@2x.png"; sourceTree = "<group>"; };
 		D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_unexpand@2x.png"; sourceTree = "<group>"; };
 		D9E81E671A35C30A00D3BFD0 /* TaoziChatCityBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatCityBubbleView.h; sourceTree = "<group>"; };
@@ -3807,9 +3805,8 @@
 				D96550F11A257CA200928DB0 /* AddSpotTableViewCell.h */,
 				D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */,
 				D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */,
-				D97C8B471A51811600476C9C /* AddPoiTableViewController.h */,
-				D97C8B481A51811600476C9C /* AddPoiTableViewController.m */,
-				D97C8B491A51811600476C9C /* AddPoiTableViewController.xib */,
+				D9E3D40B1A76790500068A55 /* AddPoiViewController.h */,
+				D9E3D40C1A76790500068A55 /* AddPoiViewController.m */,
 			);
 			name = AddPoi;
 			sourceTree = "<group>";
@@ -5247,7 +5244,6 @@
 				C60C0D621A297A16006033C9 /* ic_check_version@2x.png in Resources */,
 				D9AC6D311A675B0C001D858D /* ic_guide_title_3@2x.png in Resources */,
 				D90BB4191A6E4C4B00D2035E /* ic_map@2x.png in Resources */,
-				D97C8B4B1A51811600476C9C /* AddPoiTableViewController.xib in Resources */,
 				D9E97D191A5C063800F2364D /* ic_saturn@2x.png in Resources */,
 				D93696E11A2FFD7E001922F4 /* message_taozi_receive@2x.png in Resources */,
 				D9E97D061A5C063800F2364D /* ic_guide_plane@2x.png in Resources */,
@@ -5356,7 +5352,6 @@
 				D90BB4241A6F56E100D2035E /* JGActionSheet.m in Sources */,
 				D90F35F419F63B3300E26FA9 /* CallViewController.m in Sources */,
 				D9545FA61A20896700688D72 /* RecommendDetail.m in Sources */,
-				D97C8B4A1A51811600476C9C /* AddPoiTableViewController.m in Sources */,
 				D9E9F7AC1A00A3C7003F70F6 /* AddContactTableViewController.m in Sources */,
 				D902ADBE1A15E15E00E36A93 /* CityHeaderView.m in Sources */,
 				D95F8A3F1A3FE5F2003F4275 /* JGProgressHUDPieIndicatorView.m in Sources */,
@@ -5417,6 +5412,7 @@
 				D9545FCC1A22F36300688D72 /* SpotsListViewController.m in Sources */,
 				D934D84D1A4D7968003AFFCF /* TZFilterView.m in Sources */,
 				D964201719EBCA3300CC8057 /* SettingTableViewController.m in Sources */,
+				D9E3D40D1A76790500068A55 /* AddPoiViewController.m in Sources */,
 				D90F35EA19F63B3300E26FA9 /* ChatListViewController.m in Sources */,
 				D90F363219F63B3300E26FA9 /* EMChatViewBaseCell.m in Sources */,
 				D9681A081A109BF600122793 /* ICETutorialStyle.m in Sources */,

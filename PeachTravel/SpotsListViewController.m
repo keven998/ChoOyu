@@ -10,7 +10,7 @@
 #import "TripPoiListTableViewCell.h"
 #import "RNGridMenu.h"
 #import "DestinationsView.h"
-#import "AddPoiTableViewController.h"
+#import "AddPoiViewController.h"
 #import "CityDestinationPoi.h"
 #import "DestinationUnit.h"
 #import "CityDetailTableViewController.h"
@@ -134,7 +134,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addPoi:(UIButton *)sender
 {
-    AddPoiTableViewController *addPoiCtl = [[AddPoiTableViewController alloc] init];
+    AddPoiViewController *addPoiCtl = [[AddPoiViewController alloc] init];
     addPoiCtl.tripDetail = self.tripDetail;
     addPoiCtl.delegate = self;
     addPoiCtl.currentDayIndex = sender.tag;

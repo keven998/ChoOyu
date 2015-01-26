@@ -38,9 +38,16 @@
     _poi = poi;
     NSString *title = [NSString stringWithFormat:@"  %@", _poi.zhName];
     _titleLabel.text = title;
-    if (_poi.poiType == kRestaurantPoi) {
+    if (_poi.poiType == kRestaurantPoi || _poi.poiType == kHotelPoi) {
         _propertyLabel.text = _poi.priceDesc;
 
+    }
+    if (_poi.poiType == kSpotPoi) {
+        if (_poi.timeCost) {
+            _propertyLabel.text = [NSString stringWithFormat:@"游玩 %@", _poi.timeCost];
+        } else {
+            _propertyLabel.text = @"";
+        }
     }
     TaoziImage *image = [_poi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];;
