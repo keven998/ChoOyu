@@ -18,13 +18,9 @@
 @property (nonatomic, strong) UIView *detailView;
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) ResizableView *descView;
 @property (nonatomic, strong) EDStarRating *ratingView;
-@property (nonatomic, strong) UIButton *showMoreDescContentBtn;
-@property (nonatomic, strong) UILabel *ticketLabel;
 
 @property (nonatomic, strong) UIButton *spotDescBtn;
 @property (nonatomic, strong) UIButton *travelBtn;
@@ -84,19 +80,12 @@
     TaoziImage *image = [_spot.images firstObject];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
-    offsetY += _imageView.bounds.size.height + 15;
-    
-    
-    UIImageView *ticketBkgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY, _scrollView.bounds.size.width-30, 117)];
-    ticketBkgImageView.image = [UIImage imageNamed:@"ticketBkg.png"];
-    [_scrollView addSubview:ticketBkgImageView];
-     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, _imageView.bounds.size.width-20, 30)];
     _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.text = _spot.zhName;
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.font = [UIFont boldSystemFontOfSize:30.];
-
+    
     [_imageView addSubview:_titleLabel];
     
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-60)/2, 60, 60, 15)];
@@ -122,16 +111,45 @@
     [_shareBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
     [_imageView addSubview:_shareBtn];
     
-    offsetY += 40;
+    offsetY += _imageView.bounds.size.height + 15;
     
-    UILabel *addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 100, 15)];
-    addressTitle.textColor = APP_THEME_COLOR;
-    addressTitle.text = @"地址";
-    addressTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-//    [_scrollView addSubview:addressTitle];
+    UIImageView *ticketBkgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY, _scrollView.bounds.size.width-30, 120)];
+    ticketBkgImageView.image = [UIImage imageNamed:@"ticketBkg.png"];
+    [_scrollView addSubview:ticketBkgImageView];
     
-    offsetY += 15;
+    UIButton *openTimeBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, 5, ticketBkgImageView.bounds.size.width-70, 35)];
+    openTimeBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
     
+    NSMutableString *str = [@"" mutableCopy];
+    if (_spot.timeCostStr) {
+        [str appendString:[NSString stringWithFormat:@"建议游玩:%@, ", _spot.timeCostStr]];
+    }
+    [str appendString:_spot.openTime];
+    [openTimeBtn setTitle:str forState:UIControlStateNormal];
+    openTimeBtn.titleLabel.numberOfLines = 3;
+    openTimeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    openTimeBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [openTimeBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    openTimeBtn.clipsToBounds = YES;
+    [ticketBkgImageView addSubview:openTimeBtn];
+
+    UIButton *ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, 50, ticketBkgImageView.bounds.size.width-70, 35)];
+    ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+    [ticketBtn setTitle:_spot.priceDesc forState:UIControlStateNormal];
+    [ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    ticketBtn.titleLabel.numberOfLines = 3;
+    ticketBtn.clipsToBounds = YES;
+    ticketBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    ticketBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [ticketBkgImageView addSubview:ticketBtn];
+    
+    UIButton *bookBtn = [[UIButton alloc] initWithFrame:CGRectMake((ticketBkgImageView.bounds.size.width-75)/2, 95, 75, 15)];
+    bookBtn.backgroundColor = APP_THEME_COLOR;
+    bookBtn.layer.cornerRadius = 7.5;
+    [bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
+    [ticketBkgImageView addSubview:bookBtn];
+    bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
     
     UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, _scrollView.bounds.size.height-70, _scrollView.bounds.size.width, 57.5)];
     btnBackView.backgroundColor = APP_PAGE_COLOR;
@@ -141,13 +159,14 @@
     addressImageView.center = CGPointMake(_scrollView.bounds.size.width/2, _scrollView.bounds.size.height-120);
     [_scrollView addSubview:addressImageView];
     
-    UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _scrollView.bounds.size.height-105, _scrollView.bounds.size.width-20, 40)];
-    addressDetailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    addressDetailLabel.textColor = TEXT_COLOR_TITLE;
-    addressDetailLabel.numberOfLines = 2.0;
-    addressDetailLabel.text = _spot.address;
-    addressDetailLabel.textAlignment = NSTextAlignmentCenter;
-    [_scrollView addSubview:addressDetailLabel];
+    UIButton *addressDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, _scrollView.bounds.size.height-105, _scrollView.bounds.size.width-20, 40)];
+    addressDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    [addressDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    addressDetailBtn.titleLabel.numberOfLines = 2.0;
+    [addressDetailBtn setTitle:_spot.address forState:UIControlStateNormal];
+    addressDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    addressDetailBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [_scrollView addSubview:addressDetailBtn];
     
     CGFloat spaceWidth = (_scrollView.bounds.size.width-45*4-70)/3;
     
@@ -172,40 +191,6 @@
 
 #pragma mark - IBAction Methods
 
-- (IBAction)showMoreContent:(id)sender
-{
-    [_descView showMoreContent];
-    [UIView animateWithDuration:0.2 animations:^{
-        [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height + _descView.resizeHeight)];
-        [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y+_descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
-        [_detailView setFrame:CGRectMake(_detailView.frame.origin.x, _detailView.frame.origin.y+_descView.resizeHeight, _detailView.frame.size.width, _detailView.frame.size.height)];
-        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
-    }];
-    
-    [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height+_descView.resizeHeight)];
-    [_showMoreDescContentBtn removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_showMoreDescContentBtn addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_descView removeTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_descView addTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (IBAction)hideContent:(id)sender
-{
-    _descView.numberOfLine = 2;
-    [_descView hideContent];
-    [UIView animateWithDuration:0.2 animations:^{
-        [_headerView setFrame:CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, _headerView.frame.size.width, _headerView.frame.size.height - _descView.resizeHeight)];
-        [_showMoreDescContentBtn setFrame:CGRectMake(_showMoreDescContentBtn.frame.origin.x, _showMoreDescContentBtn.frame.origin.y - _descView.resizeHeight, _showMoreDescContentBtn.frame.size.width, _showMoreDescContentBtn.frame.size.height)];
-         [_detailView setFrame:CGRectMake(_detailView.frame.origin.x, _detailView.frame.origin.y-_descView.resizeHeight, _detailView.frame.size.width, _detailView.frame.size.height)];
-        _showMoreDescContentBtn.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
-
-    }];
-    [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height-_descView.resizeHeight)];
-    [_showMoreDescContentBtn removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_showMoreDescContentBtn addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_descView removeTarget:self action:@selector(hideContent:) forControlEvents:UIControlEventTouchUpInside];
-    [_descView addTarget:self action:@selector(showMoreContent:) forControlEvents:UIControlEventTouchUpInside];
-}
 
 - (IBAction)viewImage:(id)sender
 {

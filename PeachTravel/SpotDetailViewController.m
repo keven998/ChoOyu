@@ -81,12 +81,12 @@
 {
     [SVProgressHUD dismiss];
     self.navigationController.navigationBar.hidden = NO;
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
-        [self removeFromParentViewController];
         [self.view removeFromSuperview];
+        [self removeFromParentViewController];
     }];
     
 }
