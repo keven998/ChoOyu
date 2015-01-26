@@ -422,7 +422,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"新建旅程计划", nil];
+                                              otherButtonTitles:@"新建旅程", nil];
     [sheet showInView:self.view];
 }
 

@@ -1215,7 +1215,8 @@
         [_gridController didMoveToParentViewController:self];
     }];
     
-    self.navigationItem.rightBarButtonItem = nil;
+//    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)hideGrid {
@@ -1458,7 +1459,8 @@
             [self tilePages]; // Force tiling if view is not visible
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark - Misc
