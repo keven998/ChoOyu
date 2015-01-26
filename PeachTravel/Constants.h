@@ -140,6 +140,15 @@ typedef enum : NSUInteger {
     kTravelNotePoi
 } TZPoiType;
 
+/***** app的状态，连接中。收取中。。等 *****/
+typedef enum : NSUInteger {
+    IM_CONNECTING = 1,
+    IM_CONNECTED,
+    IM_RECEIVING,
+    IM_RECEIVED,
+    IM_DISCONNECTED
+} IM_CONNECT_STATE;
+
 /***** 登录注册时输入的错误码 *****/
 typedef enum : NSUInteger {
     PhoneNumberError = 1,           //手机号号输入非法

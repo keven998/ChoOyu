@@ -54,6 +54,42 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)setIMState:(IM_CONNECT_STATE)IMState
+{
+    NSLog(@"%@", [NSThread currentThread]);
+    
+    _IMState = IMState;
+    switch (_IMState) {
+        case IM_CONNECTING: {
+            self.navigationItem.title = @"连接中";
+        }
+            break;
+            
+        case IM_DISCONNECTED: {
+            self.navigationItem.title = @"未连接";
+        }
+            break;
+            
+        case IM_RECEIVING: {
+            self.navigationItem.title = @"收取中";
+        }
+            break;
+            
+        case IM_RECEIVED: {
+            self.navigationItem.title = @"桃•Talk";
+        }
+            break;
+            
+        case IM_CONNECTED: {
+            self.navigationItem.title = @"桃•Talk";
+        }
+            
+        default:
+            break;
+    }
+}
+
+
 //收到好友请求
 - (void)updateFrendRequestStatus
 {

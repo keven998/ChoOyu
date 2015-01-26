@@ -144,7 +144,6 @@
     }
     for (EMConversation *conversation in dataSource) {
         if (!conversation.chatter) {
-
             [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
         }
         if (!conversation.isGroup) {
@@ -154,8 +153,6 @@
                 tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatar;
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
-            } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
             }
         } else {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
