@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C99d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C106a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -95,9 +95,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HbB-vu-Wv6">
-                                <rect key="frame" x="276" y="0.0" width="40" height="30"/>
+                                <rect key="frame" x="273" y="5" width="40" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="GWi-jJ-I2t"/>
+                                    <constraint firstAttribute="height" constant="20" id="GWi-jJ-I2t"/>
                                     <constraint firstAttribute="width" constant="40" id="YfT-zx-FZS"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -126,7 +126,7 @@
                             <constraint firstItem="Oo3-Eh-gcC" firstAttribute="top" secondItem="tL4-kP-lvf" secondAttribute="bottom" constant="10" id="BU2-PA-J1P"/>
                             <constraint firstAttribute="trailing" secondItem="3Al-JM-Y3N" secondAttribute="trailing" id="IFG-uf-Tfe"/>
                             <constraint firstItem="3Al-JM-Y3N" firstAttribute="top" secondItem="Ao2-DU-qFj" secondAttribute="bottom" constant="6" id="IlJ-U1-IP4"/>
-                            <constraint firstAttribute="trailing" secondItem="HbB-vu-Wv6" secondAttribute="trailing" constant="4" id="IxG-2q-wdb"/>
+                            <constraint firstAttribute="trailing" secondItem="HbB-vu-Wv6" secondAttribute="trailing" constant="7" id="IxG-2q-wdb"/>
                             <constraint firstItem="nrL-lg-Esr" firstAttribute="leading" secondItem="uyk-Cy-1ff" secondAttribute="leading" id="JFT-oJ-dg2"/>
                             <constraint firstAttribute="trailing" secondItem="Ao2-DU-qFj" secondAttribute="trailing" constant="10" id="JiG-Ze-sSa"/>
                             <constraint firstItem="uh6-ZE-He8" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="8" id="Kwy-ax-Zn3"/>
@@ -140,9 +140,9 @@
                             <constraint firstAttribute="trailing" secondItem="tL4-kP-lvf" secondAttribute="trailing" constant="8" id="dny-lj-6Ta"/>
                             <constraint firstItem="pV4-Ie-6im" firstAttribute="top" secondItem="IUU-Qe-QDk" secondAttribute="bottom" constant="2" id="gke-2H-Qth"/>
                             <constraint firstItem="IUU-Qe-QDk" firstAttribute="top" secondItem="3Al-JM-Y3N" secondAttribute="bottom" constant="5" id="inx-v8-90h"/>
-                            <constraint firstItem="HbB-vu-Wv6" firstAttribute="top" secondItem="uyk-Cy-1ff" secondAttribute="top" id="k3Z-UB-eAi"/>
+                            <constraint firstItem="HbB-vu-Wv6" firstAttribute="top" secondItem="uyk-Cy-1ff" secondAttribute="top" constant="5" id="k3Z-UB-eAi"/>
                             <constraint firstItem="AGD-7l-KqM" firstAttribute="top" secondItem="nrL-lg-Esr" secondAttribute="bottom" constant="10" id="p3d-u3-MuM"/>
-                            <constraint firstItem="tL4-kP-lvf" firstAttribute="top" secondItem="HbB-vu-Wv6" secondAttribute="bottom" constant="13" id="qKB-hw-538"/>
+                            <constraint firstItem="tL4-kP-lvf" firstAttribute="top" secondItem="HbB-vu-Wv6" secondAttribute="bottom" constant="18" id="qKB-hw-538"/>
                             <constraint firstAttribute="trailing" secondItem="IUU-Qe-QDk" secondAttribute="trailing" constant="8" id="tkk-hB-qe5"/>
                         </constraints>
                     </view>
@@ -167,7 +167,7 @@
                 <outlet property="ratingView" destination="uh6-ZE-He8" id="rWD-m6-DeN"/>
                 <outlet property="titleLabel" destination="nrL-lg-Esr" id="OSs-NO-UWh"/>
             </connections>
-            <point key="canvasLocation" x="-654" y="81.5"/>
+            <point key="canvasLocation" x="-806" y="61"/>
         </tableViewCell>
     </objects>
     <resources>

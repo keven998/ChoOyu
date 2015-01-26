@@ -52,10 +52,14 @@
     } else {
         _distanceLabel.hidden = YES;
     }
-    
-    CommentDetail *comment = [poi.comments firstObject];
-    _authorNameLabel.text = comment.nickName;
-    _commentLabel.text = comment.commentDetails;
+    if (_poi.poiType == kSpotPoi) {
+        _authorNameLabel.text = @"简介";
+        _commentLabel.text = _poi.desc;
+    } else {
+        CommentDetail *comment = [poi.comments firstObject];
+        _authorNameLabel.text = comment.nickName;
+        _commentLabel.text = comment.commentDetails;
+    }
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit
@@ -64,12 +68,13 @@
 
     if (_shouldEdit) {
         _actionBtn.backgroundColor = APP_THEME_COLOR;
+        _actionBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         [_actionBtn setTitle:@"收集" forState:UIControlStateNormal];
-        [_actionBtn setImage:nil forState:UIControlStateNormal];
         [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_actionBtn setImage:nil forState:UIControlStateNormal];
+        _actionBtn.layer.cornerRadius = 2.0;
 
     } else {
-        _actionBtn.backgroundColor = [UIColor whiteColor];
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
         [_actionBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
     }
