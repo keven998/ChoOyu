@@ -26,6 +26,7 @@
 @property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
+@property (nonatomic, strong) UIView *customNavigationBar;
 
 @end
 
@@ -48,14 +49,19 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [leftBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     leftBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 15, 0, 0);
-    [self.view addSubview:leftBtn];
     
     UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 72, 0, 72, 64.0)];
     [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(option:) forControlEvents:UIControlEventTouchUpInside];
     moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     moreBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 15);
-    [self.view addSubview:moreBtn];
+    
+    _customNavigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
+    _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0];
+
+    [_customNavigationBar addSubview:leftBtn];
+    [_customNavigationBar addSubview:moreBtn];
+    [self.view addSubview:_customNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -454,6 +460,16 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         [self chat:nil];
     } else {
         return;
+    }
+}
+
+#pragma mark UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:_tableView]) {
+        CGFloat alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
+        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
     }
 }
 
