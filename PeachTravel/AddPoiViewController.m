@@ -226,50 +226,50 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/**
+ *  添加或者删除景点
+ *
+ *  @param sender 
+ */
 - (IBAction)addPoi:(UIButton *)sender
 {
+    CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
+    PoisOfCityTableViewCell *cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     TripPoi *poi;
-    if (self.searchController.isActive) {
-        poi = [self.searchResultArray objectAtIndex:sender.tag];
-    } else {
-        poi = [self.dataSource objectAtIndex:sender.tag];
-    }
-    [oneDayArray addObject:poi];
-    NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-    if (self.searchController.isActive) {
-        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else {
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    [SVProgressHUD showHint:@"已添加"];
-    
-    self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
-}
-
-- (IBAction)deletePoi:(UIButton *)sender
-{
-    TripPoi *poi;
-    if (self.searchController.isActive) {
-        poi = [self.searchResultArray objectAtIndex:sender.tag];
-    } else {
-        poi = [self.dataSource objectAtIndex:sender.tag];
-    }
-    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    for (TripPoi *tripPoi in oneDayArray) {
-        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-            [oneDayArray removeObject:tripPoi];
-            break;
+    if (!cell.isAdded) {
+        if (self.searchController.isActive) {
+            poi = [self.searchResultArray objectAtIndex:indexPath.row];
+        } else {
+            poi = [self.dataSource objectAtIndex:indexPath.row];
         }
-    }
-    NSIndexPath *path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-    if (self.searchController.isActive) {
-        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [oneDayArray addObject:poi];
+        
+        [SVProgressHUD showHint:@"已添加"];
+        
+        self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
+
     } else {
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        TripPoi *poi;
+        if (self.searchController.isActive) {
+            poi = [self.searchResultArray objectAtIndex:indexPath.row];
+        } else {
+            poi = [self.dataSource objectAtIndex:indexPath.row];
+        }
+        NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+        for (TripPoi *tripPoi in oneDayArray) {
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                [oneDayArray removeObject:tripPoi];
+                break;
+            }
+        }
+        self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
+
     }
-    
-    self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
+    cell.isAdded = !cell.isAdded;
+
 }
 
 - (void)filter:(id)sender
@@ -524,13 +524,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     poiCell.actionBtn.tag = indexPath.row;
     poiCell.shouldEdit = YES;
     poiCell.isAdded = isAdded;
-    if (isAdded) {
-        [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        [poiCell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [poiCell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-        [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-    }
+    [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     
     return poiCell;
 }
