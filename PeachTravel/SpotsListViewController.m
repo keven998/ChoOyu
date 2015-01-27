@@ -161,7 +161,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
 
     NSMutableArray *allPositions = [[NSMutableArray alloc] init];
-    for (TripPoi *poi in _tripDetail.itineraryList[sender.tag]) {
+    for (PoiSummary *poi in _tripDetail.itineraryList[sender.tag]) {
         PositionBean *position = [[PositionBean alloc] init];
         position.latitude = poi.lat;
         position.longitude = poi.lng;
@@ -266,7 +266,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
-    for (TripPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
+    for (PoiSummary *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
             [set addObject:tripPoi.locality.zhName];
         }
@@ -332,7 +332,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    PoiSummary *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     TripPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tripPoiListReusableIdentifier forIndexPath:indexPath];
     cell.tripPoi = tripPoi;
     return cell;
@@ -341,7 +341,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TripPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+    PoiSummary *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     switch (tripPoi.poiType) {
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
@@ -413,7 +413,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     NSMutableArray *fromArray = _tripDetail.itineraryList[sourceIndexPath.section];
     NSMutableArray *toArray = _tripDetail.itineraryList[destinationIndexPath.section];
 
-    TripPoi *poi = [fromArray objectAtIndex:sourceIndexPath.row];
+    PoiSummary *poi = [fromArray objectAtIndex:sourceIndexPath.row];
     [fromArray removeObjectAtIndex:sourceIndexPath.row];
     [toArray insertObject:poi atIndex:destinationIndexPath.row];
     

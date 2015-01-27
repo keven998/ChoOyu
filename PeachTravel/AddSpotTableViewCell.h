@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 #import "EDStarRating.h"
+#import "PoiSummary.h"
 
 @interface AddSpotTableViewCell : UITableViewCell
 
@@ -30,6 +31,6 @@
 @property (nonatomic) BOOL isAdded;
 
 
-@property (nonatomic, strong) TripPoi *tripPoi;
+@property (nonatomic, strong) PoiSummary *tripPoi;
 
 @end

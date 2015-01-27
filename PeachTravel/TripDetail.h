@@ -41,38 +41,6 @@
 
 @end
 
-@interface TripPoi : NSObject
-
-
-@property (nonatomic, copy) NSString *poiId;
-@property (nonatomic, copy) NSString *zhName;
-@property (nonatomic, copy) NSString *enName;
-@property (nonatomic, copy) NSString *desc;
-@property (nonatomic, copy) NSString *priceDesc;
-@property (nonatomic, copy) NSString *address;
-@property (nonatomic) TZPoiType poiType;
-@property (nonatomic, strong) NSArray *images;
-@property (nonatomic) float rating;
-@property (nonatomic, copy) NSString *telephone;
-@property (nonatomic) double lng;
-@property (nonatomic) double lat;
-@property (nonatomic, strong) CityDestinationPoi *locality;
-@property (nonatomic, copy) NSString *timeCost;
-@property (nonatomic, copy) NSString *distanceStr;
-
-- (id) initWithJson:(id)json;
-
-- (NSDictionary *)prepareAllDataForUpload;     //将完整的数据结构转换成的 json 数据
-
-/**
- *  将只含有 id 和 type 的 TripPoi 转化为 json 数据
- *
- *  @return 
- */
-- (NSDictionary *)prepareSummaryDataForUpdateBackUpTrip;
-
-@end
-
 
 
 

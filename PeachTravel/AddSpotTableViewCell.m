@@ -28,7 +28,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setTripPoi:(TripPoi *)tripPoi
+- (void)setTripPoi:(PoiSummary *)tripPoi
 {
     _tripPoi = tripPoi;
     TaoziImage *image = [_tripPoi.images firstObject];

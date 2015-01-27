@@ -10,6 +10,7 @@
 #import "SearchResultTableViewCell.h"
 #import "CityDestinationPoi.h"
 #import "TaoziChatMessageBaseViewController.h"
+#import "PoiSummary.h"
 
 @interface SearchMoreDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate>
 
@@ -178,7 +179,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [self.dataSource removeAllObjects];
     for (id dic in [json objectForKey:_poiTypeDesc]) {
-        TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
+        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         poi.poiType = kSpotPoi;
         [self.dataSource addObject:poi];
     }
@@ -280,7 +281,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isEqual:self.tableView]) {
-        TripPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
+        PoiSummary *poi = [self.dataSource objectAtIndex:indexPath.row];
         SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
         
         if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
@@ -308,7 +309,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if ([tableView isEqual:self.tableView]) {
        
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        TripPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
+        PoiSummary *poi = [self.dataSource objectAtIndex:indexPath.row];
         
         TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
         taoziMessageCtl.delegate = self;

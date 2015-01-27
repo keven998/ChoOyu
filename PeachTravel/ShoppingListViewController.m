@@ -255,7 +255,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
-    TripPoi *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
+    PoiSummary *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.section];
     
     [_tripDetail.shoppingList insertObject:poi atIndex:destinationIndexPath.section];
@@ -294,7 +294,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TripPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
+    PoiSummary *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
     CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
     shoppingDetailCtl.poiId = tripPoi.poiId;
     shoppingDetailCtl.poiType = kShoppingPoi;
@@ -327,7 +327,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    TripPoi *poi = [_tripDetail.shoppingList objectAtIndex:actionSheet.tag];
+    PoiSummary *poi = [_tripDetail.shoppingList objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:

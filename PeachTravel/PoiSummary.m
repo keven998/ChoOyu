@@ -22,10 +22,27 @@
         _priceDesc = [json objectForKey:@"priceDesc"];
         _desc = [json objectForKey:@"desc"];
         _address = [json objectForKey:@"address"];
+        
+        if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
+            _poiType = kSpotPoi;
+        }
+        if ([[json objectForKey:@"type"] isEqualToString:@"restaurant"]) {
+            _poiType = kRestaurantPoi;
+        }
+        if ([[json objectForKey:@"type"] isEqualToString:@"shopping"]) {
+            _poiType = kShoppingPoi;
+        }
+        if ([[json objectForKey:@"type"] isEqualToString:@"hotel"]) {
+            _poiType = kHotelPoi;
+        }
+        
         if ([[json objectForKey:@"tel"] isKindOfClass:[NSArray class]]) {
             _telephone = [[json objectForKey:@"tel"] firstObject];
         }
-        _timeCost = [json objectForKey:@"timeCost"];
+        if ([json objectForKey:@"locality"] != [NSNull null]) {
+            _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
+        }
+        _timeCost = [json objectForKey:@"timeCostDesc"];
         _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
         _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
         if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
@@ -89,5 +106,104 @@
             break;
     }
 }
+
+/**
+ * 将所有的字段信息储存为 Dictionary 类型。虽然保存上传的时候只需要上传 id 和 type，但是这里之所以要把所有的字段都集合起来是为了更新“备份路线”
+ *
+ *  @return
+ */
+- (NSDictionary *)prepareAllDataForUpload
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    [retDic safeSetObject:_poiId forKey:@"id"];
+    [retDic safeSetObject:_zhName forKey:@"zhName"];
+    [retDic safeSetObject:_enName forKey:@"enName"];
+    [retDic safeSetObject:_desc forKey:@"desc"];
+    [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
+    [retDic safeSetObject:_address forKey:@"address"];
+    [retDic safeSetObject:[NSNumber numberWithFloat:_rating] forKey:@"rating"];
+    [retDic safeSetObject:_telephone forKey:@"telephone"];
+    [retDic safeSetObject:_timeCost forKey:@"timeCostDesc"];
+    
+    NSString *poiTypeStr;
+    switch (_poiType) {
+        case kSpotPoi:
+            poiTypeStr = @"vs";
+            break;
+            
+        case kRestaurantPoi:
+            poiTypeStr = @"restaurant";
+            break;
+        case kShoppingPoi:
+            poiTypeStr = @"shopping";
+            break;
+        case kHotelPoi:
+            poiTypeStr = @"hotel";
+            break;
+            
+        default:
+            break;
+    }
+    
+    [retDic safeSetObject:poiTypeStr forKey:@"type"];
+    
+    NSMutableArray *coordinatesArray = [[NSMutableArray alloc] init];
+    [coordinatesArray addObject:[NSNumber numberWithDouble:_lng]];
+    [coordinatesArray addObject:[NSNumber numberWithDouble:_lat]];
+    [retDic safeSetObject:@{@"coordinates":coordinatesArray} forKey:@"location"];
+    
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    for (TaoziImage *image in _images) {
+        NSMutableDictionary *imageDic = [[NSMutableDictionary alloc] init];
+        [imageDic safeSetObject:image.imageUrl forKey:@"url"];
+        [imageArray addObject:imageDic];
+    }
+    
+    [retDic safeSetObject:imageArray forKey:@"images"];
+    
+    NSMutableDictionary *destinationDic = [[NSMutableDictionary alloc] init];
+    [destinationDic safeSetObject:_locality.cityId forKey:@"id"];
+    [destinationDic safeSetObject:_locality.zhName forKey:@"zhName"];
+    [destinationDic safeSetObject:_locality.enName forKey:@"enName"];
+    
+    [retDic safeSetObject:destinationDic forKey:@"locality"];
+    
+    return retDic;
+}
+
+/**
+ *  保存时候用来上传的 只包含 id 和类型的路线信息
+ *
+ *  @return
+ */
+- (NSDictionary *)prepareSummaryDataForUpdateBackUpTrip
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    [retDic safeSetObject:_poiId forKey:@"id"];
+    
+    NSString *poiTypeStr;
+    switch (_poiType) {
+        case kSpotPoi:
+            poiTypeStr = @"vs";
+            break;
+            
+        case kRestaurantPoi:
+            poiTypeStr = @"restaurant";
+            break;
+        case kShoppingPoi:
+            poiTypeStr = @"shopping";
+            break;
+        case kHotelPoi:
+            poiTypeStr = @"hotel";
+            break;
+            
+        default:
+            break;
+    }
+    
+    [retDic safeSetObject:poiTypeStr forKey:@"type"];
+    return retDic;
+}
+
 
 @end
