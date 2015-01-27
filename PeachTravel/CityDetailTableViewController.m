@@ -28,6 +28,8 @@
 @property (nonatomic, strong) TZProgressHUD *hud;
 @property (nonatomic, strong) UIView *customNavigationBar;
 
+@property (nonatomic, strong) UIImageView *cityPicture;
+
 @end
 
 @implementation CityDetailTableViewController
@@ -37,10 +39,16 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    _cityPicture = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 188)];
+    _cityPicture.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _cityPicture.contentMode = UIViewContentModeScaleAspectFill;
+    _cityPicture.clipsToBounds = YES;
+    [self.view addSubview:_cityPicture];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     [self.view addSubview:self.tableView];
     [self loadCityData];
     
@@ -74,6 +82,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     self.navigationController.navigationBarHidden = NO;
 }
 
+- (void) dealloc {
+    _cityHeaderView.delegate = nil;
+    _cityHeaderView = nil;
+    _tableView.dataSource = nil;
+    _tableView.delegate = nil;
+    _tableView = nil;
+}
+
 - (void)updateView
 {
     self.navigationItem.title = _cityPoi.zhName;
@@ -92,14 +108,20 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.tableView reloadData];
+    
+    if (_cityPoi.images.count > 0) {
+        TaoziImage *taoziImage = [_cityPoi.images objectAtIndex:0];
+        NSString *url = taoziImage.imageUrl;
+        [_cityPicture sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
+    }
 }
 
 - (UITableView *)tableView
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+        _tableView.backgroundColor = [UIColor clearColor];
+//        [_tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
         
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -289,7 +311,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)updateCityHeaderView
 {
     UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-    tableHeaderView.backgroundColor = APP_PAGE_COLOR;
+//    tableHeaderView.backgroundColor = APP_PAGE_COLOR;
     [self.tableView beginUpdates];
     [self.tableView setTableHeaderView:tableHeaderView];
     [self.tableView endUpdates];
@@ -431,6 +453,27 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [as showInView:self.view];
 }
 
+#pragma UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_tableView != nil && [scrollView isEqual:_tableView]) {
+        CGFloat y = scrollView.contentOffset.y;
+        if (y <= 0) {
+            CGRect frame = _cityPicture.frame;
+            frame.size.height = 188 - y;
+            frame.origin.y = 0;
+            _cityPicture.frame = frame;
+        } else {
+            CGRect frame = _cityPicture.frame;
+            frame.origin.y = -y;
+            _cityPicture.frame = frame;
+        }
+        
+        CGFloat alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
+        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
+
+    }
+}
 
 #pragma mark - UIActionSheetDelegate
 
@@ -463,15 +506,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }
 }
 
-#pragma mark UIScrollView Delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([scrollView isEqual:_tableView]) {
-        CGFloat alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
-        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
-    }
-}
 
 @end
 
