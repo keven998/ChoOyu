@@ -522,8 +522,8 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
     poiCell.poi = poiSummary;
     poiCell.actionBtn.tag = indexPath.row;
-    poiCell.isAdded = isAdded;
     poiCell.shouldEdit = YES;
+    poiCell.isAdded = isAdded;
     if (isAdded) {
         [poiCell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
