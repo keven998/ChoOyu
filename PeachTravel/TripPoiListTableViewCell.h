@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 #import "EDStarRating.h"
+#import "PoiSummary.h"
 
 @interface TripPoiListTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) TripPoi *tripPoi;
+@property (strong, nonatomic) PoiSummary *tripPoi;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *property;
 

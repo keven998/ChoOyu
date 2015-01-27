@@ -28,9 +28,20 @@
 @property (nonatomic) float rating;
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
+@property (nonatomic, strong) CityDestinationPoi *locality;
 @property (nonatomic, copy) NSString *distanceStr;
 @property (nonatomic) BOOL isMyFavorite;
 
 - (id)initWithJson:(id)json;
+
+- (NSDictionary *)prepareAllDataForUpload;     //将完整的数据结构转换成的 json 数据
+
+/**
+ *  将只含有 id 和 type 的 TripPoi 转化为 json 数据
+ *
+ *  @return
+ */
+- (NSDictionary *)prepareSummaryDataForUpdateBackUpTrip;
+
 
 @end

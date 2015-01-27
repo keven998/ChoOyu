@@ -260,7 +260,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
-    TripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
+    PoiSummary *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
    
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
@@ -299,7 +299,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TripPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+    PoiSummary *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
     CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;
     restaurantDetailCtl.poiType = kRestaurantPoi;
@@ -332,7 +332,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    TripPoi *poi = [_tripDetail.restaurantsList objectAtIndex:actionSheet.tag];
+    PoiSummary *poi = [_tripDetail.restaurantsList objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:

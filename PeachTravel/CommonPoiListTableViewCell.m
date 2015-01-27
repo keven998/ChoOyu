@@ -36,7 +36,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setTripPoi:(TripPoi *)tripPoi
+- (void)setTripPoi:(PoiSummary *)tripPoi
 {
     _tripPoi = tripPoi;
     _titleLabel.text = [NSString stringWithFormat:@"  %@", _tripPoi.zhName];

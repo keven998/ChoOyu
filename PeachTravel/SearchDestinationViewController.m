@@ -11,6 +11,7 @@
 #import "SearchMoreDestinationViewController.h"
 #import "SearchResultTableViewCell.h"
 #import "TaoziChatMessageBaseViewController.h"
+#import "PoiSummary.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate>
 
@@ -165,7 +166,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [cityDic setObject:@"相关城市" forKey:@"typeDesc"];
     NSMutableArray *cities = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"locality"]) {
-        TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
+        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         poi.poiType = kCityPoi;
         [cities addObject:poi];
     }
@@ -179,7 +180,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [spotDic setObject:@"相关景点" forKey:@"typeDesc"];
     NSMutableArray *spots = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"vs"]) {
-        TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
+        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         poi.poiType = kSpotPoi;
         [spots addObject:poi];
     }
@@ -195,7 +196,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [restaurantDic setObject:@"相关美食" forKey:@"typeDesc"];
     NSMutableArray *restaurants = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"restaurant"]) {
-        TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
+        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         poi.poiType = kRestaurantPoi;
         [restaurants addObject:poi];
     }
@@ -211,7 +212,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [shoppingDic setObject:@"相关购物" forKey:@"typeDesc"];
     NSMutableArray *shoppingArray = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"shopping"]) {
-        TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
+        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         poi.poiType = kShoppingPoi;
         [shoppingArray addObject:poi];
     }
@@ -227,7 +228,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [hotelDic setObject:@"相关酒店" forKey:@"typeDesc"];
     NSMutableArray *hotels = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"hotel"]) {
-        TripPoi *poi = [[TripPoi alloc] initWithJson:dic];
+        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         poi.poiType = kHotelPoi;
         [hotels addObject:poi];
     }
@@ -363,7 +364,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TripPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+    PoiSummary *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
 
     if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
@@ -384,7 +385,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TripPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+    PoiSummary *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
 
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;

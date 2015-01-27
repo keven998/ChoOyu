@@ -419,27 +419,18 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
     PoisOfCityTableViewCell *cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     
-    TripPoi *tripPoi = [[TripPoi alloc] init];
     PoiSummary *poi;
     if (self.searchController.isActive) {
         poi = [_searchResultArray objectAtIndex:sender.tag];
     } else {
         poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     }
-    tripPoi.poiId = poi.poiId;
-    tripPoi.zhName = poi.zhName;
-    tripPoi.enName = poi.enName;
-    tripPoi.images = poi.images;
-    tripPoi.priceDesc = poi.priceDesc;
-    tripPoi.desc = poi.desc;
-    tripPoi.rating = poi.rating;
-    tripPoi.address = poi.address;
-    tripPoi.poiType = _poiType;
+   
     if (!cell.isAdded) {
         if (_poiType == kRestaurantPoi) {
-            [self.tripDetail.restaurantsList addObject:tripPoi];
+            [self.tripDetail.restaurantsList addObject:poi];
         } else if (_poiType == kShoppingPoi) {
-            [self.tripDetail.shoppingList addObject:tripPoi];
+            [self.tripDetail.shoppingList addObject:poi];
         }
         
         [SVProgressHUD showHint:@"已收集"];
@@ -451,7 +442,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         if (_poiType == kShoppingPoi) {
             oneDayArray = self.tripDetail.shoppingList;
         }
-        for (TripPoi *tripPoi in oneDayArray) {
+        for (PoiSummary *tripPoi in oneDayArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 [oneDayArray removeObject:tripPoi];
                 break;
@@ -700,7 +691,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         if (_poiType == kRestaurantPoi) {
             tempArray = self.tripDetail.restaurantsList;
         }
-        for (TripPoi *tripPoi in tempArray) {
+        for (PoiSummary *tripPoi in tempArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 isAdded = YES;
                 break;

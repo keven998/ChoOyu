@@ -237,7 +237,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
     PoisOfCityTableViewCell *cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    TripPoi *poi;
+    PoiSummary *poi;
     if (!cell.isAdded) {
         if (self.searchController.isActive) {
             poi = [self.searchResultArray objectAtIndex:indexPath.row];
@@ -252,14 +252,14 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 
     } else {
         
-        TripPoi *poi;
+        PoiSummary *poi;
         if (self.searchController.isActive) {
             poi = [self.searchResultArray objectAtIndex:indexPath.row];
         } else {
             poi = [self.dataSource objectAtIndex:indexPath.row];
         }
         NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-        for (TripPoi *tripPoi in oneDayArray) {
+        for (PoiSummary *tripPoi in oneDayArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 [oneDayArray removeObject:tripPoi];
                 break;
@@ -314,7 +314,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                     _enableLoadMoreNormal = YES;
                 }
                 for (id poiDic in [responseObject objectForKey:@"result"]) {
-                    [self.dataSource addObject:[[TripPoi alloc] initWithJson:poiDic]];
+                    [self.dataSource addObject:[[PoiSummary alloc] initWithJson:poiDic]];
                 }
                 [self.tableView reloadData];
                 _currentPageNormal = pageNo;
@@ -416,7 +416,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                     _enableLoadMoreSearch = YES;
                 }
                 for (id poiDic in jsonDic) {
-                    [self.searchResultArray addObject:[[TripPoi alloc] initWithJson:poiDic]];
+                    [self.searchResultArray addObject:[[PoiSummary alloc] initWithJson:poiDic]];
                 }
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
@@ -492,7 +492,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TripPoi *poi;
+    PoiSummary *poi;
     if ([tableView isEqual:self.tableView]) {
         poi = [self.dataSource objectAtIndex:indexPath.row];
     } else {
@@ -500,27 +500,14 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     }
     BOOL isAdded = NO;
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    for (TripPoi *tripPoi in oneDayArray) {
+    for (PoiSummary *tripPoi in oneDayArray) {
         if ([tripPoi.poiId isEqualToString:poi.poiId]) {
             isAdded = YES;
         }
     }
     
-    PoiSummary *poiSummary = [[PoiSummary alloc] init];
-    poiSummary.poiId = poi.poiId;
-    poiSummary.zhName = poi.zhName;
-    poiSummary.enName = poi.enName;
-    poiSummary.desc = poi.desc;
-    poiSummary.address = poi.address;
-    poiSummary.priceDesc = poi.priceDesc;
-    poiSummary.commentCount = 0;
-    poiSummary.telephone = poi.telephone;
-    poiSummary.images = poi.images;
-    poiSummary.rating = poi.rating;
-    poiSummary.poiType = poi.poiType;
-    
     PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
-    poiCell.poi = poiSummary;
+    poiCell.poi = poi;
     poiCell.actionBtn.tag = indexPath.row;
     poiCell.shouldEdit = YES;
     poiCell.isAdded = isAdded;
@@ -532,7 +519,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    TripPoi *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
+    PoiSummary *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
     switch (tripPoi.poiType) {
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
