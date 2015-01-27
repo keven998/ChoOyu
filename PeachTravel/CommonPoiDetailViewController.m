@@ -42,7 +42,7 @@
 - (void)updateView
 {
     self.navigationItem.title = _commonPoi.zhName;
-    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(5, 47, self.view.bounds.size.width-10, self.view.bounds.size.height-80)];
+    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(5, 48, self.view.bounds.size.width-10, self.view.bounds.size.height-80)];
     restaurantView.rootCtl = self;
     restaurantView.poiType = _poiType;
     restaurantView.poi = self.commonPoi;
@@ -80,6 +80,18 @@
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
+}
+
+- (void)dismissCtlWithHint:(NSString *)hint {
+    [SVProgressHUD showHint:hint];
+    self.navigationController.navigationBar.hidden = NO;
+    [UIView animateWithDuration:0.0 animations:^{
+        self.view.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }];
 }
 
 - (void)dealloc
@@ -129,23 +141,20 @@
     
     NSString *url = [NSString stringWithFormat:@"%@%@", typeUrl, _poiId];
     
-    
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
+            [SVProgressHUD dismiss];
             _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             _commonPoi.poiType  = kRestaurantPoi;
             [self updateView];
         } else {
+            [self dismissCtlWithHint:@"无法获取数据"];
         }
           
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD dismiss];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
+        [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
 }
 
