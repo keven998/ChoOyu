@@ -10,7 +10,12 @@
 #import "AccountManager.h"
 #import "LoginViewController.h"
 
-@interface PoiDetailSuperViewController () <CreateConversationDelegate, TaoziMessageSendDelegate>
+enum {
+    kASMap = 1,
+    kASShare
+};
+
+@interface PoiDetailSuperViewController () <CreateConversationDelegate, TaoziMessageSendDelegate, UIActionSheetDelegate>
 
 @end
 
@@ -26,15 +31,30 @@
 
 - (IBAction)chat:(id)sender
 {
-    if (![[AccountManager shareAccountManager] isLogin]) {
-        
-        [SVProgressHUD showErrorWithStatus:@"请先登录"];
-        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
-    } else {
-        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-        _chatRecordListCtl.delegate = self;
-        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-        [self presentViewController:nCtl animated:YES completion:nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Talk", nil];
+    sheet.tag = kASShare;
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    NSInteger tag = actionSheet.tag;
+    if (tag == kASShare) {
+        if (![[AccountManager shareAccountManager] isLogin]) {
+            [SVProgressHUD showHint:@"请先登录"];
+            [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        } else {
+            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+            _chatRecordListCtl.delegate = self;
+            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            [self presentViewController:nCtl animated:YES completion:nil];
+        }
     }
 }
 
@@ -82,8 +102,7 @@
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

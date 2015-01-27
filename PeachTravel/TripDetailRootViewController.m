@@ -88,7 +88,7 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，制作旅程更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，旅程计划更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
@@ -166,13 +166,17 @@
         //        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_editBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+//        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_moreBtn setTitle:@"选项" forState:UIControlStateNormal];
+        _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
@@ -631,7 +635,7 @@
     
     [self.view addSubview:_tabBarView];
 
-    NSArray *tabBarItemTitles = @[@"玩安排", @"吃清单", @"买清单"];
+    NSArray *tabBarItemTitles = @[@"旅程计划", @"吃清单", @"买清单"];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
     

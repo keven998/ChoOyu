@@ -17,6 +17,11 @@
 #import "CommonPoiDetailViewController.h"
 #import "SuperWebViewController.h"
 
+enum {
+    kASMap = 1,
+    kASShare
+};
+
 @interface CommonPoiDetailView () <UIScrollViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -44,7 +49,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = APP_PAGE_COLOR;
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
@@ -131,11 +136,12 @@
     
     offsetY += 15;
     
-    UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
-    addressDetailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    addressDetailLabel.textColor = TEXT_COLOR_TITLE;
-    addressDetailLabel.numberOfLines = 2.0;
-    addressDetailLabel.text = _poi.address;
+    UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 36)];
+    addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    addressDetailLabel.titleLabel.numberOfLines = 2.0;
+    [addressDetailLabel setTitle:_poi.address forState:UIControlStateNormal];
+    [addressDetailLabel addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:addressDetailLabel];
     
     UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-50, offsetY-5, 40, 40)];
@@ -151,12 +157,13 @@
     [_scrollView addSubview:dotView1];
     
     UILabel *descTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, 100, 15)];
-    if (_poi.poiType == kShoppingPoi) {
-        descTitleLable.text = @"店铺简介";
-    }
-    if (_poi.poiType == kRestaurantPoi) {
-        descTitleLable.text = @"美食简介";
-    }
+    descTitleLable.text = @"简介";
+//    if (_poi.poiType == kShoppingPoi) {
+//        descTitleLable.text = @"店铺简介";
+//    }
+//    if (_poi.poiType == kRestaurantPoi) {
+//        descTitleLable.text = @"美食简介";
+//    }
 
     descTitleLable.textColor = APP_THEME_COLOR;
     descTitleLable.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
@@ -183,6 +190,7 @@
     offsetY += 50;
     
     _panelOneView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, self.bounds.size.width, 200)];
+    _panelOneView.backgroundColor = APP_PAGE_COLOR;
     [_scrollView addSubview:_panelOneView];
     
     UIView *spaceViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _panelOneView.bounds.size.width, 1)];
@@ -216,7 +224,8 @@
         [_panelOneView addSubview:_showMoreRecommendContentBtn];
     }
     
-    _panelTwoView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, _panelOneView.bounds.size.width, 100)];
+    _panelTwoView = [[UIView alloc] initWithFrame:CGRectMake(0, 124, _panelOneView.bounds.size.width, 76)];
+    _panelTwoView.backgroundColor = APP_PAGE_COLOR;
     [_panelOneView addSubview:_panelTwoView];
     
     UIView *spaceViewTwo = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _panelTwoView.bounds.size.width, 1)];
@@ -268,7 +277,7 @@
 
 - (IBAction)jumpMapView:(id)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图"
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
@@ -279,6 +288,7 @@
     }
     [sheet addButtonWithTitle:@"取消"];
     sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    sheet.tag = kASMap;
     [sheet showInView:self];    
 }
 
@@ -392,7 +402,10 @@
 
 - (IBAction)makePhone:(id)sender
 {
-    
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", _poi.telephone]];
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+    }
 }
 
 - (IBAction)favorite:(id)sender
@@ -404,7 +417,6 @@
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
-        
         if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
         {
             CommonPoiDetailViewController *rootCtl;
@@ -444,6 +456,16 @@
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
+    NSInteger tag = actionSheet.tag;
+    if (tag == kASMap) {
+        [self goMap:buttonIndex];
+    } else if (tag == kASShare) {
+        
+    }
+    
+}
+
+- (void)goMap:(NSInteger)buttonIndex {
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
