@@ -244,6 +244,33 @@
  */
 - (void)goBack
 {
+    if ([_tripDetail tripIsChange]) {
+        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"攻略发生变化，是否要先保存呢？" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"先保存", nil];
+        [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            if (buttonIndex == 1) {
+                TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+                [hud showHUD];
+                [_tripDetail saveTrip:^(BOOL isSuccesss) {
+                    [hud hideTZHUD];
+                    if (isSuccesss) {
+                        [SVProgressHUD showHint:@"保存成功"];
+                        [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+                    } else {
+                        [SVProgressHUD showHint:@"保存失败了～"];
+                    }
+                }];
+            }
+        }];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)dismissCtl
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
