@@ -11,6 +11,8 @@
 @interface TZSegmentedViewController ()
 
 @property (nonatomic, strong) UIViewController *currentViewController;
+@property (nonatomic, strong) UIView *indicateView;
+@property (nonatomic, strong) NSArray *segmentedBtns;
 
 @end
 
@@ -22,13 +24,16 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*_segmentedImages.count, 44)];
     self.navigationItem.titleView = view;
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i=0; i<_segmentedImages.count; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(60*i, 0, 60, 44)];
         btn.tag = i;
         [btn setImage:[UIImage imageNamed:[_segmentedImages objectAtIndex:i]] forState:UIControlStateNormal];
         [view addSubview:btn];
         [btn addTarget:self action:@selector(changePageAction:) forControlEvents:UIControlEventTouchUpInside];
+        [array addObject:btn];
     }
+    _segmentedBtns = array;
     
     for (UIViewController *ctl in _viewControllers) {
         [ctl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
@@ -37,6 +42,11 @@
     _currentViewController = firstCtl;
     [self addChildViewController:firstCtl];
     [self.view addSubview:firstCtl.view];
+    _indicateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 4)];
+    _indicateView.backgroundColor = [UIColor greenColor];
+    UIButton *btn = [_segmentedBtns firstObject];
+    _indicateView.center = CGPointMake(btn.center.x, 37);
+    [view addSubview:_indicateView];
 }
 
 - (void)setSelectedIndext:(NSUInteger)selectedIndext
@@ -54,6 +64,12 @@
 - (void)changePage:(NSUInteger)pageIndex
 {
     _selectedIndext = pageIndex;
+    
+    UIButton *btn = [_segmentedBtns objectAtIndex:_selectedIndext];
+    [UIView animateWithDuration:0.2 animations:^{
+        _indicateView.center = CGPointMake(btn.center.x, 37);
+    }];
+
     UIViewController *newController = [_viewControllers objectAtIndex:pageIndex];
     
     if ([newController isEqual:_currentViewController]) {
@@ -65,7 +81,7 @@
 - (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
 {
     [self addChildViewController:newController];
-    [self transitionFromViewController:oldController toViewController:newController duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
+    [self transitionFromViewController:oldController toViewController:newController duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         if (finished) {
             [newController didMoveToParentViewController:self];
             [oldController willMoveToParentViewController:nil];
