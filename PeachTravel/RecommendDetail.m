@@ -25,4 +25,19 @@
     return self;
 }
 
+- (id)enCodeToJson
+{
+    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
+    [retDic safeSetObject:_title forKey:@"title"];
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    for (TaoziImage *image in _images) {
+        NSMutableDictionary *imageDic = [[NSMutableDictionary alloc] init];
+        [imageDic safeSetObject:image.imageUrl forKey:@"url"];
+        [imageArray addObject:imageDic];
+    }
+    
+    [retDic safeSetObject:imageArray forKey:@"images"];
+    return retDic;
+}
+
 @end

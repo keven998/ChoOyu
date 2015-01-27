@@ -141,16 +141,10 @@
             }
         }
     }
-   
-    [UIView animateWithDuration:0.15 animations:^{
-        self.view.alpha = 0;
-        viewInNavi.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self.view removeFromSuperview];
-        [self willMoveToParentViewController:nil];
-        [self removeFromParentViewController];
-        [viewInNavi removeFromSuperview];
-    }];
+    [viewInNavi removeFromSuperview];
+    [self.view removeFromSuperview];
+    [self willMoveToParentViewController:nil];
+    [self removeFromParentViewController];
 }
 
 -(void) startAnimation

@@ -15,4 +15,6 @@
 
 - (id)initWithJson:(id)json;
 
+- (id)enCodeToJson;
+
 @end

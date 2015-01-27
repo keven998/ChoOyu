@@ -8,6 +8,7 @@
 
 #import "CommonPoiListTableViewCell.h"
 #import "EDStarRating.h"
+#import "CommentDetail.h"
 
 @interface CommonPoiListTableViewCell ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLeftConstraint;
@@ -47,6 +48,10 @@
         _propertyLabel.text = _tripPoi.priceDesc;
     }
     _addressLabel.text = _tripPoi.address;
+    CommentDetail *comment = [_tripPoi.comments firstObject];
+//    _authorNameLabel.text = comment.nickName;
+    _commentLabel.text = comment.commentDetails;
+    
 }
 
 - (void)didTransitionToState:(UITableViewCellStateMask)state

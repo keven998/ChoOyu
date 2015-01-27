@@ -15,7 +15,10 @@
 @property (nonatomic) CGFloat rating;
 @property (nonatomic, copy) NSString *commentDetails;
 @property (nonatomic, copy) NSString *commentTime;
+@property (nonatomic) long long commentLongTime;
 
 - (id)initWithJson:(id)json;
+
+- (id)enCodeToJson;
 
 @end
