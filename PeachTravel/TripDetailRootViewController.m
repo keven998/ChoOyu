@@ -166,6 +166,8 @@
         //        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_editBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
@@ -633,7 +635,7 @@
     
     [self.view addSubview:_tabBarView];
 
-    NSArray *tabBarItemTitles = @[@"玩安排", @"吃清单", @"买清单"];
+    NSArray *tabBarItemTitles = @[@"旅程计划", @"吃清单", @"买清单"];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
     

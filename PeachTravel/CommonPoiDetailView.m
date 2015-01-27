@@ -49,7 +49,7 @@ enum {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = APP_PAGE_COLOR;
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
@@ -136,7 +136,7 @@ enum {
     
     offsetY += 15;
     
-    UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
+    UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 36)];
     addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     addressDetailLabel.titleLabel.numberOfLines = 2.0;
@@ -157,12 +157,13 @@ enum {
     [_scrollView addSubview:dotView1];
     
     UILabel *descTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, 100, 15)];
-    if (_poi.poiType == kShoppingPoi) {
-        descTitleLable.text = @"店铺简介";
-    }
-    if (_poi.poiType == kRestaurantPoi) {
-        descTitleLable.text = @"美食简介";
-    }
+    descTitleLable.text = @"简介";
+//    if (_poi.poiType == kShoppingPoi) {
+//        descTitleLable.text = @"店铺简介";
+//    }
+//    if (_poi.poiType == kRestaurantPoi) {
+//        descTitleLable.text = @"美食简介";
+//    }
 
     descTitleLable.textColor = APP_THEME_COLOR;
     descTitleLable.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
@@ -189,6 +190,7 @@ enum {
     offsetY += 50;
     
     _panelOneView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, self.bounds.size.width, 200)];
+    _panelOneView.backgroundColor = APP_PAGE_COLOR;
     [_scrollView addSubview:_panelOneView];
     
     UIView *spaceViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _panelOneView.bounds.size.width, 1)];
@@ -222,7 +224,8 @@ enum {
         [_panelOneView addSubview:_showMoreRecommendContentBtn];
     }
     
-    _panelTwoView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, _panelOneView.bounds.size.width, 100)];
+    _panelTwoView = [[UIView alloc] initWithFrame:CGRectMake(0, 124, _panelOneView.bounds.size.width, 76)];
+    _panelTwoView.backgroundColor = APP_PAGE_COLOR;
     [_panelOneView addSubview:_panelTwoView];
     
     UIView *spaceViewTwo = [[UIView alloc] initWithFrame:CGRectMake(0, 15, _panelTwoView.bounds.size.width, 1)];
@@ -274,7 +277,7 @@ enum {
 
 - (IBAction)jumpMapView:(id)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图"
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
