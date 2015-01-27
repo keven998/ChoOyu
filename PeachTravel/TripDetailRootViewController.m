@@ -171,8 +171,10 @@
         
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+//        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
+        [_moreBtn setTitle:@"选项" forState:UIControlStateNormal];
+        _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
