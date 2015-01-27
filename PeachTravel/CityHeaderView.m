@@ -40,22 +40,28 @@
 
 - (void)setupSubView
 {
-    self.backgroundColor = APP_PAGE_COLOR;
+    self.backgroundColor = [UIColor clearColor];
     CGFloat width = self.frame.size.width;
     
-    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, width, 167.5)];
-    gallery.scrollEnabled = NO;
-    gallery.showsHorizontalScrollIndicator = NO;
-    gallery.showsVerticalScrollIndicator = NO;
-    gallery.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    gallery.delegate = self;
-    gallery.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    gallery.layer.borderWidth = 0.5;
-    gallery.backgroundColor = APP_IMAGEVIEW_COLOR;
-    [self addSubview:gallery];
-    _galleryPageView = gallery;
+//    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, width, 167.5)];
+//    gallery.scrollEnabled = NO;
+//    gallery.showsHorizontalScrollIndicator = NO;
+//    gallery.showsVerticalScrollIndicator = NO;
+//    gallery.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    gallery.delegate = self;
+//    gallery.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    gallery.layer.borderWidth = 0.5;
+//    gallery.backgroundColor = APP_IMAGEVIEW_COLOR;
+//    [self addSubview:gallery];
+//    _galleryPageView = gallery;
     
-    CGFloat oy = CGRectGetHeight(_galleryPageView.frame);
+
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 188)];
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:button];
+    
+    CGFloat oy = CGRectGetHeight(button.frame);
     
     _imagePageIndicator = [[UILabel alloc] initWithFrame:CGRectMake(width/2.0 - 20, oy - 33, 40, 23)];
     _imagePageIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.75];
@@ -67,16 +73,15 @@
     _imagePageIndicator.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_imagePageIndicator];
     
-    NSInteger count = 1;//_cityPoi.images.count;
-    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame), CGRectGetHeight(_galleryPageView.frame));
-    
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i < count; i++)
-    {
-        [images addObject:[NSNull null]];
-    }
-    _imageViews = images;
-    [self loadScrollViewWithPage:0];
+//    NSInteger count = 1;//_cityPoi.images.count;
+//    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame), CGRectGetHeight(_galleryPageView.frame));
+//    NSMutableArray *images = [[NSMutableArray alloc] init];
+//    for (NSUInteger i = 0; i < count; i++)
+//    {
+//        [images addObject:[NSNull null]];
+//    }
+//    _imageViews = images;
+//    [self loadScrollViewWithPage:0];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 64, oy - 64, 64, 64)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
