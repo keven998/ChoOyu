@@ -56,13 +56,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 15, 0, 0);
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 15, 0, 0);
     
     UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 72, 0, 72, 64.0)];
     [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(option:) forControlEvents:UIControlEventTouchUpInside];
     moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    moreBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 15);
+    moreBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 0, 0, 15);
     
     _customNavigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
     _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0];
