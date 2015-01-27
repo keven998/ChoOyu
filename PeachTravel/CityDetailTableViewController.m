@@ -456,7 +456,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 #pragma UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_tableView != nil) {
+    if (_tableView != nil && [scrollView isEqual:_tableView]) {
         CGFloat y = scrollView.contentOffset.y;
         if (y <= 0) {
             CGRect frame = _cityPicture.frame;
@@ -468,6 +468,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             frame.origin.y = -y;
             _cityPicture.frame = frame;
         }
+        
+        CGFloat alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
+        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
+
     }
 }
 
@@ -502,15 +506,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }
 }
 
-#pragma mark UIScrollView Delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([scrollView isEqual:_tableView]) {
-        CGFloat alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
-        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
-    }
-}
 
 @end
 
