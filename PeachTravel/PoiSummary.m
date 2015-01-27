@@ -161,6 +161,19 @@
     
     [retDic safeSetObject:imageArray forKey:@"images"];
     
+    NSMutableArray *comments = [[NSMutableArray alloc] init];
+    for (CommentDetail *comment in _comments) {
+        [comments addObject:[comment enCodeToJson]];
+    }
+    [retDic safeSetObject:comments forKey:@"comments"];
+    
+    NSMutableArray *recommends = [[NSMutableArray alloc] init];
+    for (RecommendDetail *recommend in _recommends) {
+        [recommends addObject:[recommend enCodeToJson]];
+    }
+    [retDic safeSetObject:comments forKey:@"recommends"];
+
+    
     NSMutableDictionary *destinationDic = [[NSMutableDictionary alloc] init];
     [destinationDic safeSetObject:_locality.cityId forKey:@"id"];
     [destinationDic safeSetObject:_locality.zhName forKey:@"zhName"];
