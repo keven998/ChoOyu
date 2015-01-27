@@ -266,7 +266,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     NSString *backUpCityId = _cityId;
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:130];
+    NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNO] forKey:@"page"];
@@ -415,6 +415,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
+    CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
+    PoisOfCityTableViewCell *cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    
     TripPoi *tripPoi = [[TripPoi alloc] init];
     PoiSummary *poi;
     if (self.searchController.isActive) {
@@ -431,65 +435,32 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     tripPoi.rating = poi.rating;
     tripPoi.address = poi.address;
     tripPoi.poiType = _poiType;
-    if (_poiType == kRestaurantPoi) {
-        [self.tripDetail.restaurantsList addObject:tripPoi];
-    } else if (_poiType == kShoppingPoi) {
-        [self.tripDetail.shoppingList addObject:tripPoi];
-    }
-    
-    NSIndexPath *path;
-    if (self.searchController.isActive) {
-        path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else {
-        if (self.tableView.numberOfSections>1) {
-            path = [NSIndexPath indexPathForItem:sender.tag inSection:1];
-        } else {
-            path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
+    if (!cell.isAdded) {
+        if (_poiType == kRestaurantPoi) {
+            [self.tripDetail.restaurantsList addObject:tripPoi];
+        } else if (_poiType == kShoppingPoi) {
+            [self.tripDetail.shoppingList addObject:tripPoi];
         }
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    
-    [SVProgressHUD showHint:@"已收集"];
-}
-
-- (IBAction)deletePoi:(UIButton *)sender
-{
-    PoiSummary *poi;
-    if (self.searchController.isActive) {
-        poi = [_searchResultArray objectAtIndex:sender.tag];
+        
+        [SVProgressHUD showHint:@"已收集"];
     } else {
-        poi = [_dataSource.recommendList objectAtIndex:sender.tag];
-
-    }
-    
-    NSMutableArray *oneDayArray;
-    if (_poiType == kRestaurantPoi) {
-        oneDayArray = self.tripDetail.restaurantsList;
-    }
-    if (_poiType == kShoppingPoi) {
-        oneDayArray = self.tripDetail.shoppingList;
-    }
-    for (TripPoi *tripPoi in oneDayArray) {
-        if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-            [oneDayArray removeObject:tripPoi];
-            break;
+        NSMutableArray *oneDayArray;
+        if (_poiType == kRestaurantPoi) {
+            oneDayArray = self.tripDetail.restaurantsList;
+        }
+        if (_poiType == kShoppingPoi) {
+            oneDayArray = self.tripDetail.shoppingList;
+        }
+        for (TripPoi *tripPoi in oneDayArray) {
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                [oneDayArray removeObject:tripPoi];
+                break;
+            }
         }
     }
-    
-    NSIndexPath *path;
-    if (self.searchController.isActive) {
-        path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-        [self.searchController.searchResultsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else {
-        if (self.tableView.numberOfSections>1) {
-            path = [NSIndexPath indexPathForItem:sender.tag inSection:1];
-        } else {
-            path = [NSIndexPath indexPathForItem:sender.tag inSection:0];
-        }
+    cell.isAdded = !cell.isAdded;
 
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+   
 }
 
 /**
@@ -736,13 +707,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             }
         }
         cell.isAdded = isAdded;
-        if (isAdded) {
-            [cell.actionBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.actionBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [cell.actionBtn removeTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
             [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        }
     } else {
         cell.actionBtn.hidden = YES;
     }
