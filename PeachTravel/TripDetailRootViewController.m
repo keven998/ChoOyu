@@ -38,7 +38,7 @@
 @property (nonatomic, strong) UIView *tabBarView;
 
 //完成按钮。。。uinavigationbar的返回按钮
-@property (nonatomic, strong) UIButton *finishBtn;
+//@property (nonatomic, strong) UIButton *finishBtn;
 
 //指示哪个tabbar被选中了
 @property (nonatomic, strong) UIImageView *tabBarSelectedView;
@@ -67,6 +67,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [_backButton setImage:nil forState:UIControlStateSelected];
+    [_backButton setTitle:nil forState:UIControlStateNormal];
+    [_backButton setTitle:@"取消" forState:UIControlStateSelected];
     [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
     [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
@@ -85,7 +88,7 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃可为你创建行程模版，制作计划更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，制作旅程更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
@@ -113,35 +116,33 @@
 }
 
 //设置返回按钮。是返回还是完成
-- (void)setNavigationBackBarItem:(BOOL)isBack
-{
-    if (isBack) {
-        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-        [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-        [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-        _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-        _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-        _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-        self.navigationItem.leftBarButtonItem = barButton;
-
-    } else {
-        _finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
-        [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-        _finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-        [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _finishBtn.layer.borderWidth = 1.0;
-        _finishBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-        _finishBtn.layer.cornerRadius = 2.0;
-        [_finishBtn addTarget:self action:@selector(finishEidtTrip:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_finishBtn];
-        self.navigationItem.leftBarButtonItem = barButton;
-    }
-   
-}
+//- (void)setNavigationBackBarItem:(BOOL)isBack
+//{
+//    if (isBack) {
+//        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+//        [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
+//        [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+//        [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//        _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
+//        _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+//        _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
+//        self.navigationItem.leftBarButtonItem = barButton;
+//    } else {
+//        _finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
+//        [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
+//        _finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+//        [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        _finishBtn.layer.borderWidth = 1.0;
+//        _finishBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+//        _finishBtn.layer.cornerRadius = 2.0;
+//        [_finishBtn addTarget:self action:@selector(finishEidtTrip:) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_finishBtn];
+//        self.navigationItem.leftBarButtonItem = barButton;
+//    }
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -158,26 +159,29 @@
 {
     if (_canEdit) {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        //        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+        //        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+        
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
         [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateHighlighted];
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateHighlighted];
-        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
-        
-        _destinationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_destinationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateNormal];
-        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateHighlighted];
-        [_destinationBtn addTarget:self action:@selector(showDestination:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_destinationBtn]];
+//        _destinationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//        [_destinationBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+//        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateNormal];
+//        [_destinationBtn setImage:[UIImage imageNamed:@"ic_destination.png"] forState:UIControlStateHighlighted];
+//        [_destinationBtn addTarget:self action:@selector(showDestination:) forControlEvents:UIControlEventTouchUpInside];
+//        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_destinationBtn]];
         
         self.navigationItem.rightBarButtonItems = barItems;
     } else {
@@ -224,8 +228,8 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-            [self setNavigationBackBarItem:YES];
-            _editBtn.enabled = YES;
+//            [self setNavigationBackBarItem:YES];
+//            _editBtn.enabled = YES;
             _spotsListCtl.shouldEdit = NO;
             _restaurantListCtl.shouldEdit = NO;
             _shoppingListCtl.shouldEdit = NO;
@@ -402,7 +406,7 @@
  */
 - (IBAction)showMoreAction:(id)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"更多" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"设置", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"目的地", nil];
     [sheet showInView:self.view];
 }
 
@@ -444,11 +448,17 @@
  */
 - (void)editTrip:(UIButton *)sender
 {
-    sender.enabled = NO;
-    [self setNavigationBackBarItem:NO];
-    _spotsListCtl.shouldEdit = YES;
-    _restaurantListCtl.shouldEdit = YES;
-    _shoppingListCtl.shouldEdit = YES;
+//    sender.enabled = NO;
+//    [self setNavigationBackBarItem:NO];
+    BOOL status = sender.selected;
+    sender.selected = !status;
+    if (!status) {
+        _spotsListCtl.shouldEdit = YES;
+        _restaurantListCtl.shouldEdit = YES;
+        _shoppingListCtl.shouldEdit = YES;
+    } else {
+        [self finishEidtTrip:nil];
+    }
 }
 
 
