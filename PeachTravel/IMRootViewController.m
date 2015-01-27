@@ -28,7 +28,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTintColor:APP_THEME_COLOR];
+
     self.navigationItem.title = @"桃•Talk";
+    NSLog(@"%@", self.navigationController);
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(addAction:)];
     [makePlanBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"]];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
@@ -47,6 +51,22 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestStatus) name:receiveFrendRequestNoti object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)dealloc
@@ -94,12 +114,6 @@
     ContactListViewController *ctl = [self.viewControllers lastObject];
     [ctl.delegate updateNotify:ctl notify:YES];
 }
-
-- (void)goBack
-{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 
 - (IBAction)addUserContact:(id)sender
 {
@@ -160,7 +174,7 @@
 - (void)updateNotify:(MHChildViewController *)needUpdateCtl notify:(BOOL)notify
 {
     NSUInteger index = [self.viewControllers indexOfObject:needUpdateCtl];
-    [super updateNotify:index notify:notify];
+//    [super updateNotify:index notify:notify];
 }
 
 @end

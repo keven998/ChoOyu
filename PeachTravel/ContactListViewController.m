@@ -43,6 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
 
@@ -54,13 +55,13 @@
     }
     [self.view addSubview:self.contactTableView];
     
-    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
+    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64) ? (kWindowHeight-64) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
     if (height == 0) {
         height = 100;
     }
     self.indexView = [[MJNIndexView alloc] init];
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64)/2);
     [self firstAttributesForMJNIndexView];
     self.indexView.dataSource = self;
     [self.view addSubview:self.indexView];
@@ -227,7 +228,7 @@
         
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, self.view.frame.size.width - 22, self.view.frame.size.height - offsetY) style:UITableViewStylePlain];
 
-        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 22, 10)];
+        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
         
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;

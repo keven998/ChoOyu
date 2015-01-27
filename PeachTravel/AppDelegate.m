@@ -28,6 +28,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//    [[UINavigationBar appearance] setBarTintColor:APP_THEME_COLOR];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                            NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = APP_PAGE_COLOR;
     _homeViewController = [[HomeViewController alloc] init];
@@ -40,10 +46,7 @@
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
     [self.window makeKeyAndVisible];
     
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:APP_THEME_COLOR];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor],
-                                                           NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
+   
     
     /** 设置友盟 **/
     [UMSocialData openLog:NO];

@@ -239,7 +239,8 @@
     NSArray *ctls = self.navigationController.viewControllers;
     UIViewController *ctl = [ctls objectAtIndex:1];
     if ([ctl isKindOfClass:[IMRootViewController class]]) {
-        [((IMRootViewController *)ctl) setSelectedIndex:0 animated:YES];
+        ((IMRootViewController *)ctl).selectedIndext = 0;
+        
         [self.navigationController popToViewController:ctl animated:YES];
         return;
     } else {
@@ -1036,7 +1037,8 @@
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             spotDetailCtl.spotId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self addChildViewController:spotDetailCtl];
+            [self.view addSubview:spotDetailCtl.view];
         }
             break;
              
