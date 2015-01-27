@@ -17,6 +17,11 @@
 #import "CommonPoiDetailViewController.h"
 #import "SuperWebViewController.h"
 
+enum {
+    kASMap = 1,
+    kASShare
+};
+
 @interface CommonPoiDetailView () <UIScrollViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -131,11 +136,12 @@
     
     offsetY += 15;
     
-    UILabel *addressDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
-    addressDetailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    addressDetailLabel.textColor = TEXT_COLOR_TITLE;
-    addressDetailLabel.numberOfLines = 2.0;
-    addressDetailLabel.text = _poi.address;
+    UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 30)];
+    addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    addressDetailLabel.titleLabel.numberOfLines = 2.0;
+    [addressDetailLabel setTitle:_poi.address forState:UIControlStateNormal];
+    [addressDetailLabel addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:addressDetailLabel];
     
     UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-50, offsetY-5, 40, 40)];
@@ -279,6 +285,7 @@
     }
     [sheet addButtonWithTitle:@"取消"];
     sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    sheet.tag = kASMap;
     [sheet showInView:self];    
 }
 
@@ -392,7 +399,10 @@
 
 - (IBAction)makePhone:(id)sender
 {
-    
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", _poi.telephone]];
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+    }
 }
 
 - (IBAction)favorite:(id)sender
@@ -404,7 +414,6 @@
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
-        
         if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
         {
             CommonPoiDetailViewController *rootCtl;
@@ -444,6 +453,16 @@
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
+    NSInteger tag = actionSheet.tag;
+    if (tag == kASMap) {
+        [self goMap:buttonIndex];
+    } else if (tag == kASShare) {
+        
+    }
+    
+}
+
+- (void)goMap:(NSInteger)buttonIndex {
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:

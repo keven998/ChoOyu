@@ -62,10 +62,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
     //[button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
+//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.backBarButtonItem = barButton;
@@ -107,13 +107,15 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     if (self.shouldEdit) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
-        [button setTitle:@"完成" forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.layer.borderWidth = 1.0;
-        button.layer.borderColor = [UIColor whiteColor].CGColor;
-        button.layer.cornerRadius = 2.0;
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 30)];
+//        [button setTitle:@"完成" forState:UIControlStateNormal];
+//        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        button.layer.borderWidth = 1.0;
+//        button.layer.borderColor = [UIColor whiteColor].CGColor;
+//        button.layer.cornerRadius = 2.0;
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [button addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.leftBarButtonItem = barButton;

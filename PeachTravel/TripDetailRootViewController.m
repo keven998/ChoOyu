@@ -88,7 +88,7 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，制作旅程更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，旅程计划更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
