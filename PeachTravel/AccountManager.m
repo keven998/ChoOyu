@@ -79,39 +79,26 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    //如果环信帐号正在登录中，那么退出环信帐号
-    if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
-        //退出环信聊天系统
-        [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
-            if (error) {
-                completion(NO);
-                return;
-            }
-            else{
-                [self.context deleteObject:self.account];
-                NSError *error = nil;
-                [self save];
-                if (error) {
-                    completion(NO);
-                    return;
-                }
-                _account = nil;
-                [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
-                completion(YES);
-            }
-        } onQueue:nil];
-    } else {
-        [self.context deleteObject:self.account];
-        NSError *error = nil;
-        [self save];
+    //退出环信聊天系统
+    NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
+    
+    __weak typeof(self) weakSelf = self;
+
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
+        
+        NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
+
         if (error) {
+            NSLog(@"%@", error.description);
             completion(NO);
             return;
         }
+        [weakSelf.context deleteObject:self.account];
+        [weakSelf save];
         _account = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
         completion(YES);
-    }
+    } onQueue:nil];
 }
 
 //用户桃子系统登录成功

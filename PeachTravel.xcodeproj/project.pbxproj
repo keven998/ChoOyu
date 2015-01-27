@@ -646,6 +646,7 @@
 		D9E3D4041A763AD000068A55 /* AFgzipRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4031A763AD000068A55 /* AFgzipRequestSerializer.m */; };
 		D9E3D40A1A76435200068A55 /* NSData+Godzippa.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4091A76435200068A55 /* NSData+Godzippa.m */; };
 		D9E3D40D1A76790500068A55 /* AddPoiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D40C1A76790500068A55 /* AddPoiViewController.m */; };
+		D9E3D4111A7796F400068A55 /* TZSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E3D4101A7796F400068A55 /* TZSegmentedViewController.m */; };
 		D9E81E651A3590C400D3BFD0 /* ic_group_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */; };
 		D9E81E661A3590C400D3BFD0 /* ic_group_unexpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */; };
 		D9E81E691A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E81E681A35C30A00D3BFD0 /* TaoziChatCityBubbleView.m */; };
@@ -1720,6 +1721,8 @@
 		D9E3D4091A76435200068A55 /* NSData+Godzippa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Godzippa.m"; sourceTree = "<group>"; };
 		D9E3D40B1A76790500068A55 /* AddPoiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPoiViewController.h; sourceTree = "<group>"; };
 		D9E3D40C1A76790500068A55 /* AddPoiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPoiViewController.m; sourceTree = "<group>"; };
+		D9E3D40F1A7796F400068A55 /* TZSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZSegmentedViewController.h; sourceTree = "<group>"; };
+		D9E3D4101A7796F400068A55 /* TZSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZSegmentedViewController.m; sourceTree = "<group>"; };
 		D9E81E631A3590C400D3BFD0 /* ic_group_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_expand@2x.png"; sourceTree = "<group>"; };
 		D9E81E641A3590C400D3BFD0 /* ic_group_unexpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_unexpand@2x.png"; sourceTree = "<group>"; };
 		D9E81E671A35C30A00D3BFD0 /* TaoziChatCityBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaoziChatCityBubbleView.h; sourceTree = "<group>"; };
@@ -3270,6 +3273,7 @@
 		D955E35F19E6698B00047F2B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D9E3D40E1A7796B300068A55 /* TaoziSegmentController */,
 				D9564C641A64C612007203E5 /* Map */,
 				D9E97C281A5BC4D600F2364D /* Introduction */,
 				D92F1AC51A5A8A8000CD1A63 /* TZProgressHUD */,
@@ -4511,6 +4515,15 @@
 			path = Godzippa;
 			sourceTree = "<group>";
 		};
+		D9E3D40E1A7796B300068A55 /* TaoziSegmentController */ = {
+			isa = PBXGroup;
+			children = (
+				D9E3D40F1A7796F400068A55 /* TZSegmentedViewController.h */,
+				D9E3D4101A7796F400068A55 /* TZSegmentedViewController.m */,
+			);
+			name = TaoziSegmentController;
+			sourceTree = "<group>";
+		};
 		D9E6BFAC19E3E4AF00C750AC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -5428,6 +5441,7 @@
 				D9EF98B21A3C16DC00DB480F /* SuperWebViewController.m in Sources */,
 				D902ADD01A15F47100E36A93 /* TravelNote.m in Sources */,
 				D90F363119F63B3300E26FA9 /* EMChatTimeCell.m in Sources */,
+				D9E3D4111A7796F400068A55 /* TZSegmentedViewController.m in Sources */,
 				D90F356C19F6391E00E26FA9 /* ToolBoxViewController.m in Sources */,
 				D9DE34F01A0B92AA00DDCCAB /* Account.m in Sources */,
 				D95F8A3C1A3FE5F2003F4275 /* JGProgressHUDFadeZoomAnimation.m in Sources */,

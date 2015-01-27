@@ -7,8 +7,9 @@
 //
 
 #import "MHTabBarController.h"
+#import "TZSegmentedViewController.h"
 
-@interface IMRootViewController : MHTabBarController
+@interface IMRootViewController : TZSegmentedViewController
 
 @property (nonatomic) IM_CONNECT_STATE IMState;
 

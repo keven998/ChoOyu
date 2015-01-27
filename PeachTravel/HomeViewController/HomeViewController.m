@@ -55,17 +55,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = YES;
     [self setupConverView];
+
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self didUnreadMessagesCountChanged];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
     if (_shouldJumpToChatListWhenAppLaunch && _coverView != nil) {
         [_coverView removeFromSuperview];
         _coverView = nil;
@@ -81,6 +81,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }];
         [self loadData];
     }
+    NSLog(@"home willAppear");
     self.navigationController.navigationBar.hidden = YES;
     
 }
@@ -90,6 +91,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    NSLog(@"home willDisappear");
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
 }
 
 - (void)dealloc
@@ -101,7 +110,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     if (!_IMRootCtl) {
         _IMRootCtl = [[IMRootViewController alloc] init];
-        _IMRootCtl.delegate = self;
+//        _IMRootCtl.delegate = self;
         
         AccountManager *accountManager = [AccountManager shareAccountManager];
         ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
@@ -112,11 +121,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             contactListCtl.notify = NO;
         }
         
+        
         ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
         chatListCtl.title = @"Talk";
         chatListCtl.notify = NO;
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
         _IMRootCtl.viewControllers = viewControllers;
+        _IMRootCtl.segmentedImages = @[@"ic_poidetail_map.png", @"ic_poidetail_map.png"];
+        
     }
     return _IMRootCtl;
 }
@@ -135,7 +147,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     } else {
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.8];
+        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
     }
 }
 
@@ -170,6 +182,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
         [self.navigationController pushViewController:self.IMRootCtl animated:YES];
+        
+        NSLog(@"%@", self.navigationController);
         
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
@@ -239,7 +253,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                     [NSObject cancelPreviousPerformRequestsWithTarget:self
                                                              selector:@selector(dismiss:)
                                                                object:nil];
-                    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.2];
+                    [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
                 }
             }
         }];
@@ -309,14 +323,19 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _toolBoxCtl = [[ToolBoxViewController alloc] init];
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
+    [firstNavigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     
     _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:_hotDestinationCtl];
+    [secondNavigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+
     
     _mineCtl = [[MineTableViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_mineCtl];
+    [thirdNavigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                thirdNavigationController]];
@@ -719,6 +738,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didLoginFromOtherDevice
 {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [accountManager asyncLogout:^(BOOL isSuccess) {
+        
+    }];
     __weak typeof (HomeViewController *)weakSelf = self;
     [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
         AccountManager *accountManager = [AccountManager shareAccountManager];

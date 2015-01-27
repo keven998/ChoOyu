@@ -18,8 +18,8 @@
     UILabel *_unreadLabel;
     UILabel *_detailLabel;
     UIView *_lineView;
+    UIView *spaceView;
     
-    UIView *frameView;
     UIActivityIndicatorView *activityView;
     UIImageView *sendFailedImageView;
 }
@@ -33,26 +33,20 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = APP_PAGE_COLOR;
-        
-        frameView = [[UIView alloc] initWithFrame:CGRectZero];
-        frameView.backgroundColor = [UIColor whiteColor];
-        frameView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        frameView.layer.cornerRadius = 2.0;
-        [self.contentView addSubview:frameView];
+        self.backgroundColor = [UIColor whiteColor];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont italicSystemFontOfSize:10.0];
+        _timeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         _timeLabel.textColor = TEXT_COLOR_TITLE_HINT;
         _timeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _timeLabel.textAlignment = NSTextAlignmentRight;
-        [frameView addSubview:_timeLabel];
+        [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
         _detailLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [frameView addSubview:_detailLabel];
+        [self.contentView addSubview:_detailLabel];
         
         activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [activityView.layer setValue:[NSNumber numberWithFloat:0.7f]
@@ -60,20 +54,24 @@
         activityView.hidesWhenStopped = YES;
         [activityView stopAnimating];
         activityView.color = [UIColor lightGrayColor];
-        [frameView addSubview:activityView];
+        [self.contentView addSubview:activityView];
         
         sendFailedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MessageSendFail.png"]];
         sendFailedImageView.hidden = YES;
-        [frameView addSubview:sendFailedImageView];
+        [self.contentView addSubview:sendFailedImageView];
         
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _unreadLabel.backgroundColor = APP_THEME_COLOR;
+        _unreadLabel.backgroundColor = [UIColor redColor];
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
         _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
-        _unreadLabel.layer.cornerRadius = 3.0;
         _unreadLabel.clipsToBounds = YES;
+        _unreadLabel.textColor = [UIColor whiteColor];
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
+        
+        spaceView = [[UIView alloc] init];
+        spaceView.backgroundColor = APP_PAGE_COLOR;
+        [self.contentView addSubview:spaceView];
     }
     return self;
 }
@@ -98,18 +96,17 @@
     
     CGFloat width = self.frame.size.width;
     
-    self.imageView.frame = CGRectMake(10.0, 10.5, 39, 39);
-    self.imageView.layer.cornerRadius = 19.5;
+    self.imageView.frame = CGRectMake(10.0, 10, 60, 60);
+    self.imageView.layer.cornerRadius = 8;
     self.imageView.layer.masksToBounds = YES;
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(60.0, 10.0, width - 110.0, 18.0);
+    self.textLabel.frame = CGRectMake(85.0, 14.0, width - 110.0, 18.0);
     
-    _timeLabel.frame = CGRectMake(width - 95.0, 12.0, 90.0, 18.0);
-    frameView.frame = CGRectMake(0, 0.0, width, self.frame.size.height-1);
+    _timeLabel.frame = CGRectMake(width - 105.0, 14.0, 90.0, 18.0);
     
     _detailLabel.text = _detailMsg;
     
@@ -133,9 +130,9 @@
         [activityView stopAnimating];
     }
     
-    sendFailedImageView.frame = CGRectMake(61, 33, 12, 12);
-    activityView.frame = CGRectMake(61, 40, 8, 8);
-    _detailLabel.frame = CGRectMake(61+offsetX, 28.0, popW+30-offsetX, 26);
+    sendFailedImageView.frame = CGRectMake(85, 53, 12, 12);
+    activityView.frame = CGRectMake(85, 53, 8, 8);
+    _detailLabel.frame = CGRectMake(85+offsetX, 50.0, popW+30-offsetX, 26);
     
     _timeLabel.text = _time;
     
@@ -149,13 +146,15 @@
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
-//        _unreadLabel.text = [NSString stringWithFormat:@"%d",_unreadCount];
+        _unreadLabel.text = [NSString stringWithFormat:@"%d",_unreadCount];
         
-        _unreadLabel.frame = CGRectMake(width-11, 5.0, 6.0, 6.0);
+        _unreadLabel.frame = CGRectMake(width-55, 35.0, 35.0, 20.0);
+        _unreadLabel.layer.cornerRadius = 10;
     }else{
         [_unreadLabel setHidden:YES];
     }
     
+    spaceView.frame = CGRectMake(0, self.contentView.frame.size.height-1, self.contentView.frame.size.width, 1);
     self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
@@ -177,7 +176,7 @@
 
 + (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 59;
+    return 80;
 }
 
 @end
