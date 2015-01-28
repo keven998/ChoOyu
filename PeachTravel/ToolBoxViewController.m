@@ -59,8 +59,10 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_navigation_title.png"]];
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"桃子旅行";
+//    self.navigationItem.title = @"桃子旅行";
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_menu_add.png"];

@@ -38,8 +38,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_navigation_title.png"]];
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"目的地";
+//    self.navigationItem.title = @"目的地";
     
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search.png"] forState:UIControlStateNormal];
