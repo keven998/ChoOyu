@@ -116,6 +116,7 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.alwaysBounceHorizontal = YES;
     _scrollView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
+    _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 10);
     [self addSubview:_scrollView];
     
     [self scrollViewAbleScroll];
