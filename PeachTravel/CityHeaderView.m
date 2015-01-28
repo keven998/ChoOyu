@@ -124,7 +124,7 @@
     
     UILabel *ttitle = [[UILabel alloc] initWithFrame:CGRectMake(45, oy + 20, width - 110, 30)];
     ttitle.textColor = APP_THEME_COLOR;
-    ttitle.text = [NSString stringWithFormat:@"旅行在%@", _cityPoi.zhName];
+    ttitle.text = [NSString stringWithFormat:@"玩在%@", _cityPoi.zhName];
     ttitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     ttitle.textAlignment = NSTextAlignmentCenter;
     [_detailView addSubview:ttitle];
