@@ -12,11 +12,11 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hFv-o7-4VY">
-                    <rect key="frame" x="0.0" y="12" width="6" height="16"/>
-                    <color key="backgroundColor" red="0.98823529409999999" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="0.0" y="14" width="6" height="12"/>
+                    <color key="backgroundColor" red="0.99215686274509807" green="0.33725490196078434" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="6" id="j3E-BA-XHe"/>
-                        <constraint firstAttribute="height" constant="16" id="vmm-oi-cWH"/>
+                        <constraint firstAttribute="height" constant="12" id="NbA-2V-Tc1"/>
+                        <constraint firstAttribute="width" constant="6" id="kDl-yo-hUl"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -25,19 +25,20 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ws-wG-p3a">
-                    <rect key="frame" x="18" y="10" width="292" height="20"/>
+                    <rect key="frame" x="13" y="10" width="292" height="20"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="4Ws-wG-p3a" firstAttribute="leading" secondItem="hFv-o7-4VY" secondAttribute="trailing" constant="7" id="CIk-0u-Dpp"/>
+                <constraint firstItem="hFv-o7-4VY" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="D0P-uh-ixM"/>
                 <constraint firstItem="4Ws-wG-p3a" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="KzX-9f-8W4"/>
-                <constraint firstItem="hFv-o7-4VY" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="12" id="MdW-KO-Qap"/>
-                <constraint firstItem="hFv-o7-4VY" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="QMF-4v-TdR"/>
+                <constraint firstItem="hFv-o7-4VY" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="14" id="Qhg-nF-pXd"/>
                 <constraint firstAttribute="bottom" secondItem="4Ws-wG-p3a" secondAttribute="bottom" id="Tlz-ts-IjM"/>
-                <constraint firstItem="4Ws-wG-p3a" firstAttribute="leading" secondItem="hFv-o7-4VY" secondAttribute="trailing" constant="12" id="jgR-Da-MCw"/>
-                <constraint firstAttribute="trailing" secondItem="4Ws-wG-p3a" secondAttribute="trailing" constant="10" id="vc0-tu-sao"/>
+                <constraint firstAttribute="trailing" secondItem="4Ws-wG-p3a" secondAttribute="trailing" constant="15" id="vc0-tu-sao"/>
             </constraints>
             <connections>
                 <outlet property="collectionHeaderView" destination="4Ws-wG-p3a" id="YTD-iC-PAa"/>

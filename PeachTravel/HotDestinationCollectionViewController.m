@@ -19,12 +19,12 @@
 #import "CommonPoiDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 
-@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate>
+@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-
+@property (nonatomic, strong) UISearchDisplayController *searchDisplayCtl;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UIButton *searchBtn;
 
@@ -44,7 +44,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 //    self.navigationItem.title = @"目的地";
     
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search.png"] forState:UIControlStateNormal];
+    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_white.png"] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
@@ -52,12 +52,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HotDestinationCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
-    
-    _searchBar = [[UISearchBar alloc] init];
-    _searchBar.showsCancelButton = YES;
-    _searchBar.hidden = YES;
-    _searchBar.delegate = self;
-//    self.navigationItem.titleView = _searchBar;
     
     [self initData];
 }
@@ -103,9 +97,35 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 #pragma mark - IBAction
 
 - (IBAction)goSearch:(UIButton *)sender {
-//    sender.hidden = YES;
-//    _searchBar.hidden = NO;
-//    [_searchBar becomeFirstResponder];
+    [self showSearchBar];
+}
+
+- (void)showSearchBar
+{
+    [self.navigationController.navigationBar addSubview:self.searchBar];
+    _searchBar.alpha = 0;
+    self.navigationItem.titleView.hidden = YES;
+    [UIView animateWithDuration:0.2 animations:^{
+        _searchBar.alpha = 1;
+        _searchBtn.alpha = 0;
+    } completion:^(BOOL finished) {
+
+        [_searchBar becomeFirstResponder];
+    }];
+}
+
+- (void)hideSearchBar
+{
+    [_searchBar resignFirstResponder];
+    [UIView animateWithDuration:0.2 animations:^{
+        _searchBar.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.navigationItem.titleView.hidden = NO;
+        [_searchBar removeFromSuperview];
+        _searchBar = nil;
+        _searchBtn.alpha = 1;
+        
+    }];
 }
 
 #pragma mark - setter & getter
@@ -126,6 +146,27 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         
     }
     return _collectionView;
+}
+
+- (UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 7, self.navigationController.navigationBar.bounds.size.width-20, 30)];
+        _searchBar.showsCancelButton = YES;
+        _searchBar.delegate = self;
+        _searchBar.placeholder = @"搜索目的地";
+    }
+    return _searchBar;
+}
+
+- (UISearchDisplayController *)searchDisplayCtl
+{
+    if (!_searchDisplayCtl) {
+        _searchDisplayCtl = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+        _searchDisplayCtl.searchResultsDataSource = self;
+        _searchDisplayCtl.searchResultsDelegate = self;
+    }
+    return _searchDisplayCtl;
 }
 
 - (NSMutableArray *)dataSource
@@ -328,6 +369,16 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 break;
         }
     }
+}
+
+#pragma mark - UITableView Delegate
+
+
+#pragma mark - UISearchBar Delegate
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self hideSearchBar];
 }
 
 @end

@@ -348,7 +348,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.tabBar.frame = frame;
     self.tabBar.backgroundColor = [UIColor clearColor];
     
-    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/4, 77.5)];
+    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 73, 77)];
     imView.backgroundColor = [UIColor clearColor];
     
     UIImageView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 73, 49)];
@@ -362,18 +362,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
 
     [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2-1, imView.bounds.size.height/2-1);
+    IMBtn.center = CGPointMake(imView.bounds.size.width/2+3, imView.bounds.size.height/2-1);
     [imView addSubview:IMBtn];
     [self.tabBar addSubview:imView];
     
-    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, 18, 18)];
+    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 8, 18, 18)];
     _unReadMsgLabel.backgroundColor = [UIColor redColor];
     _unReadMsgLabel.textColor = [UIColor whiteColor];
     _unReadMsgLabel.layer.cornerRadius = 9;
     _unReadMsgLabel.clipsToBounds = YES;
     _unReadMsgLabel.textAlignment = NSTextAlignmentCenter;
     _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    [IMBtn addSubview:_unReadMsgLabel];
+    [imView addSubview:_unReadMsgLabel];
     
     self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 73, 0, 0);
     
@@ -648,7 +648,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             changedBuddies:(NSArray *)changedBuddies
                      isAdd:(BOOL)isAdd
 {
-    NSLog(@"buddyList:%@/n changeedBuddies:%@", buddyList, changedBuddies);
+
 }
 
 - (void)didRemovedByBuddy:(NSString *)username

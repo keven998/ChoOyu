@@ -249,7 +249,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 {
     [self.dataSource removeAllObjects];
     _currentPage = 0;
-//    [self loadDataWithPageNo:_currentPage andKeyWork:searchBar.text];
+    [self loadDataWithPageNo:_currentPage andKeyWork:searchBar.text];
     if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
         [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
     }
