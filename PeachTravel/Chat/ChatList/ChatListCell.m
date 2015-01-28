@@ -146,7 +146,7 @@
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
-        _unreadLabel.text = [NSString stringWithFormat:@"%d",_unreadCount];
+        _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         
         _unreadLabel.frame = CGRectMake(width-55, 35.0, 35.0, 20.0);
         _unreadLabel.layer.cornerRadius = 10;

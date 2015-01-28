@@ -371,7 +371,7 @@
     }
     [self.account addFrendrequestlistObject:frendRequest];
     NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
-    [[NSNotificationCenter defaultCenter] postNotificationName:receiveFrendRequestNoti object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [self save];
 }
 
@@ -379,6 +379,8 @@
 {
     [self.account removeFrendrequestlistObject:frendRequest];
     [self save];
+    [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
+
 }
 
 - (void)agreeFrendRequest:(FrendRequest *)frendRequest

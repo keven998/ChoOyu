@@ -10,17 +10,20 @@
 #import "AddContactTableViewController.h"
 #import "CreateConversationViewController.h"
 #import "RNGridMenu.h"
-#import "ChatViewController.h"
+#import "ChatListViewController.h"
 #import "ContactListViewController.h"
 #import "AccountManager.h"
 
-@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate, MHChildViewControllerDeleagate>
+@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate>
 
 @property (nonatomic, strong) NSArray *addItems;
 
 @property (nonatomic, strong) CreateConversationViewController *createCoversationCtl;
 
 @property (nonatomic, strong) RNGridMenu *av;
+
+@property (nonatomic, strong) UILabel *unReadChatMsgLabel;
+@property (nonatomic, strong) UILabel *unReadFrendRequestLabel;
 
 @end
 
@@ -39,18 +42,34 @@
 
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    for (MHChildViewController *ctl in self.viewControllers) {
-        ctl.delegate = self;
-    }
-    if ([[self.viewControllers lastObject] isKindOfClass:[ContactListViewController class]]) {
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        if ([accountManager numberOfUnReadFrendRequest]) {
-            ContactListViewController *ctl = [self.viewControllers lastObject];
-            [ctl.delegate updateNotify:ctl notify:YES];
-        }
-    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestStatus) name:receiveFrendRequestNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestStatus) name:frendRequestListNeedUpdateNoti object:nil];
+    
+    _unReadChatMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 15, 15)];
+    _unReadChatMsgLabel.backgroundColor = [UIColor redColor];
+    _unReadChatMsgLabel.layer.cornerRadius = 7.5;
+    _unReadChatMsgLabel.textAlignment = NSTextAlignmentCenter;
+    _unReadChatMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    _unReadChatMsgLabel.textColor = [UIColor whiteColor];
+    _unReadChatMsgLabel.clipsToBounds = YES;
+    UIButton *chatBtn = [self.segmentedBtns firstObject];
+    [chatBtn addSubview:_unReadChatMsgLabel];
+    
+    _unReadFrendRequestLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 15, 15)];
+    _unReadFrendRequestLabel.backgroundColor = [UIColor redColor];
+    _unReadFrendRequestLabel.layer.cornerRadius = 7.5;
+    _unReadFrendRequestLabel.clipsToBounds = YES;
+    _unReadFrendRequestLabel.textAlignment = NSTextAlignmentCenter;
+    _unReadFrendRequestLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    _unReadFrendRequestLabel.textColor = [UIColor whiteColor];
+    UIButton *contactBtn = [self.segmentedBtns lastObject];
+    [contactBtn addSubview:_unReadFrendRequestLabel];
+
+    id chatListCtl = [self.viewControllers firstObject];
+    if ([chatListCtl isKindOfClass:[ChatListViewController class]]) {
+        self.numberOfUnReadChatMsg = ((ChatListViewController *)chatListCtl).numberOfUnReadChatMsg;
+    }
+    [self updateFrendRequestStatus];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -72,6 +91,30 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (int)totalUnReadMsg
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    id chatListCtl = [self.viewControllers firstObject];
+    int unreadChatMsg = 0;
+    if ([chatListCtl isKindOfClass:[ChatListViewController class]]) {
+        unreadChatMsg = ((ChatListViewController *)chatListCtl).numberOfUnReadChatMsg;
+    }
+    self.numberOfUnReadChatMsg = unreadChatMsg;
+    return ((int)accountManager.numberOfUnReadFrendRequest + unreadChatMsg);
+}
+
+- (void)setNumberOfUnReadChatMsg:(int)numberOfUnReadChatMsg
+{
+    _numberOfUnReadChatMsg = numberOfUnReadChatMsg;
+
+    if (_numberOfUnReadChatMsg > 0) {
+        _unReadChatMsgLabel.hidden = NO;
+        _unReadChatMsgLabel.text = [NSString stringWithFormat:@"%d", _numberOfUnReadChatMsg];
+    } else {
+        _unReadChatMsgLabel.hidden = YES;
+    }
 }
 
 - (void)setIMState:(IM_CONNECT_STATE)IMState
@@ -107,12 +150,22 @@
     }
 }
 
-
 //收到好友请求
 - (void)updateFrendRequestStatus
 {
-    ContactListViewController *ctl = [self.viewControllers lastObject];
-    [ctl.delegate updateNotify:ctl notify:YES];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    int numberOfUnReadFrendRequestMsg = (int)accountManager.numberOfUnReadFrendRequest;
+    
+    id contactListCtl = [self.viewControllers lastObject];
+    if ([contactListCtl isKindOfClass:[ContactListViewController class]]) {
+        ((ContactListViewController*)contactListCtl).numberOfUnreadFrendRequest = numberOfUnReadFrendRequestMsg;
+        if (numberOfUnReadFrendRequestMsg > 0) {
+            _unReadFrendRequestLabel.hidden = NO;
+            _unReadFrendRequestLabel.text = [NSString stringWithFormat:@"%d", numberOfUnReadFrendRequestMsg];
+        } else {
+            _unReadFrendRequestLabel.hidden = YES;
+        }
+    }
 }
 
 - (IBAction)addUserContact:(id)sender
@@ -169,12 +222,5 @@
     }];
 }
 
-#pragma mark - MHChildViewControllerDeleagate
-
-- (void)updateNotify:(MHChildViewController *)needUpdateCtl notify:(BOOL)notify
-{
-    NSUInteger index = [self.viewControllers indexOfObject:needUpdateCtl];
-//    [super updateNotify:index notify:notify];
-}
 
 @end

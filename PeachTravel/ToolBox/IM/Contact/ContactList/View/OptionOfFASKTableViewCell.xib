@@ -18,20 +18,12 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8k-mi-6PX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="桃友请求" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="217" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
-                                <rect key="frame" x="13" y="5" width="256" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="桃友请求" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
+                                <rect key="frame" x="13" y="5" width="206" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SvK-x2-zcy">
-                                <rect key="frame" x="77" y="6" width="8" height="8"/>
-                                <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="8" id="ZIt-9o-q7b"/>
-                                    <constraint firstAttribute="width" constant="8" id="rWj-di-Vap"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgX-Nb-X3P">
                                 <rect key="frame" x="300" y="10" width="6" height="22"/>
                                 <constraints>
@@ -42,17 +34,28 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjM-4r-fyk">
+                                <rect key="frame" x="250" y="7" width="30" height="15"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="Ui9-0v-KCL"/>
+                                    <constraint firstAttribute="width" constant="30" id="fWk-j6-eF8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SvK-x2-zcy" firstAttribute="top" secondItem="B8k-mi-6PX" secondAttribute="top" constant="6" id="9yG-ni-hUy"/>
-                            <constraint firstItem="SvK-x2-zcy" firstAttribute="leading" secondItem="B8k-mi-6PX" secondAttribute="leading" constant="77" id="K4Y-OT-YG6"/>
                             <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="B8k-mi-6PX" secondAttribute="leading" constant="13" id="Sw2-7E-Yz8"/>
                             <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="B8k-mi-6PX" secondAttribute="top" constant="5" id="TBg-n2-sOa"/>
                             <constraint firstItem="kgX-Nb-X3P" firstAttribute="top" secondItem="B8k-mi-6PX" secondAttribute="top" constant="10" id="Ygb-3a-GYR"/>
                             <constraint firstAttribute="trailing" secondItem="kgX-Nb-X3P" secondAttribute="trailing" constant="14" id="lNf-Hg-CW7"/>
                             <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="9" id="n6e-kh-xZa"/>
-                            <constraint firstItem="kgX-Nb-X3P" firstAttribute="leading" secondItem="BDn-ti-aSj" secondAttribute="trailing" constant="31" id="wTB-GO-JzO"/>
+                            <constraint firstItem="kgX-Nb-X3P" firstAttribute="leading" secondItem="BDn-ti-aSj" secondAttribute="trailing" constant="81" id="wTB-GO-JzO"/>
+                            <constraint firstItem="jjM-4r-fyk" firstAttribute="top" secondItem="B8k-mi-6PX" secondAttribute="top" constant="7" id="y2K-NJ-hXU"/>
+                            <constraint firstItem="kgX-Nb-X3P" firstAttribute="leading" secondItem="jjM-4r-fyk" secondAttribute="trailing" constant="20" id="ymA-5R-7oC"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -69,9 +72,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellFrameBg" destination="B8k-mi-6PX" id="i0V-Yt-thm"/>
-                <outlet property="notifyFlag" destination="SvK-x2-zcy" id="gVU-IV-BvY"/>
+                <outlet property="requestNoti" destination="jjM-4r-fyk" id="dTO-Me-bAA"/>
                 <outlet property="titleLabel" destination="BDn-ti-aSj" id="hXK-K6-Li1"/>
             </connections>
+            <point key="canvasLocation" x="102" y="303"/>
         </tableViewCell>
     </objects>
     <resources>

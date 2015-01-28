@@ -12,17 +12,9 @@
 
 - (void)awakeFromNib {
     _avatarImageView.clipsToBounds = YES;
-    _avatarImageView.layer.cornerRadius = 21.0;
+    _avatarImageView.layer.cornerRadius = 4.0;
     _nickNameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
-    _phoneLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     self.backgroundColor = APP_PAGE_COLOR;
-//    _frameBg.layer.borderColor = UIColorFromRGB(0xeeeeee).CGColor;
-//    _frameBg.layer.borderWidth = 0.5;
-    _frameBg.layer.cornerRadius = 2.0;
-//    _frameBg.layer.shadowColor = APP_PAGE_COLOR.CGColor;
-//    _frameBg.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-//    _frameBg.layer.shadowOpacity = 1.0;
-//    _frameBg.layer.shadowRadius = 1.0;
     
 }
 

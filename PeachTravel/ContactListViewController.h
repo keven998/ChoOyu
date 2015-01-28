@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MHTabBarController.h"
 
-@interface ContactListViewController : MHChildViewController
+@interface ContactListViewController : UIViewController
 @property (nonatomic, weak) UIViewController *rootCtl;
+
+@property (nonatomic) NSUInteger numberOfUnreadFrendRequest;
 
 @end

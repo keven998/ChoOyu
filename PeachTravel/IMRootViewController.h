@@ -13,5 +13,8 @@
 
 @property (nonatomic) IM_CONNECT_STATE IMState;
 
+@property (nonatomic) int totalUnReadMsg;
+
+@property (nonatomic) int numberOfUnReadChatMsg;
 
 @end

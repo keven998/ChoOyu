@@ -8,7 +8,6 @@
 
 #import "ContactListViewController.h"
 #import "AccountManager.h"
-#import "TZScrollView.h"
 #import "ChatViewController.h"
 #import "FrendRequestTableViewController.h"
 #import "ContactDetailViewController.h"
@@ -21,18 +20,14 @@
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TZScrollViewDelegate, MJNIndexViewDataSource>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MJNIndexViewDataSource>
 
-@property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
 
 //索引
 @property (nonatomic, strong) MJNIndexView *indexView;
-
-//是否显示字母索引，当少于15个人的时候不显示
-@property (nonatomic) BOOL showRefrence;
 
 @property (strong, nonatomic) UIView *emptyView;
 
@@ -47,12 +42,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
 
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    _showRefrence = ([accountManager.account.contacts count] > 15);
-    
-    if (_showRefrence) {
-//        [self.view addSubview:self.tzScrollView];
-    }
     [self.view addSubview:self.contactTableView];
     
     CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64) ? (kWindowHeight-64) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
@@ -71,14 +60,6 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.accountManager loadContactsFromServer];
-    if ([self.accountManager numberOfUnReadFrendRequest]) {
-        self.notify = YES;
-    } else {
-        self.notify = NO;
-    }
-    [self.contactTableView reloadData];
-    __weak ContactListViewController *weakSelf = self;
-    [self.delegate updateNotify:weakSelf notify:self.notify];
     [self handleEmptyView];
 }
 
@@ -90,7 +71,6 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _tzScrollView.delegate = nil;
     _contactTableView.delegate = nil;
     _emptyView = nil;
 }
@@ -121,7 +101,6 @@
     self.indexView.fading = YES;
     
 }
-
 
 - (void) handleEmptyView {
     if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
@@ -188,28 +167,6 @@
 
 #pragma mark - setter & getter
 
-- (TZScrollView *)tzScrollView
-{
-    if (!_tzScrollView) {
-        
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, 10, kWindowWidth, 52)];
-        _tzScrollView.itemWidth = 22;
-        _tzScrollView.itemHeight = 22;
-        _tzScrollView.itemBackgroundColor = [UIColor grayColor];
-        _tzScrollView.backgroundColor = [UIColor whiteColor];
-        _tzScrollView.delegate = self;
-        _tzScrollView.layer.borderWidth = 1.0;
-        _tzScrollView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-        NSMutableArray *titles = [[NSMutableArray alloc] init];
-        [titles addObject:@"@"];
-        for (NSString *s in [self.dataSource objectForKey:@"headerKeys"]) {
-            [titles addObject:s];
-        }
-        _tzScrollView.titles = titles;
-    }
-    return _tzScrollView;
-}
-
 - (AccountManager *)accountManager
 {
     if (!_accountManager) {
@@ -218,14 +175,18 @@
     return _accountManager;
 }
 
+- (void)setNumberOfUnreadFrendRequest:(NSUInteger)numberOfUnreadFrendRequest
+{
+    _numberOfUnreadFrendRequest = numberOfUnreadFrendRequest;
+    if (_contactTableView) {
+        [_contactTableView reloadData];
+    }
+}
+
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
         CGFloat offsetY = 0;
-        if (_showRefrence) {
-            offsetY += self.tzScrollView.frame.size.height;
-        }
-        
         _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, self.view.frame.size.width - 22, self.view.frame.size.height - offsetY) style:UITableViewStylePlain];
 
         _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
@@ -250,15 +211,6 @@
     return _dataSource;
 }
 
-#pragma mark - IBAction Methods
-
-- (IBAction)choseCurrent:(UIButton *)sender
-{
-    _tzScrollView.currentIndex = sender.tag;
-    [self tableViewMoveToCorrectPosition:sender.tag];
-}
-
-
 #pragma mark - Private Methods
 
 - (void)updateContactList
@@ -276,20 +228,6 @@
     [self handleEmptyView];
 }
 
-- (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
-{
-    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:currentIndex];
-    [self.contactTableView scrollToRowAtIndexPath:scrollIndexPath
-                                 atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-#pragma mark - TZScollViewDelegate
-
-- (void)moveToIndex:(NSInteger)index
-{
-    [self tableViewMoveToCorrectPosition:index];
-}
-
 #pragma mark - UITableVeiwDataSource & delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -303,7 +241,7 @@
         return 54.0;
     }
     
-    return 54.0;
+    return 49.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -349,11 +287,7 @@
 {
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
-        if (self.notify) {
-            cell.notifyFlag.hidden = NO;
-        } else {
-            cell.notifyFlag.hidden = YES;
-        }
+        cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
         return cell;
         
     } else {
@@ -361,11 +295,7 @@
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
         cell.nickNameLabel.text = contact.nickName;
-        if (contact.signature) {
-            cell.phoneLabel.text = contact.signature;
-        } else {
-            cell.phoneLabel.text = @"no签名";
-        }
+        
         return cell;
     }
 }
@@ -375,12 +305,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        if ([cell isKindOfClass:[OptionOfFASKTableViewCell class]]) {
-            OptionOfFASKTableViewCell *oc = (OptionOfFASKTableViewCell *)cell;
-            oc.notifyFlag.hidden = YES;
-            self.notify = NO;
-        }
+
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
@@ -405,20 +330,4 @@
 }
 
 
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    NSArray *visiableCells = [self.contactTableView visibleCells];
-    NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
-    self.tzScrollView.currentIndex = indexPath.section;
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
-{
-    NSArray *visiableCells = [self.contactTableView visibleCells];
-    NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
-    self.tzScrollView.currentIndex = indexPath.section;
-}
 @end

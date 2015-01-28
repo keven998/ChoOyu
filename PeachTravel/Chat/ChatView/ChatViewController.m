@@ -1189,16 +1189,18 @@
     __weak ChatViewController *weakSelf = self;
     if ([weakSelf.conversation.chatter isEqualToString:message.conversationChatter])
     {
-        for (int i = weakSelf.dataSource.count-1; i >=0; i --) {
-            id object = [weakSelf.dataSource objectAtIndex:i];
-            if ([object isKindOfClass:[MessageModel class]]) {
-                EMMessage *currMsg = [weakSelf.dataSource objectAtIndex:i];
-                if ([message.messageId isEqualToString:currMsg.messageId]) {
-                    MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
-                    [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
-                    [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-                    
-                    break;
+        if (weakSelf.dataSource.count>0) {
+            for (int i = (int)weakSelf.dataSource.count-1; i >=0; i --) {
+                id object = [weakSelf.dataSource objectAtIndex:i];
+                if ([object isKindOfClass:[MessageModel class]]) {
+                    EMMessage *currMsg = [weakSelf.dataSource objectAtIndex:i];
+                    if ([message.messageId isEqualToString:currMsg.messageId]) {
+                        MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
+                        [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
+                        [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                        
+                        break;
+                    }
                 }
             }
         }
