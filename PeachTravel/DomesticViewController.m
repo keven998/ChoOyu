@@ -342,7 +342,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    [self.domesticCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+//    [self.domesticCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:index];
+    CGFloat offsetY = [_domesticCollectionView layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath].frame.origin.y;
+    CGFloat sectionInsetY = ((UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout).sectionInset.top;
+    [_domesticCollectionView setContentOffset:CGPointMake(_domesticCollectionView.contentOffset.x, offsetY - sectionInsetY) animated:YES];
 }
 
 

@@ -41,7 +41,7 @@ enum {
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
+    if (buttonIndex == 0) {
         NSInteger tag = actionSheet.tag;
         if (tag == kASShare) {
             [self shareToTalk];
