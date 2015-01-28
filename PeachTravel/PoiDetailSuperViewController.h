@@ -38,6 +38,8 @@
  */
 - (IBAction)chat:(id)sender;
 
+- (void)shareToTalk;
+
 @end
 
 

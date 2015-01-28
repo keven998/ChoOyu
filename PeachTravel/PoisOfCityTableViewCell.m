@@ -31,6 +31,8 @@
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     self.backgroundColor = APP_PAGE_COLOR;
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setPoi:(PoiSummary *)poi

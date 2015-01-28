@@ -71,6 +71,12 @@
     return _destinationToolBar;
 }
 
+- (void)dealloc {
+    _destinationToolBar = nil;
+    _searchBar = nil;
+    _searchController = nil;
+}
+
 - (NSMutableArray *)searchResultArray
 {
     if (!_searchResultArray) {

@@ -450,6 +450,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 #pragma mark - IBAction
 - (IBAction)option:(id)sender {
     UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建旅程", @"Talk", nil];
+    as.tag = 0;
     [as showInView:self.view];
 }
 
@@ -500,7 +501,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         foreignCtl.notify = NO;
         [self.navigationController pushViewController:makePlanCtl animated:YES];
     } else if (buttonIndex == 1) {
-        [self chat:nil];
+        [self shareToTalk];
     } else {
         return;
     }

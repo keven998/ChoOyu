@@ -12,7 +12,7 @@
 
 enum {
     kASMap = 1,
-    kASShare
+    kASShare = 11
 };
 
 @interface PoiDetailSuperViewController () <CreateConversationDelegate, TaoziMessageSendDelegate, UIActionSheetDelegate>
@@ -41,20 +41,23 @@ enum {
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    }
-    NSInteger tag = actionSheet.tag;
-    if (tag == kASShare) {
-        if (![[AccountManager shareAccountManager] isLogin]) {
-            [SVProgressHUD showHint:@"请先登录"];
-            [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
-        } else {
-            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
-            _chatRecordListCtl.delegate = self;
-            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-            [self presentViewController:nCtl animated:YES completion:nil];
+    if (buttonIndex == 0) {
+        NSInteger tag = actionSheet.tag;
+        if (tag == kASShare) {
+            [self shareToTalk];
         }
+    }
+}
+
+- (void)shareToTalk {
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [SVProgressHUD showHint:@"请先登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+    } else {
+        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+        _chatRecordListCtl.delegate = self;
+        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+        [self presentViewController:nCtl animated:YES completion:nil];
     }
 }
 
@@ -70,8 +73,7 @@ enum {
     taoziMessageCtl.isGroup = isGroup;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-        }];
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
     }];
 }
 
