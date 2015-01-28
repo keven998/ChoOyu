@@ -37,14 +37,26 @@
                             <constraint firstAttribute="height" constant="1" id="kYt-ip-rN7"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjQ-4j-fqw">
+                        <rect key="frame" x="266" y="8" width="46" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="46" id="DXz-WI-WO9"/>
+                            <constraint firstAttribute="height" constant="30" id="hVP-2f-J8b"/>
+                        </constraints>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="K3L-1f-LAp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0RP-sv-odU"/>
                     <constraint firstItem="UBo-DE-0lK" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="12" id="5oX-fD-MX2"/>
                     <constraint firstAttribute="trailing" secondItem="UBo-DE-0lK" secondAttribute="trailing" constant="63" id="H6u-Wp-tm3"/>
+                    <constraint firstAttribute="trailing" secondItem="fjQ-4j-fqw" secondAttribute="trailing" constant="8" id="L92-En-kmR"/>
                     <constraint firstAttribute="trailing" secondItem="K3L-1f-LAp" secondAttribute="trailing" id="NqZ-iK-JC9"/>
                     <constraint firstAttribute="centerY" secondItem="4RI-Xp-0RI" secondAttribute="centerY" id="XqD-fM-5EH"/>
+                    <constraint firstItem="fjQ-4j-fqw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="cvD-jZ-G6k"/>
                     <constraint firstItem="4RI-Xp-0RI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="dIH-kt-aOI"/>
                     <constraint firstAttribute="centerY" secondItem="UBo-DE-0lK" secondAttribute="centerY" id="ndy-O6-y1u"/>
                     <constraint firstAttribute="bottom" secondItem="K3L-1f-LAp" secondAttribute="bottom" constant="-0.5" id="v2z-3J-BY7"/>
@@ -52,6 +64,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImageView" destination="4RI-Xp-0RI" id="ug9-UP-DJJ"/>
+                <outlet property="chatBtn" destination="fjQ-4j-fqw" id="OQ8-VA-vM3"/>
                 <outlet property="nickNameLabel" destination="UBo-DE-0lK" id="72N-ca-aVL"/>
             </connections>
             <point key="canvasLocation" x="108" y="230"/>

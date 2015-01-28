@@ -228,6 +228,25 @@
     [self handleEmptyView];
 }
 
+- (IBAction)chat:(UIButton *)sender
+{
+    CGPoint point = [sender convertPoint:CGPointZero toView:self.contactTableView];
+    NSIndexPath *indexPath = [self.contactTableView indexPathForRowAtPoint:point];
+    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
+    chatCtl.title = contact.nickName;
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    for (EMConversation *conversation in conversations) {
+        if ([conversation.chatter isEqualToString:contact.easemobUser]) {
+            [conversation markAllMessagesAsRead:YES];
+            break;
+        }
+    }
+    [self.navigationController pushViewController:chatCtl animated:YES];
+}
+
+
 #pragma mark - UITableVeiwDataSource & delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -283,6 +302,7 @@
         return [contacts count];
     }
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -295,6 +315,7 @@
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
         cell.nickNameLabel.text = contact.nickName;
+        [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
     }

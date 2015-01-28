@@ -351,14 +351,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/4, 77.5)];
     imView.backgroundColor = [UIColor clearColor];
     
-    UIView *imBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 28, (self.view.frame.size.width)/4, 49)];
-    imBackView.backgroundColor = APP_THEME_COLOR;
+    UIImageView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 73, 49)];
+    imBackView.image = [UIImage imageNamed:@"ic_im_bkg.png"];
     [imView addSubview:imBackView];
     
-    UIButton *IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [IMBtn setImage:[UIImage imageNamed:@"ic_IM.png"] forState:UIControlStateNormal];
+    UIButton *IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, 0, 54, 54)];
+    IMBtn.backgroundColor = APP_THEME_COLOR;
+    IMBtn.layer.cornerRadius = 27;
+    [IMBtn setImage:[UIImage imageNamed:@"ic_IM_normal.png"] forState:UIControlStateNormal];
+    [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
+
     [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2, imView.bounds.size.height/2);
+    IMBtn.center = CGPointMake(imView.bounds.size.width/2-1, imView.bounds.size.height/2-1);
     [imView addSubview:IMBtn];
     [self.tabBar addSubview:imView];
     
@@ -371,9 +375,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
     [IMBtn addSubview:_unReadMsgLabel];
     
-    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, (self.view.frame.size.width)/4, 0, 0);
+    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 73, 0, 0);
     
-    NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
+    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
     NSInteger index = 0;
     
     for (RDVTabBarItem *item in [[self tabBar] items]) {
@@ -391,9 +395,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
             [item addSubview:spaceView];
         }
         
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
+        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
                                                       [tabBarItemImages objectAtIndex:index]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
+        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
                                                         [tabBarItemImages objectAtIndex:index]]];
         [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
         
