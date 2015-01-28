@@ -64,12 +64,21 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     moreBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 0, 0, 15);
     
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
+    title.textColor = [UIColor whiteColor];
+    title.textAlignment = NSTextAlignmentCenter;
+    title.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17];
+    title.tag = 123;
+    
     _customNavigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
-    _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0];
-
-    [_customNavigationBar addSubview:leftBtn];
-    [_customNavigationBar addSubview:moreBtn];
+    _customNavigationBar.backgroundColor = APP_THEME_COLOR;
+    [_customNavigationBar addSubview:title];
+    _customNavigationBar.alpha = 0.0;
+    title.center = CGPointMake(CGRectGetWidth(_customNavigationBar.bounds)/2, 40);
     [self.view addSubview:_customNavigationBar];
+    
+    [self.view addSubview:leftBtn];
+    [self.view addSubview:moreBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,6 +123,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSString *url = taoziImage.imageUrl;
         [_cityPicture sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
+    
+    UILabel *title = (UILabel *)[_customNavigationBar viewWithTag:123];
+    title.text = _cityPoi.zhName;
 }
 
 - (UITableView *)tableView
@@ -470,8 +482,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             _cityPicture.frame = frame;
         }
         
-        CGFloat alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
-        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
+//        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
+        _customNavigationBar.alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
 
     }
 }
