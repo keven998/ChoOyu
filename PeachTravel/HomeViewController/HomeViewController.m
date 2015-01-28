@@ -31,6 +31,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
 
+/**
+ *  未读消息的label
+ */
+@property (nonatomic, strong) UILabel *unReadMsgLabel;
+
 @property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
 @property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
@@ -48,18 +53,20 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     self = [super init];
     if (self) {
-        [self setupViewControllers];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupViewControllers];
+
     [self setupConverView];
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
-    [self didUnreadMessagesCountChanged];
+    [self setupUnreadMessageCount];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
 
 }
 
@@ -104,23 +111,16 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)dealloc
 {
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IMRootViewController *)IMRootCtl
 {
     if (!_IMRootCtl) {
         _IMRootCtl = [[IMRootViewController alloc] init];
-//        _IMRootCtl.delegate = self;
         
-        AccountManager *accountManager = [AccountManager shareAccountManager];
         ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
         contactListCtl.title = @"桃友";
-        if ([accountManager numberOfUnReadFrendRequest]) {
-            contactListCtl.notify = YES;
-        } else {
-            contactListCtl.notify = NO;
-        }
-        
         
         ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
         chatListCtl.title = @"Talk";
@@ -362,6 +362,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [imView addSubview:IMBtn];
     [self.tabBar addSubview:imView];
     
+    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, 18, 18)];
+    _unReadMsgLabel.backgroundColor = [UIColor redColor];
+    _unReadMsgLabel.textColor = [UIColor whiteColor];
+    _unReadMsgLabel.layer.cornerRadius = 9;
+    _unReadMsgLabel.clipsToBounds = YES;
+    _unReadMsgLabel.textAlignment = NSTextAlignmentCenter;
+    _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    [IMBtn addSubview:_unReadMsgLabel];
+    
     self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, (self.view.frame.size.width)/4, 0, 0);
     
     NSArray *tabBarItemImages = @[@"ic_tao", @"ic_loc", @"ic_person"];
@@ -400,13 +409,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 -(void)setupUnreadMessageCount
 {
-    NSArray *conversations = [[[EaseMob sharedInstance] chatManager] conversations];
-    NSInteger unreadCount = 0;
-    for (EMConversation *conversation in conversations) {
-        unreadCount += conversation.unreadMessagesCount;
+    int unReadCount = self.IMRootCtl.totalUnReadMsg;
+    if (unReadCount > 0) {
+        _unReadMsgLabel.hidden = NO;
+        _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", unReadCount];
+    } else {
+        _unReadMsgLabel.hidden = YES;
     }
     UIApplication *application = [UIApplication sharedApplication];
-    [application setApplicationIconBadgeNumber:unreadCount];
+    [application setApplicationIconBadgeNumber:unReadCount];
 }
 
 #pragma mark - IChatManagerDelegate 消息变化
@@ -426,12 +437,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     NSLog(@"*****将要收取消息");
     self.IMRootCtl.IMState = IM_RECEIVING;
-}
-
-// 未读消息数量变化回调
--(void)didUnreadMessagesCountChanged
-{
-    [self setupUnreadMessageCount];
 }
 
 - (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
@@ -687,6 +692,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     NSLog(@"didUpdateGroupList");
 }
+
+// 未读消息数量变化回调
+-(void)didUnreadMessagesCountChanged
+{
+    [self setupUnreadMessageCount];
+}
+
 
 //接收到入群申请
 - (void)didReceiveApplyToJoinGroup:(NSString *)groupId

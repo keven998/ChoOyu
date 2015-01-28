@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIView *indicateView;
-@property (nonatomic, strong) NSArray *segmentedBtns;
 
 @end
 

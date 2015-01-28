@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSArray *segmentedTitles;
 @property (nonatomic, strong) NSArray *segmentedImages;
 @property (nonatomic, strong) NSArray *viewControllers;
+@property (nonatomic, strong) NSArray *segmentedBtns;
 
 /**
  *  当前选中的界面

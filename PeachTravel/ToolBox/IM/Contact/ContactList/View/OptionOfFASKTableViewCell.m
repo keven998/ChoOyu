@@ -19,8 +19,8 @@
     _cellFrameBg.layer.shadowOffset = CGSizeMake(0.0, 0.5);
     _cellFrameBg.layer.shadowOpacity = 1.0;
     _cellFrameBg.layer.shadowRadius = 0.5;
-    
-    _notifyFlag.layer.cornerRadius = 5.0;
+    _requestNoti.layer.cornerRadius = 7.5;
+    _requestNoti.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,6 +31,17 @@
 
 - (void)layoutSubviews {
     self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 44.0);
+}
+
+- (void)setNumberOfUnreadFrendRequest:(NSUInteger)numberOfUnreadFrendRequest
+{
+    _numberOfUnreadFrendRequest = numberOfUnreadFrendRequest;
+    if (_numberOfUnreadFrendRequest == 0) {
+        _requestNoti.hidden = YES;
+    } else if (_numberOfUnreadFrendRequest > 0) {
+        _requestNoti.hidden = NO;
+        _requestNoti.text = [NSString stringWithFormat:@"%ld", _numberOfUnreadFrendRequest];
+    }
 }
 
 @end

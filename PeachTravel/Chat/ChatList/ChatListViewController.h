@@ -19,5 +19,10 @@
 
 - (void)networkChanged:(EMConnectionState)connectionState;
 
+/**
+ *  未读的聊天消息
+ */
+@property (nonatomic) int numberOfUnReadChatMsg;
+
 @end
 

@@ -128,6 +128,18 @@
     return _tableView;
 }
 
+- (int)numberOfUnReadChatMsg
+{
+    if (!_chattingPeople) {
+        [self loadChattingPeople];
+    }
+    int ret = 0;
+    for (TZConversation *tzConversation in _chattingPeople) {
+        ret += tzConversation.conversation.unreadMessagesCount;
+    }
+    return ret;
+}
+
 #pragma mark - private
 
 /**
@@ -153,7 +165,11 @@
                 tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatar;
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
+            } else {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO];
+
             }
+            
         } else {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
