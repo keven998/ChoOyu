@@ -173,12 +173,18 @@
         } else {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
+                NSLog(@"%@", group.groupSubject);
+            }
+            
+            
+            TZConversation *tzConversation = [[TZConversation alloc] init];
+            tzConversation.conversation = conversation;
+            [_chattingPeople addObject:tzConversation];
+
+            for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
                     if (group.groupSubject) {
-                        TZConversation *tzConversation = [[TZConversation alloc] init];
                         tzConversation.chatterNickName = group.groupSubject;
-                        tzConversation.conversation = conversation;
-                        [_chattingPeople addObject:tzConversation];
                     }
                    
                     break;
@@ -571,6 +577,25 @@
     NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
     NSLog(@"%@",groupArray);
     
+    NSMutableArray *dataSource = [self loadConversations];
+
+    for (EMConversation *conversation in dataSource) {
+        if (conversation.isGroup) {
+            BOOL find = NO;
+            for (EMGroup *group in groupArray) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find) {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+            }
+        }
+        
+    }
+    
+        
     NSLog(@"allgroups:%@", allGroups);
     [self refreshDataSource];
 }

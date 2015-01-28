@@ -694,7 +694,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
 {
-    NSLog(@"didUpdateGroupList");
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    for (EMConversation *conversation in conversations) {
+        if (conversation.isGroup) {
+            BOOL find = NO;
+            for (EMGroup *group in allGroups) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    find = YES;
+                    break;
+                }
+            }
+            if (!find) {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+            }
+        }
+        
+    }
 }
 
 // 未读消息数量变化回调
