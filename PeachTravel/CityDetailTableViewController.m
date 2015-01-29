@@ -391,24 +391,20 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     spaceView.backgroundColor = APP_SUB_THEME_COLOR;
     [view addSubview:spaceView];
     
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, width, 30)];
-    titleView.backgroundColor = [UIColor whiteColor];
-    [view addSubview:titleView];
-    
-    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 108, 30)];
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 108, 25)];
     text.text = @"精选游记";
     text.textColor = APP_SUB_THEME_COLOR;
     text.font = [UIFont boldSystemFontOfSize:15.0];
     text.userInteractionEnabled = YES;
     [view addSubview:text];
     
-    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 15, 108, 30)];
+    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 118, 5, 108, 25)];
     [allNotes setTitle:@"更多" forState:UIControlStateNormal];
-    [allNotes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [allNotes setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
-    allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
-    allNotes.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
+    allNotes.contentEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
     [allNotes addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:allNotes];
     
@@ -422,10 +418,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     cell.travelNoteImage = image.imageUrl;
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
-//    cell.authorName = travelNote.authorName;
-//    cell.authorAvatar = travelNote.authorAvatar;
-//    cell.resource = travelNote.source;
-//    cell.time = travelNote.publishDateStr;
     
     cell.property = [NSString stringWithFormat:@"%@  %@  %@", travelNote.authorName, travelNote.source, travelNote.publishDateStr];
     cell.canSelect = NO;
@@ -440,7 +432,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
     travelNoteCtl.title = travelNote.title;
-    
+    travelNoteCtl.urlStr = travelNote.detailUrl;
     travelNoteCtl.travelNoteTitle = travelNote.title;
     travelNoteCtl.desc = travelNote.summary;
     TaoziImage *image = [travelNote.images firstObject];

@@ -72,6 +72,8 @@
 
 #define API_NEARBY                              (BASE_URL @"poi/nearby")      //我身边
 
+#define API_SUGGESTION                          (BASE_URL @"suggestions")   //搜索联想
+
 //用户相关接口
 #define API_WEIXIN_LOGIN                        (BASE_URL @"users/auth-signup")
 #define API_USERINFO                            (BASE_URL @"users/")

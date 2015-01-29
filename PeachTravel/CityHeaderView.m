@@ -125,7 +125,7 @@
                                                                    context:nil].size;
     CGFloat timeCostHeight = timeCostLabelSize.height + 10;
     _timeCostBtn.frame = CGRectMake(25, oy, width - 70, timeCostHeight);
-    [_timeCostBtn setAttributedTitle:[[NSString stringWithFormat:@"推荐旅程安排 %@", _cityPoi.timeCostDesc] stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
+    [_timeCostBtn setAttributedTitle:[[NSString stringWithFormat:@"推荐旅程安排 %@", _cityPoi.timeCostDesc] stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_HINT] forState:UIControlStateNormal];
     _timeCostBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _timeCostBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -135,7 +135,7 @@
     
     _travelMonthBtn = [[ResizableView alloc] initWithFrame:CGRectMake(25, oy, width-70, 42) andNumberOfLine:2];
     _travelMonthBtn.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    _travelMonthBtn.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _travelMonthBtn.contentColor = TEXT_COLOR_TITLE_HINT;
     _travelMonthBtn.content = [NSString stringWithFormat:@"最佳旅行时节 %@", _cityPoi.travelMonth];
     _travelMonthBtn.backgroundColor = [UIColor whiteColor];
     [_detailView addSubview:_travelMonthBtn];
