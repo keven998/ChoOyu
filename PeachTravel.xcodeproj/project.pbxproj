@@ -594,6 +594,8 @@
 		D9B676EE1A7A258B00C5C11C /* ic_person_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676EA1A7A258B00C5C11C /* ic_person_selected@2x.png */; };
 		D9B676F01A7A25C100C5C11C /* ic_IM_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676EF1A7A25C100C5C11C /* ic_IM_normal@2x.png */; };
 		D9B676F21A7A2BE300C5C11C /* ic_round_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F11A7A2BE300C5C11C /* ic_round_tab@2x.png */; };
+		D9B676F41A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F31A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png */; };
+		D9B676F61A7A669000C5C11C /* bkg-linked_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F51A7A669000C5C11C /* bkg-linked_dots@2x.png */; };
 		D9C24ABB1A6F755200770FEF /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */; };
 		D9C24ABD1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
@@ -1655,6 +1657,8 @@
 		D9B676EA1A7A258B00C5C11C /* ic_person_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person_selected@2x.png"; sourceTree = "<group>"; };
 		D9B676EF1A7A25C100C5C11C /* ic_IM_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_normal@2x.png"; sourceTree = "<group>"; };
 		D9B676F11A7A2BE300C5C11C /* ic_round_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_round_tab@2x.png"; sourceTree = "<group>"; };
+		D9B676F31A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_btn_cycle@2x.png"; sourceTree = "<group>"; };
+		D9B676F51A7A669000C5C11C /* bkg-linked_dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkg-linked_dots@2x.png"; sourceTree = "<group>"; };
 		D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete@2x.png"; sourceTree = "<group>"; };
 		D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewCell.xib; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
@@ -3947,6 +3951,8 @@
 		D98BDA6D1A4441F50093C559 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				D9B676F51A7A669000C5C11C /* bkg-linked_dots@2x.png */,
+				D9B676F31A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -5187,6 +5193,7 @@
 				D9B676CD1A79E17A00C5C11C /* ic_city_favorite@2x.png in Resources */,
 				D9EF98A61A3ABC1F00DB480F /* nearby_ic_tab_spot_normal@2x.png in Resources */,
 				D95460081A22FAAB00688D72 /* TripPoiListTableViewCell.xib in Resources */,
+				D9B676F41A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png in Resources */,
 				C60C0D571A286654006033C9 /* ic_about@2x.png in Resources */,
 				C6BC34831A273181002C19D3 /* login_btn_frame@2x.png in Resources */,
 				D92F1AB81A5A84BB00CD1A63 /* loudy@2x.png in Resources */,
@@ -5205,6 +5212,7 @@
 				D90C636819FB44D300C2E440 /* chatFire_audioPlaying1@2x.png in Resources */,
 				D90F35F019F63B3300E26FA9 /* call_silence@2x.png in Resources */,
 				D9681A0A1A109BF600122793 /* background-gradient.png in Resources */,
+				D9B676F61A7A669000C5C11C /* bkg-linked_dots@2x.png in Resources */,
 				D9681A0C1A109BF600122793 /* button-background.png in Resources */,
 				D9386C5C1A31A7D90085FC36 /* chat_sender_audio_playing_full@2x.png in Resources */,
 				D90857F219EE9AC20041A4E2 /* UserOtherTableViewCell.xib in Resources */,
