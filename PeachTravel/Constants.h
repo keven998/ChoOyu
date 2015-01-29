@@ -239,7 +239,7 @@ typedef enum : NSUInteger {
 
 #define APP_PAGE_COLOR                  UIColorFromRGB(0xf6f6f6)
 #define APP_THEME_COLOR                 UIColorFromRGB(0xfd5668)
-#define APP_SUB_THEME_COLOR             UIColorFromRGB(0xfcb983)
+#define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
 #define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xcc306a)
 #define APP_BORDER_COLOR                UIColorFromRGB(0xe4e4e4)
 #define APP_IMAGEVIEW_COLOR             UIColorFromRGB(0xf8f8f8)

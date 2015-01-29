@@ -256,7 +256,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             size = CGSizeMake(width, heigh);
             return size;
         } else {
-            CGFloat width = ((collectionView.frame.size.width-12)/3);
+            CGFloat width = ((collectionView.frame.size.width-13)/3);
             size = CGSizeMake(width, width);
             return size;
         }

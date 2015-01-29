@@ -18,9 +18,9 @@
 @interface CityHeaderView : UIView
 
 @property (nonatomic, strong) UIButton *favoriteBtn;
-@property (nonatomic, strong) UIButton *showSpotsBtn;
-@property (nonatomic, strong) UIButton *showRestaurantsBtn;
-@property (nonatomic, strong) UIButton *showShoppingBtn;
+@property (nonatomic, strong) TZButton *showSpotsBtn;
+@property (nonatomic, strong) TZButton *showRestaurantsBtn;
+@property (nonatomic, strong) TZButton *showShoppingBtn;
 @property (nonatomic, strong) UIButton *playNotes;
 
 - (CGFloat)headerViewHightWithCityData:(CityPoi *)poi;

@@ -22,6 +22,7 @@
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, strong) UIImageView *tableViewBkg;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
@@ -57,13 +58,17 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [self loadCityData];
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 72, 64.0)];
-    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"ic_city_back.png"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"ic_city_back_highlight.png"] forState:UIControlStateHighlighted];
+
     [leftBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     leftBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 15, 0, 0);
     
     UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 72, 0, 72, 64.0)];
-    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+    [moreBtn setImage:[UIImage imageNamed:@"ic_city_more.png"] forState:UIControlStateNormal];
+    [moreBtn setImage:[UIImage imageNamed:@"ic_city_more_highlight.png"] forState:UIControlStateHighlighted];
+
     [moreBtn addTarget:self action:@selector(option:) forControlEvents:UIControlEventTouchUpInside];
     moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     moreBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 0, 0, 15);
@@ -110,32 +115,30 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
     _cityHeaderView = [[CityHeaderView alloc] init];
     _cityHeaderView.delegate = self;
-//    _cityHeaderView.backgroundColor = APP_PAGE_COLOR;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
     _cityHeaderView.cityPoi = _cityPoi;
     
-//    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-//    self.tableView.tableHeaderView = tableHeaderView;
-//    [self.tableView addSubview:_cityHeaderView];
     
+    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+149*_cityPoi.travelNotes.count+10);
     
-    CGRect frame = CGRectMake(0, _cityHeaderView.frame.size.height, self.view.frame.size.width, 50+149*_cityPoi.travelNotes.count);
-    [self.tableView setFrame:frame];
+    _tableViewBkg = [[UIImageView alloc] initWithFrame:frame];
+    _tableViewBkg.userInteractionEnabled = YES;
+    _tableViewBkg.image = [[UIImage imageNamed:@"ic_city_card_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 6, 12, 6)];
+
+    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+149*_cityPoi.travelNotes.count)];
+
+    [_tableViewBkg addSubview:_tableView];
     
+    [_scrollView addSubview:_tableViewBkg];
     [_scrollView addSubview:_cityHeaderView];
-    [_scrollView addSubview:self.tableView];
     
-    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, frame.origin.y+frame.size.height)];
-    
-    
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, frame.origin.y+frame.size.height+10)];
     
     [_cityHeaderView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showRestaurantsBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
-
-    [_scrollView addSubview:self.tableView];
     
 
     [self.tableView reloadData];
@@ -155,7 +158,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor clearColor];
-//        [_tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
         _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -345,18 +347,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)updateCityHeaderView
 {
     [UIView animateWithDuration:0.2 animations:^{
-        [self.tableView setFrame:CGRectMake(0, _cityHeaderView.frame.size.height, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+        [self.tableViewBkg setFrame:CGRectMake(10, _cityHeaderView.frame.size.height+10, _tableViewBkg.frame.size.width, _tableViewBkg.frame.size.height)];
 
     } completion:^(BOOL finished) {
     }];
     
-    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, _tableView.frame.origin.y+_tableView.frame.size.height)];
-//    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-//    tableHeaderView.backgroundColor = APP_PAGE_COLOR;
-//    [self.tableView beginUpdates];
-//    [self.tableView setTableHeaderView:tableHeaderView];
-//    [self.tableView endUpdates];
-//    [self.view bringSubviewToFront:_cityPicture];
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, _tableViewBkg.frame.origin.y+_tableViewBkg.frame.size.height)];
 }
 
 #pragma mark - Table view data source
@@ -377,7 +373,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 50.0;
+        return 30.0;
     }
     return 0;
 }
@@ -388,63 +384,29 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
-//    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageNamed:@"ic_standard_travelnote.png"] forState:UIControlStateHighlighted];
-//    
-//    btn.layer.cornerRadius = 2.0;
-//
-//    [btn setTitle:@"精选游记" forState:UIControlStateNormal];
-//    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-//    [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//
-//    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-//    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
-//    btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-//    btn.backgroundColor = [UIColor whiteColor];
-//    
-//    UIButton *moreTravelNoteBtn = [[UIButton alloc] initWithFrame:CGRectMake(btn.frame.size.width-75, 0, 80, 30)];
-//    moreTravelNoteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//    moreTravelNoteBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-//    moreTravelNoteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12.0);
-//    [moreTravelNoteBtn addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
-//    [desc addAttribute:NSForegroundColorAttributeName value:[APP_THEME_COLOR colorWithAlphaComponent:0.8]  range:NSMakeRange(0, 4)];
-//    [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateNormal];
-//    desc = [[NSMutableAttributedString alloc] initWithString:@"更多游记"];
-//    [desc addAttribute:NSForegroundColorAttributeName value:[[UIColor blueColor] colorWithAlphaComponent:0.5]  range:NSMakeRange(0, 4)];
-//    [moreTravelNoteBtn setAttributedTitle:desc forState:UIControlStateHighlighted];
-//    
-//    [btn addSubview:moreTravelNoteBtn];
-//    
-//    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, btn.frame.size.width, 0.5)];
-//    spaceView.backgroundColor = APP_PAGE_COLOR;
-//    [btn addSubview:spaceView];
-//    btn.layer.cornerRadius = 2.0;
-    
-    
     CGFloat width = CGRectGetWidth(tableView.frame);
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
-    view.backgroundColor = APP_PAGE_COLOR;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 2)];
+    spaceView.backgroundColor = APP_SUB_THEME_COLOR;
+    [view addSubview:spaceView];
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, width, 30)];
-    titleView.backgroundColor = APP_THEME_COLOR;
+    titleView.backgroundColor = [UIColor whiteColor];
     [view addSubview:titleView];
     
-    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 108, 30)];
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 108, 30)];
     text.text = @"精选游记";
-    text.textColor = [UIColor whiteColor];
+    text.textColor = APP_SUB_THEME_COLOR;
     text.font = [UIFont boldSystemFontOfSize:15.0];
     text.userInteractionEnabled = YES;
     [view addSubview:text];
     
-    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 20, 108, 30)];
-    [allNotes setTitle:@"更多精选游记" forState:UIControlStateNormal];
+    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 108, 15, 108, 30)];
+    [allNotes setTitle:@"更多" forState:UIControlStateNormal];
     [allNotes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    [allNotes setImage:[UIImage imageNamed:@"cell_accessory_gray.png"] forState:UIControlStateNormal];
+    [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
     allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 90, 0, 0);
     allNotes.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     [allNotes addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
@@ -514,7 +476,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
 //        _customNavigationBar.alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
 
-    }
+//    }
 }
 
 #pragma mark - UIActionSheetDelegate
