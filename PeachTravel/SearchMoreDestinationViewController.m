@@ -27,6 +27,15 @@
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
 
+@property (nonatomic, assign) BOOL isLoadingMore;
+@property (nonatomic, assign) BOOL didEndScroll;
+@property (nonatomic, assign) BOOL enableLoadMore;
+@property (nonatomic) NSUInteger currentPage;
+@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
+@property (nonatomic, strong) TZProgressHUD *hud;
+
+
 /**
  *  联想的城市数据
  */
@@ -40,6 +49,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _currentPage = 0;
+    _isLoadingMore = YES;
+    _didEndScroll = YES;
+    _enableLoadMore = YES;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = _titleStr;
@@ -59,6 +74,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.text = @"所在城市";
+        titleLabel.userInteractionEnabled = NO;
         [positionView addSubview:extender];
         [positionView addSubview:_positionBtn];
         [positionView addSubview:titleLabel];
@@ -84,8 +100,25 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
     }
     [self.view addSubview:self.tableView];
-    [self loadDataSourceWithKeyWord:_keyWord];
+    [self loadDataWithPageIndex:_currentPage];
+    
+    _hud = [[TZProgressHUD alloc] init];
+    __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
+    [_hud showHUDInViewController:weakSelf];
    
+}
+
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.backgroundColor = APP_PAGE_COLOR;
+        _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [_indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [_footerView addSubview:_indicatroView];
+        [_indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+    }
+    return _footerView;
 }
 
 - (UITableView *)tableView
@@ -133,11 +166,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar becomeFirstResponder];
 }
 
-
 /**
  *  开始从网络上加载数据
  */
-- (void)loadDataSourceWithKeyWord:(NSString *)keyWord
+- (void)loadDataWithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -151,17 +183,19 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:80];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    [params safeSetObject:keyWord forKey:@"keyWord"];
+    [params safeSetObject:_keyWord forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
-     __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+   
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadMoreCompleted];
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
@@ -173,12 +207,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+        [self loadMoreCompleted];
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
-    
 }
 
 /**
@@ -199,12 +236,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params safeSetObject:_searchBar.text forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
+    [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
     
     [manager GET:API_SUGGESTION parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self analysisData:[responseObject objectForKey:@"result"]];
+            [self analysisSearchData:[responseObject objectForKey:@"result"]];
             
         } else {
             if (self.isShowing) {
@@ -221,12 +259,21 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 }
 
+- (void)analysisSearchData:(id)json
+{
+    [self.searchResultArray removeAllObjects];
+    for (id dic in [json objectForKey:@"locality"]) {
+        CityDestinationPoi *loc = [[CityDestinationPoi alloc] initWithJson:dic];
+        [self.searchResultArray addObject:loc];
+    }
+    [self.searchController.searchResultsTableView reloadData];
+}
+
 - (void)analysisData:(id)json
 {
     [self.dataSource removeAllObjects];
     for (id dic in [json objectForKey:_poiTypeDesc]) {
         PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
-        poi.poiType = kSpotPoi;
         [self.dataSource addObject:poi];
     }
     [self.tableView reloadData];
@@ -438,7 +485,24 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         }
         
     } else {
-        
+        CityDestinationPoi *cityPoi = [self.searchResultArray objectAtIndex:indexPath.row];
+        if ([_localCity.cityId isEqualToString:cityPoi.cityId]) {
+            [self.searchDisplayController setActive:NO];
+
+            return;
+        } else {
+            [self.searchDisplayController setActive:NO];
+            _localCity = cityPoi;
+            [_positionBtn setTitle:_localCity.zhName forState:UIControlStateNormal];
+            [self.dataSource removeAllObjects];
+            _currentPage = 0;
+            _isLoadingMore = YES;
+            [self loadDataWithPageIndex:_currentPage];
+            _hud = [[TZProgressHUD alloc] init];
+            __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
+            [_hud showHUDInViewController:weakSelf];
+
+        }
     }
 }
 
@@ -461,6 +525,47 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         }
     });
     return YES;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_isLoadingMore && _didEndScroll && _enableLoadMore) {
+        CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+        if (scrollPosition < 44.0) {
+            _didEndScroll = NO;
+            [self beginLoadingMore];
+        }
+    }
+}
+
+- (void) beginLoadingMore {
+    if (self.tableView.tableFooterView == nil) {
+        self.tableView.tableFooterView = self.footerView;
+    }
+    _isLoadingMore = YES;
+    [_indicatroView startAnimating];
+    [self loadDataWithPageIndex:(_currentPage + 1)];
+    
+    NSLog(@"我要加载到第%lu",(long)_currentPage+1);
+}
+
+- (void) loadMoreCompleted {
+    if (!_isLoadingMore) return;
+    [_indicatroView stopAnimating];
+    _isLoadingMore = NO;
+}
+
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    _didEndScroll = YES;
+}
+
+- (void) tripUpdate:(id)jsonString {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
+    });
 }
 
 #pragma mark - TaoziMessageSendDelegate

@@ -158,7 +158,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 }
 
-
 - (void)analysisData:(id)json
 {
     [self.dataSource removeAllObjects];
