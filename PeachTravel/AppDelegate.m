@@ -35,7 +35,7 @@
                                                             NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = APP_PAGE_COLOR;
+    self.window.backgroundColor = [UIColor whiteColor];
     _homeViewController = [[HomeViewController alloc] init];
     
     //TODO:区分出是 个退 的推送还是 环信 的推送

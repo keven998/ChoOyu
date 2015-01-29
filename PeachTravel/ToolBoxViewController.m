@@ -38,7 +38,6 @@
 @property (nonatomic, strong) CycleScrollView *galleryPageView;
 @property (nonatomic, strong) UIButton *planBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
-
 @property (nonatomic, strong) UIView *contentFrame;
 
 @end
@@ -82,17 +81,17 @@
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
-    CGFloat offsetY = 74.0;
+    CGFloat offsetY = 64.0;
     
     CGFloat height;
     if (IS_IPHONE_4) {
         height = 140;
     } else {
-        height = 170;
+        height = 160;
     }
-    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(10, offsetY, w - 20, height) animationDuration:5];
+    
+    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, offsetY, w, height) animationDuration:5];
     _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.2];
-    _galleryPageView.layer.cornerRadius = 5.0;
     _galleryPageView.clipsToBounds = YES;
     [self.view addSubview:_galleryPageView];
     

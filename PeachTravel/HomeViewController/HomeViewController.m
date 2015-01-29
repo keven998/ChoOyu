@@ -59,6 +59,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self setupViewControllers];
 
     [self setupConverView];
@@ -69,7 +70,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
 
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -346,7 +346,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 77);
     self.tabBar.frame = frame;
-    self.tabBar.backgroundColor = [UIColor clearColor];
+//    self.tabBar.backgroundColor = [UIColor clearColor];
     
     UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 73, 77)];
     imView.backgroundColor = [UIColor clearColor];
@@ -355,15 +355,20 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     imBackView.image = [UIImage imageNamed:@"ic_im_bkg.png"];
     [imView addSubview:imBackView];
     
-    UIButton *IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, 0, 54, 54)];
-    IMBtn.backgroundColor = APP_THEME_COLOR;
+    UIImageView *IM_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(25, 0, 54, 54)];
+    IM_imageView.image = [UIImage imageNamed:@"ic_round_tab.png"];
+    IM_imageView.userInteractionEnabled = YES;
+    
+    UIButton *IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 53, 53)];
+    IMBtn.backgroundColor = APP_PAGE_COLOR;
     IMBtn.layer.cornerRadius = 27;
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_normal.png"] forState:UIControlStateNormal];
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
-
+    [IM_imageView addSubview:IMBtn];
     [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2+3, imView.bounds.size.height/2-1);
-    [imView addSubview:IMBtn];
+    IM_imageView.center = CGPointMake(imView.bounds.size.width/2-0.5, imView.bounds.size.height/2);
+    [imView addSubview:IM_imageView];
+    
     [self.tabBar addSubview:imView];
     
     _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 8, 18, 18)];
@@ -377,6 +382,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 73, 0, 0);
     
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(71, 28, self.tabBar.frame.size.width-71, 0.5)];
+    spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
+    [self.tabBar addSubview:spaceView];
+    
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
     NSInteger index = 0;
     
@@ -386,12 +395,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
         
         item.itemHeight = 49.0;
-        item.backgroundColor = APP_THEME_COLOR;
+        item.backgroundColor = APP_PAGE_COLOR;
 
         if ([[[self tabBar] items] indexOfObject:item] != 0) {
             NSLog(@"%@", NSStringFromCGRect(item.frame));
             UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 33)];
-            spaceView.backgroundColor = APP_DIVIDER_COLOR;
+            spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
             [item addSubview:spaceView];
         }
         
