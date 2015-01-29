@@ -20,7 +20,7 @@
 - (void)setContent:(NSString *)content
 {
     _content = content;
-    [self setAttributedTitle:[_content stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
+    [self setAttributedTitle:[_content stringByAddLineSpacingAndTextColor:_contentColor] forState:UIControlStateNormal];
 }
 
 - (void)setContentColor:(UIColor *)contentColor

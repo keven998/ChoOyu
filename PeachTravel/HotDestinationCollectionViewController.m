@@ -18,14 +18,13 @@
 #import "CommonPoiDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
+#import "SearchDestinationViewController.h"
 
 @interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
-
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
@@ -72,7 +71,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     [super viewWillDisappear:animated];
     _isShowing = NO;
-    [self hideSearchBar];
     if (self.navigationController.viewControllers.count == 2) {
         [[self rdv_tabBarController] setTabBarHidden:YES];
     }
@@ -97,41 +95,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 #pragma mark - IBAction
 
 - (IBAction)goSearch:(UIButton *)sender {
-    [self showSearchBar];
+    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    searchCtl.titleStr = @"搜索想去";
+    [self.navigationController pushViewController:searchCtl animated:YES];
 }
 
-- (void)showSearchBar
-{
-    self.navigationItem.titleView.hidden = YES;
-    self.searchBar.hidden = NO;
-    self.searchBar.showsCancelButton = YES;
-    self.searchBar.alpha = 0;
-    [self.navigationController.navigationBar addSubview:_searchBar];
-
-    [UIView animateWithDuration:0.2 animations:^{
-        self.searchBar.alpha = 1;
-        _searchBtn.alpha = 0;
-    } completion:^(BOOL finished) {
-        [_searchBar becomeFirstResponder];
-    }];
-}
-
-- (void)hideSearchBar
-{
-    if (_searchBar) {
-        [_searchBar resignFirstResponder];
-        [UIView animateWithDuration:0.2 animations:^{
-            _searchBar.alpha = 0;
-        } completion:^(BOOL finished) {
-            self.navigationItem.titleView.hidden = NO;
-            _searchBtn.alpha = 1;
-            self.searchBar.hidden = YES;
-            [self.searchBar removeFromSuperview];
-            _searchBar = nil;
-        }];
-
-    }
-}
 
 #pragma mark - setter & getter
 
@@ -153,16 +121,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     return _collectionView;
 }
 
-- (UISearchBar *)searchBar
-{
-    if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 7, self.navigationController.navigationBar.bounds.size.width-20, 30)];
-        _searchBar.delegate = self;
-        _searchBar.tintColor=[UIColor blueColor];
-        _searchBar.hidden = YES;
-    }
-    return _searchBar;
-}
 
 - (NSMutableArray *)dataSource
 {
@@ -385,17 +343,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     return cell;
 }
 
-#pragma mark - UISearchBar Delegate
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self hideSearchBar];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-
-}
 @end
 
 

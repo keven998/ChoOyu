@@ -16,11 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
 
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSpaceConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *spaceView;
-
-
-
 @end
 
 @implementation TravelNoteTableViewCell
@@ -39,6 +34,10 @@
      */
     _sendBtn.hidden = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15];
+    _titleLabel.textColor = TEXT_COLOR_TITLE;
+    _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    _descLabel.textColor = TEXT_COLOR_TITLE_HINT;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -103,10 +102,8 @@
     _canSelect = canSelect ;
     if (_canSelect) {
         _sendBtn.hidden = NO;
-        _rightSpaceConstraint.constant = 63.0;
     } else {
         _sendBtn.hidden = YES;
-        _rightSpaceConstraint.constant = 19.0;
     }
 }
 

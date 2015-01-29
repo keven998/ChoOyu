@@ -20,7 +20,6 @@
 }
 
 @property (nonatomic, strong) RNGridMenu *av;
-@property (nonatomic, copy) NSString *urlStr;
 
 @end
 
@@ -51,7 +50,6 @@
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-    _urlStr = [NSString stringWithFormat:@"%@%@", TRAVELNOTE_DETAIL_HTML, _travelNoteId];
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     [self.view addSubview:_webView];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];

@@ -17,5 +17,6 @@
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *travelNoteId;
 @property (nonatomic, copy) NSString *travelNoteCover;
+@property (nonatomic, copy) NSString *urlStr;
 
 @end

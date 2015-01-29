@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString *authorName;
 @property (nonatomic, copy) NSString *authorAvatar;
 @property (nonatomic, copy) NSString *source;
-@property (nonatomic, copy) NSString *sourceUrl;
+@property (nonatomic, copy) NSString *detailUrl;
 @property (nonatomic, copy) NSString *publishDateStr;
 
 - (id)initWithJson:(id)json;

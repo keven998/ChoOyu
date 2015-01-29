@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *chatter;
 
+@property (nonatomic, strong) NSString *titleStr;
 
 @property (nonatomic) BOOL isChatGroup;
 
