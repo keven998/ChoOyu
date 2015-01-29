@@ -24,7 +24,6 @@
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) UISearchDisplayController *searchDisplayCtl;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UIButton *searchBtn;
 
@@ -73,6 +72,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     [super viewWillDisappear:animated];
     _isShowing = NO;
+    [self hideSearchBar];
     if (self.navigationController.viewControllers.count == 2) {
         [[self rdv_tabBarController] setTabBarHidden:YES];
     }
@@ -102,30 +102,35 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)showSearchBar
 {
-    [self.navigationController.navigationBar addSubview:self.searchBar];
-    _searchBar.alpha = 0;
     self.navigationItem.titleView.hidden = YES;
+    self.searchBar.hidden = NO;
+    self.searchBar.showsCancelButton = YES;
+    self.searchBar.alpha = 0;
+    [self.navigationController.navigationBar addSubview:_searchBar];
+
     [UIView animateWithDuration:0.2 animations:^{
-        _searchBar.alpha = 1;
+        self.searchBar.alpha = 1;
         _searchBtn.alpha = 0;
     } completion:^(BOOL finished) {
-
         [_searchBar becomeFirstResponder];
     }];
 }
 
 - (void)hideSearchBar
 {
-    [_searchBar resignFirstResponder];
-    [UIView animateWithDuration:0.2 animations:^{
-        _searchBar.alpha = 0;
-    } completion:^(BOOL finished) {
-        self.navigationItem.titleView.hidden = NO;
-        [_searchBar removeFromSuperview];
-        _searchBar = nil;
-        _searchBtn.alpha = 1;
-        
-    }];
+    if (_searchBar) {
+        [_searchBar resignFirstResponder];
+        [UIView animateWithDuration:0.2 animations:^{
+            _searchBar.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.navigationItem.titleView.hidden = NO;
+            _searchBtn.alpha = 1;
+            self.searchBar.hidden = YES;
+            [self.searchBar removeFromSuperview];
+            _searchBar = nil;
+        }];
+
+    }
 }
 
 #pragma mark - setter & getter
@@ -152,21 +157,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     if (!_searchBar) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(10, 7, self.navigationController.navigationBar.bounds.size.width-20, 30)];
-        _searchBar.showsCancelButton = YES;
         _searchBar.delegate = self;
-        _searchBar.placeholder = @"搜索目的地";
+        _searchBar.tintColor=[UIColor blueColor];
+        _searchBar.hidden = YES;
     }
     return _searchBar;
-}
-
-- (UISearchDisplayController *)searchDisplayCtl
-{
-    if (!_searchDisplayCtl) {
-        _searchDisplayCtl = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-        _searchDisplayCtl.searchResultsDataSource = self;
-        _searchDisplayCtl.searchResultsDelegate = self;
-    }
-    return _searchDisplayCtl;
 }
 
 - (NSMutableArray *)dataSource
@@ -373,6 +368,22 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark - UITableView Delegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell" forIndexPath:indexPath];
+    cell.textLabel.text = @"abcd";
+    return cell;
+}
 
 #pragma mark - UISearchBar Delegate
 
@@ -381,6 +392,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self hideSearchBar];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+
+}
 @end
 
 

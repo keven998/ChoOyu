@@ -43,19 +43,6 @@
     self.backgroundColor = [UIColor clearColor];
     CGFloat width = self.frame.size.width;
     
-//    UIScrollView *gallery = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, width, 167.5)];
-//    gallery.scrollEnabled = NO;
-//    gallery.showsHorizontalScrollIndicator = NO;
-//    gallery.showsVerticalScrollIndicator = NO;
-//    gallery.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    gallery.delegate = self;
-//    gallery.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    gallery.layer.borderWidth = 0.5;
-//    gallery.backgroundColor = APP_IMAGEVIEW_COLOR;
-//    [self addSubview:gallery];
-//    _galleryPageView = gallery;
-    
-
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 188)];
     button.backgroundColor = [UIColor clearColor];
     [button addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
@@ -72,16 +59,6 @@
     _imagePageIndicator.text = @"画册";//[NSString stringWithFormat:@"%ld图", _cityPoi.imageCount];
     _imagePageIndicator.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_imagePageIndicator];
-    
-//    NSInteger count = 1;//_cityPoi.images.count;
-//    _galleryPageView.contentSize = CGSizeMake(CGRectGetWidth(_galleryPageView.frame), CGRectGetHeight(_galleryPageView.frame));
-//    NSMutableArray *images = [[NSMutableArray alloc] init];
-//    for (NSUInteger i = 0; i < count; i++)
-//    {
-//        [images addObject:[NSNull null]];
-//    }
-//    _imageViews = images;
-//    [self loadScrollViewWithPage:0];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 64, oy - 64, 64, 64)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_unFavorite.png"] forState:UIControlStateNormal];
@@ -101,9 +78,17 @@
     _playNotes = guideBtn;
     
     _titleBtn = [[UILabel alloc] initWithFrame:CGRectMake(105, oy + 12, width - 130, 20)];
-    _titleBtn.text = _cityPoi.zhName;
+//    _titleBtn.text = _cityPoi.zhName;
     _titleBtn.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _titleBtn.font = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
+    _titleBtn.font = [UIFont fontWithName:@"MicrosoftYaHei-Bold" size:18.0];
+    
+    NSAttributedString *atbString = [[NSAttributedString alloc]
+                                     initWithString:_cityPoi.zhName
+                                     attributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"MicrosoftYaHei-Bold" size:18.0],NSFontAttributeName,
+                                                 [NSNumber numberWithFloat:width],NSStrokeWidthAttributeName, nil]];
+    _titleBtn.attributedText = atbString;
+    
+    
     [self addSubview:_titleBtn];
     
     UILabel *entitle = [[UILabel alloc] initWithFrame:CGRectMake(105, oy + 32, width - 130, 15)];

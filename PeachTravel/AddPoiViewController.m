@@ -28,9 +28,9 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchBar *searchBar;
 
-@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchController;
+@property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
 
@@ -79,7 +79,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    _tableView.delegate = self;
+    _tableView.delegate  = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
@@ -98,6 +98,12 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+    _searchBar.delegate = self;
+    self.tableView.tableHeaderView = _searchBar;
+    
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
     [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
     self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -415,6 +421,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
                 if (jsonDic.count == 15) {
                     _enableLoadMoreSearch = YES;
                 }
+                [self.searchResultArray removeAllObjects];
                 for (id poiDic in jsonDic) {
                     [self.searchResultArray addObject:[[PoiSummary alloc] initWithJson:poiDic]];
                 }
