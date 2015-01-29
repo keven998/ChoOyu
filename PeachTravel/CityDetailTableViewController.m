@@ -27,6 +27,7 @@
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
 @property (nonatomic, strong) UIView *customNavigationBar;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) UIImageView *cityPicture;
 
@@ -39,6 +40,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _scrollView.delegate = self;
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -47,9 +50,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityPicture.contentMode = UIViewContentModeScaleAspectFill;
     _cityPicture.clipsToBounds = YES;
     [self.view addSubview:_cityPicture];
+    [self.view addSubview:_scrollView];
+
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
-    [self.view addSubview:self.tableView];
     [self loadCityData];
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 72, 64.0)];
@@ -102,19 +106,37 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)updateView
 {
     self.navigationItem.title = _cityPoi.zhName;
+    
+
     _cityHeaderView = [[CityHeaderView alloc] init];
     _cityHeaderView.delegate = self;
-    _cityHeaderView.backgroundColor = APP_PAGE_COLOR;
-    [_cityHeaderView setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 0)];
+//    _cityHeaderView.backgroundColor = APP_PAGE_COLOR;
+    [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
     _cityHeaderView.cityPoi = _cityPoi;
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
-    self.tableView.tableHeaderView = tableHeaderView;
-    [self.tableView addSubview:_cityHeaderView];
+    
+//    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+//    self.tableView.tableHeaderView = tableHeaderView;
+//    [self.tableView addSubview:_cityHeaderView];
+    
+    
+    CGRect frame = CGRectMake(0, _cityHeaderView.frame.size.height, self.view.frame.size.width, 50+149*_cityPoi.travelNotes.count);
+    [self.tableView setFrame:frame];
+    
+    [_scrollView addSubview:_cityHeaderView];
+    [_scrollView addSubview:self.tableView];
+    
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, frame.origin.y+frame.size.height)];
+    
+    
+    
     [_cityHeaderView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showRestaurantsBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
+
+    [_scrollView addSubview:self.tableView];
+    
 
     [self.tableView reloadData];
     
@@ -134,7 +156,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor clearColor];
 //        [_tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
-        
+        _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -218,7 +240,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [self updateView];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id travelNotes = [responseObject objectForKey:@"result"];
@@ -230,6 +251,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             
         }
         [_hud hideTZHUD];
+        [self updateView];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
@@ -322,12 +344,19 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateCityHeaderView
 {
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.tableView setFrame:CGRectMake(0, _cityHeaderView.frame.size.height, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+
+    } completion:^(BOOL finished) {
+    }];
+    
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, _tableView.frame.origin.y+_tableView.frame.size.height)];
+//    UIView *tableHeaderView = [[UIView alloc] initWithFrame:_cityHeaderView.frame];
 //    tableHeaderView.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView beginUpdates];
-    [self.tableView setTableHeaderView:tableHeaderView];
-    [self.tableView endUpdates];
-    [self.tableView bringSubviewToFront:_cityHeaderView];
+//    [self.tableView beginUpdates];
+//    [self.tableView setTableHeaderView:tableHeaderView];
+//    [self.tableView endUpdates];
+//    [self.view bringSubviewToFront:_cityPicture];
 }
 
 #pragma mark - Table view data source
@@ -469,7 +498,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 #pragma UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_tableView != nil && [scrollView isEqual:_tableView]) {
+//    if (_tableView != nil && [scrollView isEqual:_tableView]) {
         CGFloat y = scrollView.contentOffset.y;
         if (y <= 0) {
             CGRect frame = _cityPicture.frame;
@@ -481,9 +510,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             frame.origin.y = -y;
             _cityPicture.frame = frame;
         }
-        
+    
 //        _customNavigationBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:alpha];
-        _customNavigationBar.alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
+//        _customNavigationBar.alpha = (scrollView.contentOffset.y/200) > 1 ? 1 : scrollView.contentOffset.y/200;
 
     }
 }

@@ -98,16 +98,30 @@
                                                                    }
                                                          context:nil].size;
         
-        
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
-                                  , self.frame.size.width, labelSize.height)];
+        self.userInteractionEnabled = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y
+                                      , self.frame.size.width, labelSize.height)];
 
+        } completion:^(BOOL finished) {
+            self.userInteractionEnabled = YES;
+
+        }];
         _resizeHeight = self.frame.size.height - _resetFrame.size.height;
+
+
         
     } else {
         self.titleLabel.numberOfLines = _numberOfLine;
 
-        [self setFrame:_resetFrame];
+        self.userInteractionEnabled = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            [self setFrame:_resetFrame];
+            
+        } completion:^(BOOL finished) {
+            self.userInteractionEnabled = YES;
+            
+        }];
     }
 }
 

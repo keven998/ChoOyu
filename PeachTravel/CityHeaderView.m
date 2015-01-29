@@ -215,7 +215,7 @@
 
 - (IBAction)showMoreInfo:(id)sender {
     [_travelMonthBtn showMoreContent];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         CGRect frame = _showMoreInfoContentBtn.frame;
         frame.origin.y += _travelMonthBtn.resizeHeight;
         _showMoreInfoContentBtn.frame = frame;
@@ -241,7 +241,7 @@
 - (IBAction)hideInfo:(id)sender
 {
     [_travelMonthBtn hideContent];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         CGRect frame = _showMoreInfoContentBtn.frame;
         frame.origin.y -= _travelMonthBtn.resizeHeight;
         _showMoreInfoContentBtn.frame = frame;
