@@ -12,7 +12,6 @@
 
 @interface SuperWebViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate> {
     UIWebView *_webView;
-    UIActivityIndicatorView *_activeView;
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
@@ -34,6 +33,14 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
+//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+//    [button setFrame:CGRectMake(0, 0, 48, 30)];
+//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_navigation_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    self.navigationItem.backBarButtonItem = barButton;
+    
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
@@ -59,11 +66,6 @@
     label.textAlignment = NSTextAlignmentCenter;
     [_webView addSubview:label];
     [_webView bringSubviewToFront:_webView.scrollView];
-    
-    _activeView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    [_activeView setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2 - 64.0)];
-    [_activeView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [self.view addSubview:_activeView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,13 +84,14 @@
 }
 
 - (void) dealloc {
-    [_webView stopLoading];
-    _webView.delegate = nil;
-    _webView = nil;
     _progressProxy.progressDelegate = nil;
     _progressProxy.webViewProxyDelegate = nil;
     _progressProxy = nil;
     _progressView = nil;
+    [_webView removeFromSuperview];
+    [_webView stopLoading];
+    _webView.delegate = nil;
+    _webView = nil;
 }
 
 - (void)goBack
