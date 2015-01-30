@@ -539,8 +539,13 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PoiSummary *tripPoi;
+    if ([tableView isEqual:self.tableView]) {
+       tripPoi = [self.dataSource objectAtIndex:indexPath.row];
+    } else {
+        tripPoi = [self.searchResultArray objectAtIndex:indexPath.row];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    PoiSummary *tripPoi = [self.dataSource objectAtIndex:indexPath.row];
     switch (tripPoi.poiType) {
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
