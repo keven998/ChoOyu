@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
+@property (nonatomic) BOOL hideActionBtn;
+
 /**
  *  添加状态的是否添加
  */

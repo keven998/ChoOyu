@@ -596,6 +596,7 @@
 		D9B676F21A7A2BE300C5C11C /* ic_round_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F11A7A2BE300C5C11C /* ic_round_tab@2x.png */; };
 		D9B676F41A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F31A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png */; };
 		D9B676F61A7A669000C5C11C /* bkg-linked_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F51A7A669000C5C11C /* bkg-linked_dots@2x.png */; };
+		D9B676F81A7A6C4C00C5C11C /* deco-dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B676F71A7A6C4C00C5C11C /* deco-dots@2x.png */; };
 		D9C24ABB1A6F755200770FEF /* ic_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */; };
 		D9C24ABD1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */; };
 		D9C64B331A1AFCC100A4B9BF /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C64B321A1AFCC100A4B9BF /* MakePlanViewController.m */; };
@@ -1659,6 +1660,7 @@
 		D9B676F11A7A2BE300C5C11C /* ic_round_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_round_tab@2x.png"; sourceTree = "<group>"; };
 		D9B676F31A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_btn_cycle@2x.png"; sourceTree = "<group>"; };
 		D9B676F51A7A669000C5C11C /* bkg-linked_dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkg-linked_dots@2x.png"; sourceTree = "<group>"; };
+		D9B676F71A7A6C4C00C5C11C /* deco-dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deco-dots@2x.png"; sourceTree = "<group>"; };
 		D9C24ABA1A6F755200770FEF /* ic_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete@2x.png"; sourceTree = "<group>"; };
 		D9C24ABC1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoisOfCityTableViewCell.xib; sourceTree = "<group>"; };
 		D9C64B311A1AFCC100A4B9BF /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
@@ -3951,6 +3953,7 @@
 		D98BDA6D1A4441F50093C559 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				D9B676F71A7A6C4C00C5C11C /* deco-dots@2x.png */,
 				D9B676F51A7A669000C5C11C /* bkg-linked_dots@2x.png */,
 				D9B676F31A7A4F8900C5C11C /* ic_home_btn_cycle@2x.png */,
 			);
@@ -5225,6 +5228,7 @@
 				D9B676D01A79E17A00C5C11C /* ic_city_more@2x.png in Resources */,
 				D9C24ABD1A6FBE9300770FEF /* PoisOfCityTableViewCell.xib in Resources */,
 				D9B676D21A79E17A00C5C11C /* ic_city_back@2x.png in Resources */,
+				D9B676F81A7A6C4C00C5C11C /* deco-dots@2x.png in Resources */,
 				D9564C5A1A603CE6007203E5 /* ic_comment_flag@2x.png in Resources */,
 				D9C64BC71A1B7ABF00A4B9BF /* DestinationCollectionHeaderView.xib in Resources */,
 				D90C636B19FB44D300C2E440 /* chatFire_audioPlaying3.png in Resources */,
@@ -5802,7 +5806,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a7ce46c1-b160-496e-9d5c-9923c6ea11c0";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -5837,7 +5841,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8b406449-e6cc-4cfd-ad39-5a340e0a93c3";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

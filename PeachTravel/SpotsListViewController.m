@@ -137,6 +137,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     AddPoiViewController *addPoiCtl = [[AddPoiViewController alloc] init];
     addPoiCtl.tripDetail = self.tripDetail;
     addPoiCtl.delegate = self;
+    addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = sender.tag;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
     [nctl.navigationBar setBarTintColor:APP_THEME_COLOR];

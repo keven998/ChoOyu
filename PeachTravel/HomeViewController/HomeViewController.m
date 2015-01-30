@@ -359,9 +359,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     IM_imageView.image = [UIImage imageNamed:@"ic_round_tab.png"];
     IM_imageView.userInteractionEnabled = YES;
     
-    UIButton *IMBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 53, 53)];
+    TZButton *IMBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 53, 53)];
     IMBtn.backgroundColor = APP_PAGE_COLOR;
     IMBtn.layer.cornerRadius = 27;
+    [IMBtn setTitle:@"Talk" forState:UIControlStateNormal];
+    [IMBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [IMBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
+    IMBtn.titleLabel.font = [UIFont systemFontOfSize:8.0];
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_normal.png"] forState:UIControlStateNormal];
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
     [IM_imageView addSubview:IMBtn];
@@ -387,16 +391,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self.tabBar addSubview:spaceView];
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
+    NSArray *titles = @[@"首页", @"目的地", @"我"];
     NSInteger index = 0;
     
     for (RDVTabBarItem *item in [[self tabBar] items]) {
-        item.titlePositionAdjustment = UIOffsetMake(0, 6);
-        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:11.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
+        item.titlePositionAdjustment = UIOffsetMake(0, 2);
+        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:7.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
+        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:7.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
         
         item.itemHeight = 49.0;
         item.backgroundColor = APP_PAGE_COLOR;
-
+        item.title = titles[index];
         if ([[[self tabBar] items] indexOfObject:item] != 0) {
             NSLog(@"%@", NSStringFromCGRect(item.frame));
             UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 33)];

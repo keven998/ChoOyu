@@ -22,6 +22,15 @@
 
 @property (nonatomic) NSUInteger currentDayIndex;    //标识添加到哪一天
 
+@property (nonatomic, copy) NSString *cityId;
+@property (nonatomic, copy) NSString *cityName;
+
+
+/**
+ *  是否可以添加。如果从城市详情进来不可以，如果从三账单进来可以
+ */
+@property (nonatomic) BOOL shouldEdit;
+
 @property (nonatomic, assign) id <addPoiDelegate> delegate;
 
 

@@ -19,6 +19,7 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
+#import "AddPoiViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate, UIActionSheetDelegate>
 
@@ -297,7 +298,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)viewSpots:(id)sender
 {
-    
+    AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
+    addCtl.cityId = _cityId;
+    addCtl.cityName = _cityPoi.zhName;
+    addCtl.shouldEdit = NO;
+    [self.navigationController pushViewController:addCtl animated:YES];
 }
 
 - (IBAction)play:(id)sender {

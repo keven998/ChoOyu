@@ -76,20 +76,25 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
+   
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
-    self.navigationItem.leftBarButtonItem = finishBtn;
     
-    UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-    [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-    self.navigationItem.rightBarButtonItem = filterBtn;
-    
+    if (_tripDetail) {
+         self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
+        self.navigationItem.leftBarButtonItem = finishBtn;
+        
+        UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+        [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+        self.navigationItem.rightBarButtonItem = filterBtn;
+    } else {
+        self.navigationItem.title = [NSString stringWithFormat:@"玩在%@", _cityName];
+    }
     
     [self setAutomaticallyAdjustsScrollViewInsets:YES];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
@@ -115,8 +120,13 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     
-    CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
-    _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
+    if (_tripDetail) {
+        CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
+        _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
+    } else {
+        _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
+
+    }
     
     [self loadDataWithPageNo:_currentPageNormal];
 }
@@ -516,9 +526,13 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
     poiCell.poi = poi;
     poiCell.actionBtn.tag = indexPath.row;
-    poiCell.shouldEdit = YES;
-    poiCell.isAdded = isAdded;
-    [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    poiCell.shouldEdit = _shouldEdit;
+    if (_shouldEdit) {
+        poiCell.isAdded = isAdded;
+        [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        poiCell.hideActionBtn = YES;
+    }
     
     return poiCell;
 }

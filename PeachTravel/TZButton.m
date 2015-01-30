@@ -21,7 +21,7 @@
     //Center text
     CGRect newFrame = [self titleLabel].frame;
     newFrame.origin.x = 0;
-    newFrame.origin.y = self.imageView.frame.size.height + self.imageView.frame.origin.y + 9.0;
+    newFrame.origin.y = self.imageView.frame.size.height + self.imageView.frame.origin.y + 5.0;
     newFrame.size.width = self.frame.size.width;
     
     self.titleLabel.frame = newFrame;

@@ -146,6 +146,13 @@
     
     myGuideTitleLabel.text = @"旅程助手";
     
+    CGFloat title_w = [myGuideTitleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18*ratioX]}].width;
+    
+    UIImageView *titleImage = [[UIImageView alloc] initWithFrame:CGRectMake((_planBtn.bounds.size.width-title_w-30)/2, (22*ratioY-11)/2, title_w+30, 11)];
+    titleImage.image = [UIImage imageNamed:@"deco-dots.png"];
+    [_planBtn addSubview:titleImage];
+
+    
     NSString *str = @"最贴心的旅行计划助手\n专为美眉们打造\n";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
@@ -160,7 +167,7 @@
     
     _aroundBtn = [[UIButton alloc] initWithFrame:CGRectMake(w-115*ratioX-20*ratioX-10*(ratioX-1), offsetY, 115*ratioX, 200*ratioY)];
     
-    UILabel *nearByTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, _aroundBtn.bounds.size.width - 20.0, 22)];
+    UILabel *nearByTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, _aroundBtn.bounds.size.width - 20.0, 22*ratioY)];
     nearByTitleLabel.font = [UIFont boldSystemFontOfSize:18*ratioX];
     nearByTitleLabel.textColor = APP_THEME_COLOR;
     nearByTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -191,6 +198,12 @@
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
     [nearBySubTitle setAttributedText:desc];
     [nearBySimButton addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
+    
+    CGFloat title_w2 = [nearByTitleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18*ratioX]}].width;
+    
+    UIImageView *titleImage2 = [[UIImageView alloc] initWithFrame:CGRectMake((_aroundBtn.bounds.size.width-title_w2-30)/2, (22*ratioY-11)/2, title_w2+30, 11)];
+    titleImage2.image = [UIImage imageNamed:@"deco-dots.png"];
+    [_aroundBtn addSubview:titleImage2];
     [_contentFrame addSubview:_aroundBtn];
 
     

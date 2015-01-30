@@ -71,6 +71,12 @@
     }
 }
 
+- (void)setHideActionBtn:(BOOL)hideActionBtn
+{
+    _hideActionBtn = hideActionBtn;
+    _actionBtn.hidden = _hideActionBtn;
+}
+
 - (void)setShouldEdit:(BOOL)shouldEdit
 {
     _shouldEdit = shouldEdit;
@@ -84,6 +90,7 @@
         _actionBtn.layer.cornerRadius = 2.0;
 
     } else {
+        _actionBtn.backgroundColor = [UIColor clearColor];
         [_actionBtn setTitle:nil forState:UIControlStateNormal];
         [_actionBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
     }
