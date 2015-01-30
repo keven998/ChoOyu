@@ -51,11 +51,12 @@
     _webView.delegate = _progressProxy;
     [_webView loadRequest:request];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, 30)];
-    label.text = @"本页面由\"桃子旅行\"提供";
-    label.textColor = TEXT_COLOR_TITLE;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 30)];
+    label.text = @"桃子旅行\n你最贴心的旅行助手";
+    label.textColor = TEXT_COLOR_TITLE_HINT;
     label.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
     label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 2;
     [_webView addSubview:label];
     [_webView bringSubviewToFront:_webView.scrollView];
 }
