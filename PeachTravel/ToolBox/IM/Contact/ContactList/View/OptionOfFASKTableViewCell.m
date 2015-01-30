@@ -40,7 +40,7 @@
         _requestNoti.hidden = YES;
     } else if (_numberOfUnreadFrendRequest > 0) {
         _requestNoti.hidden = NO;
-        _requestNoti.text = [NSString stringWithFormat:@"%ld", _numberOfUnreadFrendRequest];
+        _requestNoti.text = [NSString stringWithFormat:@"%ld", (unsigned long)_numberOfUnreadFrendRequest];
     }
 }
 

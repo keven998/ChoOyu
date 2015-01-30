@@ -12,11 +12,16 @@
 
 - (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    self.backgroundColor = APP_PAGE_COLOR;
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _headerImageView.layer.borderWidth = 0.5;
+    _headerImageView.layer.borderWidth = 1;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    _headerImageView.clipsToBounds = YES;    
+    _headerImageView.clipsToBounds = YES;
+    _headerImageView.layer.cornerRadius = 3.0;
+    _titleBtn.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
+    _descLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:12.0];
+
+    _titleBkgImage.image = [[UIImage imageNamed:@"bg_guide_title.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 5)];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -30,7 +35,7 @@
     _descLabel.text = _guideSummary.summary;
     TaoziImage *image = [_guideSummary.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-    _timeLabel.text = [NSString stringWithFormat:@"%@", _guideSummary.updateTimeStr];
+    [_timeBtn setTitle:[NSString stringWithFormat:@"%@", _guideSummary.updateTimeStr] forState:UIControlStateNormal];
     _titleBtn.text = _guideSummary.title;
 }
 

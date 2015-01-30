@@ -13,11 +13,14 @@
 @interface MyGuidesTableViewCell : SWTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *timeBtn;
 @property (weak, nonatomic) IBOutlet UILabel *titleBtn;
 @property (weak, nonatomic) IBOutlet UILabel *countBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *titleBkgImage;
 
+@property (weak, nonatomic) IBOutlet UIView *maskImageView;
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 
 @end

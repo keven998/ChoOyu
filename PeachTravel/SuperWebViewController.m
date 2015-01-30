@@ -38,7 +38,7 @@
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO; 
     CGFloat progressBarHeight = 2.0f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);

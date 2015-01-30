@@ -57,7 +57,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的旅程";
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.navigationController.navigationBar.translucent = YES;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -83,14 +83,14 @@ static NSString *reusableCell = @"myGuidesCell";
     
     if (!_selectToSend) {
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
-        [editBtn setBackgroundImage:[UIImage imageNamed:@"ic_add_friend.png"] forState:UIControlStateNormal];
+        [editBtn setBackgroundImage:[UIImage imageNamed:@"btn_new_plan.png"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 42);
+        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 35);
         _addBtn = editBtn;
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.view.backgroundColor = APP_PAGE_COLOR;
+
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -561,6 +561,13 @@ static NSString *reusableCell = @"myGuidesCell";
     return 92;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 10)];
+    view.backgroundColor = APP_PAGE_COLOR;
+    return view;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
     cell.rightUtilityButtons = [self rightButtons];
@@ -603,8 +610,9 @@ static NSString *reusableCell = @"myGuidesCell";
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor grayColor] title:@"Edit"];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] title:@"Delete"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:APP_SUB_THEME_COLOR icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:APP_SUB_THEME_COLOR icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
+    
     return rightUtilityButtons;
 }
 
