@@ -262,18 +262,9 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 {
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
     CGSize size;
-    static float systemVersion;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
-    });
-    if (systemVersion >= 7.0) {
-        size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
-    }else{
-        size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [self textLabelFont]} context:nil].size;
+    size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
 
-    }
-    return 2 * + size.height;
+    return 2*BUBBLE_LEFT_TOP_CAP_HEIGHT + size.height;
 }
 
 + (UIFont *)textLabelFont
