@@ -180,6 +180,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageId = travelNote.travelNoteId;
     taoziMessageCtl.messageName = travelNote.title;
     taoziMessageCtl.messageDesc = travelNote.summary;
+    taoziMessageCtl.messageDetailUrl = travelNote.detailUrl;
     TaoziImage *image = [travelNote.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^{
@@ -239,6 +240,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     travelNoteCtl.desc = travelNote.summary;
     TaoziImage *image = [travelNote.images firstObject];
     travelNoteCtl.travelNoteCover = image.imageUrl;
+    travelNoteCtl.urlStr = travelNote.detailUrl;
     travelNoteCtl.travelNoteId = travelNote.travelNoteId;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }

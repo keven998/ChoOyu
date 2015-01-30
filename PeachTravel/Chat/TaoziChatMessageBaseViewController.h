@@ -36,6 +36,7 @@
 
 //发送内容的 id,景点 id，攻略 id 之类的
 @property (nonatomic, copy) NSString *messageId;
+@property (nonatomic, copy) NSString *messageDetailUrl;
 @property (nonatomic, copy) NSString *messageImage;
 @property (nonatomic, copy) NSString *messageName;
 @property (nonatomic, copy) NSString *messageDesc;
