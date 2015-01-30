@@ -626,28 +626,25 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 150)];
+            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 140)];
             sectionheaderView.backgroundColor = APP_PAGE_COLOR;
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, sectionheaderView.bounds.size.width, sectionheaderView.bounds.size.height-60)];
-            btn.layer.cornerRadius = 2.0;
             
-            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, 30)];
-            if (_poiType == kRestaurantPoi) {
-                titleLabel.text = @"  吃什么";
-            }
-            if (_poiType == kShoppingPoi) {
-                titleLabel.text = @"  买什么";
-            }
-            titleLabel.textColor = [UIColor whiteColor];
-            titleLabel.backgroundColor = APP_THEME_COLOR;
-            [sectionheaderView addSubview:titleLabel];
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, 5)];
+            spaceView.backgroundColor = APP_THEME_COLOR;
+            
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, sectionheaderView.bounds.size.height-20)];
+            btn.layer.cornerRadius = 3.0;
+            
+            UIImageView *tagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
+            tagImageView.image = [UIImage imageNamed:@"ic_city_border.png"];
+            [btn addSubview:tagImageView];
             
             NSUInteger len = [_dataSource.desc length];
             NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
             [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
-            style.lineSpacing = 3.0;
+            style.lineSpacing = 2;
             [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
@@ -656,13 +653,22 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             btn.backgroundColor = [UIColor whiteColor];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
-            btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+            btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
             btn.titleLabel.numberOfLines = 4;
-            [btn setContentEdgeInsets:UIEdgeInsetsMake(8, 15, 8, 50)];
-            UIImageView *accessImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sectionheaderView.frame.size.width-25, (btn.frame.size.height-10)/2, 6, 10)];
-            accessImageView.image = [UIImage imageNamed:@"cell_accessory_pink.png"];
-            [btn addSubview:accessImageView];
+            [btn setContentEdgeInsets:UIEdgeInsetsMake(20, 100, 35, 10)];
+            
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-60, btn.bounds.size.height-27, 30, 20)];
+            moreLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+            moreLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+            moreLabel.text = @"更多";
+            
+            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-30, btn.bounds.size.height-20, 7, 11)];
+            moreImage.image = [UIImage imageNamed:@"more_btn.png"];
+            [btn addSubview:moreLabel];
+            [btn addSubview:moreImage];
+            
             [sectionheaderView addSubview:btn];
+            [sectionheaderView addSubview:spaceView];
             return sectionheaderView;
         }
         return nil;
