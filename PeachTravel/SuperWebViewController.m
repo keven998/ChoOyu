@@ -33,14 +33,6 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = _titleStr;
-//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-//    [button setFrame:CGRectMake(0, 0, 48, 30)];
-//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_navigation_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.backBarButtonItem = barButton;
-    
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
@@ -92,15 +84,6 @@
     [_webView stopLoading];
     _webView.delegate = nil;
     _webView = nil;
-}
-
-- (void)goBack
-{
-    if (self.navigationController.viewControllers.count > 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 #pragma mark - NJKWebViewProgressDelegate
