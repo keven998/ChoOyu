@@ -133,6 +133,11 @@
     _messageName = messageName;
 }
 
+- (void)setMessageDetailUrl:(NSString *)messageDetailUrl
+{
+    _messageDetailUrl = messageDetailUrl;
+}
+
 - (void)setMessageRating:(float)messageRating
 {
     _messageRating = messageRating;

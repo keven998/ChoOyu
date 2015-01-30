@@ -55,6 +55,15 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
     _webView.delegate = _progressProxy;
     [_webView loadRequest:request];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.view.bounds.size.width, 30)];
+    label.text = @"本页面由\"桃子旅行\"提供";
+    label.textColor = TEXT_COLOR_TITLE;
+    label.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    [_webView addSubview:label];
+    [_webView bringSubviewToFront:_webView.scrollView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,6 +109,7 @@
     taoziMessageCtl.messageImage = _travelNoteCover;
     taoziMessageCtl.messageDesc = _desc;
     taoziMessageCtl.messageName = _travelNoteTitle;
+    taoziMessageCtl.messageDetailUrl = _urlStr;
     taoziMessageCtl.chatType = TZChatTypeTravelNote;
 }
 

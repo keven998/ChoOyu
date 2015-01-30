@@ -1077,6 +1077,7 @@
             travelNoteCtl.travelNoteTitle = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             travelNoteCtl.desc = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
             travelNoteCtl.travelNoteCover = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
+            travelNoteCtl.urlStr = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
             travelNoteCtl.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             travelNoteCtl.titleStr = @"游记详情";
             
