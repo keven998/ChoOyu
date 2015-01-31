@@ -176,18 +176,22 @@
     
     _spotDescBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, 6.5, 45, 45)];
     [_spotDescBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [_spotDescBtn setTitle:@"简介" forState:UIControlStateNormal];
     [btnBackView addSubview:_spotDescBtn];
     
     _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(35+45+spaceWidth, 6.5, 45, 45)];
     [_trafficGuideBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [_trafficGuideBtn setTitle:@"亮点\n体验" forState:UIControlStateNormal];
     [btnBackView addSubview:_trafficGuideBtn];
     
     _travelGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(35+45*2+spaceWidth*2, 6.5, 45, 45)];
     [_travelGuideBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [_travelGuideBtn setTitle:@"实用\n信息" forState:UIControlStateNormal];
     [btnBackView addSubview:_travelGuideBtn];
     
     _kendieBtn = [[UIButton alloc] initWithFrame:CGRectMake(35+45*3+spaceWidth*3, 6.5, 45, 45)];
     [_kendieBtn setImage:[UIImage imageNamed:@"ic_spot_detail.png"] forState:UIControlStateNormal];
+    [_kendieBtn setTitle:@"交通" forState:UIControlStateNormal];
     [btnBackView addSubview:_kendieBtn];
     
     

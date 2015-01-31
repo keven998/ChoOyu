@@ -83,11 +83,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
     
     [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [addWantToBtn setTitle:@"吃货收集" forState:UIControlStateNormal];
+
+    [addWantToBtn setTitle:@"收集美食" forState:UIControlStateNormal];
     [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
     [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
     [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    
+
     addWantToBtn.clipsToBounds = YES;
     [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
     [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
