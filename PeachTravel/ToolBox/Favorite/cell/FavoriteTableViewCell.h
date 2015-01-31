@@ -12,11 +12,13 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *standardImageView;
 @property (weak, nonatomic) IBOutlet UILabel *contentType;
-@property (weak, nonatomic) IBOutlet UIButton *contentDescExpandView;
+@property (weak, nonatomic) IBOutlet UILabel *contentDescLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *contentLocation;
 @property (weak, nonatomic) IBOutlet UILabel *contentTitle;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *timeBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *titleBkgImageView;
+@property (weak, nonatomic) IBOutlet UIView *contentBkgView;
 
-- (void) resizeHeight:(BOOL)resize;
 
 @end

@@ -17,34 +17,24 @@
     _contentType.font = [UIFont fontWithName:@"MicrosoftYaHei" size:26.0];
     _contentLocation.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     _contentTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
-    _timeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+    _timeBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
 
     _standardImageView.clipsToBounds = YES;
     _standardImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _standardImageView.layer.borderWidth = 0.5;
     _standardImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
-    _contentDescExpandView.titleLabel.numberOfLines = 4;
-    _contentDescExpandView.clipsToBounds = YES;
-    _contentDescExpandView.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _contentDescExpandView.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
-    [_contentDescExpandView sizeToFit];
+    _contentDescLabel.numberOfLines = 4;
+    
+    _contentDescLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _contentDescLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+    
+    _titleBkgImageView.image = [[UIImage imageNamed:@"bg_guide_title.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 5)];
+    
+    _contentBkgView.layer.cornerRadius = 2.0;
+    _contentBkgView.clipsToBounds = YES;
+
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
-
-
-- (void) resizeHeight:(BOOL)resize {
-    if (resize) {
-        _contentDescExpandView.titleLabel.numberOfLines = 0;
-        CGSize size = [_contentDescExpandView.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : _contentDescExpandView.titleLabel.font}];
-        _contentDescExpandView.frame = CGRectMake(_contentDescExpandView.frame.origin.x, _contentDescExpandView.frame.origin.y, _contentDescExpandView.frame.size.width, size.height);
-        [_contentDescExpandView.titleLabel sizeToFit];
-        self.contentView.frame = CGRectMake(0.0, 0.0, self.contentView.frame.size.width, _contentDescExpandView.frame.origin.y + _contentDescExpandView.frame.size.height + 10.0);
-    } else {
-        _contentDescExpandView.titleLabel.numberOfLines = 2;
-        self.contentView.frame = CGRectMake(0.0, 0.0, self.contentView.frame.size.width, 200.0);
-    }
-}
-
 @end

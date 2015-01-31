@@ -73,7 +73,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationController.navigationBar.translucent = YES;
-//    self.automaticallyAdjustsScrollViewInsets = NO;
     if (_selectToSend) {
         self.navigationItem.title = @"发送收藏";
     } else {
@@ -83,13 +82,13 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    //[button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
@@ -153,21 +152,6 @@
         }
     }];
 }
-
-//- (UITableView *)tableView
-//{
-//    if (!_tableView) {
-//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
-//        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//        _tableView.tableFooterView = [[UIView alloc] init];
-//        _tableView.dataSource = self;
-//        _tableView.delegate = self;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        _tableView.backgroundColor = APP_PAGE_COLOR;
-//        [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
-//    }
-//    return _tableView;
-//}
 
 - (UIView *)footerView {
     if (!_footerView) {
@@ -399,15 +383,6 @@
     [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
-#pragma mark - SINavigationMenuDelegate
-
-- (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
-{
-    _currentFavoriteType = [_urlArray objectAtIndex:index];
-    [self.refreshControl beginRefreshing];
-    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -440,7 +415,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:item.createTime/1000];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    cell.timeLabel.text = [dateFormatter stringFromDate:date];
+    [cell.timeBtn setTitle:[dateFormatter stringFromDate:date] forState:UIControlStateNormal];
     
     
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:item.desc];
@@ -448,7 +423,7 @@
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 2.0;
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-    [cell.contentDescExpandView setAttributedTitle:desc forState:UIControlStateNormal];
+    cell.contentDescLabel.attributedText = desc;
     
     return cell;
 }
@@ -484,27 +459,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.row == _selectedIndex) {
-//        NSString *text = ((Favorite *)[_dataSource objectAtIndex:indexPath.row]).desc;
-//        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//        style.lineSpacing = 4.0;
-//        NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"MicrosoftYaHei" size:13.0],
-//                                     NSParagraphStyleAttributeName : style};
-//        CGRect rect = [text boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT)
-//                                              options:NSStringDrawingUsesLineFragmentOrigin
-//                                           attributes:attributes
-//                                              context:nil];
-//        if (rect.size.height <= 24) {
-//            return 216.0;
-//        }
-//        
-//        NSLog(@"高度为:%f",(210+rect.size.height-24.0));
-//
-//        return 210 + rect.size.height - 24.0;
-//    }
-//    return 216;
     
-    return 132.0;
+    return 125.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
