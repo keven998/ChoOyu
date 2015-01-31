@@ -81,7 +81,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self.view addSubview:_tableView];
     
     [_tableView setContentOffset:CGPointMake(0, 50)];
-    
+
     if (_tripDetail) {
          self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
@@ -91,7 +91,8 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
         self.navigationItem.rightBarButtonItem = filterBtn;
     } else {
-        self.navigationItem.title = [NSString stringWithFormat:@"玩在%@", _cityName];
+//        self.navigationItem.title = [NSString stringWithFormat:@"玩在%@", _cityName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@美景", _cityName];
     }
     
     [self setAutomaticallyAdjustsScrollViewInsets:YES];

@@ -120,13 +120,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     _cityHeaderView.cityPoi = _cityPoi;
     
     
-    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+149*_cityPoi.travelNotes.count+10);
+    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+130*_cityPoi.travelNotes.count+10);
     
     _tableViewBkg = [[UIImageView alloc] initWithFrame:frame];
     _tableViewBkg.userInteractionEnabled = YES;
     _tableViewBkg.image = [[UIImage imageNamed:@"ic_city_card_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 6, 12, 6)];
 
-    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+149*_cityPoi.travelNotes.count)];
+    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+130*_cityPoi.travelNotes.count)];
 
     [_tableViewBkg addSubview:_tableView];
     
@@ -372,13 +372,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 149.0;
+    return 130;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 30.0;
+        return 34.0;
     }
     return 0;
 }
@@ -390,26 +390,28 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     CGFloat width = CGRectGetWidth(tableView.frame);
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 34.0)];
     
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 2)];
     spaceView.backgroundColor = APP_SUB_THEME_COLOR;
     [view addSubview:spaceView];
     
-    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 108, 25)];
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 108, 20)];
     text.text = @"精选游记";
     text.textColor = APP_SUB_THEME_COLOR;
-    text.font = [UIFont boldSystemFontOfSize:15.0];
+    text.font = [UIFont boldSystemFontOfSize:16.0];
     text.userInteractionEnabled = YES;
     [view addSubview:text];
     
-    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 118, 5, 108, 25)];
-    [allNotes setTitle:@"更多" forState:UIControlStateNormal];
+    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 118, 0, 118, 34.0)];
+    [allNotes setTitle:@"更多精选游记" forState:UIControlStateNormal];
     [allNotes setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-    allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    [allNotes setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
-    allNotes.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-    allNotes.contentEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
+    allNotes.imageEdgeInsets = UIEdgeInsetsMake(2, 100, 0, -15);
+    allNotes.contentEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 18);
+    allNotes.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [allNotes addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:allNotes];
     

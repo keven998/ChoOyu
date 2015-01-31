@@ -38,7 +38,7 @@
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
     self.automaticallyAdjustsScrollViewInsets = NO; 
-    CGFloat progressBarHeight = 2.0f;
+    CGFloat progressBarHeight = 3.0f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
@@ -51,7 +51,7 @@
     _webView.delegate = _progressProxy;
     [_webView loadRequest:request];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
     label.text = @"桃子旅行\n你最贴心的旅行助手";
     label.textColor = TEXT_COLOR_TITLE_HINT;
     label.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];

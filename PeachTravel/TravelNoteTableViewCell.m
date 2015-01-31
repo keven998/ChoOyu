@@ -36,8 +36,9 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15];
     _titleLabel.textColor = TEXT_COLOR_TITLE;
-    _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
-    _descLabel.textColor = TEXT_COLOR_TITLE_HINT;
+    _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    _descLabel.numberOfLines = 3;
+    _descLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -65,9 +66,9 @@
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 4;
+    style.lineSpacing = 1.5;
+    style.lineBreakMode = NSLineBreakByTruncatingTail;
     [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-    _descLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _descLabel.attributedText = attrStr;
 }
 

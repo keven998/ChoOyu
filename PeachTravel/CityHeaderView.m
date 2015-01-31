@@ -82,8 +82,6 @@
     _titleBtn.text = _cityPoi.zhName;
     _titleBtn.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     _titleBtn.font = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
-    
-    
     [self addSubview:_titleBtn];
     
     UILabel *entitle = [[UILabel alloc] initWithFrame:CGRectMake(105, oy + 32, width - 130, 15)];
@@ -106,11 +104,11 @@
     UILabel *ttitle = [[UILabel alloc] initWithFrame:CGRectMake(45, oy + 20, width - 110, 30)];
     ttitle.textColor = TEXT_COLOR_TITLE;
     ttitle.text = [NSString stringWithFormat:@"玩在%@", _cityPoi.zhName];
-    ttitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    ttitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     ttitle.textAlignment = NSTextAlignmentCenter;
     [_detailView addSubview:ttitle];
     
-    oy += 50 + 10;
+    oy += 50 + 4;
     
     _timeCostBtn = [[UIButton alloc] init];
     _timeCostBtn.titleLabel.numberOfLines = 0;
@@ -140,16 +138,16 @@
     _travelMonthBtn.backgroundColor = [UIColor whiteColor];
     [_detailView addSubview:_travelMonthBtn];
     
-    oy += 42;
+    oy += 52;
     
     if (_travelMonthBtn.maxNumberOfLine > 2) {
         [_travelMonthBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
-        _showMoreInfoContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 90, oy, 65, 14)];
+        _showMoreInfoContentBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 90, oy-15, 65, 14)];
         [_showMoreInfoContentBtn setImage:[UIImage imageNamed:@"ic_city_tra_down.png"] forState:UIControlStateNormal];
         [_showMoreInfoContentBtn addTarget:self action:@selector(showMoreInfo:) forControlEvents:UIControlEventTouchUpInside];
         _showMoreInfoContentBtn.backgroundColor = [UIColor whiteColor];
         [_detailView addSubview:_showMoreInfoContentBtn];
-        oy += 24;
+        oy += 20;
     }
     
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(1, oy, width - 22, 72)];
@@ -164,11 +162,9 @@
     _showSpotsBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
     [_showSpotsBtn setTitle:@"美景" forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_showSpotsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    _showSpotsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    [_showSpotsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    _showSpotsBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"ic_city_travel.png"] forState:UIControlStateNormal];
-    _showSpotsBtn.clipsToBounds = YES;
-    _showSpotsBtn.layer.cornerRadius = 2.0;
     [showSpotBkg addSubview:_showSpotsBtn];
     
     UIImageView *showResBkg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
@@ -181,11 +177,9 @@
     _showRestaurantsBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
     [_showRestaurantsBtn setTitle:@"美食" forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_showRestaurantsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    _showRestaurantsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    _showRestaurantsBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"ic_city_restaurant.png"] forState:UIControlStateNormal];
-    _showRestaurantsBtn.clipsToBounds = YES;
-    _showRestaurantsBtn.layer.cornerRadius = 2.0;
     [showResBkg addSubview:_showRestaurantsBtn];
     
     UIImageView *showShoppingBkg = [[UIImageView alloc] initWithFrame:CGRectMake(width - 20 - 25 - 72, 0, 72, 72)];
@@ -196,11 +190,9 @@
     _showShoppingBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
     [_showShoppingBtn setTitle:@"购物" forState:UIControlStateNormal];
     [_showShoppingBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [_showShoppingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    _showShoppingBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    [_showShoppingBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    _showShoppingBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"ic_city_shopping.png"] forState:UIControlStateNormal];
-    _showShoppingBtn.clipsToBounds = YES;
-    _showShoppingBtn.layer.cornerRadius = 2.0;
     [showShoppingBkg addSubview:_showShoppingBtn];
     
 
