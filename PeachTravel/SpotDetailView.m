@@ -198,6 +198,9 @@
 
 - (IBAction)viewImage:(id)sender
 {
+    if (_spot.images.count==0) {
+        return;
+    }
     NSInteger count = _spot.images.count;
     // 1.封装图片数据
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];

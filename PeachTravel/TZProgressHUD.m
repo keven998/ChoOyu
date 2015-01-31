@@ -42,6 +42,19 @@
     NSLog(@"ZTProgressHUD销毁掉了");
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    
+}
+
 - (void)setStatus:(NSString *)status
 {
     _status = status;
@@ -90,13 +103,7 @@
 {
     _rootViewController = viewController;
     [self initLoadingViewWithStatus:status];
-    //如果要显示的位置不是一个 navigationcontroller。这么设置是为了达到全屏的效果
-    if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _rootViewController.navigationController.view.frame.size.width, 64)];
-        view.tag = 100;
-        view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-        [_rootViewController.navigationController.view addSubview:view];
-    }
+    
     [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:self.view];
     CGRect resetFrame = self.backGroundView.frame;
@@ -131,17 +138,6 @@
     if (!_rootViewController) {
         return;
     }
-    UIView *viewInNavi;
-    // 移除为了实现全屏效果而再 navigationcontroller 上加的一个阴影 view
-    if (![_rootViewController isKindOfClass:[UINavigationController class]]) {
-        for (UIView *view in _rootViewController.navigationController.view.subviews) {
-            if (view.tag == 100) {
-                viewInNavi = view;
-                break;
-            }
-        }
-    }
-    [viewInNavi removeFromSuperview];
     [self.view removeFromSuperview];
     [self willMoveToParentViewController:nil];
     [self removeFromParentViewController];
