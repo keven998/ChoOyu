@@ -274,7 +274,7 @@
 -(NSString *)lastMessageTimeByConversation:(EMConversation *)conversation
 {
     NSString *ret = @"";
-    EMMessage *lastMessage = [conversation latestMessage];;
+    EMMessage *lastMessage = [conversation latestMessage];
     if (lastMessage) {
         ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
     }

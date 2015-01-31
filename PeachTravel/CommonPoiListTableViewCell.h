@@ -23,8 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 

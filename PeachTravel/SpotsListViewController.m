@@ -96,14 +96,17 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     if (!_tableViewFooterView) {
         _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 135)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-135)/2, 5, 135.0, 34)];
+        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
         addOneDayBtn.clipsToBounds = YES;
+        [addOneDayBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
+        [addOneDayBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        [addOneDayBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
         [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
         [addOneDayBtn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
-        addOneDayBtn.layer.cornerRadius = 17.0;
-        addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        addOneDayBtn.layer.cornerRadius = 16.5;
+        addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         [_tableViewFooterView addSubview:addOneDayBtn];
     }
     return _tableViewFooterView;
@@ -220,16 +223,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([[_tripDetail.itineraryList objectAtIndex:section] count]) {
-        return 60;
-    } else {
-        return 30;
-    }
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 18;
+    return 40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -249,24 +248,31 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 18)];
-    view.backgroundColor = APP_PAGE_COLOR;
-    return view;
+    UIView *retView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 40)];
+    retView.backgroundColor = APP_PAGE_COLOR;
+
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 20)];
+    view.layer.cornerRadius = 3.0;
+    view.backgroundColor = [UIColor whiteColor];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, 3)];
+    spaceView.backgroundColor = [UIColor whiteColor];
+    [view addSubview:spaceView];
+    [retView addSubview:view];
+    return retView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 60)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
     headerView.layer.cornerRadius = 2.0;
-    headerView.backgroundColor = UIColorFromRGB(0xeaeaea);
-    headerView.clipsToBounds = YES;
-    UILabel *headerTitle;
-    if (self.tableView.isEditing) {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, headerView.frame.size.width-103, 30)];
-    } else {
-        headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width-80, 30)];
-    }
-    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"   第%ld天  ",(long)section+1];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width, 5)];
+    spaceView.backgroundColor = APP_THEME_COLOR;
+    [headerView addSubview:spaceView];
+    
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, headerView.frame.size.width-80, 30)];
+    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (PoiSummary *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
@@ -275,7 +281,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
     
     if (set.count) {
-        DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(0, 30, tableView.bounds.size.width, 30)];
+        DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(50, 13, tableView.bounds.size.width-150, 20)];
         destinationView.backgroundColor = [UIColor whiteColor];
         [headerView addSubview:destinationView];
         NSMutableArray *distinationArray = [[NSMutableArray alloc] init];
@@ -288,21 +294,22 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
     
     headerTitle.text = headerTitleStr;
-    headerTitle.font = [UIFont boldSystemFontOfSize:13.0];
+    headerTitle.textColor = APP_THEME_COLOR;
+    headerTitle.font = [UIFont boldSystemFontOfSize:15.0];
     [headerView addSubview:headerTitle];
     
     if (self.tableView.isEditing) {
-        UIButton *addbtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-72, 0, 72, 30)];
+        UIButton *addbtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-72, 0, 72, 40)];
         addbtn.tag = section;
         [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 6, 60, 18)];
+        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 16, 60, 18)];
         [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+        addSpotBtn.backgroundColor = APP_SUB_THEME_COLOR;
         addSpotBtn.clipsToBounds = YES;
         addSpotBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-        addSpotBtn.layer.cornerRadius = 9;
+        addSpotBtn.layer.cornerRadius = 4;
         addSpotBtn.userInteractionEnabled = NO;
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
@@ -311,7 +318,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         deleteBtn.tag = section;
         [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 3, 36, 21)];
+        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(-8, -8, 36, 21)];
         [deleteSpotBtn setImage:[UIImage imageNamed:@"ic_delete.png"] forState:UIControlStateNormal];
         deleteSpotBtn.clipsToBounds = YES;
         deleteSpotBtn.userInteractionEnabled = NO;
@@ -321,9 +328,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     } else {
         UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(headerView.frame.size.width-60, 0, 60, 35)];
         [mapBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
-        [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+        [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 15, 0, 0)];
         mapBtn.tag = section;
-        mapBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:mapBtn];
     }
