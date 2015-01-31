@@ -400,7 +400,7 @@
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.backgroundColor = APP_PAGE_COLOR;
         view.tag = index;
-        tbView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, view.bounds.size.width-22, view.bounds.size.height)];
+        tbView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height)];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         tbView.dataSource = self;
