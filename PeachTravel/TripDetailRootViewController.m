@@ -635,7 +635,7 @@
     
     [self.view addSubview:_tabBarView];
 
-    NSArray *tabBarItemTitles = @[@"旅程计划", @"吃收集", @"买收集"];
+    NSArray *tabBarItemTitles = @[@"旅程", @"吃收集", @"逛收集"];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
