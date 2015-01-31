@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
 @property (strong, nonatomic) UISearchBar *searchBar;
+@property (nonatomic, strong) UIButton *searchBtn;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
@@ -61,34 +62,30 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    //[button setTitle:@"返回" forState:UIControlStateNormal];
-//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.backBarButtonItem = barButton;
+    
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_white.png"] forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64, self.view.frame.size.width-22, self.view.frame.size.height-64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 190.0;
+    self.tableView.rowHeight = 155.0;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.tableView];
-
-    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-    self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-    self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
-    _searchController.searchResultsTableView.delegate = self;
-    _searchController.searchResultsTableView.dataSource = self;
     
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, self.tableView.bounds.size.width, 30)];
     _searchBar.delegate = self;
+    [self.view addSubview:_searchBar];
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
@@ -108,13 +105,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     if (self.shouldEdit) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 30)];
-//        [button setTitle:@"完成" forState:UIControlStateNormal];
-//        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        button.layer.borderWidth = 1.0;
-//        button.layer.borderColor = [UIColor whiteColor].CGColor;
-//        button.layer.cornerRadius = 2.0;
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [button addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -156,6 +147,23 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 }
 
 #pragma mark - setter & getter
+
+- (UISearchDisplayController *)searchController
+{
+    if (!_searchController) {
+        _searchBar.delegate = self;
+        _searchController= [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+        [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+        _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
+        _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
+        _searchController.searchResultsTableView.delegate = self;
+        _searchController.searchResultsTableView.dataSource = self;
+        _searchController.searchResultsTableView.rowHeight = 155.0;
+
+    }
+    return _searchController;
+}
 
 - (RecommendsOfCity *)dataSource
 {
@@ -343,13 +351,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     [params setObject:_cityId forKey:@"locId"];
     [params setObject:_searchText forKey:@"keyWord"];
-    __weak typeof(PoisOfCityViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
     
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
         if (self.searchDisplayController.isActive) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
@@ -384,7 +388,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        [hud hideTZHUD];
         [self loadMoreCompletedSearch];
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
@@ -456,16 +459,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
    
 }
 
-/**
- *  导航
- *
- *  @param sender
- */
-- (IBAction)viewMap:(UIButton *)sender
-{
-    
-}
-
 - (IBAction)finishAdd:(id)sender
 {
     [_delegate finishEdit];
@@ -474,18 +467,16 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)showMoreCities:(UIButton *)sender
-{
-}
 
-- (IBAction)chat:(id)sender
+/**
+ *  点击搜索按钮开始搜索
+ *
+ *  @param sender 
+ */
+- (IBAction)beginSearch:(id)sender
 {
-    
-}
-
-- (IBAction)jumpToCommentList:(id)sender
-{
-    //TODO:进入评论列表
+    [self.searchController setActive:YES animated:YES];
+    [_searchBar becomeFirstResponder];
 }
 
 - (void)showIntruductionOfCity
@@ -635,9 +626,19 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, sectionheaderView.bounds.size.height-20)];
             btn.layer.cornerRadius = 3.0;
             
-            UIImageView *tagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
-            tagImageView.image = [UIImage imageNamed:@"ic_city_border.png"];
-            [btn addSubview:tagImageView];
+            UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
+            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
+            if (_poiType == kRestaurantPoi) {
+                [tagBtn setTitle:@"吃什么" forState:UIControlStateNormal];
+            }
+            if (_poiType == kShoppingPoi) {
+                [tagBtn setTitle:@"买什么" forState:UIControlStateNormal];
+            }
+            tagBtn.titleLabel.font  = [UIFont boldSystemFontOfSize:17.0];
+            [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 0)];
+            [tagBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+            tagBtn.userInteractionEnabled = YES;
+            [btn addSubview:tagBtn];
             
             NSUInteger len = [_dataSource.desc length];
             NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
@@ -657,12 +658,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             btn.titleLabel.numberOfLines = 4;
             [btn setContentEdgeInsets:UIEdgeInsetsMake(20, 100, 35, 10)];
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-60, btn.bounds.size.height-27, 30, 20)];
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-55, btn.bounds.size.height-25, 30, 20)];
             moreLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
             moreLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
             moreLabel.text = @"更多";
             
-            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-30, btn.bounds.size.height-20, 7, 11)];
+            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-25, btn.bounds.size.height-20, 7, 11)];
             moreImage.image = [UIImage imageNamed:@"more_btn.png"];
             [btn addSubview:moreLabel];
             [btn addSubview:moreImage];
@@ -687,7 +688,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier];
     cell.shouldEdit = _shouldEdit;
     cell.poi = poi;
-    cell.actionBtn.tag = indexPath.row;
+    cell.addBtn.tag = indexPath.row;
     
     //如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
@@ -706,9 +707,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             }
         }
         cell.isAdded = isAdded;
-            [cell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        cell.actionBtn.hidden = YES;
+        [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
@@ -800,6 +802,83 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
 }
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    PoiSummary *poi;
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 
 @end

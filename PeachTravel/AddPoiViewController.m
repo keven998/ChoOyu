@@ -7,7 +7,6 @@
 //
 
 #import "AddPoiViewController.h"
-#import "AddSpotTableViewCell.h"
 #import "CityDestinationPoi.h"
 #import "TripDetail.h"
 #import "SpotDetailViewController.h"
@@ -58,9 +57,7 @@
 
 @implementation AddPoiViewController
 
-static NSString *addSpotCellIndentifier = @"addSpotCell";
-static NSString *addRestaurantCellIndentifier = @"poisOfCity";
-static NSString *addShoppingCellIndentifier = @"poisOfCity";
+static NSString *addPoiCellIndentifier = @"poisOfCity";
 
 - (id)init {
     if (self = [super init]) {
@@ -78,11 +75,12 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     self.view.backgroundColor = APP_PAGE_COLOR;
    
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
+    [_tableView setContentOffset:CGPointMake(0, 50)];
     
     if (_tripDetail) {
          self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
@@ -101,21 +99,18 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
     self.tableView.tableHeaderView = _searchBar;
     
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:addSpotCellIndentifier];
-    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addRestaurantCellIndentifier];
+    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
     self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
     self.searchController.searchResultsTableView.dataSource = self;
     self.searchController.searchResultsTableView.delegate = self;
-    
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -394,19 +389,21 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         default:
             break;
     }
-    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
     
-    [params setObject:poi.cityId forKey:@"locId"];
+    if (_tripDetail) {
+        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+        [params safeSetObject:poi.cityId forKey:@"locId"];
+    } else {
+        [params safeSetObject:_cityId forKey:@"locId"];
+    }
+   
     [params setObject:_searchText forKey:@"keyWord"];
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(AddPoiViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
     
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
         if (self.searchDisplayController.isActive) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
@@ -505,7 +502,7 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 190.0;
+    return 155.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -523,15 +520,15 @@ static NSString *addShoppingCellIndentifier = @"poisOfCity";
         }
     }
     
-    PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addRestaurantCellIndentifier forIndexPath:indexPath];
+    PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
     poiCell.poi = poi;
-    poiCell.actionBtn.tag = indexPath.row;
     poiCell.shouldEdit = _shouldEdit;
     if (_shouldEdit) {
+        poiCell.addBtn.tag = indexPath.row;
         poiCell.isAdded = isAdded;
-        [poiCell.actionBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        poiCell.hideActionBtn = YES;
+        
     }
     
     return poiCell;

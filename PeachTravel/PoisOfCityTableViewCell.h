@@ -13,7 +13,10 @@
 @interface PoisOfCityTableViewCell : UITableViewCell
 @property (nonatomic) BOOL shouldEdit;
 
-@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+@property (weak, nonatomic) IBOutlet UIButton *naviBtn;
+@property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (weak, nonatomic) IBOutlet UIButton *pAddBtn;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
@@ -21,9 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UIView *bkgFrame;
 
 @property (nonatomic) BOOL hideActionBtn;
 
