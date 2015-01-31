@@ -26,10 +26,17 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
-    _titleLabel.backgroundColor = UIColorFromRGB(0xeaeaea);
+    _pAddBtn.layer.cornerRadius = 2.0;
+    _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _bkgFrame.layer.cornerRadius = 2.0;
+    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
+    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
+    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+
     self.backgroundColor = APP_PAGE_COLOR;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -38,7 +45,7 @@
 - (void)setPoi:(PoiSummary *)poi
 {
     _poi = poi;
-    NSString *title = [NSString stringWithFormat:@"  %@", _poi.zhName];
+    NSString *title = [NSString stringWithFormat:@"%@", _poi.zhName];
     _titleLabel.text = title;
     if (_poi.poiType == kRestaurantPoi || _poi.poiType == kHotelPoi) {
         _propertyLabel.text = _poi.priceDesc;
@@ -61,20 +68,14 @@
     } else {
         _distanceLabel.hidden = YES;
     }
-    if (_poi.poiType == kSpotPoi) {
-        _authorNameLabel.text = @"简介";
-        _commentLabel.text = _poi.desc;
-    } else {
-        CommentDetail *comment = [poi.comments firstObject];
-        _authorNameLabel.text = comment.nickName;
-        _commentLabel.text = comment.commentDetails;
-    }
 }
 
 - (void)setHideActionBtn:(BOOL)hideActionBtn
 {
     _hideActionBtn = hideActionBtn;
-    _actionBtn.hidden = _hideActionBtn;
+    _naviBtn.hidden = _hideActionBtn;
+    _addBtn.hidden = _hideActionBtn;
+    _pAddBtn.hidden = _hideActionBtn;
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit
@@ -82,17 +83,11 @@
     _shouldEdit = shouldEdit;
 
     if (_shouldEdit) {
-        _actionBtn.backgroundColor = APP_THEME_COLOR;
-        _actionBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
-        [_actionBtn setTitle:@"收集" forState:UIControlStateNormal];
-        [_actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_actionBtn setImage:nil forState:UIControlStateNormal];
-        _actionBtn.layer.cornerRadius = 2.0;
-
+        _naviBtn.hidden = YES;
+        _distanceLabel.hidden = YES;
     } else {
-        _actionBtn.backgroundColor = [UIColor clearColor];
-        [_actionBtn setTitle:nil forState:UIControlStateNormal];
-        [_actionBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
+        _addBtn.hidden = YES;
+        _pAddBtn.hidden = YES;
     }
 }
 
@@ -100,11 +95,13 @@
 {
     _isAdded = isAdded;
     if (_isAdded) {
-        [_actionBtn setTitle:@"已收集" forState:UIControlStateNormal];
-        _actionBtn.backgroundColor = [UIColor grayColor];
+        [_pAddBtn setTitle:@"已收集" forState:UIControlStateNormal];
+        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:13.0];
+        _pAddBtn.backgroundColor = [UIColor grayColor];
     } else {
-        _actionBtn.backgroundColor = APP_THEME_COLOR;
-        [_actionBtn setTitle:@"收集" forState:UIControlStateNormal];
+        _pAddBtn.backgroundColor = APP_SUB_THEME_COLOR;
+        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
+        [_pAddBtn setTitle:@"收集" forState:UIControlStateNormal];
     }
 }
 

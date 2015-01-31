@@ -10,7 +10,6 @@
 #import "DMFilterView.h"
 #import "SwipeView.h"
 #import "PoisOfCityTableViewCell.h"
-#import "AddSpotTableViewCell.h"
 #import "PoiSummary.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
@@ -363,7 +362,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 190;
+    return 155;
 }
 
 
@@ -381,8 +380,8 @@
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
     cell.shouldEdit = NO;
     cell.tag = indexPath.row;
-    [cell.actionBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.actionBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     cell.poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
     return cell;
 }
@@ -401,7 +400,7 @@
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.backgroundColor = APP_PAGE_COLOR;
         view.tag = index;
-        tbView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, view.bounds.size.width-22, view.bounds.size.height)];
+        tbView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height)];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         tbView.dataSource = self;
@@ -415,11 +414,8 @@
     } else {
         view.tag = index;
         tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
-        if (index == PAGE_FUN) {
-            [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
-        } else {
-            [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
-        }
+        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+
         [tbView reloadData];
     }
 

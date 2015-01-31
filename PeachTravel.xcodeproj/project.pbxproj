@@ -434,8 +434,6 @@
 		D964207F19ECC65000CC8057 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D964207D19ECC65000CC8057 /* ChangePasswordViewController.m */; };
 		D964208019ECC65000CC8057 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */; };
 		D96550EC1A256CE500928DB0 /* TripDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550EB1A256CE500928DB0 /* TripDetail.m */; };
-		D96550F41A257CA200928DB0 /* AddSpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */; };
-		D96550F51A257CA200928DB0 /* AddSpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */; };
 		D96551351A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D96551341A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m */; };
 		D96819A71A0DE3C600122793 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A41A0DE3C600122793 /* ANBlurredImageView.m */; };
 		D96819A81A0DE3C600122793 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = D96819A61A0DE3C600122793 /* UIImage+BoxBlur.m */; };
@@ -1403,9 +1401,6 @@
 		D964207E19ECC65000CC8057 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		D96550EA1A256CE500928DB0 /* TripDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetail.h; sourceTree = "<group>"; };
 		D96550EB1A256CE500928DB0 /* TripDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetail.m; sourceTree = "<group>"; };
-		D96550F11A257CA200928DB0 /* AddSpotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSpotTableViewCell.h; sourceTree = "<group>"; };
-		D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSpotTableViewCell.m; sourceTree = "<group>"; };
-		D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSpotTableViewCell.xib; sourceTree = "<group>"; };
 		D96551331A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+MyDictionary.h"; sourceTree = "<group>"; };
 		D96551341A2712FA00928DB0 /* NSMutableDictionary+MyDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+MyDictionary.m"; sourceTree = "<group>"; };
 		D96819A31A0DE3C600122793 /* ANBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredImageView.h; sourceTree = "<group>"; };
@@ -3765,9 +3760,6 @@
 		D96550ED1A257B2800928DB0 /* AddPoi */ = {
 			isa = PBXGroup;
 			children = (
-				D96550F11A257CA200928DB0 /* AddSpotTableViewCell.h */,
-				D96550F21A257CA200928DB0 /* AddSpotTableViewCell.m */,
-				D96550F31A257CA200928DB0 /* AddSpotTableViewCell.xib */,
 				D9E3D40B1A76790500068A55 /* AddPoiViewController.h */,
 				D9E3D40C1A76790500068A55 /* AddPoiViewController.m */,
 			);
@@ -4867,7 +4859,6 @@
 				D90C639D19FB44D300C2E440 /* chatBar_more_faceSelected@2x.png in Resources */,
 				D9E97D1B1A5C063800F2364D /* ic_guide3_talk1@2x.png in Resources */,
 				D902ADCA1A15EC9300E36A93 /* TravelNoteTableViewCell.xib in Resources */,
-				D96550F51A257CA200928DB0 /* AddSpotTableViewCell.xib in Resources */,
 				D90C638C19FB44D300C2E440 /* VoiceSearchFeedback016@2x.png in Resources */,
 				D9E3D3EE1A7370C500068A55 /* ticketBkg@2x.png in Resources */,
 				D90F361019F63B3300E26FA9 /* chatBar_recordBg@2x.png in Resources */,
@@ -5377,7 +5368,6 @@
 				D98CC69A1A19D93400FA5A76 /* TaoziImage.m in Sources */,
 				D97B670119E90C70004439A3 /* LoginViewController.m in Sources */,
 				D90C63C819FBA07700C2E440 /* ZYQAssetPickerController.m in Sources */,
-				D96550F41A257CA200928DB0 /* AddSpotTableViewCell.m in Sources */,
 				D90F368019F63ED200E26FA9 /* Emoji.m in Sources */,
 				D99FE0041A68E44200932550 /* MJNIndexView.m in Sources */,
 				D925BBF61A08A8210026FEAC /* CreateConversationTableViewCell.m in Sources */,
