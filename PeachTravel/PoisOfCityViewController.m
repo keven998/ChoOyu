@@ -620,10 +620,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 140)];
             sectionheaderView.backgroundColor = APP_PAGE_COLOR;
             
-            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, 5)];
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, 5)];
             spaceView.backgroundColor = APP_THEME_COLOR;
             
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, sectionheaderView.bounds.size.width, sectionheaderView.bounds.size.height-20)];
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, sectionheaderView.bounds.size.height-20)];
             btn.layer.cornerRadius = 3.0;
             
             UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
