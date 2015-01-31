@@ -59,9 +59,7 @@
     [super viewDidLoad];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_navigation_title.png"]];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    self.navigationItem.title = @"桃子旅行";
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_menu_add.png"];
@@ -129,16 +127,17 @@
     myGuideTitleLabel.textAlignment = NSTextAlignmentCenter;
     [_planBtn addSubview:myGuideTitleLabel];
     
-    UILabel *guideSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(7.5, 25*ratioY, _planBtn.bounds.size.width - 20.0, 60*ratioY)];
+    UILabel *guideSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 25*ratioY, _planBtn.bounds.size.width + 48.0, 60*ratioY)];
     guideSubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12*ratioX];
     guideSubTitle.numberOfLines = 3;
     guideSubTitle.textColor = TEXT_COLOR_TITLE_PH;
     guideSubTitle.textAlignment = NSTextAlignmentCenter;
     [_planBtn addSubview:guideSubTitle];
     
-    UIButton *guideSimButton = [[UIButton alloc] initWithFrame:CGRectMake(12.5, (guideSubTitle.frame.size.height+guideSubTitle.frame.origin.y) + 10*ratioY,90*ratioX, 90*ratioX)];
+    UIButton *guideSimButton = [[UIButton alloc] initWithFrame:CGRectMake(12.5, (guideSubTitle.frame.size.height+guideSubTitle.frame.origin.y) + 5*ratioY, 90*ratioX, 90*ratioX)];
     guideSimButton.clipsToBounds = YES;
-    [guideSimButton setTitle:@"出发吧" forState:UIControlStateNormal];
+    guideSimButton.titleLabel.numberOfLines = 2;
+    [guideSimButton setTitle:@"我的\n旅程" forState:UIControlStateNormal];
     [guideSimButton setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     guideSimButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17*ratioX];
     [guideSimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
@@ -153,14 +152,13 @@
     [_planBtn addSubview:titleImage];
 
     
-    NSString *str = @"最贴心的旅行计划助手\n专为美眉们打造\n";
+    NSString *str = @"最贴心的旅程助手\n只为你\n更完美的旅行";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 4.0;
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
     [guideSubTitle setAttributedText:desc];
-    
 
     [guideSimButton addTarget:self action:@selector(myTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [_contentFrame addSubview:_planBtn];
@@ -174,17 +172,18 @@
 
     [_aroundBtn addSubview:nearByTitleLabel];
     
-    UILabel *nearBySubTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 25*ratioY, _aroundBtn.bounds.size.width - 20.0, 60*ratioY)];
+    UILabel *nearBySubTitle = [[UILabel alloc] initWithFrame:CGRectMake(22, 25*ratioY, _aroundBtn.bounds.size.width - 20.0, 60*ratioY)];
     nearBySubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12*ratioX];
     nearBySubTitle.numberOfLines = 3;
     nearBySubTitle.textColor = TEXT_COLOR_TITLE_PH;
     nearBySubTitle.textAlignment = NSTextAlignmentCenter;
     [_aroundBtn addSubview:nearBySubTitle];
     
-    UIButton *nearBySimButton = [[UIButton alloc] initWithFrame:CGRectMake(12.5, (guideSubTitle.frame.size.height+guideSubTitle.frame.origin.y) + 10*ratioY, 90*ratioX, 90*ratioX)];
+    UIButton *nearBySimButton = [[UIButton alloc] initWithFrame:CGRectMake(12.5, (guideSubTitle.frame.size.height+guideSubTitle.frame.origin.y) + 5*ratioY, 90*ratioX, 90*ratioX)];
     [nearBySimButton setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     [nearBySimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
-    [nearBySimButton setTitle:@"去看看" forState:UIControlStateNormal];
+    [nearBySimButton setTitle:@"发现\n身边" forState:UIControlStateNormal];
+    nearBySimButton.titleLabel.numberOfLines = 2;
     nearBySimButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17*ratioX];
     nearBySimButton.clipsToBounds = YES;
     [_aroundBtn addSubview:nearBySimButton];
@@ -194,7 +193,7 @@
     desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 3.0;
+    style.lineSpacing = 4.0;
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, str.length)];
     [nearBySubTitle setAttributedText:desc];
     [nearBySimButton addTarget:self action:@selector(nearBy:) forControlEvents:UIControlEventTouchUpInside];
