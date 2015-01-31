@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *property;
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spateHight;
 
 @end

@@ -61,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGD-BI-MFY">
-                                <rect key="frame" x="253" y="104" width="40" height="20"/>
+                                <rect key="frame" x="277" y="104" width="40" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="TMk-Z4-Slf"/>
                                     <constraint firstAttribute="height" constant="20" id="mT8-3r-dDS"/>
@@ -107,7 +107,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="tGD-BI-MFY" secondAttribute="trailing" constant="27" id="2Uz-rE-EnK"/>
+                            <constraint firstAttribute="trailing" secondItem="tGD-BI-MFY" secondAttribute="trailing" constant="3" id="2Uz-rE-EnK"/>
                             <constraint firstAttribute="trailing" secondItem="9Ek-3b-GVT" secondAttribute="trailing" constant="56" id="2x8-fO-hIb"/>
                             <constraint firstAttribute="bottom" secondItem="oIp-2n-4b0" secondAttribute="bottom" constant="13" id="8oP-hg-zIk"/>
                             <constraint firstItem="NSB-OA-QFk" firstAttribute="leading" secondItem="E8P-9w-a5S" secondAttribute="leading" id="EkT-0j-G4d"/>

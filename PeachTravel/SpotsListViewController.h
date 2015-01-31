@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TripDetailRootViewController.h"
 #import "TripDetail.h"
-#import "DestinationsView.h"
 
 @interface SpotsListViewController : TZViewController
 
