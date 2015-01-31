@@ -65,10 +65,10 @@ static NSString *reusableCell = @"myGuidesCell";
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
     //[button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
+//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
@@ -85,13 +85,13 @@ static NSString *reusableCell = @"myGuidesCell";
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
         [editBtn setBackgroundImage:[UIImage imageNamed:@"btn_new_plan.png"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 35);
+        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 20);
         _addBtn = editBtn;
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     [self.tableView registerNib:[UINib nibWithNibName:@"MyGuidesTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCell];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = APP_THEME_COLOR;
@@ -204,7 +204,7 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)deleteGuide:(NSIndexPath *)indexPath
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除这条行程" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"删除确认" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             NSInteger index = indexPath.section;
@@ -544,7 +544,7 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - Table view data source
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    return 12;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -570,7 +570,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCell forIndexPath:indexPath];
-    cell.rightUtilityButtons = [self rightButtons];
+    [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     cell.delegate = self;
     return cell;
