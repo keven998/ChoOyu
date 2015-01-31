@@ -11,28 +11,32 @@
 #import "CommentDetail.h"
 
 @interface CommonPoiListTableViewCell ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLeftConstraint;
+@property (weak, nonatomic) IBOutlet UIView *bkgFrame;
 
 @end
 
 @implementation CommonPoiListTableViewCell
 
 - (void)awakeFromNib {
-    _titleLabel.backgroundColor = APP_THEME_COLOR;
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
-    
+    _bkgFrame.layer.cornerRadius = 2.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _deleteBtn.hidden = YES;
-    _deleteBtn.backgroundColor = APP_THEME_COLOR;
+    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
+    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
+    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+
+
     self.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -40,7 +44,7 @@
 - (void)setTripPoi:(PoiSummary *)tripPoi
 {
     _tripPoi = tripPoi;
-    _titleLabel.text = [NSString stringWithFormat:@"  %@", _tripPoi.zhName];
+    _titleLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.zhName];
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _ratingView.rating = tripPoi.rating;
@@ -48,9 +52,6 @@
         _propertyLabel.text = _tripPoi.priceDesc;
     }
     _addressLabel.text = _tripPoi.address;
-    CommentDetail *comment = [_tripPoi.comments firstObject];
-//    _authorNameLabel.text = comment.nickName;
-    _commentLabel.text = comment.commentDetails;
     
 }
 
@@ -61,12 +62,10 @@
         _mapBtn.hidden = NO;
         _deleteBtn.hidden = YES;
         _distanceLabel.hidden = NO;
-        _titleLeftConstraint.constant = 0;
     } else {
         _mapBtn.hidden = YES;
         _distanceLabel.hidden = YES;
         _deleteBtn.hidden = NO;
-        _titleLeftConstraint.constant = 20;
     }
 }
 

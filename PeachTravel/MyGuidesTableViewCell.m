@@ -17,7 +17,7 @@
     _headerImageView.layer.borderWidth = 1;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _headerImageView.clipsToBounds = YES;
-    _headerImageView.layer.cornerRadius = 3.0;
+    _headerImageView.layer.cornerRadius = 4.0;
     _titleBtn.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
     _descLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:12.0];
 
