@@ -79,16 +79,22 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableViewFooterView
 {
-    _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 135)];
-    UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-135)/2, 5, 135.0, 34)];
+    _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
+    UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
+    
     [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [addWantToBtn setTitle:@"购物收集" forState:UIControlStateNormal];
+    [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
+    [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
+    [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    
     addWantToBtn.clipsToBounds = YES;
     [addWantToBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
     [addWantToBtn addTarget:self action:@selector(addWantTo:) forControlEvents:UIControlEventTouchUpInside];
-    addWantToBtn.layer.cornerRadius = 17.0;
-    addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    addWantToBtn.layer.cornerRadius = 16.5;
+    addWantToBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
     [_tableViewFooterView addSubview:addWantToBtn];
+    
     return _tableViewFooterView;
 }
 
@@ -133,11 +139,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 {
     if (_shouldEdit) {
         [self.tableView setEditing:YES animated:YES];
-        
         [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
-        
         if (!self.tripDetail.tripIsChange) {
             [self.tableView setEditing:NO animated:YES];
             [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
@@ -190,6 +194,15 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     [self.rootViewController.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
+- (IBAction)deletePoi:(UIButton *)sender
+{
+    CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    [_tripDetail.shoppingList removeObjectAtIndex:indexPath.section];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+    [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - ShoppingOfCityDelegate
 
 - (void)finishEdit
@@ -234,12 +247,18 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     cell.mapBtn.tag = indexPath.section;
     [cell.mapBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [cell.mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
     
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return YES;
 }
 
