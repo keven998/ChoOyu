@@ -32,9 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    
     [self.view addSubview:self.backGroundImageView];
-
     [self.view addSubview:self.filterView];
 }
 
@@ -69,7 +67,6 @@
 - (UIImageView *)backGroundImageView
 {
     if (!_backGroundImageView) {
-        _backGroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,self.rootViewController.view.bounds.size.width,self.rootViewController.view.bounds.size.height)];
         _backGroundImageView = [[UIImageView alloc] initWithFrame:_rootViewController.view.frame];
         _backGroundImageView.layer.cornerRadius = 5.0;
         _backGroundImageView.clipsToBounds = YES;
@@ -90,7 +87,7 @@
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     image = [UIImage imageWithData:imageData];
     return image;
 }
@@ -126,17 +123,22 @@
     _rootViewController = parentViewController;
     _filterView.selectedItmesIndex = _selectedItmesIndex;
     _backGroundImageView.image = [self screenShotWithView:_rootViewController.view];
-    self.backGroundImageView.frame = CGRectMake(4,4,self.rootViewController.view.bounds.size.width-8,self.rootViewController.view.bounds.size.height-8);
+    self.backGroundImageView.frame = CGRectMake(4, 4, self.rootViewController.view.bounds.size.width-8, self.rootViewController.view.bounds.size.height-8);
 
     [_rootViewController addChildViewController:self];
     [_rootViewController.view addSubview:self.view];
-    self.backGroundImageView.image = [[self screenShotWithView:_rootViewController.view] drn_boxblurImageWithBlur:0.17];
+    self.backGroundImageView.image = [[self screenShotWithView:_rootViewController.view] drn_boxblurImageWithBlur:0.05];
     [UIView animateWithDuration:0.35 animations:^{
         _filterView.frame = CGRectMake(0, self.view.bounds.size.height-_filterView.frame.size.height, self.view.bounds.size.width, 305);
         _backGroundImageView.frame = CGRectMake(30, 30, self.view.bounds.size.width-60, self.view.bounds.size.height-60);
     } completion:^(BOOL finished) {
-
+        
     }];
+}
+
+- (void) dealloc {
+    _rootViewController = nil;
+    _backGroundImageView = nil;
 }
 
 - (void)hideFilterView
