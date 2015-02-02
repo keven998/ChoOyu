@@ -56,7 +56,7 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 {
     CGFloat width = BUBBLE_VIEW_PADDING*2 + BUBBLE_ARROW_WIDTH + ANIMATION_TIME_LABEL_WIDHT +ANIMATION_TIME_IMAGEVIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
     
-    CGFloat height = 32.5;
+    CGFloat height = 50;
     return CGSizeMake(width, height);
 }
 
@@ -131,15 +131,15 @@ NSString *const kRouterEventAudioBubbleTapEventName = @"kRouterEventAudioBubbleT
 
 #pragma mark - public
 
--(void)bubbleViewPressed:(id)sender
+- (void)bubbleViewPressed:(id)sender
 {
     [self routerEventWithName:kRouterEventAudioBubbleTapEventName userInfo:@{KMESSAGEKEY:self.model}];
 }
 
 
-+(CGFloat)heightForBubbleWithObject:(MessageModel *)object
++ (CGFloat)heightForBubbleWithObject:(MessageModel *)object
 {
-    return 2 * BUBBLE_VIEW_PADDING + ANIMATION_IMAGEVIEW_SIZE;
+    return 50+10;
 }
 
 -(void)startAudioAnimation

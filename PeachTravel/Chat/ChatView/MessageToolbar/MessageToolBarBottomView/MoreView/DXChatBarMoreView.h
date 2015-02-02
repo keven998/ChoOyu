@@ -22,21 +22,13 @@ typedef enum{
 
 @property (nonatomic,assign) id<DXChatBarMoreViewDelegate> delegate;
 
-@property (nonatomic, strong) UIButton *photoButton;
-@property (nonatomic, strong) UIButton *takePicButton;
-@property (nonatomic, strong) UIButton *locationButton;
-@property (nonatomic, strong) UIButton *myStrategyButton;
-@property (nonatomic, strong) UIButton *myFavoriteButton;
-@property (nonatomic, strong) UIButton *destinationButton;
-@property (nonatomic, strong) UIButton *travelNoteButton;
-
-@property (nonatomic, strong) UILabel *photoLabel;
-@property (nonatomic, strong) UILabel *takePicLabel;
-@property (nonatomic, strong) UILabel *locationLabel;
-@property (nonatomic, strong) UILabel *myStrategyLabel;
-@property (nonatomic, strong) UILabel *myFavoriteLabel;
-@property (nonatomic, strong) UILabel *destinationLabel;
-@property (nonatomic, strong) UILabel *travelNoteLabel;
+@property (nonatomic, strong) TZButton *photoButton;
+@property (nonatomic, strong) TZButton *takePicButton;
+@property (nonatomic, strong) TZButton *locationButton;
+@property (nonatomic, strong) TZButton *myStrategyButton;
+@property (nonatomic, strong) TZButton *myFavoriteButton;
+@property (nonatomic, strong) TZButton *destinationButton;
+@property (nonatomic, strong) TZButton *travelNoteButton;
 
 /****暂时屏蔽及时语音和拍视频的功能******/
 /*

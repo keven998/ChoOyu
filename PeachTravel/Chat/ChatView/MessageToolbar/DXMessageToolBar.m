@@ -106,7 +106,7 @@
 {
     if (_toolbarBackgroundImageView == nil) {
         _toolbarBackgroundImageView = [[UIImageView alloc] init];
-        _toolbarBackgroundImageView.backgroundColor = [UIColor whiteColor];
+        _toolbarBackgroundImageView.image = [[UIImage imageNamed:@"chatToolBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
         _toolbarBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     
@@ -117,7 +117,6 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
-        _toolbarView.backgroundColor = [UIColor whiteColor];
     }
     
     return _toolbarView;
@@ -318,7 +317,7 @@
     self.styleChangeButton.tag = 0;
     
     //更多
-    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, kInputTextViewMinHeight + 2*kVerticalPadding)];
+    self.moreButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, kInputTextViewMinHeight + 2*kVerticalPadding)];
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more"] forState:UIControlStateNormal];
 //    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
@@ -333,7 +332,7 @@
 
     
     //表情
-    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.moreButton.frame) + 35, 0, 35, kInputTextViewMinHeight + 2*kVerticalPadding)];
+    self.faceButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.moreButton.frame) + 40, 0, 40, kInputTextViewMinHeight + 2*kVerticalPadding)];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
 //    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
@@ -354,14 +353,14 @@
     self.inputTextView.minNumberOfLines = 1;
     self.inputTextView.maxNumberOfLines = 6;
     _inputTextView.layer.borderWidth = 0.65f;
-    _inputTextView.layer.cornerRadius = 2.0f;
+    _inputTextView.layer.cornerRadius = 4.0f;
     _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
     self.inputTextView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
     self.inputTextView.delegate = self;
     self.inputTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 40);
     self.inputTextView.backgroundColor = [UIColor whiteColor];
-    self.inputTextView.placeholder = @"输入新消息";
+    self.inputTextView.placeholder = @" 输入新消息";
 
     
     //录制
@@ -369,6 +368,7 @@
     self.recordButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    self.recordButton.layer.cornerRadius = 4.0;
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
     [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
