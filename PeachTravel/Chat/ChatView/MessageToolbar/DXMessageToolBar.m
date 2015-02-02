@@ -106,7 +106,7 @@
 {
     if (_toolbarBackgroundImageView == nil) {
         _toolbarBackgroundImageView = [[UIImageView alloc] init];
-        _toolbarBackgroundImageView.backgroundColor = [UIColor whiteColor];
+        _toolbarBackgroundImageView.image = [[UIImage imageNamed:@"chatToolBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
         _toolbarBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     
@@ -117,7 +117,6 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
-        _toolbarView.backgroundColor = [UIColor whiteColor];
     }
     
     return _toolbarView;
@@ -363,10 +362,12 @@
     self.inputTextView.backgroundColor = [UIColor whiteColor];
     self.inputTextView.placeholder = @" 输入新消息";
 
+    
     //录制
     self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(textViewLeftMargin, 5.5, width, 34)];
     self.recordButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     self.recordButton.layer.cornerRadius = 4.0;
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
