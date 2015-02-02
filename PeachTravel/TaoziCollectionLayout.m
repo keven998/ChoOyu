@@ -113,13 +113,11 @@
     NSMutableArray* attributes = [NSMutableArray array];
     for (int i=0; i < _itemsAttributes.count; i++) {
         for (int j=0; j < [_itemsAttributes[i] count]; j++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
-            [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
+            [attributes addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]]];
         }
     }
     for (int i = 0; i<_headerViewAttributes.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:i];
-        [attributes addObject:[self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath]];
+        [attributes addObject:[self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]]];
     }
     for (UICollectionViewLayoutAttributes *attribute in self.sectionAttributes)
     {

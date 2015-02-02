@@ -56,10 +56,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     if (height == 0) {
         height = 100;
     }
-    self.indexView = [[MJNIndexView alloc] init];
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
-    [self firstAttributesForMJNIndexView];
+    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
+    self.indexView.rightMargin = 0;
+    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    self.indexView.fontColor = APP_SUB_THEME_COLOR;
+    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
+//    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+//    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+//    [self firstAttributesForMJNIndexView];
     self.indexView.dataSource = self;
     
     [self initData];
@@ -257,12 +261,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
-    return CGSizeMake(size.width + 23.0, size.height + 10);
+    return CGSizeMake(size.width + 23.0, 26);
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 28);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 55);
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -278,13 +282,12 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     return [[self.dataSource objectForKey:@"headerKeys"] count];
 }
 
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];[[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section];
         headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section]];
-        headerView.userInteractionEnabled = NO;
+//        headerView.userInteractionEnabled = NO;
         return headerView;
     }
     return nil;
@@ -299,12 +302,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.tiltleLabel.textColor = [UIColor whiteColor];
-            cell.backgroundColor = APP_THEME_COLOR;
+            UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_seleted_background.png"]
+                                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+            cell.background.image = buttonBackgroundImage;
             return  cell;
         }
     }
     cell.tiltleLabel.textColor = APP_THEME_COLOR;
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.background.image = nil;
     return  cell;
 }
 
@@ -326,9 +331,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
             [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-        
         [_makePlanCtl.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
-
         [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
 }

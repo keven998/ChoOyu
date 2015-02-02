@@ -11,7 +11,7 @@
 @implementation DomesticDestinationCell
 
 - (void)awakeFromNib {
-    self.layer.borderWidth = 1.0;
+    self.layer.borderWidth = 0.5;
     self.layer.cornerRadius = 13.0;
     self.layer.borderColor = APP_THEME_COLOR.CGColor;
 }

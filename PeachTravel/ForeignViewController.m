@@ -8,8 +8,8 @@
 
 #import "ForeignViewController.h"
 #import "TaoziCollectionLayout.h"
-#import "ForeignDestinationCell.h"
-#import "ForeignDestinationCollectionHeaderView.h"
+#import "DomesticDestinationCell.h"
+#import "DestinationCollectionHeaderView.h"
 #import "CountryDestination.h"
 #import "CityDestinationPoi.h"
 
@@ -24,15 +24,15 @@
 
 @implementation ForeignViewController
 
-static NSString *reuseableHeaderIdentifier  = @"foreignHeader";
-static NSString *reuseableCellIdentifier  = @"foreignCell";
+static NSString *reuseableHeaderIdentifier  = @"domesticHeader";
+static NSString *reuseableCellIdentifier  = @"cell";
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _showCitiesIndex = 0;
-    [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"ForeignDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
-    [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"ForeignDestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
+    [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
+    [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
     layout.delegate = self;
@@ -195,7 +195,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 //    CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
 //    NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width - 20) + 1 ;
 //    CGFloat height = lineCount*size.height + 120.0 + 20 + 12.0;
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 28.0);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 55);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -203,7 +203,7 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
     CountryDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
-    return CGSizeMake(size.width+30, size.height + 10);
+    return CGSizeMake(size.width + 23.0, 26);
 }
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
@@ -242,8 +242,10 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     CountryDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
-    ForeignDestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
-    [headerView.contentBtn setTitle:country.zhName forState:UIControlStateNormal];
+    DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
+    headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", country.zhName];
+    
+//    [headerView.contentBtn setTitle:country.zhName forState:UIControlStateNormal];
 //    headerView.contentBtn.tag = indexPath.section;
 //    [headerView.contentBtn addTarget:self action:@selector(showCities:) forControlEvents:UIControlEventTouchUpInside];
 //    if (_showCitiesIndex == indexPath.section) {
@@ -260,17 +262,20 @@ static NSString *reuseableCellIdentifier  = @"foreignCell";
 {
     CountryDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
-    ForeignDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
-    cell.titleLabel.text = city.zhName;
+    DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
+    cell.tiltleLabel.text = city.zhName;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
-            cell.titleLabel.textColor = [UIColor whiteColor];
-            cell.backgroundColor = APP_THEME_COLOR;
+            cell.tiltleLabel.textColor = [UIColor whiteColor];
+            UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_seleted_background.png"]
+                                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+            cell.background.image = buttonBackgroundImage;
             return  cell;
         }
     }
-    cell.titleLabel.textColor = APP_THEME_COLOR;
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.tiltleLabel.textColor = APP_THEME_COLOR;
+    cell.background.image = nil;
+    
     return  cell;
 }
 
