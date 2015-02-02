@@ -11,55 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7r-7c-aRb" customClass="UIButton">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7r-7c-aRb">
                     <rect key="frame" x="0.0" y="10" width="320" height="180"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tdd-bE-4UC">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="48" id="VOY-9b-PfT">
-                                    <variation key="widthClass=compact" constant="32"/>
-                                </constraint>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="VOY-9b-PfT"/>
-                                </mask>
-                            </variation>
-                            <variation key="widthClass=compact">
-                                <mask key="constraints">
-                                    <include reference="VOY-9b-PfT"/>
-                                </mask>
-                            </variation>
-                        </imageView>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="Tdd-bE-4UC" firstAttribute="top" secondItem="V7r-7c-aRb" secondAttribute="top" id="6yC-Bd-yLT"/>
-                        <constraint firstAttribute="bottom" secondItem="Tdd-bE-4UC" secondAttribute="bottom" id="Ssa-3x-Jnj"/>
-                        <constraint firstAttribute="trailing" secondItem="Tdd-bE-4UC" secondAttribute="trailing" id="gpp-2a-b7b"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="subviews">
-                            <exclude reference="Tdd-bE-4UC"/>
-                        </mask>
-                        <mask key="constraints">
-                            <exclude reference="6yC-Bd-yLT"/>
-                            <exclude reference="Ssa-3x-Jnj"/>
-                            <exclude reference="gpp-2a-b7b"/>
-                        </mask>
-                    </variation>
-                    <variation key="widthClass=compact">
-                        <mask key="subviews">
-                            <include reference="Tdd-bE-4UC"/>
-                        </mask>
-                        <mask key="constraints">
-                            <include reference="6yC-Bd-yLT"/>
-                            <include reference="Ssa-3x-Jnj"/>
-                            <include reference="gpp-2a-b7b"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,7 +30,6 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="cellAccessoryView" destination="Tdd-bE-4UC" id="fOL-1z-35m"/>
                 <outlet property="contentBtn" destination="V7r-7c-aRb" id="hOE-rc-5jd"/>
             </connections>
             <point key="canvasLocation" x="-19" y="161"/>

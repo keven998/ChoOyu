@@ -65,7 +65,7 @@
 {
     if (!_destinationToolBar) {
         _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49.5, self.view.bounds.size.width-62.5, 49.5) andNextBtnTitle:nil];
-        _destinationToolBar.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.9];
+        _destinationToolBar.backgroundColor = APP_SUB_THEME_COLOR;
         _destinationToolBar.delegate = self;
     }
     return _destinationToolBar;
@@ -91,14 +91,18 @@
         _nextView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-62.5, self.view.bounds.size.height-76, 62.5, 76)];
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 27, 62.5, 49)];
-        imageView.image = [UIImage imageNamed:@"ic_next_step.png"];
+//        imageView.image = [UIImage imageNamed:@"ic_next_step.png"];
+        imageView.backgroundColor = APP_SUB_THEME_COLOR;
         UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
         nextBtn.layer.cornerRadius = 27.0;
-        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:[[UIColor redColor] colorWithAlphaComponent:0.9]] forState:UIControlStateNormal];
+        nextBtn.layer.borderWidth = 2.0;
+        nextBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+        [nextBtn setImage:[UIImage imageNamed:@"ic_select_dest_done.png"] forState:UIControlStateNormal];
         nextBtn.clipsToBounds = YES;
-        [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+//        [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
+//        [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
         [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
         [_nextView addSubview:imageView];
         [_nextView addSubview:nextBtn];
@@ -157,8 +161,8 @@
 - (void)showDestinationBar
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.nextView.alpha = 0.9;
-        self.destinationToolBar.alpha = 0.9;
+        self.nextView.alpha = 1.0;
+        self.destinationToolBar.alpha = 1.0;
     } completion:^(BOOL finished) {
     }];
 }
@@ -263,12 +267,6 @@
             break;
         }
     }
-//    if (!find) {
-////        cell.statusBtn.hidden = YES;
-//        
-//    } else {
-////        cell.statusBtn.hidden = NO;
-//    }
     cell.statusBtn.selected = find;
     return cell;
 }
@@ -300,11 +298,6 @@
     [domesticCtl reloadData];
     ForeignViewController *foreignCtl = [self.viewControllers lastObject];
     [foreignCtl reloadData];
-//    if (cell.statusBtn.selected) {
-//        [SVProgressHUD showHint:@"已添加"];
-//    } else {
-//        [SVProgressHUD showHint:@"已取消"];
-//    }
     
     [self performSelector:@selector(dismissSVC) withObject:nil afterDelay:1.1];
 }

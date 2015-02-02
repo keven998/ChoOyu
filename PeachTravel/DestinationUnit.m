@@ -29,14 +29,14 @@
         self.frame = tempFrame;
         self.layer.borderColor = [UIColor whiteColor].CGColor;
         self.layer.cornerRadius = 4.0;
-        self.layer.borderWidth = 1.0;
-        self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.9];
+//        self.layer.borderWidth = 1.0;
+        self.backgroundColor = APP_PAGE_COLOR;
         [self setTitle:name forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         if (icon) {
-            [self setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
-            _indictatorView = [[UIButton alloc] initWithFrame:CGRectMake(tempFrame.size.width-20, 0, 20, frame.size.height)];
+            [self setContentEdgeInsets:UIEdgeInsetsMake(0, 4, 1, 20)];
+            _indictatorView = [[UIButton alloc] initWithFrame:CGRectMake(tempFrame.size.width-23, 0, 20, frame.size.height)];
             [_indictatorView setImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
             _indictatorView.userInteractionEnabled = NO;
             

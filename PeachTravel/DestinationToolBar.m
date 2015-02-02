@@ -16,7 +16,7 @@
 
 #define defaultHeight  40.0      // 每一个unitCell的默认高度
 #define defaultPace   10.0       // unitCell之间的间距
-#define duration      0.2     // 动画执行时间
+#define duration      0.4     // 动画执行时间
 #define defaultVisibleCount 3 //默认显示的unitCell的个数
 
 /*
@@ -61,13 +61,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         offsetX = defaultPace;
-        self.backgroundColor = UIColorFromRGB(0xee528c);
-        self.alpha = 0.8;
+        self.backgroundColor = APP_SUB_THEME_COLOR;
+//        self.alpha = 0.8;
         if (title) {
             _nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-70, 0, 70, frame.size.height)];
             [_nextBtn setTitle:title forState:UIControlStateNormal];
-            _nextBtn.alpha = 0.8;
-            _nextBtn.backgroundColor = UIColorFromRGB(0xee528c);
+//            _nextBtn.alpha = 0.8;
+            _nextBtn.backgroundColor = APP_SUB_THEME_COLOR;
             [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
             [self addSubview:_nextBtn];
@@ -133,9 +133,8 @@
 - (void)scrollViewAbleScroll
 {
     DestinationUnit *lastUnit = [_unitList lastObject];
-    NSLog(@"最后一个%@", NSStringFromCGRect(lastUnit.frame));
     _scrollView.contentSize = CGSizeMake(lastUnit.frame.size.width + lastUnit.frame.origin.x, _scrollView.frame.size.height);
-    [_scrollView scrollRectToVisible:lastUnit.frame animated:NO];
+    [_scrollView scrollRectToVisible:lastUnit.frame animated:YES];
 }
 
 /*
