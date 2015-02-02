@@ -135,7 +135,7 @@
 
 -(CGSize)collectionViewContentSize{
     CGSize retVal = self.collectionView.bounds.size;
-    retVal.height = offsetY + 100;
+    retVal.height = offsetY + 24;
     return retVal;
 }
 

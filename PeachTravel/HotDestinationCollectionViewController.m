@@ -20,7 +20,7 @@
 #import "CommonPoiDetailViewController.h"
 #import "SearchDestinationViewController.h"
 
-@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (nonatomic, strong) UIButton *searchBtn;
@@ -56,8 +56,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     [super viewWillAppear:animated];
     _isShowing = YES;
-    NSLog(@"Hot viewWillAppear");
-    NSLog(@"%lu",(unsigned long)self.navigationController.viewControllers.count);
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     if ([self rdv_tabBarController].tabBarHidden) {
@@ -320,25 +318,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 break;
         }
     }
-}
-
-#pragma mark - UITableView Delegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 10;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell" forIndexPath:indexPath];
-    cell.textLabel.text = @"abcd";
-    return cell;
 }
 
 @end
