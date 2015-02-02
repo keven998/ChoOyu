@@ -24,7 +24,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     self = [super initWithMessageModel:model reuseIdentifier:reuseIdentifier];
     if (self) {
         self.headImageView.clipsToBounds = YES;
-        self.headImageView.layer.cornerRadius = 20.0;
+        self.headImageView.layer.cornerRadius = 4.0;
         if (model.isChatGroup) {
             _showNickName = YES;
         } else {
@@ -77,20 +77,16 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
         
         bubbleFrame.origin.x = self.headImageView.frame.origin.x - bubbleFrame.size.width - HEAD_PADDING;
-        bubbleFrame.origin.y += 5;
         _bubbleView.frame = bubbleFrame;
         
         CGRect frame = self.activityView.frame;
         frame.origin.x = bubbleFrame.origin.x - frame.size.width - ACTIVTIYVIEW_BUBBLE_PADDING;
         frame.origin.y = _bubbleView.center.y - frame.size.height / 2;
         self.activityView.frame = frame;
-    }
-    
-    else{
+        
+    } else{
         if (_showNickName) {
             bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;
-        } else {
-            bubbleFrame.origin.y += 5;
         }
 
         bubbleFrame.origin.x = HEAD_PADDING * 2 + HEAD_SIZE;

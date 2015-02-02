@@ -66,17 +66,11 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
-    CGSize retSize;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self class] textLabelFont]} context:nil].size;
-    }else{
-        
-        retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [[self class] textLabelFont]} context:nil].size;
-    }
+    CGSize retSize = [self.model.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[[self class] textLabelFont]} context:nil].size;
     
-    CGFloat height = 32.5;
-    if (2*BUBBLE_VIEW_PADDING + retSize.height > height) {
-        height = 16 + retSize.height;
+    CGFloat height = 50;
+    if (2*BUBBLE_VIEW_TOP_PADDING + retSize.height > height) {
+        height = 2*BUBBLE_VIEW_TOP_PADDING + retSize.height;
     }
     
     return CGSizeMake(retSize.width + BUBBLE_VIEW_WIDTH_PADDING*2 + BUBBLE_VIEW_PADDING, height);
@@ -263,7 +257,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
     CGSize size;
     size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
-    return 2*BUBBLE_LEFT_TOP_CAP_HEIGHT + size.height;
+    return 2*BUBBLE_VIEW_TOP_PADDING + size.height;
 }
 
 + (UIFont *)textLabelFont

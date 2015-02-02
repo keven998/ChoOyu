@@ -52,8 +52,10 @@ NSString *const kRouterEventChatCellBubbleTapEventName = @"kRouterEventChatCellB
     BOOL isReceiver = !_model.isSender;
     NSString *imageName = isReceiver ? BUBBLE_LEFT_IMAGE_NAME : BUBBLE_RIGHT_IMAGE_NAME;
     NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
+    NSInteger rightCapWidth = isReceiver?BUBBLE_RIGHT_LEFT_CAP_WIDTH:BUBBLE_LEFT_LEFT_CAP_WIDTH;
+
     NSInteger topCapHeight =  isReceiver?BUBBLE_LEFT_TOP_CAP_HEIGHT:BUBBLE_RIGHT_TOP_CAP_HEIGHT;
-    self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+    self.backImageView.image = [[UIImage imageNamed:imageName] resizableImageWithCapInsets:UIEdgeInsetsMake(topCapHeight, leftCapWidth, 10, rightCapWidth)];
 }
 
 #pragma mark - public

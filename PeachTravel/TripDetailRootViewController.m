@@ -697,7 +697,7 @@
     if ([newController isEqual:_currentViewController]) {
         return;
     }
-    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%d",sender.tag+1];
+    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
     [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self replaceController:_currentViewController newController:newController];
 }

@@ -886,6 +886,9 @@
         NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:location];
         id object = [self.dataSource objectAtIndex:indexPath.row];
         if ([object isKindOfClass:[MessageModel class]]) {
+            if ([[((MessageModel *)object).message.ext objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
+                return;
+            }
             EMChatViewCell *cell = (EMChatViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             [cell becomeFirstResponder];
             _longPressIndexPath = indexPath;

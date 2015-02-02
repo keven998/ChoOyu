@@ -9,8 +9,8 @@
 #import "TaoziChatBaseBubbleView.h"
 #import "MessageModel.h"
 
-#define TaoziBubbleHeight   91.0
-#define TaoziBubbleWidth    181.0
+#define TaoziBubbleHeight   80.0
+#define TaoziBubbleWidth    205
 
 //类型标题的高度
 #define TaoziBubbleTypeHeight    16.5
@@ -32,38 +32,40 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 {
     if (self = [super initWithFrame:frame]) {
         _typeLabel = [[UILabel alloc] init];
-        _typeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+        _typeLabel.font = [UIFont boldSystemFontOfSize:25.0];
         _typeLabel.textColor = [UIColor whiteColor];
         _typeLabel.backgroundColor = [UIColor clearColor];
         
         _titleBtn = [[UIButton alloc] init];
-        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12.0];
-        _titleBtn.titleLabel.textColor = [UIColor blackColor];
-        [_titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        [_titleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _titleBtn.backgroundColor = [UIColor clearColor];
         _titleBtn.userInteractionEnabled = NO;
+        _titleBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
         _pictureImageView = [[UIImageView alloc] init];
         _pictureImageView.layer.cornerRadius = 2.0;
+        _pictureImageView.backgroundColor = APP_PAGE_COLOR;
         _pictureImageView.clipsToBounds = YES;
         
         _propertyBtn = [[UIButton alloc] init];
-        [_propertyBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _propertyBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+        [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _propertyBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
         _propertyBtn.userInteractionEnabled = NO;
+        _propertyBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _propertyBtn.backgroundColor = [UIColor clearColor];
         
         _descLabel = [[UILabel alloc] init];
-        _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
-        _descLabel.textColor = [UIColor lightGrayColor];
+        _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
+        _descLabel.textColor = [UIColor whiteColor];
         _descLabel.backgroundColor = [UIColor clearColor];
-        _descLabel.numberOfLines = 2;
+        _descLabel.numberOfLines = 3;
         
-        [self addSubview:_typeLabel];
         [self addSubview:_titleBtn];
         [self addSubview:_propertyBtn];
         [self addSubview:_pictureImageView];
         [self addSubview:_descLabel];
+        [self addSubview:_typeLabel];
     }
     return self;
 }
@@ -71,40 +73,41 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [_typeLabel setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 0, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH-10, TaoziBubbleTypeHeight)];
+    [_typeLabel setFrame:CGRectMake(20, 40, 60, 30)];
     _titleBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-
+    _typeLabel.textAlignment = NSTextAlignmentRight;
+    _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _descLabel.textAlignment = NSTextAlignmentLeft;
+    
+    CGFloat titleWidth;
     if (_model.isSender) {
-        _typeLabel.textAlignment = NSTextAlignmentRight;
-        _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _descLabel.textAlignment = NSTextAlignmentRight;
-        [_pictureImageView setFrame:CGRectMake(TaoziBubbleWidth - 40 - 8 -BUBBLE_ARROW_WIDTH, 4+TaoziBubbleTypeHeight, 40, 40)];
-        if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote) {
-             [_titleBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 40)];
-        } else {
-            [_titleBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
-        }
-        [_propertyBtn setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+20, TaoziBubbleWidth - 56 - 8 - BUBBLE_ARROW_WIDTH, 20)];
-        [_descLabel setFrame:CGRectMake(8, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
-
+        _descLabel.textColor = [UIColor whiteColor];
+        [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_titleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        titleWidth = 100;
     } else {
-        _typeLabel.textAlignment = NSTextAlignmentLeft;
-        _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        _propertyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        _descLabel.textAlignment = NSTextAlignmentLeft;
-
-        [_pictureImageView setFrame:CGRectMake(BUBBLE_ARROW_WIDTH+8, 4+TaoziBubbleTypeHeight, 40, 40)];
-        if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote) {
-
-            [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 20)];
-        } else {
-            [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x+48, _pictureImageView.frame.origin.y, TaoziBubbleWidth - 8 - _pictureImageView.frame.origin.x - 40, 40)];
-        }
-        [_propertyBtn setFrame:CGRectMake(_titleBtn.frame.origin.x, _pictureImageView.frame.origin.y+20, _titleBtn.frame.size.width, 20)];
-        [_descLabel setFrame:CGRectMake(8+BUBBLE_ARROW_WIDTH, _pictureImageView.frame.origin.y+40, TaoziBubbleWidth-16-BUBBLE_ARROW_WIDTH, 27)];
-
+        titleWidth = 110;
+        _descLabel.textColor = TEXT_COLOR_TITLE;
+        [_propertyBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        [_titleBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     }
+    
+    [_pictureImageView setFrame:CGRectMake(20, 10, 60, 60)];
+    [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
+
+    CGFloat offsetY;
+    if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote) {
+        _propertyBtn.hidden = YES;
+        _propertyBtn.frame = CGRectZero;
+        offsetY = 25;
+    } else {
+        _propertyBtn.hidden = NO;
+        _propertyBtn.frame = CGRectMake(_titleBtn.frame.origin.x, 30, titleWidth, 15);
+        offsetY = 40;
+    }
+
+    [_descLabel setFrame:CGRectMake(_titleBtn.frame.origin.x,offsetY, titleWidth, TaoziBubbleHeight-offsetY-10)];
     
 }
 
@@ -118,7 +121,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     _model = model;
     
     BOOL isReceiver = !_model.isSender;
-    NSString *imageName = isReceiver ? @"message_taozi_receive" : @"message_taozi_send";
+    NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"chat_sender_bg";
     NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
     NSInteger topCapHeight =  17;
     self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
