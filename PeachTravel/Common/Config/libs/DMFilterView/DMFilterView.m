@@ -19,7 +19,7 @@ const CGFloat kAnimationSpeed = 0.20;
 @property (nonatomic, strong) UIImageView *backgroundView;
 @property (nonatomic, strong) UIView *selectedBackgroundView;
 @property (nonatomic, strong) UIImageView *selectedBackgroundImageView;
-@property (nonatomic, strong) UIView *selectedTopBackgroundView;
+@property (nonatomic, strong) UIImageView *selectedTopBackgroundView;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 - (void)updateButtonsStyle;
@@ -51,10 +51,8 @@ const CGFloat kAnimationSpeed = 0.20;
                                                                           self.frame.size.height)];
         _selectedBackgroundImageView = [[UIImageView alloc]initWithFrame:self.selectedBackgroundView.frame];
         [self.selectedBackgroundView addSubview:self.selectedBackgroundImageView];
-        _selectedTopBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(15,
-                                                                             self.selectedBackgroundView.frame.size.height - 3.0,
-                                                                             self.selectedBackgroundView.frame.size.width-30,
-                                                                             3)];
+        _selectedTopBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_DMFilter_selected.png"]];
+        [_selectedTopBackgroundView setCenter:CGPointMake( self.selectedBackgroundView.frame.size.width/2, self.selectedBackgroundView.frame.size.height-4)];
         [self.selectedBackgroundView addSubview:self.selectedTopBackgroundView];
         [self addSubview:self.selectedBackgroundView];
         for (NSString *string in strings) {
@@ -70,6 +68,8 @@ const CGFloat kAnimationSpeed = 0.20;
             
             button.selected = YES;
             [button setTitleColor:APP_THEME_COLOR forState:UIControlStateDisabled];
+            [button setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateSelected];
+
 
             [button addTarget:self
                        action:@selector(onButton:)
@@ -169,8 +169,7 @@ const CGFloat kAnimationSpeed = 0.20;
     }
     if ([self.delegate respondsToSelector:
          @selector(filterViewSelectionAnimationDidBegin:)]) {
-        [self.delegate
-         filterViewSelectionAnimationDidBegin:self];
+        [self.delegate filterViewSelectionAnimationDidBegin:self];
     }
     [UIView animateWithDuration:animationSpeed
                           delay:0.0
@@ -239,7 +238,6 @@ const CGFloat kAnimationSpeed = 0.20;
 
 - (void)setSelectedItemTopBackgroundColor:(UIColor *)selectedItemTopBackgroundColor
 {
-    [self.selectedTopBackgroundView setBackgroundColor:selectedItemTopBackgroundColor];
     _selectedItemTopBackgroundColor = selectedItemTopBackgroundColor;
 }
 
@@ -337,6 +335,7 @@ const CGFloat kAnimationSpeed = 0.20;
         [self.selectedBackgroundView setUserInteractionEnabled:NO];
     }
 }
+
 - (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
