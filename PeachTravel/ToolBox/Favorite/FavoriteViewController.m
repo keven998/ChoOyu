@@ -422,7 +422,9 @@
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 2.0;
+    [style setLineBreakMode:NSLineBreakByTruncatingTail];
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
+//    cell.contentDescLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     cell.contentDescLabel.attributedText = desc;
     
     return cell;

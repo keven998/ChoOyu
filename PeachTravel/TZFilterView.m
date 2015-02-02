@@ -36,11 +36,11 @@
         
         [self addSubview:_filterScrollView];
         
-        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, self.bounds.size.width, 0.5)];
+        UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(15, 40, self.bounds.size.width - 30, 0.5)];
         spaceView.backgroundColor = APP_DIVIDER_COLOR;
         [self addSubview:spaceView];
         
-        UIView *spaceViewButtom = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-50, self.bounds.size.width, 0.5)];
+        UIView *spaceViewButtom = [[UIView alloc] initWithFrame:CGRectMake(15, self.bounds.size.height-50, self.bounds.size.width - 30, 0.5)];
         spaceViewButtom.backgroundColor = APP_DIVIDER_COLOR;
         [self addSubview:spaceViewButtom];
         
@@ -70,11 +70,12 @@
 - (void)setSelectedItmesIndex:(NSArray *)selectedItmesIndex
 {
     _selectedItmesIndex = selectedItmesIndex;
+    UIButton *btn;
     for (int i=0; i<_itemsArray.count; i++) {
         NSInteger index = [[_selectedItmesIndex objectAtIndex:i] integerValue];
         NSArray *items = [_itemsArray objectAtIndex:i];
         for (int j=0; j<items.count ; j++) {
-            UIButton *btn = [items objectAtIndex:j];
+            btn = [items objectAtIndex:j];
             if (index == j) {
                 btn.selected = YES;
                 btn.layer.borderWidth = 0;
@@ -123,6 +124,7 @@
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.tag = i;
         
+        UIButton *btn;
         if (lineCount > 1) {
             CGFloat offsetX = 0;
             //处在第几行
@@ -136,7 +138,7 @@
                     offsetX = 0;
                     line++;
                 }
-                UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5+40*line, size.width+30, 30)];
+                btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5+40*line, size.width+30, 28)];
                 [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
@@ -144,7 +146,7 @@
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateHighlighted];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
-                btn.layer.borderColor = APP_PAGE_COLOR.CGColor;
+                btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
                 btn.clipsToBounds = YES;
                 [btn setTitle: itemTitle forState:UIControlStateNormal];
@@ -169,7 +171,7 @@
                 NSString *itemTitle = [items objectAtIndex:j];
                 
                 CGSize size = [itemTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
-                UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5, size.width+30, 30)];
+                btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 5, size.width+30, 28)];
                 [btn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
