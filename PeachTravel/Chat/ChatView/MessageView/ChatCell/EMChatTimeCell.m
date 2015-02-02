@@ -15,6 +15,9 @@
 @interface EMChatTimeCell ()
 
 @property (nonatomic, strong) UIButton *textBtn;
+@property (nonatomic,strong) UIView *leftSpaceView;
+@property (nonatomic,strong) UIView *rightSpaceView;
+
 
 @end
 
@@ -30,13 +33,18 @@
         _textBtn.userInteractionEnabled = NO;
         _textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _textBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        [_textBtn setImage:[UIImage imageNamed:@"chat_time.png"] forState:UIControlStateNormal];
-        [_textBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-        [_textBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        _textBtn.titleLabel.numberOfLines = 2;
         _textBtn.backgroundColor = [UIColor clearColor];
         _textBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
         [self addSubview:_textBtn];
+        
+        _leftSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 0.5)];
+        _leftSpaceView.backgroundColor = APP_DIVIDE_COLOR;
+        
+        _rightSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 0.5)];
+        _rightSpaceView.backgroundColor = APP_DIVIDE_COLOR;
+        
+        [self addSubview:_leftSpaceView];
+        [self addSubview:_rightSpaceView];
     }
    
     return self;
@@ -45,6 +53,9 @@
 - (void)setTime:(NSString *)time
 {
     _time = time;
+    CGSize contentSize = [_time sizeWithAttributes:@{NSFontAttributeName :  [UIFont fontWithName:@"MicrosoftYaHei" size:9.0]}];
+    _leftSpaceView.frame = CGRectMake(kWindowWidth/2-contentSize.width/2-35-10, 22, 35, 0.5);
+    _rightSpaceView.frame = CGRectMake(kWindowWidth/2+contentSize.width/2+10, 22, 35, 0.5);
     [_textBtn setTitle:_time forState:UIControlStateNormal];
 }
 

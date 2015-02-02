@@ -956,18 +956,20 @@
  */
 - (void)chatAudioCellBubblePressed:(MessageModel *)model
 {
-    id <IEMFileMessageBody> body = [model.message.messageBodies firstObject];
-    EMAttachmentDownloadStatus downloadStatus = [body attachmentDownloadStatus];
-    if (downloadStatus == EMAttachmentDownloading) {
-        [self showHint:@"正在下载语音，稍后点击"];
-        return;
-    }
-    else if (downloadStatus == EMAttachmentDownloadFailure)
-    {
-        [self showHint:@"正在下载语音，稍后点击"];
-        [[EaseMob sharedInstance].chatManager asyncFetchMessage:model.message progress:nil];
-        
-        return;
+    if (!model.isSender) {
+        id <IEMFileMessageBody> body = [model.message.messageBodies firstObject];
+        EMAttachmentDownloadStatus downloadStatus = [body attachmentDownloadStatus];
+        if (downloadStatus == EMAttachmentDownloading) {
+            [self showHint:@"正在下载语音，稍后点击"];
+            return;
+        }
+        else if (downloadStatus == EMAttachmentDownloadFailure)
+        {
+            [self showHint:@"正在下载语音，稍后点击"];
+            [[EaseMob sharedInstance].chatManager asyncFetchMessage:model.message progress:nil];
+            
+            return;
+        }
     }
     
     // 播放音频
