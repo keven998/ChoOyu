@@ -71,10 +71,11 @@
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.filterView attachToContainerView];
     [self.filterView setDelegate:self];
-    _filterView.backgroundColor = [UIColor whiteColor];
+    _filterView.backgroundImage = [[UIImage imageNamed:@"navi_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
+//    _filterView.backgroundColor = [UIColor clearColor];
     _filterView.titlesColor = TEXT_COLOR_TITLE_HINT;
     _filterView.titlesFont = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
-    _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
+    _filterView.selectedItemBackgroundColor = [UIColor clearColor];
 
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
     _swipeView.dataSource = self;
