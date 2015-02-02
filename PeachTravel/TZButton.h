@@ -10,4 +10,14 @@
 
 @interface TZButton : UIButton
 
+/**
+ *  图片距离上方的间距
+ */
+@property (nonatomic) CGFloat topSpaceHight;
+
+/**
+ *  图片和文字的间距
+ */
+@property (nonatomic) CGFloat spaceHight;
+
 @end

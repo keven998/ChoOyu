@@ -21,15 +21,29 @@
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*_segmentedImages.count, 44)];
+    _selectedIndext = -1;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*_segmentedNormalImages.count, 44)];
     self.navigationItem.titleView = view;
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i=0; i<_segmentedImages.count; i++) {
+    for (int i=0; i<_segmentedNormalImages.count; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(60*i, 0, 60, 44)];
         btn.tag = i;
-        [btn setImage:[UIImage imageNamed:[_segmentedImages objectAtIndex:i]] forState:UIControlStateNormal];
+        if (_segmentedNormalImages) {
+            [btn setImage:[UIImage imageNamed:[_segmentedNormalImages objectAtIndex:i]] forState:UIControlStateNormal];
+        }
+        if (_segmentedSelectedImages) {
+            [btn setImage:[UIImage imageNamed:[_segmentedSelectedImages objectAtIndex:i]] forState:UIControlStateSelected];
+
+        }
+        if (_segmentedTitles) {
+            [btn setTitle:_segmentedTitles[i] forState:UIControlStateNormal];
+            [btn setTitleColor:_normalColor forState:UIControlStateNormal];
+            [btn setTitleColor:_selectedColor forState:UIControlStateSelected];
+            btn.titleLabel.font = [UIFont systemFontOfSize:8];
+        }
         [view addSubview:btn];
         [btn addTarget:self action:@selector(changePageAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         [array addObject:btn];
     }
     _segmentedBtns = array;
@@ -41,15 +55,19 @@
     _currentViewController = firstCtl;
     [self addChildViewController:firstCtl];
     [self.view addSubview:firstCtl.view];
-    _indicateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 4)];
-    _indicateView.backgroundColor = [UIColor greenColor];
+    _indicateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45, 4)];
+    _indicateView.backgroundColor = _selectedColor;
     UIButton *btn = [_segmentedBtns firstObject];
-    _indicateView.center = CGPointMake(btn.center.x, 37);
+    _indicateView.center = CGPointMake(btn.center.x, 42);
+    self.selectedIndext = 0;
     [view addSubview:_indicateView];
 }
 
-- (void)setSelectedIndext:(NSUInteger)selectedIndext
+- (void)setSelectedIndext:(NSInteger)selectedIndext
 {
+    if (selectedIndext == _selectedIndext) {
+        return;
+    }
     _selectedIndext = selectedIndext;
     [self changePage:_selectedIndext];
     
@@ -62,11 +80,15 @@
 
 - (void)changePage:(NSUInteger)pageIndex
 {
+   
+    UIButton *fbtn = [_segmentedBtns objectAtIndex:_selectedIndext];
+    fbtn.selected = NO;
     _selectedIndext = pageIndex;
     
     UIButton *btn = [_segmentedBtns objectAtIndex:_selectedIndext];
+    btn.selected = YES;
     [UIView animateWithDuration:0.2 animations:^{
-        _indicateView.center = CGPointMake(btn.center.x, 37);
+        _indicateView.center = CGPointMake(btn.center.x, 42);
     }];
 
     UIViewController *newController = [_viewControllers objectAtIndex:pageIndex];

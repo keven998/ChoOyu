@@ -32,7 +32,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTintColor:APP_THEME_COLOR];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTintColor:[UIColor grayColor]];
+    self.navigationController.navigationBar.translucent = YES;
+
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 48, 30)];
+    //[button setTitle:@"返回" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
+    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
 
     self.navigationItem.title = @"桃•Talk";
     NSLog(@"%@", self.navigationController);
@@ -45,9 +60,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestStatus) name:frendRequestListNeedUpdateNoti object:nil];
     
-    _unReadChatMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 15, 15)];
+    _unReadChatMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 18, 18)];
     _unReadChatMsgLabel.backgroundColor = [UIColor redColor];
-    _unReadChatMsgLabel.layer.cornerRadius = 7.5;
+    _unReadChatMsgLabel.layer.cornerRadius = 9;
     _unReadChatMsgLabel.textAlignment = NSTextAlignmentCenter;
     _unReadChatMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
     _unReadChatMsgLabel.textColor = [UIColor whiteColor];
@@ -55,9 +70,9 @@
     UIButton *chatBtn = [self.segmentedBtns firstObject];
     [chatBtn addSubview:_unReadChatMsgLabel];
     
-    _unReadFrendRequestLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 15, 15)];
+    _unReadFrendRequestLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 18, 18)];
     _unReadFrendRequestLabel.backgroundColor = [UIColor redColor];
-    _unReadFrendRequestLabel.layer.cornerRadius = 7.5;
+    _unReadFrendRequestLabel.layer.cornerRadius = 9;
     _unReadFrendRequestLabel.clipsToBounds = YES;
     _unReadFrendRequestLabel.textAlignment = NSTextAlignmentCenter;
     _unReadFrendRequestLabel.font = [UIFont boldSystemFontOfSize:12.0];
@@ -112,6 +127,15 @@
     if (_numberOfUnReadChatMsg > 0) {
         _unReadChatMsgLabel.hidden = NO;
         _unReadChatMsgLabel.text = [NSString stringWithFormat:@"%d", _numberOfUnReadChatMsg];
+        if (_numberOfUnReadChatMsg > 9) {
+            _unReadChatMsgLabel.font = [UIFont boldSystemFontOfSize:10.0];
+        }
+        if (_numberOfUnReadChatMsg > 99) {
+            _unReadFrendRequestLabel.font = [UIFont systemFontOfSize:5.0];
+        }
+        else {
+            _unReadFrendRequestLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        }
     } else {
         _unReadChatMsgLabel.hidden = YES;
     }

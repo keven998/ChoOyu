@@ -8,7 +8,6 @@
 
 #import "SpotDetailView.h"
 #import "ResizableView.h"
-#import "TZButton.h"
 #import "EDStarRating.h"
 #import "MJPhotoBrowser/MJPhoto.h"
 #import "MJPhotoBrowser.h"

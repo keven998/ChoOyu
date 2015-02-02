@@ -9,7 +9,7 @@
 #import "DMFilterView.h"
 #import <QuartzCore/QuartzCore.h>
 
-const CGFloat kFilterViewHeight = 60.0;
+const CGFloat kFilterViewHeight = 49.0;
 const CGFloat kAnimationSpeed = 0.20;
 @interface DMFilterView ()
 {
@@ -57,6 +57,8 @@ const CGFloat kAnimationSpeed = 0.20;
         [self addSubview:self.selectedBackgroundView];
         for (NSString *string in strings) {
             TZButton *button = [[TZButton alloc] init];
+            button.topSpaceHight = 8;
+            button.spaceHight = 2;
             [button setTag:tag];
             [button setFrame:CGRectMake(x,
                                         0,
@@ -65,7 +67,7 @@ const CGFloat kAnimationSpeed = 0.20;
             [button setTitle:string forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:[noremalImages objectAtIndex:tag]] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:[highLightedImages objectAtIndex:tag]] forState:UIControlStateSelected];
-            
+           
             button.selected = YES;
             [button setTitleColor:APP_THEME_COLOR forState:UIControlStateDisabled];
             [button setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateSelected];

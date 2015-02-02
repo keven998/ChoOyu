@@ -127,8 +127,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         chatListCtl.notify = NO;
         NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
         _IMRootCtl.viewControllers = viewControllers;
-        _IMRootCtl.segmentedImages = @[@"ic_poidetail_map.png", @"ic_poidetail_map.png"];
-        
+        _IMRootCtl.segmentedNormalImages = @[@"ic_chatlist_normal.png", @"ic_contacts_normal.png"];
+        _IMRootCtl.segmentedSelectedImages = @[@"ic_chatlist_selected.png", @"ic_contacts_selected.png"];
+        _IMRootCtl.selectedColor = APP_SUB_THEME_COLOR;
+        _IMRootCtl.normalColor= [UIColor grayColor];
     }
     return _IMRootCtl;
 }
@@ -360,6 +362,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     IM_imageView.userInteractionEnabled = YES;
     
     TZButton *IMBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 53, 53)];
+    IMBtn.topSpaceHight = 10;
+    IMBtn.spaceHight = 2;
     IMBtn.backgroundColor = APP_PAGE_COLOR;
     IMBtn.layer.cornerRadius = 27;
     [IMBtn setTitle:@"Talk" forState:UIControlStateNormal];
@@ -431,6 +435,16 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (unReadCount > 0) {
         _unReadMsgLabel.hidden = NO;
         _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", unReadCount];
+        if (unReadCount > 9) {
+            _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:10.0];
+        }
+        if (unReadCount > 99) {
+            _unReadMsgLabel.font = [UIFont systemFontOfSize:5.0];
+        }
+        else {
+            _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        }
+
     } else {
         _unReadMsgLabel.hidden = YES;
     }
