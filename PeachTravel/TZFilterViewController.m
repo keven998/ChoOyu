@@ -51,7 +51,7 @@
 - (TZFilterView*)filterView
 {
     if (!_filterView) {
-        _filterView = [[TZFilterView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+50, self.view.bounds.size.width, 305)];
+        _filterView = [[TZFilterView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+50, self.view.bounds.size.width, 255)];
         _filterView.backgroundColor = [UIColor whiteColor];
         _filterView.filterTitles = _filterTitles;
         _filterView.lineCountPerFilterType = _lineCountPerFilterType;
