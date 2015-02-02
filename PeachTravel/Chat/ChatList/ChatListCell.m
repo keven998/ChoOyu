@@ -33,8 +33,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-        
+        self.backgroundColor = APP_PAGE_COLOR;
+        self.imageView.backgroundColor = APP_PAGE_COLOR;
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         _timeLabel.textColor = TEXT_COLOR_TITLE_HINT;
@@ -70,7 +70,7 @@
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
         
         spaceView = [[UIView alloc] init];
-        spaceView.backgroundColor = APP_PAGE_COLOR;
+        spaceView.backgroundColor = APP_DIVIDE_COLOR;
         [self.contentView addSubview:spaceView];
     }
     return self;
@@ -97,7 +97,7 @@
     CGFloat width = self.frame.size.width;
     
     self.imageView.frame = CGRectMake(10.0, 10, 60, 60);
-    self.imageView.layer.cornerRadius = 8;
+    self.imageView.layer.cornerRadius = 10;
     self.imageView.layer.masksToBounds = YES;
     
     self.textLabel.text = _name;
@@ -154,7 +154,7 @@
         [_unreadLabel setHidden:YES];
     }
     
-    spaceView.frame = CGRectMake(0, self.contentView.frame.size.height-1, self.contentView.frame.size.width, 1);
+    spaceView.frame = CGRectMake(0, self.contentView.frame.size.height-0.5, self.contentView.frame.size.width, 0.5);
     self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 

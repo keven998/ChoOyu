@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface OptionOfFASKTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIView *cellFrameBg;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *requestNoti;
 

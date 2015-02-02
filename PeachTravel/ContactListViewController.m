@@ -187,8 +187,8 @@
 {
     if (!_contactTableView) {
         CGFloat offsetY = 0;
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, self.view.frame.size.width - 22, self.view.frame.size.height - offsetY) style:UITableViewStylePlain];
-
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, self.view.frame.size.width, self.view.frame.size.height - offsetY) style:UITableViewStylePlain];
+        
         _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
         
         _contactTableView.dataSource = self;
@@ -222,7 +222,7 @@
         height = 100;
     }
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+    self.indexView.center = CGPointMake((kWindowWidth+10)/2, (kWindowHeight-64-40)/2);
     [_indexView refreshIndexItems];
     
     [self handleEmptyView];
@@ -257,10 +257,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 54.0;
+        return 32.0;
     }
     
-    return 49.0;
+    return 50.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -269,6 +269,14 @@
         return 0;
     }
     return 26.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 10;
+    }
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
