@@ -257,7 +257,7 @@ NSString *const kRouterEventTextURLTapEventName = @"kRouterEventTextURLTapEventN
     CGSize textBlockMinSize = {TEXTLABEL_MAX_WIDTH, CGFLOAT_MAX};
     CGSize size;
     size = [object.content boundingRectWithSize:textBlockMinSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
-    return 2*BUBBLE_VIEW_TOP_PADDING + size.height;
+    return 2*BUBBLE_VIEW_TOP_PADDING + size.height+10;
 }
 
 + (UIFont *)textLabelFont

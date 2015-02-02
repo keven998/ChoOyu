@@ -917,9 +917,6 @@
     } else if ([eventName isEqualToString:kRouterEventTaoziBubbleTapEventName]) {
         [self chatTaoziBubblePressed:model];
         
-    } else if ([eventName isEqualToString:kRouterEventTaoziCityBubbleTapEventName]) {
-        [self chatTaoziCityBubblePressed:model];
-
     } else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];
         MessageModel *messageModel = resendCell.messageModel;
@@ -1084,7 +1081,6 @@
             travelNoteCtl.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             travelNoteCtl.titleStr = @"游记详情";
             
-
             [self.navigationController pushViewController:travelNoteCtl animated:YES];
         }
             break;
@@ -1102,25 +1098,19 @@
             [self.navigationController pushViewController:tripDetailCtl animated:YES];
         }
             break;
+        
+        case TZChatTypeCity: {
+            _isScrollToBottom = NO;
+            CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
+            cityCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            cityCtl.cityId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            [self.navigationController pushViewController:cityCtl animated:YES];
+        }
+            break;
             
         default:
             break;
     }
-}
-
-/**
- *  桃子城市气泡被点击
- *
- *  @param playVideoWithVideoPath
- *  @param videoPath
- */
-- (void)chatTaoziCityBubblePressed:(MessageModel *)model
-{
-    _isScrollToBottom = NO;
-    CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
-    cityCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-    cityCtl.cityId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-    [self.navigationController pushViewController:cityCtl animated:YES];
 }
 
 - (void)playVideoWithVideoPath:(NSString *)videoPath

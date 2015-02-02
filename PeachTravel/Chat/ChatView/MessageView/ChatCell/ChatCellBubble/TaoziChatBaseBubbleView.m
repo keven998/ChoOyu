@@ -97,7 +97,8 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
 
     CGFloat offsetY;
-    if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote) {
+    if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote
+        || [[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeCity) {
         _propertyBtn.hidden = YES;
         _propertyBtn.frame = CGRectZero;
         offsetY = 25;
@@ -183,6 +184,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 _descLabel.text = [content objectForKey:@"desc"];
                 break;
 
+            case TZChatTypeCity:
+                _typeLabel.text = @"城市";
+                _titleBtn.titleLabel.numberOfLines = 2;
+                _propertyBtn.hidden = YES;
+                _descLabel.text = [content objectForKey:@"desc"];
+                break;
                 
             default:
                 break;

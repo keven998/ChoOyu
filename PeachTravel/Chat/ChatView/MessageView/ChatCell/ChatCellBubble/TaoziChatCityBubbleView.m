@@ -60,7 +60,7 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
     
 }
 
--(void)bubbleViewPressed:(id)sender
+- (void)bubbleViewPressed:(id)sender
 {
     [self routerEventWithName:kRouterEventTaoziCityBubbleTapEventName
                      userInfo:@{KMESSAGEKEY:self.model}];

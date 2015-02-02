@@ -175,16 +175,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
                     
-                case TZChatTypeCity: {
-                    return [[TaoziChatCityBubbleView alloc] init];
-
-                }
-                    break;
-                  
-                    /**
-                     *  一下几类显示效果是一样的
-                     */
-                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeTravelNote: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
+                /**
+                 *  一下几类显示效果是一样的
+                 */
+                case TZChatTypeCity: case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeTravelNote: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: {
                     return [[TaoziChatBaseBubbleView alloc] init];
                 }
                     break;
