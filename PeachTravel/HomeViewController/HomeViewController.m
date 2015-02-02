@@ -362,6 +362,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     IM_imageView.userInteractionEnabled = YES;
     
     TZButton *IMBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 53, 53)];
+    IMBtn.topSpaceHight = 10;
+    IMBtn.spaceHight = 2;
     IMBtn.backgroundColor = APP_PAGE_COLOR;
     IMBtn.layer.cornerRadius = 27;
     [IMBtn setTitle:@"Talk" forState:UIControlStateNormal];

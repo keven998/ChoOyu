@@ -17,7 +17,6 @@
 #import "LocalViewController.h"
 #import "CycleScrollView.h"
 #import "NSTimer+Addition.h"
-#import "TZButton.h"
 #import "SuperWebViewController.h"
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"

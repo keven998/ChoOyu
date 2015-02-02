@@ -160,6 +160,8 @@
     [_headerView addSubview:showSpotBkg];
     
     _showSpotsBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+    _showSpotsBtn.topSpaceHight = 10;
+    _showSpotsBtn.spaceHight = 5;
     [_showSpotsBtn setTitle:@"美景" forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showSpotsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
@@ -175,6 +177,8 @@
     [_headerView addSubview:showResBkg];
     
     _showRestaurantsBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+    _showRestaurantsBtn.topSpaceHight = 10;
+    _showRestaurantsBtn.spaceHight = 5;
     [_showRestaurantsBtn setTitle:@"美食" forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
@@ -188,6 +192,8 @@
     [_headerView addSubview:showShoppingBkg];
     
     _showShoppingBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+    _showShoppingBtn.topSpaceHight = 10;
+    _showShoppingBtn.spaceHight = 5;
     [_showShoppingBtn setTitle:@"购物" forState:UIControlStateNormal];
     [_showShoppingBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showShoppingBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];

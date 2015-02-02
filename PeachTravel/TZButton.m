@@ -15,13 +15,12 @@
 
     CGPoint center = self.imageView.center;
     center.x = self.frame.size.width/2;
-    center.y = self.imageView.frame.size.height/2+14;
+    center.y = self.imageView.frame.size.height/2+_topSpaceHight;
     self.imageView.center = center;
     
-    //Center text
     CGRect newFrame = [self titleLabel].frame;
     newFrame.origin.x = 0;
-    newFrame.origin.y = self.imageView.frame.size.height + self.imageView.frame.origin.y + 5.0;
+    newFrame.origin.y = self.imageView.frame.size.height + self.imageView.frame.origin.y + _spaceHight;
     newFrame.size.width = self.frame.size.width;
     
     self.titleLabel.frame = newFrame;
