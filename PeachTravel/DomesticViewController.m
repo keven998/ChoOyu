@@ -56,10 +56,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     if (height == 0) {
         height = 100;
     }
-    self.indexView = [[MJNIndexView alloc] init];
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
-    [self firstAttributesForMJNIndexView];
+    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
+    self.indexView.rightMargin = 0;
+    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    self.indexView.fontColor = APP_SUB_THEME_COLOR;
+    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
+//    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
+//    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
+//    [self firstAttributesForMJNIndexView];
     self.indexView.dataSource = self;
     
     [self initData];
