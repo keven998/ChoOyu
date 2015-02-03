@@ -9,7 +9,7 @@
 #import "SpotDetailView.h"
 #import "ResizableView.h"
 #import "EDStarRating.h"
-#import "MJPhotoBrowser/MJPhoto.h"
+#import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
 
 @interface SpotDetailView ()
