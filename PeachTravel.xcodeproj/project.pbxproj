@@ -3906,6 +3906,7 @@
 				D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */,
 			);
 			path = MyGuides;
+
 			sourceTree = "<group>";
 		};
 		D9A8FEA01A80C818005AD701 /* ConfirmGuideTitle */ = {
