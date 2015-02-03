@@ -161,7 +161,7 @@
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 TZConversation *tzConversation = [[TZConversation alloc] init];
                 tzConversation.chatterNickName = [self.accountManager TZContactByEasemobUser:conversation.chatter].nickName;
-                tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatar;
+                tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatarSmall;
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
             } else {

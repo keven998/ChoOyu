@@ -174,7 +174,7 @@
         if (self.accountManager.isLogin) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
-            [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+            [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
             cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"no签名";

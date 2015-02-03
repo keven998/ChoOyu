@@ -517,6 +517,7 @@
     for (Contact *contact in self.peopleInGroup) {
         [datas addObject:contact.avatar];
     }
+    
 }
 
 /**
@@ -535,7 +536,7 @@
             UIButton *item = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
             item.layer.cornerRadius = 20;
             item.tag = i;
-            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.peopleInGroup[i]).avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"chatListCellHead"]];
+            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.peopleInGroup[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"chatListCellHead"]];
             item.clipsToBounds = YES;
             [item addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -802,7 +803,7 @@
                 } else {
                     model.nickName = _chatterNickName;
                     if (model.isSender) {
-                        model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatar];
+                        model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
                     } else {
                         model.headImageURL = [NSURL URLWithString:_chatterAvatar];
                     }

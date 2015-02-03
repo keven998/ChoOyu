@@ -213,6 +213,7 @@
     _account.userId = [NSNumber numberWithInteger:[[json objectForKey:@"userId"] integerValue]];
     _account.nickName = [json objectForKey:@"nickName"];
     _account.avatar = [json objectForKey:@"avatar"];
+    _account.avatarSmall = [json objectForKey:@"avatarSmall"];
     _account.gender = [json objectForKey:@"gender"];
     if (!_account.gender) {
         _account.gender = @"U";
@@ -297,6 +298,7 @@
         newContact.memo = @"";
         newContact.easemobUser = ((FrendRequest *)contactDic).easemobUser;
         newContact.avatar = ((FrendRequest *)contactDic).avatar;
+        newContact.avatarSmall = ((FrendRequest *)contactDic).avatarSmall;
         newContact.pinyin = [ConvertMethods chineseToPinyin:newContact.nickName];
         
     } else {
@@ -311,6 +313,7 @@
         newContact.memo = [contactDic objectForKey:@"memo"];
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
+        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
         newContact.signature = [contactDic objectForKey:@"signature"];
         newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
     }
@@ -340,6 +343,7 @@
         newContact.memo = [contactDic objectForKey:@"memo"];
         newContact.easemobUser = [contactDic objectForKey:@"easemobUser"];
         newContact.avatar = [contactDic objectForKey:@"avatar"];
+        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
         newContact.pinyin = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.signature = [contactDic objectForKey:@"signature"];
         [contacts addObject:newContact];
@@ -356,6 +360,7 @@
     frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
     frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
     frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
+    frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
     frendRequest.status = TZFrendDefault;
     frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
     frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
@@ -440,6 +445,7 @@
         Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
         contact.userId = [contactDic objectForKey:@"userId"];
         contact.avatar = [contactDic objectForKey:@"avatar"];
+        contact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
         contact.nickName = [contactDic objectForKey:@"nickName"];
         contact.signature= [contactDic objectForKey:@"signature"];
         contact.easemobUser = [contactDic objectForKey:@"easemobUser"];

@@ -44,7 +44,7 @@
     
     if (isSender) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
-        model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", accountManager.account.avatar]];
+        model.headImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@", accountManager.account.avatarSmall]];
         model.status = message.deliveryState;
     } else{
         if (model.isChatGroup) {

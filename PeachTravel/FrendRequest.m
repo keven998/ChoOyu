@@ -2,8 +2,8 @@
 //  FrendRequest.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/11/1.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 2/3/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
 #import "FrendRequest.h"
@@ -12,14 +12,15 @@
 
 @implementation FrendRequest
 
-@dynamic userId;
-@dynamic nickName;
-@dynamic easemobUser;
-@dynamic requestDate;
-@dynamic gender;
-@dynamic avatar;
-@dynamic relationship;
-@dynamic status;
 @dynamic attachMsg;
+@dynamic avatar;
+@dynamic easemobUser;
+@dynamic gender;
+@dynamic nickName;
+@dynamic requestDate;
+@dynamic status;
+@dynamic userId;
+@dynamic avatarSmall;
+@dynamic relationship;
 
 @end
