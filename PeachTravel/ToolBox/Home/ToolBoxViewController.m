@@ -61,7 +61,7 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
-    makePlanBtn.image = [UIImage imageNamed:@"ic_menu_add.png"];
+    makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
 
     [self setupView];
