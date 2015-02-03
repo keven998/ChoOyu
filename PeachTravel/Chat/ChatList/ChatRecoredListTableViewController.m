@@ -127,7 +127,8 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
                 [_chattingPeople addObject:[self.accountManager TZContactByEasemobUser:conversation.chatter]];
             } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES append2Chat:YES];
+
                 neeUpdate = YES;
             }
         } else {

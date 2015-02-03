@@ -84,10 +84,9 @@
     
     __weak typeof(self) weakSelf = self;
 
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
-        
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
         NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
-
+        
         if (error) {
             NSLog(@"%@", error.description);
             completion(NO);
@@ -98,6 +97,7 @@
         _account = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
         completion(YES);
+
     } onQueue:nil];
 }
 
@@ -149,7 +149,7 @@
 - (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password withCompletion:(void(^)(BOOL))completion
 {
     if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
-        [[EaseMob sharedInstance].chatManager logoffWithError:nil];
+        [[EaseMob sharedInstance].chatManager logoffWithUnbindDeviceToken:YES error:nil];
     }
     [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:userName
                                                         password:password

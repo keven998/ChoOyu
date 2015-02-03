@@ -224,7 +224,8 @@
     
     EMMessage *message = [_conversation latestMessage];
     if (message == nil) {
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:YES];
+        [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:YES append2Chat:YES];
+        
     }
 }
 

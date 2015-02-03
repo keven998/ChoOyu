@@ -155,7 +155,8 @@
     }
     for (EMConversation *conversation in dataSource) {
         if (!conversation.chatter) {
-            [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+            [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES
+                                                                  append2Chat:YES];
         }
         if (!conversation.isGroup) {
             if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
@@ -165,7 +166,8 @@
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
             } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO];
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO
+                                                                      append2Chat:YES];
 
             }
             
@@ -535,7 +537,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         TZConversation *tzConveration = [self.chattingPeople objectAtIndex:indexPath.row];
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:tzConveration.conversation.chatter deleteMessages:YES];
+        [[EaseMob sharedInstance].chatManager removeConversationByChatter:tzConveration.conversation.chatter deleteMessages:YES
+                                                              append2Chat:YES];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         if (_chattingPeople.count == 0) {
@@ -588,7 +591,8 @@
                 }
             }
             if (!find) {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES
+                                                                      append2Chat:YES];
             }
         }
         

@@ -682,7 +682,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didRemovedByBuddy:(NSString *)username
 {
     NSLog(@"didRemovedByBuddy我要删除会话");
-    [[EaseMob sharedInstance].chatManager removeConversationByChatter:username deleteMessages:YES];
+    [[EaseMob sharedInstance].chatManager removeConversationByChatter:username deleteMessages:YES append2Chat:YES];
 }
 
 - (void)didAcceptedByBuddy:(NSString *)username
@@ -733,7 +733,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                 }
             }
             if (!find) {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES];
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES append2Chat:YES];
             }
         }
         
@@ -802,7 +802,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         
     }];
     __weak typeof (HomeViewController *)weakSelf = self;
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         [accountManager asyncLogout:^(BOOL isSuccess) {
             if (isSuccess) {
@@ -819,11 +819,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                   nil];
         alertView.tag = 100;
         [alertView show];
+
     } onQueue:nil];
 }
 
 - (void)didRemovedFromServer {
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:@"你的账号已被从服务器端移除"
                                                            delegate:self
