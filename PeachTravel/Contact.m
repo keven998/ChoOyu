@@ -2,8 +2,8 @@
 //  Contact.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/11/6.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 2/3/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
 #import "Contact.h"
@@ -19,8 +19,9 @@
 @dynamic memo;
 @dynamic nickName;
 @dynamic pinyin;
-@dynamic userId;
 @dynamic signature;
+@dynamic userId;
+@dynamic avatarSmall;
 @dynamic relationship;
 @dynamic relationship1;
 @dynamic relationship2;

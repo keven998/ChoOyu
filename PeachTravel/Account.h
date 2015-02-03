@@ -2,8 +2,8 @@
 //  Account.h
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/11/6.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 2/3/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * signature;
 @property (nonatomic, retain) NSString * tel;
 @property (nonatomic, retain) NSNumber * userId;
+@property (nonatomic, retain) NSString * avatarSmall;
 @property (nonatomic, retain) NSSet *blacklist;
 @property (nonatomic, retain) NSSet *contacts;
 @property (nonatomic, retain) NSSet *frendrequestlist;

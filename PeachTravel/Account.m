@@ -2,8 +2,8 @@
 //  Account.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/11/6.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 2/3/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
 #import "Account.h"
@@ -23,6 +23,7 @@
 @dynamic signature;
 @dynamic tel;
 @dynamic userId;
+@dynamic avatarSmall;
 @dynamic blacklist;
 @dynamic contacts;
 @dynamic frendrequestlist;

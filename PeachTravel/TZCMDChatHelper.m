@@ -23,6 +23,7 @@
     [contentDic setObject:accountManager.account.userId forKey:@"userId"];
     [contentDic setObject:accountManager.account.nickName forKey:@"nickName"];
     [contentDic setObject:accountManager.account.avatar forKey:@"avatar"];
+    [contentDic setObject:accountManager.account.avatarSmall forKey:@"avatarSmall"];
     [contentDic setObject:accountManager.account.gender forKey:@"gender"];
     [contentDic setObject:accountManager.account.easemobUser forKey:@"easemobUser"];
     [contentDic setObject:accountManager.account.signature forKey:@"signature"];

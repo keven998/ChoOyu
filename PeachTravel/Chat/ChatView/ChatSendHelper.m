@@ -122,7 +122,7 @@
         NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
         [userInfo setObject:accountManager.account.userId forKey:@"userId"];
         [userInfo setObject:accountManager.account.nickName forKey:@"nickName"];
-        [userInfo setObject:accountManager.account.avatar forKey:@"avatar"];
+        [userInfo setObject:accountManager.account.avatarSmall forKey:@"avatar"];
         [allExtMsg setObject:userInfo forKey:@"fromUser"];
     }
     if (extMsg) {
