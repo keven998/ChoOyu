@@ -334,7 +334,7 @@
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
+                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
                 if ([self.accountManager.account.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
                 }

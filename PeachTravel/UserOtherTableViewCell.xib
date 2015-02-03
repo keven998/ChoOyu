@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C106a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -107,13 +107,15 @@
                     <constraint firstItem="4gg-qc-76t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="T0v-sA-dFY"/>
                     <constraint firstItem="34x-YJ-AhG" firstAttribute="leading" secondItem="qRP-a6-LMu" secondAttribute="trailing" constant="15" id="YTX-sk-1ho"/>
                     <constraint firstItem="4gg-qc-76t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="baU-4j-BmJ">
-                        <variation key="widthClass=compact" constant="15"/>
+                        <variation key="widthClass=compact" constant="16"/>
                     </constraint>
                     <constraint firstItem="lxA-5L-4T9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="eZQ-KT-TSR">
-                        <variation key="widthClass=compact" constant="14"/>
+                        <variation key="widthClass=compact" constant="13"/>
                     </constraint>
                     <constraint firstAttribute="centerY" secondItem="34x-YJ-AhG" secondAttribute="centerY" id="noK-rI-08n"/>
-                    <constraint firstItem="qRP-a6-LMu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="pz2-yQ-BFP"/>
+                    <constraint firstItem="qRP-a6-LMu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="pz2-yQ-BFP">
+                        <variation key="widthClass=compact" constant="13"/>
+                    </constraint>
                 </constraints>
                 <variation key="default">
                     <mask key="subviews">
@@ -161,6 +163,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="cell_accessory_pink.png" width="6" height="10"/>
+        <image name="cell_accessory_pink.png" width="7" height="11"/>
     </resources>
 </document>
