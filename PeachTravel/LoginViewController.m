@@ -77,8 +77,9 @@
     _passwordTextField.leftView = pl;
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
-    [_loginBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
+    _loginBtn.layer.cornerRadius = 4.0;
+    _loginBtn.clipsToBounds = YES;
+    [_loginBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];

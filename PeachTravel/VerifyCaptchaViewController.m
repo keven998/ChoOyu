@@ -48,7 +48,7 @@
             self.navigationItem.rightBarButtonItem.title = @"提交 ";
         } else {
             self.navigationItem.title = @"更换手机";
-            _titleLabel.text = @"真羡慕有两个手机的美眉";
+            _titleLabel.text = @"输入未绑定过的手机号";
             self.navigationItem.rightBarButtonItem.title = @"提交 ";
 //            [_registerBtn setTitle:@"更换" forState:UIControlStateNormal];
         }

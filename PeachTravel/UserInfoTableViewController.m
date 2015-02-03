@@ -77,9 +77,10 @@
         
         UIButton *logoutBtn = [[UIButton alloc] initWithFrame:CGRectMake(12.0, 20.0, self.view.bounds.size.width - 24.0, 35.0)];
         logoutBtn.center = _footerView.center;
-        [logoutBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
+        logoutBtn.layer.cornerRadius = 4.0;
+        logoutBtn.clipsToBounds = YES;
+        [logoutBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [logoutBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         logoutBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
         [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -50,8 +50,9 @@
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
     _passwordLabel.text = _defaultPassword;
 
-    [_registerBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_normal.png"] forState:UIControlStateNormal];
-    [_registerBtn setBackgroundImage:[UIImage imageNamed:@"theme_btn_highlight.png"] forState:UIControlStateHighlighted];
+    _registerBtn.layer.cornerRadius = 4.0;
+    _registerBtn.clipsToBounds = YES;
+    [_registerBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
 }
 
 #pragma mark - UITextFieldDelegate
