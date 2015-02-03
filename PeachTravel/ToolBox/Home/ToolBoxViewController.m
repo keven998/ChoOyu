@@ -381,6 +381,7 @@
     [_weatherLabel setAttributedText:desc];
     
     CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:9*(kWindowHeight/480)]}].width;
+
     UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 20, 0, kWindowHeight/480*10, 10*kWindowHeight/480)];
     weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
     weatherImageview.backgroundColor = [UIColor grayColor];

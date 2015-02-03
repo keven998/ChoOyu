@@ -12,12 +12,10 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "AccountManager.h"
-#import "GexinSdk.h"
 #import "HomeViewController.h"
 
-@interface AppDelegate () <GexinSdkDelegate>
+@interface AppDelegate ()
 
-@property (strong, nonatomic) GexinSdk *gexinPusher;
 @property (assign, nonatomic) int lastPayloadIndex;
 @property (retain, nonatomic) NSString *payloadId;
 @property (nonatomic, strong) HomeViewController *homeViewController;
@@ -81,33 +79,16 @@
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
-    /******设置个推*****/
-    [self startGeTuiSdk];
-    
     return YES;
 }
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-    
-    //设置个推
-    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    NSString *geTuideviceToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"deviceToken:%@", geTuideviceToken);
-    // [3]:向个推服务器注册deviceToken
-    if (_gexinPusher) {
-        [_gexinPusher registerDeviceToken:geTuideviceToken];
-    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     [[EaseMob sharedInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
-    
-    // [3-EXT]:如果APNS注册失败，通知个推服务器
-    if (_gexinPusher) {
-        [_gexinPusher registerDeviceToken:@""];
-    }
 }
 
 
@@ -162,7 +143,6 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"applicationDidEnterBackground" object:nil];
     [[EaseMob sharedInstance] applicationDidEnterBackground:application];
-    [self stopGeTuiSdk];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -173,7 +153,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[EaseMob sharedInstance] applicationDidBecomeActive:application];
-    [self startGeTuiSdk];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -296,45 +275,17 @@
 
 - (void)onResp:(BaseResp *)resp
 {
-    SendAuthResp * result = (SendAuthResp *)resp;
-    
-    NSString * code = result.code;
-    
-    //微信授权失败,取消登录
-    if (!code) {
-        return;
-    }
-    NSDictionary *userInfo = @{@"code" : code};
-    [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
-}
-
-#pragma mark - 个推
-
-- (void)startGeTuiSdk
-{
-    if (!_gexinPusher) {
-        NSError *err = nil;
-        _gexinPusher = [GexinSdk createSdkWithAppId:kGeTuiAppId
-                                             appKey:kGeTuiAppKey
-                                          appSecret:kGeTuiAppSecret
-                                         appVersion:@"0.0.0"
-                                           delegate:self
-                                              error:&err];
-        if (!_gexinPusher) {
-
-        } else {
-
-        }
-        
-    }
-}
-
-- (void)stopGeTuiSdk
-{
-    if (_gexinPusher) {
-        [_gexinPusher destroy];
-        _gexinPusher = nil;
-    }
+//{
+//    SendAuthResp * result = (SendAuthResp *)resp;
+//    
+//    NSString * code = result.code;
+//    
+//    //微信授权失败,取消登录
+//    if (!code) {
+//        return;
+//    }
+//    NSDictionary *userInfo = @{@"code" : code};
+//    [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
 
 - (void)registerRemoteNotification {
@@ -357,31 +308,6 @@
     
 #endif
     
-}
-
-#pragma mark - GexinSdkDelegate
-- (void)GexinSdkDidRegisterClient:(NSString *)clientId
-{
-}
-
-/**
- *  启动程序收到个退的推送
- *
- *  @param payloadId
- *  @param appId
- */
-- (void)GexinSdkDidReceivePayload:(NSString *)payloadId fromApplication:(NSString *)appId
-{
-    // [4]: 收到个推消息
-    NSData *payload = [_gexinPusher retrivePayloadById:payloadId];
-    NSString *payloadMsg = nil;
-    if (payload) {
-        payloadMsg = [[NSString alloc] initWithBytes:payload.bytes
-                                              length:payload.length
-                                            encoding:NSUTF8StringEncoding];
-    }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"*****GexinSdkDidReceivePayload_推送%@", payloadMsg] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-    [alert show];
 }
 
 #pragma mark - Core Data stack

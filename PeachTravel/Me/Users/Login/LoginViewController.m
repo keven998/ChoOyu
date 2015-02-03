@@ -202,11 +202,11 @@
 -(void)sendAuthRequest
 {
     //构造SendAuthReq结构体
-    SendAuthReq* req =[[SendAuthReq alloc] init];
-    req.scope = @"snsapi_userinfo";
-    req.state = @"peachtravel";
-    //第三方向微信终端发送一个SendAuthReq消息结构
-    [WXApi sendReq:req];
+//    SendAuthReq* req =[[SendAuthReq alloc] init];
+//    req.scope = @"snsapi_userinfo";
+//    req.state = @"peachtravel";
+//    //第三方向微信终端发送一个SendAuthReq消息结构
+//    [WXApi sendReq:req];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

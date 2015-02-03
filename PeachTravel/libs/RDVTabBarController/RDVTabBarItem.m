@@ -69,13 +69,13 @@
     
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
         _unselectedTitleAttributes = @{
-                                       NSFontAttributeName: [UIFont fontWithName:@"MicrosoftYaHei" size:12],
+//                                       NSFontAttributeName: [UIFont fontWithName:@"MicrosoftYaHei" size:12],
                                        NSForegroundColorAttributeName: [UIColor blackColor],
                                        };
     } else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
         _unselectedTitleAttributes = @{
-                                       UITextAttributeFont: [UIFont fontWithName:@"MicrosoftYaHei" size:12],
+//                                       UITextAttributeFont: [UIFont fontWithName:@"MicrosoftYaHei" size:12],
                                        UITextAttributeTextColor: [UIColor blackColor],
                                        };
 #endif
