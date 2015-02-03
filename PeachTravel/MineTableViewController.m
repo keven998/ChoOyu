@@ -204,7 +204,7 @@
                     break;
                     
                 case 1:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_app_message.png"]];
+                    [cell.flagView setImage:[UIImage imageNamed:@"ic_my_favorite.png"]];
                     break;
                     
                 case 2:
