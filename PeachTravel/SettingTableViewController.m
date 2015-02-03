@@ -87,6 +87,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    [cell.extender setImage:[UIImage imageNamed:@"app_them_extender_right.png"]];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
