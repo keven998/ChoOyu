@@ -32,7 +32,7 @@
         label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
         [self addSubview:label];
         
-        _filterScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, self.bounds.size.width, self.bounds.size.height-40-50)];
+        _filterScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, self.bounds.size.width, self.bounds.size.height-40 - 10)];
         
         [self addSubview:_filterScrollView];
         
@@ -40,22 +40,30 @@
         spaceView.backgroundColor = APP_DIVIDER_COLOR;
         [self addSubview:spaceView];
         
-        UIView *spaceViewButtom = [[UIView alloc] initWithFrame:CGRectMake(15, self.bounds.size.height-50, self.bounds.size.width - 30, 0.5)];
-        spaceViewButtom.backgroundColor = APP_DIVIDER_COLOR;
-        [self addSubview:spaceViewButtom];
+//        UIView *spaceViewButtom = [[UIView alloc] initWithFrame:CGRectMake(15, self.bounds.size.height-50, self.bounds.size.width - 30, 0.5)];
+//        spaceViewButtom.backgroundColor = APP_DIVIDER_COLOR;
+//        [self addSubview:spaceViewButtom];
         
-        _comfirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-115)/2, self.bounds.size.height-42, 115, 32)];
-//        _comfirmBtn.backgroundColor = APP_THEME_COLOR;
+//        _comfirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-115)/2, self.bounds.size.height-42, 115, 32)];
+//        [_comfirmBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+//        _comfirmBtn.layer.cornerRadius = 2.0;
+//        _comfirmBtn.clipsToBounds = YES;
+//        [_comfirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+//        [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [self addSubview:_comfirmBtn];
+        
+        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 6, 45, 32)];
+        [_cancelBtn setImage:[UIImage imageNamed:@"ic_filter_cancel.png"] forState:UIControlStateNormal];
+        [self addSubview:_cancelBtn];
+        
+        _comfirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-60), 6, 45, 28)];
         [_comfirmBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         _comfirmBtn.layer.cornerRadius = 2.0;
         _comfirmBtn.clipsToBounds = YES;
         [_comfirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+        _comfirmBtn.titleLabel.font = [UIFont systemFontOfSize:13.];
         [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_comfirmBtn];
-        
-        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-40), 10, 30, 20)];
-        [_cancelBtn setImage:[UIImage imageNamed:@"ic_filter_cancel.png"] forState:UIControlStateNormal];
-        [self addSubview:_cancelBtn];
 
     }
     return self;
@@ -143,8 +151,8 @@
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateHighlighted];
-                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateSelected];
+                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateHighlighted];
+                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
@@ -176,8 +184,8 @@
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateHighlighted];
-                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateSelected];
+                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateHighlighted];
+                [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
                 btn.clipsToBounds = YES;
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
