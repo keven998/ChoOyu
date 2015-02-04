@@ -126,8 +126,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     
     restaurantOfCityCtl.shouldEdit = YES;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
-    [self presentViewController:nctl animated:YES completion:^{
-    }];
+    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)updateTableView
@@ -165,7 +164,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
@@ -227,12 +226,12 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 135.0;
+    return 134.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section

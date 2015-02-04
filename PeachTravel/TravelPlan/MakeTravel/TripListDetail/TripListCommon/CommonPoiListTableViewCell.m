@@ -22,7 +22,7 @@
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 3;
+    _ratingView.horizontalMargin = 7;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _bkgFrame.layer.cornerRadius = 2.0;
     _headerImageView.layer.cornerRadius = 2.0;
