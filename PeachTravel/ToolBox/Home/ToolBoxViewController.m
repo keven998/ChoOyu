@@ -62,6 +62,7 @@
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
+    makePlanBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
 
     [self setupView];
@@ -151,7 +152,7 @@
     [_planBtn addSubview:titleImage];
 
     
-    NSString *str = @"最贴心的旅程助手\n只为你\n更完美的旅行";
+    NSString *str = @"最贴心的旅程助手\n旅行可以\n更安心、简单";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
