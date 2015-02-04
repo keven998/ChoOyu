@@ -593,8 +593,8 @@
 		D9A806D51A80F598005AD701 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A806BE1A80F597005AD701 /* TencentOpenAPI.framework */; };
 		D9A806D61A80F598005AD701 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9A806BF1A80F597005AD701 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		D9A806D71A80F598005AD701 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A806C21A80F597005AD701 /* libSocialWechat.a */; };
-		D9A806D81A80F598005AD701 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A806C31A80F597005AD701 /* libWeChatSDK.a */; };
-		D9A806DA1A80F6F6005AD701 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9A806D91A80F6F6005AD701 /* Info.plist */; };
+		D9A806E11A810948005AD701 /* ic_login_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A806E01A810948005AD701 /* ic_login_weixin@2x.png */; };
+		D9A806E51A810D23005AD701 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A806E21A810D23005AD701 /* libWeChatSDK.a */; };
 		D9A8FDF71A808908005AD701 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A8FDF61A808908005AD701 /* libstdc++.6.0.9.dylib */; };
 		D9A8FEC51A80C818005AD701 /* ConfirmRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEA21A80C818005AD701 /* ConfirmRouteViewController.m */; };
 		D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEA31A80C818005AD701 /* ConfirmRouteViewController.xib */; };
@@ -738,6 +738,7 @@
 		D955E3E919E7A26D00047F2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D9722F0F1A8111F900D8A8CC /* MicrosoftYaHei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MicrosoftYaHei.ttf; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1560,12 +1561,12 @@
 		D9A806BF1A80F597005AD701 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		D9A806C01A80F597005AD701 /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
 		D9A806C21A80F597005AD701 /* libSocialWechat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialWechat.a; sourceTree = "<group>"; };
-		D9A806C31A80F597005AD701 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		D9A806C41A80F597005AD701 /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
-		D9A806C51A80F597005AD701 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		D9A806C61A80F597005AD701 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		D9A806D91A80F6F6005AD701 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
-		D9A806DE1A80FD61005AD701 /* MicroSoftYaHei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MicroSoftYaHei.ttf; sourceTree = "<group>"; };
+		D9A806E01A810948005AD701 /* ic_login_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_login_weixin@2x.png"; sourceTree = "<group>"; };
+		D9A806E21A810D23005AD701 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		D9A806E31A810D23005AD701 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		D9A806E41A810D23005AD701 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		D9A8FDF61A808908005AD701 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		D9A8FEA11A80C818005AD701 /* ConfirmRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmRouteViewController.h; sourceTree = "<group>"; };
 		D9A8FEA21A80C818005AD701 /* ConfirmRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmRouteViewController.m; sourceTree = "<group>"; };
@@ -1789,7 +1790,6 @@
 			files = (
 				D9A806601A80F2D0005AD701 /* Foundation.framework in Frameworks */,
 				D9A8065E1A80F285005AD701 /* Social.framework in Frameworks */,
-				D9A806D81A80F598005AD701 /* libWeChatSDK.a in Frameworks */,
 				D9A8FDF71A808908005AD701 /* libstdc++.6.0.9.dylib in Frameworks */,
 				D93C50C11A47EEFA00FFE2FA /* libresolv.dylib in Frameworks */,
 				D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */,
@@ -1802,6 +1802,7 @@
 				D955E3E819E7A26300047F2B /* libsqlite3.dylib in Frameworks */,
 				C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */,
 				D9A806C91A80F597005AD701 /* libUMSocial_Sdk_Comment_4.2.1.a in Frameworks */,
+				D9A806E51A810D23005AD701 /* libWeChatSDK.a in Frameworks */,
 				C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */,
 				C6A0C6AB1A39C03C009D9768 /* QuartzCore.framework in Frameworks */,
 				C6A0C6A91A39C032009D9768 /* MessageUI.framework in Frameworks */,
@@ -1917,7 +1918,7 @@
 		D955E3F819E7A86800047F2B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D9A806DE1A80FD61005AD701 /* MicroSoftYaHei.ttf */,
+				D9722F0F1A8111F900D8A8CC /* MicrosoftYaHei.ttf */,
 				D97C8B4C1A526B9F00476C9C /* Images.xcassets */,
 			);
 			name = Resources;
@@ -3137,6 +3138,7 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D9A806E01A810948005AD701 /* ic_login_weixin@2x.png */,
 				D9A803671A80E737005AD701 /* app_background@2x.png */,
 				D9A803681A80E737005AD701 /* arrow_1.png */,
 				D9A803691A80E737005AD701 /* avatar_line@2x.png */,
@@ -3874,10 +3876,10 @@
 			isa = PBXGroup;
 			children = (
 				D9A806C21A80F597005AD701 /* libSocialWechat.a */,
-				D9A806C31A80F597005AD701 /* libWeChatSDK.a */,
+				D9A806E21A810D23005AD701 /* libWeChatSDK.a */,
+				D9A806E31A810D23005AD701 /* WXApi.h */,
+				D9A806E41A810D23005AD701 /* WXApiObject.h */,
 				D9A806C41A80F597005AD701 /* UMSocialWechatHandler.h */,
-				D9A806C51A80F597005AD701 /* WXApi.h */,
-				D9A806C61A80F597005AD701 /* WXApiObject.h */,
 			);
 			path = Wechat;
 			sourceTree = "<group>";
@@ -3906,7 +3908,6 @@
 				D9A8FEAA1A80C818005AD701 /* MyGuideSummary.m */,
 			);
 			path = MyGuides;
-
 			sourceTree = "<group>";
 		};
 		D9A8FEA01A80C818005AD701 /* ConfirmGuideTitle */ = {
@@ -4658,6 +4659,7 @@
 				D9A802C11A80E3D3005AD701 /* ic_guide2_1_normal@2x.png in Resources */,
 				D9A802ED1A80E3D3005AD701 /* ic_pb_earth@2x.png in Resources */,
 				D9A8058D1A80E738005AD701 /* sns_icon_sina@2x.png in Resources */,
+				D9A806E11A810948005AD701 /* ic_login_weixin@2x.png in Resources */,
 				D9A8013C1A80DD23005AD701 /* chatBar_more_myfavorite@2x.png in Resources */,
 				D9A8FEE01A80C97C005AD701 /* SettingTableViewController.xib in Resources */,
 				D9A805581A80E738005AD701 /* ic_spot_tips@2x.png in Resources */,
@@ -4720,7 +4722,6 @@
 				D9A8FF0E1A80CC2B005AD701 /* BindTelephoneViewController.xib in Resources */,
 				D9A8FFAD1A80D1C3005AD701 /* CommentTableViewCell.xib in Resources */,
 				D9A801531A80DD23005AD701 /* CreateConversationTableViewCell.xib in Resources */,
-				D9A806DA1A80F6F6005AD701 /* Info.plist in Resources */,
 				D9A8050A1A80E738005AD701 /* ic_sns_sina@2x.png in Resources */,
 				D9A8FED41A80C818005AD701 /* OptionTableViewCell.xib in Resources */,
 				D9A804E31A80E738005AD701 /* ic_gray_complete@2x.png in Resources */,

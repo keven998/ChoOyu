@@ -12,6 +12,8 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "AccountManager.h"
+#import "WXApiObject.h"
+#import "WXApi.h"
 #import "HomeViewController.h"
 
 @interface AppDelegate ()
@@ -29,6 +31,7 @@
     
 //    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 //    [[UINavigationBar appearance] setBarTintColor:APP_THEME_COLOR];
+    
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                             NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
     
@@ -275,17 +278,15 @@
 
 - (void)onResp:(BaseResp *)resp
 {
-//{
-//    SendAuthResp * result = (SendAuthResp *)resp;
-//    
-//    NSString * code = result.code;
-//    
-//    //微信授权失败,取消登录
-//    if (!code) {
-//        return;
-//    }
-//    NSDictionary *userInfo = @{@"code" : code};
-//    [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
+    SendAuthResp * result = (SendAuthResp *)resp;
+    NSString * code = result.code;
+    
+    //微信授权失败,取消登录
+    if (!code) {
+        return;
+    }
+    NSDictionary *userInfo = @{@"code" : code};
+    [[NSNotificationCenter defaultCenter] postNotificationName:weixinDidLoginNoti object:nil userInfo:userInfo];
 }
 
 - (void)registerRemoteNotification {
