@@ -79,15 +79,12 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    //退出环信聊天系统
-    NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
-    
     __weak typeof(self) weakSelf = self;
 
     [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
         NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
         
-        if (error) {
+        if (error && (error.errorCode != EMErrorServerNotLogin)) {
             NSLog(@"%@", error.description);
             completion(NO);
             return;

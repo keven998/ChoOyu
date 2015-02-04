@@ -39,6 +39,9 @@
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
 		D9722F121A81C91D00D8A8CC /* ic_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F101A81C91D00D8A8CC /* ic_star_gray@2x.png */; };
 		D9722F131A81C91D00D8A8CC /* ic_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F111A81C91D00D8A8CC /* ic_star_yellow@2x.png */; };
+		D9722F151A82039400D8A8CC /* ic_go_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F141A82039400D8A8CC /* ic_go_comment@2x.png */; };
+		D9722F171A82176300D8A8CC /* ic_spot_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F161A82176300D8A8CC /* ic_spot_phone@2x.png */; };
+		D9722F191A82184900D8A8CC /* ic_poi_bkg_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F181A82184900D8A8CC /* ic_poi_bkg_border@2x.png */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
@@ -850,6 +853,9 @@
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D9722F101A81C91D00D8A8CC /* ic_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_gray@2x.png"; sourceTree = "<group>"; };
 		D9722F111A81C91D00D8A8CC /* ic_star_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_yellow@2x.png"; sourceTree = "<group>"; };
+		D9722F141A82039400D8A8CC /* ic_go_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_go_comment@2x.png"; sourceTree = "<group>"; };
+		D9722F161A82176300D8A8CC /* ic_spot_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_spot_phone@2x.png"; sourceTree = "<group>"; };
+		D9722F181A82184900D8A8CC /* ic_poi_bkg_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_poi_bkg_border@2x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3685,6 +3691,8 @@
 				D9A8041C1A80E738005AD701 /* ic_city_border@2x.png */,
 				D9A8041D1A80E738005AD701 /* ic_city_btn_border@2x.png */,
 				D9A8041E1A80E738005AD701 /* ic_city_card_bkg@2x.png */,
+				D9722F181A82184900D8A8CC /* ic_poi_bkg_border@2x.png */,
+				D9722F161A82176300D8A8CC /* ic_spot_phone@2x.png */,
 				D9A8041F1A80E738005AD701 /* ic_city_favorite@2x.png */,
 				D9A804201A80E738005AD701 /* ic_city_intro@2x.png */,
 				D9A804211A80E738005AD701 /* ic_city_intro_highlight@2x.png */,
@@ -3698,6 +3706,7 @@
 				D9A804291A80E738005AD701 /* ic_city_unFavorite@2x.png */,
 				D9A8042A1A80E738005AD701 /* ic_clock@2x.png */,
 				D9A8042B1A80E738005AD701 /* ic_close@2x.png */,
+				D9722F141A82039400D8A8CC /* ic_go_comment@2x.png */,
 				D9A8042C1A80E738005AD701 /* ic_comment@2x.png */,
 				D9A8042D1A80E738005AD701 /* ic_comment_flag@2x.png */,
 				D9A8042E1A80E738005AD701 /* ic_decoration@2x.png */,
@@ -4587,6 +4596,7 @@
 				D9A8053A1A80E738005AD701 /* ic_city_unFavorite@2x.png in Resources */,
 				D9A804AA1A80E738005AD701 /* chat_receiver_audio_playing001@2x.png in Resources */,
 				D9A801381A80DD23005AD701 /* chatBar_more_album@2x.png in Resources */,
+				D9722F171A82176300D8A8CC /* ic_spot_phone@2x.png in Resources */,
 				D9A804E71A80E738005AD701 /* ic_im_bkg@2x.png in Resources */,
 				D9A804C31A80E738005AD701 /* deco-dots@2x.png in Resources */,
 				D9A805701A80E738005AD701 /* viewSpotImage@2x.png in Resources */,
@@ -4670,6 +4680,7 @@
 				D9A806CB1A80F597005AD701 /* UMSCommentInputController.xib in Resources */,
 				D9A801211A80DD23005AD701 /* call_silence_h.png in Resources */,
 				D9A800701A80DD0C005AD701 /* FrendRequestTableViewController.xib in Resources */,
+				D9722F191A82184900D8A8CC /* ic_poi_bkg_border@2x.png in Resources */,
 				D9A806CF1A80F597005AD701 /* UMSLoginViewController.xib in Resources */,
 				D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */,
 				D9A8002C1A80D52F005AD701 /* SearchDestinationTableViewCell.xib in Resources */,
@@ -4799,6 +4810,7 @@
 				D9A805111A80E738005AD701 /* ic_time@2x.png in Resources */,
 				D9A802EE1A80E3D3005AD701 /* ic_progress@2x.png in Resources */,
 				D9A8054F1A80E738005AD701 /* ic_poidetail_map@2x.png in Resources */,
+				D9722F151A82039400D8A8CC /* ic_go_comment@2x.png in Resources */,
 				D9A804B51A80E738005AD701 /* chat_sender_audio_playing_003@2x.png in Resources */,
 				D9A805481A80E738005AD701 /* ic_guide_edit@2x.png in Resources */,
 				D9A802BB1A80E3D3005AD701 /* ic_guide_dot1@2x.png in Resources */,
