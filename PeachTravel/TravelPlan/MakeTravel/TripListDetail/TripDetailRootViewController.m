@@ -427,6 +427,10 @@
  */
 - (IBAction)showMoreAction:(id)sender
 {
+    if (!_tripDetail) {
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        return;
+    }
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"目的地", nil];
     [sheet showInView:self.view];
 }
@@ -469,8 +473,10 @@
  */
 - (void)editTrip:(UIButton *)sender
 {
-//    sender.enabled = NO;
-//    [self setNavigationBackBarItem:NO];
+    if (!_tripDetail) {
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        return;
+    }
     BOOL status = sender.selected;
     sender.selected = !status;
     if (!status) {
@@ -481,7 +487,6 @@
         [self finishEidtTrip:nil];
     }
 }
-
 
 /**
  *  复制路线
