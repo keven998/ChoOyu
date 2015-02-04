@@ -46,7 +46,7 @@
     _dateLabel.text = _commentDetail.commentTime;
     
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;

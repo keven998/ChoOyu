@@ -99,24 +99,8 @@ enum {
     _titleLabel.font = [UIFont boldSystemFontOfSize:30.];
     [_imageView addSubview:_titleLabel];
     
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, _titleLabel.frame.size.width, 15)];
-    _priceLabel.textColor = TEXT_COLOR_TITLE;
-    _priceLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    _priceLabel.text = _poi.priceDesc;
-    offsetY += 25;
-    
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-60)/2, 60, 60, 15)];
-    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
-    _ratingView.maxRating = 5.0;
-    _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 3;
-    _ratingView.displayMode = EDStarRatingDisplayAccurate;
-    _ratingView.rating = _poi.rating;
-    [_imageView addSubview:_ratingView];
-    
     UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 110);
+    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 80);
     [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
     [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
     [_imageView addSubview:viewImageBtn];
@@ -129,14 +113,29 @@ enum {
     [_shareBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
     [_imageView addSubview:_shareBtn];
     
+    offsetY += _imageView.bounds.size.height + 20;
+    
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 90, 30)];
+    _priceLabel.textColor = APP_THEME_COLOR;
+    _priceLabel.font = [UIFont boldSystemFontOfSize:25.0];
+    _priceLabel.text = _poi.priceDesc;
+    offsetY += 25;
+
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-90)/2, 60, 90, 15)];
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
+    _ratingView.maxRating = 5.0;
+    _ratingView.editable = NO;
+    _ratingView.horizontalMargin = 3;
+    _ratingView.displayMode = EDStarRatingDisplayAccurate;
+    _ratingView.rating = _poi.rating;
+    [_imageView addSubview:_ratingView];
+    
     UILabel *addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 100, 15)];
     addressTitle.textColor = APP_THEME_COLOR;
     addressTitle.text = @"地址";
     addressTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [_scrollView addSubview:addressTitle];
-    
-    offsetY += _imageView.bounds.size.height + 15;
-    
     UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 36)];
     addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
