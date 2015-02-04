@@ -58,6 +58,7 @@ enum {
         
         _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
         [_closeBtn setImage:[UIImage imageNamed:@"ic_close.png"] forState:UIControlStateNormal];
+        [_closeBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
         [self addSubview:_closeBtn];
         
         _imageView = [[UIImageView alloc] init];
@@ -77,22 +78,26 @@ enum {
 {
     CGFloat offsetY = 20;
     
-    _imageView.frame = CGRectMake(10, 15, 100, 100);
+    _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, _scrollView.bounds.size.width/2);
     _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _imageView.layer.cornerRadius = 2.0;
     _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _imageView.userInteractionEnabled = YES;
     [_scrollView addSubview:_imageView];
     TaoziImage *image = [_poi.images firstObject];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.frame.origin.x+_imageView.frame.size.width+10, offsetY, self.bounds.size.width-(_imageView.frame.origin.x+_imageView.frame.size.width+20)-20, 20)];
-    _titleLabel.textColor = APP_THEME_COLOR;
-    _titleLabel.text = _poi.zhName;
-    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
-    [_scrollView addSubview:_titleLabel];
+    UIView *imageMaskView = [[UIView alloc] initWithFrame:_imageView.bounds];
+    imageMaskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
+    [_imageView addSubview:imageMaskView];
     
-    offsetY += 25;
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, _imageView.bounds.size.width-20, 30)];
+    _titleLabel.textColor = [UIColor whiteColor];
+    _titleLabel.text = _poi.zhName;
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.font = [UIFont boldSystemFontOfSize:30.];
+    [_imageView addSubview:_titleLabel];
     
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, _titleLabel.frame.size.width, 15)];
     _priceLabel.textColor = TEXT_COLOR_TITLE;
@@ -100,7 +105,7 @@ enum {
     _priceLabel.text = _poi.priceDesc;
     offsetY += 25;
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 60, 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-60)/2, 60, 60, 15)];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"rating_star.png"];
     _ratingView.maxRating = 5.0;
@@ -108,25 +113,21 @@ enum {
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.rating = _poi.rating;
-    [_scrollView addSubview:_ratingView];
+    [_imageView addSubview:_ratingView];
     
-    offsetY += 20;
+    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 110);
+    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
+    [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
+    [_imageView addSubview:viewImageBtn];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, offsetY, 45, 25)];
-    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_favorite.png"] forState:UIControlStateNormal];
-    [_scrollView addSubview:_favoriteBtn];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-80, _imageView.bounds.size.height-40, 30, 30)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
+    [_imageView addSubview:_favoriteBtn];
     
-    _telephoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(_favoriteBtn.frame.size.width+_favoriteBtn.frame.origin.x, offsetY, 45, 25)];
-    [_telephoneBtn addTarget:self action:@selector(makePhone:) forControlEvents:UIControlEventTouchUpInside];
-    [_telephoneBtn setImage:[UIImage imageNamed:@"ic_telephone.png"] forState:UIControlStateNormal];
-    [_scrollView addSubview:_telephoneBtn];
-    
-    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_telephoneBtn.frame.size.width+_telephoneBtn.frame.origin.x, offsetY, 45, 25)];      
-    [_shareBtn setImage:[UIImage imageNamed:@"ic_share.png"] forState:UIControlStateNormal];
-    [_scrollView addSubview:_shareBtn];
-    
-    offsetY += 40;
+    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-40, _imageView.bounds.size.height-40, 30, 30)];
+    [_shareBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
+    [_imageView addSubview:_shareBtn];
     
     UILabel *addressTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 100, 15)];
     addressTitle.textColor = APP_THEME_COLOR;
@@ -134,7 +135,7 @@ enum {
     addressTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [_scrollView addSubview:addressTitle];
     
-    offsetY += 15;
+    offsetY += _imageView.bounds.size.height + 15;
     
     UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, offsetY, self.bounds.size.width-60, 36)];
     addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
