@@ -17,7 +17,7 @@
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
-@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
@@ -479,6 +479,23 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [_searchBar becomeFirstResponder];
 }
 
+- (IBAction)jumpToMapView:(UIButton *)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
+    sheet.tag = sender.tag;
+}
+
 - (void)showIntruductionOfCity
 {
     NSString *requsetUrl;
@@ -709,6 +726,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         cell.isAdded = isAdded;
             [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
+        cell.naviBtn.tag = indexPath.row;
         [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
         [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -811,6 +829,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         return;
     }
     PoiSummary *poi;
+    if (_searchController.active) {
+        poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
+    } else {
+        poi = [_dataSource.recommendList objectAtIndex:actionSheet.tag];
+    }
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
