@@ -44,7 +44,6 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
-        _scrollView.scrollEnabled = NO;
         [self addSubview:_scrollView];
         
         _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
@@ -91,7 +90,7 @@
     
     [_imageView addSubview:_titleLabel];
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-60)/2, 60, 60, 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-90)/2, 60, 90, 15)];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
     _ratingView.maxRating = 5.0;
@@ -120,6 +119,8 @@
     UIImageView *ticketBkgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY, _scrollView.bounds.size.width-30, 120)];
     ticketBkgImageView.image = [UIImage imageNamed:@"ticketBkg.png"];
     [_scrollView addSubview:ticketBkgImageView];
+    
+    offsetY += ticketBkgImageView.bounds.size.height + 10;
     
     UIButton *openTimeBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, 5, ticketBkgImageView.bounds.size.width-70, 35)];
     openTimeBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
@@ -154,16 +155,15 @@
     [bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
     [ticketBkgImageView addSubview:bookBtn];
     bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
-    
-    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, _scrollView.bounds.size.height-70, _scrollView.bounds.size.width, 57.5)];
-    btnBackView.backgroundColor = APP_PAGE_COLOR;
-    [_scrollView addSubview:btnBackView];
+
     
     UIImageView *addressImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_spot_address.png"]];
-    addressImageView.center = CGPointMake(_scrollView.bounds.size.width/2, _scrollView.bounds.size.height-120);
+    addressImageView.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY);
     [_scrollView addSubview:addressImageView];
     
-    UIButton *addressDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, _scrollView.bounds.size.height-105, _scrollView.bounds.size.width-20, 40)];
+    offsetY += 20;
+    UIButton *addressDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(10,
+                                                                            offsetY , _scrollView.bounds.size.width-20, 40)];
     addressDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [addressDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     addressDetailBtn.titleLabel.numberOfLines = 2.0;
@@ -171,6 +171,11 @@
     addressDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     addressDetailBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [_scrollView addSubview:addressDetailBtn];
+    offsetY += 50;
+    
+    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 57.5)];
+    btnBackView.backgroundColor = APP_PAGE_COLOR;
+    [_scrollView addSubview:btnBackView];
     
     CGFloat spaceWidth = (_scrollView.bounds.size.width-45*4-70)/3;
     
@@ -194,6 +199,7 @@
     [_kendieBtn setTitle:@"交通" forState:UIControlStateNormal];
     [btnBackView addSubview:_kendieBtn];
     
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+60)];
     
 }
 
