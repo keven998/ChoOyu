@@ -37,8 +37,6 @@
  */
 @property (nonatomic) BOOL isShowing;
 
-- (void)showDHView:(BOOL) show;
-
 @end
 
 @protocol TripUpdateDelegate <NSObject>

@@ -27,14 +27,10 @@
     _bkgFrame.layer.cornerRadius = 2.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
-    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _headerImageView.layer.borderWidth = 0.5;
+//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _deleteBtn.hidden = YES;
-    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
-    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
-    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
 
 
     self.backgroundColor = [UIColor whiteColor];
@@ -44,7 +40,7 @@
 - (void)setTripPoi:(PoiSummary *)tripPoi
 {
     _tripPoi = tripPoi;
-    _titleLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.zhName];
+    _titleLabel.text = _tripPoi.zhName;
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _ratingView.rating = tripPoi.rating;

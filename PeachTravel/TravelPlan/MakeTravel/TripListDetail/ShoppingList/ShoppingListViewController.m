@@ -38,8 +38,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"Rest willAppear");
-    [_rootViewController showDHView:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -326,16 +324,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     _tableView = nil;
     _rootViewController = nil;
     
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y > 20.0) {
-        [_rootViewController showDHView:NO];
-    } else {
-        [_rootViewController showDHView:YES];
-    }
 }
 
 #pragma mark - UIActionSheetDelegate

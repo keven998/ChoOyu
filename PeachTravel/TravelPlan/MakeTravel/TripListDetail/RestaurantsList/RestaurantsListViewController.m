@@ -38,8 +38,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"Rest willAppear");
-    [_rootViewController showDHView:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -66,6 +64,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 50, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         if (_canEdit) {
@@ -327,16 +326,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     _tableView = nil;
     _rootViewController = nil;
     
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y > 20.0) {
-        [_rootViewController showDHView:NO];
-    } else {
-        [_rootViewController showDHView:YES];
-    }
 }
 
 #pragma mark - UIActionSheetDelegate
