@@ -1667,7 +1667,6 @@
 		D9A8FF251A80CCA5005AD701 /* AccountManagerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountManagerTableViewCell.xib; sourceTree = "<group>"; };
 		D9A8FF261A80CCA5005AD701 /* AccountManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManagerViewController.h; sourceTree = "<group>"; };
 		D9A8FF271A80CCA5005AD701 /* AccountManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManagerViewController.m; sourceTree = "<group>"; };
-		D9A8FF281A80CCA5005AD701 /* AddContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactTableViewController.h; sourceTree = "<group>"; };
 		D9A8FF2D1A80CCB5005AD701 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		D9A8FF2E1A80CCB5005AD701 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D9A8FF311A80CF19005AD701 /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
@@ -4112,7 +4111,6 @@
 				D9A8FF251A80CCA5005AD701 /* AccountManagerTableViewCell.xib */,
 				D9A8FF261A80CCA5005AD701 /* AccountManagerViewController.h */,
 				D9A8FF271A80CCA5005AD701 /* AccountManagerViewController.m */,
-				D9A8FF281A80CCA5005AD701 /* AddContactTableViewController.h */,
 			);
 			name = ShareSetting;
 			path = Me/ShareSetting;

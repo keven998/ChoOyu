@@ -8,14 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="OptionOfFASKTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="桃友请求" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
-                        <rect key="frame" x="75" y="5" width="100" height="21"/>
+                        <rect key="frame" x="75" y="11" width="100" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="afN-we-5cF"/>
                         </constraints>
@@ -24,7 +24,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjM-4r-fyk">
-                        <rect key="frame" x="279" y="8" width="30" height="15"/>
+                        <rect key="frame" x="279" y="14" width="30" height="15"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="HZB-wu-WaT"/>
@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_frendRequest.png" translatesAutoresizingMaskIntoConstraints="NO" id="De7-MS-DeS">
-                        <rect key="frame" x="15" y="3" width="34" height="25"/>
+                        <rect key="frame" x="15" y="9" width="34" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="34" id="WMi-J6-FxL"/>
                         </constraints>
@@ -42,14 +42,14 @@
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="2Ls-kB-Dad"/>
+                    <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="2Ls-kB-Dad"/>
                     <constraint firstItem="De7-MS-DeS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2dB-W9-xmA"/>
-                    <constraint firstItem="jjM-4r-fyk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="GS9-be-r2R"/>
-                    <constraint firstItem="De7-MS-DeS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="W9Z-FA-tiP"/>
+                    <constraint firstItem="jjM-4r-fyk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="GS9-be-r2R"/>
+                    <constraint firstItem="De7-MS-DeS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="W9Z-FA-tiP"/>
                     <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="26" id="byT-m9-mBm"/>
-                    <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="5.5" id="cou-J6-q7T"/>
-                    <constraint firstAttribute="bottom" secondItem="jjM-4r-fyk" secondAttribute="bottom" constant="8.5" id="rkT-9Z-rIf"/>
-                    <constraint firstAttribute="bottom" secondItem="De7-MS-DeS" secondAttribute="bottom" constant="3.5" id="rlD-8V-h03"/>
+                    <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="11.5" id="cou-J6-q7T"/>
+                    <constraint firstAttribute="bottom" secondItem="jjM-4r-fyk" secondAttribute="bottom" constant="14.5" id="rkT-9Z-rIf"/>
+                    <constraint firstAttribute="bottom" secondItem="De7-MS-DeS" secondAttribute="bottom" constant="9.5" id="rlD-8V-h03"/>
                     <constraint firstAttribute="trailing" secondItem="jjM-4r-fyk" secondAttribute="trailing" constant="11" id="yd2-Mi-yLK"/>
                 </constraints>
             </tableViewCellContentView>
