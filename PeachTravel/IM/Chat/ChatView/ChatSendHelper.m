@@ -120,10 +120,10 @@
     //如果是群聊天，聊天信息里应该带上自己信息
     if (isChatGroup) {
         NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
-        [userInfo setObject:accountManager.account.userId forKey:@"userId"];
-        [userInfo setObject:accountManager.account.nickName forKey:@"nickName"];
-        [userInfo setObject:accountManager.account.avatarSmall forKey:@"avatar"];
-        [allExtMsg setObject:userInfo forKey:@"fromUser"];
+        [userInfo safeSetObject:accountManager.account.userId forKey:@"userId"];
+        [userInfo safeSetObject:accountManager.account.nickName forKey:@"nickName"];
+        [userInfo safeSetObject:accountManager.account.avatarSmall forKey:@"avatar"];
+        [allExtMsg safeSetObject:userInfo forKey:@"fromUser"];
     }
     if (extMsg) {
         [allExtMsg addEntriesFromDictionary:extMsg];

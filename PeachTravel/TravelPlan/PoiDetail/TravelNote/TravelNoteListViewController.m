@@ -114,8 +114,11 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [params safeSetObject:_cityId forKey:@"locId"];
     }
     
+    [SVProgressHUD show];
+    
     //获取游记列表信息
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [SVProgressHUD dismiss];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -183,6 +186,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageDetailUrl = travelNote.detailUrl;
     TaoziImage *image = [travelNote.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
+    taoziMessageCtl.chatter = _chatter;
+    taoziMessageCtl.isGroup = _isChatGroup;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^{
         
     }];
@@ -255,6 +260,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
         [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
     }
+    [searchBar resignFirstResponder];
 }
 
 #pragma mark - TaoziMessageSendDelegate

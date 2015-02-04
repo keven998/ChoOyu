@@ -179,14 +179,12 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeTravelNote:
                 _typeLabel.text = @"游记";
-                _titleBtn.titleLabel.numberOfLines = 2;
                 _propertyBtn.hidden = YES;
                 _descLabel.text = [content objectForKey:@"desc"];
                 break;
 
             case TZChatTypeCity:
                 _typeLabel.text = @"城市";
-                _titleBtn.titleLabel.numberOfLines = 2;
                 _propertyBtn.hidden = YES;
                 _descLabel.text = [content objectForKey:@"desc"];
                 break;
