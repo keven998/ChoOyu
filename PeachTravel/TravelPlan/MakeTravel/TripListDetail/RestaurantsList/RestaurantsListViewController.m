@@ -38,8 +38,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"Rest willAppear");
-    [_rootViewController showDHView:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -64,14 +62,15 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
-        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 55, 0);
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
         }
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
 
     }
     return _tableView;
@@ -127,8 +126,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     
     restaurantOfCityCtl.shouldEdit = YES;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
-    [self presentViewController:nctl animated:YES completion:^{
-    }];
+    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)updateTableView
@@ -166,7 +164,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
@@ -228,17 +226,17 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 135.0;
+    return 134.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
+    UIView *footerView = [[UIView alloc] init];
     return footerView;
 }
 
@@ -327,16 +325,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     _tableView = nil;
     _rootViewController = nil;
     
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y > 20.0) {
-        [_rootViewController showDHView:NO];
-    } else {
-        [_rootViewController showDHView:YES];
-    }
 }
 
 #pragma mark - UIActionSheetDelegate

@@ -13,8 +13,10 @@
 - (void)distinationDidSelect:(UIButton *)button;
 
 @end
+
 @interface DestinationsView : UIView
 
+@property (nonatomic, strong) UIColor *titleColor;
 @property (nonatomic, strong) NSArray *destinations;
 
 @property (nonatomic, assign) id <DestinationsViewDelegate> delegate;

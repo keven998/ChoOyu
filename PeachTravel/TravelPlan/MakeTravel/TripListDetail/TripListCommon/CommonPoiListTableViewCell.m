@@ -22,29 +22,35 @@
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
-    _ratingView.horizontalMargin = 3;
+    _ratingView.horizontalMargin = 7;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _bkgFrame.layer.cornerRadius = 2.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
-    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _headerImageView.layer.borderWidth = 0.5;
+//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _deleteBtn.hidden = YES;
-    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
-    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
-    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
 
 
-    self.backgroundColor = [UIColor whiteColor];
+//    self.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    _seperatorView.backgroundColor = APP_SUB_THEME_COLOR;
+    
+    UIView *bv = [[UIView alloc] initWithFrame:self.frame];
+    bv.backgroundColor = [UIColor whiteColor];
+    UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 4)];
+    sv.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    sv.backgroundColor = APP_SUB_THEME_COLOR;
+    [bv addSubview:sv];
+    self.backgroundView = bv;
 }
 
 - (void)setTripPoi:(PoiSummary *)tripPoi
 {
     _tripPoi = tripPoi;
-    _titleLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.zhName];
+    _titleLabel.text = _tripPoi.zhName;
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _ratingView.rating = tripPoi.rating;

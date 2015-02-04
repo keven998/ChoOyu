@@ -53,7 +53,7 @@
 /**
  *  目的地titile 列表，三个界面共享
  */
-@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
+//@property (strong, nonatomic) DestinationsView *destinationsHeaderView;
 
 @property (strong, nonatomic) UIButton *backButton;
 
@@ -554,34 +554,6 @@
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
-}
-
-/**
- *  是否显示目的地那一栏
- *
- *  @param show 
- */
-- (void)showDHView:(BOOL) show {
-    CGRect rect = _destinationsHeaderView.frame;
-    if (show) {
-        if (rect.origin.y != 0) {
-            rect.origin.y = 0;
-        } else {
-            return;
-        }
-        [UIView animateWithDuration:0.35 animations:^{
-            _destinationsHeaderView.frame = rect;
-        } completion:^(BOOL finished) {
-        }];
-    } else {
-        if (rect.origin.y == 0) {
-            rect.origin.y -= rect.size.height;
-            [UIView animateWithDuration:0.35 animations:^{
-                _destinationsHeaderView.frame = rect;
-            } completion:^(BOOL finished) {
-            }];
-        }
-    }
 }
 
 - (void)setupViewControllers

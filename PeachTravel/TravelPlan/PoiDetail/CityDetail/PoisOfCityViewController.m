@@ -100,7 +100,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
     } else if (_poiType == kShoppingPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
     }
     
     if (self.shouldEdit) {
@@ -485,11 +485,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", RESTAURANT_CITY_HTML,_cityId];
-        webCtl.titleStr = [NSString stringWithFormat:@"%@吃什么", _zhName];
+        webCtl.titleStr = @"美食攻略";
         
     } else if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", SHOPPING_CITY_HTML,_cityId];
-        webCtl.titleStr = [NSString stringWithFormat:@"%@买什么", _zhName];
+        webCtl.titleStr = @"购物攻略";
     }
     webCtl.urlStr = requsetUrl;
     
@@ -558,7 +558,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
     } else if (_poiType == kShoppingPoi) {
-        self.navigationItem.title = [NSString stringWithFormat:@"买在%@", _zhName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
     }
     
     [_dataSource.recommendList removeAllObjects];
@@ -629,10 +629,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
             [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
             if (_poiType == kRestaurantPoi) {
-                [tagBtn setTitle:@"吃什么" forState:UIControlStateNormal];
+                [tagBtn setTitle:@"当地美食攻略" forState:UIControlStateNormal];
             }
             if (_poiType == kShoppingPoi) {
-                [tagBtn setTitle:@"买什么" forState:UIControlStateNormal];
+                [tagBtn setTitle:@"当地购物攻略" forState:UIControlStateNormal];
             }
             tagBtn.titleLabel.font  = [UIFont boldSystemFontOfSize:17.0];
             [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 0)];

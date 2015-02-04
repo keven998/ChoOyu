@@ -20,11 +20,15 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+//        self.backgroundColor = [UIColor clearColor];
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20, self.bounds.size.height)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.tag = self.tag;
         [self addSubview:_scrollView];
+        
+        if (!_titleColor) {
+            _titleColor = TEXT_COLOR_TITLE_HINT;
+        }
     }
     return self;
 }
@@ -35,11 +39,11 @@
     CGFloat offsetX = 0;
     for (int i = 0; i < _destinations.count; i++) {
         NSString *title = [_destinations objectAtIndex:i];
-        CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:11.0]}];
+        CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:10.0]}];
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 7, 10+size.width, 16)];
         btn.tag = i;
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:TEXT_COLOR_TITLE_HINT forState:UIControlStateNormal];
+        [btn setTitleColor:_titleColor forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
         offsetX += btn.bounds.size.width + 10;
         [btn addTarget:self action:@selector(didSelected:) forControlEvents:UIControlEventTouchUpInside];
