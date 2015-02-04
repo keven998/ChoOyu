@@ -10,7 +10,6 @@
 
 @interface TZProgressHUD ()
 
-@property (nonatomic, strong) UIImageView *progressView;   //旋转的 view
 @property (nonatomic, strong) UIView *backGroundView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *statusLabel;   //提示的语言
@@ -29,30 +28,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideTZHUD)];
-    tap.numberOfTapsRequired = 1;
-    tap.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tap];
-}
-
 - (void)dealloc {
     NSLog(@"ZTProgressHUD销毁掉了");
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    
 }
 
 - (void)setStatus:(NSString *)status
@@ -74,23 +51,29 @@
     } else {
         _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 100)];
     }
-    _backGroundView.backgroundColor = [UIColor whiteColor];
+    _backGroundView.backgroundColor = [UIColor clearColor];
     _backGroundView.layer.cornerRadius = 5.0;
-    _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_pb_earth.png"]];
-    _imageView.image = [UIImage imageNamed:@"ic_pb_earth.png"];
-    _backGroundView.center = self.view.center;
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    _backGroundView.center = self.center;
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (int i = 1; i < 15; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"Loading_Animation_final%d.png", i];
+        UIImage *image = [UIImage imageNamed:imageName];
+        [images addObject:image];
+    }
+    _imageView.animationImages = images;
+    _imageView.animationDuration = 1.4;
+    
     if (status) {
         _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2-10);
     } else {
         _imageView.center = CGPointMake(_backGroundView.bounds.size.width/2, _backGroundView.bounds.size.height/2);
     }
-    _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_progress.png"]];
-    _progressView.center = _imageView.center;
-    [_backGroundView addSubview:_progressView];
+
     [_backGroundView addSubview:_imageView];
     _backGroundView.clipsToBounds = YES;
     
-    [self.view addSubview:_backGroundView];
+    [self addSubview:_backGroundView];
 
 }
 
@@ -99,24 +82,40 @@
     [self showHUDInViewController:viewController withStatus:nil];
 }
 
-- (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status
+- (void)showHUDInView:(UIView *)contentView
 {
-    _rootViewController = viewController;
-    [self initLoadingViewWithStatus:status];
-    
-    [_rootViewController addChildViewController:self];
-    [_rootViewController.view addSubview:self.view];
+    [self initLoadingViewWithStatus:nil];
+    [contentView addSubview:self];
+    self.center = contentView.center;
     CGRect resetFrame = self.backGroundView.frame;
     CGPoint resetCenter = _imageView.center;
     _imageView.center = CGPointZero;
-    _progressView.center =CGPointZero;
     [self.backGroundView setFrame:CGRectMake(self.backGroundView.center.x, self.backGroundView.center.y, 0, 0)];
     [self startAnimation];
     
     [UIView animateWithDuration:0.3 animations:^{
         [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x-2.5, resetFrame.origin.y-2.5, resetFrame.size.width, resetFrame.size.height)];
         _imageView.center = resetCenter;
-        _progressView.center = _imageView.center;
+    } completion:^(BOOL finished) {
+    }];
+
+}
+
+- (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status
+{
+    _rootViewController = viewController;
+    [self initLoadingViewWithStatus:status];
+    [_rootViewController.view addSubview:self];
+    self.center = _rootViewController.view.center;
+    CGRect resetFrame = self.backGroundView.frame;
+    CGPoint resetCenter = _imageView.center;
+    _imageView.center = CGPointZero;
+    [self.backGroundView setFrame:CGRectMake(self.backGroundView.center.x, self.backGroundView.center.y, 0, 0)];
+    [self startAnimation];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x-2.5, resetFrame.origin.y-2.5, resetFrame.size.width, resetFrame.size.height)];
+        _imageView.center = resetCenter;
     } completion:^(BOOL finished) {
     }];
 
@@ -135,23 +134,15 @@
 
 - (void)hideTZHUD
 {
-    if (!_rootViewController) {
-        return;
+    if (_imageView.isAnimating) {
+        [_imageView stopAnimating];
     }
-    [self.view removeFromSuperview];
-    [self willMoveToParentViewController:nil];
-    [self removeFromParentViewController];
+    [self removeFromSuperview];
 }
 
 -(void) startAnimation
 {
-    CABasicAnimation* rotationAnimation;
-    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 * 1.0 ];
-    rotationAnimation.duration = 1.0;
-    rotationAnimation.cumulative = YES;
-    rotationAnimation.repeatCount = HUGE_VALF;
-    [_progressView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    [_imageView startAnimating];
 }
 
 

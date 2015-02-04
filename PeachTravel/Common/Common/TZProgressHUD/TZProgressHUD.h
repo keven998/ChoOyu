@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TZProgressHUD : UIViewController
+@interface TZProgressHUD : UIView
 
 @property (nonatomic, copy) NSString *status;   //提示的语言
 
@@ -19,6 +19,14 @@
  *  @param viewController 
  */
 - (void)showHUDInViewController:(UIViewController *)viewController;
+
+/**
+ *  开始显示
+ *
+ *  @param viewController
+ */
+- (void)showHUDInView:(UIView *)contentView;
+
 
 
 /**

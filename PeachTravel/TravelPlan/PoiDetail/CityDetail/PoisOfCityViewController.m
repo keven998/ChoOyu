@@ -17,7 +17,7 @@
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
-@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
@@ -44,6 +44,12 @@
 @property (nonatomic, copy) NSString *searchText;
 
 @property (nonatomic, strong) TZProgressHUD *hud;
+
+/**
+ *  搜索的 hud
+ */
+@property (nonatomic, strong) TZProgressHUD *searchHud;
+
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -119,13 +125,15 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     _currentPageNormal = 0;
     
+    _hud = [[TZProgressHUD alloc] init];
+    __weak typeof(PoisOfCityViewController *)weakSelf = self;
+    [_hud showHUDInViewController:weakSelf];
+
     if (!_shouldEdit) {
-        _hud = [[TZProgressHUD alloc] init];
-        [_hud showHUD];
         [self loadIntroductionOfCity];
     } else {
         [self loadDataPoisOfCity:_currentPageNormal];
-        [SVProgressHUD show];
+       
     }
 }
 
@@ -159,6 +167,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
         _searchController.searchResultsTableView.delegate = self;
         _searchController.searchResultsTableView.dataSource = self;
+        _searchController.delegate = self;
         _searchController.searchResultsTableView.rowHeight = 155.0;
 
     }
@@ -287,7 +296,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [_hud hideTZHUD];
             _hud = nil;
         }
-        [SVProgressHUD dismiss];
         [self loadMoreCompletedNormal];
         if ([backUpCityId isEqualToString:_cityId]) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -355,6 +363,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (self.searchDisplayController.isActive) {
+            if (_searchHud) {
+                [_searchHud hideTZHUD];
+                _searchHud = nil;
+            }
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
                 NSString *key = nil;
@@ -391,6 +403,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         [self loadMoreCompletedSearch];
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
+        if (_searchHud) {
+            [_searchHud hideTZHUD];
+            _searchHud = nil;
         }
     }];
 }
@@ -644,12 +660,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             btn.layer.cornerRadius = 3.0;
             
             UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
+            tagBtn.titleLabel.numberOfLines = 2.0;
             [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
             if (_poiType == kRestaurantPoi) {
-                [tagBtn setTitle:@"当地美食攻略" forState:UIControlStateNormal];
+                [tagBtn setTitle:@"美食\n攻略" forState:UIControlStateNormal];
             }
             if (_poiType == kShoppingPoi) {
-                [tagBtn setTitle:@"当地购物攻略" forState:UIControlStateNormal];
+                [tagBtn setTitle:@"购物\n攻略" forState:UIControlStateNormal];
             }
             tagBtn.titleLabel.font  = [UIFont boldSystemFontOfSize:17.0];
             [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 0)];
@@ -771,6 +788,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self.searchController.searchResultsTableView reloadData];
     _currentPageSearch = 0;
     _searchText = searchBar.text;
+    
+    __weak typeof(PoisOfCityViewController *)weakSelf = self;
+    if (!_searchHud) {
+        _searchHud = [[TZProgressHUD alloc] init];
+    }
+    [_searchHud showHUDInViewController:weakSelf];
     [self loadSearchDataWithPageNo:_currentPageSearch];
 }
 
@@ -786,6 +809,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self.searchResultArray removeAllObjects];
     [self.searchController.searchResultsTableView reloadData];
     [self.tableView reloadData];
+    [_searchHud hideTZHUD];
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -126,7 +126,9 @@
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
-    [SVProgressHUD show];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(self)weakSelf = self;
+    [hud showHUDInViewController:weakSelf];
     
     NSString *typeUrl;
     if (_poiType == kRestaurantPoi) {
@@ -142,10 +144,10 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", typeUrl, _poiId];
     
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
-            [SVProgressHUD dismiss];
             _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
             _commonPoi.poiType  = kRestaurantPoi;
             [self updateView];
@@ -154,6 +156,7 @@
         }
           
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
 }
