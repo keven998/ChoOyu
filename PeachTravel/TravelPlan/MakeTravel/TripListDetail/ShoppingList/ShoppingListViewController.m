@@ -62,14 +62,15 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
-        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 55, 0);
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
         }
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
         
     }
     return _tableView;
@@ -163,7 +164,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
                                          destructiveButtonTitle:nil
@@ -225,17 +226,17 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 135.0;
+    return 134;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
+    UIView *footerView = [[UIView alloc] init];
     return footerView;
 }
 

@@ -62,15 +62,15 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
-        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 50, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 55, 0);
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
         }
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
 
     }
     return _tableView;
