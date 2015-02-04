@@ -161,6 +161,7 @@
                 <outlet property="propertyLabel" destination="SjB-jL-eLI" id="1bg-Ii-CwZ"/>
                 <outlet property="rankingLabel" destination="oIp-2n-4b0" id="6f3-PZ-anG"/>
                 <outlet property="ratingView" destination="748-ag-b9n" id="q64-tE-Mip"/>
+                <outlet property="seperatorView" destination="RLu-qn-6j5" id="Yan-qH-AL1"/>
                 <outlet property="titleLabel" destination="Uuf-MN-BDK" id="xL6-2Z-EP9"/>
             </connections>
             <point key="canvasLocation" x="-807" y="60.5"/>

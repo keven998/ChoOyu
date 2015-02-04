@@ -33,8 +33,18 @@
     _deleteBtn.hidden = YES;
 
 
-    self.backgroundColor = [UIColor whiteColor];
+//    self.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    _seperatorView.backgroundColor = APP_SUB_THEME_COLOR;
+    
+    UIView *bv = [[UIView alloc] initWithFrame:self.frame];
+    bv.backgroundColor = [UIColor whiteColor];
+    UIView *sv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 4)];
+    sv.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    sv.backgroundColor = APP_SUB_THEME_COLOR;
+    [bv addSubview:sv];
+    self.backgroundView = bv;
 }
 
 - (void)setTripPoi:(PoiSummary *)tripPoi

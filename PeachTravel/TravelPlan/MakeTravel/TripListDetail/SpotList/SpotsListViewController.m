@@ -47,8 +47,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:commonPoiListReusableIdentifier];
     
     [self.view addSubview:self.tableView];
-    
-    NSLog(@"spots didload");
 }
 
 - (void)viewWillAppear:(BOOL)animated

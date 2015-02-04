@@ -236,7 +236,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
+    UIView *footerView = [[UIView alloc] init];
     return footerView;
 }
 

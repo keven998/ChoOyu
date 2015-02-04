@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIView *seperatorView;
 
 
 @end
