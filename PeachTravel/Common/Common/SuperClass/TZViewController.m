@@ -16,8 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-      
-    self.navigationController.navigationBar.translucent = YES;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];

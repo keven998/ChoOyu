@@ -72,7 +72,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationController.navigationBar.translucent = YES;
     if (_selectToSend) {
         self.navigationItem.title = @"发送收藏";
     } else {
