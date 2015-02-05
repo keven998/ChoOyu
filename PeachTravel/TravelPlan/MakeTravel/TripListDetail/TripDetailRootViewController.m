@@ -23,9 +23,8 @@
 #import "CityDestinationPoi.h"
 #import "ChatRecoredListTableViewController.h"
 #import "MakePlanViewController.h"
-#import "JGActionSheet.h"
 
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, JGActionSheetDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -445,25 +444,7 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [array addObject:poi.zhName];
-
-
     }
-    JGActionSheet *sheet = [JGActionSheet actionSheetWithSections:@[[JGActionSheetSection sectionWithTitle:@"目的地" message:nil buttonTitles:array buttonStyle:JGActionSheetButtonStyleDefault], [JGActionSheetSection sectionWithTitle:nil message:nil buttonTitles:@[@"取消"] buttonStyle:JGActionSheetButtonStyleCancel]]];
-    
-    sheet.delegate = self;
-    
-    [sheet showInView:self.navigationController.view animated:YES];
-    
-    sheet.insets = UIEdgeInsetsMake(20.0f, 0.0f, 0.0f, 0.0f);
-    
-    
-    [sheet setButtonPressedBlock:^(JGActionSheet *sheet, NSIndexPath *indexPath) {
-        [sheet dismissAnimated:YES];
-        if (indexPath.section == 0) {
-            CityDestinationPoi *poi = [_tripDetail.destinations objectAtIndex:indexPath.row];
-            [self viewCityDetail:poi.cityId];
-        }
-    }];
 }
 
 /**
