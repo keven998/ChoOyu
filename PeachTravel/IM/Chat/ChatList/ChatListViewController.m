@@ -166,8 +166,8 @@
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
             } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO
-                                                                      append2Chat:YES];
+//                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO
+//                                                                      append2Chat:YES];
 
             }
             
