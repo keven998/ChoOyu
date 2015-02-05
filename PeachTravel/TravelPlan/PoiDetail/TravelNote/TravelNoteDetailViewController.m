@@ -36,9 +36,11 @@
     [talkBtn addTarget:self action:@selector(doFavorite:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *moreBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
     
-    UIBarButtonItem *chatItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(chat:)];
-    [chatItem setImage:[UIImage imageNamed:@"ic_chat.png"]];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:moreBarItem, chatItem, nil];
+    UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [cb setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
+    [cb addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatItem, moreBarItem, nil];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
@@ -95,7 +97,8 @@
 
 - (IBAction)doFavorite:(id)sender {
     UIButton *bi = sender;
-    [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:!bi.selected completion:^(BOOL isSuccess) {
+    bi.selected = !bi.selected;
+    [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:bi.selected completion:^(BOOL isSuccess) {
         if (!isSuccess) {
 //            bi.selected = !bi.selected;
         } else {
