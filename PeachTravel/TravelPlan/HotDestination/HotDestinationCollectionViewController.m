@@ -63,6 +63,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     }
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
