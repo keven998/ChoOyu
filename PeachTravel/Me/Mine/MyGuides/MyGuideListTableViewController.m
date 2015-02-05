@@ -58,17 +58,11 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewDidLoad];
     self.navigationItem.title = @"我的旅程";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.navigationController.navigationBar.translucent = YES;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    //[button setTitle:@"返回" forState:UIControlStateNormal];
-//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
@@ -133,6 +127,7 @@ static NSString *reusableCell = @"myGuidesCell";
     if (!_selectToSend) {
         [self.navigationController.view addSubview:_addBtn];
     }
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -141,6 +136,7 @@ static NSString *reusableCell = @"myGuidesCell";
     if (!_selectToSend) {
         [_addBtn removeFromSuperview];
     }
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)dealloc
@@ -610,8 +606,8 @@ static NSString *reusableCell = @"myGuidesCell";
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:APP_SUB_THEME_COLOR icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:APP_SUB_THEME_COLOR icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
     
     return rightUtilityButtons;
 }
