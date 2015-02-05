@@ -43,8 +43,10 @@
             _locality = [[CityDestinationPoi alloc] initWithJson:[json objectForKey:@"locality"]];
         }
         _timeCost = [json objectForKey:@"timeCostDesc"];
-        _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
-        _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        if ([json objectForKey:@"location"] != [NSNull null]) {
+            _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
+            _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        }
         if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {
             _rating = 3.5;
         } else  if ([[json objectForKey:@"rating"] floatValue] > 1){

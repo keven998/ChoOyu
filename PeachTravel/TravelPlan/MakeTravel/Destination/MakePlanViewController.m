@@ -124,18 +124,23 @@
  */
 - (IBAction)makePlan:(id)sender
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
-        tripDetailCtl.canEdit = YES;
-        tripDetailCtl.destinations = self.destinations.destinationsSelected;
-        tripDetailCtl.isMakeNewTrip = YES;
-        NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-        [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
-        [self.navigationController setViewControllers:array animated:YES];
+    if (!_shouldOnlyChangeDestinationWhenClickNextStep) {
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        if ([accountManager isLogin]) {
+            TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+            tripDetailCtl.canEdit = YES;
+            tripDetailCtl.destinations = self.destinations.destinationsSelected;
+            tripDetailCtl.isMakeNewTrip = YES;
+            NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+            [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
+            [self.navigationController setViewControllers:array animated:YES];
+        } else {
+            [SVProgressHUD showHint:@"请先登录"];
+            [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        }
     } else {
-        [SVProgressHUD showHint:@"请先登录"];
-        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        [_myDelegate updateDestinations:_destinations.destinationsSelected];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

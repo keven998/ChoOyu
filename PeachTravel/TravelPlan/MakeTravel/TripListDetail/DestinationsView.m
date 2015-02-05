@@ -22,6 +22,8 @@
     if (self) {
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width-20, self.bounds.size.height)];
         _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+
         _scrollView.tag = self.tag;
         [self addSubview:_scrollView];
         
@@ -35,6 +37,9 @@
 - (void)setDestinations:(NSArray *)destinations
 {
     _destinations = destinations;
+    for (UIView *view in _scrollView.subviews) {
+        [view removeFromSuperview];
+    }
     if (!_isCanAddDestination) {
         CGFloat offsetX = 0;
         for (int i = 0; i < _destinations.count; i++) {
@@ -52,7 +57,7 @@
         
     } else {
         CGFloat offsetX = 0;
-        CGFloat offsetY = 0;
+        CGFloat offsetY = 10;
         for (int i = 0; i < _destinations.count; i++) {
             NSString *title = [_destinations objectAtIndex:i];
             CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
@@ -64,6 +69,7 @@
             [btn setTitleColor:_titleColor forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
             btn.layer.cornerRadius = 2.0;
+            btn.tag = i;
             offsetX += btn.bounds.size.width + 20;
             
             NSString *nextTitle = [_destinations objectAtIndex:i];
@@ -92,8 +98,8 @@
 
 - (IBAction)didSelected:(UIButton *)sender
 {
-    if ([_delegate respondsToSelector:@selector(distinationDidSelect:)]) {
-        [_delegate distinationDidSelect:sender.tag];
+    if ([_delegate respondsToSelector:@selector(destinationDidSelect:)]) {
+        [_delegate destinationDidSelect:sender.tag];
     }
 }
 

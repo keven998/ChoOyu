@@ -23,8 +23,10 @@
 #import "CityDestinationPoi.h"
 #import "ChatRecoredListTableViewController.h"
 #import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
 
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -35,6 +37,12 @@
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIView *tabBarView;
+
+/**
+ *  点击目的地显示目的地界面
+ */
+@property (nonatomic, strong) UIView *destinationBkgView;
+@property (nonatomic, strong) DestinationsView *destinationView;
 
 //完成按钮。。。uinavigationbar的返回按钮
 //@property (nonatomic, strong) UIButton *finishBtn;
@@ -444,33 +452,60 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [array addObject:poi.zhName];
-        [array addObject:poi.zhName];
-        [array addObject:poi.zhName];
-
     }
     
-    UIView *destinationBkgView = [[UIView alloc] initWithFrame:self.view.bounds];
-    destinationBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
-    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, destinationBkgView.bounds.size.height-290, destinationBkgView.bounds.size.width, 290)];
+    if (!_destinationBkgView) {
+        _destinationBkgView = [[UIView alloc] initWithFrame:self.view.bounds];
+    }
+    _destinationBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340)];
     panelView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     
-    UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, destinationBkgView.bounds.size.width, 49)];
-    titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    titleBtn.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _destinationBkgView.bounds.size.width, 49)];
     titleBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
     [titleBtn setTitle:@"目的地" forState:UIControlStateNormal];
     [titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     titleBtn.userInteractionEnabled = NO;
     [panelView addSubview:titleBtn];
     
-    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(8, 60, kWindowWidth-16, 210)];
-    destinationView.isCanAddDestination = YES;
-    destinationView.titleColor = APP_THEME_COLOR;
-    destinationView.destinations = array;
-    [panelView addSubview:destinationView];
+    UIImageView *spaceView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, _destinationBkgView.bounds.size.width, 1)];
+    spaceView.image = [UIImage imageNamed:@"ic_dot_line.png"];
+    [panelView addSubview:spaceView];
     
-    [destinationBkgView addSubview:panelView];
-    [self.navigationController.view addSubview:destinationBkgView];
+    UIImageView *spaceViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 299, _destinationBkgView.bounds.size.width, 1)];
+    spaceViewTwo.image = [UIImage imageNamed:@"ic_dot_line.png"];
+    [panelView addSubview:spaceViewTwo];
+    
+    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 300, _destinationBkgView.bounds.size.width, 40)];
+    cancelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(hideDestinationView:) forControlEvents:UIControlEventTouchUpInside];
+    [panelView addSubview:cancelBtn];
+    
+    _destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(8, 50, kWindowWidth-16, 249)];
+    _destinationView.isCanAddDestination = YES;
+    _destinationView.delegate = self;
+    _destinationView.titleColor = APP_THEME_COLOR;
+    _destinationView.destinations = array;
+    [panelView addSubview:_destinationView];
+    
+    [_destinationBkgView addSubview:panelView];
+    
+    [self.navigationController.view addSubview:_destinationBkgView];
+
+    [panelView setFrame:CGRectMake(0, 400, panelView.bounds.size.width, panelView.bounds.size.height)];
+    [UIView animateWithDuration:0.2 animations:^{
+        panelView.frame = CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340);
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+- (IBAction)hideDestinationView:(id)sender
+{
+    [_destinationBkgView removeFromSuperview];
 }
 
 /**
@@ -711,7 +746,7 @@
     [self.view bringSubviewToFront:_tabBarView];
 }
 
-#pragma mark AvtivityDelegate
+#pragma mark - AvtivityDelegate
 
 - (void)didClickOnImageIndex:(NSInteger)imageIndex
 {
@@ -797,6 +832,64 @@
 - (void)didClickOnCancelButton
 {
     
+}
+
+#pragma mark - DestinationsViewDelegate
+
+- (void)destinationDidSelect:(NSInteger)selectedIndex
+{
+    [self hideDestinationView:nil];
+    CityDestinationPoi *poi =  [_tripDetail.destinations objectAtIndex:selectedIndex];
+    CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
+    cityDetailCtl.cityId = poi.cityId;
+    [self.navigationController pushViewController:cityDetailCtl animated:YES];
+}
+
+- (void)willAddDestination
+{
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [destinations.destinationsSelected addObject:poi];
+    }
+    makePlanCtl.myDelegate = self;
+    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
+    makePlanCtl.destinations = destinations;
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    foreignCtl.title = @"国外";
+    domestic.title = @"国内";
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    domestic.notify = NO;
+    foreignCtl.notify = NO;
+    [self hideDestinationView:nil];
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
+}
+
+#pragma mark - UpdateDestinationsDelegate
+
+- (void)updateDestinations:(NSArray *)destinations
+{
+    [self showDestination:nil];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    typeof(self) weakSelf = self;
+    [hud showHUDInViewController:weakSelf.navigationController];
+    [self.tripDetail updateTripDestinations:^(BOOL isSuccesss) {
+        [hud hideTZHUD];
+        if (isSuccesss) {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (CityDestinationPoi *poi in _tripDetail.destinations) {
+                [array addObject:poi.zhName];
+            }
+            _destinationView.destinations = array;
+        } else {
+            
+        }
+    } withDestinations:destinations];
 }
 
 #pragma mark - CreateConversationDelegate

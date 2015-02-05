@@ -10,7 +10,7 @@
 
 @protocol DestinationsViewDelegate <NSObject>
 
-- (void)distinationDidSelect:(NSInteger)selectedIndex;
+- (void)destinationDidSelect:(NSInteger)selectedIndex;
 
 - (void)willAddDestination;
 

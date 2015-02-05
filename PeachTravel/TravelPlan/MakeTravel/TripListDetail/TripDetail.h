@@ -38,7 +38,12 @@
  */
 - (void)saveTrip:(void(^)(BOOL isSuccesss))completion;
 
-
+/**
+ *  保存攻略的目的地列表
+ *
+ *  @param completion 
+ */
+- (void)updateTripDestinations:(void(^)(BOOL isSuccesss))completion withDestinations:(NSArray *)destinations;
 @end
 
 

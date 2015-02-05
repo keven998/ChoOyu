@@ -178,6 +178,63 @@
     }];
 }
 
+- (void)updateTripDestinations:(void (^)(BOOL))completion withDestinations:(NSArray *)destinations
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in destinations) {
+        NSMutableDictionary *poiDic = [[NSMutableDictionary alloc] init];
+        [poiDic safeSetObject:poi.cityId forKey:@"id"];
+        [poiDic safeSetObject:poi.zhName forKey:@"zhName"];
+        [poiDic safeSetObject:poi.enName forKey:@"enName"];
+        [destinationsArray addObject:poiDic];
+    }
+    
+    NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
+    [uploadDic safeSetObject:_tripId forKey:@"id"];
+    [uploadDic safeSetObject:destinationsArray forKey:@"localities"];
+    
+    [manager POST:API_SAVE_TRIP parameters:uploadDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            _destinations = destinations;
+            [self updateBackupTripDestinationJson:destinationsArray];
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+    }];
+
+}
+
+/**
+ *  保存攻略的目的地列表成功后更新备份路线
+ *
+ *  @param uploadDic
+ */
+- (void)updateBackupTripDestinationJson:(NSMutableArray *)destinations
+{
+    NSMutableDictionary *tempDic = [_backUpJson mutableCopy];
+    [tempDic setObject:destinations forKey:@"localities"];
+    _backUpJson = tempDic;
+    _backUpTrip = [[TripDetail alloc] initWithJson:self.backUpJson];
+}
+
+
 /**
  *  当保存成功后将备份的路线更新
  *
