@@ -142,7 +142,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = sender.tag;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
-    [nctl.navigationBar setBarTintColor:APP_THEME_COLOR];
+    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
@@ -307,7 +307,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addbtn.tag = section;
         [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(2, 27, 60, 22)];
+        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(2, 25, 60, 22)];
         [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //        addSpotBtn.backgroundColor = APP_SUB_THEME_COLOR;

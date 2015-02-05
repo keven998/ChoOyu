@@ -238,7 +238,7 @@
 - (void)goBack
 {
     if ([_tripDetail tripIsChange]) {
-        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"攻略发生变化，是否要先保存呢？" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"先保存", nil];
+        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"攻略已编辑，是否保存" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
         [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self.navigationController popViewControllerAnimated:YES];

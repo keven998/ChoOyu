@@ -26,16 +26,13 @@
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _distanceLabel.hidden = YES;
-    _pAddBtn.layer.cornerRadius = 2.0;
-    _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    _headerImageView.layer.borderWidth = 0.5;
+    
+    _pAddBtn.layer.cornerRadius = 4.0;
+    [_pAddBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+    [_pAddBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_PH] forState:UIControlStateSelected];
+    
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _bkgFrame.layer.cornerRadius = 2.0;
-//    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
-//    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-//    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
-//    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
 
     self.backgroundColor = APP_PAGE_COLOR;
     
@@ -94,15 +91,16 @@
 - (void)setIsAdded:(BOOL)isAdded
 {
     _isAdded = isAdded;
-    if (_isAdded) {
-        [_pAddBtn setTitle:@"已收集" forState:UIControlStateNormal];
-        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:13.0];
-        _pAddBtn.backgroundColor = [UIColor grayColor];
-    } else {
-        _pAddBtn.backgroundColor = APP_SUB_THEME_COLOR;
-        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-        [_pAddBtn setTitle:@"收集" forState:UIControlStateNormal];
-    }
+    _pAddBtn.selected = isAdded;
+//    if (_isAdded) {
+//        [_pAddBtn setTitle:@"已收集" forState:UIControlStateNormal];
+//        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:13.0];
+//        _pAddBtn.backgroundColor = [UIColor grayColor];
+//    } else {
+//        _pAddBtn.backgroundColor = APP_SUB_THEME_COLOR;
+//        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
+//        [_pAddBtn setTitle:@"收集" forState:UIControlStateNormal];
+//    }
 }
 
 

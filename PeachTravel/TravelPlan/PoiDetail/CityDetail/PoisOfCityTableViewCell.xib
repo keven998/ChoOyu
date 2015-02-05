@@ -10,6 +10,7 @@
             <string>MicrosoftYaHei</string>
             <string>MicrosoftYaHei</string>
             <string>MicrosoftYaHei</string>
+            <string>MicrosoftYaHei</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -92,26 +93,28 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZp-Zm-a4j">
-                                <rect key="frame" x="237" y="90" width="60" height="45"/>
+                                <rect key="frame" x="233" y="90" width="64" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="80s-Of-1zk"/>
+                                    <constraint firstAttribute="width" constant="64" id="80s-Of-1zk"/>
                                     <constraint firstAttribute="height" constant="45" id="ewG-t7-14V"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-tl-Dpl">
-                                <rect key="frame" x="247" y="99" width="40" height="20"/>
-                                <color key="backgroundColor" red="0.43137254899999999" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AME-tl-Dpl">
+                                <rect key="frame" x="242" y="99" width="44" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="5Fj-1K-blj"/>
+                                    <constraint firstAttribute="width" constant="44" id="5Fj-1K-blj"/>
                                     <constraint firstAttribute="height" constant="20" id="iug-FL-Kmg"/>
                                 </constraints>
-                                <state key="normal" title="收集">
+                                <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="添加">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" title="已添加"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mt-a3-Yo3">
                                 <rect key="frame" x="208" y="98" width="56" height="15"/>
@@ -151,7 +154,7 @@
                             <constraint firstItem="Ao2-DU-qFj" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="jkj-EW-Sr2"/>
                             <constraint firstItem="AGD-7l-KqM" firstAttribute="leading" secondItem="uyk-Cy-1ff" secondAttribute="leading" constant="15" id="mRi-C4-D08"/>
                             <constraint firstItem="7mt-a3-Yo3" firstAttribute="leading" secondItem="Ao2-DU-qFj" secondAttribute="trailing" constant="-6" id="naO-La-UBe"/>
-                            <constraint firstAttribute="trailing" secondItem="AME-tl-Dpl" secondAttribute="trailing" constant="11" id="sFi-sP-MTa"/>
+                            <constraint firstAttribute="trailing" secondItem="AME-tl-Dpl" secondAttribute="trailing" constant="12" id="sFi-sP-MTa"/>
                             <constraint firstAttribute="bottom" secondItem="7mt-a3-Yo3" secondAttribute="bottom" constant="22" id="wif-rx-u2f"/>
                         </constraints>
                     </view>
