@@ -32,10 +32,10 @@
 //    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _bkgFrame.layer.cornerRadius = 2.0;
-    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
-    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
-    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+//    _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];
+//    _addressLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
+//    _propertyLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+//    _rankingLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
 
     self.backgroundColor = APP_PAGE_COLOR;
     
