@@ -91,6 +91,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, self.tableView.bounds.size.width, 30)];
     _searchBar.delegate = self;
+    _searchBar.hidden = YES;
     [self.view addSubview:_searchBar];
     
     if (self.tripDetail) {
@@ -491,6 +492,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
  */
 - (IBAction)beginSearch:(id)sender
 {
+    _searchBar.hidden = NO;
     [self.searchController setActive:YES animated:YES];
     [_searchBar becomeFirstResponder];
 }
@@ -780,6 +782,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     [self.searchResultArray removeAllObjects];
     _searchText = nil;
+    _searchBar.hidden = YES;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -804,12 +807,22 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _enableLoadMoreSearch = NO;
 }
 
+- (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    _searchBar.hidden = YES;
+}
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
 {
     [self.searchResultArray removeAllObjects];
     [self.searchController.searchResultsTableView reloadData];
     [self.tableView reloadData];
     [_searchHud hideTZHUD];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
+    _searchBar.hidden = YES;
 }
 
 #pragma mark - UIScrollViewDelegate
