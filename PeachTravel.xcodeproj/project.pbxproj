@@ -12,6 +12,8 @@
 		C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */; };
 		C60C0D6F1A299389006033C9 /* PushSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */; };
 		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
+		C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */; };
+		C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */; };
 		C67C06901A81BADB00E0F30B /* MicrosoftYaHei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */; };
 		C67C07381A81BB9100E0F30B /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C07341A81BB9100E0F30B /* libEaseMobClientSDK.a */; };
 		C67C073A1A81BB9100E0F30B /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C67C07371A81BB9100E0F30B /* EaseMob.bundle */; };
@@ -735,6 +737,8 @@
 		C60C0D6C1A299389006033C9 /* PushSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingTableViewCell.h; sourceTree = "<group>"; };
 		C60C0D6D1A299389006033C9 /* PushSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingTableViewCell.m; sourceTree = "<group>"; };
 		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
+		C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_plan@2x.png"; sourceTree = "<group>"; };
+		C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_them_extender_right@2x.png"; sourceTree = "<group>"; };
 		C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MicrosoftYaHei.ttf; sourceTree = "<group>"; };
 		C67C06BE1A81BB9000E0F30B /* ICallManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICallManagerDelegate.h; sourceTree = "<group>"; };
 		C67C06C01A81BB9000E0F30B /* EMCallManagerCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerCallDelegate.h; sourceTree = "<group>"; };
@@ -3699,6 +3703,7 @@
 		D9A803A71A80E737005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */,
 				D9A803A81A80E737005AD701 /* home_navigation_title@2x.png */,
 				D9A803A91A80E737005AD701 /* ic_dotted_line@2x.png */,
 				D9A803AD1A80E738005AD701 /* ic_nav_filter_normal@2x.png */,
@@ -3734,6 +3739,7 @@
 			children = (
 				D9722F371A835F4C00D8A8CC /* ic_destination_add_normal@2x.png */,
 				D9722F381A835F4C00D8A8CC /* ic_destination_add_selected@2x.png */,
+				C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */,
 				D9A804131A80E738005AD701 /* add_to_list@2x.png */,
 				D9A804141A80E738005AD701 /* bg_guide_title@2x.png */,
 				D9A804151A80E738005AD701 /* btn_new_plan@2x.png */,
@@ -4700,6 +4706,7 @@
 				D9A800261A80D52F005AD701 /* DomesticDestinationCell.xib in Resources */,
 				D9A800221A80D52F005AD701 /* DestinationCollectionHeaderView.xib in Resources */,
 				D9A8048E1A80E738005AD701 /* add_contact@2x.png in Resources */,
+				C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */,
 				D9A805561A80E738005AD701 /* ic_spot_favorite@2x.png in Resources */,
 				D9A8FF161A80CC2B005AD701 /* ResetPasswordViewController.xib in Resources */,
 				D9A804A01A80E738005AD701 /* chat_location_detail_disclosure.png in Resources */,
@@ -4874,6 +4881,7 @@
 				D9A8048C1A80E738005AD701 /* chat_list_cell_bubble@2x.png in Resources */,
 				D9A8FEDB1A80C8A4005AD701 /* PushMsgsViewController.xib in Resources */,
 				D9A800651A80DD0C005AD701 /* SearchUserInfoViewController.xib in Resources */,
+				C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */,
 				D9A805491A80E738005AD701 /* ic_location@2x.png in Resources */,
 				D9A805111A80E738005AD701 /* ic_time@2x.png in Resources */,
 				D9A802EE1A80E3D3005AD701 /* ic_progress@2x.png in Resources */,

@@ -97,7 +97,7 @@
     
     oy = 0;
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width - 20, 3.0)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width - 20, 3)];
     spaceView.backgroundColor = APP_THEME_COLOR;
     [_detailView addSubview:spaceView];
     
