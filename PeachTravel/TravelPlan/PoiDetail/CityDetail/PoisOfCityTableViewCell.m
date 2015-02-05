@@ -28,8 +28,8 @@
     _distanceLabel.hidden = YES;
     _pAddBtn.layer.cornerRadius = 2.0;
     _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _headerImageView.layer.borderWidth = 0.5;
+//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _bkgFrame.layer.cornerRadius = 2.0;
     _titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:15.0];

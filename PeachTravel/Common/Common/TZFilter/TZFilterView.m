@@ -155,6 +155,7 @@
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateHighlighted];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
+                btn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
                 btn.clipsToBounds = YES;
@@ -189,6 +190,7 @@
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
                 btn.clipsToBounds = YES;
+                btn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
                 [btn setTitle: itemTitle forState:UIControlStateNormal];
