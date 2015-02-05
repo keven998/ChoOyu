@@ -55,7 +55,7 @@
 - (IBAction)didSelected:(UIButton *)sender
 {
     if ([_delegate respondsToSelector:@selector(distinationDidSelect:)]) {
-        [_delegate distinationDidSelect:sender];
+        [_delegate distinationDidSelect:sender.tag];
     }
 }
 

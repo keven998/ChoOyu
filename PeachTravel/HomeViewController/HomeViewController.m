@@ -325,18 +325,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     _toolBoxCtl = [[ToolBoxViewController alloc] init];
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
-    [firstNavigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     
     _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:_hotDestinationCtl];
-    [secondNavigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
 
     
     _mineCtl = [[MineTableViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_mineCtl];
-    [thirdNavigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
 
     
     [self setViewControllers:@[firstNavigationController, secondNavigationController,

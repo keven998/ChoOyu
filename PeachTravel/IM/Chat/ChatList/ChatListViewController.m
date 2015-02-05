@@ -166,8 +166,8 @@
                 tzConversation.conversation = conversation;
                 [_chattingPeople addObject:tzConversation];
             } else {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO
-                                                                      append2Chat:YES];
+//                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO
+//                                                                      append2Chat:YES];
 
             }
             
@@ -177,7 +177,6 @@
                 NSLog(@"%@", group.groupSubject);
             }
             
-            
             TZConversation *tzConversation = [[TZConversation alloc] init];
             tzConversation.conversation = conversation;
             [_chattingPeople addObject:tzConversation];
@@ -186,6 +185,11 @@
                 if ([group.groupId isEqualToString:conversation.chatter]) {
                     if (group.groupSubject) {
                         tzConversation.chatterNickName = group.groupSubject;
+                    } else {
+                        [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:group.groupId completion:^(EMGroup *group, EMError *error) {
+                            NSLog(@"asyncFetchGroupInfo %@", group.groupSubject);
+                            [self refreshDataSource];
+                        } onQueue:nil];
                     }
                    
                     break;

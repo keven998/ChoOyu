@@ -222,10 +222,10 @@
         }
         [_galleryPageView.animationTimer resumeTimerAfterTimeInterval:2];
     }
-    NSLog(@"tool viewWillAppear");
-    
-    
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
 
+    NSLog(@"tool viewWillAppear");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -234,6 +234,7 @@
     if (self.navigationController.viewControllers.count == 2) {
         [[self rdv_tabBarController] setTabBarHidden:YES];
     }
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)dealloc

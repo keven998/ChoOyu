@@ -29,6 +29,7 @@
     _cancelBtn.layer.borderWidth = 1.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
+    _headerImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
     if (_chatType == TZChatTypeTravelNote) {
         _titleBtn.titleLabel.numberOfLines = 2;

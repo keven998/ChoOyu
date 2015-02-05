@@ -212,7 +212,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 #pragma mark - DestinationsViewDelegate
 
 //TODO:进入城市详情
-- (void)distinationDidSelect:(UIButton *)button
+- (void)distinationDidSelect:(NSInteger)buttonIndex
 {
     
 }

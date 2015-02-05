@@ -10,7 +10,7 @@
 
 @protocol DestinationsViewDelegate <NSObject>
 
-- (void)distinationDidSelect:(UIButton *)button;
+- (void)distinationDidSelect:(NSInteger)selectedIndex;
 
 @end
 
