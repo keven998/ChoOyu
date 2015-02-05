@@ -58,6 +58,8 @@
 		D9722F341A82446900D8A8CC /* Loading_Animation_final7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F261A82446900D8A8CC /* Loading_Animation_final7@2x.png */; };
 		D9722F351A82446900D8A8CC /* Loading_Animation_final8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F271A82446900D8A8CC /* Loading_Animation_final8@2x.png */; };
 		D9722F361A82446900D8A8CC /* Loading_Animation_final9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F281A82446900D8A8CC /* Loading_Animation_final9@2x.png */; };
+		D9722F391A835F4C00D8A8CC /* ic_destination_add_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F371A835F4C00D8A8CC /* ic_destination_add_normal@2x.png */; };
+		D9722F3A1A835F4C00D8A8CC /* ic_destination_add_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F381A835F4C00D8A8CC /* ic_destination_add_selected@2x.png */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
@@ -888,6 +890,8 @@
 		D9722F261A82446900D8A8CC /* Loading_Animation_final7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final7@2x.png"; sourceTree = "<group>"; };
 		D9722F271A82446900D8A8CC /* Loading_Animation_final8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final8@2x.png"; sourceTree = "<group>"; };
 		D9722F281A82446900D8A8CC /* Loading_Animation_final9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Loading_Animation_final9@2x.png"; sourceTree = "<group>"; };
+		D9722F371A835F4C00D8A8CC /* ic_destination_add_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_destination_add_normal@2x.png"; sourceTree = "<group>"; };
+		D9722F381A835F4C00D8A8CC /* ic_destination_add_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_destination_add_selected@2x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3733,6 +3737,8 @@
 		D9A804121A80E738005AD701 /* TravelPlan */ = {
 			isa = PBXGroup;
 			children = (
+				D9722F371A835F4C00D8A8CC /* ic_destination_add_normal@2x.png */,
+				D9722F381A835F4C00D8A8CC /* ic_destination_add_selected@2x.png */,
 				C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */,
 				D9A804131A80E738005AD701 /* add_to_list@2x.png */,
 				D9A804141A80E738005AD701 /* bg_guide_title@2x.png */,
@@ -4614,6 +4620,7 @@
 				D9A802CE1A80E3D3005AD701 /* ic_guide2_7_select@2x.png in Resources */,
 				D9A804AE1A80E738005AD701 /* chat_receiver_bg@2x.png in Resources */,
 				D9A804D81A80E738005AD701 /* ic_check_version@2x.png in Resources */,
+				D9722F391A835F4C00D8A8CC /* ic_destination_add_normal@2x.png in Resources */,
 				D9A805821A80E738005AD701 /* ic_menu_add@2x.png in Resources */,
 				D9A8FF2A1A80CCA5005AD701 /* AccountManagerTableViewCell.xib in Resources */,
 				D9A8055B1A80E738005AD701 /* ic_standard_travelnote@2x.png in Resources */,
@@ -4870,6 +4877,7 @@
 				D9A805011A80E738005AD701 /* ic_setting_password@2x.png in Resources */,
 				D9A8055A1A80E738005AD701 /* ic_spot_travel_guide@2x.png in Resources */,
 				D9A805851A80E738005AD701 /* ic_navigation_back@2x.png in Resources */,
+				D9722F3A1A835F4C00D8A8CC /* ic_destination_add_selected@2x.png in Resources */,
 				D9A8048C1A80E738005AD701 /* chat_list_cell_bubble@2x.png in Resources */,
 				D9A8FEDB1A80C8A4005AD701 /* PushMsgsViewController.xib in Resources */,
 				D9A800651A80DD0C005AD701 /* SearchUserInfoViewController.xib in Resources */,

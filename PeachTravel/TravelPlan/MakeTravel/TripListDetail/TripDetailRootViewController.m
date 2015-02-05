@@ -444,7 +444,33 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [array addObject:poi.zhName];
+        [array addObject:poi.zhName];
+        [array addObject:poi.zhName];
+
     }
+    
+    UIView *destinationBkgView = [[UIView alloc] initWithFrame:self.view.bounds];
+    destinationBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
+    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, destinationBkgView.bounds.size.height-290, destinationBkgView.bounds.size.width, 290)];
+    panelView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    
+    UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, destinationBkgView.bounds.size.width, 49)];
+    titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    titleBtn.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    titleBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
+    [titleBtn setTitle:@"目的地" forState:UIControlStateNormal];
+    [titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    titleBtn.userInteractionEnabled = NO;
+    [panelView addSubview:titleBtn];
+    
+    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(8, 60, kWindowWidth-16, 210)];
+    destinationView.isCanAddDestination = YES;
+    destinationView.titleColor = APP_THEME_COLOR;
+    destinationView.destinations = array;
+    [panelView addSubview:destinationView];
+    
+    [destinationBkgView addSubview:panelView];
+    [self.navigationController.view addSubview:destinationBkgView];
 }
 
 /**

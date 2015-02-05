@@ -23,7 +23,7 @@
 #import "MyTripSpotsMapViewController.h"
 #import "PositionBean.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate, DestinationsViewDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;
@@ -207,14 +207,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)finishEdit
 {
     [self.tableView reloadData];
-}
-
-#pragma mark - DestinationsViewDelegate
-
-//TODO:进入城市详情
-- (void)distinationDidSelect:(NSInteger)buttonIndex
-{
-    
 }
 
 #pragma mark - UITableViewDataSource & Delegate
