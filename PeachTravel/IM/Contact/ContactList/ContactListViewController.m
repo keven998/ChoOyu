@@ -124,7 +124,7 @@
     label1.textColor = APP_THEME_COLOR;
     label1.textAlignment = NSTextAlignmentCenter;
     label1.textAlignment = NSTextAlignmentLeft;
-    label1.text = @"蜜蜜新标签-桃友";
+    label1.text = @"蜜蜜新圈子";
     [self.emptyView addSubview:label1];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 40.0, width - 50.0, 16.0)];
@@ -144,7 +144,7 @@
     [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:@"加桃友" forState:UIControlStateNormal];
+    [btn setTitle:@"加好友" forState:UIControlStateNormal];
     btn.center = CGPointMake(width/2.0, 114.0);
     btn.layer.cornerRadius = 2.0;
     btn.clipsToBounds = YES;

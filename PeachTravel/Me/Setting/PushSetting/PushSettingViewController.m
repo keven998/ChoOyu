@@ -44,7 +44,7 @@
         [cell.switchButton removeTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
         [cell.switchButton addTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
     } else if (indexPath.row == 1) {
-        cell.titleView.text = @"桃·Talk提醒";
+        cell.titleView.text = @"Talk提醒";
         [cell.switchButton removeTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
         [cell.switchButton addTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
         cell.switchButton.on = !_isNoDisturbing;

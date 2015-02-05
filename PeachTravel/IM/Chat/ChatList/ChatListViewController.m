@@ -227,7 +227,7 @@
     desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"桃·Talk\n你的旅行交流集";
+    desc.text = @"Talk\n你的旅行圈";
     [self.emptyView addSubview:desc];
 }
 

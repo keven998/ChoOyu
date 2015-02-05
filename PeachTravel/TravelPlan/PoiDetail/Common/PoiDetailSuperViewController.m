@@ -35,7 +35,7 @@ enum {
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Talk", nil];
+                                              otherButtonTitles:@"Talk分享", nil];
     sheet.tag = kASShare;
     [sheet showInView:self.view];
 }
