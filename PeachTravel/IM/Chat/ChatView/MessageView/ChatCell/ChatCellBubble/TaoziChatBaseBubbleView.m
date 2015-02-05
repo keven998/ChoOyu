@@ -21,6 +21,8 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
 @property (nonatomic, strong) UILabel *typeLabel;
 @property (nonatomic, strong) UIImageView *pictureImageView;
+@property (nonatomic, strong) UIView *pictureImageBkgView;
+
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) UIButton *propertyBtn;
 @property (nonatomic, strong) UILabel *descLabel;
@@ -45,9 +47,13 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         
         _pictureImageView = [[UIImageView alloc] init];
         _pictureImageView.layer.cornerRadius = 2.0;
-        _pictureImageView.backgroundColor = APP_PAGE_COLOR;
         _pictureImageView.clipsToBounds = YES;
         
+        _pictureImageBkgView = [[UIView alloc] init];
+        _pictureImageBkgView.layer.cornerRadius = 2.0;
+        _pictureImageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+        _pictureImageView.clipsToBounds = YES;
+
         _propertyBtn = [[UIButton alloc] init];
         [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _propertyBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
@@ -64,6 +70,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         [self addSubview:_titleBtn];
         [self addSubview:_propertyBtn];
         [self addSubview:_pictureImageView];
+        [self addSubview:_pictureImageBkgView];
         [self addSubview:_descLabel];
         [self addSubview:_typeLabel];
     }
@@ -94,6 +101,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     }
     
     [_pictureImageView setFrame:CGRectMake(20, 10, 60, 60)];
+    [_pictureImageBkgView setFrame:CGRectMake(20, 10, 60, 60)];
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
 
     CGFloat offsetY;

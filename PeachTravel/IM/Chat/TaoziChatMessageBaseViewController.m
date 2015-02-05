@@ -11,6 +11,7 @@
 
 @interface TaoziChatMessageBaseViewController ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleHightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *imageBkgView;
 
 @end
 
@@ -29,6 +30,7 @@
     _cancelBtn.layer.borderWidth = 1.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
+    _imageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     _headerImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
     if (_chatType == TZChatTypeTravelNote) {

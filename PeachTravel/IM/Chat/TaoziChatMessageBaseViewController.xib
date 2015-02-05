@@ -11,6 +11,7 @@
                 <outlet property="descLabel" destination="pS2-3u-s7r" id="J0x-Gt-TVX"/>
                 <outlet property="headerImageView" destination="Aku-dr-fWc" id="yox-5k-hG4"/>
                 <outlet property="headerLabel" destination="1Ve-so-cbn" id="QWX-hJ-ugO"/>
+                <outlet property="imageBkgView" destination="nNG-ze-tM1" id="40N-Xx-wVJ"/>
                 <outlet property="propertyBtn" destination="f7I-S5-Pmq" id="L7T-Vt-aBk"/>
                 <outlet property="sendBtn" destination="8HH-bZ-ZBl" id="oUN-8g-EVP"/>
                 <outlet property="titleBtn" destination="Os6-dJ-EaQ" id="EPa-FC-Q0C"/>
@@ -29,6 +30,13 @@
                         <constraint firstAttribute="width" constant="85" id="YQc-7B-x1c"/>
                     </constraints>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNG-ze-tM1">
+                    <rect key="frame" x="15" y="15" width="85" height="85"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="85" id="oUI-fK-sqR"/>
+                        <constraint firstAttribute="height" constant="85" id="srW-JB-IcF"/>
+                    </constraints>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7I-S5-Pmq">
                     <rect key="frame" x="108" y="43" width="174" height="15"/>
                     <constraints>
@@ -111,6 +119,7 @@
                 <constraint firstItem="1Ve-so-cbn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="4w5-A0-dBE"/>
                 <constraint firstAttribute="bottom" secondItem="oZf-Rw-dOz" secondAttribute="bottom" constant="11" id="6Mf-FQ-5bI"/>
                 <constraint firstItem="1Ve-so-cbn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="65" id="7Uy-c1-PTe"/>
+                <constraint firstItem="nNG-ze-tM1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="JI3-98-Vjv"/>
                 <constraint firstAttribute="trailing" secondItem="f7I-S5-Pmq" secondAttribute="trailing" constant="8" id="Ot6-yT-5jd"/>
                 <constraint firstItem="oZf-Rw-dOz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="65" id="PGI-Ev-r7v"/>
                 <constraint firstAttribute="trailing" secondItem="8HH-bZ-ZBl" secondAttribute="trailing" constant="65" id="S8O-KD-YZK"/>
@@ -124,6 +133,7 @@
                 <constraint firstItem="Aku-dr-fWc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="qVm-pj-Wem"/>
                 <constraint firstItem="Os6-dJ-EaQ" firstAttribute="leading" secondItem="Aku-dr-fWc" secondAttribute="trailing" constant="8" id="qtV-bb-9MA"/>
                 <constraint firstAttribute="trailing" secondItem="Os6-dJ-EaQ" secondAttribute="trailing" constant="8" id="rSl-BI-M7P"/>
+                <constraint firstItem="nNG-ze-tM1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="tSt-eV-634"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
