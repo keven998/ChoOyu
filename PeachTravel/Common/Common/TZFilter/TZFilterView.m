@@ -25,7 +25,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, self.bounds.size.width, 37)];
         label.text = @"筛选";
         label.textColor = TEXT_COLOR_TITLE;
         label.textAlignment = NSTextAlignmentCenter;
@@ -52,11 +52,12 @@
 //        [_comfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //        [self addSubview:_comfirmBtn];
         
-        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 6, 45, 32)];
+        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 38)];
         [_cancelBtn setImage:[UIImage imageNamed:@"ic_filter_cancel.png"] forState:UIControlStateNormal];
+        _cancelBtn.imageEdgeInsets = UIEdgeInsetsMake(6, 5, 0, 0);
         [self addSubview:_cancelBtn];
         
-        _comfirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-60), 6, 45, 28)];
+        _comfirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width-55), 6, 45, 28)];
         [_comfirmBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         _comfirmBtn.layer.cornerRadius = 2.0;
         _comfirmBtn.clipsToBounds = YES;
@@ -154,6 +155,7 @@
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateHighlighted];
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
+                btn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
                 btn.clipsToBounds = YES;
@@ -188,6 +190,7 @@
                 [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateSelected];
                 btn.layer.cornerRadius = 2.0;
                 btn.clipsToBounds = YES;
+                btn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
                 btn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
                 btn.layer.borderWidth = 1.0;
                 [btn setTitle: itemTitle forState:UIControlStateNormal];

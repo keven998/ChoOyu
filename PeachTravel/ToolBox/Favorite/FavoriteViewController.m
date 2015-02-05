@@ -16,6 +16,7 @@
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
 #import "TZFilterViewController.h"
+#import "TZButton.h"
 
 #define PAGE_COUNT 15
 
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 @property (nonatomic, strong) NSArray *urlArray;
+@property (nonatomic, strong) NSArray *urlTitleArray;
+@property (nonatomic, strong) TZButton *filterBtn;
 
 /**
  *  当前显示的收藏类型
@@ -58,6 +61,7 @@
 - (id)init {
     if (self = [super init]) {
         _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
+        _urlTitleArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"]];
         _currentFavoriteType = [_urlArray objectAtIndex:0];
         _selectedIndex = -1;
         _currentPage = 0;
@@ -96,9 +100,16 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-    self.navigationItem.rightBarButtonItem = filterBtn;
-    [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+    _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+    [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+    _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+    [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_filterBtn setTitle:@"All" forState:UIControlStateNormal];
+    _filterBtn.topSpaceHight = 4.0;
+    _filterBtn.spaceHight = 1;
+    [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+    self.navigationItem.rightBarButtonItem = filterItem;
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
@@ -114,7 +125,6 @@
     
     [self.tableView addSubview:self.refreshControl];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
@@ -170,7 +180,7 @@
 {
     if (!_filterCtl) {
         _filterCtl = [[TZFilterViewController alloc] init];
-        _filterCtl.filterItemsArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"]];
+        _filterCtl.filterItemsArray = _urlTitleArray;
         _filterCtl.filterTitles = @[@"类型"];
         _filterCtl.lineCountPerFilterType = @[@2];
         _filterCtl.selectedItmesIndex = @[@0];
@@ -268,7 +278,7 @@
                     });
                 }
             } else {
-                
+                [self showHint:@"请求失败"];
             }
         }
         [self loadMoreCompleted];
@@ -377,9 +387,11 @@
 #pragma makr - TZFilterViewDelegate
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
-    _currentFavoriteType = [_urlArray objectAtIndex:[[itemIndexPath firstObject] integerValue]];
+    NSInteger index = [[itemIndexPath firstObject] integerValue];
+    _currentFavoriteType = [_urlArray objectAtIndex:index];
     [self.refreshControl beginRefreshing];
     [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+    [_filterBtn setTitle:[[_urlTitleArray objectAtIndex:0] objectAtIndex:index] forState:UIControlStateNormal];
 }
 
 #pragma mark - UITableViewDataSource
@@ -423,33 +435,9 @@
     style.lineSpacing = 2.0;
     [style setLineBreakMode:NSLineBreakByTruncatingTail];
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-//    cell.contentDescLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     cell.contentDescLabel.attributedText = desc;
     
     return cell;
-}
-
-- (IBAction)expandDesc:(id)sender {
-    UIButton *btn = sender;
-    CGPoint viewPos = [btn convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
-    
-//    if (!btn.isSelected) {
-//        _selectedIndex = indexPath.row;
-//        btn.selected = YES;
-//    } else {
-//        _selectedIndex = -1;
-//        btn.selected = NO;
-//    }
-    
-    if (_selectedIndex != indexPath.row) {
-        _selectedIndex = indexPath.row;
-    } else {
-        _selectedIndex = -1;
-    }
-    
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
 }
 
 #pragma mark - UITableViewDelegate
@@ -461,7 +449,7 @@
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 125.0;
+    return 135.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

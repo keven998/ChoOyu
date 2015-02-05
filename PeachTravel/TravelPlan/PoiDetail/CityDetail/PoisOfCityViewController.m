@@ -45,6 +45,8 @@
 
 @property (nonatomic, strong) TZProgressHUD *hud;
 
+@property (nonatomic, strong) TZButton *filterBtn;
+
 /**
  *  搜索的 hud
  */
@@ -74,7 +76,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.navigationItem.backBarButtonItem = barButton;
     
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_white.png"] forState:UIControlStateNormal];
+    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_gray.png"] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
@@ -99,9 +101,20 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         _zhName = destination.zhName;
         _cityId = destination.cityId;
         if (self.tripDetail.destinations.count > 1) {
-            UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-            [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-            self.navigationItem.rightBarButtonItem = filterBtn;
+//            UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+//            [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+//            self.navigationItem.rightBarButtonItem = filterBtn;
+            
+            _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+            [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+            _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+            [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+            _filterBtn.topSpaceHight = 4.0;
+            _filterBtn.spaceHight = 1;
+            [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+            self.navigationItem.rightBarButtonItem = filterItem;
+            [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
         }
     }
     if (_poiType == kRestaurantPoi) {
@@ -600,6 +613,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _currentPageNormal = 0;
     [self.tableView reloadData];
     [self loadDataPoisOfCity:_currentPageNormal];
+    
+    [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
 }
 
 
@@ -652,10 +667,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 140)];
+            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 150)];
             sectionheaderView.backgroundColor = APP_PAGE_COLOR;
             
-            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, 5)];
+            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, 4)];
             spaceView.backgroundColor = APP_THEME_COLOR;
             
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, sectionheaderView.bounds.size.height-20)];
@@ -666,8 +681,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
             if (_poiType == kRestaurantPoi) {
                 [tagBtn setTitle:@"美食\n攻略" forState:UIControlStateNormal];
-            }
-            if (_poiType == kShoppingPoi) {
+            } else if (_poiType == kShoppingPoi) {
                 [tagBtn setTitle:@"购物\n攻略" forState:UIControlStateNormal];
             }
             tagBtn.titleLabel.font  = [UIFont boldSystemFontOfSize:17.0];
@@ -681,7 +695,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
-            style.lineSpacing = 2;
+            style.lineSpacing = 1;
             [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, len)];
             [btn setAttributedTitle:desc forState:UIControlStateNormal];
             
@@ -692,14 +706,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
             btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
             btn.titleLabel.numberOfLines = 4;
-            [btn setContentEdgeInsets:UIEdgeInsetsMake(20, 100, 35, 10)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(26, 100, 35, 10)];
             
-            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-55, btn.bounds.size.height-25, 30, 20)];
+            UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-26, 30, 20)];
             moreLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-            moreLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-            moreLabel.text = @"更多";
+            moreLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+            moreLabel.text = @"详情";
             
-            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-25, btn.bounds.size.height-20, 7, 11)];
+            UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-20, btn.bounds.size.height-22, 7, 11)];
             moreImage.image = [UIImage imageNamed:@"more_btn.png"];
             [btn addSubview:moreLabel];
             [btn addSubview:moreImage];
@@ -722,6 +736,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     }
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier];
+    [cell.pAddBtn setTitle:@"收集" forState:UIControlStateNormal];
+    [cell.pAddBtn setTitle:@"已收集" forState:UIControlStateSelected];
     cell.shouldEdit = _shouldEdit;
     cell.poi = poi;
     cell.addBtn.tag = indexPath.row;
@@ -743,7 +759,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             }
         }
         cell.isAdded = isAdded;
-            [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         cell.naviBtn.tag = indexPath.row;
         [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];

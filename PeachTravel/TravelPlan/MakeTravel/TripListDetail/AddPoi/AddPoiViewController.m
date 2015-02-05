@@ -39,6 +39,8 @@
 
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
+@property (nonatomic, strong) TZButton *filterBtn;
+
 //管理普通 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageNormal;
 @property (nonatomic, assign) BOOL isLoadingMoreNormal;
@@ -85,13 +87,23 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     if (_tripDetail) {
          self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
+        finishBtn.tintColor = TEXT_COLOR_TITLE;
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-        [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-        self.navigationItem.rightBarButtonItem = filterBtn;
+//        UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
+//        [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
+//        self.navigationItem.rightBarButtonItem = filterBtn;
+        
+        _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+        [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+        _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        _filterBtn.topSpaceHight = 4.0;
+        _filterBtn.spaceHight = 1;
+        [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+        self.navigationItem.rightBarButtonItem = filterItem;
     } else {
-//        self.navigationItem.title = [NSString stringWithFormat:@"玩在%@", _cityName];
         self.navigationItem.title = [NSString stringWithFormat:@"%@美景", _cityName];
     }
     
@@ -119,6 +131,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     if (_tripDetail) {
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
+        [_filterBtn setTitle:firstDestination.zhName forState:UIControlStateNormal];
     } else {
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
 
@@ -263,7 +276,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
 
     } else {
-        
         PoiSummary *poi;
         if (self.searchController.isActive) {
             poi = [self.searchResultArray objectAtIndex:indexPath.row];
@@ -314,7 +326,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     
     NSString *backUrlForCheck = _requestUrl;
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -341,7 +353,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
             }
         }
         [self loadMoreCompletedNormal];
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         [self loadMoreCompletedNormal];
@@ -349,6 +361,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 
@@ -483,6 +496,8 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         [self.tableView reloadData];
         _currentPageNormal = 0;
         [self loadDataWithPageNo:_currentPageNormal];
+        
+        [_filterBtn setTitle:poi.zhName forState:UIControlStateNormal];
     }
 }
 

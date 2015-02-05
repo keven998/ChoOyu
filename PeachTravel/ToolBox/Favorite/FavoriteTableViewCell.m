@@ -20,8 +20,8 @@
     _timeBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
 
     _standardImageView.clipsToBounds = YES;
-    _standardImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _standardImageView.layer.borderWidth = 0.5;
+//    _standardImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _standardImageView.layer.borderWidth = 0.5;
     _standardImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
     _contentDescLabel.numberOfLines = 4;
