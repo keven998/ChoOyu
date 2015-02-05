@@ -82,7 +82,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     UIButton *addWantToBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
     
     [addWantToBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [addWantToBtn setTitle:@"购物收集" forState:UIControlStateNormal];
+    [addWantToBtn setTitle:@"收集购物" forState:UIControlStateNormal];
     [addWantToBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
     [addWantToBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
     [addWantToBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
