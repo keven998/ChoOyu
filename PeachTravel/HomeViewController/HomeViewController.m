@@ -120,7 +120,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         _IMRootCtl = [[IMRootViewController alloc] init];
         
         ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-        contactListCtl.title = @"桃友";
+        contactListCtl.title = @"好友";
         
         ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
         chatListCtl.title = @"Talk";
@@ -661,7 +661,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         //发送本地推送
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.fireDate = [NSDate date]; //触发通知的时间
-        notification.alertBody = [NSString stringWithFormat:@"%@ %@", username, @"添加你为桃友"];
+        notification.alertBody = [NSString stringWithFormat:@"%@ %@", username, @"添加你为好友"];
         notification.alertAction = @"打开";
         notification.timeZone = [NSTimeZone defaultTimeZone];
     }

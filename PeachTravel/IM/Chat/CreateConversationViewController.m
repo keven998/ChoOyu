@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.title = @"选择Talk桃友";
+    self.navigationController.title = @"选择";
     /**
      *  如果联系人的个数大于15，那显示索引，反之不现实
      */
@@ -162,7 +162,7 @@
 
     } else {
         if (self.selectedContacts.count == 0) {
-            [SVProgressHUD showErrorWithStatus:@"呃~我还不知道你想和谁Talk"];
+            [SVProgressHUD showErrorWithStatus:@"请选择一个以上好友"];
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             Contact *contact = [self.selectedContacts firstObject];

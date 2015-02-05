@@ -49,7 +49,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
 
-    self.navigationItem.title = @"桃•Talk";
+    self.navigationItem.title = @"Talk";
     NSLog(@"%@", self.navigationController);
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(addAction:)];
     [makePlanBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"]];
@@ -161,12 +161,12 @@
             break;
             
         case IM_RECEIVED: {
-            self.navigationItem.title = @"桃•Talk";
+            self.navigationItem.title = @"Talk";
         }
             break;
             
         case IM_CONNECTED: {
-            self.navigationItem.title = @"桃•Talk";
+            self.navigationItem.title = @"Talk";
         }
             
         default:
@@ -211,7 +211,7 @@
     NSInteger numberOfOptions = 2;
     NSArray *items = @[
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"Talk"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"加桃友"]
+                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"加好友"]
                        ];
     
     _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];

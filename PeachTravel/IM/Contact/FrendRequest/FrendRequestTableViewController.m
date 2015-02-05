@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"桃友请求";
+    self.navigationItem.title = @"好友请求";
     [self.tableView registerNib:[UINib nibWithNibName:@"FrendRequestTableViewCell" bundle:nil] forCellReuseIdentifier:requestCell];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataSource) name:frendRequestListNeedUpdateNoti object:nil];
 }
@@ -77,7 +77,7 @@
     EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
     EMMessage *message = [[EMMessage alloc] initWithReceiver:frendRequest.easemobUser bodies:@[textBody]];
     
-    NSString *str = [NSString stringWithFormat:@"你已添加%@为桃友",frendRequest.nickName];
+    NSString *str = [NSString stringWithFormat:@"你已添加%@为好友",frendRequest.nickName];
     message.ext = @{
                     @"tzType":[NSNumber numberWithInt:TZTipsMsg],
                     @"content":str
@@ -167,7 +167,7 @@
 
 - (IBAction)agreeFrendRequest:(UIButton *)sender
 {
-    NSLog(@"我同意桃友请求，好友信息为：%@", [_dataSource objectAtIndex: sender.tag]);
+    NSLog(@"我同意好友请求，好友信息为：%@", [_dataSource objectAtIndex: sender.tag]);
     [self addContactWithFrendRequest:[_dataSource objectAtIndex: sender.tag]];
 
 }

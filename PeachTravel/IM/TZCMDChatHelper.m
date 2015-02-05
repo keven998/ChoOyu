@@ -63,7 +63,7 @@
             id  chatManager = [[EaseMob sharedInstance] chatManager];
             NSDictionary *loginInfo = [chatManager loginInfo];
             NSString *account = [loginInfo objectForKey:kSDKUsername];
-            EMChatText *chatText = [[EMChatText alloc] initWithText:@"我已经同意了你的桃友请求，现在我们可以聊天了"];
+            EMChatText *chatText = [[EMChatText alloc] initWithText:@"我已经同意了你的好友请求，现在可以分享旅行了"];
             EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
             EMMessage *message = [[EMMessage alloc] initWithReceiver:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"] bodies:@[textBody]];
             [message setIsGroup:NO];

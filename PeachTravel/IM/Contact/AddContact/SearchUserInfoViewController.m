@@ -82,7 +82,7 @@
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     UITextField *nameTextField = [alert textFieldAtIndex:0];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    nameTextField.text = [NSString stringWithFormat:@"Hi, 我是桃友%@", accountManager.account.nickName];
+    nameTextField.text = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [self requestAddContactWithHello:nameTextField.text];
@@ -112,7 +112,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params safeSetObject:[_userInfo objectForKey:@"userId"] forKey:@"userId"];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
-        helloStr = [NSString stringWithFormat:@"Hi, 我是桃友%@", accountManager.account.nickName];
+        helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
     [params safeSetObject:helloStr forKey:@"message"];
 
