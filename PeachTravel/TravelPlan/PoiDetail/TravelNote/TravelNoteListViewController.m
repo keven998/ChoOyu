@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic) NSUInteger currentPage;
+
+@property (nonatomic, strong) TZProgressHUD *hud;
 @end
 
 @implementation TravelNoteListViewController
@@ -114,11 +116,12 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         [params safeSetObject:_cityId forKey:@"locId"];
     }
     
-    [SVProgressHUD show];
-    
     //获取游记列表信息
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SVProgressHUD dismiss];
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -142,6 +145,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        if (_hud) {
+            [_hud hideTZHUD];
+            _hud = nil;
+        }
         [self loadMoreCompleted];
         [self showHint:@"呃～好像没找到网络"];
     }];
@@ -211,7 +218,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 149.0;
+    return 130.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -255,12 +262,16 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
     _currentPage = 0;
     [self loadDataWithPageNo:_currentPage andKeyWork:searchBar.text];
     if ([[self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0) {
         [self loadDataWithPageNo:_currentPage + 1 andKeyWork:self.searchBar.text];
     }
     [searchBar resignFirstResponder];
+    _hud = [[TZProgressHUD alloc] init];
+    typeof(self) weakSelf = self;
+    [_hud showHUDInViewController:weakSelf];
 }
 
 #pragma mark - TaoziMessageSendDelegate
