@@ -79,8 +79,8 @@
     CGFloat w = CGRectGetWidth(self.view.bounds);
     CGFloat h = CGRectGetHeight(self.view.bounds);
     
-    CGFloat ratioY = kWindowHeight/480;
-    CGFloat ratioX = kWindowWidth/320;
+    CGFloat ratioY = h/480;
+    CGFloat ratioX = w/320;
     
     CGFloat height = 135 * ratioY;
     
@@ -114,7 +114,7 @@
     
     offsetY += _weatherLabel.frame.size.height + 10*ratioY + 50*(ratioY-1);
     
-    UIImageView *bkgView = [[UIImageView alloc] initWithFrame:CGRectMake((kWindowWidth-260*ratioX)/2, offsetY, 260*ratioX, 145*ratioX)];
+    UIImageView *bkgView = [[UIImageView alloc] initWithFrame:CGRectMake((w-260*ratioX)/2, offsetY, 260*ratioX, 145*ratioX)];
     bkgView.image = [UIImage imageNamed:@"bkg-linked_dots.png"];
 
     [_contentFrame addSubview:bkgView];
@@ -385,9 +385,9 @@
     
     CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:9*(kWindowHeight/480)]}].width;
 
-    UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 20, 0, kWindowHeight/480*10, 10*kWindowHeight/480)];
+    UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 20, 2, kWindowHeight/480*10, 10*kWindowHeight/480)];
     weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
-    weatherImageview.backgroundColor = [UIColor grayColor];
+
     [_weatherLabel addSubview:weatherImageview];
 }
 
@@ -415,6 +415,8 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
+    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nctl.navigationBar.translucent = YES;
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 

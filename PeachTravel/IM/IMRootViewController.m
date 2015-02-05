@@ -49,9 +49,10 @@
 
     self.navigationItem.title = @"Talk";
     NSLog(@"%@", self.navigationController);
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(addAction:)];
-    [makePlanBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"]];
-    self.navigationItem.rightBarButtonItem = makePlanBtn;
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [addBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"] forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
 
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -201,6 +202,8 @@
     _createCoversationCtl = [[CreateConversationViewController alloc] init];
     _createCoversationCtl.delegate = self;
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createCoversationCtl];
+    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nCtl.navigationBar.translucent = YES;
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 

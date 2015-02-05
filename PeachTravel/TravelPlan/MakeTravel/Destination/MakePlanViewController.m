@@ -149,6 +149,8 @@
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     loginViewController.isPushed = NO;
+    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nctl.navigationBar.translucent = YES;
     [self presentViewController:nctl animated:YES completion:nil];
 }
 

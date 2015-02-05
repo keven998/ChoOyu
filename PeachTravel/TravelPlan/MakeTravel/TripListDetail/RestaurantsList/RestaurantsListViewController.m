@@ -126,6 +126,8 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     
     restaurantOfCityCtl.shouldEdit = YES;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
+    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nctl.navigationBar.translucent = YES;
     [self presentViewController:nctl animated:YES completion:nil];
 }
 

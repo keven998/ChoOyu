@@ -236,6 +236,8 @@
     _createConversationCtl = [[CreateConversationViewController alloc] init];
     _createConversationCtl.delegate = self;
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createConversationCtl];
+    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nCtl.navigationBar.translucent = YES;
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 

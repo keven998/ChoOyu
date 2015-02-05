@@ -57,6 +57,8 @@ enum {
         _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
         _chatRecordListCtl.delegate = self;
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+        [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+        nCtl.navigationBar.translucent = YES;
         [self presentViewController:nCtl animated:YES completion:nil];
     }
 }
@@ -187,6 +189,8 @@ enum {
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     loginViewController.isPushed = NO;
+    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nctl.navigationBar.translucent = YES;
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
