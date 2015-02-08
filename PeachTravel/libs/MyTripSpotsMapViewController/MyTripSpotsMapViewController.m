@@ -165,25 +165,12 @@ calloutAccessoryControlTapped:(UIControl *)control{
     NSInteger index = [_currentAnnotations indexOfObject:annotation];
     
     MKPinAnnotationView *newAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:[annotation title]];
-    UIButton *advertButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    advertButton.frame = CGRectMake(0, 0, 15, 23);
-    advertButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    advertButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [advertButton setImage:[UIImage imageNamed:@"cell_accessory_gray.png"] forState:UIControlStateNormal];
-
-    newAnnotationView.rightCalloutAccessoryView = advertButton;
     newAnnotationView.pinColor = MKPinAnnotationColorRed;
 
     newAnnotationView.annotation = annotation;
     newAnnotationView.canShowCallout = YES;
     newAnnotationView.tag = index;
-    
-//    if (index <= 20) {
-//        newAnnotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"map%ld.png", (long)index+1]];
-//    } else {
-//        newAnnotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapempty.png"]];
-//    }
+
     
     return newAnnotationView;
 }
@@ -191,7 +178,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
 - (MKOverlayRenderer*)mapView:(MKMapView*)mapView rendererForOverlay:(id <MKOverlay>)overlay
 {
     MKPolylineRenderer* lineView = [[MKPolylineRenderer alloc] initWithPolyline:_line];
-    lineView.strokeColor = APP_THEME_COLOR;
+    lineView.strokeColor = APP_SUB_THEME_COLOR;
     lineView.lineWidth = 2;
     return lineView;
 }
