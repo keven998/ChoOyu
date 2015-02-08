@@ -28,15 +28,15 @@
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
-    if (_tripPoi.poiType == kSpotPoi || _tripPoi.poiType == kShoppingPoi) {
+    if (_tripPoi.poiType == kSpotPoi) {
         NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
         [_property setTitle:timeStr forState:UIControlStateNormal];
     } else {
         [_property setImage:nil forState:UIControlStateNormal];
-        if (_tripPoi.poiType == kRestaurantPoi) {
+        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi) {
             [_property setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
         }
-        if (_tripPoi.poiType == kHotelPoi) {
+        if (_tripPoi.poiType == kShoppingPoi) {
             [_property setTitle:@"" forState:UIControlStateNormal];
         }
     }
