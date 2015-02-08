@@ -168,8 +168,6 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;
-    domestic.notify = NO;
-    foreignCtl.notify = NO;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 

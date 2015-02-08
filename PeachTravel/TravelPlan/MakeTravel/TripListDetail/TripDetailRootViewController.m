@@ -866,8 +866,6 @@
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;
-    domestic.notify = NO;
-    foreignCtl.notify = NO;
     [self hideDestinationView:nil];
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
