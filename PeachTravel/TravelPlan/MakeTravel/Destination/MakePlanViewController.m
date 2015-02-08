@@ -29,7 +29,6 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"选择目的地";
-    
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;

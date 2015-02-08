@@ -518,11 +518,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.hidden = YES;
 }
 
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
-{
-    _searchBar.hidden = YES;
-}
-
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
 {
     _searchBar.hidden = YES;
