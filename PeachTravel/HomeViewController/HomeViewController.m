@@ -854,7 +854,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)willAutoReconnect{
     NSLog(@"正在重练中");
-    [SVProgressHUD showHint:@"正在重练中"];
+//    [SVProgressHUD showHint:@"正在重练中"];
     self.IMRootCtl.IMState = IM_CONNECTING;
 }
 
@@ -865,7 +865,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSLog(@"重连失败，稍候将继续重连");
     }else{
         NSLog(@"重练成功");
-        [SVProgressHUD showHint:@"重练成功"];
+//        [SVProgressHUD showHint:@"重练成功"];
 
         self.IMRootCtl.IMState = IM_CONNECTED;
     }

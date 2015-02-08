@@ -81,7 +81,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.view addSubview:positionView];
         
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
-//        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
         _searchBar.delegate = self;
         _searchBar.backgroundColor = [UIColor whiteColor];
         [_searchBar setPlaceholder:@"请输入城市名或拼音"];
@@ -95,7 +94,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _searchController.searchResultsDataSource = self;
         _searchController.searchResultsDelegate = self;
         [_searchController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"suggestCell"];
-        
+        _searchBar.hidden = YES;
         [self.view addSubview:_searchBar];
 
     }
@@ -163,6 +162,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
     [_searchController setActive:YES animated:YES];
+    _searchBar.hidden = NO;
     [_searchBar becomeFirstResponder];
 }
 
@@ -186,6 +186,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params safeSetObject:_keyWord forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [params setObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
    
     
@@ -271,7 +272,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)analysisData:(id)json
 {
-    [self.dataSource removeAllObjects];
     for (id dic in [json objectForKey:_poiTypeDesc]) {
         PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         [self.dataSource addObject:poi];
@@ -506,9 +506,26 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     }
 }
 
+#pragma mark - UISearchBar Delegate
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self loadSuggestionData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    _searchBar.hidden = YES;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
+    _searchBar.hidden = YES;
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    _searchBar.hidden = YES;
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controlle
