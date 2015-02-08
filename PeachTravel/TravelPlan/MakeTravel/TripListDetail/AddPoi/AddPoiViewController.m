@@ -80,6 +80,8 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
+    _tableView.rowHeight = 155.0;
+
     [self.view addSubview:_tableView];
     
     [_tableView setContentOffset:CGPointMake(0, 50)];
@@ -125,6 +127,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     self.searchController.searchResultsTableView.dataSource = self;
     self.searchController.searchResultsTableView.delegate = self;
     self.searchController.delegate = self;
+    self.searchController.searchResultsTableView.rowHeight = 155.0;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -224,11 +227,11 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 - (void) beginLoadingSearch
 {
     if (self.searchController.searchResultsTableView.tableFooterView == nil) {
-        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
+//        self.searchController.searchResultsTableView.tableFooterView = self.footerView;
     }
     _isLoadingMoreSearch = YES;
     [_indicatroView startAnimating];
-    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
+//    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
     
     NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
     
@@ -449,7 +452,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         [params safeSetObject:_cityId forKey:@"locId"];
     }
    
-    [params setObject:_searchText forKey:@"keyWord"];
+    [params safeSetObject:_searchText forKey:@"keyWord"];
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     
@@ -481,7 +484,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
                 if (jsonDic.count == 15) {
                     _enableLoadMoreSearch = YES;
                 }
-                [self.searchResultArray removeAllObjects];
                 for (id poiDic in jsonDic) {
                     [self.searchResultArray addObject:[[PoiSummary alloc] initWithJson:poiDic]];
                 }
@@ -556,10 +558,10 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     return 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 155.0;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 155.0;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PoiSummary *poi;
