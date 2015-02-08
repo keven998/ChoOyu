@@ -202,6 +202,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             _cityPoi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            [self updateView];
             [self loadTravelNoteOfCityData];
         } else {
             if (self.isShowing) {
@@ -254,7 +255,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             
         }
         [_hud hideTZHUD];
-        [self updateView];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
@@ -363,11 +363,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.cityPoi.travelNotes.count >= 1) {
+//    if (self.cityPoi.travelNotes.count >= 1) {
         return 1;
-    } else {
-        return 0;
-    }
+//    } else {
+//        return 0;
+//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
