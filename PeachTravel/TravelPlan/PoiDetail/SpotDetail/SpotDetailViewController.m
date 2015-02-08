@@ -136,24 +136,22 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    [SVProgressHUD show];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(self)weakSelf = self;
+    [hud showHUDInViewController:weakSelf];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_SPOT_DETAIL, _spotId];
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
             [SVProgressHUD dismiss];
             _spotPoi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
-//            if (self.isShowing) {
-//                [SVProgressHUD showHint:@"请求也是失败了"];
-//            }
             [self dismissCtlWithHint:@"无法获取数据"];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        if (self.isShowing) {
-//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-//        }
+        [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
 

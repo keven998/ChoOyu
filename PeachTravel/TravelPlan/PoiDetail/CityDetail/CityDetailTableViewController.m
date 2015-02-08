@@ -325,13 +325,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)viewRestaurants:(id)sender
 {
     NSLog(@"应该进入城市的美食信息");
-
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = _cityPoi.cityId;
     restaurantOfCityCtl.zhName = _cityPoi.zhName;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
-    
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
