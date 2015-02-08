@@ -18,6 +18,7 @@
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _desc = [json objectForKey:@"desc"];
+        _detailUrl = [json objectForKey:@"detailUrl"];
         NSMutableArray *tempImages = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];

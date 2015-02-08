@@ -47,12 +47,6 @@
 
 @property (nonatomic, strong) TZButton *filterBtn;
 
-/**
- *  搜索的 hud
- */
-@property (nonatomic, strong) TZProgressHUD *searchHud;
-
-
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic) BOOL isShowing;
@@ -80,8 +74,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
+    _searchBar.delegate = self;
+    _searchBar.hidden = YES;
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-20)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 155.0;
@@ -91,20 +89,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.tableView];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, self.tableView.bounds.size.width, 30)];
-    _searchBar.delegate = self;
-    _searchBar.hidden = YES;
-    [self.view addSubview:_searchBar];
+    self.tableView.tableHeaderView = _searchBar;
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
         if (self.tripDetail.destinations.count > 1) {
-//            UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-//            [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-//            self.navigationItem.rightBarButtonItem = filterBtn;
-            
             _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
             [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
             _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
@@ -263,7 +254,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             self.dataSource = [[RecommendsOfCity alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self loadDataPoisOfCity:_currentPageNormal];
         } else {
-            //            [self showHint:@"呃～好像没找到网络"];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -360,6 +350,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     switch (_poiType) {
         case kRestaurantPoi:
             [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
@@ -372,15 +364,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     
     [params setObject:_cityId forKey:@"locId"];
-    [params setObject:_searchText forKey:@"keyWord"];
+    [params safeSetObject:_searchText forKey:@"keyWord"];
+    
+    NSLog(@"searchController.searchResultsTableView frame :%@", NSStringFromCGRect(_searchController.searchResultsTableView.frame));
     
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (self.searchDisplayController.isActive) {
-            if (_searchHud) {
-                [_searchHud hideTZHUD];
-                _searchHud = nil;
-            }
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
                 NSString *key = nil;
@@ -413,14 +404,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompletedSearch];
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-        if (_searchHud) {
-            [_searchHud hideTZHUD];
-            _searchHud = nil;
         }
     }];
 }
@@ -485,8 +472,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         }
     }
     cell.isAdded = !cell.isAdded;
-
-   
 }
 
 - (IBAction)finishAdd:(id)sender
@@ -529,17 +514,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)showIntruductionOfCity
 {
-    NSString *requsetUrl;
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", RESTAURANT_CITY_HTML,_cityId];
         webCtl.titleStr = @"美食攻略";
         
     } else if (_poiType == kShoppingPoi) {
-        requsetUrl = [NSString stringWithFormat:@"%@%@", SHOPPING_CITY_HTML,_cityId];
         webCtl.titleStr = @"购物攻略";
     }
-    webCtl.urlStr = requsetUrl;
+    webCtl.urlStr = _dataSource.detailUrl;
     
     [self.navigationController pushViewController:webCtl animated:YES];
 }
@@ -623,6 +605,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    //如果是搜索的情况
     if (![tableView isEqual:self.tableView]) {
         return self.searchResultArray.count;
     }
@@ -808,12 +791,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self.searchController.searchResultsTableView reloadData];
     _currentPageSearch = 0;
     _searchText = searchBar.text;
-    
-    __weak typeof(PoisOfCityViewController *)weakSelf = self;
-    if (!_searchHud) {
-        _searchHud = [[TZProgressHUD alloc] init];
-    }
-    [_searchHud showHUDInViewController:weakSelf];
     [self loadSearchDataWithPageNo:_currentPageSearch];
 }
 
@@ -824,9 +801,24 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _enableLoadMoreSearch = NO;
 }
 
-- (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+- (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
 {
     _searchBar.hidden = YES;
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        for (UIView* v in _searchController.searchResultsTableView.subviews) {
+            if ([v isKindOfClass: [UILabel class]] &&
+                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
+                ((UILabel *)v).text = @"";
+                break;
+            }
+        }
+    });
+    return YES;
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
@@ -834,12 +826,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self.searchResultArray removeAllObjects];
     [self.searchController.searchResultsTableView reloadData];
     [self.tableView reloadData];
-    [_searchHud hideTZHUD];
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
-{
-    _searchBar.hidden = YES;
 }
 
 #pragma mark - UIScrollViewDelegate
