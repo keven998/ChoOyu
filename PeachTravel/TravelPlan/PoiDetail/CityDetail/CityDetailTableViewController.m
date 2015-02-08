@@ -47,7 +47,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _cityPicture = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 188)];
+    _cityPicture = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), kWindowWidth*0.6)];
     _cityPicture.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _cityPicture.contentMode = UIViewContentModeScaleAspectFill;
     _cityPicture.clipsToBounds = YES;

@@ -43,7 +43,7 @@
     self.backgroundColor = [UIColor clearColor];
     CGFloat width = self.frame.size.width;
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 188)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, kWindowWidth*0.6)];
     button.backgroundColor = [UIColor clearColor];
     [button addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];

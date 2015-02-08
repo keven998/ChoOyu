@@ -186,7 +186,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params safeSetObject:_keyWord forKey:@"keyWord"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
-    [params setObject:[NSNumber numberWithInt:pageIndex] forKey:@"page"];
+    [params setObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
    
     
