@@ -54,13 +54,25 @@
 
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
-    } completion:^(BOOL finished) {
-        
-    }];
+    } completion:nil];
+    
+    if (self.spotPoi.trafficInfoUrl == nil || [self.spotPoi.trafficInfoUrl isBlankString]) {
+        _spotDetailView.trafficGuideBtn.enabled = NO;
+    } else {
+        [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    if (self.spotPoi.guideUrl == nil || [self.spotPoi.guideUrl isBlankString]) {
+        _spotDetailView.kendieBtn.enabled = NO;
+    } else {
+        [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    if (self.spotPoi.tipsUrl == nil || [self.spotPoi.tipsUrl isBlankString]) {
+        _spotDetailView.travelGuideBtn.enabled = NO;
+    } else {
+        [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
     [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -192,7 +204,7 @@
 - (IBAction)kengdie:(id)sender
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = @"Tips";
+    webCtl.titleStr = @"旅行小贴士";
     webCtl.urlStr = _spotPoi.tipsUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
