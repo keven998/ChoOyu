@@ -544,6 +544,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
+
 /**
  *  非搜索状态下上拉加载更多
  */

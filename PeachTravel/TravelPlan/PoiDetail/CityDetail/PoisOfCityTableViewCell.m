@@ -32,6 +32,7 @@
     [_pAddBtn setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_PH] forState:UIControlStateSelected];
     
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _headerImageView.clipsToBounds = YES;
     _bkgFrame.layer.cornerRadius = 2.0;
 
     self.backgroundColor = APP_PAGE_COLOR;

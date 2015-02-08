@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -78,7 +78,7 @@
                                 <inset key="imageEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" image="ic_map.png"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AGD-7l-KqM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AGD-7l-KqM">
                                 <rect key="frame" x="15" y="20" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Uiy-Qa-mns"/>
@@ -117,7 +117,7 @@
                                 <state key="selected" title="已添加"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mt-a3-Yo3">
-                                <rect key="frame" x="208" y="98" width="56" height="15"/>
+                                <rect key="frame" x="204" y="98" width="56" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="56" id="QCk-cx-UoT"/>
                                     <constraint firstAttribute="height" constant="15" id="eEX-zE-535"/>
@@ -139,7 +139,7 @@
                             <constraint firstItem="AGD-7l-KqM" firstAttribute="top" secondItem="uyk-Cy-1ff" secondAttribute="top" constant="20" id="Nmu-Fh-y9J"/>
                             <constraint firstItem="Oo3-Eh-gcC" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="OlQ-cE-jQN"/>
                             <constraint firstAttribute="trailing" secondItem="HbB-vu-Wv6" secondAttribute="trailing" constant="13" id="PeJ-F3-l4x"/>
-                            <constraint firstAttribute="trailing" secondItem="7mt-a3-Yo3" secondAttribute="trailing" constant="34" id="QvG-Km-eZR"/>
+                            <constraint firstAttribute="trailing" secondItem="7mt-a3-Yo3" secondAttribute="trailing" constant="38" id="QvG-Km-eZR"/>
                             <constraint firstItem="uh6-ZE-He8" firstAttribute="top" secondItem="Oo3-Eh-gcC" secondAttribute="bottom" constant="2" id="RHK-aj-Iqi"/>
                             <constraint firstAttribute="trailing" secondItem="09i-tE-FZP" secondAttribute="trailing" id="Rmb-CS-ncd"/>
                             <constraint firstAttribute="trailing" secondItem="Oo3-Eh-gcC" secondAttribute="trailing" constant="10" id="S3f-n5-OlB"/>
@@ -153,7 +153,7 @@
                             <constraint firstItem="tL4-kP-lvf" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="ePK-ho-LVL"/>
                             <constraint firstItem="Ao2-DU-qFj" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="jkj-EW-Sr2"/>
                             <constraint firstItem="AGD-7l-KqM" firstAttribute="leading" secondItem="uyk-Cy-1ff" secondAttribute="leading" constant="15" id="mRi-C4-D08"/>
-                            <constraint firstItem="7mt-a3-Yo3" firstAttribute="leading" secondItem="Ao2-DU-qFj" secondAttribute="trailing" constant="-6" id="naO-La-UBe"/>
+                            <constraint firstItem="7mt-a3-Yo3" firstAttribute="leading" secondItem="Ao2-DU-qFj" secondAttribute="trailing" constant="-10" id="naO-La-UBe"/>
                             <constraint firstAttribute="trailing" secondItem="AME-tl-Dpl" secondAttribute="trailing" constant="12" id="sFi-sP-MTa"/>
                             <constraint firstAttribute="bottom" secondItem="7mt-a3-Yo3" secondAttribute="bottom" constant="22" id="wif-rx-u2f"/>
                         </constraints>
