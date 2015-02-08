@@ -32,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = _titleStr;
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
@@ -85,6 +86,18 @@
     [_webView stopLoading];
     _webView.delegate = nil;
     _webView = nil;
+}
+
+/**
+ *  重写父类的返回事件
+ */
+- (void)goBack
+{
+    if ([_webView canGoBack]) {
+        [_webView goBack];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - NJKWebViewProgressDelegate
