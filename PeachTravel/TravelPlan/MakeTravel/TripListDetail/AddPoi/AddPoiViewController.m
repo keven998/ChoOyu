@@ -18,7 +18,7 @@
 #import "TZFilterViewController.h"
 
 
-@interface AddPoiViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate>
+@interface AddPoiViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
@@ -124,6 +124,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
     self.searchController.searchResultsTableView.dataSource = self;
     self.searchController.searchResultsTableView.delegate = self;
+    self.searchController.delegate = self;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -252,6 +253,29 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 }
 
 /**
+ *  跳转到导航
+ *
+ *  @param sender
+ */
+- (IBAction)jumpToMapView:(UIButton *)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
+    sheet.tag = sender.tag;
+    
+}
+
+/**
  *  添加或者删除景点
  *
  *  @param sender 
@@ -327,9 +351,18 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     
     NSString *backUrlForCheck = _requestUrl;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    TZProgressHUD *hud;
+    if (pageNo == 0) {
+        hud = [[TZProgressHUD alloc] init];
+        __weak typeof(self)weakSelf = self;
+        [hud showHUDInViewController:weakSelf];
+    }
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        if (hud) {
+            [hud hideTZHUD];
+        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if ([backUrlForCheck isEqualToString:_requestUrl]) {
@@ -356,6 +389,9 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        if (hud) {
+            [hud hideTZHUD];
+        }
         [self loadMoreCompletedNormal];
         
         if (self.isShowing) {
@@ -383,10 +419,12 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:130];
+    NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     switch (_currentListTypeIndex) {
         case 0:
             [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
@@ -418,6 +456,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (self.searchDisplayController.isActive) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
@@ -458,6 +497,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [hud hideTZHUD];
         [self loadMoreCompletedSearch];
         if (self.isShowing) {
@@ -544,7 +584,9 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         poiCell.isAdded = isAdded;
         [poiCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        
+        poiCell.naviBtn.tag = indexPath.row;
+        [poiCell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return poiCell;
@@ -629,6 +671,21 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self.tableView reloadData];
 }
 
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controlle shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        for (UIView* v in _searchController.searchResultsTableView.subviews) {
+            if ([v isKindOfClass: [UILabel class]] &&
+                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
+                ((UILabel *)v).text = @"";
+                break;
+            }
+        }
+    });
+    return YES;
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -663,5 +720,87 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     }
     
 }
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    PoiSummary *poi;
+    if (_searchController.active) {
+        poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
+    } else {
+        poi = [_dataSource objectAtIndex:actionSheet.tag];
+    }
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 @end
