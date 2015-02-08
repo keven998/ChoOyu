@@ -16,6 +16,7 @@
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *playGuide;
 @property (nonatomic, copy) NSString *timeCostDesc;
 @property (nonatomic, copy) NSString *travelMonth;
 @property (nonatomic, strong) NSArray *images;

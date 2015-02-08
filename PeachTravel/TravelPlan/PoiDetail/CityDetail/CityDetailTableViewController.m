@@ -193,7 +193,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:kWindowWidth*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
    
     //获取城市信息
@@ -305,13 +305,23 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [self.navigationController pushViewController:addCtl animated:YES];
 }
 
+/**
+ *  游玩攻略
+ *
+ *  @param sender
+ */
 - (IBAction)play:(id)sender {
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
-    funOfCityWebCtl.urlStr = [NSString stringWithFormat:@"%@%@", FUN_CITY_HTML, _cityPoi.cityId];
-    funOfCityWebCtl.titleStr = @"畅游攻略";//_cityPoi.zhName;
+    funOfCityWebCtl.urlStr = _cityPoi.playGuide;
+    funOfCityWebCtl.titleStr = @"畅游攻略";;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
+/**
+ *  查看城市美食列表
+ *
+ *  @param sender
+ */
 - (IBAction)viewRestaurants:(id)sender
 {
     NSLog(@"应该进入城市的美食信息");
@@ -325,10 +335,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
+/**
+ *  城市购物详情
+ *
+ *  @param sender
+ */
 - (IBAction)viewShopping:(id)sender
 {
-    NSLog(@"应该进入城市的购物信息");
-
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.cityId = _cityPoi.cityId;
@@ -338,6 +351,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
 }
 
+/**
+ *  更多游记
+ *
+ *  @param sender
+ */
 - (IBAction)showMoreTravelNote:(id)sender
 {
     TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
