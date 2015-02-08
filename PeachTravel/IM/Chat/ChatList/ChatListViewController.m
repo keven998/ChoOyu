@@ -185,15 +185,13 @@
                 if ([group.groupId isEqualToString:conversation.chatter]) {
                     if (group.groupSubject) {
                         tzConversation.chatterNickName = group.groupSubject;
-                    } else {
-                        [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:group.groupId completion:^(EMGroup *group, EMError *error) {
-                            NSLog(@"asyncFetchGroupInfo %@", group.groupSubject);
-                            [self refreshDataSource];
-                        } onQueue:nil];
                     }
-                   
                     break;
                 }
+            }
+            if (!tzConversation.chatterNickName) {
+                Group *group = [self.accountManager groupWithGroupId:tzConversation.conversation.chatter];
+                tzConversation.chatterNickName = group.groupSubject;
             }
         }
     }

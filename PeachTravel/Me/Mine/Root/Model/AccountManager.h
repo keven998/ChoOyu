@@ -157,7 +157,7 @@
                numbers:(id)numbersDic;
 
 /**
- *  更新群组信息
+ *  更新群组信息,如果未存在则创建一个群组
  *
  *  @param groupId          群组 id
  *  @param owner            群组所有人

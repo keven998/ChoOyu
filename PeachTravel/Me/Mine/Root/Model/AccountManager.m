@@ -460,8 +460,8 @@
         tempGroup.groupDescription = groupDescription;
         tempGroup.numbers = numbers;
         tempGroup.owner = owner;
-        [self save];
     }
+    [self save];
     return tempGroup;
 }
 
@@ -470,14 +470,14 @@
 {
     Group *tempGroup = [self groupWithGroupId:groupId];
     if (!tempGroup) {
-        return nil;
+        tempGroup = [self createGroupWithGroupId:groupId owner:owner groupSubject:subject groupInfo:groupDescription numbers:nil];
     } else {
         tempGroup.groupId = groupId;
         tempGroup.groupSubject= subject;
         tempGroup.groupDescription = groupDescription;
         tempGroup.owner = owner;
-        [self save];
     }
+    [self save];
     return tempGroup;
 }
 

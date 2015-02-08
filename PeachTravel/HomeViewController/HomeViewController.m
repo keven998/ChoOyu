@@ -722,6 +722,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
 {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    NSArray *array = [[EaseMob sharedInstance].chatManager groupList];
+    for (EMGroup *group in array) {
+        [accountManager updateGroup:group.groupId withGroupOwner:group.owner groupSubject:group.groupSubject groupInfo:group.groupDescription];
+    }
+    
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     for (EMConversation *conversation in conversations) {
         if (conversation.isGroup) {

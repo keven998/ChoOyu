@@ -155,7 +155,7 @@ enum {
     [commentsBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [commentsBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
     commentsBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:15.0];
-    NSString *commentTitle = [NSString stringWithFormat:@"%d条网友点评", _poi.commentCount];
+    NSString *commentTitle = [NSString stringWithFormat:@"%d条网友点评", (int)_poi.commentCount];
     [commentsBtn setTitle:commentTitle forState:UIControlStateNormal];
     UIImageView *goCommentImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_go_comment.png"]];
     [goCommentImage setFrame:CGRectMake(110, 9, 14, 12)];
