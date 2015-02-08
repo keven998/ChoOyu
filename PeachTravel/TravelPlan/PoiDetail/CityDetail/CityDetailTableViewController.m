@@ -141,9 +141,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     
-
-    [self.tableView reloadData];
-    
     if (_cityPoi.images.count > 0) {
         TaoziImage *taoziImage = [_cityPoi.images objectAtIndex:0];
         NSString *url = taoziImage.imageUrl;
@@ -152,6 +149,16 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     UILabel *title = (UILabel *)[_customNavigationBar viewWithTag:123];
     title.text = _cityPoi.zhName;
+}
+
+- (void)updateTableView
+{
+    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+130*_cityPoi.travelNotes.count)];
+    
+    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+130*_cityPoi.travelNotes.count+10);
+    
+    _tableViewBkg.frame = frame;
+    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, frame.origin.y+frame.size.height+10)];
 }
 
 - (UITableView *)tableView
@@ -251,6 +258,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
                 _cityPoi.travelNotes = travelNotes;
             }
             [self.tableView reloadData];
+            [self updateTableView];
         } else {
             
         }
@@ -379,11 +387,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    if (self.cityPoi.travelNotes.count >= 1) {
-        return 1;
-//    } else {
-//        return 0;
-//    }
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
