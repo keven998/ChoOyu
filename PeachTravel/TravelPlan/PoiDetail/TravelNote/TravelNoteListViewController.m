@@ -122,6 +122,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
             [_hud hideTZHUD];
             _hud = nil;
         }
+        [self loadMoreCompleted];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -138,11 +139,9 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
                 }
             }
         } else {
-            [self showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+            [self showHint:@"呃～好像没找到网络"];
         }
-        
-        [self loadMoreCompleted];
-        
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         if (_hud) {
