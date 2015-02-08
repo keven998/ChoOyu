@@ -456,9 +456,13 @@
     
     if (!_destinationBkgView) {
         _destinationBkgView = [[UIView alloc] initWithFrame:self.view.bounds];
+        UITapGestureRecognizer *tapGester = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideDestinationView:)];
+        tapGester.numberOfTapsRequired = 1;
+        tapGester.numberOfTouchesRequired = 1;
+        [_destinationBkgView addGestureRecognizer:tapGester];
     }
     _destinationBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
-    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340)];
+    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, _destinationBkgView.bounds.size.height, _destinationBkgView.bounds.size.width, 340)];
     panelView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     
     UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _destinationBkgView.bounds.size.width, 49)];
@@ -494,18 +498,22 @@
     
     [self.navigationController.view addSubview:_destinationBkgView];
 
-    [panelView setFrame:CGRectMake(0, 400, panelView.bounds.size.width, panelView.bounds.size.height)];
     [UIView animateWithDuration:0.2 animations:^{
         panelView.frame = CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340);
     } completion:^(BOOL finished) {
         
     }];
+    
+    for (UIView *view in _destinationBkgView.subviews) {
+        NSLog(@"%@", view);
+    }
 }
 
 
 - (IBAction)hideDestinationView:(id)sender
 {
     [_destinationBkgView removeFromSuperview];
+    _destinationBkgView = nil;
 }
 
 /**
@@ -869,7 +877,8 @@
     makePlanCtl.selectedColor = APP_THEME_COLOR;
     makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
-    
+    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
+    makePlanCtl.myDelegate = self;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
