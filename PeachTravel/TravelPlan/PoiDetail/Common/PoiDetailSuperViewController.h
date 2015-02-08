@@ -14,6 +14,11 @@
 
 @interface PoiDetailSuperViewController : TZViewController
 
+enum {
+    kASMap = 1,
+    kASShare = 11
+};
+
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
 /**

@@ -62,12 +62,12 @@
         [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
     }
     if (self.spotPoi.guideUrl == nil || [self.spotPoi.guideUrl isBlankString]) {
-        _spotDetailView.kendieBtn.enabled = NO;
+        _spotDetailView.travelGuideBtn.enabled = NO;
     } else {
         [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
     }
     if (self.spotPoi.tipsUrl == nil || [self.spotPoi.tipsUrl isBlankString]) {
-        _spotDetailView.travelGuideBtn.enabled = NO;
+        _spotDetailView.kendieBtn.enabled = NO;
     } else {
         [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -75,6 +75,7 @@
     [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -193,7 +194,10 @@
  */
 - (IBAction)travelGuide:(id)sender
 {
-    
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"景点体验";
+    webCtl.urlStr = _spotPoi.guideUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
 }
 
 /**
@@ -216,7 +220,10 @@
  */
 - (IBAction)trafficGuide:(id)sender
 {
-    
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"交通指南";
+    webCtl.urlStr = _spotPoi.trafficInfoUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
 }
 
 /**
@@ -264,71 +271,76 @@
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
-    switch (buttonIndex) {
-        case 0:
-            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
-                case kAMap:
-                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                    break;
-                    
-                case kBaiduMap: {
-                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+    if (actionSheet.tag != kASShare) {
+        NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+        switch (buttonIndex) {
+            case 0:
+                switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                    case kAMap:
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        break;
+                        
+                    case kBaiduMap: {
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                    }
+                        break;
+                        
+                    case kAppleMap: {
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                    }
+                        
+                    default:
+                        break;
                 }
-                    break;
-                    
-                case kAppleMap: {
-                    [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                break;
+                
+            case 1:
+                switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                    case kAMap:
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        break;
+                        
+                    case kBaiduMap: {
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                    }
+                        break;
+                        
+                    case kAppleMap: {
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        case 1:
-            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
-                case kAMap:
-                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                    break;
-                    
-                case kBaiduMap: {
-                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                break;
+                
+            case 2:
+                switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                    case kAMap:
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        break;
+                        
+                    case kBaiduMap: {
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                    }
+                        break;
+                        
+                    case kAppleMap: {
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                    }                    break;
+                        
+                    default:
+                        break;
                 }
-                    break;
+                break;
+                
+            default:
+                break;
+        }
 
-                case kAppleMap: {
-                    [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        case 2:
-            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
-                case kAMap:
-                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                    break;
-                    
-                case kBaiduMap: {
-                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                }
-                    break;
-                    
-                case kAppleMap: {
-                    [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                }                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        default:
-            break;
+    } else {
+        [self shareToTalk];
     }
 }
 

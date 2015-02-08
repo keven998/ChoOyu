@@ -10,11 +10,6 @@
 #import "AccountManager.h"
 #import "LoginViewController.h"
 
-enum {
-    kASMap = 1,
-    kASShare = 11
-};
-
 @interface PoiDetailSuperViewController () <CreateConversationDelegate, TaoziMessageSendDelegate, UIActionSheetDelegate>
 
 @end
@@ -41,9 +36,8 @@ enum {
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        NSInteger tag = actionSheet.tag;
-        if (tag == kASShare) {
+    if (actionSheet.tag == kASShare) {
+        if (buttonIndex == 0) {
             [self shareToTalk];
         }
     }

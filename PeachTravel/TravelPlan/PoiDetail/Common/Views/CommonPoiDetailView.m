@@ -18,11 +18,6 @@
 #import "SuperWebViewController.h"
 #import "RecommendDetail.h"
 
-enum {
-    kASMap = 1,
-    kASShare
-};
-
 @interface CommonPoiDetailView () <UIScrollViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;

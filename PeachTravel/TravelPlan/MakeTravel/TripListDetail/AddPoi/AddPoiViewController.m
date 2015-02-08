@@ -75,26 +75,20 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-   
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = 155.0;
 
     [self.view addSubview:_tableView];
-    
-    [_tableView setContentOffset:CGPointMake(0, 50)];
 
     if (_tripDetail) {
          self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
         finishBtn.tintColor = TEXT_COLOR_TITLE;
         self.navigationItem.leftBarButtonItem = finishBtn;
-        
-//        UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-//        [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-//        self.navigationItem.rightBarButtonItem = filterBtn;
         
         _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
         [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
@@ -108,9 +102,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     } else {
         self.navigationItem.title = [NSString stringWithFormat:@"%@美景", _cityName];
     }
-    
-    [self setAutomaticallyAdjustsScrollViewInsets:YES];
-    [self setExtendedLayoutIncludesOpaqueBars:YES];
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
@@ -140,6 +131,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
 
     }
+    [_tableView setContentOffset:CGPointMake(0, 45)];
     
     [self loadDataWithPageNo:_currentPageNormal];
 }
