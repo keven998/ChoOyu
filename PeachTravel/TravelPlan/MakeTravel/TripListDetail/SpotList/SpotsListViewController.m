@@ -313,13 +313,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(2, 25, 60, 22)];
         [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
         [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        addSpotBtn.backgroundColor = APP_SUB_THEME_COLOR;
         [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
         addSpotBtn.clipsToBounds = YES;
         addSpotBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
         addSpotBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         addSpotBtn.layer.cornerRadius = 4;
-        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        addSpotBtn.userInteractionEnabled = NO;
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
         
