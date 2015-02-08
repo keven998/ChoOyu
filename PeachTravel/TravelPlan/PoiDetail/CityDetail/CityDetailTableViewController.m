@@ -497,26 +497,28 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         Destinations *destinations = [[Destinations alloc] init];
         MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
         ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-        DomesticViewController *domesticCtl = [[DomesticViewController alloc] init];
+        DomesticViewController *domestic = [[DomesticViewController alloc] init];
+        
         CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
         poi.zhName = _cityPoi.zhName;
         poi.cityId = _cityPoi.cityId;
         [destinations.destinationsSelected addObject:poi];
-        makePlanCtl.destinations = destinations;
-        domesticCtl.destinations = destinations;
-        foreignCtl.destinations = destinations;
-        foreignCtl.title = @"国外";
-        domesticCtl.title = @"国内";
-        domesticCtl.makePlanCtl = makePlanCtl;
-        foreignCtl.makePlanCtl = makePlanCtl;
         
-        NSArray *viewControllers = [NSArray arrayWithObjects:domesticCtl,foreignCtl, nil];
-        makePlanCtl.viewControllers = viewControllers;
-        makePlanCtl.segmentedNormalImages = @[@"ic_chatlist_normal.png", @"ic_contacts_normal.png"];
-        makePlanCtl.segmentedSelectedImages = @[@"ic_chatlist_selected.png", @"ic_contacts_selected.png"];
-        makePlanCtl.selectedColor = APP_SUB_THEME_COLOR;
+        domestic.destinations = destinations;
+        foreignCtl.destinations = destinations;
+        makePlanCtl.destinations = destinations;
+        makePlanCtl.viewControllers = @[domestic, foreignCtl];
+        domestic.makePlanCtl = makePlanCtl;
+        foreignCtl.makePlanCtl = makePlanCtl;
+        makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+        makePlanCtl.duration = 0;
+        makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+        makePlanCtl.selectedColor = APP_THEME_COLOR;
+        makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
         makePlanCtl.normalColor= [UIColor grayColor];
+        
         [self.navigationController pushViewController:makePlanCtl animated:YES];
+
     } else if (buttonIndex == 1) {
         [self shareToTalk];
     } else {

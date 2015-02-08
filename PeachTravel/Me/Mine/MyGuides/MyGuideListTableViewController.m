@@ -163,13 +163,17 @@ static NSString *reusableCell = @"myGuidesCell";
     domestic.destinations = destinations;
     foreignCtl.destinations = destinations;
     makePlanCtl.destinations = destinations;
-    foreignCtl.title = @"国外";
-    domestic.title = @"国内";
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;
-    [self.navigationController pushViewController:makePlanCtl animated:YES];
-}
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    
+    [self.navigationController pushViewController:makePlanCtl animated:YES];}
 
 #pragma mark - setter & getter
 
