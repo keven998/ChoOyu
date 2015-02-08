@@ -437,9 +437,18 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
-    CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
-    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
-    PoisOfCityTableViewCell *cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    CGPoint point;
+    NSIndexPath *indexPath;
+    PoisOfCityTableViewCell *cell;
+    if (!self.searchController.isActive) {
+        point = [sender convertPoint:CGPointZero toView:_tableView];
+        indexPath = [_tableView indexPathForRowAtPoint:point];
+        cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    } else {
+        point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
+        indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
+        cell = (PoisOfCityTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+    }
     
     PoiSummary *poi;
     if (self.searchController.isActive) {
@@ -743,6 +752,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             }
         }
         cell.isAdded = isAdded;
+        [cell.addBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         cell.naviBtn.tag = indexPath.row;
