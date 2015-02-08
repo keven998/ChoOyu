@@ -22,10 +22,16 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _selectedIndext = -1;
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*_segmentedNormalImages.count, 44)];
+    int titleCount = 0;
+    if (_segmentedNormalImages) {
+        titleCount = _segmentedNormalImages.count;
+    } else if (_segmentedTitles) {
+        titleCount = _segmentedTitles.count;
+    }
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*titleCount, 44)];
     self.navigationItem.titleView = view;
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i=0; i<_segmentedNormalImages.count; i++) {
+    for (int i=0; i<titleCount; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(60*i, 0, 60, 44)];
         btn.tag = i;
         if (_segmentedNormalImages) {
@@ -39,7 +45,7 @@
             [btn setTitle:_segmentedTitles[i] forState:UIControlStateNormal];
             [btn setTitleColor:_normalColor forState:UIControlStateNormal];
             [btn setTitleColor:_selectedColor forState:UIControlStateSelected];
-            btn.titleLabel.font = [UIFont systemFontOfSize:8];
+            btn.titleLabel.font = _segmentedTitleFont;
         }
         [view addSubview:btn];
         [btn addTarget:self action:@selector(changePageAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -70,6 +76,10 @@
     }
     _selectedIndext = selectedIndext;
     [self changePage:_selectedIndext];
+}
+
+- (void)finishSwithPages
+{
     
 }
 
@@ -97,23 +107,22 @@
         return;
     }
     [self replaceController:_currentViewController newController:newController];
-
 }
+
 - (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
 {
     [self addChildViewController:newController];
-    [self transitionFromViewController:oldController toViewController:newController duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
+    [self transitionFromViewController:oldController toViewController:newController duration:_duration options:_animationOptions animations:nil completion:^(BOOL finished) {
         if (finished) {
             [newController didMoveToParentViewController:self];
             [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentViewController = newController;
-            
-
         }else{
             self.currentViewController = oldController;
         }
     }];
+    [self finishSwithPages];
 }
 
 

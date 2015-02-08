@@ -29,7 +29,6 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"选择目的地";
-    
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
@@ -118,6 +117,15 @@
 }
 
 /**
+ *  重写父类方法
+ */
+- (void)finishSwithPages
+{
+    [self.view bringSubviewToFront:_destinationToolBar];
+    [self.view bringSubviewToFront:_nextView];
+}
+
+/**
  *  开始制作攻略
  *
  *  @param sender 
@@ -167,7 +175,7 @@
 
 - (void)showDestinationBar
 {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
         self.nextView.alpha = 1.0;
         self.destinationToolBar.alpha = 1.0;
     } completion:^(BOOL finished) {
@@ -209,15 +217,12 @@
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-             if (self.isShowing) {
-                [SVProgressHUD showHint:@"请求也是失败了"];
-            }
+            [SVProgressHUD showHint:@"请求也是失败了"];
         }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
+        [SVProgressHUD showHint:@"呃～好像没找到网络"];
     }];
     
 }

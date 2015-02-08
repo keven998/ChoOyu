@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *detailUrl;
 @property (nonatomic, strong) NSMutableArray *recommendList;
 @property (nonatomic) float rating;
 

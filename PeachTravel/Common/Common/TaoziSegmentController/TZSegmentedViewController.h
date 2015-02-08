@@ -15,6 +15,15 @@
  */
 @property (nonatomic, strong) NSArray *segmentedTitles;
 
+@property (nonatomic, strong) UIFont *segmentedTitleFont;
+
+/**
+ *  切换动画
+ */
+@property (nonatomic) UIViewAnimationOptions animationOptions;
+
+@property (nonatomic) NSTimeInterval duration;
+
 /**
  *  选中后的颜色
  */
@@ -38,5 +47,10 @@
  *  当前选中的界面
  */
 @property (nonatomic) NSInteger selectedIndext;
+
+/**
+ *  结束切换界面
+ */
+- (void)finishSwithPages;
 
 @end

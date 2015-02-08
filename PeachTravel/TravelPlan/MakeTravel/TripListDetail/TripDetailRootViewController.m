@@ -456,9 +456,13 @@
     
     if (!_destinationBkgView) {
         _destinationBkgView = [[UIView alloc] initWithFrame:self.view.bounds];
+        UITapGestureRecognizer *tapGester = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideDestinationView:)];
+        tapGester.numberOfTapsRequired = 1;
+        tapGester.numberOfTouchesRequired = 1;
+        [_destinationBkgView addGestureRecognizer:tapGester];
     }
     _destinationBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
-    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340)];
+    UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(0, _destinationBkgView.bounds.size.height, _destinationBkgView.bounds.size.width, 340)];
     panelView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     
     UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _destinationBkgView.bounds.size.width, 49)];
@@ -494,18 +498,22 @@
     
     [self.navigationController.view addSubview:_destinationBkgView];
 
-    [panelView setFrame:CGRectMake(0, 400, panelView.bounds.size.width, panelView.bounds.size.height)];
     [UIView animateWithDuration:0.2 animations:^{
         panelView.frame = CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340);
     } completion:^(BOOL finished) {
         
     }];
+    
+    for (UIView *view in _destinationBkgView.subviews) {
+        NSLog(@"%@", view);
+    }
 }
 
 
 - (IBAction)hideDestinationView:(id)sender
 {
     [_destinationBkgView removeFromSuperview];
+    _destinationBkgView = nil;
 }
 
 /**
@@ -849,6 +857,7 @@
 
 - (void)willAddDestination
 {
+    [self hideDestinationView:nil];
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
@@ -856,19 +865,20 @@
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [destinations.destinationsSelected addObject:poi];
     }
-    makePlanCtl.myDelegate = self;
-    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
-    makePlanCtl.destinations = destinations;
     domestic.destinations = destinations;
     foreignCtl.destinations = destinations;
-    foreignCtl.title = @"国外";
-    domestic.title = @"国内";
+    makePlanCtl.destinations = destinations;
     makePlanCtl.viewControllers = @[domestic, foreignCtl];
     domestic.makePlanCtl = makePlanCtl;
     foreignCtl.makePlanCtl = makePlanCtl;
-    domestic.notify = NO;
-    foreignCtl.notify = NO;
-    [self hideDestinationView:nil];
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
+    makePlanCtl.myDelegate = self;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 

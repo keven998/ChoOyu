@@ -33,10 +33,10 @@
         [_property setTitle:timeStr forState:UIControlStateNormal];
     } else {
         [_property setImage:nil forState:UIControlStateNormal];
-        if (_tripPoi.poiType == kRestaurantPoi) {
+        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi) {
             [_property setTitle:tripPoi.priceDesc forState:UIControlStateNormal];
         }
-        if (_tripPoi.poiType == kHotelPoi) {
+        if (_tripPoi.poiType == kShoppingPoi) {
             [_property setTitle:@"" forState:UIControlStateNormal];
         }
     }

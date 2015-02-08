@@ -131,6 +131,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         _IMRootCtl.segmentedSelectedImages = @[@"ic_chatlist_selected.png", @"ic_contacts_selected.png"];
         _IMRootCtl.selectedColor = APP_SUB_THEME_COLOR;
         _IMRootCtl.normalColor= [UIColor grayColor];
+        _IMRootCtl.animationOptions = UIViewAnimationOptionTransitionCrossDissolve;
+        _IMRootCtl.duration = 0.2;
     }
     return _IMRootCtl;
 }

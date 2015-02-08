@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "MHTabBarController.h"
 #import "TZSegmentedViewController.h"
 
 @interface IMRootViewController : TZSegmentedViewController

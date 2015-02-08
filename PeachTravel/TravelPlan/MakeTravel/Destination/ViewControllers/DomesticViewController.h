@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Destinations.h"
-#import "MHTabBarController.h"
 @class MakePlanViewController;
 
-@interface DomesticViewController : MHChildViewController
+@interface DomesticViewController : TZViewController
 
 @property (nonatomic, strong) Destinations *destinations;
 
