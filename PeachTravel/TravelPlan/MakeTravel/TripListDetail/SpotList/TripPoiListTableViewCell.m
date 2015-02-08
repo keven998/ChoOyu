@@ -28,7 +28,7 @@
     TaoziImage *image = [_tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _titleLabel.text = tripPoi.zhName;
-    if (_tripPoi.poiType == kSpotPoi) {
+    if (_tripPoi.poiType == kSpotPoi || _tripPoi.poiType == kShoppingPoi) {
         NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
         [_property setTitle:timeStr forState:UIControlStateNormal];
     } else {

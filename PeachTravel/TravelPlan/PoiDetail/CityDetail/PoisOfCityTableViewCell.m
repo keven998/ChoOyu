@@ -49,6 +49,11 @@
         _propertyLabel.text = _poi.priceDesc;
 
     }
+    
+    if (_poi.poiType == kShoppingPoi) {
+        _propertyLabel.text = @"";
+    }
+    
     if (_poi.poiType == kSpotPoi) {
         if (_poi.timeCost) {
             _propertyLabel.text = [NSString stringWithFormat:@"游玩 %@", _poi.timeCost];

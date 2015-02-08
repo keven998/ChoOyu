@@ -285,9 +285,20 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
-    CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
-    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
-    PoisOfCityTableViewCell *cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    CGPoint point;
+    NSIndexPath *indexPath;
+    PoisOfCityTableViewCell *cell;
+    if (!self.searchController.isActive) {
+        point = [sender convertPoint:CGPointZero toView:_tableView];
+        indexPath = [_tableView indexPathForRowAtPoint:point];
+        cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+
+    } else {
+        point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
+        indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
+        cell = (PoisOfCityTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+    }
+    
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     PoiSummary *poi;
     if (!cell.isAdded) {
