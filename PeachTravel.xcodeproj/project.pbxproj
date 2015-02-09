@@ -353,7 +353,6 @@
 		D9A8048B1A80E738005AD701 /* cell_accessory_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803711A80E737005AD701 /* cell_accessory_white@2x.png */; };
 		D9A8048C1A80E738005AD701 /* chat_list_cell_bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803721A80E737005AD701 /* chat_list_cell_bubble@2x.png */; };
 		D9A8048D1A80E738005AD701 /* chatListCellHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803731A80E737005AD701 /* chatListCellHead@2x.png */; };
-		D9A8048E1A80E738005AD701 /* add_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803751A80E737005AD701 /* add_contact@2x.png */; };
 		D9A8048F1A80E738005AD701 /* speaking-motion10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803771A80E737005AD701 /* speaking-motion10@2x.png */; };
 		D9A804901A80E738005AD701 /* speaking-motion11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803781A80E737005AD701 /* speaking-motion11@2x.png */; };
 		D9A804911A80E738005AD701 /* speaking-motion12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803791A80E737005AD701 /* speaking-motion12@2x.png */; };
@@ -714,6 +713,7 @@
 		D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC71A80D216005AD701 /* HotDestinationCollectionViewController.m */; };
 		D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
+		D9B9EA001A888A0400966074 /* add_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9E9FF1A888A0400966074 /* add_contact@2x.png */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
@@ -1331,7 +1331,6 @@
 		D9A803711A80E737005AD701 /* cell_accessory_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_accessory_white@2x.png"; sourceTree = "<group>"; };
 		D9A803721A80E737005AD701 /* chat_list_cell_bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_list_cell_bubble@2x.png"; sourceTree = "<group>"; };
 		D9A803731A80E737005AD701 /* chatListCellHead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatListCellHead@2x.png"; sourceTree = "<group>"; };
-		D9A803751A80E737005AD701 /* add_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_contact@2x.png"; sourceTree = "<group>"; };
 		D9A803771A80E737005AD701 /* speaking-motion10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaking-motion10@2x.png"; sourceTree = "<group>"; };
 		D9A803781A80E737005AD701 /* speaking-motion11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaking-motion11@2x.png"; sourceTree = "<group>"; };
 		D9A803791A80E737005AD701 /* speaking-motion12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaking-motion12@2x.png"; sourceTree = "<group>"; };
@@ -1816,6 +1815,7 @@
 		D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9B9E9FF1A888A0400966074 /* add_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_contact@2x.png"; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -3630,7 +3630,7 @@
 		D9A803741A80E737005AD701 /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
-				D9A803751A80E737005AD701 /* add_contact@2x.png */,
+				D9B9E9FF1A888A0400966074 /* add_contact@2x.png */,
 				D9A803761A80E737005AD701 /* audio */,
 				D9A803851A80E737005AD701 /* chat_time@2x.png */,
 				D9A803861A80E737005AD701 /* chatLocation */,
@@ -4721,7 +4721,6 @@
 				D9722F301A82446900D8A8CC /* Loading_Animation_final3@2x.png in Resources */,
 				D9A800261A80D52F005AD701 /* DomesticDestinationCell.xib in Resources */,
 				D9A800221A80D52F005AD701 /* DestinationCollectionHeaderView.xib in Resources */,
-				D9A8048E1A80E738005AD701 /* add_contact@2x.png in Resources */,
 				C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */,
 				D9A805561A80E738005AD701 /* ic_spot_favorite@2x.png in Resources */,
 				D9A8FF161A80CC2B005AD701 /* ResetPasswordViewController.xib in Resources */,
@@ -4789,6 +4788,7 @@
 				D9A804F11A80E738005AD701 /* ic_navigation_normal@2x.png in Resources */,
 				D9A804E01A80E738005AD701 /* ic_frendRequest@2x.png in Resources */,
 				D9A805691A80E738005AD701 /* kengdie_guide_unselected@2x.png in Resources */,
+				D9B9EA001A888A0400966074 /* add_contact@2x.png in Resources */,
 				D9A804BA1A80E738005AD701 /* check_border@2x.png in Resources */,
 				D9A805501A80E738005AD701 /* ic_recommend@2x.png in Resources */,
 				D9A8022D1A80E036005AD701 /* sr_refresh@2X.png in Resources */,

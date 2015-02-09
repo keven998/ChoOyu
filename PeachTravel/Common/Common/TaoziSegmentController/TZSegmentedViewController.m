@@ -24,9 +24,9 @@
     _selectedIndext = -1;
     int titleCount = 0;
     if (_segmentedNormalImages) {
-        titleCount = _segmentedNormalImages.count;
+        titleCount = (int)_segmentedNormalImages.count;
     } else if (_segmentedTitles) {
-        titleCount = _segmentedTitles.count;
+        titleCount = (int)_segmentedTitles.count;
     }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*titleCount, 44)];
     self.navigationItem.titleView = view;

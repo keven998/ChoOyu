@@ -54,15 +54,6 @@
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-//    _confirm = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-//    [_confirm setTitle:@"确定" forState:UIControlStateNormal];
-//    _confirm.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-//    [_confirm setTitleColor:UIColorFromRGB(0x797979) forState:UIControlStateNormal];
-//    _confirm.userInteractionEnabled = NO;
-//    _confirm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//    [_confirm addTarget:self action:@selector(createConversation:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_confirm];
-    
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(createConversation:)];
     confirm.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = confirm;
