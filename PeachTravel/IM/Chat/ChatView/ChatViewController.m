@@ -161,9 +161,10 @@
 
 - (void)setupBarButtonItem
 {
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showRoomContact:)];
-    [registerBtn setImage:[UIImage imageNamed:@"ic_more.png"]];
-    self.navigationItem.rightBarButtonItem = registerBtn;
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
