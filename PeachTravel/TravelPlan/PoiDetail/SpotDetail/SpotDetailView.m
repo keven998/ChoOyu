@@ -22,8 +22,6 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) EDStarRating *ratingView;
-
-@property (nonatomic, strong) UIButton *travelBtn;
 @property (nonatomic, strong) UIButton *travelMonthBtn;
 @property (nonatomic, strong) UIButton *openTimeBtn;
 @property (nonatomic, strong) UIButton *timeCostBtn;
@@ -81,7 +79,7 @@
     TaoziImage *image = [_spot.images firstObject];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 18, _imageView.bounds.size.width-50, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 15, _imageView.bounds.size.width-50, 30)];
     _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.text = _spot.zhName;
     _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -89,7 +87,7 @@
     
     [_imageView addSubview:_titleLabel];
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-100)/2, 58, 100, 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-100)/2, 50, 100, 15)];
     _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
     _ratingView.maxRating = 5.0;
@@ -100,96 +98,128 @@
     [_imageView addSubview:_ratingView];
     
     UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 110);
+    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 90);
     [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
     [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
     [_imageView addSubview:viewImageBtn];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-80, _imageView.bounds.size.height-40, 30, 30)];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-70, _imageView.bounds.size.height-35, 30, 30)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateSelected];
     [_imageView addSubview:_favoriteBtn];
     
-    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-40, _imageView.bounds.size.height-40, 30, 30)];
+    if (_spot.isMyFavorite) {
+        _favoriteBtn.selected = YES;
+    }
+    
+    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-40, _imageView.bounds.size.height-35, 30, 30)];
     [_shareBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
     [_imageView addSubview:_shareBtn];
     
-    offsetY += _imageView.bounds.size.height + 15;
+    offsetY += _imageView.bounds.size.height;
     
-    UIButton *ticketBkgImageView = [[UIButton alloc] initWithFrame:CGRectMake(15, offsetY, _scrollView.bounds.size.width-30, 128)];
-//    ticketBkgImageView.image = [UIImage imageNamed:@"ticketBkg.png"];
-    [ticketBkgImageView setBackgroundImage:[UIImage imageNamed:@"ticketBkg.png"] forState:UIControlStateNormal];
-    [ticketBkgImageView setBackgroundImage:[UIImage imageNamed:@"ticketBkg.png"] forState:UIControlStateHighlighted];
-    [ticketBkgImageView addTarget:self action:@selector(summary:) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView addSubview:ticketBkgImageView];
+    CGFloat width = _scrollView.bounds.size.width;
     
-    offsetY += ticketBkgImageView.frame.size.height + 32;
+    UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
+    destTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
+    destTitle.text = @"景点简介";
+    destTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    destTitle.textColor = TEXT_COLOR_TITLE_HINT;
+    destTitle.textAlignment = NSTextAlignmentCenter;
+    [_scrollView addSubview:destTitle];
+    offsetY += 25;
     
-    UILabel *openTimeBtn = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, ticketBkgImageView.bounds.size.width-100, 48)];
-    openTimeBtn.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    openTimeBtn.textAlignment = NSTextAlignmentCenter;
-    openTimeBtn.numberOfLines = 3;
-    openTimeBtn.lineBreakMode = NSLineBreakByTruncatingTail;
-    openTimeBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [openTimeBtn setTextColor:TEXT_COLOR_TITLE_SUBTITLE];
-    NSMutableString *str = [[NSMutableString alloc] init];
+    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
+    _descDetailBtn.titleLabel.numberOfLines = 2;
+    [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
+    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+    _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_scrollView addSubview:_descDetailBtn];
+    offsetY += 65;
+    
+    UILabel *timeTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
+    timeTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
+    timeTitle.text = @"时间";
+    timeTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    timeTitle.textColor = TEXT_COLOR_TITLE_HINT;
+    timeTitle.textAlignment = NSTextAlignmentCenter;
+    [_scrollView addSubview:timeTitle];
+    
+    offsetY += 25;
+    
+    NSMutableString *content = [[NSMutableString alloc] init];
     if (_spot.timeCostStr && ![_spot.timeCostStr isBlankString]) {
-        [str appendString:[NSString stringWithFormat:@"建议游玩 %@\n", _spot.timeCostStr]];
+        [content appendString:[NSString stringWithFormat:@"建议游玩 %@\n", _spot.timeCostStr]];
     }
-    [str appendString:[NSString stringWithFormat:@"开放时间 %@", _spot.openTime]];
-    [openTimeBtn setText:str];
-    [ticketBkgImageView addSubview:openTimeBtn];
-    [openTimeBtn sizeToFit];
-    CGRect rect = openTimeBtn.frame;
-    rect.size.width = ticketBkgImageView.bounds.size.width-100;
-    openTimeBtn.frame = rect;
+    [content appendString:[NSString stringWithFormat:@"开放时间 %@", _spot.openTime]];
+    _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    [_travelBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    _travelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    _travelBtn.titleLabel.numberOfLines = 2;
+    [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
+    [_travelBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+    [_travelBtn setTitle:content forState:UIControlStateNormal];
+    _travelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_scrollView addSubview:_travelBtn];
+    offsetY += 65;
+    
+    UILabel *ticketTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
+    ticketTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
+    ticketTitle.text = @"景点门票";
+    ticketTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    ticketTitle.textColor = TEXT_COLOR_TITLE_HINT;
+    ticketTitle.textAlignment = NSTextAlignmentCenter;
+    [_scrollView addSubview:ticketTitle];
+    offsetY += 25;
 
-    UILabel *ticketBtn = [[UILabel alloc] initWithFrame:CGRectMake(50, 63, ticketBkgImageView.bounds.size.width-100, 32)];
-    ticketBtn.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    ticketBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    ticketBtn.textAlignment = NSTextAlignmentCenter;
-    ticketBtn.numberOfLines = 2;
-    ticketBtn.lineBreakMode = NSLineBreakByTruncatingTail;
-    [ticketBtn setTextColor:TEXT_COLOR_TITLE];
-    [ticketBtn setText:[NSString stringWithFormat:@"门票 %@", _spot.priceDesc]];
-    [ticketBkgImageView addSubview:ticketBtn];
-    [ticketBtn sizeToFit];
-    rect = ticketBtn.frame;
-    rect.size.width = ticketBkgImageView.bounds.size.width-100;
-    ticketBtn.frame = rect;
-    
-    UIButton *bookBtnframe = [[UIButton alloc] initWithFrame:CGRectMake((ticketBkgImageView.bounds.size.width-75)/2 - 15, 80, 105, 48)];
-    [bookBtnframe addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
-    [ticketBkgImageView addSubview:bookBtnframe];
-    
-    UIButton *bookBtn = [[UIButton alloc] initWithFrame:CGRectMake((ticketBkgImageView.bounds.size.width-75)/2, 92, 75, 20)];
+    _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
+    _ticketBtn.titleLabel.numberOfLines = 2;
+    _ticketBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
+    [_ticketBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+    [_ticketBtn setTitle:_spot.priceDesc forState:UIControlStateNormal];
+    [_scrollView addSubview:_ticketBtn];
+    offsetY += 75;
+   
+    UIButton *bookBtn = [[UIButton alloc] initWithFrame:CGRectMake((width-75)/2, offsetY, 75, 25)];
     [bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     bookBtn.clipsToBounds = YES;
-    bookBtn.layer.cornerRadius = 10;
+    bookBtn.layer.cornerRadius = 12.5;
     [bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
     [bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
-    [ticketBkgImageView addSubview:bookBtn];
     bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    [_scrollView addSubview:bookBtn];
     
-    UIImageView *addressImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_spot_address.png"]];
-    addressImageView.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY);
+    offsetY += 50;
+    
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY, 12, 18)];
+    addressImageView.image = [UIImage imageNamed:@"ic_spot_map.png"];
     [_scrollView addSubview:addressImageView];
     
-    _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, offsetY + 14, _scrollView.bounds.size.width-70, 32)];
+    _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, offsetY, width-60, 45)];
     _addressBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _addressBtn.titleLabel.numberOfLines = 2;
-    _addressBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _addressBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    _addressBtn.layer.cornerRadius = 4.0;
+    _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(10, 15, 10, 15)];
+    _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    _addressBtn.layer.borderWidth = 0.5;
     _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
     [_scrollView addSubview:_addressBtn];
     
     offsetY += 12 + 32 + 15;
     
-    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 64)];
+    UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 75)];
     btnBackView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     btnBackView.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:btnBackView];
@@ -197,8 +227,8 @@
     CGFloat spaceWidth = (btnBackView.bounds.size.width-48*3-70)/3;
     
     _kendieBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
-    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"city_detail_content_button.png"] forState:UIControlStateNormal];
-    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_box.png"] forState:UIControlStateDisabled];
+    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
+    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
     [_kendieBtn setTitle:@"小\n贴士" forState:UIControlStateNormal];
     _kendieBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     _kendieBtn.titleLabel.numberOfLines = 2;
@@ -210,8 +240,8 @@
     [btnBackView addSubview:_kendieBtn];
     
     _travelGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
-    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"city_detail_content_button.png"] forState:UIControlStateNormal];
-    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_box.png"] forState:UIControlStateDisabled];
+    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
+    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
     [_travelGuideBtn setTitle:@"景点\n体验" forState:UIControlStateNormal];
     _travelGuideBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     _travelGuideBtn.titleLabel.numberOfLines = 2;
@@ -222,8 +252,8 @@
     [btnBackView addSubview:_travelGuideBtn];
     
     _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
-    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"city_detail_content_button.png"] forState:UIControlStateNormal];
-    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_box.png"] forState:UIControlStateDisabled];
+    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
+    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
     [_trafficGuideBtn setTitle:@"交通" forState:UIControlStateNormal];
     _trafficGuideBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_trafficGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];

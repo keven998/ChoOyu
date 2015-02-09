@@ -209,7 +209,7 @@
             UIButton *item = [[UIButton alloc] initWithFrame:CGRectMake(20+(spaceWidth+60)*index, offsetY, 60, 60)];
             item.layer.cornerRadius = 5;
             item.tag = i;
-            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"chatListCellHead"]];
+            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
             item.clipsToBounds = YES;
             [item addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -252,7 +252,7 @@
     if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
         UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(20+(spaceWidth+60)*index, offsetY, 60, 60)];
         [deleteBtn addTarget:self action:@selector(willDeleteNumber:) forControlEvents:UIControlEventTouchUpInside];
-        [deleteBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+        [deleteBtn setImage:[UIImage imageNamed:@"delete_contact.png"] forState:UIControlStateNormal];
         [_contactsView addSubview:deleteBtn];
     }
     

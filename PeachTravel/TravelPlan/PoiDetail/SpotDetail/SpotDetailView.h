@@ -17,6 +17,10 @@
 @property (nonatomic, strong) UIButton *kendieBtn;
 @property (nonatomic, strong) UIButton *trafficGuideBtn;
 @property (nonatomic, strong) UIButton *favoriteBtn;
+@property (nonatomic, strong) UIButton *descDetailBtn;
+@property (nonatomic, strong) UIButton *travelBtn;
+@property (nonatomic, strong) UIButton *ticketBtn;
+
 @property (nonatomic, strong) UIButton *shareBtn;
 @property (nonatomic, strong) UIButton *addressBtn;
 @property (nonatomic, strong) UIButton *closeBtn;

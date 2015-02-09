@@ -472,10 +472,10 @@
     
     if (!tzConversation.conversation.isGroup) {
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     } else{
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView setImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+        [cell.imageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;
