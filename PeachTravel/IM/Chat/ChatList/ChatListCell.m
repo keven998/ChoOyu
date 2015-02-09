@@ -20,7 +20,7 @@
     UIView *_lineView;
     UIView *spaceView;
     
-    UIActivityIndicatorView *activityView;
+    UIImageView *activityView;
     UIImageView *sendFailedImageView;
 }
 
@@ -48,12 +48,7 @@
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contentView addSubview:_detailLabel];
         
-        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [activityView.layer setValue:[NSNumber numberWithFloat:0.7f]
-                           forKeyPath:@"transform.scale"];
-        activityView.hidesWhenStopped = YES;
-        [activityView stopAnimating];
-        activityView.color = [UIColor lightGrayColor];
+        activityView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_msg_sending.png"]];
         [self.contentView addSubview:activityView];
         
         sendFailedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MessageSendFail.png"]];
@@ -118,20 +113,20 @@
     if (_sendStatus == MSGSending) {
         offsetX = 15;
         sendFailedImageView.hidden = YES;
-        [activityView startAnimating];
+        activityView.hidden = NO;
         
     } if (_sendStatus == MSGSended) {
         sendFailedImageView.hidden = YES;
-        [activityView stopAnimating];
+        activityView.hidden = YES;
         
     } if (_sendStatus == MSGSendFaild) {
         sendFailedImageView.hidden = NO;
         offsetX = 15;
-        [activityView stopAnimating];
+        activityView.hidden = YES;
     }
     
     sendFailedImageView.frame = CGRectMake(85, 53, 12, 12);
-    activityView.frame = CGRectMake(85, 53, 8, 8);
+    activityView.frame = CGRectMake(85, 58, 8, 8);
     _detailLabel.frame = CGRectMake(85+offsetX, 50.0, popW+30-offsetX, 26);
     
     _timeLabel.text = _time;
