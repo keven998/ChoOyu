@@ -23,7 +23,7 @@
 }
 
 - (void)layoutSubviews {
-    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 32.0);
+    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 44.0);
 }
 
 - (void)setNumberOfUnreadFrendRequest:(NSUInteger)numberOfUnreadFrendRequest
