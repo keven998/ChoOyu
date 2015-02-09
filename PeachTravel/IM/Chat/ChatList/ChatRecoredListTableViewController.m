@@ -196,12 +196,12 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
         if (!conversation.isGroup) {
             cell.titleLabel.text = chatPeople.nickName;
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         } else{
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    [cell.headerImageView setImage:[UIImage imageNamed:@"chatListCellHead"]];
+                    [cell.headerImageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
                     cell.titleLabel.text = group.groupSubject;
                     break;
                 }

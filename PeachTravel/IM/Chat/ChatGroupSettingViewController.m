@@ -209,7 +209,7 @@
             UIButton *item = [[UIButton alloc] initWithFrame:CGRectMake(20+(spaceWidth+60)*index, offsetY, 60, 60)];
             item.layer.cornerRadius = 5;
             item.tag = i;
-            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"chatListCellHead"]];
+            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
             item.clipsToBounds = YES;
             [item addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
             

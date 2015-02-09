@@ -69,7 +69,7 @@
     _bigHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _bigHeaderView.clipsToBounds = YES;
     _bigHeaderView.layer.cornerRadius = 2.0;
-    [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+    [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
         if (image == nil) return ;
         blurImageProcessor = [[ALDBlurImageProcessor alloc] initWithImage: image];
         [blurImageProcessor asyncBlurWithRadius: 99
@@ -94,7 +94,7 @@
     [smallHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
     smallHeaderView.layer.cornerRadius = 30.0;
     smallHeaderView.clipsToBounds = YES;
-    [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"chatListCellHead.png"]];
+    [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     [_smallHeaderFrame addSubview:smallHeaderView];
     
     UIView *wp = [[UIView alloc] initWithFrame:CGRectMake(11.0, 175.0 + 5.0, width - 22.0, 34.0)];
