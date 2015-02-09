@@ -96,8 +96,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         _zhName = destination.zhName;
         _cityId = destination.cityId;
         if (self.tripDetail.destinations.count > 1) {
-            _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+            _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 34, 40)];
             [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+            _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
             [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
             _filterBtn.topSpaceHight = 4.0;
