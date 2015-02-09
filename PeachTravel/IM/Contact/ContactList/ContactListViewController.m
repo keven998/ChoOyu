@@ -15,19 +15,17 @@
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
-#import "MJNIndexView.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MJNIndexViewDataSource>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
 
 //索引
-@property (nonatomic, strong) MJNIndexView *indexView;
 
 @property (strong, nonatomic) UIView *emptyView;
 
@@ -48,13 +46,6 @@
     if (height == 0) {
         height = 100;
     }
-    self.indexView = [[MJNIndexView alloc] init];
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64)/2);
-    [self firstAttributesForMJNIndexView];
-    self.indexView.dataSource = self;
-    [self.view addSubview:self.indexView];
- 
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -76,31 +67,6 @@
 }
 
 #pragma mark - private method
-
-- (void)firstAttributesForMJNIndexView
-{
-    self.indexView.getSelectedItemsAfterPanGestureIsFinished = YES;
-    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
-    self.indexView.selectedItemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:40.0];
-    self.indexView.backgroundColor = [UIColor clearColor];
-    self.indexView.curtainColor = nil;
-    self.indexView.curtainFade = 0.0;
-    self.indexView.curtainStays = NO;
-    self.indexView.curtainMoves = YES;
-    self.indexView.curtainMargins = NO;
-    self.indexView.ergonomicHeight = NO;
-    self.indexView.upperMargin = 22.0;
-    self.indexView.lowerMargin = 22.0;
-    self.indexView.rightMargin = 10.0;
-    self.indexView.itemsAligment = NSTextAlignmentCenter;
-    self.indexView.maxItemDeflection = 30.0;
-    self.indexView.rangeOfDeflection = 5;
-    self.indexView.fontColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0];
-    self.indexView.selectedItemFontColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-    self.indexView.darkening = NO;
-    self.indexView.fading = YES;
-    
-}
 
 - (void) handleEmptyView {
     if ([[self.dataSource objectForKey:@"headerKeys"] count] <= 0) {
@@ -199,6 +165,7 @@
         _contactTableView.showsVerticalScrollIndicator = NO;
         [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
+        _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
     }
     return _contactTableView;
 }
@@ -221,9 +188,6 @@
     if (height == 0) {
         height = 100;
     }
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth+10)/2, (kWindowHeight-64-40)/2);
-    [_indexView refreshIndexItems];
     
     [self handleEmptyView];
 }
@@ -329,6 +293,22 @@
     }
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section];
+}
+// 索引目录
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index+1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+    return index;
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -345,18 +325,5 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
-#pragma mark MJMIndexForTableView datasource methods
-
-- (NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
-{
-    return [self.dataSource objectForKey:@"headerKeys"];
-}
-
-- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index+1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-}
-
 
 @end
