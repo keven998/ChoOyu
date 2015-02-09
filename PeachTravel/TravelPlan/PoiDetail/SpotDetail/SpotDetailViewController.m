@@ -44,7 +44,7 @@
 
 - (void)updateView
 {
-    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(5, 46, self.view.bounds.size.width-10, self.view.bounds.size.height-80)];
+    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
     _spotDetailView.spot = self.spotPoi;
     self.navigationItem.title = self.spotPoi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
