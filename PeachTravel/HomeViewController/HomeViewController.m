@@ -409,7 +409,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         item.backgroundColor = APP_PAGE_COLOR;
         item.title = titles[index];
         if ([[[self tabBar] items] indexOfObject:item] != 0) {
-            NSLog(@"%@", NSStringFromCGRect(item.frame));
             UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 33)];
             spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
             [item addSubview:spaceView];
