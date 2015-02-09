@@ -106,8 +106,7 @@
 {
     if (_toolbarBackgroundImageView == nil) {
         _toolbarBackgroundImageView = [[UIImageView alloc] init];
-        _toolbarBackgroundImageView.image = [[UIImage imageNamed:@"chatToolBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-        _toolbarBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
+        _toolbarBackgroundImageView.image = [[UIImage imageNamed:@"chatToolBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2) resizingMode:UIImageResizingModeStretch];
     }
     
     return _toolbarBackgroundImageView;
