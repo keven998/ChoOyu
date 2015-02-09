@@ -14,7 +14,7 @@
 #import "ContactListViewController.h"
 #import "AccountManager.h"
 
-@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate>
+@interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) NSArray *addItems;
 
@@ -47,11 +47,10 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
 
-    self.navigationItem.title = @"Talk";
-    NSLog(@"%@", self.navigationController);
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
+    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
 
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -209,15 +208,30 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-    NSInteger numberOfOptions = 2;
-    NSArray *items = @[
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"Talk"],
-                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"加好友"]
-                       ];
+//    NSInteger numberOfOptions = 2;
+//    NSArray *items = @[
+//                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_new_talk"] title:@"Talk"],
+//                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend"] title:@"加好友"]
+//                       ];
+//    
+//    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
+//    _av.delegate = self;
+//    [_av showInViewController:self.navigationController center:CGPointMake(self.navigationController.view.bounds.size.width/2.f, self.navigationController.view.bounds.size.height/2.f)];
     
-    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-    _av.delegate = self;
-    [_av showInViewController:self.navigationController center:CGPointMake(self.navigationController.view.bounds.size.width/2.f, self.navigationController.view.bounds.size.height/2.f)];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self addConversation:nil];
+    } else if (buttonIndex == 1) {
+        [self addUserContact:nil];
+    }
 }
 
 #pragma mark - RNGridMenuDelegate

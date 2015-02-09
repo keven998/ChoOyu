@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="好友请求" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
-                        <rect key="frame" x="75" y="11" width="100" height="21"/>
+                        <rect key="frame" x="71" y="12" width="100" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="afN-we-5cF"/>
                         </constraints>
@@ -42,12 +42,12 @@
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="2Ls-kB-Dad"/>
+                    <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="2Ls-kB-Dad"/>
                     <constraint firstItem="De7-MS-DeS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2dB-W9-xmA"/>
                     <constraint firstItem="jjM-4r-fyk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="GS9-be-r2R"/>
                     <constraint firstItem="De7-MS-DeS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="W9Z-FA-tiP"/>
-                    <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="26" id="byT-m9-mBm"/>
-                    <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="11.5" id="cou-J6-q7T"/>
+                    <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="22" id="byT-m9-mBm"/>
+                    <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="10" id="cou-J6-q7T"/>
                     <constraint firstAttribute="bottom" secondItem="jjM-4r-fyk" secondAttribute="bottom" constant="14.5" id="rkT-9Z-rIf"/>
                     <constraint firstAttribute="bottom" secondItem="De7-MS-DeS" secondAttribute="bottom" constant="9.5" id="rlD-8V-h03"/>
                     <constraint firstAttribute="trailing" secondItem="jjM-4r-fyk" secondAttribute="trailing" constant="11" id="yd2-Mi-yLK"/>

@@ -1074,7 +1074,7 @@
 {
     [self keyBoardHidden];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-    searchCtl.titleStr = @"发送目的地";
+    searchCtl.titleStr = @"发送地点";
     searchCtl.chatter = _chatter;
     searchCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:searchCtl animated:YES];
