@@ -665,7 +665,7 @@
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 54)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(35, 0, 0, 0)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(36, 0, 0, 0)];
         [array addObject:button];
         [_tabBarView addSubview:button];
         button.tag = i;
@@ -678,31 +678,30 @@
         showBtn.layer.cornerRadius = 15.0;
         NSString *imageName = [NSString stringWithFormat: @"ic_trip_normal_%d",i+1];
         [showBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-        showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-4);
+        showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
         [button addSubview:showBtn];
         
         
         if (i == 0) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+7, button.frame.size.height/2-7, button.frame.size.width/2, 7)];
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+7, button.frame.size.height/2-9, button.frame.size.width/2, 7)];
             lineView.backgroundColor = UIColorFromRGB(0xd74353);
             [button addSubview:lineView];
             lineView.userInteractionEnabled = NO;
             _tabBarSelectedView.center = button.center;
-            [_tabBarSelectedView setCenter:CGPointMake(button.center.x, button.center.y-5)];
-            
+            [_tabBarSelectedView setCenter:CGPointMake(button.center.x, button.center.y-7)];
         }
         if (i == 1) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+14, button.frame.size.height/2-7, button.frame.size.width/2-7, 7)];
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+14, button.frame.size.height/2-9, button.frame.size.width/2-7, 7)];
             lineView.backgroundColor = UIColorFromRGB(0xd74353);
             lineView.userInteractionEnabled = NO;
             [button addSubview:lineView];
-            UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-7, button.frame.size.width/2-14, 7)];
+            UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-9, button.frame.size.width/2-14, 7)];
             lineView2.backgroundColor = UIColorFromRGB(0xd74353);
             lineView2.userInteractionEnabled = NO;
             [button addSubview:lineView2];
         }
         if (i == 2) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-7, button.frame.size.width/2-14, 7)];
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-9, button.frame.size.width/2-14, 7)];
             lineView.backgroundColor = UIColorFromRGB(0xd74353);
             lineView.userInteractionEnabled = NO;
             [button addSubview:lineView];
@@ -718,7 +717,7 @@
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
     
     [UIView animateWithDuration:0.2 animations:^{
-        [_tabBarSelectedView setCenter:CGPointMake(sender.center.x, sender.center.y-5)];
+        [_tabBarSelectedView setCenter:CGPointMake(sender.center.x, sender.center.y-7)];
     }];
     
     if ([newController isEqual:_currentViewController]) {

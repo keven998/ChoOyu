@@ -179,6 +179,7 @@
     _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, offsetY + 14, _scrollView.bounds.size.width-70, 32)];
     _addressBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _addressBtn.titleLabel.numberOfLines = 2;
     _addressBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     _addressBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
