@@ -929,7 +929,7 @@
                               withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
         id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
-        [chatManager asyncSendMessage:messageModel.message progress:nil];
+        [chatManager asyncResendMessage:messageModel.message progress:nil];
 
     } else if([eventName isEqualToString:kRouterEventChatCellVideoTapEventName]) {
         [self chatVideoCellPressed:model];

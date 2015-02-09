@@ -224,6 +224,8 @@
             
         case TZChatTypeTravelNote:
             [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+            [contentDic safeSetObject:_messageDetailUrl forKey:@"detailUrl"];
+
             break;
             
         default:
