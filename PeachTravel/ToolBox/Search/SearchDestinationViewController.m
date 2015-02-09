@@ -64,7 +64,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [_searchBar endEditing:YES];
+    [_searchBar endEditing:YES];
 }
 
 - (UITableView *)tableView
