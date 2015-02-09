@@ -163,7 +163,9 @@
     if (totalCtn%4 != 0) {
         lineCnt++;
     }
-   
+    if (lineCnt == 0) {
+        lineCnt = 1;
+    }
     contactViewHight = 10 + 90*lineCnt;
     _contactsViewHight.constant = contactViewHight+20;
     

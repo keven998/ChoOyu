@@ -35,7 +35,6 @@
 #import "ZYQAssetPickerController.h"
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
-#import "ChatScrollView.h"
 #import "AccountManager.h"
 #import "Group.h"
 #import "ContactDetailViewController.h"
@@ -72,14 +71,10 @@
 
 @property (nonatomic) BOOL isChatGroup;
 @property (strong, nonatomic) NSString *chatter;
-@property (strong, nonatomic) ChatScrollView *chatScrollView;
 
 @property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
 @property (strong, nonatomic) NSArray *peopleInGroup;   //保存群组的人员信息
 @property (strong, nonatomic) NSMutableArray *chattingPeople;
-
-@property (strong, nonatomic) NSMutableArray *numberBtns;   //群组的时候存放群组头像的 btn
-@property (strong, nonatomic) NSMutableArray *numberDeleteBtns; //群组的时候存放群组头像上的删除按钮的 btn
 
 @property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是桃子用户的信息。
 @property (strong, nonatomic) SRRefreshView *slimeView;
@@ -95,14 +90,6 @@
 @property (nonatomic) BOOL isScrollToBottom;
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic, strong) AccountManager *accountManager;
-
-/**
- *  如果是群组的话标题用的三个 view，因为要相应点击点击查看群成员事件
- */
-@property (nonatomic, strong) UIButton *titleBtn;
-@property (nonatomic, strong) UIView *titleView;
-@property (nonatomic, strong) UIImageView *titleIndicator;
-
 
 @end
 
@@ -172,22 +159,6 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear");
     [_chatToolBar registerNoti];
-    if (_isChatGroup) {
-        EMGroup *chatGroup = nil;
-        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-        for (EMGroup *group in groupArray) {
-            if ([group.groupId isEqualToString:_chatter]) {
-                chatGroup = group;
-                break;
-            }
-        }
-        if (chatGroup == nil) {
-            chatGroup = [[EMGroup alloc] initWithGroupId:_chatter];
-        }
-        
-        self.navigationItem.titleView = self.titleView;
-        [_titleBtn setTitle:chatGroup.groupSubject forState:UIControlStateNormal];
-    }
     if (_isScrollToBottom) {
         [self scrollViewToBottom:YES];
     }
@@ -248,79 +219,6 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
-}
-
-/**
- *  显示群组联系人列表
- *
- *  @param sender
- */
-- (IBAction)showGroupList:(id)sender
-{
-    [self keyBoardHidden];
-    [_titleBtn removeTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
-    [_titleBtn addTarget:self action:@selector(hideGroupList) forControlEvents:UIControlEventTouchUpInside];
-    if (self.peopleInGroup.count > 0) {
-        self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
-        if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
-            self.chatScrollView.shouldshowDeleteBtn = YES;
-            
-        } else {
-            self.chatScrollView.shouldshowDeleteBtn = NO;
-        }
-    }
-    [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
-        if (isSuccess) {
-            self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
-            if ([self.accountManager.account.easemobUser isEqualToString:self.group.owner]) {
-                self.chatScrollView.shouldshowDeleteBtn = YES;
-            } else {
-                self.chatScrollView.shouldshowDeleteBtn = NO;
-            }
-        }
-    }];
-    self.chatScrollView.addBtn.hidden = NO;
-    [UIView animateWithDuration:0.4 animations:^{
-        CGRect rect = CGRectMake(0, 64, self.view.frame.size.width, 150);
-        self.chatScrollView.frame = rect;
-        _titleIndicator.transform = CGAffineTransformMakeRotation(180 *M_PI / 180.0);
-    } completion:^(BOOL finished) {
-    }];
-
-}
-
-/**
- *  隐藏群组的联系人列表
- */
-- (void)hideGroupList
-{
-    [_titleBtn removeTarget:self action:@selector(hideGroupList) forControlEvents:UIControlEventTouchUpInside];
-    [_titleBtn addTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
-    [UIView animateWithDuration:0.4 animations:^{
-        CGRect rect = CGRectMake(0, -150, self.view.frame.size.width, 150);
-        self.chatScrollView.frame = rect;
-        _titleIndicator.transform = CGAffineTransformMakeRotation(360 *M_PI / 180.0);
-    } completion:^(BOOL finished) {
-    }];
-}
-
-//增加群组成员
-- (IBAction)addGroupNumber:(id)sender
-{
-    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
-    createConversationCtl.group = self.group;
-    [self hideGroupList];
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:createConversationCtl];
-    [self presentViewController:nCtl animated:YES completion:nil];
-}
-
-- (IBAction)beginDelete:(id)sender
-{
-    for (UIButton *btn in self.numberDeleteBtns) {
-        btn.hidden = NO;
-    }
-    self.chatScrollView.addBtn.hidden = YES;
-    self.chatScrollView.deleteBtn.hidden = YES;
 }
 
 /**
@@ -400,42 +298,6 @@
     }
 }
 
-/**
- *  删除群组里的用户
- *
- *  @param sender
- */
-- (IBAction)deleteNumber:(UIButton *)sender
-{
-    Contact *selectPerson = self.peopleInGroup[sender.tag];
-
-    NSArray *occupants = @[selectPerson.easemobUser];
-     __weak typeof(ChatViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
-
-    [[EaseMob sharedInstance].chatManager asyncRemoveOccupants:occupants fromGroup:self.group.groupId completion:^(EMGroup *group, EMError *error) {
-        [hud hideTZHUD];
-        if (!error) {
-            [self.accountManager removeNumberToGroup:self.group.groupId numbers:[NSSet setWithObject:selectPerson]];
-            self.peopleInGroup = [self loadContactsFromDB];
-            self.chatScrollView.dataSource = [self createChatScrollViewDataSource];
-            for (UIButton *btn in self.numberDeleteBtns) {
-                btn.hidden = NO;
-            }
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            NSString *messageStr = [NSString stringWithFormat:@"%@把%@移除了群组",accountManager.account.nickName, selectPerson.nickName];
-            
-            NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
-            
-            EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:self.group.groupId isChatGroup:YES requireEncryption:NO];
-            [self addChatDataToMessage:message];
-        }
-        else{
-        }
-    } onQueue:nil];
-}
-
 #pragma mark - private Methods
 
 - (NSArray *)loadContactsFromDB
@@ -505,7 +367,6 @@
         completion(NO);
         [self showHint:@"呃～好像没找到网络"];
     }];
-
 }
 
 - (void)updateGroupInDB:(id)numbersDic andEMGroup:(EMGroup *)emGroup
@@ -520,43 +381,6 @@
         [datas addObject:contact.avatar];
     }
     
-}
-
-/**
- *  如果是群组的话，点击展开按钮，返回所有的联系人信息
- *
- *  @return 所有的聊天人的信息
- */
-- (NSArray *)createChatScrollViewDataSource
-{
-    [self.numberBtns removeAllObjects];
-    [self.numberDeleteBtns removeAllObjects];
-    NSMutableArray *titles = [[NSMutableArray alloc] init];
-    NSMutableArray *retArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.peopleInGroup.count; i++) {
-        if (self.accountManager.account.userId.integerValue != ((Contact *)self.peopleInGroup[i]).userId.integerValue) {
-            UIButton *item = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-            item.layer.cornerRadius = 20;
-            item.tag = i;
-            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.peopleInGroup[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"chatListCellHead"]];
-            item.clipsToBounds = YES;
-            [item addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
-            
-            UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-            [deleteBtn setImage:[UIImage imageNamed:@"ic_remove_select_one.png"] forState:UIControlStateNormal];
-            [deleteBtn setImageEdgeInsets:UIEdgeInsetsMake(28, 28, 0, 0)];
-            deleteBtn.tag = i;
-            [deleteBtn addTarget:self action:@selector(deleteNumber:) forControlEvents:UIControlEventTouchUpInside];
-            deleteBtn.hidden = YES;
-            [retArray addObject:item];
-            [self.numberBtns addObject:item];
-            [self.numberDeleteBtns addObject:deleteBtn];
-            [titles addObject:((Contact *)self.peopleInGroup[i]).nickName];
-        }
-    }
-    self.chatScrollView.titles = titles;
-    self.chatScrollView.deleteBtns = self.numberDeleteBtns;
-    return retArray;
 }
 
 - (NSURL *)convert2Mp4:(NSURL *)movUrl {
@@ -613,53 +437,6 @@
         
     }
     return _accountManager;
-}
-
-- (NSMutableArray *)numberDeleteBtns
-{
-    if(!_numberDeleteBtns) {
-        _numberDeleteBtns = [[NSMutableArray alloc] init];
-    }
-    return _numberDeleteBtns;
-}
-
-- (NSMutableArray *)numberBtns
-{
-    if (!_numberBtns) {
-        _numberBtns = [[NSMutableArray alloc] init];
-    }
-    return _numberBtns;
-}
-
-- (UIView *)titleView
-{
-    if (!_titleView) {
-        _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth - 120, 44)];
-        _titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _titleView.frame.size.width, 30)];
-        _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        _titleBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
-        [_titleBtn addTarget:self action:@selector(showGroupList:) forControlEvents:UIControlEventTouchUpInside];
-        _titleIndicator = [[UIImageView alloc] initWithFrame:CGRectMake( _titleView.frame.size.width/2-5, 35, 10, 6)];
-        [_titleIndicator setImage:[UIImage imageNamed:@"ic_group_expand.png"]];
-        [_titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _titleBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [_titleView addSubview:_titleBtn];
-        [_titleView addSubview:_titleIndicator];
-    }
-    return _titleView;
-}
-
-- (ChatScrollView *)chatScrollView
-{
-    if (!_chatScrollView) {
-        _chatScrollView = [[ChatScrollView alloc] initWithFrame:CGRectMake(0, 64-150, self.view.frame.size.width, 150)];
-        [self.view addSubview:_chatScrollView];
-        [_chatScrollView.dismissBtn addTarget:self action:@selector(hideGroupList) forControlEvents:UIControlEventTouchUpInside];
-        [_chatScrollView.addBtn addTarget:self action:@selector(addGroupNumber:) forControlEvents:UIControlEventTouchUpInside];
-        [_chatScrollView.deleteBtn addTarget:self action:@selector(beginDelete:) forControlEvents:UIControlEventTouchUpInside];
-
-    }
-    return _chatScrollView;
 }
 
 - (NSMutableArray *)dataSource
@@ -847,9 +624,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (_chatScrollView && !_chatScrollView.hidden) {
-        [self hideGroupList];
-    }
     if (_slimeView) {
         [_slimeView scrollViewDidScroll];
     }
@@ -857,10 +631,6 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    
-    if (_chatScrollView && !_chatScrollView.hidden) {
-        [self hideGroupList];
-    }
     if (_slimeView) {
         [_slimeView scrollViewDidEndDraging];
     }
