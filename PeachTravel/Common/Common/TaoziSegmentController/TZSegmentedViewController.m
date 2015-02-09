@@ -74,8 +74,7 @@
     if (selectedIndext == _selectedIndext) {
         return;
     }
-    _selectedIndext = selectedIndext;
-    [self changePage:_selectedIndext];
+    [self changePage:selectedIndext];
 }
 
 - (void)finishSwithPages
@@ -88,11 +87,12 @@
     [self changePage:sender.tag];
 }
 
-- (void)changePage:(NSUInteger)pageIndex
+- (void)changePage:(NSInteger)pageIndex
 {
-   
-    UIButton *fbtn = [_segmentedBtns objectAtIndex:_selectedIndext];
-    fbtn.selected = NO;
+    if (_selectedIndext >= 0) {
+        UIButton *fbtn = [_segmentedBtns objectAtIndex:_selectedIndext];
+        fbtn.selected = NO;
+    }
     _selectedIndext = pageIndex;
     
     UIButton *btn = [_segmentedBtns objectAtIndex:_selectedIndext];
