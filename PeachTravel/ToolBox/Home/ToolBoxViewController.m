@@ -225,8 +225,7 @@
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     self.navigationController.navigationBar.translucent = YES;
-
-    NSLog(@"tool viewWillAppear");
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -236,6 +235,7 @@
         [[self rdv_tabBarController] setTabBarHidden:YES];
     }
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 - (void)dealloc
