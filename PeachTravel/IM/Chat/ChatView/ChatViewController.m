@@ -359,7 +359,6 @@
             completion(YES);
         } else {
             completion(NO);
-//            [SVProgressHUD showErrorWithStatus:@"网络加载失败"];
             [self showHint:@"请求也是失败了"];
         }
         
