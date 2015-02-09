@@ -151,6 +151,7 @@
     UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
 }
 
@@ -1073,7 +1074,7 @@
 {
     [self keyBoardHidden];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-    searchCtl.titleStr = @"发送目的地";
+    searchCtl.titleStr = @"发送地点";
     searchCtl.chatter = _chatter;
     searchCtl.isChatGroup = _isChatGroup;
     [self.navigationController pushViewController:searchCtl animated:YES];

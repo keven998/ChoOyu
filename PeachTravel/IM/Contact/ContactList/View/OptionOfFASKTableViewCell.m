@@ -14,6 +14,7 @@
     _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     _requestNoti.layer.cornerRadius = 7.5;
     _requestNoti.clipsToBounds = YES;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
