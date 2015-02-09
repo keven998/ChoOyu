@@ -7,7 +7,6 @@
 //
 
 #import "CreateConversationViewController.h"
-#import "TZScrollView.h"
 #import "pinyin.h"
 #import "AccountManager.h"
 #import "ChatView/ChatViewController.h"
@@ -18,16 +17,12 @@
 
 #define contactCell      @"createConversationCell"
 
-@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource,TZScrollViewDelegate, UITableViewDelegate, TaoziSelectViewDelegate>
+@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TaoziSelectViewDelegate>
 
-@property (strong, nonatomic) TZScrollView *tzScrollView;
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) SelectContactScrollView *selectContactView;
-
-//是否显示字母索引，当少于15个人的时候不显示
-@property (nonatomic) BOOL showRefrence;
 
 //@property (nonatomic, strong)  UIButton *confirm;
 
@@ -39,18 +34,8 @@
     [super viewDidLoad];
     
     self.navigationController.title = @"选择";
-    /**
-     *  如果联系人的个数大于15，那显示索引，反之不现实
-     */
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager.account.contacts count] > 15) {
-        _showRefrence = YES;
-    }
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.selectContactView];
-    if (_showRefrence) {
-        [self.view addSubview:self.tzScrollView];
-    }
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -75,21 +60,6 @@
 
 #pragma mark - setter & getter
 
-- (TZScrollView *)tzScrollView
-{
-    if (!_tzScrollView) {
-        _tzScrollView = [[TZScrollView alloc] initWithFrame:CGRectMake(0, self.selectContactView.frame.origin.y + 10, kWindowWidth, 52)];
-        _tzScrollView.itemWidth = 22;
-        _tzScrollView.itemHeight = 22;
-        _tzScrollView.itemBackgroundColor = UIColorFromRGB(0xd2d2d2);
-        _tzScrollView.backgroundColor = [UIColor whiteColor];
-        _tzScrollView.delegate = self;
-        _tzScrollView.titles = [self.dataSource objectForKey:@"headerKeys"];
-        _tzScrollView.delegate = self;
-    }
-    return _tzScrollView;
-}
-
 - (SelectContactScrollView *)selectContactView
 {
     if (!_selectContactView) {
@@ -105,10 +75,7 @@
 {
     if (!_contactTableView) {
         CGFloat offsetY = 64+10;
-        if (_showRefrence) {
-            offsetY += self.tzScrollView.frame.size.height + 10;
-        }
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(11, offsetY, kWindowWidth-22, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY)];
+        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, kWindowWidth, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY)];
         _contactTableView.dataSource = self;
         
         NSLog(@"%f", self.view.frame.size.height);
@@ -118,6 +85,7 @@
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.showsVerticalScrollIndicator = NO;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
+        _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
     }
     return _contactTableView;
 }
@@ -294,11 +262,6 @@
             CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y - self.selectContactView.frame.size.height, self.contactTableView.frame.size.width, self.contactTableView.frame.size.height + self.selectContactView.frame.size.height);
             [self.contactTableView setFrame:frame];
             
-            if (_showRefrence) {
-                CGRect refrenceFrame = CGRectMake(self.tzScrollView.frame.origin.x, self.tzScrollView.frame.origin.y - self.selectContactView.frame.size.height, self.tzScrollView.frame.size.width, self.tzScrollView.frame.size.height);
-                [self.tzScrollView setFrame:refrenceFrame];
-            }
-
         } completion:^(BOOL finished) {
             self.selectContactView.alpha = 0;
         }];
@@ -367,6 +330,22 @@
     return cell;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section];
+}
+// 索引目录
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+    return index;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -385,10 +364,6 @@
                 self.selectContactView.alpha = 0.8;
                 CGRect frame = CGRectMake(self.contactTableView.frame.origin.x, self.contactTableView.frame.origin.y+self.selectContactView.frame.size.height, self.contactTableView.frame.size.width, self.contactTableView.frame.size.height - self.selectContactView.frame.size.height);
                 [self.contactTableView setFrame:frame];
-                if (_showRefrence) {
-                    CGRect refrenceFrame = CGRectMake(self.tzScrollView.frame.origin.x, self.tzScrollView.frame.origin.y + self.selectContactView.frame.size.height, self.tzScrollView.frame.size.width, self.tzScrollView.frame.size.height);
-                    [self.tzScrollView setFrame:refrenceFrame];
-                }
             } completion:^(BOOL finished) {
                 self.selectContactView.alpha = 1.0;
             }];
@@ -404,23 +379,6 @@
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    NSArray *visiableCells = [self.contactTableView visibleCells];
-    NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
-    self.tzScrollView.currentIndex = indexPath.section;
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
-{
-    NSArray *visiableCells = [self.contactTableView visibleCells];
-    NSIndexPath *indexPath = [self.contactTableView indexPathForCell:[visiableCells firstObject]];
-    self.tzScrollView.currentIndex = indexPath.section;
 }
 
 
