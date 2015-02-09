@@ -482,7 +482,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         CGFloat y = scrollView.contentOffset.y;
         if (y <= 0) {
             CGRect frame = _cityPicture.frame;
-            frame.size.height = 188 - y;
+            frame.size.height = kWindowWidth*0.6 - y;
             frame.origin.y = 0;
             _cityPicture.frame = frame;
         } else {

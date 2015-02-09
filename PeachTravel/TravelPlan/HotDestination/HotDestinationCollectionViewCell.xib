@@ -71,7 +71,7 @@
                 <outlet property="cellImageView" destination="qCv-rb-LI7" id="R6T-FT-nsp"/>
                 <outlet property="cellTitleLabel" destination="fTv-9e-bsD" id="OXl-ty-sXZ"/>
             </connections>
-            <point key="canvasLocation" x="120" y="287"/>
+            <point key="canvasLocation" x="218" y="213"/>
         </collectionViewCell>
     </objects>
     <resources>
