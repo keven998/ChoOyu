@@ -41,9 +41,11 @@
     self.navigationItem.title = contact.nickName;
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    UIBarButtonItem * moreBarItem = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(moreAction:)];
-    [moreBarItem setImage:[UIImage imageNamed:@"ic_more.png"]];
-    self.navigationItem.rightBarButtonItem = moreBarItem;
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
     
     CGFloat width = self.view.bounds.size.width;
     
@@ -236,7 +238,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"删除好友", nil];
+                                              otherButtonTitles:@"从好友列表删除", nil];
     [sheet showInView:self.view];
 }
 
@@ -270,7 +272,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [accountManager removeContact:self.contact.userId];
-            [SVProgressHUD showHint:@"OK~成功删除～"];
+            [SVProgressHUD showHint:@"已删除～"];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
 
