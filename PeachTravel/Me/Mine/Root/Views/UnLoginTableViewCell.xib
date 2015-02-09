@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C106a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -101,6 +101,6 @@
         <image name="avatar_placeholder.png" width="62" height="62"/>
         <image name="login_btn_frame.png" width="71" height="25"/>
         <image name="login_btn_highlight.png" width="70" height="25"/>
-        <image name="login_frame_bg.png" width="320" height="114"/>
+        <image name="login_frame_bg.png" width="320" height="113"/>
     </resources>
 </document>

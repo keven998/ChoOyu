@@ -252,7 +252,7 @@
     if ([_group.owner isEqualToString: accountManager.account.easemobUser]) {
         UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(20+(spaceWidth+60)*index, offsetY, 60, 60)];
         [deleteBtn addTarget:self action:@selector(willDeleteNumber:) forControlEvents:UIControlEventTouchUpInside];
-        [deleteBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+        [deleteBtn setImage:[UIImage imageNamed:@"delete_contact.png"] forState:UIControlStateNormal];
         [_contactsView addSubview:deleteBtn];
     }
     

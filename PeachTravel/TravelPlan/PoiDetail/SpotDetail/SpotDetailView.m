@@ -135,6 +135,7 @@
     _descDetailBtn.titleLabel.numberOfLines = 2;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
     [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+    _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_descDetailBtn];
     offsetY += 65;
     
@@ -160,6 +161,7 @@
     [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
     [_travelBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
     [_travelBtn setTitle:content forState:UIControlStateNormal];
+    _travelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_travelBtn];
     offsetY += 65;
     
@@ -177,6 +179,8 @@
     _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _ticketBtn.titleLabel.numberOfLines = 2;
+    _ticketBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
     [_ticketBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
     [_ticketBtn setTitle:_spot.priceDesc forState:UIControlStateNormal];
     [_scrollView addSubview:_ticketBtn];
@@ -205,6 +209,7 @@
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _addressBtn.titleLabel.numberOfLines = 2;
     _addressBtn.layer.cornerRadius = 4.0;
+    _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(10, 15, 10, 15)];
     _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     _addressBtn.layer.borderWidth = 0.5;
