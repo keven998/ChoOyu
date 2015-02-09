@@ -107,7 +107,7 @@
     if (_toolbarBackgroundImageView == nil) {
         _toolbarBackgroundImageView = [[UIImageView alloc] init];
         _toolbarBackgroundImageView.image = [[UIImage imageNamed:@"chatToolBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-        _toolbarBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _toolbarBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
     }
     
     return _toolbarBackgroundImageView;
@@ -474,6 +474,8 @@
     CGRect r = _toolbarView.frame;
     r.size.height -= diff;
     _toolbarView.frame = r;
+    _toolbarBackgroundImageView.frame = _toolbarView.bounds;
+    [_toolbarBackgroundImageView setNeedsDisplay];
     
     if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
         [_delegate didChangeFrameToHeight:self.frame.size.height];

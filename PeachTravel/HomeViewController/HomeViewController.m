@@ -350,12 +350,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 77);
     self.tabBar.frame = frame;
-//    self.tabBar.backgroundColor = [UIColor clearColor];
     
-    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 73, 77)];
+    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 74, 77)];
     imView.backgroundColor = [UIColor clearColor];
     
-    UIImageView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 73, 49)];
+    UIImageView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 74, 49)];
     imBackView.image = [UIImage imageNamed:@"ic_im_bkg.png"];
     [imView addSubview:imBackView];
     
