@@ -53,17 +53,18 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.view addSubview:_searchBar];
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
+    
+    [_searchBar becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [_searchBar endEditing:YES];
+//    [_searchBar endEditing:YES];
 }
 
 - (UITableView *)tableView

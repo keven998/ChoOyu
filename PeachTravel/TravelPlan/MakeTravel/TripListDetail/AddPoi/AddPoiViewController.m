@@ -100,7 +100,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
         self.navigationItem.rightBarButtonItem = filterItem;
     } else {
-        self.navigationItem.title = [NSString stringWithFormat:@"%@美景", _cityName];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];

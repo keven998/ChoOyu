@@ -294,7 +294,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         destinationView.destinations = distinationArray;
 //        destinationView.tag = section;
 //        destinationView.delegate = self;
-    } else {
+    }
+    if ([[_tripDetail.itineraryList objectAtIndex:section] count] <= 0) {
         NSMutableArray *distinationArray = [[NSMutableArray alloc] initWithObjects:@"没有安排", nil];
         destinationView.titleColor = APP_SUB_THEME_COLOR;
         destinationView.destinations = distinationArray;
@@ -318,7 +319,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addSpotBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
         addSpotBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         addSpotBtn.layer.cornerRadius = 4;
-        addSpotBtn.userInteractionEnabled = NO;
+//        addSpotBtn.userInteractionEnabled = NO;
+        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
         

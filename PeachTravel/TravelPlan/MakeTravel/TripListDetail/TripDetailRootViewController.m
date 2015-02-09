@@ -95,7 +95,7 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，旅程计划更简单" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"创建", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，旅程计划更简单" delegate:self cancelButtonTitle:@"不创建" otherButtonTitles:@"创建", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
@@ -201,7 +201,7 @@
 
 }
 - (void) hint {
-    [SVProgressHUD showSuccessWithStatus:@"已保存到旅行计划"];
+    [SVProgressHUD showSuccessWithStatus:@"已保存到我的旅程"];
 }
 
 - (void)dealloc
@@ -579,7 +579,7 @@
         if (code == 0) {
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
-            [SVProgressHUD showHint:@"已保存到旅行计划"];
+            [SVProgressHUD showHint:@"已保存到我的旅程"];
         } else {
              if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];

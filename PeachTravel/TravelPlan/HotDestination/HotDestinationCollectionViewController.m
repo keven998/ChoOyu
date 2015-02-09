@@ -110,7 +110,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (IBAction)goSearch:(UIButton *)sender {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-    searchCtl.titleStr = @"搜索想去";
+    searchCtl.titleStr = @"搜索";
     [self.navigationController pushViewController:searchCtl animated:YES];
 }
 

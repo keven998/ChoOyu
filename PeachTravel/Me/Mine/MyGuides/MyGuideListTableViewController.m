@@ -486,7 +486,7 @@ static NSString *reusableCell = @"myGuidesCell";
     desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     desc.numberOfLines = 2;
 //    desc.textAlignment = NSTextAlignmentCenter;
-    NSString *text = @"竟然一个旅行计划都没有～";
+    NSString *text = @"你还没有任何旅程计划~";
     NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
     [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];

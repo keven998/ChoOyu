@@ -33,6 +33,7 @@
         self.backgroundColor = APP_PAGE_COLOR;
         [self setTitle:name forState:UIControlStateNormal];
         [self setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        self.titleEdgeInsets = UIEdgeInsetsMake(2.5, 4, 0, 0);
         self.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         if (icon) {
             [self setContentEdgeInsets:UIEdgeInsetsMake(0, 4, 1, 20)];
