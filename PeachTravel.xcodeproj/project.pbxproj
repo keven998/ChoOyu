@@ -29,6 +29,9 @@
 		C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */; };
 		C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */; };
 		C6B65A671A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */; };
+		D9008D5F1A89CB1B000A237D /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D9008D5A1A89CB1B000A237D /* JDStatusBarNotification.m */; };
+		D9008D601A89CB1B000A237D /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D9008D5C1A89CB1B000A237D /* JDStatusBarStyle.m */; };
+		D9008D611A89CB1B000A237D /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9008D5E1A89CB1B000A237D /* JDStatusBarView.m */; };
 		D93C50BB1A47ED4900FFE2FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BA1A47ED4900FFE2FA /* CoreText.framework */; };
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
@@ -760,6 +763,12 @@
 		C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_gray@2x.png"; sourceTree = "<group>"; };
+		D9008D591A89CB1B000A237D /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
+		D9008D5A1A89CB1B000A237D /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
+		D9008D5B1A89CB1B000A237D /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
+		D9008D5C1A89CB1B000A237D /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
+		D9008D5D1A89CB1B000A237D /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
+		D9008D5E1A89CB1B000A237D /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D93C50BA1A47ED4900FFE2FA /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1942,6 +1951,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D9008D581A89CB1B000A237D /* JDStatusBarNotification */ = {
+			isa = PBXGroup;
+			children = (
+				D9008D591A89CB1B000A237D /* JDStatusBarNotification.h */,
+				D9008D5A1A89CB1B000A237D /* JDStatusBarNotification.m */,
+				D9008D5B1A89CB1B000A237D /* JDStatusBarStyle.h */,
+				D9008D5C1A89CB1B000A237D /* JDStatusBarStyle.m */,
+				D9008D5D1A89CB1B000A237D /* JDStatusBarView.h */,
+				D9008D5E1A89CB1B000A237D /* JDStatusBarView.m */,
+			);
+			path = JDStatusBarNotification;
+			sourceTree = "<group>";
+		};
 		D90F356819F6321B00E26FA9 /* IM */ = {
 			isa = PBXGroup;
 			children = (
@@ -2850,6 +2872,7 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				D9008D581A89CB1B000A237D /* JDStatusBarNotification */,
 				C67C07781A81BFC100E0F30B /* UMSocial_Sdk_Extra_Frameworks */,
 				D9A8069C1A80F597005AD701 /* UMSocial_Sdk_4.2.1 */,
 				D9A802FD1A80E646005AD701 /* MHTabBarController */,
@@ -5008,6 +5031,7 @@
 				D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */,
 				D9A8FFB71A80D1C3005AD701 /* SpotDetailView.m in Sources */,
 				D9A801491A80DD23005AD701 /* EMChatViewCell.m in Sources */,
+				D9008D601A89CB1B000A237D /* JDStatusBarStyle.m in Sources */,
 				D9A801171A80DD23005AD701 /* ChatRecoredListTableViewController.m in Sources */,
 				D9A802E41A80E3D3005AD701 /* SuperWebViewController.m in Sources */,
 				D9A800311A80D52F005AD701 /* ShoppingListViewController.m in Sources */,
@@ -5048,6 +5072,7 @@
 				D9A8FEC71A80C818005AD701 /* MyGuideListTableViewController.m in Sources */,
 				D9A8FF571A80CF19005AD701 /* ToolBoxViewController.m in Sources */,
 				D9A802161A80E036005AD701 /* JGProgressHUDPieIndicatorView.m in Sources */,
+				D9008D611A89CB1B000A237D /* JDStatusBarView.m in Sources */,
 				D9A801411A80DD23005AD701 /* EMChatLocationBubbleView.m in Sources */,
 				D9A8FFA21A80D1C3005AD701 /* CityPoi.m in Sources */,
 				D9A8FFBC1A80D1C3005AD701 /* TravelNoteListViewController.m in Sources */,
@@ -5061,6 +5086,7 @@
 				D9A802041A80E036005AD701 /* DKCircleButton.m in Sources */,
 				D9A800191A80D52F005AD701 /* CountryDestination.m in Sources */,
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
+				D9008D5F1A89CB1B000A237D /* JDStatusBarNotification.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
 				D9A802221A80E036005AD701 /* MJPhotoView.m in Sources */,
 				D9A801281A80DD23005AD701 /* LocationViewController.m in Sources */,

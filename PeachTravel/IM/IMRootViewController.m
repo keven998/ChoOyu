@@ -13,6 +13,7 @@
 #import "ChatListViewController.h"
 #import "ContactListViewController.h"
 #import "AccountManager.h"
+#import "JDStatusBarNotification.h"
 
 @interface IMRootViewController () <RNGridMenuDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
@@ -24,6 +25,7 @@
 
 @property (nonatomic, strong) UILabel *unReadChatMsgLabel;
 @property (nonatomic, strong) UILabel *unReadFrendRequestLabel;
+@property (nonatomic) BOOL isShowing;
 
 @end
 
@@ -87,12 +89,54 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    _isShowing = YES;
+    switch (_IMState) {
+        case IM_CONNECTING: {
+            NSLog(@"连接中");
+            [JDStatusBarNotification showWithStatus:@"连接中"];
+        }
+            break;
+            
+        case IM_DISCONNECTED: {
+            NSLog(@"未连接");
+            [JDStatusBarNotification showWithStatus:@"未连接" styleName:JDStatusBarStyleError];
+        }
+            break;
+            
+        case IM_RECEIVING: {
+            NSLog(@"收取中");
+            [JDStatusBarNotification showWithStatus:@"收取中"];
+        }
+            break;
+            
+        case IM_RECEIVED: {
+            NSLog(@"IM_RECEIVED");
+            self.navigationItem.title = @"Talk";
+            [JDStatusBarNotification dismissAfter:0.3];
+            
+        }
+            break;
+            
+        case IM_CONNECTED: {
+            NSLog(@"IM_CONNECTED");
+            
+            [JDStatusBarNotification dismiss];
+
+        }
+            
+        default:
+            [JDStatusBarNotification dismiss];
+            break;
+    }
 
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [JDStatusBarNotification dismiss];
+    _isShowing = NO;
 }
 
 - (void)goBack
@@ -141,32 +185,47 @@
 - (void)setIMState:(IM_CONNECT_STATE)IMState
 {
     _IMState = IMState;
+    if (!_isShowing) {
+        return;
+    }
+    JDStatusBarStyle *style = [[JDStatusBarStyle alloc] init];
+    style.barColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     switch (_IMState) {
         case IM_CONNECTING: {
-            self.navigationItem.title = @"连接中";
+            NSLog(@"连接中");
+            [JDStatusBarNotification showWithStatus:@"连接中"];
         }
             break;
             
         case IM_DISCONNECTED: {
-            self.navigationItem.title = @"未连接";
+            NSLog(@"未连接");
+            [JDStatusBarNotification showWithStatus:@"未连接" styleName:JDStatusBarStyleError];
         }
             break;
             
         case IM_RECEIVING: {
-            self.navigationItem.title = @"收取中";
+            NSLog(@"收取中");
+            [JDStatusBarNotification showWithStatus:@"收取中"];
         }
             break;
             
         case IM_RECEIVED: {
+            NSLog(@"IM_RECEIVED");
             self.navigationItem.title = @"Talk";
+            [JDStatusBarNotification dismissAfter:0.3];
+
         }
             break;
             
         case IM_CONNECTED: {
-            self.navigationItem.title = @"Talk";
+            NSLog(@"IM_CONNECTED");
+
+            [JDStatusBarNotification showWithStatus:@"已链接~"];
+            [JDStatusBarNotification dismissAfter:0.7];
         }
             
         default:
+            [JDStatusBarNotification dismiss];
             break;
     }
 }
