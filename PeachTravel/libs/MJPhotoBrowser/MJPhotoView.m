@@ -65,7 +65,7 @@
 - (void)showImage
 {
     if (_photo.firstShow) { // 首次显示
-        _imageView.image = _photo.placeholder; // 占位图片
+        _imageView.image = nil; // 占位图片
 //        _photo.srcImageView.image = nil;
         
         // 不是gif，就马上开始下载
@@ -102,7 +102,7 @@
         __unsafe_unretained MJPhotoView *photoView = self;
         __unsafe_unretained MJPhotoLoadingView *loading = _photoLoadingView;
         
-        [_imageView sd_setImageWithURL:_photo.url placeholderImage:_photo.srcImageView.image options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [_imageView sd_setImageWithURL:_photo.url placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             if (receivedSize > kMinProgress) {
                 if (loading != nil) {
                     loading.progress = (float)receivedSize/expectedSize;

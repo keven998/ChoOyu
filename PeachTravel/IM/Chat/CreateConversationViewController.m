@@ -42,6 +42,7 @@
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(createConversation:)];
     confirm.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = confirm;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     if (!_isPushed) {
         UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
@@ -193,20 +194,20 @@
                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
-- (BOOL)isSelected:(NSNumber *)userId
+- (BOOL)isSelected:(NSString *)easeMobUserName
 {
     for (Contact *contact in self.selectedContacts) {
-        if (userId.integerValue == contact.userId.integerValue) {
+        if ([easeMobUserName isEqualToString: contact.easemobUser]) {
             return YES;
         }
     }
     return NO;
 }
 
-- (BOOL)isNumberInGroup:(NSNumber *)userId
+- (BOOL)isNumberInGroup:(NSString *)easeMobUserName
 {
-    for (Contact *contact in self.group.numbers) {
-        if (userId.integerValue == contact.userId.integerValue) {
+    for (NSString *userName in self.emGroup.occupants) {
+        if ([easeMobUserName isEqualToString: userName]) {
             return YES;
         }
     }
@@ -319,12 +320,12 @@
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     cell.nickNameLabel.text = contact.nickName;
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
-    if ([self isSelected:contact.userId]) {
+    if ([self isSelected:contact.easemobUser]) {
         cell.checkStatus = checked;
     } else {
         cell.checkStatus = unChecked;
     }
-    if ([self isNumberInGroup:contact.userId]) {
+    if ([self isNumberInGroup:contact.easemobUser]) {
         cell.checkStatus = disable;
     }
     return cell;
@@ -350,10 +351,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if ([self isNumberInGroup:contact.userId]) {
+    if ([self isNumberInGroup:contact.easemobUser]) {
         return;
     }
-    if ([self isSelected:contact.userId]) {
+    if ([self isSelected:contact.easemobUser]) {
         NSInteger index = [self.selectedContacts indexOfObject:contact];
         [self.selectContactView removeUnitAtIndex:index];
         
