@@ -135,17 +135,17 @@
         [manager POST:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@", responseObject);
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-            if (code == 0) {
+            if (code == 0 || code == 401) {
                 [self showHint:@"已收藏"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
                 completion(YES);
             } else {
                 completion(NO);
-                if (code == 401) {
-                    [self showHint:@"已收藏"];
-                } else {
+//                if (code == 401) {
+//                    [self showHint:@"已收藏"];
+//                } else {
 //                    [self showHint:@"请求也是失败了"];
-                }
+//                }
             }
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

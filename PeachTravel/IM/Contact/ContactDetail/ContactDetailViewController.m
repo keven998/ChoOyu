@@ -224,16 +224,6 @@
 
 - (IBAction)moreAction:(UIButton *)sender
 {
-//    NSInteger numberOfOptions = 1;
-//    NSArray *items = @[
-//                       [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete_user.png"] title:@"删除好友"],
-//                       ];
-//    
-//    _av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
-//    _av.backgroundColor = [UIColor clearColor];
-//    _av.delegate = self;
-//    [_av showInViewController:self.navigationController center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
-    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:self
                                               cancelButtonTitle:@"取消"

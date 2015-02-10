@@ -53,10 +53,10 @@
     _myFavoriteButton.topSpaceHight = 18;
     _myFavoriteButton.spaceHight = 10;
     [_myFavoriteButton setFrame:CGRectMake(spaceWidth + CHAT_BUTTON_SIZE+INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite.png"] forState:UIControlStateNormal];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite_selected.png"] forState:UIControlStateHighlighted];
-    [_myFavoriteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
-    [_myFavoriteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_destination.png"] forState:UIControlStateNormal];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_destination_selected.png"] forState:UIControlStateHighlighted];
+    [_myFavoriteButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
+    [_myFavoriteButton setTitle:@"地点" forState:UIControlStateNormal];
     [_myFavoriteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _myFavoriteButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -64,14 +64,15 @@
     _myFavoriteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self addSubview:_myFavoriteButton];
     
+    
     _destinationButton = [TZButton buttonWithType:UIButtonTypeCustom];
     _destinationButton.topSpaceHight = 18;
     _destinationButton.spaceHight = 10;
     [_destinationButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_destination.png"] forState:UIControlStateNormal];
-    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_destination_selected.png"] forState:UIControlStateHighlighted];
-    [_destinationButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
-    [_destinationButton setTitle:@"地点" forState:UIControlStateNormal];
+    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote.png"] forState:UIControlStateNormal];
+    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote_selected.png"] forState:UIControlStateHighlighted];
+    [_destinationButton addTarget:self action:@selector(travelNoteAction) forControlEvents:UIControlEventTouchUpInside];
+    [_destinationButton setTitle:@"游记" forState:UIControlStateNormal];
     [_destinationButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _destinationButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -85,10 +86,10 @@
     _travelNoteButton.topSpaceHight =18;
     _travelNoteButton.spaceHight = 10;
     [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote.png"] forState:UIControlStateNormal];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote_selected.png"] forState:UIControlStateHighlighted];
-    [_travelNoteButton addTarget:self action:@selector(travelNoteAction) forControlEvents:UIControlEventTouchUpInside];
-    [_travelNoteButton setTitle:@"游记" forState:UIControlStateNormal];
+    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite.png"] forState:UIControlStateNormal];
+    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite_selected.png"] forState:UIControlStateHighlighted];
+    [_travelNoteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
+    [_travelNoteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
     [_travelNoteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _travelNoteButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

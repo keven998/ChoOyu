@@ -34,11 +34,13 @@
     [talkBtn setImage:[UIImage imageNamed:@"ic_favorite_unselected.png"] forState:UIControlStateNormal];
     [talkBtn setImage:[UIImage imageNamed:@"ic_favorite_selected.png"] forState:UIControlStateSelected];
     [talkBtn addTarget:self action:@selector(doFavorite:) forControlEvents:UIControlEventTouchUpInside];
+    talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *moreBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [cb setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
     [cb addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    cb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatItem, moreBarItem, nil];
     
@@ -100,9 +102,9 @@
     bi.selected = !bi.selected;
     [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:bi.selected completion:^(BOOL isSuccess) {
         if (!isSuccess) {
-//            bi.selected = !bi.selected;
-        } else {
             bi.selected = !bi.selected;
+        } else {
+//            bi.selected = !bi.selected;
         }
     }];
 }
