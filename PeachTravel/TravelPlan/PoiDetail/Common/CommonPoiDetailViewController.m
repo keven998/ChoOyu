@@ -149,7 +149,6 @@
         NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
             _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            _commonPoi.poiType  = kRestaurantPoi;
             [self updateView];
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];

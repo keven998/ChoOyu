@@ -253,7 +253,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];

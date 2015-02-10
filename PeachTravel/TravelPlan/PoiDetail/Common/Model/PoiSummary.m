@@ -25,15 +25,22 @@
         
         if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
             _poiType = kSpotPoi;
+            _poiTypeDesc = @"vs";
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"restaurant"]) {
             _poiType = kRestaurantPoi;
+            _poiTypeDesc = @"restaurant";
+
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"shopping"]) {
             _poiType = kShoppingPoi;
+            _poiTypeDesc = @"shopping";
+
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"hotel"]) {
             _poiType = kHotelPoi;
+            _poiTypeDesc = @"hotel";
+            
         }
         
         if ([[json objectForKey:@"tel"] isKindOfClass:[NSArray class]]) {
