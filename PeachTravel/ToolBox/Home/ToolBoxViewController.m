@@ -152,7 +152,7 @@
     [_planBtn addSubview:titleImage];
 
     
-    NSString *str = @"最贴心的旅程助手\n旅行可以\n更安心、简单";
+    NSString *str = @"最贴心的旅程助手\n让你的旅行\n更安心、简单";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];

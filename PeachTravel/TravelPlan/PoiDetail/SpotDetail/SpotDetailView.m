@@ -65,9 +65,9 @@
     CGFloat offsetY = 0;
     
     _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, _scrollView.bounds.size.width/2);
-    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _imageView.layer.cornerRadius = 2.0;
-    _imageView.layer.borderWidth = 0.5;
+//    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _imageView.layer.cornerRadius = 2.0;
+//    _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _imageView.userInteractionEnabled = YES;
     
@@ -122,7 +122,7 @@
     
     UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     destTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
-    destTitle.text = @"景点简介";
+    destTitle.text = @"景点介绍";
     destTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
     destTitle.textColor = TEXT_COLOR_TITLE_HINT;
     destTitle.textAlignment = NSTextAlignmentCenter;
@@ -131,10 +131,10 @@
     
     _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
-    _descDetailBtn.titleLabel.numberOfLines = 2;
+    _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
     _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
+    _descDetailBtn.titleLabel.numberOfLines = 2;
     [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
     _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_descDetailBtn];
@@ -142,7 +142,7 @@
     
     UILabel *timeTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     timeTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
-    timeTitle.text = @"时间";
+    timeTitle.text = @"游玩";
     timeTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
     timeTitle.textColor = TEXT_COLOR_TITLE_HINT;
     timeTitle.textAlignment = NSTextAlignmentCenter;
@@ -169,7 +169,7 @@
     
     UILabel *ticketTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     ticketTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
-    ticketTitle.text = @"景点门票";
+    ticketTitle.text = @"门票";
     ticketTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
     ticketTitle.textColor = TEXT_COLOR_TITLE_HINT;
     ticketTitle.textAlignment = NSTextAlignmentCenter;
@@ -179,6 +179,7 @@
     _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _ticketBtn.titleLabel.numberOfLines = 2;
     _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -210,6 +211,7 @@
     _addressBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _addressBtn.titleLabel.numberOfLines = 2;
     _addressBtn.layer.cornerRadius = 4.0;
     _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -217,6 +219,7 @@
     _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     _addressBtn.layer.borderWidth = 0.5;
     _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
     if ([_spot.address isBlankString] || !_spot.address) {
         [_addressBtn setTitle:_spot.zhName forState:UIControlStateNormal];
     } else {
