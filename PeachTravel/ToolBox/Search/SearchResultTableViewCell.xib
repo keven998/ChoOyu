@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur2-sS-nIj">
-                        <rect key="frame" x="58" y="7" width="254" height="21"/>
+                        <rect key="frame" x="58" y="7" width="234" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="FUI-pB-JoG"/>
                         </constraints>
@@ -31,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6G-4t-F3H">
-                        <rect key="frame" x="58" y="26" width="254" height="21"/>
+                        <rect key="frame" x="58" y="26" width="234" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="unD-9l-s5U"/>
                         </constraints>
@@ -39,21 +39,37 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8PJ-vL-Zwj">
+                        <rect key="frame" x="266" y="17" width="40" height="20"/>
+                        <color key="backgroundColor" red="0.43137254899999999" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="2oM-yV-1s5"/>
+                            <constraint firstAttribute="height" constant="20" id="yNz-C2-Qar"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="发送">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ur2-sS-nIj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="3ag-qy-5ZB"/>
-                    <constraint firstAttribute="trailing" secondItem="c6G-4t-F3H" secondAttribute="trailing" constant="8" id="IWH-BH-17n"/>
+                    <constraint firstAttribute="trailing" secondItem="c6G-4t-F3H" secondAttribute="trailing" constant="28" id="IWH-BH-17n"/>
+                    <constraint firstItem="8PJ-vL-Zwj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="IXJ-5W-Mxs"/>
                     <constraint firstItem="c6G-4t-F3H" firstAttribute="leading" secondItem="x6v-gF-WNE" secondAttribute="trailing" constant="8" id="Pol-7V-uHk"/>
                     <constraint firstItem="x6v-gF-WNE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="V6a-kn-NDt"/>
-                    <constraint firstAttribute="trailing" secondItem="Ur2-sS-nIj" secondAttribute="trailing" constant="8" id="XtQ-Py-p2q"/>
+                    <constraint firstAttribute="trailing" secondItem="Ur2-sS-nIj" secondAttribute="trailing" constant="28" id="XtQ-Py-p2q"/>
                     <constraint firstItem="x6v-gF-WNE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aRB-Mc-FDE"/>
                     <constraint firstItem="Ur2-sS-nIj" firstAttribute="leading" secondItem="x6v-gF-WNE" secondAttribute="trailing" constant="8" id="csA-YS-2ct"/>
                     <constraint firstItem="c6G-4t-F3H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="eTx-pU-q94"/>
+                    <constraint firstAttribute="trailing" secondItem="8PJ-vL-Zwj" secondAttribute="trailing" constant="14" id="fGP-tn-BJN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="detailLabel" destination="c6G-4t-F3H" id="KFz-du-7B7"/>
                 <outlet property="headerImageView" destination="x6v-gF-WNE" id="j5A-u6-zYM"/>
+                <outlet property="sendBtn" destination="8PJ-vL-Zwj" id="cWM-7y-UP7"/>
                 <outlet property="titleLabel" destination="Ur2-sS-nIj" id="6dm-7l-o1j"/>
             </connections>
             <point key="canvasLocation" x="248" y="265"/>

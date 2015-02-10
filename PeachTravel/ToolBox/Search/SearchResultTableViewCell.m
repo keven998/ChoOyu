@@ -20,13 +20,21 @@
     _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
     _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _sendBtn.layer.cornerRadius = 2.0;
+}
 
+- (void)setIsCanSend:(BOOL)isCanSend
+{
+    _isCanSend = isCanSend;
+    if (_isCanSend) {
+        _sendBtn.hidden = NO;
+    } else {
+        _sendBtn.hidden = YES;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

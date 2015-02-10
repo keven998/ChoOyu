@@ -133,6 +133,7 @@
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
     _descDetailBtn.titleLabel.numberOfLines = 2;
+    _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
     [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
     _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -158,6 +159,7 @@
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _travelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     _travelBtn.titleLabel.numberOfLines = 2;
+    _travelBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
     [_travelBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
     [_travelBtn setTitle:content forState:UIControlStateNormal];
@@ -179,6 +181,7 @@
     _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _ticketBtn.titleLabel.numberOfLines = 2;
+    _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _ticketBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
     [_ticketBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];

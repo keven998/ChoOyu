@@ -16,4 +16,9 @@
 
 @property (nonatomic) BOOL isChatGroup;
 
+/**
+ *  点击是否可以发送
+ */
+@property (nonatomic) BOOL isCanSend;
+
 @end
