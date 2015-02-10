@@ -42,7 +42,7 @@
 - (void)updateView
 {
     self.navigationItem.title = _commonPoi.zhName;
-    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(5, 46, self.view.bounds.size.width-10, self.view.bounds.size.height-80)];
+    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
     restaurantView.rootCtl = self;
     restaurantView.poiType = _poiType;
     restaurantView.poi = self.commonPoi;

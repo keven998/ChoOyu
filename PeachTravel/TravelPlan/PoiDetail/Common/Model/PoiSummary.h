@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic) NSInteger commentCount;
 @property (nonatomic) float rating;
+@property (nonatomic) int rank;
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
 @property (nonatomic, strong) CityDestinationPoi *locality;
