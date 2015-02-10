@@ -219,6 +219,7 @@
         CGRect rect = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
         _imageView.frame = CGRectMake(rect.size.width/2+rect.origin.x, rect.origin.y+rect.size.height/2, 0, 0);
         // gif图片仅显示第0张
+        _imageView.alpha = 0;
         if (_imageView.image.images) {
             _imageView.image = _imageView.image.images[0];
         }

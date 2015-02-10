@@ -126,7 +126,7 @@
     }
     
     sendFailedImageView.frame = CGRectMake(85, 53, 12, 12);
-    activityView.frame = CGRectMake(85, 58, 8, 8);
+    activityView.frame = CGRectMake(85, 56, 13, 12);
     _detailLabel.frame = CGRectMake(85+offsetX, 50.0, popW+30-offsetX, 26);
     
     _timeLabel.text = _time;

@@ -223,18 +223,6 @@
 }
 
 /**
- *  点击群组联系人列表的头像进入联系人信息
- *
- *  @param sender 
- */
-- (IBAction)showUserInfo:(UIButton *)sender
-{
-    Contact *selectPerson = self.peopleInGroup[sender.tag];
-    [self  showUserInfoWithContactInfo:selectPerson];
-
-}
-
-/**
  *  点击聊天的头像进入联系人信息
  *
  *  @param sender
@@ -951,6 +939,7 @@
 
 - (void)didSendMessage:(EMMessage *)message error:(EMError *)error;
 {
+    NSLog(@"*******didSendMessage%@", message.messageId);
     [self reloadTableViewDataWithMessage:message];
 }
 
@@ -962,11 +951,15 @@
             for (int i = (int)weakSelf.dataSource.count-1; i >=0; i --) {
                 id object = [weakSelf.dataSource objectAtIndex:i];
                 if ([object isKindOfClass:[MessageModel class]]) {
-                    EMMessage *currMsg = [weakSelf.dataSource objectAtIndex:i];
+                    EMMessage *currMsg = ((MessageModel *)object).message;
                     if ([message.messageId isEqualToString:currMsg.messageId]) {
+                        currMsg.deliveryState = message.deliveryState;
+                        ((MessageModel *)object).status = message.deliveryState;
                         MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
                         [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
-                        [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                        EMChatViewCell *cell = (EMChatViewCell *)[weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+                        cell.messageModel = cellModel;
+//                        [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                         
                         break;
                     }
@@ -1495,6 +1488,7 @@
             [weakSelf.dataSource addObjectsFromArray:messages];
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            NSLog(@"******UITableViewScrollPositionBottom");
         });
     });
 

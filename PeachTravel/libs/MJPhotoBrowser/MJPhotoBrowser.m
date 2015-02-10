@@ -34,9 +34,6 @@
 #pragma mark - Lifecycle
 - (void)loadView
 {
-    _statusBarHiddenInited = [UIApplication sharedApplication].isStatusBarHidden;
-    // 隐藏状态栏
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     self.view = [[UIView alloc] init];
     self.view.frame = [UIScreen mainScreen].bounds;
 	self.view.backgroundColor = [UIColor blackColor];
@@ -55,14 +52,21 @@
 
 - (void)show
 {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.view];
-    [window.rootViewController addChildViewController:self];
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication]windows]reverseObjectEnumerator];
+    for (UIWindow *window in frontToBackWindows) {
+        if (window.windowLevel == UIWindowLevelNormal) {
+            [window.rootViewController addChildViewController:self];
+            [window addSubview:self.view];
+            
+            if (_currentPhotoIndex == 0) {
+                [self showPhotos];
+            }
 
-    if (_currentPhotoIndex == 0) {
-        [self showPhotos];
+            break;
+        }
     }
-}
+   }
 
 #pragma mark - 私有方法
 #pragma mark 创建工具条
@@ -134,7 +138,6 @@
 #pragma mark - MJPhotoView代理
 - (void)photoViewSingleTap:(MJPhotoView *)photoView
 {
-    [UIApplication sharedApplication].statusBarHidden = _statusBarHiddenInited;
     self.view.backgroundColor = [UIColor clearColor];
     
     // 移除工具条
@@ -143,6 +146,7 @@
 
 - (void)photoViewDidEndZoom:(MJPhotoView *)photoView
 {
+    [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 }

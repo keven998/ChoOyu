@@ -94,6 +94,39 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     }
 }
 
+- (void)updateSendStatus
+{
+    // 菊花状态 （因不确定菊花具体位置，要在子类中实现位置的修改）
+    switch (self.messageModel.status) {
+        case eMessageDeliveryState_Delivering:
+        {
+            [_activityView setHidden:NO];
+            [_retryButton setHidden:YES];
+            [_activtiy setHidden:NO];
+            [_activtiy startAnimating];
+        }
+            break;
+        case eMessageDeliveryState_Delivered:
+        {
+            [_activtiy stopAnimating];
+            [_activityView setHidden:YES];
+            
+        }
+            break;
+        case eMessageDeliveryState_Failure:
+        {
+            [_activityView setHidden:NO];
+            [_activtiy stopAnimating];
+            [_activtiy setHidden:YES];
+            [_retryButton setHidden:NO];
+        }
+            break;
+        default:
+            break;
+    }
+
+}
+
 - (void)setMessageModel:(MessageModel *)model
 {
     [super setMessageModel:model];
@@ -105,6 +138,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     
     _bubbleView.model = self.messageModel;
     [_bubbleView sizeToFit];
+    [self updateSendStatus];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
