@@ -14,6 +14,7 @@
 - (void)awakeFromNib {
     
     _avatarPlaceholder.layer.cornerRadius = 31.0;
+    _avatarPlaceholder.clipsToBounds = YES;
     [_loginBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateHighlighted];
     [_registerBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateHighlighted];
     _loginBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];

@@ -17,7 +17,6 @@
 #import "PageThree.h"
 #import "EAIntroView.h"
 #import "TZCMDChatHelper.h"
-#import "IMRootViewController.h"
 #import "ContactListViewController.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
@@ -39,7 +38,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
 @property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
-@property (nonatomic, strong) IMRootViewController *IMRootCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
