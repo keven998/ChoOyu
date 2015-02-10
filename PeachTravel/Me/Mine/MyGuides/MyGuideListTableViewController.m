@@ -85,8 +85,12 @@ static NSString *reusableCell = @"myGuidesCell";
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
         [editBtn setBackgroundImage:[UIImage imageNamed:@"btn_new_plan.png"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 20);
+        editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 120);
         _addBtn = editBtn;
+    }
+    
+    if (!_selectToSend) {
+        [self.view addSubview:_addBtn];
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -131,18 +135,12 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     _isShowing = YES;
-    if (!_selectToSend) {
-        [self.navigationController.view addSubview:_addBtn];
-    }
     self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     _isShowing = NO;
-    if (!_selectToSend) {
-        [_addBtn removeFromSuperview];
-    }
     self.navigationController.navigationBar.translucent = YES;
 }
 
