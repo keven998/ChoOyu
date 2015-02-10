@@ -101,6 +101,11 @@
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-70, _imageView.bounds.size.height-35, 30, 30)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateSelected];
+    if (_poi.isMyFavorite) {
+        _favoriteBtn.selected = YES;
+    }
+
     [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_imageView addSubview:_favoriteBtn];
     
@@ -241,10 +246,9 @@
         [_scrollView addSubview:commentSubLabel];
         offsetY += 15;
     }
-    
-    offsetY += 10;
 
     if (_poi.comments.count > 0) {
+        offsetY += 10;
         UIImageView *dotImageViewRight = [[UIImageView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-27, offsetY-20, 20, 17)];
         dotImageViewRight.image = [UIImage imageNamed:@"ic_quotation_r.png"];
         [_scrollView addSubview:dotImageViewRight];
@@ -252,6 +256,7 @@
     
     UIButton *moreCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-80, offsetY, 80, 40)];
     [moreCommentBtn setTitle:@"更多点评>>" forState:UIControlStateNormal];
+    [moreCommentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
     [moreCommentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [moreCommentBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     moreCommentBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
@@ -269,7 +274,7 @@
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"全部点评";
-    webCtl.urlStr = [NSString stringWithFormat:@"%@%@", MORE_COMMENT_HTML, _poi.poiId];
+    webCtl.urlStr = _poi.moreCommentsUrl;
     [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
