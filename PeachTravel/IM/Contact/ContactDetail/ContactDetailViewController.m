@@ -151,6 +151,7 @@
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
     _chatBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _chatBtn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
     _chatBtn.layer.cornerRadius = 2.0;
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:_chatBtn];

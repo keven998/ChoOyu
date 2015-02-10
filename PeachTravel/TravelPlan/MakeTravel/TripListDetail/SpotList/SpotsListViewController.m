@@ -149,7 +149,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)deleteOneDay:(UIButton *)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"删除这天安排" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"将会删除一整天" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [_tripDetail.itineraryList removeObjectAtIndex:sender.tag];
@@ -438,6 +438,10 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
 }
 
 - (void)dealloc {

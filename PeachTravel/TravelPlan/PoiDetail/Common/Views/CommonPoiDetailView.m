@@ -258,7 +258,8 @@
     [moreCommentBtn setTitle:@"更多点评>>" forState:UIControlStateNormal];
     [moreCommentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
     [moreCommentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [moreCommentBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
+    [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     moreCommentBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     [_scrollView addSubview:moreCommentBtn];
     

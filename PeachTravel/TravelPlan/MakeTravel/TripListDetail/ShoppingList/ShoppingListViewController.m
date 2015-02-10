@@ -311,6 +311,10 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiSummary *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
