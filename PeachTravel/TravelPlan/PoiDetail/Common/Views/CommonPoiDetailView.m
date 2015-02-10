@@ -76,9 +76,9 @@
     CGFloat offsetY = 20;
     
     _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, _scrollView.bounds.size.width/2);
-    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _imageView.layer.cornerRadius = 2.0;
-    _imageView.layer.borderWidth = 0.5;
+//    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _imageView.layer.cornerRadius = 2.0;
+//    _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _imageView.userInteractionEnabled = YES;
     [_scrollView addSubview:_imageView];
