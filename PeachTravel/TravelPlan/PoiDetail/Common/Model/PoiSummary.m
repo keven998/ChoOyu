@@ -68,6 +68,7 @@
         }
         _recommends = recommendArray;
         
+        _moreCommentsUrl = [json objectForKey:@"moreCommentsUrl"];
         NSMutableArray *commnentArray = [[NSMutableArray alloc] init];
         for (id commentDic in [json objectForKey:@"comments"]) {
             CommentDetail *comment = [[CommentDetail alloc] initWithJson:commentDic];

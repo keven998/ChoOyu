@@ -218,11 +218,12 @@
     _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     _addressBtn.layer.borderWidth = 0.5;
     _addressBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    NSString *str = _spot.address;
-    if ([str isBlankString]) {
-        str = _spot.zhName;
+
+    if ([_spot.address isBlankString] || !_spot.address) {
+        [_addressBtn setTitle:_spot.zhName forState:UIControlStateNormal];
+    } else {
+        [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
     }
-    [_addressBtn setTitle:str forState:UIControlStateNormal];
     [_scrollView addSubview:_addressBtn];
     
     offsetY += 12 + 32 + 15;
