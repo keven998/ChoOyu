@@ -105,8 +105,10 @@
  */
 - (void)asyncLoadGroupFromEasemobServerWithCompletion:(void(^)(BOOL isSuccess))completion
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [[EaseMob sharedInstance].chatManager asyncFetchGroupInfo:_group.groupId completion:^(EMGroup *group, EMError *error){
         if (!error) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             [self loadContactsFromTZServerWithGroup:group withCompletion:completion];
         }
     } onQueue:nil];
@@ -122,11 +124,13 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:emgroup.occupants forKey:@"easemob"];
     //获取用户信息列表
     [manager POST:API_GET_USERINFO_WITHEASEMOB parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self updateGroupInDB:[responseObject objectForKey:@"result"] andEMGroup:emgroup];
@@ -137,6 +141,8 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
         completion(NO);
         [self showHint:@"呃～好像没找到网络"];
     }];
@@ -271,6 +277,7 @@
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+    createConversationCtl.emGroup = _group;
     createConversationCtl.group = [accountManager groupWithGroupId:_group.groupId];
 
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:createConversationCtl];

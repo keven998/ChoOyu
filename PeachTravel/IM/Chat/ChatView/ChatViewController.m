@@ -957,9 +957,10 @@
                         ((MessageModel *)object).status = message.deliveryState;
                         MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
                         [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
-                        EMChatViewCell *cell = (EMChatViewCell *)[weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-                        cell.messageModel = cellModel;
-//                        [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                        UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+                        if ([cell isKindOfClass:[EMChatViewCell class]]) {
+                            ((EMChatViewCell *)cell).messageModel = cellModel;
+                        }
                         
                         break;
                     }

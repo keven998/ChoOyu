@@ -27,7 +27,15 @@
 
 @interface CreateConversationViewController : TZViewController
 
+/**
+ *  桃子群组
+ */
 @property (nonatomic, strong) Group *group;
+
+/**
+ *  环信的群组
+ */
+@property (nonatomic, strong) EMGroup *emGroup;
 
 @property (nonatomic, assign) id <CreateConversationDelegate> delegate;
 
