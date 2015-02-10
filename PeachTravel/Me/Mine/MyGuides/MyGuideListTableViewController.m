@@ -20,7 +20,7 @@
 
 #define PAGE_COUNT 10
 
-@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, SWTableViewCellDelegate>
+@interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, SWTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -35,6 +35,8 @@
 @property (nonatomic, assign) BOOL enableLoadMore;
 
 @property (nonatomic, strong) UIButton *addBtn;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @property (nonatomic) BOOL isShowing;
 
@@ -57,6 +59,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的旅程";
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,6 +96,7 @@ static NSString *reusableCell = @"myGuidesCell";
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = APP_THEME_COLOR;
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
 
     [self initDataFromCache];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
@@ -505,6 +512,28 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
+- (IBAction)sendPoi:(UIButton *)sender
+{
+    CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatType = TZChatTypeStrategy;
+    taoziMessageCtl.chatter = _chatter;
+    taoziMessageCtl.chatTitle = @"计划";
+    taoziMessageCtl.messageId = guideSummary.guideId;
+    taoziMessageCtl.messageDesc = guideSummary.summary;
+    taoziMessageCtl.messageName = guideSummary.title;
+    taoziMessageCtl.isGroup = _isChatGroup;
+    TaoziImage *image = [guideSummary.images firstObject];
+    taoziMessageCtl.messageImage = image.imageUrl;
+    taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)guideSummary.dayCount];
+    
+    [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+}
+
 #pragma mark - TaoziMessageSendDelegate
 
 //用户确定发送poi给朋友
@@ -531,8 +560,8 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)dismissPopup
 {
-    if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
+    if (self.navigationController.popupViewController != nil) {
+        [self.navigationController dismissPopupViewControllerAnimated:YES completion:^{
             
         }];
     }
@@ -571,6 +600,8 @@ static NSString *reusableCell = @"myGuidesCell";
     [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
     cell.guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     cell.delegate = self;
+    cell.isCanSend = _selectToSend;
+    [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -578,31 +609,12 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
-    //进入攻略详情
-    if (!_selectToSend) {
-        TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
-        tripDetailRootCtl.isMakeNewTrip = NO;
-        tripDetailRootCtl.tripId = guideSummary.guideId;
-        tripDetailRootCtl.canEdit = YES;
-        tripDetailRootCtl.contentMgrDelegate = self;
-        [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
-        //弹出发送菜单
-    } else {
-        TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
-        taoziMessageCtl.delegate = self;
-        taoziMessageCtl.chatType = TZChatTypeStrategy;
-        taoziMessageCtl.chatter = _chatter;
-        taoziMessageCtl.chatTitle = @"计划";
-        taoziMessageCtl.messageId = guideSummary.guideId;
-        taoziMessageCtl.messageDesc = guideSummary.summary;
-        taoziMessageCtl.messageName = guideSummary.title;
-        taoziMessageCtl.isGroup = _isChatGroup;
-        TaoziImage *image = [guideSummary.images firstObject];
-        taoziMessageCtl.messageImage = image.imageUrl;
-        taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)guideSummary.dayCount];
-
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
-    }
+    TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
+    tripDetailRootCtl.isMakeNewTrip = NO;
+    tripDetailRootCtl.tripId = guideSummary.guideId;
+    tripDetailRootCtl.canEdit = YES;
+    tripDetailRootCtl.contentMgrDelegate = self;
+    [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
 }
 
 - (NSArray *)rightButtons

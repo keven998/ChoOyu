@@ -39,4 +39,16 @@
     _titleBtn.text = _guideSummary.title;
 }
 
+- (void)setIsCanSend:(BOOL)isCanSend
+{
+    _isCanSend = isCanSend;
+    if (_isCanSend) {
+        _sendBtn.hidden = NO;
+        _sendBtnBkgImageView.hidden = NO;
+    } else {
+        _sendBtnBkgImageView.hidden = YES;
+        _sendBtn.hidden = YES;
+    }
+}
+
 @end

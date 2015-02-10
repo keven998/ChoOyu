@@ -19,6 +19,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *titleBkgImageView;
 @property (weak, nonatomic) IBOutlet UIView *contentBkgView;
+@property (weak, nonatomic) IBOutlet UIButton *sendBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *sendBtnBkgImageView;
+
+/**
+ *  是否可以发送
+ */
+@property (nonatomic) BOOL isCanSend;
 
 
 @end

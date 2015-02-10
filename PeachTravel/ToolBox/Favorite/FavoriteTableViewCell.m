@@ -33,8 +33,23 @@
     
     _contentBkgView.layer.cornerRadius = 2.0;
     _contentBkgView.clipsToBounds = YES;
-
+    _sendBtn.layer.cornerRadius = 2.0;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
+
+- (void)setIsCanSend:(BOOL)isCanSend
+{
+    _isCanSend = isCanSend;
+    if (_isCanSend) {
+        _sendBtn.hidden = NO;
+        _sendBtnBkgImageView.hidden = NO;
+    } else {
+        _sendBtn.hidden = YES;
+        _sendBtnBkgImageView.hidden = YES;
+    }
+    
+}
+
+
 @end

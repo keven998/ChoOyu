@@ -384,6 +384,45 @@
    
 }
 
+- (IBAction)sendPoi:(id)sender
+{
+    CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
+    Favorite *item = [_dataSource objectAtIndex:indexPath.section];
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.messageId = item.itemId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = item.desc;
+    taoziMessageCtl.messageName = item.zhName;
+    taoziMessageCtl.chatter = self.chatter;
+    taoziMessageCtl.isGroup = self.isChatGroup;
+    //        taoziMessageCtl.messageTimeCost = item.timeCostStr;
+    taoziMessageCtl.descLabel.text = item.desc;
+    if (item.type == kSpotPoi) {
+        taoziMessageCtl.chatType = TZChatTypeSpot;
+        taoziMessageCtl.messageTimeCost = item.timeCostDesc;
+    } else if (item.type == kHotelPoi) {
+        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.messageRating = item.rating;
+        taoziMessageCtl.messagePrice = item.priceDesc;
+    } else if (item.type == kRestaurantPoi) {
+        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.messageRating = item.rating;
+        taoziMessageCtl.messagePrice = item.priceDesc;
+    } else if (item.type == kShoppingPoi) {
+        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.messageRating = item.rating;
+    } else if (item.type == kTravelNotePoi) {
+        taoziMessageCtl.chatType = TZChatTypeTravelNote;
+    } else {
+        taoziMessageCtl.chatType = TZChatTypeCity;
+        taoziMessageCtl.messageTimeCost = item.timeCostDesc;
+    }
+    
+    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+}
+
 #pragma makr - TZFilterViewDelegate
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
@@ -436,6 +475,8 @@
     [style setLineBreakMode:NSLineBreakByTruncatingTail];
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
     cell.contentDescLabel.attributedText = desc;
+    cell.isCanSend = _selectToSend;
+    [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
@@ -455,81 +496,44 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Favorite *item = [_dataSource objectAtIndex:indexPath.section];
-    if (!_selectToSend) {
-        if (item.type == kSpotPoi) {
-            SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
-            ctl.spotId = item.itemId;
-            [self addChildViewController:ctl];
-            [self.view addSubview:ctl.view];
-            
-        } else if (item.type == kHotelPoi) {
-            CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-            ctl.poiId = item.itemId;
-            ctl.poiType = kHotelPoi;
-            [self addChildViewController:ctl];
-            [self.view addSubview:ctl.view];
-            
-        } else if (item.type == kRestaurantPoi) {
-            CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-            ctl.poiType = kRestaurantPoi;
-            ctl.poiId = item.itemId;
-            [self addChildViewController:ctl];
-            [self.view addSubview:ctl.view];
-            
-        } else if (item.type == kShoppingPoi) {
-            CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-            ctl.poiId = item.itemId;
-            ctl.poiType = kShoppingPoi;
-            [self addChildViewController:ctl];
-            [self.view addSubview:ctl.view];
-            
-        } else if (item.type == kTravelNotePoi) {
-            TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
-            ctl.travelNoteId = item.itemId;
-            ctl.travelNoteTitle = item.zhName;
-            ctl.travelNoteCover = item.desc;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else {
-            CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
-            ctl.cityId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
-        }
-    } else {
+    if (item.type == kSpotPoi) {
+        SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
+        ctl.spotId = item.itemId;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
         
-//TODO:点击发送
-        TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
-        taoziMessageCtl.delegate = self;
-        taoziMessageCtl.messageId = item.itemId;
-        taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
-        taoziMessageCtl.messageDesc = item.desc;
-        taoziMessageCtl.messageName = item.zhName;
-        taoziMessageCtl.chatter = self.chatter;
-        taoziMessageCtl.isGroup = self.isChatGroup;
-//        taoziMessageCtl.messageTimeCost = item.timeCostStr;
-        taoziMessageCtl.descLabel.text = item.desc;
-        if (item.type == kSpotPoi) {
-            taoziMessageCtl.chatType = TZChatTypeSpot;
-            taoziMessageCtl.messageTimeCost = item.timeCostDesc;
-        } else if (item.type == kHotelPoi) {
-            taoziMessageCtl.chatType = TZChatTypeHotel;
-            taoziMessageCtl.messageRating = item.rating;
-            taoziMessageCtl.messagePrice = item.priceDesc;
-        } else if (item.type == kRestaurantPoi) {
-            taoziMessageCtl.chatType = TZChatTypeFood;
-            taoziMessageCtl.messageRating = item.rating;
-            taoziMessageCtl.messagePrice = item.priceDesc;
-        } else if (item.type == kShoppingPoi) {
-            taoziMessageCtl.chatType = TZChatTypeShopping;
-            taoziMessageCtl.messageRating = item.rating;
-        } else if (item.type == kTravelNotePoi) {
-            taoziMessageCtl.chatType = TZChatTypeTravelNote;
-        } else {
-            taoziMessageCtl.chatType = TZChatTypeCity;
-            taoziMessageCtl.messageTimeCost = item.timeCostDesc;
-        }
-
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+    } else if (item.type == kHotelPoi) {
+        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+        ctl.poiId = item.itemId;
+        ctl.poiType = kHotelPoi;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
+        
+    } else if (item.type == kRestaurantPoi) {
+        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+        ctl.poiType = kRestaurantPoi;
+        ctl.poiId = item.itemId;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
+        
+    } else if (item.type == kShoppingPoi) {
+        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+        ctl.poiId = item.itemId;
+        ctl.poiType = kShoppingPoi;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
+        
+    } else if (item.type == kTravelNotePoi) {
+        TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
+        ctl.travelNoteId = item.itemId;
+        ctl.travelNoteTitle = item.zhName;
+        ctl.travelNoteCover = item.desc;
+        [self.navigationController pushViewController:ctl animated:YES];
+        
+    } else {
+        CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+        ctl.cityId = item.itemId;
+        [self.navigationController pushViewController:ctl animated:YES];
     }
 }
 

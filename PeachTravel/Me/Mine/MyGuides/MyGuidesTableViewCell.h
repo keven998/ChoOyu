@@ -23,4 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIView *maskImageView;
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 
+@property (weak, nonatomic) IBOutlet UIImageView *sendBtnBkgImageView;
+@property (weak, nonatomic) IBOutlet UIButton *sendBtn;
+@property (nonatomic) BOOL isCanSend;
+
+
+
 @end
