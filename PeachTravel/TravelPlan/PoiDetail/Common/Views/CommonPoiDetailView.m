@@ -129,8 +129,11 @@
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+20, 90, 15)];
     rankLabel.textAlignment = NSTextAlignmentCenter;
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    if (_poi.rank) {
+    rankLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    if (_poi.rank > 0 && _poi.rank <= 100) {
         rankLabel.text = [NSString stringWithFormat:@"同城排名:%d",_poi.rank];
+    } else {
+        rankLabel.text = @"同城排名: >100";
     }
     [_scrollView addSubview:rankLabel];
     

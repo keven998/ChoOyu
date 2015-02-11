@@ -67,7 +67,16 @@
     } else {
         _rankingLabel.text = [NSString stringWithFormat:@"%@: >100", rankStr];
     }
-    _addressLabel.text = _tripPoi.address;
+    NSAttributedString *localStr = [[NSAttributedString alloc] initWithString:_tripPoi.address attributes:@{NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE}];
+    NSMutableAttributedString *allStr = [[NSMutableAttributedString alloc] init];
+
+    if (_tripPoi.locality.zhName) {
+        NSAttributedString *localityStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"[%@]", _tripPoi.locality.zhName] attributes:@{NSForegroundColorAttributeName : APP_THEME_COLOR}];
+        [allStr appendAttributedString:localityStr];
+    }
+    [allStr appendAttributedString:localStr];
+
+    _addressLabel.attributedText = allStr;
     
 }
 
