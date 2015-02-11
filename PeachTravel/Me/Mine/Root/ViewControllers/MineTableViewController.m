@@ -20,6 +20,7 @@
 #import "PushMsgsViewController.h"
 #import "UMSocial.h"
 #import "FavoriteViewController.h"
+#import "SuperWebViewController.h"
 
 #define cellDataSource               @[@[@"分享绑定", @"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
@@ -256,8 +257,6 @@
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
             [self.navigationController pushViewController:accountManagerCtl animated:YES];
         } else if (indexPath.row == 1) {
-//            PushMsgsViewController *ctl = [[PushMsgsViewController alloc] init];
-//            [self.navigationController pushViewController:ctl animated:YES];
             AccountManager *accountManager = [AccountManager shareAccountManager];
             if (!accountManager.isLogin) {
                 [self performSelector:@selector(userLogin:) withObject:nil afterDelay:0.3];
@@ -272,17 +271,16 @@
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
-
             [self.navigationController pushViewController:settingCtl animated:YES];
-
         } else if (indexPath.row == 1) {
-            AboutController *aboutCtl = [[AboutController alloc] init];
-            [self.navigationController pushViewController:aboutCtl animated:YES];
+//            AboutController *aboutCtl = [[AboutController alloc] init];
+//            [self.navigationController pushViewController:aboutCtl animated:YES];
+            SuperWebViewController *svc = [[SuperWebViewController alloc] init];
+            svc.title = @"关于桃子旅行";
+            svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
+            [self.navigationController pushViewController:svc animated:YES];
         }
     }
-//    if ([_rootCtl.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        _rootCtl.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
