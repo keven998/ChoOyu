@@ -28,7 +28,7 @@
 @property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
-@property (nonatomic, strong) UIView *customNavigationBar;
+@property (nonatomic, strong) UIImageView *customNavigationBar;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) UIImageView *cityPicture;
@@ -75,13 +75,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     moreBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 0, 0, 15);
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
-    title.textColor = [UIColor whiteColor];
+    title.textColor = TEXT_COLOR_TITLE;
     title.textAlignment = NSTextAlignmentCenter;
     title.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17];
     title.tag = 123;
     
-    _customNavigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
-    _customNavigationBar.backgroundColor = APP_THEME_COLOR;
+    _customNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
+    _customNavigationBar.image = [[UIImage imageNamed:@"navi_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
     [_customNavigationBar addSubview:title];
     _customNavigationBar.alpha = 0.0;
     title.center = CGPointMake(CGRectGetWidth(_customNavigationBar.bounds)/2, 40);
@@ -475,7 +475,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [as showInView:self.view];
 }
 
-#pragma UIScrollViewDelegate
+#pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_tableView != nil) {
@@ -491,6 +491,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
             _cityPicture.frame = frame;
         }
     }
+    
+    _customNavigationBar.alpha = (scrollView.contentOffset.y)/200;
 }
 
 #pragma mark - UIActionSheetDelegate
