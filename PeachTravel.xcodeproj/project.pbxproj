@@ -5451,7 +5451,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "289c658a-4fb3-4564-a996-b85724ff4f51";
+				PROVISIONING_PROFILE = "3eb9eabd-f4d1-4b0a-971d-c650cf2f612c";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
