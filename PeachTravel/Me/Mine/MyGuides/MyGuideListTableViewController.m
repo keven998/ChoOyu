@@ -365,8 +365,8 @@ static NSString *reusableCell = @"myGuidesCell";
             [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:0.3];
 
             guideSummary.title = title;
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
+            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [self cacheFirstPage:responseObject];
             });

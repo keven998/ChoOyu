@@ -319,7 +319,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         addSpotBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
         addSpotBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
         addSpotBtn.layer.cornerRadius = 4;
-//        addSpotBtn.userInteractionEnabled = NO;
+        addSpotBtn.tag = section;
         [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];

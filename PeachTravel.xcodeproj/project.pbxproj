@@ -41,6 +41,8 @@
 		D917DA931A8A17B90039720A /* avatar_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA921A8A17B90039720A /* avatar_placeholder@2x.png */; };
 		D917DA971A8A1FEC0039720A /* ic_sending_bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA961A8A1FEC0039720A /* ic_sending_bkg@2x.png */; };
 		D917DA991A8A33AD0039720A /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */; };
+		D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA9A1A8B1D3D0039720A /* ic_star_gray_small@2x.png */; };
+		D917DA9D1A8B1D500039720A /* ic_star_yellow_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */; };
 		D93C50BB1A47ED4900FFE2FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BA1A47ED4900FFE2FA /* CoreText.framework */; };
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
@@ -786,6 +788,8 @@
 		D917DA921A8A17B90039720A /* avatar_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_placeholder@2x.png"; sourceTree = "<group>"; };
 		D917DA961A8A1FEC0039720A /* ic_sending_bkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sending_bkg@2x.png"; sourceTree = "<group>"; };
 		D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
+		D917DA9A1A8B1D3D0039720A /* ic_star_gray_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_gray_small@2x.png"; sourceTree = "<group>"; };
+		D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_yellow_small@2x.png"; sourceTree = "<group>"; };
 		D93C50BA1A47ED4900FFE2FA /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93C50BE1A47EE0100FFE2FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -3541,7 +3545,9 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */,
 				D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */,
+				D917DA9A1A8B1D3D0039720A /* ic_star_gray_small@2x.png */,
 				D9B9EA1C1A88CF8000966074 /* check_border@2x.png */,
 				D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */,
 				D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */,
@@ -4814,6 +4820,7 @@
 				D9A804E31A80E738005AD701 /* ic_gray_complete@2x.png in Resources */,
 				D9A805361A80E738005AD701 /* ic_city_shopping@2x.png in Resources */,
 				D9A802CA1A80E3D3005AD701 /* ic_guide2_5_select@2x.png in Resources */,
+				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				D9A804F11A80E738005AD701 /* ic_navigation_normal@2x.png in Resources */,
 				D9A804E01A80E738005AD701 /* ic_frendRequest@2x.png in Resources */,
 				D9A805691A80E738005AD701 /* kengdie_guide_unselected@2x.png in Resources */,
@@ -4944,6 +4951,7 @@
 				D9A805031A80E738005AD701 /* ic_share_high@2x.png in Resources */,
 				D9A8011B1A80DD23005AD701 /* call_out.png in Resources */,
 				D9A802D81A80E3D3005AD701 /* ic_guide3_talk3@2x.png in Resources */,
+				D917DA9D1A8B1D500039720A /* ic_star_yellow_small@2x.png in Resources */,
 				D9A8055F1A80E738005AD701 /* ic_trip_edit@2x.png in Resources */,
 				D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */,
 				D9A800381A80D52F005AD701 /* CommonPoiListTableViewCell.xib in Resources */,
