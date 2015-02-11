@@ -506,26 +506,7 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-      
     [locationManager stopUpdatingLocation];
-    NSString *errorString;
-    NSLog(@"Error: %@",[error localizedDescription]);
-    switch([error code]) {
-        case kCLErrorDenied:
-            //Access denied by user
-            errorString = @"去设置里把定位服务打开呗~";
-            //Do something...
-            break;
-        case kCLErrorLocationUnknown:
-            //Probably temporary...
-            errorString = @"定位失败了，待会再试试吧";
-            //Do something else...
-            break;
-        default:
-            errorString = @"定位失败了，待会再试试吧";
-            break;
-    }
-    NSLog(@"%@", errorString);
 }
 
 
