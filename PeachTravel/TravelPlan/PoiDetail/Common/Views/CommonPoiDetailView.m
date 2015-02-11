@@ -73,9 +73,6 @@
     CGFloat offsetY = 20;
 
     _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, 140);
-//    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    _imageView.layer.cornerRadius = 2.0;
-//    _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _imageView.userInteractionEnabled = YES;
     [_scrollView addSubview:_imageView];
@@ -129,7 +126,7 @@
     _ratingView.rating = _poi.rating;
     [_scrollView addSubview:_ratingView];
 
-    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, 90, 15)];
+    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+20, 90, 15)];
     rankLabel.textAlignment = NSTextAlignmentCenter;
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     if (_poi.rank) {
