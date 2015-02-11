@@ -72,24 +72,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_gray.png"] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
-    
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
-    _searchBar.delegate = self;
-    _searchBar.hidden = YES;
-    
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-20)];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.rowHeight = 155.0;
-    self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-    self.tableView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:self.tableView];
-    
-    self.tableView.tableHeaderView = _searchBar;
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
@@ -108,7 +90,31 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             self.navigationItem.rightBarButtonItem = filterItem;
             [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
         }
+        UIBarButtonItem *searchItemBar = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+        UIBarButtonItem *filterItemBar = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+        self.navigationItem.rightBarButtonItems = @[filterItemBar, searchItemBar];
+    } else {
+        UIBarButtonItem *searchItemBar = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+        self.navigationItem.rightBarButtonItem = searchItemBar;
     }
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
+    _searchBar.delegate = self;
+    _searchBar.hidden = YES;
+    
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-20)];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.rowHeight = 155.0;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:self.tableView];
+    
+    self.tableView.tableHeaderView = _searchBar;
+    
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
     } else if (_poiType == kShoppingPoi) {
