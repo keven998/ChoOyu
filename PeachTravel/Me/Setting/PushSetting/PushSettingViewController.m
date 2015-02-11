@@ -88,7 +88,7 @@
 - (void)savePushOptions
 {
     EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
-    [SVProgressHUD show];
+//    [SVProgressHUD show];
     if (_isNoDisturbing != options.noDisturbing) {
         options.noDisturbing = _isNoDisturbing;
         if (_isNoDisturbing) {
@@ -101,8 +101,7 @@
         }
         [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options completion:^(EMPushNotificationOptions *options, EMError *error) {
             if (!error) {
-                [SVProgressHUD showHint:@"设置成功"];
-                
+//                [SVProgressHUD showHint:@"设置成功"];
             } else {
                 [SVProgressHUD showHint:@"设置失败"];
                 _isNoDisturbing = !_isNoDisturbing;

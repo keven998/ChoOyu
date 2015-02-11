@@ -42,20 +42,23 @@
 - (void)clearMemo
 {
     
-    JGProgressHUD *HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
-    HUD.textLabel.text = @"正在清除";
+//    JGProgressHUD *HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
+//    HUD.textLabel.text = @"正在清除";
+//    
+//    [HUD showInView:self.navigationController.view];
     
-    [HUD showInView:self.navigationController.view];
+    [SVProgressHUD show];
     
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            HUD.indicatorView = nil;
-            HUD.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0f];
-            HUD.textLabel.text = @"完成";
-            HUD.position = JGProgressHUDPositionBottomCenter;
-            [HUD dismissAfterDelay:0.8];
+//            HUD.indicatorView = nil;
+//            HUD.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0f];
+//            HUD.textLabel.text = @"完成";
+//            HUD.position = JGProgressHUDPositionBottomCenter;
+//            [HUD dismissAfterDelay:0.8];
+            [SVProgressHUD showHint:@"已清理"];
         });
-        HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 30.0f, 0.0f);
+//        HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 30.0f, 0.0f);
     }];
     
 }

@@ -44,7 +44,7 @@
     desc1.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"美眉们有什么需要的请尽管吩咐";
+    desc1.text = @"有什么需要的请尽管吩咐";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
@@ -91,7 +91,7 @@
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([trimText length] < 1) {
-        [SVProgressHUD showHint:@"你的吐槽呢，我读书少不要骗我"];
+        [SVProgressHUD showHint:@"说点什么吧"];
         return;
     }
     
@@ -118,7 +118,7 @@
     [manager POST:API_FEEDBACK parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         if ([[responseObject objectForKey:@"code"] integerValue] == 0) {
-            [SVProgressHUD showHint:@"吐槽已被get√"];
+            [SVProgressHUD showHint:@"谢谢反馈，我们在努力做到更好"];
             [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
         } else {
              if (self.isShowing) {

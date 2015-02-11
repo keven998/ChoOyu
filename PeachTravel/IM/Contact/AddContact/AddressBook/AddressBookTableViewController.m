@@ -36,8 +36,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     if (ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized) {
-        [SVProgressHUD showHint:@"你已经不让桃子访问你的通讯录了"];
-        [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
+        [SVProgressHUD showHint:@"需要你开启通讯录的访问权限"];
+//        [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
     } else {
         [self loadContactsInAddrBook];
     }
