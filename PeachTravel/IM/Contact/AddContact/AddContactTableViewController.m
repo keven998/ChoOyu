@@ -64,7 +64,7 @@
 - (void)shareToWeChat
 {
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:[NSString stringWithFormat:@"我正在用桃子旅行，美眉们专属的旅行APP。桃子旅行搜索: %@ 加我", [AccountManager shareAccountManager].account.nickName] image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:[NSString stringWithFormat:@"我正在用桃子旅行，女生们专属的旅行应用。桃子旅行搜索: %@ 加我", [AccountManager shareAccountManager].account.nickName] image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }
@@ -187,13 +187,13 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
             if (indexPath.row == 0) {
-                UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, 49.0, tableView.frame.size.width, 1.0)];
+                UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, 47.5, tableView.frame.size.width, 0.5)];
                 divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
                 divider.backgroundColor = UIColorFromRGB(0xdddddd);
                 [cell.contentView addSubview:divider];
             }
-            cell.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
-            cell.textLabel.textColor = UIColorFromRGB(0x393939);
+            cell.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+            cell.textLabel.textColor = TEXT_COLOR_TITLE;
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.normalDataSource[indexPath.row];
