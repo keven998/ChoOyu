@@ -126,7 +126,7 @@
     _ratingView.rating = _poi.rating;
     [_scrollView addSubview:_ratingView];
 
-    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+20, 90, 15)];
+    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+25, 90, 15)];
     rankLabel.textAlignment = NSTextAlignmentCenter;
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     rankLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
