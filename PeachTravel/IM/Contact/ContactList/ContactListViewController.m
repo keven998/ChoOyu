@@ -15,17 +15,20 @@
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
+#import "MJNIndexView.h"
+
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MJNIndexViewDataSource>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
 
 //索引
+@property (nonatomic, strong) MJNIndexView *indexView;
 
 @property (strong, nonatomic) UIView *emptyView;
 
@@ -42,10 +45,15 @@
 
     [self.view addSubview:self.contactTableView];
     
-    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64) ? (kWindowHeight-64) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
-    if (height == 0) {
-        height = 100;
-    }
+    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
+    self.indexView.rightMargin = 0;
+    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    self.indexView.fontColor = APP_SUB_THEME_COLOR;
+    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
+    self.indexView.dataSource = self;
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
+    [self.indexView refreshIndexItems];
+    [self.view addSubview:self.indexView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -184,10 +192,9 @@
 {
     self.dataSource = [self.accountManager contactsByPinyin];
     [self.contactTableView reloadData];
-    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
-    if (height == 0) {
-        height = 100;
-    }
+   
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
+    [self.indexView refreshIndexItems];
     
     [self handleEmptyView];
 }
@@ -293,22 +300,6 @@
     }
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section];
-}
-// 索引目录
--(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    return [self.dataSource objectForKey:@"headerKeys"];
-}
-
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index+1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-    return index;
-}
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -324,6 +315,18 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark MJMIndexForTableView datasource methods
+// 索引目录
+-(NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
+- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index+1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
 }
 
 @end

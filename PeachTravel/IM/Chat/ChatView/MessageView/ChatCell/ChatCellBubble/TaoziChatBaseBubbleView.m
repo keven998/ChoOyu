@@ -154,7 +154,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             case TZChatTypeFood: {
                 _typeLabel.text = @"美食";
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
             }
@@ -162,7 +162,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeHotel: {
                 _typeLabel.text = @"酒店";
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
@@ -172,7 +172,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeShopping:
                 _typeLabel.text = @"购物";
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
+                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 [_propertyBtn setTitle:[content objectForKey:@"rating"] forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
                 

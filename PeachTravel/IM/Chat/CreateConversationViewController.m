@@ -14,17 +14,19 @@
 #import "ChatView/ChatSendHelper.h"
 #import "SelectContactScrollView.h"
 #import "SelectContactUnitView.h"
+#import "MJNIndexView.h"
 
 #define contactCell      @"createConversationCell"
 
-@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TaoziSelectViewDelegate>
+@interface CreateConversationViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, TaoziSelectViewDelegate, MJNIndexViewDataSource>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) SelectContactScrollView *selectContactView;
 
-//@property (nonatomic, strong)  UIButton *confirm;
+//索引
+@property (nonatomic, strong) MJNIndexView *indexView;
 
 @end
 
@@ -50,6 +52,17 @@
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
     }
+    
+    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
+    self.indexView.rightMargin = 0;
+    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    self.indexView.fontColor = APP_SUB_THEME_COLOR;
+    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
+    self.indexView.dataSource = self;
+
+    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight)];
+    [self.indexView refreshIndexItems];
+    [self.view addSubview:self.indexView];
 }
 
 - (void)dealloc
@@ -331,22 +344,6 @@
     return cell;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section];
-}
-// 索引目录
--(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    return [self.dataSource objectForKey:@"headerKeys"];
-}
-
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-    return index;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -380,6 +377,19 @@
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark MJMIndexForTableView datasource methods
+// 索引目录
+-(NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
+{
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
+
+- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+
 }
 
 
