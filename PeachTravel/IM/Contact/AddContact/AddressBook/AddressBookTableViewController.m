@@ -46,6 +46,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (_hud) {
+        [_hud hideTZHUD];
+    }
       
 }
 

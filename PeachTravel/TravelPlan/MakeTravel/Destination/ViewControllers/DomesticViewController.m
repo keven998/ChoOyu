@@ -318,46 +318,11 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-//    [self.domesticCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-    
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:index];
     CGFloat offsetY = [_domesticCollectionView layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath].frame.origin.y;
     CGFloat sectionInsetY = ((UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout).sectionInset.top;
     [_domesticCollectionView setContentOffset:CGPointMake(_domesticCollectionView.contentOffset.x, offsetY - sectionInsetY) animated:YES];
 }
-
-
-#pragma mark - UIScrollViewDelegate
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//
-//}
-//
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-//{
-//    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-//    NSInteger firstSection = INT_MAX;
-//    
-//    for (UICollectionViewCell *cell in visiableCells) {
-//        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:cell];
-//        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
-//    }
-//
-//}
-//
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
-//{
-//    NSArray *visiableCells = [self.domesticCollectionView visibleCells];
-//    NSInteger firstSection = INT_MAX;
-//    
-//    for (UICollectionViewCell *CELL in visiableCells) {
-//        NSIndexPath *indexPath = [self.domesticCollectionView indexPathForCell:CELL];
-//        (firstSection > indexPath.section) ? (firstSection=indexPath.section) : (firstSection = firstSection);
-//    }
-//    
-////    self.tzScrollView.currentIndex = firstSection;
-//}
 
 @end
 
