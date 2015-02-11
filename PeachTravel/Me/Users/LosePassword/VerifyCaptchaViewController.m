@@ -48,13 +48,13 @@
             self.navigationItem.rightBarButtonItem.title = @"提交 ";
         } else {
             self.navigationItem.title = @"更换手机";
-            _titleLabel.text = @"输入未绑定过的手机号";
+            _titleLabel.text = @"输入新的手机号";
             self.navigationItem.rightBarButtonItem.title = @"提交 ";
 //            [_registerBtn setTitle:@"更换" forState:UIControlStateNormal];
         }
        
     } else {
-        self.navigationItem.title = @"验证用户";
+        self.navigationItem.title = @"用户验证";
 //        [_registerBtn setTitle:@"提交" forState:UIControlStateNormal];
         _phoneLabel.placeholder = @"请输入手机号";
         self.navigationItem.rightBarButtonItem.title = @"提交 ";
