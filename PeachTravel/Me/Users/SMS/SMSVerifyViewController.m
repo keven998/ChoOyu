@@ -81,8 +81,8 @@
         [_verifyCodeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
-        _verifyCodeBtn.titleLabel.text = [NSString stringWithFormat:@"%ldS",(long)count];
-        [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
+        _verifyCodeBtn.titleLabel.text = [NSString stringWithFormat:@"%lds",(long)count];
+        [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateNormal];
     }
 }
 
