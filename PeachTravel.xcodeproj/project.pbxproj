@@ -75,6 +75,7 @@
 		D917DADB1A8B4B370039720A /* ic_guide_title_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADA1A8B4B370039720A /* ic_guide_title_2@2x.png */; };
 		D917DADD1A8B4B3B0039720A /* ic_guide_title_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADC1A8B4B3B0039720A /* ic_guide_title_1@2x.png */; };
 		D917DADF1A8B4B3F0039720A /* ic_guide_title_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADE1A8B4B3F0039720A /* ic_guide_title_3@2x.png */; };
+		D917DAE11A8B57520039720A /* ic_new_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAE01A8B57520039720A /* ic_new_talk@2x.png */; };
 		D93C50BB1A47ED4900FFE2FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BA1A47ED4900FFE2FA /* CoreText.framework */; };
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
@@ -355,7 +356,6 @@
 		D9A803051A80E646005AD701 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802FF1A80E646005AD701 /* MHTabBarController.m */; };
 		D9A803061A80E646005AD701 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803001A80E646005AD701 /* MHTabBarIndicator.png */; };
 		D9A804811A80E738005AD701 /* app_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803671A80E737005AD701 /* app_background@2x.png */; };
-		D9A804821A80E738005AD701 /* arrow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803681A80E737005AD701 /* arrow_1.png */; };
 		D9A804831A80E738005AD701 /* avatar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803691A80E737005AD701 /* avatar_line@2x.png */; };
 		D9A804851A80E738005AD701 /* bkg-linked_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A8036B1A80E737005AD701 /* bkg-linked_dots@2x.png */; };
 		D9A804871A80E738005AD701 /* cell_accessory_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A8036D1A80E737005AD701 /* cell_accessory_gray@2x.png */; };
@@ -786,6 +786,7 @@
 		D917DADA1A8B4B370039720A /* ic_guide_title_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_guide_title_2@2x.png"; path = "../1/ic_guide_title_2@2x.png"; sourceTree = "<group>"; };
 		D917DADC1A8B4B3B0039720A /* ic_guide_title_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_guide_title_1@2x.png"; path = "../2/ic_guide_title_1@2x.png"; sourceTree = "<group>"; };
 		D917DADE1A8B4B3F0039720A /* ic_guide_title_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_title_3@2x.png"; sourceTree = "<group>"; };
+		D917DAE01A8B57520039720A /* ic_new_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_talk@2x.png"; sourceTree = "<group>"; };
 		D93C50BA1A47ED4900FFE2FA /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93C50BE1A47EE0100FFE2FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1308,7 +1309,6 @@
 		D9A802FF1A80E646005AD701 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
 		D9A803001A80E646005AD701 /* MHTabBarIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MHTabBarIndicator.png; sourceTree = "<group>"; };
 		D9A803671A80E737005AD701 /* app_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_background@2x.png"; sourceTree = "<group>"; };
-		D9A803681A80E737005AD701 /* arrow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_1.png; sourceTree = "<group>"; };
 		D9A803691A80E737005AD701 /* avatar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_line@2x.png"; sourceTree = "<group>"; };
 		D9A8036B1A80E737005AD701 /* bkg-linked_dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkg-linked_dots@2x.png"; sourceTree = "<group>"; };
 		D9A8036D1A80E737005AD701 /* cell_accessory_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_accessory_gray@2x.png"; sourceTree = "<group>"; };
@@ -3478,11 +3478,11 @@
 				D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */,
 				D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */,
 				D9B9EA141A88CBEA00966074 /* ic_remove_select_one@2x.png */,
+				D917DAE01A8B57520039720A /* ic_new_talk@2x.png */,
 				D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */,
 				D9B9EA121A88CBD000966074 /* add_contact@2x.png */,
 				D9A806E01A810948005AD701 /* ic_login_weixin@2x.png */,
 				D9A803671A80E737005AD701 /* app_background@2x.png */,
-				D9A803681A80E737005AD701 /* arrow_1.png */,
 				D9A803691A80E737005AD701 /* avatar_line@2x.png */,
 				D917DA921A8A17B90039720A /* avatar_placeholder@2x.png */,
 				D9A8036B1A80E737005AD701 /* bkg-linked_dots@2x.png */,
@@ -4711,6 +4711,7 @@
 				D9A804EE1A80E738005AD701 /* ic_login_weixin_highlight@2x.png in Resources */,
 				D9A804D41A80E738005AD701 /* ic_big_arr_right@2x.png in Resources */,
 				D9A805251A80E738005AD701 /* bg_guide_title@2x.png in Resources */,
+				D917DAE11A8B57520039720A /* ic_new_talk@2x.png in Resources */,
 				D9A805861A80E738005AD701 /* sns_icon_douban@2x.png in Resources */,
 				D9A805611A80E738005AD701 /* ic_trip_normal_1@2x.png in Resources */,
 				D9A8001D1A80D52F005AD701 /* DomesticViewController.xib in Resources */,
@@ -4771,7 +4772,6 @@
 				D9A805651A80E738005AD701 /* ic_trip_selected_2@2x.png in Resources */,
 				D9A8005F1A80DD0C005AD701 /* AddContactTableViewController.xib in Resources */,
 				D9A8056A1A80E738005AD701 /* more_btn@2x.png in Resources */,
-				D9A804821A80E738005AD701 /* arrow_1.png in Resources */,
 				D9A8012B1A80DD23005AD701 /* faceDelete.png in Resources */,
 				D9A8052E1A80E738005AD701 /* ic_city_btn_border@2x.png in Resources */,
 				D9A806CE1A80F597005AD701 /* UMShareEditViewControlleriPad.xib in Resources */,

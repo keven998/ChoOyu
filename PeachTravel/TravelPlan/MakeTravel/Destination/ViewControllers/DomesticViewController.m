@@ -61,6 +61,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
     self.indexView.fontColor = APP_SUB_THEME_COLOR;
     self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
+    self.indexView.maxItemDeflection = 0.0;
     self.indexView.dataSource = self;
     
     [self initData];
