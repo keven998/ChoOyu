@@ -36,7 +36,7 @@
         _passwordLabel.placeholder = @"给账户设置一个密码";
         [_passwordLabel becomeFirstResponder];
     } else {
-        self.navigationItem.title = @"设置新密码";
+        self.navigationItem.title = @"重置密码";
         UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
         ul.text = @" 新密码:";
         ul.textColor = TEXT_COLOR_TITLE;
