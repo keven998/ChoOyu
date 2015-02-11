@@ -40,8 +40,12 @@
         if ([[json objectForKey:@"type"] isEqualToString:@"hotel"]) {
             _poiType = kHotelPoi;
             _poiTypeDesc = @"hotel";
-            
         }
+        
+        if ([json objectForKey:@"rank"] != [NSNull null]) {
+            _rank = [[json objectForKey:@"rank"] intValue];
+        }
+
         
         if ([[json objectForKey:@"tel"] isKindOfClass:[NSArray class]]) {
             _telephone = [[json objectForKey:@"tel"] firstObject];
@@ -132,6 +136,8 @@
     [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
     [retDic safeSetObject:_address forKey:@"address"];
     [retDic safeSetObject:[NSNumber numberWithFloat:_rating] forKey:@"rating"];
+    [retDic safeSetObject:[NSNumber numberWithInt:_rank] forKey:@"rank"];
+
     [retDic safeSetObject:_telephone forKey:@"telephone"];
     [retDic safeSetObject:_timeCost forKey:@"timeCostDesc"];
     

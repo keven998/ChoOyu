@@ -19,8 +19,8 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray_small.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow_small.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
@@ -65,6 +65,35 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];;
     _ratingView.rating = _poi.rating;
     _addressLabel.text = _poi.address;
+    
+    NSString *rankStr;
+    switch (_poi.poiType) {
+        case kSpotPoi:
+            rankStr = @"景点排名";
+            break;
+            
+        case kRestaurantPoi:
+            rankStr = @"美食排名";
+            break;
+            
+        case kShoppingPoi:
+            rankStr = @"购物排名";
+            break;
+            
+        case kHotelPoi:
+            rankStr = @"酒店排名";
+            break;
+            
+        default:
+            break;
+    }
+    
+    if (_poi.rank > 0 && _poi.rank <= 100) {
+        _rankingLabel.text = [NSString stringWithFormat:@"%@: %d", rankStr, _poi.rank];
+    } else {
+        _rankingLabel.text = [NSString stringWithFormat:@"%@: >100", rankStr];
+    }
+
     if (_poi.distanceStr) {
         _distanceLabel.hidden = NO;
         _distanceLabel.text = _poi.distanceStr;
