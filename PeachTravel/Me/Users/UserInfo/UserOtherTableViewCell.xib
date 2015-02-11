@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -110,11 +110,11 @@
                         <variation key="widthClass=compact" constant="16"/>
                     </constraint>
                     <constraint firstItem="lxA-5L-4T9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="eZQ-KT-TSR">
-                        <variation key="widthClass=compact" constant="13"/>
+                        <variation key="widthClass=compact" constant="14"/>
                     </constraint>
                     <constraint firstAttribute="centerY" secondItem="34x-YJ-AhG" secondAttribute="centerY" id="noK-rI-08n"/>
                     <constraint firstItem="qRP-a6-LMu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="pz2-yQ-BFP">
-                        <variation key="widthClass=compact" constant="13"/>
+                        <variation key="widthClass=compact" constant="14"/>
                     </constraint>
                 </constraints>
                 <variation key="default">

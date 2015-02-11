@@ -276,7 +276,7 @@
 //            AboutController *aboutCtl = [[AboutController alloc] init];
 //            [self.navigationController pushViewController:aboutCtl animated:YES];
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
-            svc.title = @"关于桃子旅行";
+            svc.titleStr = @"关于桃子旅行";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
             [self.navigationController pushViewController:svc animated:YES];
         }
