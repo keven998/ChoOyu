@@ -34,8 +34,8 @@
 - (IBAction)mark
 {
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
-    
     [iRate sharedInstance].previewMode = NO;
+    [iRate sharedInstance].appStoreID = 954201036;
     [[iRate sharedInstance] openRatingsPageInAppStore];
 }
 
