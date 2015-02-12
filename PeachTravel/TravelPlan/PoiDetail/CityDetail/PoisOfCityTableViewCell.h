@@ -30,6 +30,11 @@
 @property (nonatomic) BOOL hideActionBtn;
 
 /**
+ *  是否是我身边的 cell
+ */
+@property (nonatomic) BOOL isNearByCell;
+
+/**
  *  添加状态的是否添加
  */
 @property (nonatomic) BOOL isAdded;
