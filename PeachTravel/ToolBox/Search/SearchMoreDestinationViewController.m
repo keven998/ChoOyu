@@ -58,6 +58,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"更多结果";
+    
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
         UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
         positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
@@ -124,17 +125,13 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     if (!_tableView) {
         if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
-
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+50, kWindowWidth-22, kWindowHeight - 114)];
+            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 105)];
         } else {
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+10, kWindowWidth-22, kWindowHeight - 74)];
+            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 1, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 65)];
 
         }
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
-        
-        _tableView.layer.cornerRadius = 2.0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -285,14 +282,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 28)];
-    headerView.textColor = UIColorFromRGB(0x797979);
+    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
+    headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     headerView.text = [NSString stringWithFormat:@"   %@",typeDesc];
     headerView.backgroundColor = [UIColor whiteColor];
     headerView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     headerView.layer.cornerRadius = 2.0;
     headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    headerView.layer.borderWidth = 0.8;
+    headerView.layer.borderWidth = 0.5;
     return headerView;
 }
 
@@ -361,14 +358,14 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
                 break;
         }
 
-        UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 28)];
-        headerView.textColor = UIColorFromRGB(0x797979);
-        headerView.text = [NSString stringWithFormat:@"   %@",desc];
+        UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
+        headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        headerView.text = [NSString stringWithFormat:@"   %@", desc];
         headerView.backgroundColor = [UIColor whiteColor];
         headerView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
         headerView.layer.cornerRadius = 2.0;
         headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-        headerView.layer.borderWidth = 0.8;
+        headerView.layer.borderWidth = 0.5;
         return headerView;
     }
     return nil;
@@ -448,9 +445,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             taoziMessageCtl.messageRating = poi.rating;
             taoziMessageCtl.chatter = _chatter;
             taoziMessageCtl.isGroup = _isChatGroup;
-            [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-                
-            }];
+            [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
         } else {
             if (poi.poiType == kSpotPoi) {
                 SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
@@ -563,8 +558,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _isLoadingMore = YES;
     [_indicatroView startAnimating];
     [self loadDataWithPageIndex:(_currentPage + 1)];
-    
-    NSLog(@"我要加载到第%lu",(long)_currentPage+1);
 }
 
 - (void) loadMoreCompleted {
@@ -591,7 +584,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     [self dismissPopup];
     
-    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    [SVProgressHUD showHint:@"已发送~"];
     
 }
 
@@ -607,8 +600,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 
