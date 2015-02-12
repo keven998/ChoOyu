@@ -71,7 +71,7 @@
     }
     
     if (_poi.poiType == kSpotPoi) {
-        if (_poi.timeCost) {
+        if (_poi.timeCost && ![_poi.timeCost isBlankString]) {
             _propertyLabel.text = [NSString stringWithFormat:@"游玩 %@", _poi.timeCost];
         } else {
             _propertyLabel.text = @"";

@@ -509,14 +509,14 @@
     switch (status) {
         case kCLAuthorizationStatusNotDetermined: {
             [self.locationManager stopUpdatingLocation];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"去设置里打开“桃子”的定位服务吧~" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"去设置里打开“桃子”的定位服务吧~" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
             break;
             
         case kCLAuthorizationStatusDenied: {
             [self.locationManager stopUpdatingLocation];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"去设置里打开“桃子”的定位服务吧~" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"去设置里打开“桃子”的定位服务吧~" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
             break;
