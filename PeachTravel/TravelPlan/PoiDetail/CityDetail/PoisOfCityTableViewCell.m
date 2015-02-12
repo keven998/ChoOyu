@@ -35,10 +35,21 @@
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _headerImageView.clipsToBounds = YES;
     _bkgFrame.layer.cornerRadius = 2.0;
-
+    
     self.backgroundColor = APP_PAGE_COLOR;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)setIsNearByCell:(BOOL)isNearByCell
+{
+    _isNearByCell = isNearByCell;
+    if (_isNearByCell) {
+        [_naviBtn setBackgroundImage:[UIImage imageNamed:@"ic_nav_button_figure.png"] forState:UIControlStateNormal];
+    } else {
+        [_naviBtn setBackgroundImage:[UIImage imageNamed:@"ic_nav_button_non.png"] forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)setPoi:(PoiSummary *)poi
