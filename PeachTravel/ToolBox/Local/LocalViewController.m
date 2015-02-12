@@ -319,10 +319,13 @@
         CLLocation *current=[[CLLocation alloc] initWithLatitude:poiSummary.lat longitude:poiSummary.lng];
         CLLocation *before=[[CLLocation alloc] initWithLatitude:_location.coordinate.latitude longitude:_location.coordinate.longitude];
         CLLocationDistance meters=[current distanceFromLocation:before];
-        if (meters>1000) {
+        meters = 1000000;
+        if (meters>1000 && meters<10000) {
             poiSummary.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
-        } else {
+        } else if (meters<1000) {
             poiSummary.distanceStr = [NSString stringWithFormat:@"%dm",(int)meters];
+        } else if (meters>=10000) {
+            poiSummary.distanceStr = @">10km";
         }
 
     }
