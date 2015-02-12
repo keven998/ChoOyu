@@ -58,9 +58,9 @@
         rankStr = @"购物排名";
     }
     if (_tripPoi.rank <= 100 && _tripPoi.rank > 0) {
-        _rankingLabel.text = [NSString stringWithFormat:@"%@: %d",rankStr, _tripPoi.rank];
+        _rankingLabel.text = [NSString stringWithFormat:@"%@ %d",rankStr, _tripPoi.rank];
     } else {
-        _rankingLabel.text = [NSString stringWithFormat:@"%@: >100", rankStr];
+        _rankingLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
     }
     NSAttributedString *localStr = [[NSAttributedString alloc] initWithString:_tripPoi.address attributes:@{NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE}];
     NSMutableAttributedString *allStr = [[NSMutableAttributedString alloc] init];

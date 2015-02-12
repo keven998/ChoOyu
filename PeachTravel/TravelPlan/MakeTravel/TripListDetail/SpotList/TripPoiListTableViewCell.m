@@ -51,7 +51,7 @@
             break;
     }
     
-    _rankLabel.text = [NSString stringWithFormat:@"%@ :%d", rankStr, _tripPoi.rank];
+    _rankLabel.text = [NSString stringWithFormat:@"%@ %d", rankStr, _tripPoi.rank];
     _tripPoi.priceDesc = @"人均10元";
     if (_tripPoi.poiType == kSpotPoi) {
         NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];

@@ -72,6 +72,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_gray.png"] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
+    _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
