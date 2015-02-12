@@ -65,14 +65,16 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
         _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        _positionBtn.layer.cornerRadius = 2.0;
+//        _positionBtn.layer.cornerRadius = 2.0;
+//        _positionBtn.clipsToBounds = YES;
         _positionBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 3);
         [_positionBtn setBackgroundImage:[UIImage imageNamed:@"ic_filter_box.png"] forState:UIControlStateNormal];
-        [_positionBtn setTitle:@"筛选城市" forState:UIControlStateNormal];
+        [_positionBtn setTitle:@"城市筛选" forState:UIControlStateNormal];
         [_positionBtn setTitleEdgeInsets:UIEdgeInsetsMake(2, 2, 0, 0)];
         [_positionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
         [_positionBtn setImage:[UIImage imageNamed:@"ic_filter.png"] forState:UIControlStateNormal];
         [_positionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_positionBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
         _positionBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         [_positionBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
         
