@@ -126,7 +126,7 @@
 
 - (void)shareToWeChat
 {
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是桃子旅行，女生们旅行必备的贴心小应用，官方下载: http://****" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是桃子旅行，女生们旅行必备的贴心小应用：http://www.taozilvxing.com" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }
