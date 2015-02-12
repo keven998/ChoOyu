@@ -183,6 +183,8 @@
      [upManager putData:data key:key token:uploadToken
                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                    [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
+                   [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeAvatar];
+
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
                    UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];

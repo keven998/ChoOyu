@@ -198,6 +198,10 @@
             self.account.avatar = changeContent;
             break;
             
+        case ChangeSmallAvatar:
+            self.account.avatarSmall = changeContent;
+            break;
+            
         default:
             break;
     }
