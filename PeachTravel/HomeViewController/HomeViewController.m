@@ -68,6 +68,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [self setupUnreadMessageCount];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
+
+
 
 }
 
@@ -421,6 +425,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         
         index++;
     }
+}
+
+/**
+ *  用户退出登录
+ */
+- (void)userDidLogOut
+{
+    _IMRootCtl = nil;
+    [self setupUnreadMessageCount];
 }
 
 /**
