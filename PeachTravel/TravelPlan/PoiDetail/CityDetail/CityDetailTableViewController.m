@@ -425,7 +425,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [view addSubview:text];
     
     UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 118, 4, 118, 36)];
-    [allNotes setTitle:@"更多精选游记" forState:UIControlStateNormal];
+    [allNotes setTitle:@"更多" forState:UIControlStateNormal];
     [allNotes setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     [allNotes setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
