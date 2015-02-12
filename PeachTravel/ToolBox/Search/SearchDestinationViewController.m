@@ -70,7 +70,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 105)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
 
@@ -80,7 +80,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.dataSource = self;
         _tableView.delegate = self;
 
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectZero];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 101)];
         footerView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = footerView;
     }
@@ -379,7 +379,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
         footerView.backgroundColor = APP_PAGE_COLOR;
         UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 40)];
-//        showMoreBtn.backgroundColor = [UIColor whiteColor];
         [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_BORDER_COLOR] forState:UIControlStateHighlighted];
         [showMoreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];

@@ -62,24 +62,19 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
         positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
 
-        _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowWidth-150-30, 0, 150, 35)];
+        _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _positionBtn.layer.cornerRadius = 2.0;
+        _positionBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
+        _positionBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+        _positionBtn.layer.borderWidth = 1;
         [_positionBtn setTitle:@"未选择" forState:UIControlStateNormal];
         [_positionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         _positionBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
         [_positionBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *extender = [[UIImageView alloc] initWithFrame:CGRectMake(kWindowWidth-20, 12.5, 6, 10)];
-        [extender setImage:[UIImage imageNamed:@"cell_accessory_pink.png"]];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(21, 0, 100, 35)];
-        titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-        titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.text = @"所在城市";
-        titleLabel.userInteractionEnabled = NO;
-        [positionView addSubview:extender];
-        [positionView addSubview:_positionBtn];
-        [positionView addSubview:titleLabel];
-        [self.view addSubview:positionView];
         
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_positionBtn];
+      
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
         _searchBar.delegate = self;
         _searchBar.backgroundColor = [UIColor whiteColor];
