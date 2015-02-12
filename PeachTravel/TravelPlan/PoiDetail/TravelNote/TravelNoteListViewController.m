@@ -39,7 +39,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     } else {
         y = 64;
     }
-    
+    self.enableLoadingMore = NO;
     self.tableView.frame = CGRectMake(11, y, self.view.frame.size.width-22, self.view.frame.size.height-y);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -105,7 +105,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:100];
+    NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
@@ -228,10 +228,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     cell.travelNoteImage = image.imageUrl;
     cell.title = travelNote.title;
     cell.desc = travelNote.summary;
-    cell.authorName = travelNote.authorName;
-    cell.authorAvatar = travelNote.authorAvatar;
-    cell.resource = travelNote.source;
-    cell.time = travelNote.publishDateStr;
+    
+    cell.property = [NSString stringWithFormat:@"%@  %@  %@", travelNote.authorName, travelNote.source, travelNote.publishDateStr];
+    cell.canSelect = NO;
+
     cell.canSelect = _isSearch;
     if (_isSearch) {
         [cell.sendBtn addTarget:self action:@selector(sendTravelNote:) forControlEvents:UIControlEventTouchUpInside];

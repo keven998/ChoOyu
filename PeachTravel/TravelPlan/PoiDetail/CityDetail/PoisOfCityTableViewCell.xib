@@ -128,9 +128,17 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XN5-bw-Llj">
+                                <rect key="frame" x="0.0" y="134" width="298" height="1"/>
+                                <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="POL-dI-NdY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="XN5-bw-Llj" firstAttribute="leading" secondItem="uyk-Cy-1ff" secondAttribute="leading" id="2Mc-cU-GaU"/>
                             <constraint firstItem="tL4-kP-lvf" firstAttribute="top" secondItem="uyk-Cy-1ff" secondAttribute="top" constant="20" id="4rI-Kx-1DV"/>
                             <constraint firstItem="uh6-ZE-He8" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="11" id="6e6-LI-NeJ"/>
                             <constraint firstItem="Ao2-DU-qFj" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="7Cg-uI-mO8"/>
@@ -144,12 +152,14 @@
                             <constraint firstAttribute="trailing" secondItem="09i-tE-FZP" secondAttribute="trailing" id="Rmb-CS-ncd"/>
                             <constraint firstItem="09i-tE-FZP" firstAttribute="top" secondItem="uyk-Cy-1ff" secondAttribute="top" id="T3J-6d-5fe"/>
                             <constraint firstAttribute="trailing" secondItem="EZp-Zm-a4j" secondAttribute="trailing" constant="1" id="UYO-WN-II2"/>
+                            <constraint firstAttribute="bottom" secondItem="XN5-bw-Llj" secondAttribute="bottom" id="Vc5-W9-6mi"/>
                             <constraint firstAttribute="bottom" secondItem="EZp-Zm-a4j" secondAttribute="bottom" id="YR4-9h-hMz"/>
                             <constraint firstItem="nrL-lg-Esr" firstAttribute="top" secondItem="tL4-kP-lvf" secondAttribute="bottom" constant="4" id="YeI-Mk-nQL"/>
                             <constraint firstItem="Oo3-Eh-gcC" firstAttribute="top" secondItem="uh6-ZE-He8" secondAttribute="bottom" id="Z6J-15-ak1"/>
                             <constraint firstAttribute="bottom" secondItem="AME-tl-Dpl" secondAttribute="bottom" constant="14" id="Zc0-rQ-Kbp"/>
                             <constraint firstAttribute="trailing" secondItem="nrL-lg-Esr" secondAttribute="trailing" constant="10" id="aSb-Vy-ee1"/>
                             <constraint firstItem="nrL-lg-Esr" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="ah0-O7-yE8"/>
+                            <constraint firstAttribute="trailing" secondItem="XN5-bw-Llj" secondAttribute="trailing" id="ced-2S-1bH"/>
                             <constraint firstItem="tL4-kP-lvf" firstAttribute="leading" secondItem="AGD-7l-KqM" secondAttribute="trailing" constant="13" id="ePK-ho-LVL"/>
                             <constraint firstItem="Ao2-DU-qFj" firstAttribute="top" secondItem="nrL-lg-Esr" secondAttribute="bottom" constant="3" id="gxe-eG-awE"/>
                             <constraint firstItem="AGD-7l-KqM" firstAttribute="leading" secondItem="uyk-Cy-1ff" secondAttribute="leading" constant="15" id="mRi-C4-D08"/>
@@ -178,6 +188,7 @@
                 <outlet property="propertyLabel" destination="Oo3-Eh-gcC" id="axJ-g5-gO4"/>
                 <outlet property="rankingLabel" destination="Ao2-DU-qFj" id="Ome-yR-BXv"/>
                 <outlet property="ratingView" destination="uh6-ZE-He8" id="rWD-m6-DeN"/>
+                <outlet property="spaceBottomConstraint" destination="Vc5-W9-6mi" id="44u-7Z-YnL"/>
                 <outlet property="titleLabel" destination="tL4-kP-lvf" id="JYy-PC-7Uj"/>
             </connections>
             <point key="canvasLocation" x="-807" y="60.5"/>

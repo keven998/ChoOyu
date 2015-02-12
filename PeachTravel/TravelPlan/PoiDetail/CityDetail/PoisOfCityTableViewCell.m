@@ -11,6 +11,7 @@
 #import "EDStarRating.h"
 
 @interface PoisOfCityTableViewCell ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBottomConstraint;
 
 @end
 
@@ -35,6 +36,9 @@
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _headerImageView.clipsToBounds = YES;
     _bkgFrame.layer.cornerRadius = 2.0;
+    _bkgFrame.clipsToBounds = YES;
+    
+    _spaceBottomConstraint.constant = -0.5;
     
     self.backgroundColor = APP_PAGE_COLOR;
     
