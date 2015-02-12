@@ -563,11 +563,12 @@
             }
             UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
             [tbView reloadData];
-            self.currentPageList = nil;
-            if (![[self.isLoaddingMoreList objectAtIndex:0] boolValue]) {
-                [self loadDataWithPageIndex:0];
-                [self.isLoaddingMoreList replaceObjectAtIndex:0 withObject:@YES];
-            }
+            int currentPage = _swipeView.currentPage;
+            _isLoaddingMoreList = nil;
+            _dataSource = nil;
+            _currentPageList = nil;
+            [self loadDataWithPageIndex:currentPage];
+            [self.isLoaddingMoreList replaceObjectAtIndex:currentPage withObject:@YES];
         }
     }];
 }
