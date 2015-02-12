@@ -143,16 +143,12 @@
 - (void)setIsAdded:(BOOL)isAdded
 {
     _isAdded = isAdded;
-    _pAddBtn.selected = isAdded;
-//    if (_isAdded) {
-//        [_pAddBtn setTitle:@"已收集" forState:UIControlStateNormal];
-//        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:13.0];
-//        _pAddBtn.backgroundColor = [UIColor grayColor];
-//    } else {
-//        _pAddBtn.backgroundColor = APP_SUB_THEME_COLOR;
-//        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-//        [_pAddBtn setTitle:@"收集" forState:UIControlStateNormal];
-//    }
+    _pAddBtn.selected = _isAdded;
+    if (_isAdded) {
+        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+    } else {
+        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:13.0];
+    }
 }
 
 

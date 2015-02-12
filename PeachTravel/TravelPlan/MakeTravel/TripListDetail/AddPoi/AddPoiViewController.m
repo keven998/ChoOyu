@@ -561,11 +561,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     return 0;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 155.0;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PoiSummary *poi;
     if ([tableView isEqual:self.tableView]) {
