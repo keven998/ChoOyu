@@ -160,7 +160,7 @@
             [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
         } else {
              if (self.isShowing) {
-                [SVProgressHUD showHint:@"请求也是失败了"];
+                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
              }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
