@@ -72,6 +72,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_gray.png"] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
+    _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
@@ -654,7 +655,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     }
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            return 150;
+            return 160;
         }
         return 0;
     }
@@ -665,13 +666,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
         if (section == 0) {
-            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 150)];
+            UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 160)];
             sectionheaderView.backgroundColor = APP_PAGE_COLOR;
             
             UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, 4)];
             spaceView.backgroundColor = APP_THEME_COLOR;
             
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, sectionheaderView.bounds.size.height-20)];
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, sectionheaderView.bounds.size.height-30)];
             btn.layer.cornerRadius = 3.0;
             
             UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];

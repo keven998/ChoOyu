@@ -101,9 +101,9 @@
     }
     
     if (_poi.rank > 0 && _poi.rank <= 100) {
-        _rankingLabel.text = [NSString stringWithFormat:@"%@: %d", rankStr, _poi.rank];
+        _rankingLabel.text = [NSString stringWithFormat:@"%@ %d", rankStr, _poi.rank];
     } else {
-        _rankingLabel.text = [NSString stringWithFormat:@"%@: >100", rankStr];
+        _rankingLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
     }
 
     if (_poi.distanceStr) {
