@@ -70,11 +70,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 64+41, kWindowWidth-22, kWindowHeight - 105)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 105)];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
 
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, -38, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -373,13 +374,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     UIView *footerView;
     NSArray *content = [[self.dataSource objectAtIndex:section] objectForKey:@"content"];
     if (content.count < 5) {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 10)];
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 10)];
         footerView.backgroundColor = APP_PAGE_COLOR;
     } else {
-        footerView = [[UIView alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 50)];
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50)];
         footerView.backgroundColor = APP_PAGE_COLOR;
-        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kWindowWidth-22, 40)];
-        showMoreBtn.backgroundColor = [UIColor whiteColor];
+        UIButton *showMoreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 40)];
+//        showMoreBtn.backgroundColor = [UIColor whiteColor];
+        [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [showMoreBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_BORDER_COLOR] forState:UIControlStateHighlighted];
         [showMoreBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [showMoreBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
         [showMoreBtn setTitle:@"查看全部结果" forState:UIControlStateNormal];
@@ -400,7 +403,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, kWindowWidth-22, 28)];
+    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
     headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     headerView.text = [NSString stringWithFormat:@"   %@", typeDesc];
     headerView.backgroundColor = [UIColor whiteColor];
