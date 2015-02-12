@@ -450,6 +450,7 @@ static NSString *reusableCell = @"myGuidesCell";
         if (_currentPage == 0) {
             [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
         } else {
+            _enableLoadMore = NO;
             [self showHint:@"已取完所有内容啦"];
         }
         [self.tableView reloadData];
