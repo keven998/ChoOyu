@@ -322,7 +322,7 @@
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];

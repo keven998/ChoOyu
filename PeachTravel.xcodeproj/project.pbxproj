@@ -77,6 +77,8 @@
 		D917DADF1A8B4B3F0039720A /* ic_guide_title_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADE1A8B4B3F0039720A /* ic_guide_title_3@2x.png */; };
 		D917DAE11A8B57520039720A /* ic_new_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAE01A8B57520039720A /* ic_new_talk@2x.png */; };
 		D9245DC71A8C553E004571AD /* story_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DC61A8C553E004571AD /* story_default@2x.png */; };
+		D9245DC91A8C7D65004571AD /* ic_filter_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */; };
+		D9245DCB1A8C7D91004571AD /* ic_filter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DCA1A8C7D91004571AD /* ic_filter@2x.png */; };
 		D93C50BB1A47ED4900FFE2FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BA1A47ED4900FFE2FA /* CoreText.framework */; };
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
@@ -787,6 +789,8 @@
 		D917DADE1A8B4B3F0039720A /* ic_guide_title_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_title_3@2x.png"; sourceTree = "<group>"; };
 		D917DAE01A8B57520039720A /* ic_new_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_talk@2x.png"; sourceTree = "<group>"; };
 		D9245DC61A8C553E004571AD /* story_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "story_default@2x.png"; sourceTree = "<group>"; };
+		D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter_box@2x.png"; sourceTree = "<group>"; };
+		D9245DCA1A8C7D91004571AD /* ic_filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter@2x.png"; sourceTree = "<group>"; };
 		D93C50BA1A47ED4900FFE2FA /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93C50BE1A47EE0100FFE2FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -3470,6 +3474,8 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */,
+				D9245DCA1A8C7D91004571AD /* ic_filter@2x.png */,
 				D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */,
 				D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */,
 				D917DA9A1A8B1D3D0039720A /* ic_star_gray_small@2x.png */,
@@ -4669,6 +4675,7 @@
 				D9A801211A80DD23005AD701 /* call_silence_h.png in Resources */,
 				D9722F2D1A82446900D8A8CC /* Loading_Animation_final13@2x.png in Resources */,
 				D9A800701A80DD0C005AD701 /* FrendRequestTableViewController.xib in Resources */,
+				D9245DC91A8C7D65004571AD /* ic_filter_box@2x.png in Resources */,
 				D917DA991A8A33AD0039720A /* ic_group_icon@2x.png in Resources */,
 				D9722F191A82184900D8A8CC /* ic_poi_bkg_border@2x.png in Resources */,
 				D9A806CF1A80F597005AD701 /* UMSLoginViewController.xib in Resources */,
@@ -4781,6 +4788,7 @@
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
 				D9722F2F1A82446900D8A8CC /* Loading_Animation_final2@2x.png in Resources */,
 				D9A804CE1A80E738005AD701 /* ic_about@2x.png in Resources */,
+				D9245DCB1A8C7D91004571AD /* ic_filter@2x.png in Resources */,
 				D9A8049A1A80E738005AD701 /* speaking-motion7@2x.png in Resources */,
 				D9A805011A80E738005AD701 /* ic_setting_password@2x.png in Resources */,
 				D9A805851A80E738005AD701 /* ic_navigation_back@2x.png in Resources */,
