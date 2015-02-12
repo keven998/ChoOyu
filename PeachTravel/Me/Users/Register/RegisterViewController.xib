@@ -4,6 +4,11 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="MicrosoftYaHei.ttf">
+            <string>MicrosoftYaHei</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
             <connections>
@@ -96,6 +101,32 @@
                         </mask>
                     </variation>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCn-d3-UBR">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="4oB-ld-uN0"/>
+                        <constraint firstAttribute="width" constant="124" id="eTz-Si-Pw4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="11"/>
+                    <state key="normal" title="用户协议">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="4oB-ld-uN0"/>
+                            <exclude reference="eTz-Si-Pw4"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="4oB-ld-uN0"/>
+                            <include reference="eTz-Si-Pw4"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="goProtocolWebView:" destination="-1" eventType="touchUpInside" id="kgG-ms-Lbw"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -113,8 +144,10 @@
                 <constraint firstItem="9OL-xb-8q9" firstAttribute="top" secondItem="ysq-eg-abd" secondAttribute="bottom" constant="57" id="Y4B-ep-TGK">
                     <variation key="widthClass=compact" constant="56"/>
                 </constraint>
+                <constraint firstAttribute="centerX" secondItem="TCn-d3-UBR" secondAttribute="centerX" id="ZgG-4X-oeW"/>
                 <constraint firstItem="0qg-hh-eSa" firstAttribute="top" secondItem="9OL-xb-8q9" secondAttribute="bottom" constant="20" id="c6S-WJ-C88"/>
                 <constraint firstItem="0qg-hh-eSa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="fFK-x4-8EO"/>
+                <constraint firstAttribute="bottom" secondItem="TCn-d3-UBR" secondAttribute="bottom" constant="8" id="foZ-97-Gfb"/>
                 <constraint firstAttribute="trailing" secondItem="ysq-eg-abd" secondAttribute="trailing" constant="8" id="hNm-U6-hYY"/>
                 <constraint firstItem="oP0-Hm-jbq" firstAttribute="top" secondItem="ysq-eg-abd" secondAttribute="bottom" constant="13" id="p77-hj-kQS">
                     <variation key="widthClass=compact" constant="10"/>
@@ -133,20 +166,23 @@
                     <exclude reference="oP0-Hm-jbq"/>
                     <exclude reference="9OL-xb-8q9"/>
                     <exclude reference="0qg-hh-eSa"/>
+                    <exclude reference="TCn-d3-UBR"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="VwJ-sM-vvu"/>
-                    <exclude reference="c6S-WJ-C88"/>
-                    <exclude reference="fFK-x4-8EO"/>
-                    <exclude reference="4Tf-8U-eb7"/>
-                    <exclude reference="Y4B-ep-TGK"/>
-                    <exclude reference="rEz-5J-ehq"/>
-                    <exclude reference="Tzj-LL-MEC"/>
-                    <exclude reference="p77-hj-kQS"/>
-                    <exclude reference="pct-ha-asv"/>
                     <exclude reference="7g2-ce-VeE"/>
                     <exclude reference="B43-PK-5N4"/>
                     <exclude reference="hNm-U6-hYY"/>
+                    <exclude reference="Tzj-LL-MEC"/>
+                    <exclude reference="p77-hj-kQS"/>
+                    <exclude reference="pct-ha-asv"/>
+                    <exclude reference="4Tf-8U-eb7"/>
+                    <exclude reference="Y4B-ep-TGK"/>
+                    <exclude reference="rEz-5J-ehq"/>
+                    <exclude reference="VwJ-sM-vvu"/>
+                    <exclude reference="c6S-WJ-C88"/>
+                    <exclude reference="fFK-x4-8EO"/>
+                    <exclude reference="ZgG-4X-oeW"/>
+                    <exclude reference="foZ-97-Gfb"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -155,20 +191,23 @@
                     <include reference="oP0-Hm-jbq"/>
                     <include reference="9OL-xb-8q9"/>
                     <include reference="0qg-hh-eSa"/>
+                    <include reference="TCn-d3-UBR"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="VwJ-sM-vvu"/>
-                    <include reference="c6S-WJ-C88"/>
-                    <include reference="fFK-x4-8EO"/>
-                    <include reference="4Tf-8U-eb7"/>
-                    <include reference="Y4B-ep-TGK"/>
-                    <include reference="rEz-5J-ehq"/>
-                    <include reference="Tzj-LL-MEC"/>
-                    <include reference="p77-hj-kQS"/>
-                    <include reference="pct-ha-asv"/>
                     <include reference="7g2-ce-VeE"/>
                     <include reference="B43-PK-5N4"/>
                     <include reference="hNm-U6-hYY"/>
+                    <include reference="Tzj-LL-MEC"/>
+                    <include reference="p77-hj-kQS"/>
+                    <include reference="pct-ha-asv"/>
+                    <include reference="4Tf-8U-eb7"/>
+                    <include reference="Y4B-ep-TGK"/>
+                    <include reference="rEz-5J-ehq"/>
+                    <include reference="VwJ-sM-vvu"/>
+                    <include reference="c6S-WJ-C88"/>
+                    <include reference="fFK-x4-8EO"/>
+                    <include reference="ZgG-4X-oeW"/>
+                    <include reference="foZ-97-Gfb"/>
                 </mask>
             </variation>
         </view>

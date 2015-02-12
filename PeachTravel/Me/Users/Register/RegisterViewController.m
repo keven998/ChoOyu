@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "SMSVerifyViewController.h"
+#import "SuperWebViewController.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
@@ -157,6 +158,12 @@
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
+}
+- (IBAction)goProtocolWebView:(UIButton *)sender {
+    SuperWebViewController *webViewCtl = [[SuperWebViewController alloc] init];
+    webViewCtl.urlStr = APP_AGREEMENT;
+    webViewCtl.titleStr = @"用户注册协议";
+    [self.navigationController pushViewController:webViewCtl animated:YES];
 }
 
 @end

@@ -113,6 +113,7 @@
 #define TRAVELNOTE_DETAIL_HTML                  @ "http://h5.taozilvxing.com/detail.php?id="        //游记详情
 #define TRIP_DETAIL_HTML                        @ "http://h5.taozilvxing.com/planshare.php?pid="    //三张单详情
 #define APP_ABOUT                               @ "http://h5.taozilvxing.com/about.php"             //关于页面
+#define APP_AGREEMENT                           @ "http://h5.taozilvxing.com/agreement.htm"       //用户协议
 
 /***** Notification name *******/
 #define weixinDidLoginNoti                      @ "weixinDidLogin"              //微信登录完发送通知，传递 code 给服务器
