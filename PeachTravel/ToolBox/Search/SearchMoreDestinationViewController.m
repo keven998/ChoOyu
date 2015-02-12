@@ -119,12 +119,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 105)];
-        } else {
-            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 1, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 65)];
-
-        }
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 1, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 65)];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
