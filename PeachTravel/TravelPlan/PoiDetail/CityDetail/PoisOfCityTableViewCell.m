@@ -113,6 +113,7 @@
     if (_poi.distanceStr) {
         _distanceLabel.hidden = NO;
         _distanceLabel.text = _poi.distanceStr;
+
     } else {
         _distanceLabel.hidden = YES;
     }
