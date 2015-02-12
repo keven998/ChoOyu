@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -25,7 +25,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ws-wG-p3a">
-                    <rect key="frame" x="10" y="15" width="292" height="20"/>
+                    <rect key="frame" x="10" y="15" width="292" height="16"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                 <constraint firstItem="hFv-o7-4VY" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="D0P-uh-ixM"/>
                 <constraint firstItem="4Ws-wG-p3a" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="15" id="KzX-9f-8W4"/>
                 <constraint firstItem="hFv-o7-4VY" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="17" id="Qhg-nF-pXd"/>
-                <constraint firstAttribute="bottom" secondItem="4Ws-wG-p3a" secondAttribute="bottom" constant="1" id="Tlz-ts-IjM"/>
+                <constraint firstAttribute="bottom" secondItem="4Ws-wG-p3a" secondAttribute="bottom" constant="5" id="Tlz-ts-IjM"/>
                 <constraint firstAttribute="trailing" secondItem="4Ws-wG-p3a" secondAttribute="trailing" constant="18" id="vc0-tu-sao"/>
             </constraints>
             <connections>

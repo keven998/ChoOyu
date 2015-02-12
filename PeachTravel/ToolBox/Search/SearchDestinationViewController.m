@@ -251,6 +251,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     SearchMoreDestinationViewController *searchMoreCtl = [[SearchMoreDestinationViewController alloc] init];
     searchMoreCtl.titleStr = _titleStr;
+    searchMoreCtl.isCanSend = _isCanSend;
     searchMoreCtl.poiType = [[dic objectForKey:@"type"] integerValue];
     NSString *poiTypeDesc;
     switch ([[dic objectForKey:@"type"] integerValue]) {
@@ -415,7 +416,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     PoiSummary *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
 
-    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
+    if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi || poi.poiType == kSpotPoi) {
         TaoziImage *image = [poi.images firstObject];
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         cell.titleLabel.text = poi.zhName;

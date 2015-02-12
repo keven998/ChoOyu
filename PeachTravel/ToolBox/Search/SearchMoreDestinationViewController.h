@@ -22,6 +22,11 @@
 @property (nonatomic) BOOL isChatGroup;
 
 /**
+ *  点击是否可以发送
+ */
+@property (nonatomic) BOOL isCanSend;
+
+/**
  *  搜索的字段
  */
 @property (nonatomic, copy) NSString *keyWord;

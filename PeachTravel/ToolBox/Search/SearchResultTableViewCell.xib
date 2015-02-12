@@ -31,9 +31,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6G-4t-F3H">
-                        <rect key="frame" x="58" y="26" width="234" height="21"/>
+                        <rect key="frame" x="58" y="32" width="234" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="unD-9l-s5U"/>
+                            <constraint firstAttribute="height" constant="15" id="unD-9l-s5U"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,7 +62,7 @@
                     <constraint firstAttribute="trailing" secondItem="Ur2-sS-nIj" secondAttribute="trailing" constant="28" id="XtQ-Py-p2q"/>
                     <constraint firstItem="x6v-gF-WNE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aRB-Mc-FDE"/>
                     <constraint firstItem="Ur2-sS-nIj" firstAttribute="leading" secondItem="x6v-gF-WNE" secondAttribute="trailing" constant="8" id="csA-YS-2ct"/>
-                    <constraint firstItem="c6G-4t-F3H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="eTx-pU-q94"/>
+                    <constraint firstItem="c6G-4t-F3H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="eTx-pU-q94"/>
                     <constraint firstAttribute="trailing" secondItem="8PJ-vL-Zwj" secondAttribute="trailing" constant="14" id="fGP-tn-BJN"/>
                 </constraints>
             </tableViewCellContentView>
