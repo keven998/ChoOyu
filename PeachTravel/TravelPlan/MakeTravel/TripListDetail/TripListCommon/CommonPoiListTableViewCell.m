@@ -27,13 +27,8 @@
     _bkgFrame.layer.cornerRadius = 2.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
-//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _deleteBtn.hidden = YES;
-
-
-//    self.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _seperatorView.backgroundColor = APP_SUB_THEME_COLOR;

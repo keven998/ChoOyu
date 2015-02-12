@@ -61,9 +61,9 @@
     [self addSubview:_imagePageIndicator];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(width - 45, oy - 45, 40, 40)];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateHighlighted];
-    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateSelected];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_city_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_city_favorite_selected.png"] forState:UIControlStateHighlighted];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_city_favorite_selected.png"] forState:UIControlStateSelected];
     _favoriteBtn.selected = _cityPoi.isMyFavorite;
     [self addSubview:_favoriteBtn];
     
