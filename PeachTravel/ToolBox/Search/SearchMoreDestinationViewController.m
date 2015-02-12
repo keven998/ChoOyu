@@ -376,7 +376,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if ([tableView isEqual:self.tableView]) {
         PoiSummary *poi = [self.dataSource objectAtIndex:indexPath.row];
         SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
-        
+        cell.isCanSend = _isCanSend;
         if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
             TaoziImage *image = [poi.images firstObject];
             [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];

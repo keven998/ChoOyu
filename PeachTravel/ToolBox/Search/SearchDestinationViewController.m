@@ -253,6 +253,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     SearchMoreDestinationViewController *searchMoreCtl = [[SearchMoreDestinationViewController alloc] init];
     searchMoreCtl.titleStr = _titleStr;
+    searchMoreCtl.isCanSend = _isCanSend;
     searchMoreCtl.poiType = [[dic objectForKey:@"type"] integerValue];
     NSString *poiTypeDesc;
     switch ([[dic objectForKey:@"type"] integerValue]) {
