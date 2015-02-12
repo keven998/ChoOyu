@@ -154,12 +154,7 @@
     _headerView.backgroundColor = [UIColor whiteColor];
     [_detailView addSubview:_headerView];
     
-    UIImageView *showSpotBkg = [[UIImageView alloc] initWithFrame:CGRectMake(25, 0, 72, 72)];
-    showSpotBkg.image = [UIImage imageNamed:@"ic_city_btn_border.png"];
-    showSpotBkg.userInteractionEnabled = YES;
-    [_headerView addSubview:showSpotBkg];
-    
-    _showSpotsBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+    _showSpotsBtn = [[TZButton alloc] initWithFrame:CGRectMake(25, 0, 72, 72)];
     _showSpotsBtn.topSpaceHight = 10;
     _showSpotsBtn.spaceHight = 5;
     [_showSpotsBtn setTitle:@"景点" forState:UIControlStateNormal];
@@ -167,31 +162,23 @@
     [_showSpotsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     _showSpotsBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_showSpotsBtn setImage:[UIImage imageNamed:@"ic_city_travel.png"] forState:UIControlStateNormal];
-    [showSpotBkg addSubview:_showSpotsBtn];
-    
-    UIImageView *showResBkg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
-    showResBkg.image = [UIImage imageNamed:@"ic_city_btn_border.png"];
-    showResBkg.userInteractionEnabled = YES;
-    showResBkg.center = CGPointMake((width - 20)/2.0, 36);
-
-    [_headerView addSubview:showResBkg];
+    [_showSpotsBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_btn_border.png"] forState:UIControlStateNormal];
+    [_headerView addSubview:_showSpotsBtn];
     
     _showRestaurantsBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
     _showRestaurantsBtn.topSpaceHight = 10;
     _showRestaurantsBtn.spaceHight = 5;
+    _showRestaurantsBtn.center = CGPointMake((width - 20)/2.0, 36);
+
     [_showRestaurantsBtn setTitle:@"美食" forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     _showRestaurantsBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_showRestaurantsBtn setImage:[UIImage imageNamed:@"ic_city_restaurant.png"] forState:UIControlStateNormal];
-    [showResBkg addSubview:_showRestaurantsBtn];
+    [_showRestaurantsBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_btn_border.png"] forState:UIControlStateNormal];
+    [_headerView addSubview:_showRestaurantsBtn];
     
-    UIImageView *showShoppingBkg = [[UIImageView alloc] initWithFrame:CGRectMake(width - 20 - 25 - 72, 0, 72, 72)];
-    showShoppingBkg.image = [UIImage imageNamed:@"ic_city_btn_border.png"];
-    showShoppingBkg.userInteractionEnabled = YES;
-    [_headerView addSubview:showShoppingBkg];
-    
-    _showShoppingBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+    _showShoppingBtn = [[TZButton alloc] initWithFrame:CGRectMake(width - 20 - 25 - 72, 0, 72, 72)];
     _showShoppingBtn.topSpaceHight = 10;
     _showShoppingBtn.spaceHight = 5;
     [_showShoppingBtn setTitle:@"购物" forState:UIControlStateNormal];
@@ -199,7 +186,8 @@
     [_showShoppingBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     _showShoppingBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_showShoppingBtn setImage:[UIImage imageNamed:@"ic_city_shopping.png"] forState:UIControlStateNormal];
-    [showShoppingBkg addSubview:_showShoppingBtn];
+    [_showShoppingBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_btn_border.png"] forState:UIControlStateNormal];
+    [_headerView addSubview:_showShoppingBtn];
     
 
     oy += 72 + 20;
