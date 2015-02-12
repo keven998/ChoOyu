@@ -86,6 +86,8 @@
 		D9245DD71A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DD61A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png */; };
 		D9245DD91A8CA1C1004571AD /* ic_travelnote_favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DD81A8CA1C1004571AD /* ic_travelnote_favorite@2x.png */; };
 		D9245DDB1A8CA224004571AD /* ic_chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DDA1A8CA224004571AD /* ic_chat@2x.png */; };
+		D9245DDD1A8CD27A004571AD /* ic_mock_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DDC1A8CD27A004571AD /* ic_mock_up@2x.png */; };
+		D9245DDF1A8CD29B004571AD /* ic_clock_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DDE1A8CD29B004571AD /* ic_clock_big@2x.png */; };
 		D93C50BB1A47ED4900FFE2FA /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BA1A47ED4900FFE2FA /* CoreText.framework */; };
 		D93C50BD1A47ED8E00FFE2FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */; };
 		D93C50BF1A47EE0100FFE2FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93C50BE1A47EE0100FFE2FA /* UIKit.framework */; };
@@ -802,6 +804,8 @@
 		D9245DD61A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_travelnote_favorite_selected@2x.png"; sourceTree = "<group>"; };
 		D9245DD81A8CA1C1004571AD /* ic_travelnote_favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_travelnote_favorite@2x.png"; sourceTree = "<group>"; };
 		D9245DDA1A8CA224004571AD /* ic_chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_chat@2x.png"; sourceTree = "<group>"; };
+		D9245DDC1A8CD27A004571AD /* ic_mock_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_mock_up@2x.png"; sourceTree = "<group>"; };
+		D9245DDE1A8CD29B004571AD /* ic_clock_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock_big@2x.png"; sourceTree = "<group>"; };
 		D93C50BA1A47ED4900FFE2FA /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D93C50BC1A47ED8E00FFE2FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93C50BE1A47EE0100FFE2FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -3482,7 +3486,9 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D9245DDC1A8CD27A004571AD /* ic_mock_up@2x.png */,
 				D9245DD41A8C9AE0004571AD /* ic_nav_button_non@2x.png */,
+				D9245DDE1A8CD29B004571AD /* ic_clock_big@2x.png */,
 				D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */,
 				D9245DCA1A8C7D91004571AD /* ic_filter@2x.png */,
 				D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */,
@@ -4495,6 +4501,7 @@
 				D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */,
 				D9A8057E1A80E738005AD701 /* s_rain@2x.png in Resources */,
 				D9A805541A80E738005AD701 /* ic_spot_address@2x.png in Resources */,
+				D9245DDF1A8CD29B004571AD /* ic_clock_big@2x.png in Resources */,
 				D9B9EA151A88CBEA00966074 /* ic_remove_select_one@2x.png in Resources */,
 				D9722F2E1A82446900D8A8CC /* Loading_Animation_final14@2x.png in Resources */,
 				D9A805511A80E738005AD701 /* ic_select_dest_done@2x.png in Resources */,
@@ -4730,6 +4737,7 @@
 				D9A805861A80E738005AD701 /* sns_icon_douban@2x.png in Resources */,
 				D9A805611A80E738005AD701 /* ic_trip_normal_1@2x.png in Resources */,
 				D9A8001D1A80D52F005AD701 /* DomesticViewController.xib in Resources */,
+				D9245DDD1A8CD27A004571AD /* ic_mock_up@2x.png in Resources */,
 				D9A8058E1A80E738005AD701 /* sns_icon_weixin@2x.png in Resources */,
 				D9B9EA1D1A88CF8000966074 /* check_border@2x.png in Resources */,
 				D9A804D31A80E738005AD701 /* ic_begin_talk@2x.png in Resources */,

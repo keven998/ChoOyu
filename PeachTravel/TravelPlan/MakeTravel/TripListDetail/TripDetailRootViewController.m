@@ -324,6 +324,7 @@
         if (code == 0) {
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
         } else {
              if (self.isShowing) {
@@ -579,6 +580,7 @@
         if (code == 0) {
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             [SVProgressHUD showHint:@"已保存到我的旅程"];
         } else {
              if (self.isShowing) {

@@ -104,6 +104,8 @@ static NSString *reusableCell = @"myGuidesCell";
 
     [self initDataFromCache];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
+
 }
 
 - (void)goBack

@@ -19,8 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *countBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *titleBkgImage;
+@property (weak, nonatomic) IBOutlet UIImageView *mockImageView;
 
-@property (weak, nonatomic) IBOutlet UIView *maskImageView;
 @property (nonatomic, strong) MyGuideSummary *guideSummary;
 
 @property (weak, nonatomic) IBOutlet UIImageView *sendBtnBkgImageView;

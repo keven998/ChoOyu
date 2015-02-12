@@ -130,6 +130,8 @@
 #define updateChateViewNoti                     @ "updateChatView"               //更新聊天界面
 
 #define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表
+#define updateGuideListNoti                     @"updateFavoriteListView"    //更新我的攻略列表
+
 
 
 #pragma mark - ***********各种枚举信息*************
