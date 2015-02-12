@@ -28,8 +28,12 @@
     self.view.layer.cornerRadius = 3.0;
     _routeTitle.layer.cornerRadius = 3.0;
     [_routeTitle becomeFirstResponder];
-    _routeTitle.layer.borderColor = UIColorFromRGB(0x999999).CGColor;
+    _routeTitle.layer.borderColor = UIColorFromRGB(0xaaaaaa).CGColor;
     _routeTitle.layer.borderWidth = 0.5;
+    
+    _confirmRouteTitle.layer.cornerRadius = 4.0;
+    _confirmRouteTitle.clipsToBounds = YES;
+    [_confirmRouteTitle setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
