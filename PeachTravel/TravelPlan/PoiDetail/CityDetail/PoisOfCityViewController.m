@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (nonatomic, strong) UIButton *searchBtn;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
@@ -69,11 +68,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.backBarButtonItem = barButton;
     
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_gray.png"] forState:UIControlStateNormal];
-    [_searchBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
-    _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
         _zhName = destination.zhName;
@@ -90,21 +84,21 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
             self.navigationItem.rightBarButtonItem = filterItem;
             [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
+            UIBarButtonItem *filterItemBar = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+            self.navigationItem.rightBarButtonItem = filterItemBar;
         }
-        UIBarButtonItem *searchItemBar = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
-        UIBarButtonItem *filterItemBar = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
-        self.navigationItem.rightBarButtonItems = @[filterItemBar, searchItemBar];
-    } else {
-        UIBarButtonItem *searchItemBar = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
-        self.navigationItem.rightBarButtonItem = searchItemBar;
     }
-    
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
+    if (_poiType == kRestaurantPoi) {
+        _searchBar.placeholder = @"搜索美食";
+    }
+    if (_poiType == kShoppingPoi) {
+        _searchBar.placeholder = @"搜索购物";
+    }
     _searchBar.delegate = self;
-    _searchBar.hidden = YES;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-20)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 155.0;
@@ -112,6 +106,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
+    [self.tableView setContentOffset:CGPointMake(0, 44)];
     [self.view addSubview:self.tableView];
     
     self.tableView.tableHeaderView = _searchBar;
@@ -170,7 +165,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (UISearchDisplayController *)searchController
 {
     if (!_searchController) {
-        _searchBar.delegate = self;
         _searchController= [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
         [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
         _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
@@ -505,7 +499,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
  */
 - (IBAction)beginSearch:(id)sender
 {
-    _searchBar.hidden = NO;
     [self.searchController setActive:YES animated:YES];
     [_searchBar becomeFirstResponder];
 }
@@ -794,11 +787,15 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 #pragma mark - SearchBarDelegate
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [self.searchController setActive:YES animated:YES];
+}
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self.searchResultArray removeAllObjects];
     _searchText = nil;
-    _searchBar.hidden = YES;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -819,7 +816,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
 {
-    _searchBar.hidden = YES;
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
