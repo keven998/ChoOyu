@@ -289,7 +289,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 #pragma mark - IBAction Methods
 
-- (IBAction)favorite:(id)sender
+- (IBAction)favorite:(UIButton *)sender
 {
     //先将收藏的状态改变
     _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
@@ -299,7 +299,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         if (isSuccess) {
             _cityPoi.isMyFavorite = !_cityPoi.isMyFavorite;
         } else {      //如果失败了，再把状态改回来
-            _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
+            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
+            _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
         }
     }];
 }

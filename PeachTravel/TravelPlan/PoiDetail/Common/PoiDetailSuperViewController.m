@@ -116,6 +116,7 @@
     if (!accountManager.isLogin) {
         [self showHint:@"请先登录"];
         [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        completion(NO);
         return;
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

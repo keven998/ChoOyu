@@ -183,12 +183,12 @@
      [upManager putData:data key:key token:uploadToken
                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                    [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
-                   [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeAvatar];
+                   [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
 
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
                    UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
-                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatar] placeholderImage:nil];
+                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatarSmall] placeholderImage:nil];
 
                } option:opt];
 }
