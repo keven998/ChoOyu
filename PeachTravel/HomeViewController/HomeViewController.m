@@ -21,6 +21,8 @@
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
 
+#define kBackGroundImage    @"backGroundImage"
+
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
@@ -78,7 +80,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
     
     if (_coverView != nil) {
-        NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"];
+        NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage];
         [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (error) {
                 _coverView.image = [UIImage imageNamed:@"story_default.png"];
@@ -236,7 +238,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [manager GET:API_GET_COVER_STORIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            if (!([[[responseObject objectForKey:@"result"] objectForKey:@"image"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"backGroundImage"]])) {
+            if (!([[[responseObject objectForKey:@"result"] objectForKey:@"image"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage]])) {
                 [self updateBackgroundData:[[responseObject objectForKey:@"result"] objectForKey:@"image"]];
             }
         } else {
@@ -264,7 +266,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }];
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:@"backGroundImage"];
+    [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:kBackGroundImage];
 }
 
 #pragma mark - help

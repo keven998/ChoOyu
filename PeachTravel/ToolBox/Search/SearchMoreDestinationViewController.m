@@ -57,7 +57,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = _titleStr;
+    self.navigationItem.title = @"更多结果";
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
         UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
         positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
@@ -200,7 +200,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
-              
+            
         } else {
              if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
@@ -272,6 +272,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)analysisData:(id)json
 {
+    if ([[json objectForKey:_poiTypeDesc] count] < 15) {
+        _enableLoadMore = NO;
+    }
     for (id dic in [json objectForKey:_poiTypeDesc]) {
         PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
         [self.dataSource addObject:poi];
@@ -497,6 +500,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             [self.dataSource removeAllObjects];
             _currentPage = 0;
             _isLoadingMore = YES;
+            _enableLoadMore = NO;
             [self loadDataWithPageIndex:_currentPage];
             _hud = [[TZProgressHUD alloc] init];
             __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;

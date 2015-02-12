@@ -13,7 +13,7 @@
 
 @property (nonatomic) TZPoiType poiType;
 
-@property (nonatomic, copy) NSString *titleStr;
+//@property (nonatomic, copy) NSString *titleStr;
 
 @property (nonatomic, copy) NSString *poiTypeDesc;
 

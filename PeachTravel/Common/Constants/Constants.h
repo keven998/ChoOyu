@@ -184,7 +184,8 @@ typedef enum : NSUInteger {
     ChangeSignature,
     ChangeTel,
     ChangeGender,
-    ChangeAvatar
+    ChangeAvatar,
+    ChangeSmallAvatar
 } UserInfoChangeType;
 
 
