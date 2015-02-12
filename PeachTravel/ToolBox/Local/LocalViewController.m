@@ -439,8 +439,8 @@
     } else {
         view.tag = index;
         tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
-        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
-
+//        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+        [tbView setContentOffset:CGPointZero animated:NO];
         [tbView reloadData];
     }
 
