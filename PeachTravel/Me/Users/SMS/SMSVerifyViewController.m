@@ -36,7 +36,12 @@
     self.navigationItem.title = @"验证";
     _titleLabel.text = [NSString stringWithFormat:@"已发送验证码短信至%@\n网络有延迟，请耐心等待", _phoneNumber];
     [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
-    _verifyCodeBtn.userInteractionEnabled = NO;
+    [_verifyCodeBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+    _verifyCodeBtn.clipsToBounds = YES;
+    [_verifyCodeBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    [_verifyCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_verifyCodeBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+    _verifyCodeBtn.enabled = NO;
     _verifyCodeBtn.layer.cornerRadius = 2.0;
     [self startTimer];
     
@@ -77,7 +82,8 @@
 {
     if (count == 0) {
         [self stopTimer];
-        _verifyCodeBtn.userInteractionEnabled = YES;
+//        _verifyCodeBtn.userInteractionEnabled = YES;
+        _verifyCodeBtn.enabled = YES;
         [_verifyCodeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
@@ -186,7 +192,8 @@
             count = _coolDown;
             [_verifyCodeBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
             [self startTimer];
-            _verifyCodeBtn.userInteractionEnabled = NO;
+//            _verifyCodeBtn.userInteractionEnabled = NO;
+            _verifyCodeBtn.enabled = NO;
             
         } else {
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];

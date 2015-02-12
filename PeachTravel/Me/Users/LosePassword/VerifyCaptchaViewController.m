@@ -76,6 +76,12 @@
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
     _captchaBtn.layer.cornerRadius = 5.0;
+    _captchaBtn.clipsToBounds = YES;
+    [_captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_captchaBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+
 }
 
 #pragma mark - Private Methods
@@ -107,12 +113,14 @@
 {
     if (count == 0) {
         [self stopTimer];
-        _captchaBtn.userInteractionEnabled = YES;
+        _captchaBtn.enabled = YES;
         [_captchaBtn setTitle:@"重新获取" forState:UIControlStateNormal];
     } else {
         count--;
-        _captchaBtn.titleLabel.text = [NSString stringWithFormat:@"%ldS",(long)count];
-        [_captchaBtn setTitle:[NSString stringWithFormat:@"%ldS",(long)count] forState:UIControlStateNormal];
+        _captchaBtn.titleLabel.text = [NSString stringWithFormat:@"%lds",(long)count];
+        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateNormal];
+        [_captchaBtn setTitle:[NSString stringWithFormat:@"%lds",(long)count] forState:UIControlStateDisabled];
+
     }
 }
 
@@ -153,13 +161,16 @@
             [self startTimer];
             [SVProgressHUD showHint:@"已发送验证码,请稍候"];
         } else {
-            _captchaBtn.userInteractionEnabled = YES;
+            _captchaBtn.enabled = YES;
+
             [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        _captchaBtn.userInteractionEnabled = YES;
+        _captchaBtn.enabled = YES;
+
+        
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
@@ -261,7 +272,9 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         NSLog(@"%@", error);
-        _captchaBtn.userInteractionEnabled = YES;
+//        _captchaBtn.userInteractionEnabled = YES;
+        _captchaBtn.enabled = YES;
+
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
@@ -276,7 +289,9 @@
     if ([self checkInput] == PhoneNumberError) {
         [self showHint:@"手机号没get到"];
     } else {
-        _captchaBtn.userInteractionEnabled = NO;
+        _captchaBtn.enabled =  NO;
+        [_captchaBtn setTitle:@"请稍等" forState:UIControlStateDisabled];
+
         [self getCaptcha];
     }
 }
