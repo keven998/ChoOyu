@@ -52,6 +52,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_white.png"] forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
+    _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
     
     [self.view addSubview:self.collectionView];
