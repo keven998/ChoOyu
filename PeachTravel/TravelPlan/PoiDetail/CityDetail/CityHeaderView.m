@@ -154,7 +154,9 @@
     _headerView.backgroundColor = [UIColor whiteColor];
     [_detailView addSubview:_headerView];
     
-    _showSpotsBtn = [[TZButton alloc] initWithFrame:CGRectMake(25, 0, 72, 72)];
+    CGFloat spaceWidth = ((_headerView.bounds.size.width-72*3)/4);
+    
+    _showSpotsBtn = [[TZButton alloc] initWithFrame:CGRectMake(spaceWidth, 0, 72, 72)];
     _showSpotsBtn.topSpaceHight = 10;
     _showSpotsBtn.spaceHight = 5;
     [_showSpotsBtn setTitle:@"景点" forState:UIControlStateNormal];
@@ -169,7 +171,6 @@
     _showRestaurantsBtn.topSpaceHight = 10;
     _showRestaurantsBtn.spaceHight = 5;
     _showRestaurantsBtn.center = CGPointMake((width - 20)/2.0, 36);
-
     [_showRestaurantsBtn setTitle:@"美食" forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_showRestaurantsBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
@@ -178,7 +179,7 @@
     [_showRestaurantsBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_btn_border.png"] forState:UIControlStateNormal];
     [_headerView addSubview:_showRestaurantsBtn];
     
-    _showShoppingBtn = [[TZButton alloc] initWithFrame:CGRectMake(width - 20 - 25 - 72, 0, 72, 72)];
+    _showShoppingBtn = [[TZButton alloc] initWithFrame:CGRectMake(_headerView.bounds.size.width-spaceWidth-72, 0, 72, 72)];
     _showShoppingBtn.topSpaceHight = 10;
     _showShoppingBtn.spaceHight = 5;
     [_showShoppingBtn setTitle:@"购物" forState:UIControlStateNormal];
