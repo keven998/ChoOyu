@@ -70,9 +70,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
-
-
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -233,8 +230,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[NSNumber numberWithFloat:self.view.frame.size.width*2] forKey:@"width"];
-    [params setObject:[NSNumber numberWithFloat:self.view.frame.size.height*2] forKey:@"height"];
+    if (IS_IPHONE_6P) {
+        [params setObject:[NSNumber numberWithFloat:self.view.frame.size.width*3] forKey:@"width"];
+        [params setObject:[NSNumber numberWithFloat:self.view.frame.size.height*3] forKey:@"height"];
+    } else {
+        [params setObject:[NSNumber numberWithFloat:self.view.frame.size.width*2] forKey:@"width"];
+        [params setObject:[NSNumber numberWithFloat:self.view.frame.size.height*2] forKey:@"height"];
+    }
     
     //获取封面故事接口
     [manager GET:API_GET_COVER_STORIES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

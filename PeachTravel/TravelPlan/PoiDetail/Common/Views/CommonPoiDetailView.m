@@ -137,7 +137,7 @@
     }
     [_scrollView addSubview:rankLabel];
     
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY+60, _scrollView.bounds.size.width-125, 30)];
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+65, _scrollView.bounds.size.width-40, 30)];
     _priceLabel.textColor = APP_THEME_COLOR;
     _priceLabel.font = [UIFont boldSystemFontOfSize:20.0];
     _priceLabel.text = _poi.priceDesc;
