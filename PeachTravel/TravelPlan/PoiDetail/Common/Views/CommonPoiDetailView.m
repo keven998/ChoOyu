@@ -70,7 +70,7 @@
 
 - (void)setupSubView
 {
-    CGFloat offsetY = 20;
+    CGFloat offsetY = 25;
 
     _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, 140);
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
@@ -112,7 +112,7 @@
     
     offsetY += _imageView.bounds.size.height + 40;
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(130, offsetY, 1, 100)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(130, offsetY+10, 1, 40)];
     spaceView.backgroundColor = APP_DIVIDE_COLOR;
     [_scrollView addSubview:spaceView];
 
@@ -126,7 +126,7 @@
     _ratingView.rating = _poi.rating;
     [_scrollView addSubview:_ratingView];
 
-    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+25, 90, 15)];
+    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+30, 90, 15)];
     rankLabel.textAlignment = NSTextAlignmentCenter;
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     rankLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
@@ -137,7 +137,7 @@
     }
     [_scrollView addSubview:rankLabel];
     
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY+50, 90, 25)];
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY+60, _scrollView.bounds.size.width-125, 30)];
     _priceLabel.textColor = APP_THEME_COLOR;
     _priceLabel.font = [UIFont boldSystemFontOfSize:20.0];
     _priceLabel.text = _poi.priceDesc;
@@ -145,9 +145,9 @@
     [_scrollView addSubview:_priceLabel];
     
     if (_poiType == kHotelPoi) {
-        _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, offsetY+75, 70, 15)];
+        _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-110, offsetY+65, 90, 30)];
         _bookBtn.backgroundColor = APP_THEME_COLOR;
-        _bookBtn.layer.cornerRadius = 7.5;
+        _bookBtn.layer.cornerRadius = 5;
         [_bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
         _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:10.0];
         [_bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
@@ -155,7 +155,7 @@
         [_scrollView addSubview:_bookBtn];
     }
     
-    UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY, _scrollView.bounds.size.width-155, 60)];
+    UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY, _scrollView.bounds.size.width-155, 30)];
     addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     addressDetailLabel.titleLabel.numberOfLines = 4;
@@ -169,7 +169,7 @@
     addressImageView.image = [UIImage imageNamed:@"ic_map.png"];
     [_scrollView addSubview:addressImageView];
     
-    UIButton *phoneDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY+75, _scrollView.bounds.size.width-155, 20)];
+    UIButton *phoneDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY+40, _scrollView.bounds.size.width-155, 20)];
     [phoneDetailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [phoneDetailBtn addTarget:self action:@selector(makePhone:) forControlEvents:UIControlEventTouchUpInside];
     [phoneDetailBtn setTitle:_poi.telephone forState:UIControlStateNormal];
