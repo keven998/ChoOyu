@@ -76,6 +76,11 @@
     [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.travelBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.ticketBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.descDetailBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -185,6 +190,19 @@
     taoziMessageCtl.messageTimeCost = _spotPoi.timeCostStr;
     taoziMessageCtl.descLabel.text = _spotPoi.desc;
     taoziMessageCtl.chatType = TZChatTypeSpot;
+}
+
+/**
+ *  进入景点的详细介绍的 h5
+ *
+ *  @param sender
+ */
+- (IBAction)showSpotDetail:(id)sender
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"景点详情";
+    webCtl.urlStr = _spotPoi.descUrl3;
+    [self.navigationController pushViewController:webCtl animated:YES];
 }
 
 /**

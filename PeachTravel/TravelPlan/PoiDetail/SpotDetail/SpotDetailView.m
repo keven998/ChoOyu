@@ -65,9 +65,6 @@
     CGFloat offsetY = 0;
     
     _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, _scrollView.bounds.size.width/2);
-//    _imageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-//    _imageView.layer.cornerRadius = 2.0;
-//    _imageView.layer.borderWidth = 0.5;
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _imageView.userInteractionEnabled = YES;
     
@@ -131,6 +128,7 @@
     
     _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
     _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
     _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
@@ -157,6 +155,7 @@
     [content appendString:[NSString stringWithFormat:@"开放时间 %@", _spot.openTime]];
     _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_travelBtn setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
     _travelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     _travelBtn.titleLabel.numberOfLines = 2;
     _travelBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -178,6 +177,7 @@
 
     _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
     _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
     _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];

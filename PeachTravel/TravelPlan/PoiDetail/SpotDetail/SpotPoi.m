@@ -22,6 +22,7 @@
         _priceDesc = [json objectForKey:@"priceDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _desc = [json objectForKey:@"desc"];
+        _descUrl = [json objectForKey:@"descUrl"];
         NSMutableArray *tempImages = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *taoziImage = [[TaoziImage alloc] initWithJson:imageDic];

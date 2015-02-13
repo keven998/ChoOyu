@@ -23,6 +23,7 @@
 @property (nonatomic, copy) NSString *trafficInfoUrl;
 @property (nonatomic, copy) NSString *guideUrl;
 @property (nonatomic, copy) NSString *tipsUrl;
+@property (nonatomic, copy) NSString *descUrl;
 @property (nonatomic) BOOL isMyFavorite;
 @property (nonatomic) float rating;
 
