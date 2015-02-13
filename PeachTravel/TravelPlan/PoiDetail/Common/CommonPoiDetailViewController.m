@@ -57,7 +57,6 @@
         restaurantView.transform = CGAffineTransformIdentity;
         [restaurantView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         [restaurantView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-
     }];
 }
 

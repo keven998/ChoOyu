@@ -26,6 +26,11 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic) NSInteger commentCount;
 @property (nonatomic, copy) NSString *moreCommentsUrl;
+
+/**
+ *  预订的 url
+ */
+@property (nonatomic, copy) NSString *bookUrl;
 @property (nonatomic) float rating;
 @property (nonatomic) int rank;
 @property (nonatomic) double lat;
