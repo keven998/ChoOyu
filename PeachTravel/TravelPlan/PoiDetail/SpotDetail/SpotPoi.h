@@ -26,6 +26,10 @@
 @property (nonatomic, copy) NSString *descUrl;
 @property (nonatomic) BOOL isMyFavorite;
 @property (nonatomic) float rating;
+/**
+ *  预订 url
+ */
+@property (nonatomic, copy) NSString *bookUrl;
 
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;

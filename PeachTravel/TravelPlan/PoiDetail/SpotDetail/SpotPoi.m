@@ -23,6 +23,7 @@
         _travelMonth = [json objectForKey:@"travelMonth"];
         _desc = [json objectForKey:@"desc"];
         _descUrl = [json objectForKey:@"descUrl"];
+        _bookUrl = [json objectForKey:@"lyPoiUrl"];
         NSMutableArray *tempImages = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *taoziImage = [[TaoziImage alloc] initWithJson:imageDic];

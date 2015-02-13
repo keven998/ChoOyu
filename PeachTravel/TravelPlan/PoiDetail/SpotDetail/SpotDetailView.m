@@ -37,7 +37,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, self.bounds.size.width, self.bounds.size.height-35)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 27, self.bounds.size.width, self.bounds.size.height-35)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
@@ -84,9 +84,9 @@
     
     [_imageView addSubview:_titleLabel];
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-100)/2, 50, 100, 15)];
-    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-60)/2, 50, 60, 15)];
+    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray_small.png"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow_small.png"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
@@ -95,7 +95,7 @@
     [_imageView addSubview:_ratingView];
     
     UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 90);
+    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 85);
     [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
     [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
     [_imageView addSubview:viewImageBtn];
@@ -129,7 +129,7 @@
     _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
-    _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
+    _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
     _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _descDetailBtn.titleLabel.numberOfLines = 2;
@@ -156,7 +156,7 @@
     _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
-    _travelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    _travelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
     _travelBtn.titleLabel.numberOfLines = 2;
     _travelBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
@@ -178,7 +178,7 @@
     _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
-    _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14];
     _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _ticketBtn.titleLabel.numberOfLines = 2;
@@ -190,20 +190,24 @@
     [_scrollView addSubview:_ticketBtn];
     offsetY += 75;
    
-    UIButton *bookBtn = [[UIButton alloc] initWithFrame:CGRectMake((width-75)/2, offsetY, 75, 25)];
-    [bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    bookBtn.clipsToBounds = YES;
-    bookBtn.layer.cornerRadius = 12.5;
-    [bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
-    [bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
-    [bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
-    bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    [_scrollView addSubview:bookBtn];
+    _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-110, offsetY, 90, 30)];
+    [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    _bookBtn.clipsToBounds = YES;
+    _bookBtn.layer.cornerRadius = 5;
+    [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_bookBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+    _bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
+    [_bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
+    _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    [_scrollView addSubview:_bookBtn];
+    if ([_spot.bookUrl isBlankString] || !_spot.bookUrl) {
+        _bookBtn.enabled = NO;
+    }
     
     offsetY += 50;
     
-    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY, 12, 18)];
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, offsetY+10, 12, 18)];
     addressImageView.image = [UIImage imageNamed:@"ic_spot_map.png"];
     [_scrollView addSubview:addressImageView];
     
@@ -277,14 +281,6 @@
 }
 
 #pragma mark - IBAction Methods
-
-- (IBAction)summary:(id)sender {
-    
-}
-
-- (IBAction)book:(id)sender {
-    
-}
 
 - (IBAction)viewImage:(id)sender
 {

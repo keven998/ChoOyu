@@ -79,6 +79,8 @@
     [_spotDetailView.travelBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.ticketBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.descDetailBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
+
 
 
 }
@@ -201,7 +203,21 @@
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点详情";
-    webCtl.urlStr = _spotPoi.descUrl3;
+    webCtl.urlStr = _spotPoi.descUrl;
+    [self.navigationController pushViewController:webCtl animated:YES];
+}
+
+
+/**
+ *  在线预订
+ *
+ *  @param sender
+ */
+- (IBAction)book:(id)sender
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"在线预订";
+    webCtl.urlStr = _spotPoi.bookUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 

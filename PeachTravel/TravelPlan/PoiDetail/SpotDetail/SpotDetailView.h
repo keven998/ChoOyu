@@ -24,5 +24,6 @@
 @property (nonatomic, strong) UIButton *shareBtn;
 @property (nonatomic, strong) UIButton *addressBtn;
 @property (nonatomic, strong) UIButton *closeBtn;
+@property (nonatomic, strong) UIButton *bookBtn;
 
 @end
