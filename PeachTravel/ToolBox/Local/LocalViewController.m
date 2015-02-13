@@ -124,6 +124,8 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back_white.png"] forState:UIControlStateNormal];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
@@ -131,6 +133,8 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
@@ -562,7 +566,7 @@
             }
             UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
             [tbView reloadData];
-            int currentPage = _swipeView.currentPage;
+            NSInteger currentPage = _swipeView.currentPage;
             _isLoaddingMoreList = nil;
             _dataSource = nil;
             _currentPageList = nil;
