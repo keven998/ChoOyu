@@ -96,7 +96,7 @@
     [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
 //    [_imageView addSubview:viewImageBtn];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-70, _imageView.bounds.size.height-35, 30, 30)];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-75, _imageView.bounds.size.height-35, 30, 30)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateSelected];
     if (_poi.isMyFavorite) {
@@ -137,28 +137,11 @@
     }
     [_scrollView addSubview:rankLabel];
     
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY+60, _scrollView.bounds.size.width-125, 30)];
-    _priceLabel.textColor = APP_THEME_COLOR;
-    _priceLabel.font = [UIFont boldSystemFontOfSize:20.0];
-    _priceLabel.text = _poi.priceDesc;
-    _priceLabel.textAlignment = NSTextAlignmentCenter;
-    [_scrollView addSubview:_priceLabel];
-    
-    if (_poiType == kHotelPoi) {
-        _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-110, offsetY+65, 90, 30)];
-        _bookBtn.backgroundColor = APP_THEME_COLOR;
-        _bookBtn.layer.cornerRadius = 5;
-        [_bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
-        _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:10.0];
-        [_bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
-        [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_scrollView addSubview:_bookBtn];
-    }
-    
     UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY, _scrollView.bounds.size.width-155, 30)];
     addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    addressDetailLabel.titleLabel.numberOfLines = 4;
+    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
+    addressDetailLabel.titleLabel.numberOfLines = 2;
     [addressDetailLabel setTitle:[NSString stringWithFormat:@"     %@",_poi.address] forState:UIControlStateNormal];
     [addressDetailLabel setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [addressDetailLabel setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
@@ -178,16 +161,56 @@
     [phoneDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [phoneDetailBtn setImage:[UIImage imageNamed:@"ic_tel.png"] forState:UIControlStateNormal];
     [_scrollView addSubview:phoneDetailBtn];
+    
+    offsetY += 65;
 
-    offsetY += 130;
-    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(15, offsetY, _scrollView.bounds.size.width-30, 55) andNumberOfLine:3];
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width-40, 20)];
+    _priceLabel.textColor = APP_THEME_COLOR;
+    _priceLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    _priceLabel.text = _poi.priceDesc;
+    _priceLabel.adjustsFontSizeToFitWidth = YES;
+    [_scrollView addSubview:_priceLabel];
+    
+    if ([_poi.priceDesc isBlankString] || !_poi.priceDesc) {
+        offsetY += 10;
+    } else {
+        offsetY += 30;
+    }
+    
+    if (_poiType == kHotelPoi) {
+        _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-110, offsetY, 90, 30)];
+        _bookBtn.layer.cornerRadius = 5;
+        _bookBtn.clipsToBounds = YES;
+        [_bookBtn setContentEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 0)];
+        [_bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
+        [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+        [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+
+        [_bookBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+        _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:14.0];
+        [_bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
+        [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_scrollView addSubview:_bookBtn];
+        if (!_poi.bookUrl || [_poi.bookUrl isBlankString]) {
+            _bookBtn.enabled = NO;
+        }
+        offsetY += 40;
+    } else {
+        offsetY += 10;
+    }
+
+//    _poi.desc = @"这是一家很好吃的小吃店。。哈哈，真的没有骗你们,这是一家很好吃的小吃店。。哈哈，真的没有骗你们,这是一家很好吃的小吃店。。哈哈，真的没有骗你们";
+    _descView = [[ResizableView alloc] initWithFrame:CGRectMake(15, offsetY+10, _scrollView.bounds.size.width-30, 55) andNumberOfLine:3];
     _descView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _poi.desc;
+    _descView.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [_scrollView addSubview:_descView];
 
     if (!([_poi.desc isBlankString] || !_poi.desc)) {
-        offsetY += 70;
+        offsetY += 75;
+    } else {
+        offsetY += 20;
     }
     
     UIImageView *commentBkgImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_comment_line.png"]];
@@ -316,7 +339,10 @@
  */
 - (IBAction)book:(id)sender
 {
-    
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"在线预订";
+    webCtl.urlStr = _poi.bookUrl;
+    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
 - (IBAction)favorite:(id)sender

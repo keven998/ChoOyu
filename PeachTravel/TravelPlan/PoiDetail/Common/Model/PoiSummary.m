@@ -45,7 +45,8 @@
         if ([json objectForKey:@"rank"] != [NSNull null]) {
             _rank = [[json objectForKey:@"rank"] intValue];
         }
-
+        
+        _bookUrl = [json objectForKey:@"lyPoiUrl"];
         
         if ([[json objectForKey:@"tel"] isKindOfClass:[NSArray class]]) {
             _telephone = [[json objectForKey:@"tel"] firstObject];
