@@ -201,7 +201,7 @@
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点详情";
-    webCtl.urlStr = _spotPoi.descUrl3;
+    webCtl.urlStr = _spotPoi.descUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 

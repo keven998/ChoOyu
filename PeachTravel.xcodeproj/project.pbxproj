@@ -16,6 +16,8 @@
 		C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */; };
 		C65A278F1A876B7200CC4D48 /* ic_dialog_window_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A278E1A876B7200CC4D48 /* ic_dialog_window_close@2x.png */; };
 		C65A27931A87966900CC4D48 /* btn_spot_info_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */; };
+		C65A27951A8DA1CD00CC4D48 /* ic_nav_action_search_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27941A8DA1CD00CC4D48 /* ic_nav_action_search_white@2x.png */; };
+		C65A27971A8DA22200CC4D48 /* ic_navigation_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */; };
 		C67C06901A81BADB00E0F30B /* MicrosoftYaHei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */; };
 		C67C07871A81BFC100E0F30B /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077A1A81BFC100E0F30B /* libSocialSina.a */; };
 		C67C07881A81BFC100E0F30B /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077D1A81BFC100E0F30B /* libSocialQQ.a */; };
@@ -724,6 +726,8 @@
 		C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_them_extender_right@2x.png"; sourceTree = "<group>"; };
 		C65A278E1A876B7200CC4D48 /* ic_dialog_window_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_dialog_window_close@2x.png"; sourceTree = "<group>"; };
 		C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_box@2x.png"; sourceTree = "<group>"; };
+		C65A27941A8DA1CD00CC4D48 /* ic_nav_action_search_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_nav_action_search_white@2x.png"; path = "PeachTravel/Images/2x/ic_nav_action_search_white@2x.png"; sourceTree = SOURCE_ROOT; };
+		C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_navigation_back_white@2x.png"; path = "PeachTravel/Images/ic_navigation_back_white@2x.png"; sourceTree = SOURCE_ROOT; };
 		C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MicrosoftYaHei.ttf; sourceTree = "<group>"; };
 		C67C077A1A81BFC100E0F30B /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
 		C67C077B1A81BFC100E0F30B /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
@@ -3692,6 +3696,8 @@
 		D9A803A71A80E737005AD701 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */,
+				C65A27941A8DA1CD00CC4D48 /* ic_nav_action_search_white@2x.png */,
 				C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */,
 				C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */,
 				D9A803A81A80E737005AD701 /* home_navigation_title@2x.png */,
@@ -4502,6 +4508,7 @@
 				D9A8057E1A80E738005AD701 /* s_rain@2x.png in Resources */,
 				D9A805541A80E738005AD701 /* ic_spot_address@2x.png in Resources */,
 				D9245DDF1A8CD29B004571AD /* ic_clock_big@2x.png in Resources */,
+				C65A27951A8DA1CD00CC4D48 /* ic_nav_action_search_white@2x.png in Resources */,
 				D9B9EA151A88CBEA00966074 /* ic_remove_select_one@2x.png in Resources */,
 				D9722F2E1A82446900D8A8CC /* Loading_Animation_final14@2x.png in Resources */,
 				D9A805511A80E738005AD701 /* ic_select_dest_done@2x.png in Resources */,
@@ -4594,6 +4601,7 @@
 				D9A8052C1A80E738005AD701 /* ic_city_back_highlight@2x.png in Resources */,
 				D9A8FF1E1A80CC2B005AD701 /* UserHeaderTableViewCell.xib in Resources */,
 				D9A8050F1A80E738005AD701 /* ic_tab_arr.png in Resources */,
+				C65A27971A8DA22200CC4D48 /* ic_navigation_back_white@2x.png in Resources */,
 				D9A805281A80E738005AD701 /* ic_cell_item_chooesed@2x.png in Resources */,
 				D9A804AB1A80E738005AD701 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				D9A801221A80DD23005AD701 /* call_silence_h@2x.png in Resources */,
