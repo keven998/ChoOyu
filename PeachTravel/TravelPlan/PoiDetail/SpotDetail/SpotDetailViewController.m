@@ -284,15 +284,14 @@
 - (IBAction)favorite:(id)sender
 {
     //先将收藏的状态改变
-    _spotDetailView.favoriteBtn.selected = !_spotPoi.isMyFavorite;
+    _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
     _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
     [super asyncFavorite:_spotPoi.spotId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
         _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _spotPoi.isMyFavorite = !_spotPoi.isMyFavorite;
-            
         } else {      //如果失败了，再把状态改回来
-            _spotDetailView.favoriteBtn.selected = !_spotPoi.isMyFavorite;
+            _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
         }
     }];
     
