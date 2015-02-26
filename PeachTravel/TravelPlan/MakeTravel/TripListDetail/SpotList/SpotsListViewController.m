@@ -80,7 +80,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.contentInset = UIEdgeInsetsMake(8, 0, 10, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(8, 0, 60, 0);
         _tableView.backgroundColor = APP_PAGE_COLOR;
         
         if (_canEdit && _tripDetail) {
@@ -94,7 +94,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UIView *)tableViewFooterView
 {
     if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 135)];
+        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 85)];
         UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
         [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
