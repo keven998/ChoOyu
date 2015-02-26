@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *poiId;
 @property (nonatomic) TZPoiType poiType;
 @property (nonatomic, copy) NSString *poiTypeDesc;
+@property (nonatomic, copy) NSString *poiTypeName;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *priceDesc;
@@ -49,6 +50,5 @@
  *  @return
  */
 - (NSDictionary *)prepareSummaryDataForUpdateBackUpTrip;
-
 
 @end

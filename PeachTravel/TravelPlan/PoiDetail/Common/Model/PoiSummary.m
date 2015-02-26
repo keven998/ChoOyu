@@ -26,20 +26,23 @@
         if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
             _poiType = kSpotPoi;
             _poiTypeDesc = @"vs";
+            _poiTypeName = @"景点";
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"restaurant"]) {
             _poiType = kRestaurantPoi;
             _poiTypeDesc = @"restaurant";
+            _poiTypeName = @"美食";
 
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"shopping"]) {
             _poiType = kShoppingPoi;
             _poiTypeDesc = @"shopping";
-
+            _poiTypeName = @"购物";
         }
         if ([[json objectForKey:@"type"] isEqualToString:@"hotel"]) {
             _poiType = kHotelPoi;
             _poiTypeDesc = @"hotel";
+            _poiTypeName = @"酒店";
         }
         
         if ([json objectForKey:@"rank"] != [NSNull null]) {

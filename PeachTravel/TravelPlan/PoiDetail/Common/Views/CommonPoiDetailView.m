@@ -44,18 +44,21 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 5, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - 10)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 27, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - 35)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
         [self addSubview:_scrollView];
         
-        _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
+        _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-64, 0, 64, 40)];
         [_closeBtn setImage:[UIImage imageNamed:@"ic_dialog_window_close.png"] forState:UIControlStateNormal];
-        [_closeBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
+        _closeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _closeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 11, 5);
         [self addSubview:_closeBtn];
         
         _imageView = [[UIImageView alloc] init];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.clipsToBounds = YES;
         [_scrollView addSubview:_imageView];
         
     }
@@ -70,7 +73,7 @@
 
 - (void)setupSubView
 {
-    CGFloat offsetY = 25;
+    CGFloat offsetY = 0;
 
     _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, 140);
     _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
@@ -87,13 +90,13 @@
     _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.text = _poi.zhName;
     _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:25.];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:20.];
     [_imageView addSubview:_titleLabel];
     
-    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 80);
-    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
-    [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+//    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 80);
+//    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
+//    [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
 //    [_imageView addSubview:viewImageBtn];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-75, _imageView.bounds.size.height-35, 30, 30)];
@@ -112,7 +115,7 @@
     
     offsetY += _imageView.bounds.size.height + 40;
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(130, offsetY+10, 1, 40)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(130, offsetY, 1, 60)];
     spaceView.backgroundColor = APP_DIVIDE_COLOR;
     [_scrollView addSubview:spaceView];
 
@@ -131,16 +134,17 @@
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     rankLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     if (_poi.rank > 0 && _poi.rank <= 100) {
-        rankLabel.text = [NSString stringWithFormat:@"同城排名:%d",_poi.rank];
+        rankLabel.text = [NSString stringWithFormat:@"%@排名 %d", _poi.poiTypeName, _poi.rank];
     } else {
-        rankLabel.text = @"同城排名: >100";
+        rankLabel.text = [NSString stringWithFormat:@"%@排名 >100", _poi.poiTypeName];
     }
     [_scrollView addSubview:rankLabel];
     
-    UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY, _scrollView.bounds.size.width-155, 30)];
-    addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(145, offsetY, _scrollView.bounds.size.width-160, 30)];
+    addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateHighlighted];
+    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    addressDetailLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     addressDetailLabel.titleLabel.numberOfLines = 2;
     [addressDetailLabel setTitle:[NSString stringWithFormat:@"     %@",_poi.address] forState:UIControlStateNormal];
     [addressDetailLabel setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -148,11 +152,12 @@
     [addressDetailLabel addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:addressDetailLabel];
     
-    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(140, offsetY-2, 11, 16)];
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(145, offsetY-2, 11, 16)];
     addressImageView.image = [UIImage imageNamed:@"ic_map.png"];
+    addressImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:addressImageView];
     
-    UIButton *phoneDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(140, offsetY+40, _scrollView.bounds.size.width-155, 20)];
+    UIButton *phoneDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(145, offsetY+40, _scrollView.bounds.size.width-160, 20)];
     [phoneDetailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [phoneDetailBtn addTarget:self action:@selector(makePhone:) forControlEvents:UIControlEventTouchUpInside];
     [phoneDetailBtn setTitle:_poi.telephone forState:UIControlStateNormal];
@@ -166,7 +171,7 @@
 
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width-40, 20)];
     _priceLabel.textColor = APP_THEME_COLOR;
-    _priceLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    _priceLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
     _priceLabel.text = _poi.priceDesc;
     _priceLabel.adjustsFontSizeToFitWidth = YES;
     [_scrollView addSubview:_priceLabel];
@@ -219,7 +224,7 @@
     UILabel *commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 14)];
     commentTitle.text = @"网友点评";
     commentTitle.textAlignment = NSTextAlignmentCenter;
-    commentTitle.font = [UIFont boldSystemFontOfSize:15];
+    commentTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
     commentTitle.textColor = APP_THEME_COLOR;
     commentTitle.center = CGPointMake(commentBkgImage.bounds.size.width/2, commentBkgImage.bounds.size.height/2);
     [commentBkgImage addSubview:commentTitle];
@@ -231,6 +236,7 @@
         
         UIImageView *dotImageViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(10, offsetY-10, 20, 17)];
         dotImageViewLeft.image = [UIImage imageNamed:@"ic_quotation_l.png"];
+        dotImageViewLeft.contentMode = UIViewContentModeScaleAspectFit;
         [_scrollView addSubview:dotImageViewLeft];
         
         CommentDetail *comment = [_poi.comments objectAtIndex:0];
@@ -242,8 +248,8 @@
         [_scrollView addSubview:commentLabel];
         offsetY += 40;
         UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
-        commentSubLabel.textColor = TEXT_COLOR_TITLE_HINT;
-        commentSubLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+        commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
+        commentSubLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
         commentSubLabel.textAlignment = NSTextAlignmentRight;
         NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
         commentSubLabel.text = s;
@@ -261,8 +267,8 @@
         [_scrollView addSubview:commentLabel];
         offsetY += 40;
         UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
-        commentSubLabel.textColor = TEXT_COLOR_TITLE_HINT;
-        commentSubLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+        commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
+        commentSubLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
         commentSubLabel.textAlignment = NSTextAlignmentRight;
         NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
         commentSubLabel.text = s;
@@ -272,8 +278,9 @@
 
     if (_poi.comments.count > 0) {
         offsetY += 10;
-        UIImageView *dotImageViewRight = [[UIImageView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-27, offsetY-20, 20, 17)];
+        UIImageView *dotImageViewRight = [[UIImageView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-30, offsetY-20, 20, 17)];
         dotImageViewRight.image = [UIImage imageNamed:@"ic_quotation_r.png"];
+        dotImageViewRight.contentMode = UIViewContentModeScaleAspectFit;
         [_scrollView addSubview:dotImageViewRight];
     }
     
