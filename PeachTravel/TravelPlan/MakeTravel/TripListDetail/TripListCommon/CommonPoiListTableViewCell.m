@@ -49,18 +49,18 @@
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     _ratingView.rating = tripPoi.rating;
-    NSString *rankStr;
+//    NSString *rankStr;
     if (_tripPoi.poiType == kRestaurantPoi) {
         _propertyLabel.text = _tripPoi.priceDesc;
-        rankStr = @"美食排名";
+//        rankStr = @"美食排名";
     }
-    if (_tripPoi.poiType == kShoppingPoi) {
-        rankStr = @"购物排名";
-    }
+//    if (_tripPoi.poiType == kShoppingPoi) {
+//        rankStr = @"购物排名";
+//    }
     if (_tripPoi.rank <= 100 && _tripPoi.rank > 0) {
-        _rankingLabel.text = [NSString stringWithFormat:@"%@ %d",rankStr, _tripPoi.rank];
+        _rankingLabel.text = [NSString stringWithFormat:@"%@排名 %d", _tripPoi.poiTypeName, _tripPoi.rank];
     } else {
-        _rankingLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
+        _rankingLabel.text = [NSString stringWithFormat:@"%@排名 >100", _tripPoi.poiTypeName];
     }
     NSAttributedString *localStr = [[NSAttributedString alloc] initWithString:_tripPoi.address attributes:@{NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE}];
     NSMutableAttributedString *allStr = [[NSMutableAttributedString alloc] init];
