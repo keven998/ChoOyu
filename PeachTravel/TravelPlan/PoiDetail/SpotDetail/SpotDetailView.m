@@ -43,12 +43,15 @@
         _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);
         [self addSubview:_scrollView];
         
-        _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-40, 0, 40, 40)];
+        _closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width-64, 0, 64, 40)];
         [_closeBtn setImage:[UIImage imageNamed:@"ic_dialog_window_close.png"] forState:UIControlStateNormal];
-        [_closeBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
+        _closeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _closeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 11, 5);
         [self addSubview:_closeBtn];
         
         _imageView = [[UIImageView alloc] init];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.clipsToBounds = YES;
         [_scrollView addSubview:_imageView];
     }
     return self;
@@ -175,22 +178,29 @@
     [_scrollView addSubview:ticketTitle];
     offsetY += 25;
 
-    _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 0)];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
-    _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _ticketBtn.titleLabel.numberOfLines = 2;
     _ticketBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-
-    [_ticketBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 20, 20)];
+    _ticketBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    [_ticketBtn setContentEdgeInsets:UIEdgeInsetsMake(20, 20, 10, 20)];
     [_ticketBtn setTitle:_spot.priceDesc forState:UIControlStateNormal];
     [_scrollView addSubview:_ticketBtn];
-    offsetY += 65;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:14]};
+    CGRect rect = [_ticketBtn.titleLabel.text boundingRectWithSize:CGSizeMake(width, 2 * _ticketBtn.titleLabel.font.lineHeight)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil];
+    _ticketBtn.frame = CGRectMake(0, offsetY, width, rect.size.height + 30);
+    
+    offsetY += _ticketBtn.frame.size.height;
    
-    _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-110, offsetY, 90, 30)];
+    _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-100, offsetY, 80, 30)];
     [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
     _bookBtn.clipsToBounds = YES;
@@ -212,7 +222,7 @@
     [_scrollView addSubview:addressImageView];
     
     _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, offsetY, width-55, 38)];
-    _addressBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+    _addressBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
