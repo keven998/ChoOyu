@@ -202,7 +202,7 @@
 - (IBAction)showSpotDetail:(id)sender
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = @"景点详情";
+    webCtl.titleStr = _spotPoi.zhName;
     webCtl.urlStr = _spotPoi.descUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
@@ -242,7 +242,7 @@
 - (IBAction)kengdie:(id)sender
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = @"旅行小贴士";
+    webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = _spotPoi.tipsUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
@@ -255,7 +255,7 @@
 - (IBAction)trafficGuide:(id)sender
 {
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = @"交通指南";
+    webCtl.titleStr = @"景点交通";
     webCtl.urlStr = _spotPoi.trafficInfoUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }

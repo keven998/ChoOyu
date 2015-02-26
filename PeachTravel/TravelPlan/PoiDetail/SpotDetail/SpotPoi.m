@@ -34,7 +34,7 @@
         _openTime = [json objectForKey:@"openTime"];
         _timeCostStr = [json objectForKey:@"timeCostDesc"];
         _trafficInfoUrl = [json objectForKey:@"trafficInfoUrl"];
-        _guideUrl = [json objectForKey:@"guideUrl"];
+        _guideUrl = [json objectForKey:@"visitGuideUrl"];
         _tipsUrl = [json objectForKey:@"tipsUrl"];
         
         if ([json objectForKey:@"rating"] == [NSNull null] || ![json objectForKey:@"rating"]) {

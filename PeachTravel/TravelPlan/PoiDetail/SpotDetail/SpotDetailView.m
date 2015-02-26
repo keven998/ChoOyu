@@ -202,11 +202,11 @@
    
     _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-100, offsetY, 80, 30)];
     [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xeeeeee)] forState:UIControlStateDisabled];
     _bookBtn.clipsToBounds = YES;
     _bookBtn.layer.cornerRadius = 5;
     [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_bookBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
+    [_bookBtn setTitleColor:UIColorFromRGB(0xd5d5d5) forState:UIControlStateDisabled];
     _bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [_bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
     _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
@@ -277,8 +277,9 @@
     _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
     [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
     [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
-    [_trafficGuideBtn setTitle:@"交通" forState:UIControlStateNormal];
+    [_trafficGuideBtn setTitle:@"景点\n交通" forState:UIControlStateNormal];
     _trafficGuideBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+    _trafficGuideBtn.titleLabel.numberOfLines = 2;
     [_trafficGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_trafficGuideBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     [_trafficGuideBtn setTitleColor:UIColorFromRGB(0xdddddd) forState:UIControlStateDisabled];
