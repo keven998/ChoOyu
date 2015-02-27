@@ -127,7 +127,7 @@
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.2];
         } else {
-            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+            [SVProgressHUD showHint:@"添加失败"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
