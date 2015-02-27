@@ -99,6 +99,19 @@
     [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     [_smallHeaderFrame addSubview:smallHeaderView];
     
+    UIImageView *genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(45, 45, 17, 17)];
+    if ([contact.gender isEqualToString:@"M"]) {
+        genderImageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
+        
+    }
+    if ([contact.gender isEqualToString:@"F"]) {
+        genderImageView.image  = [UIImage imageNamed:@"ic_gender_lady.png"];
+    }
+    if ([contact.gender isEqualToString:@"U"]) {
+        genderImageView.image  = nil;
+    }
+    [_smallHeaderFrame addSubview:genderImageView];
+    
     UIView *wp = [[UIView alloc] initWithFrame:CGRectMake(11.0, 175.0 + 5.0, width - 22.0, 34.0)];
     wp.backgroundColor = [UIColor whiteColor];
     wp.layer.cornerRadius = 2.0;
