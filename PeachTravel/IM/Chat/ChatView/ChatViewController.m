@@ -1488,9 +1488,23 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.dataSource addObjectsFromArray:messages];
+            BOOL isReloadToBottom = YES;
+            if ((weakSelf.tableView.contentOffset.y+weakSelf.tableView.frame.size.height) > (weakSelf.tableView.contentSize.height-kWindowHeight)) {
+                isReloadToBottom = YES;
+            } else {
+                isReloadToBottom = NO;
+            }
+            NSLog(@"contentSize:%f   offsetSize:%f", weakSelf.tableView.contentSize.height, weakSelf.tableView.contentOffset.y);
+
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-            NSLog(@"******UITableViewScrollPositionBottom");
+            
+            NSLog(@"contentSize:%f   offsetSize:%f", weakSelf.tableView.contentSize.height, weakSelf.tableView.contentOffset.y);
+
+            if (isReloadToBottom) {
+                 [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                NSLog(@"******UITableViewScrollPositionBottom");
+            }
+           
         });
     });
 
