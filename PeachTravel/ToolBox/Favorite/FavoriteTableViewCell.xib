@@ -165,28 +165,12 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_sending_bkg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jwf-FY-6JH">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="4HH-PY-GYp"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="4HH-PY-GYp"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="4HH-PY-GYp"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h39-Bq-jSe">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.43137254899999999" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.33725490200000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="1lA-kR-9qk"/>
-                                    <constraint firstAttribute="height" constant="20" id="HG4-R5-Tcv"/>
+                                    <constraint firstAttribute="height" constant="25" id="pm4-q8-cHP"/>
+                                    <constraint firstAttribute="width" constant="45" id="s0j-xi-oNb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="发送">
@@ -195,14 +179,14 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="1lA-kR-9qk"/>
-                                        <exclude reference="HG4-R5-Tcv"/>
+                                        <exclude reference="pm4-q8-cHP"/>
+                                        <exclude reference="s0j-xi-oNb"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="1lA-kR-9qk"/>
-                                        <include reference="HG4-R5-Tcv"/>
+                                        <include reference="pm4-q8-cHP"/>
+                                        <include reference="s0j-xi-oNb"/>
                                     </mask>
                                 </variation>
                             </button>
@@ -219,14 +203,13 @@
                                 <variation key="widthClass=compact" constant="5"/>
                             </constraint>
                             <constraint firstAttribute="bottom" secondItem="FRv-kb-OA4" secondAttribute="bottom" constant="6" id="Fuw-wy-bFj"/>
+                            <constraint firstAttribute="trailing" secondItem="h39-Bq-jSe" secondAttribute="trailing" constant="8" id="GqW-Oz-QDo"/>
                             <constraint firstItem="oMy-vb-5XK" firstAttribute="leading" secondItem="MEp-3c-21t" secondAttribute="leading" constant="10" id="GxY-4I-kKO"/>
                             <constraint firstItem="nLA-g0-BSE" firstAttribute="leading" secondItem="oMy-vb-5XK" secondAttribute="trailing" constant="10" id="Izd-TI-LZF"/>
                             <constraint firstItem="AHP-Bw-dpw" firstAttribute="leading" secondItem="MEp-3c-21t" secondAttribute="leading" id="KdP-5m-OBN">
                                 <variation key="widthClass=compact" constant="-2"/>
                             </constraint>
-                            <constraint firstItem="Jwf-FY-6JH" firstAttribute="top" secondItem="MEp-3c-21t" secondAttribute="top" id="Li4-wA-mEa"/>
-                            <constraint firstAttribute="trailing" secondItem="h39-Bq-jSe" secondAttribute="trailing" constant="13" id="MTA-Jg-eK1"/>
-                            <constraint firstAttribute="trailing" secondItem="Jwf-FY-6JH" secondAttribute="trailing" id="XLV-XX-d2z"/>
+                            <constraint firstAttribute="centerY" secondItem="h39-Bq-jSe" secondAttribute="centerY" id="UN2-uW-H6i"/>
                             <constraint firstAttribute="trailing" secondItem="FAu-ay-ugQ" secondAttribute="trailing" constant="8" id="fH8-Dk-1pM">
                                 <variation key="widthClass=compact" constant="13"/>
                             </constraint>
@@ -251,8 +234,6 @@
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="FRv-kb-OA4" secondAttribute="trailing" constant="11" id="vhb-Qr-LI2"/>
                             <constraint firstItem="bmq-YL-BIJ" firstAttribute="leading" secondItem="MEp-3c-21t" secondAttribute="leading" constant="10" id="wGl-p1-Tdo"/>
-                            <constraint firstAttribute="bottom" secondItem="Jwf-FY-6JH" secondAttribute="bottom" id="wsF-ij-XjZ"/>
-                            <constraint firstAttribute="centerY" secondItem="h39-Bq-jSe" secondAttribute="centerY" id="x5E-qo-3PO"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -263,7 +244,6 @@
                                 <exclude reference="nLA-g0-BSE"/>
                                 <exclude reference="FRv-kb-OA4"/>
                                 <exclude reference="AHP-Bw-dpw"/>
-                                <exclude reference="Jwf-FY-6JH"/>
                                 <exclude reference="h39-Bq-jSe"/>
                             </mask>
                             <mask key="constraints">
@@ -277,9 +257,6 @@
                                 <exclude reference="h7G-Pa-bLH"/>
                                 <exclude reference="fvk-S6-Z13"/>
                                 <exclude reference="h7A-oh-d5b"/>
-                                <exclude reference="Li4-wA-mEa"/>
-                                <exclude reference="XLV-XX-d2z"/>
-                                <exclude reference="wsF-ij-XjZ"/>
                                 <exclude reference="KdP-5m-OBN"/>
                                 <exclude reference="mRW-R0-g8z"/>
                                 <exclude reference="tbq-EN-ilA"/>
@@ -287,8 +264,8 @@
                                 <exclude reference="vhb-Qr-LI2"/>
                                 <exclude reference="fH8-Dk-1pM"/>
                                 <exclude reference="k71-4r-obK"/>
-                                <exclude reference="MTA-Jg-eK1"/>
-                                <exclude reference="x5E-qo-3PO"/>
+                                <exclude reference="GqW-Oz-QDo"/>
+                                <exclude reference="UN2-uW-H6i"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -300,7 +277,6 @@
                                 <include reference="nLA-g0-BSE"/>
                                 <include reference="FRv-kb-OA4"/>
                                 <include reference="AHP-Bw-dpw"/>
-                                <include reference="Jwf-FY-6JH"/>
                                 <include reference="h39-Bq-jSe"/>
                             </mask>
                             <mask key="constraints">
@@ -314,9 +290,6 @@
                                 <include reference="h7G-Pa-bLH"/>
                                 <include reference="fvk-S6-Z13"/>
                                 <include reference="h7A-oh-d5b"/>
-                                <include reference="Li4-wA-mEa"/>
-                                <include reference="XLV-XX-d2z"/>
-                                <include reference="wsF-ij-XjZ"/>
                                 <include reference="KdP-5m-OBN"/>
                                 <include reference="mRW-R0-g8z"/>
                                 <include reference="tbq-EN-ilA"/>
@@ -324,8 +297,8 @@
                                 <include reference="vhb-Qr-LI2"/>
                                 <include reference="fH8-Dk-1pM"/>
                                 <include reference="k71-4r-obK"/>
-                                <include reference="MTA-Jg-eK1"/>
-                                <include reference="x5E-qo-3PO"/>
+                                <include reference="GqW-Oz-QDo"/>
+                                <include reference="UN2-uW-H6i"/>
                             </mask>
                         </variation>
                     </view>
@@ -431,7 +404,6 @@
                 <outlet property="contentTitle" destination="IXM-Ku-4nM" id="tA9-c4-QPf"/>
                 <outlet property="contentType" destination="FAu-ay-ugQ" id="lxn-AD-Xc3"/>
                 <outlet property="sendBtn" destination="h39-Bq-jSe" id="lse-PI-5ja"/>
-                <outlet property="sendBtnBkgImageView" destination="Jwf-FY-6JH" id="1V1-Vv-T1D"/>
                 <outlet property="standardImageView" destination="oMy-vb-5XK" id="fyf-DT-Xv2"/>
                 <outlet property="timeBtn" destination="FRv-kb-OA4" id="pY4-9q-PYD"/>
                 <outlet property="titleBkgImageView" destination="jzN-uy-59m" id="66y-kw-sqH"/>
@@ -440,7 +412,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_sending_bkg.png" width="99" height="90"/>
         <image name="ic_time.png" width="8" height="8"/>
     </resources>
 </document>

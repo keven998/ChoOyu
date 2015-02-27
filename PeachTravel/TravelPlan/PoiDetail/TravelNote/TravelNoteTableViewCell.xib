@@ -54,11 +54,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad5-l0-J6L">
-                        <rect key="frame" x="261" y="90" width="44" height="25"/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.32156862749999998" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="261" y="52.5" width="44" height="25"/>
+                        <color key="backgroundColor" red="0.99215686270000003" green="0.33725490200000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="GcK-uP-OI4"/>
-                            <constraint firstAttribute="width" constant="44" id="yNx-Xn-6Cx"/>
+                            <constraint firstAttribute="width" constant="44" id="Mjs-SF-Inc"/>
+                            <constraint firstAttribute="height" constant="25" id="gD5-yz-OHf"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="发送">
@@ -70,17 +70,17 @@
                 <constraints>
                     <constraint firstItem="AxZ-ld-PWP" firstAttribute="leading" secondItem="eaK-De-jRW" secondAttribute="trailing" constant="10" id="1v6-Af-Jdp"/>
                     <constraint firstItem="XAJ-wE-WPv" firstAttribute="top" secondItem="AxZ-ld-PWP" secondAttribute="bottom" constant="7" id="3A2-ug-iPV"/>
-                    <constraint firstAttribute="bottom" secondItem="ad5-l0-J6L" secondAttribute="bottom" constant="14.5" id="5lt-lr-M6B"/>
                     <constraint firstItem="AxZ-ld-PWP" firstAttribute="top" secondItem="ls7-Cy-EHt" secondAttribute="top" constant="14" id="8Wf-uB-wnm"/>
                     <constraint firstItem="ZSi-BI-IQI" firstAttribute="leading" secondItem="eaK-De-jRW" secondAttribute="trailing" constant="8" id="9iG-Oq-RdZ"/>
                     <constraint firstItem="eaK-De-jRW" firstAttribute="leading" secondItem="ls7-Cy-EHt" secondAttribute="leading" constant="10" id="AQM-2K-mob"/>
                     <constraint firstItem="XAJ-wE-WPv" firstAttribute="leading" secondItem="eaK-De-jRW" secondAttribute="trailing" constant="10" id="DZA-cC-OnE"/>
                     <constraint firstItem="ZSi-BI-IQI" firstAttribute="top" secondItem="XAJ-wE-WPv" secondAttribute="bottom" constant="8" id="H5U-T0-F7q"/>
                     <constraint firstAttribute="trailing" secondItem="ZSi-BI-IQI" secondAttribute="trailing" constant="15" id="LiF-Yw-dku"/>
+                    <constraint firstAttribute="centerY" secondItem="ad5-l0-J6L" secondAttribute="centerY" id="YnN-24-Hdp"/>
                     <constraint firstAttribute="trailing" secondItem="XAJ-wE-WPv" secondAttribute="trailing" constant="13" id="f4P-Qr-u8z"/>
-                    <constraint firstAttribute="trailing" secondItem="ad5-l0-J6L" secondAttribute="trailing" constant="15" id="j9y-NG-0ba"/>
                     <constraint firstAttribute="trailing" secondItem="AxZ-ld-PWP" secondAttribute="trailing" constant="15" id="lus-hL-Cgw"/>
                     <constraint firstItem="eaK-De-jRW" firstAttribute="top" secondItem="ls7-Cy-EHt" secondAttribute="top" constant="14" id="pqn-9T-yj4"/>
+                    <constraint firstAttribute="trailing" secondItem="ad5-l0-J6L" secondAttribute="trailing" constant="15" id="wYH-wb-W4D"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -80,7 +80,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [_typeLabel setFrame:CGRectMake(20, 40, 60, 30)];
+    if (_model.isSender) {
+        [_typeLabel setFrame:CGRectMake(12.5, 40, 60, 30)];
+    } else {
+        [_typeLabel setFrame:CGRectMake(20, 40, 60, 30)];
+    }
     _titleBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     _typeLabel.textAlignment = NSTextAlignmentRight;
     _titleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -99,9 +103,17 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
         [_propertyBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         [_titleBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     }
+    if (_model.isSender) {
+        [_pictureImageView setFrame:CGRectMake(12.5, 10, 60, 60)];
+        [_pictureImageBkgView setFrame:CGRectMake(12.5,
+                                                  
+                                                  
+                                                  10, 60, 60)];
+    } else {
+        [_pictureImageView setFrame:CGRectMake(20, 10, 60, 60)];
+        [_pictureImageBkgView setFrame:CGRectMake(20, 10, 60, 60)];
+    }
     
-    [_pictureImageView setFrame:CGRectMake(20, 10, 60, 60)];
-    [_pictureImageBkgView setFrame:CGRectMake(20, 10, 60, 60)];
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
 
     CGFloat offsetY;
@@ -154,7 +166,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
             case TZChatTypeFood: {
                 _typeLabel.text = @"美食";
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
+                if (_model.isSender) {
+                    [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
+                } else {
+                    [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
+                }
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
             }
@@ -162,7 +178,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeHotel: {
                 _typeLabel.text = @"酒店";
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
+                if (_model.isSender) {
+                    [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
+                } else {
+                    [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
+                }
                 NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
@@ -172,7 +192,11 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
                 
             case TZChatTypeShopping:
                 _typeLabel.text = @"购物";
-                [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
+                if (_model.isSender) {
+                    [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
+                } else {
+                    [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
+                }
                 [_propertyBtn setTitle:[content objectForKey:@"rating"] forState:UIControlStateNormal];
                 _descLabel.text = [content objectForKey:@"address"];
                 
