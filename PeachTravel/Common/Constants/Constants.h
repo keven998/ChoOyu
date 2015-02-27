@@ -33,7 +33,7 @@
 
 /***** API *****/
 
-#define BASE_URL                @ "http://api.taozilvxing.cn/taozi/"
+#define BASE_URL                                @ "http://api.taozilvxing.cn/taozi/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
@@ -106,11 +106,11 @@
 /**
  html 接口
  */
-#define FUN_CITY_HTML                           @ "http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
-#define RESTAURANT_CITY_HTML                    @ "http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
-#define SHOPPING_CITY_HTML                      @ "http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
-#define MORE_COMMENT_HTML                       @ "http://h5.taozilvxing.com/morecomment.php?pid="   //更多点评
-#define TRAVELNOTE_DETAIL_HTML                  @ "http://h5.taozilvxing.com/detail.php?id="        //游记详情
+//#define FUN_CITY_HTML                           @ "http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
+//#define RESTAURANT_CITY_HTML                    @ "http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
+//#define SHOPPING_CITY_HTML                      @ "http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
+//#define MORE_COMMENT_HTML                       @ "http://h5.taozilvxing.com/morecomment.php?pid="   //更多点评
+//#define TRAVELNOTE_DETAIL_HTML                  @ "http://h5.taozilvxing.com/detail.php?id="        //游记详情
 #define TRIP_DETAIL_HTML                        @ "http://h5.taozilvxing.com/planshare.php?pid="    //三张单详情
 #define APP_ABOUT                               @ "http://h5.taozilvxing.com/about.php"             //关于页面
 #define APP_AGREEMENT                           @ "http://h5.taozilvxing.com/agreement.htm"       //用户协议
