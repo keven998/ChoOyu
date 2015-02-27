@@ -99,7 +99,7 @@
     [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     [_smallHeaderFrame addSubview:smallHeaderView];
     
-    UIImageView *genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(45, 45, 17, 17)];
+    UIImageView *genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(47, 47, 17, 17)];
     if ([contact.gender isEqualToString:@"M"]) {
         genderImageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         
