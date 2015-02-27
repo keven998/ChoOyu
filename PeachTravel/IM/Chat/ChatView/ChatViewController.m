@@ -795,6 +795,7 @@
 - (void)chatTaoziBubblePressed:(MessageModel *)model
 {
     _isScrollToBottom = NO;
+    [self keyBoardHidden];
     switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
         case TZChatTypeSpot: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
