@@ -14,9 +14,7 @@
 
 @interface ContactDetailViewController ()<UIScrollViewDelegate, RNGridMenuDelegate, UIActionSheetDelegate>
 {
-
     ALDBlurImageProcessor *blurImageProcessor;
-
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -248,7 +246,12 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        [self removeContact];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认删除好友？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self removeContact];
+            }
+        }];
     }
 }
 
