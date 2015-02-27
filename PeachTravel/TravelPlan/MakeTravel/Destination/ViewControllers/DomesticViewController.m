@@ -38,7 +38,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     _domesticCollectionView.showsVerticalScrollIndicator = NO;
-    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
     layout.delegate = self;
