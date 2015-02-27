@@ -103,7 +103,7 @@
 
 + (void)jumpBaiduMapAppWithPoiName:(NSString *)poiName lat:(double)lat lng:(double)lng
 {
-    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&content=%@&src=taozi",lat, lng, poiName, poiName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlStr = [[NSString stringWithFormat:@"baidumap://map/marker?location=%f,%f&title=%@&coord_type=gcj02&content=%@&src=taozi",lat, lng, poiName, poiName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlStr]]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
