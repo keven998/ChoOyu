@@ -34,6 +34,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
     [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
+    [self.foreignCollectionView setShowsVerticalScrollIndicator:NO];
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
     layout.delegate = self;
