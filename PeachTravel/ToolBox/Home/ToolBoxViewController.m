@@ -343,6 +343,8 @@
         if (code == 0) {
             if (!_operationDataArray) {
                 _operationDataArray = [[NSMutableArray alloc] init];
+            } else {
+                return;
             }
             for (id operationDic in [responseObject objectForKey:@"result"]) {
                 OperationData *operation = [[OperationData alloc] initWithJson:operationDic];
