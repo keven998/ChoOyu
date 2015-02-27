@@ -94,7 +94,7 @@
     [self startAnimation];
     
     [UIView animateWithDuration:0.3 animations:^{
-        [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x-2.5, resetFrame.origin.y-2.5, resetFrame.size.width, resetFrame.size.height)];
+        [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x, resetFrame.origin.y, resetFrame.size.width, resetFrame.size.height)];
         _imageView.center = resetCenter;
     } completion:^(BOOL finished) {
     }];
@@ -114,8 +114,9 @@
     [self startAnimation];
     
     [UIView animateWithDuration:0.3 animations:^{
-        [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x-2.5, resetFrame.origin.y-2.5, resetFrame.size.width, resetFrame.size.height)];
+        [self.backGroundView setFrame:CGRectMake(resetFrame.origin.x, resetFrame.origin.y, resetFrame.size.width, resetFrame.size.height)];
         _imageView.center = resetCenter;
+    
     } completion:^(BOOL finished) {
     }];
 
