@@ -59,7 +59,8 @@
     self.indexView.fontColor = APP_SUB_THEME_COLOR;
     self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
     self.indexView.dataSource = self;
-    self.indexView.maxItemDeflection = 0.0;
+    self.indexView.maxItemDeflection = 60;
+    self.indexView.rangeOfDeflection = 1;
 
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight)];
     [self.indexView refreshIndexItems];

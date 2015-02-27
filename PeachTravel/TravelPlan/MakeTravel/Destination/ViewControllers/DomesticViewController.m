@@ -38,7 +38,7 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     _domesticCollectionView.showsVerticalScrollIndicator = NO;
-    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
     layout.delegate = self;
@@ -61,7 +61,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
     self.indexView.fontColor = APP_SUB_THEME_COLOR;
     self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
-    self.indexView.maxItemDeflection = 0.0;
+    self.indexView.maxItemDeflection = 60;
+    self.indexView.rangeOfDeflection = 1;
     self.indexView.dataSource = self;
     
     [self initData];
