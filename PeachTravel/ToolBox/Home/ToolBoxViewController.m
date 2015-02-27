@@ -394,13 +394,21 @@
 }
 
 #pragma mark - IBAction Methods
-
-
+/**
+ *  我身边
+ *
+ *  @param sender
+ */
 - (IBAction)nearBy:(UIButton *)sender {    
     LocalViewController *lvc = [[LocalViewController alloc] init];
     [self.navigationController pushViewController:lvc animated:YES];
 }
 
+/**
+ *  我的攻略列表
+ *
+ *  @param sender
+ */
 - (IBAction)myTravelNote:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
@@ -412,6 +420,11 @@
     }
 }
 
+/**
+ *  登录
+ *
+ *  @param sender
+ */
 - (IBAction)goLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
@@ -422,6 +435,9 @@
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
+/**
+ *  新建旅程
+ */
 - (IBAction) showActionHint {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:self
@@ -504,14 +520,11 @@
     [yweatherUtils queryYahooWeather:location.coordinate.latitude andLng:location.coordinate.longitude apiKey:@""];
 }
 
-
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
     [locationManager stopUpdatingLocation];
 }
-
-
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
@@ -555,9 +568,5 @@
         }
     }];
 }
-
-
-
-
 
 @end
