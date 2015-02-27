@@ -229,7 +229,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"从好友列表删除", nil];
+                                              otherButtonTitles:@"删除", nil];
     [sheet showInView:self.view];
 }
 
