@@ -241,7 +241,7 @@
     if (section == 0) {
         return 0;
     }
-    return 26.0;
+    return 16.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -255,19 +255,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 25.0)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 16.0)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, 25.0)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, 15.0)];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
         label.backgroundColor = [UIColor whiteColor];
-        label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+        label.font = [UIFont systemFontOfSize:12];
         label.textColor = UIColorFromRGB(0xadadad);
-        label.clipsToBounds = YES;
-        label.layer.cornerRadius = 2.0;
-        label.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
-        label.layer.shadowOffset = CGSizeMake(0.0, 0.5);
-        label.layer.shadowOpacity = 1.0;
-        label.layer.shadowRadius = 0.5;
         [view addSubview:label];
         return view;
     }
