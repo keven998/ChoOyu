@@ -38,6 +38,7 @@ PODS:
   - SVProgressHUD (1.0)
   - SWTableViewCell (0.3.7)
   - TMCache (1.2.2)
+  - UMengAnalytics-NO-IDFA (3.4.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - SVProgressHUD (~> 1.0)
   - SWTableViewCell (~> 0.3.7)
   - TMCache (~> 1.2)
+  - UMengAnalytics-NO-IDFA
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
@@ -64,5 +66,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SWTableViewCell: 25de71898e3fcd11cf75707ef90245acf990ec03
   TMCache: e2c9225de7a107b529d1d04baa58eb5eab3051f3
+  UMengAnalytics-NO-IDFA: 600bad4f635e69c097d924e8378e077a9768290d
 
 COCOAPODS: 0.35.0

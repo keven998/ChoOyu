@@ -447,6 +447,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
+## UMengAnalytics-NO-IDFA
+
+Copyright 2011 - 2015 UMeng.com. All rights reserved.
+
+
 ## iRate
 
 iRate
