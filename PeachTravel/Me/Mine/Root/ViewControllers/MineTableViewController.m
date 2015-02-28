@@ -71,6 +71,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_home_me"];
     if ([self rdv_tabBarController].tabBarHidden) {
         [[self rdv_tabBarController] setTabBarHidden:NO];
     }
@@ -83,6 +84,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_home_me"];
     if (self.navigationController.viewControllers.count == 2) {
         [[self rdv_tabBarController] setTabBarHidden:YES];
     }
@@ -126,6 +128,7 @@
 
 - (void)shareToWeChat
 {
+    [MobClick event:@"event_share_app_by_weichat"];
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"我是桃子旅行，女生们旅行必备的贴心小应用：http://www.taozilvxing.com" image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");

@@ -29,11 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-//    _registerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    [_registerBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-//    _registerBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
-//    [_registerBtn addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
 
     UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
     addBtn.tintColor = APP_THEME_COLOR;
@@ -50,12 +45,10 @@
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"输入新的手机号";
             self.navigationItem.rightBarButtonItem.title = @"提交 ";
-//            [_registerBtn setTitle:@"更换" forState:UIControlStateNormal];
         }
        
     } else {
         self.navigationItem.title = @"用户验证";
-//        [_registerBtn setTitle:@"提交" forState:UIControlStateNormal];
         _phoneLabel.placeholder = @"请输入手机号";
         self.navigationItem.rightBarButtonItem.title = @"提交 ";
     }
@@ -82,6 +75,21 @@
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_verify_phone"];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_verify_phone"];
+    
+    
 }
 
 #pragma mark - Private Methods
@@ -304,6 +312,7 @@
     [self.view endEditing:YES];
     [self stopTimer];
     [self virifyCaptcha];
+    [MobClick event:@"event_submit"];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

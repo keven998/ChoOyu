@@ -118,6 +118,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addWantTo:(id)sender
 {
+    [MobClick event:@"event_add_shopping_schedule"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.tripDetail = _tripDetail;
     shoppingOfCityCtl.delegate = self;
@@ -166,6 +167,8 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
+    [MobClick event:@"event_day_map_view"];
+
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -197,6 +200,8 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)deletePoi:(UIButton *)sender
 {
+    [MobClick event:@"event_delete_select_item"];
+
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     [_tripDetail.shoppingList removeObjectAtIndex:indexPath.section];
@@ -273,6 +278,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    [MobClick event:@"event_reorder_items"];
     NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
     PoiSummary *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.section];

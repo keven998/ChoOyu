@@ -88,12 +88,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_spot_detail"];
     self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_spot_detail"];
     self.navigationController.navigationBar.hidden = NO;
 }
 
@@ -201,6 +203,7 @@
  */
 - (IBAction)showSpotDetail:(id)sender
 {
+    [MobClick event:@"event_spot_information"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = _spotPoi.zhName;
     webCtl.urlStr = _spotPoi.descUrl;
@@ -215,6 +218,8 @@
  */
 - (IBAction)book:(id)sender
 {
+    [MobClick event:@"event_book_ticket"];
+
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"在线预订";
     webCtl.urlStr = _spotPoi.bookUrl;
@@ -228,6 +233,8 @@
  */
 - (IBAction)travelGuide:(id)sender
 {
+    [MobClick event:@"event_spot_travel_experience"];
+
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
     webCtl.urlStr = _spotPoi.guideUrl;
@@ -241,6 +248,8 @@
  */
 - (IBAction)kengdie:(id)sender
 {
+    [MobClick event:@"event_spot_travel_tips"];
+
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
     webCtl.urlStr = _spotPoi.tipsUrl;
@@ -254,6 +263,8 @@
  */
 - (IBAction)trafficGuide:(id)sender
 {
+    [MobClick event:@"event_spot_traffic_summary"];
+
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
     webCtl.urlStr = _spotPoi.trafficInfoUrl;
@@ -284,6 +295,7 @@
 - (IBAction)favorite:(id)sender
 {
     //先将收藏的状态改变
+    [MobClick event:@"event_spot_favorite"];
     _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
     _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
     [super asyncFavorite:_spotPoi.spotId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
@@ -373,6 +385,7 @@
         }
 
     } else {
+        [MobClick event:@"event_spot_share_to_talk"];
         [self shareToTalk];
     }
 }

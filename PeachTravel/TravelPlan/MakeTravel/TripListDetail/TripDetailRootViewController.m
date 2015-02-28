@@ -99,9 +99,12 @@
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
+                [MobClick event:@"event_unuse_template"];
             }
+            
             if (buttonIndex == 1) {
                 [self loadNewTripDataWithRecommendData:YES];
+                [MobClick event:@"event_use_template"];
             }
         }];
     } else {
@@ -154,11 +157,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_plan_detail"];
     _isShowing = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_plan_detail"];
     _isShowing = NO;
 }
 
@@ -219,6 +224,7 @@
 
 - (IBAction)finishEidtTrip:(id)sender
 {
+    [MobClick event:@"event_edit_done"];
     TZProgressHUD *hud;
     if (self.tripDetail.tripIsChange) {
         hud = [[TZProgressHUD alloc] init];
@@ -410,6 +416,7 @@
  */
 - (void)viewCityDetail:(NSString *)cityId
 {
+    [MobClick event:@"event_go_city_detail"];
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = cityId;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
@@ -422,6 +429,7 @@
  */
 - (IBAction)share:(id)sender
 {
+    [MobClick event:@"event_share_plan_detail"];
     NSArray *shareButtonimageArray = @[@"ic_sns_talk.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
     NSArray *shareButtonTitleArray = @[@"Talk", @"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
@@ -524,6 +532,7 @@
  */
 - (void)editTrip:(UIButton *)sender
 {
+    [MobClick event:@"event_edit_plan"];
     if (!_tripDetail) {
         [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
@@ -858,6 +867,7 @@
 
 - (void)willAddDestination
 {
+    [MobClick event:@"event_rechoose_destination"];
     [self hideDestinationView:nil];
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];

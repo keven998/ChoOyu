@@ -41,6 +41,18 @@
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_add_friend"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_add_friend"];
+}
+
 #pragma mark - setter & getter
 
 - (NSArray *)normalDataSource
@@ -217,10 +229,12 @@
         
     } else {
         if (indexPath.row == 0) {
+            [MobClick event:@"event_add_friend_from_contacts"];
             AddressBookTableViewController *addressBookCtl = [[AddressBookTableViewController alloc] init];
             [self.navigationController pushViewController:addressBookCtl animated:YES];
         }
         if (indexPath.row == 1) {
+            [MobClick event:@"event_notify_weichat_friends"];
             [self shareToWeChat];
         }
     }
@@ -233,6 +247,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self searchUsersWithSearchText:searchBar.text];
+    [MobClick event:@"event_search_friend"];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

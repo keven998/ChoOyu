@@ -32,6 +32,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDataSource) name:frendRequestListNeedUpdateNoti object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_ask_for_friend"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_ask_for_friend"];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -129,7 +141,7 @@
     [params setObject:frendRequest.userId forKey:@"userId"];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak FrendRequestTableViewController *weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf.navigationController];
     
     //同意添加好友
     [manager POST:API_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -153,7 +165,8 @@
            
             
         } else {
-            
+            [SVProgressHUD showHint:@"添加失败"];
+
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];

@@ -60,6 +60,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_friends_lists"];
     [self.accountManager loadContactsFromServer];
     [self handleEmptyView];
 }
@@ -67,6 +68,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [MobClick endLogPageView:@"page_friends_lists"];
 }
 
 - (void)dealloc

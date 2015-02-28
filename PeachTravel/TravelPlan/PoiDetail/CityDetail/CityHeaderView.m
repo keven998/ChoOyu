@@ -295,6 +295,7 @@
 
 #pragma mark - UITabGestureAction
 - (void)viewImage:(UITapGestureRecognizer *)viewImage {
+    [MobClick event:@"event_city_photoes"];
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] init];
     for (UIView* next = [self superview]; next; next = next.superview)
     {

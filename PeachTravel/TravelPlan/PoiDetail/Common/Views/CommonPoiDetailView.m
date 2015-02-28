@@ -346,6 +346,7 @@
  */
 - (IBAction)book:(id)sender
 {
+    [MobClick event:@"event_go_booking_room"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"在线预订";
     webCtl.urlStr = _poi.bookUrl;
@@ -354,6 +355,14 @@
 
 - (IBAction)favorite:(id)sender
 {
+    if (_poiType == kRestaurantPoi) {
+        [MobClick event:@"event_favorite_delicacy"];
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick event:@"event_favorite_shopping"];
+    } else if (_poiType == kHotelPoi) {
+        [MobClick event:@"event_favorite_hotel"];
+    }
+    
     //先将收藏的状态改变
     _favoriteBtn.selected = !_poi.isMyFavorite;
     _favoriteBtn.userInteractionEnabled = NO;

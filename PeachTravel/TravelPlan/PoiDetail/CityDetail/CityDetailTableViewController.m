@@ -93,11 +93,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_city_detail"];
     self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_city_detail"];
     self.navigationController.navigationBarHidden = NO;
 }
 
@@ -291,6 +293,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)favorite:(UIButton *)sender
 {
+    [MobClick event:@"event_city_favorite"];
     //先将收藏的状态改变
     _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
     _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
@@ -307,6 +310,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (IBAction)viewSpots:(id)sender
 {
+    [MobClick event:@"event_city_spots"];
     AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
     addCtl.cityId = _cityId;
     addCtl.cityName = _cityPoi.zhName;
@@ -320,6 +324,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  *  @param sender
  */
 - (IBAction)play:(id)sender {
+    [MobClick event:@"event_city_information"];
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = _cityPoi.playGuide;
     funOfCityWebCtl.titleStr = @"城市概况";;
@@ -333,6 +338,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)viewRestaurants:(id)sender
 {
+    [MobClick event:@"event_city_delicacy"];
     NSLog(@"应该进入城市的美食信息");
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
@@ -349,6 +355,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)viewShopping:(id)sender
 {
+    [MobClick event:@"event_city_shopping"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
     shoppingOfCityCtl.cityId = _cityPoi.cityId;
@@ -365,6 +372,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (IBAction)showMoreTravelNote:(id)sender
 {
+    [MobClick event:@"event_more_city_travel_notes"];
+
     TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
     travelListCtl.isSearch = NO;
     travelListCtl.cityId = self.cityPoi.cityId;
@@ -456,6 +465,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [MobClick event:@"event_city_travel_note_item"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
@@ -525,9 +535,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         makePlanCtl.normalColor= [UIColor grayColor];
         
         [self.navigationController pushViewController:makePlanCtl animated:YES];
+        [MobClick event:@"event_city_share_to_talk"];
+        [MobClick event:@"event_create_new_trip_plan_city"];
 
     } else if (buttonIndex == 1) {
         [self shareToTalk];
+        [MobClick event:@"event_city_share_to_talk"];
     } else {
         return;
     }

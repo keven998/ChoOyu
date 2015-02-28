@@ -136,12 +136,14 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_my_trip_plans"];
     _isShowing = YES;
     self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_my_trip_plans"];
     _isShowing = NO;
     self.navigationController.navigationBar.translucent = YES;
 }
@@ -163,6 +165,8 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void)makePlan {
+    [MobClick event:@"event_create_new_trip_plan_mine"];
+    
     Destinations *destinations = [[Destinations alloc] init];
     MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
     ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
@@ -209,6 +213,7 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)deleteGuide:(NSIndexPath *)indexPath
 {
+    [MobClick event:@"event_delete_trip_plan"];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"删除确认" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
@@ -226,6 +231,7 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)edit:(NSIndexPath *)index
 {
+    [MobClick event:@"event_edit_trip_title"];
     _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index.section];
     [self.navigationController.view addGestureRecognizer:_tapRecognizer];

@@ -67,6 +67,18 @@
     [self.view addSubview:self.indexView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_choose_talk_to"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_choose_talk_to"];
+}
+
 - (void)dealloc
 {
      if (!_isPushed) {

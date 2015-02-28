@@ -58,6 +58,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_personal_profile"];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_personal_profile"];
+
+}
+
 - (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -376,21 +390,30 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [self presentImagePicker];
+            [MobClick event:@"event_update_avatar"];
+            
         } else if (indexPath.row == 1) {
+            [MobClick event:@"event_update_nick"];
+
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeName;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
             changeUserInfo.content = self.accountManager.account.nickName;
+            
         } else if (indexPath.row == 2) {
             [self showHint:@"猥琐攻城师不让修改这个～"];
         }
         
     } else if (indexPath.section ==  1) {
         if (indexPath.row == 0) {
+            [MobClick event:@"event_update_gender"];
+
             _genderAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"美女", @"帅锅", @"不告诉你", nil];
             [_genderAS showInView:self.view];
             
         } else if (indexPath.row == 1) {
+            [MobClick event:@"event_update_memo"];
+
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeSignature;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
@@ -399,9 +422,13 @@
         
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
+            [MobClick event:@"event_update_password"];
+
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
             [self.navigationController pushViewController:changePasswordCtl animated:YES];
         } else if (indexPath.row == 1) {
+            [MobClick event:@"event_update_phone"];
+
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             [self.navigationController pushViewController:changePasswordCtl animated:YES];
@@ -461,6 +488,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
+        [MobClick event:@"event_logout"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
 //        [self showHint:@"正在退出"];
         [SVProgressHUD show];

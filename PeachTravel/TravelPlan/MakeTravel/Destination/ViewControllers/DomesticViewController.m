@@ -290,6 +290,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [MobClick event:@"event_select_city"];
+
     NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
     BOOL find = NO;

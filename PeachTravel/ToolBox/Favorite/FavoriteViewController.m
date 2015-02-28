@@ -133,11 +133,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_my_favorites"];
     _isVisible = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_my_favorites"];
     _isVisible = NO;
 }
 
@@ -196,6 +198,7 @@
  */
 - (void)filter:(id)sender
 {
+    [MobClick event:@"event_do_filter"];
     if (!self.filterCtl.filterViewIsShowing) {
         typeof(FavoriteViewController *)weakSelf = self;
         [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
@@ -549,6 +552,7 @@
                 if (buttonIndex == 1) {
                     Favorite *favorite = [self.dataSource objectAtIndex:indexPath.section];
                     [self deleteUserFavorite:favorite atIndexPath:indexPath];
+                    [MobClick event:@"deleteUserFavorite"];
                 }
             }
         }];

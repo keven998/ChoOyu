@@ -107,6 +107,18 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
    
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_search_destination_all_result"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_search_destination_all_result"];
+}
+
 - (UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
@@ -152,6 +164,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (IBAction)beginSearch:(id)sender
 {
+    [MobClick event:@"event_filter_city"];
     [_searchBar setFrame:CGRectMake(0, 20, self.view.bounds.size.width-40, 38)];
     [_searchController setActive:YES animated:YES];
     _searchBar.hidden = NO;

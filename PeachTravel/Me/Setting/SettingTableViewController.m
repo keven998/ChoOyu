@@ -30,9 +30,26 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_app_setting"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_app_setting"];
+}
+
 #pragma mark - private methods
+
+/**
+ *  评分
+ */
 - (IBAction)mark
 {
+    [MobClick event:@"event_rates_app"];
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     [iRate sharedInstance].previewMode = NO;
     [iRate sharedInstance].appStoreID = 954201036;
@@ -41,24 +58,12 @@
 
 - (void)clearMemo
 {
-    
-//    JGProgressHUD *HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
-//    HUD.textLabel.text = @"正在清除";
-//    
-//    [HUD showInView:self.navigationController.view];
-    
     [SVProgressHUD show];
-    
+    [MobClick event:@"event_clear_cache"];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            HUD.indicatorView = nil;
-//            HUD.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0f];
-//            HUD.textLabel.text = @"完成";
-//            HUD.position = JGProgressHUDPositionBottomCenter;
-//            [HUD dismissAfterDelay:0.8];
             [SVProgressHUD showHint:@"已清理"];
         });
-//        HUD.marginInsets = UIEdgeInsetsMake(0.0f, 0.0f, 30.0f, 0.0f);
     }];
     
 }
@@ -123,6 +128,7 @@
             break;
             
         case 1: {
+            [MobClick event:@"event_feedback"];
             FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
             [self.navigationController pushViewController:feedbackCtl animated:YES];
         }

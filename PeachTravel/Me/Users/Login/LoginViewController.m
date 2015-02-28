@@ -93,12 +93,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:weixinDidLoginNoti object:nil];
 }
 
@@ -194,6 +196,7 @@
 
 //微信登录
 - (IBAction)weixinLogin:(UIButton *)sender {
+    [MobClick event:@"event_login_with_weichat_account"];
     [self sendAuthRequest];
 }
 

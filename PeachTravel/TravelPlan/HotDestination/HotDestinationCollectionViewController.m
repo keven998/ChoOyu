@@ -66,8 +66,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_home_destination"];
     _isShowing = YES;
-    
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     if ([self rdv_tabBarController].tabBarHidden) {
         [[self rdv_tabBarController] setTabBarHidden:NO];
@@ -82,6 +82,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_home_destination"];
     _isShowing = NO;
     if (self.navigationController.viewControllers.count == 2) {
         [[self rdv_tabBarController] setTabBarHidden:YES];
@@ -110,6 +111,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 #pragma mark - IBAction
 
 - (IBAction)goSearch:(UIButton *)sender {
+    [MobClick event:@"event_go_search"];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.titleStr = @"搜索";
     [self.navigationController pushViewController:searchCtl animated:YES];
@@ -282,6 +284,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [MobClick event:@"event_click_destination_cell"];
     RecommendDataSource *recommedDataSource = [self.dataSource objectAtIndex:indexPath.section];
     Recommend *recommend = [recommedDataSource.localities objectAtIndex:indexPath.row];
     if (recommend.linkType == LinkHtml) {

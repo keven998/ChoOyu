@@ -67,6 +67,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
     [self registerNotifications];
 }
@@ -75,6 +76,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_talk_lists"];
 }
 
 - (void)dealloc{
@@ -548,6 +550,7 @@
         if (_chattingPeople.count == 0) {
             [self setupEmptyView];
         }
+        [MobClick event:@"event_delete_talk_item"];
     }
 }
 

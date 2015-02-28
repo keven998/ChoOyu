@@ -44,13 +44,17 @@
     [self.window makeKeyAndVisible];
     
     
-    /** 设置友盟 **/
+    /** 设置友盟分享**/
     [UMSocialData openLog:NO];
     [UMSocialData setAppKey:UMENG_KEY];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     [UMSocialQQHandler setQQWithAppId:SHARE_QQ_APPID appKey:SHARE_QQ_KEY url:@"http://www.umeng.com/social"];
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:SHARE_WEIXIN_APPID appSecret:SHARE_WEIXIN_SECRET url:@"http://www.lvxingpai.com"];
+    
+    /**设置友盟统计**/
+    [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+
     
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
 

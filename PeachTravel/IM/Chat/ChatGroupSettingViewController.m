@@ -77,6 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_talk_setting"];
     [self updateView];
     for (EMGroup *tempGroup in [[EaseMob sharedInstance].chatManager groupList]) {
         if ([_group.groupId isEqualToString:tempGroup.groupId]) {
@@ -85,6 +86,12 @@
         }
     }
     [_groupTitle setTitle:_group.groupSubject forState:UIControlStateNormal];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_talk_setting"];
 }
 
 - (NSArray *)loadGroupNumbers

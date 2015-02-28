@@ -39,6 +39,33 @@
     [self loadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_poiType == kRestaurantPoi) {
+        [MobClick beginLogPageView:@"page_delicacy_detail"];
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick beginLogPageView:@"page_shopping_detail"];
+    } else if (_poiType == kHotelPoi) {
+        [MobClick beginLogPageView:@"page_hotel_detail"];
+    }
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (_poiType == kRestaurantPoi) {
+        [MobClick endLogPageView:@"page_delicacy_detail"];
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick endLogPageView:@"page_shopping_detail"];
+    } else if (_poiType == kHotelPoi) {
+        [MobClick endLogPageView:@"page_hotel_detail"];
+        
+    }
+    self.navigationController.navigationBar.hidden = NO;
+}
+
 - (void)updateView
 {
     self.navigationItem.title = _commonPoi.zhName;
@@ -58,18 +85,6 @@
         [restaurantView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
         [restaurantView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     }];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)dismissCtl

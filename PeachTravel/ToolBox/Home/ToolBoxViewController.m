@@ -226,6 +226,7 @@
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     self.navigationController.navigationBar.translucent = YES;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [MobClick beginLogPageView:@"page_home_tools"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -236,6 +237,7 @@
     }
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [MobClick endLogPageView:@"page_home_tools"];
 }
 
 - (void)dealloc
@@ -267,7 +269,8 @@
     };
     
     _galleryPageView.TapActionBlock = ^(NSInteger pageIndex){
-        NSLog(@"点击了第%ld个", (long)(long)pageIndex);
+        [MobClick event:@"event_click_opertion_page"];
+
         OperationData *data = [weakSelf.operationDataArray objectAtIndex:pageIndex];
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = data.title;
@@ -399,7 +402,9 @@
  *
  *  @param sender
  */
-- (IBAction)nearBy:(UIButton *)sender {    
+- (IBAction)nearBy:(UIButton *)sender {
+    [MobClick event:@"event_locality"];
+
     LocalViewController *lvc = [[LocalViewController alloc] init];
     [self.navigationController pushViewController:lvc animated:YES];
 }
@@ -410,6 +415,8 @@
  *  @param sender
  */
 - (IBAction)myTravelNote:(UIButton *)sender {
+    [MobClick event:@"event_my_trip_plans"];
+
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.3];
@@ -445,6 +452,7 @@
                                          destructiveButtonTitle:nil
                                               otherButtonTitles:@"新建旅程", nil];
     [sheet showInView:self.view];
+    [MobClick event:@"event_create_new_trip_plan_home"];
 }
 
 #pragma mark - UIActionSheetDelegate

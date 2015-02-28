@@ -34,6 +34,7 @@
 #import "RDVTabBarController.h"
 #import "AccountManager.h"
 #import "AppUtils.h"
+#import "MobClick.h"
 
 #endif
 

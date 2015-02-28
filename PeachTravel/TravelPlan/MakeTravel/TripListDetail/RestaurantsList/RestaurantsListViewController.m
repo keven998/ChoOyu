@@ -119,6 +119,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addWantTo:(id)sender
 {
+    [MobClick event:@"event_add_delicacy_schedule"];
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.delegate = self;
@@ -166,6 +167,8 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)jumpMapView:(UIButton *)sender
 {
+    [MobClick event:@"event_day_map_view"];
+
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"地图导航"
                                                        delegate:self
                                               cancelButtonTitle:nil
@@ -197,6 +200,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)deletePoi:(UIButton *)sender
 {
+    [MobClick event:@"event_delete_select_item"];
     CGPoint point = [sender convertPoint:CGPointMake(20, 20) toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     [_tripDetail.restaurantsList removeObjectAtIndex:indexPath.section];
@@ -273,6 +277,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    [MobClick event:@"event_reorder_items"];
     NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
     PoiSummary *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];

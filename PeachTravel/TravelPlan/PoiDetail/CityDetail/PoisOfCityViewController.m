@@ -148,11 +148,29 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (_shouldEdit) {
+        [MobClick beginLogPageView:@"page_add_agenda"];
+    } else {
+        if (_poiType == kRestaurantPoi) {
+            [MobClick beginLogPageView:@"page_delicacy_lists"];
+        } else if (_poiType == kShoppingPoi) {
+            [MobClick beginLogPageView:@"page_shopping_lists"];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (_shouldEdit) {
+        [MobClick endLogPageView:@"page_add_agenda"];
+    } else {
+        if (_poiType == kRestaurantPoi) {
+            [MobClick endLogPageView:@"page_delicacy_lists"];
+        } else if (_poiType == kShoppingPoi) {
+            [MobClick endLogPageView:@"page_shopping_lists"];
+        }
+    }
 }
 
 - (void)goBack
@@ -525,9 +543,12 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     if (_poiType == kRestaurantPoi) {
         webCtl.titleStr = @"美食攻略";
+        [MobClick event:@"event_delicacy_strategy"];
         
     } else if (_poiType == kShoppingPoi) {
         webCtl.titleStr = @"购物攻略";
+        [MobClick event:@"event_shopping_strategy"];
+
     }
     webCtl.urlStr = _dataSource.detailUrl;
     

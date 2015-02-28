@@ -158,7 +158,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
+    [MobClick beginLogPageView:@"page_talking"];
     [_chatToolBar registerNoti];
     if (_isScrollToBottom) {
         [self scrollViewToBottom:YES];
@@ -171,6 +171,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:@"page_talking"];
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     [_conversation markAllMessagesAsRead:YES];
@@ -1036,6 +1037,7 @@
  */
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
+    [MobClick event:@"event_share_plan_extra"];
     [self keyBoardHidden];
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
     myGuideListTableCtl.chatter = _chatter;
@@ -1051,6 +1053,8 @@
  */
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
+    [MobClick event:@"event_share_favorite_extra"];
+
     [self keyBoardHidden];
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.isChatGroup = _isChatGroup;
@@ -1067,6 +1071,8 @@
  */
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
+    [MobClick event:@"event_share_search_extra"];
+
     [self keyBoardHidden];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
@@ -1078,12 +1084,14 @@
 }
 
 /**
- *  发送我的攻略
+ *  发送游记
  *
  *  @param moreView
  */
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
+    [MobClick event:@"event_share_travel_notes_extra"];
+
     [self keyBoardHidden];
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;

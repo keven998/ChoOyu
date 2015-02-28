@@ -287,25 +287,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         [self addConversation:nil];
+        [MobClick event:@"event_create_new_talk"];
     } else if (buttonIndex == 1) {
         [self addUserContact:nil];
+        [MobClick event:@"event_add_new_friend"];
     }
-}
-
-#pragma mark - RNGridMenuDelegate
-
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
-    if (itemIndex == 0) {
-        [self addConversation:nil];
-    } else {
-        [self addUserContact:nil];
-    }
-    _av = nil;
-}
-
-- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
-{
-    _av = nil;
 }
 
 #pragma mark - CreateConversationDelegate

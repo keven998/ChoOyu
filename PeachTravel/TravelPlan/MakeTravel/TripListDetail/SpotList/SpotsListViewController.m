@@ -125,6 +125,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addOneDay:(id)sender
 {
+    [MobClick event:@"event_add_day"];
     if (!_shouldEdit) {
         [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
     }
@@ -136,6 +137,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)addPoi:(UIButton *)sender
 {
+    [MobClick event:@"event_add_plan_in_agenda"];
     AddPoiViewController *addPoiCtl = [[AddPoiViewController alloc] init];
     addPoiCtl.tripDetail = self.tripDetail;
     addPoiCtl.delegate = self;
@@ -149,6 +151,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)deleteOneDay:(UIButton *)sender
 {
+    [MobClick event:@"event_delete_day_agenda"];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"将会删除一整天" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
@@ -162,6 +165,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)mapView:(UIButton *)sender
 {
+    [MobClick event:@"event_day_map_view"];
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
 
     NSMutableArray *allPositions = [[NSMutableArray alloc] init];
@@ -419,6 +423,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [MobClick event:@"event_delete_select_item"];
         NSMutableArray *tempArray = [_tripDetail.itineraryList objectAtIndex:indexPath.section];
         [tempArray removeObjectAtIndex:indexPath.row];
         NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
@@ -427,6 +432,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    [MobClick event:@"event_reorder_items"];
     NSMutableArray *fromArray = _tripDetail.itineraryList[sourceIndexPath.section];
     NSMutableArray *toArray = _tripDetail.itineraryList[destinationIndexPath.section];
 

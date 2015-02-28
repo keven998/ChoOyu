@@ -189,9 +189,16 @@
     y = _scrollView.contentOffset.y;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_friend_information"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_friend_information"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -213,6 +220,7 @@
 #pragma - mark IBAction
 
 - (IBAction)chat:(id)sender {
+    [MobClick event:@"event_talk_with_it"];
     if (_goBackToChatViewWhenClickTalk) {
         [self.navigationController popViewControllerAnimated:YES];
         return;
@@ -246,6 +254,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
+        [MobClick event:@"event_delete_it"];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认删除好友？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 1) {

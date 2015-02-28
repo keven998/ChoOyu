@@ -122,6 +122,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_locality"];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
@@ -132,6 +133,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_locality"];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
@@ -144,6 +146,7 @@
 }
 
 - (IBAction)relocal:(id)sender {
+    [MobClick event:@"event_refresh_location"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     CABasicAnimation* rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -163,6 +166,7 @@
 
 - (IBAction)jumpToMapView:(UIButton *)sender
 {
+    [MobClick event:@"event_go_navigation"];
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
                                                        delegate:self
                                               cancelButtonTitle:nil

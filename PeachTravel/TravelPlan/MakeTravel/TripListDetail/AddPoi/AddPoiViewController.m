@@ -136,6 +136,26 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self loadDataWithPageNo:_currentPageNormal];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_shouldEdit) {
+        [MobClick beginLogPageView:@"page_add_agenda"];
+    } else {
+        [MobClick beginLogPageView:@"page_spot_lists"];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (_shouldEdit) {
+        [MobClick endLogPageView:@"page_add_agenda"];
+    } else {
+        [MobClick endLogPageView:@"page_spot_lists"];
+    }
+}
+
 
 #pragma mark - setter & getter
 
@@ -277,6 +297,8 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
  */
 - (IBAction)addPoi:(UIButton *)sender
 {
+    [MobClick event:@"event_add_desination_as_schedule"];
+    
     CGPoint point;
     NSIndexPath *indexPath;
     PoisOfCityTableViewCell *cell;
@@ -517,6 +539,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     NSInteger filterCityIndex = [[itemIndexPath firstObject] integerValue];
     NSInteger filterPoiIndex = [[itemIndexPath lastObject] integerValue];
     if (_currentListTypeIndex != filterPoiIndex) {
+        [MobClick event:@"event_filter_items"];
         _isLoadingMoreNormal = YES;
         _didEndScrollNormal = YES;
         _enableLoadMoreNormal = NO;
@@ -528,9 +551,11 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         _currentPageNormal = 0;
         [self loadDataWithPageNo:_currentPageNormal];
         
+        
     }
     
     if (_currentCityIndex != filterCityIndex) {
+        [MobClick event:@"event_filter_city"];
         _isLoadingMoreNormal = YES;
         _didEndScrollNormal = YES;
         _enableLoadMoreNormal = NO;

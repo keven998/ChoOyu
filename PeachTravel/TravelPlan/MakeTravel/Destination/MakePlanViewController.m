@@ -71,6 +71,24 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_destinations"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_destinations"];
+}
+
+- (void)dealloc {
+    _destinationToolBar = nil;
+    _searchBar = nil;
+    _searchController = nil;
+}
+
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
@@ -80,13 +98,6 @@
     }
     return _destinationToolBar;
 }
-
-- (void)dealloc {
-    _destinationToolBar = nil;
-    _searchBar = nil;
-    _searchController = nil;
-}
-
 - (NSMutableArray *)searchResultArray
 {
     if (!_searchResultArray) {
@@ -106,7 +117,6 @@
         _nextView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-62.5, self.view.bounds.size.height-76, 62.5, 76)];
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 27, 62.5, 49)];
-//        imageView.image = [UIImage imageNamed:@"ic_next_step.png"];
         imageView.backgroundColor = APP_SUB_THEME_COLOR;
         UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
         nextBtn.layer.cornerRadius = 27.0;
@@ -115,9 +125,6 @@
         [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
         [nextBtn setImage:[UIImage imageNamed:@"ic_select_dest_done.png"] forState:UIControlStateNormal];
         nextBtn.clipsToBounds = YES;
-//        [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
-//        [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        nextBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
         [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
         [_nextView addSubview:imageView];
         [_nextView addSubview:nextBtn];
@@ -139,6 +146,9 @@
 {
     [self.view bringSubviewToFront:_destinationToolBar];
     [self.view bringSubviewToFront:_nextView];
+    if (self.selectedIndext == 1) {
+        [MobClick event:@"event_go_aboard"];
+    }
 }
 
 /**
@@ -148,6 +158,7 @@
  */
 - (IBAction)makePlan:(id)sender
 {
+    [MobClick event:@"event_select_done_go_next"];
     if (!_shouldOnlyChangeDestinationWhenClickNextStep) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         if ([accountManager isLogin]) {
@@ -301,6 +312,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [MobClick event:@"event_select_city"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CityDestinationPoi *city = [self.searchResultArray objectAtIndex:indexPath.row];
     BOOL find = NO;
