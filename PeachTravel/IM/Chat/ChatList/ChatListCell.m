@@ -97,7 +97,7 @@
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
     self.textLabel.frame = CGRectMake(85.0, 14.0, width - 110.0, 18.0);
     
