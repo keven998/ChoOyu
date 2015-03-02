@@ -193,12 +193,12 @@
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _forkBtn.layer.cornerRadius = 2.0;
-        _forkBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _forkBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-        [_forkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_forkBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        _forkBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
         self.navigationItem.rightBarButtonItem = addBtn;
