@@ -327,7 +327,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_city_information"];
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = _cityPoi.playGuide;
-    funOfCityWebCtl.titleStr = @"城市概况";;
+    funOfCityWebCtl.titleStr = @"城市指南";;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
