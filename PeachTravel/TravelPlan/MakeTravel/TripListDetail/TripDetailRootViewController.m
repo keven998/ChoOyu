@@ -95,7 +95,7 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"小桃能为你创建模版，旅程计划更简单" delegate:self cancelButtonTitle:@"不创建" otherButtonTitles:@"创建", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否需要为你创建行程模版" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"需要", nil];
         [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self loadNewTripDataWithRecommendData:NO];
@@ -206,7 +206,7 @@
 
 }
 - (void) hint {
-    [SVProgressHUD showSuccessWithStatus:@"已保存到我的旅程"];
+    [SVProgressHUD showHint:@"已保存到我的旅程，可自由定制"];
 }
 
 - (void)dealloc
@@ -331,7 +331,11 @@
             _tripDetail = [[TripDetail alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-            [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
+            if (isNeedRecommend) {
+                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
+            } else {
+                [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
+            }
         } else {
              if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
