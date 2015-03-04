@@ -5373,7 +5373,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8b406449-e6cc-4cfd-ad39-5a340e0a93c3";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
