@@ -431,7 +431,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 
 /**
  *  加载搜索的数据
- *
  *  @param pageNo     第几页
  *  @param searchText 搜索关键字
  */

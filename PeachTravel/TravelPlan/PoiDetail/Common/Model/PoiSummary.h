@@ -42,7 +42,12 @@
 
 - (id)initWithJson:(id)json;
 
-- (NSDictionary *)prepareAllDataForUpload;     //将完整的数据结构转换成的 json 数据
+/**
+ *  将完整的数据结构转换成的 json 数据
+ *
+ *  @return     
+ */
+- (NSDictionary *)prepareAllDataForUpload;
 
 /**
  *  将只含有 id 和 type 的 TripPoi 转化为 json 数据
