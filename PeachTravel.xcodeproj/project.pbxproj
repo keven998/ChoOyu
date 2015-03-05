@@ -39,7 +39,6 @@
 		D9008D6E1A8A05AD000A237D /* ic_quotation_r@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D6C1A8A05AD000A237D /* ic_quotation_r@2x.png */; };
 		D917DA931A8A17B90039720A /* avatar_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA921A8A17B90039720A /* avatar_placeholder@2x.png */; };
 		D917DA971A8A1FEC0039720A /* ic_sending_bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA961A8A1FEC0039720A /* ic_sending_bkg@2x.png */; };
-		D917DA991A8A33AD0039720A /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */; };
 		D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA9A1A8B1D3D0039720A /* ic_star_gray_small@2x.png */; };
 		D917DA9D1A8B1D500039720A /* ic_star_yellow_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */; };
 		D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAA21A8B48EE0039720A /* ic_guide_earth@2x.png */; };
@@ -697,6 +696,7 @@
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
 		D9E9F7A519FFDCB9003F70F6 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */; };
+		D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -758,7 +758,6 @@
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D917DA921A8A17B90039720A /* avatar_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_placeholder@2x.png"; sourceTree = "<group>"; };
 		D917DA961A8A1FEC0039720A /* ic_sending_bkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sending_bkg@2x.png"; sourceTree = "<group>"; };
-		D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		D917DA9A1A8B1D3D0039720A /* ic_star_gray_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_gray_small@2x.png"; sourceTree = "<group>"; };
 		D917DA9C1A8B1D500039720A /* ic_star_yellow_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_yellow_small@2x.png"; sourceTree = "<group>"; };
 		D917DAA21A8B48EE0039720A /* ic_guide_earth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_earth@2x.png"; sourceTree = "<group>"; };
@@ -1782,6 +1781,7 @@
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -3501,7 +3501,7 @@
 				D9B9EA1C1A88CF8000966074 /* check_border@2x.png */,
 				D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */,
 				D9245DD01A8C9738004571AD /* ic_nav_button_figure@2x.png */,
-				D917DA981A8A33AD0039720A /* ic_group_icon@2x.png */,
+				D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */,
 				D9B9EA141A88CBEA00966074 /* ic_remove_select_one@2x.png */,
 				D917DAE01A8B57520039720A /* ic_new_talk@2x.png */,
 				D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */,
@@ -4590,6 +4590,7 @@
 				D917DAC91A8B49AF0039720A /* ic_guide2_6_normal@2x.png in Resources */,
 				D9A8FF211A80CC2B005AD701 /* UserOtherTableViewCell.xib in Resources */,
 				D9A804C11A80E738005AD701 /* ic_nav_filter_normal@2x.png in Resources */,
+				D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */,
 				D9A804C61A80E738005AD701 /* dx_checkbox_on.png in Resources */,
 				D9B9EA1B1A88CF5B00966074 /* check_selected@2x.png in Resources */,
 				D9A806C71A80F597005AD701 /* UMSocialLocalizable.strings in Resources */,
@@ -4698,7 +4699,6 @@
 				D9722F2D1A82446900D8A8CC /* Loading_Animation_final13@2x.png in Resources */,
 				D9A800701A80DD0C005AD701 /* FrendRequestTableViewController.xib in Resources */,
 				D9245DC91A8C7D65004571AD /* ic_filter_box@2x.png in Resources */,
-				D917DA991A8A33AD0039720A /* ic_group_icon@2x.png in Resources */,
 				D9722F191A82184900D8A8CC /* ic_poi_bkg_border@2x.png in Resources */,
 				D9A806CF1A80F597005AD701 /* UMSLoginViewController.xib in Resources */,
 				D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */,
@@ -5373,7 +5373,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8b406449-e6cc-4cfd-ad39-5a340e0a93c3";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

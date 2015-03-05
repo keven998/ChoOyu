@@ -33,7 +33,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = APP_PAGE_COLOR;
+        self.backgroundColor = [UIColor whiteColor];
         self.imageView.backgroundColor = APP_PAGE_COLOR;
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
@@ -43,8 +43,8 @@
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
-        _detailLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15];
+        _detailLabel.textColor = UIColorFromRGB(0xbbbbbb);
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contentView addSubview:_detailLabel];
         
@@ -79,14 +79,14 @@
     }
 }
 
--(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
     if (![_unreadLabel isHidden]) {
         _unreadLabel.backgroundColor = APP_THEME_COLOR;
     }
 }
 
--(void)layoutSubviews{
+- (void)layoutSubviews{
     [super layoutSubviews];
     
     CGFloat width = self.frame.size.width;
@@ -97,9 +97,9 @@
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(85.0, 14.0, width - 110.0, 18.0);
+    self.textLabel.frame = CGRectMake(85.0, 20.0, width - 110.0, 18.0);
     
     _timeLabel.frame = CGRectMake(width - 105.0, 14.0, 90.0, 18.0);
     
@@ -127,7 +127,7 @@
     
     sendFailedImageView.frame = CGRectMake(85, 53, 12, 12);
     activityView.frame = CGRectMake(85, 56, 13, 12);
-    _detailLabel.frame = CGRectMake(85+offsetX, 50.0, popW+30-offsetX, 26);
+    _detailLabel.frame = CGRectMake(85+offsetX, 45.0, popW+30-offsetX, 26);
     
     _timeLabel.text = _time;
     

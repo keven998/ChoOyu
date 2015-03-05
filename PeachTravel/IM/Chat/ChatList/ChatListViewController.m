@@ -60,7 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
 }
 
@@ -119,7 +119,7 @@
 {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-        _tableView.backgroundColor = APP_PAGE_COLOR;
+        _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
