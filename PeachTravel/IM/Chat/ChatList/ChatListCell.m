@@ -99,12 +99,11 @@
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(85.0, 20.0, width - 110.0, 18.0);
+    self.textLabel.frame = CGRectMake(85.0, 20.0, width - 80.0-85, 18.0);
     
-    _timeLabel.frame = CGRectMake(width - 105.0, 14.0, 90.0, 18.0);
+    _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
     
     _detailLabel.text = _detailMsg;
-    
     
     CGSize size = [_detailMsg sizeWithAttributes:@{NSFontAttributeName : _detailLabel.font}];
     CGFloat popW = size.width > (self.textLabel.frame.size.width-50) ? (self.textLabel.frame.size.width-50) : size.width;
