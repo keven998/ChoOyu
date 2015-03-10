@@ -361,7 +361,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     imView.backgroundColor = [UIColor clearColor];
     
     UIView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 74, 49)];
-//    imBackView.image = [UIImage imageNamed:@"ic_im_bkg.png"];
     imBackView.backgroundColor = APP_PAGE_COLOR;
     UIView *spaceV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 71, 0.5)];
     spaceV.backgroundColor = UIColorFromRGB(0xcccccc);
