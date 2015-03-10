@@ -531,7 +531,10 @@
         TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
         ctl.travelNoteId = item.itemId;
         ctl.travelNoteTitle = item.zhName;
-        ctl.travelNoteCover = item.desc;
+        TaoziImage *image = [item.images firstObject];
+        ctl.travelNoteCover = image.imageUrl;
+        ctl.urlStr = item.detailUrl;
+        ctl.desc = item.desc;
         [self.navigationController pushViewController:ctl animated:YES];
         
     } else {
