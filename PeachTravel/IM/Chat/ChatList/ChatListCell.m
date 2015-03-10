@@ -104,9 +104,6 @@
     _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
     
     _detailLabel.text = _detailMsg;
-    
-    CGSize size = [_detailMsg sizeWithAttributes:@{NSFontAttributeName : _detailLabel.font}];
-    CGFloat popW = size.width > (self.textLabel.frame.size.width-50) ? (self.textLabel.frame.size.width-50) : size.width;
 
     CGFloat offsetX = 0;
     if (_sendStatus == MSGSending) {
@@ -126,7 +123,7 @@
     
     sendFailedImageView.frame = CGRectMake(85, 48, 12, 12);
     activityView.frame = CGRectMake(85, 51, 13, 12);
-    _detailLabel.frame = CGRectMake(85+offsetX, 45.0, popW+30-offsetX, 26);
+    _detailLabel.frame = CGRectMake(85+offsetX, 45.0, width - 85.0-55, 26);
     
     _timeLabel.text = _time;
     
@@ -142,7 +139,7 @@
         [self.contentView bringSubviewToFront:_unreadLabel];
         _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         
-        _unreadLabel.frame = CGRectMake(width-55, 35.0, 35.0, 20.0);
+        _unreadLabel.frame = CGRectMake(width-50, 35.0, 35.0, 20.0);
         _unreadLabel.layer.cornerRadius = 10;
     }else{
         [_unreadLabel setHidden:YES];
@@ -165,7 +162,6 @@
     } else {
         [self.imageView setImage:[UIImage imageNamed:_imageName]];
     }
-
 }
 
 + (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

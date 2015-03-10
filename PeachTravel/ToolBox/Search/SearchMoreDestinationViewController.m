@@ -385,18 +385,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         PoiSummary *poi = [self.dataSource objectAtIndex:indexPath.row];
         SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
         cell.isCanSend = _isCanSend;
-        if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi) {
-            TaoziImage *image = [poi.images firstObject];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-            cell.titleLabel.text = poi.zhName;
-            cell.detailLabel.text = poi.address;
-            
-        } else {
-            TaoziImage *image = [poi.images firstObject];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
-            cell.titleLabel.text = poi.zhName;
-        }
+        TaoziImage *image = [poi.images firstObject];
+        [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
+        cell.titleLabel.text = poi.zhName;
+        cell.detailLabel.text = poi.address;
         return cell;
+        
     } else {
         CityDestinationPoi *poi = [self.searchResultArray objectAtIndex:indexPath.row];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"suggestCell"];

@@ -380,7 +380,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     [self.tabBar addSubview:imView];
     
-    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(46, 10, 20, 20)];
+    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(48, 7, 20, 20)];
     _unReadMsgLabel.backgroundColor = [UIColor redColor];
     _unReadMsgLabel.textColor = [UIColor whiteColor];
     _unReadMsgLabel.layer.cornerRadius = 10;
