@@ -29,6 +29,7 @@
         } else if ([typeStr isEqualToString:@"loc"]) {
             _type = kCityPoi;
         }
+        _detailUrl = [json objectForKey:@"detailUrl"];
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _desc = [json objectForKey:@"desc"];
@@ -67,6 +68,7 @@
         _timeCostDesc = [aDecoder decodeObjectForKey:@"timeCostDesc"];
         _priceDesc = [aDecoder decodeObjectForKey:@"priceDesc"];
         _rating = [aDecoder decodeFloatForKey:@"rating"];
+        _detailUrl = [aDecoder decodeObjectForKey:@"detailUrl"];
     }
     return self;
 }
@@ -85,6 +87,7 @@
     [aCoder encodeObject:_priceDesc forKey:@"priceDesc"];
     [aCoder encodeObject:_timeCostDesc forKey:@"timeCostDesc"];
     [aCoder encodeFloat:_rating forKey:@"rating"];
+    [aCoder encodeObject:_detailUrl forKey:@"detailUrl"];
 
 }
 

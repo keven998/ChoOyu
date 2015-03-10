@@ -384,7 +384,6 @@
     if (_dataSource.count >= 15) {
         _enableLoadMore = YES;
     }
-   
 }
 
 - (IBAction)sendPoi:(id)sender
@@ -418,6 +417,8 @@
         taoziMessageCtl.messageRating = item.rating;
     } else if (item.type == kTravelNotePoi) {
         taoziMessageCtl.chatType = TZChatTypeTravelNote;
+        taoziMessageCtl.messageDetailUrl = item.detailUrl;
+        
     } else {
         taoziMessageCtl.chatType = TZChatTypeCity;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;

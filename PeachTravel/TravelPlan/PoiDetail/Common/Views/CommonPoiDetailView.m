@@ -204,7 +204,6 @@
         offsetY += 10;
     }
 
-//    _poi.desc = @"这是一家很好吃的小吃店。。哈哈，真的没有骗你们,这是一家很好吃的小吃店。。哈哈，真的没有骗你们,这是一家很好吃的小吃店。。哈哈，真的没有骗你们";
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(15, offsetY+10, _scrollView.bounds.size.width-30, 55) andNumberOfLine:3];
     _descView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
