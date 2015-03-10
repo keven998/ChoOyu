@@ -35,7 +35,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     _homeViewController = [[HomeViewController alloc] init];
     
-    //TODO:区分出是 个退 的推送还是 环信 的推送
+    //目前只有环信的推送。因此暂时
     NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (message) {
         _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;

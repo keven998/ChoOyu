@@ -92,6 +92,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSLog(@"home willAppear");
     self.navigationController.navigationBar.hidden = YES;
     
+    NSLog(@"%d", [UIApplication sharedApplication].applicationIconBadgeNumber);
+    
 }
 
 
@@ -358,8 +360,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 74, 77)];
     imView.backgroundColor = [UIColor clearColor];
     
-    UIImageView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 74, 49)];
-    imBackView.image = [UIImage imageNamed:@"ic_im_bkg.png"];
+    UIView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 74, 49)];
+//    imBackView.image = [UIImage imageNamed:@"ic_im_bkg.png"];
+    imBackView.backgroundColor = APP_PAGE_COLOR;
+    UIView *spaceV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 71, 0.5)];
+    spaceV.backgroundColor = UIColorFromRGB(0xcccccc);
+    [imBackView addSubview:spaceV];
     [imView addSubview:imBackView];
     
     UIButton *IMBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 61, 61)];
@@ -370,7 +376,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_normal.png"] forState:UIControlStateNormal];
     [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
     [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2, imView.bounds.size.height/2);
+    IMBtn.center = CGPointMake(imView.bounds.size.width/2+4, imView.bounds.size.height/2);
     [imView addSubview:IMBtn];
     
     [self.tabBar addSubview:imView];
@@ -435,25 +441,31 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 -(void)setupUnreadMessageCount
 {
-    int unReadCount = self.IMRootCtl.totalUnReadMsg;
-    if (unReadCount > 0) {
-        _unReadMsgLabel.hidden = NO;
-        _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", unReadCount];
-        if (unReadCount > 9) {
-            _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:10.0];
-        }
-        if (unReadCount > 99) {
-            _unReadMsgLabel.font = [UIFont systemFontOfSize:5.0];
-        }
-        else {
-            _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
-        }
-
-    } else {
-        _unReadMsgLabel.hidden = YES;
-    }
     UIApplication *application = [UIApplication sharedApplication];
-    [application setApplicationIconBadgeNumber:unReadCount];
+
+    if (!_IMRootCtl && application.applicationIconBadgeNumber>0) {
+        _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", application.applicationIconBadgeNumber];
+        
+    } else {
+        int unReadCount = self.IMRootCtl.totalUnReadMsg;
+        if (unReadCount > 0) {
+            _unReadMsgLabel.hidden = NO;
+            _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", unReadCount];
+            if (unReadCount > 9) {
+                _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:10.0];
+            }
+            if (unReadCount > 99) {
+                _unReadMsgLabel.font = [UIFont systemFontOfSize:5.0];
+            }
+            else {
+                _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
+            }
+
+        } else {
+            _unReadMsgLabel.hidden = YES;
+        }
+        [application setApplicationIconBadgeNumber:unReadCount];
+    }
 }
 
 #pragma mark - IChatManagerDelegate 消息变化
@@ -804,6 +816,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 #pragma mark - IChatManagerDelegate 登录状态变化
+
+// 开始自动登录回调
+-(void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
+{
+    NSLog(@"willAutoLoginWithInfo  home");
+}
+
+// 结束自动登录回调
+-(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
+{
+    NSLog(@"didAutoLoginWithInfo  home");
+}
 
 - (void)didLoginFromOtherDevice
 {

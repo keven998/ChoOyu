@@ -167,7 +167,7 @@
 - (void)registerRemoteNotification{
 #if !TARGET_IPHONE_SIMULATOR
     UIApplication *application = [UIApplication sharedApplication];
-    application.applicationIconBadgeNumber = 0;
+//    application.applicationIconBadgeNumber = 0;
     //iOS8 注册APNS
     if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
         [application registerForRemoteNotifications];
@@ -194,19 +194,23 @@
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
 }
 
-
-
 #pragma mark - IChatManagerDelegate
 // 开始自动登录回调
 -(void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
-    NSLog(@"willAutoLoginWithInfo");
+    if (!error) {
+        self.homeViewController.IMRootCtl.IMState = IM_CONNECTING;
+    }
 }
 
 // 结束自动登录回调
 -(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
-    NSLog(@"didAutoLoginWithInfo");
+    if (error) {
+        self.homeViewController.IMRootCtl.IMState = IM_DISCONNECTED;
+    } else {
+        self.homeViewController.IMRootCtl.IMState = IM_CONNECTED;
+    }
 }
 
 

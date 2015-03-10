@@ -11,4 +11,5 @@
 @interface AppDelegate (EaseMob)
 - (void)easemobApplication:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions ;
+
 @end
