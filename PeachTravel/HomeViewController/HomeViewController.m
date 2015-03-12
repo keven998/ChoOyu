@@ -493,6 +493,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
 {
+    self.IMRootCtl.IMState = IM_RECEIVED;
     for (EMMessage *cmdMessage in offlineCmdMessages) {
         [TZCMDChatHelper distributeCMDMsg:cmdMessage];
     }

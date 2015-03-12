@@ -354,19 +354,23 @@
     NSLog(@"成功解析联系人");
 }
 
-- (void)analysisAndSaveFrendRequest:(NSDictionary *)frendRequestDic
+- (void)analysisAndSaveFrendRequest:(id)frendRequestDic
 {
-    NSLog(@"开始解析好友请求");    
+    NSLog(@"开始解析好友请求");
+    
     FrendRequest *frendRequest = [NSEntityDescription insertNewObjectForEntityForName:@"FrendRequest" inManagedObjectContext:self.context];
-    frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
-    frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
-    frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
-    frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
-    frendRequest.status = TZFrendDefault;
-    frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
-    frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
-    frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
-    frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+
+    if ([frendRequestDic isKindOfClass:[NSDictionary class]]) {
+        frendRequest.userId = [frendRequestDic objectForKey:@"userId"];
+        frendRequest.nickName = [frendRequestDic objectForKey:@"nickName"];
+        frendRequest.avatar = [frendRequestDic objectForKey:@"avatar"];
+        frendRequest.avatarSmall = [frendRequestDic objectForKey:@"avatarSmall"];
+        frendRequest.status = TZFrendDefault;
+        frendRequest.gender = [frendRequestDic objectForKey:@"gender"];
+        frendRequest.easemobUser = [frendRequestDic objectForKey:@"easemobUser"];
+        frendRequest.attachMsg = [frendRequestDic objectForKey:@"attachMsg"];
+        frendRequest.requestDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+    }
     
     for (FrendRequest *request in self.account.frendrequestlist) {
         if ([request.userId integerValue] == [frendRequest.userId integerValue]) {

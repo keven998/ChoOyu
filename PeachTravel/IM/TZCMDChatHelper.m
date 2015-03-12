@@ -43,18 +43,35 @@
     switch (cmdType) {
         case CMDAddContact: {
             AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager analysisAndSaveFrendRequest:[extDic objectForKey:@"content"]];
+            if ([[extDic objectForKey:@"content"] isKindOfClass:[NSString class]]) {
+                NSData *data = [[extDic objectForKey:@"content"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                [accountManager analysisAndSaveFrendRequest:jsonDic];
+
+            } else if ([[extDic objectForKey:@"content"] isKindOfClass:[NSDictionary class]]) {
+                [accountManager analysisAndSaveFrendRequest:[extDic objectForKey:@"content"]];
+            }
         }
             break;
             
         case CMDAgreeAddContact: {       //添加好友后收到同意指令
             AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager addContact:[extDic objectForKey:@"content"]];
             
+            NSDictionary *parseDic = [[NSDictionary alloc] init];
+            if ([[extDic objectForKey:@"content"] isKindOfClass:[NSString class]]) {
+                NSData *data = [[extDic objectForKey:@"content"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                parseDic = jsonDic;
+                
+            } else if ([[extDic objectForKey:@"content"] isKindOfClass:[NSDictionary class]]) {
+                parseDic = [extDic objectForKey:@"content"];
+            }
+            [accountManager addContact:parseDic];
+
             //如果收到同意好友的的联系人会话里已经有聊天记录了，那么就不添加下面的：“我已经同意。。。“的话了。
             NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
             for (EMConversation *conversation in conversations) {
-                if ([conversation.chatter isEqualToString:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"]]) {
+                if ([conversation.chatter isEqualToString:[parseDic objectForKey:@"easemobUser"]]) {
                     if (!conversation.latestMessage) {
                         return;
                     }
@@ -65,13 +82,13 @@
             NSString *account = [loginInfo objectForKey:kSDKUsername];
             EMChatText *chatText = [[EMChatText alloc] initWithText:@"我已经同意了你的好友请求，现在可以分享旅行了"];
             EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
-            EMMessage *message = [[EMMessage alloc] initWithReceiver:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"] bodies:@[textBody]];
+            EMMessage *message = [[EMMessage alloc] initWithReceiver:[parseDic objectForKey:@"easemobUser"] bodies:@[textBody]];
             [message setIsGroup:NO];
             [message setIsReadAcked:NO];
             [message setTo:account];
-            [message setFrom:[[extDic objectForKey:@"content"] objectForKey:@"easemobUser"]];
+            [message setFrom:[parseDic objectForKey:@"easemobUser"]];
             [message setIsGroup:NO];
-            message.conversationChatter = [[extDic objectForKey:@"content"] objectForKey:@"easemobUser"];
+            message.conversationChatter = [parseDic objectForKey:@"easemobUser"];
             
             NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
             NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
@@ -85,7 +102,15 @@
             
         case CMDDeleteContact: {
             AccountManager *accountManager = [AccountManager shareAccountManager];
-            [accountManager removeContact:[[extDic objectForKey:@"content"] objectForKey:@"userId"]];
+            
+            if ([[extDic objectForKey:@"content"] isKindOfClass:[NSString class]]) {
+                NSData *data = [[extDic objectForKey:@"content"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                [accountManager removeContact:[jsonDic objectForKey:@"userId"]];
+                
+            } else if ([[extDic objectForKey:@"content"] isKindOfClass:[NSDictionary class]]) {
+                [accountManager removeContact:[[extDic objectForKey:@"content"] objectForKey:@"userId"]];
+            }
         }
         default:
             break;
