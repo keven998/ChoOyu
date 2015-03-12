@@ -690,6 +690,8 @@
 		D9B9EA171A88CC0F00966074 /* delete_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */; };
 		D9B9EA1B1A88CF5B00966074 /* check_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */; };
 		D9B9EA1D1A88CF8000966074 /* check_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1C1A88CF8000966074 /* check_border@2x.png */; };
+		D9E803AE1AB19703009B8598 /* ic_nav_action_search_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E803AC1AB19703009B8598 /* ic_nav_action_search_white@2x.png */; };
+		D9E803AF1AB19703009B8598 /* ic_sns_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */; };
 		D9E94BF41AAD35AE00ED6921 /* ic_IM_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E94BF21AAD35AE00ED6921 /* ic_IM_normal@2x.png */; };
 		D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E94BF31AAD35AE00ED6921 /* ic_IM_selected@2x.png */; };
 		D9E9F79619FF6F6A003F70F6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79519FF6F6A003F70F6 /* MapKit.framework */; };
@@ -1775,6 +1777,8 @@
 		D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_contact@2x.png"; sourceTree = "<group>"; };
 		D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_selected@2x.png"; sourceTree = "<group>"; };
 		D9B9EA1C1A88CF8000966074 /* check_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_border@2x.png"; sourceTree = "<group>"; };
+		D9E803AC1AB19703009B8598 /* ic_nav_action_search_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_white@2x.png"; sourceTree = "<group>"; };
+		D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_talk@2x.png"; sourceTree = "<group>"; };
 		D9E94BF21AAD35AE00ED6921 /* ic_IM_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_normal@2x.png"; sourceTree = "<group>"; };
 		D9E94BF31AAD35AE00ED6921 /* ic_IM_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_selected@2x.png"; sourceTree = "<group>"; };
 		D9E9F79519FF6F6A003F70F6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -3488,6 +3492,8 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				D9E803AC1AB19703009B8598 /* ic_nav_action_search_white@2x.png */,
+				D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */,
 				D9245DDC1A8CD27A004571AD /* ic_mock_up@2x.png */,
 				D9245DD41A8C9AE0004571AD /* ic_nav_button_non@2x.png */,
 				D9245DDE1A8CD29B004571AD /* ic_clock_big@2x.png */,
@@ -4531,6 +4537,7 @@
 				D9A804D11A80E738005AD701 /* ic_app_introduction@2x.png in Resources */,
 				D9A805381A80E738005AD701 /* ic_city_tra_up@2x.png in Resources */,
 				D9A8057F1A80E738005AD701 /* s_snow@2x.png in Resources */,
+				D9E803AE1AB19703009B8598 /* ic_nav_action_search_white@2x.png in Resources */,
 				D9A8FF121A80CC2B005AD701 /* ChangeUserInfoViewController.xib in Resources */,
 				D9A805101A80E738005AD701 /* ic_text_cover_bg@2x.png in Resources */,
 				D9A805751A80E738005AD701 /* clear@2x.png in Resources */,
@@ -4547,6 +4554,7 @@
 				D9B9EA0F1A88C42400966074 /* btn_spot_info_enable@2x.png in Resources */,
 				D9A804B31A80E738005AD701 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				D9A805771A80E738005AD701 /* fog@2x.png in Resources */,
+				D9E803AF1AB19703009B8598 /* ic_sns_talk@2x.png in Resources */,
 				D9A8011C1A80DD23005AD701 /* call_out@2x.png in Resources */,
 				D917DAD91A8B4B240039720A /* ic_guide_dot1@2x.png in Resources */,
 				D9A800341A80D52F005AD701 /* TripPoiListTableViewCell.xib in Resources */,
