@@ -50,8 +50,14 @@
         default:
             break;
     }
+    if (_tripPoi.rank == 0) {
+        _rankLabel.text = @"";
+    } else if (_tripPoi.rank <= 100) {
+        _rankLabel.text = [NSString stringWithFormat:@"%@ %d", rankStr, _tripPoi.rank];
+    } else {
+        _rankLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
+    }
     
-    _rankLabel.text = [NSString stringWithFormat:@"%@ %d", rankStr, _tripPoi.rank];
     _tripPoi.priceDesc = @"人均10元";
     if (_tripPoi.poiType == kSpotPoi) {
         NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];

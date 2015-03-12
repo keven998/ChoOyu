@@ -772,7 +772,7 @@
 
 - (void)didClickOnImageIndex:(NSInteger)imageIndex
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",TRIP_DETAIL_HTML, _tripDetail.tripId];
+    NSString *url = _tripDetail.tripDetailUrl;
     NSString *shareContentWithoutUrl = [NSString stringWithFormat:@"我的《%@》来了，亲们快快来围观～",_tripDetail.tripTitle];
     NSString *shareContentWithUrl = [NSString stringWithFormat:@"我的《%@》来了，亲们快快来围观~ %@",_tripDetail.tripTitle, url];
     TaoziImage *image = [_tripDetail.images firstObject];

@@ -21,8 +21,8 @@
         _backUpJson = json;
         _tripId = [json objectForKey:@"id"];
         _tripTitle = [json objectForKey:@"title"];
+        _tripDetailUrl = [json objectForKey:@"detailUrl"];
         _dayCount = [[json objectForKey:@"itineraryDays"] integerValue];
-        
         NSMutableArray *imageArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             [imageArray addObject:[[TaoziImage alloc] initWithJson:imageDic]];
@@ -131,6 +131,7 @@
     
     [uploadDicToSave safeSetObject:_tripId forKey:@"id"];
     [uploadDicToSave safeSetObject:_tripTitle forKey:@"title"];
+    [uploadDicToSave safeSetObject:_tripDetailUrl forKey:@"detailUrl"];
     
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _destinations) {
@@ -218,7 +219,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO);
     }];
-
 }
 
 /**
