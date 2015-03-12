@@ -92,8 +92,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSLog(@"home willAppear");
     self.navigationController.navigationBar.hidden = YES;
     
-    NSLog(@"%d", [UIApplication sharedApplication].applicationIconBadgeNumber);
-    
 }
 
 
@@ -443,7 +441,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UIApplication *application = [UIApplication sharedApplication];
 
     if (!_IMRootCtl && application.applicationIconBadgeNumber>0) {
-        _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", application.applicationIconBadgeNumber];
+        _unReadMsgLabel.text = [NSString stringWithFormat:@"%ld", (long)application.applicationIconBadgeNumber];
         
     } else {
         int unReadCount = self.IMRootCtl.totalUnReadMsg;

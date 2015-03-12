@@ -558,7 +558,6 @@
 		D9A805811A80E738005AD701 /* thunder_rain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804721A80E738005AD701 /* thunder_rain@2x.png */; };
 		D9A805821A80E738005AD701 /* ic_menu_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804731A80E738005AD701 /* ic_menu_add@2x.png */; };
 		D9A805831A80E738005AD701 /* ic_nav_action_search_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804741A80E738005AD701 /* ic_nav_action_search_red@2x.png */; };
-		D9A805841A80E738005AD701 /* ic_nav_action_search_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804751A80E738005AD701 /* ic_nav_action_search_white@2x.png */; };
 		D9A805851A80E738005AD701 /* ic_navigation_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804761A80E738005AD701 /* ic_navigation_back@2x.png */; };
 		D9A805861A80E738005AD701 /* sns_icon_douban@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804781A80E738005AD701 /* sns_icon_douban@2x.png */; };
 		D9A805871A80E738005AD701 /* sns_icon_imessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A804791A80E738005AD701 /* sns_icon_imessage@2x.png */; };
@@ -682,7 +681,6 @@
 		D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC71A80D216005AD701 /* HotDestinationCollectionViewController.m */; };
 		D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
-		D9B9EA001A888A0400966074 /* add_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9E9FF1A888A0400966074 /* add_contact@2x.png */; };
 		D9B9EA0E1A88C42400966074 /* btn_spot_info_disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA0C1A88C42400966074 /* btn_spot_info_disable@2x.png */; };
 		D9B9EA0F1A88C42400966074 /* btn_spot_info_enable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA0D1A88C42400966074 /* btn_spot_info_enable@2x.png */; };
 		D9B9EA131A88CBD000966074 /* add_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA121A88CBD000966074 /* add_contact@2x.png */; };
@@ -1521,7 +1519,6 @@
 		D9A804721A80E738005AD701 /* thunder_rain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thunder_rain@2x.png"; sourceTree = "<group>"; };
 		D9A804731A80E738005AD701 /* ic_menu_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu_add@2x.png"; sourceTree = "<group>"; };
 		D9A804741A80E738005AD701 /* ic_nav_action_search_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_red@2x.png"; sourceTree = "<group>"; };
-		D9A804751A80E738005AD701 /* ic_nav_action_search_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_white@2x.png"; sourceTree = "<group>"; };
 		D9A804761A80E738005AD701 /* ic_navigation_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigation_back@2x.png"; sourceTree = "<group>"; };
 		D9A804781A80E738005AD701 /* sns_icon_douban@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sns_icon_douban@2x.png"; sourceTree = "<group>"; };
 		D9A804791A80E738005AD701 /* sns_icon_imessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sns_icon_imessage@2x.png"; sourceTree = "<group>"; };
@@ -1769,7 +1766,6 @@
 		D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D9B9E9FF1A888A0400966074 /* add_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_contact@2x.png"; sourceTree = "<group>"; };
 		D9B9EA0C1A88C42400966074 /* btn_spot_info_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_disable@2x.png"; sourceTree = "<group>"; };
 		D9B9EA0D1A88C42400966074 /* btn_spot_info_enable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_enable@2x.png"; sourceTree = "<group>"; };
 		D9B9EA121A88CBD000966074 /* add_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_contact@2x.png"; sourceTree = "<group>"; };
@@ -3482,7 +3478,6 @@
 				D9A804731A80E738005AD701 /* ic_menu_add@2x.png */,
 				D9A804741A80E738005AD701 /* ic_nav_action_search_red@2x.png */,
 				D9245DC61A8C553E004571AD /* story_default@2x.png */,
-				D9A804751A80E738005AD701 /* ic_nav_action_search_white@2x.png */,
 				D9A804761A80E738005AD701 /* ic_navigation_back@2x.png */,
 				D9A804771A80E738005AD701 /* SNS_ICON */,
 			);
@@ -3617,7 +3612,6 @@
 		D9A803741A80E737005AD701 /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
-				D9B9E9FF1A888A0400966074 /* add_contact@2x.png */,
 				D9A803761A80E737005AD701 /* audio */,
 				D9A803851A80E737005AD701 /* chat_time@2x.png */,
 				D9A803861A80E737005AD701 /* chatLocation */,
@@ -4497,7 +4491,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9A805841A80E738005AD701 /* ic_nav_action_search_white@2x.png in Resources */,
 				D9A805641A80E738005AD701 /* ic_trip_selected_1@2x.png in Resources */,
 				D9A802061A80E036005AD701 /* ic_DMFilter_selected@2x.png in Resources */,
 				D9A801551A80DD23005AD701 /* CreateConversationViewController.xib in Resources */,
@@ -4730,7 +4723,6 @@
 				D9A805361A80E738005AD701 /* ic_city_shopping@2x.png in Resources */,
 				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				D9A804E01A80E738005AD701 /* ic_frendRequest@2x.png in Resources */,
-				D9B9EA001A888A0400966074 /* add_contact@2x.png in Resources */,
 				D9A8022D1A80E036005AD701 /* sr_refresh@2X.png in Resources */,
 				C67C078A1A81BFC100E0F30B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D9A805351A80E738005AD701 /* ic_city_restaurant@2x.png in Resources */,
