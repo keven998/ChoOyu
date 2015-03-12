@@ -497,6 +497,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     for (EMMessage *cmdMessage in offlineCmdMessages) {
         [TZCMDChatHelper distributeCMDMsg:cmdMessage];
     }
+    [self setupUnreadMessageCount];
     NSLog(@"我收到了很多透传消息");
 }
 
