@@ -8,25 +8,22 @@
 
 #import "FavoriteViewController.h"
 #import "FavoriteTableViewCell.h"
-#import "DKCircleButton.h"
 #import "AccountManager.h"
 #import "Favorite.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
-#import "ShoppingDetailViewController.h"
-#import "HotelDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 #import "CityDetailTableViewController.h"
-#import "SRRefreshView.h"
 #import "TMCache.h"
 #import "TravelNoteDetailViewController.h"
 #import "TZFilterViewController.h"
+#import "TZButton.h"
 
 #define PAGE_COUNT 15
 
-@interface FavoriteViewController () <SRRefreshDelegate, UITableViewDelegate, UITableViewDataSource, TaoziMessageSendDelegate, TZFilterViewDelegate>
+@interface FavoriteViewController () <TaoziMessageSendDelegate, TZFilterViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) DKCircleButton *editBtn;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (nonatomic) BOOL isEditing;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
@@ -41,11 +38,12 @@
 @property (nonatomic, assign) BOOL didEndScroll;
 @property (nonatomic, assign) BOOL enableLoadMore;
 
-@property (strong, nonatomic) SRRefreshView *slimeView;
-
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 @property (nonatomic, strong) NSArray *urlArray;
+@property (nonatomic, strong) NSArray *urlTitleArray;
+@property (nonatomic, strong) TZButton *filterBtn;
+
 /**
  *  当前显示的收藏类型
  */
@@ -63,8 +61,8 @@
 - (id)init {
     if (self = [super init]) {
         _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
+        _urlTitleArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"]];
         _currentFavoriteType = [_urlArray objectAtIndex:0];
-        _isEditing = NO;
         _selectedIndex = -1;
         _currentPage = 0;
         _isLoadingMore = YES;
@@ -78,46 +76,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationController.navigationBar.translucent = YES;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     if (_selectToSend) {
         self.navigationItem.title = @"发送收藏";
     } else {
-        self.navigationItem.title = @"收藏夹";
+        self.navigationItem.title = @"我的收藏";
     }
     
-//    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-//    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//    self.navigationItem.leftBarButtonItem = backBtn;
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    [self.view addSubview:self.tableView];
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    
-    UIBarButtonItem * filterBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(filter:)];
-    self.navigationItem.rightBarButtonItem = filterBtn;
-    [filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"]];
-    
+    _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 28, 40)];
+    [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+    _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+    [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [_filterBtn setTitle:@"All" forState:UIControlStateNormal];
+    _filterBtn.topSpaceHight = 4.0;
+    _filterBtn.spaceHight = 1;
+    [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+    self.navigationItem.rightBarButtonItem = filterItem;
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    [self.tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
     
-    [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
-    [self.view addSubview:self.editBtn];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.tintColor = APP_THEME_COLOR;
+    [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
+    [self.tableView addSubview:self.refreshControl];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
@@ -126,19 +133,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_my_favorites"];
     _isVisible = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_my_favorites"];
     _isVisible = NO;
 }
 
 - (void) initDataFromCache {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [[TMCache sharedCache] objectForKey:[NSString stringWithFormat:@"%@_favorites", accountManager.account.userId] block:^(TMCache *cache, NSString *key, id object)  {
-//        if (object != nil) {
-        if (false) {
+        if (object != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dataSource addObjectsFromArray:object];
                 [self.tableView reloadData];
@@ -148,25 +156,12 @@
             });
             [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
         } else {
-            self.slimeView.loading = YES;
-            [self pullToRefreash:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            });
         }
     }];
-}
-
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _tableView.tableFooterView = [[UIView alloc] init];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = APP_PAGE_COLOR;
-        [_tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];
-    }
-    return _tableView;
 }
 
 - (UIView *)footerView {
@@ -187,31 +182,13 @@
 {
     if (!_filterCtl) {
         _filterCtl = [[TZFilterViewController alloc] init];
-        _filterCtl.filterItemsArray = @[@[@"All", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"]];
+        _filterCtl.filterItemsArray = _urlTitleArray;
         _filterCtl.filterTitles = @[@"类型"];
         _filterCtl.lineCountPerFilterType = @[@2];
         _filterCtl.selectedItmesIndex = @[@0];
         _filterCtl.delegate = self;
-
     }
     return _filterCtl;
-}
-
-- (SRRefreshView *)slimeView
-{
-    if (_slimeView == nil) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    
-    return _slimeView;
 }
 
 /**
@@ -221,6 +198,7 @@
  */
 - (void)filter:(id)sender
 {
+    [MobClick event:@"event_do_filter"];
     if (!self.filterCtl.filterViewIsShowing) {
         typeof(FavoriteViewController *)weakSelf = self;
         [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
@@ -237,11 +215,9 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-    _tableView = nil;
-    _slimeView.delegate = nil;
-    _slimeView = nil;
+
+    [self.refreshControl endRefreshing];
+    self.refreshControl = nil;
 }
 
 - (void)userDidLogout
@@ -262,53 +238,6 @@
     return _dataSource;
 }
 
-- (DKCircleButton *)editBtn
-{
-    if (!_editBtn) {
-        _editBtn = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-70.0, 50, 50)];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_layer_edit_done.png"] forState:UIControlStateSelected];
-        [_editBtn addTarget:self action:@selector(editMyFavorite:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _editBtn;
-}
-
-/**
- *  点击编辑按钮
- *
- *  @param sender
- */
-- (IBAction)editMyFavorite:(id)sender
-{
-    UIButton *btn = sender;
-    BOOL isEditing = btn.isSelected;
-    _isEditing = !isEditing;
-    btn.selected = !isEditing;
-    [self.tableView reloadData];
-}
-
-/**
- *  点击删除攻略按钮
- *
- *  @param sender
- */
-- (IBAction)deleteFavorite:(UIButton *)sender
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定移除收藏" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            if (buttonIndex == 1) {
-                CGPoint viewPos = [sender convertPoint:CGPointZero toView:self.tableView];
-                NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
-                NSInteger index = indexPath.row;
-                Favorite *favorite = [self.dataSource objectAtIndex:index];
-                [self deleteUserFavorite:favorite];
-            }
-        }
-    }];
-}
-
-
 /**
  *  获取我的收藏列表
  */
@@ -316,6 +245,9 @@
 - (void)loadDataWithPageIndex:(NSInteger)pageIndex andFavoriteType:(NSString *)faType
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -324,6 +256,8 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:300];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     [params safeSetObject:faType forKey:@"faType"];
@@ -347,24 +281,17 @@
                     });
                 }
             } else {
-                
+                [self showHint:@"请求失败"];
             }
-        } else {
-            NSLog(@"用户切换界面了，我不需要加载了");
-        }
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
         }
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
+        [self.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompleted];
-        if (self.slimeView.loading) {
-            [self hideSlimeView];
-        }
         [self showHint:@"呃～好像没找到网络"];
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -373,9 +300,12 @@
  *
  *  @param guideSummary
  */
-- (void)deleteUserFavorite:(Favorite *)favorite
+- (void)deleteUserFavorite:(Favorite *)favorite atIndexPath:(NSIndexPath *)indexpath
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -385,22 +315,19 @@
     
     __weak typeof(FavoriteViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf.navigationController];
+    [hud showHUDInViewController:weakSelf];
     
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [SVProgressHUD showHint:@"OK!成功删除"];
-            NSInteger index = [self.dataSource indexOfObject:favorite];
-            [self.dataSource removeObject:favorite];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_dataSource removeObjectAtIndex:indexpath.section];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex: indexpath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
             if (_dataSource.count == 0) {
-                self.slimeView.loading = YES;
-                [self pullToRefreash:nil];
-            } else if (index < PAGE_COUNT) {
+                [self.refreshControl beginRefreshing];
+                [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            } else if (indexpath.section < PAGE_COUNT) {
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [self cacheFirstPage];
                 });
@@ -442,7 +369,7 @@
             }
             [self.tableView reloadData];
         } else {
-            [self showHint:@"已取完所有内容啦"];
+            [self showHint:@"已加载全部"];
         }
         return;
     }
@@ -457,187 +384,187 @@
     if (_dataSource.count >= 15) {
         _enableLoadMore = YES;
     }
-   
 }
 
-- (void)hideSlimeView
+- (IBAction)sendPoi:(id)sender
 {
-    [self.slimeView endRefresh];
+    CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
+    Favorite *item = [_dataSource objectAtIndex:indexPath.section];
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.messageId = item.itemId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = item.desc;
+    taoziMessageCtl.messageName = item.zhName;
+    taoziMessageCtl.chatter = self.chatter;
+    taoziMessageCtl.isGroup = self.isChatGroup;
+    //        taoziMessageCtl.messageTimeCost = item.timeCostStr;
+    taoziMessageCtl.descLabel.text = item.desc;
+    if (item.type == kSpotPoi) {
+        taoziMessageCtl.chatType = TZChatTypeSpot;
+        taoziMessageCtl.messageTimeCost = item.timeCostDesc;
+    } else if (item.type == kHotelPoi) {
+        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.messageRating = item.rating;
+        taoziMessageCtl.messagePrice = item.priceDesc;
+    } else if (item.type == kRestaurantPoi) {
+        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.messageRating = item.rating;
+        taoziMessageCtl.messagePrice = item.priceDesc;
+    } else if (item.type == kShoppingPoi) {
+        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.messageRating = item.rating;
+    } else if (item.type == kTravelNotePoi) {
+        taoziMessageCtl.chatType = TZChatTypeTravelNote;
+        taoziMessageCtl.messageDetailUrl = item.detailUrl;
+        
+    } else {
+        taoziMessageCtl.chatType = TZChatTypeCity;
+        taoziMessageCtl.messageTimeCost = item.timeCostDesc;
+    }
+    
+    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 
 #pragma makr - TZFilterViewDelegate
 -(void)didSelectedItems:(NSArray *)itemIndexPath
 {
-    _currentFavoriteType = [_urlArray objectAtIndex:[[itemIndexPath firstObject] integerValue]];
-    [self pullToRefreash:nil];
-}
-
-#pragma mark - SINavigationMenuDelegate
-
-- (void)didSelectItemAtIndex:(NSUInteger)index withSender:(id)sender
-{
+    NSInteger index = [[itemIndexPath firstObject] integerValue];
     _currentFavoriteType = [_urlArray objectAtIndex:index];
-    [self pullToRefreash:nil];
+    [self.refreshControl beginRefreshing];
+    [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+    [_filterBtn setTitle:[[_urlTitleArray objectAtIndex:0] objectAtIndex:index] forState:UIControlStateNormal];
 }
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _dataSource.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
+    view.backgroundColor = APP_PAGE_COLOR;
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FavoriteTableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"favorite_cell" forIndexPath:indexPath];
-    cell.isEditing = _isEditing;
-    [cell.deleteBtn addTarget:self action:@selector(deleteFavorite:) forControlEvents:UIControlEventTouchUpInside];
-    Favorite *item = [_dataSource objectAtIndex:indexPath.row];
+    Favorite *item = [_dataSource objectAtIndex:indexPath.section];
     
     if (item.images != nil && item.images.count > 0) {
         [cell.standardImageView sd_setImageWithURL:[NSURL URLWithString:((TaoziImage *)[item.images objectAtIndex:0]).imageUrl]];
     } else {
-        cell.standardImageView.image = [UIImage imageNamed:@"country.jpg"];
+        cell.standardImageView.image = nil;
     }
     cell.contentType.text = [item typeDescByType];
     cell.contentTitle.text = item.zhName;
     cell.contentLocation.text = item.locality.zhName;
-    cell.contentTypeFlag.image = [UIImage imageNamed:[item typeFlagName]];
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:item.createTime/1000];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    cell.timeLabel.text = [dateFormatter stringFromDate:date];
+    [cell.timeBtn setTitle:[dateFormatter stringFromDate:date] forState:UIControlStateNormal];
     
     
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:item.desc];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [desc length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 4.0;
+    style.lineSpacing = 2.0;
+    [style setLineBreakMode:NSLineBreakByTruncatingTail];
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-    [cell.contentDescExpandView setAttributedTitle:desc forState:UIControlStateNormal];
-//    if (indexPath.row != _selectedIndex) {
-//        cell.contentDescExpandView.selected = NO;
-//    } 
-    
-    [cell.contentDescExpandView addTarget:self action:@selector(expandDesc:) forControlEvents:UIControlEventTouchUpInside];
+    cell.contentDescLabel.attributedText = desc;
+    cell.isCanSend = _selectToSend;
+    [cell.sendBtn addTarget:self action:@selector(sendPoi:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
-- (IBAction)expandDesc:(id)sender {
-    UIButton *btn = sender;
-    CGPoint viewPos = [btn convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:viewPos];
-    
-//    if (!btn.isSelected) {
-//        _selectedIndex = indexPath.row;
-//        btn.selected = YES;
-//    } else {
-//        _selectedIndex = -1;
-//        btn.selected = NO;
-//    }
-    
-    if (_selectedIndex != indexPath.row) {
-        _selectedIndex = indexPath.row;
-    } else {
-        _selectedIndex = -1;
-    }
-    
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-}
-
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == _selectedIndex) {
-        NSString *text = ((Favorite *)[_dataSource objectAtIndex:indexPath.row]).desc;
-        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-        style.lineSpacing = 4.0;
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13.0],
-                                     NSParagraphStyleAttributeName : style};
-        CGRect rect = [text boundingRectWithSize:CGSizeMake(self.tableView.bounds.size.width - 44.0, MAXFLOAT)
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:attributes
-                                              context:nil];
-        if (rect.size.height <= 24) {
-            return 216.0;
-        }
-        
-        NSLog(@"高度为:%f",(210+rect.size.height-24.0));
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
 
-        return 210 + rect.size.height - 24.0;
-    }
-    return 216;
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 135.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Favorite *item = [_dataSource objectAtIndex:indexPath.row];
-    if (!_selectToSend) {
-        if (item.type == kSpotPoi) {
-            SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
-            ctl.spotId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else if (item.type == kHotelPoi) {
-            HotelDetailViewController *ctl = [[HotelDetailViewController alloc] init];
-            ctl.hotelId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else if (item.type == kRestaurantPoi) {
-            RestaurantDetailViewController *ctl = [[RestaurantDetailViewController alloc] init];
-            ctl.restaurantId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else if (item.type == kShoppingPoi) {
-            ShoppingDetailViewController *ctl = [[ShoppingDetailViewController alloc] init];
-            ctl.shoppingId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else if (item.type == kTravelNotePoi) {
-            TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
-            ctl.travelNoteId = item.itemId;
-            ctl.travelNoteTitle = item.zhName;
-            ctl.travelNoteCover = item.desc;
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        } else {
-            CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
-            ctl.cityId = item.itemId;
-            [self.navigationController pushViewController:ctl animated:YES];
-        }
-    } else {
+    Favorite *item = [_dataSource objectAtIndex:indexPath.section];
+    if (item.type == kSpotPoi) {
+        SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
+        ctl.spotId = item.itemId;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
         
-//TODO:点击发送
-        TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
-        taoziMessageCtl.delegate = self;
-        taoziMessageCtl.messageId = item.itemId;
-        taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
-        taoziMessageCtl.messageDesc = item.desc;
-        taoziMessageCtl.messageName = item.zhName;
-        taoziMessageCtl.chatter = self.chatter;
-        taoziMessageCtl.isGroup = self.isChatGroup;
-//        taoziMessageCtl.messageTimeCost = item.timeCostStr;
-        taoziMessageCtl.descLabel.text = item.desc;
-        if (item.type == kSpotPoi) {
-            taoziMessageCtl.chatType = TZChatTypeSpot;
-        } else if (item.type == kHotelPoi) {
-            taoziMessageCtl.chatType = TZChatTypeHotel;
-        } else if (item.type == kRestaurantPoi) {
-            taoziMessageCtl.chatType = TZChatTypeFood;
-        } else if (item.type == kShoppingPoi) {
-            taoziMessageCtl.chatType = TZChatTypeShopping;
-        } else if (item.type == kTravelNotePoi) {
-            taoziMessageCtl.chatType = TZChatTypeTravelNote;
-        } else {
-            taoziMessageCtl.chatType = TZChatTypeCity;
-        }
-
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-            
-        }];
-
+    } else if (item.type == kHotelPoi) {
+        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+        ctl.poiId = item.itemId;
+        ctl.poiType = kHotelPoi;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
+        
+    } else if (item.type == kRestaurantPoi) {
+        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+        ctl.poiType = kRestaurantPoi;
+        ctl.poiId = item.itemId;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
+        
+    } else if (item.type == kShoppingPoi) {
+        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+        ctl.poiId = item.itemId;
+        ctl.poiType = kShoppingPoi;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
+        
+    } else if (item.type == kTravelNotePoi) {
+        TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
+        ctl.travelNoteId = item.itemId;
+        ctl.travelNoteTitle = item.zhName;
+        TaoziImage *image = [item.images firstObject];
+        ctl.travelNoteCover = image.imageUrl;
+        ctl.urlStr = item.detailUrl;
+        ctl.desc = item.desc;
+        [self.navigationController pushViewController:ctl animated:YES];
+        
+    } else {
+        CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
+        ctl.cityId = item.itemId;
+        [self.navigationController pushViewController:ctl animated:YES];
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除收藏" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                if (buttonIndex == 1) {
+                    Favorite *favorite = [self.dataSource objectAtIndex:indexPath.section];
+                    [self deleteUserFavorite:favorite atIndexPath:indexPath];
+                    [MobClick event:@"deleteUserFavorite"];
+                }
+            }
+        }];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
 }
 
 - (void) beginLoadingMore {
@@ -698,23 +625,10 @@
             [self beginLoadingMore];
         }
     }
-    if (_slimeView) {
-        [_slimeView scrollViewDidScroll];
-    }
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _didEndScroll = YES;
-    if (_slimeView) {
-        [_slimeView scrollViewDidEndDraging];
-    }
-}
-
-#pragma mark - slimeRefresh delegate
-//加载更多
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self pullToRefreash:nil];
 }
 
 

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCell" id="KGk-i7-Jjw" customClass="UserHeaderTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="头像" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtm-KO-s42">
+                        <rect key="frame" x="56" y="11" width="191" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="36o-Af-vwT"/>
+                            <constraint firstAttribute="height" constant="21" id="Rfg-zF-4Ew"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="36o-Af-vwT"/>
+                                <exclude reference="Rfg-zF-4Ew"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="36o-Af-vwT"/>
+                                <include reference="Rfg-zF-4Ew"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e1q-um-YY8">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="dx1-4f-Qge"/>
+                            <constraint firstAttribute="height" constant="17" id="fBr-bX-eVW"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dx1-4f-Qge"/>
+                                <exclude reference="fBr-bX-eVW"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="dx1-4f-Qge"/>
+                                <include reference="fBr-bX-eVW"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lkq-3Y-iFM">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="41" id="jCK-N8-v7b"/>
+                            <constraint firstAttribute="width" constant="41" id="jwb-AN-aAa"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="jCK-N8-v7b"/>
+                                <exclude reference="jwb-AN-aAa"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="jCK-N8-v7b"/>
+                                <include reference="jwb-AN-aAa"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell_accessory_pink.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Wa-Vb-bzN">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="6" id="GQm-x4-sZG"/>
+                            <constraint firstAttribute="height" constant="10" id="zXt-iA-dos"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GQm-x4-sZG"/>
+                                <exclude reference="zXt-iA-dos"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="GQm-x4-sZG"/>
+                                <include reference="zXt-iA-dos"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="lkq-3Y-iFM" secondAttribute="trailing" constant="34" id="38h-vc-uPJ"/>
+                    <constraint firstAttribute="trailing" secondItem="8Wa-Vb-bzN" secondAttribute="trailing" constant="13" id="6xV-aS-Ecl"/>
+                    <constraint firstAttribute="centerY" secondItem="lkq-3Y-iFM" secondAttribute="centerY" id="DhF-Td-axv"/>
+                    <constraint firstItem="Gtm-KO-s42" firstAttribute="leading" secondItem="e1q-um-YY8" secondAttribute="trailing" constant="20" id="HtF-HA-Dsi"/>
+                    <constraint firstItem="Gtm-KO-s42" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="fcb-ya-oPM">
+                        <variation key="widthClass=compact" constant="14"/>
+                    </constraint>
+                    <constraint firstItem="e1q-um-YY8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="hlG-DQ-MNR">
+                        <variation key="widthClass=compact" constant="17"/>
+                    </constraint>
+                    <constraint firstAttribute="centerY" secondItem="8Wa-Vb-bzN" secondAttribute="centerY" id="kKt-ZV-Si0"/>
+                    <constraint firstItem="e1q-um-YY8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="phf-3F-5B7"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="subviews">
+                        <exclude reference="e1q-um-YY8"/>
+                        <exclude reference="lkq-3Y-iFM"/>
+                        <exclude reference="8Wa-Vb-bzN"/>
+                    </mask>
+                    <mask key="constraints">
+                        <exclude reference="HtF-HA-Dsi"/>
+                        <exclude reference="fcb-ya-oPM"/>
+                        <exclude reference="6xV-aS-Ecl"/>
+                        <exclude reference="kKt-ZV-Si0"/>
+                        <exclude reference="hlG-DQ-MNR"/>
+                        <exclude reference="phf-3F-5B7"/>
+                        <exclude reference="38h-vc-uPJ"/>
+                        <exclude reference="DhF-Td-axv"/>
+                    </mask>
+                </variation>
+                <variation key="widthClass=compact">
+                    <mask key="subviews">
+                        <include reference="e1q-um-YY8"/>
+                        <include reference="lkq-3Y-iFM"/>
+                        <include reference="8Wa-Vb-bzN"/>
+                    </mask>
+                    <mask key="constraints">
+                        <include reference="HtF-HA-Dsi"/>
+                        <include reference="fcb-ya-oPM"/>
+                        <include reference="6xV-aS-Ecl"/>
+                        <include reference="kKt-ZV-Si0"/>
+                        <include reference="hlG-DQ-MNR"/>
+                        <include reference="phf-3F-5B7"/>
+                        <include reference="38h-vc-uPJ"/>
+                        <include reference="DhF-Td-axv"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cellLabel" destination="Gtm-KO-s42" id="M1T-7C-WxR"/>
+                <outlet property="testImage" destination="e1q-um-YY8" id="TbY-he-10I"/>
+                <outlet property="userPhoto" destination="lkq-3Y-iFM" id="GqM-IY-h3z"/>
+            </connections>
+            <point key="canvasLocation" x="-253" y="174"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cell_accessory_pink.png" width="7" height="11"/>
+    </resources>
+</document>

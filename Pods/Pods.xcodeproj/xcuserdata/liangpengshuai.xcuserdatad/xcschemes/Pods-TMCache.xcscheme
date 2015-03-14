@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0610"
+   LastUpgradeVersion = "0620"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9E1A0C4054AB9D0C5B1E46B6"
+               BlueprintIdentifier = "CD6611737F1836015D5F01D2"
                BuildableName = "libPods-TMCache.a"
                BlueprintName = "Pods-TMCache"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E1A0C4054AB9D0C5B1E46B6"
+            BlueprintIdentifier = "CD6611737F1836015D5F01D2"
             BuildableName = "libPods-TMCache.a"
             BlueprintName = "Pods-TMCache"
             ReferencedContainer = "container:Pods.xcodeproj">

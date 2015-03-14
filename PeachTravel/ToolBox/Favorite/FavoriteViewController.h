@@ -19,5 +19,4 @@
 
 @property (nonatomic) BOOL isChatGroup;
 
-
 @end

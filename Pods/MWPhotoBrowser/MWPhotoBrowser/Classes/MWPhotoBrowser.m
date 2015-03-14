@@ -53,13 +53,17 @@
 {
     _imageList = imageList;
     _defaultPhotos = [[NSMutableArray alloc] init];
+    _HDPhotos = [[NSMutableArray alloc] init];
     for (id image in _imageList) {
-        if ([image isKindOfClass:[NSString class]]) {
-        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:image]];
-        [_defaultPhotos addObject:photo];
+        if ([image isKindOfClass:[NSDictionary class]]) {
+            MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:[image objectForKey:@"url"]]];
+            [_defaultPhotos addObject:photo];
+            MWPhoto *HDPhoto = [MWPhoto photoWithURL:[NSURL URLWithString:[image objectForKey:@"originUrl"]]];
+            [_HDPhotos addObject:HDPhoto];
         }
         if ([image isKindOfClass:[MWPhoto class]]) {
             [_defaultPhotos addObject:image];
+            [_HDPhotos addObject:image];
         }
        
         [self reloadData];
@@ -72,7 +76,8 @@
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    return [_defaultPhotos objectAtIndex:index];
+//    return [_defaultPhotos objectAtIndex:index];
+    return [_HDPhotos objectAtIndex:index]; 
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
@@ -1090,19 +1095,16 @@
 
 - (void)updateNavigation {
     
-	// Title
+    if (!_imageList) {
+        self.title = @"加载中...";
+        return;
+    }
     NSUInteger numberOfPhotos = [self numberOfPhotos];
     if (_gridController) {
         if (_gridController.selectionMode) {
             self.title = NSLocalizedString(@"Select Photos", nil);
         } else {
-//            NSString *photosText;
-//            if (numberOfPhotos == 1) {
-//                photosText = NSLocalizedString(@"photo", @"Used in the context: '1 photo'");
-//            } else {
-//                photosText = NSLocalizedString(@"photos", @"Used in the context: '3 photos'");
-//            }
-            self.title = [NSString stringWithFormat:@"共%lu张图片", (unsigned long)numberOfPhotos];
+            self.title = [NSString stringWithFormat:@"共%lu图", (unsigned long)numberOfPhotos];
         }
     } else if (numberOfPhotos > 1) {
         if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
@@ -1213,7 +1215,8 @@
         [_gridController didMoveToParentViewController:self];
     }];
     
-    self.navigationItem.rightBarButtonItem = nil;
+//    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)hideGrid {
@@ -1456,7 +1459,8 @@
             [self tilePages]; // Force tiling if view is not visible
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MWPhotoBrowser.bundle/images/%@.png", @"UIBarButtonItemGrid"]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark - Misc

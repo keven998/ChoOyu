@@ -10,14 +10,13 @@
 #import "DMFilterView.h"
 #import "SwipeView.h"
 #import "PoisOfCityTableViewCell.h"
-#import "AddSpotTableViewCell.h"
 #import "PoiSummary.h"
 #import "SpotDetailViewController.h"
-#import "RestaurantDetailViewController.h"
-#import "ShoppingDetailViewController.h"
-#import "HotelDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
+#import "CommonPoiDetailViewController.h"
 
-#define LOCAL_PAGE_TITLES       @[@"玩", @"吃", @"买", @"住"]
+#define LOCAL_PAGE_TITLES       @[@"景", @"美食", @"逛", @"住"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
 #define LOCAL_PAGE_HIGHLIGHTEDIMAGES       @[@"nearby_ic_tab_spot_select.png", @"nearby_ic_tab_delicacy_select", @"nearby_ic_tab_shopping_select.png", @"nearby_ic_tab_stay_select.png"]
 
@@ -28,7 +27,7 @@
 
 #define RECYCLE_PAGE_TAG        100
 
-@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
+@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) DMFilterView *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
@@ -64,18 +63,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我身边";
+//    self.navigationItem.title = @"我身边";
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"我身边";
+    self.navigationItem.titleView = titleLabel;
     
     _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES normatlImages:LOCAL_PAGE_NORMALIMAGES highLightedImages:LOCAL_PAGE_HIGHLIGHTEDIMAGES containerView:self.view];
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.filterView attachToContainerView];
     [self.filterView setDelegate:self];
-    _filterView.backgroundColor = [UIColor whiteColor];
+    _filterView.backgroundImage = [[UIImage imageNamed:@"navi_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
+//    _filterView.backgroundColor = [UIColor clearColor];
     _filterView.titlesColor = TEXT_COLOR_TITLE_HINT;
-    _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
-    _filterView.selectedItemBackgroundColor = [UIColor whiteColor];
+    _filterView.titlesFont = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
+    _filterView.selectedItemBackgroundColor = [UIColor clearColor];
 
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
     _swipeView.dataSource = self;
@@ -101,7 +107,7 @@
     
     _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 30.0)];
     _locLabel.textColor = [UIColor whiteColor];
-    _locLabel.font = [UIFont systemFontOfSize:11.0];
+    _locLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
     [fbar addSubview:_locLabel];
     
     _reLocBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(fbar.frame) - 48.0 , 0.0, 48.0, 30.0)];
@@ -113,12 +119,34 @@
     [self relocal:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_locality"];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back_white.png"] forState:UIControlStateNormal];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_locality"];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
 - (void)goBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)relocal:(id)sender {
+    [MobClick event:@"event_refresh_location"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     CABasicAnimation* rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -134,7 +162,25 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+}
 
+- (IBAction)jumpToMapView:(UIButton *)sender
+{
+    [MobClick event:@"event_go_navigation"];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    for (NSDictionary *dic in platformArray) {
+        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+    }
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    [sheet showInView:self.view];
+    sheet.tag = sender.tag;
+   
 }
 
 - (CLLocationManager *)locationManager
@@ -183,6 +229,9 @@
         return;
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -191,6 +240,8 @@
     NSInteger realPageIndex = _swipeView.currentItemView.tag;
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:300];
+    [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.latitude] forKey:@"lat"];
     [params setObject:[NSNumber numberWithFloat:_location.coordinate.longitude] forKey:@"lng"];
     
@@ -220,6 +271,7 @@
     [manager GET:API_NEARBY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
+            //防止切换的时候重复加载
             [self analysisData:[responseObject objectForKey:@"result"] withRealPageIndex:realPageIndex];
         } else {
 //            [SVProgressHUD showErrorWithStatus:@"加载失败"];
@@ -270,14 +322,17 @@
     NSArray *dataList = [json objectForKey:key];
     for (id poiDic in dataList) {
         PoiSummary *poiSummary = [[PoiSummary alloc] initWithJson:poiDic];
+        poiSummary.poiType = type;
         [currentList addObject:poiSummary];
         CLLocation *current=[[CLLocation alloc] initWithLatitude:poiSummary.lat longitude:poiSummary.lng];
         CLLocation *before=[[CLLocation alloc] initWithLatitude:_location.coordinate.latitude longitude:_location.coordinate.longitude];
         CLLocationDistance meters=[current distanceFromLocation:before];
-        if (meters>1000) {
+        if (meters>1000 && meters<10000) {
             poiSummary.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
-        } else {
+        } else if (meters<1000) {
             poiSummary.distanceStr = [NSString stringWithFormat:@"%dm",(int)meters];
+        } else if (meters>=10000) {
+            poiSummary.distanceStr = @">10km";
         }
 
     }
@@ -287,7 +342,6 @@
     }
     
     NSInteger oldPage = [[self.currentPageList objectAtIndex:realPageIndex] integerValue];
-    NSLog(@"我将第%ld 页的纵向第%ld 加了一页", (long)realPageIndex, (long)oldPage);
     [self.currentPageList replaceObjectAtIndex:realPageIndex withObject:[NSNumber numberWithInteger:++oldPage]];
 }
 
@@ -302,28 +356,35 @@
         case PAGE_FUN: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = poi.poiId;
-            [self.navigationController pushViewController:spotDetailCtl animated:YES];
+            [self addChildViewController:spotDetailCtl];
+            [self.view addSubview:spotDetailCtl.view];
         }
             break;
             
         case PAGE_FOOD: {
-            RestaurantDetailViewController *restaurant = [[RestaurantDetailViewController alloc] init];
-            restaurant.restaurantId = poi.poiId;
-            [self.navigationController pushViewController:restaurant animated:YES];
+            CommonPoiDetailViewController *restaurant = [[CommonPoiDetailViewController alloc] init];
+            restaurant.poiId = poi.poiId;
+            restaurant.poiType = kRestaurantPoi;
+            [self addChildViewController:restaurant];
+            [self.view addSubview:restaurant.view];
         }
             break;
         
         case PAGE_SHOPPING: {
-            ShoppingDetailViewController *shopping = [[ShoppingDetailViewController alloc] init];
-            shopping.shoppingId = poi.poiId;
-            [self.navigationController pushViewController:shopping animated:YES];
+            CommonPoiDetailViewController *shopping = [[CommonPoiDetailViewController alloc] init];
+            shopping.poiId = poi.poiId;
+            shopping.poiType = kShoppingPoi;
+            [self addChildViewController:shopping];
+            [self.view addSubview:shopping.view];
         }
             break;
             
         case PAGE_STAY: {
-            HotelDetailViewController *hotel = [[HotelDetailViewController alloc] init];
-            hotel.hotelId = poi.poiId;
-            [self.navigationController pushViewController:hotel animated:YES];
+            CommonPoiDetailViewController *hotel = [[CommonPoiDetailViewController alloc] init];
+            hotel.poiId = poi.poiId;
+            hotel.poiType = kHotelPoi;
+            [self addChildViewController:hotel];
+            [self.view addSubview:hotel.view];
         }
             break;
             
@@ -333,16 +394,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger page = [tableView superview].tag;
-    switch (page) {
-        case PAGE_FUN:
-            return 138.0;
-            break;
-            
-        default:
-            break;
-    }
-    return 185.0;
+    return 155;
 }
 
 
@@ -356,27 +408,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger page = [tableView superview].tag;
-    if (page == PAGE_FUN) {
-        AddSpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addSpotCell"];
-        PoiSummary *poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
-        TripPoi *trippoi = [[TripPoi alloc] init];
-        trippoi.poiId = poi.poiId;
-        trippoi.images = poi.images;
-        trippoi.zhName = poi.zhName;
-        trippoi.enName = poi.enName;
-        trippoi.desc = poi.desc;
-        trippoi.rating = poi.rating;
-        trippoi.timeCost = poi.timeCost;
-        trippoi.lat = poi.lat;
-        trippoi.lng = poi.lng;
-        trippoi.distanceStr = poi.distanceStr;
-        cell.tripPoi = trippoi;
-        cell.addBtn.tag = indexPath.row;
-        cell.shouldEdit = NO;
-        return cell;
-    }
+   
     PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
     cell.shouldEdit = NO;
+    cell.isNearByCell = YES;
+    cell.naviBtn.tag = indexPath.row;
+    [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     cell.poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
     return cell;
 }
@@ -395,7 +433,7 @@
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.backgroundColor = APP_PAGE_COLOR;
         view.tag = index;
-        tbView = [[UITableView alloc] initWithFrame:view.bounds];
+        tbView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height)];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
         tbView.dataSource = self;
@@ -405,19 +443,12 @@
         tbView.backgroundColor = APP_PAGE_COLOR;
         
         [view addSubview:tbView];
-        if (index == PAGE_FUN) {
-            [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
-        } else {
-            [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
-        }
+        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
     } else {
         view.tag = index;
         tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
-        if (index == PAGE_FUN) {
-            [tbView registerNib:[UINib nibWithNibName:@"AddSpotTableViewCell" bundle:nil] forCellReuseIdentifier:@"addSpotCell"];
-        } else {
-            [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
-        }
+//        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+        [tbView setContentOffset:CGPointZero animated:NO];
         [tbView reloadData];
     }
 
@@ -429,11 +460,15 @@
 
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
     NSInteger page = swipeView.currentPage;
-    [_filterView setSelectedIndex:page];
+    
+    if (_filterView.selectedIndex != page) {
+        [_filterView setSelectedIndex:page];
+    }
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
-    if (![[self.dataSource objectAtIndex:page] count]) {
+    if (![[self.dataSource objectAtIndex:page] count] && ![[self.isLoaddingMoreList objectAtIndex:page] boolValue]) {
+        [self.isLoaddingMoreList replaceObjectAtIndex:page withObject:@YES];
         NSLog(@"我在加载数据 = %ld", (long)page);
         [self loadDataWithPageIndex:0];
     }
@@ -480,9 +515,20 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
+        case kCLAuthorizationStatusNotDetermined: {
             [self.locationManager stopUpdatingLocation];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"去设置里打开“桃子”的定位服务吧~" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
             break;
+            
+        case kCLAuthorizationStatusDenied: {
+            [self.locationManager stopUpdatingLocation];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"去设置里打开“桃子”的定位服务吧~" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+            break;
+
             
         case kCLAuthorizationStatusAuthorizedAlways:
             
@@ -524,13 +570,17 @@
             }
             UITableView *tbView = (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
             [tbView reloadData];
-            self.currentPageList = nil;
-            [self loadDataWithPageIndex:0];
+            NSInteger currentPage = _swipeView.currentPage;
+            _isLoaddingMoreList = nil;
+            _dataSource = nil;
+            _currentPageList = nil;
+            [self loadDataWithPageIndex:currentPage];
+            [self.isLoaddingMoreList replaceObjectAtIndex:currentPage withObject:@YES];
         }
     }];
 }
 
-- (void) beginLoadingMoreWithTableView:(UITableView *)tableView
+- (void)beginLoadingMoreWithTableView:(UITableView *)tableView
 {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44.0)];
     footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -551,7 +601,7 @@
     [self loadDataWithPageIndex:[[self.currentPageList objectAtIndex:page] integerValue]+1];
 }
 
-- (void) loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
+- (void)loadMoreCompletedWithCurrentPage:(NSInteger)pageIndex {
     if (![[self.isLoaddingMoreList objectAtIndex:pageIndex] boolValue]) {
         return;
     }
@@ -564,7 +614,8 @@
     tableView.tableFooterView = nil;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _swipeView.delegate = nil;
     _swipeView.dataSource = nil;
     _swipeView = nil;
@@ -607,6 +658,83 @@
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSLog(@"scrollViewDidEndDecelerating");
     _didEndScroll = YES;
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    NSInteger tag = _swipeView.currentItemView.tag;
+    PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:actionSheet.tag];
+    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+    switch (buttonIndex) {
+        case 0:
+            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+                case kAMap:
+                    [ConvertMethods jumpGaodeMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                    break;
+                    
+                case kBaiduMap: {
+                    [ConvertMethods jumpBaiduMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }
+                    break;
+                    
+                case kAppleMap: {
+                    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
+                }                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

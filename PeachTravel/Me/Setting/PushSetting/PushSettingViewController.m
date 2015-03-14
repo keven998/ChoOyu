@@ -11,22 +11,24 @@
 
 @interface PushSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic) BOOL isNoDisturbing;
+
 @end
 
 @implementation PushSettingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
+    self.navigationItem.title = @"消息和提醒";
     [self.tableView registerNib:[UINib nibWithNibName:@"PushSettingTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"push_cell"];
     _tableView.dataSource = self;
     _tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0);
+    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
+    _isNoDisturbing = options.noDisturbing;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma UITableViewDataSource
@@ -39,33 +41,15 @@
     PushSettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"push_cell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
         cell.titleView.text = @"贴心旅行相关推送";
+        [cell.switchButton removeTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
         [cell.switchButton addTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
     } else if (indexPath.row == 1) {
-        cell.titleView.text = @"桃·Talk提醒";
+        cell.titleView.text = @"Talk提醒";
+        [cell.switchButton removeTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
         [cell.switchButton addTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
+        cell.switchButton.on = !_isNoDisturbing;
     }
     return cell;
-}
-
-#pragma IBAction
--(void)enablePush:(id)sender {
-    UISwitch *switchButton = (UISwitch*)sender;
-    BOOL on = [switchButton isOn];
-    if (on) { //TODO
-        
-    } else {
-        
-    }
-}
-
--(void)enableCircleMsg:(id)sender {
-    UISwitch *switchButton = (UISwitch*)sender;
-    BOOL on = [switchButton isOn];
-    if (on) { //TODO
-        
-    } else {
-    
-    }
 }
 
 #pragma UITableViewDelegate
@@ -82,14 +66,49 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma IBAction
+-(void)enablePush:(id)sender {
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL on = [switchButton isOn];
+    if (on) {
+        
+    } else {
+        
+    }
 }
-*/
+
+-(void)enableCircleMsg:(id)sender {
+    _isNoDisturbing = !_isNoDisturbing;
+    [self savePushOptions];
+}
+
+/**
+ *  保存推送设置
+ */
+- (void)savePushOptions
+{
+    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
+//    [SVProgressHUD show];
+    if (_isNoDisturbing != options.noDisturbing) {
+        options.noDisturbing = _isNoDisturbing;
+        if (_isNoDisturbing) {
+            options.noDisturbingStartH = 0;
+            options.noDisturbingEndH = 24;
+        } else {
+            options.noDisturbingStartH = -1;
+            options.noDisturbingEndH = -1;
+
+        }
+        [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options completion:^(EMPushNotificationOptions *options, EMError *error) {
+            if (!error) {
+//                [SVProgressHUD showHint:@"设置成功"];
+            } else {
+                [SVProgressHUD showHint:@"设置失败"];
+                _isNoDisturbing = !_isNoDisturbing;
+                [self.tableView reloadData];
+            }
+        } onQueue:nil];
+    }
+}
 
 @end
