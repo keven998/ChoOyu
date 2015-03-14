@@ -130,6 +130,7 @@
 		D980FD651A88EFAB00313582 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
+		D993CABF1AB30F080075314E /* ic_nav_action_search_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D993CABE1AB30F080075314E /* ic_nav_action_search_white@2x.png */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */; };
 		D9A800181A80D52F005AD701 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD61A80D52F005AD701 /* CityDestinationPoi.m */; };
@@ -688,7 +689,6 @@
 		D9B9EA171A88CC0F00966074 /* delete_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */; };
 		D9B9EA1B1A88CF5B00966074 /* check_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */; };
 		D9B9EA1D1A88CF8000966074 /* check_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1C1A88CF8000966074 /* check_border@2x.png */; };
-		D9E803AE1AB19703009B8598 /* ic_nav_action_search_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E803AC1AB19703009B8598 /* ic_nav_action_search_white@2x.png */; };
 		D9E803AF1AB19703009B8598 /* ic_sns_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */; };
 		D9E94BF41AAD35AE00ED6921 /* ic_IM_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E94BF21AAD35AE00ED6921 /* ic_IM_normal@2x.png */; };
 		D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E94BF31AAD35AE00ED6921 /* ic_IM_selected@2x.png */; };
@@ -949,6 +949,7 @@
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_msg_sending@2x.png"; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
+		D993CABE1AB30F080075314E /* ic_nav_action_search_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_white@2x.png"; sourceTree = "<group>"; };
 		D99D8EC519C8600C0021C25B /* PeachTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EDE19C8600C0021C25B /* PeachTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99D8EE319C8600C0021C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1773,7 +1774,6 @@
 		D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_contact@2x.png"; sourceTree = "<group>"; };
 		D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_selected@2x.png"; sourceTree = "<group>"; };
 		D9B9EA1C1A88CF8000966074 /* check_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_border@2x.png"; sourceTree = "<group>"; };
-		D9E803AC1AB19703009B8598 /* ic_nav_action_search_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_white@2x.png"; sourceTree = "<group>"; };
 		D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_talk@2x.png"; sourceTree = "<group>"; };
 		D9E94BF21AAD35AE00ED6921 /* ic_IM_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_normal@2x.png"; sourceTree = "<group>"; };
 		D9E94BF31AAD35AE00ED6921 /* ic_IM_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_selected@2x.png"; sourceTree = "<group>"; };
@@ -3487,7 +3487,7 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
-				D9E803AC1AB19703009B8598 /* ic_nav_action_search_white@2x.png */,
+				D993CABE1AB30F080075314E /* ic_nav_action_search_white@2x.png */,
 				D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */,
 				D9245DDC1A8CD27A004571AD /* ic_mock_up@2x.png */,
 				D9245DD41A8C9AE0004571AD /* ic_nav_button_non@2x.png */,
@@ -4530,7 +4530,6 @@
 				D9A804D11A80E738005AD701 /* ic_app_introduction@2x.png in Resources */,
 				D9A805381A80E738005AD701 /* ic_city_tra_up@2x.png in Resources */,
 				D9A8057F1A80E738005AD701 /* s_snow@2x.png in Resources */,
-				D9E803AE1AB19703009B8598 /* ic_nav_action_search_white@2x.png in Resources */,
 				D9A8FF121A80CC2B005AD701 /* ChangeUserInfoViewController.xib in Resources */,
 				D9A805101A80E738005AD701 /* ic_text_cover_bg@2x.png in Resources */,
 				D9A805751A80E738005AD701 /* clear@2x.png in Resources */,
@@ -4600,6 +4599,7 @@
 				D9A8050F1A80E738005AD701 /* ic_tab_arr.png in Resources */,
 				C65A27971A8DA22200CC4D48 /* ic_navigation_back_white@2x.png in Resources */,
 				D9A805281A80E738005AD701 /* ic_cell_item_chooesed@2x.png in Resources */,
+				D993CABF1AB30F080075314E /* ic_nav_action_search_white@2x.png in Resources */,
 				D9A804AB1A80E738005AD701 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				D9A801221A80DD23005AD701 /* call_silence_h@2x.png in Resources */,
 				D9A8006E1A80DD0C005AD701 /* FrendRequestTableViewCell.xib in Resources */,

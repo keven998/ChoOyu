@@ -52,7 +52,7 @@
     [MobClick event:@"event_rates_app"];
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     [iRate sharedInstance].previewMode = NO;
-    [iRate sharedInstance].appStoreID = 954201036;
+    [iRate sharedInstance].appStoreID = APP_ID.intValue;
     [[iRate sharedInstance] openRatingsPageInAppStore];
 }
 

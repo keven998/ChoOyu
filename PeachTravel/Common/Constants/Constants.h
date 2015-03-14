@@ -11,6 +11,8 @@
 //友盟key
 #define UMENG_KEY               @ "5433d2e2fd98c5b7a3020907"
 
+#define APP_ID                  @ 954201036
+
 //第三方分享相关key
 
 #define SHARE_QQ_APPID          @ "1103275581"
@@ -106,12 +108,6 @@
 /**
  html 接口
  */
-//#define FUN_CITY_HTML                           @ "http://h5.taozilvxing.com/tabpage.php?tid="       //城市游玩
-//#define RESTAURANT_CITY_HTML                    @ "http://h5.taozilvxing.com/dining.php?tid="        //城市美食介绍
-//#define SHOPPING_CITY_HTML                      @ "http://h5.taozilvxing.com/shopping.php?tid="      //城市购物介绍
-//#define MORE_COMMENT_HTML                       @ "http://h5.taozilvxing.com/morecomment.php?pid="   //更多点评
-//#define TRAVELNOTE_DETAIL_HTML                  @ "http://h5.taozilvxing.com/detail.php?id="        //游记详情
-//#define TRIP_DETAIL_HTML                        @ "http://h5.taozilvxing.com/planshare.php?pid="    //三张单详情
 #define APP_ABOUT                               @ "http://h5.taozilvxing.com/about.php"             //关于页面
 #define APP_AGREEMENT                           @ "http://h5.taozilvxing.com/agreement.htm"       //用户协议
 
