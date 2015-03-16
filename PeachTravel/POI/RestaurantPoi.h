@@ -10,4 +10,9 @@
 
 @interface RestaurantPoi : SuperPoi
 
+@property (nonatomic, copy) NSString *priceDesc;
+@property (nonatomic, strong) NSArray *recommends;
+
+- (id)initWithJson:(id)json;
+
 @end

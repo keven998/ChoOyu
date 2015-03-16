@@ -10,4 +10,9 @@
 
 @interface ShoppingPoi : SuperPoi
 
+@property (nonatomic, strong) NSArray *recommends;
+
+- (id)initWithJson:(id)json;
+
+
 @end

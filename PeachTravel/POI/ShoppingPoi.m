@@ -10,4 +10,12 @@
 
 @implementation ShoppingPoi
 
+- (id)initWithJson:(id)json
+{
+    if (self = [super initWithJson:json]) {
+        self.poiType = kShoppingPoi;
+    }
+    return self;
+}
+
 @end

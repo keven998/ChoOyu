@@ -10,4 +10,14 @@
 
 @implementation HotelPoi
 
+- (id)initWithJson:(id)json
+{
+    if (self = [super initWithJson:json]) {
+        _bookUrl = [json objectForKey:@"bookUrl"];
+        _telephone = [json objectForKey:@"telephone"];
+        _priceDesc = [json objectForKey:@"priceDesc"];
+    }
+    return self;
+}
+
 @end

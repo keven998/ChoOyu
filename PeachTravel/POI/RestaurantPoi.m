@@ -10,4 +10,14 @@
 
 @implementation RestaurantPoi
 
+
+- (id)initWithJson:(id)json
+{
+    if (self = [super initWithJson:json]) {
+        self.poiType = kRestaurantPoi;
+        _priceDesc = [json objectForKey:@"priceDesc"];
+    }
+    return self;
+}
+
 @end

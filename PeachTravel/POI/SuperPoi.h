@@ -31,17 +31,20 @@
 - (id)initWithJson:(id)json;
 
 /**
- *  将完整的数据结构转换成的 Dictionary 数据,子类中补充完整
- *
+ *  将完整的数据结构转换成的 Dictionary 数据,子类中补充完整.
+ *  用于用户上传时候使用
  *  @return
  */
 - (NSDictionary *)enCodeAllDataToDictionary;
 
 /**
- *  将只含有 id 和 type 的 TripPoi 转化为Dictionary 数据
- *
+ *  将只含有 id 和 type 的 TripPoi 转化为Dictionary 数据.用于用户上传时候使用
+ *  用于用户上传时候使用
  *  @return
  */
 - (NSDictionary *)enCodeSummaryDataToDictionary;
 
 @end
+
+
+

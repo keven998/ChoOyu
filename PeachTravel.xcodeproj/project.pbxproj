@@ -2037,16 +2037,7 @@
 		D993CB511AB6C6E50075314E /* POI */ = {
 			isa = PBXGroup;
 			children = (
-				D993CB521AB6C7050075314E /* SuperPoi.h */,
-				D993CB531AB6C7050075314E /* SuperPoi.m */,
-				D993CB551AB6CB030075314E /* SpotPoi.h */,
-				D993CB561AB6CB030075314E /* SpotPoi.m */,
-				D993CB581AB6D6400075314E /* RestaurantPoi.h */,
-				D993CB591AB6D6400075314E /* RestaurantPoi.m */,
-				D993CB5B1AB6D64B0075314E /* ShoppingPoi.h */,
-				D993CB5C1AB6D64B0075314E /* ShoppingPoi.m */,
-				D993CB5E1AB6D6590075314E /* HotelPoi.h */,
-				D993CB5F1AB6D6590075314E /* HotelPoi.m */,
+				D993CBE21AB704150075314E /* PoiDetail */,
 			);
 			path = POI;
 			sourceTree = "<group>";
@@ -2342,6 +2333,23 @@
 				D993CBDE1AB6FFD50075314E /* EaseMob.bundle */,
 			);
 			path = resources;
+			sourceTree = "<group>";
+		};
+		D993CBE21AB704150075314E /* PoiDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D993CB521AB6C7050075314E /* SuperPoi.h */,
+				D993CB531AB6C7050075314E /* SuperPoi.m */,
+				D993CB551AB6CB030075314E /* SpotPoi.h */,
+				D993CB561AB6CB030075314E /* SpotPoi.m */,
+				D993CB581AB6D6400075314E /* RestaurantPoi.h */,
+				D993CB591AB6D6400075314E /* RestaurantPoi.m */,
+				D993CB5B1AB6D64B0075314E /* ShoppingPoi.h */,
+				D993CB5C1AB6D64B0075314E /* ShoppingPoi.m */,
+				D993CB5E1AB6D6590075314E /* HotelPoi.h */,
+				D993CB5F1AB6D6590075314E /* HotelPoi.m */,
+			);
+			name = PoiDetail;
 			sourceTree = "<group>";
 		};
 		D99D8EBC19C8600C0021C25B = {
