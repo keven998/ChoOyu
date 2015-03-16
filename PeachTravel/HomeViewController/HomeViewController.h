@@ -10,7 +10,7 @@
 #import "RDVTabBarController.h"
 #import "IMRootViewController.h"
 
-@interface HomeViewController : RDVTabBarController
+@interface HomeViewController : UITabBarController
 
 /**
  *  跳转到 web 界面

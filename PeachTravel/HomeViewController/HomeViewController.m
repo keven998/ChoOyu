@@ -331,20 +331,21 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-    _toolBoxCtl = [[ToolBoxViewController alloc] init];
-    UINavigationController *firstNavigationController = [[UINavigationController alloc]
-                                                         initWithRootViewController:_toolBoxCtl];
-    
-    _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
-    UINavigationController *secondNavigationController = [[UINavigationController alloc]
-                                                          initWithRootViewController:_hotDestinationCtl];
 
+    self.tabBar.translucent = NO;
+    self.tabBar.backgroundColor = [UIColor blackColor];
+    
+    UINavigationController *firstNavigationController = [[UINavigationController alloc]
+                                                          initWithRootViewController:self.IMRootCtl];
+    
+    _toolBoxCtl = [[ToolBoxViewController alloc] init];
+    UINavigationController *secondNavigationController = [[UINavigationController alloc]
+                                                         initWithRootViewController:_toolBoxCtl];
     
     _mineCtl = [[MineTableViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_mineCtl];
 
-    
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                thirdNavigationController]];
     [self customizeTabBarForController];
@@ -352,71 +353,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)customizeTabBarForController
 {
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 77);
-    self.tabBar.frame = frame;
-    
-    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 74, 77)];
-    imView.backgroundColor = [UIColor clearColor];
-    
-    UIView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 74, 49)];
-    imBackView.backgroundColor = APP_PAGE_COLOR;
-    UIView *spaceV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 71, 0.5)];
-    spaceV.backgroundColor = UIColorFromRGB(0xcccccc);
-    [imBackView addSubview:spaceV];
-    [imView addSubview:imBackView];
-    
-    UIButton *IMBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 61, 61)];
-    IMBtn.backgroundColor = [UIColor clearColor];
-    [IMBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [IMBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
-    IMBtn.titleLabel.font = [UIFont systemFontOfSize:8.0];
-    [IMBtn setImage:[UIImage imageNamed:@"ic_IM_normal.png"] forState:UIControlStateNormal];
-    [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
-    [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2+4, imView.bounds.size.height/2);
-    [imView addSubview:IMBtn];
-    
-    [self.tabBar addSubview:imView];
-    
-    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(48, 7, 20, 20)];
-    _unReadMsgLabel.backgroundColor = [UIColor redColor];
-    _unReadMsgLabel.textColor = [UIColor whiteColor];
-    _unReadMsgLabel.layer.cornerRadius = 10;
-    _unReadMsgLabel.clipsToBounds = YES;
-    _unReadMsgLabel.textAlignment = NSTextAlignmentCenter;
-    _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    [imView addSubview:_unReadMsgLabel];
-    
-    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 73, 0, 0);
-    
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(71, 28, self.tabBar.frame.size.width-71, 0.5)];
-    spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
-    [self.tabBar addSubview:spaceView];
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-    NSArray *titles = @[@"首页", @"目的地", @"我"];
+    NSArray *titles = @[@"Talk", @"工具", @"我"];
     NSInteger index = 0;
     
-    for (RDVTabBarItem *item in [[self tabBar] items]) {
-        item.titlePositionAdjustment = UIOffsetMake(0, 2);
-        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:7.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:7.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
-        
-        item.itemHeight = 49.0;
-        item.backgroundColor = APP_PAGE_COLOR;
+    for (UITabBarItem *item in self.tabBar.items) {
         item.title = titles[index];
-        if ([[[self tabBar] items] indexOfObject:item] != 0) {
-            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 33)];
-            spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
-            [item addSubview:spaceView];
-        }
-        
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
-                                                      [tabBarItemImages objectAtIndex:index]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
-                                                        [tabBarItemImages objectAtIndex:index]]];
-        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
-        
+        item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
+        item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
         index++;
     }
 }
