@@ -187,7 +187,7 @@
  */
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _spotPoi.spotId;
+    taoziMessageCtl.messageId = _spotPoi.poiId;
     taoziMessageCtl.messageImage = ((TaoziImage *)[_spotPoi.images firstObject]).imageUrl;
     taoziMessageCtl.messageDesc = _spotPoi.desc;
     taoziMessageCtl.messageName = _spotPoi.zhName;
@@ -298,7 +298,7 @@
     [MobClick event:@"event_spot_favorite"];
     _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
     _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_spotPoi.spotId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    [super asyncFavorite:_spotPoi.poiId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
         _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
             _spotPoi.isMyFavorite = !_spotPoi.isMyFavorite;
