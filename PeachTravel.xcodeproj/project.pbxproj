@@ -4190,7 +4190,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A8FF621A80D1C3005AD701 /* CityDetail */,
-				D9A8FF701A80D1C3005AD701 /* Common */,
+				D9A8FF701A80D1C3005AD701 /* CommonDetail */,
 				D9A8FF8F1A80D1C3005AD701 /* SpotDetail */,
 				D9A8FF961A80D1C3005AD701 /* TravelNote */,
 			);
@@ -4218,7 +4218,7 @@
 			path = CityDetail;
 			sourceTree = "<group>";
 		};
-		D9A8FF701A80D1C3005AD701 /* Common */ = {
+		D9A8FF701A80D1C3005AD701 /* CommonDetail */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FF711A80D1C3005AD701 /* CommonPoiDetailViewController.h */,
@@ -4228,6 +4228,7 @@
 				D9A8FF7B1A80D1C3005AD701 /* PoiDetailSuperViewController.m */,
 				D9A8FF7C1A80D1C3005AD701 /* Views */,
 			);
+			name = CommonDetail;
 			path = Common;
 			sourceTree = "<group>";
 		};
