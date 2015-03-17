@@ -35,6 +35,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = YES;
+    self.tabBarController.hidesBottomBarWhenPushed = YES;
 
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];

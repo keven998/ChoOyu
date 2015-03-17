@@ -69,9 +69,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [MobClick beginLogPageView:@"page_home_destination"];
     _isShowing = YES;
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    if ([self rdv_tabBarController].tabBarHidden) {
-        [[self rdv_tabBarController] setTabBarHidden:NO];
-    }
+   
     [self.navigationController.navigationBar setBackgroundImage:nil  forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     self.navigationController.navigationBar.translucent = YES;
@@ -84,9 +82,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_destination"];
     _isShowing = NO;
-    if (self.navigationController.viewControllers.count == 2) {
-        [[self rdv_tabBarController] setTabBarHidden:YES];
-    }
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 

@@ -56,7 +56,7 @@
     _imagePageIndicator.layer.cornerRadius = 4.0;
     _imagePageIndicator.clipsToBounds = YES;
     _imagePageIndicator.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
-    _imagePageIndicator.text = @"画册";//[NSString stringWithFormat:@"%ld图", _cityPoi.imageCount];
+    _imagePageIndicator.text = @"画册";
     _imagePageIndicator.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_imagePageIndicator];
     

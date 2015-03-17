@@ -72,9 +72,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
-    if ([self rdv_tabBarController].tabBarHidden) {
-        [[self rdv_tabBarController] setTabBarHidden:NO];
-    }
+    
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     self.navigationController.navigationBar.translucent = YES;
@@ -85,9 +83,7 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
-    if (self.navigationController.viewControllers.count == 2) {
-        [[self rdv_tabBarController] setTabBarHidden:YES];
-    }
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
@@ -142,12 +138,14 @@
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     loginCtl.isPushed = YES;
+    loginCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:loginCtl animated:YES];
 }
 
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
+    registerCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:registerCtl animated:YES];
 }
 
@@ -253,11 +251,13 @@
     if (indexPath.section == 0) {
         if (self.accountManager.isLogin) {
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
+            userInfoCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:userInfoCtl animated:YES];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
+            accountManagerCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:accountManagerCtl animated:YES];
         } else if (indexPath.row == 1) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -266,6 +266,7 @@
                 [SVProgressHUD showHint:@"请先登录"];
             } else {
                 FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
+                fvc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:fvc animated:YES];
             }
         } else if (indexPath.row == 2) {
@@ -274,11 +275,11 @@
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
+            settingCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingCtl animated:YES];
         } else if (indexPath.row == 1) {
-//            AboutController *aboutCtl = [[AboutController alloc] init];
-//            [self.navigationController pushViewController:aboutCtl animated:YES];
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
+            svc.hidesBottomBarWhenPushed = YES;
             svc.titleStr = @"关于桃子旅行";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
             [self.navigationController pushViewController:svc animated:YES];

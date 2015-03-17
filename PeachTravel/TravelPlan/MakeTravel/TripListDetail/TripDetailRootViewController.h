@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 com.aizou.www. All rights reserved.
 //
 
-#import "RDVTabBarController.h"
 #import "TripDetail.h"
 
 @protocol TripUpdateDelegate;

@@ -10,7 +10,6 @@
 #import "ToolBoxViewController.h"
 #import "HotDestinationCollectionViewController.h"
 #import "MineTableViewController.h"
-#import "RDVTabBarItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PageOne.h"
 #import "PageTwo.h"

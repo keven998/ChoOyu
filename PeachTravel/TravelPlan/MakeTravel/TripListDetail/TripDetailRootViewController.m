@@ -7,7 +7,6 @@
 //
 
 #import "TripDetailRootViewController.h"
-#import "RDVTabBarItem.h"
 #import "SpotsListViewController.h"
 #import "RestaurantsListViewController.h"
 #import "ShoppingListViewController.h"

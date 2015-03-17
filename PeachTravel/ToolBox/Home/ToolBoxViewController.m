@@ -94,12 +94,6 @@
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_contentFrame];
     
-    //    _weatherFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
-    //    _weatherFrame.image = [UIImage imageNamed:@"weatherbackground.png"];
-    //    _weatherFrame.contentMode = UIViewContentModeScaleToFill;
-    //    _weatherFrame.clipsToBounds = YES;
-    //    _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    
     CGFloat offsetY = 10.0 * ratioY;
     
     _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(18.0, offsetY, w - 28, 15*ratioY)];
@@ -211,9 +205,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([self rdv_tabBarController].tabBarHidden) {
-        [[self rdv_tabBarController] setTabBarHidden:NO];
-    }
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
     } else {
@@ -232,9 +223,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (self.navigationController.viewControllers.count == 2) {
-        [[self rdv_tabBarController] setTabBarHidden:YES];
-    }
+  
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [MobClick endLogPageView:@"page_home_tools"];
@@ -275,16 +264,10 @@
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = data.title;
         webCtl.urlStr = data.linkUrl;
+        webCtl.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:webCtl animated:YES];
 
     };
-    
-//    if (!self.weatherInfo) {
-//        [_weatherFrame removeFromSuperview];
-//    } else {
-//        [_weatherFrame removeFromSuperview];
-//        [self.view addSubview:_weatherFrame];
-//    }
 }
 
 - (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
@@ -406,7 +389,9 @@
     [MobClick event:@"event_locality"];
 
     LocalViewController *lvc = [[LocalViewController alloc] init];
+    lvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:lvc animated:YES];
+    
 }
 
 /**
@@ -423,7 +408,9 @@
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+        myGuidesCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
+
     }
 }
 
@@ -481,7 +468,7 @@
     makePlanCtl.selectedColor = APP_THEME_COLOR;
     makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
-
+    makePlanCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
