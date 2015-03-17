@@ -124,35 +124,6 @@
     
 }
 
-//设置返回按钮。是返回还是完成
-//- (void)setNavigationBackBarItem:(BOOL)isBack
-//{
-//    if (isBack) {
-//        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//        [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-//        [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-//        [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//        [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//        _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-//        _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-//        _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-//        self.navigationItem.leftBarButtonItem = barButton;
-//    } else {
-//        _finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
-//        [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-//        _finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-//        [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _finishBtn.layer.borderWidth = 1.0;
-//        _finishBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-//        _finishBtn.layer.cornerRadius = 2.0;
-//        [_finishBtn addTarget:self action:@selector(finishEidtTrip:) forControlEvents:UIControlEventTouchUpInside];
-//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_finishBtn];
-//        self.navigationItem.leftBarButtonItem = barButton;
-//    }
-//}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

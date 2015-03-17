@@ -22,7 +22,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource               @[@[@"分享绑定", @"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource           @[@[@"分享绑定", @"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -229,6 +229,7 @@
                 default:
                     break;
             }
+            
         } else {
             switch (indexPath.row) {
                 case 0:
@@ -272,6 +273,7 @@
         } else if (indexPath.row == 2) {
             [self shareToWeChat];
         }
+        
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];

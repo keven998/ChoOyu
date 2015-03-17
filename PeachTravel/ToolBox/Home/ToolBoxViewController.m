@@ -268,6 +268,13 @@
         [weakSelf.navigationController pushViewController:webCtl animated:YES];
 
     };
+    
+//    if (!self.weatherInfo) {
+//        [_weatherFrame removeFromSuperview];
+//    } else {
+//        [_weatherFrame removeFromSuperview];
+//        [self.view addSubview:_weatherFrame];
+//    }
 }
 
 - (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
@@ -391,7 +398,6 @@
     LocalViewController *lvc = [[LocalViewController alloc] init];
     lvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:lvc animated:YES];
-    
 }
 
 /**
@@ -410,7 +416,6 @@
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
         myGuidesCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
-
     }
 }
 
@@ -473,7 +478,6 @@
 }
 
 #pragma mark - private
-
 /**
  *  是否有未读的消息，包括未读的聊天消息和好友请求消息
  *
