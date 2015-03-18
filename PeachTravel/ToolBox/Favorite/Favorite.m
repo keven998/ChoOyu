@@ -26,7 +26,7 @@
             _type = kShoppingPoi;
         } else if ([typeStr isEqualToString:@"travelNote"]) {
             _type = kTravelNotePoi;
-        } else if ([typeStr isEqualToString:@"loc"]) {
+        } else if ([typeStr isEqualToString:@"locality"]) {
             _type = kCityPoi;
         }
         _detailUrl = [json objectForKey:@"detailUrl"];

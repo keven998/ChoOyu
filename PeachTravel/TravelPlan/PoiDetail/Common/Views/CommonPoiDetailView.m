@@ -363,34 +363,17 @@
     for (UIView* next = [self superview]; next; next = next.superview)
     {
         UIResponder* nextResponder = [next nextResponder];
+      
         if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
         {
             CommonPoiDetailViewController *rootCtl;
             rootCtl = (CommonPoiDetailViewController*)nextResponder;
-            [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
-                _favoriteBtn.userInteractionEnabled = YES;
-                if (isSuccess) {
-                    _poi.isMyFavorite = !_poi.isMyFavorite;
-                } else {      //如果失败了，再把状态改回来
+            
+            [rootCtl asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+                if (!isSuccess) {
                     _favoriteBtn.selected = !_poi.isMyFavorite;
                 }
             }];
-            break;
-        }
-        
-        if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
-        {
-            CommonPoiDetailViewController *rootCtl;
-            rootCtl = (CommonPoiDetailViewController*)nextResponder;
-            [rootCtl asyncFavorite:_poi.poiId poiType:_poi.poiTypeDesc isFavorite:!_poi.isMyFavorite completion:^(BOOL isSuccess) {
-                _favoriteBtn.userInteractionEnabled = YES;
-                if (isSuccess) {
-                    _poi.isMyFavorite = !_poi.isMyFavorite;
-                } else {      //如果失败了，再把状态改回来
-                    _favoriteBtn.selected = !_poi.isMyFavorite;
-                }
-            }];
-            break;
         }
     }
 }

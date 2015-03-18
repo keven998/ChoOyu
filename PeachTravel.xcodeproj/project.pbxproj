@@ -697,11 +697,8 @@
 		D9E9F79819FF6F71003F70F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */; };
 		D9E9F7A419FFDCB9003F70F6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */; };
 		D9E9F7A519FFDCB9003F70F6 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */; };
-		D9EE34411AB93CF10076933B /* RestaurantDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE343E1AB93CF10076933B /* RestaurantDetailView.m */; };
 		D9EE34421AB93CF10076933B /* RestaurantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE34401AB93CF10076933B /* RestaurantDetailViewController.m */; };
-		D9EE344E1AB93D500076933B /* ShoppingDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE344B1AB93D500076933B /* ShoppingDetailView.m */; };
 		D9EE344F1AB93D500076933B /* ShoppingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE344D1AB93D500076933B /* ShoppingDetailViewController.m */; };
-		D9EE345E1AB93E3F0076933B /* HotelDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE345B1AB93E3F0076933B /* HotelDetailView.m */; };
 		D9EE345F1AB93E3F0076933B /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */; };
 		D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */; };
 		D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */; };
@@ -1791,16 +1788,10 @@
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		D9EE34341AB91DB40076933B /* PoiManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiManagerProtocol.h; sourceTree = "<group>"; };
-		D9EE343D1AB93CF10076933B /* RestaurantDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailView.h; sourceTree = "<group>"; };
-		D9EE343E1AB93CF10076933B /* RestaurantDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailView.m; sourceTree = "<group>"; };
 		D9EE343F1AB93CF10076933B /* RestaurantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDetailViewController.h; sourceTree = "<group>"; };
 		D9EE34401AB93CF10076933B /* RestaurantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDetailViewController.m; sourceTree = "<group>"; };
-		D9EE344A1AB93D500076933B /* ShoppingDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingDetailView.h; sourceTree = "<group>"; };
-		D9EE344B1AB93D500076933B /* ShoppingDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingDetailView.m; sourceTree = "<group>"; };
 		D9EE344C1AB93D500076933B /* ShoppingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingDetailViewController.h; sourceTree = "<group>"; };
 		D9EE344D1AB93D500076933B /* ShoppingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingDetailViewController.m; sourceTree = "<group>"; };
-		D9EE345A1AB93E3F0076933B /* HotelDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelDetailView.h; sourceTree = "<group>"; };
-		D9EE345B1AB93E3F0076933B /* HotelDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailView.m; sourceTree = "<group>"; };
 		D9EE345C1AB93E3F0076933B /* HotelDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelDetailViewController.h; sourceTree = "<group>"; };
 		D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailViewController.m; sourceTree = "<group>"; };
 		D9EE34601AB958D70076933B /* PoiDetailViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailViewControllerFactory.h; sourceTree = "<group>"; };
@@ -4436,8 +4427,6 @@
 		D9EE343C1AB93CF10076933B /* RestaurantDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D9EE343D1AB93CF10076933B /* RestaurantDetailView.h */,
-				D9EE343E1AB93CF10076933B /* RestaurantDetailView.m */,
 				D9EE343F1AB93CF10076933B /* RestaurantDetailViewController.h */,
 				D9EE34401AB93CF10076933B /* RestaurantDetailViewController.m */,
 			);
@@ -4447,8 +4436,6 @@
 		D9EE34491AB93D500076933B /* ShoppingDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D9EE344A1AB93D500076933B /* ShoppingDetailView.h */,
-				D9EE344B1AB93D500076933B /* ShoppingDetailView.m */,
 				D9EE344C1AB93D500076933B /* ShoppingDetailViewController.h */,
 				D9EE344D1AB93D500076933B /* ShoppingDetailViewController.m */,
 			);
@@ -4458,8 +4445,6 @@
 		D9EE34591AB93E3F0076933B /* HotelDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D9EE345A1AB93E3F0076933B /* HotelDetailView.h */,
-				D9EE345B1AB93E3F0076933B /* HotelDetailView.m */,
 				D9EE345C1AB93E3F0076933B /* HotelDetailViewController.h */,
 				D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */,
 			);
@@ -5125,14 +5110,12 @@
 				D9A802331A80E036005AD701 /* TZScrollView.m in Sources */,
 				D9A8FF1F1A80CC2B005AD701 /* UserInfoTableViewController.m in Sources */,
 				D9A8013E1A80DD23005AD701 /* EMChatAudioBubbleView.m in Sources */,
-				D9EE34411AB93CF10076933B /* RestaurantDetailView.m in Sources */,
 				D9A8006F1A80DD0C005AD701 /* FrendRequestTableViewController.m in Sources */,
 				D9A8FF2B1A80CCA5005AD701 /* AccountManagerViewController.m in Sources */,
 				D9A801611A80DD23005AD701 /* SelectContactScrollView.m in Sources */,
 				D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */,
 				D9A8FECA1A80C818005AD701 /* MyGuideSummary.m in Sources */,
 				D9A8FF0F1A80CC2B005AD701 /* ChangePasswordViewController.m in Sources */,
-				D9EE344E1AB93D500076933B /* ShoppingDetailView.m in Sources */,
 				D993CB5D1AB6D64B0075314E /* ShoppingPoi.m in Sources */,
 				D9A8FFA81A80D1C3005AD701 /* CommentDetail.m in Sources */,
 				D9A8FEDA1A80C8A4005AD701 /* PushMsgsViewController.m in Sources */,
@@ -5166,7 +5149,6 @@
 				D9A8022F1A80E036005AD701 /* SRSlimeView.m in Sources */,
 				D9A802031A80E036005AD701 /* UIViewController+CWPopup.m in Sources */,
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
-				D9EE345E1AB93E3F0076933B /* HotelDetailView.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
 				D9A801521A80DD23005AD701 /* CreateConversationTableViewCell.m in Sources */,
 				D9A802121A80E036005AD701 /* JGProgressHUDFadeAnimation.m in Sources */,

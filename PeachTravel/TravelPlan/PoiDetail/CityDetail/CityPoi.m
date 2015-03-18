@@ -16,24 +16,13 @@
 
 - (id)initWithJson:(id)json
 {
-    if (self = [super init]) {
-        _cityId = [json objectForKey:@"id"];
-        _zhName = [json objectForKey:@"zhName"];
-        _enName = [json objectForKey:@"enName"];
-        _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
-        _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
-        _desc = [json objectForKey:@"desc"];
+    if (self = [super initWithJson:json]) {
+        self.poiType = kCityPoi;
+        self.typeDesc = @"locality";
         _playGuide = [json objectForKey:@"playGuide"];
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (id imageDic in [json objectForKey:@"images"]) {
-            TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
-            [tempArray addObject:image];
-        }
-        _images = tempArray;
         _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _imageCount = [[json objectForKey:@"imageCnt"] integerValue]>100 ? 100:[[json objectForKey:@"imageCnt"] integerValue];
-        _isMyFavorite = [[json objectForKey:@"isFavorite"] boolValue];
     }
     return self;
 }
@@ -41,33 +30,33 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        _cityId = [aDecoder decodeObjectForKey:@"id"];
-        _zhName = [aDecoder decodeObjectForKey:@"zhName"];
-        _enName = [aDecoder decodeObjectForKey:@"enName"];
-        _desc = [aDecoder decodeObjectForKey:@"desc"];
-        _lng = [aDecoder decodeDoubleForKey:@"lng"];
-        _lat = [aDecoder decodeDoubleForKey:@"lat"];
-        _images = [aDecoder decodeObjectForKey:@"images"];
+        self.poiId = [aDecoder decodeObjectForKey:@"id"];
+        self.zhName = [aDecoder decodeObjectForKey:@"zhName"];
+        self.enName = [aDecoder decodeObjectForKey:@"enName"];
+        self.desc = [aDecoder decodeObjectForKey:@"desc"];
+        self.lng = [aDecoder decodeDoubleForKey:@"lng"];
+        self.lat = [aDecoder decodeDoubleForKey:@"lat"];
+        self.images = [aDecoder decodeObjectForKey:@"images"];
         _timeCostDesc = [aDecoder decodeObjectForKey:@"timeCostDesc"];
         _travelMonth = [aDecoder decodeObjectForKey:@"travelMonth"];
         _imageCount = [aDecoder decodeIntegerForKey:@"imageCnt"];
-        _isMyFavorite = [aDecoder decodeBoolForKey:@"isFavorite"];
+        self.isMyFavorite = [aDecoder decodeBoolForKey:@"isFavorite"];
     }
     return self;
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_cityId forKey:@"id"];
-    [aCoder encodeObject:_zhName forKey:@"zhName"];
-    [aCoder encodeObject:_enName forKey:@"enName"];
-    [aCoder encodeObject:_desc forKey:@"desc"];
-    [aCoder encodeDouble:_lng forKey:@"lng"];
-    [aCoder encodeDouble:_lat forKey:@"lat"];
-    [aCoder encodeObject:_images forKey:@"images"];
+    [aCoder encodeObject:self.poiId forKey:@"id"];
+    [aCoder encodeObject:self.zhName forKey:@"zhName"];
+    [aCoder encodeObject:self.enName forKey:@"enName"];
+    [aCoder encodeObject:self.desc forKey:@"desc"];
+    [aCoder encodeDouble:self.lng forKey:@"lng"];
+    [aCoder encodeDouble:self.lat forKey:@"lat"];
+    [aCoder encodeObject:self.images forKey:@"images"];
     [aCoder encodeObject:_timeCostDesc forKey:@"timeCostDesc"];
     [aCoder encodeObject:_travelMonth forKey:@"travelMonth"];
     [aCoder encodeInteger:_imageCount forKey:@"imageCnt"];
-    [aCoder encodeBool:_isMyFavorite forKey:@"isFavorite"];
+    [aCoder encodeBool:self.isMyFavorite forKey:@"isFavorite"];
 }
 
 - (void)setTravelNotes:(NSArray *)travelNotes

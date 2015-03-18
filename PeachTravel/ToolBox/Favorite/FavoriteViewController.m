@@ -268,6 +268,8 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_FAVORITES parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", operation);
+        
         if ([_currentFavoriteType isEqualToString:backupTypeForCheck]) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
@@ -515,12 +517,13 @@
         
     } else if (item.type == kTravelNotePoi) {
         TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
-        ctl.travelNoteId = item.itemId;
-        ctl.travelNoteTitle = item.zhName;
-        TaoziImage *image = [item.images firstObject];
-        ctl.travelNoteCover = image.imageUrl;
-        ctl.urlStr = item.detailUrl;
-        ctl.desc = item.desc;
+        TravelNote *travelNote = [[TravelNote alloc] init];
+        travelNote.travelNoteId = item.itemId;
+    
+        travelNote.title = item.zhName;
+        travelNote.images = item.images;
+        travelNote.detailUrl = item.detailUrl;
+        travelNote.summary = item.desc;
         [self.navigationController pushViewController:ctl animated:YES];
         
     } else  if (item.type == kCityPoi){

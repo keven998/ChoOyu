@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) UIImageView *tableViewBkg;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) CityPoi *cityPoi;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
 @property (nonatomic, strong) UIImageView *customNavigationBar;
@@ -113,22 +112,22 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateView
 {
-    self.navigationItem.title = _cityPoi.zhName;
+    self.navigationItem.title = self.poi.zhName;
     
 
     _cityHeaderView = [[CityHeaderView alloc] init];
     _cityHeaderView.delegate = self;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
-    _cityHeaderView.cityPoi = _cityPoi;
+    _cityHeaderView.cityPoi = (CityPoi *)self.poi;
     
     
-    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+130*_cityPoi.travelNotes.count+10);
+    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+130*((CityPoi *)self.poi).travelNotes.count+10);
     
     _tableViewBkg = [[UIImageView alloc] initWithFrame:frame];
     _tableViewBkg.userInteractionEnabled = YES;
     _tableViewBkg.image = [[UIImage imageNamed:@"ic_city_card_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 6, 12, 6)];
 
-    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+130*_cityPoi.travelNotes.count)];
+    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+130*((CityPoi *)self.poi).travelNotes.count)];
 
     [_tableViewBkg addSubview:_tableView];
     
@@ -143,21 +142,21 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     
-    if (_cityPoi.images.count > 0) {
-        TaoziImage *taoziImage = [_cityPoi.images objectAtIndex:0];
+    if (self.poi.images.count > 0) {
+        TaoziImage *taoziImage = [self.poi.images objectAtIndex:0];
         NSString *url = taoziImage.imageUrl;
         [_cityPicture sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
     
     UILabel *title = (UILabel *)[_customNavigationBar viewWithTag:123];
-    title.text = _cityPoi.zhName;
+    title.text = self.poi.zhName;
 }
 
 - (void)updateTableView
 {
-    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+130*_cityPoi.travelNotes.count)];
+    [self.tableView setFrame:CGRectMake(1, 0, self.view.frame.size.width-22, 50+130*((CityPoi *)self.poi).travelNotes.count)];
     
-    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+130*_cityPoi.travelNotes.count+10);
+    CGRect frame = CGRectMake(10, _cityHeaderView.frame.size.height+10, self.view.frame.size.width-20, 50+130*((CityPoi *)self.poi).travelNotes.count+10);
     
     _tableViewBkg.frame = frame;
     [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, frame.origin.y+frame.size.height+10)];
@@ -210,7 +209,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            _cityPoi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
             [self loadTravelNoteOfCityData];
         } else {
@@ -249,7 +248,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSNumber *imageWidth = [NSNumber numberWithInt:200];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:[NSNumber numberWithInt:3] forKey:@"pageSize"];
-    [params setObject:_cityPoi.cityId forKey:@"locId"];
+    [params setObject:self.poi.poiId forKey:@"locId"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -257,7 +256,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         if (code == 0) {
             id travelNotes = [responseObject objectForKey:@"result"];
             if ([travelNotes isKindOfClass:[NSArray class]]) {
-                _cityPoi.travelNotes = travelNotes;
+                ((CityPoi *)self.poi).travelNotes = travelNotes;
             }
             [self.tableView reloadData];
             [self updateTableView];
@@ -280,12 +279,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
  */
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _cityPoi.cityId;
-    taoziMessageCtl.messageImage = ((TaoziImage *)[_cityPoi.images firstObject]).imageUrl;
-    taoziMessageCtl.messageDesc = _cityPoi.desc;
-    taoziMessageCtl.messageName = _cityPoi.zhName;
-    taoziMessageCtl.messageTimeCost = _cityPoi.timeCostDesc;
-    taoziMessageCtl.descLabel.text = _cityPoi.desc;
+    taoziMessageCtl.messageId = self.poi.poiId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[self.poi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = self.poi.desc;
+    taoziMessageCtl.messageName = self.poi.zhName;
+    taoziMessageCtl.messageTimeCost = ((CityPoi *)self.poi).timeCostDesc;
+    taoziMessageCtl.descLabel.text = self.poi.desc;
     taoziMessageCtl.chatType = TZChatTypeCity;
 }
 
@@ -295,15 +294,14 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     [MobClick event:@"event_city_favorite"];
     //先将收藏的状态改变
-    _cityHeaderView.favoriteBtn.selected = !_cityPoi.isMyFavorite;
+    _cityHeaderView.favoriteBtn.selected = !self.poi.isMyFavorite;
     _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_cityPoi.cityId poiType:@"locality" isFavorite:!_cityPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    
+    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
         _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
-        if (isSuccess) {
-            _cityPoi.isMyFavorite = !_cityPoi.isMyFavorite;
-        } else {      //如果失败了，再把状态改回来
+        if (!isSuccess) {
             _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
-            _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
+
         }
     }];
 }
@@ -313,7 +311,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_city_spots"];
     AddPoiViewController *addCtl = [[AddPoiViewController alloc] init];
     addCtl.cityId = _cityId;
-    addCtl.cityName = _cityPoi.zhName;
+    addCtl.cityName = self.poi.zhName;
     addCtl.shouldEdit = NO;
     [self.navigationController pushViewController:addCtl animated:YES];
 }
@@ -326,7 +324,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)play:(id)sender {
     [MobClick event:@"event_city_information"];
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
-    funOfCityWebCtl.urlStr = _cityPoi.playGuide;
+    funOfCityWebCtl.urlStr = ((CityPoi *)self.poi).playGuide;
     funOfCityWebCtl.titleStr = @"城市指南";;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
@@ -342,8 +340,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     NSLog(@"应该进入城市的美食信息");
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
-    restaurantOfCityCtl.cityId = _cityPoi.cityId;
-    restaurantOfCityCtl.zhName = _cityPoi.zhName;
+    restaurantOfCityCtl.cityId = self.poi.poiId;
+    restaurantOfCityCtl.zhName = self.poi.zhName;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
@@ -358,8 +356,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_city_shopping"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
-    shoppingOfCityCtl.cityId = _cityPoi.cityId;
-    shoppingOfCityCtl.zhName = _cityPoi.zhName;
+    shoppingOfCityCtl.cityId = self.poi.poiId;
+    shoppingOfCityCtl.zhName = self.poi.zhName;
     shoppingOfCityCtl.poiType = kShoppingPoi;
     
     [self.navigationController pushViewController:shoppingOfCityCtl animated:YES];
@@ -376,8 +374,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
     TravelNoteListViewController *travelListCtl = [[TravelNoteListViewController alloc] init];
     travelListCtl.isSearch = NO;
-    travelListCtl.cityId = self.cityPoi.cityId;
-    travelListCtl.cityName = self.cityPoi.zhName;
+    travelListCtl.cityId = ((CityPoi *)self.poi).poiId;
+    travelListCtl.cityName = ((CityPoi *)self.poi).zhName;
     [self.navigationController pushViewController:travelListCtl animated:YES];
 }
 
@@ -414,7 +412,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.cityPoi.travelNotes.count;
+    return ((CityPoi *)self.poi).travelNotes.count;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -450,7 +448,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TravelNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
+    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
     TaoziImage *image = [travelNote.images firstObject];
     cell.travelNoteImage = image.imageUrl;
     cell.title = travelNote.title;
@@ -467,15 +465,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 {
     [MobClick event:@"event_city_travel_note_item"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TravelNote *travelNote = [self.cityPoi.travelNotes objectAtIndex:indexPath.row];
+    TravelNote *travelNote = [((CityPoi *)self.poi).travelNotes objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
     travelNoteCtl.title = travelNote.title;
-    travelNoteCtl.urlStr = travelNote.detailUrl;
-    travelNoteCtl.travelNoteTitle = travelNote.title;
-    travelNoteCtl.desc = travelNote.summary;
-    TaoziImage *image = [travelNote.images firstObject];
-    travelNoteCtl.travelNoteCover = image.imageUrl;
-    travelNoteCtl.travelNoteId = travelNote.travelNoteId;
+    travelNoteCtl.travelNote = travelNote;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }
 
@@ -517,8 +510,8 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         DomesticViewController *domestic = [[DomesticViewController alloc] init];
         
         CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
-        poi.zhName = _cityPoi.zhName;
-        poi.cityId = _cityPoi.cityId;
+        poi.zhName = self.poi.zhName;
+        poi.cityId = self.poi.poiId;
         [destinations.destinationsSelected addObject:poi];
         
         domestic.destinations = destinations;

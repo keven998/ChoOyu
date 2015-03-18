@@ -56,7 +56,7 @@
     
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     [self.view addSubview:_webView];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_travelNote.detailUrl]];
     _webView.delegate = _progressProxy;
     [_webView loadRequest:request];
     
@@ -100,7 +100,7 @@
 - (IBAction)doFavorite:(id)sender {
     UIButton *bi = sender;
     bi.selected = !bi.selected;
-    [self asyncFavorite:_travelNoteId poiType:@"travelNote" isFavorite:bi.selected completion:^(BOOL isSuccess) {
+    [self.travelNote asyncFavorite:_travelNote.travelNoteId poiType:@"travelNote" isFavorite:bi.selected completion:^(BOOL isSuccess) {
         if (!isSuccess) {
             bi.selected = !bi.selected;
         } else {
@@ -111,11 +111,12 @@
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _travelNoteId;
-    taoziMessageCtl.messageImage = _travelNoteCover;
-    taoziMessageCtl.messageDesc = _desc;
-    taoziMessageCtl.messageName = _travelNoteTitle;
-    taoziMessageCtl.messageDetailUrl = _urlStr;
+    taoziMessageCtl.messageId = _travelNote.travelNoteId;
+    TaoziImage *image = [_travelNote.images firstObject];
+    taoziMessageCtl.messageImage = image.imageUrl;
+    taoziMessageCtl.messageDesc = _travelNote.summary;
+    taoziMessageCtl.messageName = _travelNote.title;
+    taoziMessageCtl.messageDetailUrl = _travelNote.detailUrl;
     taoziMessageCtl.chatType = TZChatTypeTravelNote;
 }
 

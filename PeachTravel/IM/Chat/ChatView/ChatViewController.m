@@ -839,11 +839,14 @@
             
         case TZChatTypeTravelNote: {
             TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-            travelNoteCtl.travelNoteTitle = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            travelNoteCtl.desc = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
-            travelNoteCtl.travelNoteCover = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
-            travelNoteCtl.urlStr = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
-            travelNoteCtl.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            TravelNote *travelNote = [[TravelNote alloc] init];
+            travelNote.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            travelNote.summary = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
+            TaoziImage *image = [[TaoziImage alloc] init];
+            image.imageUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
+            travelNote.images = @[image];
+            travelNote.detailUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
+            travelNote.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             travelNoteCtl.titleStr = @"游记详情";
             
             [self.navigationController pushViewController:travelNoteCtl animated:YES];

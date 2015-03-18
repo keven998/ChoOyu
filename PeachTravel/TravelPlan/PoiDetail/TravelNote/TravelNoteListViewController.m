@@ -246,13 +246,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
     travelNoteCtl.title = travelNote.title;
-
-    travelNoteCtl.travelNoteTitle = travelNote.title;
-    travelNoteCtl.desc = travelNote.summary;
-    TaoziImage *image = [travelNote.images firstObject];
-    travelNoteCtl.travelNoteCover = image.imageUrl;
-    travelNoteCtl.urlStr = travelNote.detailUrl;
-    travelNoteCtl.travelNoteId = travelNote.travelNoteId;
+    travelNoteCtl.travelNote = travelNote;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }
 
