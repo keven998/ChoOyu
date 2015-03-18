@@ -93,12 +93,6 @@
     _titleLabel.font = [UIFont boldSystemFontOfSize:20.];
     [_imageView addSubview:_titleLabel];
     
-//    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-//    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 80);
-//    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
-//    [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
-//    [_imageView addSubview:viewImageBtn];
-    
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-75, _imageView.bounds.size.height-35, 30, 30)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateSelected];
