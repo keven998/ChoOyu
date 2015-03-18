@@ -364,8 +364,7 @@
     {
         UIResponder* nextResponder = [next nextResponder];
       
-        if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]])
-        {
+        if ([nextResponder isKindOfClass:[CommonPoiDetailViewController class]]) {
             CommonPoiDetailViewController *rootCtl;
             rootCtl = (CommonPoiDetailViewController*)nextResponder;
             
