@@ -10,4 +10,22 @@
 
 @implementation RestaurantDetailViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.poiType = kRestaurantPoi;
+    NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANT_DETAIL, self.poiId];
+    [self loadDataWithUrl:url];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_delicacy_detail"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_delicacy_detail"];
+}
+
+
 @end

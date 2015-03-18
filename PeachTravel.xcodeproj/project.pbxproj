@@ -703,6 +703,7 @@
 		D9EE344F1AB93D500076933B /* ShoppingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE344D1AB93D500076933B /* ShoppingDetailViewController.m */; };
 		D9EE345E1AB93E3F0076933B /* HotelDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE345B1AB93E3F0076933B /* HotelDetailView.m */; };
 		D9EE345F1AB93E3F0076933B /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */; };
+		D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */; };
 		D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -1802,6 +1803,8 @@
 		D9EE345B1AB93E3F0076933B /* HotelDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailView.m; sourceTree = "<group>"; };
 		D9EE345C1AB93E3F0076933B /* HotelDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelDetailViewController.h; sourceTree = "<group>"; };
 		D9EE345D1AB93E3F0076933B /* HotelDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailViewController.m; sourceTree = "<group>"; };
+		D9EE34601AB958D70076933B /* PoiDetailViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailViewControllerFactory.h; sourceTree = "<group>"; };
+		D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetailViewControllerFactory.m; sourceTree = "<group>"; };
 		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -4195,6 +4198,8 @@
 				D9A8FF701A80D1C3005AD701 /* CommonDetail */,
 				D9A8FF8F1A80D1C3005AD701 /* SpotDetail */,
 				D9A8FF961A80D1C3005AD701 /* TravelNote */,
+				D9EE34601AB958D70076933B /* PoiDetailViewControllerFactory.h */,
+				D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */,
 			);
 			name = PoiDetail;
 			path = TravelPlan/PoiDetail;
@@ -5248,6 +5253,7 @@
 				D9A8014E1A80DD23005AD701 /* MessageReadManager.m in Sources */,
 				D9A8FF551A80CF19005AD701 /* FavoriteViewController.m in Sources */,
 				D9A8FFA91A80D1C3005AD701 /* PoiSummary.m in Sources */,
+				D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */,
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,
 				D9A8015A1A80DD23005AD701 /* EMTextView.m in Sources */,
 				D9A8020A1A80E036005AD701 /* FBShimmeringLayer.m in Sources */,

@@ -33,13 +33,9 @@
 static NSString * const reuseIdentifier = @"Cell";
 static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    self.navigationItem.title = @"目的地";
-//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
-//    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
     titleLabel.backgroundColor = [UIColor clearColor];

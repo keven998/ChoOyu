@@ -15,4 +15,6 @@
 
 @property (nonatomic) TZPoiType poiType;
 
+- (void) loadDataWithUrl:(NSString *)url;
+
 @end

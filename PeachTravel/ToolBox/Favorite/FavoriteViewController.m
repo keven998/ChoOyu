@@ -17,6 +17,7 @@
 #import "TravelNoteDetailViewController.h"
 #import "TZFilterViewController.h"
 #import "TZButton.h"
+#import "PoiDetailViewControllerFactory.h"
 
 #define PAGE_COUNT 15
 
@@ -506,24 +507,9 @@
         [self addChildViewController:ctl];
         [self.view addSubview:ctl.view];
         
-    } else if (item.type == kHotelPoi) {
-        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+    } else if (item.type == kHotelPoi || item.type == kRestaurantPoi || item.type == kShoppingPoi) {
+        CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:item.type];
         ctl.poiId = item.itemId;
-        ctl.poiType = kHotelPoi;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
-    } else if (item.type == kRestaurantPoi) {
-        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-        ctl.poiType = kRestaurantPoi;
-        ctl.poiId = item.itemId;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
-    } else if (item.type == kShoppingPoi) {
-        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-        ctl.poiId = item.itemId;
-        ctl.poiType = kShoppingPoi;
         [self addChildViewController:ctl];
         [self.view addSubview:ctl.view];
         
@@ -537,7 +523,7 @@
         ctl.desc = item.desc;
         [self.navigationController pushViewController:ctl animated:YES];
         
-    } else {
+    } else  if (item.type == kCityPoi){
         CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
         ctl.cityId = item.itemId;
         [self.navigationController pushViewController:ctl animated:YES];

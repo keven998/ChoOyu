@@ -109,7 +109,6 @@
     
 }
 
-
 - (void)asyncFavoritePoiWithCompletion:(void (^)(BOOL))completion;
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];

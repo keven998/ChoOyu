@@ -35,55 +35,38 @@
     tap.numberOfTapsRequired = 1;
     tap.numberOfTouchesRequired = 1;
     [view addGestureRecognizer:tap];
-    
-    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (_poiType == kRestaurantPoi) {
-        [MobClick beginLogPageView:@"page_delicacy_detail"];
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick beginLogPageView:@"page_shopping_detail"];
-    } else if (_poiType == kHotelPoi) {
-        [MobClick beginLogPageView:@"page_hotel_detail"];
-    }
     self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (_poiType == kRestaurantPoi) {
-        [MobClick endLogPageView:@"page_delicacy_detail"];
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick endLogPageView:@"page_shopping_detail"];
-    } else if (_poiType == kHotelPoi) {
-        [MobClick endLogPageView:@"page_hotel_detail"];
-        
-    }
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)updateView
 {
     self.navigationItem.title = _commonPoi.zhName;
-    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
-    restaurantView.rootCtl = self;
-    restaurantView.poiType = _poiType;
-    restaurantView.poi = self.commonPoi;
-    restaurantView.layer.cornerRadius = 4.0;
-    [self.view addSubview:restaurantView];
+    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
+    commonPoiDetailView.rootCtl = self;
+    commonPoiDetailView.poiType = _poiType;
+    commonPoiDetailView.poi = self.commonPoi;
+    commonPoiDetailView.layer.cornerRadius = 4.0;
+    [self.view addSubview:commonPoiDetailView];
 
-    restaurantView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    commonPoiDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        restaurantView.transform = CGAffineTransformMakeScale(1, 1);
+        commonPoiDetailView.transform = CGAffineTransformMakeScale(1, 1);
 
     } completion:^(BOOL finished) {
-        restaurantView.transform = CGAffineTransformIdentity;
-        [restaurantView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-        [restaurantView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+        commonPoiDetailView.transform = CGAffineTransformIdentity;
+        [commonPoiDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+        [commonPoiDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     }];
 }
 
@@ -173,6 +156,42 @@
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
 }
+
+- (void) loadDataWithUrl:(NSString *)url
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isLogin]) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    }
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(self)weakSelf = self;
+    [hud showHUDInViewController:weakSelf];
+    
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
+        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
+        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
+        if (result == 0) {
+            _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            [self updateView];
+        } else {
+            [self dismissCtlWithHint:@"无法获取数据"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
+        [self dismissCtlWithHint:@"呃～好像没找到网络"];
+    }];
+}
+
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
