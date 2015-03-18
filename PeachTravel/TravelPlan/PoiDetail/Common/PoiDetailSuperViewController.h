@@ -10,9 +10,11 @@
 #import "ChatRecoredListTableViewController.h"
 #import "CreateConversationViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
-
+#import "SuperPoi.h"
 
 @interface PoiDetailSuperViewController : TZViewController
+
+@property (nonatomic, strong) SuperPoi *poi;
 
 enum {
     kASMap = 1,
@@ -27,6 +29,12 @@ enum {
  *  @param taoziMessageCtl 接收值的 ctl
  */
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl;
+
+/**
+ *  所有 poi 的收藏接口
+ *
+ */
+- (void)asyncFavoritePoiWithCompletion:(void (^)(BOOL))completion;
 
 /**
  *  所有 poi 的收藏接口

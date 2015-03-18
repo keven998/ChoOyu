@@ -14,6 +14,7 @@
 {
     if (self = [super initWithJson:json]) {
         self.poiType = kHotelPoi;
+        self.typeDesc = @"hotel";
         _bookUrl = [json objectForKey:@"bookUrl"];
         _telephone = [json objectForKey:@"telephone"];
         _priceDesc = [json objectForKey:@"priceDesc"];

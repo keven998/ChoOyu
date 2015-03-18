@@ -15,6 +15,7 @@
 {
     if (self = [super initWithJson:json]) {
         self.poiType = kRestaurantPoi;
+        self.typeDesc = @"restaurant";
         _priceDesc = [json objectForKey:@"priceDesc"];
     }
     return self;

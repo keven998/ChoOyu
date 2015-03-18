@@ -1783,6 +1783,7 @@
 		D9E9F79719FF6F71003F70F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9E9F7A219FFDCB9003F70F6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D9E9F7A319FFDCB9003F70F6 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		D9EE34341AB91DB40076933B /* PoiManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiManagerProtocol.h; sourceTree = "<group>"; };
 		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2341,6 +2342,7 @@
 				D993CB5F1AB6D6590075314E /* HotelPoi.m */,
 				D9A8FF671A80D1C3005AD701 /* CityPoi.h */,
 				D9A8FF681A80D1C3005AD701 /* CityPoi.m */,
+				D9EE34341AB91DB40076933B /* PoiManagerProtocol.h */,
 			);
 			name = PoiDetail;
 			sourceTree = "<group>";

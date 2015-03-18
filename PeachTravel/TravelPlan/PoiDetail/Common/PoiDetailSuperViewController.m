@@ -110,7 +110,7 @@
 }
 
 
-- (void)asyncFavorite:(NSString *)poiId poiType:(NSString *)type isFavorite:(BOOL)isFavorite completion:(void (^)(BOOL))completion
+- (void)asyncFavoritePoiWithCompletion:(void (^)(BOOL))completion;
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (!accountManager.isLogin) {
@@ -119,64 +119,21 @@
         completion(NO);
         return;
     }
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    if (isFavorite) {
-        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:poiId forKey:@"itemId"];
-        [params setObject:type forKey:@"type"];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        [manager POST:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@", responseObject);
-            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-            if (code == 0 || code == 401) {
+    [_poi asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if (isSuccess) {
+            if (_poi.isMyFavorite) {
                 [self showHint:@"已收藏"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
-                completion(YES);
             } else {
-                completion(NO);
-//                if (code == 401) {
-//                    [self showHint:@"已收藏"];
-//                } else {
-//                    [self showHint:@"请求也是失败了"];
-//                }
+                [self showHint:@"已取消收藏"];
             }
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            completion(NO);
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
+            completion(YES);
+        } else {
             [self showHint:@"呃～好像没找到网络"];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        }];
-        
-    } else {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, poiId];
-        [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@", responseObject);
-            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-            if (code == 0) {
-//                [self showHint:@"收藏取消"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
-                completion(YES);
-            } else {
-                completion(NO);
-//                [self showHint:@"请求也是失败了"];
-            }
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            completion(NO);
-            NSLog(@"%@", error);
-            [self showHint:@"呃～好像没找到网络"];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        }];
-    }
+        }
+    }];
 }
 
 - (void)login

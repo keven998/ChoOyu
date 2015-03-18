@@ -14,6 +14,8 @@
 {
     if (self = [super initWithJson:json]) {
         self.poiType = kShoppingPoi;
+        self.typeDesc = @"shopping";
+
     }
     return self;
 }

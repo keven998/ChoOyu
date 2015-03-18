@@ -81,9 +81,11 @@
         case kRestaurantPoi:
             poiTypeStr = @"restaurant";
             break;
+            
         case kShoppingPoi:
             poiTypeStr = @"shopping";
             break;
+            
         case kHotelPoi:
             poiTypeStr = @"hotel";
             break;
@@ -114,6 +116,7 @@
     [retDic safeSetObject:[NSNumber numberWithInt:_rank] forKey:@"rank"];
     
     NSString *poiTypeStr;
+    
     switch (_poiType) {
         case kSpotPoi:
             poiTypeStr = @"vs";
@@ -122,9 +125,11 @@
         case kRestaurantPoi:
             poiTypeStr = @"restaurant";
             break;
+            
         case kShoppingPoi:
             poiTypeStr = @"shopping";
             break;
+            
         case kHotelPoi:
             poiTypeStr = @"hotel";
             break;
@@ -164,6 +169,59 @@
     [retDic safeSetObject:destinationDic forKey:@"locality"];
     
     return retDic;
+}
+
+- (void)asyncFavoritePoiWithCompletion:(void (^)(BOOL))completion;
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    if (!self.isMyFavorite) {
+        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:_poiId forKey:@"itemId"];
+        [params setObject:_typeDesc forKey:@"type"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [manager POST:API_FAVORITE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@", responseObject);
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0 || code == 401) {
+                self.isMyFavorite = !self.isMyFavorite;
+                completion(YES);
+            } else {
+                completion(NO);
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completion(NO);
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+        
+    } else {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_UNFAVORITE, _poiId];
+        [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@", responseObject);
+            NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+            if (code == 0) {
+                self.isMyFavorite = !self.isMyFavorite;
+                completion(YES);
+            } else {
+                completion(NO);
+            }
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completion(NO);
+        }];
+    }
+    
 }
 
 

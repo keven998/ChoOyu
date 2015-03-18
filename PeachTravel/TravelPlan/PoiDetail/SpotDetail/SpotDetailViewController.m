@@ -15,7 +15,6 @@
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
 
-@property (nonatomic, strong) SpotPoi *spotPoi;
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
@@ -45,8 +44,8 @@
 - (void)updateView
 {
     _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
-    _spotDetailView.spot = self.spotPoi;
-    self.navigationItem.title = self.spotPoi.zhName;
+    _spotDetailView.spot = (SpotPoi *)self.poi;
+    self.navigationItem.title = self.poi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:_spotDetailView];
 
@@ -56,17 +55,17 @@
         _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
     } completion:nil];
     
-    if (self.spotPoi.trafficInfoUrl == nil || [self.spotPoi.trafficInfoUrl isBlankString]) {
+    if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
         _spotDetailView.trafficGuideBtn.enabled = NO;
     } else {
         [_spotDetailView.trafficGuideBtn addTarget:self action:@selector(trafficGuide:) forControlEvents:UIControlEventTouchUpInside];
     }
-    if (self.spotPoi.guideUrl == nil || [self.spotPoi.guideUrl isBlankString]) {
+    if (((SpotPoi *)self.poi).guideUrl == nil || [((SpotPoi *)self.poi).guideUrl isBlankString]) {
         _spotDetailView.travelGuideBtn.enabled = NO;
     } else {
         [_spotDetailView.travelGuideBtn addTarget:self action:@selector(travelGuide:) forControlEvents:UIControlEventTouchUpInside];
     }
-    if (self.spotPoi.tipsUrl == nil || [self.spotPoi.tipsUrl isBlankString]) {
+    if (((SpotPoi *)self.poi).tipsUrl == nil || [((SpotPoi *)self.poi).tipsUrl isBlankString]) {
         _spotDetailView.kendieBtn.enabled = NO;
     } else {
         [_spotDetailView.kendieBtn addTarget:self action:@selector(kengdie:) forControlEvents:UIControlEventTouchUpInside];
@@ -167,7 +166,7 @@
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         if (result == 0) {
             [SVProgressHUD dismiss];
-            _spotPoi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            self.poi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];
@@ -187,12 +186,12 @@
  */
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _spotPoi.poiId;
-    taoziMessageCtl.messageImage = ((TaoziImage *)[_spotPoi.images firstObject]).imageUrl;
-    taoziMessageCtl.messageDesc = _spotPoi.desc;
-    taoziMessageCtl.messageName = _spotPoi.zhName;
-    taoziMessageCtl.messageTimeCost = _spotPoi.timeCostStr;
-    taoziMessageCtl.descLabel.text = _spotPoi.desc;
+    taoziMessageCtl.messageId = self.poi.poiId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[self.poi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = self.poi.desc;
+    taoziMessageCtl.messageName = self.poi.zhName;
+    taoziMessageCtl.messageTimeCost = ((SpotPoi *)self.poi).timeCostStr;
+    taoziMessageCtl.descLabel.text = self.poi.desc;
     taoziMessageCtl.chatType = TZChatTypeSpot;
 }
 
@@ -205,8 +204,8 @@
 {
     [MobClick event:@"event_spot_information"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
-    webCtl.titleStr = _spotPoi.zhName;
-    webCtl.urlStr = _spotPoi.descUrl;
+    webCtl.titleStr = self.poi.zhName;
+    webCtl.urlStr = ((SpotPoi *)self.poi).descUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -222,7 +221,7 @@
 
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"在线预订";
-    webCtl.urlStr = _spotPoi.bookUrl;
+    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -237,7 +236,7 @@
 
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点体验";
-    webCtl.urlStr = _spotPoi.guideUrl;
+    webCtl.urlStr = ((SpotPoi *)self.poi).guideUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -252,7 +251,7 @@
 
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"游玩小贴士";
-    webCtl.urlStr = _spotPoi.tipsUrl;
+    webCtl.urlStr = ((SpotPoi *)self.poi).tipsUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -267,7 +266,7 @@
 
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"景点交通";
-    webCtl.urlStr = _spotPoi.trafficInfoUrl;
+    webCtl.urlStr = ((SpotPoi *)self.poi).trafficInfoUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -298,15 +297,15 @@
     [MobClick event:@"event_spot_favorite"];
     _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
     _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
-    [super asyncFavorite:_spotPoi.poiId poiType:@"vs" isFavorite:!_spotPoi.isMyFavorite completion:^(BOOL isSuccess) {
+    
+    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
         _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
         if (isSuccess) {
-            _spotPoi.isMyFavorite = !_spotPoi.isMyFavorite;
         } else {      //如果失败了，再把状态改回来
             _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
         }
     }];
-    
+
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -322,16 +321,16 @@
             case 0:
                 switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
                     case kAMap:
-                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                         break;
                         
                     case kBaiduMap: {
-                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                     }
                         break;
                         
                     case kAppleMap: {
-                        [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                     }
                         
                     default:
@@ -342,16 +341,16 @@
             case 1:
                 switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
                     case kAMap:
-                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                         break;
                         
                     case kBaiduMap: {
-                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                     }
                         break;
                         
                     case kAppleMap: {
-                        [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                     }
                         break;
                         
@@ -363,17 +362,18 @@
             case 2:
                 switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
                     case kAMap:
-                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                         break;
                         
                     case kBaiduMap: {
-                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
+                        [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
                     }
                         break;
                         
                     case kAppleMap: {
-                        [ConvertMethods jumpAppleMapAppWithPoiName:self.spotPoi.zhName lat:self.spotPoi.lat lng:self.spotPoi.lng];
-                    }                    break;
+                        [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+                    }
+                        break;
                         
                     default:
                         break;

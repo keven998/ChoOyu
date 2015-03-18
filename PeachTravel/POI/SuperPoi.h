@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "CityDestinationPoi.h"
+#import "PoiManagerProtocol.h"
 
-@interface SuperPoi : NSObject
+@interface SuperPoi : NSObject <PoiManagerProtocol>
 
 @property (nonatomic, copy) NSString *poiId;
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *desc;
-@property (nonatomic, copy, readonly) NSString *typeDesc;
+@property (nonatomic, copy) NSString *typeDesc;
 @property (nonatomic) TZPoiType poiType;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *comments;
@@ -30,7 +31,8 @@
 
 - (id)initWithJson:(id)json;
 
-/**
+//TODO:
+/*
  *  将完整的数据结构转换成的 Dictionary 数据,子类中补充完整.
  *  用于用户上传时候使用
  *  @return
