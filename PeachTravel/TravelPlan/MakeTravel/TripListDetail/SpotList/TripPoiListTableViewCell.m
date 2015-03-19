@@ -22,7 +22,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setTripPoi:(PoiSummary *)tripPoi
+- (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
     TaoziImage *image = [_tripPoi.images firstObject];
@@ -58,9 +58,8 @@
         _rankLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
     }
     
-    _tripPoi.priceDesc = @"人均10元";
     if (_tripPoi.poiType == kSpotPoi) {
-        NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
+        NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", ((SpotPoi *)tripPoi).timeCostStr];
         [_property setTitle:timeStr forState:UIControlStateNormal];
     } else {
         [_property setImage:nil forState:UIControlStateNormal];

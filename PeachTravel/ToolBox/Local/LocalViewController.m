@@ -10,7 +10,6 @@
 #import "DMFilterView.h"
 #import "SwipeView.h"
 #import "PoisOfCityTableViewCell.h"
-#import "PoiSummary.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
@@ -668,7 +667,7 @@
         return;
     }
     NSInteger tag = _swipeView.currentItemView.tag;
-    PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:actionSheet.tag];
+    SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:

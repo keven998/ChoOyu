@@ -40,6 +40,7 @@
             break;
             
         default:
+            retPoi = [[SuperPoi alloc] initWithJson:json];
             break;
     }
     return retPoi;

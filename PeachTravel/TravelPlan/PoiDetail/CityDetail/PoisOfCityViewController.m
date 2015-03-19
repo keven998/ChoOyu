@@ -10,10 +10,8 @@
 #import "PoisOfCityTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "CityDestinationPoi.h"
-#import "PoiSummary.h"
 #import "RecommendsOfCity.h"
 #import "CommonPoiDetailViewController.h"
-#import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
 @interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate>
@@ -408,7 +406,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                     _enableLoadMoreSearch = YES;
                 }
                 for (id poiDic in jsonDic) {
-                    [self.searchResultArray addObject:[[PoiSummary alloc] initWithJson:poiDic]];
+                    [self.searchResultArray addObject:[PoiFactory poiWithJson:poiDic]];
                 }
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
@@ -467,7 +465,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         cell = (PoisOfCityTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
     }
     
-    PoiSummary *poi;
+    SuperPoi *poi;
     if (self.searchController.isActive) {
         poi = [_searchResultArray objectAtIndex:sender.tag];
     } else {
@@ -490,7 +488,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         if (_poiType == kShoppingPoi) {
             oneDayArray = self.tripDetail.shoppingList;
         }
-        for (PoiSummary *tripPoi in oneDayArray) {
+        for (SuperPoi *tripPoi in oneDayArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 [oneDayArray removeObject:tripPoi];
                 break;
@@ -741,7 +739,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PoiSummary *poi ;
+    SuperPoi *poi ;
     if (![tableView isEqual:self.tableView]) {
         poi = [self.searchResultArray objectAtIndex:indexPath.row];
     } else {
@@ -764,7 +762,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         if (_poiType == kRestaurantPoi) {
             tempArray = self.tripDetail.restaurantsList;
         }
-        for (PoiSummary *tripPoi in tempArray) {
+        for (SuperPoi *tripPoi in tempArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 isAdded = YES;
                 break;
@@ -785,7 +783,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    PoiSummary *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
         restaurantDetailCtl.poiId = poi.poiId;
@@ -900,7 +898,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    PoiSummary *poi;
+    SuperPoi *poi;
     if (_searchController.active) {
         poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
     } else {

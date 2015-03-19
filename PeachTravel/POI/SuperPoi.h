@@ -34,7 +34,6 @@
 
 - (id)initWithJson:(id)json;
 
-//TODO:
 /*
  *  将完整的数据结构转换成的 Dictionary 数据,子类中补充完整.
  *  用于用户上传时候使用

@@ -23,4 +23,13 @@
     return self;
 }
 
+- (NSDictionary *)enCodeAllDataToDictionary
+{
+    NSMutableDictionary *retDic = [[super enCodeAllDataToDictionary] mutableCopy];
+    [retDic safeSetObject:_telephone forKey:@"timeCostDesc"];
+    [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
+    
+    return retDic;
+    
+}
 @end

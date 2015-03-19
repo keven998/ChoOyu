@@ -42,7 +42,7 @@
     self.backgroundView = bv;
 }
 
-- (void)setTripPoi:(PoiSummary *)tripPoi
+- (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
     _titleLabel.text = _tripPoi.zhName;
@@ -51,7 +51,7 @@
     _ratingView.rating = tripPoi.rating;
 //    NSString *rankStr;
     if (_tripPoi.poiType == kRestaurantPoi) {
-        _propertyLabel.text = _tripPoi.priceDesc;
+        _propertyLabel.text = ((RestaurantPoi *)_tripPoi).priceDesc;
 //        rankStr = @"美食排名";
     }
 //    if (_tripPoi.poiType == kShoppingPoi) {
