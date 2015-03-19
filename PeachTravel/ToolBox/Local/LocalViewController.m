@@ -13,8 +13,9 @@
 #import "PoiSummary.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
+#import "ShoppingDetailViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "HotelDetailViewController.h"
 
 #define LOCAL_PAGE_TITLES       @[@"景", @"美食", @"逛", @"住"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
@@ -24,7 +25,6 @@
 #define PAGE_FOOD               1
 #define PAGE_SHOPPING           2
 #define PAGE_STAY               3
-
 #define RECYCLE_PAGE_TAG        100
 
 @interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
@@ -294,7 +294,7 @@
 {
     NSString *key;
     NSMutableArray *currentList = [self.dataSource objectAtIndex:realPageIndex];
-    TZPoiType type;
+    TZPoiType type = 0;
     switch (realPageIndex) {
         case PAGE_FUN:
             key = @"vs";
@@ -321,18 +321,18 @@
     }
     NSArray *dataList = [json objectForKey:key];
     for (id poiDic in dataList) {
-        PoiSummary *poiSummary = [[PoiSummary alloc] initWithJson:poiDic];
-        poiSummary.poiType = type;
-        [currentList addObject:poiSummary];
-        CLLocation *current=[[CLLocation alloc] initWithLatitude:poiSummary.lat longitude:poiSummary.lng];
+        
+        SuperPoi *poi = [PoiFactory poiWithPoiType:type andJson:poiDic];
+        [currentList addObject:poi];
+        CLLocation *current=[[CLLocation alloc] initWithLatitude:poi.lat longitude:poi.lng];
         CLLocation *before=[[CLLocation alloc] initWithLatitude:_location.coordinate.latitude longitude:_location.coordinate.longitude];
         CLLocationDistance meters=[current distanceFromLocation:before];
         if (meters>1000 && meters<10000) {
-            poiSummary.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
+            poi.distanceStr = [NSString stringWithFormat:@"%.1fkm", meters/1000];
         } else if (meters<1000) {
-            poiSummary.distanceStr = [NSString stringWithFormat:@"%dm",(int)meters];
+            poi.distanceStr = [NSString stringWithFormat:@"%dm",(int)meters];
         } else if (meters>=10000) {
-            poiSummary.distanceStr = @">10km";
+            poi.distanceStr = @">10km";
         }
 
     }
@@ -351,7 +351,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger tag = [tableView superview].tag;
-    PoiSummary *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
+    SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:indexPath.row];
     switch (tag) {
         case PAGE_FUN: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
@@ -362,7 +362,7 @@
             break;
             
         case PAGE_FOOD: {
-            CommonPoiDetailViewController *restaurant = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *restaurant = [[RestaurantDetailViewController alloc] init];
             restaurant.poiId = poi.poiId;
             restaurant.poiType = kRestaurantPoi;
             [self addChildViewController:restaurant];
@@ -371,7 +371,7 @@
             break;
         
         case PAGE_SHOPPING: {
-            CommonPoiDetailViewController *shopping = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *shopping = [[ShoppingDetailViewController alloc] init];
             shopping.poiId = poi.poiId;
             shopping.poiType = kShoppingPoi;
             [self addChildViewController:shopping];
@@ -380,7 +380,7 @@
             break;
             
         case PAGE_STAY: {
-            CommonPoiDetailViewController *hotel = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *hotel = [[HotelDetailViewController alloc] init];
             hotel.poiId = poi.poiId;
             hotel.poiType = kHotelPoi;
             [self addChildViewController:hotel];

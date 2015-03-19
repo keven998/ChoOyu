@@ -29,6 +29,8 @@
 @property (nonatomic, strong) CityDestinationPoi *locality;
 @property (nonatomic) BOOL isMyFavorite;
 
+@property (nonatomic, copy) NSString *distanceStr;
+
 - (id)initWithJson:(id)json;
 
 //TODO:

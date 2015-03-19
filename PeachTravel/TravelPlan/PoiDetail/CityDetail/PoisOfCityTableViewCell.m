@@ -56,23 +56,24 @@
 
 }
 
-- (void)setPoi:(PoiSummary *)poi
+- (void)setPoi:(SuperPoi *)poi
 {
     _poi = poi;
     NSString *title = [NSString stringWithFormat:@"%@", _poi.zhName];
     _titleLabel.text = title;
-    if (_poi.poiType == kRestaurantPoi || _poi.poiType == kHotelPoi) {
-        _propertyLabel.text = _poi.priceDesc;
-
+    if (_poi.poiType == kRestaurantPoi) {
+        _propertyLabel.text = ((RestaurantPoi *)_poi).priceDesc;
     }
-    
+    if (_poi.poiType == kHotelPoi) {
+        _propertyLabel.text = ((HotelPoi *)_poi).priceDesc;
+    }
     if (_poi.poiType == kShoppingPoi) {
         _propertyLabel.text = @"";
     }
     
     if (_poi.poiType == kSpotPoi) {
-        if (_poi.timeCost && ![_poi.timeCost isBlankString]) {
-            _propertyLabel.text = [NSString stringWithFormat:@"游玩 %@", _poi.timeCost];
+        if (((SpotPoi *)_poi).timeCostStr && ![((SpotPoi *)_poi).timeCostStr isBlankString]) {
+            _propertyLabel.text = [NSString stringWithFormat:@"游玩 %@", ((SpotPoi *)_poi).timeCostStr];
         } else {
             _propertyLabel.text = @"";
         }

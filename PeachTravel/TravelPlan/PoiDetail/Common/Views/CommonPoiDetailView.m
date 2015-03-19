@@ -390,7 +390,6 @@
     } else if (tag == kASShare) {
         
     }
-    
 }
 
 - (void)goMap:(NSInteger)buttonIndex {

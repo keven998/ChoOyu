@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PoiSummary.h"
 #import "EDStarRating.h"
 
 @interface PoisOfCityTableViewCell : UITableViewCell
@@ -39,7 +38,7 @@
  */
 @property (nonatomic) BOOL isAdded;
 
-@property (nonatomic, strong) PoiSummary *poi;
+@property (nonatomic, strong) SuperPoi *poi;
 
 
 @end
