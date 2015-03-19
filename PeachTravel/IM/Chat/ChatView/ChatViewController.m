@@ -41,7 +41,6 @@
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
@@ -49,7 +48,10 @@
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "HotelDetailViewController.h"
+#import "ShoppingDetailViewController.h"
+
 #import "IMRootViewController.h"
 #import "TripDetailRootViewController.h"
 
@@ -808,9 +810,8 @@
             break;
              
         case TZChatTypeFood: {
-            CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            restaurantDetailCtl.poiType = kRestaurantPoi;
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             [self addChildViewController:restaurantDetailCtl];
             [self.view addSubview:restaurantDetailCtl.view];
@@ -818,20 +819,18 @@
             break;
             
         case TZChatTypeShopping: {
-            CommonPoiDetailViewController *shoppingCtl = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
             shoppingCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             shoppingCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            shoppingCtl.poiType = kShoppingPoi;
             [self addChildViewController:shoppingCtl];
             [self.view addSubview:shoppingCtl.view];
         }
             break;
             
         case TZChatTypeHotel: {
-            CommonPoiDetailViewController *hotelCtl = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
             hotelCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             hotelCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            hotelCtl.poiType = kHotelPoi;
             [self addChildViewController:hotelCtl];
             [self.view addSubview:hotelCtl.view];
         }

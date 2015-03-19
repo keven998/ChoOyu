@@ -13,7 +13,6 @@
 #import "PoiSummary.h"
 #import "RecommendsOfCity.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
 #import "PoiSummary.h"
 #import "SuperWebViewController.h"
 
@@ -963,7 +962,8 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                     
                 case kAppleMap: {
                     [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
-                }                    break;
+                }
+                    break;
                     
                 default:
                     break;
