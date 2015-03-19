@@ -58,7 +58,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog(@"spots viewDisAppear");
 }
 
 #pragma mark - setter & getter

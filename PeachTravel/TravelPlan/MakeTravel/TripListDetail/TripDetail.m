@@ -273,7 +273,7 @@
 {
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     for (id oneDayDic in json) {
-        [retArray addObject:[PoiFactory poiWithJson:[oneDayDic objectForKey:@"poi"]]];
+        [retArray addObject:[PoiFactory poiWithJson: oneDayDic]];
     }
     return retArray;
 
@@ -283,7 +283,7 @@
 {
     NSMutableArray *retArray = [[NSMutableArray alloc] init];
     for (id oneDayDic in json) {
-        [retArray addObject:[PoiFactory poiWithJson:[oneDayDic objectForKey:@"poi"]]];
+        [retArray addObject:[PoiFactory poiWithJson:oneDayDic]];
     }
     return retArray;
 }

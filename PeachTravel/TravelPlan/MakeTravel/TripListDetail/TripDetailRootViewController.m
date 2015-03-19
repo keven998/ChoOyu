@@ -205,11 +205,11 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-//            [self setNavigationBackBarItem:YES];
-//            _editBtn.enabled = YES;
             _spotsListCtl.shouldEdit = NO;
             _restaurantListCtl.shouldEdit = NO;
             _shoppingListCtl.shouldEdit = NO;
+            _editBtn.selected = !_editBtn.selected;
+
         } else {
             [SVProgressHUD showErrorWithStatus:@"保存失败了"];
         }
@@ -512,11 +512,11 @@
         return;
     }
     BOOL status = sender.selected;
-    sender.selected = !status;
     if (!status) {
         _spotsListCtl.shouldEdit = YES;
         _restaurantListCtl.shouldEdit = YES;
         _shoppingListCtl.shouldEdit = YES;
+        sender.selected = !status;
     } else {
         [self finishEidtTrip:nil];
     }
