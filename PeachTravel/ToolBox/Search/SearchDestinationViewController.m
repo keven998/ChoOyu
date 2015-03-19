@@ -11,10 +11,10 @@
 #import "SearchMoreDestinationViewController.h"
 #import "SearchResultTableViewCell.h"
 #import "TaoziChatMessageBaseViewController.h"
-#import "PoiSummary.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "CityDetailTableViewController.h"
+#import "PoiDetailViewControllerFactory.h"
 
 @interface SearchDestinationViewController () <UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, TaoziMessageSendDelegate>
 
@@ -168,7 +168,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [cityDic setObject:@"相关城市" forKey:@"typeDesc"];
     NSMutableArray *cities = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"locality"]) {
-        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
+        SuperPoi *poi = [PoiFactory poiWithPoiType:kCityPoi andJson:dic];
         poi.poiType = kCityPoi;
         [cities addObject:poi];
     }
@@ -182,8 +182,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [spotDic setObject:@"相关景点" forKey:@"typeDesc"];
     NSMutableArray *spots = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"vs"]) {
-        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
-        poi.poiType = kSpotPoi;
+        SuperPoi *poi = [PoiFactory poiWithPoiType:kSpotPoi andJson:dic];
         [spots addObject:poi];
     }
     if (spots.count > 0) {
@@ -198,14 +197,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [restaurantDic setObject:@"相关美食" forKey:@"typeDesc"];
     NSMutableArray *restaurants = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"restaurant"]) {
-        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
-        poi.poiType = kRestaurantPoi;
+        SuperPoi *poi = [PoiFactory poiWithPoiType:kRestaurantPoi andJson:dic];
         [restaurants addObject:poi];
     }
     if (restaurants.count > 0) {
         [restaurantDic setObject:restaurants forKey:@"content"];
         [restaurantDic setObject:[NSNumber numberWithInt:kRestaurantPoi] forKey:@"type"];
-
         [self.dataSource addObject:restaurantDic];
     }
     
@@ -214,8 +211,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [shoppingDic setObject:@"相关购物" forKey:@"typeDesc"];
     NSMutableArray *shoppingArray = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"shopping"]) {
-        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
-        poi.poiType = kShoppingPoi;
+        SuperPoi *poi = [PoiFactory poiWithPoiType:kShoppingPoi andJson:dic];
         [shoppingArray addObject:poi];
     }
     if (shoppingArray.count > 0) {
@@ -230,8 +226,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [hotelDic setObject:@"相关酒店" forKey:@"typeDesc"];
     NSMutableArray *hotels = [[NSMutableArray alloc] init];
     for (id dic in [json objectForKey:@"hotel"]) {
-        PoiSummary *poi = [[PoiSummary alloc] initWithJson:dic];
-        poi.poiType = kHotelPoi;
+        SuperPoi *poi = [PoiFactory poiWithPoiType:kHotelPoi andJson:dic];
         [hotels addObject:poi];
     }
     if (hotels.count > 0) {
@@ -295,34 +290,35 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point];
-    PoiSummary *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+    SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
     switch (poi.poiType) {
         case kCityPoi:
             taoziMessageCtl.chatType = TZChatTypeCity;
-            
+            taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", ((CityPoi *)poi).timeCostDesc];
             break;
+            
         case kSpotPoi:
             taoziMessageCtl.chatType = TZChatTypeSpot;
-            
+            taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", ((SpotPoi *)poi).timeCostStr];
             break;
             
         case kRestaurantPoi:
             taoziMessageCtl.chatType = TZChatTypeFood;
-            
+            taoziMessageCtl.messagePrice = ((RestaurantPoi *)poi).priceDesc;
             break;
             
         case kShoppingPoi:
             taoziMessageCtl.chatType = TZChatTypeShopping;
-            
             break;
             
         case kHotelPoi:
             taoziMessageCtl.chatType = TZChatTypeHotel;
-            
+            taoziMessageCtl.messagePrice = ((HotelPoi *)poi).priceDesc;
             break;
+            
         default:
             break;
     }
@@ -331,9 +327,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     taoziMessageCtl.messageName = poi.zhName;
     TaoziImage *image = [poi.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
-    taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", poi.timeCost];
     taoziMessageCtl.messageAddress = poi.address;
-    taoziMessageCtl.messagePrice = poi.priceDesc;
     taoziMessageCtl.messageRating = poi.rating;
     taoziMessageCtl.chatter = _chatter;
     taoziMessageCtl.isGroup = _isChatGroup;
@@ -419,7 +413,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PoiSummary *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+    SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
 
     if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi || poi.poiType == kSpotPoi) {
@@ -446,7 +440,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [_searchBar resignFirstResponder];
     [MobClick event:@"event_click_search_result_item"];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    PoiSummary *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
+    SuperPoi *poi = [[[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"content"] objectAtIndex:indexPath.row];
 
     if (poi.poiType == kSpotPoi) {
         SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
@@ -454,31 +448,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self addChildViewController:ctl];
         [self.view addSubview:ctl.view];
         
-    } else if (poi.poiType == kHotelPoi) {
-        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-        ctl.poiId = poi.poiId;
-        ctl.poiType = kHotelPoi;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
-    } else if (poi.poiType == kRestaurantPoi) {
-        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-        ctl.poiType = kRestaurantPoi;
-        ctl.poiId = poi.poiId;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
-    } else if (poi.poiType == kShoppingPoi) {
-        CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-        ctl.poiId = poi.poiId;
-        ctl.poiType = kShoppingPoi;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
     } else if (poi.poiType == kCityPoi) {
         CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
         ctl.cityId = poi.poiId;
         [self.navigationController pushViewController:ctl animated:YES];
+    } else {
+        CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:poi.poiType];
+        ctl.poiId = poi.poiId;
+        [self addChildViewController:ctl];
+        [self.view addSubview:ctl.view];
     }
 }
 

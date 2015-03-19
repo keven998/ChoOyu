@@ -45,4 +45,22 @@
     return retPoi;
 }
 
++ (SuperPoi *)poiWithPoiTypeDesc:(NSString *)poiTypeDesc andJson:(id)json
+{
+    TZPoiType poiType = 0;
+    if ([poiTypeDesc isEqualToString:@"locality"]) {
+        poiType = kCityPoi;
+    }
+    if ([poiTypeDesc isEqualToString:@"vs"]) {
+        poiType = kCityPoi;
+    }if ([poiTypeDesc isEqualToString:@"restaurant"]) {
+        poiType = kCityPoi;
+    }if ([poiTypeDesc isEqualToString:@"shopping"]) {
+        poiType = kCityPoi;
+    }if ([poiTypeDesc isEqualToString:@"hotel"]) {
+        poiType = kCityPoi;
+    }
+    return [PoiFactory poiWithPoiType:poiType andJson:json];
+}
+
 @end

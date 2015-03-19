@@ -341,9 +341,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
-    _mineCtl = [[MineTableViewController alloc] init];
+//    _mineCtl = [[MineTableViewController alloc] init];
+//    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
+//                                                         initWithRootViewController:_mineCtl];
+    
+    _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
-                                                         initWithRootViewController:_mineCtl];
+                                                         initWithRootViewController:_hotDestinationCtl];
 
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
                                thirdNavigationController]];

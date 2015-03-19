@@ -39,6 +39,7 @@
 #import "RestaurantPoi.h"
 #import "HotelPoi.h"
 #import "ShoppingPoi.h"
+#import "CityPoi.h"
 
 #endif
 
