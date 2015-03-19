@@ -533,6 +533,7 @@
     chatController.title = title;
     
     [tzConversation.conversation markAllMessagesAsRead:YES];
+    chatController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatController animated:YES];
 }
 
@@ -675,6 +676,7 @@
     [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
         ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
         chatCtl.title = chatTitle;
+        chatCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:chatCtl animated:YES];
     }];
 }

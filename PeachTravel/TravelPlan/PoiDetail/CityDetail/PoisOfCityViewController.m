@@ -12,6 +12,8 @@
 #import "CityDestinationPoi.h"
 #import "RecommendsOfCity.h"
 #import "CommonPoiDetailViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
 
 @interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate>
@@ -785,18 +787,16 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     if (_poiType == kRestaurantPoi) {
-        CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
+        CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.poiId = poi.poiId;
-        restaurantDetailCtl.poiType = kRestaurantPoi;
         [self addChildViewController:restaurantDetailCtl];
         [self.view addSubview:restaurantDetailCtl.view];
         
         NSLog(@"%@", self.navigationController);
     }
     if (_poiType == kShoppingPoi) {
-        CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
+        CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
         shoppingDetailCtl.poiId = poi.poiId;
-        shoppingDetailCtl.poiType = kShoppingPoi;
         [self addChildViewController:shoppingDetailCtl];
         [self.view addSubview:shoppingDetailCtl.view];
 

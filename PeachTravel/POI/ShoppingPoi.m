@@ -18,7 +18,6 @@
         self.typeDesc = @"shopping";
         _telephone = [json objectForKey:@"telephone"];
         _priceDesc = [json objectForKey:@"priceDesc"];
-
     }
     return self;
 }
@@ -28,7 +27,6 @@
     NSMutableDictionary *retDic = [[super enCodeAllDataToDictionary] mutableCopy];
     [retDic safeSetObject:_telephone forKey:@"timeCostDesc"];
     [retDic safeSetObject:_priceDesc forKey:@"priceDesc"];
-    
     return retDic;
 }
 

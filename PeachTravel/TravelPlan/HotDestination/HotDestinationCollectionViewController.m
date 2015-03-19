@@ -105,6 +105,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [MobClick event:@"event_go_search"];
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.titleStr = @"搜索";
+    searchCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchCtl animated:YES];
 }
 
@@ -282,6 +283,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.title = recommend.title;
         webCtl.urlStr = recommend.linkUrl;
+        webCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webCtl animated:YES];
     }
     if (recommend.linkType == LinkNative) {
@@ -289,6 +291,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             case kCityPoi: {
                 CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
+                ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
@@ -296,6 +299,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             case kSpotPoi: {
                 SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
                 ctl.spotId = recommend.recommondId;
+                ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
