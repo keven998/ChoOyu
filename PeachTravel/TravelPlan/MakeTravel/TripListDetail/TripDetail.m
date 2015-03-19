@@ -130,7 +130,6 @@
     
     [uploadDicToSave safeSetObject:_tripId forKey:@"id"];
     [uploadDicToSave safeSetObject:_tripTitle forKey:@"title"];
-    [uploadDicToSave safeSetObject:_tripDetailUrl forKey:@"detailUrl"];
     
     NSMutableArray *destinationsArray = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _destinations) {
