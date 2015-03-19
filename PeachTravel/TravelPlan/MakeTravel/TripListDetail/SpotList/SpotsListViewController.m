@@ -22,6 +22,7 @@
 #import "CommonPoiDetailViewController.h"
 #import "MyTripSpotsMapViewController.h"
 #import "PositionBean.h"
+#import "PoiDetailViewControllerFactory.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
 
@@ -372,30 +373,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
         }
             break;
-        case kRestaurantPoi: {
-            CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            restaurantDetailCtl.poiId = tripPoi.poiId;
-            restaurantDetailCtl.poiType = kRestaurantPoi;
-            [self.rootViewController addChildViewController:restaurantDetailCtl];
-            [self.rootViewController.view addSubview:restaurantDetailCtl.view];
-        }
             
-            break;
-        case kShoppingPoi: {
-            CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            shoppingDetailCtl.poiId = tripPoi.poiId;
-            shoppingDetailCtl.poiType = kShoppingPoi;
-            [self.rootViewController addChildViewController:shoppingDetailCtl];
-            [self.rootViewController.view addSubview:shoppingDetailCtl.view];
-        }
-            
-            break;
-        case kHotelPoi: {
-            CommonPoiDetailViewController *hotelDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            hotelDetailCtl.poiId = tripPoi.poiId;
-            hotelDetailCtl.poiType = kHotelPoi;
-            [self.rootViewController addChildViewController:hotelDetailCtl];
-            [self.rootViewController.view addSubview:hotelDetailCtl.view];
+        case kRestaurantPoi: case kShoppingPoi: case kHotelPoi:{
+            CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:tripPoi.poiType];
+            ctl.poiId = tripPoi.poiId;
+            [self.rootViewController addChildViewController:ctl];
+            [self.rootViewController.view addSubview:ctl.view];
         }
             
             break;
