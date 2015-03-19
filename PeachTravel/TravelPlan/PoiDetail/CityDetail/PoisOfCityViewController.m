@@ -785,7 +785,14 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SuperPoi *poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+    SuperPoi *poi;
+    if (self.searchController.isActive) {
+        poi = [_searchResultArray objectAtIndex:indexPath.row];
+
+    } else {
+        poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
+
+    }
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.poiId = poi.poiId;
