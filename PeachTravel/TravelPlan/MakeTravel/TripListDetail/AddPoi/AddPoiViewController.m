@@ -11,11 +11,10 @@
 #import "TripDetail.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
 #import "PoiSummary.h"
 #import "PoisOfCityTableViewCell.h"
 #import "TZFilterViewController.h"
+#import "PoiDetailViewControllerFactory.h"
 
 
 @interface AddPoiViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
@@ -634,35 +633,13 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
             
         }
             break;
-        case kRestaurantPoi: {
-            CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            restaurantDetailCtl.poiId = tripPoi.poiId;
-            restaurantDetailCtl.poiType = kRestaurantPoi;
-            [self addChildViewController:restaurantDetailCtl];
-            [self.view addSubview:restaurantDetailCtl.view];
+        default: {
+            CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:tripPoi.poiType];
+            ctl.poiId = tripPoi.poiId;
+            [self addChildViewController:ctl];
+            [self.view addSubview:ctl.view];
         }
-            
-            break;
-        case kShoppingPoi: {
-            CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            shoppingDetailCtl.poiId = tripPoi.poiId;
-            shoppingDetailCtl.poiType = kShoppingPoi;
-            [self addChildViewController:shoppingDetailCtl];
-            [self.view addSubview:shoppingDetailCtl.view];
-        }
-            
-            break;
-        case kHotelPoi: {
-            CommonPoiDetailViewController *hotelDetailCtl = [[CommonPoiDetailViewController alloc] init];
-            hotelDetailCtl.poiId = tripPoi.poiId;
-            hotelDetailCtl.poiType = kHotelPoi;
-            [self addChildViewController:hotelDetailCtl];
-            [self.view addSubview:hotelDetailCtl.view];
-        }
-            break;
-            
-        default:
-            break;
+        break;
     }
 }
 

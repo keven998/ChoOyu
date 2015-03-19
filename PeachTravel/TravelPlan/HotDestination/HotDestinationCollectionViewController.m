@@ -305,7 +305,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 ctl.poiId = recommend.recommondId;
                 [self addChildViewController:ctl];
                 [self.view addSubview:ctl.view];
-
             }
                 break;
         }
