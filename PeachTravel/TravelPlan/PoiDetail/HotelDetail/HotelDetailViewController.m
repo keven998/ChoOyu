@@ -12,7 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.poiType = kShoppingPoi;
+    self.poiType = kHotelPoi;
     NSString *url = [NSString stringWithFormat:@"%@%@", API_GET_HOTEL_DETAIL, self.poiId];
     [self loadDataWithUrl:url];
 }

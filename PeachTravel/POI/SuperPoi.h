@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, copy) NSString *moreCommentsUrl;
+@property (nonatomic, copy) NSString *poiTypeName;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic) float rating;
 @property (nonatomic) int rank;

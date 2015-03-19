@@ -14,7 +14,10 @@
 {
     if (self = [super initWithJson:json]) {
         self.poiType = kShoppingPoi;
+        self.poiTypeName = @"购物";
         self.typeDesc = @"shopping";
+        _telephone = [json objectForKey:@"telephone"];
+        _priceDesc = [json objectForKey:@"priceDesc"];
 
     }
     return self;

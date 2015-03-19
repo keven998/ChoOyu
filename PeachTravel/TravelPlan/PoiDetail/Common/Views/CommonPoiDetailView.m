@@ -65,7 +65,7 @@
     return self;
 }
 
-- (void)setPoi:(PoiSummary *)poi
+- (void)setPoi:(SuperPoi *)poi
 {
     _poi = poi;
     [self setupSubView];
@@ -154,7 +154,17 @@
     UIButton *phoneDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(145, offsetY+40, _scrollView.bounds.size.width-160, 20)];
     [phoneDetailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [phoneDetailBtn addTarget:self action:@selector(makePhone:) forControlEvents:UIControlEventTouchUpInside];
-    [phoneDetailBtn setTitle:_poi.telephone forState:UIControlStateNormal];
+    NSString *telephone;
+    if (_poi.poiType == kRestaurantPoi) {
+        telephone = ((RestaurantPoi *)_poi).telephone;
+    }
+    if (_poi.poiType == kShoppingPoi) {
+        telephone = ((ShoppingPoi *)_poi).telephone;
+    }
+    if (_poi.poiType == kHotelPoi) {
+        telephone = ((HotelPoi *)_poi).telephone;
+    }
+    [phoneDetailBtn setTitle:telephone forState:UIControlStateNormal];
     phoneDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
     [phoneDetailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [phoneDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
@@ -163,14 +173,22 @@
     
     offsetY += 65;
 
+    NSString *priceDesc;
+    if (_poi.poiType == kRestaurantPoi) {
+        priceDesc = ((RestaurantPoi *)_poi).priceDesc;
+    }
+    if (_poi.poiType == kShoppingPoi) {
+        priceDesc = ((ShoppingPoi *)_poi).priceDesc;
+    }
+    
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width-40, 20)];
     _priceLabel.textColor = APP_THEME_COLOR;
     _priceLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
-    _priceLabel.text = _poi.priceDesc;
+    _priceLabel.text = priceDesc;
     _priceLabel.adjustsFontSizeToFitWidth = YES;
     [_scrollView addSubview:_priceLabel];
     
-    if ([_poi.priceDesc isBlankString] || !_poi.priceDesc) {
+    if ([priceDesc isBlankString] || !priceDesc) {
         offsetY += 10;
     } else {
         offsetY += 30;
@@ -190,7 +208,7 @@
         [_bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
         [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_scrollView addSubview:_bookBtn];
-        if (!_poi.bookUrl || [_poi.bookUrl isBlankString]) {
+        if (!((HotelPoi *)_poi).bookUrl || [((HotelPoi *)_poi).bookUrl isBlankString]) {
             _bookBtn.enabled = NO;
         }
         offsetY += 40;
@@ -326,7 +344,17 @@
 
 - (IBAction)makePhone:(id)sender
 {
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", _poi.telephone]];
+    NSString *telephone;
+    if (_poi.poiType == kRestaurantPoi) {
+        telephone = ((RestaurantPoi *)_poi).telephone;
+    }
+    if (_poi.poiType == kShoppingPoi) {
+        telephone = ((ShoppingPoi *)_poi).telephone;
+    }
+    if (_poi.poiType == kHotelPoi) {
+        telephone = ((HotelPoi *)_poi).telephone;
+    }
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", telephone]];
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];
     }
@@ -342,7 +370,7 @@
     [MobClick event:@"event_go_booking_room"];
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"在线预订";
-    webCtl.urlStr = _poi.bookUrl;
+    webCtl.urlStr = ((HotelPoi *)_poi).bookUrl;
     [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
@@ -369,6 +397,7 @@
             rootCtl = (CommonPoiDetailViewController*)nextResponder;
             
             [rootCtl asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+                _favoriteBtn.userInteractionEnabled = YES;
                 if (!isSuccess) {
                     _favoriteBtn.selected = !_poi.isMyFavorite;
                 }

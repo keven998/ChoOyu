@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PoiSummary.h"
 
 @interface CommonPoiDetailView : UIView
 
-@property (nonatomic, strong) PoiSummary *poi;
+@property (nonatomic, strong) SuperPoi *poi;
 
 @property (nonatomic, weak) UIViewController *rootCtl;
 

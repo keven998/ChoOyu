@@ -15,6 +15,7 @@
     if (self = [super initWithJson:json]) {
         self.poiType = kSpotPoi;
         self.typeDesc = @"vs";
+        self.poiTypeName = @"景点";
         _priceDesc = [json objectForKey:@"priceDesc"];
         _bookUrl = [json objectForKey:@"lyPoiUrl"];
         _openTime = [json objectForKey:@"openTime"];

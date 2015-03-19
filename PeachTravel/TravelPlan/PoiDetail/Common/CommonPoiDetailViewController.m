@@ -10,9 +10,12 @@
 #import "CommonPoiDetailView.h"
 #import "AccountManager.h"
 #import "UIImage+BoxBlur.h"
+#import "PoiSummary.h"
 
 @interface CommonPoiDetailViewController ()
 @property (nonatomic, strong) PoiSummary *commonPoi;
+
+@property (nonatomic, strong) SuperPoi *poi;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
 @end
@@ -55,7 +58,7 @@
     CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
     commonPoiDetailView.rootCtl = self;
     commonPoiDetailView.poiType = _poiType;
-    commonPoiDetailView.poi = self.commonPoi;
+    commonPoiDetailView.poi = self.poi;
     commonPoiDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:commonPoiDetailView];
 
@@ -109,54 +112,6 @@
     return image;
 }
 
-- (void) loadData
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isLogin]) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    }
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
-    [params setObject:imageWidth forKey:@"imgWidth"];
-    
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    __weak typeof(self)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
-    
-    NSString *typeUrl;
-    if (_poiType == kRestaurantPoi) {
-        typeUrl = API_GET_RESTAURANT_DETAIL;
-    }
-    if (_poiType == kShoppingPoi) {
-        typeUrl = API_GET_SHOPPING_DETAIL;
-    }
-    if (_poiType == kHotelPoi) {
-        typeUrl = API_GET_HOTEL_DETAIL;
-    }
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@", typeUrl, _poiId];
-    
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
-        if (result == 0) {
-            _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
-            [self updateView];
-        } else {
-            [self dismissCtlWithHint:@"无法获取数据"];
-        }
-          
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        [self dismissCtlWithHint:@"呃～好像没找到网络"];
-    }];
-}
-
 - (void) loadDataWithUrl:(NSString *)url
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -180,7 +135,7 @@
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
         NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
-            _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];

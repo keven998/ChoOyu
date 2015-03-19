@@ -18,7 +18,7 @@
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _desc = [json objectForKey:@"desc"];
-        
+        _address = [json objectForKey:@"address"];
         if ([[json objectForKey:@"type"] isEqualToString:@"vs"]) {
             _poiType = kSpotPoi;
         }

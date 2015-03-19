@@ -19,6 +19,7 @@
     if (self = [super initWithJson:json]) {
         self.poiType = kCityPoi;
         self.typeDesc = @"locality";
+        self.poiTypeName = @"城市";
         _playGuide = [json objectForKey:@"playGuide"];
         _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
