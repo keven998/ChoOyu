@@ -341,24 +341,25 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
-//    _mineCtl = [[MineTableViewController alloc] init];
-//    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
-//                                                         initWithRootViewController:_mineCtl];
-    
     _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_hotDestinationCtl];
+    
+    _mineCtl = [[MineTableViewController alloc] init];
+    UINavigationController *FourthNavigationController = [[UINavigationController alloc]
+                                                         initWithRootViewController:_mineCtl];
+
 
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
-                               thirdNavigationController]];
+                               thirdNavigationController, FourthNavigationController]];
     [self customizeTabBarForController];
 }
 
 - (void)customizeTabBarForController
 {
     
-    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-    NSArray *titles = @[@"Talk", @"工具", @"我"];
+    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_loc", @"ic_person"];
+    NSArray *titles = @[@"Talk", @"工具", @"目的地", @"我"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
