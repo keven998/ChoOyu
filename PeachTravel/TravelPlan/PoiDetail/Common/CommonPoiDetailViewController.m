@@ -10,10 +10,8 @@
 #import "CommonPoiDetailView.h"
 #import "AccountManager.h"
 #import "UIImage+BoxBlur.h"
-#import "PoiSummary.h"
 
 @interface CommonPoiDetailViewController ()
-@property (nonatomic, strong) PoiSummary *commonPoi;
 
 @property (nonatomic, strong) SuperPoi *poi;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
@@ -54,7 +52,7 @@
 
 - (void)updateView
 {
-    self.navigationItem.title = _commonPoi.zhName;
+    self.navigationItem.title = self.poi.zhName;
     CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
     commonPoiDetailView.rootCtl = self;
     commonPoiDetailView.poiType = _poiType;
@@ -150,27 +148,27 @@
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _commonPoi.poiId;
-    taoziMessageCtl.messageImage = ((TaoziImage *)[_commonPoi.images firstObject]).imageUrl;
-    taoziMessageCtl.messageDesc = _commonPoi.desc;
-    taoziMessageCtl.messageName = _commonPoi.zhName;
-    taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
-    taoziMessageCtl.messageRating = _commonPoi.rating;
+    taoziMessageCtl.messageId = self.poi.poiId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[self.poi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = self.poi.desc;
+    taoziMessageCtl.messageName = self.poi.zhName;
+    taoziMessageCtl.messageRating = self.poi.rating;
     taoziMessageCtl.chatType = TZChatTypeFood;
     if (_poiType == kHotelPoi) {
         taoziMessageCtl.chatType = TZChatTypeHotel;
-        taoziMessageCtl.messageRating = _commonPoi.rating;
-        taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+        taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
+        taoziMessageCtl.messageRating = self.poi.rating;
     } else if (_poiType == kRestaurantPoi) {
         taoziMessageCtl.chatType = TZChatTypeFood;
-        taoziMessageCtl.messageRating = _commonPoi.rating;
-        taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+        taoziMessageCtl.messageRating = self.poi.rating;
+        taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
+        
     } else if (_poiType == kShoppingPoi) {
         taoziMessageCtl.chatType = TZChatTypeShopping;
-        taoziMessageCtl.messageRating = _commonPoi.rating;
+        taoziMessageCtl.messageRating = self.poi.rating;
     } 
 
-    taoziMessageCtl.messageAddress = _commonPoi.address;
+    taoziMessageCtl.messageAddress = self.poi.address;
 }
 
 @end

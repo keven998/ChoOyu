@@ -13,4 +13,8 @@
 
 + (SuperPoi *)poiWithPoiType:(TZPoiType)poiType andJson:(id)json;
 
++ (SuperPoi *)poiWithPoiTypeDesc:(NSString *)poiTypeDesc andJson:(id)json;
+
++ (SuperPoi *)poiWithJson:(id)json;
+
 @end

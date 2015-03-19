@@ -52,15 +52,21 @@
         poiType = kCityPoi;
     }
     if ([poiTypeDesc isEqualToString:@"vs"]) {
-        poiType = kCityPoi;
+        poiType = kSpotPoi;
     }if ([poiTypeDesc isEqualToString:@"restaurant"]) {
-        poiType = kCityPoi;
+        poiType = kRestaurantPoi;
     }if ([poiTypeDesc isEqualToString:@"shopping"]) {
-        poiType = kCityPoi;
+        poiType = kShoppingPoi;
     }if ([poiTypeDesc isEqualToString:@"hotel"]) {
-        poiType = kCityPoi;
+        poiType = kHotelPoi;
     }
     return [PoiFactory poiWithPoiType:poiType andJson:json];
 }
+
++ (SuperPoi *)poiWithJson:(id)json
+{
+    return [PoiFactory poiWithPoiTypeDesc:[json objectForKey:@"type"] andJson:json];
+}
+
 
 @end

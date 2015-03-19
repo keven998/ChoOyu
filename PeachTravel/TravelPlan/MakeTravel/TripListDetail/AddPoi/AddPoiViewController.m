@@ -11,7 +11,6 @@
 #import "TripDetail.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "PoiSummary.h"
 #import "PoisOfCityTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "PoiDetailViewControllerFactory.h"
@@ -313,7 +312,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     }
     
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    PoiSummary *poi;
+    SuperPoi *poi;
     if (!cell.isAdded) {
         if (self.searchController.isActive) {
             poi = [self.searchResultArray objectAtIndex:indexPath.row];
@@ -327,14 +326,14 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
 
     } else {
-        PoiSummary *poi;
+        SuperPoi *poi;
         if (self.searchController.isActive) {
             poi = [self.searchResultArray objectAtIndex:indexPath.row];
         } else {
             poi = [self.dataSource objectAtIndex:indexPath.row];
         }
         NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-        for (PoiSummary *tripPoi in oneDayArray) {
+        for (SuperPoi *tripPoi in oneDayArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 [oneDayArray removeObject:tripPoi];
                 break;
@@ -398,7 +397,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
                     _enableLoadMoreNormal = YES;
                 }
                 for (id poiDic in [responseObject objectForKey:@"result"]) {
-                    [self.dataSource addObject:[[PoiSummary alloc] initWithJson:poiDic]];
+                    [self.dataSource addObject:[PoiFactory poiWithJson:poiDic]];
                 }
                 [self.tableView reloadData];
                 _currentPageNormal = pageNo;
@@ -508,7 +507,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
                     _enableLoadMoreSearch = YES;
                 }
                 for (id poiDic in jsonDic) {
-                    [self.searchResultArray addObject:[[PoiSummary alloc] initWithJson:poiDic]];
+                    [self.searchResultArray addObject:[[SuperPoi alloc] initWithJson:poiDic]];
                 }
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
@@ -585,7 +584,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PoiSummary *poi;
+    SuperPoi *poi;
     if ([tableView isEqual:self.tableView]) {
         poi = [self.dataSource objectAtIndex:indexPath.row];
     } else {
@@ -593,7 +592,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     }
     BOOL isAdded = NO;
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-    for (PoiSummary *tripPoi in oneDayArray) {
+    for (SuperPoi *tripPoi in oneDayArray) {
         if ([tripPoi.poiId isEqualToString:poi.poiId]) {
             isAdded = YES;
         }
@@ -617,7 +616,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PoiSummary *tripPoi;
+    SuperPoi *tripPoi;
     if ([tableView isEqual:self.tableView]) {
        tripPoi = [self.dataSource objectAtIndex:indexPath.row];
     } else {
@@ -729,7 +728,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    PoiSummary *poi;
+    SuperPoi *poi;
     if (_searchController.active) {
         poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
     } else {
