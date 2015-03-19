@@ -331,8 +331,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)setupViewControllers
 {
 
-    self.tabBar.translucent = NO;
-    self.tabBar.backgroundColor = [UIColor blackColor];
+    self.tabBar.translucent = YES;
+    self.tabBar.alpha = 0.5;
     
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:self.IMRootCtl];
@@ -387,30 +387,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 -(void)setupUnreadMessageCount
 {
-    UIApplication *application = [UIApplication sharedApplication];
+    int unReadCount = self.IMRootCtl.totalUnReadMsg;
+    UITabBarItem *item = [self.tabBar.items firstObject];
 
-    if (!_IMRootCtl && application.applicationIconBadgeNumber>0) {
-        _unReadMsgLabel.text = [NSString stringWithFormat:@"%ld", (long)application.applicationIconBadgeNumber];
-        
+    if (unReadCount == 0) {
+        [item setBadgeValue:nil];
+
     } else {
-        int unReadCount = self.IMRootCtl.totalUnReadMsg;
-        if (unReadCount > 0) {
-            _unReadMsgLabel.hidden = NO;
-            _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", unReadCount];
-            if (unReadCount > 9) {
-                _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:10.0];
-            }
-            if (unReadCount > 99) {
-                _unReadMsgLabel.font = [UIFont systemFontOfSize:5.0];
-            }
-            else {
-                _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
-            }
-
-        } else {
-            _unReadMsgLabel.hidden = YES;
-        }
-        [application setApplicationIconBadgeNumber:unReadCount];
+        [item setBadgeValue:[NSString stringWithFormat:@"%d", unReadCount]];
     }
 }
 

@@ -788,11 +788,10 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     SuperPoi *poi;
     if (self.searchController.isActive) {
         poi = [_searchResultArray objectAtIndex:indexPath.row];
-
     } else {
         poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
-
     }
+    
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.poiId = poi.poiId;

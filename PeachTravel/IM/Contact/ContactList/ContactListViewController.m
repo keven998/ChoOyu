@@ -140,6 +140,7 @@
 - (IBAction)addUserContact:(id)sender
 {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    addContactCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
@@ -218,6 +219,7 @@
             break;
         }
     }
+    chatCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatCtl animated:YES];
 }
 
@@ -303,12 +305,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
-
+        frendRequestCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         contactDetailCtl.contact = contact;
+        contactDetailCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     
