@@ -16,9 +16,8 @@
 #import "SuperWebViewController.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
 #import "SearchDestinationViewController.h"
+#import "PoiDetailViewControllerFactory.h"
 
 @interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
@@ -300,35 +299,14 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
                 [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
-                
-            case kRestaurantPoi: {
-                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-                ctl.poiType = kRestaurantPoi;
-                ctl.poiId = recommend.recommondId;
-                [self addChildViewController:ctl];
-                [self.view addSubview:ctl.view];
-            }
-                break;
             
-            case kShoppingPoi: {
-                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+            default: {
+                CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:recommend.poiType];
                 ctl.poiId = recommend.recommondId;
-                ctl.poiType = kShoppingPoi;
                 [self addChildViewController:ctl];
                 [self.view addSubview:ctl.view];
+
             }
-                break;
-                
-            case kHotelPoi: {
-                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-                ctl.poiId = recommend.recommondId;
-                ctl.poiType = kHotelPoi;
-                [self addChildViewController:ctl];
-                [self.view addSubview:ctl.view];
-            }
-                break;
-                
-            default:
                 break;
         }
     }
