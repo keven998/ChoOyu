@@ -166,8 +166,10 @@
             tripDetailCtl.canEdit = YES;
             tripDetailCtl.destinations = self.destinations.destinationsSelected;
             tripDetailCtl.isMakeNewTrip = YES;
+            tripDetailCtl.hidesBottomBarWhenPushed = YES;
             NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
             [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
+            
             [self.navigationController setViewControllers:array animated:YES];
         } else {
             [SVProgressHUD showHint:@"请先登录"];
