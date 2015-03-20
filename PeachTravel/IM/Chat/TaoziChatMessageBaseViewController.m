@@ -10,7 +10,6 @@
 #import "ChatSendHelper.h"
 
 @interface TaoziChatMessageBaseViewController ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleHightConstraint;
 @property (weak, nonatomic) IBOutlet UIView *imageBkgView;
 
 @end
@@ -35,12 +34,10 @@
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
     if (_chatType == TZChatTypeTravelNote) {
         _titleBtn.titleLabel.numberOfLines = 2;
-        _titleHightConstraint.constant = 34;
         _propertyBtn.hidden = YES;
 
     } else {
         _titleBtn.titleLabel.numberOfLines = 1;
-        _titleHightConstraint.constant = 17;
         _propertyBtn.hidden = NO;
     }
     

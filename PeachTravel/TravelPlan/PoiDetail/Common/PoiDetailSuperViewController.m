@@ -79,11 +79,6 @@
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
-    
-    /*发送完成后不进入聊天界面
-    [self.navigationController pushViewController:chatCtl animated:YES];
-     */
-    
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
 
 }

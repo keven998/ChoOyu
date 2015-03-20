@@ -329,9 +329,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-
     self.tabBar.translucent = YES;
-    self.tabBar.alpha = 0.5;
+    self.tabBar.barStyle = UIBarStyleBlack;
+    self.tabBar.selectedImageTintColor = [UIColor whiteColor];
     
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:self.IMRootCtl];

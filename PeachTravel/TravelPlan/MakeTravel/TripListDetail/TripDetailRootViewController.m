@@ -37,6 +37,9 @@
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIView *tabBarView;
 
+@property (nonatomic) CGPoint initialDraggingPoint;
+
+
 /**
  *  点击目的地显示目的地界面
  */
@@ -122,6 +125,10 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+    [self.view addGestureRecognizer:panGesture];
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -191,6 +198,36 @@
     _shoppingListCtl = nil;
     _chatRecordListCtl = nil;
 }
+
+- (void)pan:(UIPanGestureRecognizer *)reconizer
+{
+    if (reconizer.state == UIGestureRecognizerStateBegan) {
+        _initialDraggingPoint = [reconizer translationInView:self.view];
+    } else if (reconizer.state == UIGestureRecognizerStateEnded || reconizer.state == UIGestureRecognizerStateCancelled) {
+        CGPoint lastPoint = [reconizer translationInView:self.view];
+        if ((lastPoint.x - _initialDraggingPoint.x) > 100) {
+            if ([_currentViewController isEqual:[_tabbarPageControllerArray firstObject]]) {
+                UIButton *btn = [_tabbarButtonArray lastObject];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            } else {
+                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
+                UIButton *btn = [_tabbarButtonArray objectAtIndex:index-1];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+            
+        } else if ((lastPoint.x - _initialDraggingPoint.x) < -100) {
+            if ([_currentViewController isEqual:[_tabbarPageControllerArray lastObject]]) {
+                UIButton *btn = [_tabbarButtonArray firstObject];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            } else {
+                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
+                UIButton *btn = [_tabbarButtonArray objectAtIndex:index+1];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+    }
+}
+
 
 - (IBAction)finishEidtTrip:(id)sender
 {

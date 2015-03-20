@@ -356,7 +356,6 @@ const CGFloat kAnimationSpeed = 0.20;
     
     if (reconizer.state == UIGestureRecognizerStateBegan) {
         _initialDraggingPoint = self.selectedBackgroundView.layer.position;
-        
     }
     else if (reconizer.state == UIGestureRecognizerStateChanged){
         CGPoint translation = [reconizer translationInView:[self.selectedBackgroundView superview]];

@@ -71,6 +71,7 @@
         self.numberOfUnReadChatMsg = ((ChatListViewController *)chatListCtl).numberOfUnReadChatMsg;
     }
     [self updateFrendRequestStatus];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
