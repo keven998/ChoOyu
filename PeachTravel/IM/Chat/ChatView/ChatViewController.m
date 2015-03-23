@@ -173,7 +173,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"page_talking"];
+    [MobClick endLogPageView:@"page_talking"];
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     [_conversation markAllMessagesAsRead:YES];
