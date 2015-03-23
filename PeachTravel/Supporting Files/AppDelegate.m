@@ -14,6 +14,7 @@
 #import "AccountManager.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
+#import "iRate.h"
 #import "AppDelegate+EaseMob.h"
 
 @interface AppDelegate ()
@@ -57,6 +58,8 @@
 
     
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+    
+    [iRate sharedInstance].promptAtLaunch = NO;
 
     return YES;
 }
