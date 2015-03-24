@@ -443,7 +443,7 @@
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
                                               otherButtonTitles:@"新建旅程", nil];
-    [sheet showInView:self.view];
+    [sheet showInView:[UIApplication sharedApplication].keyWindow];
     [MobClick event:@"event_create_new_trip_plan_home"];
 }
 
