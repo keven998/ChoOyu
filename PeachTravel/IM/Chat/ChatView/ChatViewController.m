@@ -963,6 +963,16 @@
                         [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
                         UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
                         if ([cell isKindOfClass:[EMChatViewCell class]]) {
+                            if (cellModel.isChatGroup) {
+                                [self checkOutModel:cellModel];
+                            } else {
+                                cellModel.nickName = _chatterNickName;
+                                if (cellModel.isSender) {
+                                    cellModel.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
+                                } else {
+                                    cellModel.headImageURL = [NSURL URLWithString:_chatterAvatar];
+                                }
+                            }
                             ((EMChatViewCell *)cell).messageModel = cellModel;
                         }
                         
