@@ -138,8 +138,6 @@
 		D993CBE11AB6FFD50075314E /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D993CBDE1AB6FFD50075314E /* EaseMob.bundle */; };
 		D99D8EE519C8600C0021C25B /* PeachTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D99D8EE419C8600C0021C25B /* PeachTravelTests.m */; };
 		D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */; };
-		D9A800181A80D52F005AD701 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD61A80D52F005AD701 /* CityDestinationPoi.m */; };
-		D9A800191A80D52F005AD701 /* CountryDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFD81A80D52F005AD701 /* CountryDestination.m */; };
 		D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDA1A80D52F005AD701 /* Destinations.m */; };
 		D9A8001B1A80D52F005AD701 /* CityCardReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDD1A80D52F005AD701 /* CityCardReusableView.m */; };
 		D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFDF1A80D52F005AD701 /* DomesticViewController.m */; };
@@ -690,6 +688,8 @@
 		D9B9EA171A88CC0F00966074 /* delete_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */; };
 		D9B9EA1B1A88CF5B00966074 /* check_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */; };
 		D9B9EA1D1A88CF8000966074 /* check_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1C1A88CF8000966074 /* check_border@2x.png */; };
+		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
+		D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */; };
 		D9E803AF1AB19703009B8598 /* ic_sns_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */; };
 		D9E94BF41AAD35AE00ED6921 /* ic_IM_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E94BF21AAD35AE00ED6921 /* ic_IM_normal@2x.png */; };
 		D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E94BF31AAD35AE00ED6921 /* ic_IM_selected@2x.png */; };
@@ -1733,10 +1733,6 @@
 		D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendDataSource.m; sourceTree = "<group>"; };
 		D9A8FFD21A80D52F005AD701 /* MakePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakePlanViewController.h; sourceTree = "<group>"; };
 		D9A8FFD31A80D52F005AD701 /* MakePlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakePlanViewController.m; sourceTree = "<group>"; };
-		D9A8FFD51A80D52F005AD701 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
-		D9A8FFD61A80D52F005AD701 /* CityDestinationPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDestinationPoi.m; sourceTree = "<group>"; };
-		D9A8FFD71A80D52F005AD701 /* CountryDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryDestination.h; sourceTree = "<group>"; };
-		D9A8FFD81A80D52F005AD701 /* CountryDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryDestination.m; sourceTree = "<group>"; };
 		D9A8FFD91A80D52F005AD701 /* Destinations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Destinations.h; sourceTree = "<group>"; };
 		D9A8FFDA1A80D52F005AD701 /* Destinations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Destinations.m; sourceTree = "<group>"; };
 		D9A8FFDC1A80D52F005AD701 /* CityCardReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCardReusableView.h; sourceTree = "<group>"; };
@@ -1781,6 +1777,10 @@
 		D9B9EA161A88CC0F00966074 /* delete_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_contact@2x.png"; sourceTree = "<group>"; };
 		D9B9EA1A1A88CF5B00966074 /* check_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_selected@2x.png"; sourceTree = "<group>"; };
 		D9B9EA1C1A88CF8000966074 /* check_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_border@2x.png"; sourceTree = "<group>"; };
+		D9E7E58C1AC281400072D5B9 /* AreaDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaDestination.h; sourceTree = "<group>"; };
+		D9E7E58D1AC281400072D5B9 /* AreaDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDestination.m; sourceTree = "<group>"; };
+		D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
+		D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDestinationPoi.m; sourceTree = "<group>"; };
 		D9E803AD1AB19703009B8598 /* ic_sns_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sns_talk@2x.png"; sourceTree = "<group>"; };
 		D9E94BF21AAD35AE00ED6921 /* ic_IM_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_normal@2x.png"; sourceTree = "<group>"; };
 		D9E94BF31AAD35AE00ED6921 /* ic_IM_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_IM_selected@2x.png"; sourceTree = "<group>"; };
@@ -4333,12 +4333,12 @@
 		D9A8FFD41A80D52F005AD701 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D9A8FFD51A80D52F005AD701 /* CityDestinationPoi.h */,
-				D9A8FFD61A80D52F005AD701 /* CityDestinationPoi.m */,
-				D9A8FFD71A80D52F005AD701 /* CountryDestination.h */,
-				D9A8FFD81A80D52F005AD701 /* CountryDestination.m */,
+				D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */,
+				D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */,
 				D9A8FFD91A80D52F005AD701 /* Destinations.h */,
 				D9A8FFDA1A80D52F005AD701 /* Destinations.m */,
+				D9E7E58C1AC281400072D5B9 /* AreaDestination.h */,
+				D9E7E58D1AC281400072D5B9 /* AreaDestination.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5025,7 +5025,6 @@
 				D9A801481A80DD23005AD701 /* EMChatViewBaseCell.m in Sources */,
 				D9A8FF521A80CF19005AD701 /* Favorite.m in Sources */,
 				D9A802231A80E036005AD701 /* MyTripSpotsMapViewController.m in Sources */,
-				D9A800181A80D52F005AD701 /* CityDestinationPoi.m in Sources */,
 				D9A802B21A80E3D3005AD701 /* NSMutableDictionary+MyDictionary.m in Sources */,
 				D9A802B71A80E3D3005AD701 /* UIResponder+Router.m in Sources */,
 				D9A8021F1A80E036005AD701 /* MJPhotoLoadingView.m in Sources */,
@@ -5060,7 +5059,6 @@
 				D9A802E11A80E3D3005AD701 /* PageThree.m in Sources */,
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
 				D9A802041A80E036005AD701 /* DKCircleButton.m in Sources */,
-				D9A800191A80D52F005AD701 /* CountryDestination.m in Sources */,
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
 				D9008D5F1A89CB1B000A237D /* JDStatusBarNotification.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
@@ -5154,6 +5152,7 @@
 				D9A801111A80DD23005AD701 /* ChatGroupSettingViewController.m in Sources */,
 				D9A8022F1A80E036005AD701 /* SRSlimeView.m in Sources */,
 				D9A802031A80E036005AD701 /* UIViewController+CWPopup.m in Sources */,
+				D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */,
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
 				D9A801521A80DD23005AD701 /* CreateConversationTableViewCell.m in Sources */,
@@ -5245,6 +5244,7 @@
 				D9A8020C1A80E036005AD701 /* NSData+Godzippa.m in Sources */,
 				D9A8015A1A80DD23005AD701 /* EMTextView.m in Sources */,
 				D9A8020A1A80E036005AD701 /* FBShimmeringLayer.m in Sources */,
+				D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */,
 				D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */,
 				D9A801131A80DD23005AD701 /* ChatListCell.m in Sources */,
 				D9A802B31A80E3D3005AD701 /* NSString+TaoziString.m in Sources */,

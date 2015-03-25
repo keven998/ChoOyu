@@ -10,7 +10,7 @@
 
 #import "Destinations.h"
 #import "CityDestinationPoi.h"
-#import "CountryDestination.h"
+#import "AreaDestination.h"
 
 @implementation Destinations
 
@@ -22,12 +22,10 @@
         [_domesticCities removeAllObjects];
     }
     
-    CityDestinationPoi *cityPoi;
-    if ([json isKindOfClass:[NSArray class]]) {
-        for (id cityDic in json) {
-            cityPoi = [[CityDestinationPoi alloc] initWithJson:cityDic];
-            [_domesticCities addObject:cityPoi];
-        }
+    AreaDestination *country;
+    for (id areaDic in json) {
+        country = [[AreaDestination alloc] initWithJson:areaDic];
+        [_domesticCities addObject:country];
     }
 }
 
@@ -38,9 +36,9 @@
     } else {
         [_foreignCountries removeAllObjects];
     }
-    CountryDestination *country;
+    AreaDestination *country;
     for (id CountryDic in json) {
-        country = [[CountryDestination alloc] initWithJson:CountryDic];
+        country = [[AreaDestination alloc] initWithJson:CountryDic];
         [_foreignCountries addObject:country];
     }
 

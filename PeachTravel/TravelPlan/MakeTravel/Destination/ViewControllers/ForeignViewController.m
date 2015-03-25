@@ -10,7 +10,7 @@
 #import "TaoziCollectionLayout.h"
 #import "DomesticDestinationCell.h"
 #import "DestinationCollectionHeaderView.h"
-#import "CountryDestination.h"
+#import "AreaDestination.h"
 #import "CityDestinationPoi.h"
 
 @interface ForeignViewController () <TaoziLayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
@@ -175,7 +175,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 {
     CityDestinationPoi *city = [noti.userInfo objectForKey:@"city"];
     for (int i=0; i<[_destinations.foreignCountries count]; i++) {
-        CountryDestination *country = _destinations.foreignCountries[i];
+        AreaDestination *country = _destinations.foreignCountries[i];
         for (int j=0; j<country.cities.count; j++) {
             CityDestinationPoi *cityPoi = country.cities[j];
             if ([cityPoi.cityId isEqualToString:city.cityId]) {
@@ -202,7 +202,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CountryDestination *country = _destinations.foreignCountries[indexPath.section];
+    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
     return CGSizeMake(size.width + 23.0, 26);
@@ -216,7 +216,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 //    if (section == _showCitiesIndex) {
-        return ((CountryDestination *)_destinations.foreignCountries[section]).cities.count;
+        return ((AreaDestination *)_destinations.foreignCountries[section]).cities.count;
 //    }
 //    return 0;
 }
@@ -231,7 +231,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 //    if (section == _showCitiesIndex) {
-        return ((CountryDestination *)_destinations.foreignCountries[section]).cities.count;
+        return ((AreaDestination *)_destinations.foreignCountries[section]).cities.count;
 //    }
 //    return 0;
 }
@@ -243,7 +243,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    CountryDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
+    AreaDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
     headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", country.zhName];
     
@@ -262,7 +262,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CountryDestination *country = _destinations.foreignCountries[indexPath.section];
+    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseableCellIdentifier forIndexPath:indexPath];
     cell.tiltleLabel.text = city.zhName;
@@ -284,7 +284,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [MobClick event:@"event_select_city"];
-    CountryDestination *country = _destinations.foreignCountries[indexPath.section];
+    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {

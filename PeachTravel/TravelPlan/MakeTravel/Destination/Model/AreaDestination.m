@@ -1,20 +1,20 @@
 //
-//  CountryDestination.m
+//  AreaDestination.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 11/18/14.
-//  Copyright (c) 2014 com.aizou.www. All rights reserved.
+//  Created by liangpengshuai on 3/25/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
 //
 
-#import "CountryDestination.h"
+#import "AreaDestination.h"
 #import "CityDestinationPoi.h"
 
-@implementation CountryDestination
+@implementation AreaDestination
 
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        _countryId = [json objectForKey:@"id"];
+        _areaId = [json objectForKey:@"id"];
         NSMutableArray *imagesArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];

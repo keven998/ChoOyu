@@ -13,15 +13,11 @@
 #import "DomesticDestinationCell.h"
 #import "MakePlanViewController.h"
 #import "TMCache.h"
-#import "MJNIndexView.h"
+#import "AreaDestination.h"
 
-@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, MJNIndexViewDataSource>
+@interface DomesticViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *domesticCollectionView;
-@property (nonatomic, strong) NSDictionary *dataSource;
-
-//索引
-@property (nonatomic, strong) MJNIndexView *indexView;
 
 @property (nonatomic, strong) TZProgressHUD *hud;
 @end
@@ -30,6 +26,7 @@
 
 static NSString *reusableIdentifier = @"cell";
 static NSString *reusableHeaderIdentifier = @"domesticHeader";
+static NSString *cacheName = @"destination_demostic_group";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,30 +49,17 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDestinationsSelected:) name:updateDestinationsSelectedNoti object:nil];
     
-    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
-    if (height == 0) {
-        height = 100;
-    }
-    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
-    self.indexView.rightMargin = 0;
-    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
-    self.indexView.fontColor = APP_SUB_THEME_COLOR;
-    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
-    self.indexView.maxItemDeflection = 60;
-    self.indexView.rangeOfDeflection = 1;
-    self.indexView.dataSource = self;
-    
     [self initData];
 }
 
 - (void) initData {
-    [[TMCache sharedCache] objectForKey:@"destination_demostic" block:^(TMCache *cache, NSString *key, id object)  {
+    [[TMCache sharedCache] objectForKey:cacheName block:^(TMCache *cache, NSString *key, id object)  {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (object != nil) {
                 if ([object isKindOfClass:[NSDictionary class]]) {
                     [_destinations initDomesticCitiesWithJson:[object objectForKey:@"result"]];
                     [self loadDomesticDataFromServerWithLastModified:[object objectForKey:@"lastModified"]];
-                    [self updateView];
+                    [self reloadData];
                 } else {
                     [self loadDomesticDataFromServerWithLastModified:@""];
                 }
@@ -98,36 +82,9 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     _domesticCollectionView = nil;
 }
 
-- (NSDictionary *)dataSource
-{
-    if (!_dataSource) {
-        _dataSource = [self.destinations destinationsGroupByPin];
-    }
-    return _dataSource;
-}
-
 - (void)reloadData
 {
     [self.domesticCollectionView reloadData];
-}
-
-- (void)updateView
-{
-    _dataSource = [_destinations destinationsGroupByPin];
-    
-    [self.domesticCollectionView reloadData];
-    
-    CGFloat height = [[self.dataSource objectForKey:@"headerKeys"] count]*35 > (kWindowHeight-64-40) ? (kWindowHeight-64-40) : [[self.dataSource objectForKey:@"headerKeys"] count]*35;
-    if (height == 0) {
-        height = 100;
-    }
-
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, height)];
-    self.indexView.center = CGPointMake((kWindowWidth-5)/2, (kWindowHeight-64-40)/2);
-    [self.indexView refreshIndexItems];
-    [self.indexView removeFromSuperview];
-    [self.view addSubview:self.indexView];
-
 }
 
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
@@ -153,22 +110,22 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
     [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
+    
+    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (_hud) {
-            [_hud hideTZHUD];
-        }
+    [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id result = [responseObject objectForKey:@"result"];
             [_destinations.domesticCities removeAllObjects];
             [_destinations initDomesticCitiesWithJson:result];
-            [self updateView];
+            [self reloadData];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSMutableDictionary *dic = [responseObject mutableCopy];
                 [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
-                [[TMCache sharedCache] setObject:dic forKey:@"destination_demostic"];
+                [[TMCache sharedCache] setObject:dic forKey:cacheName];
             });
         } else {
             if (_hud) {
@@ -201,10 +158,10 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (void)updateDestinationsSelected:(NSNotification *)noti
 {
     CityDestinationPoi *city = [noti.userInfo objectForKey:@"city"];
-    for (int i=0; i<[[self.dataSource objectForKey:@"content"] count]; i++) {
-        NSArray *cities = [[self.dataSource objectForKey:@"content"] objectAtIndex:i];
-        for (int j=0; j<cities.count; j++) {
-            CityDestinationPoi *cityPoi = [cities objectAtIndex:j];
+    for (int i=0; i<self.destinations.domesticCities.count; i++) {
+        AreaDestination *area = [self.destinations.domesticCities objectAtIndex:i];
+        for (int j=0; j<area.cities.count; j++) {
+            CityDestinationPoi *cityPoi = [area.cities objectAtIndex:j];
             if ([cityPoi.cityId isEqualToString:city.cityId]) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
                 [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
@@ -217,8 +174,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (NSInteger)tzcollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:section];
-    return [group count];
+    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:section];
+    return [area.cities count];
 }
 
 - (CGFloat)tzcollectionLayoutWidth
@@ -228,13 +185,14 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
 {
-    return [[self.dataSource objectForKey:@"headerKeys"] count];
+    return self.destinations.domesticCities.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
+    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
+
+    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
     return CGSizeMake(size.width + 23.0, 26);
 }
@@ -248,20 +206,21 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:section];
-    return [group count];
+    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:section];
+    return [area.cities count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [[self.dataSource objectForKey:@"headerKeys"] count];
+    return self.destinations.domesticCities.count;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];[[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section];
-        headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:indexPath.section]];
+        DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
+        AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
+        headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", area.zhName];
 //        headerView.userInteractionEnabled = NO;
         return headerView;
     }
@@ -271,8 +230,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DomesticDestinationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusableIdentifier forIndexPath:indexPath];
-    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
+    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
+    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.tiltleLabel.text = city.zhName;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
@@ -292,8 +251,8 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
 {
     [MobClick event:@"event_select_city"];
 
-    NSArray *group = [[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section];
-    CityDestinationPoi *city = [group objectAtIndex:indexPath.row];
+    AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
+    CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
@@ -311,21 +270,6 @@ static NSString *reusableHeaderIdentifier = @"domesticHeader";
         [_makePlanCtl.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
         [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
-}
-
-#pragma mark MJMIndexForTableView datasource methods
-
-- (NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
-{
-    return [self.dataSource objectForKey:@"headerKeys"];
-}
-
-- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:index];
-    CGFloat offsetY = [_domesticCollectionView layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath].frame.origin.y;
-    CGFloat sectionInsetY = ((UICollectionViewFlowLayout *)_domesticCollectionView.collectionViewLayout).sectionInset.top;
-    [_domesticCollectionView setContentOffset:CGPointMake(_domesticCollectionView.contentOffset.x, offsetY - sectionInsetY) animated:YES];
 }
 
 @end
