@@ -193,11 +193,10 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     [params safeSetObject:_localCity.cityId forKey:@"locId"];
-   
     
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self loadMoreCompleted];
-        NSLog(@"%@", responseObject);
+        _currentPage = pageIndex;
         if (_hud) {
             [_hud hideTZHUD];
             _hud = nil;
@@ -285,20 +284,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.dataSource addObject:poi];
     }
     [self.tableView reloadData];
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    NSString *typeDesc = [[self.dataSource objectAtIndex:section] objectForKey:@"typeDesc"];
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 28)];
-    headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    headerView.text = [NSString stringWithFormat:@"   %@",typeDesc];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    headerView.layer.cornerRadius = 2.0;
-    headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
-    headerView.layer.borderWidth = 0.5;
-    return headerView;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
