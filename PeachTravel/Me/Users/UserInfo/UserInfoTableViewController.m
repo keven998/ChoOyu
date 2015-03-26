@@ -16,6 +16,7 @@
 #import <QiniuSDK.h>
 #import "JGProgressHUDPieIndicatorView.h"
 #import "JGProgressHUDSuccessIndicatorView.h"
+#import "FootPrintViewController.h"
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -498,6 +499,12 @@
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             [self.navigationController pushViewController:changePasswordCtl animated:YES];
         }
+        
+    } else if (indexPath.section == 3) {
+        FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        [self presentViewController:footCtl animated:YES completion:^{
+            
+        }];
         
     } else if (indexPath.section == 5) {
         if (indexPath.row == 0) {

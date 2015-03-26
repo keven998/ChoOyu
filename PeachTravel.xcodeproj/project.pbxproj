@@ -102,6 +102,9 @@
 		D955E3EA19E7A26D00047F2B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3E919E7A26D00047F2B /* CoreTelephony.framework */; };
 		D955E3EC19E7A27700047F2B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3EB19E7A27700047F2B /* libstdc++.dylib */; };
 		D955E3EE19E7A28500047F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D955E3ED19E7A28500047F2B /* libz.dylib */; };
+		D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */; };
+		D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */; };
+		D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */; };
 		D96C810E1AC3E09000897475 /* ic_taozi_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D96C810D1AC3E09000897475 /* ic_taozi_share@2x.png */; };
 		D9722F121A81C91D00D8A8CC /* ic_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F101A81C91D00D8A8CC /* ic_star_gray@2x.png */; };
 		D9722F131A81C91D00D8A8CC /* ic_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F111A81C91D00D8A8CC /* ic_star_yellow@2x.png */; };
@@ -828,6 +831,11 @@
 		D955E3E919E7A26D00047F2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D955E3EB19E7A27700047F2B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		D955E3ED19E7A28500047F2B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootprintMapViewController.h; sourceTree = "<group>"; };
+		D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootprintMapViewController.m; sourceTree = "<group>"; };
+		D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FootprintMapViewController.xib; sourceTree = "<group>"; };
+		D9687CA41AC409AB00B1C88E /* FootPrintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootPrintViewController.h; sourceTree = "<group>"; };
+		D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootPrintViewController.m; sourceTree = "<group>"; };
 		D96C810D1AC3E09000897475 /* ic_taozi_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_taozi_share@2x.png"; sourceTree = "<group>"; };
 		D9722F101A81C91D00D8A8CC /* ic_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_gray@2x.png"; sourceTree = "<group>"; };
 		D9722F111A81C91D00D8A8CC /* ic_star_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_star_yellow@2x.png"; sourceTree = "<group>"; };
@@ -4108,6 +4116,11 @@
 				D9A8FF0A1A80CC2B005AD701 /* UserOtherTableViewCell.h */,
 				D9A8FF0B1A80CC2B005AD701 /* UserOtherTableViewCell.m */,
 				D9A8FF0C1A80CC2B005AD701 /* UserOtherTableViewCell.xib */,
+				D9687C9F1AC4095500B1C88E /* FootprintMapViewController.h */,
+				D9687CA01AC4095500B1C88E /* FootprintMapViewController.m */,
+				D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */,
+				D9687CA41AC409AB00B1C88E /* FootPrintViewController.h */,
+				D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -4766,6 +4779,7 @@
 				D9A8FF181A80CC2B005AD701 /* VerifyCaptchaViewController.xib in Resources */,
 				D9A8002C1A80D52F005AD701 /* SearchDestinationTableViewCell.xib in Resources */,
 				D917DADF1A8B4B3F0039720A /* ic_guide_title_3@2x.png in Resources */,
+				D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */,
 				D9722F311A82446900D8A8CC /* Loading_Animation_final4@2x.png in Resources */,
 				D9A8021D1A80E036005AD701 /* MJPhotoBrowser.bundle in Resources */,
 				D9A805291A80E738005AD701 /* ic_cell_item_unchoose@2x.png in Resources */,
@@ -5095,6 +5109,7 @@
 				D9A8FEC81A80C818005AD701 /* MyGuidesTableViewCell.m in Sources */,
 				D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */,
 				D9A801251A80DD23005AD701 /* ChatSendHelper.m in Sources */,
+				D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */,
 				D9A801561A80DD23005AD701 /* BaseTableViewCell.m in Sources */,
 				D9A8023B1A80E036005AD701 /* ZFModalTransitionAnimator.m in Sources */,
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
@@ -5172,6 +5187,7 @@
 				D9A802391A80E036005AD701 /* WOEIDUtils.m in Sources */,
 				D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */,
 				D9A8014F1A80DD23005AD701 /* UIImage+Utils.m in Sources */,
+				D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */,
 				D9A8015E1A80DD23005AD701 /* EMNavigationController.m in Sources */,
 				D9A8FF151A80CC2B005AD701 /* ResetPasswordViewController.m in Sources */,
 				D9A802051A80E036005AD701 /* DMFilterView.m in Sources */,
