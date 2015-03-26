@@ -11,6 +11,8 @@
 
 @interface FootPrintViewController ()
 
+@property (nonatomic, strong) FootprintMapViewController *footprintMapCtl;
+
 @end
 
 @implementation FootPrintViewController
@@ -19,17 +21,31 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    FootprintMapViewController *footprintMapCtl = [[FootprintMapViewController alloc] init];
-    [footprintMapCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 200)];
-    [self addChildViewController:footprintMapCtl];
-    [self.view addSubview:footprintMapCtl.view];
-    [footprintMapCtl didMoveToParentViewController:self];
+    _footprintMapCtl = [[FootprintMapViewController alloc] init];
+    [_footprintMapCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 200)];
+    [self addChildViewController:_footprintMapCtl];
+    [self.view addSubview:_footprintMapCtl.view];
+    [_footprintMapCtl didMoveToParentViewController:self];
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 50, 50)];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitle:@"添加" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(addFootprint:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-
+- (IBAction)addFootprint:(id)sender
+{
+    float lat = random()%90;
+    float lng = random()%90;
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+    [_footprintMapCtl addPoint:location];
+    
+}
 
 @end
