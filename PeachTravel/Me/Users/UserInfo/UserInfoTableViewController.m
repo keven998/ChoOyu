@@ -20,7 +20,7 @@
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource                  @[@[@"头像", @"昵称", @"ID"],  @[@"性别", @"旅行签名"], @[@"修改密码", @"手机绑定"]]
+#define cellDataSource              @[@[@"头像"], @[@"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
 
 @interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -33,6 +33,8 @@
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIView *datePickerView;
 
 @end
 
@@ -105,6 +107,27 @@
     return _footerView;
 }
 
+- (UIView *)datePickerView
+{
+    if (!_datePickerView) {
+        _datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 220)];
+         UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 180)];
+        datePicker.datePickerMode = UIDatePickerModeDate;
+        [_datePickerView addSubview:datePicker];
+        _datePickerView.backgroundColor = [UIColor whiteColor];
+        
+        UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _datePickerView.bounds.size.width, 40)];
+        confirmBtn.backgroundColor = APP_PAGE_COLOR;
+        confirmBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [confirmBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
+        [_datePickerView addSubview:confirmBtn];
+        [confirmBtn addTarget:self action:@selector(confirmDatePick:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _datePickerView;
+}
+
 - (AccountManager *)accountManager
 {
     if (!_accountManager) {
@@ -119,6 +142,48 @@
 {
     _avatarAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册中选择", nil];
     [_avatarAS showInView:self.view];
+}
+
+/**
+ *  显示选择日期选择器
+ */
+- (void)showDatePicker
+{
+    UIView *bkgView = [[UIView alloc] initWithFrame:self.view.bounds];
+    bkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideDatePicker)];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.numberOfTouchesRequired = 1;
+    [bkgView addGestureRecognizer:tapGesture];
+    
+    [self.navigationController.view addSubview:bkgView];
+    [bkgView addSubview:self.datePickerView];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.datePickerView setFrame:CGRectMake(0, self.view.bounds.size.height-220, self.view.bounds.size.width, 220)];
+
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+/**
+ *  隐藏日期选择器
+ */
+- (void)hideDatePicker
+{
+    [_datePickerView.superview removeFromSuperview];
+    _datePickerView = nil;
+}
+
+/**
+ *  确定日期选择
+ *
+ *  @param sender
+ */
+- (void)confirmDatePick:(id)sender
+{
+    [self hideDatePicker];
 }
 
 /**
@@ -369,7 +434,7 @@
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_password.png"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_bindphone.png"];
                 NSString *tel = self.accountManager.account.tel;
                 if (tel == nil || tel.length < 1) {
@@ -433,6 +498,16 @@
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             [self.navigationController pushViewController:changePasswordCtl animated:YES];
         }
+        
+    } else if (indexPath.section == 5) {
+        if (indexPath.row == 0) {
+            
+        } else if (indexPath.row == 1) {
+            [self showDatePicker];
+            
+        } else if (indexPath.row == 2) {
+            
+        }
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -490,7 +565,6 @@
     if (buttonIndex == 1) {
         [MobClick event:@"event_logout"];
         AccountManager *accountManager = [AccountManager shareAccountManager];
-//        [self showHint:@"正在退出"];
         [SVProgressHUD show];
         [accountManager asyncLogout:^(BOOL isSuccess) {
             [self showHint:@"退出成功"];
