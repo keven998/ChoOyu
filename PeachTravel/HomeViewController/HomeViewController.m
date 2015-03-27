@@ -60,7 +60,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super viewDidLoad];
     
     [self setupViewControllers];
-    [self setupConverView];
+//    [self setupConverView];
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self setupUnreadMessageCount];
@@ -68,26 +68,27 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (_shouldJumpToChatListWhenAppLaunch && _coverView != nil) {
+    
+    if (_shouldJumpToChatListWhenAppLaunch) {
         [_coverView removeFromSuperview];
         _coverView = nil;
         [self jumpToChatListCtl];
     }
     
-    if (_coverView != nil) {
-        NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage];
-        [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (error) {
-                _coverView.image = [UIImage imageNamed:@"story_default.png"];
-            }
-        }];
-        [self loadData];
-    }
-    NSLog(@"home willAppear");
+//    if (_coverView != nil) {
+//        NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage];
+//        [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            if (error) {
+//                _coverView.image = [UIImage imageNamed:@"story_default.png"];
+//            }
+//        }];
+//        [self loadData];
+//    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+       NSLog(@"home willAppear");
     self.navigationController.navigationBar.hidden = YES;
     
 }
@@ -137,19 +138,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (void) setupConverView {
-
-    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _coverView.userInteractionEnabled = YES;
-    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-   
-    [self.view addSubview:_coverView];
-    
-    _coverView.backgroundColor = [UIColor whiteColor];
-
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+        
     } else {
+        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        _coverView.userInteractionEnabled = YES;
+        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        [self.view addSubview:_coverView];
+        
+        _coverView.backgroundColor = [UIColor whiteColor];
         [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
     }
 }
