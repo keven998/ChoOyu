@@ -115,7 +115,9 @@ static NSString *cacheName = @"destination_demostic_group";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:API_GET_DOMESTIC_DESTINATIONS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        if (_hud) {
+            [_hud hideTZHUD];
+        }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id result = [responseObject objectForKey:@"result"];
@@ -233,6 +235,7 @@ static NSString *cacheName = @"destination_demostic_group";
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.tiltleLabel.text = city.zhName;
+    
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.tiltleLabel.textColor = [UIColor whiteColor];
@@ -242,8 +245,11 @@ static NSString *cacheName = @"destination_demostic_group";
             return  cell;
         }
     }
+    
     cell.tiltleLabel.textColor = APP_THEME_COLOR;
-    cell.background.image = nil;
+    UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_normal_background.png"]
+                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+    cell.background.image = buttonBackgroundImage;
     return  cell;
 }
 

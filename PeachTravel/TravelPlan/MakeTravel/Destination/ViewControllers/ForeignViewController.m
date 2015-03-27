@@ -276,7 +276,9 @@ static NSString *reuseableCellIdentifier  = @"cell";
         }
     }
     cell.tiltleLabel.textColor = APP_THEME_COLOR;
-    cell.background.image = nil;
+    UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_normal_background.png"]
+                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+    cell.background.image = buttonBackgroundImage;
     
     return  cell;
 }
