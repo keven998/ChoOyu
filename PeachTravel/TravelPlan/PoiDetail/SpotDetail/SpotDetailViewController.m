@@ -219,9 +219,9 @@
 {
     [MobClick event:@"event_book_ticket"];
 
-    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] initWithURL:[NSURL URLWithString:((SpotPoi *)self.poi).bookUrl]];
     webCtl.titleStr = @"在线预订";
-    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
+//    webCtl.urlStr = ((SpotPoi *)self.poi).bookUrl;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 
