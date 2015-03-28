@@ -40,6 +40,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
 @property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
+@property (nonatomic, strong) ChatListViewController *chatListCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -61,7 +62,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super viewDidLoad];
     
     [self setupViewControllers];
-//    [self setupConverView];
 
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self setupUnreadMessageCount];
@@ -75,25 +75,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         _coverView = nil;
         [self jumpToChatListCtl];
     }
-    
-//    if (_coverView != nil) {
-//        NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage];
-//        [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            if (error) {
-//                _coverView.image = [UIImage imageNamed:@"story_default.png"];
-//            }
-//        }];
-//        [self loadData];
-//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
        NSLog(@"home willAppear");
     self.navigationController.navigationBar.hidden = YES;
-    
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -106,36 +94,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
 }
 
 - (void)dealloc
 {
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (IMRootViewController *)IMRootCtl
-{
-    if (!_IMRootCtl) {
-        _IMRootCtl = [[IMRootViewController alloc] init];
-        
-        ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-        contactListCtl.title = @"好友";
-        
-        ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
-        chatListCtl.title = @"Talk";
-        chatListCtl.notify = NO;
-        NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
-        _IMRootCtl.viewControllers = viewControllers;
-        _IMRootCtl.segmentedNormalImages = @[@"ic_chatlist_normal.png", @"ic_contacts_normal.png"];
-        _IMRootCtl.segmentedSelectedImages = @[@"ic_chatlist_selected.png", @"ic_contacts_selected.png"];
-        _IMRootCtl.selectedColor = APP_SUB_THEME_COLOR;
-        _IMRootCtl.normalColor= [UIColor grayColor];
-        _IMRootCtl.animationOptions = UIViewAnimationOptionTransitionCrossDissolve;
-        _IMRootCtl.duration = 0.2;
-    }
-    return _IMRootCtl;
 }
 
 - (void) setupConverView {
@@ -157,6 +121,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - setter & getter
+
+- (ChatListViewController *)chatListCtl
+{
+    if (!_chatListCtl) {
+        _chatListCtl = [[ChatListViewController alloc] init];
+    }
+    return _chatListCtl;
+}
+
+- (void)setIMState:(IM_CONNECT_STATE)IMState
+{
+    _IMState = IMState;
+    self.chatListCtl.IMState = _IMState;
 }
 
 #pragma mark - IBActions
@@ -185,9 +165,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)jumpIM:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [self.navigationController pushViewController:self.IMRootCtl animated:YES];
-        
-        NSLog(@"%@", self.navigationController);
+        [self.navigationController pushViewController:self.chatListCtl animated:YES];
         
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
@@ -334,11 +312,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.tabBar.barStyle = UIBarStyleBlack;
     self.tabBar.selectedImageTintColor = [UIColor whiteColor];
     
-    ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
-    chatListCtl.title = @"Talk";
-
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
-                                                          initWithRootViewController:chatListCtl];
+                                                          initWithRootViewController:self.chatListCtl];
     
     _toolBoxCtl = [[ToolBoxViewController alloc] init];
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
@@ -378,7 +353,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 - (void)userDidLogOut
 {
-    _IMRootCtl = nil;
     [self setupUnreadMessageCount];
 }
 
@@ -390,7 +364,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 -(void)setupUnreadMessageCount
 {
-    int unReadCount = self.IMRootCtl.totalUnReadMsg;
+    int unReadCount = self.chatListCtl.numberOfUnReadChatMsg;
     UITabBarItem *item = [self.tabBar.items firstObject];
 
     if (unReadCount == 0) {
@@ -417,17 +391,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)willReceiveOfflineMessages
 {
     NSLog(@"*****将要收取消息");
-    self.IMRootCtl.IMState = IM_RECEIVING;
+    self.chatListCtl.IMState = IM_RECEIVING;
 }
 
 - (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
-    self.IMRootCtl.IMState = IM_RECEIVED;
+    self.chatListCtl.IMState = IM_RECEIVED;
     [self setupUnreadMessageCount];
 }
 
 - (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
 {
-    self.IMRootCtl.IMState = IM_RECEIVED;
+    self.chatListCtl.IMState = IM_RECEIVED;
     for (EMMessage *cmdMessage in offlineCmdMessages) {
         [TZCMDChatHelper distributeCMDMsg:cmdMessage];
     }
@@ -808,7 +782,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
     if (connectionState == eEMConnectionDisconnected) {
-        _IMRootCtl.IMState = IM_DISCONNECTED;
+        self.chatListCtl.IMState = IM_DISCONNECTED;
     }
 
 }
@@ -817,8 +791,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)willAutoReconnect{
     NSLog(@"正在重练中");
-//    [SVProgressHUD showHint:@"正在重练中"];
-    self.IMRootCtl.IMState = IM_CONNECTING;
+
+    self.chatListCtl.IMState = IM_CONNECTING;
 }
 
 - (void)didAutoReconnectFinishedWithError:(NSError *)error{
@@ -830,7 +804,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSLog(@"重练成功");
 //        [SVProgressHUD showHint:@"重练成功"];
 
-        self.IMRootCtl.IMState = IM_CONNECTED;
+        self.chatListCtl.IMState = IM_CONNECTED;
     }
 }
 

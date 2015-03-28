@@ -82,6 +82,37 @@
     [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
     [self registerNotifications];
+    switch (_IMState) {
+        case IM_CONNECTING: {
+            NSLog(@"连接中");
+        }
+            break;
+            
+        case IM_DISCONNECTED: {
+            NSLog(@"未连接");
+        }
+            break;
+            
+        case IM_RECEIVING: {
+            NSLog(@"收取中");
+        }
+            break;
+            
+        case IM_RECEIVED: {
+            NSLog(@"IM_RECEIVED");
+            self.navigationItem.title = @"Talk";
+        }
+            break;
+            
+        case IM_CONNECTED: {
+            NSLog(@"IM_CONNECTED");
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -100,7 +131,7 @@
     _searchController = nil;
 }
 
-#pragma mark - getter
+#pragma mark - getter & setter
 
 - (AccountManager *)accountManager
 {
@@ -162,6 +193,42 @@
     }
     return ret;
 }
+
+- (void)setIMState:(IM_CONNECT_STATE)IMState
+{
+    _IMState = IMState;
+
+    switch (_IMState) {
+        case IM_CONNECTING: {
+            NSLog(@"连接中");
+        }
+            break;
+            
+        case IM_DISCONNECTED: {
+            NSLog(@"未连接");
+        }
+            break;
+            
+        case IM_RECEIVING: {
+            NSLog(@"收取中");
+        }
+            break;
+            
+        case IM_RECEIVED: {
+            NSLog(@"IM_RECEIVED");
+            self.navigationItem.title = @"Talk";
+        }
+            break;
+            
+        case IM_CONNECTED: {
+            NSLog(@"IM_CONNECTED");
+        }
+            
+        default:
+            break;
+    }
+}
+
 
 #pragma mark - IBAction
 

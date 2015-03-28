@@ -24,5 +24,10 @@
  */
 @property (nonatomic) int numberOfUnReadChatMsg;
 
+/**
+ *  链接状态
+ */
+@property (nonatomic) IM_CONNECT_STATE IMState;
+
 @end
 

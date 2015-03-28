@@ -199,7 +199,7 @@
 -(void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (!error) {
-        self.homeViewController.IMRootCtl.IMState = IM_CONNECTING;
+        self.homeViewController.IMState = IM_CONNECTING;
     }
 }
 
@@ -207,9 +207,9 @@
 -(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (error) {
-        self.homeViewController.IMRootCtl.IMState = IM_DISCONNECTED;
+        self.homeViewController.IMState = IM_DISCONNECTED;
     } else {
-        self.homeViewController.IMRootCtl.IMState = IM_CONNECTED;
+        self.homeViewController.IMState = IM_CONNECTED;
     }
 }
 
@@ -226,10 +226,10 @@
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
     if (connectionState == eEMConnectionDisconnected) {
-        self.homeViewController.IMRootCtl.IMState = IM_DISCONNECTED;
+        self.homeViewController.IMState = IM_DISCONNECTED;
     }
     if (connectionState == eEMConnectionConnected) {
-        self.homeViewController.IMRootCtl.IMState = IM_CONNECTED;
+        self.homeViewController.IMState = IM_CONNECTED;
     }
 }
 

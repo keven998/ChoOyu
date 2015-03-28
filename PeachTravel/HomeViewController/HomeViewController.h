@@ -21,6 +21,6 @@
  */
 @property (nonatomic)BOOL shouldJumpToChatListWhenAppLaunch;
 
-@property (nonatomic, strong) IMRootViewController *IMRootCtl;
+@property (nonatomic) IM_CONNECT_STATE IMState;
 
 @end
