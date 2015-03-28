@@ -52,7 +52,6 @@
 #import "HotelDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 
-#import "IMRootViewController.h"
 #import "TripDetailRootViewController.h"
 
 #define KPageCount 20
@@ -212,17 +211,7 @@
  */
 - (void)goBack
 {
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    NSArray *ctls = self.navigationController.viewControllers;
-    UIViewController *ctl = [ctls objectAtIndex:1];
-    if ([ctl isKindOfClass:[IMRootViewController class]]) {
-        ((IMRootViewController *)ctl).selectedIndext = 0;
-        
-        [self.navigationController popToViewController:ctl animated:YES];
-        return;
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**
@@ -237,7 +226,6 @@
     }
     
     Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
-    
     if (!contact) {
         for (Contact *tempContact in self.peopleInGroup) {
             if ([tempContact.easemobUser isEqualToString:model.username]) {

@@ -19,7 +19,6 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
-#import "IMRootViewController.h"
 #import "TZConversation.h"
 #import "ContactListViewController.h"
 #import "AddContactTableViewController.h"
@@ -82,37 +81,7 @@
     [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
     [self registerNotifications];
-    switch (_IMState) {
-        case IM_CONNECTING: {
-            NSLog(@"连接中");
-        }
-            break;
-            
-        case IM_DISCONNECTED: {
-            NSLog(@"未连接");
-        }
-            break;
-            
-        case IM_RECEIVING: {
-            NSLog(@"收取中");
-        }
-            break;
-            
-        case IM_RECEIVED: {
-            NSLog(@"IM_RECEIVED");
-            self.navigationItem.title = @"Talk";
-        }
-            break;
-            
-        case IM_CONNECTED: {
-            NSLog(@"IM_CONNECTED");
-        }
-            break;
-            
-        default:
-            break;
-    }
-
+    [self updateNavigationTitleViewStatus];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -197,36 +166,7 @@
 - (void)setIMState:(IM_CONNECT_STATE)IMState
 {
     _IMState = IMState;
-
-    switch (_IMState) {
-        case IM_CONNECTING: {
-            NSLog(@"连接中");
-        }
-            break;
-            
-        case IM_DISCONNECTED: {
-            NSLog(@"未连接");
-        }
-            break;
-            
-        case IM_RECEIVING: {
-            NSLog(@"收取中");
-        }
-            break;
-            
-        case IM_RECEIVED: {
-            NSLog(@"IM_RECEIVED");
-            self.navigationItem.title = @"Talk";
-        }
-            break;
-            
-        case IM_CONNECTED: {
-            NSLog(@"IM_CONNECTED");
-        }
-            
-        default:
-            break;
-    }
+    [self updateNavigationTitleViewStatus];
 }
 
 
@@ -312,7 +252,86 @@
 
 }
 
-- (void) setupEmptyView {
+/**
+ *  通过连接状态更新navi的状态
+ */
+- (void)updateNavigationTitleViewStatus
+{
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityView.center = CGPointMake(35, 22);
+    [titleView addSubview:activityView];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.font = [UIFont systemFontOfSize:17.0];
+    [activityView startAnimating];
+    [titleView addSubview:titleLabel];
+    
+    switch (_IMState) {
+        case IM_CONNECTING: {
+            self.navigationItem.titleView = titleView;
+            titleLabel.text = @"连接中...";
+            NSLog(@"连接中");
+        }
+            break;
+            
+        case IM_DISCONNECTED: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
+            titleLabel.textColor = [UIColor redColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.text = @"未连接";
+            self.navigationItem.titleView = titleLabel;
+            NSLog(@"未连接");
+        }
+            break;
+            
+        case IM_RECEIVING: {
+            self.navigationItem.titleView = titleView;
+            titleLabel.text = @"收取中...";
+            NSLog(@"收取中");
+            self.navigationItem.titleView = titleView;
+        }
+            break;
+            
+        case IM_RECEIVED: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.text = @"桃Talk";
+            self.navigationItem.titleView = titleLabel;
+            NSLog(@"IM_RECEIVED");
+        }
+            break;
+            
+        case IM_CONNECTED: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.text = @"桃Talk";
+            self.navigationItem.titleView = titleLabel;
+            NSLog(@"IM_CONNECTED");
+        }
+            break;
+            
+        default: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.text = @"桃Talk";
+            self.navigationItem.titleView = titleLabel;
+        }
+
+            break;
+    }
+
+}
+
+- (void) setupEmptyView
+{
     if (self.emptyView != nil) {
         return;
     }
