@@ -19,6 +19,7 @@
 #import "ContactListViewController.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
+#import "ChatListViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -333,8 +334,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.tabBar.barStyle = UIBarStyleBlack;
     self.tabBar.selectedImageTintColor = [UIColor whiteColor];
     
+    ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
+    chatListCtl.title = @"Talk";
+
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
-                                                          initWithRootViewController:self.IMRootCtl];
+                                                          initWithRootViewController:chatListCtl];
     
     _toolBoxCtl = [[ToolBoxViewController alloc] init];
     UINavigationController *secondNavigationController = [[UINavigationController alloc]

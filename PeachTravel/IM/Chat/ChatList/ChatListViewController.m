@@ -21,17 +21,17 @@
 #import "CreateConversationViewController.h"
 #import "IMRootViewController.h"
 #import "TZConversation.h"
+#import "ContactListViewController.h"
+#import "AddContactTableViewController.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) AccountManager *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
-
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
-
 
 @property (nonatomic, strong) UIView *emptyView;
 
@@ -62,6 +62,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
+    
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [addBtn setImage:[UIImage imageNamed:@"ic_menu_add.png"] forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
+    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    
+    UIButton *contactListBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [contactListBtn setImage:[UIImage imageNamed:@"ic_contacts_normal.png"] forState:UIControlStateNormal];
+    [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
+    contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -71,7 +83,6 @@
     [self refreshDataSource];
     [self registerNotifications];
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -98,6 +109,17 @@
     }
     return _accountManager;
 }
+
+- (IBAction)addAction:(UIButton *)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
+    [sheet showInView:self.view];
+}
+
 
 - (SRRefreshView *)slimeView
 {
@@ -140,6 +162,23 @@
     }
     return ret;
 }
+
+#pragma mark - IBAction
+
+- (IBAction)showContactList:(id)sender
+{
+    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+    contactListCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:contactListCtl animated:YES];
+}
+
+- (IBAction)addUserContact:(id)sender
+{
+    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    addContactCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:addContactCtl animated:YES];
+}
+
 
 #pragma mark - private
 
@@ -565,6 +604,18 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [_slimeView scrollViewDidEndDraging];
+}
+
+#pragma mark - actionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self addConversation:nil];
+        [MobClick event:@"event_create_new_talk"];
+    } else if (buttonIndex == 1) {
+        [self addUserContact:nil];
+        [MobClick event:@"event_add_new_friend"];
+    }
 }
 
 #pragma mark - slimeRefresh delegate
