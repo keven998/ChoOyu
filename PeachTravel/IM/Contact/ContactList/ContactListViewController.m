@@ -56,13 +56,13 @@
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
     [self.indexView refreshIndexItems];
     [self.view addSubview:self.indexView];
+    [self.accountManager loadContactsFromServer];
+    [self handleEmptyView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
-    [self.accountManager loadContactsFromServer];
-    [self handleEmptyView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
