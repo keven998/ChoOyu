@@ -373,6 +373,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     } else {
         [item setBadgeValue:[NSString stringWithFormat:@"%d", unReadCount]];
     }
+    UIApplication *application = [UIApplication sharedApplication];
+    [application setApplicationIconBadgeNumber:unReadCount];
 }
 
 #pragma mark - IChatManagerDelegate 消息变化
@@ -594,7 +596,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         notification.timeZone = [NSTimeZone defaultTimeZone];
     }
 #endif
-    
 }
 
 - (void)didUpdateBuddyList:(NSArray *)buddyList
