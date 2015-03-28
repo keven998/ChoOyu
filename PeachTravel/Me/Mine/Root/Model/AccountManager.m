@@ -208,6 +208,121 @@
     [self save];
 }
 
+- (void)asyncChangeUserName:(NSString *)newUsername completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion
+{
+    //如果新的用户名和之前一样的话直接返回
+    if ([newUsername isEqualToString:self.account.nickName]) {
+        completion(YES, NoError, nil);
+    } else if ([self checkUserinfo:newUsername andUserInfoType:ChangeName] != NoError) {
+        completion(NO, [self checkUserinfo:newUsername andUserInfoType:ChangeName], nil);
+    } else {
+        [self asyncUpdateUserInfoToServer:newUsername andUserInfoType:ChangeName andKeyWord:@"nickName" completion:^(BOOL isSuccess, NSString *errStr) {
+            if (isSuccess) {
+                completion(YES, NoError, nil);
+            } else {
+                completion(NO, NoError, errStr);
+            }
+        }];
+    }
+}
+
+- (void)asyncChangeSignature:(NSString *)newSignature completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion
+{
+    //如果新的用户名和之前一样的话直接返回
+    if ([newSignature isEqualToString:self.account.signature]) {
+        completion(YES, NoError, nil);
+        
+    } else if ([self checkUserinfo:newSignature andUserInfoType:ChangeSignature] != NoError) {
+        completion(NO, [self checkUserinfo:newSignature andUserInfoType:ChangeSignature], nil);
+        
+    } else {
+        [self asyncUpdateUserInfoToServer:newSignature andUserInfoType:ChangeSignature andKeyWord:@"signature" completion:^(BOOL isSuccess, NSString *errStr) {
+            if (isSuccess) {
+                completion(YES, NoError, nil);
+            } else {
+                completion(NO, NoError, errStr);
+            }
+        }];
+    }
+}
+
+/**
+ *  异步更新服务的用户信息
+ *
+ *  @param userInfo     用户信息，可以是昵称，签名等
+ *  @param userInfoType 更改用户信息的类型
+ *  @param keyWord      更改用户信息类型的关键字
+ *  @param completion   完成后的回调, 回调信息包括：是否成功，错误的信息
+ */
+- (void)asyncUpdateUserInfoToServer:(NSString *)userInfo andUserInfoType:(UserInfoChangeType)userInfoType andKeyWord:(NSString *)keyWord completion:(void (^) (BOOL isSuccess, NSString *errStr)) completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:userInfo forKey:keyWord];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showHint:@"修改成功"];
+            [self updateUserInfo:userInfo withChangeType:userInfoType];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            if (userInfoType == ChangeName) {
+                [[EaseMob sharedInstance].chatManager setApnsNickname:userInfo];
+            }
+            completion(YES, nil);
+            
+        } else {
+            completion(NO, [[responseObject objectForKey:@"err"] objectForKey:@"message"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+}
+
+/**
+ *  检测输入的用户信息是否合法
+ *
+ *  @param userInfo     用户信息
+ *  @param userInfoType 用户信息类型
+ *
+ *  @return 错误码
+ */
+- (UserInfoInputError)checkUserinfo:(NSString *)userInfo andUserInfoType:(UserInfoChangeType)userInfoType
+{
+    if (userInfoType == ChangeName) {
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]{1,}$";
+        NSString *regex2 = @"^[0-9]{6,}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
+        if (![pred1 evaluateWithObject:userInfo] || [pred2 evaluateWithObject:userInfo]) {
+            return IllegalCharacterError;
+        }
+    }
+    if (userInfoType == ChangeSignature) {
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]*$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+        if (![pred1 evaluateWithObject:userInfo] ||  ![pred1 evaluateWithObject:userInfo]) {
+            NSLog(@"输入中含有非法字符串");
+            return IllegalCharacterError;
+        }
+    }
+    return NoError;
+}
+
+
 //解析从服务器上下载的用户信息
 - (void)loadUserInfo:(id)json
 {
