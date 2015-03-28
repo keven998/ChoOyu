@@ -173,40 +173,7 @@
      } onQueue:nil];
 }
 
-
-//更新用户信息
-- (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
-{
-    switch (changeType) {
-        case ChangeName:
-            self.account.nickName = changeContent;
-            break;
-        
-        case ChangeSignature:
-            self.account.signature = changeContent;
-            break;
-            
-        case ChangeTel:
-            self.account.tel = changeContent;
-            break;
-            
-        case ChangeGender:
-            self.account.gender = changeContent;
-            break;
-            
-        case ChangeAvatar:
-            self.account.avatar = changeContent;
-            break;
-            
-        case ChangeSmallAvatar:
-            self.account.avatarSmall = changeContent;
-            break;
-            
-        default:
-            break;
-    }
-    [self save];
-}
+#pragma mark - 修改用户信息相关接口
 
 - (void)asyncChangeUserName:(NSString *)newUsername completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion
 {
@@ -287,6 +254,45 @@
         completion(NO, nil);
     }];
 
+}
+
+/**
+ *  修改用户信息
+ *
+ *  @param changeContent 信息内容
+ *  @param changeType    信息类型，电话，签名等
+ */
+- (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
+{
+    switch (changeType) {
+        case ChangeName:
+            self.account.nickName = changeContent;
+            break;
+            
+        case ChangeSignature:
+            self.account.signature = changeContent;
+            break;
+            
+        case ChangeTel:
+            self.account.tel = changeContent;
+            break;
+            
+        case ChangeGender:
+            self.account.gender = changeContent;
+            break;
+            
+        case ChangeAvatar:
+            self.account.avatar = changeContent;
+            break;
+            
+        case ChangeSmallAvatar:
+            self.account.avatarSmall = changeContent;
+            break;
+            
+        default:
+            break;
+    }
+    [self save];
 }
 
 /**

@@ -64,14 +64,6 @@
 /*******用户信息相关接口********/
 
 /**
- *  修改用户信息
- *
- *  @param changeContent 信息内容
- *  @param changeType    信息类型，电话，签名等
- */
-- (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
-
-/**
  *  修改用户昵称
  *
  *  @param newUsername 新的用户昵称
@@ -85,6 +77,8 @@
  */
 
 - (void)asyncChangeSignature:(NSString *)newSignature completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion;
+
+
 
 /**
  *  判读是不是我的好友
