@@ -35,7 +35,7 @@
 
 /***** API *****/
 
-#define BASE_URL                                @ "http://api2.taozilvxing.cn/taozi/"
+#define BASE_URL                                @ "http://api.taozilvxing.cn/taozi/"
 
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口

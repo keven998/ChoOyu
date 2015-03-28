@@ -21,7 +21,7 @@
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"头像"], @[@"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
+#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
 
 @interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -65,14 +65,12 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_personal_profile"];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_personal_profile"];
-
 }
 
 - (void)goBack
@@ -298,7 +296,6 @@
         });
     }
 }
-
 
 /**
  *  更改用户性别信息
