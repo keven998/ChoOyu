@@ -69,30 +69,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Private Methods
-
-- (UserInfoInputError)checkInput
-{
-    if (_changeType == ChangeName) {
-        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]{1,}$";
-        NSString *regex2 = @"^[0-9]{6,}$";
-        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
-        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
-        if (![pred1 evaluateWithObject:_contentTextField.text] || [pred2 evaluateWithObject:_contentTextField.text]) {
-            return IllegalCharacterError;
-        }
-    }
-    if (_changeType == ChangeSignature) {
-        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]*$";
-        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
-        if (![pred1 evaluateWithObject:_contentTextField.text] ||  ![pred1 evaluateWithObject:_contentTextField.text]) {
-            NSLog(@"输入中含有非法字符串");
-            return IllegalCharacterError;
-        }
-    }
-    return NoError;
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -104,71 +80,48 @@
 
 #pragma mark - IBAction Methods
 
--(IBAction)saveChange:(id)sender
+- (IBAction)saveChange:(id)sender
 {
-    [self.view endEditing:YES];
-    if (_changeType == ChangeName) {
-        if (!([self checkInput] == NoError)) {
-            [SVProgressHUD showHint:@"纯数字或有特殊字符都是不行的哦"];
-            return;
-        }
-    }
-    
-    if ([_content isEqualToString:_contentTextField.text]) {
-        [SVProgressHUD showHint:@"修改成功"];
-        [self dismiss];
-        return;
-    }
-    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+
     __weak typeof(ChangeUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-    
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
+
+    [self.view endEditing:YES];
     if (_changeType == ChangeName) {
-        [params setObject:_contentTextField.text forKey:@"nickName"];
-    }
-    if (_changeType == ChangeSignature) {
-        [params setObject:_contentTextField.text forKey:@"signature"];
-    }
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
-    
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [SVProgressHUD showHint:@"修改成功"];
-            [accountManager updateUserInfo:_contentTextField.text withChangeType:_changeType];
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-            if (_changeType == ChangeName) {
-                [[EaseMob sharedInstance].chatManager setApnsNickname:_contentTextField.text];
+        [accountManager asyncChangeUserName:_contentTextField.text completion:^(BOOL isSuccess, UserInfoInputError error, NSString *errStr) {
+            [hud hideTZHUD];
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"修改成功"];
+                [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
+                
+            } else if (error != NoError){
+                [SVProgressHUD showHint:@"纯数字或有特殊字符都是不行的哦"];
+            } else if (errStr){
+                [SVProgressHUD showHint:errStr];
+            } else {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
             }
-            [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
-        } else {
-             if (self.isShowing) {
-                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-             }
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
-    }];
+        }];
+        
+    } else if (_changeType == ChangeSignature) {
+        [accountManager asyncChangeSignature:_contentTextField.text completion:^(BOOL isSuccess, UserInfoInputError error, NSString *errStr) {
+            [hud hideTZHUD];
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"修改成功"];
+                [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.4];
+           
+            } else if (errStr){
+                [SVProgressHUD showHint:errStr];
+                
+            } else {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+            }
+        }];
+        
+    }
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -232,9 +232,6 @@
     if ([newSignature isEqualToString:self.account.signature]) {
         completion(YES, NoError, nil);
         
-    } else if ([self checkUserinfo:newSignature andUserInfoType:ChangeSignature] != NoError) {
-        completion(NO, [self checkUserinfo:newSignature andUserInfoType:ChangeSignature], nil);
-        
     } else {
         [self asyncUpdateUserInfoToServer:newSignature andUserInfoType:ChangeSignature andKeyWord:@"signature" completion:^(BOOL isSuccess, NSString *errStr) {
             if (isSuccess) {
