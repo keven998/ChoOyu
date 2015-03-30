@@ -28,6 +28,7 @@
         }
         [_locationManager startUpdatingLocation];
     }
+    self.navigationItem.title = @"选择居住地";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,15 +119,35 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *city = [_cityDataSource objectAtIndex:indexPath.row];
-    if ([[city objectForKey:@"childCities"] count] > 0) {
-        CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
-        cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
-        [self.navigationController pushViewController:cityListCtl animated:YES];
+    if (_needUserLocation) {
+        if (indexPath.section == 0) {
+            if (_locationStr) {
+                NSLog(@"我选择了%@", _locationStr);
+            } else {
+                [SVProgressHUD showHint:@"定位还木有完成呢。"];
+            }
+
+        } else {
+            NSDictionary *city = [_cityDataSource objectAtIndex:indexPath.row];
+            if ([[city objectForKey:@"childCities"] count] > 0) {
+                CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
+                cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
+                [self.navigationController pushViewController:cityListCtl animated:YES];
+            } else {
+                NSLog(@"我选择了%@", [city objectForKey:@"name"]);
+            }
+        }
+        
     } else {
-        NSLog(@"我选择了%@", [city objectForKey:@"name"]);
+        NSDictionary *city = [_cityDataSource objectAtIndex:indexPath.row];
+        if ([[city objectForKey:@"childCities"] count] > 0) {
+            CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
+            cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
+            [self.navigationController pushViewController:cityListCtl animated:YES];
+        } else {
+            NSLog(@"我选择了%@", [city objectForKey:@"name"]);
+        }
     }
-    
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -166,7 +187,6 @@
 - (void)getReverseGeocodeWithLoation:(CLLocation *)location
 {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error)
         {
