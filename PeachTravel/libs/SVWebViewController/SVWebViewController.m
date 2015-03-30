@@ -110,7 +110,7 @@
 
 - (UIWebView*)webView {
     if(!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-44)];
         _webView.delegate = self;
         _webView.scalesPageToFit = YES;
     }
