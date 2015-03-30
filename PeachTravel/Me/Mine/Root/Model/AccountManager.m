@@ -288,6 +288,11 @@
     }];
 }
 
+- (void)asyncChangeLocation:(NSString *)location completion:(void (^)(BOOL, NSString *))completion
+{
+    
+}
+
 /**
  *  修改用户信息
  *
