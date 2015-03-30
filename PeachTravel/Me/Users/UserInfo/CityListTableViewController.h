@@ -12,4 +12,9 @@
 
 @property (nonatomic, strong) NSArray *cityDataSource;
 
+/**
+ *  是否需要定位用户位置
+ */
+@property (nonatomic) BOOL needUserLocation;
+
 @end

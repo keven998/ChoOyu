@@ -515,6 +515,7 @@
             NSArray *cityArray = [NSArray arrayWithContentsOfFile:url];
             CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
             cityListCtl.cityDataSource = cityArray;
+            cityListCtl.needUserLocation = YES;
             [self.navigationController pushViewController:cityListCtl animated:YES];
         }
     }
