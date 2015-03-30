@@ -56,6 +56,11 @@
     /**设置友盟统计**/
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
 
+#ifndef __OPTIMIZE__
+    [MobClick setCrashReportEnabled:NO];
+#else
+    [MobClick setCrashReportEnabled:YES];
+#endif
     
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
     
