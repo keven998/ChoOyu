@@ -94,7 +94,13 @@
  */
 - (void)asyncChangeLocation:(NSString *)location completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
-
+/**
+ *  修改用户的性别
+ *
+ *  @param newGender  新的性别
+ *  @param completion
+ */
+- (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
 
 /**
