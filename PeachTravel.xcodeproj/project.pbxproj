@@ -299,7 +299,6 @@
 		D9A802161A80E036005AD701 /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801A21A80E036005AD701 /* JGProgressHUDPieIndicatorView.m */; };
 		D9A802171A80E036005AD701 /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801A41A80E036005AD701 /* JGProgressHUDRingIndicatorView.m */; };
 		D9A802181A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801A61A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.m */; };
-		D9A802191A80E036005AD701 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801A91A80E036005AD701 /* KxMenu.m */; };
 		D9A8021A1A80E036005AD701 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801AC1A80E036005AD701 /* M13Checkbox.m */; };
 		D9A8021B1A80E036005AD701 /* MJNIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801AF1A80E036005AD701 /* MJNIndexView.m */; };
 		D9A8021C1A80E036005AD701 /* MJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801B21A80E036005AD701 /* MJPhoto.m */; };
@@ -1216,8 +1215,6 @@
 		D9A801A41A80E036005AD701 /* JGProgressHUDRingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDRingIndicatorView.m; sourceTree = "<group>"; };
 		D9A801A51A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDSuccessIndicatorView.h; sourceTree = "<group>"; };
 		D9A801A61A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDSuccessIndicatorView.m; sourceTree = "<group>"; };
-		D9A801A81A80E036005AD701 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
-		D9A801A91A80E036005AD701 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		D9A801AB1A80E036005AD701 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		D9A801AC1A80E036005AD701 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		D9A801AE1A80E036005AD701 /* MJNIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJNIndexView.h; sourceTree = "<group>"; };
@@ -2917,7 +2914,6 @@
 				D9A8018B1A80E036005AD701 /* Godzippa */,
 				D9A8018E1A80E036005AD701 /* JGActionSheet */,
 				D9A801911A80E036005AD701 /* JGProgressHUD */,
-				D9A801A71A80E036005AD701 /* KxMenu */,
 				D9A801AA1A80E036005AD701 /* M13Checkbox */,
 				D9A801AD1A80E036005AD701 /* MJNIndexView */,
 				D9A801B01A80E036005AD701 /* MJPhotoBrowser */,
@@ -3059,15 +3055,6 @@
 				D9A801A61A80E036005AD701 /* JGProgressHUDSuccessIndicatorView.m */,
 			);
 			path = JGProgressHUD;
-			sourceTree = "<group>";
-		};
-		D9A801A71A80E036005AD701 /* KxMenu */ = {
-			isa = PBXGroup;
-			children = (
-				D9A801A81A80E036005AD701 /* KxMenu.h */,
-				D9A801A91A80E036005AD701 /* KxMenu.m */,
-			);
-			path = KxMenu;
 			sourceTree = "<group>";
 		};
 		D9A801AA1A80E036005AD701 /* M13Checkbox */ = {
@@ -5213,7 +5200,6 @@
 				D9A8FF561A80CF19005AD701 /* OperationData.m in Sources */,
 				D9A8020F1A80E036005AD701 /* JGProgressHUD.m in Sources */,
 				D9A8021A1A80E036005AD701 /* M13Checkbox.m in Sources */,
-				D9A802191A80E036005AD701 /* KxMenu.m in Sources */,
 				D9A8FECC1A80C818005AD701 /* AccountManager.m in Sources */,
 				D9A801631A80DD23005AD701 /* TaoziChatMessageBaseViewController.m in Sources */,
 				D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */,
