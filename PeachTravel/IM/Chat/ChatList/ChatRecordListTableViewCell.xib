@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jv-xY-fP2">
-                        <rect key="frame" x="11" y="0.0" width="298" height="59"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="59" id="Mg8-ht-IWD"/>
@@ -27,14 +27,14 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YkH-7C-EId">
-                        <rect key="frame" x="20" y="10" width="40" height="40"/>
+                        <rect key="frame" x="12" y="10" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="Fwf-My-qhr"/>
                             <constraint firstAttribute="width" constant="40" id="b8j-i0-1KR"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6H-8t-Q24">
-                        <rect key="frame" x="68" y="19" width="220" height="21"/>
+                        <rect key="frame" x="60" y="19" width="228" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Zu7-kd-me1"/>
                         </constraints>
@@ -45,11 +45,11 @@
                 </subviews>
                 <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="9jv-xY-fP2" secondAttribute="trailing" constant="11" id="0jV-f1-XHz"/>
-                    <constraint firstItem="YkH-7C-EId" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="2co-uh-RZB"/>
+                    <constraint firstAttribute="trailing" secondItem="9jv-xY-fP2" secondAttribute="trailing" id="0jV-f1-XHz"/>
+                    <constraint firstItem="YkH-7C-EId" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="2co-uh-RZB"/>
                     <constraint firstItem="9jv-xY-fP2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5wf-TT-25z"/>
                     <constraint firstAttribute="centerY" secondItem="r6H-8t-Q24" secondAttribute="centerY" id="VCR-qB-O6R"/>
-                    <constraint firstItem="9jv-xY-fP2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="WtG-TI-5MG"/>
+                    <constraint firstItem="9jv-xY-fP2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="WtG-TI-5MG"/>
                     <constraint firstItem="r6H-8t-Q24" firstAttribute="leading" secondItem="YkH-7C-EId" secondAttribute="trailing" constant="8" id="clu-up-TBk"/>
                     <constraint firstAttribute="centerY" secondItem="YkH-7C-EId" secondAttribute="centerY" id="omG-44-HWR"/>
                     <constraint firstAttribute="trailing" secondItem="r6H-8t-Q24" secondAttribute="trailing" constant="32" id="zJf-fw-QdD"/>
