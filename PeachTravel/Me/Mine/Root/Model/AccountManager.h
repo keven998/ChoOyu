@@ -84,7 +84,16 @@
  *  @param newSignature 新签名
  */
 
-- (void)asyncChangeSignature:(NSString *)newSignature completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion;
+- (void)asyncChangeSignature:(NSString *)newSignature completion:(void (^)(BOOL isSuccess, UserInfoInputError error, NSString *errStr))completion;
+
+/**
+ *  修改用户居住地信息
+ *
+ *  @param location   居住地信息
+ *  @param completion
+ */
+- (void)asyncChangeLocation:(NSString *)location completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+
 
 
 
