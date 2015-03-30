@@ -10,4 +10,11 @@
 
 @interface TZSideViewController : UIViewController
 
+/**
+ *  具体要展示的Viewcontroller
+ */
+@property (nonatomic, strong) UIViewController *detailViewController;
+
+- (id)initWithDetailViewFrame:(CGRect)rect;
+
 @end
