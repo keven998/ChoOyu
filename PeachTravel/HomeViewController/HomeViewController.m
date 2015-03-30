@@ -26,7 +26,7 @@
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, MHTabBarControllerDelegate>
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *coverView;
 

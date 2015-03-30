@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MHTabBarController.h"
 
 @interface ContactListViewController : UIViewController
 @property (nonatomic, weak) UIViewController *rootCtl;

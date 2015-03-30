@@ -778,12 +778,6 @@
     NSLog(@"开始刷新聊天DataSource");
     [self loadChattingPeople];
     dispatch_async(dispatch_get_main_queue(), ^{
-        typeof(ChatListViewController) *weakSelf = self;
-        if ([self isUnReadMsg]) {
-            [self.delegate updateNotify:weakSelf notify:YES];
-        } else {
-            [self.delegate updateNotify:weakSelf notify:NO];
-        }
         NSLog(@"结束刷新聊天DataSource");
         [self.tableView reloadData];
     });

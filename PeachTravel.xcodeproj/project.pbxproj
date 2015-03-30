@@ -368,8 +368,6 @@
 		D9A802F91A80E566005AD701 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802F41A80E566005AD701 /* AppDelegate.m */; };
 		D9A802FB1A80E566005AD701 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A802F61A80E566005AD701 /* Launch Screen.xib */; };
 		D9A802FC1A80E566005AD701 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802F71A80E566005AD701 /* main.m */; };
-		D9A803051A80E646005AD701 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802FF1A80E646005AD701 /* MHTabBarController.m */; };
-		D9A803061A80E646005AD701 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803001A80E646005AD701 /* MHTabBarIndicator.png */; };
 		D9A804811A80E738005AD701 /* app_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803671A80E737005AD701 /* app_background@2x.png */; };
 		D9A804831A80E738005AD701 /* avatar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A803691A80E737005AD701 /* avatar_line@2x.png */; };
 		D9A804851A80E738005AD701 /* bkg-linked_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A8036B1A80E737005AD701 /* bkg-linked_dots@2x.png */; };
@@ -1352,9 +1350,6 @@
 		D9A802F41A80E566005AD701 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D9A802F61A80E566005AD701 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D9A802F71A80E566005AD701 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D9A802FE1A80E646005AD701 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
-		D9A802FF1A80E646005AD701 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
-		D9A803001A80E646005AD701 /* MHTabBarIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MHTabBarIndicator.png; sourceTree = "<group>"; };
 		D9A803671A80E737005AD701 /* app_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_background@2x.png"; sourceTree = "<group>"; };
 		D9A803691A80E737005AD701 /* avatar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_line@2x.png"; sourceTree = "<group>"; };
 		D9A8036B1A80E737005AD701 /* bkg-linked_dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkg-linked_dots@2x.png"; sourceTree = "<group>"; };
@@ -2917,7 +2912,6 @@
 				D9F46D961AC52D8600972AE8 /* SVWebViewController */,
 				C67C07781A81BFC100E0F30B /* UMSocial_Sdk_Extra_Frameworks */,
 				D9A8069C1A80F597005AD701 /* UMSocial_Sdk_4.2.1 */,
-				D9A802FD1A80E646005AD701 /* MHTabBarController */,
 				D9A8016C1A80E036005AD701 /* AFgzipRequestSerializer */,
 				D9A8016F1A80E036005AD701 /* ALDBlurImageProcessor */,
 				D9A801721A80E036005AD701 /* CWPopup */,
@@ -3526,16 +3520,6 @@
 				D9A802F71A80E566005AD701 /* main.m */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D9A802FD1A80E646005AD701 /* MHTabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				D9A802FE1A80E646005AD701 /* MHTabBarController.h */,
-				D9A802FF1A80E646005AD701 /* MHTabBarController.m */,
-				D9A803001A80E646005AD701 /* MHTabBarIndicator.png */,
-			);
-			path = MHTabBarController;
 			sourceTree = "<group>";
 		};
 		D9A803651A80E737005AD701 /* Images */ = {
@@ -4859,7 +4843,6 @@
 				D9A804921A80E738005AD701 /* speaking-motion13@2x.png in Resources */,
 				D9A805471A80E738005AD701 /* ic_guide_archieve@2x.png in Resources */,
 				D9A804D01A80E738005AD701 /* ic_add_phone_contact@2x.png in Resources */,
-				D9A803061A80E646005AD701 /* MHTabBarIndicator.png in Resources */,
 				D9A804931A80E738005AD701 /* speaking-motion14@2x.png in Resources */,
 				D9245DD91A8CA1C1004571AD /* ic_travelnote_favorite@2x.png in Resources */,
 				D9A806D21A80F597005AD701 /* UMSocialSDKResourcesNew.bundle in Resources */,
@@ -5322,7 +5305,6 @@
 				D9A8020B1A80E036005AD701 /* FBShimmeringView.m in Sources */,
 				D9A802B61A80E3D3005AD701 /* UIImage+BoxBlur.m in Sources */,
 				D9A800321A80D52F005AD701 /* SpotsListViewController.m in Sources */,
-				D9A803051A80E646005AD701 /* MHTabBarController.m in Sources */,
 				D9A8FED01A80C818005AD701 /* MineTableViewController.m in Sources */,
 				D9A8FECE1A80C818005AD701 /* FrendRequest.m in Sources */,
 				D9A8FFA71A80D1C3005AD701 /* CommonPoiDetailViewController.m in Sources */,

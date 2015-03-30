@@ -11,9 +11,8 @@
   */
 
 #import <UIKit/UIKit.h>
-#import "MHTabBarController.h"
 
-@interface ChatListViewController : MHChildViewController
+@interface ChatListViewController : TZViewController
 
 - (void)refreshDataSource;
 
