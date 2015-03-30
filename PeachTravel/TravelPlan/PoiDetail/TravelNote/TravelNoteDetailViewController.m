@@ -7,19 +7,16 @@
 //
 
 #import "TravelNoteDetailViewController.h"
-#import "RNGridMenu.h"
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
 
-@interface TravelNoteDetailViewController () <UIWebViewDelegate, RNGridMenuDelegate, NJKWebViewProgressDelegate> {
+@interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate> {
     UIWebView *_webView;
 //    UIActivityIndicatorView *_activeView;
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
-
-@property (nonatomic, strong) RNGridMenu *av;
 
 @end
 
@@ -89,12 +86,6 @@
     _progressProxy.webViewProxyDelegate = nil;
     _progressProxy = nil;
     _progressView = nil;
-}
-
-
-- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
-{
-    _av = nil;
 }
 
 - (IBAction)doFavorite:(id)sender {

@@ -314,7 +314,6 @@
 		D9A802251A80E036005AD701 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801C61A80E036005AD701 /* NJKWebViewProgress.m */; };
 		D9A802261A80E036005AD701 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801C81A80E036005AD701 /* NJKWebViewProgressView.m */; };
 		D9A802271A80E036005AD701 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = D9A801CA1A80E036005AD701 /* pinyin.c */; };
-		D9A8022B1A80E036005AD701 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801D51A80E036005AD701 /* RNGridMenu.m */; };
 		D9A8022C1A80E036005AD701 /* sr_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A801D71A80E036005AD701 /* sr_refresh.png */; };
 		D9A8022D1A80E036005AD701 /* sr_refresh@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A801D81A80E036005AD701 /* sr_refresh@2X.png */; };
 		D9A8022E1A80E036005AD701 /* SRRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801DB1A80E036005AD701 /* SRRefreshView.m */; };
@@ -330,7 +329,6 @@
 		D9A802381A80E036005AD701 /* WeatherInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801F71A80E036005AD701 /* WeatherInfo.m */; };
 		D9A802391A80E036005AD701 /* WOEIDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801F91A80E036005AD701 /* WOEIDUtils.m */; };
 		D9A8023A1A80E036005AD701 /* YWeatherUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801FD1A80E036005AD701 /* YWeatherUtils.m */; };
-		D9A8023B1A80E036005AD701 /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802001A80E036005AD701 /* ZFModalTransitionAnimator.m */; };
 		D9A802AF1A80E3D3005AD701 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8023F1A80E3D3005AD701 /* ANBlurredImageView.m */; };
 		D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802411A80E3D3005AD701 /* NSDate+Category.m */; };
 		D9A802B11A80E3D3005AD701 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802431A80E3D3005AD701 /* NSDateFormatter+Category.m */; };
@@ -1247,8 +1245,6 @@
 		D9A801C81A80E036005AD701 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		D9A801CA1A80E036005AD701 /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		D9A801CB1A80E036005AD701 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
-		D9A801D41A80E036005AD701 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
-		D9A801D51A80E036005AD701 /* RNGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGridMenu.m; sourceTree = "<group>"; };
 		D9A801D71A80E036005AD701 /* sr_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sr_refresh.png; sourceTree = "<group>"; };
 		D9A801D81A80E036005AD701 /* sr_refresh@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sr_refresh@2X.png"; sourceTree = "<group>"; };
 		D9A801D91A80E036005AD701 /* SRDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefine.h; sourceTree = "<group>"; };
@@ -1281,8 +1277,6 @@
 		D9A801FB1A80E036005AD701 /* YWeatherInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWeatherInfoDelegate.h; sourceTree = "<group>"; };
 		D9A801FC1A80E036005AD701 /* YWeatherUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWeatherUtils.h; sourceTree = "<group>"; };
 		D9A801FD1A80E036005AD701 /* YWeatherUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWeatherUtils.m; sourceTree = "<group>"; };
-		D9A801FF1A80E036005AD701 /* ZFModalTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFModalTransitionAnimator.h; sourceTree = "<group>"; };
-		D9A802001A80E036005AD701 /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
 		D9A8023E1A80E3D3005AD701 /* ANBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredImageView.h; sourceTree = "<group>"; };
 		D9A8023F1A80E3D3005AD701 /* ANBlurredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBlurredImageView.m; sourceTree = "<group>"; };
 		D9A802401A80E3D3005AD701 /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
@@ -2930,7 +2924,6 @@
 				D9A801BE1A80E036005AD701 /* MyTripSpotsMapViewController */,
 				D9A801C41A80E036005AD701 /* NJKWebViewProgress */,
 				D9A801C91A80E036005AD701 /* pinyin */,
-				D9A801D31A80E036005AD701 /* RNGridMenu */,
 				D9A801D61A80E036005AD701 /* SlimeRefresh */,
 				D9A801DE1A80E036005AD701 /* SwipeView */,
 				D9A801E11A80E036005AD701 /* TBXML */,
@@ -2939,7 +2932,6 @@
 				D9A801EC1A80E036005AD701 /* TZTBViewController */,
 				D9A801EF1A80E036005AD701 /* WeChatSDK_1.5 */,
 				D9A801F41A80E036005AD701 /* YWeatherGetter4i */,
-				D9A801FE1A80E036005AD701 /* ZFDragableModalTransition */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -3155,15 +3147,6 @@
 			path = pinyin;
 			sourceTree = "<group>";
 		};
-		D9A801D31A80E036005AD701 /* RNGridMenu */ = {
-			isa = PBXGroup;
-			children = (
-				D9A801D41A80E036005AD701 /* RNGridMenu.h */,
-				D9A801D51A80E036005AD701 /* RNGridMenu.m */,
-			);
-			path = RNGridMenu;
-			sourceTree = "<group>";
-		};
 		D9A801D61A80E036005AD701 /* SlimeRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -3250,15 +3233,6 @@
 				D9A801FD1A80E036005AD701 /* YWeatherUtils.m */,
 			);
 			path = YWeatherGetter4i;
-			sourceTree = "<group>";
-		};
-		D9A801FE1A80E036005AD701 /* ZFDragableModalTransition */ = {
-			isa = PBXGroup;
-			children = (
-				D9A801FF1A80E036005AD701 /* ZFModalTransitionAnimator.h */,
-				D9A802001A80E036005AD701 /* ZFModalTransitionAnimator.m */,
-			);
-			path = ZFDragableModalTransition;
 			sourceTree = "<group>";
 		};
 		D9A8023C1A80E3D3005AD701 /* Common */ = {
@@ -5197,7 +5171,6 @@
 				D9A801251A80DD23005AD701 /* ChatSendHelper.m in Sources */,
 				D9687CA21AC4095500B1C88E /* FootprintMapViewController.m in Sources */,
 				D9A801561A80DD23005AD701 /* BaseTableViewCell.m in Sources */,
-				D9A8023B1A80E036005AD701 /* ZFModalTransitionAnimator.m in Sources */,
 				D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */,
 				D9A802171A80E036005AD701 /* JGProgressHUDRingIndicatorView.m in Sources */,
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
@@ -5294,7 +5267,6 @@
 				D9A801291A80DD23005AD701 /* DXMessageToolBar.m in Sources */,
 				D9A802211A80E036005AD701 /* MJPhotoToolbar.m in Sources */,
 				D9A8022E1A80E036005AD701 /* SRRefreshView.m in Sources */,
-				D9A8022B1A80E036005AD701 /* RNGridMenu.m in Sources */,
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
 				D9A801261A80DD23005AD701 /* ChatViewController.m in Sources */,
 				D9A802F11A80E3D3005AD701 /* Constants.m in Sources */,

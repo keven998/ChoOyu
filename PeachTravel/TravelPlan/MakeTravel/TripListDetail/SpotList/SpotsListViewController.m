@@ -8,7 +8,6 @@
 
 #import "SpotsListViewController.h"
 #import "TripPoiListTableViewCell.h"
-#import "RNGridMenu.h"
 #import "DestinationsView.h"
 #import "AddPoiViewController.h"
 #import "CityDestinationPoi.h"
@@ -24,7 +23,7 @@
 #import "PositionBean.h"
 #import "PoiDetailViewControllerFactory.h"
 
-@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, RNGridMenuDelegate, addPoiDelegate>
+@interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, addPoiDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *tableViewFooterView;

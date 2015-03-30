@@ -9,10 +9,9 @@
 #import "ContactDetailViewController.h"
 #import "ChatViewController.h"
 #import "ALDBlurImageProcessor.h"
-#import "RNGridMenu.h"
 #import "AccountManager.h"
 
-@interface ContactDetailViewController ()<UIScrollViewDelegate, RNGridMenuDelegate, UIActionSheetDelegate>
+@interface ContactDetailViewController ()<UIScrollViewDelegate, UIActionSheetDelegate>
 {
     ALDBlurImageProcessor *blurImageProcessor;
 }
@@ -24,7 +23,6 @@
 @property (nonatomic, strong) UIView *signPanel;
 @property (nonatomic, strong) UILabel *signLabel;
 @property (nonatomic, strong) UIButton *chatBtn;
-@property (nonatomic, strong) RNGridMenu *av;
 @property (nonatomic, strong) UIView *contentView;
 
 @end
@@ -212,9 +210,6 @@
     [blurImageProcessor cancelAsyncBlurOperations];
     blurImageProcessor = nil;
     _bigHeaderView = nil;
-    
-    _av.delegate = nil;
-    _av = nil;
 }
 
 #pragma - mark IBAction
@@ -306,20 +301,6 @@
         }
     }];
     
-}
-
-#pragma mark - RNGridMenuDelegate
-
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
-    if (itemIndex == 0) {
-        [self removeContact];
-    }
-    _av = nil;
-}
-
-- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
-{
-    _av = nil;
 }
 
 #pragma UIScrollViewDelegate
