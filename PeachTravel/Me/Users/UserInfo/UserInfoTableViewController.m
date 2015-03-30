@@ -306,53 +306,22 @@
 - (void)updateUserGender:(NSString *)gender
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-     __weak typeof(UserInfoTableViewController *)weakSelf = self;
+    if ([gender isEqualToString:accountManager.account.gender]) {
+        return;
+    }
+    __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:gender forKey:@"gender"];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
-
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [accountManager asyncChangeGender:gender completion:^(BOOL isSuccess, NSString *errStr) {
         [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            [SVProgressHUD showHint:@"修改成功"];
+        if (isSuccess) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:1];
-            UserOtherTableViewCell *cell = (UserOtherTableViewCell *)[self.tableView cellForRowAtIndexPath:ip];
-            if ([gender isEqualToString:@"F"]) {
-                cell.cellDetail.text = @"美女";
-            }
-            if ([gender isEqualToString:@"M"]) {
-                cell.cellDetail.text = @"帅锅";
-            }
-            if ([gender isEqualToString:@"U"]) {
-                cell.cellDetail.text = @"不告诉你";
-            }
-            [accountManager updateUserInfo:gender withChangeType:ChangeGender];
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            [self.tableView reloadRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationNone];
         } else {
-             if (self.isShowing) {
+            if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
             }
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
 }
