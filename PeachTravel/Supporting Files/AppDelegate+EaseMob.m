@@ -25,7 +25,7 @@
     apnsCertName = @"TaoziAPNS_Production";
 #endif
 
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#taozi" apnsCertName:apnsCertName];
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#taozi" apnsCertName:apnsCertName otherConfig:@{kSDKConfigEnableConsoleLogger:@NO}];
     // 登录成功后，自动去取好友列表
     // SDK获取结束后，会回调
     // - (void)didFetchedBuddyList:(NSArray *)buddyList error:(EMError *)error方法。
@@ -37,6 +37,7 @@
             didFinishLaunchingWithOptions:launchOptions];
     
     [self setupNotifiers];
+
 
     NSLog(@"loginInfo: %@", [[EaseMob sharedInstance].chatManager loginInfo]);
     
