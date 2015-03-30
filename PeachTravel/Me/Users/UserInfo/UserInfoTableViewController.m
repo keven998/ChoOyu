@@ -17,6 +17,7 @@
 #import "JGProgressHUDPieIndicatorView.h"
 #import "JGProgressHUDSuccessIndicatorView.h"
 #import "FootPrintViewController.h"
+#import "CityListTableViewController.h"
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -503,14 +504,18 @@
             
         }];
         
-    } else if (indexPath.section == 5) {
+    } else if (indexPath.section == 4) {
         if (indexPath.row == 0) {
             
         } else if (indexPath.row == 1) {
             [self showDatePicker];
             
         } else if (indexPath.row == 2) {
-            
+            NSString *url = [[NSBundle mainBundle] pathForResource:@"DomesticCityDataSource" ofType:@"plist"];
+            NSArray *cityArray = [NSArray arrayWithContentsOfFile:url];
+            CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
+            cityListCtl.cityDataSource = cityArray;
+            [self.navigationController pushViewController:cityListCtl animated:YES];
         }
     }
 

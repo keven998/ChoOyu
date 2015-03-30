@@ -720,6 +720,9 @@
 		D9F46DC01AC52D8600972AE8 /* SVWebViewControllerActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DB01AC52D8600972AE8 /* SVWebViewControllerActivitySafari.m */; };
 		D9F46DC11AC52D8600972AE8 /* SVWebViewControllerActivitySafari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F46DB11AC52D8600972AE8 /* SVWebViewControllerActivitySafari@2x.png */; };
 		D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DB31AC52D8600972AE8 /* SVWebViewControllerActivity.m */; };
+		D9F46DC71AC8E96300972AE8 /* DomesticCityDataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */; };
+		D9F46DCB1AC8EB0800972AE8 /* CityListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DC91AC8EB0800972AE8 /* CityListTableViewController.m */; };
+		D9F46DCC1AC8EB0800972AE8 /* CityListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F46DCA1AC8EB0800972AE8 /* CityListTableViewController.xib */; };
 		D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -1851,6 +1854,10 @@
 		D9F46DB31AC52D8600972AE8 /* SVWebViewControllerActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebViewControllerActivity.m; sourceTree = "<group>"; };
 		D9F46DB41AC52D8600972AE8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
 		D9F46DB51AC52D8600972AE8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
+		D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DomesticCityDataSource.plist; sourceTree = "<group>"; };
+		D9F46DC81AC8EB0800972AE8 /* CityListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListTableViewController.h; sourceTree = "<group>"; };
+		D9F46DC91AC8EB0800972AE8 /* CityListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListTableViewController.m; sourceTree = "<group>"; };
+		D9F46DCA1AC8EB0800972AE8 /* CityListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityListTableViewController.xib; sourceTree = "<group>"; };
 		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2045,6 +2052,7 @@
 		D955E3F819E7A86800047F2B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */,
 				C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */,
 				D97C8B4C1A526B9F00476C9C /* Images.xcassets */,
 			);
@@ -4165,6 +4173,7 @@
 				D9687CA11AC4095500B1C88E /* FootprintMapViewController.xib */,
 				D9687CA41AC409AB00B1C88E /* FootPrintViewController.h */,
 				D9687CA51AC409AB00B1C88E /* FootPrintViewController.m */,
+				D9F46DCD1AC8EB1200972AE8 /* CityListTableViewController */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -4563,6 +4572,16 @@
 				D9F46DB11AC52D8600972AE8 /* SVWebViewControllerActivitySafari@2x.png */,
 			);
 			path = Safari;
+			sourceTree = "<group>";
+		};
+		D9F46DCD1AC8EB1200972AE8 /* CityListTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9F46DC81AC8EB0800972AE8 /* CityListTableViewController.h */,
+				D9F46DC91AC8EB0800972AE8 /* CityListTableViewController.m */,
+				D9F46DCA1AC8EB0800972AE8 /* CityListTableViewController.xib */,
+			);
+			name = CityListTableViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5004,6 +5023,7 @@
 				D9A8FEDB1A80C8A4005AD701 /* PushMsgsViewController.xib in Resources */,
 				D9A800651A80DD0C005AD701 /* SearchUserInfoViewController.xib in Resources */,
 				C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */,
+				D9F46DCC1AC8EB0800972AE8 /* CityListTableViewController.xib in Resources */,
 				C65A27931A87966900CC4D48 /* btn_spot_info_box@2x.png in Resources */,
 				D9A805491A80E738005AD701 /* ic_location@2x.png in Resources */,
 				D9A805111A80E738005AD701 /* ic_time@2x.png in Resources */,
@@ -5060,6 +5080,7 @@
 				D9A802D51A80E3D3005AD701 /* ic_guide3_mark@2x.png in Resources */,
 				D9722F341A82446900D8A8CC /* Loading_Animation_final7@2x.png in Resources */,
 				D9A804881A80E738005AD701 /* cell_accessory_pink@2x.png in Resources */,
+				D9F46DC71AC8E96300972AE8 /* DomesticCityDataSource.plist in Resources */,
 				D9A801441A80DD23005AD701 /* imageDownloadFail@2x.png in Resources */,
 				D9A805671A80E738005AD701 /* ic_view_add@2x.png in Resources */,
 				D9A804E41A80E738005AD701 /* ic_home_btn_cycle@2x.png in Resources */,
@@ -5136,6 +5157,7 @@
 				D9A8FFB71A80D1C3005AD701 /* SpotDetailView.m in Sources */,
 				D9A801491A80DD23005AD701 /* EMChatViewCell.m in Sources */,
 				D9008D601A89CB1B000A237D /* JDStatusBarStyle.m in Sources */,
+				D9F46DCB1AC8EB0800972AE8 /* CityListTableViewController.m in Sources */,
 				D9A801171A80DD23005AD701 /* ChatRecoredListTableViewController.m in Sources */,
 				D9A802E41A80E3D3005AD701 /* SuperWebViewController.m in Sources */,
 				D9A800311A80D52F005AD701 /* ShoppingListViewController.m in Sources */,
