@@ -33,22 +33,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = _titleStr;
-    
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
+    self.webView.delegate = _progressProxy;
     CGFloat progressBarHeight = 3.0f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-//    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
-//    [self.view addSubview:_webView];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
-//    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    _webView.delegate = _progressProxy;
-//    [_webView loadRequest:request];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
+    [super loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
     label.text = @"桃子旅行\n你最贴心的旅行助手";

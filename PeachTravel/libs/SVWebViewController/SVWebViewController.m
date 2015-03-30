@@ -56,15 +56,10 @@
 
 #pragma mark - View lifecycle
 
-- (void)loadView {
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
-    [self loadRequest:self.request];
-
     [self updateToolbarItems];
 }
 
@@ -115,7 +110,7 @@
 
 - (UIWebView*)webView {
     if(!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         _webView.delegate = self;
         _webView.scalesPageToFit = YES;
     }
