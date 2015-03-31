@@ -26,7 +26,7 @@
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate>
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, UITabBarControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *coverView;
 
@@ -62,7 +62,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super viewDidLoad];
     
     [self setupViewControllers];
-
+    
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self setupUnreadMessageCount];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
@@ -309,6 +309,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)setupViewControllers
 {
     self.tabBar.translucent = YES;
+    self.delegate = self;
     self.tabBar.barStyle = UIBarStyleBlack;
     self.tabBar.selectedImageTintColor = [UIColor whiteColor];
     
@@ -382,7 +383,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)networkChanged:(EMConnectionState)connectionState
 {
     NSLog(@"networkChanged网络发生变化");
-
 }
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
@@ -567,6 +567,28 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     //    application.applicationIconBadgeNumber += 1;
 }
 
+#pragma mark - UITabbarViewControllerDelegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
+        LoginViewController *loginCtl = [[LoginViewController alloc] init];
+        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+        [self presentViewController:navi animated:YES completion:^{
+            
+        }];
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - UITabbarDelegate
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    NSLog(@"%@", item);
+}
+
 #pragma mark - IChatManagerDelegate 登陆回调（主要用于监听自动登录是否成功）
 
 - (void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
@@ -577,6 +599,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSLog(@"自动登录成功");
     }
 }
+
 
 #pragma mark - IChatManagerDelegate 好友变化
 
