@@ -73,9 +73,8 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [super viewDidLoad];
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = 155.0;
@@ -450,22 +449,25 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
+    NSString *key = nil;
     switch (_currentListTypeIndex) {
         case 0:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
+            key = @"vs";
             break;
         case 1:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
+            key = @"restaurant";
             break;
         case 2:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
+            key = @"shopping";
             break;
         case 3:
-            [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
+            key = @"hotel";
             break;
         default:
             break;
     }
+
+    [params setObject:[NSNumber numberWithBool:YES] forKey:key];
     
     if (_tripDetail) {
         CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
@@ -485,29 +487,13 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         if (self.searchDisplayController.isActive) {
             NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
             if (code == 0) {
-                NSString *key = nil;
-                switch (_currentListTypeIndex) {
-                    case 0:
-                        key = @"vs";
-                        break;
-                    case 1:
-                        key = @"restaurant";
-                        break;
-                    case 2:
-                        key = @"shopping";
-                        break;
-                    case 3:
-                        key = @"hotel";
-                        break;
-                    default:
-                        break;
-                }
                 NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
                 if (jsonDic.count == 15) {
                     _enableLoadMoreSearch = YES;
                 }
                 for (id poiDic in jsonDic) {
-                    [self.searchResultArray addObject:[[SuperPoi alloc] initWithJson:poiDic]];
+                    SuperPoi *poi = [PoiFactory poiWithPoiTypeDesc:key andJson:poiDic];
+                    [self.searchResultArray addObject:poi];
                 }
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;

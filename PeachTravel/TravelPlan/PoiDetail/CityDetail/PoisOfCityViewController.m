@@ -56,7 +56,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
@@ -97,7 +96,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     _searchBar.delegate = self;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 155.0;
@@ -105,7 +104,6 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
-    [self.tableView setContentOffset:CGPointMake(0, 44)];
     [self.view addSubview:self.tableView];
     
     self.tableView.tableHeaderView = _searchBar;
