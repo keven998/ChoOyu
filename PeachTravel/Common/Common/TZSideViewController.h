@@ -17,4 +17,14 @@
 
 - (id)initWithDetailViewFrame:(CGRect)rect;
 
+/**
+ *  弹出侧边view
+ */
+- (void)showSideDetailView;
+
+/**
+ *  隐藏侧边view
+ */
+- (void)hideSideDetailView;
+
 @end

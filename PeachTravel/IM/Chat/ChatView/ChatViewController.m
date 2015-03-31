@@ -51,6 +51,7 @@
 #import "RestaurantDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "ShoppingDetailViewController.h"
+#import "TZSideViewController.h"
 
 #import "TripDetailRootViewController.h"
 
@@ -1546,7 +1547,9 @@
         }
         ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
         chatSettingCtl.group = chatGroup;
-        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
+        sideCtl.detailViewController = chatSettingCtl;
+        [sideCtl showSideDetailView];
         
     } else {
         ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
