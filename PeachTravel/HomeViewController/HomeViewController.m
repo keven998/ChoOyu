@@ -563,8 +563,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     notification.timeZone = [NSTimeZone defaultTimeZone];
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    //    UIApplication *application = [UIApplication sharedApplication];
-    //    application.applicationIconBadgeNumber += 1;
+    UIApplication *application = [UIApplication sharedApplication];
+    application.applicationIconBadgeNumber += 1;
 }
 
 #pragma mark - UITabbarViewControllerDelegate
