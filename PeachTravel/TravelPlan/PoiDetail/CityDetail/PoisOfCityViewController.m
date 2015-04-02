@@ -714,13 +714,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             [btn setAttributedTitle:desc forState:UIControlStateHighlighted];
             btn.backgroundColor = [UIColor whiteColor];
             [btn addTarget:self action:@selector(showIntruductionOfCity) forControlEvents:UIControlEventTouchUpInside];
-            btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
             btn.titleLabel.numberOfLines = 4;
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(26, 100, 35, 10)];
             
             UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(btn.bounds.size.width-49, btn.bounds.size.height-26, 30, 20)];
             moreLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-            moreLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+            moreLabel.font = [UIFont systemFontOfSize:11.0];
             moreLabel.text = @"详情";
             
             UIImageView *moreImage = [[UIImageView alloc] initWithFrame:CGRectMake(btn.bounds.size.width-20, btn.bounds.size.height-22, 7, 11)];

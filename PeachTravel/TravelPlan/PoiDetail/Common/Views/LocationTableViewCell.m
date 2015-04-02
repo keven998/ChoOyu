@@ -23,7 +23,7 @@
     _address = address;
     NSLog(@"%@", _addressBtn.titleLabel.text);
     [_addressBtn setTitle:address forState:UIControlStateNormal];
-    CGSize size = [_address sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:12]}];
+    CGSize size = [_address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:12]}];
     NSInteger lineCount = (size.width / (self.frame.size.width-60)) + 1;
     _addressBtn.titleLabel.numberOfLines = lineCount;
 }
@@ -37,7 +37,7 @@
 
 + (CGFloat)heightForAddressCellWithAddress:(NSString *)address
 {
-    CGSize size = [address sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:12.0]}];
+    CGSize size = [address sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:12.0]}];
     NSInteger lineCount = (size.width / (kWindowWidth-60)) + 1;
     CGFloat addressHeight = lineCount*size.height+10;
     return addressHeight+80;

@@ -30,7 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                            NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
+                                                            NSFontAttributeName : [UIFont systemFontOfSize:17.0]}];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

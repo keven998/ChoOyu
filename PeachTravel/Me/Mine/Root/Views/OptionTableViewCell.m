@@ -11,7 +11,7 @@
 @implementation OptionTableViewCell
 
 - (void)awakeFromNib {
-    _titleView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _titleView.font = [UIFont systemFontOfSize:14.0];
 
     self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     self.contentView.layer.borderWidth = 0.25;

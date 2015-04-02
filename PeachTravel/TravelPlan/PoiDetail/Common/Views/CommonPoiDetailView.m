@@ -126,7 +126,7 @@
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY+30, 90, 15)];
     rankLabel.textAlignment = NSTextAlignmentCenter;
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    rankLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    rankLabel.font = [UIFont systemFontOfSize:12.0];
     if (_poi.rank > 0 && _poi.rank <= 100) {
         rankLabel.text = [NSString stringWithFormat:@"%@排名 %d", _poi.poiTypeName, _poi.rank];
     } else {
@@ -135,7 +135,7 @@
     [_scrollView addSubview:rankLabel];
     
     UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(145, offsetY, _scrollView.bounds.size.width-160, 30)];
-    addressDetailLabel.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    addressDetailLabel.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     addressDetailLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -165,7 +165,7 @@
         telephone = ((HotelPoi *)_poi).telephone;
     }
     [phoneDetailBtn setTitle:telephone forState:UIControlStateNormal];
-    phoneDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    phoneDetailBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [phoneDetailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [phoneDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [phoneDetailBtn setImage:[UIImage imageNamed:@"ic_tel.png"] forState:UIControlStateNormal];
@@ -183,7 +183,7 @@
     
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, _scrollView.bounds.size.width-40, 20)];
     _priceLabel.textColor = APP_THEME_COLOR;
-    _priceLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
+    _priceLabel.font = [UIFont systemFontOfSize:18.0];
     _priceLabel.text = priceDesc;
     _priceLabel.adjustsFontSizeToFitWidth = YES;
     [_scrollView addSubview:_priceLabel];
@@ -204,7 +204,7 @@
         [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
 
         [_bookBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
-        _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:14.0];
+        _bookBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         [_bookBtn addTarget:self action:@selector(book:) forControlEvents:UIControlEventTouchUpInside];
         [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_scrollView addSubview:_bookBtn];
@@ -217,7 +217,7 @@
     }
 
     _descView = [[ResizableView alloc] initWithFrame:CGRectMake(15, offsetY+10, _scrollView.bounds.size.width-30, 55) andNumberOfLine:3];
-    _descView.contentFont = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    _descView.contentFont = [UIFont systemFontOfSize:12.0];
     _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
     _descView.content = _poi.desc;
     _descView.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -235,7 +235,7 @@
     UILabel *commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 14)];
     commentTitle.text = @"网友点评";
     commentTitle.textAlignment = NSTextAlignmentCenter;
-    commentTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    commentTitle.font = [UIFont systemFontOfSize:14.0];
     commentTitle.textColor = APP_THEME_COLOR;
     commentTitle.center = CGPointMake(commentBkgImage.bounds.size.width/2, commentBkgImage.bounds.size.height/2);
     [commentBkgImage addSubview:commentTitle];
@@ -254,13 +254,13 @@
         UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 40)];
         commentLabel.numberOfLines = 3.0;
         commentLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-        commentLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+        commentLabel.font = [UIFont systemFontOfSize:12];
         commentLabel.text = comment.commentDetails;
         [_scrollView addSubview:commentLabel];
         offsetY += 40;
         UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
         commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
-        commentSubLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
+        commentSubLabel.font = [UIFont systemFontOfSize:10];
         commentSubLabel.textAlignment = NSTextAlignmentRight;
         NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
         commentSubLabel.text = s;
@@ -273,13 +273,13 @@
         UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 40)];
         commentLabel.numberOfLines = 3.0;
         commentLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-        commentLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+        commentLabel.font = [UIFont systemFontOfSize:12];
         commentLabel.text = comment.commentDetails;
         [_scrollView addSubview:commentLabel];
         offsetY += 40;
         UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
         commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
-        commentSubLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
+        commentSubLabel.font = [UIFont systemFontOfSize:10];
         commentSubLabel.textAlignment = NSTextAlignmentRight;
         NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
         commentSubLabel.text = s;
@@ -301,7 +301,7 @@
     [moreCommentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    moreCommentBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    moreCommentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_scrollView addSubview:moreCommentBtn];
     
     offsetY += 50;

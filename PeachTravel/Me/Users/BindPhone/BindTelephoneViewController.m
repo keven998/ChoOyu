@@ -26,7 +26,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _phoneNumberLabel.bounds.size.height - 16.0)];
     ul.text = @" 手机:";
     ul.textColor = UIColorFromRGB(0x393939);
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    ul.font = [UIFont systemFontOfSize:15.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneNumberLabel.leftView = ul;
     _phoneNumberLabel.leftViewMode = UITextFieldViewModeAlways;

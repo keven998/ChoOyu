@@ -83,7 +83,7 @@
     [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
     [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
+    _backButton.titleLabel.font = [UIFont systemFontOfSize:17.0];
     _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
@@ -173,7 +173,7 @@
         _forkBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
         [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
@@ -486,7 +486,7 @@
     panelView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     
     UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _destinationBkgView.bounds.size.width, 49)];
-    titleBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
+    titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [titleBtn setTitle:@"目的地" forState:UIControlStateNormal];
     [titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     titleBtn.userInteractionEnabled = NO;
@@ -501,7 +501,7 @@
     [panelView addSubview:spaceViewTwo];
     
     UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 300, _destinationBkgView.bounds.size.width, 40)];
-    cancelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [cancelBtn addTarget:self action:@selector(hideDestinationView:) forControlEvents:UIControlEventTouchUpInside];
@@ -691,7 +691,7 @@
         [array addObject:button];
         [_tabBarView addSubview:button];
         button.tag = i;
-        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
+        button.titleLabel.font = [UIFont systemFontOfSize:9.0];
         [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *showBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -897,7 +897,7 @@
     makePlanCtl.duration = 0;
     makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
     makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
     makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
     makePlanCtl.myDelegate = self;

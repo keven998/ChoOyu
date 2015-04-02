@@ -195,7 +195,7 @@ static NSString *cacheName = @"destination_demostic_group";
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
 
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
-    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:15.0]}];
+    CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
     return CGSizeMake(size.width + 23.0, 26);
 }
 

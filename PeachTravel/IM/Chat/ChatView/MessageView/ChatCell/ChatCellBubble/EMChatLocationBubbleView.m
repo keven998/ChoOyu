@@ -32,7 +32,7 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
         [self addSubview:_locationImageView];
         
         _addressLabel = [[UILabel alloc] init];
-        _addressLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:LOCATION_ADDRESS_LABEL_FONT_SIZE];
+        _addressLabel.font = [UIFont systemFontOfSize:LOCATION_ADDRESS_LABEL_FONT_SIZE];
         _addressLabel.textColor = [UIColor whiteColor];
         _addressLabel.numberOfLines = 0;
         _addressLabel.backgroundColor = [UIColor clearColor];

@@ -57,7 +57,7 @@
     _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _contentView.autoresizesSubviews = YES;
     
-    CGSize size = [contact.signature sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:14.0]}];
+    CGSize size = [contact.signature sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0]}];
     
     [_contentView setFrame:CGRectMake(_contentView.frame.origin.x, _contentView.frame.origin.y, _contentView.frame.size.width, _contentView.frame.size.height+size.height+100)];
 
@@ -119,7 +119,7 @@
     nickPanel.backgroundColor = [UIColor whiteColor];
     nickPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     nickPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    nickPanel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    nickPanel.font = [UIFont systemFontOfSize:14.0];
     nickPanel.layer.cornerRadius = 2.0;
     nickPanel.text = [NSString stringWithFormat:@"   昵称：%@", contact.nickName];
     [_contentView addSubview:nickPanel];
@@ -129,7 +129,7 @@
     idPanel.backgroundColor = [UIColor whiteColor];
     idPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     idPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    idPanel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    idPanel.font = [UIFont systemFontOfSize:14.0];
     idPanel.layer.cornerRadius = 2.0;
     idPanel.text = [NSString stringWithFormat:@"   桃号：%@", contact.userId];
     [_contentView addSubview:idPanel];
@@ -143,7 +143,7 @@
     _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, oy, width - 40.0, 54.0)];
     _signLabel.numberOfLines = 0.;
     _signLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _signLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _signLabel.font = [UIFont systemFontOfSize:14.0];
     _signLabel.layer.cornerRadius = 2.0;
     if (contact.signature) {
         _signLabel.text = [NSString stringWithFormat:@"旅行签名：%@",contact.signature];
@@ -159,7 +159,7 @@
     _chatBtn.clipsToBounds = YES;
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
-    _chatBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _chatBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     _chatBtn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
     _chatBtn.layer.cornerRadius = 2.0;
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];

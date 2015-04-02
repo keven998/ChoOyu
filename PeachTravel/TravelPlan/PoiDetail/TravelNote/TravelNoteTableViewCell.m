@@ -34,9 +34,9 @@
      */
     _sendBtn.hidden = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15];
+    _titleLabel.font = [UIFont systemFontOfSize:15];
     _titleLabel.textColor = TEXT_COLOR_TITLE;
-    _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    _descLabel.font = [UIFont systemFontOfSize:11];
     _descLabel.numberOfLines = 3;
     _descLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
 }

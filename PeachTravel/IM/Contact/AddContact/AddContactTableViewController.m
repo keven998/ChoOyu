@@ -203,7 +203,7 @@
                 divider.backgroundColor = UIColorFromRGB(0xdddddd);
                 [cell.contentView addSubview:divider];
             }
-            cell.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.textLabel.textColor = TEXT_COLOR_TITLE;
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

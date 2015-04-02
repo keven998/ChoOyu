@@ -100,7 +100,7 @@
     _weatherLabel.textAlignment = NSTextAlignmentRight;
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = UIColorFromRGB(0x7a7a7a);
-    _weatherLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:(9*ratioY)];
+    _weatherLabel.font = [UIFont systemFontOfSize:(9*ratioY)];
     
     _weatherLabel.numberOfLines = 2;
     [_contentFrame addSubview:_weatherLabel];
@@ -122,7 +122,7 @@
     [_planBtn addSubview:myGuideTitleLabel];
     
     UILabel *guideSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 25*ratioY, _planBtn.bounds.size.width + 48.0, 60*ratioY)];
-    guideSubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12*ratioX];
+    guideSubTitle.font = [UIFont systemFontOfSize:12*ratioX];
     guideSubTitle.numberOfLines = 3;
     guideSubTitle.textColor = TEXT_COLOR_TITLE_PH;
     guideSubTitle.textAlignment = NSTextAlignmentCenter;
@@ -133,7 +133,7 @@
     guideSimButton.titleLabel.numberOfLines = 2;
     [guideSimButton setTitle:@"我的\n旅程" forState:UIControlStateNormal];
     [guideSimButton setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-    guideSimButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17*ratioX];
+    guideSimButton.titleLabel.font = [UIFont systemFontOfSize:17*ratioX];
     [guideSimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
     [_planBtn addSubview:guideSimButton];
     
@@ -167,7 +167,7 @@
     [_aroundBtn addSubview:nearByTitleLabel];
     
     UILabel *nearBySubTitle = [[UILabel alloc] initWithFrame:CGRectMake(22, 25*ratioY, _aroundBtn.bounds.size.width - 20.0, 60*ratioY)];
-    nearBySubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12*ratioX];
+    nearBySubTitle.font = [UIFont systemFontOfSize:12*ratioX];
     nearBySubTitle.numberOfLines = 3;
     nearBySubTitle.textColor = TEXT_COLOR_TITLE_PH;
     nearBySubTitle.textAlignment = NSTextAlignmentCenter;
@@ -178,7 +178,7 @@
     [nearBySimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
     [nearBySimButton setTitle:@"发现\n身边" forState:UIControlStateNormal];
     nearBySimButton.titleLabel.numberOfLines = 2;
-    nearBySimButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17*ratioX];
+    nearBySimButton.titleLabel.font = [UIFont systemFontOfSize:17*ratioX];
     nearBySimButton.clipsToBounds = YES;
     [_aroundBtn addSubview:nearBySimButton];
     
@@ -378,7 +378,7 @@
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, s.length)];
     [_weatherLabel setAttributedText:desc];
     
-    CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:9*(kWindowHeight/480)]}].width;
+    CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:9*(kWindowHeight/480)]}].width;
 
     UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 20, 2, kWindowHeight/480*10, 10*kWindowHeight/480)];
     weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
@@ -471,7 +471,7 @@
     makePlanCtl.duration = 0;
     makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
     makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
     makePlanCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:makePlanCtl animated:YES];

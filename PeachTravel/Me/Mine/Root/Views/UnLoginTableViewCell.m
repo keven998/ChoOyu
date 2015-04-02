@@ -17,8 +17,8 @@
     _avatarPlaceholder.clipsToBounds = YES;
     [_loginBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateHighlighted];
     [_registerBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateHighlighted];
-    _loginBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    _registerBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    _loginBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

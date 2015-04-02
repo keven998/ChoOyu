@@ -75,7 +75,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [_positionBtn setImage:[UIImage imageNamed:@"ic_filter.png"] forState:UIControlStateNormal];
         [_positionBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_positionBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-        _positionBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+        _positionBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
         [_positionBtn addTarget:self action:@selector(beginSearch:) forControlEvents:UIControlEventTouchUpInside];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_positionBtn];
@@ -355,7 +355,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         headerView.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         headerView.text = [NSString stringWithFormat:@"   %@", desc];
         headerView.backgroundColor = [UIColor whiteColor];
-        headerView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+        headerView.font = [UIFont systemFontOfSize:12.0];
         headerView.layer.cornerRadius = 2.0;
         headerView.layer.borderColor = APP_PAGE_COLOR.CGColor;
         headerView.layer.borderWidth = 0.5;

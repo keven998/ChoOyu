@@ -230,7 +230,7 @@
             nickNameLabel.text = contact.nickName;
             nickNameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
             nickNameLabel.textAlignment = NSTextAlignmentCenter;
-            nickNameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+            nickNameLabel.font = [UIFont systemFontOfSize:13.0];
             [_contactsView addSubview:nickNameLabel];
             
             UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];

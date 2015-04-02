@@ -109,7 +109,7 @@ const CGFloat kAnimationSpeed = 0.20;
     [self setSelectedItemTopBackgroundColor:APP_THEME_COLOR];
     [self setTitlesColor:[UIColor blackColor]];
     [self setTitleInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [self setTitlesFont:[UIFont fontWithName:@"MicrosoftYaHei" size:14]];
+    [self setTitlesFont:[UIFont systemFontOfSize:14]];
 }
 
 - (void)hide:(BOOL)hide animated:(BOOL)animated animationCompletion:(void (^)(void))completion

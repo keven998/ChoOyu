@@ -49,7 +49,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
     label.text = @"桃子旅行\n你最贴心的旅行助手";
     label.textColor = TEXT_COLOR_TITLE_HINT;
-    label.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+    label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
     [self.webView addSubview:label];

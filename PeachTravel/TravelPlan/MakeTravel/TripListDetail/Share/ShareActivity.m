@@ -14,7 +14,7 @@
 #define CORNER_RADIUS                           5
 #define SHAREBUTTON_BORDER_WIDTH                0.5f
 #define SHAREBUTTON_BORDER_COLOR                [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.8].CGColor
-#define SHAREBUTTONTITLE_FONT                   [UIFont fontWithName:@"MicrosoftYaHei" size:18]
+#define SHAREBUTTONTITLE_FONT                   [UIFont systemFontOfSize:18]
 
 #define SHAREBUTTON_WIDTH                       50
 #define SHAREBUTTON_HEIGHT                      50
@@ -25,7 +25,7 @@
 #define SHARETITLE_HEIGHT                       20
 #define SHARETITLE_INTERVAL_WIDTH               14
 #define SHARETITLE_INTERVAL_HEIGHT              SHAREBUTTON_WIDTH+SHAREBUTTON_INTERVAL_HEIGHT
-#define SHARETITLE_FONT                         [UIFont fontWithName:@"MicrosoftYaHei" size:16]
+#define SHARETITLE_FONT                         [UIFont systemFontOfSize:16]
 
 #define TITLE_INTERVAL_HEIGHT                   15
 #define TITLE_HEIGHT                            35
@@ -38,7 +38,7 @@
 #define BUTTON_HEIGHT                           40
 #define BUTTON_INTERVAL_WIDTH                   40
 #define BUTTON_WIDTH                            240
-#define BUTTONTITLE_FONT                        [UIFont fontWithName:@"MicrosoftYaHei" size:22]
+#define BUTTONTITLE_FONT                        [UIFont systemFontOfSize:22]
 #define BUTTON_BORDER_WIDTH                     0.5f
 #define BUTTON_BORDER_COLOR                     [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.6].CGColor
 
@@ -200,7 +200,7 @@
         [self.backGroundView addSubview:taoziLabel];
         taoziLabel.backgroundColor = [UIColor clearColor];
         taoziLabel.textAlignment = NSTextAlignmentCenter;
-        taoziLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.];
+        taoziLabel.font = [UIFont systemFontOfSize:10.];
         taoziLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         
         if (shareButtonTitlesArray.count > 0 && shareButtonImagesNameArray.count > 0) {
@@ -288,7 +288,7 @@
     
     shareLabel.backgroundColor = [UIColor clearColor];
     shareLabel.textAlignment = NSTextAlignmentCenter;
-    shareLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.];
+    shareLabel.font = [UIFont systemFontOfSize:11.];
     shareLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     return shareLabel;
 }

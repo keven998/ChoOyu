@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="MicrosoftYaHei.ttf">
-            <string>MicrosoftYaHei</string>
-        </mutableArray>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController">
             <connections>
@@ -107,7 +102,7 @@
                         <constraint firstAttribute="height" constant="30" id="4oB-ld-uN0"/>
                         <constraint firstAttribute="width" constant="124" id="eTz-Si-Pw4"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="11"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <state key="normal" title="用户协议">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -169,18 +164,18 @@
                     <exclude reference="TCn-d3-UBR"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="7g2-ce-VeE"/>
-                    <exclude reference="B43-PK-5N4"/>
-                    <exclude reference="hNm-U6-hYY"/>
-                    <exclude reference="Tzj-LL-MEC"/>
-                    <exclude reference="p77-hj-kQS"/>
-                    <exclude reference="pct-ha-asv"/>
-                    <exclude reference="4Tf-8U-eb7"/>
-                    <exclude reference="Y4B-ep-TGK"/>
-                    <exclude reference="rEz-5J-ehq"/>
                     <exclude reference="VwJ-sM-vvu"/>
                     <exclude reference="c6S-WJ-C88"/>
                     <exclude reference="fFK-x4-8EO"/>
+                    <exclude reference="4Tf-8U-eb7"/>
+                    <exclude reference="Y4B-ep-TGK"/>
+                    <exclude reference="rEz-5J-ehq"/>
+                    <exclude reference="Tzj-LL-MEC"/>
+                    <exclude reference="p77-hj-kQS"/>
+                    <exclude reference="pct-ha-asv"/>
+                    <exclude reference="7g2-ce-VeE"/>
+                    <exclude reference="B43-PK-5N4"/>
+                    <exclude reference="hNm-U6-hYY"/>
                     <exclude reference="ZgG-4X-oeW"/>
                     <exclude reference="foZ-97-Gfb"/>
                 </mask>
@@ -194,18 +189,18 @@
                     <include reference="TCn-d3-UBR"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="7g2-ce-VeE"/>
-                    <include reference="B43-PK-5N4"/>
-                    <include reference="hNm-U6-hYY"/>
-                    <include reference="Tzj-LL-MEC"/>
-                    <include reference="p77-hj-kQS"/>
-                    <include reference="pct-ha-asv"/>
-                    <include reference="4Tf-8U-eb7"/>
-                    <include reference="Y4B-ep-TGK"/>
-                    <include reference="rEz-5J-ehq"/>
                     <include reference="VwJ-sM-vvu"/>
                     <include reference="c6S-WJ-C88"/>
                     <include reference="fFK-x4-8EO"/>
+                    <include reference="4Tf-8U-eb7"/>
+                    <include reference="Y4B-ep-TGK"/>
+                    <include reference="rEz-5J-ehq"/>
+                    <include reference="Tzj-LL-MEC"/>
+                    <include reference="p77-hj-kQS"/>
+                    <include reference="pct-ha-asv"/>
+                    <include reference="7g2-ce-VeE"/>
+                    <include reference="B43-PK-5N4"/>
+                    <include reference="hNm-U6-hYY"/>
                     <include reference="ZgG-4X-oeW"/>
                     <include reference="foZ-97-Gfb"/>
                 </mask>

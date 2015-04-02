@@ -30,7 +30,7 @@
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
-@property (nonatomic, strong) AccountManager *accountManager;
+@property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
@@ -195,15 +195,25 @@
 - (IBAction)showContactList:(id)sender
 {
     ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-    contactListCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:contactListCtl animated:YES];
+//    contactListCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:contactListCtl animated:YES];
+    
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:contactListCtl];
+    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nCtl.navigationBar.translucent = YES;
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (IBAction)addUserContact:(id)sender
 {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
-    addContactCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addContactCtl animated:YES];
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:addContactCtl];
+    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nCtl.navigationBar.translucent = YES;
+    [self presentViewController:nCtl animated:YES completion:nil];
+    
+//    addContactCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 
@@ -369,7 +379,7 @@
 
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
     desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
     desc.text = @"Talk\n你的旅行圈";

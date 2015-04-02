@@ -32,7 +32,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _oldPasswordLabel.bounds.size.height - 16.0)];
     ul.text = @"当前密码:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _oldPasswordLabel.leftView = ul;
     _oldPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -40,7 +40,7 @@
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _presentPasswordLabel.bounds.size.height - 16.0)];
     pl.text = @"新密码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _presentPasswordLabel.leftView = pl;
     _presentPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -48,7 +48,7 @@
     UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _presentPasswordLabel.bounds.size.height - 16.0)];
     npl.text = @"确认新密码:";
     npl.textColor = TEXT_COLOR_TITLE;
-    npl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    npl.font = [UIFont systemFontOfSize:12.0];
     npl.textAlignment = NSTextAlignmentCenter;
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;

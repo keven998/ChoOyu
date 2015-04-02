@@ -181,7 +181,7 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.duration = 0;
     makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
     makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
     
     [self.navigationController pushViewController:makePlanCtl animated:YES];}
@@ -497,7 +497,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 144+imageView.frame.size.height/2.0, width, 64.0)];
 //    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
 //    desc.textAlignment = NSTextAlignmentCenter;
     NSString *text = @"你还没有任何旅程计划~";

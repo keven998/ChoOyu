@@ -146,9 +146,9 @@
     _isAdded = isAdded;
     _pAddBtn.selected = _isAdded;
     if (_isAdded) {
-        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+        _pAddBtn.titleLabel.font = [UIFont systemFontOfSize:11.0];
     } else {
-        _pAddBtn.titleLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:13.0];
+        _pAddBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     }
 }
 

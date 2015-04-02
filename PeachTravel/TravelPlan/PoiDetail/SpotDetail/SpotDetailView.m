@@ -123,7 +123,7 @@
     UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     destTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
     destTitle.text = @"景点介绍";
-    destTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    destTitle.font = [UIFont systemFontOfSize:11];
     destTitle.textColor = TEXT_COLOR_TITLE_HINT;
     destTitle.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:destTitle];
@@ -132,7 +132,7 @@
     _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _descDetailBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
+    _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _descDetailBtn.titleLabel.numberOfLines = 2;
@@ -144,7 +144,7 @@
     UILabel *timeTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     timeTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
     timeTitle.text = @"游玩";
-    timeTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    timeTitle.font = [UIFont systemFontOfSize:11];
     timeTitle.textColor = TEXT_COLOR_TITLE_HINT;
     timeTitle.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:timeTitle];
@@ -159,7 +159,7 @@
     _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _travelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
+    _travelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     _travelBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _travelBtn.titleLabel.numberOfLines = 2;
     [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
@@ -172,7 +172,7 @@
     UILabel *ticketTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     ticketTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
     ticketTitle.text = @"门票";
-    ticketTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+    ticketTitle.font = [UIFont systemFontOfSize:11];
     ticketTitle.textColor = TEXT_COLOR_TITLE_HINT;
     ticketTitle.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:ticketTitle];
@@ -181,7 +181,7 @@
     _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 0)];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _ticketBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
+    _ticketBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _ticketBtn.titleLabel.numberOfLines = 2;
@@ -209,7 +209,7 @@
     [_bookBtn setTitleColor:UIColorFromRGB(0xd5d5d5) forState:UIControlStateDisabled];
     _bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [_bookBtn setTitle:@"在线预订" forState:UIControlStateNormal];
-    _bookBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _bookBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_scrollView addSubview:_bookBtn];
     if ([_spot.bookUrl isBlankString] || !_spot.bookUrl) {
         _bookBtn.enabled = NO;
@@ -222,7 +222,7 @@
     [_scrollView addSubview:addressImageView];
     
     _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(35, offsetY, width-55, 38)];
-    _addressBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    _addressBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
     _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
