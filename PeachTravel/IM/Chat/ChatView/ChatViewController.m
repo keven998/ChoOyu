@@ -147,6 +147,9 @@
     [self loadMoreMessages];
     _isScrollToBottom = YES;
 
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 - (void)setupBarButtonItem
@@ -157,7 +160,12 @@
 //    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
+    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.0)];
+    UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
+    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
+    navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    [bar pushNavigationItem:navTitle animated:YES];
+    [self.view addSubview:bar];
 }
 
 - (void)viewWillAppear:(BOOL)animated

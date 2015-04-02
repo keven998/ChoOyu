@@ -26,7 +26,6 @@
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"
-#import "RENavigationViewController.h"
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
@@ -696,8 +695,7 @@
     ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
 //    chatSettingCtl.group = chatGroup;
     
-    RENavigationViewController *rnavc = [[RENavigationViewController alloc] initWithRootViewController:chatController];
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:rnavc menuViewController:chatSettingCtl];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:chatSettingCtl];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
