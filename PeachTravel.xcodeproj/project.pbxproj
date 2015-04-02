@@ -23,6 +23,7 @@
 		C679D3111ACD64E3007680D9 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D30A1ACD64E3007680D9 /* UIView+REFrostedViewController.m */; };
 		C679D3121ACD64E3007680D9 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D30C1ACD64E3007680D9 /* UIViewController+REFrostedViewController.m */; };
 		C679D3161ACD65EC007680D9 /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3151ACD65EC007680D9 /* UIViewController+CWPopup.m */; };
+		C679D31C1ACD7418007680D9 /* RENavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D31B1ACD7418007680D9 /* RENavigationViewController.m */; };
 		C67C07871A81BFC100E0F30B /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077A1A81BFC100E0F30B /* libSocialSina.a */; };
 		C67C07881A81BFC100E0F30B /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077D1A81BFC100E0F30B /* libSocialQQ.a */; };
 		C67C07891A81BFC100E0F30B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077E1A81BFC100E0F30B /* TencentOpenAPI.framework */; };
@@ -763,6 +764,8 @@
 		C679D30C1ACD64E3007680D9 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
 		C679D3141ACD65EC007680D9 /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
 		C679D3151ACD65EC007680D9 /* UIViewController+CWPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CWPopup.m"; sourceTree = "<group>"; };
+		C679D31A1ACD7418007680D9 /* RENavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RENavigationViewController.h; sourceTree = "<group>"; };
+		C679D31B1ACD7418007680D9 /* RENavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RENavigationViewController.m; sourceTree = "<group>"; };
 		C67C077A1A81BFC100E0F30B /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
 		C67C077B1A81BFC100E0F30B /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
 		C67C077D1A81BFC100E0F30B /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
@@ -1932,6 +1935,8 @@
 		C679D3001ACD64E3007680D9 /* REFrostedViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C679D31A1ACD7418007680D9 /* RENavigationViewController.h */,
+				C679D31B1ACD7418007680D9 /* RENavigationViewController.m */,
 				C679D3011ACD64E3007680D9 /* RECommonFunctions.h */,
 				C679D3021ACD64E3007680D9 /* RECommonFunctions.m */,
 				C679D3031ACD64E3007680D9 /* REFrostedContainerViewController.h */,
@@ -5318,6 +5323,7 @@
 				D9A800671A80DD0C005AD701 /* ContactListViewController.m in Sources */,
 				D9A801431A80DD23005AD701 /* EMChatVideoBubbleView.m in Sources */,
 				D9A800251A80D52F005AD701 /* DomesticDestinationCell.m in Sources */,
+				C679D31C1ACD7418007680D9 /* RENavigationViewController.m in Sources */,
 				D9A801581A80DD23005AD701 /* HPTextViewInternal.m in Sources */,
 				D9A8005E1A80DD0C005AD701 /* AddContactTableViewController.m in Sources */,
 				D9A8001A1A80D52F005AD701 /* Destinations.m in Sources */,

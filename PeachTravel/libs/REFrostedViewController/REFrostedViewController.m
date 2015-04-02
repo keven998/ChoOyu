@@ -99,6 +99,16 @@
     [self re_displayController:self.contentViewController frame:self.view.bounds];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 - (UIViewController *)childViewControllerForStatusBarStyle
 {
     return self.contentViewController;

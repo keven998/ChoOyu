@@ -52,6 +52,7 @@
 #import "HotelDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "TZSideViewController.h"
+#import "REFrostedViewController.h"
 
 #import "TripDetailRootViewController.h"
 
@@ -150,11 +151,13 @@
 
 - (void)setupBarButtonItem
 {
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-    [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+//    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+//    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//    [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+//    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -207,12 +210,25 @@
 
 #pragma mark - IBAction Methods
 
+- (void)showMenu
+{
+    // Dismiss keyboard (optional)
+    //
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    
+    // Present the view controller
+    //
+    [self.frostedViewController presentMenuViewController];
+}
+
 /**
  * 实现父类的后退按钮
  */
 - (void)goBack
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.frostedViewController.navigationController popViewControllerAnimated:YES];
 }
 
 /**
@@ -1547,10 +1563,9 @@
         }
         ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
         chatSettingCtl.group = chatGroup;
-        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
-        sideCtl.detailViewController = chatSettingCtl;
-        [sideCtl showSideDetailView];
-        
+//        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
+//        sideCtl.detailViewController = chatSettingCtl;
+//        [sideCtl showSideDetailView];
     } else {
         ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
         chatSettingCtl.chatter = _conversation.chatter;

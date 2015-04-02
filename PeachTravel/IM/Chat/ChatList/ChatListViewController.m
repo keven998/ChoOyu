@@ -24,6 +24,9 @@
 #import "AddContactTableViewController.h"
 #import "PXAlertView.h"
 #import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
+#import "ChatGroupSettingViewController.h"
+#import "RENavigationViewController.h"
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
@@ -688,8 +691,20 @@
     chatController.title = title;
     
     [tzConversation.conversation markAllMessagesAsRead:YES];
-    chatController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:chatController animated:YES];
+//    chatController.hidesBottomBarWhenPushed = YES;
+    
+    ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
+//    chatSettingCtl.group = chatGroup;
+    
+    RENavigationViewController *rnavc = [[RENavigationViewController alloc] initWithRootViewController:chatController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:rnavc menuViewController:chatSettingCtl];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+//    frostedViewController.delegate = self;
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
