@@ -28,6 +28,9 @@
 		C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */; };
 		C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */; };
 		C6B65A671A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */; };
+		C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */; };
+		C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */; };
+		C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */; };
 		D9008D641A89DF5E000A237D /* AppDelegate+EaseMob.m in Sources */ = {isa = PBXBuildFile; fileRef = D9008D631A89DF5E000A237D /* AppDelegate+EaseMob.m */; };
 		D9008D661A89F864000A237D /* ic_tel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D651A89F864000A237D /* ic_tel@2x.png */; };
 		D9008D681A89F943000A237D /* ic_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D671A89F943000A237D /* ic_map@2x.png */; };
@@ -761,6 +764,12 @@
 		C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_gray@2x.png"; sourceTree = "<group>"; };
+		C6F87A121ACD1C4400BB7D7F /* PXAlertView+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXAlertView+Customization.h"; sourceTree = "<group>"; };
+		C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXAlertView+Customization.m"; sourceTree = "<group>"; };
+		C6F87A141ACD1C4400BB7D7F /* PXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAlertView.h; sourceTree = "<group>"; };
+		C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAlertView.m; sourceTree = "<group>"; };
+		C6F87A161ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PXAlertViewOverride.h"; sourceTree = "<group>"; };
+		C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PXAlertViewOverride.m"; sourceTree = "<group>"; };
 		D9008D621A89DF5E000A237D /* AppDelegate+EaseMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+EaseMob.h"; sourceTree = "<group>"; };
 		D9008D631A89DF5E000A237D /* AppDelegate+EaseMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+EaseMob.m"; sourceTree = "<group>"; };
 		D9008D651A89F864000A237D /* ic_tel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tel@2x.png"; sourceTree = "<group>"; };
@@ -1957,6 +1966,19 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
+		C6F87A111ACD1C4400BB7D7F /* PXAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				C6F87A121ACD1C4400BB7D7F /* PXAlertView+Customization.h */,
+				C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */,
+				C6F87A141ACD1C4400BB7D7F /* PXAlertView.h */,
+				C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */,
+				C6F87A161ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.h */,
+				C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */,
+			);
+			path = PXAlertView;
+			sourceTree = "<group>";
+		};
 		D04CEAB67B3F2D1933738689 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2903,6 +2925,7 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				C6F87A111ACD1C4400BB7D7F /* PXAlertView */,
 				D9F46D961AC52D8600972AE8 /* SVWebViewController */,
 				C67C07781A81BFC100E0F30B /* UMSocial_Sdk_Extra_Frameworks */,
 				D9A8069C1A80F597005AD701 /* UMSocial_Sdk_4.2.1 */,
@@ -5105,6 +5128,7 @@
 				D9A802271A80E036005AD701 /* pinyin.c in Sources */,
 				D9A8FF2F1A80CCB5005AD701 /* AboutViewController.m in Sources */,
 				D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */,
+				C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */,
 				D9A8FECB1A80C818005AD701 /* Account.m in Sources */,
 				D9A8FF5F1A80CF19005AD701 /* SearchResultTableViewCell.m in Sources */,
 				D9A8001E1A80D52F005AD701 /* ForeignViewController.m in Sources */,
@@ -5182,6 +5206,7 @@
 				D9A8015D1A80DD23005AD701 /* EMChooseViewController.m in Sources */,
 				D9A8FF191A80CC2B005AD701 /* RegisterViewController.m in Sources */,
 				D9A802331A80E036005AD701 /* TZScrollView.m in Sources */,
+				C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */,
 				D9A8FF1F1A80CC2B005AD701 /* UserInfoTableViewController.m in Sources */,
 				D9F46DB71AC52D8600972AE8 /* SVModalWebViewController.m in Sources */,
 				D9A8013E1A80DD23005AD701 /* EMChatAudioBubbleView.m in Sources */,
@@ -5301,6 +5326,7 @@
 				D993CB571AB6CB030075314E /* SpotPoi.m in Sources */,
 				D9A800691A80DD0C005AD701 /* ContactListTableViewCell.m in Sources */,
 				D9F46DC01AC52D8600972AE8 /* SVWebViewControllerActivitySafari.m in Sources */,
+				C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */,
 				D9A8014B1A80DD23005AD701 /* TipsChatTableViewCell.m in Sources */,
 				D9A8FFA11A80D1C3005AD701 /* CityHeaderView.m in Sources */,
 				D9F46DBC1AC52D8600972AE8 /* SVWebViewControllerActivityChrome.m in Sources */,

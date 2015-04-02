@@ -22,8 +22,10 @@
 #import "TZConversation.h"
 #import "ContactListViewController.h"
 #import "AddContactTableViewController.h"
+#import "PXAlertView.h"
+#import "PXAlertView+Customization.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate, UIActionSheetDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
@@ -112,12 +114,30 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"取消"
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
-    [sheet showInView:self.view];
+//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"取消"
+//                                         destructiveButtonTitle:nil
+//                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
+//    [sheet showInView:self.view];
+    
+    
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                    message:@"新建"
+                                cancelTitle:@"取消"
+                                otherTitles:@[ @"新建聊天", @"添加好友"]
+                                 completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                     if (buttonIndex == 1) {
+                                         [self addConversation:nil];
+                                         [MobClick event:@"event_create_new_talk"];
+                                     } else if (buttonIndex == 2) {
+                                         [self addUserContact:nil];
+                                         [MobClick event:@"event_add_new_friend"];
+                                     }
+                                 }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
 
@@ -690,18 +710,6 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [_slimeView scrollViewDidEndDraging];
-}
-
-#pragma mark - actionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self addConversation:nil];
-        [MobClick event:@"event_create_new_talk"];
-    } else if (buttonIndex == 1) {
-        [self addUserContact:nil];
-        [MobClick event:@"event_add_new_friend"];
-    }
 }
 
 #pragma mark - slimeRefresh delegate
