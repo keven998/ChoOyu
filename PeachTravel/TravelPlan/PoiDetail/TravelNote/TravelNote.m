@@ -20,12 +20,18 @@
          *  因为取到的游记里有换行符，在这里取最长的那一行
          */
         NSString *summaryStr = [json objectForKey:@"summary"];
-        NSArray *summaryList=[summaryStr componentsSeparatedByString:@"\n"];
-        for (NSString *s in summaryList) {
-            if (s.length > _summary.length) {
-                _summary = s;
+        if ([summaryStr isKindOfClass:[NSString class]]) {
+            NSArray *summaryList=[summaryStr componentsSeparatedByString:@"\n"];
+            for (NSString *s in summaryList) {
+                if (s.length > _summary.length) {
+                    _summary = s;
+                }
             }
         }
+        if (!_summary) {
+            _summary = @"";
+        }
+       
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (id imageDic in [json objectForKey:@"images"]) {
             TaoziImage *image = [[TaoziImage alloc] initWithJson:imageDic];
