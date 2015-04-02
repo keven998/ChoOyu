@@ -28,17 +28,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
+//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+////    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//    [button setTitle:@"取消" forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+//    [button setFrame:CGRectMake(0, 0, 48, 30)];
+//    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+////    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    self.navigationItem.leftBarButtonItem = barButton;
+    
+//    UIButton *rb =  [UIButton buttonWithType:UIButtonTypeCustom];
+//    //    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//    [rb setTitle:@"下一步" forState:UIControlStateNormal];
+//    [rb addTarget:self action:@selector(makePlan:)forControlEvents:UIControlEventTouchUpInside];
+//    [rb setFrame:CGRectMake(0, 0, 60, 30)];
+//    [rb setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    [rb setTitleColor:TEXT_COLOR_TITLE_PH forState:UIControlStateDisabled];
+//    //    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//    rb.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//    rb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    UIBarButtonItem *rbb = [[UIBarButtonItem alloc] initWithCustomView:rb];
+//    self.navigationItem.rightBarButtonItem = rbb;
+//    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    UIBarButtonItem *lbi = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = lbi;
+    
+    UIBarButtonItem *rbi = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(makePlan:)];
+    NSMutableDictionary *textAttrs=[NSMutableDictionary dictionary];
+//    [rbi setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
+//    [rbi setTitleTextAttributes:textAttrs forState:UIControlStateHighlighted];
+    NSMutableDictionary *dTextAttrs = [NSMutableDictionary dictionaryWithDictionary:textAttrs];
+    dTextAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
+    [rbi setTitleTextAttributes:dTextAttrs forState:UIControlStateDisabled];
+    self.navigationItem.rightBarButtonItem = rbi;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
     
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
@@ -67,7 +96,6 @@
     for (CityDestinationPoi *poi in self.destinations.destinationsSelected) {
         [self.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:poi.zhName andUnitHeight:26];
     }
-    [self.view addSubview:self.nextView];
     
 }
 
@@ -92,7 +120,7 @@
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
-        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49.5, self.view.bounds.size.width-62.5, 49.5) andNextBtnTitle:nil];
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49.5, self.view.bounds.size.width, 49.5) andNextBtnTitle:nil];
         _destinationToolBar.backgroundColor = APP_SUB_THEME_COLOR;
         _destinationToolBar.delegate = self;
     }
@@ -108,29 +136,30 @@
 
 - (void)goBack
 {
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (UIView *)nextView
-{
-    if (!_nextView) {
-        _nextView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-62.5, self.view.bounds.size.height-76, 62.5, 76)];
+//- (UIView *)nextView
+//{
+//    if (!_nextView) {
+//        _nextView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-62.5, self.view.bounds.size.height-76, 62.5, 76)];
 
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 27, 62.5, 49)];
-        imageView.backgroundColor = APP_SUB_THEME_COLOR;
-        UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
-        nextBtn.layer.cornerRadius = 27.0;
-        nextBtn.layer.borderWidth = 2.0;
-        nextBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-        [nextBtn setImage:[UIImage imageNamed:@"ic_select_dest_done.png"] forState:UIControlStateNormal];
-        nextBtn.clipsToBounds = YES;
-        [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
-        [_nextView addSubview:imageView];
-        [_nextView addSubview:nextBtn];
-    }
-    return _nextView;
-}
+//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 27, 62.5, 49)];
+//        imageView.backgroundColor = APP_SUB_THEME_COLOR;
+//        UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(4.5, 13, 54, 54)];
+//        nextBtn.layer.cornerRadius = 27.0;
+//        nextBtn.layer.borderWidth = 2.0;
+//        nextBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+//        [nextBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+//        [nextBtn setImage:[UIImage imageNamed:@"ic_select_dest_done.png"] forState:UIControlStateNormal];
+//        nextBtn.clipsToBounds = YES;
+//        [nextBtn addTarget:self action:@selector(makePlan:) forControlEvents:UIControlEventTouchUpInside];
+//        [_nextView addSubview:imageView];
+//        [_nextView addSubview:nextBtn];
+//    }
+//    return _nextView;
+//}
 
 - (IBAction)beginSearch:(id)sender
 {
@@ -145,7 +174,6 @@
 - (void)finishSwithPages
 {
     [self.view bringSubviewToFront:_destinationToolBar];
-    [self.view bringSubviewToFront:_nextView];
     if (self.selectedIndext == 1) {
         [MobClick event:@"event_go_aboard"];
     }
@@ -194,20 +222,19 @@
 - (void)hideDestinationBar
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.nextView.alpha = 0.0;
         self.destinationToolBar.alpha = 0.0;
     } completion:^(BOOL finished) {
-        self.nextView.alpha = 0;
         self.destinationToolBar.alpha = 0;
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }];
 }
 
 - (void)showDestinationBar
 {
     [UIView animateWithDuration:0.0 animations:^{
-        self.nextView.alpha = 1.0;
         self.destinationToolBar.alpha = 1.0;
     } completion:^(BOOL finished) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }];
 }
 

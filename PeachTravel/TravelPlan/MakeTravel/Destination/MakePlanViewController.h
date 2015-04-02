@@ -21,7 +21,6 @@
 
 @property (nonatomic, strong) DestinationToolBar *destinationToolBar;
 @property (nonatomic, strong) Destinations *destinations;
-@property (nonatomic, strong) UIView *nextView;
 @property (nonatomic, assign) id < UpdateDestinationsDelegate> myDelegate;
 
 /**

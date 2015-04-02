@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"加好友";
+    self.navigationItem.title = @"添加";
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 }
 
@@ -58,7 +58,7 @@
 - (NSArray *)normalDataSource
 {
     if (!_normalDataSource) {
-        _normalDataSource = @[@"添加通讯录好友", @"邀请微信好友"];
+        _normalDataSource = @[@"通讯录好友", @"邀请微信好友"];
     }
     return _normalDataSource;
 }

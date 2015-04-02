@@ -184,7 +184,10 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
     
-    [self.navigationController pushViewController:makePlanCtl animated:YES];}
+//    [self.navigationController pushViewController:makePlanCtl animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 
 #pragma mark - setter & getter
 
