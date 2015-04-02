@@ -16,7 +16,6 @@
 		C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */; };
 		C65A27931A87966900CC4D48 /* btn_spot_info_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */; };
 		C65A27971A8DA22200CC4D48 /* ic_navigation_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */; };
-		C67C06901A81BADB00E0F30B /* MicrosoftYaHei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */; };
 		C67C07871A81BFC100E0F30B /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077A1A81BFC100E0F30B /* libSocialSina.a */; };
 		C67C07881A81BFC100E0F30B /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077D1A81BFC100E0F30B /* libSocialQQ.a */; };
 		C67C07891A81BFC100E0F30B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C077E1A81BFC100E0F30B /* TencentOpenAPI.framework */; };
@@ -747,7 +746,6 @@
 		C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_them_extender_right@2x.png"; sourceTree = "<group>"; };
 		C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_box@2x.png"; sourceTree = "<group>"; };
 		C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_navigation_back_white@2x.png"; path = "PeachTravel/Images/ic_navigation_back_white@2x.png"; sourceTree = SOURCE_ROOT; };
-		C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MicrosoftYaHei.ttf; sourceTree = "<group>"; };
 		C67C077A1A81BFC100E0F30B /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
 		C67C077B1A81BFC100E0F30B /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
 		C67C077D1A81BFC100E0F30B /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
@@ -2037,7 +2035,6 @@
 			isa = PBXGroup;
 			children = (
 				D9F46DC61AC8E96300972AE8 /* DomesticCityDataSource.plist */,
-				C67C068F1A81BADB00E0F30B /* MicrosoftYaHei.ttf */,
 				D97C8B4C1A526B9F00476C9C /* Images.xcassets */,
 			);
 			name = Resources;
@@ -4993,7 +4990,6 @@
 				D9A801321A80DD23005AD701 /* chatBar_record@2x.png in Resources */,
 				D9A804D21A80E738005AD701 /* ic_app_message@2x.png in Resources */,
 				D9722F351A82446900D8A8CC /* Loading_Animation_final8@2x.png in Resources */,
-				C67C06901A81BADB00E0F30B /* MicrosoftYaHei.ttf in Resources */,
 				D9A805761A80E738005AD701 /* cloudy@2x.png in Resources */,
 				D9A804A11A80E738005AD701 /* chat_location_detail_disclosure@2x.png in Resources */,
 				D9A8020E1A80E036005AD701 /* JGProgressHUD Resources.bundle in Resources */,
