@@ -59,6 +59,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的旅程";
+    
+    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已走完" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+    self.navigationItem.rightBarButtonItem = rbtn;
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -158,6 +162,10 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 #pragma mark - navigation action
+
+- (void) myTrip {
+    
+}
 
 - (void)userDidLogout
 {
