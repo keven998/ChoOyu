@@ -305,10 +305,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-    self.tabBar.translucent = YES;
+    self.tabBar.translucent = NO;
     self.delegate = self;
-    self.tabBar.barStyle = UIBarStyleBlack;
-    self.tabBar.selectedImageTintColor = [UIColor whiteColor];
+    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tababr.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5];
+    
+    self.tabBar.selectedImageTintColor = UIColorFromRGB(0x21b67f);
     
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:self.chatListCtl];
@@ -335,9 +336,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
-        item.title = titles[index];
+//        item.title = titles[index];
         item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
         item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
+        item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
         index++;
     }
 }

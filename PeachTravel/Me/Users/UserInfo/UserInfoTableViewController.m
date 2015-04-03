@@ -18,6 +18,7 @@
 #import "JGProgressHUDSuccessIndicatorView.h"
 #import "FootPrintViewController.h"
 #import "CityListTableViewController.h"
+#import "AccountModel.h"
 
 #define userInfoHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -195,7 +196,7 @@
 }
 
 /**
- *  获取上传青牛服务器所需要的 token，key
+ *  获取上传七牛服务器所需要的 token，key
  *
  *  @param image
  */

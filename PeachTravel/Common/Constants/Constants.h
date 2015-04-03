@@ -178,12 +178,13 @@ typedef enum : NSUInteger {
  修改个人信息的类型
  */
 typedef enum : NSUInteger {
-    ChangeName,
+    ChangeName = 1,
     ChangeSignature,
     ChangeTel,
     ChangeGender,
     ChangeAvatar,
-    ChangeSmallAvatar
+    ChangeSmallAvatar,
+    ChangeOtherInfo = 100
 } UserInfoChangeType;
 
 

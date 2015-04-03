@@ -86,6 +86,12 @@
     [self refreshDataSource];
     [self registerNotifications];
     [self updateNavigationTitleViewStatus];
+    
+//    self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -163,7 +169,7 @@
 {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -634,7 +640,7 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     } else{
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
+        [cell.imageView setImage:[UIImage imageNamed:@"test1.jpg"]];
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;
