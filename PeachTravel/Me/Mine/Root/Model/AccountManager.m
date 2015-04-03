@@ -300,6 +300,16 @@
 }
 
 /**
+ *  更新用户信息
+ *
+ *  @param changeContent 信息内容
+ */
+- (void)updateUserInfo:(id)userInfo
+{
+    [self loadUserInfo:userInfo];
+}
+
+/**
  *  修改用户信息
  *
  *  @param changeContent 信息内容
@@ -367,7 +377,6 @@
     }
     return NoError;
 }
-
 
 //解析从服务器上下载的用户信息
 - (void)loadUserInfo:(id)json

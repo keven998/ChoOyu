@@ -29,6 +29,7 @@
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
+@property (strong, nonatomic) AccountModel *userInfo;
 
 @property (nonatomic, strong) UIActionSheet *avatarAS;
 @property (nonatomic, strong) UIActionSheet *genderAS;
@@ -47,6 +48,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadUserInfo];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     self.tableView.dataSource = self;
@@ -61,6 +64,7 @@
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -138,6 +142,16 @@
 }
 
 #pragma mark - Private Methods
+
+- (void)loadUserInfo
+{
+    _userInfo = [[AccountModel alloc] init];
+    [_userInfo loadUserInfoFromServer:^(bool isSuccess) {
+        if (isSuccess) {
+            [self.tableView reloadData];
+        }
+    }];
+}
 
 - (void)presentImagePicker
 {
@@ -268,7 +282,7 @@
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
                    UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
-                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatarSmall] placeholderImage:nil];
+                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.userInfo.basicUserInfo.avatarSmall] placeholderImage:nil];
 
                } option:opt];
 }
@@ -370,7 +384,7 @@
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.userInfo.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
@@ -378,34 +392,34 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = self.accountManager.account.nickName;
+                cell.cellDetail.text = self.userInfo.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.accountManager.account.userId intValue]];
+                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.userInfo.basicUserInfo.userId intValue]];
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
-                if ([self.accountManager.account.gender isEqualToString:@"F"]) {
+                if ([self.userInfo.basicUserInfo.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
                 }
-                if ([self.accountManager.account.gender isEqualToString:@"M"]) {
+                if ([self.userInfo.basicUserInfo.gender isEqualToString:@"M"]) {
                     cell.cellDetail.text = @"帅锅";
                 }
-                if ([self.accountManager.account.gender isEqualToString:@"U"]) {
+                if ([self.userInfo.basicUserInfo.gender isEqualToString:@"U"]) {
                     cell.cellDetail.text = @"不告诉你";
                 }
 
             } else if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
-                cell.cellDetail.text = self.accountManager.account.signature;
+                cell.cellDetail.text = self.userInfo.basicUserInfo.signature;
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_password.png"];
             } else if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_bindphone.png"];
-                NSString *tel = self.accountManager.account.tel;
+                NSString *tel = self.userInfo.basicUserInfo.tel;
                 if (tel == nil || tel.length < 1) {
                     cell.cellDetail.text = @"未绑定";
                 } else {
@@ -428,11 +442,10 @@
             
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_nick"];
-
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeName;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
-            changeUserInfo.content = self.accountManager.account.nickName;
+            changeUserInfo.content = self.userInfo.basicUserInfo.nickName;
             
         } else if (indexPath.row == 2) {
             [self showHint:@"猥琐攻城师不让修改这个～"];
@@ -451,7 +464,7 @@
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeSignature;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
-            changeUserInfo.content = self.accountManager.account.signature;
+            changeUserInfo.content = self.userInfo.basicUserInfo.signature;
         }
         
     } else if (indexPath.section == 2) {
