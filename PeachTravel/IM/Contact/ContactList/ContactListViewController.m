@@ -39,6 +39,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 48, 30)];
+    //[button setTitle:@"返回" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+    self.navigationItem.title = @"联系人";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
     [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
@@ -78,6 +92,16 @@
     _emptyView = nil;
 }
 
+#pragma mark - IBAction
+- (void)goBack
+{
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 #pragma mark - private method
 
 - (void) handleEmptyView {
@@ -98,7 +122,7 @@
     self.emptyView.center = CGPointMake(self.view.frame.size.width/2.0, 160.0);
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 20.0, width - 50.0, 16.0)];
-    label1.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    label1.font = [UIFont systemFontOfSize:14.0];
     label1.textColor = APP_THEME_COLOR;
     label1.textAlignment = NSTextAlignmentCenter;
     label1.textAlignment = NSTextAlignmentLeft;
@@ -106,7 +130,7 @@
     [self.emptyView addSubview:label1];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 40.0, width - 50.0, 16.0)];
-    label.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    label.font = [UIFont systemFontOfSize:13.0];
     label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     label.textAlignment = NSTextAlignmentCenter;
     label.textAlignment = NSTextAlignmentLeft;
@@ -120,7 +144,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.0, 0.0, 108.0, 32.0);
     [btn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitle:@"加好友" forState:UIControlStateNormal];
     btn.center = CGPointMake(width/2.0, 114.0);

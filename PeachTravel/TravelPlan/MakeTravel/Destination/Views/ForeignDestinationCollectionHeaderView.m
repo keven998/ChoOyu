@@ -20,7 +20,7 @@
     _contentBtn.clipsToBounds = YES;
     _contentBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _contentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 80);
-    _contentBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    _contentBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     _contentBtn.userInteractionEnabled = NO;
     
 //    _cellAccessoryView.contentMode = UIViewContentModeCenter;

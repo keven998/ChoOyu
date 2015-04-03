@@ -99,7 +99,7 @@
         [logoutBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
         logoutBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-        logoutBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+        logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
         [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         logoutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];

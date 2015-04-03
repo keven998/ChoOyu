@@ -34,7 +34,7 @@
         _textBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _textBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         _textBtn.backgroundColor = [UIColor clearColor];
-        _textBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
+        _textBtn.titleLabel.font = [UIFont systemFontOfSize:9.0];
         [self addSubview:_textBtn];
         
         _leftSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 0.5)];
@@ -53,7 +53,7 @@
 - (void)setTime:(NSString *)time
 {
     _time = time;
-    CGSize contentSize = [_time sizeWithAttributes:@{NSFontAttributeName :  [UIFont fontWithName:@"MicrosoftYaHei" size:9.0]}];
+    CGSize contentSize = [_time sizeWithAttributes:@{NSFontAttributeName :  [UIFont systemFontOfSize:9.0]}];
     _leftSpaceView.frame = CGRectMake(kWindowWidth/2-contentSize.width/2-35-10, 22, 35, 0.5);
     _rightSpaceView.frame = CGRectMake(kWindowWidth/2+contentSize.width/2+10, 22, 35, 0.5);
     [_textBtn setTitle:_time forState:UIControlStateNormal];

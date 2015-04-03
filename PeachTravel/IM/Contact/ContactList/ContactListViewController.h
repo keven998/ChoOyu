@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ContactListViewController : UIViewController
-@property (nonatomic, weak) UIViewController *rootCtl;
 
 @property (nonatomic) NSUInteger numberOfUnreadFrendRequest;
 

@@ -36,15 +36,16 @@
         self.backgroundColor = [UIColor whiteColor];
         self.imageView.backgroundColor = APP_PAGE_COLOR;
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.0];
+        _timeLabel.font = [UIFont systemFontOfSize:11.0];
         _timeLabel.textColor = TEXT_COLOR_TITLE_HINT;
         _timeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15];
-        _detailLabel.textColor = UIColorFromRGB(0x888888);
+
+        _detailLabel.font = [UIFont systemFontOfSize:15];
+        _detailLabel.textColor = UIColorFromRGB(0xbbbbbb);
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contentView addSubview:_detailLabel];
         
@@ -58,7 +59,7 @@
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _unreadLabel.backgroundColor = [UIColor redColor];
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
-        _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+        _unreadLabel.font = [UIFont systemFontOfSize:13.0];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
         _unreadLabel.clipsToBounds = YES;
         _unreadLabel.textColor = [UIColor whiteColor];
@@ -97,7 +98,7 @@
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
+    self.textLabel.font = [UIFont systemFontOfSize:17.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
     self.textLabel.frame = CGRectMake(55.0, 17.0, width - 80.0-85, 18.0);
     
@@ -129,11 +130,11 @@
     
     if (_unreadCount > 0) {
         if (_unreadCount < 9) {
-            _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+            _unreadLabel.font = [UIFont systemFontOfSize:12];
         }else if(_unreadCount > 9 && _unreadCount < 99){
-            _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+            _unreadLabel.font = [UIFont systemFontOfSize:11];
         }else{
-            _unreadLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
+            _unreadLabel.font = [UIFont systemFontOfSize:10];
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];

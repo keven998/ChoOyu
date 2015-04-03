@@ -76,7 +76,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
     title.textColor = TEXT_COLOR_TITLE;
     title.textAlignment = NSTextAlignmentCenter;
-    title.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17];
+    title.font = [UIFont systemFontOfSize:17];
     title.tag = 123;
     
     _customNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
@@ -435,7 +435,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [allNotes setTitle:@"更多" forState:UIControlStateNormal];
     [allNotes setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     [allNotes setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    allNotes.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
+    allNotes.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
     allNotes.imageEdgeInsets = UIEdgeInsetsMake(2, 100, 0, 0);
     allNotes.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 18);
@@ -524,7 +524,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         makePlanCtl.duration = 0;
         makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
         makePlanCtl.selectedColor = APP_THEME_COLOR;
-        makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+        makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
         makePlanCtl.normalColor= [UIColor grayColor];
         
         [self.navigationController pushViewController:makePlanCtl animated:YES];

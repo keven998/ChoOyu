@@ -22,13 +22,17 @@
 #import "TZConversation.h"
 #import "ContactListViewController.h"
 #import "AddContactTableViewController.h"
+#import "PXAlertView.h"
+#import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
+#import "ChatGroupSettingViewController.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate, UIActionSheetDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
-@property (nonatomic, strong) AccountManager *accountManager;
+@property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
@@ -118,12 +122,30 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"取消"
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
-    [sheet showInView:self.view];
+//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"取消"
+//                                         destructiveButtonTitle:nil
+//                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
+//    [sheet showInView:self.view];
+    
+    
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                    message:@"新建"
+                                cancelTitle:@"取消"
+                                otherTitles:@[ @"新建聊天", @"添加好友"]
+                                 completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                     if (buttonIndex == 1) {
+                                         [self addConversation:nil];
+                                         [MobClick event:@"event_create_new_talk"];
+                                     } else if (buttonIndex == 2) {
+                                         [self addUserContact:nil];
+                                         [MobClick event:@"event_add_new_friend"];
+                                     }
+                                 }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
 
@@ -181,15 +203,25 @@
 - (IBAction)showContactList:(id)sender
 {
     ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-    contactListCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:contactListCtl animated:YES];
+//    contactListCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:contactListCtl animated:YES];
+    
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:contactListCtl];
+    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nCtl.navigationBar.translucent = YES;
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (IBAction)addUserContact:(id)sender
 {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
-    addContactCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addContactCtl animated:YES];
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:addContactCtl];
+    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nCtl.navigationBar.translucent = YES;
+    [self presentViewController:nCtl animated:YES completion:nil];
+    
+//    addContactCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 
@@ -355,7 +387,7 @@
 
     UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
     desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    desc.font = [UIFont systemFontOfSize:14.0];
     desc.numberOfLines = 2;
     desc.textAlignment = NSTextAlignmentCenter;
     desc.text = @"Talk\n你的旅行圈";
@@ -664,8 +696,19 @@
     chatController.title = title;
     
     [tzConversation.conversation markAllMessagesAsRead:YES];
-    chatController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:chatController animated:YES];
+//    chatController.hidesBottomBarWhenPushed = YES;
+    
+    ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
+//    chatSettingCtl.group = chatGroup;
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:chatSettingCtl];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+//    frostedViewController.delegate = self;
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -696,18 +739,6 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [_slimeView scrollViewDidEndDraging];
-}
-
-#pragma mark - actionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self addConversation:nil];
-        [MobClick event:@"event_create_new_talk"];
-    } else if (buttonIndex == 1) {
-        [self addUserContact:nil];
-        [MobClick event:@"event_add_new_friend"];
-    }
 }
 
 #pragma mark - slimeRefresh delegate

@@ -36,7 +36,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    ul.font = [UIFont systemFontOfSize:13.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -45,7 +45,7 @@
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
     pl.text = @" 密码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = pl;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;

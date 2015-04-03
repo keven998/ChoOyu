@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     _avatarImageView.clipsToBounds = YES;
     _avatarImageView.layer.cornerRadius = 4.0;
-    _nickNameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
+    _nickNameLabel.font = [UIFont systemFontOfSize:16.0];
     self.backgroundColor = APP_PAGE_COLOR;
     
 }

@@ -616,7 +616,7 @@ static CGRect keyboardFrame = (CGRect){{0.0f, 0.0f}, {0.0f, 0.0f}};
         _detailTextLabel.backgroundColor = [UIColor clearColor];
         _detailTextLabel.textColor = (self.style == JGProgressHUDStyleDark ? [UIColor whiteColor] : [UIColor blackColor]);
         _detailTextLabel.textAlignment = NSTextAlignmentCenter;
-        _detailTextLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0f];
+        _detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
         _detailTextLabel.numberOfLines = 0;
         [_detailTextLabel addObserver:self forKeyPath:@"text" options:(NSKeyValueObservingOptions)kNilOptions context:NULL];
         [_detailTextLabel addObserver:self forKeyPath:@"font" options:(NSKeyValueObservingOptions)kNilOptions context:NULL];

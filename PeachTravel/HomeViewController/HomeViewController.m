@@ -8,7 +8,6 @@
 
 #import "HomeViewController.h"
 #import "ToolBoxViewController.h"
-#import "HotDestinationCollectionViewController.h"
 #import "MineTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PageOne.h"
@@ -16,7 +15,6 @@
 #import "PageThree.h"
 #import "EAIntroView.h"
 #import "TZCMDChatHelper.h"
-#import "ContactListViewController.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
 #import "ChatListViewController.h"
@@ -38,7 +36,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
 @property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
-@property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 
@@ -321,17 +318,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 //    UINavigationController *secondNavigationController = [[UINavigationController alloc]
 //                                                         initWithRootViewController:_toolBoxCtl];
     
-    _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
-    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
-                                                         initWithRootViewController:_hotDestinationCtl];
-    
     _mineCtl = [[MineTableViewController alloc] init];
     UINavigationController *FourthNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_mineCtl];
 
 
-    [self setViewControllers:@[firstNavigationController,
-                               thirdNavigationController, FourthNavigationController]];
+    [self setViewControllers:@[firstNavigationController, secondNavigationController,
+                               FourthNavigationController]];
     [self customizeTabBarForController];
 }
 
@@ -339,7 +332,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-    NSArray *titles = @[@"Talk", @"目的地", @"我"];
+    NSArray *titles = @[@"Talk", @"旅行", @"我"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {

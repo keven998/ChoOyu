@@ -355,7 +355,7 @@
     _inputTextView.layer.cornerRadius = 4.0f;
     _inputTextView.layer.borderColor = UIColorFromRGB(0xd3d3d3).CGColor;
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
-    self.inputTextView.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13];
+    self.inputTextView.font = [UIFont systemFontOfSize:13];
     self.inputTextView.delegate = self;
     self.inputTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 40);
     self.inputTextView.backgroundColor = [UIColor whiteColor];
@@ -364,7 +364,7 @@
     
     //录制
     self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(textViewLeftMargin, 5.5, width, 34)];
-    self.recordButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     self.recordButton.layer.cornerRadius = 4.0;
