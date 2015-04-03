@@ -288,7 +288,6 @@
 		D9A8016A1A80DD37005AD701 /* TZCMDChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801681A80DD37005AD701 /* TZCMDChatHelper.m */; };
 		D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8016E1A80E036005AD701 /* AFgzipRequestSerializer.m */; };
 		D9A802021A80E036005AD701 /* ALDBlurImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801711A80E036005AD701 /* ALDBlurImageProcessor.m */; };
-		D9A802041A80E036005AD701 /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801771A80E036005AD701 /* DKCircleButton.m */; };
 		D9A802051A80E036005AD701 /* DMFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8017A1A80E036005AD701 /* DMFilterView.m */; };
 		D9A802061A80E036005AD701 /* ic_DMFilter_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A8017B1A80E036005AD701 /* ic_DMFilter_selected@2x.png */; };
 		D9A802071A80E036005AD701 /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8017E1A80E036005AD701 /* EDStarRating.m */; };
@@ -1206,8 +1205,6 @@
 		D9A8016E1A80E036005AD701 /* AFgzipRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFgzipRequestSerializer.m; sourceTree = "<group>"; };
 		D9A801701A80E036005AD701 /* ALDBlurImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDBlurImageProcessor.h; sourceTree = "<group>"; };
 		D9A801711A80E036005AD701 /* ALDBlurImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDBlurImageProcessor.m; sourceTree = "<group>"; };
-		D9A801761A80E036005AD701 /* DKCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCircleButton.h; sourceTree = "<group>"; };
-		D9A801771A80E036005AD701 /* DKCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCircleButton.m; sourceTree = "<group>"; };
 		D9A801791A80E036005AD701 /* DMFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMFilterView.h; sourceTree = "<group>"; };
 		D9A8017A1A80E036005AD701 /* DMFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMFilterView.m; sourceTree = "<group>"; };
 		D9A8017B1A80E036005AD701 /* ic_DMFilter_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_DMFilter_selected@2x.png"; sourceTree = "<group>"; };
@@ -2981,7 +2978,6 @@
 				D9A8069C1A80F597005AD701 /* UMSocial_Sdk_4.2.1 */,
 				D9A8016C1A80E036005AD701 /* AFgzipRequestSerializer */,
 				D9A8016F1A80E036005AD701 /* ALDBlurImageProcessor */,
-				D9A801751A80E036005AD701 /* DKCircleButton */,
 				D9A801781A80E036005AD701 /* DMFilterView */,
 				D9A8017C1A80E036005AD701 /* EDStarRating */,
 				D9A8017F1A80E036005AD701 /* Emoji */,
@@ -3021,15 +3017,6 @@
 				D9A801711A80E036005AD701 /* ALDBlurImageProcessor.m */,
 			);
 			path = ALDBlurImageProcessor;
-			sourceTree = "<group>";
-		};
-		D9A801751A80E036005AD701 /* DKCircleButton */ = {
-			isa = PBXGroup;
-			children = (
-				D9A801761A80E036005AD701 /* DKCircleButton.h */,
-				D9A801771A80E036005AD701 /* DKCircleButton.m */,
-			);
-			path = DKCircleButton;
 			sourceTree = "<group>";
 		};
 		D9A801781A80E036005AD701 /* DMFilterView */ = {
@@ -5191,7 +5178,6 @@
 				D9A802E11A80E3D3005AD701 /* PageThree.m in Sources */,
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
 				D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */,
-				D9A802041A80E036005AD701 /* DKCircleButton.m in Sources */,
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
 				D9A802221A80E036005AD701 /* MJPhotoView.m in Sources */,
