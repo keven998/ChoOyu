@@ -14,9 +14,9 @@
 #import "PoisOfCityTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "PoiDetailViewControllerFactory.h"
+#import "UISelectionViewController.h"
 
-
-@interface AddPoiViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
+@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
@@ -38,6 +38,8 @@
 @property (nonatomic, strong) TZFilterViewController *filterCtl;
 
 @property (nonatomic, strong) TZButton *filterBtn;
+
+@property (nonatomic, strong) UICollectionView *selectPanel;
 
 //管理普通 tableview 的加载状态
 @property (nonatomic) NSUInteger currentPageNormal;
@@ -82,20 +84,36 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self.view addSubview:_tableView];
 
     if (_tripDetail) {
-         self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[[self.tripDetail.itineraryList objectAtIndex:_currentDayIndex] count]];
-        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
-        finishBtn.tintColor = TEXT_COLOR_TITLE;
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
-        _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-        [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        _filterBtn.topSpaceHight = 4.0;
-        _filterBtn.spaceHight = 1;
-        [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
-        self.navigationItem.rightBarButtonItem = filterItem;
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"分类 " style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];
+        self.navigationItem.rightBarButtonItem = cbtn;
+        
+        UIButton *tbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+        [tbtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        tbtn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [tbtn addTarget:self action:@selector(changeCity) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView = tbtn;
+        
+        CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
+        _cityName = firstDestination.zhName;
+        
+        [self setupTitleView];
+        
+//        self.navigationItem.titleView = [
+//
+//        _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//        [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+//        _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+//        [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+//        _filterBtn.topSpaceHight = 4.0;
+//        _filterBtn.spaceHight = 1;
+//        [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
+//        self.navigationItem.rightBarButtonItem = filterItem;
+        
+        
     } else {
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }
@@ -129,8 +147,35 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 
     }
     [_tableView setContentOffset:CGPointMake(0, 45)];
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     
     [self loadDataWithPageNo:_currentPageNormal];
+    
+    [self setupSelectPanel];
+}
+
+- (void) setupSelectPanel {
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
+    [self.selectPanel setBackgroundColor:[UIColor grayColor]];
+    self.selectPanel.showsHorizontalScrollIndicator = NO;
+    self.selectPanel.showsVerticalScrollIndicator = NO;
+    self.selectPanel.delegate = self;
+    self.selectPanel.dataSource = self;
+    self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"scell"];
+    
+    [self.view addSubview:_selectPanel];
+}
+
+- (void) setupTitleView {
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@[切换]", _cityName]];
+    [attributeString addAttributes:@{NSForegroundColorAttributeName:[UIColor blueColor]} range:NSMakeRange(attributeString.length - 4, 4)];
+    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(attributeString.length - 4, 4)];
+    UIButton *tbtn = (UIButton *)self.navigationItem.titleView;
+    [tbtn setAttributedTitle:attributeString forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -320,10 +365,13 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         }
         [oneDayArray addObject:poi];
         
-        [SVProgressHUD showHint:@"已添加"];
-        
-        self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
-
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:oneDayArray.count - 1 inSection:0];
+        [self.selectPanel performBatchUpdates:^{
+            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [self.selectPanel scrollToItemAtIndexPath:lnp
+                                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        }];
     } else {
         SuperPoi *poi;
         if (self.searchController.isActive) {
@@ -332,17 +380,45 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
             poi = [self.dataSource objectAtIndex:indexPath.row];
         }
         NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
-        for (SuperPoi *tripPoi in oneDayArray) {
+        int index = -1;
+        NSInteger count = oneDayArray.count;
+        for (int i = 0; i < count; ++i) {
+            SuperPoi *tripPoi = [oneDayArray objectAtIndex:i];
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-                [oneDayArray removeObject:tripPoi];
+                [oneDayArray removeObjectAtIndex:i];
+                index = i;
                 break;
             }
         }
-        self.navigationItem.title = [NSString stringWithFormat:@"第%lu天(%lu安排)", (unsigned long)(_currentDayIndex + 1), (unsigned long)[oneDayArray count]];
+        if (index != -1) {
+            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+            [self.selectPanel performBatchUpdates:^{
+                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+            } completion:^(BOOL finished) {
+                [self.selectPanel reloadData];
+            }];
+        }
 
     }
     cell.isAdded = !cell.isAdded;
 
+}
+
+- (void) categoryFilt {
+    
+}
+
+- (void) changeCity {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [array addObject:poi.zhName];
+    }
+    UISelectionViewController *ctl = [[UISelectionViewController alloc] init];
+    ctl.contentItems = [NSArray arrayWithArray:array];
+    ctl.titleTxt = @"切换目的地";
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+//    [self presentViewController:nav animated:YES completion:nil];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 - (void)filter:(id)sender
@@ -788,5 +864,62 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     }
 }
 
+#pragma mark - Collection view
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    return oneDayArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"scell" forIndexPath:indexPath];
+    
+    NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
+    cell.textView.text = txt;
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
+    cell.textView.frame = CGRectMake(0, 0, size.width, 49);
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    return CGSizeMake(size.width, 49);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 15.0;
+}
+
+@end
+
+@implementation SelectDestCell
+
+@synthesize textView;
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        textView = [[UILabel alloc] init];
+        textView.font = [UIFont systemFontOfSize:17];
+        textView.textColor = [UIColor blueColor];
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.numberOfLines = 1;
+        [self.contentView addSubview:textView];
+    }
+    return self;
+}
 
 @end

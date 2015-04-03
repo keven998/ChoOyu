@@ -48,7 +48,7 @@
         }
        
     } else {
-        self.navigationItem.title = @"用户验证";
+        self.navigationItem.title = @"验证";
         _phoneLabel.placeholder = @"请输入手机号";
         self.navigationItem.rightBarButtonItem.title = @"提交 ";
     }

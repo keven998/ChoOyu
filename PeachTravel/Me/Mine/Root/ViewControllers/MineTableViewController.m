@@ -142,17 +142,27 @@
 
 - (IBAction)userLogin:(id)sender
 {
+//    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+//    loginCtl.isPushed = NO;
+//    loginCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:loginCtl animated:YES];
+    
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    loginCtl.isPushed = YES;
-    loginCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:loginCtl animated:YES];
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    loginCtl.isPushed = NO;
+    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    nctl.navigationBar.translucent = YES;
+    
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 - (IBAction)userRegister:(id)sender
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     registerCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:registerCtl animated:YES];
+//    [self.navigationController pushViewController:registerCtl animated:YES];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:registerCtl];
+    [self presentViewController:navc animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
