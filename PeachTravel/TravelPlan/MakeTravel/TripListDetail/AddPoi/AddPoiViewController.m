@@ -12,11 +12,15 @@
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityTableViewCell.h"
-#import "TZFilterViewController.h"
 #import "PoiDetailViewControllerFactory.h"
-#import "UISelectionViewController.h"
+#import "SelectionTableViewController.h"
 
-@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, TZFilterViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
+enum {
+    FILTER_TYPE_CITY = 1,
+    FILTER_TYPE_CATE
+};
+
+@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
@@ -35,10 +39,6 @@
 
 @property (nonatomic, strong) NSMutableArray *searchResultArray;
 
-@property (nonatomic, strong) TZFilterViewController *filterCtl;
-
-@property (nonatomic, strong) TZButton *filterBtn;
-
 @property (nonatomic, strong) UICollectionView *selectPanel;
 
 //管理普通 tableview 的加载状态
@@ -54,6 +54,9 @@
 @property (nonatomic, assign) BOOL enableLoadMoreSearch;
 
 @property (nonatomic, copy) NSString *searchText;
+
+//类型筛选: 1是城市、2是分类
+@property (nonatomic, assign) NSInteger filterType;
 
 @end
 
@@ -87,7 +90,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"分类 " style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"景点 " style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];
         self.navigationItem.rightBarButtonItem = cbtn;
         
         UIButton *tbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
@@ -100,20 +103,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         _cityName = firstDestination.zhName;
         
         [self setupTitleView];
-        
-//        self.navigationItem.titleView = [
-//
-//        _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//        [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
-//        _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-//        [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//        _filterBtn.topSpaceHight = 4.0;
-//        _filterBtn.spaceHight = 1;
-//        [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
-//        UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
-//        self.navigationItem.rightBarButtonItem = filterItem;
-        
-        
     } else {
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }
@@ -141,7 +130,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     if (_tripDetail) {
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
-        [_filterBtn setTitle:firstDestination.zhName forState:UIControlStateNormal];
     } else {
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
 
@@ -196,26 +184,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     } else {
         [MobClick endLogPageView:@"page_spot_lists"];
     }
-}
-
-
-#pragma mark - setter & getter
-
-- (TZFilterViewController *)filterCtl
-{
-    if (!_filterCtl) {
-        NSMutableArray *titiles = [[NSMutableArray alloc] init];
-        for (CityDestinationPoi *poi in _tripDetail.destinations) {
-            [titiles addObject:poi.zhName];
-        }
-        _filterCtl = [[TZFilterViewController alloc] init];
-        _filterCtl.filterItemsArray = @[titiles, @[@"景点", @"美食", @"购物", @"酒店"]];
-        _filterCtl.filterTitles = @[@"城市",@"类型"];
-        _filterCtl.lineCountPerFilterType = @[@1, @2];
-        _filterCtl.selectedItmesIndex = @[@0, @0];
-        _filterCtl.delegate = self;
-    }
-    return _filterCtl;
 }
 
 - (NSMutableArray *)searchResultArray
@@ -405,7 +373,14 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 }
 
 - (void) categoryFilt {
-    
+    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
+    ctl.contentItems = @[@"景点", @"美食", @"购物", @"酒店"];
+    ctl.titleTxt = @"切换类别";
+    ctl.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+    [self presentViewController:nav animated:YES completion:^{
+        _filterType = FILTER_TYPE_CATE;
+    }];
 }
 
 - (void) changeCity {
@@ -413,22 +388,14 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [array addObject:poi.zhName];
     }
-    UISelectionViewController *ctl = [[UISelectionViewController alloc] init];
+    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = [NSArray arrayWithArray:array];
-    ctl.titleTxt = @"切换目的地";
+    ctl.titleTxt = @"切换城市";
+    ctl.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
-//    [self presentViewController:nav animated:YES completion:nil];
-    [self.navigationController pushViewController:ctl animated:YES];
-}
-
-- (void)filter:(id)sender
-{
-    if (!self.filterCtl.filterViewIsShowing) {
-        typeof(AddPoiViewController *)weakSelf = self;
-        [self.filterCtl showFilterViewInViewController:weakSelf.navigationController];
-    } else {
-        [self.filterCtl hideFilterView];
-    }
+    [self presentViewController:nav animated:YES completion:^{
+        _filterType = FILTER_TYPE_CITY;
+    }];
 }
 
 #pragma mark - Private Methods
@@ -593,42 +560,40 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 }
 
 #pragma mark - TZFilterViewDelegate
-- (void)didSelectedItems:(NSArray *)itemIndexPath
-{
-    NSInteger filterCityIndex = [[itemIndexPath firstObject] integerValue];
-    NSInteger filterPoiIndex = [[itemIndexPath lastObject] integerValue];
-    if (_currentListTypeIndex != filterPoiIndex) {
-        [MobClick event:@"event_filter_items"];
-        _isLoadingMoreNormal = YES;
-        _didEndScrollNormal = YES;
-        _enableLoadMoreNormal = NO;
-        _currentListTypeIndex = filterPoiIndex;
-        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-        _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-        [self.dataSource removeAllObjects];
-        [self.tableView reloadData];
-        _currentPageNormal = 0;
-        [self loadDataWithPageNo:_currentPageNormal];
-        
-        
-    }
-    
-    if (_currentCityIndex != filterCityIndex) {
-        [MobClick event:@"event_filter_city"];
-        _isLoadingMoreNormal = YES;
-        _didEndScrollNormal = YES;
-        _enableLoadMoreNormal = NO;
-        _currentCityIndex = filterCityIndex;
-        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-        _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-        [self.dataSource removeAllObjects];
-        [self.tableView reloadData];
-        _currentPageNormal = 0;
-        [self loadDataWithPageNo:_currentPageNormal];
-        
-        [_filterBtn setTitle:poi.zhName forState:UIControlStateNormal];
-    }
-}
+//- (void)didSelectedItems:(NSArray *)itemIndexPath
+//{
+//    NSInteger filterCityIndex = [[itemIndexPath firstObject] integerValue];
+//    NSInteger filterPoiIndex = [[itemIndexPath lastObject] integerValue];
+//    if (_currentListTypeIndex != filterPoiIndex) {
+//        [MobClick event:@"event_filter_items"];
+//        _isLoadingMoreNormal = YES;
+//        _didEndScrollNormal = YES;
+//        _enableLoadMoreNormal = NO;
+//        _currentListTypeIndex = filterPoiIndex;
+//        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+//        _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
+//        [self.dataSource removeAllObjects];
+//        [self.tableView reloadData];
+//        _currentPageNormal = 0;
+//        [self loadDataWithPageNo:_currentPageNormal];
+//        
+//        
+//    }
+//    
+//    if (_currentCityIndex != filterCityIndex) {
+//        [MobClick event:@"event_filter_city"];
+//        _isLoadingMoreNormal = YES;
+//        _didEndScrollNormal = YES;
+//        _enableLoadMoreNormal = NO;
+//        _currentCityIndex = filterCityIndex;
+//        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+//        _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
+//        [self.dataSource removeAllObjects];
+//        [self.tableView reloadData];
+//        _currentPageNormal = 0;
+//        [self loadDataWithPageNo:_currentPageNormal];
+//    }
+//}
 
 #pragma mark - Table view data source
 
@@ -902,6 +867,16 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 15.0;
+}
+
+#pragma mark - SelectDelegate
+- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+    if (_filterType == FILTER_TYPE_CITY) {
+        _cityName = str;
+        [self setupTitleView];
+    } else if (_filterType == FILTER_TYPE_CATE) {
+        self.navigationItem.rightBarButtonItem.title = str;
+    }
 }
 
 @end

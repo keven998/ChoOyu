@@ -1,35 +1,30 @@
 //
-//  UISelectionViewController.m
+//  SelectionTableViewController.m
 //  PeachTravel
 //
 //  Created by Luo Yong on 15/4/3.
 //  Copyright (c) 2015年 com.aizou.www. All rights reserved.
 //
 
-#import "UISelectionViewController.h"
+#import "SelectionTableViewController.h"
 
-@interface UISelectionViewController ()<UITableViewDataSource, UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@interface SelectionTableViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *selectTableView;
 
 @end
 
-@implementation UISelectionViewController
+@implementation SelectionTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor blueColor];
-    
     self.navigationItem.title = _titleTxt;
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
     
-    _tableview.backgroundColor = [UIColor redColor];
-    [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"select_cell"];
-    _tableview.delegate = self;
-    _tableview.dataSource = self;
-    
-    NSLog(@"count = %lu", (unsigned long)_contentItems.count);
+    _selectTableView.backgroundColor = APP_PAGE_COLOR;
+    [_selectTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"select_cell"];
 }
 
 #pragma mark - IBAction
@@ -37,7 +32,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - UITableViewDataSource 
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -58,6 +53,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.delegate != nil) {
+        [self.delegate selectItem:[_contentItems objectAtIndex:indexPath.row] atIndex:indexPath];
+    }
     [self goBack];
 }
 
