@@ -25,6 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIBarButtonItem *navBack = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+    navBack.tintColor = APP_THEME_COLOR;
+    self.navigationItem.leftBarButtonItem = navBack;
+    
     UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirmRegister:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
@@ -66,6 +70,14 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_register"];
+}
+
+- (void)goBack {
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

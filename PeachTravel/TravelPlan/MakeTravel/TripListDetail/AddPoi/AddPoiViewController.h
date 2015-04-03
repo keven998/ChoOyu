@@ -35,3 +35,9 @@
 
 
 @end
+
+@interface SelectDestCell : UICollectionViewCell
+
+@property (nonatomic, strong) UILabel *textView;
+
+@end

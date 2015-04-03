@@ -332,7 +332,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-    NSArray *titles = @[@"Talk", @"旅行", @"我"];
+//    NSArray *titles = @[@"Talk", @"旅行", @"我"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
@@ -570,9 +570,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
         UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginCtl];
-        [self presentViewController:navi animated:YES completion:^{
-            
-        }];
+        [self presentViewController:navi animated:YES completion:nil];
         return NO;
     }
     return YES;

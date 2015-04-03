@@ -88,6 +88,11 @@
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
+    [[TMCache sharedCache] objectForKey:@"last_account" block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            _userNameTextField.text = object;
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -134,7 +139,7 @@
     [self.view endEditing:YES];
     if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
 //        [self showHint:@"不输帐号或密码，是没法登录滴"];
-        [SVProgressHUD showHint:@"我要账号和密码"];
+        [SVProgressHUD showHint:@"请输入账号和密码"];
         return;
     }
     
@@ -174,6 +179,7 @@
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
                     [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
+                    [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }
