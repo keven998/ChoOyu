@@ -85,7 +85,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         if (_canEdit && _tripDetail) {
             _tableView.tableFooterView = self.tableViewFooterView;
         }
-//        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+        //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
     }
     return _tableView;
 }
@@ -166,7 +166,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     [MobClick event:@"event_day_map_view"];
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
-
+    
     NSMutableArray *allPositions = [[NSMutableArray alloc] init];
     for (SuperPoi *poi in _tripDetail.itineraryList[sender.tag]) {
         PositionBean *position = [[PositionBean alloc] init];
@@ -180,9 +180,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
     [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     nCtl.navigationBar.translucent = YES;
-    [self presentViewController:nCtl animated:YES completion:^{
-        
-    }];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (void)updateTableView
@@ -248,7 +246,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     
     UIView *retView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
     retView.backgroundColor = APP_PAGE_COLOR;
-
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 20)];
     view.layer.cornerRadius = 3.0;
     view.backgroundColor = [UIColor whiteColor];
@@ -271,10 +269,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     retView.backgroundColor = APP_PAGE_COLOR;
     [headerView addSubview:retView];
     
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, width, 4)];
-    spaceView.backgroundColor = APP_THEME_COLOR;
-    [headerView addSubview:spaceView];
-    
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, width-80, 30)];
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
@@ -295,8 +289,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
         destinationView.titleColor = TEXT_COLOR_TITLE_HINT;
         destinationView.destinations = distinationArray;
-//        destinationView.tag = section;
-//        destinationView.delegate = self;
+        //        destinationView.tag = section;
+        //        destinationView.delegate = self;
     }
     if ([[_tripDetail.itineraryList objectAtIndex:section] count] <= 0) {
         NSMutableArray *distinationArray = [[NSMutableArray alloc] initWithObjects:@"没有安排", nil];
@@ -305,8 +299,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }
     
     headerTitle.text = headerTitleStr;
-    headerTitle.textColor = APP_THEME_COLOR;
-    headerTitle.font = [UIFont boldSystemFontOfSize:17.0];
+    headerTitle.textColor = TEXT_COLOR_TITLE_HINT;
+    headerTitle.font = [UIFont systemFontOfSize:15.0];
     [headerView addSubview:headerTitle];
     
     if (self.tableView.isEditing) {
@@ -327,16 +321,15 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         [addbtn addSubview:addSpotBtn];
         [headerView addSubview:addbtn];
         
-        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, headerView.frame.size.height)];
-        deleteBtn.tag = section;
-        [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(-8, 2, 36, 21)];
-        [deleteSpotBtn setImage:[UIImage imageNamed:@"ic_delete.png"] forState:UIControlStateNormal];
-        deleteSpotBtn.clipsToBounds = YES;
-        deleteSpotBtn.userInteractionEnabled = NO;
-        [deleteBtn addSubview:deleteSpotBtn];
-        [headerView addSubview:deleteBtn];
+        //        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, headerView.frame.size.height)];
+        //        deleteBtn.tag = section;
+        //        [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
+        //        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(-8, 2, 36, 21)];
+        //        [deleteSpotBtn setImage:[UIImage imageNamed:@"ic_delete.png"] forState:UIControlStateNormal];
+        //        deleteSpotBtn.clipsToBounds = YES;
+        //        deleteSpotBtn.userInteractionEnabled = NO;
+        //        [deleteBtn addSubview:deleteSpotBtn];
+        //        [headerView addSubview:deleteBtn];
     } else {
         UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 0, 64, 65)];
         [mapBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
@@ -368,7 +361,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             spotDetailCtl.spotId = tripPoi.poiId;
             [self.rootViewController addChildViewController:spotDetailCtl];
             [self.rootViewController.view addSubview:spotDetailCtl.view];
-
+            
         }
             break;
             
@@ -416,7 +409,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [MobClick event:@"event_reorder_items"];
     NSMutableArray *fromArray = _tripDetail.itineraryList[sourceIndexPath.section];
     NSMutableArray *toArray = _tripDetail.itineraryList[destinationIndexPath.section];
-
+    
     SuperPoi *poi = [fromArray objectAtIndex:sourceIndexPath.row];
     [fromArray removeObjectAtIndex:sourceIndexPath.row];
     [toArray insertObject:poi atIndex:destinationIndexPath.row];
