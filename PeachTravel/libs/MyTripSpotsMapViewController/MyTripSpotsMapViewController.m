@@ -10,13 +10,16 @@
 #import "PositionBean.h"
 #import <MapKit/MapKit.h>
 
-@interface MyTripSpotsMapViewController () <MKMapViewDelegate>
+@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UILabel *currentDayLabel;
 @property (nonatomic, strong) NSMutableArray *currentAnnotations;
 @property (nonatomic, assign) NSUInteger positionCount;      //记录是第几个
 @property (nonatomic, strong) MKPolyline *line;
+
+@property (nonatomic, strong) UICollectionView *selectPanel;
+
 @end
 
 @implementation MyTripSpotsMapViewController
@@ -35,13 +38,16 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"地图";
-    self.view.backgroundColor = [UIColor whiteColor];
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"第1天" style:UIBarButtonItemStylePlain target:self action:@selector(switchDay)];
+    self.navigationItem.rightBarButtonItem = lbtn;
     
     mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self showMapPin];
+    
+    [self setupSelectPanel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,10 +58,29 @@
     [super viewWillDisappear:animated];
 }
 
+- (void) setupSelectPanel {
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
+    [self.selectPanel setBackgroundColor:[UIColor grayColor]];
+    self.selectPanel.showsHorizontalScrollIndicator = NO;
+    self.selectPanel.showsVerticalScrollIndicator = NO;
+    self.selectPanel.delegate = self;
+    self.selectPanel.dataSource = self;
+    self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    
+    [self.view addSubview:_selectPanel];
+}
+
+#pragma mark - IBAction
+- (void) switchDay {
+    
+}
+
 - (void)goBack
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc
@@ -152,6 +177,33 @@
     MKCoordinateRegion region = MKCoordinateRegionMake(centerPoint,span);
     MKCoordinateRegion adjustedRegion = [mapView regionThatFits:region];
     [mv_bmap setRegion:adjustedRegion animated:YES];
+}
+
+#pragma mark - Collection view
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(60, 49);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 15.0;
 }
 
 #pragma mark - MKMapViewDelegate
