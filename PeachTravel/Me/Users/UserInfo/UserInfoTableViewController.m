@@ -37,6 +37,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) UIView *datePickerView;
+@property (nonatomic, strong) UIDatePicker *datePicker;
 
 @end
 
@@ -114,9 +115,12 @@
 {
     if (!_datePickerView) {
         _datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 220)];
-         UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 180)];
-        datePicker.datePickerMode = UIDatePickerModeDate;
-        [_datePickerView addSubview:datePicker];
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 180)];
+        _datePicker.datePickerMode = UIDatePickerModeDate;
+        _datePicker.maximumDate = [NSDate date];
+        [_datePickerView addSubview:_datePicker];
+        NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.accountDetail.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+        _datePicker.date = birthday;
         _datePickerView.backgroundColor = [UIColor whiteColor];
         
         UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _datePickerView.bounds.size.width, 40)];
@@ -195,7 +199,14 @@
  */
 - (void)confirmDatePick:(id)sender
 {
-    [self hideDatePicker];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+
+    NSString *dataStr = [ConvertMethods dateToString:_datePicker.date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    [self.accountManager asyncChangeBirthday:dataStr completion:^(BOOL isSuccess, NSString *errStr) {
+        [hud hideTZHUD];
+        [self hideDatePicker];
+    }];
 }
 
 /**
@@ -213,7 +224,6 @@
  */
 - (void)uploadPhotoImage:(UIImage *)image
 {
-    AccountManager *accountManager = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -226,7 +236,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
     [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
@@ -424,6 +434,9 @@
                 }
             }
         } else if (indexPath.section == 4) {
+            if (indexPath.row == 1) {
+                cell.cellDetail.text = self.accountManager.accountDetail.birthday;
+            }
             if (indexPath.row == 2) {
                 cell.cellDetail.text = self.accountManager.accountDetail.residence;
             }
