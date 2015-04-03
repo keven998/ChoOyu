@@ -89,10 +89,10 @@
 /**
  *  修改用户居住地信息
  *
- *  @param location   居住地信息
+ *  @param residence   居住地信息
  *  @param completion
  */
-- (void)asyncChangeLocation:(NSString *)location completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+- (void)asyncChangeResidence:(NSString *)residence completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
 /**
  *  修改用户的性别
@@ -101,7 +101,6 @@
  *  @param completion
  */
 - (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
-
 
 /**
  *  判读是不是我的好友

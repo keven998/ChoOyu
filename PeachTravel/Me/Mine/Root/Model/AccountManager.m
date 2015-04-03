@@ -210,6 +210,17 @@
     }
 }
 
+- (void)asyncChangeResidence:(NSString *)residence completion:(void (^)(BOOL, NSString *))completion
+{
+    [self asyncUpdateUserInfoToServer:residence andUserInfoType:ChangeOtherInfo andKeyWord:@"residence" completion:^(BOOL isSuccess, NSString *errStr) {
+        if (isSuccess) {
+            completion(YES, nil);
+        } else {
+            completion(NO, errStr);
+        }
+    }];
+}
+
 /**
  *  异步更新服务的用户信息
  *
@@ -241,12 +252,12 @@
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
             [self updateUserInfo:userInfo withChangeType:userInfoType];
-            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             if (userInfoType == ChangeName) {
                 [[EaseMob sharedInstance].chatManager setApnsNickname:userInfo];
             }
             completion(YES, nil);
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+
         } else {
             completion(NO, [[responseObject objectForKey:@"err"] objectForKey:@"message"]);
         }
@@ -286,11 +297,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-}
-
-- (void)asyncChangeLocation:(NSString *)location completion:(void (^)(BOOL, NSString *))completion
-{
-    
 }
 
 /**

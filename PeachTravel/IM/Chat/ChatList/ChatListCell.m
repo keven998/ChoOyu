@@ -44,7 +44,7 @@
         
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15];
-        _detailLabel.textColor = UIColorFromRGB(0xbbbbbb);
+        _detailLabel.textColor = UIColorFromRGB(0x888888);
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contentView addSubview:_detailLabel];
         
@@ -65,7 +65,7 @@
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
         
         spaceView = [[UIView alloc] init];
-        spaceView.backgroundColor = APP_DIVIDE_COLOR;
+        spaceView.backgroundColor = UIColorFromRGB(0xdddddd);
         [self.contentView addSubview:spaceView];
     }
     return self;
@@ -91,15 +91,15 @@
     
     CGFloat width = self.frame.size.width;
     
-    self.imageView.frame = CGRectMake(10.0, 10, 60, 60);
-    self.imageView.layer.cornerRadius = 10;
+    self.imageView.frame = CGRectMake(10.0, 19, 32, 32);
+    self.imageView.layer.cornerRadius = 8   ;
     self.imageView.layer.masksToBounds = YES;
     
     self.textLabel.text = _name;
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
     self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(85.0, 20.0, width - 80.0-85, 18.0);
+    self.textLabel.frame = CGRectMake(55.0, 17.0, width - 80.0-85, 18.0);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
     
@@ -123,7 +123,7 @@
     
     sendFailedImageView.frame = CGRectMake(85, 48, 12, 12);
     activityView.frame = CGRectMake(85, 51, 13, 12);
-    _detailLabel.frame = CGRectMake(85+offsetX, 45.0, width - 85.0-55, 26);
+    _detailLabel.frame = CGRectMake(55+offsetX, 38.0, width - 85.0-55, 26);
     
     _timeLabel.text = _time;
     
@@ -166,7 +166,7 @@
 
 + (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 70;
 }
 
 @end

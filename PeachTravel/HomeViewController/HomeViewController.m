@@ -308,17 +308,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-    self.tabBar.translucent = YES;
+    self.tabBar.translucent = NO;
     self.delegate = self;
-    self.tabBar.barStyle = UIBarStyleBlack;
-    self.tabBar.selectedImageTintColor = [UIColor whiteColor];
+    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tababr.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5];
+    
+    self.tabBar.selectedImageTintColor = UIColorFromRGB(0x21b67f);
     
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:self.chatListCtl];
     
-    _toolBoxCtl = [[ToolBoxViewController alloc] init];
-    UINavigationController *secondNavigationController = [[UINavigationController alloc]
-                                                         initWithRootViewController:_toolBoxCtl];
+//    _toolBoxCtl = [[ToolBoxViewController alloc] init];
+//    UINavigationController *secondNavigationController = [[UINavigationController alloc]
+//                                                         initWithRootViewController:_toolBoxCtl];
     
     _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
@@ -329,7 +330,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                                          initWithRootViewController:_mineCtl];
 
 
-    [self setViewControllers:@[firstNavigationController, secondNavigationController,
+    [self setViewControllers:@[firstNavigationController,
                                thirdNavigationController, FourthNavigationController]];
     [self customizeTabBarForController];
 }
@@ -337,14 +338,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)customizeTabBarForController
 {
     
-    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_loc", @"ic_person"];
-    NSArray *titles = @[@"Talk", @"工具", @"目的地", @"我"];
+    NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
+    NSArray *titles = @[@"Talk", @"目的地", @"我"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {
-        item.title = titles[index];
+//        item.title = titles[index];
         item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
         item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
+        item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
         index++;
     }
 }
