@@ -10,10 +10,13 @@
 #import "Account.h"
 #import "Contact.h"
 #import "FrendRequest.h"
+#import "AccountModel.h"
 
 @interface AccountManager : NSObject
 
 @property (nonatomic, strong) Account *account;
+
+@property (strong, nonatomic) AccountModel *accountDetail;
 
 + (AccountManager *)shareAccountManager;
 

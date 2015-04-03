@@ -48,6 +48,14 @@
     return _account;
 }
 
+- (AccountModel *)accountDetail
+{
+    if (!_accountDetail) {
+        _accountDetail = [[AccountModel alloc] init];
+    }
+    return _accountDetail;
+}
+
 //用户是否登录
 - (BOOL)isLogin
 {
