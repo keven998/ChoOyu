@@ -167,16 +167,17 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     [MobClick event:@"event_day_map_view"];
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
     
-    NSMutableArray *allPositions = [[NSMutableArray alloc] init];
-    for (SuperPoi *poi in _tripDetail.itineraryList[sender.tag]) {
-        PositionBean *position = [[PositionBean alloc] init];
-        position.latitude = poi.lat;
-        position.longitude = poi.lng;
-        position.poiName = poi.zhName;
-        position.poiId = poi.poiId;
-        [allPositions addObject:position];
-    }
-    ctl.pois = allPositions;
+//    NSMutableArray *allPositions = [[NSMutableArray alloc] init];
+//    for (SuperPoi *poi in _tripDetail.itineraryList[sender.tag]) {
+//        PositionBean *position = [[PositionBean alloc] init];
+//        position.latitude = poi.lat;
+//        position.longitude = poi.lng;
+//        position.poiName = poi.zhName;
+//        position.poiId = poi.poiId;
+//        [allPositions addObject:position];
+//    }
+    ctl.pois = _tripDetail.itineraryList;
+    ctl.currentDay = sender.tag;
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
     [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     nCtl.navigationBar.translucent = YES;

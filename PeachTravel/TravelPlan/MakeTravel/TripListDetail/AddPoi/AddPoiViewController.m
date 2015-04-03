@@ -153,7 +153,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     self.selectPanel.delegate = self;
     self.selectPanel.dataSource = self;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
-    [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"scell"];
+    [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
     
     [self.view addSubview:_selectPanel];
 }
@@ -841,7 +841,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"scell" forIndexPath:indexPath];
+    SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
     
     NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
