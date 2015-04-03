@@ -222,6 +222,7 @@
 {
     [self asyncUpdateUserInfoToServer:residence andUserInfoType:ChangeOtherInfo andKeyWord:@"residence" completion:^(BOOL isSuccess, NSString *errStr) {
         if (isSuccess) {
+            self.accountDetail.residence =  residence;
             completion(YES, nil);
         } else {
             completion(NO, errStr);

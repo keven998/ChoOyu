@@ -423,6 +423,10 @@
                     cell.cellDetail.text = tel;
                 }
             }
+        } else if (indexPath.section == 4) {
+            if (indexPath.row == 2) {
+                cell.cellDetail.text = self.accountManager.accountDetail.residence;
+            }
         }
         
         return cell;
