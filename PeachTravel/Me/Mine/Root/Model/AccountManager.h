@@ -114,6 +114,14 @@
 - (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
 /**
+ *  修改用户的生日
+ *
+ *  @param newGender  新的生日
+ *  @param completion
+ */
+- (void)asyncChangeBirthday:(NSString *)birthday completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+
+/**
  *  判读是不是我的好友
  *
  *  @param userId

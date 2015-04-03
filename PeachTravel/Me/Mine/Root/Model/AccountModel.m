@@ -29,8 +29,21 @@
 
 - (void)updateUserInfo:(id)json
 {
-    _residence = [json objectForKey:@"residence"];
-    _zodiac = [json objectForKey:@"zodiac"];
+    if ([json objectForKey:@"residence"] == [NSNull null]) {
+        _residence = @"";
+    } else {
+        _residence = [json objectForKey:@"residence"];
+    }
+    if ([json objectForKey:@"zodiac"] == [NSNull null]) {
+        _zodiac = @"";
+    } else {
+        _zodiac = [json objectForKey:@"zodiac"];
+    }
+    if ([json objectForKey:@"birthday"] == [NSNull null]) {
+        _birthday = @"";
+    } else {
+        _birthday = [json objectForKey:@"birthday"];
+    }
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion

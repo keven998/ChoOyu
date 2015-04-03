@@ -230,6 +230,19 @@
     }];
 }
 
+- (void)asyncChangeBirthday:(NSString *)birthday completion:(void (^)(BOOL, NSString *))completion
+{
+    [self asyncUpdateUserInfoToServer:birthday andUserInfoType:ChangeOtherInfo andKeyWord:@"birthday" completion:^(BOOL isSuccess, NSString *errStr) {
+    if (isSuccess) {
+        self.accountDetail.birthday =  birthday;
+        completion(YES, nil);
+    } else {
+        completion(NO, errStr);
+    }
+}];
+    
+}
+
 /**
  *  异步更新服务的用户信息
  *
