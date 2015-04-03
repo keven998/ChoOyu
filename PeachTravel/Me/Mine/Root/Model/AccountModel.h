@@ -17,6 +17,8 @@
  */
 @property (nonatomic, strong) Account *basicUserInfo;
 
+- (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion;
+
 /**
  *  用户居住地
  */

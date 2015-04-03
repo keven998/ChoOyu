@@ -10,10 +10,13 @@
 #import "Account.h"
 #import "Contact.h"
 #import "FrendRequest.h"
+#import "AccountModel.h"
 
 @interface AccountManager : NSObject
 
 @property (nonatomic, strong) Account *account;
+
+@property (strong, nonatomic) AccountModel *accountDetail;
 
 + (AccountManager *)shareAccountManager;
 
@@ -71,6 +74,14 @@
  */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
 
+
+/**
+ *  更新用户信息
+ *
+ *  @param changeContent 信息内容
+ */
+- (void)updateUserInfo:(id)userInfo;
+
 /**
  *  修改用户昵称
  *
@@ -93,6 +104,7 @@
  *  @param completion
  */
 - (void)asyncChangeResidence:(NSString *)residence completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+
 
 /**
  *  修改用户的性别

@@ -27,18 +27,42 @@
     return _basicUserInfo;
 }
 
-- (id)initWihtJson:(id)json
+- (id)updateUserInfo:(id)json
 {
-    if (self = [super init]) {
-        _residence = [json objectForKey:@"residence"];
-        _zodiac = [json objectForKey:@"zodiac"];
-    }
+    _residence = [json objectForKey:@"residence"];
+    _zodiac = [json objectForKey:@"zodiac"];
     return self;
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion
 {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, accountManager.account.userId];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [accountManager updateUserInfo:[responseObject objectForKey:@"result"]];
+            [self updateUserInfo:[responseObject objectForKey:@"result"]];
+            completion(YES);
+        } else {
+            completion(NO);
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+    }];
 }
 
 @end

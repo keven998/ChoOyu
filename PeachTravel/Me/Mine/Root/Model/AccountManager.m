@@ -48,6 +48,14 @@
     return _account;
 }
 
+- (AccountModel *)accountDetail
+{
+    if (!_accountDetail) {
+        _accountDetail = [[AccountModel alloc] init];
+    }
+    return _accountDetail;
+}
+
 //用户是否登录
 - (BOOL)isLogin
 {
@@ -300,6 +308,16 @@
 }
 
 /**
+ *  更新用户信息
+ *
+ *  @param changeContent 信息内容
+ */
+- (void)updateUserInfo:(id)userInfo
+{
+    [self loadUserInfo:userInfo];
+}
+
+/**
  *  修改用户信息
  *
  *  @param changeContent 信息内容
@@ -367,7 +385,6 @@
     }
     return NoError;
 }
-
 
 //解析从服务器上下载的用户信息
 - (void)loadUserInfo:(id)json

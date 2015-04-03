@@ -39,7 +39,6 @@
 
 @property (nonatomic) CGPoint initialDraggingPoint;
 
-
 /**
  *  点击目的地显示目的地界面
  */

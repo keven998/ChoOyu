@@ -18,9 +18,8 @@
 #import "JGProgressHUDSuccessIndicatorView.h"
 #import "FootPrintViewController.h"
 #import "CityListTableViewController.h"
-#import "AccountModel.h"
 
-#define userInfoHeaderCell          @"headerCell"
+#define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
@@ -47,6 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadUserInfo];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     self.tableView.dataSource = self;
@@ -55,12 +56,13 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     self.navigationItem.title = @"个人信息";
-    [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:userInfoHeaderCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:accountDetailHeaderCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
     self.tableView.tableFooterView = self.footerView;
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -138,6 +140,15 @@
 }
 
 #pragma mark - Private Methods
+
+- (void)loadUserInfo
+{
+    [self.accountManager.accountDetail loadUserInfoFromServer:^(bool isSuccess) {
+        if (isSuccess) {
+            [self.tableView reloadData];
+        }
+    }];
+}
 
 - (void)presentImagePicker
 {
@@ -268,7 +279,7 @@
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
                    UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
-                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatarSmall] placeholderImage:nil];
+                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:nil];
 
                } option:opt];
 }
@@ -367,10 +378,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:userInfoHeaderCell forIndexPath:indexPath];
+        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
         cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
     } else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
@@ -378,34 +389,34 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = self.accountManager.account.nickName;
+                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.accountManager.account.userId intValue]];
+                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.self.accountManager.accountDetail.basicUserInfo.userId intValue]];
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
-                if ([self.accountManager.account.gender isEqualToString:@"F"]) {
+                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
                 }
-                if ([self.accountManager.account.gender isEqualToString:@"M"]) {
+                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
                     cell.cellDetail.text = @"帅锅";
                 }
-                if ([self.accountManager.account.gender isEqualToString:@"U"]) {
+                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
                     cell.cellDetail.text = @"不告诉你";
                 }
 
             } else if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
-                cell.cellDetail.text = self.accountManager.account.signature;
+                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_password.png"];
             } else if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_bindphone.png"];
-                NSString *tel = self.accountManager.account.tel;
+                NSString *tel = self.self.accountManager.accountDetail.basicUserInfo.tel;
                 if (tel == nil || tel.length < 1) {
                     cell.cellDetail.text = @"未绑定";
                 } else {
@@ -428,11 +439,10 @@
             
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_nick"];
-
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeName;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
-            changeUserInfo.content = self.accountManager.account.nickName;
+            changeUserInfo.content = self.self.accountManager.accountDetail.basicUserInfo.nickName;
             
         } else if (indexPath.row == 2) {
             [self showHint:@"猥琐攻城师不让修改这个～"];
@@ -451,7 +461,7 @@
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeSignature;
             [self.navigationController pushViewController:changeUserInfo animated:YES];
-            changeUserInfo.content = self.accountManager.account.signature;
+            changeUserInfo.content = self.self.accountManager.accountDetail.basicUserInfo.signature;
         }
         
     } else if (indexPath.section == 2) {
