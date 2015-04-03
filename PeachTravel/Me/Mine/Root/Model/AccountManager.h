@@ -105,7 +105,6 @@
  */
 - (void)asyncChangeResidence:(NSString *)residence completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
-
 /**
  *  修改用户的性别
  *
