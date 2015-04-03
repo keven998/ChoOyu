@@ -34,16 +34,16 @@
     _passwordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
-    ul.text = @"手机号:";
+    ul.text = @"手机:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont systemFontOfSize:13.0];
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     _phoneLabel.text = _defaultPhone;
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
-    pl.text = @" 密码:";
+    pl.text = @"密码:";
     pl.textColor = TEXT_COLOR_TITLE;
     pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
@@ -98,7 +98,7 @@
             break;
             
         case PasswordError:
-            [self showHint:@"密码只能是6-16位的数字或字母"];
+            [self showHint:@"密码是6-16位的数字或字母"];
             break;
             
         default:

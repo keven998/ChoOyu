@@ -61,9 +61,13 @@
     contentEditor = suggestion;
     [contentEditor becomeFirstResponder];
     
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消 " style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
     backBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = backBtn;
+    self.navigationItem.leftBarButtonItem = backBtn;
+    
+    UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
+    sendBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = sendBtn;
 }
 
 - (void)goBack

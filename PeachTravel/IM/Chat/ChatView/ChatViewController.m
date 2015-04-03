@@ -136,7 +136,6 @@
         self.peopleInGroup = [self loadContactsFromDB];
     }
 
-    [self setupBarButtonItem];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
@@ -146,10 +145,8 @@
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
     _isScrollToBottom = YES;
-
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+    
+    [self setupBarButtonItem];
 }
 
 - (void)setupBarButtonItem

@@ -22,7 +22,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource           @[@[@"分享绑定", @"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource           @[@[@"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -221,14 +221,10 @@
         if (indexPath.section == 1) {
             switch (indexPath.row) {
                 case 0:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting_share.png"]];
-                    break;
-                    
-                case 1:
                     [cell.flagView setImage:[UIImage imageNamed:@"ic_my_favorite.png"]];
                     break;
                     
-                case 2:
+                case 1:
                     [cell.flagView setImage:[UIImage imageNamed:@"ic_share_to_friend.png"]];
                     break;
                     
@@ -263,10 +259,6 @@
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            AccountManagerViewController *accountManagerCtl = [[AccountManagerViewController alloc] init];
-            accountManagerCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:accountManagerCtl animated:YES];
-        } else if (indexPath.row == 1) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             if (!accountManager.isLogin) {
                 [self performSelector:@selector(userLogin:) withObject:nil afterDelay:0.3];
@@ -276,7 +268,7 @@
                 fvc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:fvc animated:YES];
             }
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             [self shareToWeChat];
         }
         

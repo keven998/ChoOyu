@@ -36,7 +36,7 @@
                         </mask>
                     </variation>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-Hm-jbq">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入有效的手机号" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-Hm-jbq">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -53,26 +53,6 @@
                     <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="f3u-Bt-mgh"/>
-                        </mask>
-                    </variation>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="6-16位数字、字母" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9OL-xb-8q9">
-                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="Dza-sb-xvw"/>
-                    </constraints>
-                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Dza-sb-xvw"/>
-                        </mask>
-                    </variation>
-                    <variation key="widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="Dza-sb-xvw"/>
                         </mask>
                     </variation>
                 </textField>
@@ -122,6 +102,26 @@
                         <action selector="goProtocolWebView:" destination="-1" eventType="touchUpInside" id="kgG-ms-Lbw"/>
                     </connections>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="设置密码" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9OL-xb-8q9">
+                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Dza-sb-xvw"/>
+                    </constraints>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Dza-sb-xvw"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="Dza-sb-xvw"/>
+                        </mask>
+                    </variation>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -159,9 +159,9 @@
                 <mask key="subviews">
                     <exclude reference="ysq-eg-abd"/>
                     <exclude reference="oP0-Hm-jbq"/>
-                    <exclude reference="9OL-xb-8q9"/>
                     <exclude reference="0qg-hh-eSa"/>
                     <exclude reference="TCn-d3-UBR"/>
+                    <exclude reference="9OL-xb-8q9"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="VwJ-sM-vvu"/>
@@ -184,9 +184,9 @@
                 <mask key="subviews">
                     <include reference="ysq-eg-abd"/>
                     <include reference="oP0-Hm-jbq"/>
-                    <include reference="9OL-xb-8q9"/>
                     <include reference="0qg-hh-eSa"/>
                     <include reference="TCn-d3-UBR"/>
+                    <include reference="9OL-xb-8q9"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="VwJ-sM-vvu"/>

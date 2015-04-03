@@ -104,6 +104,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
+            cell.extender.image = nil;
         } else if (indexPath.row == 1) {
             cell.flagView.image = [UIImage imageNamed:@"ic_feedback.png"];
         }
