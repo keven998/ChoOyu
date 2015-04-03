@@ -27,11 +27,10 @@
     return _basicUserInfo;
 }
 
-- (id)updateUserInfo:(id)json
+- (void)updateUserInfo:(id)json
 {
     _residence = [json objectForKey:@"residence"];
     _zodiac = [json objectForKey:@"zodiac"];
-    return self;
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion

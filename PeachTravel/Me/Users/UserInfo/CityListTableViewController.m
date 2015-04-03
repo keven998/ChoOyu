@@ -35,6 +35,19 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)updateUserResidence
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    [accountManager asyncChangeResidence:_locationStr completion:^(BOOL isSuccess, NSString *errStr) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"修改成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -73,7 +86,6 @@
         } else {
             label.text = @"   国内全部城市";
         }
-        
     } else {
         label.text = @"   国内全部城市";
     }
@@ -82,7 +94,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
-    
     if (_needUserLocation) {
         if (indexPath.section == 0) {
             if (_locationStr) {
@@ -118,11 +129,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     if (_needUserLocation) {
         if (indexPath.section == 0) {
             if (_locationStr) {
-                NSLog(@"我选择了%@", _locationStr);
+                [self updateUserResidence];
             } else {
                 [SVProgressHUD showHint:@"定位还木有完成呢。"];
             }
@@ -135,6 +145,8 @@
                 [self.navigationController pushViewController:cityListCtl animated:YES];
             } else {
                 NSLog(@"我选择了%@", [city objectForKey:@"name"]);
+                _locationStr = [city objectForKey:@"name"];
+                [self updateUserResidence];
             }
         }
         
@@ -145,6 +157,8 @@
             cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
             [self.navigationController pushViewController:cityListCtl animated:YES];
         } else {
+            _locationStr = [city objectForKey:@"name"];
+            [self updateUserResidence];
             NSLog(@"我选择了%@", [city objectForKey:@"name"]);
         }
     }
