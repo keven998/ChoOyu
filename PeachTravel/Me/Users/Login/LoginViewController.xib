@@ -13,6 +13,9 @@
                 <outlet property="supportLoginButton" destination="iql-PQ-zND" id="Ji0-VC-heL"/>
                 <outlet property="userNameTextField" destination="ys6-1u-JAa" id="dwg-I5-dc4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="wechatLabel" destination="49V-qH-ArX" id="sbw-1t-GdF"/>
+                <outlet property="wechatLeftView" destination="Wtb-3f-pdh" id="sHb-YQ-Z8D"/>
+                <outlet property="wechatRightView" destination="ySW-Wn-Rtk" id="3ts-YL-EQJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
