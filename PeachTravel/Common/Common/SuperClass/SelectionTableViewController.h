@@ -14,6 +14,8 @@
 @property (nonatomic, assign) id<SelectDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *contentItems;
+@property (nonatomic, strong) NSString *selectItem;
+@property (nonatomic, assign) NSInteger selectItemIndex;
 @property (nonatomic, strong) NSString *titleTxt;
 
 @end

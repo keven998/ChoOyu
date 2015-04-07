@@ -23,6 +23,8 @@
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
     
+    _selectItemIndex = [_contentItems indexOfObject:_selectItem];
+    
     _selectTableView.backgroundColor = APP_PAGE_COLOR;
     [_selectTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"select_cell"];
 }
@@ -44,6 +46,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"select_cell" forIndexPath:indexPath];
     cell.textLabel.text = [_contentItems objectAtIndex:indexPath.row];
+    if (_selectItemIndex == indexPath.row) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     return cell;
 }
 
