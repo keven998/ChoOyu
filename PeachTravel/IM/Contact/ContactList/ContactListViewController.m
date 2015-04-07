@@ -251,7 +251,10 @@
     switch (index) {
         case 0:
         {
+            NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
+            Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
             ChangeRemarkViewController *changeRemarkCtl = [[ChangeRemarkViewController alloc] init];
+            changeRemarkCtl.contact = contact;
             [self.navigationController pushViewController:changeRemarkCtl animated:YES];
             break;
         }
@@ -332,7 +335,13 @@
         cell.delegate = self;
 
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        cell.nickNameLabel.text = contact.nickName;
+        NSString *detailStr;
+        if (![contact.memo isBlankString]) {
+            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
+        } else {
+            detailStr = contact.nickName;
+        }
+        cell.nickNameLabel.text = detailStr;
         [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
 
         return cell;

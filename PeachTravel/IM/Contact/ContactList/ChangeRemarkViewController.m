@@ -37,8 +37,10 @@
 
 - (IBAction)confirmChange:(id)sender
 {
+    [_remarkTextField endEditing:YES];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUD];
+    __weak ChangeRemarkViewController *weakSelf = self;
+    [hud showHUDInView:weakSelf.view];
     AccountManager *accountManager = [AccountManager shareAccountManager];
     [accountManager asyncChangeRemark:_remarkTextField.text withUserId:_contact.userId completion:^(BOOL isSuccess) {
         [hud hideTZHUD];
