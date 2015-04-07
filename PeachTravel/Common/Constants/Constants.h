@@ -132,26 +132,26 @@
 
 #pragma mark - ***********各种枚举信息*************
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, TZPoiType) {
     kSpotPoi = 1,
     kRestaurantPoi,
     kShoppingPoi,
     kHotelPoi,
     kCityPoi,
     kTravelNotePoi
-} TZPoiType;
+};
 
 /***** app的状态，连接中。收取中。。等 *****/
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, IM_CONNECT_STATE) {
     IM_CONNECTING = 1,
     IM_CONNECTED,
     IM_RECEIVING,
     IM_RECEIVED,
     IM_DISCONNECTED
-} IM_CONNECT_STATE;
+};
 
 /***** 登录注册时输入的错误码 *****/
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, UserInfoInputError) {
     PhoneNumberError = 1,           //手机号号输入非法
     PasswordError,                  //密码输入非法
     PresentPasswordError,           //新密码输入非法
@@ -160,14 +160,13 @@ typedef enum : NSUInteger {
     IllegalCharacterError,          //包含非法字符
     InputEmptyError,                //输入字符为空
     NoError
-    
-} UserInfoInputError;
+};
 
 /***** 用户验证验证码时候的原因 *****/
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, VerifyCaptchaType) {
     UserLosePassword = 1,       //忘记密码
     UserBindTel                 //绑定手机号的时候
-} VerifyCaptchaType;
+};
 
 /***** 请求验证码和验证验证码时候向服务器发送的指令类型 *****/
 #define    kUserRegister         @"1"        //用户注册时候进入时天下短信验证码
@@ -177,7 +176,7 @@ typedef enum : NSUInteger {
 /**
  修改个人信息的类型
  */
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, UserInfoChangeType) {
     ChangeName = 1,
     ChangeSignature,
     ChangeTel,
@@ -185,11 +184,10 @@ typedef enum : NSUInteger {
     ChangeAvatar,
     ChangeSmallAvatar,
     ChangeOtherInfo = 100
-} UserInfoChangeType;
+};
 
-
-/***** 桃子旅行自定义消息枚举信息****/
-typedef enum : NSUInteger {
+///***** 桃子旅行自定义消息枚举信息****/
+typedef NS_ENUM(NSUInteger, TZChatType) {
     TZChatNormalText = 0,                  //普通文字信息
     TZChatTypeStrategy = 1,         //我的攻略
     TZChatTypeCity,                 //城市
@@ -200,23 +198,21 @@ typedef enum : NSUInteger {
     TZChatTypeHotel,                //酒店
     
     TZTipsMsg    =  100             //自定义的提示信息， 如：我加入了旅行派群组
-    
-} TZChatType;
+};
 
 /***** 桃子旅行好友请求枚举信息****/
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, TZFrendRequest) {
     TZFrendDefault = 0,      //未处理
     TZFrendAgree,            //同意
     TZFrendReject,          //拒绝
-    
-} TZFrendRequest;
+};
 
 /***** 桃子旅行自定义透传枚举信息 ****/
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, TZCMDChatType) {
     CMDAddContact = 1,
     CMDAgreeAddContact,
     CMDDeleteContact
-} TZCMDChatType;
+};
 
 
 /***** 设备信息 *****/
