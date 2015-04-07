@@ -15,16 +15,11 @@
     _avatarImageView.layer.cornerRadius = 4.0;
     _nickNameLabel.font = [UIFont systemFontOfSize:16.0];
     self.backgroundColor = APP_PAGE_COLOR;
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-}
-
-- (void)layoutSubviews {
-    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 @end

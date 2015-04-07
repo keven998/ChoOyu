@@ -16,12 +16,12 @@
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
 #import "MJNIndexView.h"
-
+#import "ChangeRemarkViewController.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MJNIndexViewDataSource>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MJNIndexViewDataSource, SWTableViewCellDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
@@ -55,7 +55,6 @@
     self.navigationItem.title = @"联系人";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
-    [self.contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
 
     [self.view addSubview:self.contactTableView];
     
@@ -69,7 +68,7 @@
     self.indexView.rangeOfDeflection = 1;
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
     [self.indexView refreshIndexItems];
-    [self.view addSubview:self.indexView];
+//    [self.view addSubview:self.indexView];
     [self.accountManager loadContactsFromServer];
     [self handleEmptyView];
 }
@@ -199,7 +198,7 @@
         _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _contactTableView.showsVerticalScrollIndicator = NO;
-        [_contactTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:requestCell];
+        [_contactTableView registerNib:[UINib nibWithNibName:@"OptionOfFASKTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"friend_ask"];
         [_contactTableView registerNib:[UINib nibWithNibName:@"ContactListTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
         _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
     }
@@ -246,6 +245,20 @@
     [self.navigationController pushViewController:chatCtl animated:YES];
 }
 
+#pragma mark - SWTableViewCellDelegate
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+        {
+            ChangeRemarkViewController *changeRemarkCtl = [[ChangeRemarkViewController alloc] init];
+            [self.navigationController pushViewController:changeRemarkCtl animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 #pragma mark - UITableVeiwDataSource & delegate
 
@@ -315,13 +328,24 @@
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
+        [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
+        cell.delegate = self;
+
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         cell.nickNameLabel.text = contact.nickName;
         [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-        
+
         return cell;
     }
 }
+
+- (NSArray *)rightButtons
+{
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
+    return rightUtilityButtons;
+}
+
 
 #pragma mark - Table view delegate
 

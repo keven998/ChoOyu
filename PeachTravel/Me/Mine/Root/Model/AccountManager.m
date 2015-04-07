@@ -240,7 +240,6 @@
         completion(NO, errStr);
     }
 }];
-    
 }
 
 /**
@@ -418,7 +417,15 @@
     _account.easemobPwd = [json objectForKey:@"easemobPwd"];
 }
 
-//通过环信 id 取得用户的桃子信息
+#pragma mark - **********好友相关操作********
+
+/**
+ *  通过环信 id 取得用户的桃子信息
+ *
+ *  @param easemobUser 环信 id
+ *
+ *  @return
+ */
 - (Contact *)TZContactByEasemobUser:(NSString *)easemobUser
 {
     for (Contact *contact in self.account.contacts) {
@@ -429,6 +436,17 @@
     return nil;
 }
 
+- (Contact *)TZContactByUserId:(NSNumber *)userId
+{
+    for (Contact *contact in self.account.contacts) {
+        if (contact.userId.integerValue == userId.integerValue) {
+            return contact;
+        }
+    }
+    return nil;
+}
+
+
 - (BOOL)isMyFrend:(NSNumber *)userId
 {
     for (Contact *contact in self.account.contacts) {
@@ -437,11 +455,6 @@
         }
     }
     return NO;
-}
-
-- (void)updateContact
-{
-    
 }
 
 //从服务器上获取好友列表
@@ -603,6 +616,53 @@
             [self save];
             break;
         }
+    }
+}
+
+#pragma mark - ********修改用户好友信息
+
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:remark forKey:@"memo"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/memo", API_USERINFO, userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateContactMemo:remark andUserId:userId];
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+    }];
+
+}
+
+/**
+ *  更新好友备注
+ */
+- (void)updateContactMemo:(NSString *)memo andUserId:(NSNumber *)userId
+{
+    Contact *contact = [self TZContactByUserId:userId];
+    if (contact) {
+        contact.memo = memo;
+        NSError *error;
+        [self.context save:&error];
     }
 }
 

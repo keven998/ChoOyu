@@ -121,6 +121,11 @@
  */
 - (void)asyncChangeBirthday:(NSString *)birthday completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
+
+#pragma mark - 修改用户的好友信息
+
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL isSuccess))completion;
+
 /**
  *  判读是不是我的好友
  *

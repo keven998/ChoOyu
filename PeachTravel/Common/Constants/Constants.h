@@ -129,7 +129,6 @@
 #define updateGuideListNoti                     @"updateFavoriteListView"    //更新我的攻略列表
 
 
-
 #pragma mark - ***********各种枚举信息*************
 
 typedef NS_ENUM(NSUInteger, TZPoiType) {
