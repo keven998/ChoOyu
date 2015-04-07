@@ -7,7 +7,6 @@
 //
 
 #import "RestaurantsListViewController.h"
-#import "DKCircleButton.h"
 #import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
 #import "CityDestinationPoi.h"
