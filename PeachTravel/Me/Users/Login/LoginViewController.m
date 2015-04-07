@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *losePassworkBtn;
 @property (weak, nonatomic) IBOutlet UIButton *supportLoginButton;
+@property (weak, nonatomic) IBOutlet UILabel *wechatLabel;
+@property (weak, nonatomic) IBOutlet UIView *wechatLeftView;
+@property (weak, nonatomic) IBOutlet UIView *wechatRightView;
 
 @end
 
@@ -40,15 +43,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
     if (!self.isPushed) {
-//        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl)];
-//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//        self.navigationItem.leftBarButtonItem = backBtn;
-        
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(0, 0, 48, 30)];
-        //[button setTitle:@"返回" forState:UIControlStateNormal];
         [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
         [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
         button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
@@ -87,7 +85,6 @@
     UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册 " style:UIBarButtonItemStyleBordered target:self action:@selector(userRegister:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -95,6 +92,18 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
+    
+    if (![WXApi isWXAppInstalled]) {
+        _wechatLabel.hidden = YES;
+        _supportLoginButton.hidden = YES;
+        _wechatRightView.hidden = YES;
+        _wechatLeftView.hidden = YES;
+    } else {
+        _wechatLabel.hidden = NO;
+        _wechatRightView.hidden = NO;
+        _wechatLeftView.hidden = NO;
+        _supportLoginButton.hidden = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
