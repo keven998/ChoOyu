@@ -90,6 +90,7 @@
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = array;
     ctl.delegate = self;
+    ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }

@@ -172,6 +172,7 @@
     ctl.contentItems = _urlTitleArray;
     ctl.delegate = self;
     ctl.titleTxt = @"筛选";
+    ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
