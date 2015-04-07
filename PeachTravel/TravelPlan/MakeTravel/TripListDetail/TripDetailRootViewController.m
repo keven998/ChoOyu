@@ -24,6 +24,7 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
+#import "PXAlertView+Customization.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
 
@@ -96,18 +97,37 @@
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否需要为你创建行程模版" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"需要", nil];
-        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 0) {
-                [self loadNewTripDataWithRecommendData:NO];
-                [MobClick event:@"event_unuse_template"];
-            }
-            
-            if (buttonIndex == 1) {
-                [self loadNewTripDataWithRecommendData:YES];
-                [MobClick event:@"event_use_template"];
-            }
-        }];
+        PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
+                                                         message:@"点击\"创建\"桃子旅行将为你创建行程模版"
+                                                     cancelTitle:@"创建"
+                                                     otherTitles:@[ @"不创建"]
+                                                      completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                          if (buttonIndex == 0) {
+                                                              [self loadNewTripDataWithRecommendData:YES];
+                                                              [MobClick event:@"event_use_template"];
+                                                          } else if (buttonIndex == 1) {
+                                                              [self loadNewTripDataWithRecommendData:NO];
+                                                              [MobClick event:@"event_unuse_template"];
+                                                          }
+                                                      }];
+        [alertView useDefaultIOS7Style];
+        [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+        [alertView setOtherButtonTextColor:TEXT_COLOR_TITLE_SUBTITLE];
+        [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
+        [alertView setTapToDismissEnabled:NO];
+        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"点击创建桃子将为你创建行程模版" delegate:self cancelButtonTitle:@"不创建" otherButtonTitles:@"创建", nil];
+//        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+//            if (buttonIndex == 0) {
+//                [self loadNewTripDataWithRecommendData:NO];
+//                [MobClick event:@"event_unuse_template"];
+//            }
+//            
+//            if (buttonIndex == 1) {
+//                [self loadNewTripDataWithRecommendData:YES];
+//                [MobClick event:@"event_use_template"];
+//            }
+//        }];
     } else {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -182,7 +202,7 @@
     
 }
 - (void) hint {
-    [SVProgressHUD showHint:@"已保存到我的旅程，可自由定制"];
+    [SVProgressHUD showHint:@"已保存到旅程计划"];
 }
 
 - (void)dealloc

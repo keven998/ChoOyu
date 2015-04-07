@@ -22,7 +22,6 @@
 #import "TZConversation.h"
 #import "ContactListViewController.h"
 #import "AddContactTableViewController.h"
-#import "PXAlertView.h"
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"

@@ -16,6 +16,7 @@
 #import "Destinations.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
+#import "PXAlertView+Customization.h"
 
 #define PAGE_COUNT 10
 
@@ -57,9 +58,9 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我的旅程";
+    self.navigationItem.title = @"旅程计划";
     
-    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已走完" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已旅行" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
     self.navigationItem.rightBarButtonItem = rbtn;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
@@ -637,8 +638,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
+//    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
+//    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"置顶"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"更多"];
     
     return rightUtilityButtons;
 }
@@ -685,13 +688,34 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         case 1:
         {
-            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            [self deleteGuide:cellIndexPath];
+//            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+//            [self deleteGuide:cellIndexPath];
+            [self setupMoreMenu];
             break;
         }
         default:
             break;
     }
+}
+
+- (void) setupMoreMenu {
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                                     message:@"更多"
+                                                 cancelTitle:@"删除计划!"
+                                                 otherTitles:@[ @"修改标题", @"标记\"已旅行\""]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      if (buttonIndex == 0) {
+                                                          
+                                                      } else if (buttonIndex == 1) {
+                                                          
+                                                      } else if (buttonIndex == 2) {
+                                                          
+                                                      }
+                                                  }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
+    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 
 #pragma mark - UIScrollViewDelegate
