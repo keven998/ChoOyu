@@ -18,11 +18,13 @@
 #import "CommonPoiDetailViewController.h"
 #import "SearchDestinationViewController.h"
 #import "PoiDetailViewControllerFactory.h"
+#import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
 
 @interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
-@property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
@@ -44,11 +46,11 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     titleLabel.text = @"目的地";
     self.navigationItem.titleView = titleLabel;
     
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_white.png"] forState:UIControlStateNormal];
-    [_searchBtn addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
-    _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
+    makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
+    makePlanBtn.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = makePlanBtn;
+
     
     [self.view addSubview:self.collectionView];
 
@@ -98,14 +100,26 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark - IBAction
 
-- (IBAction)goSearch:(UIButton *)sender {
-    [MobClick event:@"event_go_search"];
-    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-    searchCtl.titleStr = @"搜索";
-    searchCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:searchCtl animated:YES];
+- (IBAction)makePlan:(UIButton *)sender {
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    makePlanCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
-
 
 #pragma mark - setter & getter
 
