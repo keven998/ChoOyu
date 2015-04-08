@@ -120,7 +120,9 @@
         _datePicker.maximumDate = [NSDate date];
         [_datePickerView addSubview:_datePicker];
         NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.accountDetail.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
-        _datePicker.date = birthday;
+        if (birthday) {
+            _datePicker.date = birthday;
+        }
         _datePickerView.backgroundColor = [UIColor whiteColor];
         
         UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _datePickerView.bounds.size.width, 40)];
