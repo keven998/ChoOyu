@@ -69,7 +69,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     self.navigationController.navigationBar.translucent = YES;
     [self setNeedsStatusBarAppearanceUpdate];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -79,8 +78,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     _isShowing = NO;
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

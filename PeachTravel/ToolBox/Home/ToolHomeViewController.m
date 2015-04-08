@@ -39,7 +39,6 @@
     [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
     _searchBar.placeholder = @"城市、景点、酒店、美食、游记";
     self.tableView.tableHeaderView = _searchBar;
-    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
     tapGesture.numberOfTapsRequired = 1;
     tapGesture.delegate = self;
