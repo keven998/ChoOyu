@@ -34,7 +34,7 @@ const CGFloat kAnimationSpeed = 0.20;
 - (id)initWithStrings:(NSArray *)strings normatlImages:(NSArray *)noremalImages highLightedImages:(NSArray *)highLightedImages containerView:(UIView *)contrainerView
 {
     self = [super initWithFrame:CGRectMake(0,
-                                           64.0,
+                                           0,
                                            contrainerView.frame.size.width,
                                            kFilterViewHeight)];
     if (self) {

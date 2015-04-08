@@ -99,6 +99,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tool_cell" forIndexPath:indexPath];
+    cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+    cell.textLabel.textColor = TEXT_COLOR_TITLE;
     if (indexPath.section == 0) {
         cell.textLabel.text = @"达人指路";
         cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
@@ -125,8 +127,9 @@
         [self.navigationController pushViewController:ttvc animated:YES];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [self myTravelNote];
+            [self myTravelPlans];
         } else {
+            [MobClick event:@"event_locality"];
             LocalViewController *lvc = [[LocalViewController alloc] init];
             lvc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:lvc animated:YES];
@@ -145,7 +148,7 @@
  *
  *  @param sender
  */
-- (IBAction)myTravelNote {
+- (IBAction)myTravelPlans {
     [MobClick event:@"event_my_trip_plans"];
     
     AccountManager *accountManager = [AccountManager shareAccountManager];

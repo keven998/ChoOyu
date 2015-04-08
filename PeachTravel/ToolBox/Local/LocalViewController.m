@@ -64,13 +64,14 @@
     [super viewDidLoad];
 //    self.navigationItem.title = @"我身边";
     self.view.backgroundColor = APP_PAGE_COLOR;
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"我身边";
-    self.navigationItem.titleView = titleLabel;
+    self.navigationItem.title = @"身边";
+//    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
+//    titleLabel.backgroundColor = [UIColor clearColor];
+//    titleLabel.font = [UIFont boldSystemFontOfSize:18];
+//    titleLabel.textColor = [UIColor whiteColor];
+//    titleLabel.textAlignment = NSTextAlignmentCenter;
+//    titleLabel.text = @"我身边";
+//    self.navigationItem.titleView = titleLabel;
     
     _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES normatlImages:LOCAL_PAGE_NORMALIMAGES highLightedImages:LOCAL_PAGE_HIGHLIGHTEDIMAGES containerView:self.view];
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -82,7 +83,7 @@
     _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
     _filterView.selectedItemBackgroundColor = [UIColor clearColor];
 
-    _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0 - CGRectGetHeight(_filterView.frame))];
+    _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - CGRectGetHeight(_filterView.frame))];
     _swipeView.dataSource = self;
     _swipeView.delegate = self;
     _swipeView.bounces = NO;
@@ -91,7 +92,7 @@
     _swipeView.itemsPerPage = 1;
     [self.view addSubview:_swipeView];
     
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, 64.0 + CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), 0.6)];
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), 0.6)];
     divider.backgroundColor = APP_DIVIDER_COLOR;
     divider.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
     divider.layer.shadowOffset = CGSizeMake(0.0, 0.5);
@@ -99,9 +100,9 @@
     divider.layer.shadowOpacity = 1.0;
     [self.view addSubview:divider];
     
-    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 30.0, CGRectGetWidth(self.view.bounds), 30.0)];
+    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 94, CGRectGetWidth(self.view.bounds), 30.0)];
     fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.67];
-    fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:fbar];
     
     _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 30.0)];
@@ -122,19 +123,19 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_locality"];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
-    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
-    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back_white.png"] forState:UIControlStateNormal];
+//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+//    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+//    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back_white.png"] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_locality"];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
-    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+//    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+//    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
 }
 
 - (void)goBack

@@ -37,14 +37,15 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
+    self.navigationItem.title = @"目的地";
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"目的地";
-    self.navigationItem.titleView = titleLabel;
+//    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
+//    titleLabel.backgroundColor = [UIColor clearColor];
+//    titleLabel.font = [UIFont boldSystemFontOfSize:18];
+//    titleLabel.textColor = [UIColor whiteColor];
+//    titleLabel.textAlignment = NSTextAlignmentCenter;
+//    titleLabel.text = @"目的地";
+//    self.navigationItem.titleView = titleLabel;
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
@@ -67,10 +68,10 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     _isShowing = YES;
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
    
-    [self.navigationController.navigationBar setBackgroundImage:nil  forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
-    self.navigationController.navigationBar.translucent = YES;
-    [self setNeedsStatusBarAppearanceUpdate];
+//    [self.navigationController.navigationBar setBackgroundImage:nil  forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
+//    self.navigationController.navigationBar.translucent = YES;
+//    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -79,7 +80,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [MobClick endLogPageView:@"page_home_destination"];
     _isShowing = NO;
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
