@@ -7,7 +7,7 @@
 //
 
 #import "HomeViewController.h"
-#import "ToolBoxViewController.h"
+#import "ToolHomeViewController.h"
 #import "MineTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PageOne.h"
@@ -35,7 +35,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
-@property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
+@property (nonatomic, strong) ToolHomeViewController *toolBoxCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 
@@ -314,7 +314,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:self.chatListCtl];
     
-    _toolBoxCtl = [[ToolBoxViewController alloc] init];
+    _toolBoxCtl = [[ToolHomeViewController alloc] init];
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
