@@ -47,10 +47,12 @@
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.text = @"我";
-    self.navigationItem.titleView = titleLabel;
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-50)];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
@@ -58,8 +60,10 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = APP_PAGE_COLOR;
+//    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+    
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
@@ -73,9 +77,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
     
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
-    self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController setNavigationBarHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
@@ -84,7 +86,7 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController setNavigationBarHidden:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
@@ -172,10 +174,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0.0;
+    if (section == 2) {
+        return 10.0;
     }
-    return 20.0;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -194,9 +196,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 114.0;
+        return 184.0;
     } else {
-        return 47.0;
+        return 44.0;
     }
 }
 
@@ -206,13 +208,13 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-            cell.userId.text = [NSString stringWithFormat:@"ID:%d", [accountManager.account.userId intValue]];
+            cell.userId.text = [NSString stringWithFormat:@"桃子号 %d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"no签名";
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory_white.png"]];
             if ([accountManager.account.gender isEqualToString:@"M"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
-            }
-            if ([accountManager.account.gender isEqualToString:@"F"]) {
+            } else if ([accountManager.account.gender isEqualToString:@"F"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
             } else if ([accountManager.account.gender isEqualToString:@"U"]) {
                 cell.userGender.image = nil;

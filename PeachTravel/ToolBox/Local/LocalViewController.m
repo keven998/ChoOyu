@@ -126,7 +126,6 @@
     [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
     UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back_white.png"] forState:UIControlStateNormal];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -136,7 +135,6 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 - (void)goBack

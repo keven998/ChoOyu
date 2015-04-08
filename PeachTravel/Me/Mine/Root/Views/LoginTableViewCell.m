@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     _userName.font = [UIFont systemFontOfSize:15.0];
     _userSign.font = [UIFont systemFontOfSize:12.0];
-    _userPhoto.layer.cornerRadius = 31.0;
+    _userPhoto.layer.cornerRadius = 15.0;
     _userPhoto.clipsToBounds = YES;
     _userGender.layer.cornerRadius = 8.5;
     
