@@ -13,7 +13,7 @@
 #import "LoginViewController.h"
 #import "TravelersTableViewController.h"
 
-@interface ToolHomeViewController ()<UISearchBarDelegate>
+@interface ToolHomeViewController ()<UISearchBarDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 
@@ -40,7 +40,27 @@
     _searchBar.placeholder = @"城市、景点、酒店、美食、游记";
     self.tableView.tableHeaderView = _searchBar;
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.delegate = self;
+    tapGesture.numberOfTouchesRequired = 1;
+    [self.view addGestureRecognizer:tapGesture];
 }
+
+- (IBAction)hideKeyboard:(id)sender
+{
+    [self.view endEditing:YES];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (_searchBar.isFirstResponder) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark - ScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
@@ -166,14 +186,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
