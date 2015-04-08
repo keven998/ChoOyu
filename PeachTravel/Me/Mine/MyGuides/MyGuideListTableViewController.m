@@ -470,7 +470,6 @@ static NSString *reusableCell = @"myGuidesCell";
             [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
         } else {
             _enableLoadMore = NO;
-            [self showHint:@"已取完所有内容啦"];
         }
         [self.tableView reloadData];
         return;
@@ -701,7 +700,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void) setupMoreMenu {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:@"更多"
-                                                 cancelTitle:@"删除计划!"
+                                                 cancelTitle:@"删除计划"
                                                  otherTitles:@[ @"修改标题", @"标记\"已旅行\""]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 0) {

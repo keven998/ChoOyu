@@ -27,11 +27,11 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行";
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+//    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.separatorColor = APP_PAGE_COLOR;
+    self.tableView.separatorColor = APP_BORDER_COLOR;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
@@ -66,17 +66,17 @@
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = APP_PAGE_COLOR;
-    return view;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    UIView *view = [[UIView alloc] init];
+//    view.backgroundColor = APP_PAGE_COLOR;
+//    return view;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return 0;
     }
-    return 10;
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
