@@ -29,8 +29,6 @@
     
 //    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
     self.tableView.separatorColor = APP_BORDER_COLOR;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
     

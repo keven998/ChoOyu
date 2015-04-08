@@ -284,7 +284,7 @@
         
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            SettingTableViewController *settingCtl = [[SettingTableViewController alloc] init];
+            SettingTableViewController *settingCtl = [[SettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
             settingCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingCtl animated:YES];
         } else if (indexPath.row == 1) {
