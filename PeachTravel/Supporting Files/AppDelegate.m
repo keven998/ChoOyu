@@ -31,6 +31,12 @@
     
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0]}];
     
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     _homeViewController = [[HomeViewController alloc] init];

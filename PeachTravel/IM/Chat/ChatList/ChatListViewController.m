@@ -85,12 +85,6 @@
     [self refreshDataSource];
     [self registerNotifications];
     [self updateNavigationTitleViewStatus];
-    
-//    self.navigationController.navigationBar.translucent = YES;
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
 }
 
 -(void)viewWillDisappear:(BOOL)animated

@@ -57,6 +57,8 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorColor = APP_BORDER_COLOR;
+    self.tableView.contentInset = UIEdgeInsetsMake(-2.0, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
@@ -172,7 +174,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01;
+    return CGFLOAT_MIN;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
