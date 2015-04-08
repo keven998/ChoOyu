@@ -12,6 +12,7 @@
 #import "LocalViewController.h"
 #import "LoginViewController.h"
 #import "TravelersTableViewController.h"
+#import "SearchDestinationViewController.h"
 
 @interface ToolHomeViewController ()<UISearchBarDelegate, UIGestureRecognizerDelegate>
 
@@ -39,24 +40,11 @@
     [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
     _searchBar.placeholder = @"城市、景点、酒店、美食、游记";
     self.tableView.tableHeaderView = _searchBar;
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
-    tapGesture.numberOfTapsRequired = 1;
-    tapGesture.delegate = self;
-    tapGesture.numberOfTouchesRequired = 1;
-    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (IBAction)hideKeyboard:(id)sender
 {
     [self.view endEditing:YES];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (_searchBar.isFirstResponder) {
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 #pragma mark - ScrollViewDelegate
@@ -68,6 +56,12 @@
 #pragma mark - UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    [self.navigationController pushViewController:searchCtl animated:YES];
+    return NO;
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
