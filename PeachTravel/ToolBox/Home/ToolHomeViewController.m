@@ -58,6 +58,8 @@
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    searchCtl.hidesBottomBarWhenPushed = YES;
+    searchCtl.titleStr = @"旅行搜搜";
     [self.navigationController pushViewController:searchCtl animated:YES];
     return NO;
 }

@@ -47,6 +47,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.navigationController.navigationBarHidden) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
+        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"个人信息"];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+        [self.view addSubview:bar];
+    } else {
+        self.navigationItem.title = @"个人信息";
+    }
+    
     [self loadUserInfo];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -56,7 +69,6 @@
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
-    self.navigationItem.title = @"个人信息";
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:accountDetailHeaderCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
     self.tableView.tableFooterView = self.footerView;

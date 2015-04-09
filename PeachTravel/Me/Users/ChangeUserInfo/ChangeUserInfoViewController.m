@@ -22,10 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_changeType == ChangeName) {
-        self.navigationItem.title = @"修改昵称";
-    }
-    if (_changeType == ChangeSignature) {
-        self.navigationItem.title = @"旅行签名";
+        self.customNavigationItem.title = @"修改昵称";
+    } else if (_changeType == ChangeSignature) {
+        self.customNavigationItem.title = @"旅行签名";
     }
     
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
@@ -39,7 +38,6 @@
     _contentTextField.font = [UIFont systemFontOfSize:14.0];
     _contentTextField.text = _content;
     
-
     UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;

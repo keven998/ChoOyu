@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UITableView *tableView;
-
 @property (nonatomic, strong) UISearchBar *searchBar;
 
 //@property (nonatomic, strong) UITapGestureRecognizer *tap;
@@ -38,11 +37,12 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = _titleStr;
-    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kWindowWidth, 40)];
+    self.customNavigationItem.title = _titleStr;
+    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 40)];
+    _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"城市、景点、美食购物酒店等"];
@@ -73,7 +73,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64+41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
 
@@ -83,7 +83,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         _tableView.dataSource = self;
         _tableView.delegate = self;
 
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 101)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.bounds.size.width, 41)];
         footerView.backgroundColor = APP_PAGE_COLOR;
         _tableView.tableFooterView = footerView;
     }

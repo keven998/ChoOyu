@@ -8,10 +8,12 @@
 
 #import "CityListTableViewController.h"
 
-@interface CityListTableViewController () <CLLocationManagerDelegate> {
+@interface CityListTableViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate> {
     CLLocationManager *_locationManager;
     NSString *_locationStr;
 }
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -19,7 +21,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    CGFloat offsetY = 0;
+    if (self.navigationController.navigationBarHidden) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
+        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"选择现住地"];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+        [self.view addSubview:bar];
+        offsetY = 64;
+    } else {
+        self.navigationItem.title = @"选择现住地";
+    }
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0) style:UITableViewStyleGrouped];
+    self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorColor = APP_BORDER_COLOR;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cityCell"];
+    
     if (_needUserLocation) {
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
@@ -28,7 +52,6 @@
         }
         [_locationManager startUpdatingLocation];
     }
-    self.navigationItem.title = @"选择居住地";
 }
 
 - (void)didReceiveMemoryWarning {

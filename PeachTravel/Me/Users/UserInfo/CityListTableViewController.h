@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CityListTableViewController : UITableViewController
+@interface CityListTableViewController : UIViewController
 
 @property (nonatomic, strong) NSArray *cityDataSource;
 
