@@ -236,7 +236,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define APP_PAGE_COLOR                  UIColorFromRGB(0xf4f4f4)
+#define APP_PAGE_COLOR                  UIColorFromRGB(0xf1f1f1)
 #define APP_THEME_COLOR                 UIColorFromRGB(0x1cc091)
 #define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xad0618)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
