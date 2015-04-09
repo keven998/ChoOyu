@@ -54,9 +54,9 @@
 }
 
 #pragma mark - UITableViewDelegate
-//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 20;
-//}
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 18;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.0;

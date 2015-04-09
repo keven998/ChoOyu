@@ -15,7 +15,6 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "SRRefreshView.h"
 #import "DXChatBarMoreView.h"
 #import "DXRecordView.h"
 #import "DXFaceView.h"
@@ -58,7 +57,7 @@
 
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -80,9 +79,11 @@
 @property (strong, nonatomic) NSMutableArray *chattingPeople;
 
 @property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是桃子用户的信息。
-@property (strong, nonatomic) SRRefreshView *slimeView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
+
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIActivityIndicatorView *headerLoading;
 
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
 
@@ -93,6 +94,8 @@
 @property (nonatomic) BOOL isScrollToBottom;
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic, strong) AccountManager *accountManager;
+
+@property (nonatomic, assign) BOOL didEndScroll;
 
 @end
 
@@ -105,6 +108,8 @@
         _isPlayingAudio = NO;
         _chatter = chatter;
         _isChatGroup = isGroup;
+        
+        _didEndScroll = YES;
         
         //根据接收者的username获取当前会话的管理者
         _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:chatter isGroup:_isChatGroup];
@@ -137,8 +142,9 @@
     }
 
     [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
+    
+    self.tableView.tableHeaderView = self.headerView;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
@@ -149,20 +155,37 @@
     [self setupBarButtonItem];
 }
 
+- (UIView *)headerView {
+    if (!_headerView) {
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        UIActivityIndicatorView *indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+        [_headerView addSubview:indicatroView];
+        _headerLoading = indicatroView;
+    }
+    return _headerView;
+}
+
 - (void)setupBarButtonItem
 {
-//    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-//    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-//    [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
-//    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
-    
-    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.0)];
-    UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
-    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
-    navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    [bar pushNavigationItem:navTitle animated:YES];
-    [self.view addSubview:bar];
+//    if (self.navigationController.navigationBarHidden) {
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.0)];
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
+        navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        [self.view addSubview:bar];
+//    } else {
+//        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+//        [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//        [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+//        [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+//        self.navigationItem.title = self.chatterNickName;
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -193,9 +216,6 @@
     _tableView.delegate = nil;
     _tableView.dataSource = nil;
     _tableView = nil;
-    
-    _slimeView.delegate = nil;
-    _slimeView = nil;
     
     _chatToolBar.delegate = nil;
     _chatToolBar = nil;
@@ -457,27 +477,10 @@
     return _chattingPeople;
 }
 
-- (SRRefreshView *)slimeView
-{
-    if (_slimeView == nil) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    
-    return _slimeView;
-}
-
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height - 64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - self.chatToolBar.frame.size.height - 44) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -611,8 +614,7 @@
     NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
-    }
-    else{
+    } else {
         if ([[((MessageModel *)obj).taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
             return 40;
         } else {
@@ -625,24 +627,17 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (_slimeView) {
-        [_slimeView scrollViewDidScroll];
+    if (_didEndScroll) {
+        if (scrollView.contentOffset.y < 40) {
+            _didEndScroll = NO;
+            [self loadMoreMessages];
+        }
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (_slimeView) {
-        [_slimeView scrollViewDidEndDraging];
-    }
-}
-
-#pragma mark - slimeRefresh delegate
-//加载更多
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self loadMoreMessages];
-    [_slimeView endRefresh];
+   _didEndScroll = YES;
 }
 
 #pragma mark - GestureRecognizer
@@ -1387,6 +1382,9 @@
 
 - (void)loadMoreMessages
 {
+    if (_headerLoading == nil || [_headerLoading isAnimating]) {
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSLog(@"******开始加载聊天记录0");
@@ -1395,23 +1393,27 @@
         NSTimeInterval beforeTime = 0;
         if (latestMessage) {
             beforeTime = latestMessage.timestamp + 1;
-        }else{
+        } else {
             beforeTime = [[NSDate date] timeIntervalSince1970] * 1000 + 1;
         }
         
+        [_headerLoading startAnimating];
         NSArray *chats = [weakSelf.conversation loadNumbersOfMessages:(currentCount + KPageCount) before:beforeTime];
-        NSLog(@"******开始加载聊天记录1");
-
         if ([chats count] > currentCount) {
             weakSelf.dataSource.array = [weakSelf sortChatSource:chats];
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"******结束加载聊天记录");
-
+                [_headerLoading stopAnimating];
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             });
         } else {
             NSLog(@"******不需要加载聊天记录");
+            [_headerLoading stopAnimating];
+            [_headerView removeFromSuperview];
+            _headerView = nil;
+            _headerLoading = nil;
+            _tableView.tableHeaderView = nil;
         }
     });
 }

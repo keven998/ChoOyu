@@ -172,7 +172,7 @@
 - (UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
-        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _footerView.backgroundColor = APP_PAGE_COLOR;
         
         _indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
@@ -582,9 +582,7 @@
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

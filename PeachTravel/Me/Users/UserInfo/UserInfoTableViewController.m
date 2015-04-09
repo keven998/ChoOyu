@@ -18,19 +18,19 @@
 #import "JGProgressHUDSuccessIndicatorView.h"
 #import "FootPrintViewController.h"
 #import "CityListTableViewController.h"
+#import "SelectionTableViewController.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
 
-@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
 
 @property (nonatomic, strong) UIActionSheet *avatarAS;
-@property (nonatomic, strong) UIActionSheet *genderAS;
 
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
@@ -470,7 +470,7 @@
             [MobClick event:@"event_update_nick"];
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeName;
-            changeUserInfo.navTitle = @"修改昵称";
+            changeUserInfo.navTitle = @"修改名字";
             UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:changeUserInfo];
             [self presentViewController:navc animated:YES completion:^ {
                 changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.nickName;
@@ -482,10 +482,13 @@
     } else if (indexPath.section ==  1) {
         if (indexPath.row == 0) {
             [MobClick event:@"event_update_gender"];
-
-            _genderAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"美女", @"帅锅", @"不告诉你", nil];
-            [_genderAS showInView:self.view];
-            
+            SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
+            ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
+            ctl.titleTxt = @"我是";
+            ctl.delegate = self;
+            ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+            [self presentViewController:nav animated:YES completion:nil];
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_memo"];
             
@@ -536,6 +539,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - SelectDelegate
+
+- (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+    
+}
+
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -549,29 +558,29 @@
         } else {
             return;
         }
-        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+        UIImagePickerController * picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;
         [self presentViewController:picker animated:YES completion:nil];
-        
-    } else if (actionSheet == _genderAS) {          //相应切换性别的
-        NSString *gender;
-        if (buttonIndex == 0) {
-            gender = @"F";
-        }
-        if (buttonIndex == 1) {
-            gender = @"M";
-        }
-        if (buttonIndex == 2) {
-            gender = @"U";
-        }
-        if (buttonIndex == 3) {   //点击取消
-            return;
-        }
-
-        [self updateUserGender:gender];
     }
+//    else if (actionSheet == _genderAS) {          //相应切换性别的
+//        NSString *gender;
+//        if (buttonIndex == 0) {
+//            gender = @"F";
+//        }
+//        if (buttonIndex == 1) {
+//            gender = @"M";
+//        }
+//        if (buttonIndex == 2) {
+//            gender = @"U";
+//        }
+//        if (buttonIndex == 3) {   //点击取消
+//            return;
+//        }
+//
+//        [self updateUserGender:gender];
+//    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
