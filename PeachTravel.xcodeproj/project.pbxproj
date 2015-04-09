@@ -20,6 +20,7 @@
 		C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */; };
 		C65DB7BC1AD4CD9800F51443 /* ToolHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BB1AD4CD9800F51443 /* ToolHomeViewController.m */; };
 		C65DB7C01AD4E44800F51443 /* TravelersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */; };
+		C65DB7C61AD644E000F51443 /* SettingHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7C51AD644E000F51443 /* SettingHomeViewController.m */; };
 		C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3021ACD64E3007680D9 /* RECommonFunctions.m */; };
 		C679D30E1ACD64E3007680D9 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3041ACD64E3007680D9 /* REFrostedContainerViewController.m */; };
 		C679D30F1ACD64E3007680D9 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3061ACD64E3007680D9 /* REFrostedViewController.m */; };
@@ -608,8 +609,6 @@
 		D9A8FED61A80C818005AD701 /* UnLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEC41A80C818005AD701 /* UnLoginTableViewCell.xib */; };
 		D9A8FEDA1A80C8A4005AD701 /* PushMsgsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FED81A80C8A4005AD701 /* PushMsgsViewController.m */; };
 		D9A8FEDB1A80C8A4005AD701 /* PushMsgsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FED91A80C8A4005AD701 /* PushMsgsViewController.xib */; };
-		D9A8FEDF1A80C97C005AD701 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEDD1A80C97C005AD701 /* SettingTableViewController.m */; };
-		D9A8FEE01A80C97C005AD701 /* SettingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEDE1A80C97C005AD701 /* SettingTableViewController.xib */; };
 		D9A8FEE31A80CA50005AD701 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEE21A80CA50005AD701 /* FeedbackViewController.m */; };
 		D9A8FF0D1A80CC2B005AD701 /* BindTelephoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEE71A80CC2B005AD701 /* BindTelephoneViewController.m */; };
 		D9A8FF0E1A80CC2B005AD701 /* BindTelephoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEE81A80CC2B005AD701 /* BindTelephoneViewController.xib */; };
@@ -766,6 +765,8 @@
 		C65DB7BB1AD4CD9800F51443 /* ToolHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolHomeViewController.m; sourceTree = "<group>"; };
 		C65DB7BE1AD4E44800F51443 /* TravelersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelersTableViewController.h; sourceTree = "<group>"; };
 		C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelersTableViewController.m; sourceTree = "<group>"; };
+		C65DB7C41AD644E000F51443 /* SettingHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingHomeViewController.h; path = Me/Setting/SettingHomeViewController.h; sourceTree = "<group>"; };
+		C65DB7C51AD644E000F51443 /* SettingHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingHomeViewController.m; path = Me/Setting/SettingHomeViewController.m; sourceTree = "<group>"; };
 		C679D3011ACD64E3007680D9 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		C679D3021ACD64E3007680D9 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
 		C679D3031ACD64E3007680D9 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
@@ -1634,9 +1635,6 @@
 		D9A8FED71A80C8A4005AD701 /* PushMsgsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMsgsViewController.h; sourceTree = "<group>"; };
 		D9A8FED81A80C8A4005AD701 /* PushMsgsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMsgsViewController.m; sourceTree = "<group>"; };
 		D9A8FED91A80C8A4005AD701 /* PushMsgsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMsgsViewController.xib; sourceTree = "<group>"; };
-		D9A8FEDC1A80C97C005AD701 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingTableViewController.h; path = Me/Setting/SettingTableViewController.h; sourceTree = "<group>"; };
-		D9A8FEDD1A80C97C005AD701 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingTableViewController.m; path = Me/Setting/SettingTableViewController.m; sourceTree = "<group>"; };
-		D9A8FEDE1A80C97C005AD701 /* SettingTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingTableViewController.xib; path = Me/Setting/SettingTableViewController.xib; sourceTree = "<group>"; };
 		D9A8FEE11A80CA50005AD701 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackViewController.h; path = Me/Setting/FeedBack/FeedbackViewController.h; sourceTree = "<group>"; };
 		D9A8FEE21A80CA50005AD701 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackViewController.m; path = Me/Setting/FeedBack/FeedbackViewController.m; sourceTree = "<group>"; };
 		D9A8FEE61A80CC2B005AD701 /* BindTelephoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindTelephoneViewController.h; sourceTree = "<group>"; };
@@ -2111,11 +2109,10 @@
 		D964200E19EBC9AD00CC8057 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				D9A8FEDC1A80C97C005AD701 /* SettingTableViewController.h */,
-				D9A8FEDD1A80C97C005AD701 /* SettingTableViewController.m */,
-				D9A8FEDE1A80C97C005AD701 /* SettingTableViewController.xib */,
 				C60C0D661A298DDA006033C9 /* PushSetting */,
 				D964201919EBE9B900CC8057 /* FeedBack */,
+				C65DB7C41AD644E000F51443 /* SettingHomeViewController.h */,
+				C65DB7C51AD644E000F51443 /* SettingHomeViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -4833,7 +4830,6 @@
 				D9A8058D1A80E738005AD701 /* sns_icon_sina@2x.png in Resources */,
 				D9A806E11A810948005AD701 /* ic_login_weixin@2x.png in Resources */,
 				D9A8013C1A80DD23005AD701 /* chatBar_more_myfavorite@2x.png in Resources */,
-				D9A8FEE01A80C97C005AD701 /* SettingTableViewController.xib in Resources */,
 				D9A8FF1A1A80CC2B005AD701 /* RegisterViewController.xib in Resources */,
 				D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */,
 				D9A805061A80E738005AD701 /* ic_sns_douban@2x.png in Resources */,
@@ -5245,7 +5241,6 @@
 				D9A802321A80E036005AD701 /* THProgressView.m in Sources */,
 				D9A8FF171A80CC2B005AD701 /* VerifyCaptchaViewController.m in Sources */,
 				D9A8021E1A80E036005AD701 /* MJPhotoBrowser.m in Sources */,
-				D9A8FEDF1A80C97C005AD701 /* SettingTableViewController.m in Sources */,
 				D9A8021B1A80E036005AD701 /* MJNIndexView.m in Sources */,
 				D9A802E81A80E3D3005AD701 /* TZSegmentedViewController.m in Sources */,
 				D9A802261A80E036005AD701 /* NJKWebViewProgressView.m in Sources */,
@@ -5335,6 +5330,7 @@
 				D9A8FECF1A80C818005AD701 /* Group.m in Sources */,
 				D9A8FFAF1A80D1C3005AD701 /* CycleScrollView.m in Sources */,
 				D9A8014A1A80DD23005AD701 /* MessageModelManager.m in Sources */,
+				C65DB7C61AD644E000F51443 /* SettingHomeViewController.m in Sources */,
 				C679D30E1ACD64E3007680D9 /* REFrostedContainerViewController.m in Sources */,
 				D9A801591A80DD23005AD701 /* EMSearchBar.m in Sources */,
 				D9A801291A80DD23005AD701 /* DXMessageToolBar.m in Sources */,

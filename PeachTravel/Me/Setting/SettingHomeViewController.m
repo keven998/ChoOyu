@@ -1,35 +1,57 @@
 //
-//  SettingTableViewController.m
+//  SettingHomeViewController.m
 //  PeachTravel
 //
-//  Created by liangpengshuai on 14/10/13.
-//  Copyright (c) 2014年 com.aizou.www. All rights reserved.
+//  Created by Luo Yong on 15/4/9.
+//  Copyright (c) 2015年 com.aizou.www. All rights reserved.
 //
 
-#import "SettingTableViewController.h"
+#import "SettingHomeViewController.h"
 #import "FeedbackViewController.h"
 #import "OptionTableViewCell.h"
 #import "PushSettingViewController.h"
 #import "iRate.h"
 
 #define cellIdentifier   @"settingCell"
-#define dataSource       @[@"清理缓存", @"意见与吐槽", @"去App Store评分", @"消息和提醒"]
+#define settingItems       @[@"清理缓存", @"意见和需求", @"给我们好评", @"消息和提醒"]
 
-@interface SettingTableViewController ()
+@interface SettingHomeViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
-@implementation SettingTableViewController
-
-#pragma mark - LifeCycle
+@implementation SettingHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"设置";
+    // Do any additional setup after loading the view.
+    CGFloat offsetY = 0;
+    if (self.navigationController.navigationBarHidden) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
+        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"设置"];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+        [self.view addSubview:bar];
+        offsetY = 64;
+    } else {
+        self.navigationItem.title = @"设置";
+    }
     
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - offsetY) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
+    [self.view addSubview:_tableView];
+}
+
+- (void)goBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -42,6 +64,11 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_app_setting"];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - private methods
@@ -91,7 +118,7 @@
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return [dataSource count]/2;
+    //    return [dataSource count]/2;
     if (section == 0) {
         return 2;
     } else {
@@ -101,7 +128,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.titleView.text = [dataSource objectAtIndex:(indexPath.section * 2 + indexPath.row)];
+    cell.titleView.text = [settingItems objectAtIndex:(indexPath.section * 2 + indexPath.row)];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -154,6 +181,15 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
 @end
-
-

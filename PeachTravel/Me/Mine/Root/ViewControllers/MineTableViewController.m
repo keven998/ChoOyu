@@ -14,7 +14,7 @@
 #import "RegisterViewController.h"
 #import "AccountManager.h"
 #import "AboutViewController.h"
-#import "SettingTableViewController.h"
+#import "SettingHomeViewController.h"
 #import "UserInfoTableViewController.h"
 #import "OptionTableViewCell.h"
 #import "PushMsgsViewController.h"
@@ -40,6 +40,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:YES];
+    
 //    self.navigationItem.title = @"我";
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -49,8 +51,8 @@
     titleLabel.text = @"我";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.extendedLayoutIncludesOpaqueBars = NO;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.extendedLayoutIncludesOpaqueBars = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -70,6 +72,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
 
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,8 +82,8 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
     
-    [self.navigationController setNavigationBarHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [self.navigationController setNavigationBarHidden:YES];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -86,8 +91,8 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
     
-    [self.navigationController setNavigationBarHidden:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+//    [self.navigationController setNavigationBarHidden:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 - (void)dealloc
@@ -284,7 +289,7 @@
         
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            SettingTableViewController *settingCtl = [[SettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
             settingCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingCtl animated:YES];
         } else if (indexPath.row == 1) {

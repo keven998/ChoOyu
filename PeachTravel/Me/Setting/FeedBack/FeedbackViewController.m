@@ -36,7 +36,22 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"意见与吐槽";
+//    self.navigationItem.title = @"意见与吐槽";
+    
+    CGFloat offsetY = 0;
+    if (self.navigationController.navigationBarHidden) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
+        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"设置"];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+        [self.view addSubview:bar];
+        offsetY = 64;
+    } else {
+        self.navigationItem.title = @"意见和需求";
+    }
 
     CGFloat width = self.view.frame.size.width;
     
@@ -44,7 +59,7 @@
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"有什么需要的请尽管吩咐";
+    desc1.text = @"请提出你的意见和需求吧";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
