@@ -41,6 +41,8 @@
 @property (nonatomic, strong) NSArray *urlArray;
 @property (nonatomic, strong) NSArray *urlTitleArray;
 
+@property (nonatomic, strong) UIBarButtonItem *filterItem;
+
 /**
  *  当前显示的收藏类型
  */
@@ -73,16 +75,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    if (_selectToSend) {
-        self.navigationItem.title = @"发送收藏";
+    
+    CGFloat offsetY = 0;
+    if (self.navigationController.navigationBarHidden) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
+        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"收藏夹"];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        _filterItem = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
+        navTitle.rightBarButtonItem = _filterItem;
+        [bar pushNavigationItem:navTitle animated:YES];
+        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+        [self.view addSubview:bar];
+        offsetY = 64;
     } else {
-        self.navigationItem.title = @"我的收藏";
+        self.navigationItem.title = @"收藏夹";
+        _filterItem = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
+        self.navigationItem.rightBarButtonItem = _filterItem;
     }
     
-    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
-    self.navigationItem.rightBarButtonItem = rbtn;
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - offsetY)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -117,7 +132,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateFavoriteListNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
-    [self initDataFromCache];
+//    [self initDataFromCache];
+    [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -172,7 +188,7 @@
     ctl.contentItems = _urlTitleArray;
     ctl.delegate = self;
     ctl.titleTxt = @"筛选";
-    ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
+    ctl.selectItem = _filterItem.title;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -244,14 +260,15 @@
             if (code == 0) {
                 if (pageIndex == 0) {
                     [self.dataSource removeAllObjects];
+                    [self.tableView reloadData];
                 }
                 _currentPage = pageIndex;
                 [self bindDataToView:responseObject];
-                if ((pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) && [_urlArray[0] isEqual:faType]) {
-                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                        [self cacheFirstPage];
-                    });
-                }
+//                if ((pageIndex == 0 || self.dataSource.count < 2*PAGE_COUNT) && [_urlArray[0] isEqual:faType]) {
+//                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                        [self cacheFirstPage];
+//                    });
+//                }
             } else {
                 [self showHint:@"请求失败"];
             }
@@ -299,11 +316,12 @@
             if (_dataSource.count == 0) {
                 [self.refreshControl beginRefreshing];
                 [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
-            } else if (indexpath.section < PAGE_COUNT) {
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [self cacheFirstPage];
-                });
             }
+//            else if (indexpath.section < PAGE_COUNT) {
+//                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                    [self cacheFirstPage];
+//                });
+//            }
         } else {
             [hud hideTZHUD];
             if (self.isVisible) {
@@ -336,9 +354,9 @@
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
         if (_currentPage == 0) {
-            if (_isVisible) {
-                [self showHint:@"No收藏"];
-            }
+//            if (_isVisible) {
+//                [self showHint:@"No收藏"];
+//            }
             [self.tableView reloadData];
         } else {
             [self showHint:@"已加载全部"];
@@ -401,7 +419,7 @@
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    self.navigationItem.rightBarButtonItem.title = str;
+    _filterItem.title = str;
     _currentFavoriteType = [_urlArray objectAtIndex:indexPath.row];
     [self.refreshControl beginRefreshing];
     [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];

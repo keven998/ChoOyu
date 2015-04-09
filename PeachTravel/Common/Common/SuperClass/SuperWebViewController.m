@@ -31,8 +31,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGFloat offsetY = 0;
+    if (self.navigationController.navigationBarHidden) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
+        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:_titleStr];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+        [self.view addSubview:bar];
+        offsetY = 64;
+    } else {
+        self.navigationItem.title = _titleStr;
+    }
+    
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = _titleStr;
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
@@ -47,7 +62,7 @@
     [super loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"桃子旅行\n你最贴心的旅行助手";
+    label.text = @"桃子旅行\n你的旅行圈";
     label.textColor = TEXT_COLOR_TITLE_HINT;
     label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;

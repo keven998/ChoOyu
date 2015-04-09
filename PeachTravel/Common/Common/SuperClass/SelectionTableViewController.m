@@ -26,6 +26,7 @@
     _selectItemIndex = [_contentItems indexOfObject:_selectItem];
     
     _selectTableView.backgroundColor = APP_PAGE_COLOR;
+    _selectTableView.separatorColor = APP_BORDER_COLOR;
     [_selectTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"select_cell"];
 }
 
@@ -53,6 +54,10 @@
 }
 
 #pragma mark - UITableViewDelegate
+//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 20;
+//}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.0;
 }
