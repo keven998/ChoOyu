@@ -91,7 +91,7 @@
     ctl.contentItems = array;
     ctl.delegate = self;
     ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
 

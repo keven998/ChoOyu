@@ -43,9 +43,9 @@
         _customNavigationItem = self.navigationItem;
     }
     
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

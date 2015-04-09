@@ -212,7 +212,7 @@
 - (void)login
 {
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
     loginViewController.isPushed = NO;
     [self presentViewController:nctl animated:YES completion:nil];
 }

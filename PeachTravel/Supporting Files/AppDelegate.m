@@ -45,7 +45,7 @@
     if (message) {
         _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
     }
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
+    self.window.rootViewController = [[TZNavigationViewController alloc] initWithRootViewController:_homeViewController];
     [self.window makeKeyAndVisible];
     
     

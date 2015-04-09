@@ -173,7 +173,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (IBAction)goLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
@@ -308,15 +308,15 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     self.tabBar.selectedImageTintColor = UIColorFromRGB(0x21b67f);
     
-    UINavigationController *firstNavigationController = [[UINavigationController alloc]
+    TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                           initWithRootViewController:self.chatListCtl];
     
     _toolBoxCtl = [[ToolHomeViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    UINavigationController *secondNavigationController = [[UINavigationController alloc]
+    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
     _mineCtl = [[MineTableViewController alloc] init];
-    UINavigationController *FourthNavigationController = [[UINavigationController alloc]
+    TZNavigationViewController *FourthNavigationController = [[TZNavigationViewController alloc]
                                                          initWithRootViewController:_mineCtl];
 
 
@@ -566,7 +566,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+        TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
         [self presentViewController:navi animated:YES completion:nil];
         return NO;
     }

@@ -199,14 +199,14 @@
 //    contactListCtl.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:contactListCtl animated:YES];
     
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:contactListCtl];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:contactListCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 - (IBAction)addUserContact:(id)sender
 {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:addContactCtl];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:addContactCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
     
 //    addContactCtl.hidesBottomBarWhenPushed = YES;
@@ -387,7 +387,7 @@
 {
     _createConversationCtl = [[CreateConversationViewController alloc] init];
     _createConversationCtl.delegate = self;
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createConversationCtl];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_createConversationCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 

@@ -72,9 +72,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
 
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -155,7 +155,7 @@
 //    [self.navigationController pushViewController:loginCtl animated:YES];
     
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
@@ -166,7 +166,7 @@
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     registerCtl.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:registerCtl animated:YES];
-    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:registerCtl];
+    TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:registerCtl];
     [self presentViewController:navc animated:YES completion:nil];
 }
 

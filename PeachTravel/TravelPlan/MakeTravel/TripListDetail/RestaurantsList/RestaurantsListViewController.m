@@ -125,7 +125,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     
     restaurantOfCityCtl.shouldEdit = YES;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 

@@ -471,7 +471,7 @@
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeName;
             changeUserInfo.navTitle = @"修改名字";
-            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:changeUserInfo];
+            TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:changeUserInfo];
             [self presentViewController:navc animated:YES completion:^ {
                 changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.nickName;
             }];
@@ -487,7 +487,7 @@
             ctl.titleTxt = @"我是";
             ctl.delegate = self;
             ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+            TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
             [self presentViewController:nav animated:YES completion:nil];
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_memo"];
@@ -495,7 +495,7 @@
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeSignature;
             changeUserInfo.navTitle = @"个性签名";
-            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:changeUserInfo];
+            TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:changeUserInfo];
             [self presentViewController:navc animated:YES completion:^ {
                 changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.signature;
             }];
@@ -514,7 +514,7 @@
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
 //            [self.navigationController pushViewController:changePasswordCtl animated:YES];
-            [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
         }
     } else if (indexPath.section == 3) {
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
@@ -531,7 +531,7 @@
             cityListCtl.cityDataSource = cityArray;
             cityListCtl.needUserLocation = YES;
 //            [self.navigationController pushViewController:cityListCtl animated:YES];
-            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:cityListCtl];
+            TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:cityListCtl];
             [self presentViewController:navc animated:YES completion:nil];
         }
     }
