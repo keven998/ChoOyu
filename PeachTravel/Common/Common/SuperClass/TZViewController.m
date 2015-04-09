@@ -61,7 +61,11 @@
 
 - (void)goBack
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

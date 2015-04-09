@@ -66,7 +66,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_destination"];
     _isShowing = YES;
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

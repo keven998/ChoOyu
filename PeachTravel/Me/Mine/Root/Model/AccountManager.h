@@ -83,7 +83,7 @@
 - (void)updateUserInfo:(id)userInfo;
 
 /**
- *  修改用户昵称
+ *  修改用户名字
  *
  *  @param newUsername 新的用户昵称
  */

@@ -121,7 +121,7 @@
     nickPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     nickPanel.font = [UIFont systemFontOfSize:14.0];
     nickPanel.layer.cornerRadius = 2.0;
-    nickPanel.text = [NSString stringWithFormat:@"   昵称：%@", contact.nickName];
+    nickPanel.text = [NSString stringWithFormat:@"   名字：%@", contact.nickName];
     [_contentView addSubview:nickPanel];
     
     oy += 55.0;

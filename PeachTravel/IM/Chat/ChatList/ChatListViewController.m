@@ -270,9 +270,9 @@
             }
         }
     }
-    if (_chattingPeople.count <= 0) {
-        [self setupEmptyView];
-    } else {
+    if (_chattingPeople.count > 0) {
+//        [self setupEmptyView];
+//    } else {
         [self setupListView];
     }
     NSLog(@"结束加载正在聊天的人");
@@ -709,9 +709,9 @@
                                                               append2Chat:YES];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        if (_chattingPeople.count == 0) {
-            [self setupEmptyView];
-        }
+//        if (_chattingPeople.count == 0) {
+//            [self setupEmptyView];
+//        }
         [MobClick event:@"event_delete_talk_item"];
     }
 }
