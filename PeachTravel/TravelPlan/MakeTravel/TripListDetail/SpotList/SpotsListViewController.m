@@ -143,8 +143,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = sender.tag;
     UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
-    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nctl.navigationBar.translucent = YES;
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
@@ -179,8 +177,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     ctl.pois = _tripDetail.itineraryList;
     ctl.currentDay = sender.tag;
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
-    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nCtl.navigationBar.translucent = YES;
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 

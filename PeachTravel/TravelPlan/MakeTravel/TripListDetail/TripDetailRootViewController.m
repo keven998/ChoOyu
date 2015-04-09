@@ -812,10 +812,7 @@
             _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
             _chatRecordListCtl.delegate = self;
             UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-            [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-            nCtl.navigationBar.translucent = YES;
             [self presentViewController:nCtl animated:YES completion:nil];
-            
             break;
         }
             

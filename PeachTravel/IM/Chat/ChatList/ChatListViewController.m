@@ -200,8 +200,6 @@
 //    [self.navigationController pushViewController:contactListCtl animated:YES];
     
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:contactListCtl];
-    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nCtl.navigationBar.translucent = YES;
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 
@@ -209,8 +207,6 @@
 {
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:addContactCtl];
-    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nCtl.navigationBar.translucent = YES;
     [self presentViewController:nCtl animated:YES completion:nil];
     
 //    addContactCtl.hidesBottomBarWhenPushed = YES;
@@ -392,8 +388,6 @@
     _createConversationCtl = [[CreateConversationViewController alloc] init];
     _createConversationCtl.delegate = self;
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createConversationCtl];
-    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nCtl.navigationBar.translucent = YES;
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 

@@ -437,7 +437,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
-    view.backgroundColor = APP_PAGE_COLOR;
+    view.backgroundColor = [UIColor clearColor];
     return view;
 }
 

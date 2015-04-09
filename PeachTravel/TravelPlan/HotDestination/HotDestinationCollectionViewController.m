@@ -67,11 +67,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [MobClick beginLogPageView:@"page_home_destination"];
     _isShowing = YES;
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
-   
-//    [self.navigationController.navigationBar setBackgroundImage:nil  forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
-//    self.navigationController.navigationBar.translucent = YES;
-//    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -79,8 +74,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_destination"];
     _isShowing = NO;
-    
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

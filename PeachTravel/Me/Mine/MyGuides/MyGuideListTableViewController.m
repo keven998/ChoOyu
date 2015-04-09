@@ -142,14 +142,12 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_my_trip_plans"];
     _isShowing = YES;
-    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_my_trip_plans"];
     _isShowing = NO;
-    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)dealloc
