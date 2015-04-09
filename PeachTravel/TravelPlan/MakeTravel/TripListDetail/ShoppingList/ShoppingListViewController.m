@@ -124,7 +124,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     shoppingOfCityCtl.poiType = kShoppingPoi;
     
     shoppingOfCityCtl.shouldEdit = YES;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:shoppingOfCityCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:shoppingOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 

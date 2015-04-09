@@ -115,9 +115,9 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -189,7 +189,7 @@
     ctl.delegate = self;
     ctl.titleTxt = @"筛选";
     ctl.selectItem = _filterItem.title;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
 

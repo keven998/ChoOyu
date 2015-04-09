@@ -89,9 +89,9 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
     
     [self setNavigationItems];
     
@@ -811,7 +811,7 @@
         case 0: {
             _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
             _chatRecordListCtl.delegate = self;
-            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_chatRecordListCtl];
             [self presentViewController:nCtl animated:YES completion:nil];
             break;
         }

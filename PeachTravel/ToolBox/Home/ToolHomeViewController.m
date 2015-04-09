@@ -170,7 +170,7 @@
 - (IBAction)goLogin
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }

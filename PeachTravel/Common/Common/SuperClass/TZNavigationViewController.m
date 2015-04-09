@@ -1,0 +1,60 @@
+//
+//  TZNavigationViewController.m
+//  PeachTravel
+//
+//  Created by Luo Yong on 15/4/9.
+//  Copyright (c) 2015年 com.aizou.www. All rights reserved.
+//
+
+#import "TZNavigationViewController.h"
+
+@interface TZNavigationViewController ()<UIGestureRecognizerDelegate, UINavigationControllerDelegate>
+
+@end
+
+@implementation TZNavigationViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    __weak TZNavigationViewController *weakSelf = self;
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+    {
+        self.interactivePopGestureRecognizer.delegate = weakSelf;
+        self.delegate = weakSelf;
+    }
+}
+
+-(void)navigationController:(UINavigationController *)navigationController
+      didShowViewController:(UIViewController *)viewController
+                   animated:(BOOL)animate
+{
+    // Enable the gesture again once the new controller is shown
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+        self.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+        self.interactivePopGestureRecognizer.enabled = NO;
+    [super pushViewController:viewController animated:animated];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

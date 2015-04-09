@@ -428,7 +428,7 @@
 - (IBAction)goLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     nctl.navigationBar.translucent = YES;

@@ -287,7 +287,7 @@
     createConversationCtl.emGroup = _group;
     createConversationCtl.group = [accountManager groupWithGroupId:_group.groupId];
 
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:createConversationCtl];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:createConversationCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 

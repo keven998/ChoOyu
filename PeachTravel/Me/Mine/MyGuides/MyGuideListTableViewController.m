@@ -77,9 +77,9 @@ static NSString *reusableCell = @"myGuidesCell";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
     
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
@@ -191,7 +191,7 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.normalColor= [UIColor grayColor];
     
 //    [self.navigationController pushViewController:makePlanCtl animated:YES];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }
 

@@ -378,7 +378,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     ctl.titleTxt = @"切换类别";
     ctl.delegate = self;
     ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:^{
         _filterType = FILTER_TYPE_CATE;
     }];
@@ -395,7 +395,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     ctl.delegate = self;
     UIButton *tbtn = (UIButton *)self.navigationItem.titleView;
     ctl.selectItem = [tbtn attributedTitleForState:UIControlStateNormal].string;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctl];
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:^{
         _filterType = FILTER_TYPE_CITY;
     }];

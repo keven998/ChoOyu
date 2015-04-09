@@ -142,7 +142,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     addPoiCtl.delegate = self;
     addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = sender.tag;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:addPoiCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
@@ -176,7 +176,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 //    }
     ctl.pois = _tripDetail.itineraryList;
     ctl.currentDay = sender.tag;
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 
