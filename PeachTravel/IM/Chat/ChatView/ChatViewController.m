@@ -1527,17 +1527,12 @@
             } else {
                 isReloadToBottom = NO;
             }
-            NSLog(@"contentSize:%f   offsetSize:%f", weakSelf.tableView.contentSize.height, weakSelf.tableView.contentOffset.y);
 
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            
-            NSLog(@"contentSize:%f   offsetSize:%f", weakSelf.tableView.contentSize.height, weakSelf.tableView.contentOffset.y);
-
             if (isReloadToBottom) {
                  [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                 NSLog(@"******UITableViewScrollPositionBottom");
             }
-           
         });
     });
 
