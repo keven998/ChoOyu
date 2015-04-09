@@ -4615,7 +4615,7 @@
 		D99D8EBD19C8600C0021C25B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = com.aizou.www;
 				TargetAttributes = {
 					D99D8EC419C8600C0021C25B = {
