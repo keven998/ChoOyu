@@ -14,7 +14,7 @@
 #import "TravelersTableViewController.h"
 #import "SearchDestinationViewController.h"
 
-@interface ToolHomeViewController ()<UISearchBarDelegate, UIGestureRecognizerDelegate>
+@interface ToolHomeViewController ()<UISearchBarDelegate>
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 
