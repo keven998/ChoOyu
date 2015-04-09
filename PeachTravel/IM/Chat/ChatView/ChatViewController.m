@@ -1561,7 +1561,7 @@
             }
         }
         if (chatGroup == nil) {
-            chatGroup = [[EMGroup alloc] initWithGroupId:_chatter];
+            chatGroup = [EMGroup groupWithId:_chatter];
         }
         ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
         chatSettingCtl.group = chatGroup;

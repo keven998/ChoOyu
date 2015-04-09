@@ -12,7 +12,6 @@
 #import "AccountManager.h"
 #import "WXApi.h"
 
-#import "EMChatServiceDefs.h"
 #import "EMPushNotificationOptions.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
