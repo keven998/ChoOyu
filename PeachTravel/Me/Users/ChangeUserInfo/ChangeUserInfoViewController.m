@@ -21,11 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_changeType == ChangeName) {
-        self.customNavigationItem.title = @"修改昵称";
-    } else if (_changeType == ChangeSignature) {
-        self.customNavigationItem.title = @"旅行签名";
-    }
+    self.customNavigationItem.title = _navTitle;
     
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     _contentTextField.layer.borderWidth = 0.5;
@@ -38,9 +34,12 @@
     _contentTextField.font = [UIFont systemFontOfSize:14.0];
     _contentTextField.text = _content;
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = registerBtn;
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
+    rightBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = rightBtn;
+    
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = leftBtn;
 }
 
 /**
@@ -48,23 +47,28 @@
  */
 - (void)goBack
 {
-    if (![_content isEqualToString:_contentTextField.text]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不需要保存吗" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"先保存", nil];
-        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 0) {
-                [self dismiss];
-            } else {
-                [self saveChange:nil];
-            }
-        }];
-    } else {
-        [self dismiss];
-    }
+    [self dismiss];
+//    if (![_content isEqualToString:_contentTextField.text]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"不需要保存吗" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"先保存", nil];
+//        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+//            if (buttonIndex == 0) {
+//                [self dismiss];
+//            } else {
+//                [self saveChange:nil];
+//            }
+//        }];
+//    } else {
+//        [self dismiss];
+//    }
 }
 
 - (void)dismiss
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.childViewControllers.count <= 1) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

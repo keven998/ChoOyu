@@ -13,4 +13,6 @@
 @property (nonatomic) UserInfoChangeType changeType;
 @property (copy, nonatomic) NSString *content;
 
+@property (nonatomic, copy) NSString *navTitle;
+
 @end

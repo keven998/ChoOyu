@@ -27,16 +27,17 @@
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
         bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"选择现住地"];
-        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
         [bar pushNavigationItem:navTitle animated:YES];
         bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
         [self.view addSubview:bar];
         offsetY = 64;
     } else {
         self.navigationItem.title = @"选择现住地";
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     }
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - offsetY) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
     _tableView.delegate = self;
@@ -51,6 +52,15 @@
             [_locationManager requestWhenInUseAuthorization];
         }
         [_locationManager startUpdatingLocation];
+    }
+}
+
+- (void)dismiss
+{
+    if (self.navigationController.childViewControllers.count <= 1) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

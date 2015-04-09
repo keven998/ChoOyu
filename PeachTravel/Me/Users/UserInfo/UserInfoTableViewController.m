@@ -450,8 +450,7 @@
         } else if (indexPath.section == 4) {
             if (indexPath.row == 1) {
                 cell.cellDetail.text = self.accountManager.accountDetail.birthday;
-            }
-            if (indexPath.row == 2) {
+            } else if (indexPath.row == 2) {
                 cell.cellDetail.text = self.accountManager.accountDetail.residence;
             }
         }
@@ -467,14 +466,15 @@
         if (indexPath.row == 0) {
             [self presentImagePicker];
             [MobClick event:@"event_update_avatar"];
-            
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_nick"];
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeName;
-            [self.navigationController pushViewController:changeUserInfo animated:YES];
-            changeUserInfo.content = self.self.accountManager.accountDetail.basicUserInfo.nickName;
-            
+            changeUserInfo.navTitle = @"修改昵称";
+            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:changeUserInfo];
+            [self presentViewController:navc animated:YES completion:^ {
+                changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.nickName;
+            }];
         } else if (indexPath.row == 2) {
             [self showHint:@"猥琐攻城师不让修改这个～"];
         }
@@ -488,11 +488,14 @@
             
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_memo"];
-
+            
             ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
             changeUserInfo.changeType = ChangeSignature;
-            [self.navigationController pushViewController:changeUserInfo animated:YES];
-            changeUserInfo.content = self.self.accountManager.accountDetail.basicUserInfo.signature;
+            changeUserInfo.navTitle = @"个性签名";
+            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:changeUserInfo];
+            [self presentViewController:navc animated:YES completion:^ {
+                changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.signature;
+            }];
         }
         
     } else if (indexPath.section == 2) {
@@ -500,34 +503,33 @@
             [MobClick event:@"event_update_password"];
 
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
-            [self.navigationController pushViewController:changePasswordCtl animated:YES];
+//            [self.navigationController pushViewController:changePasswordCtl animated:YES];
+            [self presentViewController:changePasswordCtl animated:YES completion:nil];
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_phone"];
 
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
-            [self.navigationController pushViewController:changePasswordCtl animated:YES];
+//            [self.navigationController pushViewController:changePasswordCtl animated:YES];
+            [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
         }
-        
     } else if (indexPath.section == 3) {
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-        [self presentViewController:footCtl animated:YES completion:^{
-            
-        }];
-        
+        [self presentViewController:footCtl animated:YES completion:nil];
     } else if (indexPath.section == 4) {
         if (indexPath.row == 0) {
             
         } else if (indexPath.row == 1) {
             [self showDatePicker];
-            
         } else if (indexPath.row == 2) {
             NSString *url = [[NSBundle mainBundle] pathForResource:@"DomesticCityDataSource" ofType:@"plist"];
             NSArray *cityArray = [NSArray arrayWithContentsOfFile:url];
             CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
             cityListCtl.cityDataSource = cityArray;
             cityListCtl.needUserLocation = YES;
-            [self.navigationController pushViewController:cityListCtl animated:YES];
+//            [self.navigationController pushViewController:cityListCtl animated:YES];
+            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:cityListCtl];
+            [self presentViewController:navc animated:YES completion:nil];
         }
     }
 
