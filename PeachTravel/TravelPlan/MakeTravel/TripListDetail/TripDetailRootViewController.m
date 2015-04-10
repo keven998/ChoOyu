@@ -144,9 +144,6 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
-//    [self.view addGestureRecognizer:panGesture];
-    
     
 }
 

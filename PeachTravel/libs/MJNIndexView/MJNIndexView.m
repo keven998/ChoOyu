@@ -508,7 +508,7 @@
             float arcusTan = fabs(atan(angleInRadians));
             
             // now we have to calculate the deflected position of an item
-            point.x = origin.x - (self.maxItemDeflection) + (fabsf(point.y - location.y) * mappedAmplitude) * (arcusTan);
+            point.x = origin.x - (self.maxItemDeflection) + (fabs(point.y - location.y) * mappedAmplitude) * (arcusTan);
             
             point.x = MIN(point.x, origin.x);
             

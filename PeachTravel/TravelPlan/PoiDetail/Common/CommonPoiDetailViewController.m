@@ -13,7 +13,6 @@
 
 @interface CommonPoiDetailViewController ()
 
-@property (nonatomic, strong) SuperPoi *poi;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
 @end

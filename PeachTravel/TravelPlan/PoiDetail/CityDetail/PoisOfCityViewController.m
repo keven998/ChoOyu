@@ -47,7 +47,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic) BOOL isShowing;
 @end
 
 @implementation PoisOfCityViewController
