@@ -176,11 +176,6 @@
 - (void)agreeFrendRequest:(FrendRequest *)frendRequest;
 
 /**
- *  更新好友列表
- */
-- (void)updateContact;
-
-/**
  *  通过环信 id 删除好友
  *
  *  @param userId
