@@ -40,18 +40,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
-    //[button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
+//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+//    [button setFrame:CGRectMake(0, 0, 48, 30)];
+//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];;
     self.navigationItem.title = @"联系人";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
@@ -99,6 +99,11 @@
     } else {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void) addContact {
+    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 #pragma mark - private method

@@ -52,16 +52,30 @@ static NSString *reusableCell = @"myGuidesCell";
         _isLoadingMore = YES;
         _didEndScroll = YES;
         _enableLoadMore = NO;
+        _isTrip = NO;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"旅程计划";
-    
-    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已去" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
-    self.navigationItem.rightBarButtonItem = rbtn;
+    if (_isTrip) {
+        self.navigationItem.title = @"已去过的旅程";
+        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        self.navigationItem.rightBarButtonItem = rbtn;
+    } else {
+        self.navigationItem.title = @"旅程计划";
+        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已去" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+        self.navigationItem.rightBarButtonItem = rbtn;
+        
+        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+        [button setFrame:CGRectMake(0, 0, 48, 30)];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.leftBarButtonItem = barButton;
+    }
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
@@ -69,31 +83,16 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
-    
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
-    
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
     _tapRecognizer.numberOfTapsRequired = 1;
     _tapRecognizer.delegate = self;
     
-    if (!_selectToSend) {
+    if (!_isTrip && !_selectToSend) {
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
         [editBtn setBackgroundImage:[UIImage imageNamed:@"btn_new_plan.png"] forState:UIControlStateNormal];
         [editBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
         editBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds) - 120);
         _addBtn = editBtn;
-    }
-    
-    if (!_selectToSend) {
         [self.view addSubview:_addBtn];
     }
     
@@ -106,7 +105,13 @@ static NSString *reusableCell = @"myGuidesCell";
     [self.refreshControl addTarget:self action:@selector(pullToRefreash:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
 
-    [self initDataFromCache];
+    if (_isTrip) {
+        [self.refreshControl beginRefreshing];
+        [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+    } else {
+        [self initDataFromCache];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
 
@@ -114,7 +119,11 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)goBack
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void) initDataFromCache {
@@ -162,7 +171,10 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - navigation action
 
 - (void) myTrip {
-    
+    MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
+    gltvc.isTrip = YES;
+    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
+    [self presentViewController:ctl animated:YES completion:nil];
 }
 
 - (void)userDidLogout
@@ -450,6 +462,7 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void) cacheFirstPage:(id)responseObject {
+    if (_isTrip) return;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     NSInteger count = _dataSource.count;
     if (count > 0) {
@@ -663,8 +676,6 @@ static NSString *reusableCell = @"myGuidesCell";
     _isLoadingMore = YES;
     [_indicatroView startAnimating];
     [self loadDataWithPageIndex:(_currentPage + 1)];
-    
-    NSLog(@"我要加载到第%lu",(long)_currentPage+1);
 }
 
 - (void) loadMoreCompleted {
@@ -687,7 +698,11 @@ static NSString *reusableCell = @"myGuidesCell";
         {
 //            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
 //            [self deleteGuide:cellIndexPath];
-            [self setupMoreMenu];
+            if (_isTrip) {
+                [self setupTripMenu];
+            } else {
+                [self setupPlanMenu];
+            }
             break;
         }
         default:
@@ -695,17 +710,17 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void) setupMoreMenu {
+- (void) setupPlanMenu {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
                                                  otherTitles:@[@"修改标题", @"标记\"已去\"", @"排到第一个"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                      if (buttonIndex == 0) {
-                                                          
-                                                      } else if (buttonIndex == 1) {
+                                                      if (buttonIndex == 1) {
                                                           
                                                       } else if (buttonIndex == 2) {
+                                                          
+                                                      } else if (buttonIndex == 3) {
                                                           
                                                       }
                                                   }];
@@ -714,6 +729,25 @@ static NSString *reusableCell = @"myGuidesCell";
 //    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
 //    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 //    [alertView setCancelButtonTextColor:[UIColor redColor]];
+}
+
+- (void) setupTripMenu {
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                                     message:nil
+                                                 cancelTitle:@"取消"
+                                                 otherTitles:@[@"修改标题", @"重置为\"计划\""]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      if (buttonIndex == 1) {
+                                                          
+                                                      } else if (buttonIndex == 2) {
+                                                          
+                                                      }
+                                                  }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
+    //    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
+    //    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
+    //    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 
 #pragma mark - UIScrollViewDelegate

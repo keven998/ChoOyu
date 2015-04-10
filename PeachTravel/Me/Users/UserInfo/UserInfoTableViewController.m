@@ -19,18 +19,17 @@
 #import "FootPrintViewController.h"
 #import "CityListTableViewController.h"
 #import "SelectionTableViewController.h"
+#import "PXAlertView+Customization.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
 
-@interface UserInfoTableViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
-
-@property (nonatomic, strong) UIActionSheet *avatarAS;
 
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
@@ -170,8 +169,27 @@
 
 - (void)presentImagePicker
 {
-    _avatarAS = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册中选择", nil];
-    [_avatarAS showInView:self.view];
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                                     message:nil
+                                                 cancelTitle:@"取消"
+                                                 otherTitles:@[@"拍照", @"从相册中选择"]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      UIImagePickerControllerSourceType sourceType;
+                                                      if (buttonIndex == 1) {
+                                                          sourceType  = UIImagePickerControllerSourceTypeCamera;
+                                                      } else if (buttonIndex == 2) {
+                                                          sourceType  = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                      } else {
+                                                          return;
+                                                      }
+                                                      UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+                                                      picker.delegate = self;
+                                                      picker.allowsEditing = YES;
+                                                      picker.sourceType = sourceType;
+                                                      [self presentViewController:picker animated:YES completion:nil];
+                                                  }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
 }
 
 /**
@@ -543,44 +561,6 @@
 
 - (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
     
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (actionSheet == _avatarAS) {
-        UIImagePickerControllerSourceType sourceType;
-        if (buttonIndex == 0) {
-            sourceType  = UIImagePickerControllerSourceTypeCamera;
-        } else if (buttonIndex == 1) {
-            sourceType  = UIImagePickerControllerSourceTypePhotoLibrary;
-        } else {
-            return;
-        }
-        UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        picker.allowsEditing = YES;
-        picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
-    }
-//    else if (actionSheet == _genderAS) {          //相应切换性别的
-//        NSString *gender;
-//        if (buttonIndex == 0) {
-//            gender = @"F";
-//        }
-//        if (buttonIndex == 1) {
-//            gender = @"M";
-//        }
-//        if (buttonIndex == 2) {
-//            gender = @"U";
-//        }
-//        if (buttonIndex == 3) {   //点击取消
-//            return;
-//        }
-//
-//        [self updateUserGender:gender];
-//    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate

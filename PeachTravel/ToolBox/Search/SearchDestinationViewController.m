@@ -61,7 +61,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     label.textColor = TEXT_COLOR_TITLE_PH;
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
-    label.text = @"旅行搜搜\n搜索旅行的城市、景点、美食、游记等";
+    label.text = @"旅行搜搜\n搜索旅行中的城市、景点、美食、游记";
     [self.view addSubview:label];
     
     [self.view addSubview:self.tableView];

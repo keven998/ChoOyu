@@ -22,7 +22,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource           @[@[@"我的收藏", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource           @[@[@"收藏夹", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
