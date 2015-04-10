@@ -59,8 +59,11 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.hidesBottomBarWhenPushed = YES;
-    searchCtl.titleStr = @"旅行搜搜";
-    [self.navigationController pushViewController:searchCtl animated:YES];
+//    searchCtl.titleStr = @"旅行搜搜";
+//    [self.navigationController pushViewController:searchCtl animated:YES];
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
     return NO;
 }
 
@@ -106,7 +109,7 @@
         cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"旅程计划";
+            cell.textLabel.text = @"我的旅程计划";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         } else {
             cell.textLabel.text = @"身边哪好玩";

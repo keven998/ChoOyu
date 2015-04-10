@@ -8,7 +8,7 @@
 
 #import "TZViewController.h"
 
-@interface SearchDestinationViewController : TZViewController
+@interface SearchDestinationViewController : UIViewController
 
 @property (nonatomic, copy) NSString *chatter;
 

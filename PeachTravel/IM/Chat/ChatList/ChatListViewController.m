@@ -271,8 +271,6 @@
         }
     }
     if (_chattingPeople.count > 0) {
-//        [self setupEmptyView];
-//    } else {
         [self setupListView];
     }
     NSLog(@"结束加载正在聊天的人");
@@ -290,7 +288,7 @@
     [titleView addSubview:activityView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
     titleLabel.textColor = [UIColor blackColor];
-    titleLabel.font = [UIFont systemFontOfSize:17.0];
+    titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     [activityView startAnimating];
     [titleView addSubview:titleLabel];
     
@@ -306,7 +304,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
             titleLabel.textColor = [UIColor redColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"未连接";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"未连接");
@@ -325,7 +323,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"桃Talk";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_RECEIVED");
@@ -336,7 +334,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"桃Talk";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_CONNECTED");
@@ -347,7 +345,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"桃Talk";
             self.navigationItem.titleView = titleLabel;
         }
@@ -355,32 +353,6 @@
             break;
     }
 
-}
-
-- (void) setupEmptyView
-{
-    if (self.emptyView != nil) {
-        return;
-    }
-    
-    CGFloat width = self.view.frame.size.width;
-    
-    self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.emptyView];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 108.0, 64.0);
-    btn.center = CGPointMake(width/2.0, 132.0);
-    [btn setImage:[UIImage imageNamed:@"ic_new_talk.png"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
-    [self.emptyView addSubview:btn];
-
-    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
-    desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont systemFontOfSize:14.0];
-    desc.numberOfLines = 2;
-    desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"Talk\n你的旅行圈";
-    [self.emptyView addSubview:desc];
 }
 
 - (IBAction)addConversation:(id)sender
@@ -709,9 +681,7 @@
                                                               append2Chat:YES];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        if (_chattingPeople.count == 0) {
-//            [self setupEmptyView];
-//        }
+
         [MobClick event:@"event_delete_talk_item"];
     }
 }
