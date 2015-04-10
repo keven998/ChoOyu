@@ -124,7 +124,7 @@
     
     
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                    message:@"新建"
+                                    message:nil
                                 cancelTitle:@"取消"
                                 otherTitles:@[ @"新建聊天", @"添加好友"]
                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
@@ -138,7 +138,7 @@
                                  }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
-    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
+//    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
 

@@ -113,7 +113,7 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
         CGFloat messageLabelY = 0.0f;
 		
 		// Title
-//        if (title) {
+        if (title) {
             self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(AlertViewContentMargin,
                                                                         AlertViewVerticalElementSpace,
                                                                         AlertViewWidth - AlertViewContentMargin*2,
@@ -129,14 +129,11 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
             [self.alertView addSubview:self.titleLabel];
             
             messageLabelY = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height;
-        
-        if (message && title) {
-            messageLabelY += AlertViewVerticalElementSpace;
         }
-//        }
 		
 		// Optional Content View
 		if (contentView) {
+            messageLabelY += AlertViewVerticalElementSpace;
 			self.contentView = contentView;
 			self.contentView.frame = CGRectMake(0,
 												messageLabelY,
@@ -148,7 +145,8 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 		}
 		
 		// Message
-//        if (message) {
+        if (message) {
+            messageLabelY += AlertViewVerticalElementSpace;
             self.messageScrollView = [[UIScrollView alloc] initWithFrame:(CGRect){
                 AlertViewContentMargin,
                 messageLabelY,
@@ -170,7 +168,7 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
             
             [self.messageScrollView addSubview:self.messageLabel];
             [self.alertView addSubview:self.messageScrollView];
-//        }
+        }
 		
 		// Get total button height
 		CGFloat totalBottomHeight = AlertViewLineLayerWidth;
@@ -196,12 +194,16 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 			MIN(self.messageLabel.frame.size.height, self.alertWindow.frame.size.height - self.messageScrollView.frame.origin.y - totalBottomHeight - AlertViewVerticalEdgeMinMargin * 2)
 		};
 		
-		// Line
-		CALayer *lineLayer = [self lineLayer];
-		lineLayer.frame = CGRectMake(0, self.messageScrollView.frame.origin.y + self.messageScrollView.frame.size.height + AlertViewVerticalElementSpace, AlertViewWidth, AlertViewLineLayerWidth);
-		[self.alertView.layer addSublayer:lineLayer];
-		
-		self.buttonsY = lineLayer.frame.origin.y + lineLayer.frame.size.height;
+		if (message || title) {
+            // Line
+            CALayer *lineLayer = [self lineLayer];
+            lineLayer.frame = CGRectMake(0, self.messageScrollView.frame.origin.y + self.messageScrollView.frame.size.height + AlertViewVerticalElementSpace, AlertViewWidth, AlertViewLineLayerWidth);
+            [self.alertView.layer addSublayer:lineLayer];
+            self.buttonsY = lineLayer.frame.origin.y + lineLayer.frame.size.height;
+        }
+        else {
+            self.buttonsY = 0;
+        }
 		
 		// Buttons
 		self.buttonsShouldStack = shouldstack;
@@ -356,6 +358,9 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 			totalHeight += view.frame.size.height + AlertViewVerticalElementSpace;
 		}
 	}
+    if (totalHeight > 0) {
+        totalHeight += AlertViewVerticalElementSpace;
+    }
 	if (self.buttons) {
 		NSUInteger otherButtonsCount = [self.buttons count];
 		if (self.buttonsShouldStack) {
@@ -365,9 +370,9 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 		}
 	}
     
-    if (self.titleLabel.text && self.messageLabel.text) {
-        totalHeight += AlertViewVerticalElementSpace;
-    }
+//    if (self.titleLabel.text && self.messageLabel.text) {
+//        totalHeight += AlertViewVerticalElementSpace;
+//    }
 	
 	self.alertView.frame = CGRectMake(self.alertView.frame.origin.x,
 									  self.alertView.frame.origin.y,

@@ -112,7 +112,7 @@
                                                       }];
         [alertView useDefaultIOS7Style];
         [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-        [alertView setOtherButtonTextColor:TEXT_COLOR_TITLE_SUBTITLE];
+//        [alertView setOtherButtonTextColor:TEXT_COLOR_TITLE_SUBTITLE];
         [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
         [alertView setTapToDismissEnabled:NO];
         
