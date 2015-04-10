@@ -321,10 +321,6 @@
 		D9A802251A80E036005AD701 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801C61A80E036005AD701 /* NJKWebViewProgress.m */; };
 		D9A802261A80E036005AD701 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801C81A80E036005AD701 /* NJKWebViewProgressView.m */; };
 		D9A802271A80E036005AD701 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = D9A801CA1A80E036005AD701 /* pinyin.c */; };
-		D9A8022C1A80E036005AD701 /* sr_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A801D71A80E036005AD701 /* sr_refresh.png */; };
-		D9A8022D1A80E036005AD701 /* sr_refresh@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A801D81A80E036005AD701 /* sr_refresh@2X.png */; };
-		D9A8022E1A80E036005AD701 /* SRRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801DB1A80E036005AD701 /* SRRefreshView.m */; };
-		D9A8022F1A80E036005AD701 /* SRSlimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801DD1A80E036005AD701 /* SRSlimeView.m */; };
 		D9A802301A80E036005AD701 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801E01A80E036005AD701 /* SwipeView.m */; };
 		D9A802311A80E036005AD701 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801E31A80E036005AD701 /* TBXML.m */; };
 		D9A802321A80E036005AD701 /* THProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801E61A80E036005AD701 /* THProgressView.m */; };
@@ -1173,13 +1169,6 @@
 		D9A801C81A80E036005AD701 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		D9A801CA1A80E036005AD701 /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		D9A801CB1A80E036005AD701 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
-		D9A801D71A80E036005AD701 /* sr_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sr_refresh.png; sourceTree = "<group>"; };
-		D9A801D81A80E036005AD701 /* sr_refresh@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sr_refresh@2X.png"; sourceTree = "<group>"; };
-		D9A801D91A80E036005AD701 /* SRDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefine.h; sourceTree = "<group>"; };
-		D9A801DA1A80E036005AD701 /* SRRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRRefreshView.h; sourceTree = "<group>"; };
-		D9A801DB1A80E036005AD701 /* SRRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRRefreshView.m; sourceTree = "<group>"; };
-		D9A801DC1A80E036005AD701 /* SRSlimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSlimeView.h; sourceTree = "<group>"; };
-		D9A801DD1A80E036005AD701 /* SRSlimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSlimeView.m; sourceTree = "<group>"; };
 		D9A801DF1A80E036005AD701 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
 		D9A801E01A80E036005AD701 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		D9A801E21A80E036005AD701 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
@@ -2700,7 +2689,6 @@
 				D9A801BE1A80E036005AD701 /* MyTripSpotsMapViewController */,
 				D9A801C41A80E036005AD701 /* NJKWebViewProgress */,
 				D9A801C91A80E036005AD701 /* pinyin */,
-				D9A801D61A80E036005AD701 /* SlimeRefresh */,
 				D9A801DE1A80E036005AD701 /* SwipeView */,
 				D9A801E11A80E036005AD701 /* TBXML */,
 				D9A801E41A80E036005AD701 /* THProgressView */,
@@ -2872,20 +2860,6 @@
 				D9A801CB1A80E036005AD701 /* pinyin.h */,
 			);
 			path = pinyin;
-			sourceTree = "<group>";
-		};
-		D9A801D61A80E036005AD701 /* SlimeRefresh */ = {
-			isa = PBXGroup;
-			children = (
-				D9A801D71A80E036005AD701 /* sr_refresh.png */,
-				D9A801D81A80E036005AD701 /* sr_refresh@2X.png */,
-				D9A801D91A80E036005AD701 /* SRDefine.h */,
-				D9A801DA1A80E036005AD701 /* SRRefreshView.h */,
-				D9A801DB1A80E036005AD701 /* SRRefreshView.m */,
-				D9A801DC1A80E036005AD701 /* SRSlimeView.h */,
-				D9A801DD1A80E036005AD701 /* SRSlimeView.m */,
-			);
-			path = SlimeRefresh;
 			sourceTree = "<group>";
 		};
 		D9A801DE1A80E036005AD701 /* SwipeView */ = {
@@ -4868,7 +4842,6 @@
 				D9A805361A80E738005AD701 /* ic_city_shopping@2x.png in Resources */,
 				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				D9A804E01A80E738005AD701 /* ic_frendRequest@2x.png in Resources */,
-				D9A8022D1A80E036005AD701 /* sr_refresh@2X.png in Resources */,
 				C67C078A1A81BFC100E0F30B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				D9A805351A80E738005AD701 /* ic_city_restaurant@2x.png in Resources */,
 				D917DABB1A8B49AF0039720A /* ic_guide2_7_normal@2x.png in Resources */,
@@ -4980,7 +4953,6 @@
 				D9245DD71A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png in Resources */,
 				D9A805481A80E738005AD701 /* ic_guide_edit@2x.png in Resources */,
 				D9A804EC1A80E738005AD701 /* ic_loc_selected@2x.png in Resources */,
-				D9A8022C1A80E036005AD701 /* sr_refresh.png in Resources */,
 				D9A805391A80E738005AD701 /* ic_city_travel@2x.png in Resources */,
 				D9C6E4141AD6AFDF006C820F /* EaseMob.bundle in Resources */,
 				D9A801361A80DD23005AD701 /* messageToolbarBg@2x.png in Resources */,
@@ -5250,7 +5222,6 @@
 				C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */,
 				D9A800291A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.m in Sources */,
 				D9A801111A80DD23005AD701 /* ChatGroupSettingViewController.m in Sources */,
-				D9A8022F1A80E036005AD701 /* SRSlimeView.m in Sources */,
 				D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */,
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
@@ -5292,7 +5263,6 @@
 				D9A801591A80DD23005AD701 /* EMSearchBar.m in Sources */,
 				D9A801291A80DD23005AD701 /* DXMessageToolBar.m in Sources */,
 				D9A802211A80E036005AD701 /* MJPhotoToolbar.m in Sources */,
-				D9A8022E1A80E036005AD701 /* SRRefreshView.m in Sources */,
 				D9A801471A80DD23005AD701 /* EMChatTimeCell.m in Sources */,
 				C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */,
 				D9A801261A80DD23005AD701 /* ChatViewController.m in Sources */,
