@@ -290,7 +290,7 @@
     [titleView addSubview:activityView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
     titleLabel.textColor = [UIColor blackColor];
-    titleLabel.font = [UIFont systemFontOfSize:17.0];
+    titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     [activityView startAnimating];
     [titleView addSubview:titleLabel];
     
@@ -306,7 +306,7 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
             titleLabel.textColor = [UIColor redColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
             titleLabel.text = @"未连接";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"未连接");
@@ -325,8 +325,8 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
-            titleLabel.text = @"桃Talk";
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"消息";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_RECEIVED");
         }
@@ -336,8 +336,8 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
-            titleLabel.text = @"桃Talk";
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"消息";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_CONNECTED");
         }
@@ -347,8 +347,8 @@
             UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:17.0];
-            titleLabel.text = @"桃Talk";
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"消息";
             self.navigationItem.titleView = titleLabel;
         }
 

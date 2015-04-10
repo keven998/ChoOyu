@@ -37,24 +37,41 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.customNavigationItem.title = _titleStr;
-    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 40)];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[ConvertMethods createImageWithColor:APP_BORDER_COLOR] forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    
+    _searchBar = [[UISearchBar alloc]init];
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _searchBar.searchBarStyle = UISearchBarStyleProminent;
+//    _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
     [_searchBar setPlaceholder:@"城市、景点、酒店、美食、游记"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+//    _searchBar.showsCancelButton = YES;
+    [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor redColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _searchBar.translucent = YES;
+    self.navigationItem.titleView = _searchBar;
     
-    [self.view addSubview:_searchBar];
+//    [self.view addSubview:_searchBar];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.view.bounds), 50)];
+    label.font = [UIFont systemFontOfSize:13.0];
+    label.textColor = TEXT_COLOR_TITLE_PH;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 2;
+    label.text = @"旅行搜搜\n搜索旅行的城市、景点、美食、游记等";
+    [self.view addSubview:label];
+    
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     
     [_searchBar becomeFirstResponder];
+}
+
+- (void) goBack {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,7 +90,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 41, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)+60)];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
 
@@ -108,6 +125,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [self.view endEditing:YES];
     [self.searchBar endEditing:YES];
     [super touchesEnded:touches withEvent:event];
+    [self goBack];
 }
 
 /**
@@ -148,15 +166,15 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         if (code == 0) {
             [self analysisData:[responseObject objectForKey:@"result"]];
         } else {
-             if (self.isShowing) {
-                [SVProgressHUD showHint:@"请求也是失败了"];
-            }
+//             if (self.isShowing) {
+//                [SVProgressHUD showHint:@"请求也是失败了"];
+//            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
+//        if (self.isShowing) {
+//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        }
     }];
 
 }

@@ -59,8 +59,11 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.hidesBottomBarWhenPushed = YES;
-    searchCtl.titleStr = @"旅行搜搜";
-    [self.navigationController pushViewController:searchCtl animated:YES];
+//    searchCtl.titleStr = @"旅行搜搜";
+//    [self.navigationController pushViewController:searchCtl animated:YES];
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
     return NO;
 }
 

@@ -1091,13 +1091,19 @@
     [MobClick event:@"event_share_search_extra"];
 
     [self keyBoardHidden];
+//    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+//    searchCtl.isCanSend = YES;
+//    searchCtl.titleStr = @"发送地点";
+//    searchCtl.chatter = _chatter;
+//    searchCtl.isChatGroup = _isChatGroup;
+//    [self.navigationController pushViewController:searchCtl animated:YES];
+
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
-    searchCtl.titleStr = @"发送地点";
     searchCtl.chatter = _chatter;
     searchCtl.isChatGroup = _isChatGroup;
-    [self.navigationController pushViewController:searchCtl animated:YES];
-
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
 }
 
 /**
@@ -1406,6 +1412,13 @@
                 [_headerLoading stopAnimating];
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                if (chats.count < KPageCount) {
+                    [_headerLoading stopAnimating];
+                    [_headerView removeFromSuperview];
+                    _headerView = nil;
+                    _headerLoading = nil;
+                    _tableView.tableHeaderView = nil;
+                }
             });
         } else {
             NSLog(@"******不需要加载聊天记录");
