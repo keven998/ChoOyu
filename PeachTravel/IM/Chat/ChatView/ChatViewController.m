@@ -1144,7 +1144,6 @@
     }];
     
     [self presentViewController:picker animated:YES completion:NULL];
-
 }
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView

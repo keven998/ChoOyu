@@ -70,7 +70,7 @@
     [self.indexView refreshIndexItems];
 //    [self.view addSubview:self.indexView];
     [self.accountManager loadContactsFromServer];
-    [self handleEmptyView];
+//    [self handleEmptyView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -223,7 +223,7 @@
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
     [self.indexView refreshIndexItems];
     
-    [self handleEmptyView];
+//    [self handleEmptyView];
 }
 
 - (IBAction)chat:(UIButton *)sender

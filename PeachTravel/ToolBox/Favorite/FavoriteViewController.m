@@ -194,7 +194,6 @@
 }
 
 - (void)pullToRefreash:(id)sender {
-    
     [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
 }
 

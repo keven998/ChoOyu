@@ -637,8 +637,8 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
 //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
 //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"置顶"];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"更多"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"删除"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"选项"];
     
     return rightUtilityButtons;
 }
@@ -696,10 +696,10 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void) setupMoreMenu {
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:@"更多"
-                                                 cancelTitle:@"删除计划"
-                                                 otherTitles:@[ @"修改标题", @"标记\"已旅行\""]
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"选项"
+                                                     message:nil
+                                                 cancelTitle:@"取消"
+                                                 otherTitles:@[@"修改标题", @"标记\"已旅行\"", @"排到第一个"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 0) {
                                                           
@@ -711,8 +711,9 @@ static NSString *reusableCell = @"myGuidesCell";
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
+    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-    [alertView setCancelButtonTextColor:[UIColor redColor]];
+//    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 
 #pragma mark - UIScrollViewDelegate

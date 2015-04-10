@@ -128,7 +128,11 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
             self.titleLabel.frame = [self adjustLabelFrameHeight:self.titleLabel];
             [self.alertView addSubview:self.titleLabel];
             
-            messageLabelY = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + AlertViewVerticalElementSpace;
+            messageLabelY = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height;
+        
+        if (message && title) {
+            messageLabelY += AlertViewVerticalElementSpace;
+        }
 //        }
 		
 		// Optional Content View
@@ -360,7 +364,10 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 			totalHeight += AlertViewButtonHeight * (otherButtonsCount > 2 ? otherButtonsCount : 1);
 		}
 	}
-	totalHeight += AlertViewVerticalElementSpace;
+    
+    if (self.titleLabel.text && self.messageLabel.text) {
+        totalHeight += AlertViewVerticalElementSpace;
+    }
 	
 	self.alertView.frame = CGRectMake(self.alertView.frame.origin.x,
 									  self.alertView.frame.origin.y,
