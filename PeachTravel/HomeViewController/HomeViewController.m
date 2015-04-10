@@ -454,7 +454,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
         
         do {
-            if (options.noDisturbing) {
+            if (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) {
                 NSDate *now = [NSDate date];
                 NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
                 NSInteger hour = [components hour];
