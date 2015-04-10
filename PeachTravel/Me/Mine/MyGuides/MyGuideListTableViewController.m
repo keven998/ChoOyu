@@ -60,7 +60,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewDidLoad];
     self.navigationItem.title = @"旅程计划";
     
-    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已旅行" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已去" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
     self.navigationItem.rightBarButtonItem = rbtn;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
@@ -696,10 +696,10 @@ static NSString *reusableCell = @"myGuidesCell";
 }
 
 - (void) setupMoreMenu {
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"选项"
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
-                                                 otherTitles:@[@"修改标题", @"标记\"已旅行\"", @"排到第一个"]
+                                                 otherTitles:@[@"修改标题", @"标记\"已去\"", @"排到第一个"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 0) {
                                                           
@@ -711,8 +711,8 @@ static NSString *reusableCell = @"myGuidesCell";
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
-    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
-    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
+//    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
+//    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 //    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 
