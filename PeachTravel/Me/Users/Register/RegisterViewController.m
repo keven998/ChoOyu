@@ -10,6 +10,8 @@
 #import "SMSVerifyViewController.h"
 #import "SuperWebViewController.h"
 
+typedef void(^loginCompletion)(BOOL completed);
+
 @interface RegisterViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
@@ -166,7 +168,6 @@
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
-              
         } else {
             if ([[responseObject objectForKey:@"err"] objectForKey:@"message"]) {
                 [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];

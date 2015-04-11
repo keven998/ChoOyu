@@ -25,11 +25,20 @@
 @property (weak, nonatomic) IBOutlet UIView *wechatLeftView;
 @property (weak, nonatomic) IBOutlet UIView *wechatRightView;
 
+@property (nonatomic, copy) void (^completion)(BOOL completed);
+
 @end
 
 @implementation LoginViewController
 
 #pragma mark - LifeCycle
+
+- (id) initWithCompletion:(loginCompletion)completion {
+    if (self = [super init]) {
+        self.completion = completion;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -187,8 +196,9 @@
                 [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
+//                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                     [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
+                    self.completion(YES);
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }
@@ -272,7 +282,8 @@
                 [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
+                    self.completion(YES);
+//                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }
@@ -294,6 +305,7 @@
 - (void)userDidRegisted
 {
     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+    self.completion(YES);
 }
 
 - (void)dismissCtl
