@@ -328,7 +328,6 @@
     } onQueue:nil];
 }
 
-
 /**
  *  点击群组联系人列表的头像进入联系人信息
  *
@@ -338,7 +337,6 @@
 {
     Contact *selectPerson = self.groupNumbers[sender.tag];
     [self  showUserInfoWithContactInfo:selectPerson];
-    
 }
 
 - (void)showUserInfoWithContactInfo:(Contact *)contact

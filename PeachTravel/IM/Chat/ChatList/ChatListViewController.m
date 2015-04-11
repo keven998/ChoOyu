@@ -24,6 +24,7 @@
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"
+#import "ChatSettingViewController.h"
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
 
@@ -636,10 +637,17 @@
     [tzConversation.conversation markAllMessagesAsRead:YES];
 //    chatController.hidesBottomBarWhenPushed = YES;
     
-    ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
-//    chatSettingCtl.group = chatGroup;
+    UIViewController *menuViewController = nil;
+    if (tzConversation.conversation.isGroup) {
+        menuViewController = [[ChatGroupSettingViewController alloc] init];
+        EMGroup *chatGroup = [EMGroup groupWithId:tzConversation.conversation.chatter];
+        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
+    } else {
+        menuViewController = [[ChatSettingViewController alloc] init];
+        ((ChatSettingViewController *)menuViewController).chatter = tzConversation.conversation.chatter;
+    }
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:chatSettingCtl];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;

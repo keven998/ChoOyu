@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatGroupSettingViewController">
@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTu-Sc-IcA">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTu-Sc-IcA">
                     <rect key="frame" x="-20" y="54" width="440" height="291"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Tk-R4-K6r">
@@ -339,7 +339,6 @@
                             <exclude reference="7Tk-R4-K6r"/>
                         </mask>
                         <mask key="constraints">
-                            <exclude reference="k2L-8Z-Amm"/>
                             <exclude reference="8Cq-W1-lDW"/>
                             <exclude reference="AGd-nh-LIw"/>
                             <exclude reference="HVv-UR-k7I"/>
@@ -353,6 +352,7 @@
                             <exclude reference="LZV-F2-IEG"/>
                             <exclude reference="Tb7-SE-f6j"/>
                             <exclude reference="ooW-mQ-FQD"/>
+                            <exclude reference="k2L-8Z-Amm"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -360,7 +360,6 @@
                             <include reference="7Tk-R4-K6r"/>
                         </mask>
                         <mask key="constraints">
-                            <include reference="k2L-8Z-Amm"/>
                             <include reference="8Cq-W1-lDW"/>
                             <include reference="AGd-nh-LIw"/>
                             <include reference="HVv-UR-k7I"/>
@@ -374,6 +373,7 @@
                             <include reference="LZV-F2-IEG"/>
                             <include reference="Tb7-SE-f6j"/>
                             <include reference="ooW-mQ-FQD"/>
+                            <include reference="k2L-8Z-Amm"/>
                         </mask>
                     </variation>
                 </scrollView>
