@@ -198,7 +198,9 @@
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
 //                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                     [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
-                    self.completion(YES);
+                    if (self.completion) {
+                        self.completion(YES);
+                    }
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }
@@ -282,7 +284,9 @@
                 [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    self.completion(YES);
+                    if (self.completion) {
+                        self.completion(YES);
+                    }
 //                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
@@ -305,7 +309,9 @@
 - (void)userDidRegisted
 {
     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-    self.completion(YES);
+    if (self.completion) {
+        self.completion(YES);
+    }
 }
 
 - (void)dismissCtl
