@@ -43,7 +43,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
         bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"设置"];
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"意见和需求"];
         navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         [bar pushNavigationItem:navTitle animated:YES];
         bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
@@ -59,7 +59,7 @@
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"请提出你的意见和需求吧";
+    desc1.text = @"你的意见和需求，我们在认真改进";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
