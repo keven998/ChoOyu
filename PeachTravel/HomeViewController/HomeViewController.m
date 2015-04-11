@@ -18,6 +18,7 @@
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
 #import "ChatListViewController.h"
+#import "RegisterViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -66,6 +67,12 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidRegistedNoti object:nil];
+    
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [self setupLoginPage];
+    }
 }
 
 - (void)dealloc
@@ -74,22 +81,73 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) setupConverView {
-    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
-        [self beginIntroduce];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
-        
-    } else {
-        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _coverView.userInteractionEnabled = YES;
-        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
-        [self.view addSubview:_coverView];
-        
-        _coverView.backgroundColor = [UIColor whiteColor];
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
-    }
+- (void) setupLoginPage {
+    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    _coverView.userInteractionEnabled = YES;
+    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _coverView.image = [UIImage imageNamed:@"LaunchImage-800-Portrait-736h"]; //LaunchImage-568h, LaunchImage-700-568h, LaunchImage-800-667h, LaunchImage-800-Portrait-736h
+    [self.view addSubview:_coverView];
+    
+    UIButton *login = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 44)];
+    login.backgroundColor = APP_THEME_COLOR;
+    login.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2);
+    [login setTitle:@"登录" forState:UIControlStateNormal];
+    [login addTarget:self action:@selector(goLogin:) forControlEvents:UIControlEventTouchUpInside];
+    [_coverView addSubview:login];
+    
+    UIButton *regBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 44)];
+    regBtn.backgroundColor = APP_THEME_COLOR;
+    regBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2 + 60);
+    [regBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [regBtn addTarget:self action:@selector(goRegist:) forControlEvents:UIControlEventTouchUpInside];
+    [_coverView addSubview:regBtn];
+    
+    UIButton *passbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 44)];
+    passbtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2 + 110);
+    passbtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [passbtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [passbtn setTitle:@"跳过" forState:UIControlStateNormal];
+    [passbtn addTarget:self action:@selector(goPass:) forControlEvents:UIControlEventTouchUpInside];
+    [_coverView addSubview:passbtn];
+    
+    /*
+     @"LaunchImage-568h@2x.png"  // ios 8 - iphone 5 - portrait
+     @"LaunchImage-568h@2x.png" // ios 8 - iphone 5 - landscape
+     @"LaunchImage-700-568h@2x.png" // ios 7 - iphone 5 - portrait
+     @"LaunchImage-700-568h@2x.png" // ios 7 - iphone 5 - landscape
+     @"LaunchImage-700-Landscape@2x~ipad.png" // ios 7 - ipad retina - landscape
+     @"LaunchImage-700-Landscape~ipad.png" // ios 7 - ipad regular - landscape
+     @"LaunchImage-700-Portrait@2x~ipad.png" // ios 7 - ipad retina - portrait
+     @"LaunchImage-700-Portrait~ipad.png" // ios 7 - ipad regular - portrait
+     @"LaunchImage-700@2x.png" // ios 7 - iphone 4/4s retina - portrait
+     @"LaunchImage-700@2x.png" // ios 7 - iphone 4/4s retina - landscape
+     @"LaunchImage-Landscape@2x~ipad.png" // ios 8 - ipad retina - landscape
+     @"LaunchImage-Landscape~ipad.png" // ios 8 - ipad regular - landscape
+     @"LaunchImage-Portrait@2x~ipad.png" // ios 8 - ipad retina - portrait
+     @"LaunchImage-Portrait~ipad.png" // ios 8 - ipad regular - portrait
+     @"LaunchImage.png" // ios 6 - iphone 3g/3gs - portrait
+     @"LaunchImage.png" // ios 6 - iphone 3g/3gs - landscape
+     @"LaunchImage@2x.png" // ios 6,7,8 - iphone 4/4s - portrait
+     @"LaunchImage@2x.png" // ios 6,7,8 - iphone 4/4s - landscape
+     @"LaunchImage-800-667h@2x.png" // ios 8 - iphone 6 - portrait
+     @"LaunchImage-800-667h@2x.png" // ios 8 - iphone 6 - landscape
+     @"LaunchImage-800-Portrait-736h@3x.png" // ios 8 - iphone 6 plus - portrait
+     @"LaunchImage-800-Landscape-736h@3x.png" // ios 8 - iphone 6 plus - landscape
+     */
 }
+
+//- (void) setupConverView {
+//    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
+//        [self beginIntroduce];
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+//    } else {
+//        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//        _coverView.userInteractionEnabled = YES;
+//        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        [self.view addSubview:_coverView];
+//        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.5];
+//    }
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -130,7 +188,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
         [self.navigationController pushViewController:self.chatListCtl animated:YES];
-        
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.8];
@@ -139,10 +196,29 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (IBAction)goLogin:(id)sender
 {
-    LoginViewController *loginCtl = [[LoginViewController alloc] init];
+    LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+        [self userDidLogin];
+    }];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
+- (IBAction)goRegist:(id)sender {
+    RegisterViewController *loginCtl = [[RegisterViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
+- (IBAction)goPass:(id)sender {
+    [self setSelectedIndex:1];
+    [_coverView removeFromSuperview];
+    _coverView = nil;
+}
+
+- (void) userDidLogin {
+    [_coverView removeFromSuperview];
+    _coverView = nil;
 }
 
 /**
@@ -247,10 +323,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (pageIndex == 0) {
         [_pageView1 startAnimation];
     }
-    if (pageIndex == 1) {
+    else if (pageIndex == 1) {
         [_pageView2 startAnimation];
     }
-    if (pageIndex == 2) {
+    else if (pageIndex == 2) {
         [_pageView3 startAnimation];
     }
 }

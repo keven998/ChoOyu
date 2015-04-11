@@ -40,7 +40,6 @@
     
     CGFloat offsetY = 0;
     if (self.navigationController.navigationBarHidden) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
         bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"意见和需求"];
