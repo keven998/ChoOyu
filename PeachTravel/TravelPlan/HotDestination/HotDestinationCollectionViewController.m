@@ -47,9 +47,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 //    titleLabel.text = @"目的地";
 //    self.navigationItem.titleView = titleLabel;
     
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(makePlan:)];
-    makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
-    makePlanBtn.tintColor = [UIColor whiteColor];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goSearch)];
+    makePlanBtn.image = [UIImage imageNamed:@"ic_search.png"];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
 
     
@@ -92,6 +91,13 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 }
 
 #pragma mark - IBAction
+
+- (void)goSearch {
+    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
+}
 
 - (IBAction)makePlan:(UIButton *)sender {
     Destinations *destinations = [[Destinations alloc] init];

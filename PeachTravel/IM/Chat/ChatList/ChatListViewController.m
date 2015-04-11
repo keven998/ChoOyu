@@ -10,7 +10,6 @@
   * from EaseMob Technologies.
   */
 #import "ChatListViewController.h"
-#import "SRRefreshView.h"
 #import "ChatListCell.h"
 #import "NSDate+Category.h"
 #import "RealtimeSearchUtil.h"
@@ -26,11 +25,10 @@
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
-@property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
@@ -95,8 +93,6 @@
 
 - (void)dealloc{
     [self unregisterNotifications];
-    _slimeView.delegate = nil;
-    _slimeView = nil;
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
     _searchController.delegate = nil;
@@ -139,23 +135,6 @@
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
 //    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-}
-
-
-- (SRRefreshView *)slimeView
-{
-    if (!_slimeView) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    return _slimeView;
 }
 
 - (UITableView *)tableView
@@ -684,26 +663,6 @@
 
         [MobClick event:@"event_delete_talk_item"];
     }
-}
-
-#pragma mark - scrollView delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [_slimeView scrollViewDidScroll];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    [_slimeView scrollViewDidEndDraging];
-}
-
-#pragma mark - slimeRefresh delegate
-//刷新消息列表
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self refreshDataSource];
-    [_slimeView endRefresh];
 }
 
 #pragma mark - IChatMangerDelegate
