@@ -15,7 +15,7 @@
 
 @interface ZYQAssetPickerController : UINavigationController
 
-@property (nonatomic, weak) id <UINavigationControllerDelegate, ZYQAssetPickerControllerDelegate> delegate;
+@property (nonatomic, weak) id <UINavigationControllerDelegate, ZYQAssetPickerControllerDelegate> myDelegate;
 
 @property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 
