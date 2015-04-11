@@ -7,14 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QNhttpDelegate.h"
 
-@class QNResponseInfo;
-
-typedef void (^QNInternalProgressBlock)(long long totalBytesWritten, long long totalBytesExpectedToWrite);
-typedef void (^QNCompleteBlock)(QNResponseInfo *info, NSDictionary *resp);
-typedef BOOL (^QNCancelBlock)(void);
-
-@interface QNHttpManager : NSObject
+@interface QNHttpManager : NSObject <QNHttpDelegate>
 
 - (void)multipartPost:(NSString *)url
              withData:(NSData *)data
