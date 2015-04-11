@@ -66,31 +66,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
-    
-    if (_shouldJumpToChatListWhenAppLaunch) {
-        [_coverView removeFromSuperview];
-        _coverView = nil;
-        [self jumpToChatListCtl];
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-       NSLog(@"home willAppear");
-    self.navigationController.navigationBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    NSLog(@"home willDisappear");
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 - (void)dealloc
@@ -148,14 +123,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         [_coverView removeFromSuperview];
         _coverView = nil;
     }];
-}
-
-/**
- *  跳转到聊天列表
- */
-- (void)jumpToChatListCtl
-{
-    [self jumpIM:nil];
 }
 
 //进入聊天功能

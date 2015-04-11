@@ -15,11 +15,6 @@
  */
 - (void)jumpToWebViewCtl;
 
-/**
- *  当程序启动的时候是否应该进入聊天列表界面
- */
-@property (nonatomic)BOOL shouldJumpToChatListWhenAppLaunch;
-
 @property (nonatomic) IM_CONNECT_STATE IMState;
 
 @end
