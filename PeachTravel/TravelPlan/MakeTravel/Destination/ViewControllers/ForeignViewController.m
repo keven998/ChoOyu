@@ -33,7 +33,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
     _showCitiesIndex = 0;
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
-    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
+    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(0, 0, 89, 0)];
     [self.foreignCollectionView setShowsVerticalScrollIndicator:NO];
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
@@ -197,7 +197,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 //    CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
 //    NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width - 20) + 1 ;
 //    CGFloat height = lineCount*size.height + 120.0 + 20 + 12.0;
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 55);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 40);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -275,12 +275,12 @@ static NSString *reuseableCellIdentifier  = @"cell";
             return  cell;
         }
     }
-    cell.tiltleLabel.textColor = APP_THEME_COLOR;
+    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE;
     UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_normal_background.png"]
                                       resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
     cell.background.image = buttonBackgroundImage;
     
-    return  cell;
+    return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

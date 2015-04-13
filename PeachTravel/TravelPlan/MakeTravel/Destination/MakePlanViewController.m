@@ -69,27 +69,25 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
-    _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"输入城市名或拼音"];
-    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _searchBar.translucent = YES;
-    _searchBar.showsCancelButton = YES;
-    _searchBar.hidden = YES;
-    _searchController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
-    _searchController.active = NO;
-    _searchController.searchResultsDataSource = self;
-    _searchController.searchResultsDelegate = self;
-    [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SearchDestinationTableViewCell" bundle:nil] forCellReuseIdentifier:@"searchCell"];
-    _searchController.delegate = self;
-    
-    [self.view addSubview:_searchBar];
-    
-    UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索 " style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
-    searchBtn.tintColor = APP_THEME_COLOR;
+//    self.view.backgroundColor = [UIColor whiteColor];
+//    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, 38)];
+//    _searchBar.searchBarStyle = UISearchBarStyleMinimal;
+//    _searchBar.delegate = self;
+//    [_searchBar setPlaceholder:@"输入城市名或拼音"];
+//    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+//    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//    _searchBar.translucent = YES;
+//    _searchBar.showsCancelButton = YES;
+//    _searchBar.hidden = YES;
+//    _searchController = [[UISearchDisplayController alloc]initWithSearchBar:_searchBar contentsController:self];
+//    _searchController.active = NO;
+//    _searchController.searchResultsDataSource = self;
+//    _searchController.searchResultsDelegate = self;
+//    [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SearchDestinationTableViewCell" bundle:nil] forCellReuseIdentifier:@"searchCell"];
+//    _searchController.delegate = self;
+//    [self.view addSubview:_searchBar];
+//    UIBarButtonItem * searchBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索 " style:UIBarButtonItemStyleBordered target:self action:@selector(beginSearch:)];
+//    searchBtn.tintColor = APP_THEME_COLOR;
     
     [self.view addSubview:self.destinationToolBar];
     
@@ -120,8 +118,8 @@
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
-        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-49.5, self.view.bounds.size.width, 49.5) andNextBtnTitle:nil];
-        _destinationToolBar.backgroundColor = APP_SUB_THEME_COLOR;
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49.5 - 64, CGRectGetWidth(self.view.bounds), 49.5) andNextBtnTitle:nil];
+        _destinationToolBar.backgroundColor = [UIColor whiteColor];
         _destinationToolBar.delegate = self;
     }
     return _destinationToolBar;
@@ -194,14 +192,13 @@
             tripDetailCtl.canEdit = YES;
             tripDetailCtl.destinations = self.destinations.destinationsSelected;
             tripDetailCtl.isMakeNewTrip = YES;
-            tripDetailCtl.hidesBottomBarWhenPushed = YES;
             NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
             [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
             
             [self.navigationController setViewControllers:array animated:YES];
         } else {
             [SVProgressHUD showHint:@"请先登录"];
-            [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+            [self performSelector:@selector(login) withObject:nil afterDelay:0.25];
         }
     } else {
         [_myDelegate updateDestinations:_destinations.destinationsSelected];
@@ -211,7 +208,9 @@
 
 - (void)login
 {
-    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL islogin){
+        [self performSelector:@selector(makePlan:) withObject:nil afterDelay:0.25];
+    }];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
     loginViewController.isPushed = NO;
     [self presentViewController:nctl animated:YES completion:nil];

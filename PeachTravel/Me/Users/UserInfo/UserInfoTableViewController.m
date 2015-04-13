@@ -390,7 +390,7 @@
 -(IBAction)logout:(id)sender
 {
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:nil
-                                                  message:@"确定退出已登陆账户"
+                                                  message:@"确定退出已登录账户"
                                                  delegate:self
                                         cancelButtonTitle:@"取消"
                                         otherButtonTitles:@"确定", nil];
@@ -525,7 +525,7 @@
 
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
 //            [self.navigationController pushViewController:changePasswordCtl animated:YES];
-            [self presentViewController:changePasswordCtl animated:YES completion:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_phone"];
 

@@ -65,7 +65,6 @@
             offsetX += _spacePerItem + itemSize.width;
             
             (heighest < itemSize.height)? (heighest=itemSize.height):(heighest=heighest);
-
             [tempArray addObject:attributes];
         }
         if (heighest > 0) {

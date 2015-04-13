@@ -35,7 +35,8 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     _domesticCollectionView.showsVerticalScrollIndicator = NO;
-    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
+    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 35, 0);
+    _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
     layout.delegate = self;
@@ -201,7 +202,7 @@ static NSString *cacheName = @"destination_demostic_group";
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 55);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 40);
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -246,7 +247,7 @@ static NSString *cacheName = @"destination_demostic_group";
         }
     }
     
-    cell.tiltleLabel.textColor = APP_THEME_COLOR;
+    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE;
     UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_normal_background.png"]
                                       resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
     cell.background.image = buttonBackgroundImage;
