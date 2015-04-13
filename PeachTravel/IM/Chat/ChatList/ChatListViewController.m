@@ -668,7 +668,6 @@
                                                               append2Chat:YES];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-
         [MobClick event:@"event_delete_talk_item"];
     }
 }
@@ -701,9 +700,7 @@
                                                                       append2Chat:YES];
             }
         }
-        
     }
-    
         
     NSLog(@"allgroups:%@", allGroups);
     [self refreshDataSource];

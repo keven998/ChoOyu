@@ -720,6 +720,8 @@
 		D9B9EA1D1A88CF8000966074 /* check_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA1C1A88CF8000966074 /* check_border@2x.png */; };
 		D9C6E4121AD6AFDF006C820F /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C6E40E1AD6AFDF006C820F /* libEaseMobClientSDK.a */; };
 		D9C6E4141AD6AFDF006C820F /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9C6E4111AD6AFDF006C820F /* EaseMob.bundle */; };
+		D9C78C3F1AD924D00087F52A /* PrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C78C3D1AD924D00087F52A /* PrepareViewController.m */; };
+		D9C78C401AD924D00087F52A /* PrepareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C78C3E1AD924D00087F52A /* PrepareViewController.xib */; };
 		D9E518CD1AD3A69E00C23B9F /* ChangeRemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E518CB1AD3A69E00C23B9F /* ChangeRemarkViewController.m */; };
 		D9E518CE1AD3A69E00C23B9F /* ChangeRemarkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E518CC1AD3A69E00C23B9F /* ChangeRemarkViewController.xib */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
@@ -1880,6 +1882,9 @@
 		D9C6E40E1AD6AFDF006C820F /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		D9C6E40F1AD6AFDF006C820F /* libEaseMobClientSDKLite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDKLite.a; sourceTree = "<group>"; };
 		D9C6E4111AD6AFDF006C820F /* EaseMob.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseMob.bundle; sourceTree = "<group>"; };
+		D9C78C3C1AD924D00087F52A /* PrepareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareViewController.h; sourceTree = "<group>"; };
+		D9C78C3D1AD924D00087F52A /* PrepareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareViewController.m; sourceTree = "<group>"; };
+		D9C78C3E1AD924D00087F52A /* PrepareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrepareViewController.xib; sourceTree = "<group>"; };
 		D9E518CA1AD3A69E00C23B9F /* ChangeRemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeRemarkViewController.h; sourceTree = "<group>"; };
 		D9E518CB1AD3A69E00C23B9F /* ChangeRemarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeRemarkViewController.m; sourceTree = "<group>"; };
 		D9E518CC1AD3A69E00C23B9F /* ChangeRemarkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeRemarkViewController.xib; sourceTree = "<group>"; };
@@ -2006,6 +2011,9 @@
 			children = (
 				C608ED641A2C4D8E00B76934 /* HomeViewController.h */,
 				C608ED651A2C4D8E00B76934 /* HomeViewController.m */,
+				D9C78C3C1AD924D00087F52A /* PrepareViewController.h */,
+				D9C78C3D1AD924D00087F52A /* PrepareViewController.m */,
+				D9C78C3E1AD924D00087F52A /* PrepareViewController.xib */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -4922,6 +4930,7 @@
 				D9A804AD1A80E738005AD701 /* chat_receiver_audio_playing_full@2x.png in Resources */,
 				D9A8053B1A80E738005AD701 /* ic_clock@2x.png in Resources */,
 				D9A8051B1A80E738005AD701 /* nearby_ic_tab_shopping_normal@2x.png in Resources */,
+				D9C78C401AD924D00087F52A /* PrepareViewController.xib in Resources */,
 				D9A804F71A80E738005AD701 /* ic_round_tab@2x.png in Resources */,
 				D9A805431A80E738005AD701 /* ic_dot_yellow@2x.png in Resources */,
 				D9A8051E1A80E738005AD701 /* nearby_ic_tab_spot_select@2x.png in Resources */,
@@ -5443,6 +5452,7 @@
 				D9A8016A1A80DD37005AD701 /* TZCMDChatHelper.m in Sources */,
 				D9A8FFA01A80D1C3005AD701 /* CityDetailTableViewController.m in Sources */,
 				D9A800331A80D52F005AD701 /* TripPoiListTableViewCell.m in Sources */,
+				D9C78C3F1AD924D00087F52A /* PrepareViewController.m in Sources */,
 				D9A800211A80D52F005AD701 /* DestinationCollectionHeaderView.m in Sources */,
 				D9A802DE1A80E3D3005AD701 /* EAIntroPage.m in Sources */,
 				D9A8FFAB1A80D1C3005AD701 /* PoiDetailSuperViewController.m in Sources */,

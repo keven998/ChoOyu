@@ -19,6 +19,7 @@
 #import "LoginViewController.h"
 #import "ChatListViewController.h"
 #import "RegisterViewController.h"
+#import "PrepareViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
@@ -82,33 +83,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (void) setupLoginPage {
-    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _coverView.userInteractionEnabled = YES;
-    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _coverView.image = [UIImage imageNamed:@"LaunchImage-800-Portrait-736h"]; //LaunchImage-568h, LaunchImage-700-568h, LaunchImage-800-667h, LaunchImage-800-Portrait-736h
-    [self.view addSubview:_coverView];
+//    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    _coverView.userInteractionEnabled = YES;
+//    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    _coverView.image = [UIImage imageNamed:@"LaunchImage-800-Portrait-736h"]; //LaunchImage-568h, LaunchImage-700-568h, LaunchImage-800-667h, LaunchImage-800-Portrait-736h
+//    [self.view addSubview:_coverView];
     
-    UIButton *login = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 44)];
-    login.backgroundColor = APP_THEME_COLOR;
-    login.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2);
-    [login setTitle:@"登录" forState:UIControlStateNormal];
-    [login addTarget:self action:@selector(goLogin:) forControlEvents:UIControlEventTouchUpInside];
-    [_coverView addSubview:login];
-    
-    UIButton *regBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 44)];
-    regBtn.backgroundColor = APP_THEME_COLOR;
-    regBtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2 + 60);
-    [regBtn setTitle:@"注册" forState:UIControlStateNormal];
-    [regBtn addTarget:self action:@selector(goRegist:) forControlEvents:UIControlEventTouchUpInside];
-    [_coverView addSubview:regBtn];
-    
-    UIButton *passbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds)/2, 44)];
-    passbtn.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2 + 110);
-    passbtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [passbtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [passbtn setTitle:@"跳过" forState:UIControlStateNormal];
-    [passbtn addTarget:self action:@selector(goPass:) forControlEvents:UIControlEventTouchUpInside];
-    [_coverView addSubview:passbtn];
+    PrepareViewController *prepareCtl = [[PrepareViewController alloc] init];
+    prepareCtl.rootViewController = self;
+    prepareCtl.view.frame = self.view.frame;
+    [self addChildViewController:prepareCtl];
+    [self.view addSubview:prepareCtl.view];
+    [prepareCtl willMoveToParentViewController:self];
     
     /*
      @"LaunchImage-568h@2x.png"  // ios 8 - iphone 5 - portrait
