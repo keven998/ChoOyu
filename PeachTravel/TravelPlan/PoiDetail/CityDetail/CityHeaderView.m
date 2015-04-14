@@ -327,7 +327,10 @@
         {
              UIViewController *ctl = (UIViewController*)nextResponder;
             [self loadAlbumDataWithAlbumCtl:browser];
-            [ctl.navigationController pushViewController:browser animated:YES];
+            [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+            UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
+            [ctl presentViewController:navc animated:YES completion:nil];
+//            [ctl.navigationController pushViewController:browser animated:YES];
             break;
         }
     }
