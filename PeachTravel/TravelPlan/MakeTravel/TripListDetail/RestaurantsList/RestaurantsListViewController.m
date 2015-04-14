@@ -113,7 +113,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-
 #pragma makr - IBAction Methods
 
 - (IBAction)addWantTo:(id)sender

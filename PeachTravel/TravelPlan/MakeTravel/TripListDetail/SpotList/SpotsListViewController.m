@@ -22,11 +22,11 @@
 #import "MyTripSpotsMapViewController.h"
 #import "PositionBean.h"
 #import "PoiDetailViewControllerFactory.h"
+#import "PXAlertView+Customization.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, addPoiDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UIView *tableViewFooterView;
 
 @end
 
@@ -38,9 +38,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
@@ -64,11 +61,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)setTripDetail:(TripDetail *)tripDetail
 {
     _tripDetail = tripDetail;
-    if (_canEdit && _tripDetail) {
-        _tableView.tableFooterView = self.tableViewFooterView;
-    } else {
-        _tableView.tableFooterView = nil;
-    }
     [_tableView reloadData];
 }
 
@@ -79,45 +71,15 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.contentInset = UIEdgeInsetsMake(8, 0, 60, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(5, 0, 59, 0);
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        
-        if (_canEdit && _tripDetail) {
-            _tableView.tableFooterView = self.tableViewFooterView;
-        }
-        //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
     }
     return _tableView;
-}
-
-- (UIView *)tableViewFooterView
-{
-    if (!_tableViewFooterView) {
-        _tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 85)];
-        UIButton *addOneDayBtn = [[UIButton alloc] initWithFrame:CGRectMake((_tableViewFooterView.bounds.size.width-185)/2, 5, 185.0, 33)];
-        [addOneDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addOneDayBtn setTitle:@"增加一天" forState:UIControlStateNormal];
-        addOneDayBtn.clipsToBounds = YES;
-        [addOneDayBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 60)];
-        [addOneDayBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        [addOneDayBtn setImage:[UIImage imageNamed:@"add_to_list.png"] forState:UIControlStateNormal];
-        [addOneDayBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-        [addOneDayBtn addTarget:self action:@selector(addOneDay:) forControlEvents:UIControlEventTouchUpInside];
-        addOneDayBtn.layer.cornerRadius = 16.5;
-        addOneDayBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [_tableViewFooterView addSubview:addOneDayBtn];
-    }
-    return _tableViewFooterView;
 }
 
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-    if (_canEdit && _tripDetail) {
-        _tableView.tableFooterView = self.tableViewFooterView;
-    } else {
-        _tableView.tableFooterView = nil;
-    }
 }
 
 #pragma makr - IBAction Methods
@@ -195,12 +157,31 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     if (_shouldEdit) {
         [self.tableView setEditing:YES animated:YES];
-        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+//        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
         
     } else {
         [self.tableView setEditing:NO animated:YES];
-        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
+//        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
     }
+}
+
+- (IBAction)editDay:(id)sender {
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                                     message:nil
+                                                 cancelTitle:@"删除"
+                                                 otherTitles:@[ @"添加行程", @"前面加一天", @"后面加一天"]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      if (buttonIndex == 1) {
+                                                          
+                                                      } else if (buttonIndex == 2) {
+                                                          
+                                                      } else if (buttonIndex == 3) {
+                                                          
+                                                      }
+                                                  }];
+    [alertView useDefaultIOS7Style];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 
 #pragma mark - AddPoiDelegate
@@ -213,11 +194,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 #pragma mark - UITableViewDataSource & Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 65;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 30;
 }
@@ -237,36 +213,14 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     return [[_tripDetail.itineraryList objectAtIndex:section] count];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    CGFloat width = tableView.frame.size.width;
-    
-    UIView *retView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
-    retView.backgroundColor = APP_PAGE_COLOR;
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 20)];
-    view.layer.cornerRadius = 3.0;
-    view.backgroundColor = [UIColor whiteColor];
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 3)];
-    spaceView.backgroundColor = [UIColor whiteColor];
-    [view addSubview:spaceView];
-    [retView addSubview:view];
-    return retView;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     CGFloat width = tableView.frame.size.width;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 65)];
-    headerView.layer.cornerRadius = 2.0;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UIView *retView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 10)];
-    retView.backgroundColor = APP_PAGE_COLOR;
-    [headerView addSubview:retView];
-    
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, width-80, 30)];
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, width-80, 30)];
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (SuperPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
@@ -275,7 +229,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
     }
     
-    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(60, 23, width-150, 20)];
+    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(60, 0, width-150, 30)];
     destinationView.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:destinationView];
     
@@ -286,8 +240,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
         destinationView.titleColor = TEXT_COLOR_TITLE_HINT;
         destinationView.destinations = distinationArray;
-        //        destinationView.tag = section;
-        //        destinationView.delegate = self;
     }
     if ([[_tripDetail.itineraryList objectAtIndex:section] count] <= 0) {
         NSMutableArray *distinationArray = [[NSMutableArray alloc] initWithObjects:@"没有安排", nil];
@@ -300,42 +252,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     headerTitle.font = [UIFont systemFontOfSize:15.0];
     [headerView addSubview:headerTitle];
     
-    if (self.tableView.isEditing) {
-        UIButton *addbtn = [[UIButton alloc] initWithFrame:CGRectMake(width-72, 0, 72, 65)];
-        addbtn.tag = section;
-        [addbtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIButton *addSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(2, 25, 60, 22)];
-        [addSpotBtn setTitle:@"添加安排" forState:UIControlStateNormal];
-        [addSpotBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [addSpotBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
-        addSpotBtn.clipsToBounds = YES;
-        addSpotBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
-        addSpotBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-        addSpotBtn.layer.cornerRadius = 4;
-        addSpotBtn.tag = section;
-        [addSpotBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        [addbtn addSubview:addSpotBtn];
-        [headerView addSubview:addbtn];
-        
-        //        UIButton *deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, headerView.frame.size.height)];
-        //        deleteBtn.tag = section;
-        //        [deleteBtn addTarget:self action:@selector(deleteOneDay:) forControlEvents:UIControlEventTouchUpInside];
-        //        UIButton *deleteSpotBtn = [[UIButton alloc] initWithFrame:CGRectMake(-8, 2, 36, 21)];
-        //        [deleteSpotBtn setImage:[UIImage imageNamed:@"ic_delete.png"] forState:UIControlStateNormal];
-        //        deleteSpotBtn.clipsToBounds = YES;
-        //        deleteSpotBtn.userInteractionEnabled = NO;
-        //        [deleteBtn addSubview:deleteSpotBtn];
-        //        [headerView addSubview:deleteBtn];
-    } else {
-        UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 0, 64, 65)];
-        [mapBtn setImage:[UIImage imageNamed:@"ic_map.png"] forState:UIControlStateNormal];
-        [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 15, 0, 0)];
-        mapBtn.tag = section;
-        [mapBtn addTarget:self action:@selector(mapView:) forControlEvents:UIControlEventTouchUpInside];
-        [headerView addSubview:mapBtn];
-    }
-    
+    UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 0, 64, 30)];
+    [mapBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//    [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 15, 0, 0)];
+    mapBtn.tag = section;
+    [mapBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:mapBtn];
     
     return headerView;
 }
@@ -368,7 +290,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             [self.rootViewController addChildViewController:ctl];
             [self.rootViewController.view addSubview:ctl.view];
         }
-            
             break;
             
         default:

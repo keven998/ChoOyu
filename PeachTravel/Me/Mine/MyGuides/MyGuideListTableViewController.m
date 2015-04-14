@@ -644,9 +644,9 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void) goPlan:(NSIndexPath *)indexPath {
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
+    tripDetailRootCtl.canEdit = YES;
     tripDetailRootCtl.isMakeNewTrip = NO;
     tripDetailRootCtl.tripId = guideSummary.guideId;
-    tripDetailRootCtl.canEdit = YES;
     tripDetailRootCtl.contentMgrDelegate = self;
     
     TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];

@@ -39,6 +39,8 @@
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIToolbar *tabBarView;
 
+@property (nonatomic, strong) UINavigationItem *navgationBarItem;
+
 @property (nonatomic) CGPoint initialDraggingPoint;
 
 /**
@@ -111,8 +113,6 @@
         }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,8 +131,47 @@
 - (void)setNavigationItems
 {
     if (_canEdit) {
-        NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
+        UINavigationItem *navTitle = [[UINavigationItem alloc] init];
+        [bar pushNavigationItem:navTitle animated:YES];
+        [self.view addSubview:bar];
+        _navgationBarItem = navTitle;
+        [self setupNavigationRightItems:NO];
+    } else {
+        _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        _forkBtn.layer.cornerRadius = 2.0;
+        _forkBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
+        _forkBtn.layer.borderWidth = 1.0;
+        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
+        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
+        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
+        self.navigationItem.rightBarButtonItem = addBtn;
+    }
+}
+
+
+- (void) setupNavigationRightItems:(BOOL)isEditing {
+    _navgationBarItem.rightBarButtonItems = nil;
+    if (isEditing) {
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        _editBtn.selected = YES;
+        _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
+        _navgationBarItem.leftBarButtonItems = nil;
         
+        CGRect frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 49);
+        [UIView animateWithDuration:0.2 animations:^{
+            _tabBarView.frame = frame;
+        }];
+    } else {
+        NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
         [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
@@ -150,27 +189,17 @@
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
-        UINavigationItem *navTitle = [[UINavigationItem alloc] init];
-        navTitle.rightBarButtonItems = barItems;
-        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        [bar pushNavigationItem:navTitle animated:YES];
-        [self.view addSubview:bar];
-    } else {
-        _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-        _forkBtn.layer.cornerRadius = 2.0;
-        _forkBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
-        _forkBtn.layer.borderWidth = 1.0;
-        [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
-        [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-        [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        self.navigationItem.rightBarButtonItem = addBtn;
+        _navgationBarItem.rightBarButtonItems = barItems;
+        
+        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        
+        CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
+        [UIView animateWithDuration:0.2 animations:^{
+            _tabBarView.frame = frame;
+        }];
     }
-    
 }
+
 - (void) hint {
     [SVProgressHUD showHint:@"已保存到旅途计划"];
 }
@@ -217,6 +246,7 @@
     }
 }
 
+#pragma mark - IBAction
 
 - (IBAction)finishEidtTrip:(id)sender
 {
@@ -231,14 +261,31 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-            _spotsListCtl.shouldEdit = NO;
-            _restaurantListCtl.shouldEdit = NO;
-            _shoppingListCtl.shouldEdit = NO;
+//            _spotsListCtl.shouldEdit = NO;
+//            _restaurantListCtl.shouldEdit = NO;
+//            _shoppingListCtl.shouldEdit = NO;
+            if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+                _spotsListCtl.shouldEdit = NO;
+            } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
+                _shoppingListCtl.shouldEdit = NO;
+            } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
+                _restaurantListCtl.shouldEdit = NO;
+            }
             _editBtn.selected = !_editBtn.selected;
         } else {
             [SVProgressHUD showErrorWithStatus:@"保存失败了"];
         }
     }];
+}
+
+- (void)mapView {
+    if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+
+    } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
+    
+    } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
+    
+    }
 }
 
 /**
@@ -449,8 +496,6 @@
 //        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
-//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"目的地", nil];
-//    [sheet showInView:self.view];
     
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
@@ -534,18 +579,24 @@
 {
     [MobClick event:@"event_edit_plan"];
     if (!_tripDetail) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
     BOOL status = sender.selected;
     if (!status) {
-        _spotsListCtl.shouldEdit = YES;
-        _restaurantListCtl.shouldEdit = YES;
-        _shoppingListCtl.shouldEdit = YES;
+        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+            _spotsListCtl.shouldEdit = YES;
+        } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
+            _shoppingListCtl.shouldEdit = YES;
+        } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
+            _restaurantListCtl.shouldEdit = YES;
+        }
         sender.selected = !status;
     } else {
         [self finishEidtTrip:nil];
     }
+    
+    [self setupNavigationRightItems:!status];
 }
 
 /**
@@ -722,7 +773,7 @@
                     btn.selected = NO;
                 }
             }
-        }else{
+        } else {
             self.currentViewController = oldController;
         }
     }];
