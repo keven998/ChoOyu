@@ -22,12 +22,12 @@
 /**
  *  进入三账单会有两种情况，一种是传目的地列表新制作攻略，另一种是传攻略 id 来查看攻略
  */
-@property (nonatomic) BOOL isMakeNewTrip;
+@property (nonatomic, assign) BOOL isMakeNewTrip;
 
 /**
  *  是否有资格更改路线，当从聊天界面点击别人发送的攻略进入此界面时，没有资格编辑路线
  */
-@property (nonatomic) BOOL canEdit;
+@property (nonatomic, assign) BOOL canEdit;
 
 @property (nonatomic, copy) NSString *tripId;
 

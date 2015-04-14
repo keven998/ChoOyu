@@ -14,6 +14,9 @@
 #import "AccountManager.h"
 #import "LoginViewController.h"
 #import "SearchDestinationTableViewCell.h"
+#import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
+#import "TripPlanSettingViewController.h"
 
 @interface MakePlanViewController () <UISearchBarDelegate, UISearchControllerDelegate,UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, DestinationToolBarDelegate>
 
@@ -188,13 +191,7 @@
     if (!_shouldOnlyChangeDestinationWhenClickNextStep) {
         AccountManager *accountManager = [AccountManager shareAccountManager];
         if ([accountManager isLogin]) {
-            TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
-            tripDetailCtl.canEdit = YES;
-            tripDetailCtl.destinations = self.destinations.destinationsSelected;
-            tripDetailCtl.isMakeNewTrip = YES;
-            NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-            [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
-            [self.navigationController setViewControllers:array animated:YES];
+            [self doMakePlan];
         } else {
             [SVProgressHUD showHint:@"请先登录"];
             [self performSelector:@selector(login) withObject:nil afterDelay:0.25];
@@ -205,10 +202,29 @@
     }
 }
 
+- (void) doMakePlan {
+    TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
+    tripDetailCtl.canEdit = YES;
+    tripDetailCtl.destinations = self.destinations.destinationsSelected;
+    tripDetailCtl.isMakeNewTrip = YES;
+    
+    TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+    [array replaceObjectAtIndex:(array.count - 1) withObject:frostedViewController];
+    [self.navigationController setViewControllers:array animated:YES];
+//    [self.navigationController pushViewController:frostedViewController animated:YES];
+}
+
 - (void)login
 {
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL islogin){
-        [self performSelector:@selector(makePlan:) withObject:nil afterDelay:0.25];
+        [self performSelector:@selector(doMakePlan) withObject:nil afterDelay:0.25];
     }];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
     loginViewController.isPushed = NO;

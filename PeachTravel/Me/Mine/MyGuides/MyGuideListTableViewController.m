@@ -17,6 +17,8 @@
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
 #import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
+#import "TripPlanSettingViewController.h"
 
 #define PAGE_COUNT 10
 
@@ -636,13 +638,25 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self goPlan:indexPath];
+}
+
+- (void) goPlan:(NSIndexPath *)indexPath {
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
     TripDetailRootViewController *tripDetailRootCtl = [[TripDetailRootViewController alloc] init];
     tripDetailRootCtl.isMakeNewTrip = NO;
     tripDetailRootCtl.tripId = guideSummary.guideId;
     tripDetailRootCtl.canEdit = YES;
     tripDetailRootCtl.contentMgrDelegate = self;
-    [self.navigationController pushViewController:tripDetailRootCtl animated:YES];
+    
+    TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailRootCtl menuViewController:tpvc];
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 - (NSArray *)rightButtons

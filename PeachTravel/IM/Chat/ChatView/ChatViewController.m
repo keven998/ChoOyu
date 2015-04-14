@@ -172,7 +172,7 @@
 - (void)setupBarButtonItem
 {
 //    if (self.navigationController.navigationBarHidden) {
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.0)];
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
         navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
         navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];

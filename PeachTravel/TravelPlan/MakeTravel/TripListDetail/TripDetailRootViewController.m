@@ -25,6 +25,7 @@
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
 
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
 
@@ -73,17 +74,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-    _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-    self.navigationItem.leftBarButtonItem = barButton;
     
     [self setNavigationItems];
-    
     [self setupViewControllers];
+    
     if (_isMakeNewTrip) {
         PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
                                                          message:@"点击\"创建\"桃子旅行将为你创建行程模版"
@@ -146,6 +140,8 @@
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
+        [barItems addObject:[[UIBarButtonItem alloc]initWithTitle:@"地图" style:UIBarButtonItemStylePlain target:self action:@selector(mapView)]];
+        
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
@@ -154,7 +150,12 @@
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
-        self.navigationItem.rightBarButtonItems = barItems;
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
+        UINavigationItem *navTitle = [[UINavigationItem alloc] init];
+        navTitle.rightBarButtonItems = barItems;
+        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        [self.view addSubview:bar];
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _forkBtn.layer.cornerRadius = 2.0;
@@ -353,7 +354,7 @@
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
-    [self setNavigationItems];
+//    [self setNavigationItems];
 }
 
 /**
@@ -440,17 +441,20 @@
 
 /**
  *  点击navigationbar上的更多按钮
- *
  *  @param sender
  */
 - (IBAction)showMoreAction:(id)sender
 {
     if (!_tripDetail) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"目的地", nil];
-    [sheet showInView:self.view];
+//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"目的地", nil];
+//    [sheet showInView:self.view];
+    
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    [self.frostedViewController presentMenuViewController];
 }
 
 /**
@@ -511,13 +515,7 @@
     
     [UIView animateWithDuration:0.2 animations:^{
         panelView.frame = CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340);
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-    for (UIView *view in _destinationBkgView.subviews) {
-        NSLog(@"%@", view);
-    }
+    } completion:nil];
 }
 
 
@@ -640,9 +638,9 @@
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 54)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 54)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 54)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 118)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 118)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 118)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
@@ -657,22 +655,15 @@
 
 - (void)customizeTabBarForController
 {
-//    _tabBarSelectedView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-//    _tabBarSelectedView.backgroundColor = APP_SUB_THEME_COLOR;
-//    _tabBarSelectedView.layer.cornerRadius = 15.0;
-//    [_tabBarSelectedView setImage:[UIImage imageNamed:@"ic_trip_selected_1.png"] forState:UIControlStateNormal];
-
-    _tabBarView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-113, self.view.frame.size.width, 49)];
+    _tabBarView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
     _tabBarView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_tabBarView];
     
     NSArray *tabBarItemTitles = @[@"旅途", @"美食收集", @"逛收集"];
-    
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    
     CGFloat width = _tabBarView.frame.size.width;
     
-    for (int i=0; i<3; i++) {
+    for (int i = 0; i < 3; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 54)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
