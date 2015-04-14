@@ -132,13 +132,13 @@
     UIButton *guideSimButton = [[UIButton alloc] initWithFrame:CGRectMake(12.5, (guideSubTitle.frame.size.height+guideSubTitle.frame.origin.y) + 5*ratioY, 90*ratioX, 90*ratioX)];
     guideSimButton.clipsToBounds = YES;
     guideSimButton.titleLabel.numberOfLines = 2;
-    [guideSimButton setTitle:@"我的\n旅程" forState:UIControlStateNormal];
+    [guideSimButton setTitle:@"我的\n旅途" forState:UIControlStateNormal];
     [guideSimButton setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
     guideSimButton.titleLabel.font = [UIFont systemFontOfSize:17*ratioX];
     [guideSimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
     [_planBtn addSubview:guideSimButton];
     
-    myGuideTitleLabel.text = @"旅程助手";
+    myGuideTitleLabel.text = @"旅途助手";
     
     CGFloat title_w = [myGuideTitleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18*ratioX]}].width;
     
@@ -147,7 +147,7 @@
     [_planBtn addSubview:titleImage];
 
     
-    NSString *str = @"最贴心的旅程助手\n让你的旅行\n更安心、简单";
+    NSString *str = @"最贴心的旅途助手\n让你的旅行\n更安心、简单";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
@@ -436,14 +436,14 @@
 }
 
 /**
- *  新建旅程
+ *  新建旅途
  */
 - (IBAction) showActionHint {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"新建旅程", nil];
+                                              otherButtonTitles:@"新建旅途", nil];
     [sheet showInView:[UIApplication sharedApplication].keyWindow];
     [MobClick event:@"event_create_new_trip_plan_home"];
 }

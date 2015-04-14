@@ -135,7 +135,7 @@
                                                                    context:nil].size;
     CGFloat timeCostHeight = timeCostLabelSize.height + 10;
     _timeCostBtn.frame = CGRectMake(10, oy, width - 20, timeCostHeight);
-    [_timeCostBtn setAttributedTitle:[[NSString stringWithFormat:@"推荐旅程安排: %@", _cityPoi.timeCostDesc] stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
+    [_timeCostBtn setAttributedTitle:[[NSString stringWithFormat:@"推荐旅途安排: %@", _cityPoi.timeCostDesc] stringByAddLineSpacingAndTextColor:TEXT_COLOR_TITLE_SUBTITLE] forState:UIControlStateNormal];
     _timeCostBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
     _timeCostBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_timeCostBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];

@@ -85,7 +85,7 @@
         [array addObject:[NSString stringWithFormat:@"第%d天", (i + 1)]];
         i++;
     }
-    [array addObject:@"全旅程"];
+    [array addObject:@"全程"];
     
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = array;

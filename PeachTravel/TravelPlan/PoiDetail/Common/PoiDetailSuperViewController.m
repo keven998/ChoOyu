@@ -30,7 +30,7 @@
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Talk分享", nil];
+                                              otherButtonTitles:@"发给好友", nil];
     sheet.tag = kASShare;
     [sheet showInView:self.view];
 }

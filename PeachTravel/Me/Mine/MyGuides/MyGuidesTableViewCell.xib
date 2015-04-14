@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -280,35 +280,35 @@
                         <exclude reference="6vZ-p7-189"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="4yX-DH-XTJ"/>
+                        <exclude reference="Nnz-Fe-MVc"/>
+                        <exclude reference="FIO-cV-rnG"/>
+                        <exclude reference="skp-Yi-RrS"/>
+                        <exclude reference="zZP-YQ-oqb"/>
+                        <exclude reference="SOk-9u-uYP"/>
+                        <exclude reference="oJn-iJ-oVN"/>
+                        <exclude reference="bEL-PR-u9O"/>
+                        <exclude reference="dxJ-m3-ic4"/>
+                        <exclude reference="3qG-WT-SMS"/>
+                        <exclude reference="moX-vv-dO1"/>
+                        <exclude reference="erf-1Y-PO4"/>
                         <exclude reference="12n-uB-c9I"/>
                         <exclude reference="9mX-9m-4UE"/>
                         <exclude reference="YVr-oj-g7Y"/>
                         <exclude reference="ZJ8-i6-DH8"/>
-                        <exclude reference="55z-gE-mJP"/>
-                        <exclude reference="qHg-33-alq"/>
-                        <exclude reference="xga-hs-czP"/>
-                        <exclude reference="ZJ7-7o-ynH"/>
-                        <exclude reference="gia-qH-1k2"/>
-                        <exclude reference="bEL-PR-u9O"/>
-                        <exclude reference="dxJ-m3-ic4"/>
-                        <exclude reference="FIO-cV-rnG"/>
-                        <exclude reference="skp-Yi-RrS"/>
-                        <exclude reference="zZP-YQ-oqb"/>
                         <exclude reference="A3h-Pa-Ocl"/>
                         <exclude reference="xJ6-LO-43B"/>
                         <exclude reference="yRt-J7-ndv"/>
+                        <exclude reference="ZJ7-7o-ynH"/>
+                        <exclude reference="gia-qH-1k2"/>
+                        <exclude reference="55z-gE-mJP"/>
+                        <exclude reference="qHg-33-alq"/>
+                        <exclude reference="xga-hs-czP"/>
                         <exclude reference="FfE-eQ-AFV"/>
                         <exclude reference="Y9T-5p-VpP"/>
                         <exclude reference="dJd-uQ-isf"/>
                         <exclude reference="fMi-Ls-r2x"/>
                         <exclude reference="quX-ub-vKx"/>
-                        <exclude reference="SOk-9u-uYP"/>
-                        <exclude reference="oJn-iJ-oVN"/>
-                        <exclude reference="erf-1Y-PO4"/>
-                        <exclude reference="3qG-WT-SMS"/>
-                        <exclude reference="moX-vv-dO1"/>
-                        <exclude reference="4yX-DH-XTJ"/>
-                        <exclude reference="Nnz-Fe-MVc"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -326,35 +326,35 @@
                         <include reference="6vZ-p7-189"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="4yX-DH-XTJ"/>
+                        <include reference="Nnz-Fe-MVc"/>
+                        <include reference="FIO-cV-rnG"/>
+                        <include reference="skp-Yi-RrS"/>
+                        <include reference="zZP-YQ-oqb"/>
+                        <include reference="SOk-9u-uYP"/>
+                        <include reference="oJn-iJ-oVN"/>
+                        <include reference="bEL-PR-u9O"/>
+                        <include reference="dxJ-m3-ic4"/>
+                        <include reference="3qG-WT-SMS"/>
+                        <include reference="moX-vv-dO1"/>
+                        <include reference="erf-1Y-PO4"/>
                         <include reference="12n-uB-c9I"/>
                         <include reference="9mX-9m-4UE"/>
                         <include reference="YVr-oj-g7Y"/>
                         <include reference="ZJ8-i6-DH8"/>
-                        <include reference="55z-gE-mJP"/>
-                        <include reference="qHg-33-alq"/>
-                        <include reference="xga-hs-czP"/>
-                        <include reference="ZJ7-7o-ynH"/>
-                        <include reference="gia-qH-1k2"/>
-                        <include reference="bEL-PR-u9O"/>
-                        <include reference="dxJ-m3-ic4"/>
-                        <include reference="FIO-cV-rnG"/>
-                        <include reference="skp-Yi-RrS"/>
-                        <include reference="zZP-YQ-oqb"/>
                         <include reference="A3h-Pa-Ocl"/>
                         <include reference="xJ6-LO-43B"/>
                         <include reference="yRt-J7-ndv"/>
+                        <include reference="ZJ7-7o-ynH"/>
+                        <include reference="gia-qH-1k2"/>
+                        <include reference="55z-gE-mJP"/>
+                        <include reference="qHg-33-alq"/>
+                        <include reference="xga-hs-czP"/>
                         <include reference="FfE-eQ-AFV"/>
                         <include reference="Y9T-5p-VpP"/>
                         <include reference="dJd-uQ-isf"/>
                         <include reference="fMi-Ls-r2x"/>
                         <include reference="quX-ub-vKx"/>
-                        <include reference="SOk-9u-uYP"/>
-                        <include reference="oJn-iJ-oVN"/>
-                        <include reference="erf-1Y-PO4"/>
-                        <include reference="3qG-WT-SMS"/>
-                        <include reference="moX-vv-dO1"/>
-                        <include reference="4yX-DH-XTJ"/>
-                        <include reference="Nnz-Fe-MVc"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

@@ -358,7 +358,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 {
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-//    NSArray *titles = @[@"Talk", @"旅行", @"我"];
+//    NSArray *titles = @[@"旅聊", @"旅行", @"我"];
     NSInteger index = 0;
     
     for (UITabBarItem *item in self.tabBar.items) {

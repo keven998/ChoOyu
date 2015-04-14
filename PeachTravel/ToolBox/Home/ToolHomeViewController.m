@@ -109,7 +109,7 @@
         cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"旅程计划";
+            cell.textLabel.text = @"旅途计划";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         } else {
             cell.textLabel.text = @"身边哪好玩";

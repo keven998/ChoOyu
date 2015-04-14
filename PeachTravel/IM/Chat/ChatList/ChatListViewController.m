@@ -112,14 +112,6 @@
 
 - (IBAction)addAction:(UIButton *)sender
 {
-//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-//                                                       delegate:self
-//                                              cancelButtonTitle:@"取消"
-//                                         destructiveButtonTitle:nil
-//                                              otherButtonTitles:@"新建Talk", @"加好友", nil];
-//    [sheet showInView:self.view];
-    
-    
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                     message:nil
                                 cancelTitle:@"取消"
@@ -135,7 +127,6 @@
                                  }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
-//    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
 - (UITableView *)tableView

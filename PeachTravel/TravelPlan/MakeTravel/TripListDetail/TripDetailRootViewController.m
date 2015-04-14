@@ -36,7 +36,7 @@
 @property (nonatomic, strong) NSArray *tabbarButtonArray;
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
-@property (nonatomic, strong) UIView *tabBarView;
+@property (nonatomic, strong) UIToolbar *tabBarView;
 
 @property (nonatomic) CGPoint initialDraggingPoint;
 
@@ -73,32 +73,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//    [_backButton setImage:nil forState:UIControlStateSelected];
-//    [_backButton setTitle:nil forState:UIControlStateNormal];
-//    [_backButton setTitle:@"取消" forState:UIControlStateSelected];
     [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-    [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _backButton.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     self.navigationItem.leftBarButtonItem = barButton;
-    
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
     
     [self setNavigationItems];
     
     [self setupViewControllers];
     if (_isMakeNewTrip) {
         PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                                                         message:@"点击\"创建\"旅FM将为你创建行程模版"
+                                                         message:@"点击\"创建\"桃子旅行将为你创建行程模版"
                                                      cancelTitle:@"创建"
                                                      otherTitles:@[ @"不创建"]
                                                       completion:^(BOOL cancelled, NSInteger buttonIndex) {
@@ -112,22 +100,8 @@
                                                       }];
         [alertView useDefaultIOS7Style];
         [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-//        [alertView setOtherButtonTextColor:TEXT_COLOR_TITLE_SUBTITLE];
         [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
         [alertView setTapToDismissEnabled:NO];
-        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"点击创建旅FM将为你创建行程模版" delegate:self cancelButtonTitle:@"不创建" otherButtonTitles:@"创建", nil];
-//        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-//            if (buttonIndex == 0) {
-//                [self loadNewTripDataWithRecommendData:NO];
-//                [MobClick event:@"event_unuse_template"];
-//            }
-//            
-//            if (buttonIndex == 1) {
-//                [self loadNewTripDataWithRecommendData:YES];
-//                [MobClick event:@"event_use_template"];
-//            }
-//        }];
     } else {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -165,22 +139,20 @@
     if (_canEdit) {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        //        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-        //        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit_done.png"] forState:UIControlStateSelected];
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
-        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
-        
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
         [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
         _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
+        
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
         self.navigationItem.rightBarButtonItems = barItems;
     } else {
@@ -199,7 +171,7 @@
     
 }
 - (void) hint {
-    [SVProgressHUD showHint:@"已保存到旅程计划"];
+    [SVProgressHUD showHint:@"已保存到旅途计划"];
 }
 
 - (void)dealloc
@@ -620,7 +592,7 @@
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-            [SVProgressHUD showHint:@"已保存到我的旅程"];
+            [SVProgressHUD showHint:@"已保存到我的旅途"];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
@@ -668,9 +640,9 @@
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 54)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 54)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 54)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
@@ -685,29 +657,28 @@
 
 - (void)customizeTabBarForController
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-54, self.view.frame.size.width, 54)];
-    _tabBarView.backgroundColor = APP_THEME_COLOR;
-    
-    _tabBarSelectedView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    _tabBarSelectedView.backgroundColor = APP_SUB_THEME_COLOR;
-    _tabBarSelectedView.layer.cornerRadius = 15.0;
-    [_tabBarSelectedView setImage:[UIImage imageNamed:@"ic_trip_selected_1.png"] forState:UIControlStateNormal];
-    
+//    _tabBarSelectedView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+//    _tabBarSelectedView.backgroundColor = APP_SUB_THEME_COLOR;
+//    _tabBarSelectedView.layer.cornerRadius = 15.0;
+//    [_tabBarSelectedView setImage:[UIImage imageNamed:@"ic_trip_selected_1.png"] forState:UIControlStateNormal];
+
+    _tabBarView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-113, self.view.frame.size.width, 49)];
+    _tabBarView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_tabBarView];
     
-    NSArray *tabBarItemTitles = @[@"旅程", @"美食收集", @"逛收集"];
+    NSArray *tabBarItemTitles = @[@"旅途", @"美食收集", @"逛收集"];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
     
     CGFloat width = _tabBarView.frame.size.width;
     
-    NSInteger index = 0;
     for (int i=0; i<3; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 54)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(36, 0, 0, 0)];
         [array addObject:button];
+        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         [_tabBarView addSubview:button];
         button.tag = i;
         button.titleLabel.font = [UIFont systemFontOfSize:9.0];
@@ -721,35 +692,8 @@
         [showBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
         [button addSubview:showBtn];
-        
-        
-        if (i == 0) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+7, button.frame.size.height/2-9, button.frame.size.width/2, 7)];
-            lineView.backgroundColor = UIColorFromRGB(0xd74353);
-            [button addSubview:lineView];
-            lineView.userInteractionEnabled = NO;
-            _tabBarSelectedView.center = button.center;
-            [_tabBarSelectedView setCenter:CGPointMake(button.center.x, button.center.y-7)];
-        }
-        if (i == 1) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+14, button.frame.size.height/2-9, button.frame.size.width/2-7, 7)];
-            lineView.backgroundColor = UIColorFromRGB(0xd74353);
-            lineView.userInteractionEnabled = NO;
-            [button addSubview:lineView];
-            UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-9, button.frame.size.width/2-14, 7)];
-            lineView2.backgroundColor = UIColorFromRGB(0xd74353);
-            lineView2.userInteractionEnabled = NO;
-            [button addSubview:lineView2];
-        }
-        if (i == 2) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-9, button.frame.size.width/2-14, 7)];
-            lineView.backgroundColor = UIColorFromRGB(0xd74353);
-            lineView.userInteractionEnabled = NO;
-            [button addSubview:lineView];
-        }
-        index++;
     }
-    [_tabBarView addSubview:_tabBarSelectedView];
+//    [_tabBarView addSubview:_tabBarSelectedView];
     _tabbarButtonArray = array;
 }
 
@@ -757,15 +701,15 @@
 {
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [_tabBarSelectedView setCenter:CGPointMake(sender.center.x, sender.center.y-7)];
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [_tabBarSelectedView setCenter:CGPointMake(sender.center.x, sender.center.y-7)];
+//    }];
     
     if ([newController isEqual:_currentViewController]) {
         return;
     }
-    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
-    [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+//    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
+//    [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self replaceController:_currentViewController newController:newController];
 }
 

@@ -158,7 +158,7 @@
     [_chatBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     _chatBtn.clipsToBounds = YES;
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
+    [_chatBtn setTitle:@"旅聊" forState:UIControlStateNormal];
     _chatBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     _chatBtn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
     _chatBtn.layer.cornerRadius = 2.0;
