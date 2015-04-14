@@ -73,12 +73,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [_backButton setImage:nil forState:UIControlStateSelected];
-    [_backButton setTitle:nil forState:UIControlStateNormal];
-    [_backButton setTitle:@"取消" forState:UIControlStateSelected];
+//    [_backButton setImage:nil forState:UIControlStateSelected];
+//    [_backButton setTitle:nil forState:UIControlStateNormal];
+//    [_backButton setTitle:@"取消" forState:UIControlStateSelected];
     [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
     [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
@@ -262,7 +262,6 @@
             _restaurantListCtl.shouldEdit = NO;
             _shoppingListCtl.shouldEdit = NO;
             _editBtn.selected = !_editBtn.selected;
-            
         } else {
             [SVProgressHUD showErrorWithStatus:@"保存失败了"];
         }
@@ -275,10 +274,10 @@
 - (void)goBack
 {
     if ([_tripDetail tripIsChange]) {
-        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"攻略已编辑，是否保存" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"攻略已修改，是否保存" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
         [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
-                [self.navigationController popViewControllerAnimated:YES];
+                [self dismissCtl];
             }
             if (buttonIndex == 1) {
                 TZProgressHUD *hud = [[TZProgressHUD alloc] init];
@@ -295,13 +294,17 @@
             }
         }];
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissCtl];
     }
 }
 
 - (void)dismissCtl
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)userDidLogout

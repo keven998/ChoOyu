@@ -194,7 +194,6 @@
             tripDetailCtl.isMakeNewTrip = YES;
             NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
             [array replaceObjectAtIndex:(array.count - 1) withObject:tripDetailCtl];
-            
             [self.navigationController setViewControllers:array animated:YES];
         } else {
             [SVProgressHUD showHint:@"请先登录"];
