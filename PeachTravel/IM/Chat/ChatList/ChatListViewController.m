@@ -28,7 +28,7 @@
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
+@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的旅FM信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
@@ -275,7 +275,7 @@
     switch (_IMState) {
         case IM_CONNECTING: {
             self.navigationItem.titleView = titleView;
-            titleLabel.text = @"连接中...";
+            titleLabel.text = @"旅聊(连接中...)";
             NSLog(@"连接中");
         }
             break;
@@ -285,7 +285,7 @@
             titleLabel.textColor = [UIColor redColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"未连接";
+            titleLabel.text = @"旅聊(未连接)";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"未连接");
         }
@@ -293,7 +293,7 @@
             
         case IM_RECEIVING: {
             self.navigationItem.titleView = titleView;
-            titleLabel.text = @"收取中...";
+            titleLabel.text = @"旅聊(收取中...)";
             NSLog(@"收取中");
             self.navigationItem.titleView = titleView;
         }
@@ -304,7 +304,7 @@
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"桃Talk";
+            titleLabel.text = @"旅聊";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_RECEIVED");
         }
@@ -315,7 +315,7 @@
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"桃Talk";
+            titleLabel.text = @"旅聊";
             self.navigationItem.titleView = titleLabel;
             NSLog(@"IM_CONNECTED");
         }
@@ -326,7 +326,7 @@
             titleLabel.textColor = [UIColor blackColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
-            titleLabel.text = @"桃Talk";
+            titleLabel.text = @"旅聊";
             self.navigationItem.titleView = titleLabel;
         }
 

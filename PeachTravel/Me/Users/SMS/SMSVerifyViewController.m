@@ -139,7 +139,7 @@
                     [hud hideTZHUD];
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-                    [SVProgressHUD showHint:@"登录成功，欢迎加入桃子旅行"];
+//                    [SVProgressHUD showHint:@"登录成功，欢迎加入旅FM"];
                 } else {
                     [hud hideTZHUD];
                     [accountManager easeMobUnlogin];

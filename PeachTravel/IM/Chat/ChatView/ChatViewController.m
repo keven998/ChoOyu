@@ -78,7 +78,7 @@
 @property (strong, nonatomic) NSArray *peopleInGroup;   //保存群组的人员信息
 @property (strong, nonatomic) NSMutableArray *chattingPeople;
 
-@property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是桃子用户的信息。
+@property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是旅FM用户的信息。
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
 
@@ -796,7 +796,7 @@
 }
 
 /**
- *  自定义桃子消息的气泡被点击
+ *  自定义旅FM消息的气泡被点击
  *
  *  @param model 回传的 气泡所属的 model
  */

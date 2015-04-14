@@ -19,7 +19,7 @@
 @interface ChatRecoredListTableViewController () <CreateConversationDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
-@property (strong, nonatomic) NSMutableArray *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
+@property (strong, nonatomic) NSMutableArray *chattingPeople;       //保存正在聊天的联系人的旅FM信息，显示界面的时候需要用到
 @property (nonatomic, strong) AccountManager *accountManager;
 
 

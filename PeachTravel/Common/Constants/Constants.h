@@ -90,8 +90,8 @@
 #define API_ADD_CONTACT                         (BASE_URL @"users/contacts")   //添加好友
 #define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")   //请求添加好友
 #define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友
-#define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个桃子用户信息数组
-#define API_CHANGE_PWD                          (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个桃子用户信息数组
+#define API_GET_USERINFO_WITHEASEMOB            (BASE_URL @"users/easemob")   //传一个环信 id 数组，得到一个FM用户信息数组
+#define API_CHANGE_PWD                          (BASE_URL @"users/pwd")   //传一个环信 id 数组，得到一个FM用户信息数组
 #define API_UPLOAD_ADDRESSBOOK                  (BASE_URL @"users/search-by-address-book")  //上传通讯录接口
 
 //IM相关接口
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, UserInfoChangeType) {
     ChangeOtherInfo = 100
 };
 
-///***** 桃子旅行自定义消息枚举信息****/
+///***** 旅FM自定义消息枚举信息****/
 typedef NS_ENUM(NSUInteger, TZChatType) {
     TZChatNormalText = 0,                  //普通文字信息
     TZChatTypeStrategy = 1,         //我的攻略
@@ -199,14 +199,14 @@ typedef NS_ENUM(NSUInteger, TZChatType) {
     TZTipsMsg    =  100             //自定义的提示信息， 如：我加入了旅行派群组
 };
 
-/***** 桃子旅行好友请求枚举信息****/
+/***** 旅FM好友请求枚举信息****/
 typedef NS_ENUM(NSUInteger, TZFrendRequest) {
     TZFrendDefault = 0,      //未处理
     TZFrendAgree,            //同意
     TZFrendReject,          //拒绝
 };
 
-/***** 桃子旅行自定义透传枚举信息 ****/
+/***** 旅FM自定义透传枚举信息 ****/
 typedef NS_ENUM(NSUInteger, TZCMDChatType) {
     CMDAddContact = 1,
     CMDAgreeAddContact,

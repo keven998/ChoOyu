@@ -63,7 +63,7 @@
                                             convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
                 model.content = didReceiveText;
                 
-            } else {        //如果是桃子旅行自定义的消息类型
+            } else {        //如果是旅FM自定义的消息类型
                 model.taoziMessage = message.ext;
                 model.type = eMessageBodyType_Taozi;
             }

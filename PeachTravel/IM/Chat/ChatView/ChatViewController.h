@@ -20,9 +20,9 @@
 @property (nonatomic, copy) NSString *chatterAvatar;
 
 /**
- *  发送桃子旅行消息
+ *  发送旅FM消息
  *
- *  @param taoziMsg 桃子旅行
+ *  @param taoziMsg 旅FM
  */
 - (void)sendTaoziMessage:(NSDictionary *)taoziMsg;
 @end

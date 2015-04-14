@@ -22,7 +22,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource           @[@[@"收藏夹", @"推荐给微信好友"], @[@"设置", @"关于桃子旅行"]]
+#define cellDataSource           @[@[@"收藏夹", @"推荐给微信好友"], @[@"设置", @"关于旅FM"]]
 #define loginCell                @"loginCell"
 #define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
@@ -132,7 +132,7 @@
 - (void)shareToWeChat
 {
     [MobClick event:@"event_share_app_by_weichat"];
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"桃子旅行\"给你。";
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅FM\"给你。";
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
 
@@ -208,7 +208,7 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-            cell.userId.text = [NSString stringWithFormat:@"桃子号 %d", [accountManager.account.userId intValue]];
+            cell.userId.text = [NSString stringWithFormat:@"FM %d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"no签名";
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory_white.png"]];
@@ -293,7 +293,7 @@
         } else if (indexPath.row == 1) {
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
             svc.hidesBottomBarWhenPushed = YES;
-            svc.titleStr = @"关于桃子旅行";
+            svc.titleStr = @"关于旅FM";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
             [self.navigationController pushViewController:svc animated:YES];
         }

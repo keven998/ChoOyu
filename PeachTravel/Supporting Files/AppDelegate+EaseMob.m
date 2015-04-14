@@ -43,7 +43,7 @@
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    //如果桃子的帐号仍然在线,可是环信的却已经不在线了，那么登录环信帐号
+    //如果旅FM的帐号仍然在线,可是环信的却已经不在线了，那么登录环信帐号
     if ([accountManager isLogin] && ![[EaseMob sharedInstance].chatManager loginInfo]) {
         [accountManager loginEaseMobServer:^(BOOL isSuccess) {
             if (isSuccess) {

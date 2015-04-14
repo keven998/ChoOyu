@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <color key="sectionIndexBackgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <searchBar key="tableHeaderView" contentMode="redraw" placeholder="输入用户名或桃子号" translucent="NO" backgroundImage="app_background.png" id="ENa-kd-BSx">
+            <searchBar key="tableHeaderView" contentMode="redraw" placeholder="输入用户名或FM号" translucent="NO" backgroundImage="app_background.png" id="ENa-kd-BSx">
                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 <color key="barTintColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

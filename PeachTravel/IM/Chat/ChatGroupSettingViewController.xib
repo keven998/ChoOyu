@@ -70,7 +70,7 @@
                                         <rect key="frame" x="0.0" y="90" width="400" height="1"/>
                                     </variation>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="桃子群名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwn-2c-1e1">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FM群名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwn-2c-1e1">
                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="AiN-XQ-jAG"/>
@@ -287,7 +287,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tcg-SS-RGu">
-                            <rect key="frame" x="166.5" y="241" width="107" height="30"/>
+                            <rect key="frame" x="167" y="241" width="107" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="Bf8-eL-gWs">
                                     <variation key="widthClass=compact" constant="40"/>

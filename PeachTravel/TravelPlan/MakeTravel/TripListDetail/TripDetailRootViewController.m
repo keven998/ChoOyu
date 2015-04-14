@@ -98,7 +98,7 @@
     [self setupViewControllers];
     if (_isMakeNewTrip) {
         PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                                                         message:@"点击\"创建\"桃子旅行将为你创建行程模版"
+                                                         message:@"点击\"创建\"旅FM将为你创建行程模版"
                                                      cancelTitle:@"创建"
                                                      otherTitles:@[ @"不创建"]
                                                       completion:^(BOOL cancelled, NSInteger buttonIndex) {
@@ -116,7 +116,7 @@
         [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
         [alertView setTapToDismissEnabled:NO];
         
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"点击创建桃子将为你创建行程模版" delegate:self cancelButtonTitle:@"不创建" otherButtonTitles:@"创建", nil];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"点击创建旅FM将为你创建行程模版" delegate:self cancelButtonTitle:@"不创建" otherButtonTitles:@"创建", nil];
 //        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
 //            if (buttonIndex == 0) {
 //                [self loadNewTripDataWithRecommendData:NO];

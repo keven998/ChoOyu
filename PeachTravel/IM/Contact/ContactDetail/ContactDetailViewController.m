@@ -131,7 +131,7 @@
     idPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     idPanel.font = [UIFont systemFontOfSize:14.0];
     idPanel.layer.cornerRadius = 2.0;
-    idPanel.text = [NSString stringWithFormat:@"   桃号：%@", contact.userId];
+    idPanel.text = [NSString stringWithFormat:@"   FM：%@", contact.userId];
     [_contentView addSubview:idPanel];
     
     oy += 55.0;

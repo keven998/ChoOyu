@@ -28,7 +28,7 @@
 @interface CreateConversationViewController : TZViewController
 
 /**
- *  桃子群组
+ *  FM群组
  */
 @property (nonatomic, strong) Group *group;
 

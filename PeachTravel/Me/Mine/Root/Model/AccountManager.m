@@ -106,7 +106,7 @@
     } onQueue:nil];
 }
 
-//用户桃子系统登录成功
+//用户旅FM系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
     if (self.account) {
@@ -420,7 +420,7 @@
 #pragma mark - **********好友相关操作********
 
 /**
- *  通过环信 id 取得用户的桃子信息
+ *  通过环信 id 取得用户的旅FM信息
  *
  *  @param easemobUser 环信 id
  *
