@@ -63,12 +63,12 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_isTrip) {
-        self.navigationItem.title = @"已到过的旅途";
-        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        self.navigationItem.rightBarButtonItem = rbtn;
+        self.navigationItem.title = @"已去过的旅途";
+        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        self.navigationItem.leftBarButtonItem = rbtn;
     } else {
         self.navigationItem.title = @"旅途计划";
-        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已到过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"去过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
         self.navigationItem.rightBarButtonItem = rbtn;
         
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,8 +171,9 @@ static NSString *reusableCell = @"myGuidesCell";
     gltvc.chatter = _chatter;
     gltvc.selectToSend = YES;
     gltvc.isChatGroup = _isChatGroup;
-    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
-    [self presentViewController:ctl animated:YES completion:nil];
+//    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
+//    [self presentViewController:ctl animated:YES completion:nil];
+    [self.navigationController pushViewController:gltvc animated:YES];
 }
 
 - (void)userDidLogout
@@ -369,11 +370,11 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
-//    if (_isTrip) {
-//        [params safeSetObject:@"traveled" forKey:@"status"];
-//    } else {
-//        [params safeSetObject:@"planned" forKey:@"status"];
-//    }
+    if (_isTrip) {
+        [params safeSetObject:@"traveled" forKey:@"status"];
+    } else {
+        [params safeSetObject:@"planned" forKey:@"status"];
+    }
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     
@@ -670,19 +671,18 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
                                                      message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"保存为\"已到过\""
+                                                 cancelTitle:@"存为\"去过\""
                                                  otherTitles:@[@"修改标题", @"置顶"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-                                                          bsvc.navTitle = @"修改计划标题";
+                                                          bsvc.navTitle = @"修改标题";
                                                           bsvc.content = guideSummary.title;
                                                           bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
                                                               if ([guideSummary.title isEqualToString:editText]) {
                                                                   completed(YES);
                                                               }
                                                               [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
-                                                              
                                                           };
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
@@ -706,7 +706,7 @@ static NSString *reusableCell = @"myGuidesCell";
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-                                                          bsvc.navTitle = @"修改计划标题";
+                                                          bsvc.navTitle = @"修改标题";
                                                           bsvc.content = guideSummary.title;
                                                           bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
                                                               if ([guideSummary.title isEqualToString:editText]) {
@@ -781,7 +781,7 @@ static NSString *reusableCell = @"myGuidesCell";
             if ([status isEqualToString:@"planned"]) {
                 [SVProgressHUD showHint:@"已存为\"旅途计划\""];
             } else {
-                [SVProgressHUD showHint:@"已存为\"已到过的旅途\""];
+                [SVProgressHUD showHint:@"已存为\"去过\""];
             }
         } else {
             [self showHint:@"请求也是失败了"];
