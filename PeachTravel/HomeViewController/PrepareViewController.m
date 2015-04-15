@@ -9,6 +9,7 @@
 #import "PrepareViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
+#import "HomeViewController.h"
 
 @interface PrepareViewController ()
 
@@ -40,6 +41,8 @@
 }
 
 - (IBAction)skip:(id)sender {
+    HomeViewController *hvc = (HomeViewController *)_rootViewController;
+    [hvc setSelectedIndex:1];
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];

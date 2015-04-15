@@ -21,7 +21,7 @@
 
 static const CGFloat AlertViewWidth = 270.0;
 static const CGFloat AlertViewContentMargin = 9;
-static const CGFloat AlertViewVerticalElementSpace = 10;
+static const CGFloat AlertViewVerticalElementSpace = 8;
 static const CGFloat AlertViewButtonHeight = 44;
 static const CGFloat AlertViewLineLayerWidth = 1.0;
 static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
@@ -146,7 +146,7 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 		
 		// Message
         if (message) {
-            messageLabelY += AlertViewVerticalElementSpace;
+            messageLabelY += AlertViewVerticalElementSpace/2;
             self.messageScrollView = [[UIScrollView alloc] initWithFrame:(CGRect){
                 AlertViewContentMargin,
                 messageLabelY,
@@ -359,7 +359,7 @@ static const CGFloat AlertViewVerticalEdgeMinMargin = 25;
 		}
 	}
     if (totalHeight > 0) {
-        totalHeight += AlertViewVerticalElementSpace;
+        totalHeight += AlertViewVerticalElementSpace/2;
     }
 	if (self.buttons) {
 		NSUInteger otherButtonsCount = [self.buttons count];

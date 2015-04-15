@@ -111,7 +111,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (IBAction)deleteOneDay:(UIButton *)sender
 {
     [MobClick event:@"event_delete_day_agenda"];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"将会删除一整天" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除这天安排" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [_tripDetail.itineraryList removeObjectAtIndex:sender.tag];
@@ -166,10 +166,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (IBAction)editDay:(id)sender {
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:nil
-                                                 cancelTitle:@"删除"
-                                                 otherTitles:@[ @"添加行程", @"前面加一天", @"后面加一天"]
+    UIButton *btn = sender;
+    NSInteger day = btn.tag + 1;
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:[NSString stringWithFormat:@"第%ld天", day]
+                                                     message:@"请选择你要进行的操作"
+                                                 cancelTitle:@"删除这一天"
+                                                 otherTitles:@[ @"添加安排", @"前面加一天", @"后面加一天"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           
@@ -177,9 +179,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
                                                           
                                                       } else if (buttonIndex == 3) {
                                                           
+                                                      } else if (buttonIndex == 0) {
+                                                          
                                                       }
                                                   }];
     [alertView useDefaultIOS7Style];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView setCancelButtonTextColor:[UIColor redColor]];
 }

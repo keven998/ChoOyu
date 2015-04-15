@@ -116,7 +116,7 @@
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         }
     } else {
-        cell.textLabel.text = @"目的地";
+        cell.textLabel.text = @"目的地推荐";
         cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

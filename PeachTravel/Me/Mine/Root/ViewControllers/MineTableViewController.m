@@ -8,7 +8,6 @@
 
 #import "MineTableViewController.h"
 #import "LoginTableViewCell.h"
-#import "UnLoginTableViewCell.h"
 #import "AccountManagerViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
@@ -62,7 +61,6 @@
     self.tableView.separatorColor = APP_BORDER_COLOR;
     self.tableView.contentInset = UIEdgeInsetsMake(-2.0, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
-    [self.tableView registerNib:[UINib nibWithNibName:@"UnLoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:unLoginCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
 //    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
     
@@ -204,13 +202,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.accountManager.isLogin) {
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
+        LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
+        AccountManager *accountManager = [AccountManager shareAccountManager];
+        if (accountManager.isLogin) {
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-            cell.userId.text = [NSString stringWithFormat:@"FM %d", [accountManager.account.userId intValue]];
+            cell.userId.text = [NSString stringWithFormat:@"ID %d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
-            cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"no签名";
+            cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"";
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory_white.png"]];
             if ([accountManager.account.gender isEqualToString:@"M"]) {
                 cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
@@ -219,14 +217,15 @@
             } else if ([accountManager.account.gender isEqualToString:@"U"]) {
                 cell.userGender.image = nil;
             }
-            return cell;
         } else {
-            UnLoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:unLoginCell forIndexPath:indexPath];
-            [cell.loginBtn addTarget:self action:@selector(userLogin:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.registerBtn addTarget:self action:@selector(userRegister:) forControlEvents:UIControlEventTouchUpInside];
-            return cell;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            [cell.userPhoto setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+            cell.userId.text = @"登录旅FM，建立你的旅行圈";
+            cell.userName.text = @"未登录";
+            cell.userSign.text = nil;
+            cell.userGender.image = nil;
         }
-        
+        return cell;
     } else {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
         cell.titleView.text = [[cellDataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
@@ -269,6 +268,8 @@
             UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
             userInfoCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:userInfoCtl animated:YES];
+        } else {
+            [self userLogin:nil];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
