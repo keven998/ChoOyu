@@ -19,6 +19,7 @@
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
+#import "BaseTextSettingViewController.h"
 
 #define PAGE_COUNT 10
 
@@ -26,8 +27,8 @@
 
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
-@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
+//@property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
+//@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) UIView *emptyView;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
@@ -84,10 +85,6 @@ static NSString *reusableCell = @"myGuidesCell";
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    
-    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup:)];
-    _tapRecognizer.numberOfTapsRequired = 1;
-    _tapRecognizer.delegate = self;
     
     if (!_isTrip && !_selectToSend) {
         UIButton *editBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 64, 64)];
@@ -163,11 +160,8 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)dealloc
 {
-    [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
-
     [self.refreshControl endRefreshing];
     self.refreshControl = nil;
-    _tapRecognizer = nil;
 }
 
 #pragma mark - navigation action
@@ -237,7 +231,8 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)deleteGuide:(NSIndexPath *)indexPath
 {
     [MobClick event:@"event_delete_trip_plan"];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"删除确认" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:indexPath.section];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"删除确认" message:[NSString stringWithFormat:@"删除\"%@\"", guideSummary.title] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             NSInteger index = indexPath.section;
@@ -254,19 +249,19 @@ static NSString *reusableCell = @"myGuidesCell";
  */
 - (void)edit:(NSIndexPath *)index
 {
-    [MobClick event:@"event_edit_trip_title"];
-    _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index.section];
-    [self.navigationController.view addGestureRecognizer:_tapRecognizer];
-    
-    CGFloat y = kWindowHeight-260-176;
-    if (y>100) {
-        y = 100;
-    }
-    [self.navigationController presentPopupViewController:_confirmRouteViewController atHeight:y animated:YES completion:nil];
-    _confirmRouteViewController.routeTitle.text = guideSummary.title;
-    _confirmRouteViewController.confirmRouteTitle.tag = index.section;
-    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
+//    [MobClick event:@"event_edit_trip_title"];
+//    _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
+//    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index.section];
+//    [self.navigationController.view addGestureRecognizer:_tapRecognizer];
+//    
+//    CGFloat y = kWindowHeight-260-176;
+//    if (y>100) {
+//        y = 100;
+//    }
+//    [self.navigationController presentPopupViewController:_confirmRouteViewController atHeight:y animated:YES completion:nil];
+//    _confirmRouteViewController.routeTitle.text = guideSummary.title;
+//    _confirmRouteViewController.confirmRouteTitle.tag = index.section;
+//    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
@@ -274,33 +269,33 @@ static NSString *reusableCell = @"myGuidesCell";
  *
  *  @param sender
  */
-- (IBAction)willConfirmRouteTitle:(UIButton *)sender
-{
-    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
-    if ([guideSummary.title isEqualToString:_confirmRouteViewController.routeTitle.text]) {
-        [SVProgressHUD showHint:@"修改成功"];
-        [self dismissPopup:nil];
-        return;
-    }
-    [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text atIndex:sender.tag];
-}
+//- (IBAction)willConfirmRouteTitle:(UIButton *)sender
+//{
+//    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
+//    if ([guideSummary.title isEqualToString:_confirmRouteViewController.routeTitle.text]) {
+//        [SVProgressHUD showHint:@"修改成功"];
+//        [self dismissPopup:nil];
+//        return;
+//    }
+//    [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text atIndex:sender.tag];
+//}
 
-/**
- *  弹出修改标题后点击背景，消除修改标题弹出框
- *
- *  @param sender
- */
-- (IBAction)dismissPopup:(id)sender
-{
-    if (self.navigationController.popupViewController != nil) {
-        if ([_confirmRouteViewController.routeTitle isFirstResponder]) {
-            [_confirmRouteViewController.routeTitle resignFirstResponder];
-        }
-        [self.navigationController dismissPopupViewControllerAnimated:YES completion:^{
-            [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
-        }];
-    }
-}
+///**
+// *  弹出修改标题后点击背景，消除修改标题弹出框
+// *
+// *  @param sender
+// */
+//- (IBAction)dismissPopup:(id)sender
+//{
+//    if (self.navigationController.popupViewController != nil) {
+//        if ([_confirmRouteViewController.routeTitle isFirstResponder]) {
+//            [_confirmRouteViewController.routeTitle resignFirstResponder];
+//        }
+//        [self.navigationController dismissPopupViewControllerAnimated:YES completion:^{
+//            [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
+//        }];
+//    }
+//}
 
 #pragma mark - Private Methods
 
@@ -365,7 +360,7 @@ static NSString *reusableCell = @"myGuidesCell";
  *  @param guideSummary 被修改的攻略
  *  @param title        新的标题
  */
-- (void)editGuideTitle:(MyGuideSummary *)guideSummary andTitle:(NSString *)title atIndex:(NSInteger)index
+- (void)editGuideTitle:(MyGuideSummary *)guideSummary andTitle:(NSString *)title atIndex:(NSInteger)index success:(saveComplteBlock)completed
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
@@ -392,15 +387,13 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-//            [self showHint:@"OK~修改成功"];
-            [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:0.3];
-
             guideSummary.title = title;
             NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
             [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [self cacheFirstPage:responseObject];
             });
+            completed(YES);
         } else {
             [self showHint:@"请求也是失败了"];
         }
@@ -665,7 +658,7 @@ static NSString *reusableCell = @"myGuidesCell";
 //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
 //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"删除"];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"选项"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"更多"];
     
     return rightUtilityButtons;
 }
@@ -705,17 +698,18 @@ static NSString *reusableCell = @"myGuidesCell";
         case 0:
         {
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            [self edit:cellIndexPath];
+            [self deleteGuide:cellIndexPath];
+//            [self edit:cellIndexPath];
             break;
         }
         case 1:
         {
 //            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-//            [self deleteGuide:cellIndexPath];
+//
             if (_isTrip) {
                 [self setupTripMenu];
             } else {
-                [self setupPlanMenu];
+                [self setupPlanMenu:cell];
             }
             break;
         }
@@ -724,14 +718,26 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void) setupPlanMenu {
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:nil
+- (void) setupPlanMenu:(SWTableViewCell *)cell {
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多操作"
+                                                     message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
                                                  cancelTitle:@"取消"
-                                                 otherTitles:@[@"修改标题", @"标记\"已去\"", @"排到第一个"]
+                                                 otherTitles:@[@"修改标题", @"标记为\"已去\"", @"排到第一个"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
-                                                          
+                                                          BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+                                                          bsvc.navTitle = @"修改计划标题";
+                                                          bsvc.content = guideSummary.title;
+                                                          bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+                                                              if ([guideSummary.title isEqualToString:editText]) {
+                                                                  completed(YES);
+                                                              }
+                                                              [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
+                                                              
+                                                          };
+                                                          [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
                                                           
                                                       } else if (buttonIndex == 3) {
@@ -741,7 +747,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
 //    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
-//    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 //    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 

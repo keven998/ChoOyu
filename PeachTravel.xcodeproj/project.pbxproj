@@ -41,6 +41,8 @@
 		C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */; };
 		C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */; };
 		C6B65A671A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */; };
+		C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */; };
+		C6C5C3B81ADE15BE0047C058 /* BaseTextSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */; };
 		C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */; };
 		C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */; };
 		C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */; };
@@ -831,6 +833,9 @@
 		C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_gray@2x.png"; sourceTree = "<group>"; };
+		C6C5C3B41ADE15BE0047C058 /* BaseTextSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTextSettingViewController.h; sourceTree = "<group>"; };
+		C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTextSettingViewController.m; sourceTree = "<group>"; };
+		C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseTextSettingViewController.xib; sourceTree = "<group>"; };
 		C6F87A121ACD1C4400BB7D7F /* PXAlertView+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXAlertView+Customization.h"; sourceTree = "<group>"; };
 		C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXAlertView+Customization.m"; sourceTree = "<group>"; };
 		C6F87A141ACD1C4400BB7D7F /* PXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAlertView.h; sourceTree = "<group>"; };
@@ -3384,6 +3389,9 @@
 		D9A8028E1A80E3D3005AD701 /* SuperClass */ = {
 			isa = PBXGroup;
 			children = (
+				C6C5C3B41ADE15BE0047C058 /* BaseTextSettingViewController.h */,
+				C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */,
+				C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */,
 				C65DB7B51AD37B8600F51443 /* SelectionTableViewController.h */,
 				C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */,
 				C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */,
@@ -5011,6 +5019,7 @@
 				D9A805731A80E738005AD701 /* bao_rain@2x.png in Resources */,
 				D9A8051F1A80E738005AD701 /* nearby_ic_tab_stay_normal@2x.png in Resources */,
 				D9A801331A80DD23005AD701 /* chatBar_recordBg@2x.png in Resources */,
+				C6C5C3B81ADE15BE0047C058 /* BaseTextSettingViewController.xib in Resources */,
 				D9A804AA1A80E738005AD701 /* chat_receiver_audio_playing001@2x.png in Resources */,
 				D9A801381A80DD23005AD701 /* chatBar_more_album@2x.png in Resources */,
 				D9722F171A82176300D8A8CC /* ic_spot_phone@2x.png in Resources */,
@@ -5572,6 +5581,7 @@
 				D92CA0FF1AD8BDF900F244FF /* PSTCollectionViewCell.m in Sources */,
 				C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */,
 				D92CA1131AD8BDF900F244FF /* SWLongPressGestureRecognizer.m in Sources */,
+				C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */,
 				D9A801261A80DD23005AD701 /* ChatViewController.m in Sources */,
 				D9A802F11A80E3D3005AD701 /* Constants.m in Sources */,
 				D9A801141A80DD23005AD701 /* ChatListViewController.m in Sources */,
