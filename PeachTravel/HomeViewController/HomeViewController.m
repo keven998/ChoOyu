@@ -68,8 +68,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidRegistedNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidRegistedNoti object:nil];
     
     if (![[AccountManager shareAccountManager] isLogin]) {
         [self setupLoginPage];
@@ -203,8 +202,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 }
 
 - (void) userDidLogin {
-    [_coverView removeFromSuperview];
-    _coverView = nil;
+//    [_coverView removeFromSuperview];
+//    _coverView = nil;
+    NSArray *controllers = [self childViewControllers];
+    if (controllers != nil && controllers.count > 0) {
+        UIViewController *ctl = [controllers lastObject];
+        if ([ctl isKindOfClass:[PrepareViewController class]]) {
+            PrepareViewController *vc = (PrepareViewController *)ctl;
+            [vc.view removeFromSuperview];
+            [vc removeFromParentViewController];
+        }
+    }
 }
 
 /**
@@ -397,6 +405,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
     UIApplication *application = [UIApplication sharedApplication];
     [application setApplicationIconBadgeNumber:unReadCount];
+    
+    [self userDidLogin];
 }
 
 #pragma mark - IChatManagerDelegate 消息变化

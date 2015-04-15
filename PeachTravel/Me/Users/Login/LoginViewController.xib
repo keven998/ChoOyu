@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
@@ -212,14 +212,16 @@
             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ys6-1u-JAa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="83" id="5Ul-FU-Agm">
-                    <variation key="widthClass=compact" constant="84"/>
+                    <variation key="widthClass=compact" constant="20"/>
                 </constraint>
                 <constraint firstItem="UQw-cd-bme" firstAttribute="top" secondItem="NIj-GB-DTR" secondAttribute="bottom" constant="8" id="5g7-1H-mjw">
                     <variation key="heightClass=compact-widthClass=compact" constant="8"/>
                 </constraint>
                 <constraint firstItem="ySW-Wn-Rtk" firstAttribute="leading" secondItem="49V-qH-ArX" secondAttribute="trailing" constant="3" id="7B8-1V-Ssd"/>
                 <constraint firstAttribute="trailing" secondItem="NIj-GB-DTR" secondAttribute="trailing" constant="10" id="9tG-FQ-lVE"/>
-                <constraint firstItem="49V-qH-ArX" firstAttribute="top" secondItem="NIj-GB-DTR" secondAttribute="bottom" constant="91" id="BQr-u1-kWO"/>
+                <constraint firstItem="49V-qH-ArX" firstAttribute="top" secondItem="NIj-GB-DTR" secondAttribute="bottom" constant="91" id="BQr-u1-kWO">
+                    <variation key="widthClass=compact" constant="91"/>
+                </constraint>
                 <constraint firstAttribute="trailing" secondItem="ySW-Wn-Rtk" secondAttribute="trailing" id="CYd-vg-5bu"/>
                 <constraint firstItem="UQw-cd-bme" firstAttribute="top" secondItem="whk-ET-N28" secondAttribute="bottom" constant="24" id="Cvo-Pm-CMY">
                     <variation key="widthClass=compact" constant="63"/>
@@ -227,13 +229,15 @@
                 </constraint>
                 <constraint firstAttribute="trailing" secondItem="UQw-cd-bme" secondAttribute="trailing" constant="8" id="GQF-mF-veh"/>
                 <constraint firstAttribute="centerX" secondItem="iql-PQ-zND" secondAttribute="centerX" id="KUT-16-IkK"/>
-                <constraint firstItem="NIj-GB-DTR" firstAttribute="top" secondItem="whk-ET-N28" secondAttribute="bottom" constant="20" id="LM3-2p-bWp"/>
+                <constraint firstItem="NIj-GB-DTR" firstAttribute="top" secondItem="whk-ET-N28" secondAttribute="bottom" constant="20" id="LM3-2p-bWp">
+                    <variation key="widthClass=compact" constant="20"/>
+                </constraint>
                 <constraint firstItem="Wtb-3f-pdh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Osl-f4-QMF"/>
                 <constraint firstItem="ys6-1u-JAa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="XqI-7Q-U2U">
                     <variation key="widthClass=compact" constant="0.0"/>
                 </constraint>
                 <constraint firstItem="whk-ET-N28" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="127" id="ZnR-GJ-DHh">
-                    <variation key="widthClass=compact" constant="134"/>
+                    <variation key="widthClass=compact" constant="70"/>
                     <variation key="heightClass=compact-widthClass=compact" constant="126"/>
                 </constraint>
                 <constraint firstAttribute="trailing" secondItem="ys6-1u-JAa" secondAttribute="trailing" constant="8" id="dnR-bd-qy2">
@@ -246,7 +250,9 @@
                 <constraint firstAttribute="trailing" secondItem="whk-ET-N28" secondAttribute="trailing" constant="8" id="gCp-rQ-HEa">
                     <variation key="widthClass=compact" constant="0.0"/>
                 </constraint>
-                <constraint firstItem="49V-qH-ArX" firstAttribute="centerY" secondItem="Wtb-3f-pdh" secondAttribute="centerY" id="gQi-zb-EZ6"/>
+                <constraint firstItem="49V-qH-ArX" firstAttribute="centerY" secondItem="Wtb-3f-pdh" secondAttribute="centerY" id="gQi-zb-EZ6">
+                    <variation key="widthClass=compact" constant="1"/>
+                </constraint>
                 <constraint firstItem="49V-qH-ArX" firstAttribute="leading" secondItem="Wtb-3f-pdh" secondAttribute="trailing" constant="7" id="myu-WI-Z4C"/>
                 <constraint firstItem="NIj-GB-DTR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="r1n-rh-Xm6"/>
                 <constraint firstItem="iql-PQ-zND" firstAttribute="top" secondItem="49V-qH-ArX" secondAttribute="bottom" constant="22" id="unL-K8-73B"/>
