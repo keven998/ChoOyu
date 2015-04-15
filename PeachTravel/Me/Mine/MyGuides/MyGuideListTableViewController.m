@@ -63,12 +63,12 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_isTrip) {
-        self.navigationItem.title = @"已去过的旅途";
+        self.navigationItem.title = @"已到过的旅途";
         UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         self.navigationItem.rightBarButtonItem = rbtn;
     } else {
         self.navigationItem.title = @"旅途计划";
-        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已去" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"已到过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
         self.navigationItem.rightBarButtonItem = rbtn;
         
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -198,7 +198,6 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
     
-//    [self.navigationController pushViewController:makePlanCtl animated:YES];
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -241,61 +240,6 @@ static NSString *reusableCell = @"myGuidesCell";
         }
     }];
 }
-
-/**
- *  点击路线列表里的编辑标题按钮
- *
- *  @param sender
- */
-- (void)edit:(NSIndexPath *)index
-{
-//    [MobClick event:@"event_edit_trip_title"];
-//    _confirmRouteViewController = [[ConfirmRouteViewController alloc] init];
-//    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:index.section];
-//    [self.navigationController.view addGestureRecognizer:_tapRecognizer];
-//    
-//    CGFloat y = kWindowHeight-260-176;
-//    if (y>100) {
-//        y = 100;
-//    }
-//    [self.navigationController presentPopupViewController:_confirmRouteViewController atHeight:y animated:YES completion:nil];
-//    _confirmRouteViewController.routeTitle.text = guideSummary.title;
-//    _confirmRouteViewController.confirmRouteTitle.tag = index.section;
-//    [_confirmRouteViewController.confirmRouteTitle addTarget:self action:@selector(willConfirmRouteTitle:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-/**
- *  点击修改标题的弹出框的确定按钮
- *
- *  @param sender
- */
-//- (IBAction)willConfirmRouteTitle:(UIButton *)sender
-//{
-//    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:sender.tag];
-//    if ([guideSummary.title isEqualToString:_confirmRouteViewController.routeTitle.text]) {
-//        [SVProgressHUD showHint:@"修改成功"];
-//        [self dismissPopup:nil];
-//        return;
-//    }
-//    [self editGuideTitle:guideSummary andTitle:_confirmRouteViewController.routeTitle.text atIndex:sender.tag];
-//}
-
-///**
-// *  弹出修改标题后点击背景，消除修改标题弹出框
-// *
-// *  @param sender
-// */
-//- (IBAction)dismissPopup:(id)sender
-//{
-//    if (self.navigationController.popupViewController != nil) {
-//        if ([_confirmRouteViewController.routeTitle isFirstResponder]) {
-//            [_confirmRouteViewController.routeTitle resignFirstResponder];
-//        }
-//        [self.navigationController dismissPopupViewControllerAnimated:YES completion:^{
-//            [self.navigationController.view removeGestureRecognizer:_tapRecognizer];
-//        }];
-//    }
-//}
 
 #pragma mark - Private Methods
 
@@ -657,7 +601,7 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
 //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor lightGrayColor] icon:[UIImage imageNamed:@"ic_guide_edit.png"]];
 //    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] icon:[UIImage imageNamed:@"ic_guide_archieve.png"]];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"删除"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] title:@"删除"];
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor clearColor] title:@"更多"];
     
     return rightUtilityButtons;
@@ -699,15 +643,12 @@ static NSString *reusableCell = @"myGuidesCell";
         {
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             [self deleteGuide:cellIndexPath];
-//            [self edit:cellIndexPath];
             break;
         }
         case 1:
         {
-//            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-//
             if (_isTrip) {
-                [self setupTripMenu];
+                [self setupTripMenu:cell];
             } else {
                 [self setupPlanMenu:cell];
             }
@@ -721,10 +662,10 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void) setupPlanMenu:(SWTableViewCell *)cell {
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多操作"
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
                                                      message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
                                                  cancelTitle:@"取消"
-                                                 otherTitles:@[@"修改标题", @"标记为\"已去\"", @"排到第一个"]
+                                                 otherTitles:@[@"修改标题", @"置顶", @"保存为\"已到过\""]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
@@ -739,35 +680,43 @@ static NSString *reusableCell = @"myGuidesCell";
                                                           };
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
-                                                          
+                                                          [self reorderToFirst:cell];
                                                       } else if (buttonIndex == 3) {
-                                                          
+                                                          [self mark:cell as:@"traveled"];
                                                       }
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
-//    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-//    [alertView setCancelButtonTextColor:[UIColor redColor]];
 }
 
-- (void) setupTripMenu {
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
-                                                     message:nil
+- (void) setupTripMenu:(SWTableViewCell *)cell {
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
+                                                     message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
                                                  cancelTitle:@"取消"
                                                  otherTitles:@[@"修改标题", @"重置为\"计划\""]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
-                                                          
+                                                          BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+                                                          bsvc.navTitle = @"修改计划标题";
+                                                          bsvc.content = guideSummary.title;
+                                                          bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+                                                              if ([guideSummary.title isEqualToString:editText]) {
+                                                                  completed(YES);
+                                                              }
+                                                              [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
+                                                              
+                                                          };
+                                                          [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
-                                                          
+                                                          [self mark:cell as:@"planned"];
                                                       }
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
-    //    [alertView setMessageFont:[UIFont systemFontOfSize:14]];
-    //    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-    //    [alertView setCancelButtonTextColor:[UIColor redColor]];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -791,6 +740,95 @@ static NSString *reusableCell = @"myGuidesCell";
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[TMCache sharedCache] setObject:jsonString forKey:@"last_tripdetail"];
     });
+}
+
+#pragma mark - HTTP REQUEST
+- (void) mark:(SWTableViewCell *)cell as:(NSString *)status  {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    __weak typeof(MyGuideListTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:status forKey:@"status"];
+    [params setObject:guideSummary.guideId forKey:@"id"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager POST:API_UPDATE_GUIDE_PROPERTY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self deleteUserGuide:guideSummary];
+            if ([status isEqualToString:@"planned"]) {
+                [SVProgressHUD showHint:@"已存为\"旅途计划\""];
+            } else {
+                [SVProgressHUD showHint:@"已存为\"已到过的旅途\""];
+            }
+        } else {
+            [self showHint:@"请求也是失败了"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:@"呃～好像没找到网络"];
+    }];
+}
+
+- (void) reorderToFirst:(SWTableViewCell *)cell {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    __weak typeof(MyGuideListTableViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[ConvertMethods getCuttentData] forKey:@"updateTime"];
+    [params setObject:guideSummary.guideId forKey:@"id"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager POST:API_UPDATE_GUIDE_PROPERTY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self.dataSource removeObject:guideSummary];
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:cellIndexPath.section];
+            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.dataSource insertObject:guideSummary atIndex:0];
+            set = [NSIndexSet indexSetWithIndex:0];
+            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [self showHint:@"请求也是失败了"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHint:@"呃～好像没找到网络"];
+    }];
 }
 
 @end

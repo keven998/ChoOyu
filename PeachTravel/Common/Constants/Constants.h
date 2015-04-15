@@ -58,6 +58,7 @@
 
 #define API_CREATE_GUIDE                        (BASE_URL @"create-guide")    //制作攻略
 
+#define API_UPDATE_GUIDE_PROPERTY               (BASE_URL @"guides")    //修改攻略属性
 #define API_SAVE_TRIP                           (BASE_URL @"guides")    //保存攻略
 #define API_GET_GUIDELIST                       (BASE_URL @"guides")    //获取攻略列表
 #define API_GET_GUIDE                           (BASE_URL @"guides/")    //获取攻略列表
