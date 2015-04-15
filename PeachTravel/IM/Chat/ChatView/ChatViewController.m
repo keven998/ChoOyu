@@ -1060,7 +1060,8 @@
     myGuideListTableCtl.chatter = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.isChatGroup = _isChatGroup;
-    [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
+    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
+    [self presentViewController:ctl animated:YES completion:nil];
 }
 
 /**

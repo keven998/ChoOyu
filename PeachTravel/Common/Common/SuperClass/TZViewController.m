@@ -42,10 +42,6 @@
         self.navigationItem.leftBarButtonItem = barButton;
         _customNavigationItem = self.navigationItem;
     }
-    
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

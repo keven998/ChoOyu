@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TZTBViewController.h"
 
-@interface TravelersTableViewController : UIViewController
+@interface TravelersTableViewController : TZTBViewController
 
 @end

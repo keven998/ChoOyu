@@ -13,10 +13,13 @@
 #import "LoginViewController.h"
 #import "TravelersTableViewController.h"
 #import "SearchDestinationViewController.h"
+#import "AutoSlideScrollView.h"
+#import "NSTimer+Addition.h"
 
 @interface ToolHomeViewController ()<UISearchBarDelegate>
 
 @property (strong, nonatomic) UISearchBar *searchBar;
+@property (nonatomic, strong) AutoSlideScrollView *ascrollView;
 
 @end
 
@@ -27,17 +30,25 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行";
     
-//    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
-//    _searchBar.barTintColor = APP_PAGE_COLOR;
     [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
     _searchBar.placeholder = @"城市、景点、酒店、美食、游记";
     self.tableView.tableHeaderView = _searchBar;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_ascrollView.animationTimer resumeTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_ascrollView.animationTimer pauseTimer];
 }
 
 - (IBAction)hideKeyboard:(id)sender
@@ -76,9 +87,6 @@
 //}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0;
-    }
     return CGFLOAT_MIN;
 }
 

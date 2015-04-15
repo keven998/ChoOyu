@@ -29,7 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 //@property (nonatomic, strong) ConfirmRouteViewController *confirmRouteViewController;
 //@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
-@property (nonatomic, strong) UIView *emptyView;
+//@property (nonatomic, strong) UIView *emptyView;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicatroView;
 @property (nonatomic, strong) UIView *footerView;
@@ -113,7 +113,6 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullToRefreash:) name:updateGuideListNoti object:nil];
-
 }
 
 - (void)goBack
@@ -169,6 +168,9 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void) myTrip {
     MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
     gltvc.isTrip = YES;
+    gltvc.chatter = _chatter;
+    gltvc.selectToSend = YES;
+    gltvc.isChatGroup = _isChatGroup;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
     [self presentViewController:ctl animated:YES completion:nil];
 }
@@ -367,6 +369,11 @@ static NSString *reusableCell = @"myGuidesCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
     [params setObject:imageWidth forKey:@"imgWidth"];
+//    if (_isTrip) {
+//        [params safeSetObject:@"traveled" forKey:@"status"];
+//    } else {
+//        [params safeSetObject:@"planned" forKey:@"status"];
+//    }
     [params safeSetObject:[NSNumber numberWithInt:PAGE_COUNT] forKey:@"pageSize"];
     [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     
@@ -392,7 +399,6 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
         [self loadMoreCompleted];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
@@ -417,15 +423,17 @@ static NSString *reusableCell = @"myGuidesCell";
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
         if (_currentPage == 0) {
-            [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
+//            [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
+            _enableLoadMore = NO;
         } else {
             _enableLoadMore = NO;
         }
         [self.tableView reloadData];
         return;
-    } else {
-        [self removeEmptyView];
     }
+//    else {
+//        [self removeEmptyView];
+//    }
     
     for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
         MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
@@ -439,45 +447,45 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-- (void)setupEmptyView {
-    if (self.emptyView != nil) {
-        return;
-    }
-    
-    CGFloat width = self.view.bounds.size.width;
-    
-    self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-200)];
-    [self.view addSubview:self.emptyView];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
-//    imageView.contentMode = UIViewContentModeCenter;
-    imageView.image = [UIImage imageNamed:@"ic_guide_earth.png"];
-    imageView.center = CGPointMake(width/2.0, 144);
-    [self.emptyView addSubview:imageView];
-    
-    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 144+imageView.frame.size.height/2.0, width, 64.0)];
-//    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    desc.font = [UIFont systemFontOfSize:14.0];
-    desc.numberOfLines = 2;
-//    desc.textAlignment = NSTextAlignmentCenter;
-    NSString *text = @"你还没有任何旅途计划~";
-    NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
-    [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 4.0;
-    [style setAlignment:NSTextAlignmentCenter];
-    [attrDesc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
-    [desc setAttributedText:attrDesc];
-    
-    [self.emptyView addSubview:desc];
-}
-
-- (void) removeEmptyView {
-    if (self.emptyView != nil) {
-        [self.emptyView removeFromSuperview];
-        self.emptyView = nil;
-    }
-}
+//- (void)setupEmptyView {
+//    if (self.emptyView != nil) {
+//        return;
+//    }
+//    
+//    CGFloat width = self.view.bounds.size.width;
+//    
+//    self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-200)];
+//    [self.view addSubview:self.emptyView];
+//    
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
+////    imageView.contentMode = UIViewContentModeCenter;
+//    imageView.image = [UIImage imageNamed:@"ic_guide_earth.png"];
+//    imageView.center = CGPointMake(width/2.0, 144);
+//    [self.emptyView addSubview:imageView];
+//    
+//    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 144+imageView.frame.size.height/2.0, width, 64.0)];
+////    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+//    desc.font = [UIFont systemFontOfSize:14.0];
+//    desc.numberOfLines = 2;
+////    desc.textAlignment = NSTextAlignmentCenter;
+//    NSString *text = @"你还没有任何旅途计划~";
+//    NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
+//    [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
+//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+//    style.lineSpacing = 4.0;
+//    [style setAlignment:NSTextAlignmentCenter];
+//    [attrDesc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
+//    [desc setAttributedText:attrDesc];
+//    
+//    [self.emptyView addSubview:desc];
+//}
+//
+//- (void) removeEmptyView {
+//    if (self.emptyView != nil) {
+//        [self.emptyView removeFromSuperview];
+//        self.emptyView = nil;
+//    }
+//}
 
 - (IBAction)sendPoi:(UIButton *)sender
 {
@@ -528,9 +536,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)dismissPopup
 {
     if (self.navigationController.popupViewController != nil) {
-        [self.navigationController dismissPopupViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -664,8 +670,8 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
                                                      message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"取消"
-                                                 otherTitles:@[@"修改标题", @"置顶", @"保存为\"已到过\""]
+                                                 cancelTitle:@"保存为\"已到过\""
+                                                 otherTitles:@[@"修改标题", @"置顶"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
@@ -681,12 +687,12 @@ static NSString *reusableCell = @"myGuidesCell";
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
                                                           [self reorderToFirst:cell];
-                                                      } else if (buttonIndex == 3) {
+                                                      } else if (buttonIndex == 0) {
                                                           [self mark:cell as:@"traveled"];
                                                       }
                                                   }];
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
+    [alertView setCancelFount:[UIFont systemFontOfSize:17]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
@@ -695,8 +701,8 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
                                                      message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"取消"
-                                                 otherTitles:@[@"修改标题", @"重置为\"计划\""]
+                                                 cancelTitle:@"重置为\"计划\""
+                                                 otherTitles:@[@"修改标题"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
@@ -710,12 +716,12 @@ static NSString *reusableCell = @"myGuidesCell";
                                                               
                                                           };
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
-                                                      } else if (buttonIndex == 2) {
+                                                      } else if (buttonIndex == 0) {
                                                           [self mark:cell as:@"planned"];
                                                       }
                                                   }];
-    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
+    [alertView setCancelFount:[UIFont systemFontOfSize:17]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
 }
 
@@ -806,7 +812,7 @@ static NSString *reusableCell = @"myGuidesCell";
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[ConvertMethods getCuttentData] forKey:@"updateTime"];
+    [params setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"updateTime"];
     [params setObject:guideSummary.guideId forKey:@"id"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager POST:API_UPDATE_GUIDE_PROPERTY parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

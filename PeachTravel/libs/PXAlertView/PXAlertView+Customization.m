@@ -68,6 +68,10 @@ void * const kAllBGKey = (void * const) &kAllBGKey;
     self.messageLabel.font = font;
 }
 
+- (void) setCancelFount:(UIFont *)font {
+    self.cancelButton.titleLabel.font = font;
+}
+
 #pragma mark -
 #pragma mark Buttons Customization
 #pragma mark Buttons Background Colors

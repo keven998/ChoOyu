@@ -15,6 +15,7 @@
 
 - (void)setTitleColor:(UIColor *)color;
 - (void)setTitleFont:(UIFont *)font;
+- (void)setCancelFount:(UIFont *)font;
 
 - (void)setMessageColor:(UIColor *)color;
 - (void)setMessageFont:(UIFont *)font;

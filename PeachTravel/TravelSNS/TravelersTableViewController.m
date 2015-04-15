@@ -8,9 +8,7 @@
 
 #import "TravelersTableViewController.h"
 
-@interface TravelersTableViewController ()<UITableViewDelegate, UITableViewDataSource>
-
-@property (nonatomic, strong) UITableView *tableView;
+@interface TravelersTableViewController ()
 
 @end
 
@@ -21,14 +19,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行达人";
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    _tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.separatorColor = APP_PAGE_COLOR;
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
-    
-    [self.view addSubview:_tableView];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
