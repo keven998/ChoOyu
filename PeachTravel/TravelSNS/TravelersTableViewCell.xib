@@ -164,13 +164,6 @@
                         <exclude reference="Nqz-X4-fJw"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="Nyr-Ea-0a2"/>
-                        <exclude reference="Roa-Tk-FeA"/>
-                        <exclude reference="Cuk-27-s75"/>
-                        <exclude reference="O3U-4A-SOA"/>
-                        <exclude reference="04V-uG-7KB"/>
-                        <exclude reference="j4h-qH-8GY"/>
-                        <exclude reference="lFB-zD-ACe"/>
                         <exclude reference="HOl-4s-h4O"/>
                         <exclude reference="aGz-sU-JQ6"/>
                         <exclude reference="lrQ-jC-cwm"/>
@@ -178,6 +171,13 @@
                         <exclude reference="nFZ-dA-Ezb"/>
                         <exclude reference="AiZ-RE-NES"/>
                         <exclude reference="c1p-Se-dS7"/>
+                        <exclude reference="Cuk-27-s75"/>
+                        <exclude reference="O3U-4A-SOA"/>
+                        <exclude reference="Nyr-Ea-0a2"/>
+                        <exclude reference="Roa-Tk-FeA"/>
+                        <exclude reference="04V-uG-7KB"/>
+                        <exclude reference="j4h-qH-8GY"/>
+                        <exclude reference="lFB-zD-ACe"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -190,13 +190,6 @@
                         <include reference="Nqz-X4-fJw"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="Nyr-Ea-0a2"/>
-                        <include reference="Roa-Tk-FeA"/>
-                        <include reference="Cuk-27-s75"/>
-                        <include reference="O3U-4A-SOA"/>
-                        <include reference="04V-uG-7KB"/>
-                        <include reference="j4h-qH-8GY"/>
-                        <include reference="lFB-zD-ACe"/>
                         <include reference="HOl-4s-h4O"/>
                         <include reference="aGz-sU-JQ6"/>
                         <include reference="lrQ-jC-cwm"/>
@@ -204,6 +197,13 @@
                         <include reference="nFZ-dA-Ezb"/>
                         <include reference="AiZ-RE-NES"/>
                         <include reference="c1p-Se-dS7"/>
+                        <include reference="Cuk-27-s75"/>
+                        <include reference="O3U-4A-SOA"/>
+                        <include reference="Nyr-Ea-0a2"/>
+                        <include reference="Roa-Tk-FeA"/>
+                        <include reference="04V-uG-7KB"/>
+                        <include reference="j4h-qH-8GY"/>
+                        <include reference="lFB-zD-ACe"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

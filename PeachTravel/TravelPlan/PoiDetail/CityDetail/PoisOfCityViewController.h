@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CityPoi.h"
 #import "TripDetail.h"
-#import "TZTBViewController.h"
 
 @protocol PoisOfCityDelegate <NSObject>
 

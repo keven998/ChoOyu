@@ -194,9 +194,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageImage = image.imageUrl;
     taoziMessageCtl.chatter = _chatter;
     taoziMessageCtl.isGroup = _isChatGroup;
-    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^{
-        
-    }];
+    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

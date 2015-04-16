@@ -7,8 +7,14 @@
 //
 
 #import "TravelersTableViewController.h"
+#import "TravelersTableViewCell.h"
+#import "ContactDetailViewController.h"
+#import "DistributionViewController.h"
 
 @interface TravelersTableViewController ()
+
+@property (nonatomic, strong) NSMutableArray *travelers;
+@property (nonatomic, assign) NSUInteger currentPage;
 
 @end
 
@@ -19,7 +25,26 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行达人";
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(goSelect)];
+    
+    self.enableLoadingMore = NO;
+    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TravelersTableViewCell" bundle:nil] forCellReuseIdentifier:@"travel_user_cell"];
+    
+    _currentPage = 0;
+    [self loadTravels:_currentPage];
+}
+
+#pragma mark - http method
+- (void) loadTravels:(NSInteger)pageNo {
+    
+}
+
+#pragma mark - private method
+- (void) goSelect {
+    DistributionViewController *dctl = [[DistributionViewController alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:dctl] animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -33,16 +58,19 @@
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return _travelers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return nil;
+    TravelersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+//    contactDetailCtl.contact = contact;
+    [self.navigationController pushViewController:contactDetailCtl animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

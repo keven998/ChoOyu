@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
-#import "TZTBViewController.h"
 
 @protocol addPoiDelegate <NSObject>
 

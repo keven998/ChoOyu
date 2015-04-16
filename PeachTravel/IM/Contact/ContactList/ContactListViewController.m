@@ -372,7 +372,6 @@
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         contactDetailCtl.contact = contact;
-        contactDetailCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     
