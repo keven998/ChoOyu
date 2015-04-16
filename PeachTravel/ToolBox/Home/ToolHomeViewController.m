@@ -268,20 +268,19 @@
         [imageviews addObject:[NSNull null]];
     }
     _operationImageViews = imageviews;
+    
     __weak typeof(ToolHomeViewController *)weakSelf = self;
     
     _ascrollView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
         return [weakSelf loadScrollViewWithPage:pageIndex];
     };
     
-    _ascrollView.totalPagesCount = ^NSInteger(void){
-        return weakSelf.operationDataArray.count;
+    _ascrollView.totalPagesCount = ^NSInteger(void) {
+        return count;
     };
     
     
     _ascrollView.TapActionBlock = ^(NSInteger pageIndex){
-        [MobClick event:@"event_click_opertion_page"];
-        
         OperationData *data = [weakSelf.operationDataArray objectAtIndex:pageIndex];
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = data.title;
@@ -301,14 +300,7 @@
         img = [[UIImageView alloc] initWithFrame:_ascrollView.frame];
         img.contentMode = UIViewContentModeScaleAspectFill;
         img.clipsToBounds = YES;
-        img.userInteractionEnabled = YES;
         [_operationImageViews replaceObjectAtIndex:page withObject:img];
-    }
-    
-    if (img.superview == nil) {
-        CGRect frame = img.frame;
-        frame.origin.x = CGRectGetWidth(frame) * page;
-        img.frame = frame;
         NSString *imageStr = ((OperationData *)[_operationDataArray objectAtIndex:page]).imageUrl;
         [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }

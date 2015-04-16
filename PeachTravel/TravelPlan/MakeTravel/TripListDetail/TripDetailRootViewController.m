@@ -80,25 +80,7 @@
     [self setNavigationItems];
     [self setupViewControllers];
     
-    if (_isMakeNewTrip) {
-        PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                                                         message:@"点击\"创建\"桃子旅行将为你创建行程模版"
-                                                     cancelTitle:@"创建"
-                                                     otherTitles:@[ @"不创建"]
-                                                      completion:^(BOOL cancelled, NSInteger buttonIndex) {
-                                                          if (buttonIndex == 0) {
-                                                              [self loadNewTripDataWithRecommendData:YES];
-                                                              [MobClick event:@"event_use_template"];
-                                                          } else if (buttonIndex == 1) {
-                                                              [self loadNewTripDataWithRecommendData:NO];
-                                                              [MobClick event:@"event_unuse_template"];
-                                                          }
-                                                      }];
-        [alertView useDefaultIOS7Style];
-        [alertView setTitleFont:[UIFont systemFontOfSize:16]];
-        [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
-        [alertView setTapToDismissEnabled:NO];
-    } else {
+    if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (object != nil) {
@@ -111,6 +93,8 @@
                 [self checkTripData];
             });
         }];
+    } else {
+        [self loadNewTripDataWithRecommendData:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
 }
@@ -152,7 +136,6 @@
     }
 }
 
-
 - (void) setupNavigationRightItems:(BOOL)isEditing {
     _navgationBarItem.rightBarButtonItems = nil;
     if (isEditing) {
@@ -162,7 +145,6 @@
         [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        _editBtn.selected = YES;
         _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
         _navgationBarItem.leftBarButtonItems = nil;
         
@@ -178,7 +160,6 @@
         _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
-        
         [barItems addObject:[[UIBarButtonItem alloc]initWithTitle:@"地图" style:UIBarButtonItemStylePlain target:self action:@selector(mapView)]];
         
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -198,10 +179,6 @@
             _tabBarView.frame = frame;
         }];
     }
-}
-
-- (void) hint {
-    [SVProgressHUD showHint:@"已保存到旅途计划"];
 }
 
 - (void)dealloc
@@ -261,9 +238,6 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-//            _spotsListCtl.shouldEdit = NO;
-//            _restaurantListCtl.shouldEdit = NO;
-//            _shoppingListCtl.shouldEdit = NO;
             if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
                 _spotsListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
@@ -378,9 +352,8 @@
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
-            } else {
-                [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
+//                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
+                [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.25];
             }
         } else {
             if (self.isShowing) {
@@ -395,13 +368,22 @@
     }];
 }
 
+- (void)hintBuildRoutes {
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
+                            message:[NSString stringWithFormat:@"根据达人们经验为你创建了%lu日旅程安排，可自行调整", (unsigned long)_tripDetail.itineraryList.count]
+                        cancelTitle:@"确定"
+                         completion:nil];
+    [alertView useDefaultIOS7Style];
+    [alertView setTitleFont:[UIFont systemFontOfSize:17]];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_SUBTITLE];
+}
+
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
-//    [self setNavigationItems];
 }
 
 /**
@@ -579,7 +561,6 @@
 {
     [MobClick event:@"event_edit_plan"];
     if (!_tripDetail) {
-//        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
     BOOL status = sender.selected;
@@ -662,9 +643,9 @@
  */
 - (void)reloadTripData
 {
-    if (_isMakeNewTrip) {
-        [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
+//    if (_isMakeNewTrip) {
+//        [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+//    }
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
@@ -940,8 +921,7 @@
     taoziMessageCtl.isGroup = isGroup;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-        }];
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
     }];
 }
 

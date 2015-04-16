@@ -777,7 +777,10 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self deleteUserGuide:guideSummary];
+            NSInteger index = [self.dataSource indexOfObject:guideSummary];
+            [self.dataSource removeObject:guideSummary];
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
+            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
             if ([status isEqualToString:@"planned"]) {
                 [SVProgressHUD showHint:@"已另存为\"旅途计划\""];
             } else {
