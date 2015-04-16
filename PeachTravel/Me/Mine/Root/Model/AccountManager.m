@@ -639,7 +639,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/memo", API_USERINFO, userId];
     
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        NSLog(@"result = %@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self updateContactMemo:remark andUserId:userId];

@@ -16,7 +16,7 @@
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
 #import "MJNIndexView.h"
-#import "ChangeRemarkViewController.h"
+#import "BaseTextSettingViewController.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
@@ -250,18 +250,45 @@
     [self.navigationController pushViewController:chatCtl animated:YES];
 }
 
+#pragma mark - http method
+- (void)confirmChange:(NSString *)text withContacts:(Contact *)contact success:(saveComplteBlock)completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [accountManager asyncChangeRemark:text withUserId:contact.userId completion:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+            completed(YES);
+        } else {
+            [SVProgressHUD showHint:@"请求失败"];
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
 #pragma mark - SWTableViewCellDelegate
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
+    [cell hideUtilityButtonsAnimated:YES];
     switch (index) {
         case 0:
         {
             NSIndexPath *indexPath = [_contactTableView indexPathForCell:cell];
             Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-            ChangeRemarkViewController *changeRemarkCtl = [[ChangeRemarkViewController alloc] init];
-            changeRemarkCtl.contact = contact;
-            [self.navigationController pushViewController:changeRemarkCtl animated:YES];
-            break;
+            
+            //bug 需要返回备注昵称
+            BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+            bsvc.navTitle = @"修改备注";
+            bsvc.content = contact.nickName;
+            bsvc.acceptEmptyContent = NO;
+            bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+                if ([contact.nickName isEqualToString:editText]) {
+                    completed(YES);
+                } else {
+                    [self confirmChange:editText withContacts:contact success:completed];
+                }
+            };
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
         }
         default:
             break;
@@ -332,7 +359,6 @@
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
         cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
         return cell;
-        
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
@@ -366,7 +392,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
-        frendRequestCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];

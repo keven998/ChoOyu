@@ -22,6 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.customNavigationItem.title = _navTitle;
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
+    rightBtn.tintColor = APP_THEME_COLOR;
+    self.navigationItem.rightBarButtonItem = rightBtn;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = leftBtn;
     
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;
     _contentTextField.layer.borderWidth = 0.5;
@@ -33,13 +40,7 @@
     [_contentTextField becomeFirstResponder];
     _contentTextField.font = [UIFont systemFontOfSize:14.0];
     _contentTextField.text = _content;
-    
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
-    rightBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = rightBtn;
-    
-    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-    self.navigationItem.leftBarButtonItem = leftBtn;
+    [_contentTextField addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
 }
 
 /**
@@ -61,6 +62,16 @@
         [textField resignFirstResponder];
     }
     return YES;
+}
+
+- (void) textChanged:(UITextField *)textField {
+    self.navigationItem.rightBarButtonItem.enabled = ![textField.text isEqualToString:_content];
+    if (!_acceptEmptyContent) {
+        NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (str == nil || str.length == 0) {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+    }
 }
 
 #pragma mark - IBAction Methods

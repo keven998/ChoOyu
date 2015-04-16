@@ -728,8 +728,6 @@
 		D9C6E4141AD6AFDF006C820F /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9C6E4111AD6AFDF006C820F /* EaseMob.bundle */; };
 		D9C78C3F1AD924D00087F52A /* PrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C78C3D1AD924D00087F52A /* PrepareViewController.m */; };
 		D9C78C401AD924D00087F52A /* PrepareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C78C3E1AD924D00087F52A /* PrepareViewController.xib */; };
-		D9E518CD1AD3A69E00C23B9F /* ChangeRemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E518CB1AD3A69E00C23B9F /* ChangeRemarkViewController.m */; };
-		D9E518CE1AD3A69E00C23B9F /* ChangeRemarkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E518CC1AD3A69E00C23B9F /* ChangeRemarkViewController.xib */; };
 		D9E7E58E1AC281400072D5B9 /* AreaDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E58D1AC281400072D5B9 /* AreaDestination.m */; };
 		D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7E5901AC281B00072D5B9 /* CityDestinationPoi.m */; };
 		D9E7EC0C1ACB932800D30A5A /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E7EC0B1ACB932800D30A5A /* AccountModel.m */; };
@@ -1901,9 +1899,6 @@
 		D9C78C3C1AD924D00087F52A /* PrepareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareViewController.h; sourceTree = "<group>"; };
 		D9C78C3D1AD924D00087F52A /* PrepareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareViewController.m; sourceTree = "<group>"; };
 		D9C78C3E1AD924D00087F52A /* PrepareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrepareViewController.xib; sourceTree = "<group>"; };
-		D9E518CA1AD3A69E00C23B9F /* ChangeRemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeRemarkViewController.h; sourceTree = "<group>"; };
-		D9E518CB1AD3A69E00C23B9F /* ChangeRemarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeRemarkViewController.m; sourceTree = "<group>"; };
-		D9E518CC1AD3A69E00C23B9F /* ChangeRemarkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeRemarkViewController.xib; sourceTree = "<group>"; };
 		D9E7E58C1AC281400072D5B9 /* AreaDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaDestination.h; sourceTree = "<group>"; };
 		D9E7E58D1AC281400072D5B9 /* AreaDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDestination.m; sourceTree = "<group>"; };
 		D9E7E58F1AC281B00072D5B9 /* CityDestinationPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDestinationPoi.h; sourceTree = "<group>"; };
@@ -2659,9 +2654,6 @@
 		D9A8004C1A80DD0C005AD701 /* ContactList */ = {
 			isa = PBXGroup;
 			children = (
-				D9E518CA1AD3A69E00C23B9F /* ChangeRemarkViewController.h */,
-				D9E518CB1AD3A69E00C23B9F /* ChangeRemarkViewController.m */,
-				D9E518CC1AD3A69E00C23B9F /* ChangeRemarkViewController.xib */,
 				D9A8004D1A80DD0C005AD701 /* ContactListViewController.h */,
 				D9A8004E1A80DD0C005AD701 /* ContactListViewController.m */,
 				D9A8004F1A80DD0C005AD701 /* ContactListViewController.xib */,
@@ -4957,7 +4949,6 @@
 				D9A804EB1A80E738005AD701 /* ic_loc_normal@2x.png in Resources */,
 				D9A804D71A80E738005AD701 /* ic_chatlist_selected@2x.png in Resources */,
 				D917DADB1A8B4B370039720A /* ic_guide_title_2@2x.png in Resources */,
-				D9E518CE1AD3A69E00C23B9F /* ChangeRemarkViewController.xib in Resources */,
 				D9A804BD1A80E738005AD701 /* ic_dotted_line@2x.png in Resources */,
 				D9A801371A80DD23005AD701 /* chatBar_face@2x.png in Resources */,
 				D9A805211A80E738005AD701 /* rating_star@2x.png in Resources */,
@@ -5690,7 +5681,6 @@
 				D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */,
 				D9A801131A80DD23005AD701 /* ChatListCell.m in Sources */,
 				D9A802B31A80E3D3005AD701 /* NSString+TaoziString.m in Sources */,
-				D9E518CD1AD3A69E00C23B9F /* ChangeRemarkViewController.m in Sources */,
 				D9A800271A80D52F005AD701 /* ForeignDestinationCell.m in Sources */,
 				D9A8020D1A80E036005AD701 /* JGActionSheet.m in Sources */,
 				D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */,

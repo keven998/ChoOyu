@@ -645,6 +645,7 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - SWTableViewCellDelegate
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
+    [cell hideUtilityButtonsAnimated:YES];
     switch (index) {
         case 0:
         {
@@ -678,11 +679,13 @@ static NSString *reusableCell = @"myGuidesCell";
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
                                                           bsvc.navTitle = @"修改标题";
                                                           bsvc.content = guideSummary.title;
+                                                          bsvc.acceptEmptyContent = NO;
                                                           bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
                                                               if ([guideSummary.title isEqualToString:editText]) {
                                                                   completed(YES);
+                                                              } else {
+                                                                  [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
                                                               }
-                                                              [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
                                                           };
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
