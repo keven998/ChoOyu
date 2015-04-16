@@ -35,15 +35,10 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行";
     
-    _ascrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 128.0) animationDuration:8];
-    _ascrollView.backgroundColor = [UIColor grayColor];
-    _ascrollView.scrollView.showsHorizontalScrollIndicator = NO;
-    _ascrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:_ascrollView];
-    
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 128.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 128) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.contentInset = UIEdgeInsetsMake(128, 0, 0, 0);
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
@@ -55,6 +50,12 @@
     [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
     _searchBar.placeholder = @"城市、景点、酒店、美食、游记";
     self.tableView.tableHeaderView = _searchBar;
+    
+    _ascrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 128.0) animationDuration:8];
+    _ascrollView.backgroundColor = [UIColor grayColor];
+    _ascrollView.scrollView.showsHorizontalScrollIndicator = NO;
+    _ascrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:_ascrollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,17 +77,25 @@
     _ascrollView = nil;
     [_operationImageViews removeAllObjects];
     _operationImageViews = nil;
-}
-
-- (IBAction)hideKeyboard:(id)sender
-{
-    [self.view endEditing:YES];
+    _tableView.dataSource = nil;
+    _tableView.delegate = nil;
+    _tableView = nil;
 }
 
 #pragma mark - ScrollViewDelegate
-
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.view endEditing:YES];
+    if (_tableView != nil) {
+        CGFloat y = scrollView.contentOffset.y + 128;
+        if (y <= 0) {
+            CGRect frame = _ascrollView.frame;
+            frame.origin.y = 0;
+            _ascrollView.frame = frame;
+        } else {
+            CGRect frame = _ascrollView.frame;
+            frame.origin.y = -y;
+            _ascrollView.frame = frame;
+        }
+    }
 }
 
 #pragma mark - UISearchBarDelegate

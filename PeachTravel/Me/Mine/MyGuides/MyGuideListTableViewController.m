@@ -167,6 +167,9 @@ static NSString *reusableCell = @"myGuidesCell";
 {
     [self.refreshControl endRefreshing];
     self.refreshControl = nil;
+    _tableView.dataSource = nil;
+    _tableView.delegate = nil;
+    _tableView = nil;
 }
 
 #pragma mark - navigation action

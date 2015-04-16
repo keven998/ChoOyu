@@ -58,8 +58,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    self.view.backgroundColor = APP_PAGE_COLOR;
+    CGFloat oy = 0;
+    if (self.navigationController.navigationBarHidden) {
+        oy = 64.0;
+    }
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, oy, self.view.bounds.size.width, self.view.bounds.size.height-44 - oy)];
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];

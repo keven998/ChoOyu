@@ -16,6 +16,8 @@
     NJKWebViewProgress *_progressProxy;
 }
 
+@property (nonatomic, strong) UINavigationBar *navbar;
+
 @end
 
 @implementation SuperWebViewController
@@ -32,7 +34,6 @@
 {
     [super viewDidLoad];
     
-    CGFloat offsetY = 0;
     if (self.navigationController.navigationBarHidden) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
@@ -42,9 +43,10 @@
         [bar pushNavigationItem:navTitle animated:YES];
         bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
         [self.view addSubview:bar];
-        offsetY = 64;
+        _navbar = bar;
     } else {
         self.navigationItem.title = _titleStr;
+        _navbar = self.navigationController.navigationBar;
     }
     
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -53,7 +55,7 @@
     _progressProxy.progressDelegate = self;
     self.webView.delegate = _progressProxy;
     CGFloat progressBarHeight = 3.0f;
-    CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+    CGRect navigaitonBarBounds = _navbar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
@@ -73,7 +75,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar addSubview:_progressView];
+    [_navbar addSubview:_progressView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -98,11 +100,7 @@
  */
 - (void)goBack
 {
-    if ([self.webView canGoBack]) {
-        [self.webView goBack];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - NJKWebViewProgressDelegate
