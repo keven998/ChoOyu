@@ -9,7 +9,6 @@
 #import "CreateConversationViewController.h"
 #import "pinyin.h"
 #import "AccountManager.h"
-#import "ChatView/ChatViewController.h"
 #import "CreateConversationTableViewCell.h"
 #import "ChatView/ChatSendHelper.h"
 #import "SelectContactScrollView.h"

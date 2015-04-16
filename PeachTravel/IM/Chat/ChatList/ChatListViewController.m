@@ -624,9 +624,7 @@
     chatController.chatterAvatar = avatar;
     chatController.chatterNickName = title;
     chatController.title = title;
-    
     [tzConversation.conversation markAllMessagesAsRead:YES];
-//    chatController.hidesBottomBarWhenPushed = YES;
     
     UIViewController *menuViewController = nil;
     if (tzConversation.conversation.isGroup) {
@@ -643,7 +641,6 @@
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
-//    frostedViewController.delegate = self;
     
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }

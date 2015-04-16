@@ -17,6 +17,9 @@
 #import "ConvertMethods.h"
 #import "MJNIndexView.h"
 #import "BaseTextSettingViewController.h"
+#import "TZConversation.h"
+#import "REFrostedViewController.h"
+#import "ChatSettingViewController.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
@@ -227,8 +230,6 @@
    
     [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
     [self.indexView refreshIndexItems];
-    
-//    [self handleEmptyView];
 }
 
 - (IBAction)chat:(UIButton *)sender
@@ -246,8 +247,14 @@
             break;
         }
     }
-    chatCtl.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:chatCtl animated:YES];
+    
+    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 #pragma mark - http method

@@ -178,7 +178,8 @@
         navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         [bar pushNavigationItem:navTitle animated:YES];
         [self.view addSubview:bar];
-//    } else {
+//    }
+//    else {
 //        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
 //        [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
 //        [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
@@ -208,7 +209,6 @@
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     [_conversation markAllMessagesAsRead:YES];
-    
 }
 
 - (void)dealloc
@@ -238,12 +238,10 @@
 - (void)showMenu
 {
     // Dismiss keyboard (optional)
-    //
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
     
     // Present the view controller
-    //
     [self.frostedViewController presentMenuViewController];
 }
 
@@ -252,8 +250,8 @@
  */
 - (void)goBack
 {
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self.frostedViewController.navigationController popViewControllerAnimated:YES];
+    [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**

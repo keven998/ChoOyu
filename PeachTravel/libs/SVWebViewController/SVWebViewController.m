@@ -59,6 +59,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    _webView.delegate = self;
+    _webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
     [self updateToolbarItems];
 }
@@ -107,15 +110,6 @@
 }
 
 #pragma mark - Getters
-
-- (UIWebView*)webView {
-    if(!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64-44)];
-        _webView.delegate = self;
-        _webView.scalesPageToFit = YES;
-    }
-    return _webView;
-}
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (!_backBarButtonItem) {

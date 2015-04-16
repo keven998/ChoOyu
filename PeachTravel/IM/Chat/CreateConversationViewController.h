@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Group.h"
-#import "ChatViewController.h"
 
 @protocol CreateConversationDelegate <NSObject>
 

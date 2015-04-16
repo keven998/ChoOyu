@@ -10,6 +10,8 @@
 #import "ChatViewController.h"
 #import "ALDBlurImageProcessor.h"
 #import "AccountManager.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
 
 @interface ContactDetailViewController ()<UIScrollViewDelegate, UIActionSheetDelegate>
 {
@@ -229,7 +231,14 @@
             break;
         }
     }
-    [self.navigationController pushViewController:chatCtl animated:YES];
+    
+    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 - (void)goBack

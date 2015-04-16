@@ -14,7 +14,6 @@
 #import "AccountManager.h"
 #import "ChatRecordListTableViewCell.h"
 #import "CreateConversationViewController.h"
-#import "ChatViewController.h"
 
 @interface ChatRecoredListTableViewController () <CreateConversationDelegate>
 

@@ -41,6 +41,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (nonatomic, strong) SWTableViewCell *swipCell;
+
 @property (nonatomic) BOOL isShowing;
 
 @end
@@ -155,6 +157,10 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_my_trip_plans"];
     _isShowing = NO;
+    if (_swipCell != nil) {
+        [_swipCell hideUtilityButtonsAnimated:YES];
+        _swipCell = nil;
+    }
 }
 
 - (void)dealloc
@@ -169,7 +175,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
     gltvc.isTrip = YES;
     gltvc.chatter = _chatter;
-    gltvc.selectToSend = YES;
+    gltvc.selectToSend = _selectToSend;
     gltvc.isChatGroup = _isChatGroup;
 //    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
 //    [self presentViewController:ctl animated:YES completion:nil];
@@ -645,7 +651,6 @@ static NSString *reusableCell = @"myGuidesCell";
 #pragma mark - SWTableViewCellDelegate
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
-    [cell hideUtilityButtonsAnimated:YES];
     switch (index) {
         case 0:
         {
@@ -664,6 +669,18 @@ static NSString *reusableCell = @"myGuidesCell";
         }
         default:
             break;
+    }
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell scrollingToState:(SWCellState)state {
+    if (state == kCellStateRight) {
+        if (_swipCell != nil) {
+            [_swipCell hideUtilityButtonsAnimated:YES];
+            _swipCell = nil;
+        }
+        _swipCell = cell;
+    } else if (state == kCellStateCenter) {
+        _swipCell = nil;
     }
 }
 
