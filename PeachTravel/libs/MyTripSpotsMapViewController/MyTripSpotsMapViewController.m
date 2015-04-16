@@ -62,11 +62,12 @@
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
     [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -82,10 +83,8 @@
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
     int i = 0;
     while (i < count) {
-        [array addObject:[NSString stringWithFormat:@"第%d天", (i + 1)]];
-        i++;
+        [array addObject:[NSString stringWithFormat:@"第%d天", ++i]];
     }
-    [array addObject:@"全程"];
     
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = array;
@@ -246,6 +245,13 @@
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
     self.navigationItem.rightBarButtonItem.title = str;
+    _currentDay = indexPath.row;
+    [self resetView];
+}
+
+- (void) resetView {
+    [self showMapPin];
+    [self.selectPanel reloadData];
 }
 
 #pragma mark - MKMapViewDelegate

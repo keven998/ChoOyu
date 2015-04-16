@@ -207,7 +207,7 @@
         AccountManager *accountManager = [AccountManager shareAccountManager];
         if (accountManager.isLogin) {
             [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-            cell.userId.text = [NSString stringWithFormat:@"ID %d", [accountManager.account.userId intValue]];
+            cell.userId.text = [NSString stringWithFormat:@"FM号 %d", [accountManager.account.userId intValue]];
             cell.userName.text = accountManager.account.nickName;
             cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"";
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory_white.png"]];

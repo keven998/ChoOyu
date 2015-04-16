@@ -411,6 +411,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
+- (void)mapView {
+    
+}
 
 @end
 

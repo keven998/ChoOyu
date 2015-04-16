@@ -61,11 +61,10 @@
     
     [self loadUserInfo];
 
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.separatorColor = APP_BORDER_COLOR;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:accountDetailHeaderCell];
@@ -74,7 +73,6 @@
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goBack) name:userDidLogoutNoti object:nil];
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -209,10 +207,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         [self.datePickerView setFrame:CGRectMake(0, self.view.bounds.size.height-220, self.view.bounds.size.width, 220)];
-
-    } completion:^(BOOL finished) {
-        
-    }];
+    } completion:nil];
 }
 
 /**
@@ -398,12 +393,8 @@
 }
 
 #pragma mark - Table view data source
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0;
-    }
-    return 10.0;
+    return CGFLOAT_MIN;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

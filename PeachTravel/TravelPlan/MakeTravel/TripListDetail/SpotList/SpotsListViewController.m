@@ -23,6 +23,7 @@
 #import "PositionBean.h"
 #import "PoiDetailViewControllerFactory.h"
 #import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, addPoiDelegate>
 
@@ -122,7 +123,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     }];
 }
 
-- (IBAction)mapView:(UIButton *)sender
+- (void)mapView
 {
     [MobClick event:@"event_day_map_view"];
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
@@ -137,8 +138,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 //        [allPositions addObject:position];
 //    }
     ctl.pois = _tripDetail.itineraryList;
-    ctl.currentDay = sender.tag;
-    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
+    ctl.currentDay = 0;
+    [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 
@@ -354,8 +356,5 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     _rootViewController = nil;
     
 }
-
-
-
 
 @end

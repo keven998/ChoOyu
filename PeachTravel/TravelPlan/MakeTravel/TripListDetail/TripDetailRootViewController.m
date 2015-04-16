@@ -145,6 +145,7 @@
         [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        _editBtn.selected = YES;
         _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
         _navgationBarItem.leftBarButtonItems = nil;
         
@@ -254,11 +255,11 @@
 
 - (void)mapView {
     if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-
+        [_spotsListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
-    
+        [_shoppingListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
-    
+        [_restaurantListCtl mapView];
     }
 }
 

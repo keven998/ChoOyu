@@ -410,6 +410,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
+- (void)mapView {
+    
+}
 
 @end
 

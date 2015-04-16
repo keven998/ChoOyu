@@ -21,4 +21,6 @@
  */
 @property (nonatomic) BOOL shouldEdit;
 
+- (void)mapView;
+
 @end
