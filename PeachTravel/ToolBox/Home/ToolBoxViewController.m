@@ -15,7 +15,7 @@
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "LocalViewController.h"
-#import "CycleScrollView.h"
+#import "AutoSlideScrollView.h"
 #import "NSTimer+Addition.h"
 #import "SuperWebViewController.h"
 #import "MakePlanViewController.h"
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSMutableArray *imageViews;
 
 @property (strong, nonatomic) UILabel *weatherLabel;
-@property (nonatomic, strong) CycleScrollView *galleryPageView;
+@property (nonatomic, strong) AutoSlideScrollView *galleryPageView;
 @property (nonatomic, strong) UIButton *planBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
 @property (nonatomic, strong) UIView *contentFrame;
@@ -85,7 +85,7 @@
     
     CGFloat height = 135 * ratioY;
     
-    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, 64, w, height) animationDuration:5];
+    _galleryPageView = [[AutoSlideScrollView alloc]initWithFrame:CGRectMake(0, 64, w, height) animationDuration:5];
     _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.2];
     _galleryPageView.clipsToBounds = YES;
     [self.view addSubview:_galleryPageView];
@@ -232,7 +232,6 @@
 
 - (void)dealloc
 {
-    [_galleryPageView stopTimer];
     _galleryPageView = nil;
     locationManager.delegate = nil;
     locationManager = nil;

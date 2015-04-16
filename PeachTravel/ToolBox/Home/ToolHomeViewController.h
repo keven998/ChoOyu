@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ToolHomeViewController : UITableViewController
+@interface ToolHomeViewController : UIViewController
 
 @end

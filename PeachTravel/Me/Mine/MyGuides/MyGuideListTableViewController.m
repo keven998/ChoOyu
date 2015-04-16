@@ -671,7 +671,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
                                                      message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"存为\"去过\""
+                                                 cancelTitle:@"标记\"去过\""
                                                  otherTitles:@[@"修改标题", @"置顶"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
@@ -779,9 +779,9 @@ static NSString *reusableCell = @"myGuidesCell";
         if (code == 0) {
             [self deleteUserGuide:guideSummary];
             if ([status isEqualToString:@"planned"]) {
-                [SVProgressHUD showHint:@"已存为\"旅途计划\""];
+                [SVProgressHUD showHint:@"已另存为\"旅途计划\""];
             } else {
-                [SVProgressHUD showHint:@"已存为\"去过\""];
+                [SVProgressHUD showHint:@"已另存为\"去过\""];
             }
         } else {
             [self showHint:@"请求也是失败了"];

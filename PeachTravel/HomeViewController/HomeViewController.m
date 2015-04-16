@@ -348,7 +348,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                           initWithRootViewController:self.chatListCtl];
     
-    _toolBoxCtl = [[ToolHomeViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    _toolBoxCtl = [[ToolHomeViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     

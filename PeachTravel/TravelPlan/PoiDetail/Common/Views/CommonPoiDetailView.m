@@ -12,7 +12,6 @@
 #import "RecommendsTableViewCell.h"
 #import "CommentTableViewCell.h"
 #import "EDStarRating.h"
-#import "CycleScrollView.h"
 #import "CommonPoiDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "SuperWebViewController.h"

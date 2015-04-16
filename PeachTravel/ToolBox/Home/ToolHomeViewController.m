@@ -15,11 +15,16 @@
 #import "SearchDestinationViewController.h"
 #import "AutoSlideScrollView.h"
 #import "NSTimer+Addition.h"
+#import "OperationData.h"
+#import "SuperWebViewController.h"
 
-@interface ToolHomeViewController ()<UISearchBarDelegate>
+@interface ToolHomeViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (nonatomic, strong) AutoSlideScrollView *ascrollView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *operationDataArray;
+@property (nonatomic, strong) NSMutableArray *operationImageViews;
 
 @end
 
@@ -30,9 +35,20 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行";
     
+    _ascrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 128.0) animationDuration:8];
+    _ascrollView.backgroundColor = [UIColor grayColor];
+    _ascrollView.scrollView.showsHorizontalScrollIndicator = NO;
+    _ascrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:_ascrollView];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 128.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 128) style:UITableViewStyleGrouped];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
+    [self.view addSubview:_tableView];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
@@ -43,12 +59,23 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_ascrollView.animationTimer resumeTimer];
+    if (_operationDataArray == nil || _operationDataArray.count == 0) {
+        [self loadOperationData];
+    } else {
+        [_ascrollView.animationTimer resumeTimerAfterTimeInterval:8];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_ascrollView.animationTimer pauseTimer];
+}
+
+- (void) dealloc {
+    [_ascrollView.animationTimer pauseTimer];
+    _ascrollView = nil;
+    [_operationImageViews removeAllObjects];
+    _operationImageViews = nil;
 }
 
 - (IBAction)hideKeyboard:(id)sender
@@ -191,5 +218,101 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - HTTP METHOD
+- (void)loadOperationData
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    //获取首页数据
+    [manager GET:API_GET_COLUMNS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            if (!_operationDataArray) {
+                _operationDataArray = [[NSMutableArray alloc] init];
+            } else {
+                [_operationDataArray removeAllObjects];
+            }
+            for (id operationDic in [responseObject objectForKey:@"result"]) {
+                OperationData *operation = [[OperationData alloc] initWithJson:operationDic];
+                [_operationDataArray addObject:operation];
+            }
+            
+            [self setupOptionContents];
+        } else {
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+}
+
+- (void) setupOptionContents
+{
+    NSInteger count = [_operationDataArray count];
+    NSMutableArray *imageviews = [[NSMutableArray alloc] initWithCapacity:count];
+    for (NSUInteger i = 0; i < count; i++)
+    {
+        [imageviews addObject:[NSNull null]];
+    }
+    _operationImageViews = imageviews;
+    __weak typeof(ToolHomeViewController *)weakSelf = self;
+    
+    _ascrollView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
+        return [weakSelf loadScrollViewWithPage:pageIndex];
+    };
+    
+    _ascrollView.totalPagesCount = ^NSInteger(void){
+        return weakSelf.operationDataArray.count;
+    };
+    
+    
+    _ascrollView.TapActionBlock = ^(NSInteger pageIndex){
+        [MobClick event:@"event_click_opertion_page"];
+        
+        OperationData *data = [weakSelf.operationDataArray objectAtIndex:pageIndex];
+        SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+        webCtl.titleStr = data.title;
+        webCtl.urlStr = data.linkUrl;
+        webCtl.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:webCtl animated:YES];
+    };
+}
+
+- (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
+    if (page >= _operationDataArray.count ) {
+        return nil;
+    }
+    
+    UIImageView *img = [_operationImageViews objectAtIndex:page];
+    if ((NSNull *)img == [NSNull null]) {
+        img = [[UIImageView alloc] initWithFrame:_ascrollView.frame];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.clipsToBounds = YES;
+        img.userInteractionEnabled = YES;
+        [_operationImageViews replaceObjectAtIndex:page withObject:img];
+    }
+    
+    if (img.superview == nil) {
+        CGRect frame = img.frame;
+        frame.origin.x = CGRectGetWidth(frame) * page;
+        img.frame = frame;
+        NSString *imageStr = ((OperationData *)[_operationDataArray objectAtIndex:page]).imageUrl;
+        [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
+    }
+    return img;
+}
 
 @end
