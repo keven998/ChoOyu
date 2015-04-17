@@ -434,7 +434,6 @@ static NSString *reusableCell = @"myGuidesCell";
     NSArray *datas = [responseObject objectForKey:@"result"];
     if (datas.count == 0) {
         if (_currentPage == 0) {
-//            [self performSelector:@selector(setupEmptyView) withObject:nil afterDelay:0.8];
             _enableLoadMore = NO;
         } else {
             _enableLoadMore = NO;
@@ -442,9 +441,6 @@ static NSString *reusableCell = @"myGuidesCell";
         [self.tableView reloadData];
         return;
     }
-//    else {
-//        [self removeEmptyView];
-//    }
     
     for (NSDictionary *guideSummaryDic in [responseObject objectForKey:@"result"]) {
         MyGuideSummary *guideSummary = [[MyGuideSummary alloc] initWithJson:guideSummaryDic];
@@ -693,7 +689,7 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideSummary *guideSummary = [self.dataSource objectAtIndex:cellIndexPath.section];
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"更多"
                                                      message:[NSString stringWithFormat:@"\"%@\"", guideSummary.title]
-                                                 cancelTitle:@"标记\"去过\""
+                                                 cancelTitle:@"去过"
                                                  otherTitles:@[@"修改标题", @"置顶"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
@@ -806,9 +802,9 @@ static NSString *reusableCell = @"myGuidesCell";
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
             [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
             if ([status isEqualToString:@"planned"]) {
-                [SVProgressHUD showHint:@"已另存为\"旅途计划\""];
+                [self hintPlanStatusChanged:[NSString stringWithFormat:@"已将\"%@\"重置到旅行计划了", guideSummary.title]];
             } else {
-                [SVProgressHUD showHint:@"已另存为\"去过\""];
+                [self hintPlanStatusChanged:[NSString stringWithFormat:@"已将\"%@\"保存到去过的旅历中了", guideSummary.title]];
             }
         } else {
             [self showHint:@"请求也是失败了"];
@@ -818,6 +814,16 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self showHint:@"呃～好像没找到网络"];
     }];
+}
+
+- (void)hintPlanStatusChanged:(NSString *)msg {
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
+                                                     message:msg
+                                                 cancelTitle:@"确定"
+                                                  completion:nil];
+    [alertView useDefaultIOS7Style];
+    [alertView setTitleFont:[UIFont systemFontOfSize:17]];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_SUBTITLE];
 }
 
 - (void) reorderToFirst:(SWTableViewCell *)cell {

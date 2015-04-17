@@ -280,7 +280,6 @@
                 [_tripDetail saveTrip:^(BOOL isSuccesss) {
                     [hud hideTZHUD];
                     if (isSuccesss) {
-                        [SVProgressHUD showHint:@"保存成功"];
                         [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
                     } else {
                         [SVProgressHUD showHint:@"保存失败了～"];

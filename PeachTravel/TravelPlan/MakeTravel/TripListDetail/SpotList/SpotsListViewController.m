@@ -112,7 +112,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)deleteOneDay:(NSInteger)day
 {
     [MobClick event:@"event_delete_day_agenda"];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定删除第%ld天行程", day] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要删除第%ld天", (day + 1)] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [_tripDetail.itineraryList removeObjectAtIndex:day];
@@ -121,6 +121,26 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             [self.tableView reloadData];
         }
     }];
+}
+
+- (void)insertDay:(BOOL)before currentDay:(NSInteger)currentDay {
+    NSMutableArray *newDay = [[NSMutableArray alloc] init];
+    NSInteger insertIndex;
+    if (before) {
+        insertIndex = currentDay;
+    } else {
+        insertIndex = currentDay + 1;
+    }
+    [_tripDetail.itineraryList insertObject:newDay atIndex:insertIndex];
+    
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:insertIndex];
+    [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    _tripDetail.dayCount++;
+    [self performSelector:@selector(updateRoute) withObject:nil afterDelay:0.3];
+}
+
+- (void) updateRoute {
+    [self.tableView reloadData];
 }
 
 - (void)mapView
@@ -169,20 +189,20 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (IBAction)editDay:(id)sender {
     UIButton *btn = sender;
-    NSInteger day = btn.tag + 1;
-    PXAlertView *alertView = [PXAlertView showAlertWithTitle:[NSString stringWithFormat:@"第%ld天", day]
+    NSInteger dayIndex = btn.tag;
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:[NSString stringWithFormat:@"第%ld天", dayIndex + 1]
                                                      message:@"请选择你要进行的操作"
                                                  cancelTitle:@"删除这一天"
                                                  otherTitles:@[ @"添加行程", @"前面加一天", @"后面加一天"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
-                                                          [self addPoiToDay:(day - 1)];
+                                                          [self addPoiToDay:dayIndex];
                                                       } else if (buttonIndex == 2) {
-                                                          
+                                                          [self insertDay:YES currentDay:dayIndex];
                                                       } else if (buttonIndex == 3) {
-                                                          
+                                                          [self insertDay:NO currentDay:dayIndex];
                                                       } else if (buttonIndex == 0) {
-                                                          [self deleteOneDay:day - 1];
+                                                          [self deleteOneDay:dayIndex];
                                                       }
                                                   }];
     [alertView useDefaultIOS7Style];
