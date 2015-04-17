@@ -118,7 +118,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             [_tripDetail.itineraryList removeObjectAtIndex:day];
             _tripDetail.dayCount--;
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:day] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView reloadData];
+            if (_tripDetail.dayCount == 0) {
+                [self insertDay:YES currentDay:0];
+            } else {
+                [self.tableView reloadData];
+            }
         }
     }];
 }
