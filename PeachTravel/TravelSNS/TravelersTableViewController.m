@@ -109,7 +109,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TravelersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
     UserProfile *up = [_travelers objectAtIndex:indexPath.row];
-    [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarUrl]];
+    [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
     cell.nameLabel.text = up.name;
     return cell;
 }

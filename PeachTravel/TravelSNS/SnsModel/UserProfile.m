@@ -14,7 +14,7 @@
 - (id) initWithJsonObject:(id)json {
     if (self = [super init]) {
         _userId = [json objectForKey:@"id"];
-        _avatarUrl = [json objectForKey:@"avatar"];
+        _avatarSmall = [json objectForKey:@"avatarSmall"];
         _name = [json objectForKey:@"nickName"];
         _gender = [json objectForKey:@"gender"];
         _residence = [json objectForKey:@"residence"];
@@ -24,6 +24,7 @@
         if (rs != nil && [rs count] > 0) {
             _roles = [json objectForKey:@"id"];
         }
+        _travels = [json objectForKey:@"tracks"];
     }
     return self;
 }

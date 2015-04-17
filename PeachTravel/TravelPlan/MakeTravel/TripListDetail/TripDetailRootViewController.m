@@ -76,7 +76,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setupViewControllers];
     [self setNavigationItems];
     
@@ -272,7 +271,7 @@
 - (void)goBack
 {
     if ([_tripDetail tripIsChange]) {
-        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请确定是否保存已修改内容" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否保存已修改内容" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
         [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self dismissCtl];

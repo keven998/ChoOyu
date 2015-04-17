@@ -32,7 +32,7 @@
     
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:_segmentedTitles];
     segControl.tintColor = APP_THEME_COLOR;
-    segControl.frame = CGRectMake(0, 0, 154, 30);
+    segControl.frame = CGRectMake(0, 0, 136, 28);
     segControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     segControl.selectedSegmentIndex = 0;
     self.navigationItem.titleView = segControl;

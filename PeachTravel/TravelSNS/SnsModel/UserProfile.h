@@ -10,7 +10,8 @@
 
 @interface UserProfile : NSObject
 
-@property (nonatomic, copy) NSString *avatarUrl;
+@property (nonatomic, copy) NSString *avatarSmall;
+@property (nonatomic, copy) NSString *avatarBig;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, copy) NSString *gender;
@@ -18,6 +19,7 @@
 @property (nonatomic, assign) NSInteger level;
 @property (nonatomic, copy) NSString *signature;
 @property (nonatomic, copy) NSString *roles;
+@property (nonatomic, strong) NSArray *travels;
 
 - (id) initWithJsonObject:(id)json;
 
