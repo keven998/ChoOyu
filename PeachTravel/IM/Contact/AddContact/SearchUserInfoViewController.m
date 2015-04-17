@@ -67,11 +67,9 @@
     if ([[userInfo objectForKey:@"gender"] isEqualToString:@"M"]) {
         self.genderImageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         
-    }
-    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"F"]) {
+    } else if ([[userInfo objectForKey:@"gender"] isEqualToString:@"F"]) {
         self.genderImageView.image  = [UIImage imageNamed:@"ic_gender_lady.png"];
-    }
-    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"U"]) {
+    } else if ([[userInfo objectForKey:@"gender"] isEqualToString:@"U"]) {
         self.genderImageView.image  = nil;
     }
 

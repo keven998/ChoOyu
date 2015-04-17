@@ -54,7 +54,7 @@
 //    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.title = @"联系人";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
@@ -311,7 +311,6 @@
     if (indexPath.section == 0) {
         return 44.0;
     }
-    
     return 50.0;
 }
 

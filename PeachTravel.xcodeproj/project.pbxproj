@@ -15,6 +15,7 @@
 		C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */; };
 		C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */; };
 		C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F01ADF794500A28095 /* DistributionViewController.m */; };
+		C659E9F51AE0FBF500A28095 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F41AE0FBF500A28095 /* UserProfile.m */; };
 		C65A27931A87966900CC4D48 /* btn_spot_info_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */; };
 		C65A27971A8DA22200CC4D48 /* ic_navigation_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */; };
 		C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */; };
@@ -791,6 +792,9 @@
 		C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_them_extender_right@2x.png"; sourceTree = "<group>"; };
 		C659E9EF1ADF794500A28095 /* DistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistributionViewController.h; sourceTree = "<group>"; };
 		C659E9F01ADF794500A28095 /* DistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistributionViewController.m; sourceTree = "<group>"; };
+		C659E9F31AE0FBF500A28095 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
+		C659E9F41AE0FBF500A28095 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
+		C659E9F61AE0FF2100A28095 /* SNSDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNSDefine.h; sourceTree = "<group>"; };
 		C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_box@2x.png"; sourceTree = "<group>"; };
 		C65A27961A8DA22200CC4D48 /* ic_navigation_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_navigation_back_white@2x.png"; path = "PeachTravel/Images/ic_navigation_back_white@2x.png"; sourceTree = SOURCE_ROOT; };
 		C65DB7B51AD37B8600F51443 /* SelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTableViewController.h; sourceTree = "<group>"; };
@@ -2038,9 +2042,20 @@
 			path = Me/Setting/PushSetting;
 			sourceTree = "<group>";
 		};
+		C659E9F21AE0FBA200A28095 /* SnsModel */ = {
+			isa = PBXGroup;
+			children = (
+				C659E9F31AE0FBF500A28095 /* UserProfile.h */,
+				C659E9F41AE0FBF500A28095 /* UserProfile.m */,
+				C659E9F61AE0FF2100A28095 /* SNSDefine.h */,
+			);
+			path = SnsModel;
+			sourceTree = "<group>";
+		};
 		C65DB7BD1AD4DD3500F51443 /* TravelSNS */ = {
 			isa = PBXGroup;
 			children = (
+				C659E9F21AE0FBA200A28095 /* SnsModel */,
 				C65DB7BE1AD4E44800F51443 /* TravelersTableViewController.h */,
 				C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */,
 				C6C5C3B91ADE58B70047C058 /* TravelersTableViewCell.h */,
@@ -5642,6 +5657,7 @@
 				D9A8013F1A80DD23005AD701 /* EMChatBaseBubbleView.m in Sources */,
 				D9A801231A80DD23005AD701 /* CallViewController.m in Sources */,
 				D993CB571AB6CB030075314E /* SpotPoi.m in Sources */,
+				C659E9F51AE0FBF500A28095 /* UserProfile.m in Sources */,
 				D9A800691A80DD0C005AD701 /* ContactListTableViewCell.m in Sources */,
 				D9F46DC01AC52D8600972AE8 /* SVWebViewControllerActivitySafari.m in Sources */,
 				C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */,

@@ -10,6 +10,7 @@
 #import "TravelersTableViewCell.h"
 #import "ContactDetailViewController.h"
 #import "DistributionViewController.h"
+#import "UserProfile.h"
 
 @interface TravelersTableViewController ()
 
@@ -33,12 +34,56 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelersTableViewCell" bundle:nil] forCellReuseIdentifier:@"travel_user_cell"];
     
     _currentPage = 0;
-    [self loadTravels:_currentPage];
+    [self loadTravelers:nil];
 }
 
 #pragma mark - http method
-- (void) loadTravels:(NSInteger)pageNo {
+- (void)loadTravelers:(NSString *)destination
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:(CGRectGetWidth(self.view.bounds) - 22)*2];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:@"expert" forKey:@"keyword"];
+    [params setObject:@"roles" forKey:@"field"];
+    
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(TravelersTableViewController *)weakSelf = self;
+    [hud showHUDInViewController:weakSelf];
+    //搜索达人
+    [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self parseSearchResult:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
+    }];
+}
+
+- (void)parseSearchResult:(id)searchResult
+{
+    NSInteger count = [searchResult count];
+    if (_travelers == nil) {
+        _travelers = [[NSMutableArray alloc] initWithCapacity:count];
+    }
+    UserProfile *user;
+    for (int i = 0; i < count; ++i) {
+        user = [[UserProfile alloc] initWithJsonObject:[searchResult objectAtIndex:i]];
+        [_travelers addObject:user];
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - private method
@@ -63,7 +108,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TravelersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
-    
+    UserProfile *up = [_travelers objectAtIndex:indexPath.row];
+    [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarUrl]];
+    cell.nameLabel.text = up.name;
     return cell;
 }
 
@@ -79,6 +126,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - http method
 
 /*
 #pragma mark - Navigation
