@@ -169,6 +169,7 @@
              [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
              //设置环信自动登录
              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+             [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
              if (completion) {
                  completion(YES);
              }
