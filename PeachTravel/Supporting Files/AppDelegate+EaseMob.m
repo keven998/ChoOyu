@@ -29,7 +29,6 @@
     // 登录成功后，自动去取好友列表
     // SDK获取结束后，会回调
     // - (void)didFetchedBuddyList:(NSArray *)buddyList error:(EMError *)error方法。
-    [[EaseMob sharedInstance].chatManager setIsAutoFetchBuddyList:YES];
     
     // 注册环信监听
     [self registerEaseMobNotification];
@@ -211,9 +210,9 @@
         self.homeViewController.IMState = IM_DISCONNECTED;
     } else {
         self.homeViewController.IMState = IM_CONNECTED;
+        [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
     }
 }
-
 
 // 绑定deviceToken回调
 - (void)didBindDeviceWithError:(EMError *)error

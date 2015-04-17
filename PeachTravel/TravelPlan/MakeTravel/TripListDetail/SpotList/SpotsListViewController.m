@@ -112,7 +112,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (void)deleteOneDay:(NSInteger)day
 {
     [MobClick event:@"event_delete_day_agenda"];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要删除第%ld天", (day + 1)] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要删除第%ld天", (long)(day + 1)] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [_tripDetail.itineraryList removeObjectAtIndex:day];
