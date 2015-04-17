@@ -78,12 +78,16 @@
 
 - (IBAction)saveChange:(id)sender
 {
-    self.navigationItem.rightBarButtonItem.enabled = NO;
     if (_saveEdition != nil) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+        self.navigationItem.title = @"正在提交...";
         self.saveEdition(_contentTextField.text, ^(BOOL completed) {
             if (completed) {
                 [self goBack];
             } else {
+                self.navigationItem.title = _navTitle;
+                self.navigationItem.leftBarButtonItem.enabled = YES;
                 self.navigationItem.rightBarButtonItem.enabled = YES;
             }
         });

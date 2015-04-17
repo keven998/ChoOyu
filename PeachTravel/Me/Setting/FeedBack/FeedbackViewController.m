@@ -48,7 +48,13 @@
         bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
         [self.view addSubview:bar];
         offsetY = 64;
+        UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
+        sendBtn.tintColor = APP_THEME_COLOR;
+        navTitle.rightBarButtonItem = sendBtn;
     } else {
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消 " style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+        backBtn.tintColor = APP_THEME_COLOR;
+        self.navigationItem.leftBarButtonItem = backBtn;
         self.navigationItem.title = @"意见和需求";
     }
 
@@ -74,14 +80,6 @@
     [eborder addSubview:suggestion];
     contentEditor = suggestion;
     [contentEditor becomeFirstResponder];
-    
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消 " style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-    backBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.leftBarButtonItem = backBtn;
-    
-    UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
-    sendBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = sendBtn;
 }
 
 - (void)goBack
@@ -108,8 +106,8 @@
     
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([trimText length] < 1) {
-        [SVProgressHUD showHint:@"说点什么吧"];
+    if ([trimText length] < 5) {
+        [SVProgressHUD showHint:@"多说点什么吧"];
         return;
     }
     

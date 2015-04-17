@@ -77,8 +77,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigationItems];
     [self setupViewControllers];
+    [self setNavigationItems];
     
     if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
@@ -161,7 +161,10 @@
         _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithTitle:@"地图" style:UIBarButtonItemStylePlain target:self action:@selector(mapView)]];
+        
+        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+            [barItems addObject:[[UIBarButtonItem alloc]initWithTitle:@"地图" style:UIBarButtonItemStylePlain target:self action:@selector(mapView)]];
+        }
         
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -757,6 +760,7 @@
         } else {
             self.currentViewController = oldController;
         }
+        [self setupNavigationRightItems:NO];
     }];
     [self.view bringSubviewToFront:_tabBarView];
 }

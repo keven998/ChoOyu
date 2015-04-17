@@ -600,6 +600,7 @@
                 completed(NO);
             } else if (errStr){
                 [SVProgressHUD showHint:errStr];
+                completed(NO);
             } else {
                 [SVProgressHUD showHint:@"呃～好像没找到网络"];
                 completed(NO);
