@@ -268,6 +268,7 @@
             completed(YES);
         } else {
             [SVProgressHUD showHint:@"请求失败"];
+            completed(NO);
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -289,11 +290,7 @@
             bsvc.content = contact.nickName;
             bsvc.acceptEmptyContent = NO;
             bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-                if ([contact.nickName isEqualToString:editText]) {
-                    completed(YES);
-                } else {
-                    [self confirmChange:editText withContacts:contact success:completed];
-                }
+                [self confirmChange:editText withContacts:contact success:completed];
             };
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
         }

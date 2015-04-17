@@ -11,7 +11,6 @@
 #import "ChangePasswordViewController.h"
 #import "AccountManager.h"
 #import "UserOtherTableViewCell.h"
-#import "ChangeUserInfoViewController.h"
 #import "VerifyCaptchaViewController.h"
 #import <QiniuSDK.h>
 #import "JGProgressHUDPieIndicatorView.h"
@@ -20,6 +19,7 @@
 #import "CityListTableViewController.h"
 #import "SelectionTableViewController.h"
 #import "PXAlertView+Customization.h"
+#import "BaseTextSettingViewController.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -477,13 +477,7 @@
             [MobClick event:@"event_update_avatar"];
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_nick"];
-            ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
-            changeUserInfo.changeType = ChangeName;
-            changeUserInfo.navTitle = @"修改名字";
-            TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:changeUserInfo];
-            [self presentViewController:navc animated:YES completion:^ {
-                changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.nickName;
-            }];
+            [self changeUserName];
         } else if (indexPath.row == 2) {
             [self showHint:@"猥琐攻城师不让修改这个～"];
         }
@@ -500,14 +494,7 @@
             [self presentViewController:nav animated:YES completion:nil];
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_memo"];
-            
-            ChangeUserInfoViewController *changeUserInfo = [[ChangeUserInfoViewController alloc] init];
-            changeUserInfo.changeType = ChangeSignature;
-            changeUserInfo.navTitle = @"个性签名";
-            TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:changeUserInfo];
-            [self presentViewController:navc animated:YES completion:^ {
-                changeUserInfo.content = self.accountManager.accountDetail.basicUserInfo.signature;
-            }];
+            [self changeUserMark];
         }
         
     } else if (indexPath.section == 2) {
@@ -575,6 +562,68 @@
         }];
     }
 }
+
+#pragma mark - http method
+- (void) changeUserName {
+    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    bsvc.navTitle = @"修改名字";
+    bsvc.content = self.accountManager.accountDetail.basicUserInfo.nickName;
+    bsvc.acceptEmptyContent = NO;
+    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+        [self updateUserInfo:ChangeName withNewContent:editText success:completed];
+    };
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+}
+
+- (void)changeUserMark {
+    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    bsvc.navTitle = @"个性签名";
+    bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
+    bsvc.acceptEmptyContent = YES;
+    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+        [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
+    };
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+}
+
+- (void)updateUserInfo:(UserInfoChangeType)changeType withNewContent:(NSString *)newText success:(saveComplteBlock)completed
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    if (changeType == ChangeName) {
+        [accountManager asyncChangeUserName:newText completion:^(BOOL isSuccess, UserInfoInputError error, NSString *errStr) {
+            if (isSuccess) {
+                completed(YES);
+            } else if (error != NoError){
+                [SVProgressHUD showHint:@"名字不能是纯数字或包含特殊字符"];
+                completed(NO);
+            } else if (errStr){
+                [SVProgressHUD showHint:errStr];
+            } else {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                completed(NO);
+            }
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+        
+    } else if (changeType == ChangeSignature) {
+        [accountManager asyncChangeSignature:newText completion:^(BOOL isSuccess, UserInfoInputError error, NSString *errStr) {
+            if (isSuccess) {
+                completed(YES);
+            } else if (errStr){
+                [SVProgressHUD showHint:errStr];
+                completed(NO);
+            } else {
+                [SVProgressHUD showHint:@"呃～好像没找到网络"];
+                completed(NO);
+            }
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+    }
+    
+}
+
 
 @end
 

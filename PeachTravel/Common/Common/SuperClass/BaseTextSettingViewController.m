@@ -1,5 +1,5 @@
 //
-//  ChangeUserInfoViewController.m
+//  BaseTextSettingViewController.m
 //  PeachTravel
 //
 //  Created by liangpengshuai on 14/10/15.
@@ -78,10 +78,13 @@
 
 - (IBAction)saveChange:(id)sender
 {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     if (_saveEdition != nil) {
         self.saveEdition(_contentTextField.text, ^(BOOL completed) {
             if (completed) {
                 [self goBack];
+            } else {
+                self.navigationItem.rightBarButtonItem.enabled = YES;
             }
         });
     }

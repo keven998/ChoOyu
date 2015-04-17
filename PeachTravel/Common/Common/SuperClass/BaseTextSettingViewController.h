@@ -1,5 +1,5 @@
 //
-//  ChangeUserInfoViewController.h
+//  BaseTextSettingViewController.h
 //  PeachTravel
 //
 //  Created by liangpengshuai on 14/10/15.
@@ -10,6 +10,7 @@
 
 typedef void(^saveComplteBlock)(BOOL completed);
 typedef void(^saveEdition)(NSString *text, saveComplteBlock(completed));
+
 @interface BaseTextSettingViewController : TZViewController
 
 @property (nonatomic) UserInfoChangeType changeType;

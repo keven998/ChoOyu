@@ -325,9 +325,9 @@ static NSString *reusableCell = @"myGuidesCell";
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-     __weak typeof(MyGuideListTableViewController *)weakSelf = self;
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+//     __weak typeof(MyGuideListTableViewController *)weakSelf = self;
+//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+//    [hud showHUDInViewController:weakSelf];
 
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -340,7 +340,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager PUT:requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [hud hideTZHUD];
+//        [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -353,11 +353,13 @@ static NSString *reusableCell = @"myGuidesCell";
             completed(YES);
         } else {
             [self showHint:@"请求也是失败了"];
+            completed(NO);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
+//        [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self showHint:@"呃～好像没找到网络"];
+        completed(NO);
     }];
 }
 
@@ -698,11 +700,7 @@ static NSString *reusableCell = @"myGuidesCell";
                                                           bsvc.content = guideSummary.title;
                                                           bsvc.acceptEmptyContent = NO;
                                                           bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-                                                              if ([guideSummary.title isEqualToString:editText]) {
-                                                                  completed(YES);
-                                                              } else {
-                                                                  [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
-                                                              }
+                                                              [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
                                                           };
                                                           [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
                                                       } else if (buttonIndex == 2) {
@@ -728,10 +726,8 @@ static NSString *reusableCell = @"myGuidesCell";
                                                           BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
                                                           bsvc.navTitle = @"修改标题";
                                                           bsvc.content = guideSummary.title;
+                                                          bsvc.acceptEmptyContent = NO;
                                                           bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-                                                              if ([guideSummary.title isEqualToString:editText]) {
-                                                                  completed(YES);
-                                                              }
                                                               [self editGuideTitle:guideSummary andTitle:editText atIndex:cellIndexPath.section success:completed];
                                                               
                                                           };
@@ -802,9 +798,9 @@ static NSString *reusableCell = @"myGuidesCell";
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:index];
             [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
             if ([status isEqualToString:@"planned"]) {
-                [self hintPlanStatusChanged:[NSString stringWithFormat:@"已将\"%@\"重置到旅行计划了", guideSummary.title]];
+                [self hintPlanStatusChanged:[NSString stringWithFormat:@"已将\"%@\"重置到旅行计划", guideSummary.title]];
             } else {
-                [self hintPlanStatusChanged:[NSString stringWithFormat:@"已将\"%@\"保存到去过的旅历中了", guideSummary.title]];
+                [self hintPlanStatusChanged:[NSString stringWithFormat:@"\"%@\"已保存为去过，成为了你的旅历足迹", guideSummary.title]];
             }
         } else {
             [self showHint:@"请求也是失败了"];
