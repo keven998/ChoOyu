@@ -149,6 +149,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     [MobClick beginLogPageView:@"page_my_trip_plans"];
     _isShowing = YES;
 }
@@ -210,7 +211,7 @@ static NSString *reusableCell = @"myGuidesCell";
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
     
-    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:makePlanCtl];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
@@ -608,7 +609,7 @@ static NSString *reusableCell = @"myGuidesCell";
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
-    
+    frostedViewController.resumeNavigationBar = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 

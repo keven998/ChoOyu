@@ -173,7 +173,7 @@
         
         _navgationBarItem.rightBarButtonItems = barItems;
         
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         
         CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
         [UIView animateWithDuration:0.2 animations:^{
@@ -264,7 +264,7 @@
 }
 
 /**
- *  不同情况的返回按钮相应的操作不一致
+ *  不同情况的确定按钮相应的操作不一致
  */
 - (void)goBack
 {

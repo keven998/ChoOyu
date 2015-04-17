@@ -103,6 +103,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     [MobClick beginLogPageView:@"page_destinations"];
 }
 
@@ -214,7 +215,7 @@
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
-    
+    frostedViewController.resumeNavigationBar = NO;
     NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
     [array replaceObjectAtIndex:(array.count - 1) withObject:frostedViewController];
     [self.navigationController setViewControllers:array animated:YES];

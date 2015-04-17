@@ -81,6 +81,7 @@
     _liveBlur = REUIKitIsFlatMode();
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
     _automaticSize = YES;
+    _resumeNavigationBar = YES;
 }
 
 - (id)initWithContentViewController:(UIViewController *)contentViewController menuViewController:(UIViewController *)menuViewController
@@ -106,7 +107,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
+    if (_resumeNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle

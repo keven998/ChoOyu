@@ -87,10 +87,10 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self.view addSubview:_tableView];
 
     if (_tripDetail) {
-        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@" 确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"景点 " style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"景点" style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];
         self.navigationItem.rightBarButtonItem = cbtn;
         
         UIButton *tbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
@@ -103,6 +103,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         _cityName = firstDestination.zhName;
         
         [self setupTitleView];
+        [self setupSelectPanel];
     } else {
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }
@@ -138,12 +139,10 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     
     [self loadDataWithPageNo:_currentPageNormal];
-    
-    [self setupSelectPanel];
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
@@ -394,7 +393,8 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     ctl.titleTxt = @"切换城市";
     ctl.delegate = self;
     UIButton *tbtn = (UIButton *)self.navigationItem.titleView;
-    ctl.selectItem = [tbtn attributedTitleForState:UIControlStateNormal].string;
+    NSString *title = [tbtn attributedTitleForState:UIControlStateNormal].string;
+    ctl.selectItem = [title substringToIndex:title.length - 4];
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:^{
         _filterType = FILTER_TYPE_CITY;
@@ -561,42 +561,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         }
     }];
 }
-
-#pragma mark - TZFilterViewDelegate
-//- (void)didSelectedItems:(NSArray *)itemIndexPath
-//{
-//    NSInteger filterCityIndex = [[itemIndexPath firstObject] integerValue];
-//    NSInteger filterPoiIndex = [[itemIndexPath lastObject] integerValue];
-//    if (_currentListTypeIndex != filterPoiIndex) {
-//        [MobClick event:@"event_filter_items"];
-//        _isLoadingMoreNormal = YES;
-//        _didEndScrollNormal = YES;
-//        _enableLoadMoreNormal = NO;
-//        _currentListTypeIndex = filterPoiIndex;
-//        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-//        _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-//        [self.dataSource removeAllObjects];
-//        [self.tableView reloadData];
-//        _currentPageNormal = 0;
-//        [self loadDataWithPageNo:_currentPageNormal];
-//        
-//        
-//    }
-//    
-//    if (_currentCityIndex != filterCityIndex) {
-//        [MobClick event:@"event_filter_city"];
-//        _isLoadingMoreNormal = YES;
-//        _didEndScrollNormal = YES;
-//        _enableLoadMoreNormal = NO;
-//        _currentCityIndex = filterCityIndex;
-//        CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-//        _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-//        [self.dataSource removeAllObjects];
-//        [self.tableView reloadData];
-//        _currentPageNormal = 0;
-//        [self loadDataWithPageNo:_currentPageNormal];
-//    }
-//}
 
 #pragma mark - Table view data source
 
@@ -857,7 +821,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -875,11 +838,35 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
     if (_filterType == FILTER_TYPE_CITY) {
+        if (_currentCityIndex == indexPath.row) {
+            return;
+        }
         _cityName = str;
         [self setupTitleView];
+        _currentCityIndex = indexPath.row;
+        [self resetContents];
+        [MobClick event:@"event_filter_city"];
     } else if (_filterType == FILTER_TYPE_CATE) {
+        if (_currentListTypeIndex == indexPath.row) {
+            return;
+        }
         self.navigationItem.rightBarButtonItem.title = str;
+        _currentListTypeIndex = indexPath.row;
+        [MobClick event:@"event_filter_items"];
+        [self resetContents];
     }
+}
+
+- (void) resetContents {
+    _isLoadingMoreNormal = YES;
+    _didEndScrollNormal = YES;
+    _enableLoadMoreNormal = NO;
+    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+    _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+    _currentPageNormal = 0;
+    [self loadDataWithPageNo:_currentPageNormal];
 }
 
 @end

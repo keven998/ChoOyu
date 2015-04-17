@@ -68,11 +68,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.contentInset = UIEdgeInsetsMake(5, 0, 59, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(5, 0, 84, 0);
         _tableView.backgroundColor = APP_PAGE_COLOR;
     }
     return _tableView;
@@ -97,27 +97,27 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     _tripDetail.dayCount++;
 }
 
-- (IBAction)addPoi:(UIButton *)sender
+- (void)addPoiToDay:(NSInteger)day
 {
     [MobClick event:@"event_add_plan_in_agenda"];
     AddPoiViewController *addPoiCtl = [[AddPoiViewController alloc] init];
     addPoiCtl.tripDetail = self.tripDetail;
     addPoiCtl.delegate = self;
     addPoiCtl.shouldEdit = YES;
-    addPoiCtl.currentDayIndex = sender.tag;
-    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:addPoiCtl];
+    addPoiCtl.currentDayIndex = day;
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
-- (IBAction)deleteOneDay:(UIButton *)sender
+- (void)deleteOneDay:(NSInteger)day
 {
     [MobClick event:@"event_delete_day_agenda"];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定删除这天安排" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定删除第%ld天行程", day] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [_tripDetail.itineraryList removeObjectAtIndex:sender.tag];
+            [_tripDetail.itineraryList removeObjectAtIndex:day];
             _tripDetail.dayCount--;
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sender.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:day] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView reloadData];
         }
     }];
@@ -173,16 +173,16 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:[NSString stringWithFormat:@"第%ld天", day]
                                                      message:@"请选择你要进行的操作"
                                                  cancelTitle:@"删除这一天"
-                                                 otherTitles:@[ @"添加安排", @"前面加一天", @"后面加一天"]
+                                                 otherTitles:@[ @"添加行程", @"前面加一天", @"后面加一天"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
-                                                          
+                                                          [self addPoiToDay:(day - 1)];
                                                       } else if (buttonIndex == 2) {
                                                           
                                                       } else if (buttonIndex == 3) {
                                                           
                                                       } else if (buttonIndex == 0) {
-                                                          
+                                                          [self deleteOneDay:day - 1];
                                                       }
                                                   }];
     [alertView useDefaultIOS7Style];
