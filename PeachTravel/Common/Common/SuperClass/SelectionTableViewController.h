@@ -11,7 +11,7 @@
 @protocol SelectDelegate;
 @interface SelectionTableViewController : UIViewController
 
-@property (nonatomic, assign) id<SelectDelegate> delegate;
+@property (nonatomic, weak) id<SelectDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *contentItems;
 @property (nonatomic, strong) NSString *selectItem;

@@ -48,6 +48,6 @@
 
 @property (nonatomic) BOOL filterViewIsShowing;
 
-@property (nonatomic, assign) id <TZFilterViewDelegate>delegate;
+@property (nonatomic, weak) id <TZFilterViewDelegate>delegate;
 
 @end

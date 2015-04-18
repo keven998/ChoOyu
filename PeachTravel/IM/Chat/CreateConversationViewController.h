@@ -36,7 +36,7 @@
  */
 @property (nonatomic, strong) EMGroup *emGroup;
 
-@property (nonatomic, assign) id <CreateConversationDelegate> delegate;
+@property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
 @property (nonatomic) BOOL isPushed;
 

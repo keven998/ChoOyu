@@ -31,6 +31,6 @@
 @property (nonatomic) TZPoiType poiType;
 
 
-@property (nonatomic, assign) id <PoisOfCityDelegate>delegate;
+@property (nonatomic, weak) id <PoisOfCityDelegate>delegate;
 
 @end

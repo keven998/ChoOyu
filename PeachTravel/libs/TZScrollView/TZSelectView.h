@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, assign) id<TaoziSelectViewDelegate> delegate;
+@property (nonatomic, weak) id<TaoziSelectViewDelegate> delegate;
 
 /**
  *  初始化

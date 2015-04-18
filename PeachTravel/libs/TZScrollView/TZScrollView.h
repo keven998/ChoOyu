@@ -22,6 +22,6 @@
 @property (nonatomic) NSInteger currentIndex;
 @property (nonatomic, strong) NSMutableArray *viewsOnScrollView;
 @property (nonatomic, strong) NSArray *titles;          
-@property (nonatomic, assign) id <TZScrollViewDelegate>delegate;
+@property (nonatomic, weak) id <TZScrollViewDelegate>delegate;
 
 @end

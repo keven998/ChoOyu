@@ -28,7 +28,7 @@
 
 @property (nonatomic, strong) CityPoi *cityPoi;
 
-@property (nonatomic, assign) id <CityHeaderViewDelegate>delegate;
+@property (nonatomic, weak) id <CityHeaderViewDelegate>delegate;
 
 
 

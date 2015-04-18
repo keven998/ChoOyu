@@ -45,7 +45,7 @@
 @property (nonatomic, copy) NSString *messageAddress;
 @property (nonatomic, copy) NSString *messageTimeCost;
 
-@property (nonatomic, assign) id <TaoziMessageSendDelegate> delegate;
+@property (nonatomic, weak) id <TaoziMessageSendDelegate> delegate;
 
 
 @end
