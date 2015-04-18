@@ -162,7 +162,7 @@
 //        }
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        _propLabel.text = @"登录旅FM，建立你的旅行圈";
+        _propLabel.text = @"点击登录旅FM，享受更多旅行服务";
         _nameLabel.text = @"未登录";
         _signatureLabel.text = nil;
 //        cell.userGender.image = nil;

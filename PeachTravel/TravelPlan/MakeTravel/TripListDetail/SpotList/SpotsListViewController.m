@@ -68,11 +68,11 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.contentInset = UIEdgeInsetsMake(5, 0, 84, 0);
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _tableView.contentInset = UIEdgeInsetsMake(-20, 0, 50, 0);
         _tableView.backgroundColor = APP_PAGE_COLOR;
     }
     return _tableView;

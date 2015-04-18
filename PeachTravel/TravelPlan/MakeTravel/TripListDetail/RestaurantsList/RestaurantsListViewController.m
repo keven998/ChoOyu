@@ -57,14 +57,14 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-49)];
-        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 55, 0);
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.delegate = self;
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.dataSource = self;
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
@@ -122,7 +122,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
-    
     restaurantOfCityCtl.shouldEdit = YES;
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
     [self presentViewController:nctl animated:YES completion:nil];
@@ -208,9 +207,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)finishEdit
 {
-    if (!_shouldEdit) {
-        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
+//    if (!_shouldEdit) {
+//        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+//    }
     [self.tableView reloadData];
 }
 
@@ -274,7 +273,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [MobClick event:@"event_reorder_items"];
-    NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
     SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
    

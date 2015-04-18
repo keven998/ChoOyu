@@ -87,7 +87,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self.view addSubview:_tableView];
 
     if (_tripDetail) {
-        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
         UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"景点" style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];

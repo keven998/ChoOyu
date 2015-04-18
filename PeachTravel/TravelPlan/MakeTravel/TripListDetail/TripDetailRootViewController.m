@@ -141,7 +141,7 @@
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
@@ -168,14 +168,14 @@
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitle:@"完成" forState:UIControlStateSelected];
+        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
         _navgationBarItem.rightBarButtonItems = barItems;
         
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         
         CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
         [UIView animateWithDuration:0.2 animations:^{
@@ -645,9 +645,6 @@
  */
 - (void)reloadTripData
 {
-//    if (_isMakeNewTrip) {
-//        [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-//    }
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
@@ -672,9 +669,9 @@
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 118)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 118)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 118)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
