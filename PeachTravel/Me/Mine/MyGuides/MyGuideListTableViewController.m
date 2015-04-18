@@ -648,6 +648,7 @@ static NSString *reusableCell = @"myGuidesCell";
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+    _didEndScroll = YES;
 }
 
 #pragma mark - SWTableViewCellDelegate
@@ -852,10 +853,10 @@ static NSString *reusableCell = @"myGuidesCell";
         if (code == 0) {
             [self.dataSource removeObject:guideSummary];
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:cellIndexPath.section];
-            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView deleteSections:set withRowAnimation:UITableViewRowAnimationNone];
+//            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             [self.dataSource insertObject:guideSummary atIndex:0];
-            set = [NSIndexSet indexSetWithIndex:0];
-            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self performSelector:@selector(toTop) withObject:nil afterDelay:0.4];
         } else {
             [self showHint:@"请求也是失败了"];
         }
@@ -864,6 +865,11 @@ static NSString *reusableCell = @"myGuidesCell";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self showHint:@"呃～好像没找到网络"];
     }];
+}
+
+- (void) toTop {
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:0];
+    [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

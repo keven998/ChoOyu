@@ -37,13 +37,13 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         y = self.searchBar.frame.size.height + self.searchBar.frame.origin.y;
         [self.view addSubview:self.searchBar];
     } else {
-        y = 64;
+        y = 0;
     }
     self.enableLoadingMore = NO;
-    self.tableView.frame = CGRectMake(11, y, self.view.frame.size.width-22, self.view.frame.size.height-y);
+    self.tableView.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height-y);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
     if (!_isSearch) {
@@ -215,7 +215,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 130.0;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -271,9 +271,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
-    
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
-    
 }
 
 - (void)sendCancel
@@ -288,8 +286,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

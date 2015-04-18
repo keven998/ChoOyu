@@ -236,7 +236,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define APP_PAGE_COLOR                  UIColorFromRGB(0xf1f1f1)
+#define APP_PAGE_COLOR                  UIColorFromRGB(0xf2f2f2)
 #define APP_THEME_COLOR                 UIColorFromRGB(0x1cc091)
 #define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xad0618)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
@@ -245,11 +245,11 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define APP_BORDER_COLOR                UIColorFromRGB(0xe4e4e4)
 #define APP_IMAGEVIEW_COLOR             UIColorFromRGB(0xf8f8f8)
 
-#define APP_DIVIDER_COLOR               UIColorFromRGB(0xdcdcdc)
-#define TEXT_COLOR_TITLE                UIColorFromRGB(0x333333)
-#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x666666)
+#define APP_DIVIDER_COLOR               UIColorFromRGB(0xe5e5e5)
+#define TEXT_COLOR_TITLE                UIColorFromRGB(0x2e2727)
+#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x626262)
 #define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0x999999)
-#define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xaaaaaa)
+#define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
 
 
 /*****应用启动时是否应该启动引导页******/

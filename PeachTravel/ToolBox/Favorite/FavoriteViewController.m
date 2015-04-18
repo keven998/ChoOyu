@@ -552,6 +552,7 @@
 - (void) loadMoreCompleted {
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+    _didEndScroll = YES;
 }
 
 #pragma mark - TaoziMessageSendDelegate

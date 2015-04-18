@@ -53,6 +53,7 @@
     _tableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:_tableView];
 }
 
@@ -87,6 +88,7 @@
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+    isSameScrollProcessEnd = YES;
 }
 
 - (void) setFooterViewVisibility:(BOOL)visible {

@@ -22,23 +22,27 @@
 
 - (void)awakeFromNib {
     self.backgroundColor = [UIColor whiteColor];
-    _travelNoteImageView.layer.cornerRadius = 4.0;
     _travelNoteImageView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 4.0;
     
-    _travelNoteImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _travelNoteImageView.layer.borderWidth = 0.5;
     _travelNoteImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     /**
      *  发送按钮默认隐藏，是否显示需要设置 canSelecte
      */
     _sendBtn.hidden = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _titleLabel.font = [UIFont systemFontOfSize:15];
+    _titleLabel.font = [UIFont systemFontOfSize:16];
     _titleLabel.textColor = TEXT_COLOR_TITLE;
-    _descLabel.font = [UIFont systemFontOfSize:11];
+    _descLabel.font = [UIFont systemFontOfSize:13];
     _descLabel.numberOfLines = 3;
     _descLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    
+    _propertyLabel.font = [UIFont systemFontOfSize:13];
+    _propertyLabel.textColor = TEXT_COLOR_TITLE_PH;
+    
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(13, 0, CGRectGetWidth(self.bounds) - 26, 0.5)];
+    divider.backgroundColor = APP_DIVIDER_COLOR;
+    [self addSubview:divider];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -64,12 +68,13 @@
 {
     _desc = desc;
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 1.5;
-    style.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
-    _descLabel.attributedText = attrStr;
+//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:desc];
+//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+//    style.lineSpacing = 1.5;
+//    style.lineBreakMode = NSLineBreakByTruncatingTail;
+//    [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desc.length)];
+//    _descLabel.attributedText = attrStr;
+    _descLabel.text = desc;
 }
 
 - (void)setAuthorAvatar:(NSString *)authorAvatar

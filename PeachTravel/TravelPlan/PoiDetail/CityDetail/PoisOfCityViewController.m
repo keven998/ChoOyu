@@ -576,6 +576,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (!_isLoadingMoreNormal) return;
     [_indicatroView stopAnimating];
     _isLoadingMoreNormal = NO;
+    _didEndScrollNormal = YES;
 }
 
 /**
@@ -602,6 +603,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     if (!_isLoadingMoreSearch) return;
     [_indicatroView stopAnimating];
     _isLoadingMoreSearch = NO;
+    _didEndScrollSearch = YES;
 }
 
 #pragma mark - TZFilterViewDelegate

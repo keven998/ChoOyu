@@ -536,6 +536,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+    _didEndScroll = YES;
 }
 
 
