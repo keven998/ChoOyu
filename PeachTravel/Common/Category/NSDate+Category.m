@@ -93,7 +93,7 @@
         }else if (hour < 0 && hour >= -24) {
             dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"昨天HH:mm"];
         }else {
-            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
+            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"MM-dd"];
         }
     }else {
         if (hour >= 0 && hour <= 6) {
@@ -107,7 +107,7 @@
         }else if (hour < 0 && hour >= -24){
             dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"昨天HH:mm"];
         }else  {
-            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
+            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"MM-dd"];
         }
         
     }

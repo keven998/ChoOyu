@@ -34,19 +34,20 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.imageView.backgroundColor = APP_PAGE_COLOR;
+        
+        self.imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+        
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.font = [UIFont systemFontOfSize:11.0];
-        _timeLabel.textColor = TEXT_COLOR_TITLE_HINT;
-        _timeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _timeLabel.font = [UIFont systemFontOfSize:12];
+        _timeLabel.textColor = TEXT_COLOR_TITLE_PH;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-
-        _detailLabel.font = [UIFont systemFontOfSize:15];
-        _detailLabel.textColor = UIColorFromRGB(0xbbbbbb);
-        _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _detailLabel.font = [UIFont systemFontOfSize:13.5];
+        _detailLabel.textColor = TEXT_COLOR_TITLE_HINT;
+        _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView addSubview:_detailLabel];
         
         activityView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_msg_sending.png"]];
@@ -56,17 +57,19 @@
         sendFailedImageView.hidden = YES;
         [self.contentView addSubview:sendFailedImageView];
         
-        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _unreadLabel.backgroundColor = [UIColor redColor];
+        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 13, 21, 21)];
+        _unreadLabel.backgroundColor = APP_HIGNLIGHT_COLOR;
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
-        _unreadLabel.font = [UIFont systemFontOfSize:13.0];
+        _unreadLabel.font = [UIFont systemFontOfSize:12];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
         _unreadLabel.clipsToBounds = YES;
         _unreadLabel.textColor = [UIColor whiteColor];
+        _unreadLabel.layer.cornerRadius = 10.5;
+        _unreadLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
         
         spaceView = [[UIView alloc] init];
-        spaceView.backgroundColor = UIColorFromRGB(0xdddddd);
+        spaceView.backgroundColor = APP_DIVIDER_COLOR;
         [self.contentView addSubview:spaceView];
     }
     return self;
@@ -75,32 +78,26 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    if (![_unreadLabel isHidden]) {
-        _unreadLabel.backgroundColor = APP_THEME_COLOR;
-    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
-    if (![_unreadLabel isHidden]) {
-        _unreadLabel.backgroundColor = APP_THEME_COLOR;
-    }
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    CGFloat width = self.frame.size.width;
-    
-    self.imageView.frame = CGRectMake(10.0, 19, 32, 32);
-    self.imageView.layer.cornerRadius = 8   ;
-    self.imageView.layer.masksToBounds = YES;
+    CGFloat width = CGRectGetWidth(self.bounds);
     
     self.textLabel.text = _name;
-    self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.font = [UIFont systemFontOfSize:17.0];
-    self.textLabel.textColor = TEXT_COLOR_TITLE;
-    self.textLabel.frame = CGRectMake(55.0, 17.0, width - 80.0-85, 18.0);
+    self.textLabel.frame = CGRectMake(54, 17, width - 54 - 85, 18.0);
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+    self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.textLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    
+    self.imageView.frame = CGRectMake(12, 19, 32, 32);
+    self.imageView.layer.cornerRadius = 8;
+    self.imageView.layer.masksToBounds = YES;
     
     _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
     
@@ -124,24 +121,37 @@
     
     sendFailedImageView.frame = CGRectMake(85, 48, 12, 12);
     activityView.frame = CGRectMake(85, 51, 13, 12);
-    _detailLabel.frame = CGRectMake(55+offsetX, 38.0, width - 85.0-55, 26);
+    _detailLabel.frame = CGRectMake(54+offsetX, 35, width - 85.0-54, 25);
     
     _timeLabel.text = _time;
     
     if (_unreadCount > 0) {
+        _unreadCount = 679;
+        CGRect lf = _unreadLabel.frame;
         if (_unreadCount < 9) {
-            _unreadLabel.font = [UIFont systemFontOfSize:12];
-        }else if(_unreadCount > 9 && _unreadCount < 99){
-            _unreadLabel.font = [UIFont systemFontOfSize:11];
-        }else{
-            _unreadLabel.font = [UIFont systemFontOfSize:10];
+            lf.size.width = 21;
+        } else if (_unreadCount > 9 && _unreadCount < 99){
+            lf.size.width = 29;
+        } else {
+            lf.size.width = 33;
         }
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
         _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
         
-        _unreadLabel.frame = CGRectMake(width-50, 35.0, 35.0, 20.0);
-        _unreadLabel.layer.cornerRadius = 10;
+        CGRect tf = self.textLabel.frame;
+        CGFloat maxw = tf.size.width - lf.size.width - 5;
+        CGSize labelSize = [_name boundingRectWithSize:CGSizeMake(maxw, tf.size.height)
+                                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                                    attributes:@{
+                                                                                 NSFontAttributeName : [UIFont systemFontOfSize:16]
+                                                                                 }
+                                                                       context:nil].size;
+        
+        tf.size.width = labelSize.width;
+        self.textLabel.frame = tf;
+        lf.origin.x = tf.origin.x + tf.size.width + 5;
+        _unreadLabel.frame = lf;
     }else{
         [_unreadLabel setHidden:YES];
     }

@@ -239,6 +239,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define APP_PAGE_COLOR                  UIColorFromRGB(0xf2f2f2)
 #define APP_THEME_COLOR                 UIColorFromRGB(0x1cc091)
 #define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xad0618)
+#define APP_HIGNLIGHT_COLOR             UIColorFromRGB(0xff5d38)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
 #define APP_SUB_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0x279095)
 #define APP_DIVIDE_COLOR                UIColorFromRGB(0xbdbdbd)
@@ -247,8 +248,9 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 #define APP_DIVIDER_COLOR               UIColorFromRGB(0xe5e5e5)
 #define TEXT_COLOR_TITLE                UIColorFromRGB(0x2e2727)
-#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x626262)
-#define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0x999999)
+#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x656565)
+#define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
+#define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
 #define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
 
 

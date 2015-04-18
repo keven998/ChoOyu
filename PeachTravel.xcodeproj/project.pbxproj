@@ -409,7 +409,6 @@
 		D9A802EE1A80E3D3005AD701 /* ic_progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A802A61A80E3D3005AD701 /* ic_progress@2x.png */; };
 		D9A802EF1A80E3D3005AD701 /* TZProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802A81A80E3D3005AD701 /* TZProgressHUD.m */; };
 		D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802AB1A80E3D3005AD701 /* AppUtils.m */; };
-		D9A802F11A80E3D3005AD701 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802AE1A80E3D3005AD701 /* Constants.m */; };
 		D9A802F91A80E566005AD701 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802F41A80E566005AD701 /* AppDelegate.m */; };
 		D9A802FB1A80E566005AD701 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A802F61A80E566005AD701 /* Launch Screen.xib */; };
 		D9A802FC1A80E566005AD701 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A802F71A80E566005AD701 /* main.m */; };
@@ -1382,7 +1381,6 @@
 		D9A802AA1A80E3D3005AD701 /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		D9A802AB1A80E3D3005AD701 /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		D9A802AD1A80E3D3005AD701 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		D9A802AE1A80E3D3005AD701 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		D9A802F31A80E566005AD701 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D9A802F41A80E566005AD701 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D9A802F61A80E566005AD701 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -3514,7 +3512,6 @@
 			isa = PBXGroup;
 			children = (
 				D9A802AD1A80E3D3005AD701 /* Constants.h */,
-				D9A802AE1A80E3D3005AD701 /* Constants.m */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -5612,7 +5609,6 @@
 				D92CA1131AD8BDF900F244FF /* SWLongPressGestureRecognizer.m in Sources */,
 				C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */,
 				D9A801261A80DD23005AD701 /* ChatViewController.m in Sources */,
-				D9A802F11A80E3D3005AD701 /* Constants.m in Sources */,
 				D9A801141A80DD23005AD701 /* ChatListViewController.m in Sources */,
 				D92CA1141AD8BDF900F244FF /* SWTableViewCell.m in Sources */,
 				D92CA1161AD8BDF900F244FF /* SWUtilityButtonView.m in Sources */,

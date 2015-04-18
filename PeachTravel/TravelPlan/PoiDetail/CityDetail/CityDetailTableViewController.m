@@ -119,7 +119,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
     _cityHeaderView.cityPoi = (CityPoi *)self.poi;
     
-    CGRect frame = CGRectMake(0, _cityHeaderView.frame.size.height+10, CGRectGetWidth(self.view.bounds), 50+130*((CityPoi *)self.poi).travelNotes.count);
+    CGRect frame = CGRectMake(0, _cityHeaderView.frame.size.height+10, CGRectGetWidth(self.view.bounds), 50+90*((CityPoi *)self.poi).travelNotes.count);
     [self.tableView setFrame:frame];
     [_scrollView addSubview:_tableView];
     [_scrollView addSubview:_cityHeaderView];
@@ -143,7 +143,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateTableView
 {
-    CGRect frame = CGRectMake(0, _cityHeaderView.frame.size.height + 10, self.view.frame.size.width, 50+130*((CityPoi *)self.poi).travelNotes.count + 64);
+    CGRect frame = CGRectMake(0, _cityHeaderView.frame.size.height + 10, self.view.frame.size.width, 50+90*((CityPoi *)self.poi).travelNotes.count + 64);
     [self.tableView setFrame:frame];
     [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, frame.origin.y+frame.size.height+10)];
 }
