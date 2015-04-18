@@ -7,7 +7,6 @@
 //
 
 #import "MineTableViewController.h"
-#import "LoginTableViewCell.h"
 #import "AccountManagerViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
@@ -22,14 +21,17 @@
 #import "SuperWebViewController.h"
 
 #define cellDataSource           @[@[@"收藏夹", @"推荐给微信好友"], @[@"设置", @"关于旅FM"]]
-#define loginCell                @"loginCell"
-#define unLoginCell              @"unLoginCell"
 #define secondCell               @"secondCell"
 
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) AccountManager *accountManager;
 @property (strong, nonatomic) UITableView *tableView;
+
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *propLabel;
+@property (nonatomic, strong) UILabel *signatureLabel;
 
 @end
 
@@ -41,14 +43,6 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES];
     
-//    self.navigationItem.title = @"我";
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"我";
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
 //    self.automaticallyAdjustsScrollViewInsets = NO;
@@ -58,39 +52,28 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = APP_BORDER_COLOR;
-    self.tableView.contentInset = UIEdgeInsetsMake(-2.0, 0, 0, 0);
-    [self.tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:loginCell];
+    self.tableView.separatorColor = APP_DIVIDER_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
-//    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
     
-
+    [self setupTableHeaderView];
+    [self updateAccountInfo];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
-
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
-    
-//    [self.navigationController setNavigationBarHidden:YES];
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
-    
-//    [self.navigationController setNavigationBarHidden:NO];
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 - (void)dealloc
@@ -100,6 +83,57 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void) setupTableHeaderView {
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    CGFloat height = 366 * CGRectGetHeight(self.view.bounds) / 1334;
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    backgroundImageView.image = [UIImage imageNamed:@"login_frame_bg.png"];
+    backgroundImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [backgroundImageView addGestureRecognizer:tap];
+    [self.view addSubview:backgroundImageView];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, width, 44)];
+    titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"我";
+    [backgroundImageView addSubview:titleLabel];
+    
+    UIImageView *headerView = [[UIImageView alloc] initWithFrame:CGRectMake(22, (height - 20.0)/2.0 - 10, 60, 60)];
+    headerView.clipsToBounds = YES;
+    headerView.layer.cornerRadius = 17.0;
+    [backgroundImageView addSubview:headerView];
+    _avatarImageView = headerView;
+    
+    CGFloat xOffset = headerView.frame.origin.x + headerView.frame.size.width + 12;
+    CGFloat yOffset = headerView.frame.origin.y;
+    
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset, width - xOffset - 10, 22)];
+    nameLabel.font = [UIFont boldSystemFontOfSize:15];
+    nameLabel.textColor = [UIColor whiteColor];
+    [backgroundImageView addSubview:nameLabel];
+    _nameLabel = nameLabel;
+    
+    UILabel *propLabel = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset + 22, width - xOffset - 10, 19)];
+    propLabel.font = [UIFont systemFontOfSize:12];
+    propLabel.textColor = [UIColor whiteColor];
+    [backgroundImageView addSubview:propLabel];
+    _propLabel = propLabel;
+    
+    UILabel *signLabel = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset + 41, width - xOffset - 10, 19)];
+    signLabel.font = [UIFont systemFontOfSize:12];
+    signLabel.textColor = [UIColor whiteColor];
+    [backgroundImageView addSubview:signLabel];
+    _signatureLabel = signLabel;
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
 }
 
 #pragma mark - setter & getter
@@ -112,12 +146,35 @@
     return _accountManager;
 }
 
+- (void) updateAccountInfo {
+    AccountManager *amgr = self.accountManager;
+    if ([amgr isLogin]) {
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        _nameLabel.text = amgr.account.nickName;
+        _propLabel.text = [NSString stringWithFormat:@"FM号 %d", [amgr.account.userId intValue]];
+        _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
+//        if ([amgr.account.gender isEqualToString:@"M"]) {
+//            cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
+//        } else if ([amgr.account.gender isEqualToString:@"F"]) {
+//            cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
+//        } else if ([amgr.account.gender isEqualToString:@"U"]) {
+//            cell.userGender.image = nil;
+//        }
+    } else {
+        [_avatarImageView setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        _propLabel.text = @"登录旅FM，建立你的旅行圈";
+        _nameLabel.text = @"未登录";
+        _signatureLabel.text = nil;
+//        cell.userGender.image = nil;
+    }
+}
+
 #pragma mark - Private Methods
 
 - (void)userAccountHasChage
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
+        [self updateAccountInfo];
     });
 }
 
@@ -147,11 +204,6 @@
 
 - (IBAction)userLogin:(id)sender
 {
-//    LoginViewController *loginCtl = [[LoginViewController alloc] init];
-//    loginCtl.isPushed = NO;
-//    loginCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:loginCtl animated:YES];
-    
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
@@ -163,75 +215,43 @@
 {
     RegisterViewController *registerCtl = [[RegisterViewController alloc] init];
     registerCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:registerCtl animated:YES];
     TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:registerCtl];
     [self presentViewController:navc animated:YES completion:nil];
+}
+
+- (void)tap {
+    if (self.accountManager.isLogin) {
+        UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
+        userInfoCtl.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:userInfoCtl animated:YES];
+    } else {
+        [self userLogin:nil];
+    }
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
     return CGFLOAT_MIN;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] init];
-//    view.backgroundColor = APP_PAGE_COLOR;
-//    return view;
-//}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else {
-        return [cellDataSource[section-1] count];
-    }
+    return [cellDataSource[section] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 184.0;
-    } else {
-        return 44.0;
-    }
+    return 44.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loginCell forIndexPath:indexPath];
-        AccountManager *accountManager = [AccountManager shareAccountManager];
-        if (accountManager.isLogin) {
-            [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:accountManager.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-            cell.userId.text = [NSString stringWithFormat:@"FM号 %d", [accountManager.account.userId intValue]];
-            cell.userName.text = accountManager.account.nickName;
-            cell.userSign.text = accountManager.account.signature.length > 0 ? accountManager.account.signature:@"";
-            cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_accessory_white.png"]];
-            if ([accountManager.account.gender isEqualToString:@"M"]) {
-                cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
-            } else if ([accountManager.account.gender isEqualToString:@"F"]) {
-                cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
-            } else if ([accountManager.account.gender isEqualToString:@"U"]) {
-                cell.userGender.image = nil;
-            }
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            [cell.userPhoto setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-            cell.userId.text = @"登录旅FM，建立你的旅行圈";
-            cell.userName.text = @"未登录";
-            cell.userSign.text = nil;
-            cell.userGender.image = nil;
-        }
-        return cell;
-    } else {
         OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
-        cell.titleView.text = [[cellDataSource objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        cell.titleView.text = [[cellDataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (indexPath.section == 1) {
+        if (indexPath.section == 0) {
             switch (indexPath.row) {
                 case 0:
                     [cell.flagView setImage:[UIImage imageNamed:@"ic_my_favorite.png"]];
@@ -260,19 +280,10 @@
             }
         }
         return cell;
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.accountManager.isLogin) {
-            UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
-            userInfoCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:userInfoCtl animated:YES];
-        } else {
-            [self userLogin:nil];
-        }
-    } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             if (!accountManager.isLogin) {
@@ -287,7 +298,7 @@
             [self shareToWeChat];
         }
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
             settingCtl.hidesBottomBarWhenPushed = YES;

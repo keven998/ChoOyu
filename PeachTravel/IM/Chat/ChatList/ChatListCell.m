@@ -57,7 +57,7 @@
         sendFailedImageView.hidden = YES;
         [self.contentView addSubview:sendFailedImageView];
         
-        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 13, 21, 21)];
+        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 21, 21)];
         _unreadLabel.backgroundColor = APP_HIGNLIGHT_COLOR;
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
         _unreadLabel.font = [UIFont systemFontOfSize:12];
