@@ -72,7 +72,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _tableView.contentInset = UIEdgeInsetsMake(-20, 0, 50, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(-26, 0, 50, 0); // 20 + 26
         _tableView.backgroundColor = APP_PAGE_COLOR;
     }
     return _tableView;
@@ -226,7 +226,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -248,10 +248,14 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     CGFloat width = tableView.frame.size.width;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, width-80, 30)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 6)];
+    spaceView.backgroundColor = APP_PAGE_COLOR;
+    [headerView addSubview:spaceView];
+    
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, width-80, 44)];
     NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"第%ld天  ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (SuperPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
@@ -260,8 +264,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
     }
     
-    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(60, 0, width-150, 30)];
-    destinationView.backgroundColor = [UIColor whiteColor];
+    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(60, 14, width-150, 20)];
     [headerView addSubview:destinationView];
     
     if (set.count) {
@@ -283,7 +286,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     headerTitle.font = [UIFont systemFontOfSize:15.0];
     [headerView addSubview:headerTitle];
     
-    UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 0, 64, 30)];
+    UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 6, 64, 44)];
     [mapBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
 //    [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 15, 0, 0)];
     mapBtn.tag = section;
