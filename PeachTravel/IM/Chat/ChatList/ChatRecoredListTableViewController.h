@@ -19,6 +19,6 @@
 
 @interface ChatRecoredListTableViewController :TZTableViewController
 
-@property (nonatomic, assign) id <CreateConversationDelegate> delegate;
+@property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
 @end

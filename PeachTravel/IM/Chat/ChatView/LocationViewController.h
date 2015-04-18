@@ -21,7 +21,7 @@
 
 @interface LocationViewController : TZViewController
 
-@property (nonatomic, assign) id<LocationViewDelegate> delegate;
+@property (nonatomic, weak) id<LocationViewDelegate> delegate;
 
 - (instancetype)initWithLocation:(CLLocationCoordinate2D)locationCoordinate;
 

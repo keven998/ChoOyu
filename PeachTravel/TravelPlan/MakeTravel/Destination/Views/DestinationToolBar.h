@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) UIButton *nextBtn;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, assign) id<DestinationToolBarDelegate> delegate;
+@property (nonatomic, weak) id<DestinationToolBarDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame andNextBtnTitle:(NSString *)title;
 -(void)setHidden:(BOOL)hidden withAnimation:(BOOL)animation;

@@ -27,6 +27,6 @@
  */
 @property (nonatomic) BOOL isCanAddDestination;
 
-@property (nonatomic, assign) id <DestinationsViewDelegate> delegate;
+@property (nonatomic, weak) id <DestinationsViewDelegate> delegate;
 
 @end

@@ -30,7 +30,7 @@
  */
 @property (nonatomic) BOOL shouldEdit;
 
-@property (nonatomic, assign) id <addPoiDelegate> delegate;
+@property (nonatomic, weak) id <addPoiDelegate> delegate;
 
 
 @end

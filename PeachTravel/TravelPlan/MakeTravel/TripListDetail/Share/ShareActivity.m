@@ -77,7 +77,7 @@
 @property (nonatomic,assign) BOOL isHadShareButton;
 @property (nonatomic,assign) BOOL isHadCancelButton;
 @property (nonatomic,assign) CGFloat LXActivityHeight;
-@property (nonatomic,assign) id<ActivityDelegate>delegate;
+@property (nonatomic,weak) id<ActivityDelegate>delegate;
 
 @end
 
