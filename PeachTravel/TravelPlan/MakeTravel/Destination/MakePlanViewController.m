@@ -122,7 +122,8 @@
 - (DestinationToolBar *)destinationToolBar
 {
     if (!_destinationToolBar) {
-        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49.5 - 64, CGRectGetWidth(self.view.bounds), 49.5) andNextBtnTitle:nil];
+        _destinationToolBar = [[DestinationToolBar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49.5, CGRectGetWidth(self.view.bounds), 49.5) andNextBtnTitle:nil];
+        _destinationToolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         _destinationToolBar.backgroundColor = [UIColor whiteColor];
         _destinationToolBar.delegate = self;
     }

@@ -62,7 +62,7 @@
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
@@ -72,6 +72,7 @@
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
     self.selectPanel.dataSource = self;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[SelectPoiCell class] forCellWithReuseIdentifier:@"spoi_cell"];
     [self.view addSubview:_selectPanel];

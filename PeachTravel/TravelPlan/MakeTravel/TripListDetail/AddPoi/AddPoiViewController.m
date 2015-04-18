@@ -142,7 +142,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
 }
 
 - (void) setupSelectPanel {
-    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49 - 64, CGRectGetWidth(self.view.bounds), 49);
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
@@ -152,6 +152,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     self.selectPanel.delegate = self;
     self.selectPanel.dataSource = self;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
     
     [self.view addSubview:_selectPanel];

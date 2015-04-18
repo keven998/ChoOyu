@@ -100,9 +100,9 @@
     divider.layer.shadowOpacity = 1.0;
     [self.view addSubview:divider];
     
-    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 94, CGRectGetWidth(self.view.bounds), 30.0)];
+    UIView *fbar = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 30, CGRectGetWidth(self.view.bounds), 30.0)];
     fbar.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.67];
-    fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    fbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:fbar];
     
     _locLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, CGRectGetWidth(fbar.frame) - 64.0, 30.0)];

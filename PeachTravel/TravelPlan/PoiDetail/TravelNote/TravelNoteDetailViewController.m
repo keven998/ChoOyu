@@ -51,9 +51,10 @@
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
+    _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_webView];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_travelNote.detailUrl]];
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _webView.delegate = _progressProxy;
     [_webView loadRequest:request];
     
