@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,12 +14,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="好友请求" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
-                        <rect key="frame" x="71" y="12" width="100" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新朋友" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDn-ti-aSj">
+                        <rect key="frame" x="57" y="11" width="158" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="afN-we-5cF"/>
+                            <constraint firstAttribute="width" constant="158" id="afN-we-5cF"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -33,23 +33,23 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_frendRequest.png" translatesAutoresizingMaskIntoConstraints="NO" id="De7-MS-DeS">
-                        <rect key="frame" x="15" y="9" width="34" height="25"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_frendRequest.png" translatesAutoresizingMaskIntoConstraints="NO" id="De7-MS-DeS">
+                        <rect key="frame" x="12" y="6" width="32" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="34" id="WMi-J6-FxL"/>
+                            <constraint firstAttribute="width" constant="32" id="WMi-J6-FxL"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="2Ls-kB-Dad"/>
-                    <constraint firstItem="De7-MS-DeS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2dB-W9-xmA"/>
+                    <constraint firstItem="BDn-ti-aSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="2Ls-kB-Dad"/>
+                    <constraint firstItem="De7-MS-DeS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="2dB-W9-xmA"/>
                     <constraint firstItem="jjM-4r-fyk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="GS9-be-r2R"/>
-                    <constraint firstItem="De7-MS-DeS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="W9Z-FA-tiP"/>
-                    <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="22" id="byT-m9-mBm"/>
-                    <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="10" id="cou-J6-q7T"/>
+                    <constraint firstItem="De7-MS-DeS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="W9Z-FA-tiP"/>
+                    <constraint firstItem="BDn-ti-aSj" firstAttribute="leading" secondItem="De7-MS-DeS" secondAttribute="trailing" constant="13" id="byT-m9-mBm"/>
+                    <constraint firstAttribute="bottom" secondItem="BDn-ti-aSj" secondAttribute="bottom" constant="11" id="cou-J6-q7T"/>
                     <constraint firstAttribute="bottom" secondItem="jjM-4r-fyk" secondAttribute="bottom" constant="14.5" id="rkT-9Z-rIf"/>
-                    <constraint firstAttribute="bottom" secondItem="De7-MS-DeS" secondAttribute="bottom" constant="9.5" id="rlD-8V-h03"/>
+                    <constraint firstAttribute="bottom" secondItem="De7-MS-DeS" secondAttribute="bottom" constant="5" id="rlD-8V-h03"/>
                     <constraint firstAttribute="trailing" secondItem="jjM-4r-fyk" secondAttribute="trailing" constant="11" id="yd2-Mi-yLK"/>
                 </constraints>
             </tableViewCellContentView>
@@ -58,10 +58,10 @@
                 <outlet property="requestNoti" destination="jjM-4r-fyk" id="dTO-Me-bAA"/>
                 <outlet property="titleLabel" destination="BDn-ti-aSj" id="hXK-K6-Li1"/>
             </connections>
-            <point key="canvasLocation" x="102" y="303"/>
+            <point key="canvasLocation" x="131" y="163"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_frendRequest.png" width="34" height="25"/>
+        <image name="ic_frendRequest.png" width="26" height="23"/>
     </resources>
 </document>

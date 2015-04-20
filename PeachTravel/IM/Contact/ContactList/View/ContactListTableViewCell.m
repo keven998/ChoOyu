@@ -11,10 +11,8 @@
 @implementation ContactListTableViewCell
 
 - (void)awakeFromNib {
-    _avatarImageView.clipsToBounds = YES;
-    _avatarImageView.layer.cornerRadius = 4.0;
-    _nickNameLabel.font = [UIFont systemFontOfSize:16.0];
-    self.backgroundColor = APP_PAGE_COLOR;
+    _avatarImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _avatarImageView.layer.cornerRadius = 8;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

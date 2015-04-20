@@ -12,9 +12,10 @@
 
 - (void)awakeFromNib {
     _titleLabel.font = [UIFont systemFontOfSize:14.0];
+    _titleLabel.textColor = TEXT_COLOR_TITLE;
     _requestNoti.layer.cornerRadius = 7.5;
     _requestNoti.clipsToBounds = YES;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -23,9 +24,9 @@
     // Configure the view for the selected state
 }
 
-- (void)layoutSubviews {
-    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 44.0);
-}
+//- (void)layoutSubviews {
+//    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, 44.0);
+//}
 
 - (void)setNumberOfUnreadFrendRequest:(NSUInteger)numberOfUnreadFrendRequest
 {

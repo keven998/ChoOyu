@@ -42,19 +42,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    
-//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-//    [button setFrame:CGRectMake(0, 0, 48, 30)];
-//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_friend.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addContact)];
     self.navigationItem.title = @"联系人";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
@@ -196,10 +185,9 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-        
-        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
-        
+        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+//        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 27)];
+//        _contactTableView.contentInset = UIEdgeInsetsMake(27, 0, 0, 0);
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
@@ -308,10 +296,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 44.0;
-    }
-    return 50.0;
+    return 45.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -319,29 +304,23 @@
     if (section == 0) {
         return 0;
     }
-    return 16.0;
+    return 27;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 10;
-    }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 16.0)];
-        view.backgroundColor = [UIColor clearColor];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, 15.0)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 27)];
         label.text = [NSString stringWithFormat:@"    %@", [[self.dataSource objectForKey:@"headerKeys"] objectAtIndex:section-1]];
-        label.backgroundColor = [UIColor whiteColor];
+        label.backgroundColor = APP_PAGE_COLOR;
         label.font = [UIFont systemFontOfSize:12];
-        label.textColor = UIColorFromRGB(0xadadad);
-        [view addSubview:label];
-        return view;
+        label.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        return label;
     }
     return nil;
 }
@@ -361,6 +340,7 @@
     if (indexPath.section == 0) {
         OptionOfFASKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend_ask"];
         cell.numberOfUnreadFrendRequest = _numberOfUnreadFrendRequest;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
@@ -368,16 +348,15 @@
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
 
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        NSString *detailStr;
-        if (![contact.memo isBlankString]) {
-            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
-        } else {
-            detailStr = contact.nickName;
-        }
-        cell.nickNameLabel.text = detailStr;
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:nil];
+//        NSString *detailStr;
+//        if (![contact.memo isBlankString]) {
+//            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
+//        } else {
+//            detailStr = contact.nickName;
+//        }
+        cell.nickNameLabel.text = contact.nickName;
         [cell.chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-
         return cell;
     }
 }
