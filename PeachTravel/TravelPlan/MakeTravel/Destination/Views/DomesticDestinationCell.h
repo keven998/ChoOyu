@@ -11,6 +11,6 @@
 @interface DomesticDestinationCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *tiltleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *background;
+@property (weak, nonatomic) IBOutlet UIImageView *status;
 
 @end

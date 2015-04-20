@@ -37,7 +37,7 @@
     _descLabel.numberOfLines = 3;
     _descLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     
-    _propertyLabel.font = [UIFont systemFontOfSize:13];
+    _propertyLabel.font = [UIFont systemFontOfSize:12];
     _propertyLabel.textColor = TEXT_COLOR_TITLE_PH;
     
     UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(13, 0, CGRectGetWidth(self.bounds) - 26, 0.5)];

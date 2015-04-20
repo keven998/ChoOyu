@@ -34,6 +34,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
     [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(0, 0, 89, 0)];
+    self.foreignCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.foreignCollectionView setShowsVerticalScrollIndicator:NO];
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_foreignCollectionView.collectionViewLayout;
@@ -193,11 +194,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-//    CountryDestination *country = _destinations.foreignCountries[indexPath.section];
-//    CGSize size = [country.desc sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
-//    NSInteger lineCount = size.width/(self.foreignCollectionView.frame.size.width - 20) + 1 ;
-//    CGFloat height = lineCount*size.height + 120.0 + 20 + 12.0;
-    return CGSizeMake(self.foreignCollectionView.frame.size.width, 40);
+    return CGSizeMake(self.foreignCollectionView.frame.size.width, 38);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +202,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
     AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     CityDestinationPoi *city = country.cities[indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 23.0, 26);
+    return CGSizeMake(size.width + 25 + 28, 28);;
 }
 
 - (NSInteger)numberOfSectionsInTZCollectionView:(UICollectionView *)collectionView
@@ -245,18 +242,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
 {
     AreaDestination *country = [_destinations.foreignCountries objectAtIndex:indexPath.section];
     DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseableHeaderIdentifier forIndexPath:indexPath];
-    headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", country.zhName];
-    
-//    [headerView.contentBtn setTitle:country.zhName forState:UIControlStateNormal];
-//    headerView.contentBtn.tag = indexPath.section;
-//    [headerView.contentBtn addTarget:self action:@selector(showCities:) forControlEvents:UIControlEventTouchUpInside];
-//    if (_showCitiesIndex == indexPath.section) {
-//        headerView.contentBtn.selected = YES;
-//        headerView.cellAccessoryView.image = [UIImage imageNamed:@"cell_accessory_pink_up.png"];
-//    } else {
-//        headerView.contentBtn.selected = NO;
-//        headerView.cellAccessoryView.image = [UIImage imageNamed:@"cell_accessory_pink_down.png"];
-//    }
+    headerView.titleLabel.text = country.zhName;
     return headerView;
 }
 
@@ -269,18 +255,15 @@ static NSString *reuseableCellIdentifier  = @"cell";
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.tiltleLabel.textColor = [UIColor whiteColor];
-            UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_seleted_background.png"]
-                                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
-            cell.background.image = buttonBackgroundImage;
+            cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
+            cell.backgroundColor = APP_THEME_COLOR;
             return  cell;
         }
     }
-    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE;
-    UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_normal_background.png"]
-                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
-    cell.background.image = buttonBackgroundImage;
-    
-    return cell;
+    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
+    cell.backgroundColor = [UIColor whiteColor];
+    return  cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -292,7 +275,16 @@ static NSString *reuseableCellIdentifier  = @"cell";
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
             NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
-            [_makePlanCtl.destinationToolBar removeUnitAtIndex:index];
+            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+            [_destinations.destinationsSelected removeObjectAtIndex:index];
+            [_makePlanCtl.selectPanel performBatchUpdates:^{
+                [_makePlanCtl.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+            } completion:^(BOOL finished) {
+//                [_makePlanCtl.selectPanel reloadData];
+                if (_destinations.destinationsSelected.count == 0) {
+                    [_makePlanCtl hideDestinationBar];
+                }
+            }];
             find = YES;
             break;
         }
@@ -302,9 +294,16 @@ static NSString *reuseableCellIdentifier  = @"cell";
             [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-        [_makePlanCtl.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
-        [self.foreignCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_destinations.destinationsSelected.count - 1 inSection:0];
+        [_makePlanCtl.selectPanel performBatchUpdates:^{
+            [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        }];
     }
+    
+    [self.foreignCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 @end

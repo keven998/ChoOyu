@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -11,23 +11,80 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXi-ZB-ZcP">
-                    <rect key="frame" x="0.0" y="14" width="320" height="26"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-bM-kNZ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXi-ZB-ZcP">
+                            <rect key="frame" x="0.0" y="14" width="320" height="26"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <constraints>
+                        <constraint firstItem="bXi-ZB-ZcP" firstAttribute="leading" secondItem="ZTa-bM-kNZ" secondAttribute="leading" constant="10" id="SEw-bY-elS"/>
+                        <constraint firstItem="bXi-ZB-ZcP" firstAttribute="top" secondItem="ZTa-bM-kNZ" secondAttribute="top" constant="12" id="YM3-XC-E3T">
+                            <variation key="widthClass=compact" constant="10"/>
+                        </constraint>
+                        <constraint firstAttribute="trailing" secondItem="bXi-ZB-ZcP" secondAttribute="trailing" constant="10" id="g8K-Wg-ymd"/>
+                        <constraint firstAttribute="bottom" secondItem="bXi-ZB-ZcP" secondAttribute="bottom" constant="11" id="z0Y-8g-seD">
+                            <variation key="widthClass=compact" constant="2"/>
+                        </constraint>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="bXi-ZB-ZcP"/>
+                        </mask>
+                        <mask key="constraints">
+                            <exclude reference="SEw-bY-elS"/>
+                            <exclude reference="YM3-XC-E3T"/>
+                            <exclude reference="g8K-Wg-ymd"/>
+                            <exclude reference="z0Y-8g-seD"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="subviews">
+                            <include reference="bXi-ZB-ZcP"/>
+                        </mask>
+                        <mask key="constraints">
+                            <include reference="SEw-bY-elS"/>
+                            <include reference="YM3-XC-E3T"/>
+                            <include reference="g8K-Wg-ymd"/>
+                            <include reference="z0Y-8g-seD"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="bXi-ZB-ZcP" secondAttribute="bottom" id="GgG-tc-KDw"/>
-                <constraint firstItem="bXi-ZB-ZcP" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="MEK-M4-HZE"/>
-                <constraint firstAttribute="trailing" secondItem="bXi-ZB-ZcP" secondAttribute="trailing" id="XjK-bR-uCs"/>
-                <constraint firstItem="bXi-ZB-ZcP" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="14" id="hat-Cd-bIV">
-                    <variation key="widthClass=compact" constant="8"/>
-                </constraint>
+                <constraint firstAttribute="trailing" secondItem="ZTa-bM-kNZ" secondAttribute="trailing" id="Iy8-97-QgE"/>
+                <constraint firstAttribute="bottom" secondItem="ZTa-bM-kNZ" secondAttribute="bottom" id="VyU-Un-fhj"/>
+                <constraint firstItem="ZTa-bM-kNZ" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="irk-ne-apU"/>
+                <constraint firstItem="ZTa-bM-kNZ" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="6" id="lEA-l6-Tkm"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="ZTa-bM-kNZ"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="Iy8-97-QgE"/>
+                    <exclude reference="VyU-Un-fhj"/>
+                    <exclude reference="irk-ne-apU"/>
+                    <exclude reference="lEA-l6-Tkm"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="ZTa-bM-kNZ"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="Iy8-97-QgE"/>
+                    <include reference="VyU-Un-fhj"/>
+                    <include reference="irk-ne-apU"/>
+                    <include reference="lEA-l6-Tkm"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="titleLabel" destination="bXi-ZB-ZcP" id="r7L-oj-kJI"/>
             </connections>

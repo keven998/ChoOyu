@@ -210,10 +210,6 @@
 		D9A800241A80D52F005AD701 /* DestinationUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFED1A80D52F005AD701 /* DestinationUnit.m */; };
 		D9A800251A80D52F005AD701 /* DomesticDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFEF1A80D52F005AD701 /* DomesticDestinationCell.m */; };
 		D9A800261A80D52F005AD701 /* DomesticDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FFF01A80D52F005AD701 /* DomesticDestinationCell.xib */; };
-		D9A800271A80D52F005AD701 /* ForeignDestinationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFF21A80D52F005AD701 /* ForeignDestinationCell.m */; };
-		D9A800281A80D52F005AD701 /* ForeignDestinationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FFF31A80D52F005AD701 /* ForeignDestinationCell.xib */; };
-		D9A800291A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFF51A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.m */; };
-		D9A8002A1A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FFF61A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.xib */; };
 		D9A8002B1A80D52F005AD701 /* SearchDestinationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFF81A80D52F005AD701 /* SearchDestinationTableViewCell.m */; };
 		D9A8002C1A80D52F005AD701 /* SearchDestinationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FFF91A80D52F005AD701 /* SearchDestinationTableViewCell.xib */; };
 		D9A8002D1A80D52F005AD701 /* AddPoiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFFD1A80D52F005AD701 /* AddPoiViewController.m */; };
@@ -1771,12 +1767,6 @@
 		D9A8FFEE1A80D52F005AD701 /* DomesticDestinationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticDestinationCell.h; sourceTree = "<group>"; };
 		D9A8FFEF1A80D52F005AD701 /* DomesticDestinationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticDestinationCell.m; sourceTree = "<group>"; };
 		D9A8FFF01A80D52F005AD701 /* DomesticDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticDestinationCell.xib; sourceTree = "<group>"; };
-		D9A8FFF11A80D52F005AD701 /* ForeignDestinationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignDestinationCell.h; sourceTree = "<group>"; };
-		D9A8FFF21A80D52F005AD701 /* ForeignDestinationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignDestinationCell.m; sourceTree = "<group>"; };
-		D9A8FFF31A80D52F005AD701 /* ForeignDestinationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCell.xib; sourceTree = "<group>"; };
-		D9A8FFF41A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignDestinationCollectionHeaderView.h; sourceTree = "<group>"; };
-		D9A8FFF51A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForeignDestinationCollectionHeaderView.m; sourceTree = "<group>"; };
-		D9A8FFF61A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForeignDestinationCollectionHeaderView.xib; sourceTree = "<group>"; };
 		D9A8FFF71A80D52F005AD701 /* SearchDestinationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDestinationTableViewCell.h; sourceTree = "<group>"; };
 		D9A8FFF81A80D52F005AD701 /* SearchDestinationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDestinationTableViewCell.m; sourceTree = "<group>"; };
 		D9A8FFF91A80D52F005AD701 /* SearchDestinationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDestinationTableViewCell.xib; sourceTree = "<group>"; };
@@ -4364,12 +4354,6 @@
 				D9A8FFEE1A80D52F005AD701 /* DomesticDestinationCell.h */,
 				D9A8FFEF1A80D52F005AD701 /* DomesticDestinationCell.m */,
 				D9A8FFF01A80D52F005AD701 /* DomesticDestinationCell.xib */,
-				D9A8FFF11A80D52F005AD701 /* ForeignDestinationCell.h */,
-				D9A8FFF21A80D52F005AD701 /* ForeignDestinationCell.m */,
-				D9A8FFF31A80D52F005AD701 /* ForeignDestinationCell.xib */,
-				D9A8FFF41A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.h */,
-				D9A8FFF51A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.m */,
-				D9A8FFF61A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.xib */,
 				D9A8FFF71A80D52F005AD701 /* SearchDestinationTableViewCell.h */,
 				D9A8FFF81A80D52F005AD701 /* SearchDestinationTableViewCell.m */,
 				D9A8FFF91A80D52F005AD701 /* SearchDestinationTableViewCell.xib */,
@@ -5047,7 +5031,6 @@
 				D9A8FF1A1A80CC2B005AD701 /* RegisterViewController.xib in Resources */,
 				D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */,
 				D9A805061A80E738005AD701 /* ic_sns_douban@2x.png in Resources */,
-				D9A8002A1A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.xib in Resources */,
 				D917DAC81A8B49AF0039720A /* ic_guide2_5_select@2x.png in Resources */,
 				D9A801351A80DD23005AD701 /* chatToolBar@2x.png in Resources */,
 				D9A806CC1A80F597005AD701 /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -5275,7 +5258,6 @@
 				D9A8013D1A80DD23005AD701 /* chatBar_more_travelNote@2x.png in Resources */,
 				D9A802D41A80E3D3005AD701 /* ic_saturn@2x.png in Resources */,
 				D917DAC11A8B49AF0039720A /* ic_guide2_2_normal@2x.png in Resources */,
-				D9A800281A80D52F005AD701 /* ForeignDestinationCell.xib in Resources */,
 				D9A8FFB11A80D1C3005AD701 /* LocationTableViewCell.xib in Resources */,
 				D9A805451A80E738005AD701 /* ic_favorite_selected@2x.png in Resources */,
 				D980FD651A88EFAB00313582 /* ic_msg_sending@2x.png in Resources */,
@@ -5524,7 +5506,6 @@
 				D9A8FFB01A80D1C3005AD701 /* LocationTableViewCell.m in Sources */,
 				D9A802B51A80E3D3005AD701 /* UIAlertView+Block.m in Sources */,
 				C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */,
-				D9A800291A80D52F005AD701 /* ForeignDestinationCollectionHeaderView.m in Sources */,
 				D9A801111A80DD23005AD701 /* ChatGroupSettingViewController.m in Sources */,
 				D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */,
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
@@ -5641,7 +5622,6 @@
 				D9A8FFA51A80D1C3005AD701 /* PoisOfCityViewController.m in Sources */,
 				D9A801131A80DD23005AD701 /* ChatListCell.m in Sources */,
 				D9A802B31A80E3D3005AD701 /* NSString+TaoziString.m in Sources */,
-				D9A800271A80D52F005AD701 /* ForeignDestinationCell.m in Sources */,
 				D9A8020D1A80E036005AD701 /* JGActionSheet.m in Sources */,
 				D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,

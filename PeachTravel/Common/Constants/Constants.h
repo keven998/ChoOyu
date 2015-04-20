@@ -248,7 +248,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 #define APP_DIVIDER_COLOR               UIColorFromRGB(0xe5e5e5)
 #define TEXT_COLOR_TITLE                UIColorFromRGB(0x2e2727)
-#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x656565)
+#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x62626)
 #define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
 #define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
 #define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)

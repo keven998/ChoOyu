@@ -36,6 +36,7 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.delegate = self;
     _domesticCollectionView.showsVerticalScrollIndicator = NO;
     _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 35, 0);
+    _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
@@ -194,15 +195,14 @@ static NSString *cacheName = @"destination_demostic_group";
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
-
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    return CGSizeMake(size.width + 23.0, 26);
+    return CGSizeMake(size.width + 25 + 28, 28); //left-right margin + status image size
 }
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.domesticCollectionView.frame.size.width, 40);
+    return CGSizeMake(self.domesticCollectionView.frame.size.width, 38);
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -223,8 +223,7 @@ static NSString *cacheName = @"destination_demostic_group";
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         DestinationCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableHeaderIdentifier forIndexPath:indexPath];
         AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
-        headerView.titleLabel.text = [NSString stringWithFormat:@"  %@", area.zhName];
-//        headerView.userInteractionEnabled = NO;
+        headerView.titleLabel.text = area.zhName;
         return headerView;
     }
     return nil;
@@ -240,31 +239,35 @@ static NSString *cacheName = @"destination_demostic_group";
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.tiltleLabel.textColor = [UIColor whiteColor];
-            UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_seleted_background.png"]
-                                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
-            cell.background.image = buttonBackgroundImage;
+            cell.status.image = [UIImage imageNamed:@"ic_cell_item_chooesed.png"];
+            cell.backgroundColor = APP_THEME_COLOR;
             return  cell;
         }
     }
-    
-    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE;
-    UIImage *buttonBackgroundImage = [[UIImage imageNamed:@"destination_normal_background.png"]
-                                      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
-    cell.background.image = buttonBackgroundImage;
+    cell.tiltleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.status.image = [UIImage imageNamed:@"ic_cell_item_unchoose.png"];
+    cell.backgroundColor = [UIColor whiteColor];
     return  cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [MobClick event:@"event_select_city"];
-
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
             NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
-            [_makePlanCtl.destinationToolBar removeUnitAtIndex:index];
+            [_destinations.destinationsSelected removeObjectAtIndex:index];
+            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+            [_makePlanCtl.selectPanel performBatchUpdates:^{
+                [_makePlanCtl.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+            } completion:^(BOOL finished) {
+                if (_destinations.destinationsSelected.count == 0) {
+                    [_makePlanCtl hideDestinationBar];
+                }
+            }];
             find = YES;
             break;
         }
@@ -274,9 +277,15 @@ static NSString *cacheName = @"destination_demostic_group";
             [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-        [_makePlanCtl.destinationToolBar addUnit:@"ic_cell_item_unchoose" withName:city.zhName andUnitHeight:26];
-        [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:(_destinations.destinationsSelected.count-1) inSection:0];
+        [_makePlanCtl.selectPanel performBatchUpdates:^{
+            [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        }];
     }
+    [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 @end

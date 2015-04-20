@@ -1104,7 +1104,7 @@
         if (_gridController.selectionMode) {
             self.title = NSLocalizedString(@"Select Photos", nil);
         } else {
-            self.title = [NSString stringWithFormat:@"共%lu图", (unsigned long)numberOfPhotos];
+            self.title = @"城市画册";
         }
     } else if (numberOfPhotos > 1) {
         if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
