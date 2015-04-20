@@ -140,8 +140,8 @@
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+//        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         _editBtn.selected = YES;
@@ -154,28 +154,32 @@
         }];
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
-        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
         if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-            [barItems addObject:[[UIBarButtonItem alloc]initWithTitle:@"地图" style:UIBarButtonItemStylePlain target:self action:@selector(mapView)]];
+            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 44)];
+            [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview.png"] forState:UIControlStateNormal];
+            [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
+            [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         }
         
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 44)];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+//        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
         
         _navgationBarItem.rightBarButtonItems = barItems;
         
-        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         
         CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
         [UIView animateWithDuration:0.2 animations:^{
