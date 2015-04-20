@@ -129,7 +129,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showSpotsBtn addTarget:self action:@selector(viewSpots:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showRestaurantsBtn addTarget:self action:@selector(viewRestaurants:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
-    [_cityHeaderView.playNotes addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
+    [_cityHeaderView.showTipsBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     
     if (self.poi.images.count > 0) {
         TaoziImage *taoziImage = [self.poi.images objectAtIndex:0];
@@ -311,7 +311,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_city_information"];
     SuperWebViewController *funOfCityWebCtl = [[SuperWebViewController alloc] init];
     funOfCityWebCtl.urlStr = ((CityPoi *)self.poi).playGuide;
-    funOfCityWebCtl.titleStr = @"城市指南";;
+    funOfCityWebCtl.titleStr = @"旅游指南";;
     [self.navigationController pushViewController:funOfCityWebCtl animated:YES];
 }
 
@@ -323,7 +323,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (IBAction)viewRestaurants:(id)sender
 {
     [MobClick event:@"event_city_delicacy"];
-    NSLog(@"应该进入城市的美食信息");
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = self.poi.poiId;

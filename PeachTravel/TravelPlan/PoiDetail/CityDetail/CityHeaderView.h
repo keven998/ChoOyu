@@ -22,8 +22,6 @@
 @property (nonatomic, strong) TZButton *showRestaurantsBtn;
 @property (nonatomic, strong) TZButton *showShoppingBtn;
 
-@property (nonatomic, strong) UIButton *playNotes;
-
 - (CGFloat)headerViewHightWithCityData:(CityPoi *)poi;
 
 @property (nonatomic, strong) CityPoi *cityPoi;
