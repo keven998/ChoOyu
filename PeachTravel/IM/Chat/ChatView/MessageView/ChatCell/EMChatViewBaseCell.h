@@ -18,7 +18,7 @@
 #import "UIResponder+Router.h"
 
 #define HEAD_SIZE 40 // 头像大小
-#define HEAD_PADDING 5 // 头像到cell的内间距和头像到bubble的间距
+#define HEAD_PADDING 12 // 头像到cell的内间距和头像到bubble的间距
 #define CELLPADDING 20 // Cell之间间距
 
 #define NAME_LABEL_WIDTH 180 // nameLabel宽度

@@ -174,8 +174,22 @@
 //    if (self.navigationController.navigationBarHidden) {
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
-        navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
-        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+
+    UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+    [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+
+    
+//    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
+//        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         [bar pushNavigationItem:navTitle animated:YES];
         [self.view addSubview:bar];
 //    }

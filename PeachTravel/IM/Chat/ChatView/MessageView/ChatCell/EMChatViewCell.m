@@ -24,7 +24,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     self = [super initWithMessageModel:model reuseIdentifier:reuseIdentifier];
     if (self) {
         self.headImageView.clipsToBounds = YES;
-        self.headImageView.layer.cornerRadius = 4.0;
+        self.headImageView.layer.cornerRadius = 10;
         if (model.isChatGroup) {
             _showNickName = YES;
         } else {
