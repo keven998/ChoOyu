@@ -7,7 +7,7 @@
 //
 
 #import "TravelersTableViewController.h"
-#import "TravelersTableViewCell.h"
+#import "TravelerTableViewCell.h"
 #import "ContactDetailViewController.h"
 #import "DistributionViewController.h"
 #import "UserProfile.h"
@@ -26,12 +26,16 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行达人";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(goSelect)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 40, 44);
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(goSelect) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     self.enableLoadingMore = NO;
-    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerNib:[UINib nibWithNibName:@"TravelersTableViewCell" bundle:nil] forCellReuseIdentifier:@"travel_user_cell"];
+    [self.tableView registerClass:[TravelerTableViewCell class] forCellReuseIdentifier:@"travel_user_cell"];
     
     _currentPage = 0;
     [self loadTravelers:nil];
@@ -95,7 +99,7 @@
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0f;
+    return 90;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -107,10 +111,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TravelersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
+    TravelerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
     UserProfile *up = [_travelers objectAtIndex:indexPath.row];
     [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
     cell.nameLabel.text = up.name;
+    cell.footprintsLabel.text = @"足迹: 7个国家108个城市";
+    cell.signatureLabel.text = up.signature;
+    cell.statusLable.text = @"达";
+    cell.levelLabel.text = @"V11";
+    cell.resideLabel.text = @"北京";
     return cell;
 }
 

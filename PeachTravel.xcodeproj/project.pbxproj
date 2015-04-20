@@ -44,8 +44,6 @@
 		C6B65A671A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */; };
 		C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */; };
 		C6C5C3B81ADE15BE0047C058 /* BaseTextSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */; };
-		C6C5C3BC1ADE58B70047C058 /* TravelersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3BA1ADE58B70047C058 /* TravelersTableViewCell.m */; };
-		C6C5C3BD1ADE58B70047C058 /* TravelersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6C5C3BB1ADE58B70047C058 /* TravelersTableViewCell.xib */; };
 		C6C5C3C91ADE65570047C058 /* AutoSlideScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3C21ADE65570047C058 /* AutoSlideScrollView.m */; };
 		C6C5C3CA1ADE65570047C058 /* MyPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3C41ADE65570047C058 /* MyPageControl.m */; };
 		C6C5C3CB1ADE65570047C058 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3C61ADE65570047C058 /* NSTimer+Addition.m */; };
@@ -53,6 +51,7 @@
 		C6D038201AE4A096006DFD24 /* ic_city_spots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D0381F1AE4A096006DFD24 /* ic_city_spots@2x.png */; };
 		C6D038221AE4F945006DFD24 /* ic_trip_mapview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D038211AE4F945006DFD24 /* ic_trip_mapview@2x.png */; };
 		C6D038241AE516CE006DFD24 /* ic_menu_navigationbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6D038231AE516CE006DFD24 /* ic_menu_navigationbar@2x.png */; };
+		C6D038271AE52F85006DFD24 /* TravelerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D038261AE52F85006DFD24 /* TravelerTableViewCell.m */; };
 		C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */; };
 		C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */; };
 		C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */; };
@@ -824,9 +823,6 @@
 		C6C5C3B41ADE15BE0047C058 /* BaseTextSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTextSettingViewController.h; sourceTree = "<group>"; };
 		C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTextSettingViewController.m; sourceTree = "<group>"; };
 		C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseTextSettingViewController.xib; sourceTree = "<group>"; };
-		C6C5C3B91ADE58B70047C058 /* TravelersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelersTableViewCell.h; sourceTree = "<group>"; };
-		C6C5C3BA1ADE58B70047C058 /* TravelersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelersTableViewCell.m; sourceTree = "<group>"; };
-		C6C5C3BB1ADE58B70047C058 /* TravelersTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelersTableViewCell.xib; sourceTree = "<group>"; };
 		C6C5C3C11ADE65570047C058 /* AutoSlideScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoSlideScrollView.h; sourceTree = "<group>"; };
 		C6C5C3C21ADE65570047C058 /* AutoSlideScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoSlideScrollView.m; sourceTree = "<group>"; };
 		C6C5C3C31ADE65570047C058 /* MyPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageControl.h; sourceTree = "<group>"; };
@@ -837,6 +833,8 @@
 		C6D0381F1AE4A096006DFD24 /* ic_city_spots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_city_spots@2x.png"; sourceTree = "<group>"; };
 		C6D038211AE4F945006DFD24 /* ic_trip_mapview@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_trip_mapview@2x.png"; sourceTree = "<group>"; };
 		C6D038231AE516CE006DFD24 /* ic_menu_navigationbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu_navigationbar@2x.png"; sourceTree = "<group>"; };
+		C6D038251AE52F85006DFD24 /* TravelerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelerTableViewCell.h; sourceTree = "<group>"; };
+		C6D038261AE52F85006DFD24 /* TravelerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelerTableViewCell.m; sourceTree = "<group>"; };
 		C6F87A121ACD1C4400BB7D7F /* PXAlertView+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXAlertView+Customization.h"; sourceTree = "<group>"; };
 		C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXAlertView+Customization.m"; sourceTree = "<group>"; };
 		C6F87A141ACD1C4400BB7D7F /* PXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAlertView.h; sourceTree = "<group>"; };
@@ -2019,11 +2017,10 @@
 				C659E9F21AE0FBA200A28095 /* SnsModel */,
 				C65DB7BE1AD4E44800F51443 /* TravelersTableViewController.h */,
 				C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */,
-				C6C5C3B91ADE58B70047C058 /* TravelersTableViewCell.h */,
-				C6C5C3BA1ADE58B70047C058 /* TravelersTableViewCell.m */,
-				C6C5C3BB1ADE58B70047C058 /* TravelersTableViewCell.xib */,
 				C659E9EF1ADF794500A28095 /* DistributionViewController.h */,
 				C659E9F01ADF794500A28095 /* DistributionViewController.m */,
+				C6D038251AE52F85006DFD24 /* TravelerTableViewCell.h */,
+				C6D038261AE52F85006DFD24 /* TravelerTableViewCell.m */,
 			);
 			path = TravelSNS;
 			sourceTree = "<group>";
@@ -5164,7 +5161,6 @@
 				D9A804A51A80E738005AD701 /* chat_location_preview@2x.png in Resources */,
 				D9A804DB1A80E738005AD701 /* ic_contacts_selected@2x.png in Resources */,
 				D917DACB1A8B49AF0039720A /* ic_mountain@2x.png in Resources */,
-				C6C5C3BD1ADE58B70047C058 /* TravelersTableViewCell.xib in Resources */,
 				D9A8049D1A80E738005AD701 /* chat_time@2x.png in Resources */,
 				D9A8049B1A80E738005AD701 /* speaking-motion8@2x.png in Resources */,
 				D9A8FF1C1A80CC2B005AD701 /* SMSVerifyViewController.xib in Resources */,
@@ -5470,7 +5466,6 @@
 				D92CA1351AD8BEB400F244FF /* MWPhotoBrowser.m in Sources */,
 				D9A802111A80E036005AD701 /* JGProgressHUDErrorIndicatorView.m in Sources */,
 				D9A802251A80E036005AD701 /* NJKWebViewProgress.m in Sources */,
-				C6C5C3BC1ADE58B70047C058 /* TravelersTableViewCell.m in Sources */,
 				D9A8FF561A80CF19005AD701 /* OperationData.m in Sources */,
 				D9A8020F1A80E036005AD701 /* JGProgressHUD.m in Sources */,
 				D9A8FECC1A80C818005AD701 /* AccountManager.m in Sources */,
@@ -5605,6 +5600,7 @@
 				D9A8020D1A80E036005AD701 /* JGActionSheet.m in Sources */,
 				D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
+				C6D038271AE52F85006DFD24 /* TravelerTableViewCell.m in Sources */,
 				D9A8FFAA1A80D1C3005AD701 /* RecommendDetail.m in Sources */,
 				D9A802AF1A80E3D3005AD701 /* ANBlurredImageView.m in Sources */,
 				D9A8023A1A80E036005AD701 /* YWeatherUtils.m in Sources */,
