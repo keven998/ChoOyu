@@ -138,7 +138,7 @@
 - (void) setupNavigationRightItems:(BOOL)isEditing {
     _navgationBarItem.rightBarButtonItems = nil;
     if (isEditing) {
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
 //        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
@@ -155,18 +155,18 @@
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
         if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 44)];
+            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
             [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview.png"] forState:UIControlStateNormal];
             [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
             [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
         }
         
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 44)];
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
         [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
 //        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];

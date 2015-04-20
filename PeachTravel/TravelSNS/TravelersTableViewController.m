@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"旅行达人";
+    self.navigationItem.title = @"达人指路";
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 44);
@@ -115,7 +115,7 @@
     UserProfile *up = [_travelers objectAtIndex:indexPath.row];
     [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
     cell.nameLabel.text = up.name;
-    cell.footprintsLabel.text = @"足迹: 7个国家108个城市";
+    cell.footprintsLabel.text = @"旅行足迹: 7个国家108个城市";
     cell.signatureLabel.text = up.signature;
     cell.statusLable.text = @"达";
     cell.levelLabel.text = @"V11";

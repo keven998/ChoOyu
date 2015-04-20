@@ -27,12 +27,12 @@
         _avatarView.layer.cornerRadius = 10;
         [self.contentView addSubview:_avatarView];
         
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 13, 0, 21)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 12, 0, 21)];
         _nameLabel.font = [UIFont systemFontOfSize:16];
         _nameLabel.textColor = TEXT_COLOR_TITLE;
         [self.contentView addSubview:_nameLabel];
         
-        _statusLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 16, 15, 15)];
+        _statusLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 16, 13, 13)];
         _statusLable.font = [UIFont systemFontOfSize:10];
         _statusLable.textColor = [UIColor whiteColor];
         _statusLable.backgroundColor = APP_THEME_COLOR;
@@ -41,7 +41,7 @@
         _statusLable.clipsToBounds = YES;
         [self.contentView addSubview:_statusLable];
         
-        _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 16, 0, 15)];
+        _levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 16, 0, 13)];
         _levelLabel.textColor = [UIColor whiteColor];
         _levelLabel.font = [UIFont systemFontOfSize:10];
         _levelLabel.backgroundColor = UIColorFromRGB(0xf4b713);
@@ -57,7 +57,7 @@
         [self.contentView addSubview:_resideLabel];
         
         _footprintsLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 37, CGRectGetWidth(self.bounds) - 100, 18)];
-        _footprintsLabel.font = [UIFont systemFontOfSize:14];
+        _footprintsLabel.font = [UIFont systemFontOfSize:13];
         _footprintsLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _footprintsLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         [self.contentView addSubview:_footprintsLabel];
@@ -103,7 +103,7 @@
     _nameLabel.frame = nf;
     
     CGRect slf = _statusLable.frame;
-    slf.origin.x = nf.origin.x + nf.size.width + 5;
+    slf.origin.x = nf.origin.x + nf.size.width + 4;
     _statusLable.frame = slf;
     
     CGRect llf = _levelLabel.frame;
