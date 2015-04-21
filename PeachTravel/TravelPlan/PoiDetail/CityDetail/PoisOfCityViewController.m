@@ -43,7 +43,7 @@
 
 @property (nonatomic, strong) TZProgressHUD *hud;
 
-@property (nonatomic, strong) TZButton *filterBtn;
+@property (nonatomic, strong) UIButton *filterBtn;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -56,50 +56,48 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
-
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.backBarButtonItem = barButton;
+    if (self.shouldEdit) {
+        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
+        self.navigationItem.rightBarButtonItem = lbtn;
+    } else {
+        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+        [button setFrame:CGRectMake(0, 0, 48, 30)];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.leftBarButtonItem = barButton;
+    }
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
         _zhName = destination.zhName;
         _cityId = destination.cityId;
         if (self.tripDetail.destinations.count > 1) {
-            _filterBtn = [[TZButton alloc] initWithFrame:CGRectMake(0, 0, 34, 40)];
+            _filterBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 40)];
             [_filterBtn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
-            _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-            _filterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-            [_filterBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-            _filterBtn.topSpaceHight = 4.0;
-            _filterBtn.spaceHight = 1;
+            _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
-            UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
-            self.navigationItem.rightBarButtonItem = filterItem;
-            [_filterBtn setTitle:_zhName forState:UIControlStateNormal];
             UIBarButtonItem *filterItemBar = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
-            self.navigationItem.rightBarButtonItem = filterItemBar;
+            self.navigationItem.leftBarButtonItem = filterItemBar;
         }
     }
+    
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
     if (_poiType == kRestaurantPoi) {
         _searchBar.placeholder = @"搜索美食";
-    }
-    if (_poiType == kShoppingPoi) {
+    } else if (_poiType == kShoppingPoi) {
         _searchBar.placeholder = @"搜索购物";
     }
     _searchBar.delegate = self;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 155.0;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -113,19 +111,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         self.navigationItem.title = [NSString stringWithFormat:@"%@购物", _zhName];
     }
     
-    if (self.shouldEdit) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 30)];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [button addTarget:self action:@selector(finishAdd:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-        self.navigationItem.leftBarButtonItem = barButton;
-    }
     NSString *searchPlaceHolder;
     if (_poiType == kRestaurantPoi) {
-        searchPlaceHolder = @"请输入美食名字";
+        searchPlaceHolder = @"输入美食";
     } else if (_poiType == kShoppingPoi) {
-        searchPlaceHolder = @"请输入购物名字";
+        searchPlaceHolder = @"输入购物";
     }
     _currentPageNormal = 0;
     
@@ -171,6 +161,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 
 - (void)goBack
 {
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -410,9 +401,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 [self.searchController.searchResultsTableView reloadData];
                 _currentPageSearch = pageNo;
             } else {
-                if (self.isShowing) {
-                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
-                }
+//                if (self.isShowing) {
+//                    [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
+//                }
             }
             [self loadMoreCompletedSearch];
         }
@@ -420,9 +411,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self loadMoreCompletedSearch];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
+//        if (self.isShowing) {
+//            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        }
     }];
 }
 

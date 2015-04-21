@@ -72,7 +72,7 @@
     }
     
     [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
 }
 
@@ -168,14 +168,14 @@
         cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"旅途计划";
+            cell.textLabel.text = @"我的旅行计划";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         } else {
             cell.textLabel.text = @"身边哪好玩";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         }
     } else {
-        cell.textLabel.text = @"目的地推荐";
+        cell.textLabel.text = @"热门目的地";
         cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

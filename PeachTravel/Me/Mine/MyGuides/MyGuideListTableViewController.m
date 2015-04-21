@@ -65,11 +65,11 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_isTrip) {
-        self.navigationItem.title = @"已去过的旅途";
+        self.navigationItem.title = @"已去过的旅行";
         UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         self.navigationItem.leftBarButtonItem = rbtn;
     } else {
-        self.navigationItem.title = @"旅途计划";
+        self.navigationItem.title = @"旅行计划";
         UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"去过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
         self.navigationItem.rightBarButtonItem = rbtn;
         
@@ -477,7 +477,7 @@ static NSString *reusableCell = @"myGuidesCell";
 //    desc.font = [UIFont systemFontOfSize:14.0];
 //    desc.numberOfLines = 2;
 ////    desc.textAlignment = NSTextAlignmentCenter;
-//    NSString *text = @"你还没有任何旅途计划~";
+//    NSString *text = @"你还没有任何旅行计划~";
 //    NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
 //    [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
 //    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];

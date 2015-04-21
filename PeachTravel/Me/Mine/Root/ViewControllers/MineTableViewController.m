@@ -70,7 +70,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
     [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
 }
 

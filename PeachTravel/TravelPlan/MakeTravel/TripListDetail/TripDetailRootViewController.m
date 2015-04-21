@@ -628,7 +628,7 @@
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-            [SVProgressHUD showHint:@"已保存到我的旅途"];
+            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
@@ -694,7 +694,7 @@
     _tabBarView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_tabBarView];
     
-    NSArray *tabBarItemTitles = @[@"旅途", @"美食收集", @"逛收集"];
+    NSArray *tabBarItemTitles = @[@"行程", @"美食收集", @"购物收集"];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     CGFloat width = _tabBarView.frame.size.width;
     
