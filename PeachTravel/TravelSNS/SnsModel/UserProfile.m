@@ -20,13 +20,30 @@
         _residence = [json objectForKey:@"residence"];
         _level = [[json objectForKey:@"level"] integerValue];
         _signature = [json objectForKey:@"signature"];
-        id rs = [json objectForKey:@"roles"];
-        if (rs != nil && [rs count] > 0) {
-            _roles = [json objectForKey:@"id"];
-        }
+        _roles = [json objectForKey:@"roles"];
         _travels = [json objectForKey:@"tracks"];
     }
     return self;
+}
+
+- (NSString *)getFootprintDescription {
+    if (_travels == nil) return @"";
+    NSInteger count = [_travels count];
+    if (count == 0) return @"";
+    int cityCount = 0;
+    for (id key in _travels) {
+        id vals = [_travels objectForKey:key];
+        cityCount += [vals count];
+    }
+    return [NSString stringWithFormat:@"%ld个国家、%d个城市", count, cityCount];
+}
+
+- (NSString *)getRolesDescription {
+    if (_roles == nil || _roles.count == 0) return @"";
+    if ([[_roles objectAtIndex:0] isEqualToString:@"expert"]) {
+        return @"达";
+    }
+    return @"";
 }
 
 @end

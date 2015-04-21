@@ -115,11 +115,11 @@
     UserProfile *up = [_travelers objectAtIndex:indexPath.row];
     [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
     cell.nameLabel.text = up.name;
-    cell.footprintsLabel.text = @"旅行足迹: 7个国家108个城市";
+    cell.footprintsLabel.text = [NSString stringWithFormat:@"旅行足迹:走过%@", [up getFootprintDescription]];
     cell.signatureLabel.text = up.signature;
-    cell.statusLable.text = @"达";
-    cell.levelLabel.text = @"V11";
-    cell.resideLabel.text = @"北京";
+    cell.statusLable.text = [up getRolesDescription];
+    cell.levelLabel.text = [NSString stringWithFormat:@"V%ld", up.level];
+    cell.resideLabel.text = up.residence;
     return cell;
 }
 

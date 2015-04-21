@@ -18,9 +18,11 @@
 @property (nonatomic, copy) NSString *residence;
 @property (nonatomic, assign) NSInteger level;
 @property (nonatomic, copy) NSString *signature;
-@property (nonatomic, copy) NSString *roles;
-@property (nonatomic, strong) NSArray *travels;
+@property (nonatomic, copy) NSArray *roles;
+@property (nonatomic, strong) id travels;
 
 - (id) initWithJsonObject:(id)json;
+- (NSString *)getFootprintDescription;
+- (NSString *)getRolesDescription;
 
 @end
