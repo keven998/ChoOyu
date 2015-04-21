@@ -193,6 +193,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friend_information"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -238,6 +239,7 @@
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
+    frostedViewController.resumeNavigationBar = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 

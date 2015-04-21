@@ -84,6 +84,7 @@
     [self refreshDataSource];
     [self registerNotifications];
     [self updateNavigationTitleViewStatus];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -641,6 +642,7 @@
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
+    frostedViewController.resumeNavigationBar = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 

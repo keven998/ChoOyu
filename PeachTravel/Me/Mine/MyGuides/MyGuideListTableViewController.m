@@ -66,13 +66,6 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewDidLoad];
     if (_isTrip) {
         self.navigationItem.title = @"已去过的旅行";
-        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        self.navigationItem.leftBarButtonItem = rbtn;
-    } else {
-        self.navigationItem.title = @"旅行计划";
-        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"去过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
-        self.navigationItem.rightBarButtonItem = rbtn;
-        
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
@@ -80,6 +73,22 @@ static NSString *reusableCell = @"myGuidesCell";
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.leftBarButtonItem = barButton;
+    } else {
+        self.navigationItem.title = @"旅行计划";
+        UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"去过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
+        self.navigationItem.rightBarButtonItem = rbtn;
+        
+        if (!_selectToSend) {
+            UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+            [button setFrame:CGRectMake(0, 0, 48, 30)];
+            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+            self.navigationItem.leftBarButtonItem = barButton;
+        } else {
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        }
     }
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];

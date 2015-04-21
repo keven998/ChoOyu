@@ -1067,13 +1067,14 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_plan_extra"];
-    [self keyBoardHidden];
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
     myGuideListTableCtl.chatter = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.isChatGroup = _isChatGroup;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
-    [self presentViewController:ctl animated:YES completion:nil];
+    [self presentViewController:ctl animated:YES completion:^ {
+        [self keyBoardHidden];
+    }];
 }
 
 /**
@@ -1085,13 +1086,14 @@
 {
     [MobClick event:@"event_share_favorite_extra"];
 
-    [self keyBoardHidden];
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.isChatGroup = _isChatGroup;
     favoriteCtl.chatter = _chatter;
     favoriteCtl.selectToSend = YES;
-    [self.navigationController pushViewController:favoriteCtl animated:YES];
-
+    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:favoriteCtl];
+    [self presentViewController:ctl animated:YES completion:^ {
+        [self keyBoardHidden];
+    }];
 }
 
 /**
@@ -1103,7 +1105,6 @@
 {
     [MobClick event:@"event_share_search_extra"];
 
-    [self keyBoardHidden];
 //    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
 //    searchCtl.isCanSend = YES;
 //    searchCtl.titleStr = @"发送地点";
@@ -1115,8 +1116,10 @@
     searchCtl.isCanSend = YES;
     searchCtl.chatter = _chatter;
     searchCtl.isChatGroup = _isChatGroup;
-    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
-    [self presentViewController:tznavc animated:YES completion:nil];
+    UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:^ {
+        [self keyBoardHidden];
+    }];
 }
 
 /**
@@ -1128,12 +1131,14 @@
 {
     [MobClick event:@"event_share_travel_notes_extra"];
 
-    [self keyBoardHidden];
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;
     travelNoteCtl.chatter = _chatter;
     travelNoteCtl.isChatGroup = _isChatGroup;
-    [self.navigationController pushViewController:travelNoteCtl animated:YES];
+    UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:travelNoteCtl];
+    [self presentViewController:tznavc animated:YES completion:^ {
+        [self keyBoardHidden];
+    }];
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView

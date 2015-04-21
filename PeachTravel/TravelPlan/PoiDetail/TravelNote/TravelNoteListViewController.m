@@ -30,28 +30,20 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    CGFloat y;
-    if (_isSearch) {
-        y = self.searchBar.frame.size.height + self.searchBar.frame.origin.y;
-        [self.view addSubview:self.searchBar];
-    } else {
-        y = 0;
-    }
+    
     self.enableLoadingMore = NO;
-    self.tableView.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height-y);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-//    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
     if (!_isSearch) {
         self.navigationItem.title = _cityName;//[NSString stringWithFormat:@"%@精选游记", _cityName];
         [self loadDataWithPageNo:_currentPage andKeyWork:nil];
     } else {
+        self.tableView.tableHeaderView = self.searchBar;
         self.navigationItem.title = @"发送游记";
-        self.enableLoadingMore = NO;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     }
 }
 
@@ -199,6 +191,10 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_searchBar endEditing:YES];
+}
+
+- (void)goBack {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource & Delegate

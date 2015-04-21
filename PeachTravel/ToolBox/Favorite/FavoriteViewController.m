@@ -86,13 +86,17 @@
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
+    if (_selectToSend) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    } else {
+        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
+        [button setFrame:CGRectMake(0, 0, 48, 30)];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.leftBarButtonItem = barButton;
+    }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -187,7 +191,11 @@
 
 - (void)goBack
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self == [self.navigationController.viewControllers objectAtIndex:0]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (NSMutableArray *)dataSource
