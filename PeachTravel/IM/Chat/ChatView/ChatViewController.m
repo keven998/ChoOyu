@@ -172,7 +172,7 @@
 - (void)setupBarButtonItem
 {
 //    if (self.navigationController.navigationBarHidden) {
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
 
     UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -1220,8 +1220,8 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
-        rect.origin.y = 64;
-        rect.size.height = self.view.frame.size.height - toHeight - 64;
+        rect.origin.y = 65;
+        rect.size.height = self.view.frame.size.height - toHeight - 65;
         self.tableView.frame = rect;
     }];
     [self scrollViewToBottom:YES];

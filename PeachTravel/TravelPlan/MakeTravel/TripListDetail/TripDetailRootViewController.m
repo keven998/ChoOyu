@@ -114,7 +114,7 @@
 - (void)setNavigationItems
 {
     if (_canEdit) {
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 63.0)];
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
         UINavigationItem *navTitle = [[UINavigationItem alloc] init];
         [bar pushNavigationItem:navTitle animated:YES];
         [self.view addSubview:bar];
@@ -673,9 +673,9 @@
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    [_spotsListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
