@@ -59,13 +59,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    CGFloat oy = 0;
-    if (self.navigationController.navigationBarHidden) {
-        oy = 64.0;
-    }
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, oy, self.view.bounds.size.width, self.view.bounds.size.height-44 - oy)];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.webView];
     [self updateToolbarItems];
 }

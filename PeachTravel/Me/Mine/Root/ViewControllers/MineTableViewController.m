@@ -41,9 +41,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:YES];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -68,12 +67,16 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)dealloc

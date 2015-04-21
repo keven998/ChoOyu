@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.customNavigationItem.title = _navTitle;
+    self.navigationItem.title = _navTitle;
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
     rightBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = rightBtn;

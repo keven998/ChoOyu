@@ -49,7 +49,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
     [MobClick beginLogPageView:@"page_destinations"];
 }
 

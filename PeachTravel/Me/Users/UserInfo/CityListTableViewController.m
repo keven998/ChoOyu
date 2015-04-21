@@ -21,25 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGFloat offsetY = 0;
-    if (self.navigationController.navigationBarHidden) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
-        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"选择现住地"];
-        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-        [bar pushNavigationItem:navTitle animated:YES];
-        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
-        [self.view addSubview:bar];
-        offsetY = 64;
-    } else {
-        self.navigationItem.title = @"选择现住地";
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-    }
+    self.navigationItem.title = @"选择现住地";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - offsetY) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];

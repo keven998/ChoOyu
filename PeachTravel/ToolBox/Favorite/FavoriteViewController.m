@@ -74,32 +74,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+
+    self.navigationItem.title = @"收藏夹";
+    _filterItem = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
+    self.navigationItem.rightBarButtonItem = _filterItem;
     
-    CGFloat offsetY = 0;
-    if (self.navigationController.navigationBarHidden) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
-        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"收藏夹"];
-        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        _filterItem = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
-        navTitle.rightBarButtonItem = _filterItem;
-        [bar pushNavigationItem:navTitle animated:YES];
-        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
-        [self.view addSubview:bar];
-        offsetY = 64;
-    } else {
-        self.navigationItem.title = @"收藏夹";
-        _filterItem = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
-        self.navigationItem.rightBarButtonItem = _filterItem;
-    }
-    
-    
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - offsetY)];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
     
@@ -107,18 +90,10 @@
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
-
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.tableView registerNib:[UINib nibWithNibName:@"FavoriteTableViewCell" bundle:nil] forCellReuseIdentifier:@"favorite_cell"];

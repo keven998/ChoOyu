@@ -36,31 +36,11 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    self.navigationItem.title = @"意见与吐槽";
-    
-    CGFloat offsetY = 0;
-    if (self.navigationController.navigationBarHidden) {
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 63.0)];
-        bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:@"意见和需求"];
-        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-        [bar pushNavigationItem:navTitle animated:YES];
-        bar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
-        [self.view addSubview:bar];
-        offsetY = 64;
-        UIBarButtonItem *sendBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
-        sendBtn.tintColor = APP_THEME_COLOR;
-        navTitle.rightBarButtonItem = sendBtn;
-    } else {
-        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消 " style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
-        backBtn.tintColor = APP_THEME_COLOR;
-        self.navigationItem.leftBarButtonItem = backBtn;
-        self.navigationItem.title = @"意见和需求";
-    }
+    self.navigationItem.title = @"意见和需求";
 
     CGFloat width = self.view.frame.size.width;
     
-    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 84.0, width-30, 20.0)];
+    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 20.0, width-30, 20.0)];
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
@@ -68,7 +48,7 @@
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
-    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(0., 109.0, width, 86.0)];
+    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(0., 45, width, 86.0)];
     eborder.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:eborder];
     
