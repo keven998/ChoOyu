@@ -9,14 +9,17 @@
 #import "TravelNoteDetailViewController.h"
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
+#import "LoginViewController.h"
 
-@interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate> {
+@interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     UIWebView *_webView;
 //    UIActivityIndicatorView *_activeView;
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
+
+@property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
 @end
 
@@ -36,9 +39,10 @@
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [cb setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
-    [cb addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+    [cb addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
     cb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
+    
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatItem, moreBarItem, nil];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
@@ -49,7 +53,7 @@
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
-    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_webView];
@@ -72,6 +76,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -101,6 +106,34 @@
     }];
 }
 
+- (void)chat {
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [SVProgressHUD showHint:@"请先登录"];
+        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+    } else {
+        _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+        _chatRecordListCtl.delegate = self;
+        TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_chatRecordListCtl];
+        [self presentViewController:nCtl animated:YES completion:nil];
+    }
+}
+
+#pragma mark - CreateConversationDelegate
+
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    [self setChatMessageModel:taoziMessageCtl];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatTitle = chatTitle;
+    taoziMessageCtl.chatter = chatter;
+    taoziMessageCtl.isGroup = isGroup;
+    
+    [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+    }];
+}
+
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
     taoziMessageCtl.messageId = _travelNote.travelNoteId;
@@ -110,6 +143,40 @@
     taoziMessageCtl.messageName = _travelNote.title;
     taoziMessageCtl.messageDetailUrl = _travelNote.detailUrl;
     taoziMessageCtl.chatType = TZChatTypeTravelNote;
+}
+
+- (void)login
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    loginViewController.isPushed = NO;
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送景点给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - NJKWebViewProgressDelegate

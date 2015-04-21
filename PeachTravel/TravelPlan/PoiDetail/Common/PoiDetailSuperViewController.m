@@ -50,7 +50,7 @@
     } else {
         _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
         _chatRecordListCtl.delegate = self;
-        TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_chatRecordListCtl];
+        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
         [self presentViewController:nCtl animated:YES completion:nil];
     }
 }
@@ -131,7 +131,7 @@
 - (void)login
 {
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginViewController];
+    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     loginViewController.isPushed = NO;
     [self presentViewController:nctl animated:YES completion:nil];
 }

@@ -58,42 +58,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reuseIdentifier];
     [self loadCityData];
-    
-//    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 72, 64.0)];
-//    [leftBtn setImage:[UIImage imageNamed:@"ic_city_back.png"] forState:UIControlStateNormal];
-//    [leftBtn setImage:[UIImage imageNamed:@"ic_city_back_highlight.png"] forState:UIControlStateHighlighted];
-//
-//    [leftBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-//    leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 15, 0, 0);
-//    
-//    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 72, 0, 72, 64.0)];
-//    [moreBtn setImage:[UIImage imageNamed:@"ic_city_more.png"] forState:UIControlStateNormal];
-//    [moreBtn setImage:[UIImage imageNamed:@"ic_city_more_highlight.png"] forState:UIControlStateHighlighted];
-//
-//    [moreBtn addTarget:self action:@selector(option:) forControlEvents:UIControlEventTouchUpInside];
-//    moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//    moreBtn.imageEdgeInsets = UIEdgeInsetsMake(17, 0, 0, 15);
-//    
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
-//    title.textColor = TEXT_COLOR_TITLE;
-//    title.textAlignment = NSTextAlignmentCenter;
-//    title.font = [UIFont systemFontOfSize:17];
-//    title.tag = 123;
-//    
-//    _customNavigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
-//    _customNavigationBar.image = [[UIImage imageNamed:@"navi_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
-//    [_customNavigationBar addSubview:title];
-//    _customNavigationBar.alpha = 0.0;
-//    title.center = CGPointMake(CGRectGetWidth(_customNavigationBar.bounds)/2, 40);
-//    [self.view addSubview:_customNavigationBar];
-//    
-//    [self.view addSubview:leftBtn];
-//    [self.view addSubview:moreBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [MobClick beginLogPageView:@"page_city_detail"];
 }
 

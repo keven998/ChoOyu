@@ -52,6 +52,7 @@
 #import "ShoppingDetailViewController.h"
 #import "TZSideViewController.h"
 #import "REFrostedViewController.h"
+#import "TripPlanSettingViewController.h"
 
 #import "TripDetailRootViewController.h"
 
@@ -864,7 +865,7 @@
             travelNote.detailUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
             travelNote.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             travelNoteCtl.titleStr = @"游记详情";
-            
+            travelNoteCtl.travelNote = travelNote;
             [self.navigationController pushViewController:travelNoteCtl animated:YES];
         }
             break;
@@ -879,7 +880,14 @@
                 tripDetailCtl.canEdit = NO;
             }
             
-            [self.navigationController pushViewController:tripDetailCtl animated:YES];
+            TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
+            
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+            frostedViewController.direction = REFrostedViewControllerDirectionRight;
+            frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+            frostedViewController.liveBlur = YES;
+            frostedViewController.resumeNavigationBar = NO;
+            [self.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
         
