@@ -197,7 +197,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:[NSString stringWithFormat:@"第%ld天", dayIndex + 1]
                                                      message:@"请选择你要进行的操作"
                                                  cancelTitle:@"删除这一天"
-                                                 otherTitles:@[ @"添加行程", @"前面加一天", @"后面加一天"]
+                                                 otherTitles:@[ @"添加行程", @"加一天在前面", @"加一天在后面"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           [self addPoiToDay:dayIndex];
@@ -255,12 +255,12 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     spaceView.backgroundColor = APP_PAGE_COLOR;
     [headerView addSubview:spaceView];
     
-    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(40, 50, width - 50, 1)];
+    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 50, width - 46, 1)];
     dividerView.backgroundColor = APP_PAGE_COLOR;
     dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerView addSubview:dividerView];
     
-    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, width-80, 44)];
+    UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(37, 6, width-80, 44)];
     headerTitle.textColor = TEXT_COLOR_TITLE;
     headerTitle.font = [UIFont systemFontOfSize:15.0];
     headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -298,6 +298,18 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     mapBtn.tag = section;
     [mapBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:mapBtn];
+    
+    CGFloat tloffsety = 0;
+    if (section == 0) {
+        tloffsety = 25;
+    }
+    UIView *timelineView = [[UIView alloc] initWithFrame:CGRectMake(20, tloffsety, 7, 50 - tloffsety)];
+    timelineView.backgroundColor = APP_DIVIDER_COLOR;
+    [headerView addSubview:timelineView];
+    
+    UIImageView *tv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"route_timeline_pot.png"]];
+    tv.center = CGPointMake(23.5, 28); // 20+7/2, 44/2+6
+    [headerView addSubview:tv];
     
     return headerView;
 }

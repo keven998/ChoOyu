@@ -15,7 +15,7 @@
 //    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
-    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(40, 0, CGRectGetWidth(self.bounds) - 50, 1)];
+    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 0, CGRectGetWidth(self.bounds) - 46, 1)];
     dividerView.backgroundColor = APP_PAGE_COLOR;
     dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:dividerView];
@@ -24,7 +24,14 @@
     _propertyLabel.textColor = TEXT_COLOR_TITLE_HINT;
     _valueLabel.textColor = APP_THEME_COLOR;
     
+    _timeLineView.backgroundColor = APP_DIVIDER_COLOR;
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)willTransitionToState:(UITableViewCellStateMask)state {
+    [super willTransitionToState:state];
+    _timeLineView.hidden = (state != UITableViewCellStateDefaultMask);
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi

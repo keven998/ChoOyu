@@ -14,6 +14,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMP-Mt-PDV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="7" id="zep-jp-Qmn"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="zep-jp-Qmn"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="zep-jp-Qmn"/>
+                            </mask>
+                        </variation>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-yd-WJS">
                         <rect key="frame" x="15" y="4" width="50" height="50"/>
                         <constraints>
@@ -108,6 +125,10 @@
                     <constraint firstItem="uIO-Dk-bN0" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="13" id="8Qv-9V-ds9">
                         <variation key="widthClass=compact" constant="-4"/>
                     </constraint>
+                    <constraint firstAttribute="bottom" secondItem="oMP-Mt-PDV" secondAttribute="bottom" constant="1" id="A6T-Nq-nFf">
+                        <variation key="widthClass=compact" constant="-1"/>
+                    </constraint>
+                    <constraint firstItem="oMP-Mt-PDV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="B3W-oe-HdT"/>
                     <constraint firstItem="ILK-yd-WJS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Mkn-QA-2AP">
                         <variation key="widthClass=compact" constant="12"/>
                     </constraint>
@@ -129,6 +150,7 @@
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="uIO-Dk-bN0" secondAttribute="trailing" constant="14" id="evX-KR-eht"/>
                     <constraint firstItem="631-EV-Y3K" firstAttribute="leading" secondItem="ILK-yd-WJS" secondAttribute="trailing" constant="10" id="gXR-gv-Geg"/>
+                    <constraint firstItem="oMP-Mt-PDV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hW4-wI-s3g"/>
                     <constraint firstAttribute="trailing" secondItem="631-EV-Y3K" secondAttribute="trailing" constant="12" id="hy2-km-nlw"/>
                     <constraint firstItem="GOA-pj-dZI" firstAttribute="top" secondItem="631-EV-Y3K" secondAttribute="bottom" constant="6" id="pkc-BT-kK6">
                         <variation key="widthClass=compact" constant="5"/>
@@ -137,11 +159,15 @@
                 </constraints>
                 <variation key="default">
                     <mask key="subviews">
+                        <exclude reference="oMP-Mt-PDV"/>
                         <exclude reference="GOA-pj-dZI"/>
                     </mask>
                     <mask key="constraints">
                         <exclude reference="Rxv-6U-eVu"/>
                         <exclude reference="ZVu-4U-RvM"/>
+                        <exclude reference="A6T-Nq-nFf"/>
+                        <exclude reference="B3W-oe-HdT"/>
+                        <exclude reference="hW4-wI-s3g"/>
                         <exclude reference="2Bf-Ic-cWS"/>
                         <exclude reference="Ucb-mV-Sdi"/>
                         <exclude reference="UhQ-kJ-mTI"/>
@@ -155,6 +181,7 @@
                 </variation>
                 <variation key="widthClass=compact">
                     <mask key="subviews">
+                        <include reference="oMP-Mt-PDV"/>
                         <include reference="GOA-pj-dZI"/>
                     </mask>
                     <mask key="constraints">
@@ -162,6 +189,9 @@
                         <include reference="Rxv-6U-eVu"/>
                         <include reference="ZVu-4U-RvM"/>
                         <exclude reference="cl7-5B-plc"/>
+                        <include reference="A6T-Nq-nFf"/>
+                        <include reference="B3W-oe-HdT"/>
+                        <include reference="hW4-wI-s3g"/>
                         <include reference="2Bf-Ic-cWS"/>
                         <exclude reference="8Qv-9V-ds9"/>
                         <include reference="Ucb-mV-Sdi"/>
@@ -184,6 +214,7 @@
             <connections>
                 <outlet property="headerImageView" destination="ILK-yd-WJS" id="9g6-eT-3dO"/>
                 <outlet property="propertyLabel" destination="631-EV-Y3K" id="x7w-fO-4wg"/>
+                <outlet property="timeLineView" destination="oMP-Mt-PDV" id="nkf-MT-Plm"/>
                 <outlet property="titleLabel" destination="uIO-Dk-bN0" id="qDD-5D-76E"/>
                 <outlet property="valueLabel" destination="GOA-pj-dZI" id="dzQ-3K-yA0"/>
             </connections>
