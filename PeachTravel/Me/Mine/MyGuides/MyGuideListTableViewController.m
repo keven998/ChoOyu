@@ -149,6 +149,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES]; //侧滑navigation bar 补丁
     [MobClick beginLogPageView:@"page_my_trip_plans"];
     _isShowing = YES;
 }

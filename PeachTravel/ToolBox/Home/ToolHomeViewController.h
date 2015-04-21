@@ -10,4 +10,6 @@
 
 @interface ToolHomeViewController : UIViewController
 
+@property (nonatomic, assign) BOOL navigationbarAnimated;
+
 @end

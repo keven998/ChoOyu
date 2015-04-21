@@ -641,7 +641,6 @@
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
-    
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 

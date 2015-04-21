@@ -59,6 +59,8 @@
     [_searchBar setBackgroundImage:[UIImage new]];
     _searchBar.placeholder = @"城市、景点、美食、游记";
     [self.view addSubview:_searchBar];
+    
+    _navigationbarAnimated = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,8 +71,9 @@
         [_ascrollView.animationTimer resumeTimerAfterTimeInterval:8];
     }
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,7 +84,7 @@
     [super viewWillDisappear:animated];
     [_ascrollView.animationTimer pauseTimer];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
