@@ -34,24 +34,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行";
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    
+    CGFloat sh = 250 * CGRectGetHeight(self.view.bounds)/667;
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.contentInset = UIEdgeInsetsMake(128, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(sh, 0, 0, 0);
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_BORDER_COLOR;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
     [self.view addSubview:_tableView];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
     _searchBar.delegate = self;
-    [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
-    _searchBar.placeholder = @"城市、景点、酒店、美食、游记";
-    self.tableView.tableHeaderView = _searchBar;
+//    [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
+    _searchBar.placeholder = @"城市、景点、美食、游记";
+    self.navigationItem.titleView = _searchBar;
     
-    _ascrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 128.0) animationDuration:8];
+    _ascrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), sh) animationDuration:8];
     _ascrollView.backgroundColor = [UIColor grayColor];
     _ascrollView.scrollView.showsHorizontalScrollIndicator = NO;
     _ascrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -65,11 +69,22 @@
     } else {
         [_ascrollView.animationTimer resumeTimerAfterTimeInterval:8];
     }
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_ascrollView.animationTimer pauseTimer];
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void) dealloc {
@@ -85,7 +100,7 @@
 #pragma mark - ScrollViewDelegate
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_tableView != nil) {
-        CGFloat y = scrollView.contentOffset.y + 128;
+        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(_ascrollView.frame);
         if (y <= 0) {
             CGRect frame = _ascrollView.frame;
             frame.origin.y = 0;

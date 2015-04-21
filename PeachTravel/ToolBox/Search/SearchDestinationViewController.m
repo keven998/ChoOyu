@@ -47,7 +47,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 //    _searchBar.searchBarStyle = UISearchBarStyleProminent;
     _searchBar.delegate = self;
-    [_searchBar setPlaceholder:@"城市、景点、酒店、美食、游记"];
+    [_searchBar setPlaceholder:@"城市、景点、美食、游记"];
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 //    _searchBar.showsCancelButton = YES;
     [_searchBar setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor redColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
