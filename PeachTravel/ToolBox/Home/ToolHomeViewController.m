@@ -35,7 +35,6 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"旅行";
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     
     CGFloat sh = 250 * CGRectGetHeight(self.view.bounds)/667;
     
@@ -49,17 +48,17 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"tool_cell"];
     [self.view addSubview:_tableView];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
-    _searchBar.delegate = self;
-//    [_searchBar setBackgroundImage:[UIImage imageNamed:@"app_background.png"]];
-    _searchBar.placeholder = @"城市、景点、美食、游记";
-    self.navigationItem.titleView = _searchBar;
-    
     _ascrollView = [[AutoSlideScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), sh) animationDuration:8];
     _ascrollView.backgroundColor = [UIColor grayColor];
     _ascrollView.scrollView.showsHorizontalScrollIndicator = NO;
     _ascrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:_ascrollView];
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, self.tableView.bounds.size.width, 44)];
+    _searchBar.delegate = self;
+    [_searchBar setBackgroundImage:[UIImage new]];
+    _searchBar.placeholder = @"城市、景点、美食、游记";
+    [self.view addSubview:_searchBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,8 +68,8 @@
     } else {
         [_ascrollView.animationTimer resumeTimerAfterTimeInterval:8];
     }
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
@@ -82,8 +81,7 @@
     [super viewWillDisappear:animated];
     [_ascrollView.animationTimer pauseTimer];
     
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.shadowImage = [ConvertMethods createImageWithColor:APP_THEME_COLOR];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
