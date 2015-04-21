@@ -71,7 +71,7 @@ static LocationViewController *defaultLocation = nil;
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 //    [self.navigationItem setLeftBarButtonItem:backItem];
     
-//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(popViewControllerAnimated:)];
+//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" UIBarButtonItemStylePlain target:self action:@selector(popViewControllerAnimated:)];
 //    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
 //    self.navigationItem.leftBarButtonItem = backBtn;
     
@@ -105,7 +105,7 @@ static LocationViewController *defaultLocation = nil;
 //        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sendButton]];
 //        self.navigationItem.rightBarButtonItem.enabled = NO;
         
-        UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendLocation)];
+        UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
         sendButton.tintColor = APP_THEME_COLOR;
         self.navigationItem.rightBarButtonItem = sendButton;
         self.navigationItem.rightBarButtonItem.enabled = NO;

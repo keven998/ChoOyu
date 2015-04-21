@@ -242,7 +242,6 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define APP_HIGNLIGHT_COLOR             UIColorFromRGB(0xff5d38)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
 #define APP_SUB_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0x279095)
-#define APP_DIVIDE_COLOR                UIColorFromRGB(0xbdbdbd)
 #define APP_BORDER_COLOR                UIColorFromRGB(0xe4e4e4)
 #define APP_IMAGEVIEW_COLOR             UIColorFromRGB(0xf8f8f8)
 

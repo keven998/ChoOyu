@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     

@@ -109,7 +109,7 @@
     offsetY += _imageView.bounds.size.height + 40;
     
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(130, offsetY, 1, 60)];
-    spaceView.backgroundColor = APP_DIVIDE_COLOR;
+    spaceView.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView];
 
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(20, offsetY, 90, 15)];

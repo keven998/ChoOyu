@@ -53,7 +53,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = APP_DIVIDE_COLOR;
+    self.tableView.separatorColor = APP_DIVIDER_COLOR;
     self.tableView.delegate = self;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.tableView];

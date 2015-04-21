@@ -15,10 +15,15 @@
 //    _headerImageView.layer.borderWidth = 0.5;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
-    CGRect rect = _spaceview.frame;
-    rect.size.height = 0.5;
-    _spaceview.frame = rect;
+    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(40, 0, CGRectGetWidth(self.bounds) - 50, 1)];
+    dividerView.backgroundColor = APP_PAGE_COLOR;
+    dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.contentView addSubview:dividerView];
 
+    _titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _propertyLabel.textColor = TEXT_COLOR_TITLE_HINT;
+    _valueLabel.textColor = APP_THEME_COLOR;
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -50,24 +55,28 @@
         default:
             break;
     }
+    
+    NSString *property = _tripPoi.locality.zhName;
     if (_tripPoi.rank == 0) {
-        _rankLabel.text = @"";
+        
     } else if (_tripPoi.rank <= 100) {
-        _rankLabel.text = [NSString stringWithFormat:@"%@ %d", rankStr, _tripPoi.rank];
+        property = [NSString stringWithFormat:@"%@ %@:%d", property, rankStr, _tripPoi.rank];
     } else {
-        _rankLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
+        property = [NSString stringWithFormat:@"%@ %@:>100", property, rankStr];
     }
+    _propertyLabel.text = property;
     
     if (_tripPoi.poiType == kSpotPoi) {
-        NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", ((SpotPoi *)tripPoi).timeCostStr];
-        [_property setTitle:timeStr forState:UIControlStateNormal];
+        NSString *timeStr = [NSString stringWithFormat:@"参考游玩时间:%@", ((SpotPoi *)tripPoi).timeCostStr];
+        _valueLabel.text = timeStr;
     } else {
-        [_property setImage:nil forState:UIControlStateNormal];
-        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi || _tripPoi.poiType == kShoppingPoi) {
-            [_property setTitle:_tripPoi.address forState:UIControlStateNormal];
-        }
+        _valueLabel.text = nil;
     }
-   
+//    else {
+//        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi || _tripPoi.poiType == kShoppingPoi) {
+//            _valueLabel.text = _tripPoi.address;
+//        }
+//    }   
 }
 
 @end

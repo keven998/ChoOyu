@@ -55,7 +55,7 @@
         [chooseButton addTarget:self action:@selector(chooseAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:chooseButton]];
     } else {
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStyleBordered target:self action:@selector(doneAction:)];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(doneAction:)];
         doneButton.tintColor = APP_THEME_COLOR;
         self.navigationItem.rightBarButtonItem = doneButton;
     }

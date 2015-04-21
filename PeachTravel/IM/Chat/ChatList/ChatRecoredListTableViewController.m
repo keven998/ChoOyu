@@ -43,7 +43,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     
     self.navigationItem.title = @"选择";
     
-//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
+//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
 //    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
 //    self.navigationItem.leftBarButtonItem = backBtn;
     

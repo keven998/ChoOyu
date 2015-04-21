@@ -38,10 +38,10 @@
         [self addSubview:_textBtn];
         
         _leftSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 0.5)];
-        _leftSpaceView.backgroundColor = APP_DIVIDE_COLOR;
+        _leftSpaceView.backgroundColor = APP_DIVIDER_COLOR;
         
         _rightSpaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 35, 0.5)];
-        _rightSpaceView.backgroundColor = APP_DIVIDE_COLOR;
+        _rightSpaceView.backgroundColor = APP_DIVIDER_COLOR;
         
         [self addSubview:_leftSpaceView];
         [self addSubview:_rightSpaceView];

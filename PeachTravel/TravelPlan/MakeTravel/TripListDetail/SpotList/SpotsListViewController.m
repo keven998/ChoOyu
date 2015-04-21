@@ -121,7 +121,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
             if (_tripDetail.dayCount == 0) {
                 [self insertDay:YES currentDay:0];
             } else {
-                [self.tableView reloadData];
+                [self performSelector:@selector(updateRoute) withObject:nil afterDelay:0.3];
             }
         }
     }];
@@ -231,7 +231,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 90;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -255,8 +255,17 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     spaceView.backgroundColor = APP_PAGE_COLOR;
     [headerView addSubview:spaceView];
     
+    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(40, 50, width - 50, 1)];
+    dividerView.backgroundColor = APP_PAGE_COLOR;
+    dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [headerView addSubview:dividerView];
+    
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, width-80, 44)];
-    NSMutableString *headerTitleStr = [NSMutableString stringWithFormat:@"第%ld天  ",(long)section+1];
+    headerTitle.textColor = TEXT_COLOR_TITLE;
+    headerTitle.font = [UIFont systemFontOfSize:15.0];
+    headerTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    headerTitle.lineBreakMode = NSLineBreakByTruncatingTail;
+    NSString *titleStr = [NSString stringWithFormat:@"第%ld天 ",(long)section+1];
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
     for (SuperPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
@@ -264,26 +273,23 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
         }
     }
     
-    DestinationsView *destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(60, 14, width-150, 20)];
-    [headerView addSubview:destinationView];
-    
+    NSMutableString *dest = [[NSMutableString alloc] init];
     if (set.count) {
-        NSMutableArray *distinationArray = [[NSMutableArray alloc] init];
         for (NSString *s in set) {
-            [distinationArray addObject:s];
+            if (dest.length > 0) {
+                [dest appendFormat:@"-%@", s];
+            } else {
+                [dest appendString:s];
+            }
         }
-        destinationView.titleColor = TEXT_COLOR_TITLE_HINT;
-        destinationView.destinations = distinationArray;
-    }
-    if ([[_tripDetail.itineraryList objectAtIndex:section] count] <= 0) {
-        NSMutableArray *distinationArray = [[NSMutableArray alloc] initWithObjects:@"没有安排", nil];
-        destinationView.titleColor = APP_SUB_THEME_COLOR;
-        destinationView.destinations = distinationArray;
+    } else {
+        [dest appendString:@"没有安排"];
     }
     
-    headerTitle.text = headerTitleStr;
-    headerTitle.textColor = TEXT_COLOR_TITLE_HINT;
-    headerTitle.font = [UIFont systemFontOfSize:15.0];
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", titleStr, dest]];
+    [attributeString addAttributes:@{NSForegroundColorAttributeName:TEXT_COLOR_TITLE_SUBTITLE} range:NSMakeRange(titleStr.length, dest.length)];
+    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]} range:NSMakeRange(titleStr.length, dest.length)];
+    headerTitle.attributedText = attributeString;
     [headerView addSubview:headerTitle];
     
     UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 6, 64, 44)];

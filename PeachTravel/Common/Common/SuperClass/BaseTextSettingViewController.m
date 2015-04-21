@@ -22,12 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = _navTitle;
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStyleBordered target:self action:@selector(saveChange:)];
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"保存 " style:UIBarButtonItemStylePlain target:self action:@selector(saveChange:)];
     rightBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = rightBtn;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = leftBtn;
     
     _contentTextField.layer.borderColor = UIColorFromRGB(0xdcdcdc).CGColor;

@@ -337,7 +337,7 @@
     self.inputTextView.textColor = TEXT_COLOR_TITLE;
     _inputTextView.layer.borderWidth = 0.65f;
     _inputTextView.layer.cornerRadius = 4.0f;
-    _inputTextView.layer.borderColor = APP_DIVIDE_COLOR.CGColor;
+    _inputTextView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     self.inputTextView.returnKeyType = UIReturnKeySend; //just as an example
     self.inputTextView.font = [UIFont systemFontOfSize:14];
     self.inputTextView.delegate = self;

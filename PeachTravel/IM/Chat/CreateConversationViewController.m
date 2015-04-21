@@ -40,13 +40,13 @@
     [self.view addSubview:self.contactTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(createConversation:)];
+    UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
     confirm.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = confirm;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     if (!_isPushed) {
-        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
         backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];

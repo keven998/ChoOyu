@@ -78,6 +78,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -122,10 +123,8 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.hidesBottomBarWhenPushed = YES;
-//    searchCtl.titleStr = @"旅行搜搜";
-//    [self.navigationController pushViewController:searchCtl animated:YES];
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:nil];
     return NO;
 }

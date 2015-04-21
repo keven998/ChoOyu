@@ -54,6 +54,7 @@ enum {
 @property (nonatomic, assign) BOOL enableLoadMoreSearch;
 
 @property (nonatomic, copy) NSString *searchText;
+@property (nonatomic, copy) NSString *currentCategory;
 
 //类型筛选: 1是城市、2是分类
 @property (nonatomic, assign) NSInteger filterType;
@@ -70,6 +71,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         _isLoadingMoreNormal = YES;
         _didEndScrollNormal = YES;
         _enableLoadMoreNormal = NO;
+        _currentCategory = @"景点";
     }
     return self;
 }
@@ -87,11 +89,11 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     [self.view addSubview:_tableView];
 
     if (_tripDetail) {
-        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStyleBordered target:self action:@selector(addFinish:)];
-        self.navigationItem.leftBarButtonItem = finishBtn;
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
+        self.navigationItem.rightBarButtonItem = finishBtn;
         
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"景点" style:UIBarButtonItemStyleBordered target:self action:@selector(categoryFilt)];
-        self.navigationItem.rightBarButtonItem = cbtn;
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] style:UIBarButtonItemStylePlain target:self action:@selector(categoryFilt)];
+        self.navigationItem.leftBarButtonItem = cbtn;
         
         UIButton *tbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
         [tbtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
@@ -379,7 +381,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     ctl.contentItems = @[@"景点", @"美食", @"购物", @"酒店"];
     ctl.titleTxt = @"切换类别";
     ctl.delegate = self;
-    ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
+    ctl.selectItem = _currentCategory;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:^{
         _filterType = FILTER_TYPE_CATE;
@@ -853,7 +855,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         if (_currentListTypeIndex == indexPath.row) {
             return;
         }
-        self.navigationItem.rightBarButtonItem.title = str;
+        _currentCategory = str;
         _currentListTypeIndex = indexPath.row;
         [MobClick event:@"event_filter_items"];
         [self resetContents];

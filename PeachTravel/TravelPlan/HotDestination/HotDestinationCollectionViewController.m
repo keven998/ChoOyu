@@ -47,7 +47,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 //    titleLabel.text = @"目的地";
 //    self.navigationItem.titleView = titleLabel;
     
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(goSearch)];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(goSearch)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_search.png"];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
 

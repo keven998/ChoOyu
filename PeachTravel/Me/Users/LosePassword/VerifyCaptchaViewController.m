@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
     addBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = addBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];

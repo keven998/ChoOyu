@@ -61,7 +61,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_navigation_title.png"]];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(showActionHint)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
     makePlanBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = makePlanBtn;

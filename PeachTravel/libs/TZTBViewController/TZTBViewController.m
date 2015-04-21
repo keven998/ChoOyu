@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
+//    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBackToAllPets)];
 //    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"]];
 //    self.navigationItem.leftBarButtonItem = backBtn;
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
