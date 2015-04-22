@@ -16,9 +16,6 @@
 #import "RecommendDataSource.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "CommonPoiListTableViewCell.h"
-#import "CommonPoiDetailViewController.h"
 #import "MyTripSpotsMapViewController.h"
 #import "PositionBean.h"
 #import "PoiDetailViewControllerFactory.h"
@@ -34,7 +31,6 @@
 @implementation SpotsListViewController
 
 static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
-static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 
 - (void)viewDidLoad {
@@ -42,7 +38,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:commonPoiListReusableIdentifier];
     
     [self.view addSubview:self.tableView];
 }
