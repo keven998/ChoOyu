@@ -183,11 +183,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     if (_shouldEdit) {
         [self.tableView setEditing:YES animated:YES];
-//        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-        
     } else {
         [self.tableView setEditing:NO animated:YES];
-//        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
     }
 }
 

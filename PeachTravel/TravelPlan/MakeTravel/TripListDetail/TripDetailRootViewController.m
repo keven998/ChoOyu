@@ -335,7 +335,7 @@
         [cityIds addObject:poi.cityId];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:150];
     [params setObject:imageWidth forKey:@"imgWidth"];
     if (isNeedRecommend) {
         [params setObject:@"recommend" forKey:@"action"];
@@ -617,7 +617,7 @@
     [hud showHUDInViewController:weakSelf];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:150];
     [params setObject:imageWidth forKey:@"imgWidth"];
     
     [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

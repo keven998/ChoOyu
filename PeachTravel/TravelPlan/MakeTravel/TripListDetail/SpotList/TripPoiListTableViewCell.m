@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
 //    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
 //    _headerImageView.layer.borderWidth = 0.5;
+//    _headerImageView.layer.cornerRadius = 1.0;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
     UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 0, CGRectGetWidth(self.bounds) - 46, 1)];

@@ -52,6 +52,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_DIVIDER_COLOR;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
     [self setupTableHeaderView];
@@ -90,6 +91,9 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tableView.dataSource = nil;
+    _tableView.delegate = nil;
+    _tableView = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,7 +148,7 @@
     [backgroundImageView addSubview:signLabel];
     _signatureLabel = signLabel;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(height - 20, 0, 0, 0);
 }
 
 #pragma mark - setter & getter
@@ -323,6 +327,24 @@
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - ScrollViewDelegate
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_tableView != nil) {
+        UIView *view = _avatarImageView.superview;
+        CGRect frame = view.frame;
+        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(frame);
+        if (y <= 0) {
+            if (frame.origin.y != 0) {
+                frame.origin.y = 0;
+                view.frame = frame;
+            }
+        } else {
+            frame.origin.y = -y;
+            view.frame = frame;
+        }
+    }
 }
 
 @end

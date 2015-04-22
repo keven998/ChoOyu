@@ -72,7 +72,6 @@
     }
     
     [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
 }
 
@@ -102,13 +101,14 @@
 #pragma mark - ScrollViewDelegate
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_tableView != nil) {
-        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(_ascrollView.frame);
+        CGRect frame = _ascrollView.frame;
+        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(frame);
         if (y <= 0) {
-            CGRect frame = _ascrollView.frame;
-            frame.origin.y = 0;
-            _ascrollView.frame = frame;
+            if (frame.origin.y != 0) {
+                frame.origin.y = 0;
+                _ascrollView.frame = frame;
+            }
         } else {
-            CGRect frame = _ascrollView.frame;
             frame.origin.y = -y;
             _ascrollView.frame = frame;
         }
@@ -130,12 +130,6 @@
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] init];
-//    view.backgroundColor = APP_PAGE_COLOR;
-//    return view;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;

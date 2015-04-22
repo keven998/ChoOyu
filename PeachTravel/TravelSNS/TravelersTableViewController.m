@@ -54,7 +54,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:(CGRectGetWidth(self.view.bounds) - 22)*2];
+    NSNumber *imageWidth = [NSNumber numberWithInt:60];
     [params setObject:imageWidth forKey:@"imgWidth"];
     [params setObject:@"expert" forKey:@"keyword"];
     [params setObject:@"roles" forKey:@"field"];
@@ -127,7 +127,6 @@
     ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
 //    contactDetailCtl.contact = contact;
     [self.navigationController pushViewController:contactDetailCtl animated:YES];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

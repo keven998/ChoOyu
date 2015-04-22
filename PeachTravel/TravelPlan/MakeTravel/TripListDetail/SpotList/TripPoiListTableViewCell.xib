@@ -58,7 +58,7 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="631-EV-Y3K">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="631-EV-Y3K">
                         <rect key="frame" x="79" y="21" width="222" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="C6p-gv-ZTL"/>
@@ -163,20 +163,20 @@
                         <exclude reference="GOA-pj-dZI"/>
                     </mask>
                     <mask key="constraints">
+                        <exclude reference="08U-y7-pPZ"/>
+                        <exclude reference="PZn-Mi-YuJ"/>
+                        <exclude reference="pkc-BT-kK6"/>
                         <exclude reference="Rxv-6U-eVu"/>
                         <exclude reference="ZVu-4U-RvM"/>
-                        <exclude reference="A6T-Nq-nFf"/>
-                        <exclude reference="B3W-oe-HdT"/>
-                        <exclude reference="hW4-wI-s3g"/>
                         <exclude reference="2Bf-Ic-cWS"/>
                         <exclude reference="Ucb-mV-Sdi"/>
                         <exclude reference="UhQ-kJ-mTI"/>
                         <exclude reference="QVK-ds-2vp"/>
                         <exclude reference="gXR-gv-Geg"/>
                         <exclude reference="hy2-km-nlw"/>
-                        <exclude reference="08U-y7-pPZ"/>
-                        <exclude reference="PZn-Mi-YuJ"/>
-                        <exclude reference="pkc-BT-kK6"/>
+                        <exclude reference="A6T-Nq-nFf"/>
+                        <exclude reference="B3W-oe-HdT"/>
+                        <exclude reference="hW4-wI-s3g"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -185,13 +185,13 @@
                         <include reference="GOA-pj-dZI"/>
                     </mask>
                     <mask key="constraints">
+                        <include reference="08U-y7-pPZ"/>
+                        <include reference="PZn-Mi-YuJ"/>
+                        <include reference="pkc-BT-kK6"/>
                         <exclude reference="Mkn-QA-2AP"/>
                         <include reference="Rxv-6U-eVu"/>
                         <include reference="ZVu-4U-RvM"/>
                         <exclude reference="cl7-5B-plc"/>
-                        <include reference="A6T-Nq-nFf"/>
-                        <include reference="B3W-oe-HdT"/>
-                        <include reference="hW4-wI-s3g"/>
                         <include reference="2Bf-Ic-cWS"/>
                         <exclude reference="8Qv-9V-ds9"/>
                         <include reference="Ucb-mV-Sdi"/>
@@ -204,9 +204,9 @@
                         <exclude reference="U0u-lV-hxr"/>
                         <include reference="gXR-gv-Geg"/>
                         <include reference="hy2-km-nlw"/>
-                        <include reference="08U-y7-pPZ"/>
-                        <include reference="PZn-Mi-YuJ"/>
-                        <include reference="pkc-BT-kK6"/>
+                        <include reference="A6T-Nq-nFf"/>
+                        <include reference="B3W-oe-HdT"/>
+                        <include reference="hW4-wI-s3g"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
