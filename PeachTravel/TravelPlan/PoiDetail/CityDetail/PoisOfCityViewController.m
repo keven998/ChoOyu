@@ -127,8 +127,9 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         [self loadIntroductionOfCity];
     } else {
         [self loadDataPoisOfCity:_currentPageNormal];
-       
     }
+    
+    [_tableView setContentOffset:CGPointMake(0, 44)];
 }
 
 - (void)viewWillAppear:(BOOL)animated

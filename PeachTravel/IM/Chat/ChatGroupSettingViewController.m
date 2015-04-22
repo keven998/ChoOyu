@@ -43,8 +43,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"聊天设置";
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.navigationItem.title = @"聊天设置";
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBarHidden = YES;
     
     [_groupTitle setTitle:_group.groupSubject forState:UIControlStateNormal];
     _groupTitle.titleEdgeInsets = UIEdgeInsetsMake(0, 88, 0, 20);

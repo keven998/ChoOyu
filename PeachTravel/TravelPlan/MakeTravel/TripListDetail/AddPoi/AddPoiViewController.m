@@ -129,7 +129,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    
     if (_tripDetail) {
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
@@ -454,8 +453,6 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
             } else {
                 NSLog(@"用户切换页面了，我不应该加载数据");
             }
-            
-            
         } else {
             if (self.isShowing) {
                 [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
