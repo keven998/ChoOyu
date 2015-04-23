@@ -376,7 +376,7 @@
 
 - (void)hintBuildRoutes {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                            message:[NSString stringWithFormat:@"根据达人们经验为你创建了%lu日旅程安排，可自行调整", (unsigned long)_tripDetail.itineraryList.count]
+                            message:[NSString stringWithFormat:@"根据达人们经验为你创建了%lu日旅程安排，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
                         cancelTitle:@"确定"
                          completion:nil];
     [alertView useDefaultIOS7Style];

@@ -327,23 +327,23 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         NSString *desc;
         switch (_poiType) {
             case kCityPoi:
-                desc = @"相关城市";
+                desc = @"城市";
                 
                 break;
             case kSpotPoi:
-                desc = @"相关景点";
+                desc = @"景点";
                 
                 break;
             case kRestaurantPoi:
-                desc = @"相关美食";
+                desc = @"美食";
                 
                 break;
             case kShoppingPoi:
-                desc = @"相关购物";
+                desc = @"购物";
                 
                 break;
             case kHotelPoi:
-                desc = @"相关酒店";
+                desc = @"酒店";
                 break;
                 
                 
