@@ -142,8 +142,6 @@
                         <exclude reference="oRV-G7-LPY"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="I4Z-Wf-RIc"/>
-                        <exclude reference="TWj-Nw-f9v"/>
                         <exclude reference="BNL-u9-ObD"/>
                         <exclude reference="Z41-zB-bkj"/>
                         <exclude reference="lL8-iq-PCC"/>
@@ -155,6 +153,8 @@
                         <exclude reference="vrz-v8-XXC"/>
                         <exclude reference="1Lg-Mv-kTl"/>
                         <exclude reference="9nL-hp-wOn"/>
+                        <exclude reference="I4Z-Wf-RIc"/>
+                        <exclude reference="TWj-Nw-f9v"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -166,8 +166,6 @@
                         <include reference="oRV-G7-LPY"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="I4Z-Wf-RIc"/>
-                        <include reference="TWj-Nw-f9v"/>
                         <include reference="BNL-u9-ObD"/>
                         <include reference="Z41-zB-bkj"/>
                         <include reference="lL8-iq-PCC"/>
@@ -179,10 +177,12 @@
                         <include reference="vrz-v8-XXC"/>
                         <include reference="1Lg-Mv-kTl"/>
                         <include reference="9nL-hp-wOn"/>
+                        <include reference="I4Z-Wf-RIc"/>
+                        <include reference="TWj-Nw-f9v"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="cellAction" destination="oRV-G7-LPY" id="edO-X9-oML"/>
                 <outlet property="headerImageView" destination="7ul-Yy-Ngu" id="5S8-CO-9Co"/>
