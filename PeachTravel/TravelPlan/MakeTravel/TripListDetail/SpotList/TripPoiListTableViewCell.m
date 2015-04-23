@@ -67,10 +67,10 @@
     NSString *property = _tripPoi.locality.zhName;
     if (_tripPoi.rank == 0) {
         
-    } else if (_tripPoi.rank <= 100) {
+    } else if (_tripPoi.rank <= 500) {
         property = [NSString stringWithFormat:@"%@ %@:%d", property, rankStr, _tripPoi.rank];
     } else {
-        property = [NSString stringWithFormat:@"%@ %@:>100", property, rankStr];
+        property = [NSString stringWithFormat:@"%@", property];
     }
     _propertyLabel.text = property;
     

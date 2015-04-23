@@ -768,7 +768,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         [cell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [cell.cellAction setTitle:@"导航" forState:UIControlStateNormal];
+        [cell.cellAction setTitle:@"地图" forState:UIControlStateNormal];
         [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
         [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }

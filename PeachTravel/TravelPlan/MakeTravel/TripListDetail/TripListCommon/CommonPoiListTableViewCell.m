@@ -60,10 +60,31 @@
     
     _ratingView.rating = tripPoi.rating;
 
-    if (_tripPoi.rank <= 100 && _tripPoi.rank > 0) {
+    if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
         _propertyLabel.text = [NSString stringWithFormat:@"%@ %@排名:%d", _tripPoi.locality.zhName, _tripPoi.poiTypeName, _tripPoi.rank];
     } else {
-        _propertyLabel.text = [NSString stringWithFormat:@"%@排名:>100", _tripPoi.poiTypeName];
+        _propertyLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.locality.zhName];
+    }
+    
+    switch (_tripPoi.poiType) {
+        case kSpotPoi:
+            _valueLabel.text = [NSString stringWithFormat:@"建议游玩 %@", ((SpotPoi *)_tripPoi).timeCostStr];
+            break;
+            
+        case kRestaurantPoi:
+            _valueLabel.text = ((RestaurantPoi *)_tripPoi).priceDesc;
+            break;
+            
+        case kShoppingPoi:
+            
+            break;
+            
+        case kHotelPoi:
+            _valueLabel.text = ((HotelPoi *)_tripPoi).priceDesc;
+            break;
+            
+        default:
+            break;
     }
     
 }

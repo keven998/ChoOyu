@@ -126,10 +126,10 @@
     rankLabel.textAlignment = NSTextAlignmentCenter;
     rankLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     rankLabel.font = [UIFont systemFontOfSize:12.0];
-    if (_poi.rank > 0 && _poi.rank <= 100) {
-        rankLabel.text = [NSString stringWithFormat:@"%@排名 %d", _poi.poiTypeName, _poi.rank];
+    if (_poi.rank > 0 && _poi.rank <= 500) {
+        rankLabel.text = [NSString stringWithFormat:@"%@排名:%d", _poi.poiTypeName, _poi.rank];
     } else {
-        rankLabel.text = [NSString stringWithFormat:@"%@排名 >100", _poi.poiTypeName];
+        rankLabel.text = [NSString stringWithFormat:@"%@排名:500后", _poi.poiTypeName];
     }
     [_scrollView addSubview:rankLabel];
     
