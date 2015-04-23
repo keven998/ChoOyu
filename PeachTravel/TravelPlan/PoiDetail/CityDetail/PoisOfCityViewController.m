@@ -746,7 +746,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
     cell.cellAction.tag = indexPath.row;
-    
+    cell.cellAction.hidden = NO;
     //如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
         [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];

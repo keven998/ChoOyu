@@ -408,7 +408,9 @@
     NSInteger page = [tableView superview].tag;
    
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiListCell"];
+    cell.cellAction.hidden = NO;
     cell.cellAction.tag = indexPath.row;
+    [cell.cellAction setTitle:@"地图" forState:UIControlStateNormal];
     [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];

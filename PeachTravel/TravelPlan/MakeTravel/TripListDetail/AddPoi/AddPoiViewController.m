@@ -601,8 +601,13 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     CommonPoiListTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
     poiCell.tripPoi = poi;
     poiCell.cellAction.tag = indexPath.row;
+    poiCell.cellAction.hidden = NO;
+    [poiCell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
+    [poiCell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
+    
     if (_shouldEdit) {
         poiCell.cellAction.selected = isAdded;
+        [poiCell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [poiCell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];

@@ -41,6 +41,7 @@
     [_cellAction setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_cellAction setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _cellAction.titleLabel.font = [UIFont systemFontOfSize:15];
+    _cellAction.layer.cornerRadius = 5;
 }
 
 - (void)setTripPoi:(SuperPoi *)tripPoi
