@@ -45,14 +45,23 @@
 
 - (void)shareToTalk {
     if (![[AccountManager shareAccountManager] isLogin]) {
-        [SVProgressHUD showHint:@"请先登录"];
-        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+//        [self performSelector:@selector(login) withObject:nil afterDelay:0.3];
+        LoginViewController *loginViewController = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+            _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
+            _chatRecordListCtl.delegate = self;
+            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
+            [self presentViewController:nCtl animated:YES completion:nil];
+        }];
+        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+        loginViewController.isPushed = NO;
+        [self presentViewController:nctl animated:YES completion:nil];
     } else {
         _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
         _chatRecordListCtl.delegate = self;
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
         [self presentViewController:nCtl animated:YES completion:nil];
     }
+    [MobClick event:@"event_city_share_to_talk"];
 }
 
 #pragma mark - CreateConversationDelegate

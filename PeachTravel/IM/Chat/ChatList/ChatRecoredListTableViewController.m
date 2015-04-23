@@ -182,7 +182,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCreateConversationCell forIndexPath:indexPath];
-        cell.textLabel.text = @"创建新的聊天";
+        cell.textLabel.text = @"创建新聊天";
         cell.textLabel.textColor = TEXT_COLOR_TITLE;
         cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];

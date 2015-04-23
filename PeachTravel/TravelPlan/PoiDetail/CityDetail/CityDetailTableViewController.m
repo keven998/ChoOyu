@@ -41,9 +41,25 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *bItem1 = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
-    UIBarButtonItem *bItem2 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(option:)];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:bItem2, bItem1, nil];
+    NSMutableArray *barItems = [[NSMutableArray alloc] init];
+    
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [planBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+    [planBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
+    
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_trip_mapview.png"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
+    
+    UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [favoriteBtn setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+    [favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:favoriteBtn]];
+    
+    self.navigationItem.rightBarButtonItems = barItems;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
@@ -81,8 +97,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateView
 {
-    self.navigationItem.title = self.poi.zhName;
-    
     _cityHeaderView = [[CityHeaderView alloc] init];
     _cityHeaderView.delegate = self;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
@@ -451,39 +465,40 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        Destinations *destinations = [[Destinations alloc] init];
-        MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-        ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-        DomesticViewController *domestic = [[DomesticViewController alloc] init];
-        
-        CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
-        poi.zhName = self.poi.zhName;
-        poi.cityId = self.poi.poiId;
-        [destinations.destinationsSelected addObject:poi];
-        
-        domestic.destinations = destinations;
-        foreignCtl.destinations = destinations;
-        makePlanCtl.destinations = destinations;
-        makePlanCtl.viewControllers = @[domestic, foreignCtl];
-        domestic.makePlanCtl = makePlanCtl;
-        foreignCtl.makePlanCtl = makePlanCtl;
-        makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-        makePlanCtl.duration = 0;
-        makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-        makePlanCtl.selectedColor = APP_THEME_COLOR;
-        makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-        makePlanCtl.normalColor= [UIColor grayColor];
-        
-        [self.navigationController pushViewController:makePlanCtl animated:YES];
-        [MobClick event:@"event_city_share_to_talk"];
-        [MobClick event:@"event_create_new_trip_plan_city"];
-
+        [self makePlan];
     } else if (buttonIndex == 1) {
         [self shareToTalk];
-        [MobClick event:@"event_city_share_to_talk"];
     } else {
         return;
     }
+}
+
+- (void)makePlan {
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    
+    CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
+    poi.zhName = self.poi.zhName;
+    poi.cityId = self.poi.poiId;
+    [destinations.destinationsSelected addObject:poi];
+    
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:makePlanCtl] animated:YES completion:nil];
+    [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
 
