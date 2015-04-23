@@ -9,7 +9,7 @@
 #import "LocalViewController.h"
 #import "DMFilterView.h"
 #import "SwipeView.h"
-#import "PoisOfCityTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
@@ -392,7 +392,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 155;
+    return 90;
 }
 
 
@@ -407,13 +407,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger page = [tableView superview].tag;
    
-    PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
-    cell.shouldEdit = NO;
-    cell.isNearByCell = YES;
-    cell.naviBtn.tag = indexPath.row;
-    [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-    cell.poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
+    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiListCell"];
+    cell.cellAction.tag = indexPath.row;
+    [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    cell.tripPoi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -441,11 +439,11 @@
         tbView.backgroundColor = APP_PAGE_COLOR;
         
         [view addSubview:tbView];
-        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+        [tbView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiListCell"];
     } else {
         view.tag = index;
         tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
-//        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+//        [tbView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiListCell"];
         [tbView setContentOffset:CGPointZero animated:NO];
         [tbView reloadData];
     }

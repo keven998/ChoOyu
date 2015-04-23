@@ -11,7 +11,7 @@
 #import "TripDetail.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "PoisOfCityTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "PoiDetailViewControllerFactory.h"
 #import "SelectionTableViewController.h"
 
@@ -63,7 +63,7 @@ enum {
 
 @implementation AddPoiViewController
 
-static NSString *addPoiCellIndentifier = @"poisOfCity";
+static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 
 - (id)init {
     if (self = [super init]) {
@@ -112,14 +112,14 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     
     _urlArray = @[API_GET_SPOTLIST_CITY, API_GET_RESTAURANTSLIST_CITY, API_GET_SHOPPINGLIST_CITY, API_GET_HOTELLIST_CITY];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
     self.tableView.tableHeaderView = _searchBar;
     
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
+    [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
     self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
     self.searchController.searchResultsTableView.dataSource = self;
@@ -314,21 +314,21 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     
     CGPoint point;
     NSIndexPath *indexPath;
-    PoisOfCityTableViewCell *cell;
+    CommonPoiListTableViewCell *cell;
     if (!self.searchController.isActive) {
         point = [sender convertPoint:CGPointZero toView:_tableView];
         indexPath = [_tableView indexPathForRowAtPoint:point];
-        cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+        cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
 
     } else {
         point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
         indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
-        cell = (PoisOfCityTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+        cell = (CommonPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
     }
     
     NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
     SuperPoi *poi;
-    if (!cell.isAdded) {
+    if (!cell.cellAction.selected) {
         if (self.searchController.isActive) {
             poi = [self.searchResultArray objectAtIndex:indexPath.row];
         } else {
@@ -371,7 +371,7 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         }
 
     }
-    cell.isAdded = !cell.isAdded;
+    cell.cellAction.selected = !cell.cellAction.selected;
 
 }
 
@@ -570,6 +570,10 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 90;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:self.tableView]) {
         return self.dataSource.count;
@@ -594,17 +598,15 @@ static NSString *addPoiCellIndentifier = @"poisOfCity";
         }
     }
     
-    PoisOfCityTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
-    poiCell.poi = poi;
-    poiCell.shouldEdit = _shouldEdit;
+    CommonPoiListTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
+    poiCell.tripPoi = poi;
+    poiCell.cellAction.tag = indexPath.row;
     if (_shouldEdit) {
-        poiCell.addBtn.tag = indexPath.row;
-        poiCell.isAdded = isAdded;
-        [poiCell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        poiCell.cellAction.selected = isAdded;
+        [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        poiCell.naviBtn.tag = indexPath.row;
-        [poiCell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [poiCell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [poiCell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return poiCell;

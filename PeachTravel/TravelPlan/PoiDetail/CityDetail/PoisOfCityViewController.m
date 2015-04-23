@@ -7,7 +7,7 @@
 //
 
 #import "PoisOfCityViewController.h"
-#import "PoisOfCityTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "TZFilterViewController.h"
 #import "CityDestinationPoi.h"
 #import "RecommendsOfCity.h"
@@ -51,7 +51,7 @@
 
 @implementation PoisOfCityViewController
 
-static NSString *poisOfCityCellIdentifier = @"poisOfCity";
+static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -99,7 +99,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.tableView];
     
@@ -172,7 +172,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     if (!_searchController) {
         _searchController= [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-        [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
+        [_searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
         _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
         _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _searchController.searchResultsTableView.backgroundColor = APP_PAGE_COLOR;
@@ -445,15 +445,15 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
 {
     CGPoint point;
     NSIndexPath *indexPath;
-    PoisOfCityTableViewCell *cell;
+    CommonPoiListTableViewCell *cell;
     if (!self.searchController.isActive) {
         point = [sender convertPoint:CGPointZero toView:_tableView];
         indexPath = [_tableView indexPathForRowAtPoint:point];
-        cell = (PoisOfCityTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+        cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
     } else {
         point = [sender convertPoint:CGPointZero toView:_searchController.searchResultsTableView];
         indexPath = [_searchController.searchResultsTableView indexPathForRowAtPoint:point];
-        cell = (PoisOfCityTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+        cell = (CommonPoiListTableViewCell *)[_searchController.searchResultsTableView cellForRowAtIndexPath:indexPath];
     }
     
     SuperPoi *poi;
@@ -463,7 +463,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
         poi = [_dataSource.recommendList objectAtIndex:sender.tag];
     }
    
-    if (!cell.isAdded) {
+    if (!cell.cellAction.isSelected) {
         if (_poiType == kRestaurantPoi) {
             [self.tripDetail.restaurantsList addObject:poi];
         } else if (_poiType == kShoppingPoi) {
@@ -486,7 +486,7 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
             }
         }
     }
-    cell.isAdded = !cell.isAdded;
+    cell.cellAction.selected = !cell.cellAction.selected;
 }
 
 - (IBAction)finishAdd:(id)sender
@@ -638,6 +638,11 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     return _dataSource.recommendList.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 90;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (![tableView isEqual:self.tableView]) {
@@ -738,21 +743,19 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
     } else {
         poi = [_dataSource.recommendList objectAtIndex:indexPath.row];
     }
-    PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier];
-    [cell.pAddBtn setTitle:@"收集" forState:UIControlStateNormal];
-    [cell.pAddBtn setTitle:@"已收集" forState:UIControlStateSelected];
-    cell.shouldEdit = _shouldEdit;
-    cell.poi = poi;
-    cell.addBtn.tag = indexPath.row;
+    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
+    cell.tripPoi = poi;
+    cell.cellAction.tag = indexPath.row;
     
     //如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
+        [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
+        [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
         BOOL isAdded = NO;
         NSMutableArray *tempArray;
         if (_poiType == kShoppingPoi) {
             tempArray = self.tripDetail.shoppingList;
-        }
-        if (_poiType == kRestaurantPoi) {
+        } else if (_poiType == kRestaurantPoi) {
             tempArray = self.tripDetail.restaurantsList;
         }
         for (SuperPoi *tripPoi in tempArray) {
@@ -761,13 +764,13 @@ static NSString *poisOfCityCellIdentifier = @"poisOfCity";
                 break;
             }
         }
-        cell.isAdded = isAdded;
-        [cell.addBtn removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.addBtn addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        cell.cellAction.selected = isAdded;
+        [cell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        cell.naviBtn.tag = indexPath.row;
-        [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.cellAction setTitle:@"导航" forState:UIControlStateNormal];
+        [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
