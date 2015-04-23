@@ -57,8 +57,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [super viewDidLoad];
     
     if (self.shouldEdit) {
-        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
-        self.navigationItem.rightBarButtonItem = lbtn;
+        UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
+        self.navigationItem.leftBarButtonItem = lbtn;
     } else {
         UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
@@ -68,6 +68,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.leftBarButtonItem = barButton;
     }
+    
+    NSMutableArray *rbItems = [[NSMutableArray alloc] init];
     
     if (self.tripDetail) {
         CityDestinationPoi *destination = [self.tripDetail.destinations firstObject];
@@ -79,9 +81,13 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
             _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [_filterBtn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
             UIBarButtonItem *filterItemBar = [[UIBarButtonItem alloc] initWithCustomView:_filterBtn];
-            self.navigationItem.leftBarButtonItem = filterItemBar;
+            [rbItems addObject:filterItemBar];
         }
     }
+    
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
+    [rbItems addObject:lbtn];
+    self.navigationItem.rightBarButtonItems = rbItems;
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
     if (_poiType == kRestaurantPoi) {
@@ -95,15 +101,13 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 155.0;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
-    self.tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.tableView];
     
-    self.tableView.tableHeaderView = _searchBar;
+//    self.tableView.tableHeaderView = _searchBar;
     
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
@@ -162,8 +166,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (void)goBack
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.viewControllers.count == 1) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - setter & getter
@@ -179,8 +186,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         _searchController.searchResultsTableView.delegate = self;
         _searchController.searchResultsTableView.dataSource = self;
         _searchController.delegate = self;
-        _searchController.searchResultsTableView.rowHeight = 155.0;
-
     }
     return _searchController;
 }
@@ -745,10 +750,10 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     }
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poisOfCityCellIdentifier forIndexPath:indexPath];
     cell.tripPoi = poi;
-    cell.cellAction.tag = indexPath.row;
-    cell.cellAction.hidden = NO;
     //如果从攻略列表进来想要添加美食或酒店
     if (_shouldEdit) {
+        cell.cellAction.tag = indexPath.row;
+        cell.cellAction.hidden = NO;
         [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
         [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
         BOOL isAdded = NO;
@@ -767,11 +772,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         cell.cellAction.selected = isAdded;
         [cell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [cell.cellAction setTitle:@"地图" forState:UIControlStateNormal];
-        [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
+//    else {
+//        [cell.cellAction setTitle:@"地图" forState:UIControlStateNormal];
+//        [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+//        [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+//    }
     
     return cell;
 }

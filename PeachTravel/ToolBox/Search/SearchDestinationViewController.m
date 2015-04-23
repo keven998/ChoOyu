@@ -255,7 +255,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (self.dataSource.count>0) {
         self.tableView.hidden = NO;
         [self.tableView reloadData];
-
     } else {
         self.tableView.hidden = YES;
     }
@@ -485,9 +484,16 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSLog(@"开始搜索");
     [_searchBar endEditing:YES];
     [self loadDataSourceWithKeyWord:searchBar.text];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length == 0) {
+        [self.dataSource removeAllObjects];
+        [_tableView reloadData];
+        _tableView.hidden = YES;
+    }
 }
 
 #pragma mark - TaoziMessageSendDelegate
@@ -496,9 +502,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
-    
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
-    
 }
 
 - (void)sendCancel
