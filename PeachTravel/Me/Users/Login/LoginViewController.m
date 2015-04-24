@@ -45,20 +45,18 @@
     
     self.navigationItem.title = @"登录";
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
-    if (!self.isPushed) {
-        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
-        [button setFrame:CGRectMake(0, 0, 48, 30)];
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-        self.navigationItem.leftBarButtonItem = barButton;
-    }
+//    if (!self.isPushed) {
+//        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+//        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
+//        [button setFrame:CGRectMake(0, 0, 48, 30)];
+//        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
+//    }
     _userNameTextField.delegate = self;
     _passwordTextField.delegate = self;
     
@@ -312,9 +310,8 @@
 
 - (void)dismissCtl
 {
-    if (self.isPushed) {
+    if (self.navigationController.viewControllers.count > 1) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-    
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }

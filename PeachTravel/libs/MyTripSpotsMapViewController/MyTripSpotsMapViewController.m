@@ -39,10 +39,10 @@
     [super viewDidLoad];
     self.navigationItem.title = @"地图";
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    self.navigationItem.rightBarButtonItem = lbtn;
+    self.navigationItem.leftBarButtonItem = lbtn;
     
     UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"第1天" style:UIBarButtonItemStylePlain target:self action:@selector(switchDay)];
-    self.navigationItem.leftBarButtonItem = rbtn;
+    self.navigationItem.rightBarButtonItem = rbtn;
     
     mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
@@ -90,7 +90,7 @@
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = array;
     ctl.delegate = self;
-    ctl.selectItem = self.navigationItem.leftBarButtonItem.title;
+    ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -245,7 +245,7 @@
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    self.navigationItem.leftBarButtonItem.title = str;
+    self.navigationItem.rightBarButtonItem.title = str;
     _currentDay = indexPath.row;
     [self resetView];
 }
