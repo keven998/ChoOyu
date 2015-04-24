@@ -29,8 +29,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
 }
 
@@ -57,8 +55,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -70,7 +67,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
             _tableView.tableFooterView = self.tableViewFooterView;
         }
 //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
-        
     }
     return _tableView;
 }

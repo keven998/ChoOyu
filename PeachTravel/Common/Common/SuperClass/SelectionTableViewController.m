@@ -24,7 +24,6 @@
     self.navigationItem.leftBarButtonItem = lbtn;
     
     _selectItemIndex = [_contentItems indexOfObject:_selectItem];
-    
     _selectTableView.backgroundColor = APP_PAGE_COLOR;
     _selectTableView.separatorColor = APP_BORDER_COLOR;
     [_selectTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"select_cell"];
