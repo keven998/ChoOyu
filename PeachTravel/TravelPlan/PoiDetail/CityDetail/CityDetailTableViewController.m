@@ -43,19 +43,19 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
-    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [planBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [planBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
     [planBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_trip_mapview.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_share_to_talk.png"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     
-    UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [favoriteBtn setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+    UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateNormal];
     [favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:favoriteBtn]];
     

@@ -31,7 +31,6 @@
     [self.contentView addSubview:spaceView];
     
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _titleLabel.textColor = TEXT_COLOR_TITLE;

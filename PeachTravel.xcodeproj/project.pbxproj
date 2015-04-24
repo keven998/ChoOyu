@@ -39,6 +39,8 @@
 		C67C078C1A81BFC100E0F30B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C07831A81BFC100E0F30B /* libWeChatSDK.a */; };
 		C694C3821AE9E23800F5C36E /* ic_navigation_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C694C3811AE9E23800F5C36E /* ic_navigation_black@2x.png */; };
 		C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */; };
+		C694C3891AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C694C3871AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png */; };
+		C694C38A1AE9F4C300F5C36E /* ic_share_to_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C694C3881AE9F4C300F5C36E /* ic_share_to_talk@2x.png */; };
 		C69EB43A1AE63FD90039626B /* route_timeline_pot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C69EB4391AE63FD90039626B /* route_timeline_pot@2x.png */; };
 		C6A0C6A91A39C032009D9768 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6A81A39C032009D9768 /* MessageUI.framework */; };
 		C6A0C6AB1A39C03C009D9768 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AA1A39C03C009D9768 /* QuartzCore.framework */; };
@@ -817,6 +819,8 @@
 		C694C3811AE9E23800F5C36E /* ic_navigation_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigation_black@2x.png"; sourceTree = "<group>"; };
 		C694C3841AE9EB7800F5C36E /* SDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDSegmentedControl.h; sourceTree = "<group>"; };
 		C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDSegmentedControl.m; sourceTree = "<group>"; };
+		C694C3871AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navgation_favorite_seleted@2x.png"; sourceTree = "<group>"; };
+		C694C3881AE9F4C300F5C36E /* ic_share_to_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_share_to_talk@2x.png"; sourceTree = "<group>"; };
 		C69EB4391AE63FD90039626B /* route_timeline_pot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "route_timeline_pot@2x.png"; sourceTree = "<group>"; };
 		C6A0C6A81A39C032009D9768 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		C6A0C6AA1A39C03C009D9768 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -3502,6 +3506,8 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				C694C3871AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png */,
+				C694C3881AE9F4C300F5C36E /* ic_share_to_talk@2x.png */,
 				C6D038231AE516CE006DFD24 /* ic_menu_navigationbar@2x.png */,
 				D96C810D1AC3E09000897475 /* ic_taozi_share@2x.png */,
 				D993CABE1AB30F080075314E /* ic_nav_action_search_white@2x.png */,
@@ -5014,6 +5020,7 @@
 				C6C5C3CC1ADE65570047C058 /* AutoSlideScrollView.bundle in Resources */,
 				D917DAD31A8B4A320039720A /* ic_guide3_talk3@2x.png in Resources */,
 				D9722F291A82446900D8A8CC /* Loading_Animation_final1@2x.png in Resources */,
+				C694C3891AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png in Resources */,
 				D9722F301A82446900D8A8CC /* Loading_Animation_final3@2x.png in Resources */,
 				D9A800261A80D52F005AD701 /* DomesticDestinationCell.xib in Resources */,
 				D9008D6E1A8A05AD000A237D /* ic_quotation_r@2x.png in Resources */,
@@ -5248,6 +5255,7 @@
 				C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */,
 				D9A805401A80E738005AD701 /* ic_delete@2x.png in Resources */,
 				D9722F121A81C91D00D8A8CC /* ic_star_gray@2x.png in Resources */,
+				C694C38A1AE9F4C300F5C36E /* ic_share_to_talk@2x.png in Resources */,
 				D9A805331A80E738005AD701 /* ic_city_more@2x.png in Resources */,
 				D9A8057D1A80E738005AD701 /* rain_snow@2x.png in Resources */,
 				D9A805041A80E738005AD701 /* ic_share_normal@2x.png in Resources */,
