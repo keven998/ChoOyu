@@ -238,7 +238,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
 //    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
-    
     return cell;
 }
 

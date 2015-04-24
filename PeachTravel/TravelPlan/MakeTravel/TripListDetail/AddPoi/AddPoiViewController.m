@@ -15,6 +15,7 @@
 #import "PoiDetailViewControllerFactory.h"
 #import "SelectionTableViewController.h"
 #import "FilterViewController.h"
+#import "PoisOfCityViewController.h"
 
 enum {
     FILTER_TYPE_CITY = 1,
@@ -94,19 +95,10 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
         
-//        UIButton *tbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-//        [tbtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-//        tbtn.titleLabel.font = [UIFont systemFontOfSize:17];
-//        [tbtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-//        [tbtn addTarget:self action:@selector(changeCity) forControlEvents:UIControlEventTouchUpInside];
-//        self.navigationItem.titleView = tbtn;
-        
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _cityName = firstDestination.zhName;
         
         self.navigationItem.title = @"添加行程";
-        
-//        [self setupTitleView];
         [self setupSelectPanel];
     } else {
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
@@ -158,14 +150,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
     
     [self.view addSubview:_selectPanel];
-}
-
-- (void) setupTitleView {
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@[切换]", _cityName]];
-    [attributeString addAttributes:@{NSForegroundColorAttributeName:[UIColor blueColor]} range:NSMakeRange(attributeString.length - 4, 4)];
-    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(attributeString.length - 4, 4)];
-    UIButton *tbtn = (UIButton *)self.navigationItem.titleView;
-    [tbtn setAttributedTitle:attributeString forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -864,7 +848,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
             return;
         }
         _cityName = str;
-//        [self setupTitleView];
         _currentCityIndex = indexPath.row;
         [self resetContents];
         [MobClick event:@"event_filter_city"];
@@ -889,24 +872,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     [self.tableView reloadData];
     _currentPageNormal = 0;
     [self loadDataWithPageNo:_currentPageNormal];
-}
-
-@end
-
-@implementation SelectDestCell
-
-@synthesize textView;
-
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        textView = [[UILabel alloc] init];
-        textView.font = [UIFont systemFontOfSize:17];
-        textView.textColor = [UIColor blueColor];
-        textView.textAlignment = NSTextAlignmentCenter;
-        textView.numberOfLines = 1;
-        [self.contentView addSubview:textView];
-    }
-    return self;
 }
 
 @end

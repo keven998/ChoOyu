@@ -16,7 +16,7 @@
 #import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
 
-@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
@@ -40,12 +40,13 @@
 @property (nonatomic, assign) BOOL enableLoadMoreSearch;
 
 @property (nonatomic, copy) NSString *searchText;
-
 @property (nonatomic, strong) TZProgressHUD *hud;
-
 @property (nonatomic, strong) UIButton *filterBtn;
-
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UICollectionView *selectPanel;
+
+@property (nonatomic, strong) NSMutableArray *seletedArray;
 
 @end
 
@@ -126,14 +127,20 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(PoisOfCityViewController *)weakSelf = self;
     [_hud showHUDInViewController:weakSelf];
+    
+    if (_poiType == kRestaurantPoi) {
+        _seletedArray = self.tripDetail.restaurantsList;
+    } else if (_poiType == kShoppingPoi) {
+        _seletedArray = self.tripDetail.shoppingList;
+    }
 
     if (!_shouldEdit) {
         [self loadIntroductionOfCity];
     } else {
         [self loadDataPoisOfCity:_currentPageNormal];
+        [self setupSelectPanel];
+        [_tableView setContentOffset:CGPointMake(0, 49)];
     }
-    
-    [_tableView setContentOffset:CGPointMake(0, 44)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -171,6 +178,24 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+#pragma mark - private method
+- (void) setupSelectPanel {
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
+    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.showsHorizontalScrollIndicator = NO;
+    self.selectPanel.showsVerticalScrollIndicator = NO;
+    self.selectPanel.delegate = self;
+    self.selectPanel.dataSource = self;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
+    [self.view addSubview:_selectPanel];
 }
 
 #pragma mark - setter & getter
@@ -469,27 +494,37 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     }
    
     if (!cell.cellAction.isSelected) {
-        if (_poiType == kRestaurantPoi) {
-            [self.tripDetail.restaurantsList addObject:poi];
-        } else if (_poiType == kShoppingPoi) {
-            [self.tripDetail.shoppingList addObject:poi];
-        }
+        [_seletedArray addObject:poi];
         
-        [SVProgressHUD showHint:@"已收集"];
+        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
+        [self.selectPanel performBatchUpdates:^{
+            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        } completion:^(BOOL finished) {
+            [self.selectPanel scrollToItemAtIndexPath:lnp
+                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        }];
+        
     } else {
-        NSMutableArray *oneDayArray;
-        if (_poiType == kRestaurantPoi) {
-            oneDayArray = self.tripDetail.restaurantsList;
-        }
-        if (_poiType == kShoppingPoi) {
-            oneDayArray = self.tripDetail.shoppingList;
-        }
-        for (SuperPoi *tripPoi in oneDayArray) {
+        int index = -1;
+        NSInteger count = _seletedArray.count;
+        for (int i = 0; i < count; ++i) {
+            SuperPoi *tripPoi = [_seletedArray objectAtIndex:i];
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
-                [oneDayArray removeObject:tripPoi];
+                [_seletedArray removeObjectAtIndex:i];
+                index = i;
                 break;
             }
         }
+        
+        if (index != -1) {
+            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+            [self.selectPanel performBatchUpdates:^{
+                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+            } completion:^(BOOL finished) {
+                [self.selectPanel reloadData];
+            }];
+        }
+        
     }
     cell.cellAction.selected = !cell.cellAction.selected;
 }
@@ -497,7 +532,6 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 - (IBAction)finishAdd:(id)sender
 {
     [_delegate finishEdit];
-    
     [SVProgressHUD dismiss];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -757,13 +791,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
         [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
         BOOL isAdded = NO;
-        NSMutableArray *tempArray;
-        if (_poiType == kShoppingPoi) {
-            tempArray = self.tripDetail.shoppingList;
-        } else if (_poiType == kRestaurantPoi) {
-            tempArray = self.tripDetail.restaurantsList;
-        }
-        for (SuperPoi *tripPoi in tempArray) {
+        for (SuperPoi *tripPoi in _seletedArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {
                 isAdded = YES;
                 break;
@@ -979,6 +1007,58 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     }
 }
 
+#pragma mark - Collection view
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _seletedArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
+    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
+    cell.textView.text = txt;
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
+    cell.textView.frame = CGRectMake(0, 0, size.width, 49);
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    return CGSizeMake(size.width, 49);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 15.0;
+}
+
+
+@end
+
+@implementation SelectDestCell
+
+@synthesize textView;
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        textView = [[UILabel alloc] init];
+        textView.font = [UIFont systemFontOfSize:17];
+        textView.textColor = [UIColor blueColor];
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.numberOfLines = 1;
+        [self.contentView addSubview:textView];
+    }
+    return self;
+}
 
 @end
