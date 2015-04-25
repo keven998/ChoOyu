@@ -27,9 +27,9 @@ typedef void(^loginCompletion)(BOOL completed);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *navBack = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    navBack.tintColor = APP_THEME_COLOR;
-    self.navigationItem.leftBarButtonItem = navBack;
+//    UIBarButtonItem *navBack = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+//    navBack.tintColor = APP_THEME_COLOR;
+//    self.navigationItem.leftBarButtonItem = navBack;
     
     UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交 " style:UIBarButtonItemStylePlain target:self action:@selector(confirmRegister:)];
     registerBtn.tintColor = APP_THEME_COLOR;

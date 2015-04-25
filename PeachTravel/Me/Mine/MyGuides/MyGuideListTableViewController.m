@@ -182,8 +182,6 @@ static NSString *reusableCell = @"myGuidesCell";
     gltvc.chatter = _chatter;
     gltvc.selectToSend = _selectToSend;
     gltvc.isChatGroup = _isChatGroup;
-//    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
-//    [self presentViewController:ctl animated:YES completion:nil];
     [self.navigationController pushViewController:gltvc animated:YES];
 }
 

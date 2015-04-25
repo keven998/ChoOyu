@@ -168,12 +168,12 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
-        return 0;
-    }
-    return 12.0;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
+//        return 0;
+//    }
+//    return 12.0;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 48.0;
@@ -211,14 +211,14 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
-        return nil;
-    }
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = APP_PAGE_COLOR;
-    return view;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
+//        return nil;
+//    }
+//    UIView *view = [[UIView alloc] init];
+//    view.backgroundColor = APP_PAGE_COLOR;
+//    return view;
+//}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

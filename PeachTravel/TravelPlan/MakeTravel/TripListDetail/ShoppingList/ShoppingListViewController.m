@@ -29,8 +29,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
 }
 
@@ -57,8 +55,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -70,7 +67,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
             _tableView.tableFooterView = self.tableViewFooterView;
         }
 //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
-        
     }
     return _tableView;
 }
@@ -228,18 +224,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 134;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 20;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView = [[UIView alloc] init];
-    return footerView;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -249,9 +234,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     [cell.cellAction setTitle:@"导航" forState:UIControlStateNormal];
     [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-//    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
-    
     return cell;
 }
 
@@ -266,8 +249,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
 }
+
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;

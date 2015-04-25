@@ -11,5 +11,6 @@
 @interface ToolHomeViewController : UIViewController
 
 @property (nonatomic, assign) BOOL navigationbarAnimated;
+@property (nonatomic, assign) BOOL hideNavigationBar; //登录navigationbar 闪出补丁
 
 @end

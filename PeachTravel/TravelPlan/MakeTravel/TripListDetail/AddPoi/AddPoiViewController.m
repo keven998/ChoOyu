@@ -14,6 +14,8 @@
 #import "CommonPoiListTableViewCell.h"
 #import "PoiDetailViewControllerFactory.h"
 #import "SelectionTableViewController.h"
+#import "FilterViewController.h"
+#import "PoisOfCityViewController.h"
 
 enum {
     FILTER_TYPE_CITY = 1,
@@ -79,32 +81,24 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _tableView.delegate  = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = 155.0;
 
     [self.view addSubview:_tableView];
 
     if (_tripDetail) {
-        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
-        self.navigationItem.rightBarButtonItem = finishBtn;
+        UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
+        self.navigationItem.leftBarButtonItem = finishBtn;
         
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] style:UIBarButtonItemStylePlain target:self action:@selector(categoryFilt)];
-        self.navigationItem.leftBarButtonItem = cbtn;
-        
-        UIButton *tbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
-        [tbtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-        tbtn.titleLabel.font = [UIFont systemFontOfSize:17];
-        [tbtn addTarget:self action:@selector(changeCity) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = tbtn;
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"过滤" style:UIBarButtonItemStylePlain target:self action:@selector(categoryFilt)];
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
         
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _cityName = firstDestination.zhName;
         
-        [self setupTitleView];
+        self.navigationItem.title = @"添加行程";
         [self setupSelectPanel];
     } else {
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
@@ -116,7 +110,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
-    self.tableView.tableHeaderView = _searchBar;
+//    self.tableView.tableHeaderView = _searchBar;
     
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
@@ -125,7 +119,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     self.searchController.searchResultsTableView.dataSource = self;
     self.searchController.searchResultsTableView.delegate = self;
     self.searchController.delegate = self;
-    self.searchController.searchResultsTableView.rowHeight = 155.0;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -157,14 +150,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
     
     [self.view addSubview:_selectPanel];
-}
-
-- (void) setupTitleView {
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@[切换]", _cityName]];
-    [attributeString addAttributes:@{NSForegroundColorAttributeName:[UIColor blueColor]} range:NSMakeRange(attributeString.length - 4, 4)];
-    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(attributeString.length - 4, 4)];
-    UIButton *tbtn = (UIButton *)self.navigationItem.titleView;
-    [tbtn setAttributedTitle:attributeString forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -274,6 +259,10 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 
 #pragma mark - IBAction Methods
 
+- (void)beginSearch {
+    
+}
+
 - (IBAction)addFinish:(id)sender
 {
     [_delegate finishEdit];
@@ -376,15 +365,23 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 }
 
 - (void) categoryFilt {
-    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
-    ctl.contentItems = @[@"景点", @"美食", @"购物", @"酒店"];
-    ctl.titleTxt = @"切换类别";
-    ctl.delegate = self;
-    ctl.selectItem = _currentCategory;
-    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
-    [self presentViewController:nav animated:YES completion:^{
-        _filterType = FILTER_TYPE_CATE;
-    }];
+//    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
+//    ctl.contentItems = @[@"景点", @"美食", @"购物", @"酒店"];
+//    ctl.titleTxt = @"切换类别";
+//    ctl.delegate = self;
+//    ctl.selectItem = _currentCategory;
+//    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
+//    [self presentViewController:nav animated:YES completion:^{
+//        _filterType = FILTER_TYPE_CATE;
+//    }];
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [array addObject:poi.zhName];
+    }
+    FilterViewController *fvc = [[FilterViewController alloc] init];
+    fvc.contentItems = [NSArray arrayWithArray:array];
+    [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
 }
 
 - (void) changeCity {
@@ -600,20 +597,20 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     
     CommonPoiListTableViewCell *poiCell = [tableView dequeueReusableCellWithIdentifier:addPoiCellIndentifier forIndexPath:indexPath];
     poiCell.tripPoi = poi;
-    poiCell.cellAction.tag = indexPath.row;
-    poiCell.cellAction.hidden = NO;
-    [poiCell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
-    [poiCell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
     
     if (_shouldEdit) {
+        poiCell.cellAction.hidden = NO;
+        poiCell.cellAction.tag = indexPath.row;
+        [poiCell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
+        [poiCell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
         poiCell.cellAction.selected = isAdded;
         [poiCell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [poiCell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [poiCell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
+//    else {
+//        [poiCell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+//        [poiCell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+//    }
     return poiCell;
 }
 
@@ -851,7 +848,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
             return;
         }
         _cityName = str;
-        [self setupTitleView];
         _currentCityIndex = indexPath.row;
         [self resetContents];
         [MobClick event:@"event_filter_city"];
@@ -876,24 +872,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     [self.tableView reloadData];
     _currentPageNormal = 0;
     [self loadDataWithPageNo:_currentPageNormal];
-}
-
-@end
-
-@implementation SelectDestCell
-
-@synthesize textView;
-
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        textView = [[UILabel alloc] init];
-        textView.font = [UIFont systemFontOfSize:17];
-        textView.textColor = [UIColor blueColor];
-        textView.textAlignment = NSTextAlignmentCenter;
-        textView.numberOfLines = 1;
-        [self.contentView addSubview:textView];
-    }
-    return self;
 }
 
 @end

@@ -84,7 +84,9 @@
     [super viewWillDisappear:animated];
     [_ascrollView.animationTimer pauseTimer];
     
-    [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    if (!_hideNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    }
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
@@ -228,7 +230,10 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    _hideNavigationBar = YES;
+    [self.navigationController presentViewController:nctl animated:YES completion:^ {
+        _hideNavigationBar = NO;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

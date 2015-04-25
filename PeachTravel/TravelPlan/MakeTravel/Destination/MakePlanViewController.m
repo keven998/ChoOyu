@@ -41,7 +41,6 @@
     dTextAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
     [rbi setTitleTextAttributes:dTextAttrs forState:UIControlStateDisabled];
     self.navigationItem.rightBarButtonItem = rbi;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     [self setupSelectPanel];
 }

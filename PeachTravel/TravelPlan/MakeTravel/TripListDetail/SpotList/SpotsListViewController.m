@@ -100,7 +100,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     addPoiCtl.delegate = self;
     addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = day;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:addPoiCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
@@ -146,18 +146,9 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 {
     [MobClick event:@"event_day_map_view"];
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
-    
-//    NSMutableArray *allPositions = [[NSMutableArray alloc] init];
-//    for (SuperPoi *poi in _tripDetail.itineraryList[sender.tag]) {
-//        PositionBean *position = [[PositionBean alloc] init];
-//        position.latitude = poi.lat;
-//        position.longitude = poi.lng;
-//        position.poiName = poi.zhName;
-//        position.poiId = poi.poiId;
-//        [allPositions addObject:position];
-//    }
     ctl.pois = _tripDetail.itineraryList;
     ctl.currentDay = 0;
+    ctl.titleText = _tripDetail.tripTitle;
     [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:nCtl animated:YES completion:nil];
@@ -343,10 +334,10 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.tableView.isEditing) {
-        return YES;
-    }
-    return NO;
+//    if (self.tableView.isEditing) {
+//        return YES;
+//    }
+    return YES;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

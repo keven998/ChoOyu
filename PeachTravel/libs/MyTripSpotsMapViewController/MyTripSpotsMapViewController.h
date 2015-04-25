@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MyTripSpotsMapViewController : TZViewController
+
 @property (nonatomic, strong) NSArray *pois;
 @property (nonatomic, assign) NSUInteger currentDay;         //标记当前是第几天
+@property (nonatomic, copy) NSString *titleText;
 
 @end
 

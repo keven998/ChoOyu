@@ -84,7 +84,9 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
-    [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    if (!_hideNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    }
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
@@ -209,9 +211,9 @@
     UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅伴一起讨论旅行，还有便利的自由行规划工具，陪你一起去旅行" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
-        if (response.responseCode == UMSResponseCodeSuccess) {
-            NSLog(@"分享成功！");
-        }
+//        if (response.responseCode == UMSResponseCodeSuccess) {
+//            NSLog(@"分享成功！");
+//        }
     }];
 }
 
@@ -222,8 +224,10 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    _hideNavigationBar = YES;
+    [self.navigationController presentViewController:nctl animated:YES completion:^ {
+        _hideNavigationBar = NO;
+    }];
 }
 
 - (IBAction)userRegister:(id)sender

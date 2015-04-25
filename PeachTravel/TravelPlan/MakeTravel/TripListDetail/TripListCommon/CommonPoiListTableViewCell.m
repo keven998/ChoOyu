@@ -31,7 +31,6 @@
     [self.contentView addSubview:spaceView];
     
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _titleLabel.textColor = TEXT_COLOR_TITLE;
@@ -40,7 +39,7 @@
     
     [_cellAction setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_cellAction setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _cellAction.titleLabel.font = [UIFont systemFontOfSize:15];
+    _cellAction.titleLabel.font = [UIFont systemFontOfSize:14];
     _cellAction.layer.cornerRadius = 5;
 }
 
@@ -62,14 +61,14 @@
     _ratingView.rating = tripPoi.rating;
 
     if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
-        _propertyLabel.text = [NSString stringWithFormat:@"%@ %@排名:%d", _tripPoi.locality.zhName, _tripPoi.poiTypeName, _tripPoi.rank];
+        _propertyLabel.text = [NSString stringWithFormat:@"%@ %@排名第%d", _tripPoi.locality.zhName, _tripPoi.poiTypeName, _tripPoi.rank];
     } else {
         _propertyLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.locality.zhName];
     }
     
     switch (_tripPoi.poiType) {
         case kSpotPoi:
-            _valueLabel.text = [NSString stringWithFormat:@"建议游玩 %@", ((SpotPoi *)_tripPoi).timeCostStr];
+            _valueLabel.text = [NSString stringWithFormat:@"建议游玩:%@", ((SpotPoi *)_tripPoi).timeCostStr];
             break;
             
         case kRestaurantPoi:
