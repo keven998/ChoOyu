@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27089ABE1AE9178F000FAD56 /* UIBarButtonItem+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */; };
 		C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED651A2C4D8E00B76934 /* HomeViewController.m */; };
 		C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D681A298DF8006033C9 /* PushSettingViewController.m */; };
 		C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */; };
@@ -764,6 +765,8 @@
 
 /* Begin PBXFileReference section */
 		0ECFF7EAB22286C959CD2E43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+MJ.m"; sourceTree = "<group>"; };
+		27089ABD1AE9178F000FAD56 /* UIBarButtonItem+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+MJ.h"; sourceTree = "<group>"; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C608ED641A2C4D8E00B76934 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		C608ED651A2C4D8E00B76934 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -1984,7 +1987,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C608ED631A2C4D5E00B76934 /* HomeViewController */ = {
+		C608ED631A2C4D5E00B76934 /* HomeViewController--- tabbar */ = {
 			isa = PBXGroup;
 			children = (
 				C608ED641A2C4D8E00B76934 /* HomeViewController.h */,
@@ -1993,6 +1996,7 @@
 				D9C78C3D1AD924D00087F52A /* PrepareViewController.m */,
 				D9C78C3E1AD924D00087F52A /* PrepareViewController.xib */,
 			);
+			name = "HomeViewController--- tabbar";
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
@@ -2010,20 +2014,21 @@
 			path = Me/Setting/PushSetting;
 			sourceTree = "<group>";
 		};
-		C659E9F21AE0FBA200A28095 /* SnsModel */ = {
+		C659E9F21AE0FBA200A28095 /* SnsModel--达人指路--右上角详情 */ = {
 			isa = PBXGroup;
 			children = (
 				C659E9F31AE0FBF500A28095 /* UserProfile.h */,
 				C659E9F41AE0FBF500A28095 /* UserProfile.m */,
 				C659E9F61AE0FF2100A28095 /* SNSDefine.h */,
 			);
+			name = "SnsModel--达人指路--右上角详情";
 			path = SnsModel;
 			sourceTree = "<group>";
 		};
 		C65DB7BD1AD4DD3500F51443 /* TravelSNS */ = {
 			isa = PBXGroup;
 			children = (
-				C659E9F21AE0FBA200A28095 /* SnsModel */,
+				C659E9F21AE0FBA200A28095 /* SnsModel--达人指路--右上角详情 */,
 				C65DB7BE1AD4E44800F51443 /* TravelersTableViewController.h */,
 				C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */,
 				C659E9EF1ADF794500A28095 /* DistributionViewController.h */,
@@ -2477,7 +2482,7 @@
 				D9A8023C1A80E3D3005AD701 /* Common */,
 				D9A8016B1A80E036005AD701 /* libs */,
 				D90F356819F6321B00E26FA9 /* IM */,
-				C608ED631A2C4D5E00B76934 /* HomeViewController */,
+				C608ED631A2C4D5E00B76934 /* HomeViewController--- tabbar */,
 				D9A5939119E3DA8E004A6072 /* TravelPlan */,
 				D9A5939219E3DA9D004A6072 /* ToolBox */,
 				C65DB7BD1AD4DD3500F51443 /* TravelSNS */,
@@ -2511,8 +2516,8 @@
 			isa = PBXGroup;
 			children = (
 				D9A8FFD01A80D52F005AD701 /* MakeTravel */,
-				D9A8FFBF1A80D216005AD701 /* HotDestination */,
-				D9A8FF611A80D1C3005AD701 /* PoiDetail */,
+				D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */,
+				D9A8FF611A80D1C3005AD701 /* PoiDetail--详细收藏 */,
 			);
 			name = TravelPlan;
 			sourceTree = "<group>";
@@ -2521,9 +2526,9 @@
 			isa = PBXGroup;
 			children = (
 				D9A8FF301A80CF19005AD701 /* Favorite */,
-				D9A8FF381A80CF19005AD701 /* Home */,
-				D9A8FF471A80CF19005AD701 /* Local */,
-				D9A8FF4A1A80CF19005AD701 /* Search */,
+				D9A8FF381A80CF19005AD701 /* Home--3.第二个主界面 */,
+				D9A8FF471A80CF19005AD701 /* Local--身边哪好玩 */,
+				D9A8FF4A1A80CF19005AD701 /* Search--搜索详情 */,
 			);
 			name = ToolBox;
 			sourceTree = "<group>";
@@ -3243,6 +3248,8 @@
 		D9A8023D1A80E3D3005AD701 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				27089ABD1AE9178F000FAD56 /* UIBarButtonItem+MJ.h */,
+				27089ABC1AE9178F000FAD56 /* UIBarButtonItem+MJ.m */,
 				D9A8023E1A80E3D3005AD701 /* ANBlurredImageView.h */,
 				D9A8023F1A80E3D3005AD701 /* ANBlurredImageView.m */,
 				D9A802401A80E3D3005AD701 /* NSDate+Category.h */,
@@ -4125,7 +4132,7 @@
 			path = ToolBox/Favorite;
 			sourceTree = "<group>";
 		};
-		D9A8FF381A80CF19005AD701 /* Home */ = {
+		D9A8FF381A80CF19005AD701 /* Home--3.第二个主界面 */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FF391A80CF19005AD701 /* OperationData.h */,
@@ -4135,21 +4142,21 @@
 				C65DB7BA1AD4CD9800F51443 /* ToolHomeViewController.h */,
 				C65DB7BB1AD4CD9800F51443 /* ToolHomeViewController.m */,
 			);
-			name = Home;
+			name = "Home--3.第二个主界面";
 			path = ToolBox/Home;
 			sourceTree = "<group>";
 		};
-		D9A8FF471A80CF19005AD701 /* Local */ = {
+		D9A8FF471A80CF19005AD701 /* Local--身边哪好玩 */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FF481A80CF19005AD701 /* LocalViewController.h */,
 				D9A8FF491A80CF19005AD701 /* LocalViewController.m */,
 			);
-			name = Local;
+			name = "Local--身边哪好玩";
 			path = ToolBox/Local;
 			sourceTree = "<group>";
 		};
-		D9A8FF4A1A80CF19005AD701 /* Search */ = {
+		D9A8FF4A1A80CF19005AD701 /* Search--搜索详情 */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FF4B1A80CF19005AD701 /* SearchDestinationViewController.h */,
@@ -4160,11 +4167,11 @@
 				D9A8FF501A80CF19005AD701 /* SearchResultTableViewCell.m */,
 				D9A8FF511A80CF19005AD701 /* SearchResultTableViewCell.xib */,
 			);
-			name = Search;
+			name = "Search--搜索详情";
 			path = ToolBox/Search;
 			sourceTree = "<group>";
 		};
-		D9A8FF611A80D1C3005AD701 /* PoiDetail */ = {
+		D9A8FF611A80D1C3005AD701 /* PoiDetail--详细收藏 */ = {
 			isa = PBXGroup;
 			children = (
 				D9EE34591AB93E3F0076933B /* HotelDetail */,
@@ -4177,7 +4184,7 @@
 				D9EE34601AB958D70076933B /* PoiDetailViewControllerFactory.h */,
 				D9EE34611AB958D70076933B /* PoiDetailViewControllerFactory.m */,
 			);
-			name = PoiDetail;
+			name = "PoiDetail--详细收藏";
 			path = TravelPlan/PoiDetail;
 			sourceTree = "<group>";
 		};
@@ -4263,7 +4270,7 @@
 			path = TravelNote;
 			sourceTree = "<group>";
 		};
-		D9A8FFBF1A80D216005AD701 /* HotDestination */ = {
+		D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */ = {
 			isa = PBXGroup;
 			children = (
 				D9A8FFC01A80D216005AD701 /* HotDestinationCollectionReusableView.h */,
@@ -4277,7 +4284,7 @@
 				D9A8FFC81A80D216005AD701 /* RecommendDataSource.h */,
 				D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */,
 			);
-			name = HotDestination;
+			name = "HotDestination--目的地";
 			path = TravelPlan/HotDestination;
 			sourceTree = "<group>";
 		};
@@ -5620,6 +5627,7 @@
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				C6D038271AE52F85006DFD24 /* TravelerTableViewCell.m in Sources */,
 				D9A8FFAA1A80D1C3005AD701 /* RecommendDetail.m in Sources */,
+				27089ABE1AE9178F000FAD56 /* UIBarButtonItem+MJ.m in Sources */,
 				D9A802AF1A80E3D3005AD701 /* ANBlurredImageView.m in Sources */,
 				D9A8023A1A80E036005AD701 /* YWeatherUtils.m in Sources */,
 				D9A8FF5E1A80CF19005AD701 /* SearchMoreDestinationViewController.m in Sources */,
