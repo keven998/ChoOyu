@@ -128,6 +128,7 @@
                 [self showHint:@"已收藏"];
             } else {
                 [self showHint:@"已取消收藏"];
+                
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:updateFavoriteListNoti object:nil];
             completion(YES);

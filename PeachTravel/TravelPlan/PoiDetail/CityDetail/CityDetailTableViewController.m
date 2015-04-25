@@ -22,7 +22,9 @@
 #import "AddPoiViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate, UIActionSheetDelegate>
-
+{
+    UIButton *_favoriteBtn;
+}
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
@@ -54,10 +56,13 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     
-    UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateNormal];
-    [favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:favoriteBtn]];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
+    
+    
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
     
     self.navigationItem.rightBarButtonItems = barItems;
     
@@ -119,7 +124,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSString *url = taoziImage.imageUrl;
         [_cityPicture sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
-    
+    _favoriteBtn.selected=self.poi.isMyFavorite;
 //    UILabel *title = (UILabel *)[_customNavigationBar viewWithTag:123];
 //    title.text = self.poi.zhName;
 }
@@ -273,7 +278,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
 //
 //        }
+        if (isSuccess) {
+            _favoriteBtn.selected = !_favoriteBtn.selected;
+        }
     }];
+    
+    
 }
 
 - (IBAction)viewSpots:(id)sender
