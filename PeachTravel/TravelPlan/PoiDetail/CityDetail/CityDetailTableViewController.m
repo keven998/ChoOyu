@@ -166,7 +166,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf];
+    [_hud showHUDInViewController:weakSelf content:64];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     

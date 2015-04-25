@@ -36,7 +36,13 @@
  *  @param status 提示语
  */
 - (void)showHUDInViewController:(UIViewController *)viewController withStatus:(NSString *)status;
-
+/**
+ *  开始显示带有偏移量为y的提示的菊花
+ *
+ *  @param viewController
+ *  @param status 提示语
+ */
+- (void)showHUDInViewController:(UIViewController *)viewController content:(CGFloat)y;
 
 - (void)showHUD;
 
