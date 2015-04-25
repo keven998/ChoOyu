@@ -167,7 +167,7 @@
             cell.textLabel.text = @"我的旅行计划";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         } else {
-            cell.textLabel.text = @"身边哪好玩";
+            cell.textLabel.text = @"附近好玩的";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         }
     } else {
