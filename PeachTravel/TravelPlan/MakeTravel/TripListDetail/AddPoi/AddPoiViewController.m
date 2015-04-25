@@ -381,7 +381,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     }
     FilterViewController *fvc = [[FilterViewController alloc] init];
     fvc.contentItems = [NSArray arrayWithArray:array];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
+    [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
 }
 
 - (void) changeCity {

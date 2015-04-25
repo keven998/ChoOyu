@@ -14,6 +14,7 @@
 		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */; };
 		C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */; };
+		C65763211AEB392C0069909D /* ic_trip_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65763201AEB392C0069909D /* ic_trip_list@2x.png */; };
 		C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F01ADF794500A28095 /* DistributionViewController.m */; };
 		C659E9F51AE0FBF500A28095 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F41AE0FBF500A28095 /* UserProfile.m */; };
 		C65A27931A87966900CC4D48 /* btn_spot_info_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */; };
@@ -774,6 +775,7 @@
 		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_plan@2x.png"; sourceTree = "<group>"; };
 		C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_them_extender_right@2x.png"; sourceTree = "<group>"; };
+		C65763201AEB392C0069909D /* ic_trip_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_trip_list@2x.png"; sourceTree = "<group>"; };
 		C659E9EF1ADF794500A28095 /* DistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistributionViewController.h; sourceTree = "<group>"; };
 		C659E9F01ADF794500A28095 /* DistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistributionViewController.m; sourceTree = "<group>"; };
 		C659E9F31AE0FBF500A28095 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
@@ -3742,6 +3744,7 @@
 		D9A804121A80E738005AD701 /* TravelPlan */ = {
 			isa = PBXGroup;
 			children = (
+				C65763201AEB392C0069909D /* ic_trip_list@2x.png */,
 				C694C3811AE9E23800F5C36E /* ic_navigation_black@2x.png */,
 				C69EB4391AE63FD90039626B /* route_timeline_pot@2x.png */,
 				C6D038211AE4F945006DFD24 /* ic_trip_mapview@2x.png */,
@@ -5035,6 +5038,7 @@
 				D9A800261A80D52F005AD701 /* DomesticDestinationCell.xib in Resources */,
 				D9008D6E1A8A05AD000A237D /* ic_quotation_r@2x.png in Resources */,
 				D9245DE31A8D9DE0004571AD /* ic_spot_favorite_selected@2x.png in Resources */,
+				C65763211AEB392C0069909D /* ic_trip_list@2x.png in Resources */,
 				D9A800221A80D52F005AD701 /* DestinationCollectionHeaderView.xib in Resources */,
 				D9E94BF41AAD35AE00ED6921 /* ic_IM_normal@2x.png in Resources */,
 				D917DAD71A8B4B170039720A /* ic_guide_dot2@2x.png in Resources */,

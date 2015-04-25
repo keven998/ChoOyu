@@ -140,6 +140,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.showsVerticalScrollIndicator = NO;
     }
     return _tableView;

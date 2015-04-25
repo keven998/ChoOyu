@@ -33,8 +33,6 @@
 @property (nonatomic, strong) UILabel *propLabel;
 @property (nonatomic, strong) UILabel *signatureLabel;
 
-@property (nonatomic, assign) BOOL hideNavigationBar; //登录navigationbar 闪出补丁
-
 @end
 
 @implementation MineTableViewController

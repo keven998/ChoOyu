@@ -279,8 +279,7 @@
         [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
                 [self dismissCtl];
-            }
-            if (buttonIndex == 1) {
+            } else if (buttonIndex == 1) {
                 TZProgressHUD *hud = [[TZProgressHUD alloc] init];
                 [hud showHUD];
                 [_tripDetail saveTrip:^(BOOL isSuccesss) {
@@ -376,7 +375,7 @@
 
 - (void)hintBuildRoutes {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                            message:[NSString stringWithFormat:@"根据达人们经验为你创建了%lu日旅程安排，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
+                            message:[NSString stringWithFormat:@"根据网友们经验为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
                         cancelTitle:@"确定"
                          completion:nil];
     [alertView useDefaultIOS7Style];

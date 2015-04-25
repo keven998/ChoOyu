@@ -26,8 +26,6 @@
 @property (nonatomic, strong) NSMutableArray *operationDataArray;
 @property (nonatomic, strong) NSMutableArray *operationImageViews;
 
-@property (nonatomic, assign) BOOL hideNavigationBar; //登录navigationbar 闪出补丁
-
 @end
 
 @implementation ToolHomeViewController

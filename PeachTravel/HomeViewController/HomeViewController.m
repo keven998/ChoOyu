@@ -605,8 +605,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginCtl];
-        [self presentViewController:navi animated:YES completion:nil];
+        TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+        _toolBoxCtl.hideNavigationBar = YES;
+        _mineCtl.hideNavigationBar = YES;
+        [self presentViewController:navi animated:YES completion:^{
+            _toolBoxCtl.hideNavigationBar = NO;
+            _mineCtl.hideNavigationBar = NO;
+        }];
         return NO;
     } else {
         if ([viewController isEqual:_toolBoxCtl.navigationController]) {
