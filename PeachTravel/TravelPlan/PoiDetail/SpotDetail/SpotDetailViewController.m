@@ -25,35 +25,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
-    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    [self.view addSubview:_backGroundImageView];
-    [self.view addSubview:view];
+//    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
+//    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+//    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+//    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+//    [self.view addSubview:_backGroundImageView];
+//    [self.view addSubview:view];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
-    tap.numberOfTapsRequired = 1;
-    tap.numberOfTouchesRequired = 1;
-    [view addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
+//    tap.numberOfTapsRequired = 1;
+//    tap.numberOfTouchesRequired = 1;
+//    [view addGestureRecognizer:tap];
     
     [self loadData];
 }
 
 - (void)updateView
 {
-    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
+//    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:self.view.bounds];
     _spotDetailView.spot = (SpotPoi *)self.poi;
     self.navigationItem.title = self.poi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:_spotDetailView];
 
-    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
-    } completion:nil];
+    [self.navigationController pushViewController:self animated:YES];
+//    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+//
+//    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        _spotDetailView.transform = CGAffineTransformMakeScale(1, 1);
+//    } completion:nil];
     
     if (((SpotPoi *)self.poi).trafficInfoUrl == nil || [((SpotPoi *)self.poi).trafficInfoUrl isBlankString]) {
         _spotDetailView.trafficGuideBtn.enabled = NO;
@@ -88,7 +90,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_spot_detail"];
-    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

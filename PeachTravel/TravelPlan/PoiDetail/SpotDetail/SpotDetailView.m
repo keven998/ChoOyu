@@ -37,7 +37,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = APP_PAGE_COLOR;
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 27, self.bounds.size.width, self.bounds.size.height-35)];
+        _scrollView = [[UIScrollView alloc] init];
+//                       WithFrame:CGRectMake(0, 27, self.bounds.size.width, self.bounds.size.height-35)];
+        _scrollView.frame = self.bounds;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width, _scrollView.bounds.size.height+1);

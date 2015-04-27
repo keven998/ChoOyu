@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommonPoiDetailView : UIView
+@interface CommonPoiDetailView : UIScrollView
 
 @property (nonatomic, strong) SuperPoi *poi;
 
