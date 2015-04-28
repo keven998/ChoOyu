@@ -77,7 +77,7 @@
 //    self.navigationItem.title = self.poi.zhName;
 //    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
     CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:self.view.bounds];
-    commonPoiDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, 1000);
+    commonPoiDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+1);
     commonPoiDetailView.showsHorizontalScrollIndicator = NO;
     commonPoiDetailView.showsVerticalScrollIndicator = NO;
     commonPoiDetailView.rootCtl = self;
