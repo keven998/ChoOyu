@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DistributionViewController : UIViewController
+@interface DistributionViewController : TZTableViewController
 
 @end

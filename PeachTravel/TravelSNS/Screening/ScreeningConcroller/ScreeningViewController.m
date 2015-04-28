@@ -1,27 +1,30 @@
 //
-//  DistributionViewController.m
+//  ScreeningViewController.m
 //  PeachTravel
 //
-//  Created by Luo Yong on 15/4/16.
+//  Created by dapiao on 15/4/28.
 //  Copyright (c) 2015年 com.aizou.www. All rights reserved.
 //
 
-#import "DistributionViewController.h"
-
-@interface DistributionViewController ()
+#import "ScreeningViewController.h"
+#import "ForeignScreeningViewController.h"
+#import "DomesticScreeningViewController.h"
+@interface ScreeningViewController ()
 
 @end
 
-@implementation DistributionViewController
+@implementation ScreeningViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     
+    
+    
+
 }
 
 - (void)cancel {

@@ -11,7 +11,9 @@
 #import "ContactDetailViewController.h"
 #import "DistributionViewController.h"
 #import "UserProfile.h"
-
+#import "ScreeningViewController.h"
+#import "ForeignScreeningViewController.h"
+#import "DomesticScreeningViewController.h"
 @interface TravelersTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *travelers;
@@ -26,12 +28,14 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"达人指路";
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 40, 44);
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [btn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(goSelect) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn.frame = CGRectMake(0, 0, 40, 44);
+//    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    [btn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(goSelect) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(goSelect)];
     
     self.enableLoadingMore = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -61,7 +65,7 @@
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(TravelersTableViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     //搜索达人
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
@@ -92,8 +96,18 @@
 
 #pragma mark - private method
 - (void) goSelect {
-    DistributionViewController *dctl = [[DistributionViewController alloc] init];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:dctl] animated:YES completion:nil];
+//    DistributionViewController *dctl = [[DistributionViewController alloc] init];
+    ScreeningViewController *screen = [[ScreeningViewController alloc]init];
+    ForeignScreeningViewController *fcvc = [[ForeignScreeningViewController alloc]init];
+    DomesticScreeningViewController *dsvc = [[DomesticScreeningViewController alloc]init];
+    screen.viewControllers = @[fcvc,dsvc];
+    screen.duration = 0;
+    screen.segmentedTitles = @[@"国内", @"国外"];
+    screen.selectedColor = APP_THEME_COLOR;
+    screen.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    screen.normalColor= [UIColor grayColor];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:screen] animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate

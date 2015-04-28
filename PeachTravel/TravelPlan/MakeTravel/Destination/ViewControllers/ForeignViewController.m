@@ -108,7 +108,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
         }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-
+            
             id result = [responseObject objectForKey:@"result"];
             [_destinations initForeignCountriesWithJson:result];
             [_foreignCollectionView reloadData];
