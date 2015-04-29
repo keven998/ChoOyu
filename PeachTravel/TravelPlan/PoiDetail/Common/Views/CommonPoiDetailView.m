@@ -151,7 +151,7 @@
     UILabel * practicalLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 70, 14)];
     practicalLabel.center = CGPointMake(practicalInformationBkgImage.bounds.size.width/2, practicalInformationBkgImage.bounds.size.height/2);
     practicalLabel.text = @"实用信息";
-    practicalLabel.textColor = APP_THEME_COLOR;
+    practicalLabel.textColor = TEXT_COLOR_TITLE_DESC;
     practicalLabel.textAlignment = NSTextAlignmentCenter;
     practicalLabel.font = [UIFont systemFontOfSize:14];
     [practicalInformationBkgImage addSubview:practicalLabel];
@@ -192,7 +192,7 @@
         _priceBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         NSString *priceText = [NSString stringWithFormat:@"     人均:%@ 元",priceDesc];
         [_priceBtn setTitle:priceText forState:UIControlStateNormal];
-        [_priceBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+        [_priceBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
         [_priceBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
         [_priceBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_scrollView addSubview:_priceBtn];
@@ -209,7 +209,7 @@
     
     UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(55, offsetY, _scrollView.bounds.size.width-50, 30)];
     addressDetailLabel.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
     [addressDetailLabel setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
 //    addressDetailLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     addressDetailLabel.titleLabel.numberOfLines = 2;
@@ -246,7 +246,7 @@
     [phoneDetailBtn setTitle:telephone forState:UIControlStateNormal];
     phoneDetailBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [phoneDetailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [phoneDetailBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+    [phoneDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
 //    [phoneDetailBtn setImage:[UIImage imageNamed:@"ic_tel.png"] forState:UIControlStateNormal];
     
     UIImageView *phoneDetailBtnView = [[UIImageView alloc] initWithFrame:CGRectMake(35, offsetY, 11, 16)];

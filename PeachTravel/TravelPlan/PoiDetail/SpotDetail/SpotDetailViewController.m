@@ -14,9 +14,12 @@
 #import "UIImage+BoxBlur.h"
 
 @interface SpotDetailViewController () <UIActionSheetDelegate>
-
+{
+    UIButton *_favoriteBtn;
+}
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
+
 
 @end
 
@@ -24,7 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = YES;
+//    self.automaticallyAdjustsScrollViewInsets 
 //    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
 //    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
 //    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
@@ -37,16 +41,55 @@
 //    tap.numberOfTapsRequired = 1;
 //    tap.numberOfTouchesRequired = 1;
 //    [view addGestureRecognizer:tap];
+    NSMutableArray *barItems = [[NSMutableArray alloc] init];
+    
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
+    
+    self.navigationItem.rightBarButtonItems = barItems;
+
     
     [self loadData];
 }
-
+- (IBAction)favorite:(UIButton *)sender
+{
+    [MobClick event:@"event_city_favorite"];
+    //先将收藏的状态改变
+    //    _cityHeaderView.favoriteBtn.selected = !self.poi.isMyFavorite;
+    //    _cityHeaderView.favoriteBtn.userInteractionEnabled = NO;
+    
+    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+        //        _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
+        //        if (!isSuccess) {
+        //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
+        //
+        //        }
+        if (isSuccess) {
+            _favoriteBtn.selected = !_favoriteBtn.selected;
+        }
+    }];
+    
+    
+}
 - (void)updateView
 {
 //    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:self.view.bounds];
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+64)];
+    _spotDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+150) ;
+    _spotDetailView.showsHorizontalScrollIndicator = NO;
+    _spotDetailView.showsVerticalScrollIndicator = NO;
     _spotDetailView.spot = (SpotPoi *)self.poi;
-    self.navigationItem.title = self.poi.zhName;
+//    self.navigationItem.title = self.poi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:_spotDetailView];
 
@@ -76,6 +119,7 @@
     [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
+    
     [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.travelBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.ticketBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
@@ -173,6 +217,7 @@
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];
         }
+        _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
@@ -293,22 +338,22 @@
     [sheet showInView:self.view];
 }
 
-- (IBAction)favorite:(id)sender
-{
-    //先将收藏的状态改变
-    [MobClick event:@"event_spot_favorite"];
-    _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
-    _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
-    
-    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-        _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
-        if (isSuccess) {
-        } else {      //如果失败了，再把状态改回来
-            _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
-        }
-    }];
-
-}
+//- (IBAction)favorite:(id)sender
+//{
+//    //先将收藏的状态改变
+//    [MobClick event:@"event_spot_favorite"];
+//    _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
+//    _spotDetailView.favoriteBtn.userInteractionEnabled = NO;
+//    
+//    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+//        _spotDetailView.favoriteBtn.userInteractionEnabled = YES;
+//        if (isSuccess) {
+//        } else {      //如果失败了，再把状态改回来
+//            _spotDetailView.favoriteBtn.selected = !_spotDetailView.favoriteBtn.selected;
+//        }
+//    }];
+//
+//}
 
 #pragma mark - UIActionSheetDelegate
 

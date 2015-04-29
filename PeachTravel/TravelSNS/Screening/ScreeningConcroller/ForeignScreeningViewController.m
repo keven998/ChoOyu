@@ -10,7 +10,8 @@
 #import "TaoziCollectionLayout.h"
 #import "ScreeningModel.h"
 //#import "ScreeningCell.h"
-#import "ScreenningViewCell.h"
+//#import "ScreenningViewCell.h"
+#import "DomesticDestinationCell.h"
 @interface ForeignScreeningViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,TaoziLayoutDelegate,UICollectionViewDelegateFlowLayout>
 {
     NSMutableArray *_dataArray;
@@ -70,21 +71,20 @@
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     
     _collectionView=[[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
-//    _collectionView = [[UICollectionView alloc] init];
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
     [_collectionView setBackgroundColor:[UIColor clearColor]];
     
     //注册Cell，必须要有
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
-    
+//    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    [_collectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:@"UICollectionViewCell"];
     [self.view addSubview:_collectionView];
     layout.delegate = self;
     layout.showDecorationView = YES;
     layout.margin = 10;
     layout.spacePerItem = 10;
     layout.spacePerLine = 10;
-    
+//
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
@@ -141,10 +141,12 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * CellIdentifier = @"UICollectionViewCell";
-    ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    DomesticDestinationCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    ScreeningModel *model = _dataArray[indexPath.row];
+    NSLog(@"model%@",model);
     cell.backgroundColor = [UIColor orangeColor];
-//    cell.nameLabel.text = @"11111";
+//    cell.tiltleLabel.text = model.zhName;
+    
     return cell;
 }
 
