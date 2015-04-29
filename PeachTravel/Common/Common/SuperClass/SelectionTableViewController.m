@@ -65,22 +65,8 @@
     if (self.delegate != nil) {
         [self.delegate selectItem:[_contentItems objectAtIndex:indexPath.row] atIndex:indexPath];
     }
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    [user setObject:_contentItems[indexPath.row] forKey:@"Gender"];
     [self goBack];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

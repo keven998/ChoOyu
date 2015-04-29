@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"个人信息";
+    self.navigationItem.title = @"我";
     
     [self loadUserInfo];
 
@@ -420,19 +420,11 @@
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
-                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
-                    cell.cellDetail.text = @"美女";
-                }
-                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
-                    cell.cellDetail.text = @"帅锅";
-                }
-                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
-                    cell.cellDetail.text = @"不告诉你";
-                }
+
 
             } else if (indexPath.row == 1) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
-                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
+                
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
@@ -446,8 +438,22 @@
                     cell.cellDetail.text = tel;
                 }
             }
-        } else if (indexPath.section == 4) {
-            if (indexPath.row == 1) {
+            
+        }
+        else if (indexPath.section == 3){
+        
+            cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
+        }
+        else if (indexPath.section == 4) {
+            if (indexPath.row == 0){
+                
+                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+                NSString *value;
+                value = [user objectForKey:@"Gender"];
+                cell.cellDetail.text = value;
+                
+            }
+            else if (indexPath.row == 1) {
                 cell.cellDetail.text = self.accountManager.accountDetail.birthday;
             } else if (indexPath.row == 2) {
                 cell.cellDetail.text = self.accountManager.accountDetail.residence;
@@ -463,6 +469,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            
             [self presentImagePicker];
             [MobClick event:@"event_update_avatar"];
         } else if (indexPath.row == 1) {
@@ -474,6 +481,37 @@
         
     } else if (indexPath.section ==  1) {
         if (indexPath.row == 0) {
+            
+            [MobClick event:@"event_update_phone"];
+            
+            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+            changePasswordCtl.verifyCaptchaType = UserBindTel;
+
+            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            
+            } else if (indexPath.row == 1) {
+                [MobClick event:@"event_update_password"];
+                ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+                
+                
+//            [MobClick event:@"event_update_memo"];
+//            [self changeUserMark];
+        }
+        
+        
+    } else if (indexPath.section == 2) {
+        
+        FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        [self presentViewController:footCtl animated:YES completion:nil];
+        
+    } else if (indexPath.section == 3) {
+        
+        [MobClick event:@"event_update_memo"];
+        [self changeUserMark];
+
+    } else if (indexPath.section == 4) {
+        if (indexPath.row == 0) {
             [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
@@ -482,32 +520,7 @@
             ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
             TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
             [self presentViewController:nav animated:YES completion:nil];
-        } else if (indexPath.row == 1) {
-            [MobClick event:@"event_update_memo"];
-            [self changeUserMark];
-        }
-        
-    } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            [MobClick event:@"event_update_password"];
 
-            ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
-//            [self.navigationController pushViewController:changePasswordCtl animated:YES];
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-        } else if (indexPath.row == 1) {
-            [MobClick event:@"event_update_phone"];
-
-            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
-            changePasswordCtl.verifyCaptchaType = UserBindTel;
-//            [self.navigationController pushViewController:changePasswordCtl animated:YES];
-            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-        }
-    } else if (indexPath.section == 3) {
-        FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-        [self presentViewController:footCtl animated:YES completion:nil];
-    } else if (indexPath.section == 4) {
-        if (indexPath.row == 0) {
-            
         } else if (indexPath.row == 1) {
             [self showDatePicker];
         } else if (indexPath.row == 2) {
