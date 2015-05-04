@@ -20,13 +20,15 @@
 #import "SelectionTableViewController.h"
 #import "PXAlertView+Customization.h"
 #import "BaseTextSettingViewController.h"
-
+#import "JobListViewController.h"
+#import "StatusListViewController.h"
+#import "HeaderCell.h"
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
+#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地",@"职业"]]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ChangStatusDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -59,6 +61,7 @@
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:accountDetailHeaderCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
     self.tableView.tableFooterView = self.footerView;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
@@ -397,7 +400,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 49.0;
+    if (indexPath.section == 2) {
+        
+        return 90;
+    }
+    else{
+        return 49.0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -407,7 +416,16 @@
         cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
         [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         return cell;
-    } else {
+    }
+    else if (indexPath.section == 2){
+        HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
+        cell.nameLabel.text = @"旅行足迹";
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.dataArray = @[@"上海",@"北京",@"杭州"];
+        return cell;
+
+    }
+    else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
         cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0) {
@@ -416,7 +434,9 @@
                 cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.self.accountManager.accountDetail.basicUserInfo.userId intValue]];
+//                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.self.accountManager.accountDetail.basicUserInfo.userId intValue]];
+                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+                cell.cellDetail.text = [user objectForKey:@"status"];
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
@@ -427,20 +447,23 @@
                 cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
                 
             }
-        } else if (indexPath.section == 2) {
-            if (indexPath.row == 0) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_password.png"];
-            } else if (indexPath.row == 0) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_bindphone.png"];
-                NSString *tel = self.self.accountManager.accountDetail.basicUserInfo.tel;
-                if (tel == nil || tel.length < 1) {
-                    cell.cellDetail.text = @"未绑定";
-                } else {
-                    cell.cellDetail.text = tel;
-                }
-            }
-            
         }
+//        else if (indexPath.section == 2) {
+//            if (indexPath.row == 0) {
+//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_password.png"];
+//            } else if (indexPath.row == 0) {
+//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_bindphone.png"];
+//                NSString *tel = self.self.accountManager.accountDetail.basicUserInfo.tel;
+//                if (tel == nil || tel.length < 1) {
+//                    cell.cellDetail.text = @"未绑定";
+//                } else {
+//                    cell.cellDetail.text = tel;
+//                }
+//            }
+//            HeaderCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
+//            cell1.dataArray = @[@"111",@"111",@"111",@"111"];
+//            return cell1;
+//        }
         else if (indexPath.section == 3){
         
             cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
@@ -458,6 +481,11 @@
                 cell.cellDetail.text = self.accountManager.accountDetail.birthday;
             } else if (indexPath.row == 2) {
                 cell.cellDetail.text = self.accountManager.accountDetail.residence;
+            }
+            else if (indexPath.row == 3){
+                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+                cell.cellDetail.tag = 101;
+                cell.cellDetail.text = [user objectForKey:@"jobs"];
             }
         }
         
@@ -477,7 +505,12 @@
             [MobClick event:@"event_update_nick"];
             [self changeUserName];
         } else if (indexPath.row == 2) {
-            [self showHint:@"猥琐攻城师不让修改这个～"];
+//            [self showHint:@"猥琐攻城师不让修改这个～"];
+            
+            StatusListViewController *svc = [[StatusListViewController alloc]init];
+            svc.dataArray = @[@"正在准备旅行",@"旅行中",@"旅行灵感时期",@"不知道"];
+            svc.delegate = self;
+            [self.navigationController pushViewController:svc animated:YES];
         }
         
     } else if (indexPath.section ==  1) {
@@ -534,6 +567,13 @@
             TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:cityListCtl];
             [self presentViewController:navc animated:YES completion:nil];
         }
+        else if (indexPath.row == 3){
+            JobListViewController *jvc = [[JobListViewController alloc]init];
+            jvc.delegate = self;
+            jvc.dataArray = @[@"女博士",@"女硕士",@"女北大硕士",@"女清华硕士",@"女清华博士",@"女北大硕士",@"逗比"];
+            [self.navigationController pushViewController:jvc animated:YES];
+            
+        }
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -542,7 +582,7 @@
 #pragma mark - SelectDelegate
 
 - (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    
+    [_tableView reloadData];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -626,7 +666,17 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
     }
-    
+}
+
+-(void)changeJob:(NSString *)jobStr
+{
+//    UILabel *cell  = (UILabel *)[self.tableView viewWithTag:101];
+//    cell.text = jobStr;
+    [_tableView reloadData];
+}
+-(void)changeStatus
+{
+    [_tableView reloadData];
 }
 
 

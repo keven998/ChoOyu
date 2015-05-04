@@ -8,6 +8,14 @@
 
 #import "JobListViewController.h"
 
-@interface StatusListViewController : JobListViewController
+@protocol ChangStatusDelegate <NSObject>
 
+-(void)changeStatus;
+
+@end
+
+@interface StatusListViewController : UIViewController
+
+@property (copy,nonatomic) NSArray *dataArray;
+@property (weak,nonatomic) id<ChangStatusDelegate> delegate;
 @end

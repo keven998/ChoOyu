@@ -21,12 +21,15 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(doScreening)];
     
 
 }
 
+-(void)doScreening
+{
+    
+}
 - (void)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
