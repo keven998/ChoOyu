@@ -80,6 +80,8 @@
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [SVProgressHUD showHint:@"已清理"];
+            UILabel *label = (UILabel*)[self.view viewWithTag:101];
+            label.text = @"0.00M";
         });
     }];
     
@@ -121,6 +123,11 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
+            NSString *str = [NSString stringWithFormat:@"%.2fM",(float)[[SDImageCache sharedImageCache] getSize]/1024/1024];
+            cell.cacheLabel.text = str;
+            cell.cacheLabel.tag = 101;
+            cell.cacheLabel.font = [UIFont systemFontOfSize:12];
+            cell.cacheLabel.textColor = [UIColor grayColor];
             cell.extender.image = nil;
         } else if (indexPath.row == 1) {
             cell.flagView.image = [UIImage imageNamed:@"ic_feedback.png"];
@@ -142,6 +149,7 @@
     switch (index) {
         case 0: {
             [self clearMemo];
+            
         }
             break;
             

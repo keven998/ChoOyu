@@ -14,4 +14,6 @@
 //@property (weak, nonatomic) IBOutlet UIView *bgFrame;
 @property (weak, nonatomic) IBOutlet UIImageView *extender;
 
+@property (weak, nonatomic) IBOutlet UILabel *cacheLabel;
+
 @end

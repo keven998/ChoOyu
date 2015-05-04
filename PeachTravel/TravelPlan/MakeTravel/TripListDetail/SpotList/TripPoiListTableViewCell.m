@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
 //    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
 //    _headerImageView.layer.borderWidth = 0.5;
+//    _headerImageView.layer.cornerRadius = 1.0;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
     UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 0, CGRectGetWidth(self.bounds) - 46, 1)];
@@ -44,19 +45,19 @@
     NSString *rankStr;
     switch (_tripPoi.poiType) {
         case kSpotPoi:
-            rankStr = @"景点排名";
+            rankStr = @"景点排名第";
             break;
             
         case kRestaurantPoi:
-            rankStr = @"美食排名";
+            rankStr = @"美食排名第";
             break;
         
         case kShoppingPoi:
-            rankStr = @"购物排名";
+            rankStr = @"购物排名第";
             break;
             
         case kHotelPoi:
-            rankStr = @"酒店排名";
+            rankStr = @"酒店排名第";
             break;
             
         default:
@@ -66,15 +67,15 @@
     NSString *property = _tripPoi.locality.zhName;
     if (_tripPoi.rank == 0) {
         
-    } else if (_tripPoi.rank <= 100) {
-        property = [NSString stringWithFormat:@"%@ %@:%d", property, rankStr, _tripPoi.rank];
+    } else if (_tripPoi.rank <= 500) {
+        property = [NSString stringWithFormat:@"%@ %@%d", property, rankStr, _tripPoi.rank];
     } else {
-        property = [NSString stringWithFormat:@"%@ %@:>100", property, rankStr];
+        property = [NSString stringWithFormat:@"%@", property];
     }
     _propertyLabel.text = property;
     
     if (_tripPoi.poiType == kSpotPoi) {
-        NSString *timeStr = [NSString stringWithFormat:@"参考游玩时间:%@", ((SpotPoi *)tripPoi).timeCostStr];
+        NSString *timeStr = [NSString stringWithFormat:@"建议游玩时间:%@", ((SpotPoi *)tripPoi).timeCostStr];
         _valueLabel.text = timeStr;
     } else {
         _valueLabel.text = nil;

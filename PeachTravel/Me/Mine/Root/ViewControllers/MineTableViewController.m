@@ -52,6 +52,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
     self.tableView.separatorColor = APP_DIVIDER_COLOR;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
     [self setupTableHeaderView];
@@ -83,13 +84,18 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
-    [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    if (!_hideNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    }
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tableView.dataSource = nil;
+    _tableView.delegate = nil;
+    _tableView = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,7 +150,7 @@
     [backgroundImageView addSubview:signLabel];
     _signatureLabel = signLabel;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(height - 20, 0, 0, 0);
 }
 
 #pragma mark - setter & getter
@@ -205,9 +211,9 @@
     UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅伴一起讨论旅行，还有便利的自由行规划工具，陪你一起去旅行" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
-        if (response.responseCode == UMSResponseCodeSuccess) {
-            NSLog(@"分享成功！");
-        }
+//        if (response.responseCode == UMSResponseCodeSuccess) {
+//            NSLog(@"分享成功！");
+//        }
     }];
 }
 
@@ -218,8 +224,10 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    _hideNavigationBar = YES;
+    [self.navigationController presentViewController:nctl animated:YES completion:^ {
+        _hideNavigationBar = NO;
+    }];
 }
 
 - (IBAction)userRegister:(id)sender
@@ -323,6 +331,24 @@
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - ScrollViewDelegate
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_tableView != nil) {
+        UIView *view = _avatarImageView.superview;
+        CGRect frame = view.frame;
+        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(frame);
+        if (y <= 0) {
+            if (frame.origin.y != 0) {
+                frame.origin.y = 0;
+                view.frame = frame;
+            }
+        } else {
+            frame.origin.y = -y;
+            view.frame = frame;
+        }
+    }
 }
 
 @end

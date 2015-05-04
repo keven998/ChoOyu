@@ -12,8 +12,11 @@
 #import "UIImage+BoxBlur.h"
 
 @interface CommonPoiDetailViewController ()
-
+{
+    UIButton *_favoriteBtn;
+}
 @property (nonatomic, strong) UIImageView *backGroundImageView;
+
 
 @end
 
@@ -23,51 +26,76 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
-    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    [self.view addSubview:_backGroundImageView];
-    [self.view addSubview:view];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
-    tap.numberOfTapsRequired = 1;
-    tap.numberOfTouchesRequired = 1;
-    [view addGestureRecognizer:tap];
+    NSMutableArray *barItems = [[NSMutableArray alloc] init];
+    
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_share_to_talk.png"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
+    
+    
+//    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
+    
+    self.navigationItem.rightBarButtonItems = barItems;
+//    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
+//    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+//    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+//    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+//    [self.view addSubview:_backGroundImageView];
+//    [self.view addSubview:view];
+    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
+//    tap.numberOfTapsRequired = 1;
+//    tap.numberOfTouchesRequired = 1;
+//    [view addGestureRecognizer:tap];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBarHidden= YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)updateView
 {
-    self.navigationItem.title = self.poi.zhName;
-    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
+//    self.navigationItem.title = self.poi.zhName;
+//    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
+    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:self.view.bounds];
+    commonPoiDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+1);
+    commonPoiDetailView.showsHorizontalScrollIndicator = NO;
+    commonPoiDetailView.showsVerticalScrollIndicator = NO;
     commonPoiDetailView.rootCtl = self;
     commonPoiDetailView.poiType = _poiType;
     commonPoiDetailView.poi = self.poi;
     commonPoiDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:commonPoiDetailView];
+    
+    [self.navigationController pushViewController:self animated:YES];
+//    commonPoiDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        commonPoiDetailView.transform = CGAffineTransformMakeScale(1, 1);
 
-    commonPoiDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        commonPoiDetailView.transform = CGAffineTransformMakeScale(1, 1);
-
-    } completion:^(BOOL finished) {
-        commonPoiDetailView.transform = CGAffineTransformIdentity;
-        [commonPoiDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-        [commonPoiDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    }];
+//    } completion:^(BOOL finished) {
+//        commonPoiDetailView.transform = CGAffineTransformIdentity;
+//        [commonPoiDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+//        [commonPoiDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
+//    }];
 }
 
 - (void)dismissCtl

@@ -7,16 +7,16 @@
 //
 
 #import "LocalViewController.h"
-#import "DMFilterView.h"
+#import "SDSegmentedControl.h"
 #import "SwipeView.h"
-#import "PoisOfCityTableViewCell.h"
+#import "CommonPoiListTableViewCell.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "HotelDetailViewController.h"
 
-#define LOCAL_PAGE_TITLES       @[@"景", @"美食", @"逛", @"住"]
+#define LOCAL_PAGE_TITLES       @[@"景点", @"美食", @"购物", @"酒店"]
 #define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
 #define LOCAL_PAGE_HIGHLIGHTEDIMAGES       @[@"nearby_ic_tab_spot_select.png", @"nearby_ic_tab_delicacy_select", @"nearby_ic_tab_shopping_select.png", @"nearby_ic_tab_stay_select.png"]
 
@@ -26,9 +26,9 @@
 #define PAGE_STAY               3
 #define RECYCLE_PAGE_TAG        100
 
-@interface LocalViewController ()<DMFilterViewDelegate, SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
+@interface LocalViewController ()<SwipeViewDataSource, SwipeViewDelegate, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) DMFilterView *filterView;
+@property (nonatomic, strong) SDSegmentedControl *filterView;
 @property (nonatomic, strong) SwipeView *swipeView;
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -62,26 +62,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.navigationItem.title = @"我身边";
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"身边";
-//    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-//    titleLabel.backgroundColor = [UIColor clearColor];
-//    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-//    titleLabel.textColor = [UIColor whiteColor];
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    titleLabel.text = @"我身边";
-//    self.navigationItem.titleView = titleLabel;
+    self.navigationItem.title = @"附近";
     
-    _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES normatlImages:LOCAL_PAGE_NORMALIMAGES highLightedImages:LOCAL_PAGE_HIGHLIGHTEDIMAGES containerView:self.view];
-    _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.filterView attachToContainerView];
-    [self.filterView setDelegate:self];
-    _filterView.backgroundImage = [[UIImage imageNamed:@"navi_bkg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
-//    _filterView.backgroundColor = [UIColor clearColor];
-    _filterView.titlesColor = TEXT_COLOR_TITLE_HINT;
-    _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
-    _filterView.selectedItemBackgroundColor = [UIColor clearColor];
+//    _filterView = [[DMFilterView alloc]initWithStrings:LOCAL_PAGE_TITLES normatlImages:LOCAL_PAGE_NORMALIMAGES highLightedImages:LOCAL_PAGE_HIGHLIGHTEDIMAGES containerView:self.view];
+//    _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    [self.filterView attachToContainerView];
+//    [self.filterView setDelegate:self];
+//    _filterView.backgroundColor = [UIColor grayColor];
+//    _filterView.titlesColor = TEXT_COLOR_TITLE_HINT;
+//    _filterView.titlesFont = [UIFont systemFontOfSize:9.0];
+//    _filterView.selectedItemBackgroundColor = [UIColor clearColor];
+    
+    _filterView = [[SDSegmentedControl alloc] initWithItems:LOCAL_PAGE_TITLES];
+    _filterView.tintColor = APP_THEME_COLOR;
+    _filterView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 32);
+    _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _filterView.selectedSegmentIndex = 0;
+    [_filterView addTarget:self action:@selector(selectedPage:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_filterView];
 
     _swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_filterView.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - CGRectGetHeight(_filterView.frame))];
     _swipeView.dataSource = self;
@@ -123,19 +122,12 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_locality"];
-//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
-//    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
-//    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back_white.png"] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_locality"];
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-//    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
-//    [leftBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
 }
 
 - (void)goBack
@@ -165,20 +157,23 @@
 - (IBAction)jumpToMapView:(UIButton *)sender
 {
     [MobClick event:@"event_go_navigation"];
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:nil];
-    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
-    for (NSDictionary *dic in platformArray) {
-        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
-    }
-    [sheet addButtonWithTitle:@"取消"];
-    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
-    [sheet showInView:self.view];
-    sheet.tag = sender.tag;
-   
+//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"其他软件导航"
+//                                                       delegate:self
+//                                              cancelButtonTitle:nil
+//                                         destructiveButtonTitle:nil
+//                                              otherButtonTitles:nil];
+//    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+//    for (NSDictionary *dic in platformArray) {
+//        [sheet addButtonWithTitle:[dic objectForKey:@"platform"]];
+//    }
+//    [sheet addButtonWithTitle:@"取消"];
+//    sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+//    [sheet showInView:self.view];
+//    sheet.tag = sender.tag;
+
+    NSInteger tag = _swipeView.currentItemView.tag;
+    SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:tag];
+    [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
 }
 
 - (CLLocationManager *)locationManager
@@ -392,7 +387,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 155;
+    return 90;
 }
 
 
@@ -406,14 +401,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger page = [tableView superview].tag;
-   
-    PoisOfCityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poisOfCity"];
-    cell.shouldEdit = NO;
-    cell.isNearByCell = YES;
-    cell.naviBtn.tag = indexPath.row;
-    [cell.naviBtn removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.naviBtn addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-    cell.poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
+    CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commonPoiListCell"];
+    SuperPoi *poi = [[_dataSource objectAtIndex:page] objectAtIndex:indexPath.row];
+    cell.tripPoi = poi;
+    cell.cellAction.hidden = NO;
+    cell.cellAction.tag = indexPath.row;
+    [cell.cellAction setImage:[UIImage imageNamed:@"ic_navigation_black.png"] forState:UIControlStateNormal];
+    [cell.cellAction setTitle:poi.distanceStr forState:UIControlStateNormal];
+    cell.cellAction.titleLabel.font = [UIFont systemFontOfSize:12];
+    [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -433,7 +430,7 @@
         view.tag = index;
         tbView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height)];
         tbView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        tbView.contentInset = UIEdgeInsetsMake(5.0, 0.0, 5.0, 0.0);
+        tbView.contentInset = UIEdgeInsetsMake(0, 0.0, 30.0, 0.0);
         tbView.dataSource = self;
         tbView.delegate = self;
         tbView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -441,11 +438,11 @@
         tbView.backgroundColor = APP_PAGE_COLOR;
         
         [view addSubview:tbView];
-        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+        [tbView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiListCell"];
     } else {
         view.tag = index;
         tbView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
-//        [tbView registerNib:[UINib nibWithNibName:@"PoisOfCityTableViewCell" bundle:nil] forCellReuseIdentifier:@"poisOfCity"];
+//        [tbView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiListCell"];
         [tbView setContentOffset:CGPointZero animated:NO];
         [tbView reloadData];
     }
@@ -459,15 +456,14 @@
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView {
     NSInteger page = swipeView.currentPage;
     
-    if (_filterView.selectedIndex != page) {
-        [_filterView setSelectedIndex:page];
+    if (_filterView.selectedSegmentIndex != page) {
+        [_filterView setSelectedSegmentIndex:page];
     }
     /**
      *  如果要显示的页面已经有数据了，那么只是切换不加载数据
      */
     if (![[self.dataSource objectAtIndex:page] count] && ![[self.isLoaddingMoreList objectAtIndex:page] boolValue]) {
         [self.isLoaddingMoreList replaceObjectAtIndex:page withObject:@YES];
-        NSLog(@"我在加载数据 = %ld", (long)page);
         [self loadDataWithPageIndex:0];
     }
 }
@@ -476,16 +472,16 @@
     return swipeView.bounds.size;
 }
 
-#pragma mark - DMFilterViewDelegate
-
-- (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
-    if (_swipeView.currentPage == index) {
-        UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
-        [currentTableView setContentOffset:CGPointZero animated:YES];
-    } else {
-        [_swipeView setCurrentPage:index];
-    }
-}
+//#pragma mark - DMFilterViewDelegate
+//
+//- (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index {
+//    if (_swipeView.currentPage == index) {
+//        UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
+//        [currentTableView setContentOffset:CGPointZero animated:YES];
+//    } else {
+//        [_swipeView setCurrentPage:index];
+//    }
+//}
 
 #pragma mark - MKMapViewDelegate
 
@@ -604,7 +600,6 @@
         return;
     }
     
-    NSLog(@"我完成加载了");
     [self.isLoaddingMoreList replaceObjectAtIndex:pageIndex withObject:@NO];
 
     UIView *view = [self.swipeView itemViewAtIndex:pageIndex];
@@ -617,7 +612,6 @@
     _swipeView.delegate = nil;
     _swipeView.dataSource = nil;
     _swipeView = nil;
-    _filterView.delegate = nil;
     _filterView = nil;
     self.dataSource = nil;
     [_currentPageList removeAllObjects];
@@ -627,6 +621,17 @@
     _locationManager = nil;
 }
 
+#pragma mark - IBAction
+-(void)selectedPage:(UISegmentedControl *)segment {
+    if (_swipeView.currentPage == segment.selectedSegmentIndex) {
+        UITableView *currentTableView =  (UITableView *)[_swipeView.currentItemView viewWithTag:RECYCLE_PAGE_TAG];
+        [currentTableView setContentOffset:CGPointZero animated:YES];
+    } else {
+        [_swipeView setCurrentPage:segment.selectedSegmentIndex];
+    }
+}
+
+
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -634,7 +639,6 @@
     UIView *view = [self.swipeView currentItemView];
     UITableView *tableView = (UITableView *)[view viewWithTag:RECYCLE_PAGE_TAG];
     if (![tableView isEqual:scrollView]) {
-        NSLog(@"警告。。。我已经销毁掉了，所以不应该加载数据了");
         return;
     }
     if ([scrollView isKindOfClass:[UITableView class]]) {
@@ -642,7 +646,6 @@
         if (!isLoadingMore && _didEndScroll) {
             CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
             if (scrollPosition < 44) {
-                NSLog(@"哈哈哈哈哈。滑倒地步了，我要加载了");
                 //如果当前界面没有内容那么不加载内容，因为在点击的时候会加载内容
                 if (![[self.dataSource objectAtIndex:view.tag] count] == 0) {
                     [self beginLoadingMoreWithTableView:(UITableView *)scrollView];

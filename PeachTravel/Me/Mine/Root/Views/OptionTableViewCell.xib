@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -31,16 +31,29 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYB-SB-q5H">
+                        <rect key="frame" x="212" y="11" width="83" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Ev0-17-opu"/>
+                            <constraint firstAttribute="width" constant="83" id="oMq-hb-yus"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="FDg-U2-dQN" secondAttribute="centerY" id="2xq-5k-wTD"/>
+                    <constraint firstAttribute="trailing" secondItem="wYB-SB-q5H" secondAttribute="trailing" constant="25" id="74V-G0-hG0"/>
+                    <constraint firstAttribute="centerY" secondItem="wYB-SB-q5H" secondAttribute="centerY" id="7Oo-r3-cc0"/>
                     <constraint firstItem="FDg-U2-dQN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Nzn-Uj-bTL"/>
                     <constraint firstAttribute="centerY" secondItem="7ID-ja-dxp" secondAttribute="centerY" id="Yvw-KU-YmD"/>
                     <constraint firstItem="7ID-ja-dxp" firstAttribute="leading" secondItem="FDg-U2-dQN" secondAttribute="trailing" constant="12" id="fEA-Qj-n6D"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="cacheLabel" destination="wYB-SB-q5H" id="JLz-hc-4t5"/>
                 <outlet property="flagView" destination="FDg-U2-dQN" id="5aq-NK-vYc"/>
                 <outlet property="titleView" destination="7ID-ja-dxp" id="KoN-wR-dh8"/>
             </connections>

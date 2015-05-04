@@ -25,12 +25,16 @@
  *  标记是从三账单进来的还是从从城市详情界面进来的
  */
 @property (nonatomic) BOOL shouldEdit;
-
 @property (nonatomic, strong) TripDetail *tripDetail;
-
 @property (nonatomic) TZPoiType poiType;
 
 
 @property (nonatomic, weak) id <PoisOfCityDelegate>delegate;
+
+@end
+
+@interface SelectDestCell : UICollectionViewCell
+
+@property (nonatomic, strong) UILabel *textView;
 
 @end

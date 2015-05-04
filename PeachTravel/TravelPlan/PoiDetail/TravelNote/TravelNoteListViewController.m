@@ -44,6 +44,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
         self.tableView.tableHeaderView = self.searchBar;
         self.navigationItem.title = @"发送游记";
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        
+        [self.tableView setContentOffset:CGPointMake(0, 40)];
     }
 }
 

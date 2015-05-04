@@ -56,7 +56,14 @@
         }
     }
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+//    self.navigationController.navigationBarHidden = YES;
+}
 @end
 
 

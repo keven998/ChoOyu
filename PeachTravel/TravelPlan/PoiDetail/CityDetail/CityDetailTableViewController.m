@@ -22,7 +22,9 @@
 #import "AddPoiViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate, UIActionSheetDelegate>
-
+{
+    UIButton *_favoriteBtn;
+}
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CityHeaderView *cityHeaderView;
 @property (nonatomic, strong) TZProgressHUD *hud;
@@ -41,9 +43,28 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *bItem1 = [[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:self action:@selector(favorite:)];
-    UIBarButtonItem *bItem2 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(option:)];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:bItem2, bItem1, nil];
+    NSMutableArray *barItems = [[NSMutableArray alloc] init];
+    
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [planBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+    [planBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
+    
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_share_to_talk.png"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
+    
+    
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
+    
+    self.navigationItem.rightBarButtonItems = barItems;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
@@ -81,8 +102,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)updateView
 {
-    self.navigationItem.title = self.poi.zhName;
-    
     _cityHeaderView = [[CityHeaderView alloc] init];
     _cityHeaderView.delegate = self;
     [_cityHeaderView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
@@ -105,7 +124,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         NSString *url = taoziImage.imageUrl;
         [_cityPicture sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
     }
-    
+    _favoriteBtn.selected=self.poi.isMyFavorite;
 //    UILabel *title = (UILabel *)[_customNavigationBar viewWithTag:123];
 //    title.text = self.poi.zhName;
 }
@@ -126,6 +145,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.showsVerticalScrollIndicator = NO;
     }
     return _tableView;
@@ -151,7 +171,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf];
+    [_hud showHUDInViewController:weakSelf content:64];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -258,7 +278,12 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
 //
 //        }
+        if (isSuccess) {
+            _favoriteBtn.selected = !_favoriteBtn.selected;
+        }
     }];
+    
+    
 }
 
 - (IBAction)viewSpots:(id)sender
@@ -451,39 +476,40 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        Destinations *destinations = [[Destinations alloc] init];
-        MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-        ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-        DomesticViewController *domestic = [[DomesticViewController alloc] init];
-        
-        CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
-        poi.zhName = self.poi.zhName;
-        poi.cityId = self.poi.poiId;
-        [destinations.destinationsSelected addObject:poi];
-        
-        domestic.destinations = destinations;
-        foreignCtl.destinations = destinations;
-        makePlanCtl.destinations = destinations;
-        makePlanCtl.viewControllers = @[domestic, foreignCtl];
-        domestic.makePlanCtl = makePlanCtl;
-        foreignCtl.makePlanCtl = makePlanCtl;
-        makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-        makePlanCtl.duration = 0;
-        makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-        makePlanCtl.selectedColor = APP_THEME_COLOR;
-        makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-        makePlanCtl.normalColor= [UIColor grayColor];
-        
-        [self.navigationController pushViewController:makePlanCtl animated:YES];
-        [MobClick event:@"event_city_share_to_talk"];
-        [MobClick event:@"event_create_new_trip_plan_city"];
-
+        [self makePlan];
     } else if (buttonIndex == 1) {
         [self shareToTalk];
-        [MobClick event:@"event_city_share_to_talk"];
     } else {
         return;
     }
+}
+
+- (void)makePlan {
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    
+    CityDestinationPoi *poi = [[CityDestinationPoi alloc] init];
+    poi.zhName = self.poi.zhName;
+    poi.cityId = self.poi.poiId;
+    [destinations.destinationsSelected addObject:poi];
+    
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:makePlanCtl] animated:YES completion:nil];
+    [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
 

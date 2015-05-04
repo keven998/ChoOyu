@@ -16,9 +16,6 @@
 #import "RecommendDataSource.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "CommonPoiListTableViewCell.h"
-#import "CommonPoiDetailViewController.h"
 #import "MyTripSpotsMapViewController.h"
 #import "PositionBean.h"
 #import "PoiDetailViewControllerFactory.h"
@@ -34,7 +31,6 @@
 @implementation SpotsListViewController
 
 static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
-static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 
 
 - (void)viewDidLoad {
@@ -42,7 +38,6 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:commonPoiListReusableIdentifier];
     
     [self.view addSubview:self.tableView];
 }
@@ -105,7 +100,7 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
     addPoiCtl.delegate = self;
     addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = day;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:addPoiCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:addPoiCtl];
     [self presentViewController:nctl animated:YES completion:nil];
 }
 
@@ -151,18 +146,9 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     [MobClick event:@"event_day_map_view"];
     MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
-    
-//    NSMutableArray *allPositions = [[NSMutableArray alloc] init];
-//    for (SuperPoi *poi in _tripDetail.itineraryList[sender.tag]) {
-//        PositionBean *position = [[PositionBean alloc] init];
-//        position.latitude = poi.lat;
-//        position.longitude = poi.lng;
-//        position.poiName = poi.zhName;
-//        position.poiId = poi.poiId;
-//        [allPositions addObject:position];
-//    }
     ctl.pois = _tripDetail.itineraryList;
     ctl.currentDay = 0;
+    ctl.titleText = _tripDetail.tripTitle;
     [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
     [self presentViewController:nCtl animated:YES completion:nil];
@@ -183,11 +169,8 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 {
     if (_shouldEdit) {
         [self.tableView setEditing:YES animated:YES];
-//        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
-        
     } else {
         [self.tableView setEditing:NO animated:YES];
-//        [self performSelector:@selector(updateTableView) withObject:nil afterDelay:0.2];
     }
 }
 
@@ -351,10 +334,10 @@ static NSString *commonPoiListReusableIdentifier = @"commonPoiListCell";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.tableView.isEditing) {
-        return YES;
-    }
-    return NO;
+//    if (self.tableView.isEditing) {
+//        return YES;
+//    }
+    return YES;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

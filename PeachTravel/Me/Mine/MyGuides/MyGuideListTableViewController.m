@@ -21,6 +21,7 @@
 #import "TripPlanSettingViewController.h"
 #import "BaseTextSettingViewController.h"
 
+#import "UIBarButtonItem+MJ.h"
 #define PAGE_COUNT 10
 
 @interface MyGuideListTableViewController () <UIGestureRecognizerDelegate, TaoziMessageSendDelegate, TripUpdateDelegate, SWTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -66,26 +67,17 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewDidLoad];
     if (_isTrip) {
         self.navigationItem.title = @"已去过的旅行";
-        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-        [button setFrame:CGRectMake(0, 0, 48, 30)];
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-        self.navigationItem.leftBarButtonItem = barButton;
+
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_navigation_back.png" highIcon:nil target:self action:@selector(goBack)];
+        
     } else {
         self.navigationItem.title = @"旅行计划";
         UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"去过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
         self.navigationItem.rightBarButtonItem = rbtn;
         
         if (!_selectToSend) {
-            UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-            [button addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-            [button setFrame:CGRectMake(0, 0, 48, 30)];
-            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-            self.navigationItem.leftBarButtonItem = barButton;
+
+            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_navigation_back.png" highIcon:nil target:self action:@selector(goBack)];
         } else {
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
         }
@@ -190,8 +182,6 @@ static NSString *reusableCell = @"myGuidesCell";
     gltvc.chatter = _chatter;
     gltvc.selectToSend = _selectToSend;
     gltvc.isChatGroup = _isChatGroup;
-//    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:gltvc];
-//    [self presentViewController:ctl animated:YES completion:nil];
     [self.navigationController pushViewController:gltvc animated:YES];
 }
 
@@ -831,7 +821,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [alertView setTitleFont:[UIFont systemFontOfSize:17]];
     [alertView setMessageColor:TEXT_COLOR_TITLE_SUBTITLE];
 }
-
+#pragma mark - 置顶
 - (void) reorderToFirst:(SWTableViewCell *)cell {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     

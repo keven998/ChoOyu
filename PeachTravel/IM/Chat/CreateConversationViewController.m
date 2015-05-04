@@ -38,7 +38,6 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.contactTableView];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
     confirm.tintColor = APP_THEME_COLOR;
@@ -90,8 +89,9 @@
 - (SelectContactScrollView *)selectContactView
 {
     if (!_selectContactView) {
-        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 90)];
+        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
         _selectContactView.delegate = self;
+        _selectContactView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _selectContactView.backgroundColor = [UIColor whiteColor];
         _selectContactView.alpha = 0;
     }
@@ -101,16 +101,13 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        CGFloat offsetY = 64+10;
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, kWindowWidth, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY)];
+        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         _contactTableView.dataSource = self;
-        
-        NSLog(@"%f", self.view.frame.size.height);
-        
         _contactTableView.delegate = self;
         _contactTableView.separatorStyle = UITableViewCellSelectionStyleNone;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.showsVerticalScrollIndicator = NO;
+        _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
         _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
     }

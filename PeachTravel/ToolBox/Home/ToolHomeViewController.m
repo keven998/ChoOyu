@@ -72,7 +72,6 @@
     }
     
     [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
 }
 
@@ -85,7 +84,9 @@
     [super viewWillDisappear:animated];
     [_ascrollView.animationTimer pauseTimer];
     
-    [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    if (!_hideNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
+    }
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
@@ -102,13 +103,14 @@
 #pragma mark - ScrollViewDelegate
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_tableView != nil) {
-        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(_ascrollView.frame);
+        CGRect frame = _ascrollView.frame;
+        CGFloat y = scrollView.contentOffset.y + CGRectGetHeight(frame);
         if (y <= 0) {
-            CGRect frame = _ascrollView.frame;
-            frame.origin.y = 0;
-            _ascrollView.frame = frame;
+            if (frame.origin.y != 0) {
+                frame.origin.y = 0;
+                _ascrollView.frame = frame;
+            }
         } else {
-            CGRect frame = _ascrollView.frame;
             frame.origin.y = -y;
             _ascrollView.frame = frame;
         }
@@ -130,12 +132,6 @@
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] init];
-//    view.backgroundColor = APP_PAGE_COLOR;
-//    return view;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -171,7 +167,7 @@
             cell.textLabel.text = @"我的旅行计划";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         } else {
-            cell.textLabel.text = @"身边哪好玩";
+            cell.textLabel.text = @"附近好玩的";
             cell.imageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         }
     } else {
@@ -234,7 +230,10 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    _hideNavigationBar = YES;
+    [self.navigationController presentViewController:nctl animated:YES completion:^ {
+        _hideNavigationBar = NO;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

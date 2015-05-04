@@ -43,22 +43,20 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
     
     self.navigationItem.title = @"选择";
     
-//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
-//    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//    self.navigationItem.leftBarButtonItem = backBtn;
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
+    self.navigationItem.leftBarButtonItem = backBtn;
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(dismissCtl:)forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 48, 30)];
-    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
-    
+//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(dismissCtl:)forControlEvents:UIControlEventTouchUpInside];
+//    [button setFrame:CGRectMake(0, 0, 48, 30)];
+//    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
+//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
+//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
+//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    self.navigationItem.leftBarButtonItem = barButton;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:reusableChatRecordCell];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reusableCreateConversationCell];
@@ -182,7 +180,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCreateConversationCell forIndexPath:indexPath];
-        cell.textLabel.text = @"创建新的聊天";
+        cell.textLabel.text = @"创建新聊天";
         cell.textLabel.textColor = TEXT_COLOR_TITLE;
         cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
