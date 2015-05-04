@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ChangJobDelegate <NSObject>
+
+-(void)changeJob:(NSString *)jobStr;
+
+@end
+
 @interface JobListViewController : UIViewController
+
+@property (nonatomic,weak) id<ChangJobDelegate> delegate;
+@property (nonatomic,copy) NSArray *dataArray;
 
 @end

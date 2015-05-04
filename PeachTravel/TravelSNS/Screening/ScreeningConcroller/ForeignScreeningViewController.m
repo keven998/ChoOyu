@@ -10,7 +10,7 @@
 #import "TaoziCollectionLayout.h"
 #import "ScreeningModel.h"
 //#import "ScreeningCell.h"
-//#import "ScreenningViewCell.h"
+#import "ScreenningViewCell.h"
 #import "DomesticDestinationCell.h"
 @interface ForeignScreeningViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,TaoziLayoutDelegate,UICollectionViewDelegateFlowLayout>
 {
@@ -36,11 +36,6 @@
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
     TZProgressHUD *hud = [[TZProgressHUD alloc]init];
     [hud showHUD];
     
@@ -66,18 +61,20 @@
 }
 -(void)createCollectionView
 {
-    TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_collectionView.collectionViewLayout;
-    UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];
+    layout.delegate = self;
     
-    _collectionView=[[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    _collectionView=[[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
     [_collectionView setBackgroundColor:[UIColor clearColor]];
     
     //注册Cell，必须要有
 //    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
-    [_collectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:@"UICollectionViewCell"];
+//    [_collectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
+    
+    [_collectionView registerNib:[UINib nibWithNibName:@"ScreenningViewCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
+    
     [self.view addSubview:_collectionView];
     layout.delegate = self;
     layout.showDecorationView = YES;
@@ -87,24 +84,21 @@
 //
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
-    flowLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);//设置其边界
-    
+ 
 }
 
 #pragma mark - TaoziLayoutDelegate
 
-//- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
-//{
-//    return CGSizeMake(self.foreignCollectionView.frame.size.width, 38);
-//}
+- (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(_collectionView.frame.size.width, 38);
+}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 //    AreaDestination *country = _destinations.foreignCountries[indexPath.section];
     ScreeningModel *city = _dataArray[indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
-    NSLog(@"----%@",city.zhName);
     return CGSizeMake(size.width + 25 + 28, 28);;
 }
 
@@ -140,13 +134,12 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"UICollectionViewCell";
-    DomesticDestinationCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString * CellIdentifier = @"cell";
+    ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ScreeningModel *model = _dataArray[indexPath.row];
     NSLog(@"model%@",model);
-    cell.backgroundColor = [UIColor orangeColor];
-//    cell.tiltleLabel.text = model.zhName;
-    
+    cell.nameLabel.text = model.zhName;
+//    cell.tiltleLabel.backgroundColor = [UIColor grayColor];
     return cell;
 }
 

@@ -370,6 +370,11 @@
     return rightUtilityButtons;
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    
+    return [self.dataSource objectForKey:@"headerKeys"];
+}
 
 #pragma mark - Table view delegate
 
@@ -386,7 +391,6 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
 #pragma mark MJMIndexForTableView datasource methods
 // 索引目录
 -(NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
