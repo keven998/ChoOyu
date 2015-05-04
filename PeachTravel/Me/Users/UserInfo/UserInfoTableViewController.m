@@ -293,7 +293,8 @@
      typedef void (^QNUpProgressHandler)(NSString *key, float percent);
      
      QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"text/plain"
-                                                progressHandler:^(NSString *key, float percent) {[self incrementWithProgress:percent];}
+                                                progressHandler:^(NSString *key, float percent) {
+                                                    [self incrementWithProgress:percent];}
                                                          params:@{ @"x:foo":@"fooval" }
                                                        checkCrc:YES
                                              cancellationSignal:nil];

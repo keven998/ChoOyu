@@ -29,13 +29,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0]}];
-    [[UINavigationBar appearance] setTranslucent:NO];
+    if (IS_IOS8) {
+        [[UINavigationBar appearance] setTranslucent:NO];
+    } else {
+        
+    }
     [[UINavigationBar appearance] setTintColor:APP_THEME_COLOR];
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]
-                                                  forBarMetrics:UIBarMetricsDefault];
+                                       forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
