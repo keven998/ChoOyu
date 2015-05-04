@@ -27,6 +27,11 @@
     return _basicUserInfo;
 }
 
+/**
+ *  更新用户信息
+ *
+ *  @param json 从网上加载的用户信息
+ */
 - (void)updateUserInfo:(id)json
 {
     if ([json objectForKey:@"residence"] == [NSNull null]) {

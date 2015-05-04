@@ -27,5 +27,9 @@
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *zodiac;
 
+/**
+ *  用户的图集
+ */
+@property (nonatomic, strong) NSArray *userAlbum;
 
 @end
