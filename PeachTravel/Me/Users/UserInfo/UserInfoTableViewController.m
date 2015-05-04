@@ -23,6 +23,7 @@
 #import "JobListViewController.h"
 #import "StatusListViewController.h"
 #import "HeaderCell.h"
+#import "HeaderPictureCell.h"
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
@@ -40,6 +41,7 @@
 @property (nonatomic, strong) UIView *datePickerView;
 @property (nonatomic, strong) UIDatePicker *datePicker;
 
+@property (nonatomic, copy) NSMutableArray *footPrintArray;
 @end
 
 @implementation UserInfoTableViewController
@@ -62,6 +64,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:accountDetailHeaderCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"UserOtherTableViewCell" bundle:nil] forCellReuseIdentifier:otherUserInfoCell];
     [self.tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HeaderPictureCell" bundle:nil] forCellReuseIdentifier:@"header"];
     self.tableView.tableFooterView = self.footerView;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
@@ -400,7 +403,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 2||(indexPath.section == 0 && indexPath.row == 0)) {
         
         return 90;
     }
@@ -411,11 +414,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
-        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
-        cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+//        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
+//        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
+//        cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
+//        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        
+        HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
+        NSMutableArray *header = [NSMutableArray array];
+        [header addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
+        cell.headerPicArray = header;
         return cell;
+        
     }
     else if (indexPath.section == 2){
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
@@ -592,6 +601,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
    
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
+#warning ///////
     [self uploadPhotoImage:headerImage];
 }
 

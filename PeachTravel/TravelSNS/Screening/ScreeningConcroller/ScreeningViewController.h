@@ -9,5 +9,6 @@
 #import "TZSegmentedViewController.h"
 
 @interface ScreeningViewController : TZSegmentedViewController
+@property (nonatomic, strong) UICollectionView *selectPanel;
 
 @end
