@@ -25,6 +25,9 @@
     [super viewDidLoad];
     _dataArray = [[NSMutableArray alloc]init];
     
+    _collectionView.allowsMultipleSelection = YES;
+//    _collectionView.allowsMultipleSelection
+    
     [self downloadData];
     [self createCollectionView];
 }
@@ -91,7 +94,8 @@
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(_collectionView.frame.size.width, 38);
+//    return CGSizeMake(_collectionView.frame.size.width, 38);
+    return CGSizeZero;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -137,12 +141,45 @@
     static NSString * CellIdentifier = @"cell";
     ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ScreeningModel *model = _dataArray[indexPath.row];
-    NSLog(@"model%@",model);
+    cell.tag = 100 + indexPath.row;
     cell.nameLabel.text = model.zhName;
-//    cell.tiltleLabel.backgroundColor = [UIColor grayColor];
+    cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.backgroundColor = [UIColor whiteColor];
+
     return cell;
+
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
+    ScreeningModel *model = _dataArray[indexPath.row];
+    BOOL find = NO;
 
+    for (ScreeningModel * city in _screeningVC.selectedCityArray) {
+        if ([city isEqual:model]) {
+            cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+            cell.backgroundColor = [UIColor whiteColor];
+            NSInteger index = [_screeningVC.selectedCityArray indexOfObject:city];
+            [_screeningVC.selectedCityArray removeObjectAtIndex:index];
+            
+            find = YES;
+            break;
+        }
+    }
+    if (!find) {
+        cell.nameLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = APP_THEME_COLOR;
+        [_screeningVC.selectedCityArray addObject:model];
+    }
+    if (_screeningVC.selectedCityArray.count == 0) {
+        _screeningVC.navigationItem.rightBarButtonItem.enabled = NO;
+    } else {
+        _screeningVC.navigationItem.rightBarButtonItem.enabled = YES;
+
+    }
+    
+}
 
 @end

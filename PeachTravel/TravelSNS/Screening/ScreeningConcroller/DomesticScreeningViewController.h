@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ScreeningViewController.h"
 @interface DomesticScreeningViewController : UIViewController
+
+@property (weak,nonatomic) ScreeningViewController *screeningVC;
 
 @end

@@ -41,7 +41,6 @@
         country = [[AreaDestination alloc] initWithJson:CountryDic];
         [_foreignCountries addObject:country];
     }
-
 }
 
 - (NSMutableArray *)destinationsSelected

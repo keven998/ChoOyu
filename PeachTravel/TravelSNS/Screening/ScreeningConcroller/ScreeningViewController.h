@@ -10,5 +10,6 @@
 
 @interface ScreeningViewController : TZSegmentedViewController
 @property (nonatomic, strong) UICollectionView *selectPanel;
+@property (nonatomic, copy) NSMutableArray *selectedCityArray;
 
 @end

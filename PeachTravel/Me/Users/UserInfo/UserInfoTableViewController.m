@@ -90,7 +90,9 @@
 
 - (void)dealloc
 {
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 #pragma mark - setter & getter
@@ -309,13 +311,24 @@
                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                    [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
                    [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
-
+                   
+                   
+                   NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+                   NSMutableArray * userAvatar = [user objectForKey:@"userAvatar"];
+                   if (userAvatar == nil) {
+                       [user setObject:[NSMutableArray array] forKey:@"userAvatar"];
+                       userAvatar = [user objectForKey:@"userAvatar"];
+                   }
+                   [userAvatar addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
+                   [user setObject:userAvatar forKey:@"userAvatar"];
+                   NSLog(@"%@--3",userAvatar);
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-                   UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
-                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:nil];
-
+//                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+//                   UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
+//                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:nil];
+                   
                } option:opt];
+     
 }
 
 - (JGProgressHUD *)HUD {
@@ -340,6 +353,7 @@
             [_HUD dismiss];
             _HUD = nil;
             [SVProgressHUD showHint:@"修改成功"];
+            [_tableView reloadData];
         });
     }
 }
@@ -420,8 +434,11 @@
 //        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
-        NSMutableArray *header = [NSMutableArray array];
-        [header addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
+//        NSMutableArray *header = [NSMutableArray array];
+//        [header addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
+//        cell.headerPicArray = header;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        NSMutableArray * header = [user objectForKey:@"userAvatar"];
         cell.headerPicArray = header;
         return cell;
         

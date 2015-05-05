@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dataArray = [[NSMutableArray alloc]init];
-    
+    _collectionView.allowsMultipleSelection = YES;
     [self downloadData];
     [self createCollectionView];
 }
@@ -91,7 +91,8 @@
 
 - (CGSize)collectionview:(UICollectionView *)collectionView sizeForHeaderView:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(_collectionView.frame.size.width, 38);
+//    return CGSizeMake(_collectionView.frame.size.width, 38);
+    return CGSizeZero;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -137,10 +138,28 @@
     static NSString * CellIdentifier = @"cell";
     ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ScreeningModel *model = _dataArray[indexPath.row];
-    NSLog(@"model%@",model);
     cell.nameLabel.text = model.zhName;
+    if (cell.selected) {
+        cell.nameLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = APP_THEME_COLOR;
+        return  cell;
+    }
+    cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    cell.backgroundColor = [UIColor whiteColor];
+
+    
     //    cell.tiltleLabel.backgroundColor = [UIColor grayColor];
     return cell;
 }
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+//    NSLog(@"%@",cell)
+    
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    cell.selected = YES;
+    
+    ScreeningModel *model = _dataArray[indexPath.row];
+//    NSLog(@"%@",model.userId);
+    NSLog(@"%@",_screeningVC.selectedCityArray);
+}
 @end

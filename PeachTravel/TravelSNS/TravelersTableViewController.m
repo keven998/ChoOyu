@@ -100,6 +100,8 @@
     ScreeningViewController *screen = [[ScreeningViewController alloc]init];
     ForeignScreeningViewController *fcvc = [[ForeignScreeningViewController alloc]init];
     DomesticScreeningViewController *dsvc = [[DomesticScreeningViewController alloc]init];
+    fcvc.screeningVC = screen;
+    dsvc.screeningVC = screen;
     screen.viewControllers = @[fcvc,dsvc];
     screen.duration = 0;
     screen.segmentedTitles = @[@"国内", @"国外"];

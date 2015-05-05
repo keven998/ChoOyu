@@ -90,7 +90,6 @@
                 [_scrollView addSubview:addBtn];
             }
         }
-        
         [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+50)];
     }
    
