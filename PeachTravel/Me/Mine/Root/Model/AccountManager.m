@@ -102,7 +102,8 @@
         _account = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
         completion(YES);
-
+//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     } onQueue:nil];
 }
 

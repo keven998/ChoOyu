@@ -20,4 +20,6 @@
 
 @property (nonatomic) TZPoiType poiType;
 
+- (IBAction)favorite:(id)sender;
+
 @end

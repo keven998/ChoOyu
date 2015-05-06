@@ -37,27 +37,18 @@
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
-    
-    
-//    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [_favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
     
     self.navigationItem.rightBarButtonItems = barItems;
-//    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-//    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
-//    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-//    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-//    [self.view addSubview:_backGroundImageView];
-//    [self.view addSubview:view];
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
-//    tap.numberOfTapsRequired = 1;
-//    tap.numberOfTouchesRequired = 1;
-//    [view addGestureRecognizer:tap];
+   
 
 }
-
+-(void)favorite
+{
+    [self.delegate favorite];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

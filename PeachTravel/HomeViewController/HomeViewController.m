@@ -119,20 +119,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
      @"LaunchImage-800-Portrait-736h@3x.png" // ios 8 - iphone 6 plus - portrait
      @"LaunchImage-800-Landscape-736h@3x.png" // ios 8 - iphone 6 plus - landscape
      */
+    [self setupConverView];
+//    [self beginIntroduce];
 }
 
-//- (void) setupConverView {
-//    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
-//        [self beginIntroduce];
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
-//    } else {
-//        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-//        _coverView.userInteractionEnabled = YES;
-//        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//        [self.view addSubview:_coverView];
-//        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.5];
-//    }
-//}
+- (void) setupConverView {
+    if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
+        [self beginIntroduce];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+    } else {
+        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        _coverView.userInteractionEnabled = YES;
+        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.view addSubview:_coverView];
+        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.5];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -826,7 +828,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                   nil];
         alertView.tag = 100;
         [alertView show];
-
+        
+//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        
     } onQueue:nil];
 }
 

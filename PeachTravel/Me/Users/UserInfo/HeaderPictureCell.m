@@ -9,7 +9,8 @@
 #import "HeaderPictureCell.h"
 #import "TaoziCollectionLayout.h"
 #import "PicCell.h"
-@interface HeaderPictureCell ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+#import "PXAlertView+Customization.h"
+@interface HeaderPictureCell ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 
 @end
@@ -64,7 +65,12 @@
     }
     return cell;
 }
-
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == _headerPicArray.count) {
+        [self.delegate showPickerView];
+    }
+}
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

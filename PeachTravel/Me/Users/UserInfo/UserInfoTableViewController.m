@@ -29,7 +29,7 @@
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地",@"职业"]]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ChangStatusDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ChangStatusDelegate,ShowPickerDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -437,6 +437,7 @@
 //        NSMutableArray *header = [NSMutableArray array];
 //        [header addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
 //        cell.headerPicArray = header;
+        cell.delegate = self;
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         NSMutableArray * header = [user objectForKey:@"userAvatar"];
         cell.headerPicArray = header;
@@ -497,11 +498,18 @@
         else if (indexPath.section == 4) {
             if (indexPath.row == 0){
                 
-                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-                NSString *value;
-                value = [user objectForKey:@"Gender"];
-                cell.cellDetail.text = value;
-                
+                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
+                    cell.cellDetail.text = @"美女";
+                }
+                else if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
+                    cell.cellDetail.text = @"帅锅";
+                }
+                else if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
+                    cell.cellDetail.text = @"一言难尽";
+                }
+                else{
+                    cell.cellDetail.text = @"保密";
+                }
             }
             else if (indexPath.row == 1) {
                 cell.cellDetail.text = self.accountManager.accountDetail.birthday;
@@ -618,7 +626,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
    
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
-#warning ///////
+    
     [self uploadPhotoImage:headerImage];
 }
 
@@ -694,7 +702,10 @@
         }];
     }
 }
-
+-(void)showPickerView
+{
+    [self presentImagePicker];
+}
 -(void)changeJob:(NSString *)jobStr
 {
 //    UILabel *cell  = (UILabel *)[self.tableView viewWithTag:101];
