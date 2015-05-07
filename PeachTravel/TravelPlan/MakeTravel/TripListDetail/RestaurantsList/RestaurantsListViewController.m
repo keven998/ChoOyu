@@ -304,8 +304,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;
     restaurantDetailCtl.poiType = kRestaurantPoi;
-    [self.rootViewController addChildViewController:restaurantDetailCtl];
-    [self.rootViewController.view addSubview:restaurantDetailCtl.view];
+//    [self.rootViewController addChildViewController:restaurantDetailCtl];
+//    [self.rootViewController.view addSubview:restaurantDetailCtl.view];
+    [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
 - (void)dealloc {

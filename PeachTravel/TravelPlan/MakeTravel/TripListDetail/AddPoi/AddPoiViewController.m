@@ -627,16 +627,16 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
-            [self addChildViewController:spotDetailCtl];
-            [self.view addSubview:spotDetailCtl.view];
-            
+//            [self addChildViewController:spotDetailCtl];
+//            [self.view addSubview:spotDetailCtl.view];
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
         default: {
             CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:tripPoi.poiType];
             ctl.poiId = tripPoi.poiId;
-            [self addChildViewController:ctl];
-            [self.view addSubview:ctl.view];
+            [self.navigationController pushViewController:ctl animated:YES];
+            
         }
         break;
     }

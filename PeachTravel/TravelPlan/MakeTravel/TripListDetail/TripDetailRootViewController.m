@@ -671,6 +671,8 @@
     
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
+//    [self.navigationController pushViewController:_spotsListCtl animated:YES];
+    
     
     [_spotsListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
     [_restaurantListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];

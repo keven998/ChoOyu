@@ -315,8 +315,9 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
-            [self.rootViewController addChildViewController:spotDetailCtl];
-            [self.rootViewController.view addSubview:spotDetailCtl.view];
+//            [self.rootViewController addChildViewController:spotDetailCtl];
+//            [self.rootViewController.view addSubview:spotDetailCtl.view];
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
             
         }
             break;
@@ -324,8 +325,9 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         case kRestaurantPoi: case kShoppingPoi: case kHotelPoi:{
             CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:tripPoi.poiType];
             ctl.poiId = tripPoi.poiId;
-            [self.rootViewController addChildViewController:ctl];
-            [self.rootViewController.view addSubview:ctl.view];
+//            [self.rootViewController addChildViewController:ctl];
+//            [self.rootViewController.view addSubview:ctl.view];
+            [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
             

@@ -823,17 +823,17 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.poiId = poi.poiId;
-        [self addChildViewController:restaurantDetailCtl];
-        [self.view addSubview:restaurantDetailCtl.view];
-        
+//        [self addChildViewController:restaurantDetailCtl];
+//        [self.view addSubview:restaurantDetailCtl.view];
+        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         NSLog(@"%@", self.navigationController);
     }
     if (_poiType == kShoppingPoi) {
         CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
         shoppingDetailCtl.poiId = poi.poiId;
-        [self addChildViewController:shoppingDetailCtl];
-        [self.view addSubview:shoppingDetailCtl.view];
-
+//        [self addChildViewController:shoppingDetailCtl];
+//        [self.view addSubview:shoppingDetailCtl.view];
+        [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
 }
 
