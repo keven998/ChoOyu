@@ -127,7 +127,10 @@
     searchCtl.hidesBottomBarWhenPushed = YES;
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
-    [self presentViewController:tznavc animated:YES completion:nil];
+    _hideNavigationBar = YES;
+    [self presentViewController:tznavc animated:YES completion:^{
+        _hideNavigationBar = NO;
+    }];
     return NO;
 }
 

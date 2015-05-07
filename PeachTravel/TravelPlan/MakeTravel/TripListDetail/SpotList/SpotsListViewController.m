@@ -135,6 +135,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:insertIndex];
     [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     _tripDetail.dayCount++;
+    CGRect after = [self.tableView rectForSection:insertIndex];
+    [self.tableView scrollRectToVisible:after animated:YES];
     [self performSelector:@selector(updateRoute) withObject:nil afterDelay:0.3];
 }
 

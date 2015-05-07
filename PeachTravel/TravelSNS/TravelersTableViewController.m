@@ -129,7 +129,7 @@
     UserProfile *up = [_travelers objectAtIndex:indexPath.row];
     [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
     cell.nameLabel.text = up.name;
-    cell.footprintsLabel.text = [NSString stringWithFormat:@"旅行足迹:走过%@", [up getFootprintDescription]];
+    cell.footprintsLabel.text = [NSString stringWithFormat:@"足迹: %@", [up getFootprintDescription]];
     cell.signatureLabel.text = up.signature;
     cell.statusLable.text = [up getRolesDescription];
     cell.levelLabel.text = [NSString stringWithFormat:@"V%ld", up.level];
