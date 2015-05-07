@@ -87,6 +87,9 @@
     _cityDesc.frame = dframe;
     _cityDesc.attributedText = attrstr;
     [view addSubview:_cityDesc];
+    _cityDesc.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dealtap:)];
+    [_cityDesc addGestureRecognizer:tap];
     
     view.frame = CGRectMake(0, view.frame.origin.y, width, dframe.origin.y + dframe.size.height + 15);
     
@@ -365,6 +368,9 @@
     }];
 }
 
-
+-(void)dealtap:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"12313123123123");
+}
 
 @end

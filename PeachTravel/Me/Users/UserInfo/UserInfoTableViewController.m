@@ -571,7 +571,8 @@
     } else if (indexPath.section == 2) {
         
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-        [self presentViewController:footCtl animated:YES completion:nil];
+//        [self presentViewController:footCtl animated:YES completion:nil];
+        [self.navigationController pushViewController:footCtl animated:YES];
         
     } else if (indexPath.section == 3) {
         
@@ -597,7 +598,6 @@
             CityListTableViewController *cityListCtl = [[CityListTableViewController alloc] init];
             cityListCtl.cityDataSource = cityArray;
             cityListCtl.needUserLocation = YES;
-//            [self.navigationController pushViewController:cityListCtl animated:YES];
             TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:cityListCtl];
             [self presentViewController:navc animated:YES completion:nil];
         }
@@ -626,6 +626,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
    
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
     
     [self uploadPhotoImage:headerImage];
 }

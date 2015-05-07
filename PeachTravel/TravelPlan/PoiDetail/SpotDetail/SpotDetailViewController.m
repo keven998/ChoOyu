@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.automaticallyAdjustsScrollViewInsets 
 //    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
 //    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
@@ -44,7 +44,7 @@
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_share_to_talk.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_home_slected"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
@@ -60,6 +60,20 @@
     
     [self loadData];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"page_spot_detail"];
+    
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"page_spot_detail"];
+}
+
 - (IBAction)favorite:(UIButton *)sender
 {
     [MobClick event:@"event_city_favorite"];
@@ -84,16 +98,16 @@
 {
 //    _spotDetailView = [[SpotDetailView alloc] initWithFrame:CGRectMake(15, 40, self.view.bounds.size.width-30, self.view.bounds.size.height-60)];
 //    self.automaticallyAdjustsScrollViewInsets = NO;
-    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+64)];
-    _spotDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+150) ;
+    _spotDetailView = [[SpotDetailView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//    _spotDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+150) ;
     _spotDetailView.showsHorizontalScrollIndicator = NO;
     _spotDetailView.showsVerticalScrollIndicator = NO;
     _spotDetailView.spot = (SpotPoi *)self.poi;
+    _spotDetailView.rootCtl = self;
 //    self.navigationItem.title = self.poi.zhName;
     _spotDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:_spotDetailView];
 
-    [self.navigationController pushViewController:self animated:YES];
 //    _spotDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
 //
 //    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -118,7 +132,7 @@
     
     [_spotDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMapview:) forControlEvents:UIControlEventTouchUpInside];
+    [_spotDetailView.addressBtn addTarget:self action:@selector(jumpToMap) forControlEvents:UIControlEventTouchUpInside];
     
     [_spotDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
     [_spotDetailView.travelBtn addTarget:self action:@selector(showSpotDetail:) forControlEvents:UIControlEventTouchUpInside];
@@ -131,19 +145,6 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"page_spot_detail"];
-//    self.navigationController.navigationBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"page_spot_detail"];
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (void)dismissCtl
 {
@@ -355,7 +356,10 @@
 //    }];
 //
 //}
-
+-(void)jumpToMap
+{
+    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+}
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

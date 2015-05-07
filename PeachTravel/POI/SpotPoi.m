@@ -25,6 +25,7 @@
         _tipsUrl = [json objectForKey:@"tipsUrl"];
         _travelMonth = [json objectForKey:@"travelMonth"];
         _descUrl = [json objectForKey:@"descUrl"];
+        _telephone = [json objectForKey:@"telephone"];
     }
     return self;
 }

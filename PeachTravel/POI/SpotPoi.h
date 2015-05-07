@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *guideUrl;
 @property (nonatomic, copy) NSString *tipsUrl;
 @property (nonatomic, copy) NSString *descUrl;
-
+@property (nonatomic, copy) NSString *telephone;
 - (id)initWithJson:(id)json;
 
 @end

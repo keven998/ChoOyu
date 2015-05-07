@@ -473,15 +473,15 @@
     if (item.type == kSpotPoi) {
         SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
         ctl.spotId = item.itemId;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
+//        [self addChildViewController:ctl];
+//        [self.view addSubview:ctl.view];
+        [self.navigationController pushViewController:ctl animated:YES];
     } else if (item.type == kHotelPoi || item.type == kRestaurantPoi || item.type == kShoppingPoi) {
         CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:item.type];
         ctl.poiId = item.itemId;
-        [self addChildViewController:ctl];
-        [self.view addSubview:ctl.view];
-        
+//        [self addChildViewController:ctl];
+//        [self.view addSubview:ctl.view];
+        [self.navigationController pushViewController:ctl animated:YES];
     } else if (item.type == kTravelNotePoi) {
         TravelNoteDetailViewController *ctl = [[TravelNoteDetailViewController alloc] init];
         TravelNote *travelNote = [[TravelNote alloc] init];

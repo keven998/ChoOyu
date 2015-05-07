@@ -829,9 +829,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         alertView.tag = 100;
         [alertView show];
         
-//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-        
     } onQueue:nil];
 }
 

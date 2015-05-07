@@ -822,8 +822,7 @@
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             spotDetailCtl.spotId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            [self addChildViewController:spotDetailCtl];
-            [self.view addSubview:spotDetailCtl.view];
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
              
@@ -831,8 +830,9 @@
             CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            [self addChildViewController:restaurantDetailCtl];
-            [self.view addSubview:restaurantDetailCtl.view];
+//            [self addChildViewController:restaurantDetailCtl];
+//            [self.view addSubview:restaurantDetailCtl.view];
+            [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             break;
             
@@ -840,8 +840,9 @@
             CommonPoiDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
             shoppingCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             shoppingCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            [self addChildViewController:shoppingCtl];
-            [self.view addSubview:shoppingCtl.view];
+//            [self addChildViewController:shoppingCtl];
+//            [self.view addSubview:shoppingCtl.view];
+            [self.navigationController pushViewController:shoppingCtl animated:YES];
         }
             break;
             
@@ -849,8 +850,9 @@
             CommonPoiDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
             hotelCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             hotelCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            [self addChildViewController:hotelCtl];
-            [self.view addSubview:hotelCtl.view];
+//            [self addChildViewController:hotelCtl];
+//            [self.view addSubview:hotelCtl.view];
+            [self.navigationController pushViewController:hotelCtl animated:YES];
         }
             break;
             

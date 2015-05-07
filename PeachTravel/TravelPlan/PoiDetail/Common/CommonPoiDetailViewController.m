@@ -77,7 +77,7 @@
     commonPoiDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:commonPoiDetailView];
     
-    [self.navigationController pushViewController:self animated:YES];
+//    [self.navigationController pushViewController:self animated:YES];
 //    commonPoiDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
 //    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 //        commonPoiDetailView.transform = CGAffineTransformMakeScale(1, 1);

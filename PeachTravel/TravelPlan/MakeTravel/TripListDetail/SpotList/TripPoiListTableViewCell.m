@@ -24,7 +24,6 @@
     _titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     _propertyLabel.textColor = TEXT_COLOR_TITLE_HINT;
     _valueLabel.textColor = APP_THEME_COLOR;
-    
     _timeLineView.backgroundColor = APP_DIVIDER_COLOR;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;

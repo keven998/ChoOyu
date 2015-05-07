@@ -11,7 +11,8 @@
 #import "EDStarRating.h"
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
-
+#import "CommentDetail.h"
+#import "SuperWebViewController.h"
 @interface SpotDetailView ()
 
 
@@ -39,7 +40,7 @@
 //        self.backgroundColor = APP_PAGE_COLOR;
         self.backgroundColor = [UIColor whiteColor];
         _scrollView = [[UIScrollView alloc] init];
-//                       WithFrame:CGRectMake(0, 27, self.bounds.size.width, self.bounds.size.height-35)];
+//                       With_Frame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
         _scrollView.frame = self.bounds;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
@@ -104,7 +105,7 @@
     _ratingView.rating = _spot.rating;
     [_scrollView addSubview:_ratingView];
     
-    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:_imageView.frame];
     viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 85);
 //    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
     [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
@@ -135,7 +136,7 @@
     _bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [_bookBtn setTitle:@"预订" forState:UIControlStateNormal];
     _bookBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [_scrollView addSubview:_bookBtn];
+//    [_scrollView addSubview:_bookBtn];
     if ([_spot.bookUrl isBlankString] || !_spot.bookUrl) {
         _bookBtn.enabled = NO;
     }
@@ -166,10 +167,10 @@
     
     _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 20)];
 //    _ticketBtn.backgroundColor  = [UIColor redColor];
-    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _ticketBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
+    [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
 //    [_ticketBtn setTitle:_spot.desc forState:UIControlStateNormal];
 //    _ticketBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 //    _ticketBtn.titleLabel.numberOfLines = 2;
@@ -182,10 +183,11 @@
     UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, _ticketBtn.bounds.size.height)];
     priceLabel.text = @"门票";
     priceLabel.font = [UIFont systemFontOfSize:14];
-    priceLabel.textColor = TEXT_COLOR_TITLE_DESC;
+    priceLabel.textColor = TEXT_COLOR_TITLE;
     [_ticketBtn addSubview:priceLabel];
-    
-
+    UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 3, 18, 18)];
+    ticketImageView.image = [UIImage imageNamed:@"ticket"];
+    [_ticketBtn addSubview:ticketImageView];
 //    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:14]};
 //    CGRect rect = [_ticketBtn.titleLabel.text boundingRectWithSize:CGSizeMake(width, 2 * _ticketBtn.titleLabel.font.lineHeight)
 //                                                           options:NSStringDrawingUsesLineFragmentOrigin
@@ -204,11 +206,11 @@
     }
     [content appendString:[NSString stringWithFormat:@"%@", _spot.openTime]];
     _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
-    [_travelBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_travelBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    [_travelBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_travelBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _travelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
 //    _travelBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    [_travelBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
+//    [_travelBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
     
     _travelBtn.titleLabel.numberOfLines = 2;
     [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
@@ -226,9 +228,14 @@
     UILabel *travelLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
     travelLabel.numberOfLines = 2;
     travelLabel.font = [UIFont systemFontOfSize:14];
-    travelLabel.textColor = TEXT_COLOR_TITLE_DESC;
+    travelLabel.textColor = TEXT_COLOR_TITLE;
     travelLabel.text = content1;
     [_travelBtn addSubview:travelLabel];
+    UIImageView *travelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+    travelImageView.image = [UIImage imageNamed:@"travel suggest"];
+    [_travelBtn addSubview:travelImageView];
+    
+    
     offsetY += 65;
     UIView *spaceView3 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
     spaceView3.backgroundColor = APP_DIVIDER_COLOR;
@@ -236,9 +243,8 @@
     
     
     _phoneButton = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 65)];
-    [_phoneButton setTitle:@"13333333333(测试)" forState:UIControlStateNormal];
-//    phoneButton.backgroundColor = [UIColor blackColor];
-    [_phoneButton setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
+    [_phoneButton setTitle:_spot.telephone forState:UIControlStateNormal];
+    [_phoneButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     _phoneButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [_phoneButton setContentEdgeInsets:UIEdgeInsetsMake(0, width/3, 0, 0)];
     _phoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -246,10 +252,13 @@
     [_scrollView addSubview:_phoneButton];
     UILabel *phoneLabel = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
     phoneLabel.font = [UIFont systemFontOfSize:14];
-    phoneLabel.textColor = TEXT_COLOR_TITLE_DESC;
+    phoneLabel.textColor = TEXT_COLOR_TITLE;
     phoneLabel.text = @"电话";
     [_phoneButton addSubview:phoneLabel];
-    
+    UIImageView *phoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+    phoneImageView.image = [UIImage imageNamed:@"phone"];
+    [_phoneButton addSubview:phoneImageView];
+
     
     offsetY += 65;
     UIView *spaceView1 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
@@ -261,8 +270,8 @@
     
     _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
     _addressBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
-    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _addressBtn.titleLabel.numberOfLines = 2;
     _addressBtn.layer.cornerRadius = 4.0;
@@ -279,13 +288,13 @@
         [_addressBtn setTitle:_spot.address forState:UIControlStateNormal];
     }
     [_scrollView addSubview:_addressBtn];
-    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 12, 18)];
-    addressImageView.image = [UIImage imageNamed:@"ic_spot_map.png"];
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+    addressImageView.image = [UIImage imageNamed:@"map"];
     [_addressBtn addSubview:addressImageView];
     
     UILabel *address = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
     address.font = [UIFont systemFontOfSize:14];
-    address.textColor = TEXT_COLOR_TITLE_DESC;
+    address.textColor = TEXT_COLOR_TITLE;
     address.text = @"地图";
     [_addressBtn addSubview:address];
     
@@ -299,8 +308,8 @@
     
     
     _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
-    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateNormal];
-    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
+    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
@@ -312,9 +321,12 @@
     
     UILabel *introduction = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
     introduction.font = [UIFont systemFontOfSize:14];
-    introduction.textColor = TEXT_COLOR_TITLE_DESC;
+    introduction.textColor = TEXT_COLOR_TITLE;
     introduction.text = @"景点简介";
     [_descDetailBtn addSubview:introduction];
+    UIImageView *descImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+    descImageView.image = [UIImage imageNamed:@"spot introduction"];
+    [_descDetailBtn addSubview:descImageView];
     
     offsetY += 65;
     
@@ -366,12 +378,13 @@
     CGFloat spaceWidth = (btnBackView.bounds.size.width-48*3-70)/3;
     
     _kendieBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
-    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
+    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"ic_little notes"] forState:UIControlStateNormal];
     [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
-    [_kendieBtn setTitle:@"小\n贴士" forState:UIControlStateNormal];
+//    [_kendieBtn setTitle:@"小贴士" forState:UIControlStateNormal];
     _kendieBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     _kendieBtn.titleLabel.numberOfLines = 2;
     [_kendieBtn.titleLabel setTextAlignment: NSTextAlignmentCenter];
+//    _kendieBtn.backgroundColor = [UIColor blackColor];
     _kendieBtn.center = CGPointMake(CGRectGetWidth(btnBackView.frame)/2, 32);
     [_kendieBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_kendieBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
@@ -379,21 +392,21 @@
     [btnBackView addSubview:_kendieBtn];
     
     _travelGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
-    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
-    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
-    [_travelGuideBtn setTitle:@"景点\n体验" forState:UIControlStateNormal];
+    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_spots experience"] forState:UIControlStateNormal];
+    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_spots experience"] forState:UIControlStateDisabled];
     _travelGuideBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     _travelGuideBtn.titleLabel.numberOfLines = 2;
     [_travelGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [_travelGuideBtn setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     [_travelGuideBtn setTitleColor:UIColorFromRGB(0xdddddd) forState:UIControlStateDisabled];
+
     _travelGuideBtn.center = CGPointMake(_kendieBtn.center.x - spaceWidth - 48, 32);
     [btnBackView addSubview:_travelGuideBtn];
     
     _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
-    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_enable.png"] forState:UIControlStateNormal];
+    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_travel"] forState:UIControlStateNormal];
     [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"btn_spot_info_disable.png"] forState:UIControlStateDisabled];
-    [_trafficGuideBtn setTitle:@"景点\n交通" forState:UIControlStateNormal];
+//    [_trafficGuideBtn setTitle:@"交通" forState:UIControlStateNormal];
     _trafficGuideBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     _trafficGuideBtn.titleLabel.numberOfLines = 2;
     [_trafficGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -401,9 +414,135 @@
     [_trafficGuideBtn setTitleColor:UIColorFromRGB(0xdddddd) forState:UIControlStateDisabled];
     _trafficGuideBtn.center = CGPointMake(_kendieBtn.center.x + spaceWidth + 48, 32);
     [btnBackView addSubview:_trafficGuideBtn];
+    offsetY += 50;
+    
+    UILabel *guideLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 68, 15)];
+    guideLabel.center = CGPointMake(_kendieBtn.center.x - spaceWidth - 48, offsetY+25);
+    if (_trafficGuideBtn.enabled ) {
+        guideLabel.textColor = TEXT_COLOR_TITLE;
+    }
+    else{
+        guideLabel.textColor = UIColorFromRGB(0xdddddd);
+    }
+    guideLabel.text = @"景点攻略";
+    guideLabel.textAlignment = NSTextAlignmentCenter;
+    guideLabel.font = [UIFont systemFontOfSize:13];
+    [_scrollView addSubview:guideLabel];
+    
+    UILabel *tipsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 48, 15)];
+    tipsLabel.center = CGPointMake(CGRectGetWidth(btnBackView.frame)/2, offsetY + 25);
+    tipsLabel.textColor = _kendieBtn.enabled?TEXT_COLOR_TITLE:UIColorFromRGB(0xdddddd);
+    tipsLabel.text = @"小贴士";
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.font = [UIFont systemFontOfSize:13];
+    [_scrollView addSubview:tipsLabel];
+    
+    UILabel *trafficLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 48, 15)];
+    trafficLabel.center = CGPointMake(_kendieBtn.center.x + spaceWidth + 48, offsetY + 25);
+    trafficLabel.textColor = _trafficGuideBtn.enabled?TEXT_COLOR_TITLE:UIColorFromRGB(0xdddddd);
+    trafficLabel.text = @"交通";
+    trafficLabel.textAlignment = NSTextAlignmentCenter;
+    trafficLabel.font = [UIFont systemFontOfSize:13];
+    [_scrollView addSubview:trafficLabel];
+    
+    
+    offsetY +=50;
+    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
+    spaceView6.backgroundColor = APP_DIVIDER_COLOR;
+    [_scrollView addSubview:spaceView6];
+    
+    
+
+    
+    UILabel *commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 14)];
+    commentTitle.text = @"网友点评";
+    commentTitle.textAlignment = NSTextAlignmentCenter;
+    commentTitle.font = [UIFont systemFontOfSize:16.0];
+    commentTitle.textColor = TEXT_COLOR_TITLE;
+    commentTitle.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY+20);
+
+    [_scrollView addSubview:commentTitle];
+    
+    
+    UIButton *moreCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-80, offsetY, 80, 40)];
+    [moreCommentBtn setTitle:@"更多点评>>" forState:UIControlStateNormal];
+    [moreCommentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
+    [moreCommentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
+    [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    moreCommentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_scrollView addSubview:moreCommentBtn];
+    
+    offsetY += 40;
+    
+    if (_spot.comments.count >= 1) {
+        
+        UIImageView *dotImageViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(10, offsetY-10, 20, 17)];
+        dotImageViewLeft.image = [UIImage imageNamed:@"ic_quotation_l.png"];
+        dotImageViewLeft.contentMode = UIViewContentModeScaleAspectFit;
+        [_scrollView addSubview:dotImageViewLeft];
+        
+        CommentDetail *comment = [_spot.comments objectAtIndex:0];
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 40)];
+        commentLabel.numberOfLines = 3.0;
+        commentLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        commentLabel.font = [UIFont systemFontOfSize:12];
+        commentLabel.text = comment.commentDetails;
+        [_scrollView addSubview:commentLabel];
+        offsetY += 40;
+        UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
+        commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
+        commentSubLabel.font = [UIFont systemFontOfSize:10];
+        commentSubLabel.textAlignment = NSTextAlignmentRight;
+        NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
+        commentSubLabel.text = s;
+        [_scrollView addSubview:commentSubLabel];
+        offsetY += 15;
+    }
+    offsetY += 10;
+    if (_spot.comments.count >= 2) {
+        CommentDetail *comment = [_spot.comments objectAtIndex:1];
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 40)];
+        commentLabel.numberOfLines = 3.0;
+        commentLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        commentLabel.font = [UIFont systemFontOfSize:12];
+        commentLabel.text = comment.commentDetails;
+        [_scrollView addSubview:commentLabel];
+        offsetY += 40;
+        UILabel *commentSubLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, offsetY, _scrollView.bounds.size.width-80, 15)];
+        commentSubLabel.textColor = TEXT_COLOR_TITLE_PH;
+        commentSubLabel.font = [UIFont systemFontOfSize:10];
+        commentSubLabel.textAlignment = NSTextAlignmentRight;
+        NSString *s = [NSString stringWithFormat:@"%@  %@", comment.nickName, comment.commentTime];
+        commentSubLabel.text = s;
+        [_scrollView addSubview:commentSubLabel];
+        offsetY += 15;
+    }
+    
+    if (_spot.comments.count > 0) {
+        offsetY += 10;
+        UIImageView *dotImageViewRight = [[UIImageView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-30, offsetY-20, 20, 17)];
+        dotImageViewRight.image = [UIImage imageNamed:@"ic_quotation_r.png"];
+        dotImageViewRight.contentMode = UIViewContentModeScaleAspectFit;
+        [_scrollView addSubview:dotImageViewRight];
+    }
+    
+    
+    
+    offsetY += 50;
+
+    
     
     [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+75)];
     
+}
+
+- (void)showMoreComments:(id)sender
+{
+    SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
+    webCtl.titleStr = @"全部点评";
+    webCtl.urlStr = _spot.moreCommentsUrl;
+    [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
 #pragma mark - IBAction Methods

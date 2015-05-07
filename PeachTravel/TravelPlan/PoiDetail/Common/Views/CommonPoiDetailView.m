@@ -216,7 +216,8 @@
     [addressDetailLabel setTitle:[NSString stringWithFormat:@"     %@",_poi.address] forState:UIControlStateNormal];
     [addressDetailLabel setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 //    [addressDetailLabel setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
-    [addressDetailLabel addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+//    [addressDetailLabel addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [addressDetailLabel addTarget:self action:@selector(goMap:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:addressDetailLabel];
     
     UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(35, offsetY, 11, 16)];
@@ -487,72 +488,72 @@
 }
 
 - (void)goMap:(NSInteger)buttonIndex {
-    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
-    switch (buttonIndex) {
-        case 0:
-            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
-                case kAMap:
-                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                    break;
-                    
-                case kBaiduMap: {
-                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                }
-                    break;
-                    
-                case kAppleMap: {
+//    NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
+//    switch (buttonIndex) {
+//        case 0:
+//            switch ([[[platformArray objectAtIndex:0] objectForKey:@"type"] intValue]) {
+//                case kAMap:
+//                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                    break;
+//                    
+//                case kBaiduMap: {
+//                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                }
+//                    break;
+//                    
+//                case kAppleMap: {
                     [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                }
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        case 1:
-            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
-                case kAMap:
-                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                    break;
-                    
-                case kBaiduMap: {
-                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                }
-                    break;
-                    
-                case kAppleMap: {
-                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        case 2:
-            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
-                case kAMap:
-                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                    break;
-                    
-                case kBaiduMap: {
-                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                }
-                    break;
-                    
-                case kAppleMap: {
-                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
-                }                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        default:
-            break;
-    }
+//                }
+//                    
+//                default:
+//                    break;
+//            }
+//            break;
+//            
+//        case 1:
+//            switch ([[[platformArray objectAtIndex:1] objectForKey:@"type"] intValue]) {
+//                case kAMap:
+//                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                    break;
+//                    
+//                case kBaiduMap: {
+//                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                }
+//                    break;
+//                    
+//                case kAppleMap: {
+//                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                }
+//                    break;
+//                    
+//                default:
+//                    break;
+//            }
+//            break;
+//            
+//        case 2:
+//            switch ([[[platformArray objectAtIndex:2] objectForKey:@"type"] intValue]) {
+//                case kAMap:
+//                    [ConvertMethods jumpGaodeMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                    break;
+//                    
+//                case kBaiduMap: {
+//                    [ConvertMethods jumpBaiduMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                }
+//                    break;
+//                    
+//                case kAppleMap: {
+//                    [ConvertMethods jumpAppleMapAppWithPoiName:self.poi.zhName lat:self.poi.lat lng:self.poi.lng];
+//                }                    break;
+//                    
+//                default:
+//                    break;
+//            }
+//            break;
+//            
+//        default:
+//            break;
+//    }
 }
 
 @end
