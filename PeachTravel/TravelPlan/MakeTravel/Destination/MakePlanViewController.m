@@ -80,10 +80,9 @@
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     
-    CGRect collectionViewFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), toolBar.frame.size.height);
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
+    self.selectPanel = [[UICollectionView alloc] initWithFrame:toolBar.bounds collectionViewLayout:aFlowLayout];
     [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
@@ -93,6 +92,14 @@
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     [toolBar addSubview:_selectPanel];
+    
+    UILabel *hintText = [[UILabel alloc] initWithFrame:toolBar.bounds];
+    hintText.textColor = TEXT_COLOR_TITLE_PH;
+    hintText.text = @"选择旅行目的地";
+    hintText.textAlignment = NSTextAlignmentCenter;
+    hintText.font = [UIFont systemFontOfSize:13];
+    hintText.tag = 1;
+    [toolBar addSubview:hintText];
     
     if (self.destinations.destinationsSelected.count == 0) {
         [self hideDestinationBar];
@@ -175,24 +182,30 @@
 
 - (void)hideDestinationBar
 {
-    CGRect frame = self.selectPanel.superview.frame;
-    frame.origin.y = CGRectGetHeight(self.view.bounds);
-    [UIView animateWithDuration:0.3 animations:^{
-        self.selectPanel.superview.frame = frame;
-    } completion:^(BOOL finished) {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }];
+//    CGRect frame = self.selectPanel.superview.frame;
+//    frame.origin.y = CGRectGetHeight(self.view.bounds);
+//    [UIView animateWithDuration:0.3 animations:^{
+//        self.selectPanel.superview.frame = frame;
+//    } completion:^(BOOL finished) {
+//        self.navigationItem.rightBarButtonItem.enabled = NO;
+//    }];
+    
+    UIView *view = [self.selectPanel.superview viewWithTag:1];
+    view.hidden = NO;
 }
 
 - (void)showDestinationBar
 {
-    CGRect frame = self.selectPanel.superview.frame;
-    frame.origin.y = CGRectGetHeight(self.view.bounds) - 49;
-    [UIView animateWithDuration:0.3 animations:^{
-        self.selectPanel.superview.frame = frame;
-    } completion:^(BOOL finished) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    }];
+//    CGRect frame = self.selectPanel.superview.frame;
+//    frame.origin.y = CGRectGetHeight(self.view.bounds) - 49;
+//    [UIView animateWithDuration:0.3 animations:^{
+//        self.selectPanel.superview.frame = frame;
+//    } completion:^(BOOL finished) {
+//        self.navigationItem.rightBarButtonItem.enabled = YES;
+//    }];
+    
+    UIView *view = [self.selectPanel.superview viewWithTag:1];
+    view.hidden = YES;
 }
 
 /**
