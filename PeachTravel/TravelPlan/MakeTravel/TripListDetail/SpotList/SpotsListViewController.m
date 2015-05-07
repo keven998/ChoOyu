@@ -135,6 +135,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:insertIndex];
     [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     _tripDetail.dayCount++;
+    CGRect after = [self.tableView rectForSection:insertIndex];
+    [self.tableView scrollRectToVisible:after animated:YES];
     [self performSelector:@selector(updateRoute) withObject:nil afterDelay:0.3];
 }
 
@@ -180,7 +182,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:[NSString stringWithFormat:@"第%ld天", dayIndex + 1]
                                                      message:@"请选择你要进行的操作"
                                                  cancelTitle:@"删除这一天"
-                                                 otherTitles:@[ @"添加行程", @"加一天在前面", @"加一天在后面"]
+                                                 otherTitles:@[ @"添加行程", @"前面加一天", @"后面加一天"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
                                                           [self addPoiToDay:dayIndex];

@@ -74,7 +74,7 @@
     _propertyLabel.text = property;
     
     if (_tripPoi.poiType == kSpotPoi) {
-        NSString *timeStr = [NSString stringWithFormat:@"建议游玩时间:%@", ((SpotPoi *)tripPoi).timeCostStr];
+        NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
         _valueLabel.text = timeStr;
     } else {
         _valueLabel.text = nil;

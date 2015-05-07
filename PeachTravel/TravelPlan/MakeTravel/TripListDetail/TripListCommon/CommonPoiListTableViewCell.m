@@ -68,7 +68,7 @@
     
     switch (_tripPoi.poiType) {
         case kSpotPoi:
-            _valueLabel.text = [NSString stringWithFormat:@"建议游玩:%@", ((SpotPoi *)_tripPoi).timeCostStr];
+            _valueLabel.text = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)_tripPoi).timeCostStr];
             break;
             
         case kRestaurantPoi:

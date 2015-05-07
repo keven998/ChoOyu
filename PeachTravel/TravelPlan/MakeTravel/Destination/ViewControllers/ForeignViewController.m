@@ -33,7 +33,7 @@ static NSString *reuseableCellIdentifier  = @"cell";
     _showCitiesIndex = 0;
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DomesticDestinationCell" bundle:nil]  forCellWithReuseIdentifier:reuseableCellIdentifier];
     [self.foreignCollectionView registerNib:[UINib nibWithNibName:@"DestinationCollectionHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseableHeaderIdentifier];
-    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(0, 0, 89, 0)];
+    [self.foreignCollectionView setContentInset:UIEdgeInsetsMake(-5, 0, 89, 0)];
     self.foreignCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.foreignCollectionView setShowsVerticalScrollIndicator:NO];
     

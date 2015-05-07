@@ -35,7 +35,7 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.dataSource = self;
     _domesticCollectionView.delegate = self;
     _domesticCollectionView.showsVerticalScrollIndicator = NO;
-    _domesticCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 35, 0);
+    _domesticCollectionView.contentInset = UIEdgeInsetsMake(-5, 0, 35, 0);
     _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
