@@ -46,7 +46,6 @@
 - (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
-    
     _titleLabel.text = _tripPoi.zhName;
     
 //    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", title, city]];
