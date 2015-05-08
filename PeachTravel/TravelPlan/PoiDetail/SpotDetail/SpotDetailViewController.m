@@ -149,7 +149,6 @@
 - (void)dismissCtl
 {
     [SVProgressHUD dismiss];
-    self.navigationController.navigationBar.hidden = NO;
     [UIView animateWithDuration:0.0 animations:^{
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
@@ -166,9 +165,10 @@
     [UIView animateWithDuration:0.0 animations:^{
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
-        [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
+//        [self willMoveToParentViewController:nil];
+//        [self.view removeFromSuperview];
+//        [self removeFromParentViewController];
+//        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 

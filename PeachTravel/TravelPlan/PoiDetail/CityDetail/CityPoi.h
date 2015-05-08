@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSArray *travelNotes;
 @property (nonatomic, strong) RecommendsOfCity *restaurantsOfCity;
 @property (nonatomic, strong) RecommendsOfCity *shoppingOfCity;
+
 - (id)initWithJson:(id)json;
 
 @end

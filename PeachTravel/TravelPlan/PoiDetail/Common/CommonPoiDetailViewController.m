@@ -30,14 +30,14 @@
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_share_to_talk.png"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_home_slected"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     
     _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
-    [_favoriteBtn addTarget:self action:@selector(favorite) forControlEvents:UIControlEventTouchUpInside];
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
     
     self.navigationItem.rightBarButtonItems = barItems;
@@ -45,9 +45,29 @@
    
 
 }
--(void)favorite
+- (IBAction)favorite:(UIButton *)sender
 {
-    [self.delegate favorite];
+    
+    if (_poiType == kRestaurantPoi) {
+        [MobClick event:@"event_favorite_delicacy"];
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick event:@"event_favorite_shopping"];
+    } else if (_poiType == kHotelPoi) {
+        [MobClick event:@"event_favorite_hotel"];
+    }
+
+    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+        //        _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
+        //        if (!isSuccess) {
+        //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
+        //
+        //        }
+        if (isSuccess) {
+            _favoriteBtn.selected = !_favoriteBtn.selected;
+        }
+    }];
+    
+    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -105,8 +125,9 @@
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
+//        [self.view removeFromSuperview];
+//        [self removeFromParentViewController];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
@@ -156,7 +177,7 @@
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];
         }
-        
+        _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];

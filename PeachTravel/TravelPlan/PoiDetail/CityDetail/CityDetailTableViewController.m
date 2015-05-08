@@ -119,6 +119,10 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [_cityHeaderView.showShoppingBtn addTarget:self action:@selector(viewShopping:) forControlEvents:UIControlEventTouchUpInside];
     [_cityHeaderView.showTipsBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dealtap:)];
+    
+    [_cityHeaderView.cityDesc addGestureRecognizer:tap];
+    
     if (self.poi.images.count > 0) {
         TaoziImage *taoziImage = [self.poi.images objectAtIndex:0];
         NSString *url = taoziImage.imageUrl;
@@ -512,6 +516,11 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
+-(void)dealtap:(UITapGestureRecognizer *)tap
+{
+    SuperWebViewController *SWVC = [[SuperWebViewController alloc]init];
+//    SWVC.urlStr = self.poi.
+}
 
 @end
 

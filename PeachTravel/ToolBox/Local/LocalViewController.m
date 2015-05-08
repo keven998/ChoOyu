@@ -349,8 +349,9 @@
         case PAGE_FUN: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = poi.poiId;
-            [self addChildViewController:spotDetailCtl];
-            [self.view addSubview:spotDetailCtl.view];
+//            [self addChildViewController:spotDetailCtl];
+//            [self.view addSubview:spotDetailCtl.view];
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
             
@@ -358,8 +359,9 @@
             CommonPoiDetailViewController *restaurant = [[RestaurantDetailViewController alloc] init];
             restaurant.poiId = poi.poiId;
             restaurant.poiType = kRestaurantPoi;
-            [self addChildViewController:restaurant];
-            [self.view addSubview:restaurant.view];
+//            [self addChildViewController:restaurant];
+//            [self.view addSubview:restaurant.view];
+            [self.navigationController pushViewController:restaurant animated:YES];
         }
             break;
         
@@ -367,8 +369,9 @@
             CommonPoiDetailViewController *shopping = [[ShoppingDetailViewController alloc] init];
             shopping.poiId = poi.poiId;
             shopping.poiType = kShoppingPoi;
-            [self addChildViewController:shopping];
-            [self.view addSubview:shopping.view];
+//            [self addChildViewController:shopping];
+//            [self.view addSubview:shopping.view];
+            [self.navigationController pushViewController:shopping animated:YES];
         }
             break;
             
@@ -376,8 +379,7 @@
             CommonPoiDetailViewController *hotel = [[HotelDetailViewController alloc] init];
             hotel.poiId = poi.poiId;
             hotel.poiType = kHotelPoi;
-            [self addChildViewController:hotel];
-            [self.view addSubview:hotel.view];
+            [self.navigationController pushViewController:hotel animated:YES];
         }
             break;
             

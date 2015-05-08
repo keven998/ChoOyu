@@ -21,6 +21,14 @@
 		270C55651AFB3B9300A35F69 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55581AFB3B9300A35F69 /* star@2x.png */; };
 		270C55661AFB3B9300A35F69 /* ticket@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55591AFB3B9300A35F69 /* ticket@2x.png */; };
 		270C55671AFB3B9300A35F69 /* travel suggest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C555A1AFB3B9300A35F69 /* travel suggest@2x.png */; };
+		270C55711AFBB73D00A35F69 /* ic_add_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55691AFBB73D00A35F69 /* ic_add_4@2x.png */; };
+		270C55721AFBB73D00A35F69 /* ic_menu_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C556A1AFBB73D00A35F69 /* ic_menu_4@2x.png */; };
+		270C55731AFBB73D00A35F69 /* ic_person@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C556B1AFBB73D00A35F69 /* ic_person@2x.png */; };
+		270C55741AFBB73D00A35F69 /* my_journey_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C556C1AFBB73D00A35F69 /* my_journey_list@2x.png */; };
+		270C55751AFBB73D00A35F69 /* near_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C556D1AFBB73D00A35F69 /* near_play@2x.png */; };
+		270C55761AFBB73D00A35F69 /* point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C556E1AFBB73D00A35F69 /* point@2x.png */; };
+		270C55771AFBB73D00A35F69 /* surch5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C556F1AFBB73D00A35F69 /* surch5@2x.png */; };
+		270C55781AFBB73D00A35F69 /* trip_there@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55701AFBB73D00A35F69 /* trip_there@2x.png */; };
 		2753BCC71AF60B1D0098E5B3 /* HeaderPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */; };
 		2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */; };
 		27951B6A1AF85E7A004D69BE /* ScreeningForeignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27951B691AF85E7A004D69BE /* ScreeningForeignModel.m */; };
@@ -816,6 +824,14 @@
 		270C55581AFB3B9300A35F69 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
 		270C55591AFB3B9300A35F69 /* ticket@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ticket@2x.png"; sourceTree = "<group>"; };
 		270C555A1AFB3B9300A35F69 /* travel suggest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "travel suggest@2x.png"; sourceTree = "<group>"; };
+		270C55691AFBB73D00A35F69 /* ic_add_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_4@2x.png"; sourceTree = "<group>"; };
+		270C556A1AFBB73D00A35F69 /* ic_menu_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu_4@2x.png"; sourceTree = "<group>"; };
+		270C556B1AFBB73D00A35F69 /* ic_person@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person@2x.png"; sourceTree = "<group>"; };
+		270C556C1AFBB73D00A35F69 /* my_journey_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_journey_list@2x.png"; sourceTree = "<group>"; };
+		270C556D1AFBB73D00A35F69 /* near_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near_play@2x.png"; sourceTree = "<group>"; };
+		270C556E1AFBB73D00A35F69 /* point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "point@2x.png"; sourceTree = "<group>"; };
+		270C556F1AFBB73D00A35F69 /* surch5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surch5@2x.png"; sourceTree = "<group>"; };
+		270C55701AFBB73D00A35F69 /* trip_there@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trip_there@2x.png"; sourceTree = "<group>"; };
 		2753BCC41AF60B1D0098E5B3 /* HeaderPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderPictureCell.h; sourceTree = "<group>"; };
 		2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderPictureCell.m; sourceTree = "<group>"; };
 		2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderPictureCell.xib; sourceTree = "<group>"; };
@@ -2088,6 +2104,21 @@
 				270C555A1AFB3B9300A35F69 /* travel suggest@2x.png */,
 			);
 			path = "景点详情";
+			sourceTree = "<group>";
+		};
+		270C55681AFBB73D00A35F69 /* 桃子旅游home页 */ = {
+			isa = PBXGroup;
+			children = (
+				270C55691AFBB73D00A35F69 /* ic_add_4@2x.png */,
+				270C556A1AFBB73D00A35F69 /* ic_menu_4@2x.png */,
+				270C556B1AFBB73D00A35F69 /* ic_person@2x.png */,
+				270C556C1AFBB73D00A35F69 /* my_journey_list@2x.png */,
+				270C556D1AFBB73D00A35F69 /* near_play@2x.png */,
+				270C556E1AFBB73D00A35F69 /* point@2x.png */,
+				270C556F1AFBB73D00A35F69 /* surch5@2x.png */,
+				270C55701AFBB73D00A35F69 /* trip_there@2x.png */,
+			);
+			path = "桃子旅游home页";
 			sourceTree = "<group>";
 		};
 		27B9FAA71AFB284300EEBF07 /* 城市详情 */ = {
@@ -3694,6 +3725,7 @@
 		D9A803651A80E737005AD701 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				270C55681AFBB73D00A35F69 /* 桃子旅游home页 */,
 				270C554D1AFB3B9300A35F69 /* 景点详情 */,
 				27B9FAA71AFB284300EEBF07 /* 城市详情 */,
 				D9F405EB1ACAA6E300781127 /* tababr@2x.png */,
@@ -5137,6 +5169,7 @@
 				D9E803AF1AB19703009B8598 /* ic_sns_talk@2x.png in Resources */,
 				270C555C1AFB3B9300A35F69 /* ic_favorite_sled@2x.png in Resources */,
 				D9A8011C1A80DD23005AD701 /* call_out@2x.png in Resources */,
+				270C55761AFBB73D00A35F69 /* point@2x.png in Resources */,
 				D9F46DB61AC52D8600972AE8 /* SVWebViewController.strings in Resources */,
 				D917DAD91A8B4B240039720A /* ic_guide_dot1@2x.png in Resources */,
 				D9A800341A80D52F005AD701 /* TripPoiListTableViewCell.xib in Resources */,
@@ -5151,6 +5184,7 @@
 				D9722F331A82446900D8A8CC /* Loading_Animation_final6@2x.png in Resources */,
 				D9A805791A80E738005AD701 /* h_snow@2x.png in Resources */,
 				D9A804B71A80E738005AD701 /* chat_sender_bg@2x.png in Resources */,
+				270C55731AFBB73D00A35F69 /* ic_person@2x.png in Resources */,
 				D9245DD21A8C9738004571AD /* ic_nav_button_figure@2x.png in Resources */,
 				D917DAC51A8B49AF0039720A /* ic_guide2_4_normal@2x.png in Resources */,
 				D9A804C51A80E738005AD701 /* dx_checkbox_off.png in Resources */,
@@ -5162,6 +5196,7 @@
 				D9A804951A80E738005AD701 /* speaking-motion2@2x.png in Resources */,
 				D9A801501A80DD23005AD701 /* ZYQAssetPicker.Bundle in Resources */,
 				D9B9EA131A88CBD000966074 /* add_contact@2x.png in Resources */,
+				270C55771AFBB73D00A35F69 /* surch5@2x.png in Resources */,
 				D9A804EF1A80E738005AD701 /* ic_my_favorite@2x.png in Resources */,
 				D9F405EC1ACAA6E300781127 /* tababr@2x.png in Resources */,
 				D9A804B11A80E738005AD701 /* remove_contact@2x.png in Resources */,
@@ -5230,6 +5265,7 @@
 				27B9FAB51AFB284300EEBF07 /* ic_ztl_sc_1@2x.png in Resources */,
 				D9A804F91A80E738005AD701 /* ic_search@2x.png in Resources */,
 				D9A804A61A80E738005AD701 /* ic_group_expand@2x.png in Resources */,
+				270C55741AFBB73D00A35F69 /* my_journey_list@2x.png in Resources */,
 				D9A805631A80E738005AD701 /* ic_trip_normal_3@2x.png in Resources */,
 				D9A805201A80E738005AD701 /* nearby_ic_tab_stay_select@2x.png in Resources */,
 				C6D038221AE4F945006DFD24 /* ic_trip_mapview@2x.png in Resources */,
@@ -5240,6 +5276,7 @@
 				D9A806E11A810948005AD701 /* ic_login_weixin@2x.png in Resources */,
 				27FC91551AF205030083F052 /* HeaderCell.xib in Resources */,
 				D9A8013C1A80DD23005AD701 /* chatBar_more_myfavorite@2x.png in Resources */,
+				270C55781AFBB73D00A35F69 /* trip_there@2x.png in Resources */,
 				D9A8FF1A1A80CC2B005AD701 /* RegisterViewController.xib in Resources */,
 				D9E94BF51AAD35AE00ED6921 /* ic_IM_selected@2x.png in Resources */,
 				D9A805061A80E738005AD701 /* ic_sns_douban@2x.png in Resources */,
@@ -5320,6 +5357,7 @@
 				C6B65A671A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png in Resources */,
 				D9A804E31A80E738005AD701 /* ic_gray_complete@2x.png in Resources */,
 				D9A805361A80E738005AD701 /* ic_city_shopping@2x.png in Resources */,
+				270C55711AFBB73D00A35F69 /* ic_add_4@2x.png in Resources */,
 				D917DA9B1A8B1D3D0039720A /* ic_star_gray_small@2x.png in Resources */,
 				D9A804E01A80E738005AD701 /* ic_frendRequest@2x.png in Resources */,
 				C67C078A1A81BFC100E0F30B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -5331,6 +5369,7 @@
 				D9245DE11A8D9DCB004571AD /* ic_spot_favorite@2x.png in Resources */,
 				D9A805191A80E738005AD701 /* nearby_ic_tab_delicacy_normal@2x.png in Resources */,
 				D9A804F31A80E738005AD701 /* ic_person_normal@2x.png in Resources */,
+				270C55751AFBB73D00A35F69 /* near_play@2x.png in Resources */,
 				D9A804EA1A80E738005AD701 /* ic_indicator@2x.png in Resources */,
 				D9A804971A80E738005AD701 /* speaking-motion4@2x.png in Resources */,
 				D9A804EE1A80E738005AD701 /* ic_login_weixin_highlight@2x.png in Resources */,
@@ -5489,6 +5528,7 @@
 				D9A801441A80DD23005AD701 /* imageDownloadFail@2x.png in Resources */,
 				D9A805671A80E738005AD701 /* ic_view_add@2x.png in Resources */,
 				D9A804E41A80E738005AD701 /* ic_home_btn_cycle@2x.png in Resources */,
+				270C55721AFBB73D00A35F69 /* ic_menu_4@2x.png in Resources */,
 				D9A804B41A80E738005AD701 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				D9A804901A80E738005AD701 /* speaking-motion11@2x.png in Resources */,
 				D917DABD1A8B49AF0039720A /* ic_guide2_8_normal@2x.png in Resources */,
