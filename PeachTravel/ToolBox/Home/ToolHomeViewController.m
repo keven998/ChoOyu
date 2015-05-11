@@ -36,7 +36,7 @@
     self.navigationItem.title = @"旅行";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    CGFloat sh = 250 * CGRectGetHeight(self.view.bounds)/667;
+    CGFloat sh = 208.0f * CGRectGetHeight(self.view.bounds)/640.0f;
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
@@ -126,7 +126,7 @@
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.hidesBottomBarWhenPushed = YES;
     [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     _hideNavigationBar = YES;
     [self presentViewController:tznavc animated:YES completion:^{
         _hideNavigationBar = NO;

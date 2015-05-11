@@ -60,8 +60,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     self.navigationItem.title = @"更多结果";
     
     if (_poiType == kHotelPoi || _poiType == kRestaurantPoi || _poiType == kShoppingPoi) {
-        UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
-        positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
+//        UIView *positionView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWindowWidth, 35)];
+//        positionView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.5];
 
         _positionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 25)];
         _positionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -135,7 +135,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 1, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 65)];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_tableView registerNib:[UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil]forCellReuseIdentifier:reusableCellIdentifier];
         _tableView.backgroundColor = APP_PAGE_COLOR;
