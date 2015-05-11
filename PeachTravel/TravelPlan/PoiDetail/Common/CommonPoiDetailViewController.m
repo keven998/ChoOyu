@@ -57,11 +57,7 @@
     }
 
     [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
-        //        _cityHeaderView.favoriteBtn.userInteractionEnabled = YES;
-        //        if (!isSuccess) {
-        //            _cityHeaderView.favoriteBtn.selected = !_cityHeaderView.favoriteBtn.selected;
-        //
-        //        }
+
         if (isSuccess) {
             _favoriteBtn.selected = !_favoriteBtn.selected;
         }
@@ -85,8 +81,7 @@
 
 - (void)updateView
 {
-//    self.navigationItem.title = self.poi.zhName;
-//    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
+
     CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:self.view.bounds];
     commonPoiDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+1);
     commonPoiDetailView.showsHorizontalScrollIndicator = NO;
@@ -96,27 +91,9 @@
     commonPoiDetailView.poi = self.poi;
     commonPoiDetailView.layer.cornerRadius = 4.0;
     [self.view addSubview:commonPoiDetailView];
-    
-//    [self.navigationController pushViewController:self animated:YES];
-//    commonPoiDetailView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        commonPoiDetailView.transform = CGAffineTransformMakeScale(1, 1);
-
-//    } completion:^(BOOL finished) {
-//        commonPoiDetailView.transform = CGAffineTransformIdentity;
-//        [commonPoiDetailView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-//        [commonPoiDetailView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-//    }];
+ 
 }
 
-- (void)dismissCtl
-{
-    [SVProgressHUD dismiss];
-    self.navigationController.navigationBar.hidden = NO;
-    [self willMoveToParentViewController:nil];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
-}
 
 - (void)dismissCtlWithHint:(NSString *)hint {
     [SVProgressHUD showHint:hint];
@@ -125,15 +102,13 @@
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
-//        [self.view removeFromSuperview];
-//        [self removeFromParentViewController];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
 - (void)dealloc
 {
-    NSLog(@"RestaurantDetialViewController dealloc");
+//    NSLog(@"RestaurantDetialViewController dealloc");
 }
 
 #pragma mark - Private Methods
@@ -170,7 +145,7 @@
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
+//        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
             self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
@@ -182,6 +157,8 @@
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
+//    self.title = self.poi.zhName;
+    
 }
 
 
@@ -197,14 +174,16 @@
         taoziMessageCtl.chatType = TZChatTypeHotel;
         taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
         taoziMessageCtl.messageRating = self.poi.rating;
+        self.title = @"酒店详情";
     } else if (_poiType == kRestaurantPoi) {
         taoziMessageCtl.chatType = TZChatTypeFood;
         taoziMessageCtl.messageRating = self.poi.rating;
         taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
-        
+        self.title = @"没事详情";
     } else if (_poiType == kShoppingPoi) {
         taoziMessageCtl.chatType = TZChatTypeShopping;
         taoziMessageCtl.messageRating = self.poi.rating;
+        self.title = @"购物详情";
     } 
 
     taoziMessageCtl.messageAddress = self.poi.address;

@@ -39,31 +39,6 @@
     [segControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     _segmentControl = segControl;
     
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60*titleCount, 44)];
-//    self.navigationItem.titleView = view;
-//    NSMutableArray *array = [[NSMutableArray alloc] init];
-//    for (int i = 0; i < titleCount; i++) {
-//        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(60*i, 0, 60, 44)];
-//        btn.tag = i;
-//        if (_segmentedNormalImages) {
-//            [btn setImage:[UIImage imageNamed:[_segmentedNormalImages objectAtIndex:i]] forState:UIControlStateNormal];
-//        }
-//        if (_segmentedSelectedImages) {
-//            [btn setImage:[UIImage imageNamed:[_segmentedSelectedImages objectAtIndex:i]] forState:UIControlStateSelected];
-//        }
-//        if (_segmentedTitles) {
-//            [btn setTitle:_segmentedTitles[i] forState:UIControlStateNormal];
-//            [btn setTitleColor:_normalColor forState:UIControlStateNormal];
-//            [btn setTitleColor:_selectedColor forState:UIControlStateSelected];
-//            btn.titleLabel.font = _segmentedTitleFont;
-//        }
-//        [view addSubview:btn];
-//        [btn addTarget:self action:@selector(changePageAction:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        [array addObject:btn];
-//    }
-//    _segmentedBtns = array;
-    
     for (UIViewController *ctl in _viewControllers) {
         [ctl.view setFrame:self.view.bounds];
     }
@@ -71,13 +46,6 @@
     _currentViewController = firstCtl;
     [self addChildViewController:firstCtl];
     [self.view addSubview:firstCtl.view];
-    
-//    _indicateView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 45, 4)];
-//    _indicateView.backgroundColor = _selectedColor;
-//    UIButton *btn = [_segmentedBtns firstObject];
-//    _indicateView.center = CGPointMake(btn.center.x, 42);
-//    self.selectedIndext = 0;
-//    [view addSubview:_indicateView];
 }
 
 -(void)segmentAction:(UISegmentedControl *)segment {

@@ -39,6 +39,7 @@ static NSString *cacheName = @"destination_demostic_group";
     _domesticCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _domesticCollectionView.backgroundColor = APP_PAGE_COLOR;
     
+    
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_domesticCollectionView.collectionViewLayout;
     layout.delegate = self;
     layout.showDecorationView = YES;

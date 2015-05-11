@@ -108,7 +108,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-//    self.tableView.tableHeaderView = _searchBar;
+    self.tableView.tableHeaderView = _searchBar;
+//    self.tableView.tableFooterView = _footerView;
     
     if (_poiType == kRestaurantPoi) {
         self.navigationItem.title = [NSString stringWithFormat:@"吃在%@", _zhName];
@@ -146,6 +147,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     if (_shouldEdit) {
         [MobClick beginLogPageView:@"page_add_agenda"];
     } else {
@@ -591,6 +593,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (self.tableView.tableFooterView == nil) {
         self.tableView.tableFooterView = self.footerView;
     }
+    
     _isLoadingMoreNormal = YES;
     [_indicatroView startAnimating];
     [self loadDataPoisOfCity:(_currentPageNormal + 1)];
@@ -823,22 +826,20 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (_poiType == kRestaurantPoi) {
         CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
         restaurantDetailCtl.poiId = poi.poiId;
-//        [self addChildViewController:restaurantDetailCtl];
-//        [self.view addSubview:restaurantDetailCtl.view];
         [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         NSLog(@"%@", self.navigationController);
     }
     if (_poiType == kShoppingPoi) {
         CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
         shoppingDetailCtl.poiId = poi.poiId;
-//        [self addChildViewController:shoppingDetailCtl];
-//        [self.view addSubview:shoppingDetailCtl.view];
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
 }
 
 #pragma mark - SearchBarDelegate
 
+
+//
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [self.searchController setActive:YES animated:YES];
@@ -868,6 +869,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
 {
+    
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
@@ -933,9 +935,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         return;
     }
     SuperPoi *poi;
-    if (_searchController.active) {
+    if (_searchController.active)
+    {
         poi = [self.searchResultArray objectAtIndex:actionSheet.tag];
-    } else {
+    }
+    else
+    {
         poi = [_dataSource.recommendList objectAtIndex:actionSheet.tag];
     }
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
@@ -1009,17 +1014,20 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 #pragma mark - Collection view
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return _seletedArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SelectDestCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sdest_cell" forIndexPath:indexPath];
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    
     NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
     cell.textView.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
@@ -1027,18 +1035,21 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
     NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
     return 15.0;
 }
 

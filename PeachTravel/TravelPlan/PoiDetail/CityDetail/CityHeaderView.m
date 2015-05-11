@@ -266,7 +266,7 @@
     }
     
     UIImageView *img = [_imageViews objectAtIndex:page];
-
+    
     if ((NSNull *)img == [NSNull null]) {
         img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0.0, CGRectGetWidth(self.galleryPageView.frame), CGRectGetHeight(self.galleryPageView.frame))];
         img.contentMode = UIViewContentModeScaleAspectFill;

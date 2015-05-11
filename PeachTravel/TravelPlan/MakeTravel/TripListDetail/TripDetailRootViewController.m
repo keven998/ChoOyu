@@ -660,7 +660,6 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[SpotsListViewController alloc] init];
-    
     _spotsListCtl.rootViewController = self;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
@@ -671,7 +670,6 @@
     
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
-//    [self.navigationController pushViewController:_spotsListCtl animated:YES];
     
     
     [_spotsListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
@@ -727,10 +725,6 @@
 - (void)changePage:(UIButton *)sender
 {
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
-    
-//    [UIView animateWithDuration:0.2 animations:^{
-//        [_tabBarSelectedView setCenter:CGPointMake(sender.center.x, sender.center.y-7)];
-//    }];
     
     if ([newController isEqual:_currentViewController]) {
         return;

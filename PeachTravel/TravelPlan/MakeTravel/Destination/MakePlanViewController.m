@@ -43,6 +43,7 @@
     self.navigationItem.rightBarButtonItem = rbi;
     
     [self setupSelectPanel];
+    [self beginSearch:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -108,7 +109,6 @@
 
 - (void)goBack
 {
-//    [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -122,6 +122,7 @@
 /**
  *  重写父类方法
  */
+
 - (void)finishSwithPages
 {
     [self.view bringSubviewToFront:_selectPanel.superview];
@@ -370,11 +371,13 @@
 
 #pragma mark - Collection view
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.destinations.destinationsSelected.count;
 }
 
@@ -403,7 +406,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:updateDestinationsSelectedNoti object:nil userInfo:@{@"city":city}];
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     CityDestinationPoi *city = [self.destinations.destinationsSelected objectAtIndex:indexPath.row];
     CGSize size = [city.zhName sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:15.0]}];
     return CGSizeMake(size.width + 25 + 28, 28);
