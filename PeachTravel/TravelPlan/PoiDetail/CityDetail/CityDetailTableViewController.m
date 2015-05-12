@@ -20,6 +20,7 @@
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 #import "AddPoiViewController.h"
+#import "CityDescDetailViewController.h"
 
 @interface CityDetailTableViewController () <UITableViewDataSource, UITableViewDelegate, CityHeaderViewDelegate, UIActionSheetDelegate>
 {
@@ -172,7 +173,6 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     }
     
     NSString *requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_CITYDETAIL, _cityId];
-    
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(CityDetailTableViewController *)weakSelf = self;
     [_hud showHUDInViewController:weakSelf content:64];
@@ -185,7 +185,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
    
     //获取城市信息
     [manager GET:requsetUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             self.poi = [[CityPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
@@ -230,7 +230,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [params setObject:self.poi.poiId forKey:@"locId"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id travelNotes = [responseObject objectForKey:@"result"];
@@ -518,8 +518,9 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 -(void)dealtap:(UITapGestureRecognizer *)tap
 {
-    SuperWebViewController *SWVC = [[SuperWebViewController alloc]init];
-//    SWVC.urlStr = self.poi.
+    CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
+    cddVC.des = self.poi.desc;
+    [self.navigationController pushViewController:cddVC animated:YES];
 }
 
 @end

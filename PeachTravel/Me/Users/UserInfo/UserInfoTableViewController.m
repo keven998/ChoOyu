@@ -24,6 +24,7 @@
 #import "StatusListViewController.h"
 #import "HeaderCell.h"
 #import "HeaderPictureCell.h"
+#import "UITableView+FDTemplateLayoutCell.h"
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
@@ -264,7 +265,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 
     [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -321,7 +322,7 @@
                    }
                    [userAvatar addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
                    [user setObject:userAvatar forKey:@"userAvatar"];
-                   NSLog(@"%@--3",userAvatar);
+//                   NSLog(@"%@--3",userAvatar);
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
 //                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
 //                   UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
@@ -417,12 +418,23 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2||(indexPath.section == 0 && indexPath.row == 0)) {
+    
+
+    if ((indexPath.section == 0 && indexPath.row == 0)) {
+        
         
         return 90;
+        
+    }
+    else if (indexPath.section == 2)
+    {
+
+        return 90;
+        
     }
     else{
-        return 49.0;
+        
+        return  49.0;
     }
 }
 
@@ -446,6 +458,7 @@
     }
     else if (indexPath.section == 2){
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
+        
         cell.nameLabel.text = @"旅行足迹";
         cell.backgroundColor = [UIColor whiteColor];
         cell.dataArray = @[@"上海",@"北京",@"杭州"];
@@ -487,10 +500,6 @@
 //                    cell.cellDetail.text = tel;
 //                }
 //            }
-//            HeaderCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
-//            cell1.dataArray = @[@"111",@"111",@"111",@"111"];
-//            return cell1;
-//        }
         else if (indexPath.section == 3){
         
             cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;

@@ -28,8 +28,6 @@
 //    na
 //    [self.contentView addSubview:nameLabel];
     
-    
-    
     TaoziCollectionLayout *layout = (TaoziCollectionLayout *)_collectionView.collectionViewLayout;
     layout.delegate = self;
     
@@ -45,7 +43,7 @@
     layout.delegate = self;
     layout.showDecorationView = YES;
     layout.margin = 10;
-    layout.spacePerItem = 20;
+    layout.spacePerItem = 10;
     layout.spacePerLine = 10;
     //
     _collectionView.delegate = self;
@@ -79,6 +77,7 @@
 
 - (CGFloat)tzcollectionLayoutWidth
 {
+    NSLog(@"@%f",_collectionView.frame.size.height);
     return _collectionView.frame.size.width;
 }
 

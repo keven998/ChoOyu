@@ -309,7 +309,6 @@
             [browser setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
             UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:browser];
             [ctl presentViewController:navc animated:YES completion:nil];
-//            [ctl.navigationController pushViewController:browser animated:YES];
             break;
         }
     }
@@ -356,9 +355,14 @@
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
             for (id imageDic in [[responseObject objectForKey:@"result"] objectForKey:@"album"]) {
                 [tempArray addObject:imageDic];
+                if (tempArray.count == 99) {
+                    break;
+                }
             }
             albumCtl.imageList = tempArray;
+            
         } else {
+            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

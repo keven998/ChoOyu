@@ -99,7 +99,6 @@
     _titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [_scrollView addSubview:_titleLabel];
     
-
     
     offsetY += (314+25)/2 + 14+28;
     

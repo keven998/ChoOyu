@@ -843,6 +843,7 @@
 //            [self addChildViewController:shoppingCtl];
 //            [self.view addSubview:shoppingCtl.view];
             [self.navigationController pushViewController:shoppingCtl animated:YES];
+            NSLog(@"asda");
         }
             break;
             

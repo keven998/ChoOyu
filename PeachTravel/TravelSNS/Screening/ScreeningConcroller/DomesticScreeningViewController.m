@@ -157,9 +157,7 @@
     
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.selected = YES;
-    
-    ScreeningModel *model = _dataArray[indexPath.row];
-//    NSLog(@"%@",model.userId);
+
     NSLog(@"%@",_screeningVC.selectedCityArray);
 }
 @end

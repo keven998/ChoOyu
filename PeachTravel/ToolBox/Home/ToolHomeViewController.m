@@ -328,7 +328,7 @@
         img.clipsToBounds = YES;
         [_operationImageViews replaceObjectAtIndex:page withObject:img];
         NSString *imageStr = ((OperationData *)[_operationDataArray objectAtIndex:page]).imageUrl;
-        [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"spot_detail_default.png"]];
+        [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"tupianzhanweifu"]];
     }
     return img;
 }

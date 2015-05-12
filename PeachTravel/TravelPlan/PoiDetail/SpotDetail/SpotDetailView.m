@@ -148,7 +148,6 @@
     
 
     if ([_spot.priceDesc isBlankString]||_spot.priceDesc == nil) {
-        
     }
     else{
     _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 20)];
@@ -157,7 +156,7 @@
     _ticketBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     _ticketBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _ticketBtn.contentEdgeInsets = UIEdgeInsetsMake(0, width/3, 0, 0);
+    _ticketBtn.contentEdgeInsets = UIEdgeInsetsMake(0, width/2.5, 0, 0);
     [_ticketBtn setTitle:_spot.priceDesc forState:UIControlStateNormal];
     [_scrollView addSubview:_ticketBtn];
     UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, _ticketBtn.bounds.size.height)];
@@ -190,7 +189,7 @@
     
     _travelBtn.titleLabel.numberOfLines = 2;
     [_travelBtn setTitle:_spot.desc forState:UIControlStateNormal];
-    [_travelBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/3, 0, 0)];
+    [_travelBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
     [_travelBtn setTitle:content forState:UIControlStateNormal];
     _travelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_travelBtn];
@@ -226,7 +225,7 @@
     [_phoneButton setTitle:_spot.telephone forState:UIControlStateNormal];
     [_phoneButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     _phoneButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_phoneButton setContentEdgeInsets:UIEdgeInsetsMake(0, width/3, 0, 0)];
+    [_phoneButton setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
     _phoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     [_scrollView addSubview:_phoneButton];
@@ -256,7 +255,7 @@
     _addressBtn.titleLabel.numberOfLines = 2;
     _addressBtn.layer.cornerRadius = 4.0;
     _addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _addressBtn.contentEdgeInsets = UIEdgeInsetsMake(0, width/3, 0, 0);
+    _addressBtn.contentEdgeInsets = UIEdgeInsetsMake(0, width/2.5, 0, 0);
 //    [_addressBtn setContentEdgeInsets:UIEdgeInsetsMake(2, 10, 0, 10)];
 //    _addressBtn.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
 //    _addressBtn.layer.borderWidth = 0.5;
@@ -296,7 +295,7 @@
     _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
     _descDetailBtn.titleLabel.numberOfLines = 3;
-    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/3, 0, 0)];
+    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
     _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_descDetailBtn];
     
@@ -361,7 +360,7 @@
     
     _kendieBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
     [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"ic_little notes"] forState:UIControlStateNormal];
-    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"ic_little notes"] forState:UIControlStateDisabled];
+    [_kendieBtn setBackgroundImage:[UIImage imageNamed:@"ic_little_normal"] forState:UIControlStateDisabled];
 //    [_kendieBtn setTitle:@"小贴士" forState:UIControlStateNormal];
     _kendieBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     _kendieBtn.titleLabel.numberOfLines = 2;
@@ -375,7 +374,7 @@
     
     _travelGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
     [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_spots experience"] forState:UIControlStateNormal];
-    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_spots experience"] forState:UIControlStateDisabled];
+    [_travelGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_spots_normal"] forState:UIControlStateDisabled];
     _travelGuideBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     _travelGuideBtn.titleLabel.numberOfLines = 2;
     [_travelGuideBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -387,7 +386,7 @@
     
     _trafficGuideBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
     [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_travel"] forState:UIControlStateNormal];
-    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_travel"] forState:UIControlStateDisabled];
+    [_trafficGuideBtn setBackgroundImage:[UIImage imageNamed:@"ic_travel_normal"] forState:UIControlStateDisabled];
 //    [_trafficGuideBtn setTitle:@"交通" forState:UIControlStateNormal];
     _trafficGuideBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     _trafficGuideBtn.titleLabel.numberOfLines = 2;

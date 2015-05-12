@@ -10,7 +10,7 @@
 
 @interface HeaderCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
+@property (assign, nonatomic) CGFloat h;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (copy,nonatomic) NSArray *dataArray;
 @end
