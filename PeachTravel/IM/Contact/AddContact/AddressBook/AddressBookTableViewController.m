@@ -239,7 +239,7 @@
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate = self;
     picker.recipients = @[[self.dataSource[sender.tag] objectForKey:@"tel"]];
-    picker.body = @"给你推荐个旅行小app:旅FM~";
+    picker.body = @"给你推荐个旅行好工具:旅行派";
     [self presentViewController:picker animated:YES completion:nil];
 }
 

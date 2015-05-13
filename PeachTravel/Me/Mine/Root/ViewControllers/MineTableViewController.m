@@ -20,7 +20,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource           @[@[@"收藏夹", @"推荐应用给好友"], @[@"设置", @"关于旅FM"]]
+#define cellDataSource           @[@[@"收藏夹", @"推荐应用给好友"], @[@"设置", @"关于旅行派"]]
 #define secondCell               @"secondCell"
 
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -168,7 +168,7 @@
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         _nameLabel.text = amgr.account.nickName;
-        _propLabel.text = [NSString stringWithFormat:@"FM号 %d", [amgr.account.userId intValue]];
+        _propLabel.text = [NSString stringWithFormat:@"ID %d", [amgr.account.userId intValue]];
         _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
 //        if ([amgr.account.gender isEqualToString:@"M"]) {
 //            cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
@@ -179,7 +179,7 @@
 //        }
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        _propLabel.text = @"点击登录旅FM，享受更多旅行服务";
+        _propLabel.text = @"点击登录旅行派，享受更多旅行帮助";
         _nameLabel.text = @"未登录";
         _signatureLabel.text = nil;
 //        cell.userGender.image = nil;
@@ -325,7 +325,7 @@
         } else if (indexPath.row == 1) {
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
             svc.hidesBottomBarWhenPushed = YES;
-            svc.titleStr = @"关于旅FM";
+            svc.titleStr = @"关于旅行派";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
             [self.navigationController pushViewController:svc animated:YES];
         }

@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"关于旅FM";
+    self.navigationItem.title = @"关于旅行派";
     self.view.backgroundColor = APP_PAGE_COLOR;
     
     CGFloat width = self.view.frame.size.width;
@@ -51,7 +51,7 @@
     title.backgroundColor = [UIColor clearColor];
     title.textAlignment = NSTextAlignmentCenter;
     title.textColor = UIColorFromRGB(0x5a5a5a);
-    title.text = @"旅FM";
+    title.text = @"旅行派";
     [self.view addSubview:title];
     
     offsetY += 20. + 64.;
@@ -80,7 +80,7 @@
     weichat.font = [UIFont systemFontOfSize:13.];
     weichat.backgroundColor = [UIColor clearColor];
     weichat.textColor = UIColorFromRGB(0x313131);
-    weichat.text = @"微信: 旅FM";
+    weichat.text = @"微信: 旅行派";
     [self.view addSubview:weichat];
     
     offsetY += 23.;
@@ -88,7 +88,7 @@
     weibo.font = [UIFont systemFontOfSize:13.];
     weibo.backgroundColor = [UIColor clearColor];
     weibo.textColor = UIColorFromRGB(0x313131);
-    weibo.text = @"微博: 旅FM";
+    weibo.text = @"微博: 旅行派";
     [self.view addSubview:weibo];
     
     offsetY += 23.;

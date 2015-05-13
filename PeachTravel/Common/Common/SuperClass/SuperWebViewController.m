@@ -48,7 +48,7 @@
     [super loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"旅FM\n你的旅行圈";
+    label.text = @"旅行派\n你的旅行圈";
     label.textColor = TEXT_COLOR_TITLE_HINT;
     label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;
