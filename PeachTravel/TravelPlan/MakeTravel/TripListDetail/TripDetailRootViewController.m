@@ -103,6 +103,8 @@
 //    TripPlanSettingViewController *tc = controller;
     
 //    self.frostedViewController.contentViewController;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center addObserver:self selector:@selector() name:@"addPosition" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -913,7 +915,6 @@
                 [array addObject:poi.zhName];
             }
             _destinationView.destinations = array;
-            ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
         } else {
             
         }

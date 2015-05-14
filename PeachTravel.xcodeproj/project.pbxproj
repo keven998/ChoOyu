@@ -38,6 +38,7 @@
 		2753BCC71AF60B1D0098E5B3 /* HeaderPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */; };
 		2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */; };
 		275529881B0457A600A10506 /* weixindenglu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275529871B0457A600A10506 /* weixindenglu@2x.png */; };
+		2755298C1B04A52400A10506 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2755298B1B04A52400A10506 /* HMSegmentedControl.m */; };
 		27951B6A1AF85E7A004D69BE /* ScreeningForeignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27951B691AF85E7A004D69BE /* ScreeningForeignModel.m */; };
 		27951B711AF86C46004D69BE /* PicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27951B6F1AF86C46004D69BE /* PicCell.m */; };
 		27951B721AF86C46004D69BE /* PicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27951B701AF86C46004D69BE /* PicCell.xib */; };
@@ -65,6 +66,8 @@
 		27F7E69D1B033C700049EC08 /* weichat_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E69C1B033C700049EC08 /* weichat_login@2x.png */; };
 		27FC91541AF205030083F052 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC91521AF205030083F052 /* HeaderCell.m */; };
 		27FC91551AF205030083F052 /* HeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC91531AF205030083F052 /* HeaderCell.xib */; };
+		27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */; };
+		27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */; };
 		C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED651A2C4D8E00B76934 /* HomeViewController.m */; };
 		C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D681A298DF8006033C9 /* PushSettingViewController.m */; };
 		C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */; };
@@ -75,7 +78,6 @@
 		C65763211AEB392C0069909D /* ic_trip_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65763201AEB392C0069909D /* ic_trip_list@2x.png */; };
 		C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F01ADF794500A28095 /* DistributionViewController.m */; };
 		C659E9F51AE0FBF500A28095 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F41AE0FBF500A28095 /* UserProfile.m */; };
-		C65A14501B04A5E000233048 /* AIDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65A144F1B04A5E000233048 /* AIDatePickerController.m */; };
 		C65A27931A87966900CC4D48 /* btn_spot_info_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */; };
 		C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */; };
 		C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */; };
@@ -856,6 +858,8 @@
 		2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderPictureCell.m; sourceTree = "<group>"; };
 		2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderPictureCell.xib; sourceTree = "<group>"; };
 		275529871B0457A600A10506 /* weixindenglu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weixindenglu@2x.png"; sourceTree = "<group>"; };
+		2755298A1B04A52400A10506 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		2755298B1B04A52400A10506 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		27951B681AF85E7A004D69BE /* ScreeningForeignModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreeningForeignModel.h; sourceTree = "<group>"; };
 		27951B691AF85E7A004D69BE /* ScreeningForeignModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreeningForeignModel.m; sourceTree = "<group>"; };
 		27951B6E1AF86C46004D69BE /* PicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicCell.h; sourceTree = "<group>"; };
@@ -893,6 +897,8 @@
 		27FC91511AF205030083F052 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
 		27FC91521AF205030083F052 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
 		27FC91531AF205030083F052 /* HeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderCell.xib; sourceTree = "<group>"; };
+		27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDatePickerController.h; sourceTree = "<group>"; };
+		27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDatePickerController.m; sourceTree = "<group>"; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C608ED641A2C4D8E00B76934 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		C608ED651A2C4D8E00B76934 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -910,8 +916,6 @@
 		C659E9F31AE0FBF500A28095 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
 		C659E9F41AE0FBF500A28095 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
 		C659E9F61AE0FF2100A28095 /* SNSDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNSDefine.h; sourceTree = "<group>"; };
-		C65A144E1B04A5E000233048 /* AIDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDatePickerController.h; sourceTree = "<group>"; };
-		C65A144F1B04A5E000233048 /* AIDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDatePickerController.m; sourceTree = "<group>"; };
 		C65A27921A87966900CC4D48 /* btn_spot_info_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_box@2x.png"; sourceTree = "<group>"; };
 		C65DB7B51AD37B8600F51443 /* SelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTableViewController.h; sourceTree = "<group>"; };
 		C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTableViewController.m; sourceTree = "<group>"; };
@@ -2151,6 +2155,15 @@
 			path = "桃子旅游home页";
 			sourceTree = "<group>";
 		};
+		275529891B04A52400A10506 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				2755298A1B04A52400A10506 /* HMSegmentedControl.h */,
+				2755298B1B04A52400A10506 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
 		27B9FAA71AFB284300EEBF07 /* 城市详情 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2232,6 +2245,15 @@
 			path = ScreeningView;
 			sourceTree = "<group>";
 		};
+		27FF1A391B04B91F00643D77 /* AIDatePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				27FF1A3A1B04B91F00643D77 /* AIDatePickerController.h */,
+				27FF1A3B1B04B91F00643D77 /* AIDatePickerController.m */,
+			);
+			path = AIDatePickerController;
+			sourceTree = "<group>";
+		};
 		C608ED631A2C4D5E00B76934 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2267,15 +2289,6 @@
 			);
 			name = "SnsModel--达人指路--右上角详情";
 			path = SnsModel;
-			sourceTree = "<group>";
-		};
-		C65A144D1B04A5E000233048 /* AIDatePickerController */ = {
-			isa = PBXGroup;
-			children = (
-				C65A144E1B04A5E000233048 /* AIDatePickerController.h */,
-				C65A144F1B04A5E000233048 /* AIDatePickerController.m */,
-			);
-			path = AIDatePickerController;
 			sourceTree = "<group>";
 		};
 		C65DB7BD1AD4DD3500F51443 /* TravelSNS */ = {
@@ -3224,7 +3237,8 @@
 		D9A8016B1A80E036005AD701 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				C65A144D1B04A5E000233048 /* AIDatePickerController */,
+				27FF1A391B04B91F00643D77 /* AIDatePickerController */,
+				275529891B04A52400A10506 /* HMSegmentedControl */,
 				C694C3831AE9EB7800F5C36E /* SDSegmentedControl */,
 				C6C5C3C01ADE65570047C058 /* AutoSlideScrollView */,
 				D92CA1171AD8BEB400F244FF /* MWPhotoBrowser */,
@@ -5646,6 +5660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FF1A3D1B04B93C00643D77 /* AIDatePickerController.h in Sources */,
 				D9A802B91A80E3D3005AD701 /* UIViewController+HUD.m in Sources */,
 				D9A802F01A80E3D3005AD701 /* AppUtils.m in Sources */,
 				D9A802011A80E036005AD701 /* AFgzipRequestSerializer.m in Sources */,
@@ -5715,6 +5730,7 @@
 				D9A802151A80E036005AD701 /* JGProgressHUDIndicatorView.m in Sources */,
 				D9A802E11A80E3D3005AD701 /* PageThree.m in Sources */,
 				D9A801571A80DD23005AD701 /* HPGrowingTextView.m in Sources */,
+				27FF1A3C1B04B91F00643D77 /* AIDatePickerController.m in Sources */,
 				D9F46DC21AC52D8600972AE8 /* SVWebViewControllerActivity.m in Sources */,
 				D92CA1341AD8BEB400F244FF /* MWPhoto.m in Sources */,
 				C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */,
@@ -5825,7 +5841,6 @@
 				C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */,
 				D9A801111A80DD23005AD701 /* ChatGroupSettingViewController.m in Sources */,
 				D9E7E5911AC281B00072D5B9 /* CityDestinationPoi.m in Sources */,
-				C65A14501B04A5E000233048 /* AIDatePickerController.m in Sources */,
 				D9A800621A80DD0C005AD701 /* AddressBookTableViewController.m in Sources */,
 				D9A8FFB81A80D1C3005AD701 /* SpotDetailViewController.m in Sources */,
 				D9A801521A80DD23005AD701 /* CreateConversationTableViewCell.m in Sources */,
@@ -5956,6 +5971,7 @@
 				D9A8023A1A80E036005AD701 /* YWeatherUtils.m in Sources */,
 				D9A8FF5E1A80CF19005AD701 /* SearchMoreDestinationViewController.m in Sources */,
 				D9A801191A80DD23005AD701 /* ChatSettingViewController.m in Sources */,
+				2755298C1B04A52400A10506 /* HMSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
