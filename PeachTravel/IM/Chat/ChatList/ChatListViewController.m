@@ -28,7 +28,7 @@
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的旅FM信息，显示界面的时候需要用到
+@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的旅行派信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;

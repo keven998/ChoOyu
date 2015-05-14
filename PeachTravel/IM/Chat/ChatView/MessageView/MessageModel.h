@@ -40,7 +40,7 @@
 //text
 @property (nonatomic, strong) NSString *content;
 
-//旅FM自有的消息内容
+//旅行派自有的消息内容
 @property (nonatomic, strong) NSDictionary *taoziMessage;
 
 //image

@@ -206,7 +206,6 @@
                 [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-//                    [SVProgressHUD showHint:@"欢迎回到旅FM"];
                     [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
                     if (self.completion) {
                         self.completion(YES);
@@ -298,7 +297,6 @@
                     if (self.completion) {
                         self.completion(YES);
                     }
-//                    [SVProgressHUD showHint:@"欢迎回到旅FM"];
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }

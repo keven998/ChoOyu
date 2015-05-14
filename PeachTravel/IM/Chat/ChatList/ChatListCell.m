@@ -126,7 +126,6 @@
     _timeLabel.text = _time;
     
     if (_unreadCount > 0) {
-        _unreadCount = 679;
         CGRect lf = _unreadLabel.frame;
         if (_unreadCount < 9) {
             lf.size.width = 21;

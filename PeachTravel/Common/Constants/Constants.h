@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, UserInfoChangeType) {
     ChangeOtherInfo = 100
 };
 
-///***** 旅FM自定义消息枚举信息****/
+///***** 旅行派自定义消息枚举信息****/
 typedef NS_ENUM(NSUInteger, TZChatType) {
     TZChatNormalText = 0,                  //普通文字信息
     TZChatTypeStrategy = 1,         //我的攻略
@@ -200,14 +200,14 @@ typedef NS_ENUM(NSUInteger, TZChatType) {
     TZTipsMsg    =  100             //自定义的提示信息， 如：我加入了旅行派群组
 };
 
-/***** 旅FM好友请求枚举信息****/
+/***** 旅行派好友请求枚举信息****/
 typedef NS_ENUM(NSUInteger, TZFrendRequest) {
     TZFrendDefault = 0,      //未处理
     TZFrendAgree,            //同意
     TZFrendReject,          //拒绝
 };
 
-/***** 旅FM自定义透传枚举信息 ****/
+/***** 旅行派自定义透传枚举信息 ****/
 typedef NS_ENUM(NSUInteger, TZCMDChatType) {
     CMDAddContact = 1,
     CMDAgreeAddContact,
