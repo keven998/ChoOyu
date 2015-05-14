@@ -204,13 +204,13 @@
 - (void)shareToWeChat
 {
     [MobClick event:@"event_share_app_by_weichat"];
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅FM\"给你。";
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
 
     UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅伴一起讨论旅行，还有便利的自由行规划工具，陪你一起去旅行" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅行达人交流、朋友互动的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
 //        if (response.responseCode == UMSResponseCodeSuccess) {
 //            NSLog(@"分享成功！");
 //        }
