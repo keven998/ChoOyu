@@ -40,6 +40,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
     
     [self.view addSubview:self.tableView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

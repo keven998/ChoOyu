@@ -166,6 +166,8 @@
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
     frostedViewController.resumeNavigationBar = NO;
+    tripDetailCtl.container = frostedViewController;
+    tpvc.rootViewController = tripDetailCtl;
     NSMutableArray *array = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
     [array replaceObjectAtIndex:(array.count - 1) withObject:frostedViewController];
     [self.navigationController setViewControllers:array animated:YES];

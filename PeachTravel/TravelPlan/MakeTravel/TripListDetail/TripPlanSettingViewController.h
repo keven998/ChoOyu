@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TripDetailRootViewController.h"
+#import "SpotDetailViewController.h"
 
 @interface TripPlanSettingViewController : UIViewController
-
+@property (nonatomic,strong) TripDetail *tripDetail;
+@property (nonatomic, weak) TripDetailRootViewController *rootViewController;
 @end

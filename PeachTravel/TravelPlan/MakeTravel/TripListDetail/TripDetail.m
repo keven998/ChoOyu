@@ -16,7 +16,7 @@
 - (id)initWithJson:(id)json
 {
     if (self = [super init]) {
-        NSLog(@"*****接收到路线信息********\n%@", json);
+//        NSLog(@"*****接收到路线信息********\n%@", json);
         _backUpJson = json;
         _tripId = [json objectForKey:@"id"];
         _tripTitle = [json objectForKey:@"title"];

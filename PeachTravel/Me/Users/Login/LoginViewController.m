@@ -20,11 +20,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *losePassworkBtn;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 @property (weak, nonatomic) IBOutlet UIButton *supportLoginButton;
 @property (weak, nonatomic) IBOutlet UILabel *wechatLabel;
-@property (weak, nonatomic) IBOutlet UIView *wechatLeftView;
-@property (weak, nonatomic) IBOutlet UIView *wechatRightView;
 
+
+@property (weak, nonatomic) IBOutlet UIButton *weiChatBtn;
 @property (nonatomic, copy) void (^completion)(BOOL completed);
 
 @end
@@ -55,8 +56,26 @@
 //        [button setFrame:CGRectMake(0, 0, 48, 30)];
 //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
-//    }
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
+    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    self.navigationItem.leftBarButtonItem = left;
+    
+    self.view.backgroundColor = UIColorFromRGB(0Xf2f2f2);
+    
+    
+    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 134/3, SCREEN_WIDTH/2, 1)];
+    spaceView6.backgroundColor = APP_DIVIDER_COLOR;
+    [_backView addSubview:spaceView6];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 90, SCREEN_WIDTH/2, 1)];
+    spaceView.backgroundColor = APP_DIVIDER_COLOR;
+    [_backView addSubview:spaceView];
+    
+    [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
     _userNameTextField.delegate = self;
     _passwordTextField.delegate = self;
     
@@ -104,12 +123,9 @@
     if (![WXApi isWXAppInstalled]) {
         _wechatLabel.hidden = YES;
         _supportLoginButton.hidden = YES;
-        _wechatRightView.hidden = YES;
-        _wechatLeftView.hidden = YES;
     } else {
         _wechatLabel.hidden = NO;
-        _wechatRightView.hidden = NO;
-        _wechatLeftView.hidden = NO;
+
         _supportLoginButton.hidden = NO;
     }
 }
@@ -218,6 +234,7 @@
 //微信登录
 - (IBAction)weixinLogin:(UIButton *)sender {
     [MobClick event:@"event_login_with_weichat_account"];
+    
     [self sendAuthRequest];
 }
 
