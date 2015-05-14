@@ -710,7 +710,6 @@
 		D9A8FF291A80CCA5005AD701 /* AccountManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF241A80CCA5005AD701 /* AccountManagerTableViewCell.m */; };
 		D9A8FF2A1A80CCA5005AD701 /* AccountManagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF251A80CCA5005AD701 /* AccountManagerTableViewCell.xib */; };
 		D9A8FF2B1A80CCA5005AD701 /* AccountManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF271A80CCA5005AD701 /* AccountManagerViewController.m */; };
-		D9A8FF2F1A80CCB5005AD701 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF2E1A80CCB5005AD701 /* AboutViewController.m */; };
 		D9A8FF521A80CF19005AD701 /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF321A80CF19005AD701 /* Favorite.m */; };
 		D9A8FF531A80CF19005AD701 /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FF341A80CF19005AD701 /* FavoriteTableViewCell.m */; };
 		D9A8FF541A80CF19005AD701 /* FavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FF351A80CF19005AD701 /* FavoriteTableViewCell.xib */; };
@@ -1779,8 +1778,6 @@
 		D9A8FF251A80CCA5005AD701 /* AccountManagerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountManagerTableViewCell.xib; sourceTree = "<group>"; };
 		D9A8FF261A80CCA5005AD701 /* AccountManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManagerViewController.h; sourceTree = "<group>"; };
 		D9A8FF271A80CCA5005AD701 /* AccountManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManagerViewController.m; sourceTree = "<group>"; };
-		D9A8FF2D1A80CCB5005AD701 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
-		D9A8FF2E1A80CCB5005AD701 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D9A8FF311A80CF19005AD701 /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
 		D9A8FF321A80CF19005AD701 /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
 		D9A8FF331A80CF19005AD701 /* FavoriteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteTableViewCell.h; sourceTree = "<group>"; };
@@ -2769,7 +2766,6 @@
 		D9A5939319E3DAB3004A6072 /* Me */ = {
 			isa = PBXGroup;
 			children = (
-				D9A8FF2C1A80CCB5005AD701 /* About */,
 				D9A8FF221A80CCA5005AD701 /* ShareSetting */,
 				D9A8FEE41A80CC2B005AD701 /* Users */,
 				D9A8FE9E1A80C818005AD701 /* Mine */,
@@ -4356,16 +4352,6 @@
 			path = Me/ShareSetting;
 			sourceTree = "<group>";
 		};
-		D9A8FF2C1A80CCB5005AD701 /* About */ = {
-			isa = PBXGroup;
-			children = (
-				D9A8FF2D1A80CCB5005AD701 /* AboutViewController.h */,
-				D9A8FF2E1A80CCB5005AD701 /* AboutViewController.m */,
-			);
-			name = About;
-			path = Me/About;
-			sourceTree = "<group>";
-		};
 		D9A8FF301A80CF19005AD701 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
@@ -5661,7 +5647,6 @@
 				D9A800601A80DD0C005AD701 /* AddressBookTableViewCell.m in Sources */,
 				D9A8FF291A80CCA5005AD701 /* AccountManagerTableViewCell.m in Sources */,
 				D9A802271A80E036005AD701 /* pinyin.c in Sources */,
-				D9A8FF2F1A80CCB5005AD701 /* AboutViewController.m in Sources */,
 				D9A800171A80D52F005AD701 /* MakePlanViewController.m in Sources */,
 				C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */,
 				D9A8FECB1A80C818005AD701 /* Account.m in Sources */,

@@ -12,6 +12,7 @@
 - (instancetype)initWithURL:(NSURL*)URL;
 - (instancetype)initWithURLRequest:(NSURLRequest *)request;
 
+@property (nonatomic, assign) BOOL hideToolBar;
 @property (nonatomic, strong) UIWebView *webView;
 - (void)loadRequest:(NSURLRequest*)request;
 

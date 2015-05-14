@@ -580,7 +580,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
     }
     webCtl.urlStr = _dataSource.detailUrl;
-    
+    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 

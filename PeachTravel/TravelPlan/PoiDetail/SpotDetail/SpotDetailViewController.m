@@ -255,6 +255,7 @@
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = self.poi.zhName;
     webCtl.urlStr = ((SpotPoi *)self.poi).descUrl;
+    webCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webCtl animated:YES];
 }
 

@@ -46,6 +46,7 @@
     self = [super init];
     if (self) {
         self.request = request;
+        self.hideToolBar = NO;
     }
     return self;
 }
@@ -59,7 +60,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    CGFloat oy = 44;
+    if (self.hideToolBar) {
+        oy = 0;
+    }
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-oy)];
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -82,10 +87,12 @@
     
     [super viewWillAppear:animated];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !self.hideToolBar) {
         [self.navigationController setToolbarHidden:NO animated:animated];
     }
     else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.navigationController setToolbarHidden:YES animated:animated];
+    } else {
         [self.navigationController setToolbarHidden:YES animated:animated];
     }
 }
@@ -93,7 +100,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !self.hideToolBar) {
         [self.navigationController setToolbarHidden:YES animated:animated];
     }
 }
@@ -190,7 +197,6 @@
         toolbar.tintColor = self.navigationController.navigationBar.tintColor;
         self.navigationItem.rightBarButtonItems = items.reverseObjectEnumerator.allObjects;
     }
-    
     else {
         NSArray *items = [NSArray arrayWithObjects:
                           fixedSpace,

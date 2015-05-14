@@ -11,7 +11,6 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "AccountManager.h"
-#import "AboutViewController.h"
 #import "SettingHomeViewController.h"
 #import "UserInfoTableViewController.h"
 #import "OptionTableViewCell.h"
@@ -327,6 +326,7 @@
             svc.hidesBottomBarWhenPushed = YES;
             svc.titleStr = @"关于旅行派";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
+            svc.hideToolBar = YES;
             [self.navigationController pushViewController:svc animated:YES];
         }
     }

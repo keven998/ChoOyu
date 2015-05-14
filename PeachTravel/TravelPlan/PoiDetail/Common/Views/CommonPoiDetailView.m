@@ -414,6 +414,7 @@
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"全部点评";
     webCtl.urlStr = _poi.moreCommentsUrl;
+    webCtl.hideToolBar = YES;
     [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 

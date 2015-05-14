@@ -523,6 +523,7 @@
     SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
     webCtl.titleStr = @"全部点评";
     webCtl.urlStr = _spot.moreCommentsUrl;
+    webCtl.hideToolBar = YES;
     [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
