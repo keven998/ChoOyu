@@ -209,7 +209,7 @@
 
     UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅行达人交流、朋友互动的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和达人交流、朋友互动的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
 //        if (response.responseCode == UMSResponseCodeSuccess) {
 //            NSLog(@"分享成功！");
 //        }
