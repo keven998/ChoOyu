@@ -25,6 +25,7 @@
 #import "HeaderCell.h"
 #import "HeaderPictureCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "AIDatePickerController.h"
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
@@ -38,9 +39,6 @@
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
 @property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, strong) UIView *datePickerView;
-@property (nonatomic, strong) UIDatePicker *datePicker;
 
 @property (nonatomic, copy) NSMutableArray *footPrintArray;
 @end
@@ -119,32 +117,6 @@
     return _footerView;
 }
 
-- (UIView *)datePickerView
-{
-    if (!_datePickerView) {
-        _datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 220)];
-        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 180)];
-        _datePicker.datePickerMode = UIDatePickerModeDate;
-        _datePicker.maximumDate = [NSDate date];
-        [_datePickerView addSubview:_datePicker];
-        NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.accountDetail.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
-        if (birthday) {
-            _datePicker.date = birthday;
-        }
-        _datePickerView.backgroundColor = [UIColor whiteColor];
-        
-        UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _datePickerView.bounds.size.width, 40)];
-        confirmBtn.backgroundColor = APP_PAGE_COLOR;
-        confirmBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [confirmBtn setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-        [_datePickerView addSubview:confirmBtn];
-        [confirmBtn addTarget:self action:@selector(confirmDatePick:) forControlEvents:UIControlEventTouchUpInside];
-        
-    }
-    return _datePickerView;
-}
-
 - (AccountManager *)accountManager
 {
     if (!_accountManager) {
@@ -194,28 +166,19 @@
  */
 - (void)showDatePicker
 {
-    UIView *bkgView = [[UIView alloc] initWithFrame:self.view.bounds];
-    bkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideDatePicker)];
-    tapGesture.numberOfTapsRequired = 1;
-    tapGesture.numberOfTouchesRequired = 1;
-    [bkgView addGestureRecognizer:tapGesture];
+    NSDate *birthday = [ConvertMethods stringToDate:self.accountManager.accountDetail.birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    __weak UserInfoTableViewController *weakSelf = self;
+    AIDatePickerController *datePickerViewController = [AIDatePickerController pickerWithDate:birthday selectedBlock:^(NSDate *selectedDate) {
+        __strong UserInfoTableViewController *strongSelf = weakSelf;
+        [strongSelf dismissViewControllerAnimated:YES completion:nil];
+        
+        [self confirmDatePick:selectedDate];
+    } cancelBlock:^{
+        __strong UserInfoTableViewController *strongSelf = weakSelf;
+        [strongSelf dismissViewControllerAnimated:YES completion:nil];
+    }];
     
-    [self.navigationController.view addSubview:bkgView];
-    [bkgView addSubview:self.datePickerView];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.datePickerView setFrame:CGRectMake(0, self.view.bounds.size.height-220, self.view.bounds.size.width, 220)];
-    } completion:nil];
-}
-
-/**
- *  隐藏日期选择器
- */
-- (void)hideDatePicker
-{
-    [_datePickerView.superview removeFromSuperview];
-    _datePickerView = nil;
+    [self presentViewController:datePickerViewController animated:YES completion:nil];
 }
 
 /**
@@ -223,15 +186,14 @@
  *
  *  @param sender
  */
-- (void)confirmDatePick:(id)sender
+- (void)confirmDatePick:(NSDate *)selectedDate
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInView:self.view];
 
-    NSString *dataStr = [ConvertMethods dateToString:_datePicker.date withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
+    NSString *dataStr = [ConvertMethods dateToString:selectedDate withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
     [self.accountManager asyncChangeBirthday:dataStr completion:^(BOOL isSuccess, NSString *errStr) {
         [hud hideTZHUD];
-        [self hideDatePicker];
     }];
 }
 
