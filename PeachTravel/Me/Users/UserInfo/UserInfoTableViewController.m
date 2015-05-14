@@ -397,7 +397,7 @@
 -(IBAction)logout:(id)sender
 {
     UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示"
-                                                  message:@"确定退出旅FM登录"
+                                                  message:@"确定退出旅行派登录"
                                                  delegate:self
                                         cancelButtonTitle:@"取消"
                                         otherButtonTitles:@"确定", nil];

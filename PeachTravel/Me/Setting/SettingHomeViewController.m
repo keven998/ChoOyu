@@ -30,7 +30,7 @@
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = APP_BORDER_COLOR;
+    self.tableView.separatorColor = APP_DIVIDER_COLOR;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -79,9 +79,9 @@
     [MobClick event:@"event_clear_cache"];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [SVProgressHUD showHint:@"已清理"];
+            [SVProgressHUD showHint:@"清理完成"];
             UILabel *label = (UILabel*)[self.view viewWithTag:101];
-            label.text = @"0.00M";
+            label.text = @"0M";
         });
     }];
     
@@ -123,12 +123,9 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.flagView.image = [UIImage imageNamed:@"ic_clear_cache.png"];
-            NSString *str = [NSString stringWithFormat:@"%.2fM",(float)[[SDImageCache sharedImageCache] getSize]/1024/1024];
+            NSString *str = [NSString stringWithFormat:@"%.2fM",(float)[[SDImageCache sharedImageCache] getSize]/(1024*1024)];
             cell.cacheLabel.text = str;
             cell.cacheLabel.tag = 101;
-            cell.cacheLabel.font = [UIFont systemFontOfSize:12];
-            cell.cacheLabel.textColor = [UIColor grayColor];
-            cell.extender.image = nil;
         } else if (indexPath.row == 1) {
             cell.flagView.image = [UIImage imageNamed:@"ic_feedback.png"];
         }

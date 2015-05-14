@@ -312,6 +312,7 @@
         webCtl.titleStr = data.title;
         webCtl.urlStr = data.linkUrl;
         webCtl.hidesBottomBarWhenPushed = YES;
+        webCtl.hideToolBar = YES;
         [weakSelf.navigationController pushViewController:webCtl animated:YES];
     };
 }

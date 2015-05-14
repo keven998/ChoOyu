@@ -11,7 +11,6 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "AccountManager.h"
-#import "AboutViewController.h"
 #import "SettingHomeViewController.h"
 #import "UserInfoTableViewController.h"
 #import "OptionTableViewCell.h"
@@ -20,7 +19,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource           @[@[@"收藏夹", @"推荐应用给好友"], @[@"设置", @"关于旅FM"]]
+#define cellDataSource           @[@[@"收藏夹", @"推荐应用给好友"], @[@"设置", @"关于旅行派"]]
 #define secondCell               @"secondCell"
 
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -168,7 +167,7 @@
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         _nameLabel.text = amgr.account.nickName;
-        _propLabel.text = [NSString stringWithFormat:@"FM号 %d", [amgr.account.userId intValue]];
+        _propLabel.text = [NSString stringWithFormat:@"ID %d", [amgr.account.userId intValue]];
         _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
 //        if ([amgr.account.gender isEqualToString:@"M"]) {
 //            cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
@@ -179,7 +178,7 @@
 //        }
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        _propLabel.text = @"点击登录旅FM，享受更多旅行服务";
+        _propLabel.text = @"点击登录旅行派，享受更多旅行帮助";
         _nameLabel.text = @"未登录";
         _signatureLabel.text = nil;
 //        cell.userGender.image = nil;
@@ -204,13 +203,13 @@
 - (void)shareToWeChat
 {
     [MobClick event:@"event_share_app_by_weichat"];
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅FM\"给你。";
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"推荐\"旅行派\"给你。";
     
     [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.aizou.peachtravel";
 
     UIImage *shareImage = [UIImage imageNamed:@"ic_taozi_share.png"];
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅伴一起讨论旅行，还有便利的自由行规划工具，陪你一起去旅行" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:@"能和旅行达人交流、朋友互动的旅行工具" image:shareImage location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response) {
 //        if (response.responseCode == UMSResponseCodeSuccess) {
 //            NSLog(@"分享成功！");
 //        }
@@ -325,8 +324,9 @@
         } else if (indexPath.row == 1) {
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
             svc.hidesBottomBarWhenPushed = YES;
-            svc.titleStr = @"关于旅FM";
+            svc.titleStr = @"关于旅行派";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
+            svc.hideToolBar = YES;
             [self.navigationController pushViewController:svc animated:YES];
         }
     }

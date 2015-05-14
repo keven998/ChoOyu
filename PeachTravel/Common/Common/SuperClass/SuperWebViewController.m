@@ -31,6 +31,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
     self.navigationItem.title = _titleStr;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
@@ -48,7 +54,7 @@
     [super loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"旅FM\n你的旅行圈";
+    label.text = @"旅行派\n能和旅行达人交流、朋友互动的旅行工具";
     label.textColor = TEXT_COLOR_TITLE_HINT;
     label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;

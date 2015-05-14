@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingHomeViewController : UIViewController
+@interface SettingHomeViewController : TZViewController
 
 @end

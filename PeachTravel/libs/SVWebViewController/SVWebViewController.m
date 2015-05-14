@@ -46,6 +46,7 @@
     self = [super init];
     if (self) {
         self.request = request;
+        self.hideToolBar = NO;
     }
     return self;
 }
@@ -59,7 +60,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-44)];
+    CGFloat oy = 44;
+    if (self.hideToolBar) {
+        oy = 0;
+    }
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-oy)];
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -82,10 +87,12 @@
     
     [super viewWillAppear:animated];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !self.hideToolBar) {
         [self.navigationController setToolbarHidden:NO animated:animated];
     }
     else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.navigationController setToolbarHidden:YES animated:animated];
+    } else {
         [self.navigationController setToolbarHidden:YES animated:animated];
     }
 }
@@ -93,7 +100,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !self.hideToolBar) {
         [self.navigationController setToolbarHidden:YES animated:animated];
     }
 }
@@ -118,6 +125,7 @@
                                                               style:UIBarButtonItemStylePlain
                                                              target:self
                                                              action:@selector(goBackTapped:)];
+        _backBarButtonItem.tintColor = APP_THEME_COLOR;
         _backBarButtonItem.width = 18.0f;
     }
     return _backBarButtonItem;
@@ -129,6 +137,7 @@
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(goForwardTapped:)];
+        _forwardBarButtonItem.tintColor = APP_THEME_COLOR;
         _forwardBarButtonItem.width = 18.0f;
     }
     return _forwardBarButtonItem;
@@ -137,6 +146,7 @@
 - (UIBarButtonItem *)refreshBarButtonItem {
     if (!_refreshBarButtonItem) {
         _refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadTapped:)];
+        _refreshBarButtonItem.tintColor = APP_THEME_COLOR;
     }
     return _refreshBarButtonItem;
 }
@@ -144,6 +154,7 @@
 - (UIBarButtonItem *)stopBarButtonItem {
     if (!_stopBarButtonItem) {
         _stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stopTapped:)];
+        _stopBarButtonItem.tintColor = APP_THEME_COLOR;
     }
     return _stopBarButtonItem;
 }
@@ -151,6 +162,7 @@
 - (UIBarButtonItem *)actionBarButtonItem {
     if (!_actionBarButtonItem) {
         _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonTapped:)];
+        _actionBarButtonItem.tintColor = APP_THEME_COLOR;
     }
     return _actionBarButtonItem;
 }
@@ -185,7 +197,6 @@
         toolbar.tintColor = self.navigationController.navigationBar.tintColor;
         self.navigationItem.rightBarButtonItems = items.reverseObjectEnumerator.allObjects;
     }
-    
     else {
         NSArray *items = [NSArray arrayWithObjects:
                           fixedSpace,
@@ -195,8 +206,8 @@
                           flexibleSpace,
                           refreshStopBarButtonItem,
                           flexibleSpace,
-                          self.actionBarButtonItem,
-                          fixedSpace,
+//                          self.actionBarButtonItem,
+//                          fixedSpace,
                           nil];
         
         self.navigationController.toolbar.barStyle = self.navigationController.navigationBar.barStyle;
