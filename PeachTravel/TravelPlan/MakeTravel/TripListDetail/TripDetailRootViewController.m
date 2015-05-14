@@ -26,7 +26,7 @@
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
 #import "REFrostedViewController.h"
-
+#import "TripPlanSettingViewController.h"
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
@@ -79,6 +79,8 @@
     [self setupViewControllers];
     [self setNavigationItems];
     
+    
+    
     if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -96,6 +98,11 @@
         [self loadNewTripDataWithRecommendData:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
+    
+//    UIViewController *controller = self.frostedViewController.menuViewController;
+//    TripPlanSettingViewController *tc = controller;
+    
+//    self.frostedViewController.contentViewController;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -485,7 +492,9 @@
     }
     
     [self.view endEditing:YES];
+    
     [self.frostedViewController.view endEditing:YES];
+    
     [self.frostedViewController presentMenuViewController];
 }
 
@@ -654,6 +663,8 @@
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
+    ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
+    
 }
 
 - (void)setupViewControllers
@@ -902,10 +913,13 @@
                 [array addObject:poi.zhName];
             }
             _destinationView.destinations = array;
+            ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
         } else {
             
         }
     } withDestinations:destinations];
+    
+    
 }
 
 #pragma mark - CreateConversationDelegate

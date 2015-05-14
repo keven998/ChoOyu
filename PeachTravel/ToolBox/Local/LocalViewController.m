@@ -76,6 +76,8 @@
     
     _filterView = [[SDSegmentedControl alloc] initWithItems:LOCAL_PAGE_TITLES];
     _filterView.tintColor = APP_THEME_COLOR;
+    _filterView.shadowColor = APP_THEME_COLOR;
+    _filterView.borderColor = APP_THEME_COLOR;
     _filterView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 32);
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _filterView.selectedSegmentIndex = 0;

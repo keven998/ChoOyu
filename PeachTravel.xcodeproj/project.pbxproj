@@ -37,6 +37,7 @@
 		270C55781AFBB73D00A35F69 /* trip_there@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C55701AFBB73D00A35F69 /* trip_there@2x.png */; };
 		2753BCC71AF60B1D0098E5B3 /* HeaderPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */; };
 		2753BCC81AF60B1D0098E5B3 /* HeaderPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */; };
+		275529881B0457A600A10506 /* weixindenglu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275529871B0457A600A10506 /* weixindenglu@2x.png */; };
 		27951B6A1AF85E7A004D69BE /* ScreeningForeignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27951B691AF85E7A004D69BE /* ScreeningForeignModel.m */; };
 		27951B711AF86C46004D69BE /* PicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27951B6F1AF86C46004D69BE /* PicCell.m */; };
 		27951B721AF86C46004D69BE /* PicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27951B701AF86C46004D69BE /* PicCell.xib */; };
@@ -56,6 +57,12 @@
 		27F411E31AEF5CA1009D6C2B /* ScreeningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411DC1AEF5CA1009D6C2B /* ScreeningModel.m */; };
 		27F411ED1AEF8A46009D6C2B /* ScreenningViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411EB1AEF8A46009D6C2B /* ScreenningViewCell.m */; };
 		27F411EE1AEF8A46009D6C2B /* ScreenningViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F411EC1AEF8A46009D6C2B /* ScreenningViewCell.xib */; };
+		27F7E6921B03101E0049EC08 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6901B03101E0049EC08 /* delete@2x.png */; };
+		27F7E6931B03101E0049EC08 /* options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6911B03101E0049EC08 /* options@2x.png */; };
+		27F7E6951B0312650049EC08 /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6941B0312650049EC08 /* nav_back@2x.png */; };
+		27F7E6971B0312700049EC08 /* titleImageBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E6961B0312700049EC08 /* titleImageBackground@2x.png */; };
+		27F7E69B1B032FBF0049EC08 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E69A1B032FBF0049EC08 /* LoginViewController.xib */; };
+		27F7E69D1B033C700049EC08 /* weichat_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F7E69C1B033C700049EC08 /* weichat_login@2x.png */; };
 		27FC91541AF205030083F052 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC91521AF205030083F052 /* HeaderCell.m */; };
 		27FC91551AF205030083F052 /* HeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FC91531AF205030083F052 /* HeaderCell.xib */; };
 		C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED651A2C4D8E00B76934 /* HomeViewController.m */; };
@@ -694,7 +701,6 @@
 		D9A8FF0F1A80CC2B005AD701 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEEB1A80CC2B005AD701 /* ChangePasswordViewController.m */; };
 		D9A8FF101A80CC2B005AD701 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEEC1A80CC2B005AD701 /* ChangePasswordViewController.xib */; };
 		D9A8FF131A80CC2B005AD701 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEF31A80CC2B005AD701 /* LoginViewController.m */; };
-		D9A8FF141A80CC2B005AD701 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEF41A80CC2B005AD701 /* LoginViewController.xib */; };
 		D9A8FF151A80CC2B005AD701 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEF71A80CC2B005AD701 /* ResetPasswordViewController.m */; };
 		D9A8FF161A80CC2B005AD701 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A8FEF81A80CC2B005AD701 /* ResetPasswordViewController.xib */; };
 		D9A8FF171A80CC2B005AD701 /* VerifyCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FEFA1A80CC2B005AD701 /* VerifyCaptchaViewController.m */; };
@@ -849,6 +855,7 @@
 		2753BCC41AF60B1D0098E5B3 /* HeaderPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderPictureCell.h; sourceTree = "<group>"; };
 		2753BCC51AF60B1D0098E5B3 /* HeaderPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderPictureCell.m; sourceTree = "<group>"; };
 		2753BCC61AF60B1D0098E5B3 /* HeaderPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderPictureCell.xib; sourceTree = "<group>"; };
+		275529871B0457A600A10506 /* weixindenglu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weixindenglu@2x.png"; sourceTree = "<group>"; };
 		27951B681AF85E7A004D69BE /* ScreeningForeignModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreeningForeignModel.h; sourceTree = "<group>"; };
 		27951B691AF85E7A004D69BE /* ScreeningForeignModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreeningForeignModel.m; sourceTree = "<group>"; };
 		27951B6E1AF86C46004D69BE /* PicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicCell.h; sourceTree = "<group>"; };
@@ -877,6 +884,12 @@
 		27F411EA1AEF8A46009D6C2B /* ScreenningViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenningViewCell.h; sourceTree = "<group>"; };
 		27F411EB1AEF8A46009D6C2B /* ScreenningViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenningViewCell.m; sourceTree = "<group>"; };
 		27F411EC1AEF8A46009D6C2B /* ScreenningViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenningViewCell.xib; sourceTree = "<group>"; };
+		27F7E6901B03101E0049EC08 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
+		27F7E6911B03101E0049EC08 /* options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "options@2x.png"; sourceTree = "<group>"; };
+		27F7E6941B0312650049EC08 /* nav_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@2x.png"; sourceTree = "<group>"; };
+		27F7E6961B0312700049EC08 /* titleImageBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "titleImageBackground@2x.png"; sourceTree = "<group>"; };
+		27F7E69A1B032FBF0049EC08 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		27F7E69C1B033C700049EC08 /* weichat_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weichat_login@2x.png"; sourceTree = "<group>"; };
 		27FC91511AF205030083F052 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
 		27FC91521AF205030083F052 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
 		27FC91531AF205030083F052 /* HeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderCell.xib; sourceTree = "<group>"; };
@@ -1755,7 +1768,6 @@
 		D9A8FEEC1A80CC2B005AD701 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		D9A8FEF21A80CC2B005AD701 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		D9A8FEF31A80CC2B005AD701 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		D9A8FEF41A80CC2B005AD701 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		D9A8FEF61A80CC2B005AD701 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		D9A8FEF71A80CC2B005AD701 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		D9A8FEF81A80CC2B005AD701 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -3753,6 +3765,8 @@
 		D9A803651A80E737005AD701 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				275529871B0457A600A10506 /* weixindenglu@2x.png */,
+				27F7E69C1B033C700049EC08 /* weichat_login@2x.png */,
 				270C55681AFBB73D00A35F69 /* 桃子旅游home页 */,
 				270C554D1AFB3B9300A35F69 /* 景点详情 */,
 				27B9FAA71AFB284300EEBF07 /* 城市详情 */,
@@ -3768,6 +3782,10 @@
 		D9A803661A80E737005AD701 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				27F7E6961B0312700049EC08 /* titleImageBackground@2x.png */,
+				27F7E6901B03101E0049EC08 /* delete@2x.png */,
+				27F7E6941B0312650049EC08 /* nav_back@2x.png */,
+				27F7E6911B03101E0049EC08 /* options@2x.png */,
 				C694C3871AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png */,
 				C694C3881AE9F4C300F5C36E /* ic_share_to_talk@2x.png */,
 				C6D038231AE516CE006DFD24 /* ic_menu_navigationbar@2x.png */,
@@ -4282,7 +4300,7 @@
 			children = (
 				D9A8FEF21A80CC2B005AD701 /* LoginViewController.h */,
 				D9A8FEF31A80CC2B005AD701 /* LoginViewController.m */,
-				D9A8FEF41A80CC2B005AD701 /* LoginViewController.xib */,
+				27F7E69A1B032FBF0049EC08 /* LoginViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -5209,6 +5227,7 @@
 				D917DAC51A8B49AF0039720A /* ic_guide2_4_normal@2x.png in Resources */,
 				D9A804C51A80E738005AD701 /* dx_checkbox_off.png in Resources */,
 				D917DA971A8A1FEC0039720A /* ic_sending_bkg@2x.png in Resources */,
+				275529881B0457A600A10506 /* weixindenglu@2x.png in Resources */,
 				D9A8053F1A80E738005AD701 /* ic_decoration@2x.png in Resources */,
 				D9A8FF601A80CF19005AD701 /* SearchResultTableViewCell.xib in Resources */,
 				D9A801101A80DD23005AD701 /* ChangeGroupTitleViewController.xib in Resources */,
@@ -5269,6 +5288,7 @@
 				D92CA1301AD8BEB400F244FF /* LICENCE.txt in Resources */,
 				270C16571B0085870048C85D /* tupianzhanweifu@2x.png in Resources */,
 				D9A804E71A80E738005AD701 /* ic_im_bkg@2x.png in Resources */,
+				27F7E69D1B033C700049EC08 /* weichat_login@2x.png in Resources */,
 				D9A804C31A80E738005AD701 /* deco-dots@2x.png in Resources */,
 				D9A805701A80E738005AD701 /* viewSpotImage@2x.png in Resources */,
 				D9A805081A80E738005AD701 /* ic_sns_qq@2x.png in Resources */,
@@ -5333,6 +5353,7 @@
 				D9A8051C1A80E738005AD701 /* nearby_ic_tab_shopping_select@2x.png in Resources */,
 				D917DAA81A8B48EE0039720A /* ic_guide_plan@2x.png in Resources */,
 				D917DAA71A8B48EE0039720A /* ic_guide_phone@2x.png in Resources */,
+				27F7E6971B0312700049EC08 /* titleImageBackground@2x.png in Resources */,
 				D9A8052A1A80E738005AD701 /* ic_city_access@2x.png in Resources */,
 				D917DAC21A8B49AF0039720A /* ic_guide2_2_select@2x.png in Resources */,
 				D9722F2A1A82446900D8A8CC /* Loading_Animation_final10@2x.png in Resources */,
@@ -5366,6 +5387,8 @@
 				D917DADF1A8B4B3F0039720A /* ic_guide_title_3@2x.png in Resources */,
 				D9687CA31AC4095500B1C88E /* FootprintMapViewController.xib in Resources */,
 				D9722F311A82446900D8A8CC /* Loading_Animation_final4@2x.png in Resources */,
+				27F7E6921B03101E0049EC08 /* delete@2x.png in Resources */,
+				27F7E69B1B032FBF0049EC08 /* LoginViewController.xib in Resources */,
 				D9A8021D1A80E036005AD701 /* MJPhotoBrowser.bundle in Resources */,
 				D9A805291A80E738005AD701 /* ic_cell_item_unchoose@2x.png in Resources */,
 				D9F46D951AC5217D00972AE8 /* destination_normal_background@2x.png in Resources */,
@@ -5436,7 +5459,6 @@
 				27F411EE1AEF8A46009D6C2B /* ScreenningViewCell.xib in Resources */,
 				D92CA1391AD8BEB400F244FF /* MWPhotoBrowser.bundle in Resources */,
 				D9A804A21A80E738005AD701 /* chat_location_detail_disclosureHL.png in Resources */,
-				D9A8FF141A80CC2B005AD701 /* LoginViewController.xib in Resources */,
 				D9A804A41A80E738005AD701 /* chat_location_preview.png in Resources */,
 				D9A804B01A80E738005AD701 /* ReceiverImageNodeBorder_back@2x.png in Resources */,
 				D9722F2C1A82446900D8A8CC /* Loading_Animation_final12@2x.png in Resources */,
@@ -5496,6 +5518,7 @@
 				D9A805111A80E738005AD701 /* ic_time@2x.png in Resources */,
 				D9A802EE1A80E3D3005AD701 /* ic_progress@2x.png in Resources */,
 				270C55671AFB3B9300A35F69 /* travel suggest@2x.png in Resources */,
+				27F7E6931B03101E0049EC08 /* options@2x.png in Resources */,
 				27B9FAB01AFB284300EEBF07 /* ic_nrq_1@2x.png in Resources */,
 				D9722F151A82039400D8A8CC /* ic_go_comment@2x.png in Resources */,
 				D9A804B51A80E738005AD701 /* chat_sender_audio_playing_003@2x.png in Resources */,
@@ -5561,6 +5584,7 @@
 				D9A805401A80E738005AD701 /* ic_delete@2x.png in Resources */,
 				D9722F121A81C91D00D8A8CC /* ic_star_gray@2x.png in Resources */,
 				C694C38A1AE9F4C300F5C36E /* ic_share_to_talk@2x.png in Resources */,
+				27F7E6951B0312650049EC08 /* nav_back@2x.png in Resources */,
 				27951B721AF86C46004D69BE /* PicCell.xib in Resources */,
 				D9A805331A80E738005AD701 /* ic_city_more@2x.png in Resources */,
 				D9A8057D1A80E738005AD701 /* rain_snow@2x.png in Resources */,

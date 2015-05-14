@@ -560,7 +560,7 @@
             ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
             TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
             [self presentViewController:nav animated:YES completion:nil];
-
+            
         } else if (indexPath.row == 1) {
             [self showDatePicker];
         } else if (indexPath.row == 2) {
