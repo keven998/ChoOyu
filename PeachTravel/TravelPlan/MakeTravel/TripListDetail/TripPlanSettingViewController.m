@@ -150,6 +150,9 @@
     if (indexPath.section == 1) {
         if (indexPath.row == _tripDetail.destinations.count) {
             NSLog(@"添加");
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:@"addPosition" object:nil];
+
         }
         else{
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
