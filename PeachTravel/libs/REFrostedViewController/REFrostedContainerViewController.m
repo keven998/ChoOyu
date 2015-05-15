@@ -308,7 +308,7 @@
             frame.origin.x = self.containerOrigin.x + point.x;
             if (frame.origin.x > 0) {
                 frame.origin.x = 0;
-                
+
                 if (!self.frostedViewController.limitMenuViewSize) {
                     frame.size.width = self.frostedViewController.calculatedMenuViewSize.width + self.containerOrigin.x + point.x;
                     if (frame.size.width > self.view.frame.size.width)
@@ -318,7 +318,7 @@
         }
         
         if (self.frostedViewController.direction == REFrostedViewControllerDirectionRight) {
-            if (((fabs(point.y) / fabs(point.x)) <= 0.33) || (frame.origin.x > self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width)) {
+            if (((fabs(point.y) / fabs(point.x)) <= 0.25) || (frame.origin.x > self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width)) {
                 frame.origin.x = self.containerOrigin.x + point.x;
                 if (frame.origin.x < self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width) {
                     frame.origin.x = self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width;

@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
 
-@interface HotDestinationCollectionViewController : UIViewController
-
-/**
- *  当前 viewcontroller 是否正在显示
- */
-@property (nonatomic) BOOL isShowing;
+@interface HotDestinationCollectionViewController : TZViewController
 
 @end
