@@ -105,6 +105,9 @@
             [contacts addObject:item];
         }
     }
+    [contacts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return ((Contact *)obj1).userId >  ((Contact *)obj2).userId;
+    }];
     return contacts;
 }
 
