@@ -72,7 +72,7 @@
     _captchaBtn.clipsToBounds = YES;
     [_captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_captchaBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
-    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
 
 }

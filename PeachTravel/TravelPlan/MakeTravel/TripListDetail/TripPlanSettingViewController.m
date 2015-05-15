@@ -13,9 +13,10 @@
 #import "TaoziChatMessageBaseViewController.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocial.h"
+#import "CreateConversationTableViewCell.h"
 #define WIDTH self.view.bounds.size.width
 #define HEIGHT self.view.bounds.size.height
-@interface TripPlanSettingViewController ()<UITableViewDelegate,UITableViewDataSource,TripUpdateDelegate,ActivityDelegate>
+@interface TripPlanSettingViewController ()<UITableViewDelegate,UITableViewDataSource,TripUpdateDelegate,ActivityDelegate,TaoziMessageSendDelegate,CreateConversationDelegate,CreateConversationDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
@@ -44,14 +45,6 @@
 - (void)setTripDetail:(TripDetail *)tripDetail {
     _tripDetail = tripDetail;                  
 }
-//-(void)createFooterView
-//{
-//    _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 44)];
-//    UIButton *footerBtn = [[UIButton alloc]initWithFrame:_footerView.bounds];
-//    [_footerView addSubview:footerBtn];
-//    [footerBtn setTitle:@"添加" forState:UIControlStateNormal];
-//    
-//}
 
 
 -(void)createTableView
@@ -68,8 +61,6 @@
         _tableView.bounces = NO;
         _tableView;
     });
-//    _tableView.tableHeaderView = _headerView;
-//    _tableView.tableFooterView = _footerView;
     [self.view addSubview:_tableView];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -179,6 +170,70 @@
     ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.view];
 }
+#pragma mark - CreateConversationDelegate
+- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+    TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
+    [self setChatMessageModel:taoziMessageCtl];
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatTitle = chatTitle;
+    taoziMessageCtl.chatter = chatter;
+    taoziMessageCtl.isGroup = isGroup;
+    
+    [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+    }];
+}
+- (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
+{
+    taoziMessageCtl.delegate = self;
+    taoziMessageCtl.chatType = TZChatTypeStrategy;
+    taoziMessageCtl.messageId = self.tripDetail.tripId;
+    
+    NSMutableString *summary;
+    for (CityDestinationPoi *poi in self.tripDetail.destinations) {
+        NSString *s;
+        if ([poi isEqual:[self.tripDetail.destinations lastObject]]) {
+            s = poi.zhName;
+        } else {
+            s = [NSString stringWithFormat:@"%@-", poi.zhName];
+        }
+        [summary appendString:s];
+    }
+    
+    taoziMessageCtl.messageDesc = summary;
+    taoziMessageCtl.messageName = self.tripDetail.tripTitle;
+    TaoziImage *image = [self.tripDetail.images firstObject];
+    taoziMessageCtl.messageImage = image.imageUrl;
+    taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)self.tripDetail.dayCount];
+}
+#pragma mark - TaoziMessageSendDelegate
+
+//用户确定发送景点给朋友
+- (void)sendSuccess:(ChatViewController *)chatCtl
+{
+    [self dismissPopup];
+    [SVProgressHUD showSuccessWithStatus:@"已发送~"];
+    
+}
+
+- (void)sendCancel
+{
+    [self dismissPopup];
+}
+
+/**
+ *  消除发送 poi 对话框
+ *  @param sender
+ */
+- (void)dismissPopup
+{
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
+    }
+}
+
+
 
 #pragma mark - AvtivityDelegate
 
@@ -202,6 +257,7 @@
                     NSLog(@"分享成功！");
                 }
             }];
+            
         }
             break;
             
@@ -255,11 +311,14 @@
     }
 }
 
+
 /**
  *      TripUpdateDelegate
  */
 -(void)tripUpdate:(id)detail
 {
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[TMCache sharedCache] setObject:detail forKey:@"last_tripdetail"];
+    });
 }
 @end

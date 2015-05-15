@@ -104,6 +104,8 @@
     
     if (self.destinations.destinationsSelected.count == 0) {
         [self hideDestinationBar];
+    }else{
+        [self showDestinationBar];
     }
 }
 

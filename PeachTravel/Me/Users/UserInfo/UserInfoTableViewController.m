@@ -26,6 +26,8 @@
 #import "HeaderPictureCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "AIDatePickerController.h"
+#import "SignatureViewController.h"
+
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
@@ -627,7 +629,15 @@
 }
 
 - (void)changeUserMark {
-    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+//    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+//    bsvc.navTitle = @"个性签名";
+//    bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
+//    bsvc.acceptEmptyContent = YES;
+//    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+//        [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
+//    };
+//    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+    SignatureViewController *bsvc = [[SignatureViewController alloc]init];
     bsvc.navTitle = @"个性签名";
     bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
     bsvc.acceptEmptyContent = YES;

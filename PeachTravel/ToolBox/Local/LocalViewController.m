@@ -86,26 +86,16 @@
 //    [_filterView addTarget:self action:@selector(selectedPage:) forControlEvents:UIControlEventValueChanged];
 //    [self.view addSubview:_filterView];
     
-//    _filterView = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 32)];
-//    _filterView.sectionTitles = @[@"景点", @"美食", @"购物",@"酒店"];
-//    _filterView.selectedSegmentIndex = 0;
-//    _filterView.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
-//    _filterView.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-//    _filterView.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : APP_THEME_COLOR};
-//    _filterView.selectionIndicatorColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
-//    _filterView.selectionStyle = HMSegmentedControlSelectionStyleBox;
-//    _filterView.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationUp;
-//    _filterView.tag = 3;
     _filterView = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"景点", @"美食", @"购物",@"酒店"]];
     _filterView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 32);
     _filterView.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : APP_THEME_COLOR};
     _filterView.selectionIndicatorColor = APP_THEME_COLOR;
-    _filterView.backgroundColor = [UIColor lightGrayColor];
+    _filterView.backgroundColor = APP_PAGE_COLOR;
+    _filterView.selectionIndicatorHeight = 2;
     _filterView.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     _filterView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     _filterView.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     [_filterView addTarget:self action:@selector(selectedPage:) forControlEvents:UIControlEventValueChanged];
-    
     [self.view addSubview:_filterView];
     
 
