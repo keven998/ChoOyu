@@ -15,7 +15,7 @@
 @interface ChatSendHelper : NSObject
 
 /**
- *  发送旅FM消息
+ *  发送旅行派消息
  *
  *  @param str               发送的文字
  *  @param str               发送的自定义消息

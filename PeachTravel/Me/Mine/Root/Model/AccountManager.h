@@ -28,7 +28,7 @@
 - (BOOL)isLogin;
 
 /**
- *  用户旅FM系统登录成功
+ *  用户旅行派系统登录成功
  *
  *  @param userInfo
  */
@@ -183,7 +183,7 @@
 - (void)removeContact:(NSNumber *)userId;
 
 /**
- *  通过环信 id 获取旅FM用户信息
+ *  通过环信 id 获取旅行派用户信息
  *
  *  @param easemobUser
  *

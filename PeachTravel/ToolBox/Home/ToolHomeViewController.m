@@ -24,7 +24,6 @@
 @property (nonatomic, strong) AutoSlideScrollView *ascrollView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *operationDataArray;
-@property (nonatomic, strong) NSMutableArray *operationImageViews;
 
 @end
 
@@ -65,14 +64,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (_operationDataArray == nil || _operationDataArray.count == 0) {
-        [self loadOperationData];
-    } else {
-        [_ascrollView.animationTimer resumeTimerAfterTimeInterval:8];
-    }
     
     [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
     _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
+    
+    if (_operationDataArray == nil || _operationDataArray.count == 0) {
+//        [self loadOperationData];
+        [self performSelector:@selector(loadOperationData) withObject:nil afterDelay:0.67];
+    } else {
+        [_ascrollView.animationTimer resumeTimerAfterTimeInterval:8];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,8 +94,6 @@
 - (void) dealloc {
     [_ascrollView.animationTimer pauseTimer];
     _ascrollView = nil;
-    [_operationImageViews removeAllObjects];
-    _operationImageViews = nil;
     _tableView.dataSource = nil;
     _tableView.delegate = nil;
     _tableView = nil;
@@ -288,23 +287,21 @@
 - (void) setupOptionContents
 {
     NSInteger count = [_operationDataArray count];
-    NSMutableArray *imageviews = [[NSMutableArray alloc] initWithCapacity:count];
-    for (NSUInteger i = 0; i < count; i++)
-    {
-        [imageviews addObject:[NSNull null]];
-    }
-    _operationImageViews = imageviews;
-    
+
     __weak typeof(ToolHomeViewController *)weakSelf = self;
     
     _ascrollView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){
-        return [weakSelf loadScrollViewWithPage:pageIndex];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:weakSelf.ascrollView.frame];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.clipsToBounds = YES;
+        NSString *imageStr = ((OperationData *)[weakSelf.operationDataArray objectAtIndex:pageIndex]).imageUrl;
+        [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"tupianzhanweifu.png"]];
+        return img;
     };
     
     _ascrollView.totalPagesCount = ^NSInteger(void) {
         return count;
     };
-    
     
     _ascrollView.TapActionBlock = ^(NSInteger pageIndex){
         OperationData *data = [weakSelf.operationDataArray objectAtIndex:pageIndex];
@@ -315,23 +312,6 @@
         webCtl.hideToolBar = YES;
         [weakSelf.navigationController pushViewController:webCtl animated:YES];
     };
-}
-
-- (UIImageView *)loadScrollViewWithPage:(NSUInteger)page {
-    if (page >= _operationDataArray.count ) {
-        return nil;
-    }
-    
-    UIImageView *img = [_operationImageViews objectAtIndex:page];
-    if ((NSNull *)img == [NSNull null]) {
-        img = [[UIImageView alloc] initWithFrame:_ascrollView.frame];
-        img.contentMode = UIViewContentModeScaleAspectFill;
-        img.clipsToBounds = YES;
-        [_operationImageViews replaceObjectAtIndex:page withObject:img];
-        NSString *imageStr = ((OperationData *)[_operationDataArray objectAtIndex:page]).imageUrl;
-        [img sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"tupianzhanweifu"]];
-    }
-    return img;
 }
 
 @end

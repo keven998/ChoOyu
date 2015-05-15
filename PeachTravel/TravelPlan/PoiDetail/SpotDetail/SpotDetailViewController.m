@@ -229,7 +229,7 @@
 }
 
 /**
- *  实现父类的发送 poi 到旅FM 的值传递
+ *  实现父类的发送 poi 到旅行派 的值传递
  *
  *  @param taoziMessageCtl 
  */

@@ -43,6 +43,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, copy) NSMutableArray *footPrintArray;
+
+@property (nonatomic, assign) NSInteger updateUserInfoType; //修改用户信息封装的补丁
+
 @end
 
 @implementation UserInfoTableViewController
@@ -470,14 +473,13 @@
         }
         else if (indexPath.section == 4) {
             if (indexPath.row == 0){
-                
-                if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
+                if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
                 }
-                else if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
+                else if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
                     cell.cellDetail.text = @"帅锅";
                 }
-                else if ([self.self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
+                else if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
                     cell.cellDetail.text = @"一言难尽";
                 }
                 else{
@@ -561,8 +563,8 @@
             ctl.delegate = self;
             ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
             TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
+            _updateUserInfoType = 1;
             [self presentViewController:nav animated:YES completion:nil];
-            
         } else if (indexPath.row == 1) {
             [self showDatePicker];
         } else if (indexPath.row == 2) {
@@ -589,7 +591,31 @@
 #pragma mark - SelectDelegate
 
 - (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    [_tableView reloadData];
+//    [_tableView reloadData];
+    if (_updateUserInfoType == 1) {
+        [self updateGender:indexPath];
+    }
+}
+
+- (void) updateGender:(NSIndexPath *)selectIndex {
+    NSString *str = @"U";
+    if (selectIndex.row == 0) {
+        str = @"F";
+    }
+    else if (selectIndex.row == 1){
+        str = @"M";
+    }
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    
+    [accountManager asyncChangeGender:str completion:^(BOOL isSuccess, NSString *errStr) {
+        if (!isSuccess) {
+            [SVProgressHUD showHint:@"网络请求失败"];
+        }
+        [hud hideTZHUD];
+    }];
 }
 
 #pragma mark - UIImagePickerControllerDelegate

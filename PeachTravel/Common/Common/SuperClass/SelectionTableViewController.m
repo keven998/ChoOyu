@@ -65,35 +65,7 @@
     if (self.delegate != nil) {
         [self.delegate selectItem:[_contentItems objectAtIndex:indexPath.row] atIndex:indexPath];
     }
-    NSString *str = [[NSString alloc]init];
-    if ([_titleTxt isEqualToString:@"我是"]) {
-        if (indexPath.row == 0) {
-            str = @"F";
-        }
-        else if (indexPath.row == 1){
-            str = @"M";
-        }
-        else if (indexPath.row == 2){
-            str = @"U";
-        }
-        [self updateUserGender:str];
-    }
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (void)updateUserGender:(NSString *) str
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInView:self.view];
-    
-    [accountManager asyncChangeGender:str completion:^(BOOL isSuccess, NSString *errStr) {
-        if (isSuccess) {
-            [SVProgressHUD showHint:@"修改成功"];
-//            [self.navigationController popViewControllerAnimated:YES];
-            [self goBack];
-        }
-    }];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-}
+
 @end
