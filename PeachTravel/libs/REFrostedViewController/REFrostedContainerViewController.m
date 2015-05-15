@@ -318,15 +318,17 @@
         }
         
         if (self.frostedViewController.direction == REFrostedViewControllerDirectionRight) {
-            frame.origin.x = self.containerOrigin.x + point.x;
-            if (frame.origin.x < self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width) {
-                frame.origin.x = self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width;
-            
-                if (!self.frostedViewController.limitMenuViewSize) {
-                    frame.origin.x = self.containerOrigin.x + point.x;
-                    if (frame.origin.x < 0)
-                        frame.origin.x = 0;
-                    frame.size.width = self.view.frame.size.width - frame.origin.x;
+            if (((fabs(point.y) / fabs(point.x)) <= 0.33) || (frame.origin.x > self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width)) {
+                frame.origin.x = self.containerOrigin.x + point.x;
+                if (frame.origin.x < self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width) {
+                    frame.origin.x = self.view.frame.size.width - self.frostedViewController.calculatedMenuViewSize.width;
+                    
+                    if (!self.frostedViewController.limitMenuViewSize) {
+                        frame.origin.x = self.containerOrigin.x + point.x;
+                        if (frame.origin.x < 0)
+                            frame.origin.x = 0;
+                        frame.size.width = self.view.frame.size.width - frame.origin.x;
+                    }
                 }
             }
         }
@@ -371,11 +373,18 @@
         }
         
         if (self.frostedViewController.direction == REFrostedViewControllerDirectionRight) {
-            if ([recognizer velocityInView:self.view].x < 0) {
-                [self show];
-            } else {
+            
+            if ((fabs([recognizer velocityInView:self.view].x) > (fabs([recognizer velocityInView:self.view].y))) && ([recognizer velocityInView:self.view].x > 100)) {
                 [self hide];
+            } else {
+                [self show];
             }
+            
+//            if ([recognizer velocityInView:self.view].x < 0) {
+//                [self show];
+//            } else {
+//                [self hide];
+//            }
         }
         
         if (self.frostedViewController.direction == REFrostedViewControllerDirectionTop) {

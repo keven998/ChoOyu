@@ -25,7 +25,6 @@
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
-#import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
 

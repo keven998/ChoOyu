@@ -240,6 +240,7 @@
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
     frostedViewController.resumeNavigationBar = NO;
+    frostedViewController.limitMenuViewSize = YES;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
