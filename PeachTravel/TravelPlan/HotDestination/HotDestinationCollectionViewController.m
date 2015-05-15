@@ -39,13 +39,6 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"目的地";
     
-//    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-//    titleLabel.backgroundColor = [UIColor clearColor];
-//    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-//    titleLabel.textColor = [UIColor whiteColor];
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    titleLabel.text = @"目的地";
-//    self.navigationItem.titleView = titleLabel;
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(goSearch)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_search.png"];
@@ -64,14 +57,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_destination"];
-    _isShowing = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_destination"];
-    _isShowing = NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

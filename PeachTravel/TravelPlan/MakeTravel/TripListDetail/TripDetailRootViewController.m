@@ -25,7 +25,6 @@
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
-#import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
 
@@ -745,7 +744,7 @@
 //    _tabBarView.clipsToBounds = YES;
     [self.view addSubview:_tabBarView];
     
-    NSArray *tabBarItemTitles = @[@"行程", @"美食收集", @"购物收集"];
+    NSArray *tabBarItemTitles = @[@"行程计划", @"美食计划", @"购物计划"];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     CGFloat width = _tabBarView.frame.size.width;
     

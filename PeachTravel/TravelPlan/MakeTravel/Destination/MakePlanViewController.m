@@ -167,6 +167,7 @@
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
     frostedViewController.resumeNavigationBar = NO;
     tripDetailCtl.container = frostedViewController;
     tpvc.rootViewController = tripDetailCtl;

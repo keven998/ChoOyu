@@ -40,18 +40,18 @@
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
-            self.navigationItem.rightBarButtonItem.title = @"提交 ";
         } else {
             self.navigationItem.title = @"更换手机";
             _titleLabel.text = @"输入新的手机号";
-            self.navigationItem.rightBarButtonItem.title = @"提交 ";
         }
        
     } else {
         self.navigationItem.title = @"验证";
         _phoneLabel.placeholder = @"请输入手机号";
-        self.navigationItem.rightBarButtonItem.title = @"提交 ";
     }
+    
+    self.navigationItem.rightBarButtonItem.title = @"提交 ";
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
@@ -68,6 +68,8 @@
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
+    [_captchaLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+    
     _captchaBtn.layer.cornerRadius = 5.0;
     _captchaBtn.clipsToBounds = YES;
     [_captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -295,10 +297,10 @@
 - (IBAction)receiveVerifyCode:(UIButton *)sender {
     [self.view endEditing:YES];
     if ([self checkInput] == PhoneNumberError) {
-        [self showHint:@"手机号没get到"];
+        [self showHint:@"请输入手机号"];
     } else {
         _captchaBtn.enabled =  NO;
-        [_captchaBtn setTitle:@"请稍等" forState:UIControlStateDisabled];
+        [_captchaBtn setTitle:@"请稍候" forState:UIControlStateDisabled];
 
         [self getCaptcha];
     }
@@ -306,7 +308,7 @@
 
 - (IBAction)nextStep:(UIButton *)sender {
     if ([_captchaLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
-        [self showHint:@"亲，你的验证码呢"];
+        [self showHint:@"请输入验证码"];
         return;
     }
     [self.view endEditing:YES];
@@ -318,6 +320,10 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
+}
+
+- (void) textChanged:(UITextField *)textField {
+    self.navigationItem.rightBarButtonItem.enabled = ![textField.text isEqualToString:@""];
 }
 @end
 

@@ -889,6 +889,7 @@
             frostedViewController.direction = REFrostedViewControllerDirectionRight;
             frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
             frostedViewController.liveBlur = YES;
+            frostedViewController.limitMenuViewSize = YES;
             frostedViewController.resumeNavigationBar = NO;
             [self.navigationController pushViewController:frostedViewController animated:YES];
         }
