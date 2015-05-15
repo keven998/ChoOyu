@@ -1,5 +1,5 @@
 //
-//  PlanSettingCell.h
+//  CityNameCell.h
 //  PeachTravel
 //
 //  Created by dapiao on 15/5/15.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlanSettingCell : UITableViewCell
+@interface CityNameCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *cityName;
 
 @end

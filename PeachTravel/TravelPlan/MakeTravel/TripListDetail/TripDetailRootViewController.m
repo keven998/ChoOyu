@@ -127,7 +127,7 @@
     makePlanCtl.selectedColor = APP_THEME_COLOR;
     makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
-    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
+//    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
     makePlanCtl.myDelegate = self;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
@@ -181,10 +181,10 @@
         _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
         _navgationBarItem.leftBarButtonItems = nil;
         
-        CGRect frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 49);
-        [UIView animateWithDuration:0.2 animations:^{
-            _tabBarView.frame = frame;
-        }];
+//        CGRect frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 49);
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _tabBarView.frame = frame;
+//        }];
     } else {
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
         _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -214,10 +214,10 @@
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
         _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         
-        CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
-        [UIView animateWithDuration:0.2 animations:^{
-            _tabBarView.frame = frame;
-        }];
+//        CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _tabBarView.frame = frame;
+//        }];
     }
 }
 
@@ -726,8 +726,23 @@
 
 - (void)customizeTabBarForController
 {
-    _tabBarView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
+    
+    _tabBarView = [[UIToolbar alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-10, self.view.frame.size.width-38, 49)];
     _tabBarView.backgroundColor = [UIColor whiteColor];
+    _tabBarView.backgroundColor = APP_PAGE_COLOR;
+    _tabBarView.alpha = 0.7;
+    _tabBarView.layer.borderWidth = 1;
+    _tabBarView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(19, self.view.frame.size.height-59.5, self.view.frame.size.width-38, 0.5)];
+    divide.backgroundColor = APP_DIVIDER_COLOR;
+    [self.view addSubview:divide];
+//    _tabBarView.layer.cornerRadius = 3;
+//    _tabBarView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+//    _tabBarView.layer.shadowColor = APP_THEME_COLOR.CGColor;
+//    _tabBarView.layer.shadowOffset = CGSizeMake(0, 0);
+//    _tabBarView.layer.shadowOpacity = 0;
+//    _tabBarView.layer.shadowRadius = 4;
+//    _tabBarView.clipsToBounds = YES;
     [self.view addSubview:_tabBarView];
     
     NSArray *tabBarItemTitles = @[@"行程", @"美食收集", @"购物收集"];
@@ -735,7 +750,7 @@
     CGFloat width = _tabBarView.frame.size.width;
     
     for (int i = 0; i < 3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 54)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 50)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(36, 0, 0, 0)];
@@ -748,13 +763,20 @@
         
         UIButton *showBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         showBtn.userInteractionEnabled = NO;
-        showBtn.backgroundColor = UIColorFromRGB(0xd74353);
-        showBtn.layer.cornerRadius = 15.0;
-        NSString *imageName = [NSString stringWithFormat: @"ic_trip_normal_%d",i+1];
+//        showBtn.backgroundColor = UIColorFromRGB(0xd74353);
+//        showBtn.layer.cornerRadius = 15.0;
+        NSString *imageName = [NSString stringWithFormat: @"ic_trip_new_%d",i+1];
         [showBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
         [button addSubview:showBtn];
     }
+    UIView *divider1 = [[UIView alloc]initWithFrame:CGRectMake(112, 5, 1, 39)];
+    divider1.backgroundColor = APP_DIVIDER_COLOR;
+    [_tabBarView addSubview:divider1];
+    
+    UIView *divider2 = [[UIView alloc]initWithFrame:CGRectMake(224, 5, 1, 39)];
+    divider2.backgroundColor = APP_DIVIDER_COLOR;
+    [_tabBarView addSubview:divider2];
 //    [_tabBarView addSubview:_tabBarSelectedView];
     _tabbarButtonArray = array;
 }

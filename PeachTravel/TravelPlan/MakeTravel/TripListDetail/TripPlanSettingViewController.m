@@ -13,7 +13,8 @@
 #import "TaoziChatMessageBaseViewController.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocial.h"
-#import "CreateConversationTableViewCell.h"
+#import "TripPlanSettingCell.h"
+#import "CityNameCell.h"
 #define WIDTH self.view.bounds.size.width
 #define HEIGHT self.view.bounds.size.height
 @interface TripPlanSettingViewController ()<UITableViewDelegate,UITableViewDataSource,TripUpdateDelegate,ActivityDelegate,TaoziMessageSendDelegate,CreateConversationDelegate,CreateConversationDelegate>
@@ -21,6 +22,7 @@
     UITableView *_tableView;
     NSMutableArray *_dataArray;
     UIView *_headerView;
+    UIButton *_footerButton;
 }
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
@@ -36,9 +38,10 @@
     
     _dataArray = [NSMutableArray array];
     [_dataArray addObject:_tripDetail.destinations];
-//    [self createFooterView];
-    [self createTableView];
 
+    [self createTableView];
+    [_tableView registerNib:[UINib nibWithNibName:@"TripPlanSettingCell" bundle:nil] forCellReuseIdentifier:@"settingCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"CityNameCell" bundle:nil] forCellReuseIdentifier:@"cityNameCell"];
     
 }
 
@@ -61,14 +64,37 @@
         _tableView.bounces = NO;
         _tableView;
     });
+    [self createFooterView];
+    _tableView.tableFooterView = _footerButton;
     [self.view addSubview:_tableView];
 }
+
+
+-(void)createFooterView
+{
+    _footerButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+    [_footerButton addTarget:self action:@selector(addPosition) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(38+20+13, 0, SCREEN_WIDTH, 44)];
+    addLabel.text = @"添加";
+    [_footerButton addSubview:addLabel];
+    UIImageView *addImage = [[UIImageView alloc]initWithFrame:CGRectMake(43, 12, 20, 20)];
+    addImage.image = [UIImage imageNamed:@"add_contact"];
+    [_footerButton addSubview:addImage];
+    
+}
+-(void)addPosition
+{
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"addPosition" object:nil];
+}
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
         return 2;
     } else {
-        return _tripDetail.destinations.count+1;
+        return _tripDetail.destinations.count;
     }
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -93,38 +119,29 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    static NSString *cellID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if(cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
-        cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        cell.textLabel.textColor = TEXT_COLOR_TITLE;
-        cell.textLabel.highlightedTextColor = TEXT_COLOR_TITLE_DESC;
-        
-    }
+
     if (indexPath.section == 0)
     {
+        TripPlanSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"分享";
+            cell.image.image = [UIImage imageNamed:@"share"];
+            cell.cellLabel.text = @"分享";
         }
         else if (indexPath.row == 1){
-            cell.textLabel.text = @"转发到其他平台";
+            cell.image.image = [UIImage imageNamed:@"diliver"];
+            cell.cellLabel.text = @"转发到其他平台";
         }
+        return cell;
     }
     if (indexPath.section == 1)
     {
-        if (indexPath.row == _tripDetail.destinations.count) {
-            cell.textLabel.text = @"添加";
-        }
-        else{
-            CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
-            cell.textLabel.text = model.zhName;
-        }
+        CityNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityNameCell" forIndexPath:indexPath];
+        CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
+        cell.cityName.text = model.zhName;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
     }
-    return cell;
+    return 0;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,18 +156,11 @@
     
     
     if (indexPath.section == 1) {
-        if (indexPath.row == _tripDetail.destinations.count) {
-            NSLog(@"添加");
-            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-            [center postNotificationName:@"addPosition" object:nil];
 
-        }
-        else{
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
             CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
             cityCtl.cityId = model.cityId;
             [self.navigationController pushViewController:cityCtl animated:YES];
-        }
     }
     
 }
