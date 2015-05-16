@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *standardImageView;
 @property (weak, nonatomic) IBOutlet UILabel *contentType;
 @property (weak, nonatomic) IBOutlet UILabel *contentDescLabel;
-
+    
 @property (weak, nonatomic) IBOutlet UILabel *contentLocation;
 @property (weak, nonatomic) IBOutlet UILabel *contentTitle;
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;

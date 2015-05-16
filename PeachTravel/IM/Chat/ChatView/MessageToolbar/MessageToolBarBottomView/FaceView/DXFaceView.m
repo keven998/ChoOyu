@@ -26,7 +26,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _facialView = [[FacialView alloc] initWithFrame: CGRectMake(0, 0, frame.size.width, self.bounds.size.height)];
-        [_facialView loadFacialView:1 size:CGSizeMake(30, 30)];
+        [_facialView loadFacialView:3 size:CGSizeMake(130, 130)];
         _facialView.delegate = self;
         [self addSubview:_facialView];
     }
