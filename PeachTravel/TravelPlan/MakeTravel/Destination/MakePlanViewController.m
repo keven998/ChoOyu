@@ -77,14 +77,14 @@
 
 - (void) setupSelectPanel {
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
-    toolBar.backgroundColor = [UIColor whiteColor];
+//    toolBar.backgroundColor = APP_PAGE_COLOR;
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:toolBar.bounds collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
+    [self.selectPanel setBackgroundColor:APP_PAGE_COLOR];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -95,10 +95,10 @@
     [toolBar addSubview:_selectPanel];
     
     UILabel *hintText = [[UILabel alloc] initWithFrame:toolBar.bounds];
-    hintText.textColor = TEXT_COLOR_TITLE_PH;
-    hintText.text = @"选择旅行目的地";
+    hintText.textColor = TEXT_COLOR_TITLE_HINT;
+    hintText.text = @"选择想去的城市";
     hintText.textAlignment = NSTextAlignmentCenter;
-    hintText.font = [UIFont systemFontOfSize:13];
+    hintText.font = [UIFont systemFontOfSize:14];
     hintText.tag = 1;
     [toolBar addSubview:hintText];
     
@@ -151,7 +151,7 @@
         }
     } else {
         [_myDelegate updateDestinations:_destinations.destinationsSelected];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self goBack];
     }
 }
 
@@ -193,7 +193,7 @@
 //    [UIView animateWithDuration:0.3 animations:^{
 //        self.selectPanel.superview.frame = frame;
 //    } completion:^(BOOL finished) {
-//        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.rightBarButtonItem.enabled = NO;
 //    }];
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];
@@ -207,7 +207,7 @@
 //    [UIView animateWithDuration:0.3 animations:^{
 //        self.selectPanel.superview.frame = frame;
 //    } completion:^(BOOL finished) {
-//        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.rightBarButtonItem.enabled = YES;
 //    }];
     
     UIView *view = [self.selectPanel.superview viewWithTag:1];

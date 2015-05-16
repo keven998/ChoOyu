@@ -15,9 +15,15 @@
 #import "UMSocial.h"
 #import "TripPlanSettingCell.h"
 #import "CityNameCell.h"
+#import "Destinations.h"
+#import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
+
 #define WIDTH self.view.bounds.size.width
 #define HEIGHT self.view.bounds.size.height
-@interface TripPlanSettingViewController ()<UITableViewDelegate,UITableViewDataSource,TripUpdateDelegate,ActivityDelegate,TaoziMessageSendDelegate,CreateConversationDelegate,CreateConversationDelegate>
+
+@interface TripPlanSettingViewController ()<UITableViewDelegate,UITableViewDataSource,TripUpdateDelegate,ActivityDelegate,TaoziMessageSendDelegate,CreateConversationDelegate,CreateConversationDelegate, UpdateDestinationsDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
@@ -82,12 +88,33 @@
     [_footerButton addSubview:addImage];
     
 }
+
 -(void)addPosition
 {
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotificationName:@"addPosition" object:nil];
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    for (CityDestinationPoi *poi in _tripDetail.destinations) {
+        [destinations.destinationsSelected addObject:poi];
+    }
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
+    makePlanCtl.myDelegate = self;
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:makePlanCtl];
+    [self presentViewController:navi animated:YES completion:nil];
 }
-
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -97,6 +124,7 @@
         return _tripDetail.destinations.count;
     }
 }
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
@@ -105,6 +133,7 @@
     else
         return @"已选目的地";
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 50;
 }
@@ -143,6 +172,7 @@
     }
     return 0;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -154,9 +184,7 @@
         
     }
     
-    
     if (indexPath.section == 1) {
-
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
             CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
             cityCtl.cityId = model.cityId;
@@ -243,7 +271,22 @@
     }
 }
 
+#pragma mark - UpdateDestinationsDelegate
 
+- (void)updateDestinations:(NSArray *)destinations
+{
+    [self.tripDetail updateTripDestinations:^(BOOL isSuccesss) {
+        if (isSuccesss) {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (CityDestinationPoi *poi in _tripDetail.destinations) {
+                [array addObject:poi.zhName];
+            }
+            [_tableView reloadData];
+        } else {
+            
+        }
+    } withDestinations:destinations];
+}
 
 #pragma mark - AvtivityDelegate
 

@@ -37,7 +37,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"目的地";
+    self.navigationItem.title = @"热门城市";
     
     
     UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(goSearch)];

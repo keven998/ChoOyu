@@ -557,6 +557,34 @@
     return target;
 }
 
+- (void)pushChatViewControllerWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+
+    ChatViewController *chatController;
+    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+    chatController.chatterNickName = chatTitle;
+    chatController.title = chatTitle;
+    
+    UIViewController *menuViewController = nil;
+    if (isGroup) {
+        menuViewController = [[ChatGroupSettingViewController alloc] init];
+        EMGroup *chatGroup = [EMGroup groupWithId:chatter];
+        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
+    } else {
+        menuViewController = [[ChatSettingViewController alloc] init];
+        ((ChatSettingViewController *)menuViewController).chatter = chatter;
+    }
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    frostedViewController.resumeNavigationBar = NO;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+}
+
 #pragma mark - TableViewDelegate & TableViewDatasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -571,7 +599,7 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     } else{
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView setImage:[UIImage imageNamed:@"test1.jpg"]];
+//        [cell.imageView setImage:[UIImage imageNamed:@"test1.jpg"]];
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;
@@ -608,43 +636,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
-    ChatViewController *chatController;
     NSString *title;
-    NSString *avatar;
     if (tzConversation.conversation.isGroup) {
         title = tzConversation.chatterNickName;
     } else {
         title = tzConversation.chatterNickName;
-        avatar = tzConversation.chatterAvatar;
     }
     
     NSString *chatter = tzConversation.conversation.chatter;
-    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:tzConversation.conversation.isGroup];
-    chatController.chatterAvatar = avatar;
-    chatController.chatterNickName = title;
-    chatController.title = title;
+    [self pushChatViewControllerWithChatter:chatter isGroup:tzConversation.conversation.isGroup chatTitle:title];
     [tzConversation.conversation markAllMessagesAsRead:YES];
-    
-    UIViewController *menuViewController = nil;
-    if (tzConversation.conversation.isGroup) {
-        menuViewController = [[ChatGroupSettingViewController alloc] init];
-        EMGroup *chatGroup = [EMGroup groupWithId:tzConversation.conversation.chatter];
-        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
-    } else {
-        menuViewController = [[ChatSettingViewController alloc] init];
-        ((ChatSettingViewController *)menuViewController).chatter = tzConversation.conversation.chatter;
-    }
-    
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
-    frostedViewController.hidesBottomBarWhenPushed = YES;
-    frostedViewController.direction = REFrostedViewControllerDirectionRight;
-    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-    frostedViewController.liveBlur = YES;
-    frostedViewController.limitMenuViewSize = YES;
-    frostedViewController.resumeNavigationBar = NO;
-    [self.navigationController pushViewController:frostedViewController animated:YES];
+
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -753,10 +756,7 @@
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
     [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
-        ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
-        chatCtl.title = chatTitle;
-        chatCtl.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:chatCtl animated:YES];
+        [self pushChatViewControllerWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
     }];
 }
 

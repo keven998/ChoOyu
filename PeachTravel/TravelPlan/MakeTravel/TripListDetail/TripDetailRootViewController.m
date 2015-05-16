@@ -26,7 +26,7 @@
 #import "DomesticViewController.h"
 #import "PXAlertView+Customization.h"
 #import "TripPlanSettingViewController.h"
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -98,38 +98,8 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
-//    UIViewController *controller = self.frostedViewController.menuViewController;
-//    TripPlanSettingViewController *tc = controller;
-    
-//    self.frostedViewController.contentViewController;
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(addPosition) name:@"addPosition" object:nil];
 }
--(void)addPosition
-{
-    Destinations *destinations = [[Destinations alloc] init];
-    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        [destinations.destinationsSelected addObject:poi];
-    }
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
-//    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
-    makePlanCtl.myDelegate = self;
-    [self.navigationController pushViewController:makePlanCtl animated:YES];
-}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -212,11 +182,6 @@
         [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
         [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
         _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
-        
-//        CGRect frame = CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49);
-//        [UIView animateWithDuration:0.2 animations:^{
-//            _tabBarView.frame = frame;
-//        }];
     }
 }
 
@@ -914,58 +879,6 @@
     CityDetailTableViewController *cityDetailCtl = [[CityDetailTableViewController alloc] init];
     cityDetailCtl.cityId = poi.cityId;
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
-}
-
-- (void)willAddDestination
-{
-    [MobClick event:@"event_rechoose_destination"];
-    [self hideDestinationView:nil];
-    Destinations *destinations = [[Destinations alloc] init];
-    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        [destinations.destinationsSelected addObject:poi];
-    }
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
-    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
-    makePlanCtl.myDelegate = self;
-    [self.navigationController pushViewController:makePlanCtl animated:YES];
-}
-
-#pragma mark - UpdateDestinationsDelegate
-
-- (void)updateDestinations:(NSArray *)destinations
-{
-    [self showDestination:nil];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    typeof(self) weakSelf = self;
-    [hud showHUDInViewController:weakSelf.navigationController];
-    [self.tripDetail updateTripDestinations:^(BOOL isSuccesss) {
-        [hud hideTZHUD];
-        if (isSuccesss) {
-            NSMutableArray *array = [[NSMutableArray alloc] init];
-            for (CityDestinationPoi *poi in _tripDetail.destinations) {
-                [array addObject:poi.zhName];
-            }
-            _destinationView.destinations = array;
-        } else {
-            
-        }
-    } withDestinations:destinations];
-    
-    
 }
 
 #pragma mark - CreateConversationDelegate

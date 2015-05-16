@@ -13,11 +13,11 @@
 - (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = APP_PAGE_COLOR;
-    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _headerImageView.layer.borderWidth = 1;
+//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _headerImageView.layer.borderWidth = 1;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _headerImageView.clipsToBounds = YES;
-    _headerImageView.layer.cornerRadius = 4.0;
+//    _headerImageView.layer.cornerRadius = 4.0;
     _titleBtn.font = [UIFont systemFontOfSize:14.0];
     _descLabel.font = [UIFont systemFontOfSize:12.0];
     _sendBtn.layer.cornerRadius = 2.0;
