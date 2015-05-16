@@ -112,7 +112,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
 //    [self initDataFromCache];
-    [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
+//    [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
+    [self refreshLoadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -341,7 +342,7 @@
 //            }
             [self.tableView reloadData];
         } else {
-            [self showHint:@"已加载全部"];
+//            [self showHint:@"已加载全部"];
         }
         return;
     }
@@ -403,6 +404,14 @@
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
     _filterItem.title = str;
     _currentFavoriteType = [_urlArray objectAtIndex:indexPath.row];
+    _enableLoadMore = NO;
+    [_dataSource removeAllObjects];
+    [_tableView reloadData];
+    [self performSelector:@selector(refreshLoadData) withObject:nil afterDelay:0.25];
+}
+
+- (void) refreshLoadData {
+    [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
     [self.refreshControl beginRefreshing];
     [self.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
 }
