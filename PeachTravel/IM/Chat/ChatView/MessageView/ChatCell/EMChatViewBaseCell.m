@@ -36,7 +36,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        _nameLabel.textColor = TEXT_COLOR_TITLE_DESC;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:_nameLabel];
