@@ -52,7 +52,6 @@
     
     _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
     _pageControl.center = CGPointMake(SCREEN_WIDTH/2, self.bounds.size.height-20);
-    //        重要属性 设置页数
     _pageControl.numberOfPages = 2;
     [self addSubview:_pageControl];
     
@@ -90,7 +89,6 @@
                 [button setTitle: [_faces objectAtIndex:(row * maxCol + col)] forState:UIControlStateNormal];
                 button.tag = row * maxCol + col;
                 [button addTarget:self action:@selector(selected:) forControlEvents:UIControlEventTouchUpInside];
-//                [self addSubview:button];
                 [_scrollView addSubview:button];
             }
      
@@ -129,14 +127,11 @@
 {
     double x = _scrollView.frame.size.width *pageControl.currentPage;
     [_scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
-    
 }
+
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollVi
 {
-
     int index = (int)_scrollView.contentOffset.x / _scrollView.frame.size.width;
-    
-    //    设置pagecontrol显示第几个点
     _pageControl.currentPage = index;
 }
 

@@ -38,8 +38,8 @@
     [_myStrategyButton setFrame:CGRectMake(INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     _myStrategyButton.topSpaceHight = 18;
     _myStrategyButton.spaceHight = 10;
-    [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_more_guide.png"] forState:UIControlStateNormal];
-    [_myStrategyButton setImage:[UIImage imageNamed:@"chatBar_more_guide_selected.png"] forState:UIControlStateHighlighted];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_normal"] forState:UIControlStateNormal];
+    [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_selected"] forState:UIControlStateHighlighted];
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
     _myStrategyButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_myStrategyButton setTitle:@"旅行计划" forState:UIControlStateNormal];
@@ -53,10 +53,10 @@
     _myFavoriteButton.topSpaceHight = 18;
     _myFavoriteButton.spaceHight = 10;
     [_myFavoriteButton setFrame:CGRectMake(spaceWidth + CHAT_BUTTON_SIZE+INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_destination.png"] forState:UIControlStateNormal];
-    [_myFavoriteButton setImage:[UIImage imageNamed:@"chatBar_more_destination_selected.png"] forState:UIControlStateHighlighted];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_normal"] forState:UIControlStateNormal];
+    [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_selectd"] forState:UIControlStateHighlighted];
     [_myFavoriteButton addTarget:self action:@selector(destinationAction) forControlEvents:UIControlEventTouchUpInside];
-    [_myFavoriteButton setTitle:@"地点" forState:UIControlStateNormal];
+    [_myFavoriteButton setTitle:@"旅行搜搜" forState:UIControlStateNormal];
     [_myFavoriteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _myFavoriteButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _myFavoriteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -68,11 +68,12 @@
     _destinationButton = [TZButton buttonWithType:UIButtonTypeCustom];
     _destinationButton.topSpaceHight = 18;
     _destinationButton.spaceHight = 10;
-    [_destinationButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote.png"] forState:UIControlStateNormal];
-    [_destinationButton setImage:[UIImage imageNamed:@"chatBar_more_travelNote_selected.png"] forState:UIControlStateHighlighted];
-    [_destinationButton addTarget:self action:@selector(travelNoteAction) forControlEvents:UIControlEventTouchUpInside];
-    [_destinationButton setTitle:@"游记" forState:UIControlStateNormal];
+
+    [_destinationButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE+10)];
+    [_destinationButton setImage:[UIImage imageNamed:@"ic_here_normal"] forState:UIControlStateNormal];
+    [_destinationButton setImage:[UIImage imageNamed:@"ic_here_selected"] forState:UIControlStateHighlighted];
+    [_destinationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
+    [_destinationButton setTitle:@"位置" forState:UIControlStateNormal];
     [_destinationButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
     _destinationButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -85,9 +86,10 @@
     _travelNoteButton = [TZButton buttonWithType:UIButtonTypeCustom];
     _travelNoteButton.topSpaceHight =18;
     _travelNoteButton.spaceHight = 10;
-    [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite.png"] forState:UIControlStateNormal];
-    [_travelNoteButton setImage:[UIImage imageNamed:@"chatBar_more_myfavorite_selected.png"] forState:UIControlStateHighlighted];
+    [_travelNoteButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+//    [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+    [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_normal"] forState:UIControlStateNormal];
+    [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_selected"] forState:UIControlStateHighlighted];
     [_travelNoteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
     [_travelNoteButton setTitle:@"收藏夹" forState:UIControlStateNormal];
     [_travelNoteButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
@@ -96,15 +98,16 @@
     _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _travelNoteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
+    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_travelNoteButton];
     
     _photoButton = [TZButton buttonWithType:UIButtonTypeCustom];
     _photoButton.topSpaceHight = 18;
     _photoButton.spaceHight = 10;
-    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_photoButton setImage:[UIImage imageNamed:@"chatBar_more_album.png"] forState:UIControlStateNormal];
-    [_photoButton setImage:[UIImage imageNamed:@"chatBar_more_album_selected.png"] forState:UIControlStateHighlighted];
+//    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+    [_photoButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+    [_photoButton setImage:[UIImage imageNamed:@"ic_picture_normal"] forState:UIControlStateNormal];
+    [_photoButton setImage:[UIImage imageNamed:@"ic_picture_selected"] forState:UIControlStateHighlighted];
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
     [_photoButton setTitle:@"相册" forState:UIControlStateNormal];
     [_photoButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
@@ -120,8 +123,8 @@
     _takePicButton.topSpaceHight = 18;
     _takePicButton.spaceHight = 10;
     [_takePicButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_takePicButton setImage:[UIImage imageNamed:@"chatBar_more_camera.png"] forState:UIControlStateNormal];
-    [_takePicButton setImage:[UIImage imageNamed:@"chatBar_more_camera_selected.png"] forState:UIControlStateHighlighted];
+    [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_normal"] forState:UIControlStateNormal];
+    [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_selected"] forState:UIControlStateHighlighted];
     [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
     [_takePicButton setTitle:@"相机" forState:UIControlStateNormal];
     [_takePicButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];

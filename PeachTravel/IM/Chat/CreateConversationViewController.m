@@ -68,12 +68,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    self.navigationController.navigationBarHidden = YES;
     [MobClick beginLogPageView:@"page_choose_talk_to"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
     [MobClick endLogPageView:@"page_choose_talk_to"];
 }
 
@@ -180,13 +182,11 @@
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
                         [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
                     }
-
                 }
                 else{
                     [weakSelf showHint:@"吖~好像请求失败了"];
                 }
             } onQueue:nil];
-
         }
     }
 }

@@ -107,7 +107,7 @@
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    backgroundImageView.image = [UIImage imageNamed:@"login_frame_bg.png"];
+    backgroundImageView.image = [UIImage imageNamed:@"picture_background"];
     backgroundImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     tap.numberOfTapsRequired = 1;

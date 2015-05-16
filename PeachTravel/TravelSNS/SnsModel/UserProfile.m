@@ -13,7 +13,7 @@
 
 - (id) initWithJsonObject:(id)json {
     if (self = [super init]) {
-        _userId = [json objectForKey:@"id"];
+        _userId = [json objectForKey:@"userId"];
         _avatarSmall = [json objectForKey:@"avatarSmall"];
         _name = [json objectForKey:@"nickName"];
         _gender = [json objectForKey:@"gender"];
