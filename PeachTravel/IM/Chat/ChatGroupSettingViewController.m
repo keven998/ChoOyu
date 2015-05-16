@@ -15,7 +15,7 @@
 #import "CreateConversationViewController.h"
 #import "SearchUserInfoViewController.h"
 
-@interface ChatGroupSettingViewController () <IChatManagerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ChatGroupSettingViewController () <IChatManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contactsView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -26,7 +26,6 @@
 
 @property (strong, nonatomic) NSMutableArray *numberBtns;   //群组的时候存放群组头像的 btn
 @property (strong, nonatomic) NSMutableArray *numberDeleteBtns; //群组的时候存放群组头像上的删除按钮的 btn
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 /**
  *  
@@ -47,8 +46,6 @@
 //    self.navigationItem.title = @"聊天设置";
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBarHidden = YES;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
     
     [_groupTitle setTitle:_group.groupSubject forState:UIControlStateNormal];
     _groupTitle.titleEdgeInsets = UIEdgeInsetsMake(0, 88, 0, 20);
