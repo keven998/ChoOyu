@@ -145,7 +145,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     BOOL isReceiver = !_model.isSender;
     NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"chat_sender_bg";
     NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger topCapHeight =  17;
+    NSInteger topCapHeight =  39;
     self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
     
     if (model.taoziMessage) {
