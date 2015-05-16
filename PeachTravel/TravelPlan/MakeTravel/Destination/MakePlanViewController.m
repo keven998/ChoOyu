@@ -151,7 +151,7 @@
         }
     } else {
         [_myDelegate updateDestinations:_destinations.destinationsSelected];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self goBack];
     }
 }
 
