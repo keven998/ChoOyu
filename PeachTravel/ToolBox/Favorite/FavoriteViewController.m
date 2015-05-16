@@ -391,7 +391,6 @@
     } else if (item.type == kTravelNotePoi) {
         taoziMessageCtl.chatType = TZChatTypeTravelNote;
         taoziMessageCtl.messageDetailUrl = item.detailUrl;
-        
     } else {
         taoziMessageCtl.chatType = TZChatTypeCity;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
