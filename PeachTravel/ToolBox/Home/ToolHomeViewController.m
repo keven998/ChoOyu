@@ -166,14 +166,14 @@
         cell.imageView.image = [UIImage imageNamed:@"point"];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"我的旅行计划";
+            cell.textLabel.text = @"旅行计划";
             cell.imageView.image = [UIImage imageNamed:@"my_journey_list"];
         } else {
             cell.textLabel.text = @"附近好玩的";
             cell.imageView.image = [UIImage imageNamed:@"near_play"];
         }
     } else {
-        cell.textLabel.text = @"热门目的地";
+        cell.textLabel.text = @"热门城市";
         cell.imageView.image = [UIImage imageNamed:@"trip_there"];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

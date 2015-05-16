@@ -67,16 +67,13 @@ static NSString *reusableCell = @"myGuidesCell";
     [super viewDidLoad];
     if (_isTrip) {
         self.navigationItem.title = @"已去过的旅行";
-
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_navigation_back.png" highIcon:nil target:self action:@selector(goBack)];
-        
     } else {
         self.navigationItem.title = @"旅行计划";
         UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"去过" style:UIBarButtonItemStylePlain target:self action:@selector(myTrip)];
         self.navigationItem.rightBarButtonItem = rbtn;
         
         if (!_selectToSend) {
-
             self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_navigation_back.png" highIcon:nil target:self action:@selector(goBack)];
         } else {
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
