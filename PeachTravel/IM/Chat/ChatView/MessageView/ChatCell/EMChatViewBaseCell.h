@@ -23,7 +23,7 @@
 
 #define NAME_LABEL_WIDTH 180 // nameLabel宽度
 #define NAME_LABEL_HEIGHT 12 // nameLabel 高度
-#define NAME_LABEL_PADDING 15 // nameLabel与头像的距离
+#define NAME_LABEL_PADDING 20 // nameLabel与头像的距离
 #define NAME_LABEL_FONT_SIZE 14 // 字体
 
 extern NSString *const kRouterEventChatHeadImageTapEventName;
