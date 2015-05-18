@@ -394,7 +394,6 @@
 		D9A801281A80DD23005AD701 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8009B1A80DD23005AD701 /* LocationViewController.m */; };
 		D9A801291A80DD23005AD701 /* DXMessageToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8009E1A80DD23005AD701 /* DXMessageToolBar.m */; };
 		D9A8012A1A80DD23005AD701 /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800A21A80DD23005AD701 /* DXFaceView.m */; };
-		D9A8012B1A80DD23005AD701 /* faceDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A800A41A80DD23005AD701 /* faceDelete.png */; };
 		D9A8012C1A80DD23005AD701 /* faceDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A800A51A80DD23005AD701 /* faceDelete@2x.png */; };
 		D9A8012D1A80DD23005AD701 /* FacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800A71A80DD23005AD701 /* FacialView.m */; };
 		D9A8012E1A80DD23005AD701 /* DXChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800AA1A80DD23005AD701 /* DXChatBarMoreView.m */; };
@@ -1376,7 +1375,6 @@
 		D9A8009E1A80DD23005AD701 /* DXMessageToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXMessageToolBar.m; sourceTree = "<group>"; };
 		D9A800A11A80DD23005AD701 /* DXFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXFaceView.h; sourceTree = "<group>"; };
 		D9A800A21A80DD23005AD701 /* DXFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXFaceView.m; sourceTree = "<group>"; };
-		D9A800A41A80DD23005AD701 /* faceDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = faceDelete.png; sourceTree = "<group>"; };
 		D9A800A51A80DD23005AD701 /* faceDelete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceDelete@2x.png"; sourceTree = "<group>"; };
 		D9A800A61A80DD23005AD701 /* FacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacialView.h; sourceTree = "<group>"; };
 		D9A800A71A80DD23005AD701 /* FacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacialView.m; sourceTree = "<group>"; };
@@ -3231,7 +3229,6 @@
 		D9A800A31A80DD23005AD701 /* emoji */ = {
 			isa = PBXGroup;
 			children = (
-				D9A800A41A80DD23005AD701 /* faceDelete.png */,
 				D9A800A51A80DD23005AD701 /* faceDelete@2x.png */,
 			);
 			path = emoji;
@@ -5723,7 +5720,6 @@
 				D9A8005F1A80DD0C005AD701 /* AddContactTableViewController.xib in Resources */,
 				D9A8056A1A80E738005AD701 /* more_btn@2x.png in Resources */,
 				D9F46DBF1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
-				D9A8012B1A80DD23005AD701 /* faceDelete.png in Resources */,
 				D9A806CE1A80F597005AD701 /* UMShareEditViewControlleriPad.xib in Resources */,
 				D9A8FFBE1A80D1C3005AD701 /* TravelNoteTableViewCell.xib in Resources */,
 				D9A805461A80E738005AD701 /* ic_favorite_unselected@2x.png in Resources */,
