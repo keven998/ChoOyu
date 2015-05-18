@@ -103,9 +103,9 @@
     oy = 0;
     
     UILabel *ttitle = [[UILabel alloc] initWithFrame:CGRectMake(45, oy + 10, width - 90, 25)];
-    ttitle.textColor = TEXT_COLOR_TITLE;
+    ttitle.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     ttitle.text = [NSString stringWithFormat:@"玩在%@", _cityPoi.zhName];
-    ttitle.font = [UIFont systemFontOfSize:18];
+    ttitle.font = [UIFont boldSystemFontOfSize:17];
     ttitle.textAlignment = NSTextAlignmentCenter;
     ttitle.lineBreakMode = NSLineBreakByTruncatingTail;
     [_detailView addSubview:ttitle];
