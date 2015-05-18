@@ -298,7 +298,7 @@
     self.styleChangeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 46, _toolbarView.frame.size.height)];
     self.styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.styleChangeButton setImage:[UIImage imageNamed:@"chatBar_record"] forState:UIControlStateNormal];
-    [self.styleChangeButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.styleChangeButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
     [self.styleChangeButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.styleChangeButton.tag = 0;
     allButtonWidth += CGRectGetWidth(self.styleChangeButton.frame);
@@ -308,7 +308,7 @@
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more"] forState:UIControlStateNormal];
 //    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_moreSelected"] forState:UIControlStateHighlighted];
-    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.moreButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
     [self.moreButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.moreButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0.5*kHorizontalPadding);
     self.moreButton.tag = 2;
@@ -319,7 +319,7 @@
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
 //    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    [self.faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.faceButton setImage:[UIImage imageNamed:@"ic_keyboard"] forState:UIControlStateSelected];
     [self.faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.faceButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     self.faceButton.tag = 1;
@@ -347,10 +347,10 @@
     self.inputTextView.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
 
     //录制
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width*3/4, 34)];
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatbar_text_background@"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     self.recordButton.layer.cornerRadius = 4.0;
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];

@@ -70,7 +70,7 @@
     UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 134/3, SCREEN_WIDTH/2, 1)];
     spaceView6.backgroundColor = APP_PAGE_COLOR;
     [_backView addSubview:spaceView6];
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 90, SCREEN_WIDTH/2, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 100, SCREEN_WIDTH/2, 1)];
     spaceView.backgroundColor = APP_PAGE_COLOR;
     [_backView addSubview:spaceView];
     

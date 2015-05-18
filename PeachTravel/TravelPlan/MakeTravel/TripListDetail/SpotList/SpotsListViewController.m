@@ -68,7 +68,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _tableView.contentInset = UIEdgeInsetsMake(-26, 0, 50, 0); // 20 + 26
+        _tableView.contentInset = UIEdgeInsetsMake(-26, 0, 64, 0); // 20 + 26
         _tableView.backgroundColor = APP_PAGE_COLOR;
     }
     return _tableView;

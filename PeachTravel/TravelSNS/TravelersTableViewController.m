@@ -13,6 +13,7 @@
 #import "UserProfile.h"
 #import "ScreeningViewController.h"
 #import "ForeignScreeningViewController.h"
+#import "OtherUserInfoViewController.h"
 #import "DomesticScreeningViewController.h"
 @interface TravelersTableViewController ()
 
@@ -140,9 +141,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-//    contactDetailCtl.contact = contact;
-    [self.navigationController pushViewController:contactDetailCtl animated:YES];
+    OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
+    UserProfile *model = _travelers[indexPath.row];
+    otherInfoCtl.userId = model.userId;
+    [self.navigationController pushViewController:otherInfoCtl animated:YES] ;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
