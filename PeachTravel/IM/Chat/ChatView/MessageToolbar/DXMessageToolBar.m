@@ -12,6 +12,8 @@
 
 #import "DXMessageToolBar.h"
 
+#define CHAT_PANEL_VIEW_HEIGHT 188
+
 @interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
@@ -113,7 +115,7 @@
 - (DXChatBarMoreView *)moreView
 {
     if (!_moreView) {
-        _moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 190) typw:ChatMoreTypeGroupChat];
+        _moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, CHAT_PANEL_VIEW_HEIGHT) typw:ChatMoreTypeGroupChat];
         _moreView.backgroundColor = APP_PAGE_COLOR;
         _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         //将self注册为chatToolBar的moreView的代理
@@ -127,7 +129,7 @@
 - (UIView *)faceView
 {
     if (!_faceView) {
-        _faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 200)];
+        _faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, CHAT_PANEL_VIEW_HEIGHT)];
         [(DXFaceView *)self.faceView setDelegate:self];
         _faceView.backgroundColor = [UIColor lightGrayColor];
         _faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;

@@ -55,27 +55,22 @@
     _pageControl.numberOfPages = 2;
     [self addSubview:_pageControl];
     
-    
     self.backgroundColor = APP_PAGE_COLOR;
     
-    UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [deleteButton setBackgroundColor:[UIColor clearColor]];
-
-    [deleteButton setFrame:CGRectMake((maxCol -0.7) * itemWidth - 20, (maxRow - 1) * itemHeight, itemWidth , itemHeight)];
-    
-    [deleteButton setImage:[UIImage imageNamed:@"faceDelete"] forState:UIControlStateNormal];
+    UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake((maxCol -0.7) * itemWidth - 20, (maxRow - 1) * itemHeight, itemWidth , itemHeight)];
+    [deleteButton setImage:[UIImage imageNamed:@"faceDelete.png"] forState:UIControlStateNormal];
     deleteButton.tag = 10000;
-
     [deleteButton addTarget:self action:@selector(selected:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    [sendButton setFrame:CGRectMake((maxCol - 1) * itemWidth-20, (maxRow) * itemHeight + 5, itemWidth+10, itemHeight-10)];
+    [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sendButton setFrame:CGRectMake((maxCol - 1) * itemWidth-20, (maxRow) * itemHeight + 5, itemWidth+10, itemHeight-15)];
     [sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    sendButton.backgroundColor = APP_THEME_COLOR;
-    sendButton.layer.cornerRadius = 2.0;
+//    sendButton.backgroundColor = APP_THEME_COLOR;
+    [sendButton setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
+    sendButton.layer.cornerRadius = 3.0;
+    sendButton.clipsToBounds = YES;
     
     
     for (int row = 0; row < maxRow; row++) {
