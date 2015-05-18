@@ -70,6 +70,7 @@
     //搜索达人
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
+        NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self parseSearchResult:[responseObject objectForKey:@"result"]];
@@ -143,7 +144,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
     UserProfile *model = _travelers[indexPath.row];
-    otherInfoCtl.userId = model.userId;
+    otherInfoCtl.model = model;
     [self.navigationController pushViewController:otherInfoCtl animated:YES] ;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

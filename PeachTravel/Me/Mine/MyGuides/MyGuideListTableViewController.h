@@ -19,4 +19,11 @@
 
 @property (nonatomic, assign) BOOL isTrip;
 
+
+/**
+ *  自己查看为NO  查看达人为YES
+ */
+@property (nonatomic) BOOL isExpert;
+
+@property (nonatomic,copy) NSString *userId;
 @end

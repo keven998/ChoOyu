@@ -425,10 +425,9 @@
     }
     else if (indexPath.section == 2){
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
-        
         cell.nameLabel.text = @"旅行足迹";
         cell.backgroundColor = [UIColor whiteColor];
-        cell.dataArray = @[@"上海",@"北京",@"杭州"];
+        cell.footPrint.text = @"上海 北京 杭州";
         return cell;
 
     }
@@ -546,8 +545,8 @@
     } else if (indexPath.section == 2) {
         
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-//        [self presentViewController:footCtl animated:YES completion:nil];
-        [self.navigationController pushViewController:footCtl animated:YES];
+        [self presentViewController:footCtl animated:YES completion:nil];
+//        [self.navigationController pushViewController:footCtl animated:YES];
         
     } else if (indexPath.section == 3) {
         

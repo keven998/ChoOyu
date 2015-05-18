@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserProfile.h"
 
 @interface OtherUserInfoViewController : UIViewController
 
-@property (nonatomic,copy) NSString *userId;
+@property (nonatomic,strong) UserProfile *model;
 
 @end
