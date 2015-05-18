@@ -7,9 +7,12 @@
 //
 
 #import "FootprintMapViewController.h"
-
+#import "DomesticViewController.h"
+#import "ForeignViewController.h"
 @interface FootprintMapViewController ()
-
+{
+    UISegmentedControl *_segmentControl;
+}
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (nonatomic, strong) NSMutableArray *annotationsArray;
@@ -21,13 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mapView.showsBuildings = YES;
-
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (NSMutableArray *)annotationsArray
 {

@@ -11,6 +11,7 @@
 #import "HeaderCell.h"
 #import "OtherUserBasicInfoCell.h"
 #import "OthersAlbumCell.h"
+#import "MyTripSpotsMapViewController.h"
 
 #import "AccountModel.h"
 #import "UIBarButtonItem+MJ.h"
@@ -219,8 +220,15 @@
     if (indexPath.section == 0) {
         OthersAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumCell" forIndexPath:indexPath];
         cell.headerPicArray = nil;
+        return cell;
     }
-    if (indexPath.section == 2) {
+    else if (indexPath.section == 1) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.textLabel.text = @"他的旅行计划";
+        return cell;
+    }
+    else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"旅行足迹";
         cell.backgroundColor = [UIColor whiteColor];
@@ -228,7 +236,7 @@
         cell.trajectory.text = [_model getFootprintDescription];
         return cell;
     }
-    if (indexPath.section == 3) {
+    else if (indexPath.section == 3) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.backgroundColor = [UIColor whiteColor];
@@ -237,7 +245,7 @@
         cell.trajectory.text = @"";
         return cell;
     }
-    if (indexPath.section == 4) {
+    else  {
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
@@ -262,16 +270,9 @@
             cell.information.text = _model.residence;
             cell.information.font = [UIFont systemFontOfSize:14];
         }
-        
+        return cell;
     }
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = @"asdasd";
-    if (indexPath.section == 1) {
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.textLabel.text = @"他的旅行计划";
-    }
-    
-    return cell;
+
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -281,7 +282,13 @@
         listCtl.userId = _model.userId;
         [self.navigationController pushViewController:listCtl animated:YES];
     }else if (indexPath.section == 2){
-        
+        MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
+//        ctl.pois = _tripDetail.itineraryList;
+        ctl.currentDay = 0;
+//        ctl.titleText = _tripDetail.tripTitle;
+        [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
+        [self presentViewController:nCtl animated:YES completion:nil];
     }
 }
 -(void)back

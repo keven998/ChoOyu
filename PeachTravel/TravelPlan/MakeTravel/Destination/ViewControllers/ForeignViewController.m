@@ -65,7 +65,6 @@ static NSString *reuseableCellIdentifier  = @"cell";
             _hud = [[TZProgressHUD alloc] init];
             [_hud showHUD];
             [self loadForeignDataFromServerWithLastModified:@""];
-            
         }
     }];
 }

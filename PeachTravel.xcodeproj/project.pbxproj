@@ -116,6 +116,7 @@
 		27FF1AE61B09AFB100643D77 /* OtherUserBasicInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1AE41B09AFB100643D77 /* OtherUserBasicInfoCell.xib */; };
 		27FF1AEA1B09C51000643D77 /* OthersAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FF1AE81B09C51000643D77 /* OthersAlbumCell.m */; };
 		27FF1AEB1B09C51000643D77 /* OthersAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1AE91B09C51000643D77 /* OthersAlbumCell.xib */; };
+		27FF1AED1B09DEA000643D77 /* ic_zuji_flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27FF1AEC1B09DEA000643D77 /* ic_zuji_flag@2x.png */; };
 		C608ED661A2C4D8E00B76934 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C608ED651A2C4D8E00B76934 /* HomeViewController.m */; };
 		C60C0D6A1A298DF8006033C9 /* PushSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C60C0D681A298DF8006033C9 /* PushSettingViewController.m */; };
 		C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D691A298DF8006033C9 /* PushSettingViewController.xib */; };
@@ -999,6 +1000,7 @@
 		27FF1AE71B09C51000643D77 /* OthersAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OthersAlbumCell.h; sourceTree = "<group>"; };
 		27FF1AE81B09C51000643D77 /* OthersAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OthersAlbumCell.m; sourceTree = "<group>"; };
 		27FF1AE91B09C51000643D77 /* OthersAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OthersAlbumCell.xib; sourceTree = "<group>"; };
+		27FF1AEC1B09DEA000643D77 /* ic_zuji_flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_zuji_flag@2x.png"; sourceTree = "<group>"; };
 		97F2ADD9B83C8444D04F74F6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C608ED641A2C4D8E00B76934 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		C608ED651A2C4D8E00B76934 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -3946,6 +3948,7 @@
 			isa = PBXGroup;
 			children = (
 				27FF1A8F1B05C38F00643D77 /* ic_right_normal@2x.png */,
+				27FF1AEC1B09DEA000643D77 /* ic_zuji_flag@2x.png */,
 				27FF1AC41B0709C600643D77 /* chatbar_text_background@2x.png */,
 				275529871B0457A600A10506 /* weixindenglu@2x.png */,
 				27FF1AD01B09932400643D77 /* 他的资料 */,
@@ -5535,6 +5538,7 @@
 				27FF1AC51B0709C600643D77 /* chatbar_text_background@2x.png in Resources */,
 				D917DAD31A8B4A320039720A /* ic_guide3_talk3@2x.png in Resources */,
 				D9722F291A82446900D8A8CC /* Loading_Animation_final1@2x.png in Resources */,
+				27FF1AED1B09DEA000643D77 /* ic_zuji_flag@2x.png in Resources */,
 				270C16511B0079BE0048C85D /* ic_spots_normal@2x.png in Resources */,
 				27FF1AB31B06F1F000643D77 /* chatBar_record@2x.png in Resources */,
 				C694C3891AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png in Resources */,

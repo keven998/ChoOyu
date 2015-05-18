@@ -27,6 +27,9 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "AIDatePickerController.h"
 #import "SignatureViewController.h"
+#import "DomesticViewController.h"
+#import "ForeignViewController.h"
+
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -546,7 +549,6 @@
         
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
         [self presentViewController:footCtl animated:YES completion:nil];
-//        [self.navigationController pushViewController:footCtl animated:YES];
         
     } else if (indexPath.section == 3) {
         
