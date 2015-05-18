@@ -82,7 +82,7 @@
     ps.lineSpacing = 3.0;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:_cityPoi.desc attributes:attribs];
-    CGRect rect = [attrstr boundingRectWithSize:(CGSize){dframe.size.width, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    CGRect rect = [attrstr boundingRectWithSize:(CGSize){dframe.size.width, 3*13+15} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     dframe.size.height = ceilf(rect.size.height);
     _cityDesc.frame = dframe;
     _cityDesc.attributedText = attrstr;
