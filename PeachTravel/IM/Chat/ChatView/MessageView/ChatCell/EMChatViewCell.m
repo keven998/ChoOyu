@@ -61,7 +61,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             {
                 [_activtiy stopAnimating];
                 [_activityView setHidden:YES];
-                
             }
                 break;
             case eMessageDeliveryState_Failure:
@@ -78,12 +77,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         
         bubbleFrame.origin.x = self.headImageView.frame.origin.x - bubbleFrame.size.width - HEAD_PADDING;
         _bubbleView.frame = bubbleFrame;
-        
         CGRect frame = self.activityView.frame;
         frame.origin.x = bubbleFrame.origin.x - frame.size.width - ACTIVTIYVIEW_BUBBLE_PADDING;
         frame.origin.y = _bubbleView.center.y - frame.size.height / 2;
         self.activityView.frame = frame;
-        
     } else{
         if (_showNickName) {
             bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;

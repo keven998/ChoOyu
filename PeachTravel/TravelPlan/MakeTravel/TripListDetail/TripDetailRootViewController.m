@@ -36,7 +36,7 @@
 @property (nonatomic, strong) NSArray *tabbarButtonArray;
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
-@property (nonatomic, strong) UIToolbar *tabBarView;
+@property (nonatomic, strong) UIView *tabBarView;
 
 @property (nonatomic, strong) UINavigationItem *navgationBarItem;
 
@@ -691,15 +691,21 @@
 - (void)customizeTabBarForController
 {
     
-    _tabBarView = [[UIToolbar alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-10, self.view.frame.size.width-38, 49)];
-    _tabBarView.backgroundColor = [UIColor whiteColor];
+    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5, self.view.frame.size.width-38, 49)];
+    _tabBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _tabBarView.backgroundColor = APP_PAGE_COLOR;
-    _tabBarView.alpha = 0.7;
-    _tabBarView.layer.borderWidth = 1;
-    _tabBarView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
-    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(19, self.view.frame.size.height-59.5, self.view.frame.size.width-38, 0.5)];
-    divide.backgroundColor = APP_DIVIDER_COLOR;
-    [self.view addSubview:divide];
+    _tabBarView.alpha = 0.9;
+    CALayer *layer = _tabBarView.layer;
+    layer.borderWidth = 1;
+    layer.borderColor = APP_BORDER_COLOR.CGColor;
+    layer.shadowColor = APP_BORDER_COLOR.CGColor;
+    layer.shadowOffset = CGSizeMake(0, -0.5);
+    layer.shadowRadius = 0.5;
+    layer.shadowOpacity = 1.0;
+    layer.cornerRadius = 1;
+//    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(0.5, 0, _tabBarView.frame.size.width - 1, 1)];
+//    divide.backgroundColor = APP_PAGE_COLOR;
+//    [_tabBarView addSubview:divide];
 //    _tabBarView.layer.cornerRadius = 3;
 //    _tabBarView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
 //    _tabBarView.layer.shadowColor = APP_THEME_COLOR.CGColor;
@@ -714,10 +720,10 @@
     CGFloat width = _tabBarView.frame.size.width;
     
     for (int i = 0; i < 3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 50)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(width/3*i, 0, width/3, 50)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(36, 0, 0, 0)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(28, 0, 0, 0)];
         [array addObject:button];
         [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         [_tabBarView addSubview:button];
@@ -734,11 +740,12 @@
         showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
         [button addSubview:showBtn];
     }
-    UIView *divider1 = [[UIView alloc]initWithFrame:CGRectMake(112, 5, 1, 39)];
+    
+    UIView *divider1 = [[UIView alloc]initWithFrame:CGRectMake(width/3.0-0.5, 7, 1, 35)];
     divider1.backgroundColor = APP_DIVIDER_COLOR;
     [_tabBarView addSubview:divider1];
     
-    UIView *divider2 = [[UIView alloc]initWithFrame:CGRectMake(224, 5, 1, 39)];
+    UIView *divider2 = [[UIView alloc]initWithFrame:CGRectMake(width*2.0/3.0-0.5, 7, 1, 35)];
     divider2.backgroundColor = APP_DIVIDER_COLOR;
     [_tabBarView addSubview:divider2];
 //    [_tabBarView addSubview:_tabBarSelectedView];

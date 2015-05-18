@@ -105,23 +105,27 @@
 
     CGFloat offsetX = 0;
     if (_sendStatus == MSGSending) {
-        offsetX = 15;
+        offsetX = 18;
         sendFailedImageView.hidden = YES;
         activityView.hidden = NO;
         
-    } if (_sendStatus == MSGSended) {
+    } else if (_sendStatus == MSGSended) {
         sendFailedImageView.hidden = YES;
         activityView.hidden = YES;
         
-    } if (_sendStatus == MSGSendFaild) {
+    } else if (_sendStatus == MSGSendFaild) {
         sendFailedImageView.hidden = NO;
-        offsetX = 15;
+        offsetX = 18;
+        activityView.hidden = YES;
+        
+    } else {
+        sendFailedImageView.hidden = YES;
         activityView.hidden = YES;
     }
     
-    sendFailedImageView.frame = CGRectMake(85, 48, 12, 12);
-    activityView.frame = CGRectMake(85, 51, 13, 12);
-    _detailLabel.frame = CGRectMake(54+offsetX, 35, width - 85.0-54, 25);
+    sendFailedImageView.frame = CGRectMake(58, 42, 12, 12);
+    activityView.frame = CGRectMake(58, 42, 13, 12);
+    _detailLabel.frame = CGRectMake(58+offsetX, 35, width - 85.0-54, 25);
     
     _timeLabel.text = _time;
     
