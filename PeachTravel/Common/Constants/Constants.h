@@ -253,6 +253,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
 #define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
 #define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
+#define GRAY_COLOR                      UIColorFromRGB(0xdddddd)
 
 
 /*****应用启动时是否应该启动引导页******/

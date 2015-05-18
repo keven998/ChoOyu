@@ -514,6 +514,7 @@
     if (!_chatToolBar) {
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight], self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
         _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        _chatToolBar.backgroundColor = APP_PAGE_COLOR;
         _chatToolBar.delegate = self;
         _chatToolBar.rootCtl = self;
     }
