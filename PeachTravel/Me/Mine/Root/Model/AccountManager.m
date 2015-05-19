@@ -441,7 +441,7 @@
     _account.avatar = [json objectForKey:@"avatar"];
     _account.avatarSmall = [json objectForKey:@"avatarSmall"];
     _account.gender = [json objectForKey:@"gender"];
-    _account.status = [json objectForKey:@"travelStatus"];
+//    _account.status = [json objectForKey:@"travelStatus"];
     if (!_account.gender) {
         _account.gender = @"U";
     }
