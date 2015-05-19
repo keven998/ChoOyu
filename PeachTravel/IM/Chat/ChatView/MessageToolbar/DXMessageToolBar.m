@@ -356,7 +356,8 @@
     self.inputTextView.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
 
     //录制
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width-44, 34)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.recordButton.userInteractionEnabled = YES;
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatbar_text_background"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
@@ -370,7 +371,7 @@
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-    self.recordButton.center = CGPointMake((CGRectGetWidth(self.toolbarView.frame)-34)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
+    self.recordButton.center = CGPointMake((CGRectGetWidth(self.toolbarView.frame))/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
@@ -575,6 +576,7 @@
 
 - (void)recordButtonTouchDown
 {
+    NSLog(@"recordButtonTouchDown-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchDown];
     }
@@ -586,6 +588,7 @@
 
 - (void)recordButtonTouchUpOutside
 {
+    NSLog(@"recordButtonTouchUpOutside-----");
     if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
     {
         [_delegate didCancelRecordingVoiceAction:self.recordView];
@@ -600,6 +603,7 @@
 
 - (void)recordButtonTouchUpInside
 {
+    NSLog(@"recordButtonTouchUpInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchUpInside];
     }
@@ -614,6 +618,7 @@
 
 - (void)recordDragOutside
 {
+    NSLog(@"recordDragOutside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragOutside];
     }
@@ -626,6 +631,7 @@
 
 - (void)recordDragInside
 {
+    NSLog(@"recordDragInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragInside];
     }
