@@ -113,7 +113,8 @@
     
 //    [self initDataFromCache];
 //    [self loadDataWithPageIndex:0 andFavoriteType:_currentFavoriteType];
-    [self refreshLoadData];
+//    [self refreshLoadData];
+    [self performSelector:@selector(refreshLoadData) withObject:nil afterDelay:0.25];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

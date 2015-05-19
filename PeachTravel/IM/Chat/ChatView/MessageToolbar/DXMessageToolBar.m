@@ -12,6 +12,8 @@
 
 #import "DXMessageToolBar.h"
 
+#define CHAT_PANEL_VIEW_HEIGHT 188
+
 @interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
@@ -105,6 +107,8 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
+        _toolbarView.backgroundColor = APP_PAGE_COLOR;
+        _toolbarView.userInteractionEnabled = YES;
     }
     
     return _toolbarView;
@@ -113,7 +117,7 @@
 - (DXChatBarMoreView *)moreView
 {
     if (!_moreView) {
-        _moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 190) typw:ChatMoreTypeGroupChat];
+        _moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, CHAT_PANEL_VIEW_HEIGHT) typw:ChatMoreTypeGroupChat];
         _moreView.backgroundColor = APP_PAGE_COLOR;
         _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         //将self注册为chatToolBar的moreView的代理
@@ -127,9 +131,9 @@
 - (UIView *)faceView
 {
     if (!_faceView) {
-        _faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 200)];
+        _faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, CHAT_PANEL_VIEW_HEIGHT)];
         [(DXFaceView *)self.faceView setDelegate:self];
-        _faceView.backgroundColor = [UIColor lightGrayColor];
+        _faceView.backgroundColor = APP_PAGE_COLOR;
         _faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
     return _faceView;
@@ -274,9 +278,14 @@
 //    [self addSubview:self.backgroundImageView];
     
     self.toolbarView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), kVerticalPadding * 2 + kInputTextViewMinHeight);
-    UIView *shadowImg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 1.0)];
-    shadowImg.backgroundColor = APP_THEME_COLOR;
+    UIView *shadowImg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.5)];
+    shadowImg.backgroundColor = [UIColor lightGrayColor];
     [self.toolbarView addSubview:shadowImg];
+    
+    UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.5, CGRectGetWidth(self.bounds), 0.5)];
+    shadowImgBottom.backgroundColor = GRAY_COLOR;
+    [self.toolbarView addSubview:shadowImgBottom];
+    
     [self addSubview:self.toolbarView];
 }
 
@@ -347,7 +356,7 @@
     self.inputTextView.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
 
     //录制
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width*3/4, 34)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width-44, 34)];
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatbar_text_background"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
@@ -356,14 +365,13 @@
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
     [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
     self.recordButton.hidden = YES;
-    self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-    self.recordButton.hidden = YES;
-    self.recordButton.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
+    self.recordButton.center = CGPointMake((CGRectGetWidth(self.toolbarView.frame)-34)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
@@ -393,11 +401,15 @@
     if (bottomHeight == 0) {
         self.isShowButtomView = NO;
     }
-    else{
+    else
+    {
         self.isShowButtomView = YES;
     }
     
-    self.frame = toFrame;
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       self.frame = toFrame;
+    } completion:^(BOOL finished) {
+    }];
     
     if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
         [_delegate didChangeFrameToHeight:toHeight];
@@ -521,12 +533,8 @@
                 }
                 
                 [self willShowBottomView:self.faceView];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    self.recordButton.hidden = button.selected;
-                    self.inputTextView.hidden = !button.selected;
-                } completion:^(BOOL finished) {
-                    
-                }];
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
             } else {
                 if (!self.styleChangeButton.selected) {
                     [self.inputTextView becomeFirstResponder];
@@ -550,12 +558,8 @@
                 }
 
                 [self willShowBottomView:self.moreView];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    self.recordButton.hidden = button.selected;
-                    self.inputTextView.hidden = !button.selected;
-                } completion:^(BOOL finished) {
-                    
-                }];
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
             }
             else
             {

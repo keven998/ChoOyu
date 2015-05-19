@@ -46,19 +46,20 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
-    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [planBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+    UIButton *planBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 38, 44)];
+    [planBtn setImage:[UIImage imageNamed:@"ic_add_city.png"] forState:UIControlStateNormal];
     [planBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
     
-    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
     [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
     
-    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_2"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateHighlighted];
     [_favoriteBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateSelected];
     
     
@@ -367,7 +368,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 - (void)updateCityHeaderView
 {
     [UIView animateWithDuration:0.2 animations:^{
-        [self.tableView setFrame:CGRectMake(10, _cityHeaderView.frame.size.height+10, _tableView.frame.size.width, _tableView.frame.size.height)];
+        [self.tableView setFrame:CGRectMake(0, _cityHeaderView.frame.size.height+10, _tableView.frame.size.width, _tableView.frame.size.height)];
     } completion:nil];
     
     [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, _tableView.frame.origin.y+_tableView.frame.size.height)];
@@ -402,21 +403,21 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
     view.backgroundColor = [UIColor whiteColor];
     
-    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 108, 20)];
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, width, 20)];
     text.text = @"精选游记";
-    text.textColor = TEXT_COLOR_TITLE;
-    text.font = [UIFont boldSystemFontOfSize:16.0];
+    text.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    text.font = [UIFont boldSystemFontOfSize:17.0];
+    text.textAlignment = NSTextAlignmentCenter;
     text.userInteractionEnabled = YES;
     [view addSubview:text];
     
-    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 118, 4, 108, 36)];
+    UIButton *allNotes = [[UIButton alloc] initWithFrame:CGRectMake(width - 118, 4, 118, 36)];
     [allNotes setTitle:@"更多" forState:UIControlStateNormal];
-    [allNotes setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-    [allNotes setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    allNotes.titleLabel.font = [UIFont systemFontOfSize:12.0];
-    [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
-    allNotes.imageEdgeInsets = UIEdgeInsetsMake(2, 100, 0, 0);
-    allNotes.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 18);
+    [allNotes setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    allNotes.titleLabel.font = [UIFont systemFontOfSize:13.0];
+//    [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
+//    allNotes.imageEdgeInsets = UIEdgeInsetsMake(2, 100, 0, 0);
+    allNotes.titleEdgeInsets = UIEdgeInsetsMake(10, 0, 0, 14);
     allNotes.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [allNotes addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:allNotes];

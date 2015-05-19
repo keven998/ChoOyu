@@ -73,7 +73,6 @@ static NSString *cacheName = @"destination_demostic_group";
 
             }
         });
-
     }];
 }
 

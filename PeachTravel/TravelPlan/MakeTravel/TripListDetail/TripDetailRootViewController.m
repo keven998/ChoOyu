@@ -690,7 +690,6 @@
 
 - (void)customizeTabBarForController
 {
-    
     _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5, self.view.frame.size.width-38, 49)];
     _tabBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _tabBarView.backgroundColor = APP_PAGE_COLOR;

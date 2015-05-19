@@ -22,6 +22,7 @@
         _signature = [json objectForKey:@"signature"];
         _roles = [json objectForKey:@"roles"];
         _travels = [json objectForKey:@"tracks"];
+        _birthday = [json objectForKey:@"birthday"];
     }
     return self;
 }
@@ -35,7 +36,7 @@
         id vals = [_travels objectForKey:key];
         cityCount += [vals count];
     }
-    return [NSString stringWithFormat:@"%ld国 %d城市", count, cityCount];
+    return [NSString stringWithFormat:@"%ld个国家 %d个城市", count, cityCount];
 }
 
 - (NSString *)getRolesDescription {
