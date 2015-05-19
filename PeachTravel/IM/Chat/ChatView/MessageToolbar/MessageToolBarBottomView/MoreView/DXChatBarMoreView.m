@@ -36,8 +36,8 @@
     
     _myStrategyButton = [TZButton buttonWithType:UIButtonTypeCustom];
     [_myStrategyButton setFrame:CGRectMake(INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    _myStrategyButton.topSpaceHight = 18;
-    _myStrategyButton.spaceHight = 10;
+    _myStrategyButton.topSpaceHight = 13;
+    _myStrategyButton.spaceHight = 5;
     [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_normal"] forState:UIControlStateNormal];
     [_myStrategyButton setImage:[UIImage imageNamed:@"journey_list_selected"] forState:UIControlStateHighlighted];
     [_myStrategyButton addTarget:self action:@selector(myStrategyAction) forControlEvents:UIControlEventTouchUpInside];
@@ -50,8 +50,8 @@
     [self addSubview:_myStrategyButton];
     
     _myFavoriteButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _myFavoriteButton.topSpaceHight = 18;
-    _myFavoriteButton.spaceHight = 10;
+    _myFavoriteButton.topSpaceHight = 13;
+    _myFavoriteButton.spaceHight = 5;
     [_myFavoriteButton setFrame:CGRectMake(spaceWidth + CHAT_BUTTON_SIZE+INSETS, 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_normal"] forState:UIControlStateNormal];
     [_myFavoriteButton setImage:[UIImage imageNamed:@"ic_surch_selectd"] forState:UIControlStateHighlighted];
@@ -66,10 +66,9 @@
     
     
     _destinationButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _destinationButton.topSpaceHight = 18;
-    _destinationButton.spaceHight = 10;
-
-    [_destinationButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE+10)];
+    _destinationButton.topSpaceHight = 10;
+    _destinationButton.spaceHight = 5;
+    [_destinationButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_destinationButton setImage:[UIImage imageNamed:@"ic_here_normal"] forState:UIControlStateNormal];
     [_destinationButton setImage:[UIImage imageNamed:@"ic_here_selected"] forState:UIControlStateHighlighted];
     [_destinationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
@@ -79,13 +78,13 @@
     _destinationButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _destinationButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _destinationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _destinationButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-    _destinationButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
+//    _destinationButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
+//    _destinationButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_destinationButton];
     
     _travelNoteButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _travelNoteButton.topSpaceHight =18;
-    _travelNoteButton.spaceHight = 10;
+    _travelNoteButton.topSpaceHight = 13;
+    _travelNoteButton.spaceHight = 5;
     [_travelNoteButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
 //    [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_normal"] forState:UIControlStateNormal];
@@ -97,13 +96,13 @@
     _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _travelNoteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
+//    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
+//    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_travelNoteButton];
     
     _photoButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _photoButton.topSpaceHight = 18;
-    _photoButton.spaceHight = 10;
+    _photoButton.topSpaceHight = 10;
+    _photoButton.spaceHight = 5;
 //    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_photoButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_photoButton setImage:[UIImage imageNamed:@"ic_picture_normal"] forState:UIControlStateNormal];
@@ -115,13 +114,13 @@
     _photoButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _photoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _photoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _photoButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-    _photoButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
+//    _photoButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
+//    _photoButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_photoButton];
     
     _takePicButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _takePicButton.topSpaceHight = 18;
-    _takePicButton.spaceHight = 10;
+    _takePicButton.topSpaceHight = 10;
+    _takePicButton.spaceHight = 5;
     [_takePicButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_normal"] forState:UIControlStateNormal];
     [_takePicButton setImage:[UIImage imageNamed:@"ic_camieor_selected"] forState:UIControlStateHighlighted];
@@ -132,8 +131,8 @@
     _takePicButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _takePicButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _takePicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _takePicButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-    _takePicButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
+//    _takePicButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
+//    _takePicButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 20.0, 0.0);
     [self addSubview:_takePicButton];
     
 //    _locationButton =[UIButton buttonWithType:UIButtonTypeCustom];
