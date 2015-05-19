@@ -281,7 +281,7 @@
     [self.toolbarView addSubview:shadowImg];
     
     UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.5, CGRectGetWidth(self.bounds), 0.5)];
-    shadowImgBottom.backgroundColor = APP_DIVIDER_COLOR;
+    shadowImgBottom.backgroundColor = GRAY_COLOR;
     [self.toolbarView addSubview:shadowImgBottom];
     
     [self addSubview:self.toolbarView];
@@ -405,7 +405,10 @@
         self.isShowButtomView = YES;
     }
     
-    self.frame = toFrame;
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       self.frame = toFrame;
+    } completion:^(BOOL finished) {
+    }];
     
     if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
         [_delegate didChangeFrameToHeight:toHeight];
@@ -529,12 +532,8 @@
                 }
                 
                 [self willShowBottomView:self.faceView];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    
-                } completion:^(BOOL finished) {
-                    self.recordButton.hidden = button.selected;
-                    self.inputTextView.hidden = !button.selected;
-                }];
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
             } else {
                 if (!self.styleChangeButton.selected) {
                     [self.inputTextView becomeFirstResponder];
@@ -558,12 +557,8 @@
                 }
 
                 [self willShowBottomView:self.moreView];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    self.recordButton.hidden = button.selected;
-                    self.inputTextView.hidden = !button.selected;
-                } completion:^(BOOL finished) {
-                    
-                }];
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
             }
             else
             {
