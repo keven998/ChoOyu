@@ -429,6 +429,7 @@
     else if (indexPath.section == 2){
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"旅行足迹";
+        
         cell.backgroundColor = [UIColor whiteColor];
         cell.footPrint.text = @"上海 北京 杭州";
         return cell;
@@ -439,21 +440,21 @@
         cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
+//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
                 cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
+//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
 //                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.self.accountManager.accountDetail.basicUserInfo.userId intValue]];
                 NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
                 cell.cellDetail.text = [user objectForKey:@"status"];
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
+//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
 
 
             } else if (indexPath.row == 1) {
-                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
+//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
                 
             }
         }

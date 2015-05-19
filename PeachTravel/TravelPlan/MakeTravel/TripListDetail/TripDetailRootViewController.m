@@ -142,7 +142,7 @@
     if (isEditing) {
         _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_xingchengdan_queding"] forState:UIControlStateNormal];
 //        [_editBtn setTitle:@"保存" forState:UIControlStateSelected];
         [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
@@ -283,6 +283,8 @@
                     [hud hideTZHUD];
                     if (isSuccesss) {
                         [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+                        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                        [center postNotificationName:updateGuideListNoti object:nil];
                     } else {
                         [SVProgressHUD showHint:@"保存失败了～"];
                     }
@@ -466,7 +468,7 @@
     [MobClick event:@"event_share_plan_detail"];
     NSArray *shareButtonimageArray = @[@"ic_sns_talk.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
     NSArray *shareButtonTitleArray = @[@"Talk", @"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
-    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
+    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.view];
 }
 

@@ -61,6 +61,7 @@
     
     _tableView = ({
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, WIDTH, HEIGHT-30) style:UITableViewStyleGrouped];
+        
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -168,6 +169,7 @@
         CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
         cell.cityName.text = model.zhName;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle=UITableViewCellSelectionStyleDefault;
         return cell;
     }
     return 0;
@@ -182,16 +184,16 @@
             [self share:nil];
         }
         
-    }
-    
-    if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc]init];
             CityDestinationPoi *model = _tripDetail.destinations[indexPath.row];
             cityCtl.cityId = model.cityId;
             [self.navigationController pushViewController:cityCtl animated:YES];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES ];
     
 }
+
 -(void)shareOnTaozi
 {
     _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
@@ -205,7 +207,7 @@
     [MobClick event:@"event_share_plan_detail"];
     NSArray *shareButtonimageArray = @[@"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
     NSArray *shareButtonTitleArray = @[@"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
-    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
+    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.view];
 }
 #pragma mark - CreateConversationDelegate

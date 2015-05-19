@@ -28,19 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.automaticallyAdjustsScrollViewInsets 
-//    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-//    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
-//    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-//    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-//    [self.view addSubview:_backGroundImageView];
-//    [self.view addSubview:view];
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
-//    tap.numberOfTapsRequired = 1;
-//    tap.numberOfTouchesRequired = 1;
-//    [view addGestureRecognizer:tap];
+    self.view.backgroundColor = [UIColor whiteColor];
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
@@ -159,19 +148,6 @@
     
 }
 
-- (void)dismissCtlWithHint:(NSString *)hint {
-    [SVProgressHUD showHint:hint];
-    self.navigationController.navigationBar.hidden = NO;
-    [UIView animateWithDuration:0.0 animations:^{
-        self.view.alpha = 0;
-    } completion:^(BOOL finished) {
-//        [self willMoveToParentViewController:nil];
-//        [self.view removeFromSuperview];
-//        [self removeFromParentViewController];
-//        [self.navigationController popViewControllerAnimated:YES];
-    }];
-}
-
 - (void)dealloc
 {
     NSLog(@"citydetailCtl dealloc");
@@ -180,17 +156,6 @@
 
 
 #pragma mark - Private Methods
-
-- (UIImage *)screenShotWithView:(UIView *)view
-{
-    UIGraphicsBeginImageContext(view.bounds.size);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
-    image = [UIImage imageWithData:imageData];
-    return image;
-}
 
 - (void) loadData
 {
@@ -217,12 +182,10 @@
             self.poi = [[SpotPoi alloc] initWithJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
-            [self dismissCtlWithHint:@"无法获取数据"];
         }
         _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
-        [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
 
     

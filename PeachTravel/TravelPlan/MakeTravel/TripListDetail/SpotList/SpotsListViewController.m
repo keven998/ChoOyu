@@ -121,6 +121,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
             }
         }
     }];
+
 }
 
 - (void)insertDay:(BOOL)before currentDay:(NSInteger)currentDay {
@@ -143,6 +144,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void) updateRoute {
     [self.tableView reloadData];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:updateGuideListNoti object:nil];
 }
 
 - (void)mapView
@@ -160,6 +163,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 - (void)updateTableView
 {
     [self.tableView reloadData];
+
 }
 
 - (void)setShouldEdit:(BOOL)shouldEdit
@@ -199,6 +203,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [alertView setMessageColor:TEXT_COLOR_TITLE_HINT];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView setCancelButtonTextColor:[UIColor redColor]];
+    
 }
 
 #pragma mark - AddPoiDelegate
@@ -268,7 +273,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
                 [dest appendString:s];
             }
         }
-    } else {
+    } else if ([_tripDetail.itineraryList objectAtIndex:section] == 0) {
         [dest appendString:@"没有安排"];
     }
     

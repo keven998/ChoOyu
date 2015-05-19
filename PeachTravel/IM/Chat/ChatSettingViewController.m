@@ -8,8 +8,11 @@
 
 #import "ChatSettingViewController.h"
 
-@interface ChatSettingViewController ()
-
+@interface ChatSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    UITableView *_tableView;
+    UIView *_headerView;
+}
 @end
 
 @implementation ChatSettingViewController
@@ -17,7 +20,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"聊天设置";
+    [self createTableView];
+}
+-(void)createTableView
+{
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = APP_PAGE_COLOR;
+    _tableView.separatorColor = APP_DIVIDER_COLOR;
+    _tableView.delegate = self;
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"HeaderCell" bundle:nil] forCellReuseIdentifier:@"zuji"];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self createHeaderView];
+    [self.view addSubview:_tableView];
+}
+-(void)createHeaderView
+{
+    _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (98+76+31)/2)];
+    UIButton *deleteBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 49)];
+    [deleteBtn setTitle:@"删除聊天记录" forState:UIControlStateNormal];
+    [deleteBtn setTitleEdgeInsets:UIEdgeInsetsZero];
+    [_headerView addSubview:deleteBtn];
+    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(28, 49, SCREEN_WIDTH, 1)];
+    divide.backgroundColor = APP_DIVIDER_COLOR;
+    [_headerView addSubview:divide];
+    
+    _tableView.tableHeaderView = _headerView;
+    
+}
+#pragma mark - Table view data source
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 49;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    return cell;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -31,11 +82,6 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_talk_setting"];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 
 - (IBAction)deleteContact:(id)sender {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认清空全部聊天记录" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];

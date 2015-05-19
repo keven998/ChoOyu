@@ -433,6 +433,9 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusableCellIdentifier];
 
     if (poi.poiType == kRestaurantPoi || poi.poiType == kShoppingPoi || poi.poiType == kHotelPoi || poi.poiType == kSpotPoi) {
+        if ([poi.address isBlankString]||poi.address.length == 0) {
+            poi.address = poi.zhName;
+        }
         TaoziImage *image = [poi.images firstObject];
         [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
         cell.titleLabel.text = poi.zhName;

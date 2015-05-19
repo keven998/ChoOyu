@@ -110,7 +110,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
-//    self.tableView.tableHeaderView = _searchBar;
+    self.tableView.tableHeaderView = _searchBar;
     
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
@@ -603,6 +603,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         poiCell.cellAction.tag = indexPath.row;
         [poiCell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
         [poiCell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
+        [poiCell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
         poiCell.cellAction.selected = isAdded;
         [poiCell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];

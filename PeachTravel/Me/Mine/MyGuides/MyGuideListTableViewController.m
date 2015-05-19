@@ -364,10 +364,6 @@ static NSString *reusableCell = @"myGuidesCell";
         completed(NO);
     }];
 }
-
-/**
- *  获取我的攻略列表
- */
 - (void)loadDataWithPageIndex:(NSInteger)pageIndex
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -382,7 +378,7 @@ static NSString *reusableCell = @"myGuidesCell";
     if (_isExpert) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", _userId] forHTTPHeaderField:@"UserId"];
     }else{
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:(kWindowWidth-22)*2];
@@ -397,13 +393,14 @@ static NSString *reusableCell = @"myGuidesCell";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取我的攻略列表
-//    NSString *url = [[NSString alloc]init];
-//    if (_isExpert) {
-//        url = [NSString stringWithFormat:@"%@%@",API_GET_GUIDELIST_EXPERT,self.userId];
-//    }else{
-//        url = API_GET_GUIDELIST;
-//    }
-//    
+    //    NSString *url = [[NSString alloc]init];
+    //    if (_isExpert) {
+    //        url = [NSString stringWithFormat:@"%@%@",API_GET_GUIDELIST_EXPERT,self.userId];
+    //    }else{
+    //        url = API_GET_GUIDELIST;
+    //    }
+    //
+    NSLog(@"%@wode ",API_GET_GUIDELIST);
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -430,6 +427,8 @@ static NSString *reusableCell = @"myGuidesCell";
         [self showHint:@"呃～好像没找到网络"];
     }];
 }
+
+
 
 - (void) cacheFirstPage:(id)responseObject {
     if (_isTrip) return;

@@ -189,7 +189,8 @@
 //    sheet.tag = sender.tag;
 
     NSInteger tag = _swipeView.currentItemView.tag;
-    SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:tag];
+    NSInteger tag1 = sender.tag;
+    SuperPoi *poi = [[_dataSource objectAtIndex:tag] objectAtIndex:tag1];
     [ConvertMethods jumpAppleMapAppWithPoiName:poi.zhName lat:poi.lat lng:poi.lng];
 }
 

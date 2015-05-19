@@ -193,11 +193,13 @@
     [_travelBtn setTitle:content forState:UIControlStateNormal];
     _travelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:_travelBtn];
-    
+    if ([_spot.timeCostStr isBlankString]||!_spot.timeCostStr) {
+        
+    }else{
     NSMutableString *content1 = [[NSMutableString alloc] init];
-    if (_spot.timeCostStr && ![_spot.timeCostStr isBlankString]) {
+//    if (_spot.timeCostStr && ![_spot.timeCostStr isBlankString]) {
         [content1 appendString:[NSString stringWithFormat:@"建议游玩:\n"]];
-    }
+//    }
     [content1 appendString:[NSString stringWithFormat:@"开放时间:"]];
 
     UILabel *travelLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
@@ -216,6 +218,7 @@
     UIView *spaceView3 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
     spaceView3.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView3];
+    }
     
     if ([_spot.telephone isBlankString]||_spot.telephone == nil) {
         

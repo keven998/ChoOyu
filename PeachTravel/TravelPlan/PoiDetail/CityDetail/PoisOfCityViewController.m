@@ -793,6 +793,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         cell.cellAction.hidden = NO;
         [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
         [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
+        [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
         BOOL isAdded = NO;
         for (SuperPoi *tripPoi in _seletedArray) {
             if ([tripPoi.poiId isEqualToString:poi.poiId]) {

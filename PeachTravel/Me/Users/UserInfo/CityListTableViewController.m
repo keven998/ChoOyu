@@ -65,6 +65,11 @@
         if (isSuccess) {
             [SVProgressHUD showHint:@"修改成功"];
             [self.navigationController popViewControllerAnimated:YES];
+            [hud hideTZHUD];
+        }
+        else{
+            [SVProgressHUD showHint:@"失败"];
+            [hud hideTZHUD];
         }
     }];
 }

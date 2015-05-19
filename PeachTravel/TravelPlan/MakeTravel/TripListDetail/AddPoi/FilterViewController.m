@@ -109,15 +109,37 @@
 - (void)selectComplete {
     
 }
+//- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+//    if (_filterType == FILTER_TYPE_CITY) {
+//        if (_currentCityIndex == indexPath.row) {
+//            return;
+//        }
+//        _cityName = str;
+//        _currentCityIndex = indexPath.row;
+//        [self resetContents];
+//        [MobClick event:@"event_filter_city"];
+//    } else if (_filterType == FILTER_TYPE_CATE) {
+//        if (_currentListTypeIndex == indexPath.row) {
+//            return;
+//        }
+//        _currentCategory = str;
+//        _currentListTypeIndex = indexPath.row;
+//        [MobClick event:@"event_filter_items"];
+//        [self resetContents];
+//    }
+//}
 
-/*
-#pragma mark - Navigation
+//- (void) resetContents {
+//    _isLoadingMoreNormal = YES;
+//    _didEndScrollNormal = YES;
+//    _enableLoadMoreNormal = NO;
+//    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+//    _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
+//    [self.dataSource removeAllObjects];
+//    [self.tableView reloadData];
+//    _currentPageNormal = 0;
+//    [self loadDataWithPageNo:_currentPageNormal];
+//}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

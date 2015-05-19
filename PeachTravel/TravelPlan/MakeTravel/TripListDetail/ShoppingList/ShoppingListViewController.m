@@ -14,7 +14,7 @@
 #import "CityDetailTableViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
-
+#import "ShoppingDetailViewController.h"
 @interface ShoppingListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -304,11 +304,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SuperPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
-    CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
+    CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
     shoppingDetailCtl.poiId = tripPoi.poiId;
     shoppingDetailCtl.poiType = kShoppingPoi;
-//    [self.rootViewController addChildViewController:shoppingDetailCtl];
-//    [self.rootViewController.view addSubview:shoppingDetailCtl.view];
     [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
 }
 

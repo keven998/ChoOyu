@@ -16,10 +16,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lk0-tg-DN0">
-                        <rect key="frame" x="72" y="11" width="100" height="21"/>
+                        <rect key="frame" x="72" y="11" width="200" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="ix7-MP-YaY"/>
-                            <constraint firstAttribute="width" constant="100" id="pSx-Oo-TwK"/>
+                            <constraint firstAttribute="width" constant="200" id="pSx-Oo-TwK"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

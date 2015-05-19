@@ -283,12 +283,13 @@
         [self.navigationController pushViewController:listCtl animated:YES];
     }else if (indexPath.section == 2){
         MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
-//        ctl.pois = _tripDetail.itineraryList;
-        ctl.currentDay = 0;
+        ctl.pois = _model.travels;
+//        ctl.currentDay = 0;
 //        ctl.titleText = _tripDetail.tripTitle;
         [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
         [self presentViewController:nCtl animated:YES completion:nil];
+        
     }
 }
 -(void)back
