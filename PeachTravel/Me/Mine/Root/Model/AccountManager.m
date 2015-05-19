@@ -322,6 +322,38 @@
     }];
 }
 
+- (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newStatus forKey:@"travelStatus"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateUserInfo:newStatus withChangeType:ChangeGender];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+}
+
 /**
  *  更新用户信息
  *
@@ -409,6 +441,7 @@
     _account.avatar = [json objectForKey:@"avatar"];
     _account.avatarSmall = [json objectForKey:@"avatarSmall"];
     _account.gender = [json objectForKey:@"gender"];
+    _account.status = [json objectForKey:@"travelStatus"];
     if (!_account.gender) {
         _account.gender = @"U";
     }

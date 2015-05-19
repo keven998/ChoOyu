@@ -112,7 +112,13 @@
  *  @param completion
  */
 - (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
-
+/**
+ *  修改用户的状态
+ *
+ *  @param newStatus  新的状态
+ *  @param completion
+ */
+- (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 /**
  *  修改用户的生日
  *

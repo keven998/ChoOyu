@@ -50,7 +50,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [planBtn setImage:[UIImage imageNamed:@"ic_add_city.png"] forState:UIControlStateNormal];
     [planBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [planBtn addTarget:self action:@selector(makePlan) forControlEvents:UIControlEventTouchUpInside];
-    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
+//    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:planBtn]];
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 42, 44)];
     [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];

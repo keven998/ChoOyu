@@ -21,7 +21,6 @@
 #import "PXAlertView+Customization.h"
 #import "BaseTextSettingViewController.h"
 #import "JobListViewController.h"
-#import "StatusListViewController.h"
 #import "HeaderCell.h"
 #import "HeaderPictureCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
@@ -36,7 +35,7 @@
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ChangStatusDelegate,ShowPickerDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ShowPickerDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -60,7 +59,7 @@
     self.navigationItem.title = @"我";
     
     [self loadUserInfo];
-
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -198,7 +197,7 @@
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInView:self.view];
-
+    
     NSString *dataStr = [ConvertMethods dateToString:selectedDate withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];
     [self.accountManager asyncChangeBirthday:dataStr completion:^(BOOL isSuccess, NSString *errStr) {
         [hud hideTZHUD];
@@ -225,7 +224,7 @@
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-     __weak typeof(UserInfoTableViewController *)weakSelf = self;
+    __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
     
@@ -233,16 +232,16 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-
+    
     [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
+        //        NSLog(@"%@", responseObject);
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self uploadPhotoToQINIUServer:image withToken:[[responseObject objectForKey:@"result"] objectForKey:@"uploadToken"] andKey:[[responseObject objectForKey:@"result"] objectForKey:@"key"]];
-              
+            
         } else {
-             if (self.isShowing) {
+            if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
             }
         }
@@ -263,28 +262,28 @@
  *  @param key         上传的 key
  */
 - (void)uploadPhotoToQINIUServer:(UIImage *)image withToken:(NSString *)uploadToken andKey:(NSString *)key
- {
-     NSData *data = UIImageJPEGRepresentation(image, 1.0);
-     QNUploadManager *upManager = [[QNUploadManager alloc] init];
+{
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    QNUploadManager *upManager = [[QNUploadManager alloc] init];
     
-     [self.HUD showInView:self.view animated:YES];
-     
-     typedef void (^QNUpProgressHandler)(NSString *key, float percent);
-     
-     QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"text/plain"
-                                                progressHandler:^(NSString *key, float percent) {
-                                                    [self incrementWithProgress:percent];}
-                                                         params:@{ @"x:foo":@"fooval" }
-                                                       checkCrc:YES
-                                             cancellationSignal:nil];
-     
-     [upManager putData:data key:key token:uploadToken
-               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                   [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
-                   [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
-                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-               } option:opt];
-     
+    [self.HUD showInView:self.view animated:YES];
+    
+    typedef void (^QNUpProgressHandler)(NSString *key, float percent);
+    
+    QNUploadOption *opt = [[QNUploadOption alloc] initWithMime:@"text/plain"
+                                               progressHandler:^(NSString *key, float percent) {
+                                                   [self incrementWithProgress:percent];}
+                                                        params:@{ @"x:foo":@"fooval" }
+                                                      checkCrc:YES
+                                            cancellationSignal:nil];
+    
+    [upManager putData:data key:key token:uploadToken
+              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                  [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
+                  [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
+                  [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+              } option:opt];
+    
 }
 
 - (JGProgressHUD *)HUD {
@@ -374,7 +373,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
+    
     if ((indexPath.section == 0 && indexPath.row == 0)) {
         
         
@@ -383,7 +382,7 @@
     }
     else if (indexPath.section == 2)
     {
-
+        
         return 90;
         
     }
@@ -395,10 +394,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
-//        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
-//        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
-//        cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-//        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        //        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
+        //        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
+        //        cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
+        //        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
         cell.delegate = self;
@@ -418,25 +417,24 @@
         cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
-//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
+                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
                 cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
-                
-                
+//                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.status;
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
-//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
-
-
+                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
+                
+                
             } else if (indexPath.row == 1) {
-//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
+                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
                 
             }
         }
-
-        else if (indexPath.section == 3){
         
+        else if (indexPath.section == 3){
+            
             cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
         }
         else if (indexPath.section == 4) {
@@ -477,12 +475,16 @@
             [MobClick event:@"event_update_nick"];
             [self changeUserName];
         } else if (indexPath.row == 2) {
-//            [self showHint:@"猥琐攻城师不让修改这个～"];
+            //            [self showHint:@"猥琐攻城师不让修改这个～"];
             
-            StatusListViewController *svc = [[StatusListViewController alloc]init];
-            svc.dataArray = @[@"正在准备旅行",@"旅行中",@"旅行灵感时期",@"不知道"];
+            SelectionTableViewController *svc = [[SelectionTableViewController alloc]init];
+            svc.contentItems = @[@"正在准备旅行", @"旅行中", @"旅行灵感时期", @"不知道"];
+            svc.titleTxt = @"状态";
             svc.delegate = self;
-            [self.navigationController pushViewController:svc animated:YES];
+            svc.selectItem = self.navigationItem.rightBarButtonItem.title;
+            TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:svc];
+            _updateUserInfoType = 2;
+            [self presentViewController:nav animated:YES completion:nil];
         }
         
     } else if (indexPath.section ==  1) {
@@ -492,17 +494,17 @@
             
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
-
+            
             [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
             
-            } else if (indexPath.row == 1) {
-                [MobClick event:@"event_update_password"];
-                ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
-                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-                
-                
-//            [MobClick event:@"event_update_memo"];
-//            [self changeUserMark];
+        } else if (indexPath.row == 1) {
+            [MobClick event:@"event_update_password"];
+            ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            
+            
+            //            [MobClick event:@"event_update_memo"];
+            //            [self changeUserMark];
         }
         
         
@@ -515,7 +517,7 @@
         
         [MobClick event:@"event_update_memo"];
         [self changeUserMark];
-
+        
     } else if (indexPath.section == 4) {
         if (indexPath.row == 0) {
             [MobClick event:@"event_update_gender"];
@@ -538,34 +540,56 @@
             TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:cityListCtl];
             [self presentViewController:navc animated:YES completion:nil];
         }
-//        else if (indexPath.row == 3){
-//            JobListViewController *jvc = [[JobListViewController alloc]init];
-//            jvc.delegate = self;
-//            jvc.dataArray = @[@"女博士",@"女硕士",@"女北大硕士",@"女清华硕士",@"女清华博士",@"女北大硕士",@"逗比"];
-//            [self.navigationController pushViewController:jvc animated:YES];
-//            
-//        }
+        //        else if (indexPath.row == 3){
+        //            JobListViewController *jvc = [[JobListViewController alloc]init];
+        //            jvc.delegate = self;
+        //            jvc.dataArray = @[@"女博士",@"女硕士",@"女北大硕士",@"女清华硕士",@"女清华博士",@"女北大硕士",@"逗比"];
+        //            [self.navigationController pushViewController:jvc animated:YES];
+        //
+        //        }
     }
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - SelectDelegate
 
 - (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-//    [_tableView reloadData];
+    //    [_tableView reloadData];
     if (_updateUserInfoType == 1) {
         [self updateGender:indexPath];
+    }else if(_updateUserInfoType == 2){
+        [self updateStatus:indexPath];
     }
 }
-
+-(void) updateStatus:(NSIndexPath *)selectIndex{
+    NSString *str = [[NSString alloc]init];
+    if (selectIndex.row == 0) {
+        str = @"正在准备旅行";
+    }else if (selectIndex.row == 1){
+        str = @"旅行中";
+    }else if (selectIndex.row == 2){
+        str = @"旅行灵感时期";
+    }
+    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    [accountManager asyncChangeStatus:str completion:^(BOOL isSuccess, NSString *errStr) {
+        if (!isSuccess) {
+            [SVProgressHUD showHint:@"网络请求失败"];
+        }
+        [hud hideTZHUD];
+    }];
+}
 - (void) updateGender:(NSIndexPath *)selectIndex {
-    NSString *str = @"U";
+    NSString *str = [[NSString alloc]init];
     if (selectIndex.row == 0) {
         str = @"F";
-    }
-    else if (selectIndex.row == 1){
+    }else if (selectIndex.row == 1){
         str = @"M";
+    }else if (selectIndex.row == 2){
+        str = @"U";
     }
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -585,7 +609,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-   
+    
     UIImage *headerImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
     
@@ -617,14 +641,14 @@
 }
 
 - (void)changeUserMark {
-//    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-//    bsvc.navTitle = @"个性签名";
-//    bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
-//    bsvc.acceptEmptyContent = YES;
-//    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-//        [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
-//    };
-//    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+    //    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
+    //    bsvc.navTitle = @"个性签名";
+    //    bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
+    //    bsvc.acceptEmptyContent = YES;
+    //    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
+    //        [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
+    //    };
+    //    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
     SignatureViewController *bsvc = [[SignatureViewController alloc]init];
     bsvc.navTitle = @"个性签名";
     bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;

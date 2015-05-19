@@ -291,7 +291,7 @@
         
     }
     else{
-    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width-8, 65)];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -447,7 +447,7 @@
 
     [_scrollView addSubview:commentTitle];
     
-    
+    if (_spot.comments.count != 0){
     UIButton *moreCommentBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-80, offsetY, 80, 40)];
     [moreCommentBtn setTitle:@"更多点评>>" forState:UIControlStateNormal];
     [moreCommentBtn addTarget:self action:@selector(showMoreComments:) forControlEvents:UIControlEventTouchUpInside];
@@ -456,7 +456,7 @@
     [moreCommentBtn setTitleColor:APP_SUB_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     moreCommentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [_scrollView addSubview:moreCommentBtn];
-    
+    }
     offsetY += 40;
     
     if (_spot.comments.count >= 1) {

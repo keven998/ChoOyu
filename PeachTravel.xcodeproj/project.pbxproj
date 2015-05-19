@@ -45,7 +45,6 @@
 		27B9FAB61AFB284300EEBF07 /* ic_ztl_sc_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B9FAAE1AFB284300EEBF07 /* ic_ztl_sc_2@2x.png */; };
 		27B9FAB71AFB284300EEBF07 /* ic_ztl_tj@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B9FAAF1AFB284300EEBF07 /* ic_ztl_tj@2x.png */; };
 		27F4043C1AF0C73100CEA095 /* JobListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F4043B1AF0C73100CEA095 /* JobListViewController.m */; };
-		27F404461AF0DFE700CEA095 /* StatusListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F404451AF0DFE700CEA095 /* StatusListViewController.m */; };
 		27F411E01AEF5CA1009D6C2B /* DomesticScreeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411D51AEF5CA1009D6C2B /* DomesticScreeningViewController.m */; };
 		27F411E11AEF5CA1009D6C2B /* ForeignScreeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411D71AEF5CA1009D6C2B /* ForeignScreeningViewController.m */; };
 		27F411E21AEF5CA1009D6C2B /* ScreeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411D91AEF5CA1009D6C2B /* ScreeningViewController.m */; };
@@ -916,8 +915,6 @@
 		27B9FAAF1AFB284300EEBF07 /* ic_ztl_tj@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_ztl_tj@2x.png"; sourceTree = "<group>"; };
 		27F4043A1AF0C73100CEA095 /* JobListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobListViewController.h; sourceTree = "<group>"; };
 		27F4043B1AF0C73100CEA095 /* JobListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobListViewController.m; sourceTree = "<group>"; };
-		27F404441AF0DFE700CEA095 /* StatusListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListViewController.h; sourceTree = "<group>"; };
-		27F404451AF0DFE700CEA095 /* StatusListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListViewController.m; sourceTree = "<group>"; };
 		27F411D41AEF5CA1009D6C2B /* DomesticScreeningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticScreeningViewController.h; sourceTree = "<group>"; };
 		27F411D51AEF5CA1009D6C2B /* DomesticScreeningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticScreeningViewController.m; sourceTree = "<group>"; };
 		27F411D61AEF5CA1009D6C2B /* ForeignScreeningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForeignScreeningViewController.h; sourceTree = "<group>"; };
@@ -2287,15 +2284,6 @@
 				27F4043B1AF0C73100CEA095 /* JobListViewController.m */,
 			);
 			name = JobList;
-			sourceTree = "<group>";
-		};
-		27F4043D1AF0DD8200CEA095 /* StatusList */ = {
-			isa = PBXGroup;
-			children = (
-				27F404441AF0DFE700CEA095 /* StatusListViewController.h */,
-				27F404451AF0DFE700CEA095 /* StatusListViewController.m */,
-			);
-			name = StatusList;
 			sourceTree = "<group>";
 		};
 		27F411D21AEF5CA1009D6C2B /* Screening 筛选 */ = {
@@ -4556,7 +4544,6 @@
 				27951B6E1AF86C46004D69BE /* PicCell.h */,
 				27951B6F1AF86C46004D69BE /* PicCell.m */,
 				27951B701AF86C46004D69BE /* PicCell.xib */,
-				27F4043D1AF0DD8200CEA095 /* StatusList */,
 				27F404361AF0C67700CEA095 /* JobList */,
 				D9F46DCD1AC8EB1200972AE8 /* CityListTableViewController */,
 			);
@@ -5907,7 +5894,6 @@
 				D9A8006B1A80DD0C005AD701 /* OptionOfFASKTableViewCell.m in Sources */,
 				D9A800371A80D52F005AD701 /* CommonPoiListTableViewCell.m in Sources */,
 				D9A802091A80E036005AD701 /* EmojiEmoticons.m in Sources */,
-				27F404461AF0DFE700CEA095 /* StatusListViewController.m in Sources */,
 				D9A800241A80D52F005AD701 /* DestinationUnit.m in Sources */,
 				D9A8FEC51A80C818005AD701 /* ConfirmRouteViewController.m in Sources */,
 				D9A801481A80DD23005AD701 /* EMChatViewBaseCell.m in Sources */,

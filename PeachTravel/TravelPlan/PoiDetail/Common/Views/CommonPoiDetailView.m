@@ -180,7 +180,7 @@
     } else {
         _priceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 24)];
         [_scrollView addSubview:_priceBtn];
-        UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(353/2, 0, 100, 27)];
+        UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2.2, 0, _scrollView.bounds.size.width-SCREEN_WIDTH/2.2, 27)];
         priceLabel.text = priceDesc;
         priceLabel.font = [UIFont systemFontOfSize:14];
         priceLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
@@ -208,7 +208,7 @@
     
 //    --------------地    址----------------
     
-    UIButton *addressDetailLabel =  [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 37)];
+    UIButton *addressDetailLabel = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 37)];
     [_scrollView addSubview:addressDetailLabel];
     
     UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, offsetY+12, 11, 16)];
@@ -221,7 +221,7 @@
     [addressDetailLabel addSubview:addressLabel];
     [addressDetailLabel addTarget:self action:@selector(goMap:) forControlEvents:UIControlEventTouchUpInside];
     addressLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    UILabel *address = [[UILabel alloc]initWithFrame:CGRectMake(353/2, 6, 150, 27)];
+    UILabel *address = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2.2, 6, _scrollView.bounds.size.width-SCREEN_WIDTH/2.2-15, 27)];
     address.text = _poi.address;
     address.font = [UIFont systemFontOfSize:14];
     address.textColor = TEXT_COLOR_TITLE_SUBTITLE;
@@ -248,7 +248,7 @@
     } else {
         _telephoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 37)];
         [_scrollView addSubview:_telephoneBtn];
-        UILabel *telephoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(353/2, 6, 100, 27)];
+        UILabel *telephoneNumber = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2.2, 6, _scrollView.bounds.size.width-SCREEN_WIDTH/2.2-15, 27)];
         telephoneNumber.text = priceDesc;
         telephoneNumber.font = [UIFont systemFontOfSize:14];
         telephoneNumber.textColor = TEXT_COLOR_TITLE_SUBTITLE;
@@ -308,7 +308,7 @@
     desImage.image = [UIImage imageNamed:@"spot introduction"];
     [_scrollView addSubview:desImage];
     
-        _descView = [[ResizableView alloc] initWithFrame:CGRectMake(353/2, offsetY, _scrollView.bounds.size.width-353/2-10, 77) andNumberOfLine:4];
+        _descView = [[ResizableView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2.2, offsetY, _scrollView.bounds.size.width-SCREEN_WIDTH/2.2-10, 77) andNumberOfLine:4];
         _descView.contentFont = [UIFont systemFontOfSize:12.0];
         _descView.contentColor = TEXT_COLOR_TITLE_SUBTITLE;
         _descView.content = _poi.desc;
