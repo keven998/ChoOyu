@@ -107,6 +107,8 @@
 {
     if (_toolbarView == nil) {
         _toolbarView = [[UIView alloc] init];
+        _toolbarView.backgroundColor = APP_PAGE_COLOR;
+        _toolbarView.userInteractionEnabled = YES;
     }
     
     return _toolbarView;
@@ -281,7 +283,7 @@
     [self.toolbarView addSubview:shadowImg];
     
     UIView *shadowImgBottom = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolbarView.frame.size.height - 0.5, CGRectGetWidth(self.bounds), 0.5)];
-    shadowImgBottom.backgroundColor = APP_DIVIDER_COLOR;
+    shadowImgBottom.backgroundColor = GRAY_COLOR;
     [self.toolbarView addSubview:shadowImgBottom];
     
     [self addSubview:self.toolbarView];
@@ -354,23 +356,23 @@
     self.inputTextView.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
 
     //录制
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width*3/4, 34)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, 34)];
+    self.recordButton.userInteractionEnabled = YES;
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatbar_text_background@"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatbar_text_background"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     self.recordButton.layer.cornerRadius = 4.0;
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
     [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
     self.recordButton.hidden = YES;
-    self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-    self.recordButton.hidden = YES;
-    self.recordButton.center = CGPointMake(CGRectGetWidth(self.toolbarView.frame)/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
+    self.recordButton.center = CGPointMake((CGRectGetWidth(self.toolbarView.frame))/2.0, CGRectGetHeight(self.toolbarView.frame)/2.0);
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
@@ -405,7 +407,10 @@
         self.isShowButtomView = YES;
     }
     
-    self.frame = toFrame;
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       self.frame = toFrame;
+    } completion:^(BOOL finished) {
+    }];
     
     if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
         [_delegate didChangeFrameToHeight:toHeight];
@@ -529,12 +534,8 @@
                 }
                 
                 [self willShowBottomView:self.faceView];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    
-                } completion:^(BOOL finished) {
-                    self.recordButton.hidden = button.selected;
-                    self.inputTextView.hidden = !button.selected;
-                }];
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
             } else {
                 if (!self.styleChangeButton.selected) {
                     [self.inputTextView becomeFirstResponder];
@@ -558,12 +559,8 @@
                 }
 
                 [self willShowBottomView:self.moreView];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    self.recordButton.hidden = button.selected;
-                    self.inputTextView.hidden = !button.selected;
-                } completion:^(BOOL finished) {
-                    
-                }];
+                self.recordButton.hidden = button.selected;
+                self.inputTextView.hidden = !button.selected;
             }
             else
             {
@@ -580,6 +577,7 @@
 
 - (void)recordButtonTouchDown
 {
+    NSLog(@"recordButtonTouchDown-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchDown];
     }
@@ -591,6 +589,7 @@
 
 - (void)recordButtonTouchUpOutside
 {
+    NSLog(@"recordButtonTouchUpOutside-----");
     if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
     {
         [_delegate didCancelRecordingVoiceAction:self.recordView];
@@ -605,6 +604,7 @@
 
 - (void)recordButtonTouchUpInside
 {
+    NSLog(@"recordButtonTouchUpInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchUpInside];
     }
@@ -619,6 +619,7 @@
 
 - (void)recordDragOutside
 {
+    NSLog(@"recordDragOutside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragOutside];
     }
@@ -631,6 +632,7 @@
 
 - (void)recordDragInside
 {
+    NSLog(@"recordDragInside-----");
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonDragInside];
     }
