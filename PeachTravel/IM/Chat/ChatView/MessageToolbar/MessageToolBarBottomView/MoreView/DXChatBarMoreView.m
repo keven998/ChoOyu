@@ -66,9 +66,9 @@
     
     
     _destinationButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _destinationButton.topSpaceHight = 10;
+    _destinationButton.topSpaceHight = 13;
     _destinationButton.spaceHight = 5;
-    [_destinationButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+    [_destinationButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_destinationButton setImage:[UIImage imageNamed:@"ic_here_normal"] forState:UIControlStateNormal];
     [_destinationButton setImage:[UIImage imageNamed:@"ic_here_selected"] forState:UIControlStateHighlighted];
     [_destinationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
@@ -83,10 +83,9 @@
     [self addSubview:_destinationButton];
     
     _travelNoteButton = [TZButton buttonWithType:UIButtonTypeCustom];
-    _travelNoteButton.topSpaceHight = 13;
+    _travelNoteButton.topSpaceHight = 10;
     _travelNoteButton.spaceHight = 5;
-    [_travelNoteButton setFrame:CGRectMake(INSETS + 2*(CHAT_BUTTON_SIZE+spaceWidth), 0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-//    [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+    [_travelNoteButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_normal"] forState:UIControlStateNormal];
     [_travelNoteButton setImage:[UIImage imageNamed:@"ic_love_selected"] forState:UIControlStateHighlighted];
     [_travelNoteButton addTarget:self action:@selector(myFavoriteAction) forControlEvents:UIControlEventTouchUpInside];
@@ -96,15 +95,15 @@
     _travelNoteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _travelNoteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     _travelNoteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
-//    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
+    //    _travelNoteButton.titleEdgeInsets = UIEdgeInsetsMake(56.0, -40.5, -10.0, 0.0);
+    //    _travelNoteButton.imageEdgeInsets = UIEdgeInsetsMake(10.0, 20.0, 20.0, 0.0);
     [self addSubview:_travelNoteButton];
     
     _photoButton = [TZButton buttonWithType:UIButtonTypeCustom];
     _photoButton.topSpaceHight = 10;
     _photoButton.spaceHight = 5;
 //    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
-    [_photoButton setFrame:CGRectMake(INSETS, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
+    [_photoButton setFrame:CGRectMake(INSETS + CHAT_BUTTON_SIZE + spaceWidth, CHAT_BUTTON_SIZE + 10.0, CHAT_BUTTON_SIZE , CHAT_BUTTON_SIZE)];
     [_photoButton setImage:[UIImage imageNamed:@"ic_picture_normal"] forState:UIControlStateNormal];
     [_photoButton setImage:[UIImage imageNamed:@"ic_picture_selected"] forState:UIControlStateHighlighted];
     [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
