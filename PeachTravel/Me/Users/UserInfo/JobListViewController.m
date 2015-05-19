@@ -61,10 +61,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *job = [[NSString alloc]init];
-    
-    [user setObject:_dataArray[indexPath.row] forKey:@"jobs"];
     job = _dataArray[indexPath.row];
     [self.delegate changeJob:job];
     [self.navigationController popViewControllerAnimated:YES];

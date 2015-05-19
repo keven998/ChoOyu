@@ -34,7 +34,7 @@
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地",@"职业"]]
+#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ChangStatusDelegate,ShowPickerDelegate>
 
@@ -282,22 +282,7 @@
                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                    [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
                    [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
-                   
-                   
-                   NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-                   NSMutableArray * userAvatar = [user objectForKey:@"userAvatar"];
-                   if (userAvatar == nil) {
-                       [user setObject:[NSMutableArray array] forKey:@"userAvatar"];
-                       userAvatar = [user objectForKey:@"userAvatar"];
-                   }
-                   [userAvatar addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
-                   [user setObject:userAvatar forKey:@"userAvatar"];
-//                   NSLog(@"%@--3",userAvatar);
                    [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
-//                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-//                   UserHeaderTableViewCell *cell = (UserHeaderTableViewCell*)[self.tableView cellForRowAtIndexPath:path];
-//                   [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:nil];
-                   
                } option:opt];
      
 }
@@ -416,24 +401,17 @@
 //        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
-//        NSMutableArray *header = [NSMutableArray array];
-//        [header addObject:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall];
-//        cell.headerPicArray = header;
         cell.delegate = self;
-        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-        NSMutableArray * header = [user objectForKey:@"userAvatar"];
-        cell.headerPicArray = header;
         return cell;
         
     }
     else if (indexPath.section == 2){
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"旅行足迹";
-        
+        cell.trajectory.text = @"好几个国家,好几个城市";
         cell.backgroundColor = [UIColor whiteColor];
-        cell.footPrint.text = @"上海 北京 杭州";
+        cell.footPrint.text = @"上海   北京   杭州   呵呵   呵呵呵";
         return cell;
-
     }
     else {
         UserOtherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:otherUserInfoCell forIndexPath:indexPath];
@@ -443,10 +421,8 @@
 //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
                 cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
-//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-//                cell.cellDetail.text = [NSString stringWithFormat:@"%d", [self.self.accountManager.accountDetail.basicUserInfo.userId intValue]];
-                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-                cell.cellDetail.text = [user objectForKey:@"status"];
+                
+                
             }
         } else if (indexPath.section ==  1) {
             if (indexPath.row == 0) {
@@ -458,18 +434,7 @@
                 
             }
         }
-//        else if (indexPath.section == 2) {
-//            if (indexPath.row == 0) {
-//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_password.png"];
-//            } else if (indexPath.row == 0) {
-//                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_bindphone.png"];
-//                NSString *tel = self.self.accountManager.accountDetail.basicUserInfo.tel;
-//                if (tel == nil || tel.length < 1) {
-//                    cell.cellDetail.text = @"未绑定";
-//                } else {
-//                    cell.cellDetail.text = tel;
-//                }
-//            }
+
         else if (indexPath.section == 3){
         
             cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
@@ -493,11 +458,6 @@
                 cell.cellDetail.text = self.accountManager.accountDetail.birthday;
             } else if (indexPath.row == 2) {
                 cell.cellDetail.text = self.accountManager.accountDetail.residence;
-            }
-            else if (indexPath.row == 3){
-                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-                cell.cellDetail.tag = 101;
-                cell.cellDetail.text = [user objectForKey:@"jobs"];
             }
         }
         
@@ -578,13 +538,13 @@
             TZNavigationViewController *navc = [[TZNavigationViewController alloc] initWithRootViewController:cityListCtl];
             [self presentViewController:navc animated:YES completion:nil];
         }
-        else if (indexPath.row == 3){
-            JobListViewController *jvc = [[JobListViewController alloc]init];
-            jvc.delegate = self;
-            jvc.dataArray = @[@"女博士",@"女硕士",@"女北大硕士",@"女清华硕士",@"女清华博士",@"女北大硕士",@"逗比"];
-            [self.navigationController pushViewController:jvc animated:YES];
-            
-        }
+//        else if (indexPath.row == 3){
+//            JobListViewController *jvc = [[JobListViewController alloc]init];
+//            jvc.delegate = self;
+//            jvc.dataArray = @[@"女博士",@"女硕士",@"女北大硕士",@"女清华硕士",@"女清华博士",@"女北大硕士",@"逗比"];
+//            [self.navigationController pushViewController:jvc animated:YES];
+//            
+//        }
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -718,8 +678,6 @@
 }
 -(void)changeJob:(NSString *)jobStr
 {
-//    UILabel *cell  = (UILabel *)[self.tableView viewWithTag:101];
-//    cell.text = jobStr;
     [_tableView reloadData];
 }
 -(void)changeStatus
