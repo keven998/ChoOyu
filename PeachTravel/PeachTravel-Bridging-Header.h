@@ -10,3 +10,9 @@
 #import "QiniuSDK.h"
 #import "VoiceConverter.h"
 #import "AppDelegate.h"
+#import "Constants.h"
+#import "AppUtils.h"
+#import "HomeViewController.h"
+#import "WXApi.h"
+
+#import "AppDelegate+EaseMob.h"

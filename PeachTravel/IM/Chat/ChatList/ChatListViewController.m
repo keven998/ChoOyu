@@ -25,6 +25,7 @@
 #import "REFrostedViewController.h"
 #import "ChatGroupSettingViewController.h"
 #import "ChatSettingViewController.h"
+#import "PeachTravel-swift.h"
 
 @interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
 
@@ -35,6 +36,8 @@
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
 @property (nonatomic, strong) UIView *emptyView;
+
+@property (nonatomic, strong) IMClientManager *imClientManager;
 
 /**
  *  是否有未读的消息，如果有出现小红点
@@ -63,6 +66,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
+    
+    NSArray *array = [self.imClientManager.conversationManager getConversationList];
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
@@ -109,6 +114,14 @@
         _accountManager = [AccountManager shareAccountManager];
     }
     return _accountManager;
+}
+
+- (IMClientManager *)imClientManager
+{
+    if (!_imClientManager) {
+        _imClientManager = [IMClientManager shareInstance];
+    }
+    return _imClientManager;
 }
 
 - (IBAction)addAction:(UIButton *)sender
