@@ -18,8 +18,8 @@
 @implementation HeaderCell
 - (void)awakeFromNib {
 //    [self createUI];
-    _footPrint.font = [UIFont systemFontOfSize:14];
-    _footPrint.numberOfLines = 0;
+//    _footPrint.font = [UIFont systemFontOfSize:14];
+//    _footPrint.numberOfLines = 0;
     _footPrint.textColor = TEXT_COLOR_TITLE_DESC;
     
     _trajectory.textColor = APP_THEME_COLOR;

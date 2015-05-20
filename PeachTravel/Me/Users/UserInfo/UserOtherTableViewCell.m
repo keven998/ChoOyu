@@ -11,7 +11,7 @@
 @implementation UserOtherTableViewCell
 
 - (void)awakeFromNib {
-    _cellTitle.font = [UIFont systemFontOfSize:14.0];
+//    _cellTitle.font = [UIFont systemFontOfSize:16.0];
     _cellDetail.font = [UIFont systemFontOfSize:13.0];
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
