@@ -22,12 +22,13 @@
 -(void)createUI
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.minimumLineSpacing = 100;
-    layout.minimumInteritemSpacing = 100;
+    layout.minimumInteritemSpacing = 5;
 
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
+    [_collectionView setCollectionViewLayout:layout];
     [_collectionView setBackgroundColor:[UIColor clearColor]];
+    _collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
     [_collectionView registerNib:[UINib nibWithNibName:@"PicCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
     
     
@@ -58,13 +59,21 @@
     PicCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     if (indexPath.row == _headerPicArray.count) {
         cell.picImage.image =[UIImage imageNamed:@"ic_userInfo_avatar_placeholder"];
-        
     } else {
         [cell.picImage sd_setImageWithURL:[NSURL URLWithString:_headerPicArray[indexPath.row]] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
         
     }
     return cell;
 }
+
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == _headerPicArray.count) {
+        return CGSizeMake(97.5, 85);
+    } else {
+        return CGSizeMake(132, 85);
+    }
+}
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == _headerPicArray.count) {

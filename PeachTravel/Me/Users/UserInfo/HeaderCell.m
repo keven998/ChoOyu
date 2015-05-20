@@ -23,7 +23,9 @@
     _footPrint.textColor = TEXT_COLOR_TITLE_DESC;
     
     _trajectory.textColor = APP_THEME_COLOR;
+    
 }
+
 -(void)createUI
 {
 //    TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];

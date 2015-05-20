@@ -29,28 +29,28 @@
     _presentPasswordLabel.delegate = self;
     _confirmPasswordLabel.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 72, _oldPasswordLabel.bounds.size.height - 16.0)];
-    ul.text = @"原密码:";
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _oldPasswordLabel.bounds.size.height - 16.0)];
+    ul.text = @"  旧密码:";
     ul.textColor = TEXT_COLOR_TITLE;
     ul.font = [UIFont systemFontOfSize:14.0];
-    ul.textAlignment = NSTextAlignmentCenter;
+    ul.textAlignment = NSTextAlignmentLeft;
     _oldPasswordLabel.leftView = ul;
     _oldPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 72, _presentPasswordLabel.bounds.size.height - 16.0)];
-    pl.text = @"新密码:";
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _presentPasswordLabel.bounds.size.height - 16.0)];
+    pl.text = @"  新密码:";
     pl.textColor = TEXT_COLOR_TITLE;
     pl.font = [UIFont systemFontOfSize:14.0];
-    pl.textAlignment = NSTextAlignmentCenter;
+    pl.textAlignment = NSTextAlignmentLeft;
     _presentPasswordLabel.leftView = pl;
     _presentPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     [_presentPasswordLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     
-    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 72, _presentPasswordLabel.bounds.size.height - 16.0)];
-    npl.text = @"再次输入:";
+    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _presentPasswordLabel.bounds.size.height - 16.0)];
+    npl.text = @"  重复密码:";
     npl.textColor = TEXT_COLOR_TITLE;
     npl.font = [UIFont systemFontOfSize:14.0];
-    npl.textAlignment = NSTextAlignmentCenter;
+    npl.textAlignment = NSTextAlignmentLeft;
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     [_confirmPasswordLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];

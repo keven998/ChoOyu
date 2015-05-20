@@ -33,7 +33,7 @@
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"手机绑定", @"修改密码"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"]]
+#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"], @[@"安全绑定", @"修改密码"], ]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ShowPickerDelegate>
 
@@ -290,9 +290,7 @@
     if (!_HUD) {
         _HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
         _HUD.indicatorView = [[JGProgressHUDPieIndicatorView alloc] initWithHUDStyle:JGProgressHUDStyleDark];
-        
         _HUD.detailTextLabel.text = nil;
-        
         _HUD.textLabel.text = @"正在上传";
         _HUD.layoutChangeAnimationDuration = 0.0;
     }
@@ -374,16 +372,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    if ((indexPath.section == 0 && indexPath.row == 0)) {
-        
-        
-        return 90;
-        
+    if ((indexPath.section == 0 && indexPath.row == 0))
+    {
+        return 108;
     }
-    else if (indexPath.section == 2)
+    else if (indexPath.section == 1 || indexPath.section == 2)
     {
         
-        return 90;
+        return 84;
         
     }
     else{
@@ -404,12 +400,17 @@
         return cell;
         
     }
-    else if (indexPath.section == 2){
+    else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"旅行足迹";
-        cell.trajectory.text = @"好几个国家,好几个城市";
-        cell.backgroundColor = [UIColor whiteColor];
+        cell.trajectory.text = @"4国 18个城市";
         cell.footPrint.text = @"上海   北京   杭州   呵呵   呵呵呵";
+        return cell;
+    } else if (indexPath.section == 2) {
+        HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
+        cell.nameLabel.text = @"签名";
+        cell.trajectory.textColor = TEXT_COLOR_TITLE_DESC;
+        cell.footPrint.text = self.accountManager.accountDetail.basicUserInfo.signature;
         return cell;
     }
     else {
@@ -418,26 +419,12 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.nickName;
+                cell.cellDetail.text = self.accountManager.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
 //                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.status;
             }
-        } else if (indexPath.section ==  1) {
-            if (indexPath.row == 0) {
-                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
-                
-                
-            } else if (indexPath.row == 1) {
-                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
-                
-            }
         }
-        
-        else if (indexPath.section == 3){
-            
-            cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.signature;
-        }
-        else if (indexPath.section == 4) {
+        else if (indexPath.section == 3) {
             if (indexPath.row == 0){
                 if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
@@ -448,7 +435,7 @@
                 else if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
                     cell.cellDetail.text = @"一言难尽";
                 }
-                else{
+                else {
                     cell.cellDetail.text = @"保密";
                 }
             }
@@ -456,6 +443,14 @@
                 cell.cellDetail.text = self.accountManager.accountDetail.birthday;
             } else if (indexPath.row == 2) {
                 cell.cellDetail.text = self.accountManager.accountDetail.residence;
+            }
+        }
+        else if (indexPath.section ==  4) {
+            if (indexPath.row == 0) {
+                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
+            } else if (indexPath.row == 1) {
+                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
+                
             }
         }
         
@@ -487,38 +482,17 @@
             [self presentViewController:nav animated:YES completion:nil];
         }
         
-    } else if (indexPath.section ==  1) {
-        if (indexPath.row == 0) {
-            
-            [MobClick event:@"event_update_phone"];
-            
-            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
-            changePasswordCtl.verifyCaptchaType = UserBindTel;
-            
-            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-            
-        } else if (indexPath.row == 1) {
-            [MobClick event:@"event_update_password"];
-            ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-            
-            
-            //            [MobClick event:@"event_update_memo"];
-            //            [self changeUserMark];
-        }
-        
-        
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
         [self presentViewController:footCtl animated:YES completion:nil];
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 2) {
         
         [MobClick event:@"event_update_memo"];
         [self changeUserMark];
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
             [MobClick event:@"event_update_gender"];
             SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
@@ -547,6 +521,27 @@
         //            [self.navigationController pushViewController:jvc animated:YES];
         //
         //        }
+    } else if (indexPath.section ==  4) {
+        if (indexPath.row == 0) {
+            
+            [MobClick event:@"event_update_phone"];
+            
+            VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
+            changePasswordCtl.verifyCaptchaType = UserBindTel;
+            
+            [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            
+        } else if (indexPath.row == 1) {
+            [MobClick event:@"event_update_password"];
+            ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            
+            
+            //            [MobClick event:@"event_update_memo"];
+            //            [self changeUserMark];
+        }
+        
+        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
