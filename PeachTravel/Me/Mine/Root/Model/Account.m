@@ -15,7 +15,6 @@
 @implementation Account
 
 @dynamic avatar;
-@dynamic status;
 @dynamic easemobPwd;
 @dynamic easemobUser;
 @dynamic gender;

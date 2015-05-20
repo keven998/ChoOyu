@@ -21,7 +21,6 @@
 @property (nonatomic, retain) NSString * secToken;
 @property (nonatomic, retain) NSString * signature;
 @property (nonatomic, retain) NSString * tel;
-@property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSNumber * userId;
 @property (nonatomic, retain) NSString * avatarSmall;
 @property (nonatomic, retain) NSSet *blacklist;

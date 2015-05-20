@@ -343,7 +343,8 @@
         
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [self updateUserInfo:newStatus withChangeType:ChangeGender];
+//            [self updateUserInfo:newStatus withChangeType:ChangeGender];
+            self.accountDetail.travelStatus = newStatus;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
             completion(YES, nil);
         } else {
@@ -441,7 +442,6 @@
     _account.avatar = [json objectForKey:@"avatar"];
     _account.avatarSmall = [json objectForKey:@"avatarSmall"];
     _account.gender = [json objectForKey:@"gender"];
-//    _account.status = [json objectForKey:@"travelStatus"];
     if (!_account.gender) {
         _account.gender = @"U";
     }

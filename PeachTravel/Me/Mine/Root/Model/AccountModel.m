@@ -49,6 +49,18 @@
     } else {
         _birthday = [json objectForKey:@"birthday"];
     }
+    
+    if ([json objectForKey:@"tracks"] == [NSNull null]) {
+        _tracks = [[NSMutableArray alloc] init];
+    } else {
+        _tracks = [json objectForKey:@"tracks"];
+    }
+    
+    if ([json objectForKey:@"travelStatus"] == [NSNull null]) {
+        _travelStatus = @"";
+    } else {
+        _travelStatus = [json objectForKey:@"travelStatus"];
+    }
 }
 
 - (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion
@@ -70,8 +82,8 @@
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            [accountManager updateUserInfo:[responseObject objectForKey:@"result"]];
             [self updateUserInfo:[responseObject objectForKey:@"result"]];
+            [accountManager updateUserInfo:[responseObject objectForKey:@"result"]];
             completion(YES);
         } else {
             completion(NO);
