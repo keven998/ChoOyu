@@ -1101,6 +1101,7 @@
 		D9008D6B1A8A05AD000A237D /* ic_quotation_l@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quotation_l@2x.png"; sourceTree = "<group>"; };
 		D9008D6C1A8A05AD000A237D /* ic_quotation_r@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quotation_r@2x.png"; sourceTree = "<group>"; };
 		D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D9092C821B0C70C300F0F35F /* PeachTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PeachTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		D91643D21B062B4500C56F12 /* ReceiverImageNodeBorder_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverImageNodeBorder_back@2x.png"; sourceTree = "<group>"; };
 		D91643D31B062B4500C56F12 /* chat_receiver_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_receiver_bg@2x.png"; sourceTree = "<group>"; };
 		D91643D61B062B6A00C56F12 /* SenderImageNodeBorder_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderImageNodeBorder_back@2x.png"; sourceTree = "<group>"; };
@@ -2591,6 +2592,7 @@
 				D9A801681A80DD37005AD701 /* TZCMDChatHelper.m */,
 				D9A800711A80DD23005AD701 /* Chat */,
 				D9A8003A1A80DD0C005AD701 /* Contact */,
+				D9092C821B0C70C300F0F35F /* PeachTravel-Bridging-Header.h */,
 			);
 			name = IM;
 			sourceTree = "<group>";
@@ -6328,6 +6330,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6347,10 +6350,14 @@
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
+					"$(PROJECT_DIR)/PeachTravel/IMSDK/VoiceConvert/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -6362,6 +6369,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6381,10 +6389,13 @@
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/PeachTravel/libs/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/PeachTravel/IMSDK/dist",
+					"$(PROJECT_DIR)/PeachTravel/IMSDK/VoiceConvert/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
