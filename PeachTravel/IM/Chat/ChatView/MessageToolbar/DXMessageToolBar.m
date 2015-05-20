@@ -389,10 +389,8 @@
 
 - (void)willShowBottomHeight:(CGFloat)bottomHeight
 {
-    CGRect fromFrame = self.frame;
-    CGFloat toHeight = self.toolbarView.frame.size.height + bottomHeight;
-    CGRect toFrame = CGRectMake(fromFrame.origin.x, fromFrame.origin.y + (fromFrame.size.height - toHeight), fromFrame.size.width, toHeight);
     
+    CGFloat toHeight = self.toolbarView.frame.size.height + bottomHeight;
     //如果需要将所有扩展页面都隐藏，而此时已经隐藏了所有扩展页面，则不进行任何操作
     if(bottomHeight == 0 && self.frame.size.height == self.toolbarView.frame.size.height)
     {
@@ -407,14 +405,15 @@
         self.isShowButtomView = YES;
     }
     
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-       self.frame = toFrame;
-    } completion:^(BOOL finished) {
-    }];
-    
     if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
         [_delegate didChangeFrameToHeight:toHeight];
     }
+    
+    CGRect fromFrame = self.frame;
+    CGRect toFrame = CGRectMake(fromFrame.origin.x, fromFrame.origin.y + (fromFrame.size.height - toHeight), fromFrame.size.width, toHeight);
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       self.frame = toFrame;
+    } completion:nil];
 }
 
 - (void)willShowBottomView:(UIView *)bottomView

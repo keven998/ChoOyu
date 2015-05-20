@@ -1086,7 +1086,7 @@
     myGuideListTableCtl.isChatGroup = _isChatGroup;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
@@ -1105,7 +1105,7 @@
     favoriteCtl.selectToSend = YES;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:favoriteCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
@@ -1131,7 +1131,7 @@
     searchCtl.isChatGroup = _isChatGroup;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
@@ -1150,14 +1150,14 @@
     travelNoteCtl.isChatGroup = _isChatGroup;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:travelNoteCtl];
     [self presentViewController:tznavc animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
     // 弹出照片选择
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
@@ -1179,7 +1179,7 @@
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
 {
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
 #if TARGET_IPHONE_SIMULATOR
     [self showHint:@"模拟器不支持拍照"];
