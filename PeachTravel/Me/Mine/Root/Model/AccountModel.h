@@ -26,6 +26,8 @@
 
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *zodiac;
+@property (nonatomic, copy) NSString *travelStatus;
+@property (nonatomic, strong) NSMutableDictionary *tracks;
 
 /**
  *  用户的图集

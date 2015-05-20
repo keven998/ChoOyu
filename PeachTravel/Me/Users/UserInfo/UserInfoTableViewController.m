@@ -33,9 +33,9 @@
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
 
-#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"旅行足迹"], @[@"签名"], @[@"性别", @"生日", @"现居地"], @[@"安全绑定", @"修改密码"], ]
+#define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"我的足迹"], @[@"签名"], @[@"性别", @"生日", @"居住在"], @[@"安全绑定", @"修改密码"], ]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate,ChangJobDelegate,ShowPickerDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, ShowPickerDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -389,6 +389,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    AccountManager *amgr = self.accountManager;
+    
     if (indexPath.section == 0 && indexPath.row == 0) {
         //        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
         //        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
@@ -403,8 +405,29 @@
     else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"旅行足迹";
-        cell.trajectory.text = @"4国 18个城市";
-        cell.footPrint.text = @"上海   北京   杭州   呵呵   呵呵呵";
+        NSDictionary *country = amgr.accountDetail.tracks;
+        NSInteger cityNumber = 0;
+        NSMutableString *cityDesc = nil;
+        NSArray *keys = [country allKeys];
+        NSInteger countryNumber = keys.count;
+        for (int i = 0; i < countryNumber; ++i) {
+            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            cityNumber += citys.count;
+            for (id city in citys) {
+                if (cityDesc == nil) {
+                    cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
+                } else {
+                    [cityDesc appendFormat:@" %@", [city objectForKey:@"zhName"]];
+                }
+            }
+        }
+        
+        if (countryNumber > 0) {
+            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+        } else {
+            cell.trajectory.text = @"";
+        }
+        cell.footPrint.text = cityDesc;
         return cell;
     } else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
@@ -419,20 +442,20 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
-                cell.cellDetail.text = self.accountManager.accountDetail.basicUserInfo.nickName;
+                cell.cellDetail.text = amgr.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
-//                cell.cellDetail.text = self.self.accountManager.accountDetail.basicUserInfo.status;
+                cell.cellDetail.text = amgr.accountDetail.travelStatus;
             }
         }
         else if (indexPath.section == 3) {
             if (indexPath.row == 0){
-                if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
+                if ([amgr.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
                 }
-                else if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
+                else if ([amgr.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
                     cell.cellDetail.text = @"帅锅";
                 }
-                else if ([self.accountManager.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
+                else if ([amgr.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
                     cell.cellDetail.text = @"一言难尽";
                 }
                 else {
@@ -440,14 +463,14 @@
                 }
             }
             else if (indexPath.row == 1) {
-                cell.cellDetail.text = self.accountManager.accountDetail.birthday;
+                cell.cellDetail.text = amgr.accountDetail.birthday;
             } else if (indexPath.row == 2) {
-                cell.cellDetail.text = self.accountManager.accountDetail.residence;
+                cell.cellDetail.text = amgr.accountDetail.residence;
             }
         }
         else if (indexPath.section ==  4) {
             if (indexPath.row == 0) {
-                if ([AccountManager shareAccountManager].accountIsBindTel) {
+                if (amgr.accountIsBindTel) {
                     cell.cellDetail.text = @"已安全绑定";
                 } else {
                     cell.cellDetail.text = @"设置";
@@ -467,7 +490,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
             [self presentImagePicker];
             [MobClick event:@"event_update_avatar"];
         } else if (indexPath.row == 1) {
@@ -477,10 +499,11 @@
             //            [self showHint:@"猥琐攻城师不让修改这个～"];
             
             SelectionTableViewController *svc = [[SelectionTableViewController alloc]init];
-            svc.contentItems = @[@"正在准备旅行", @"旅行中", @"旅行灵感时期", @"不知道"];
-            svc.titleTxt = @"状态";
+            svc.contentItems = @[@"准备去旅行", @"旅行中", @"旅行灵感中", @"不知道"];
+            svc.titleTxt = @"旅行状态";
             svc.delegate = self;
-            svc.selectItem = self.navigationItem.rightBarButtonItem.title;
+            UserOtherTableViewCell *uc = (UserOtherTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+            svc.selectItem = uc.cellDetail.text;
             TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:svc];
             _updateUserInfoType = 2;
             [self presentViewController:nav animated:YES completion:nil];
@@ -503,7 +526,8 @@
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
             ctl.titleTxt = @"我是";
             ctl.delegate = self;
-            ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
+            UserOtherTableViewCell *uc = (UserOtherTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+            ctl.selectItem = uc.cellDetail.text;
             TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
             _updateUserInfoType = 1;
             [self presentViewController:nav animated:YES completion:nil];
@@ -527,9 +551,7 @@
         //        }
     } else if (indexPath.section ==  4) {
         if (indexPath.row == 0) {
-            
             [MobClick event:@"event_update_phone"];
-            
             VerifyCaptchaViewController *changePasswordCtl = [[VerifyCaptchaViewController alloc] init];
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             
@@ -538,10 +560,6 @@
             [MobClick event:@"event_update_password"];
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-            
-            
-            //            [MobClick event:@"event_update_memo"];
-            //            [self changeUserMark];
         }
         
         
@@ -557,19 +575,11 @@
     if (_updateUserInfoType == 1) {
         [self updateGender:indexPath];
     }else if(_updateUserInfoType == 2){
-        [self updateStatus:indexPath];
+        [self updateStatus:str];
     }
 }
--(void) updateStatus:(NSIndexPath *)selectIndex{
-    NSString *str = [[NSString alloc]init];
-    if (selectIndex.row == 0) {
-        str = @"正在准备旅行";
-    }else if (selectIndex.row == 1){
-        str = @"旅行中";
-    }else if (selectIndex.row == 2){
-        str = @"旅行灵感时期";
-    }
-    
+
+-(void) updateStatus:(NSString *)str{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInView:self.view];
@@ -579,7 +589,9 @@
         }
         [hud hideTZHUD];
     }];
+    [self.tableView reloadData];
 }
+
 - (void) updateGender:(NSIndexPath *)selectIndex {
     NSString *str = [[NSString alloc]init];
     if (selectIndex.row == 0) {
@@ -588,6 +600,8 @@
         str = @"M";
     }else if (selectIndex.row == 2){
         str = @"U";
+    } else {
+        str = @"S";
     }
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
