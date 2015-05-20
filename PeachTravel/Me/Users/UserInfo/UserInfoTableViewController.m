@@ -526,7 +526,8 @@
             ctl.contentItems = @[@"美女", @"帅锅", @"一言难尽", @"保密"];
             ctl.titleTxt = @"我是";
             ctl.delegate = self;
-            ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
+            UserOtherTableViewCell *uc = (UserOtherTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+            ctl.selectItem = uc.cellDetail.text;
             TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
             _updateUserInfoType = 1;
             [self presentViewController:nav animated:YES completion:nil];
@@ -599,6 +600,8 @@
         str = @"M";
     }else if (selectIndex.row == 2){
         str = @"U";
+    } else {
+        str = @"S";
     }
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
