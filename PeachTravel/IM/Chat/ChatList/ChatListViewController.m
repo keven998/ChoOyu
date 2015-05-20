@@ -67,7 +67,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
-    NSArray *array = [self.imClientManager.conversationManager getConversationList];
+    ChatConversation *conversation = [self.imClientManager.conversationManager createNewConversationWithChatterId:100014];
+    [self.imClientManager.conversationManager addConversation:conversation];
+
+    NSArray *contactList = [self.imClientManager.conversationManager getConversationList];
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];

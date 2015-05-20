@@ -175,7 +175,6 @@
 		C6F87A181ACD1C4400BB7D7F /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A131ACD1C4400BB7D7F /* PXAlertView+Customization.m */; };
 		C6F87A191ACD1C4400BB7D7F /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */; };
 		C6F87A1A1ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */; };
-		D9008D641A89DF5E000A237D /* AppDelegate+EaseMob.m in Sources */ = {isa = PBXBuildFile; fileRef = D9008D631A89DF5E000A237D /* AppDelegate+EaseMob.m */; };
 		D9008D661A89F864000A237D /* ic_tel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D651A89F864000A237D /* ic_tel@2x.png */; };
 		D9008D681A89F943000A237D /* ic_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D671A89F943000A237D /* ic_map@2x.png */; };
 		D9008D6A1A89FCC9000A237D /* ic_comment_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9008D691A89FCC9000A237D /* ic_comment_line@2x.png */; };
@@ -1158,8 +1157,6 @@
 		C6F87A151ACD1C4400BB7D7F /* PXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAlertView.m; sourceTree = "<group>"; };
 		C6F87A161ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PXAlertViewOverride.h"; sourceTree = "<group>"; };
 		C6F87A171ACD1C4400BB7D7F /* UIAlertView+PXAlertViewOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PXAlertViewOverride.m"; sourceTree = "<group>"; };
-		D9008D621A89DF5E000A237D /* AppDelegate+EaseMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+EaseMob.h"; sourceTree = "<group>"; };
-		D9008D631A89DF5E000A237D /* AppDelegate+EaseMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+EaseMob.m"; sourceTree = "<group>"; };
 		D9008D651A89F864000A237D /* ic_tel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tel@2x.png"; sourceTree = "<group>"; };
 		D9008D671A89F943000A237D /* ic_map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_map@2x.png"; path = "Common/ic_map@2x.png"; sourceTree = "<group>"; };
 		D9008D691A89FCC9000A237D /* ic_comment_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_comment_line@2x.png"; sourceTree = "<group>"; };
@@ -4238,8 +4235,6 @@
 		D9A802F21A80E566005AD701 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D9008D621A89DF5E000A237D /* AppDelegate+EaseMob.h */,
-				D9008D631A89DF5E000A237D /* AppDelegate+EaseMob.m */,
 				D9A806D91A80F6F6005AD701 /* Info.plist */,
 				D9A8058F1A80E781005AD701 /* PrefixHeader.pch */,
 				D9A802F31A80E566005AD701 /* AppDelegate.h */,
@@ -6514,7 +6509,6 @@
 				D9A801451A80DD23005AD701 /* TaoziChatBaseBubbleView.m in Sources */,
 				D9A8FF5D1A80CF19005AD701 /* SearchDestinationViewController.m in Sources */,
 				D9092FF51B0C812D00F0F35F /* IMCMDMessage.swift in Sources */,
-				D9008D641A89DF5E000A237D /* AppDelegate+EaseMob.m in Sources */,
 				D9A800671A80DD0C005AD701 /* ContactListViewController.m in Sources */,
 				D9A801431A80DD23005AD701 /* EMChatVideoBubbleView.m in Sources */,
 				D9A800251A80D52F005AD701 /* DomesticDestinationCell.m in Sources */,

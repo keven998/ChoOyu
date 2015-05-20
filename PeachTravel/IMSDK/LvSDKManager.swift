@@ -29,6 +29,7 @@ class IMClientManager: NSObject, ConnectionManagerDelegate {
         connectionManager = ConnectionManager()
         super.init()
         connectionManager.connectionManagerDelegate = self
+        self.connectionSetup(true, errorCode: 0);
     }
     
     deinit {

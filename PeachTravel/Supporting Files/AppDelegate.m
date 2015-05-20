@@ -15,7 +15,7 @@
 #import "WXApiObject.h"
 #import "WXApi.h"
 #import "iRate.h"
-#import "AppDelegate+EaseMob.h"
+#import "PeachTravel-swift.h"
 
 @interface AppDelegate ()
 
@@ -29,6 +29,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [self lvApplication:application didFinishLaunchingWithOptions:launchOptions];
     if (IS_IOS8) {
         [[UINavigationBar appearance] setTranslucent:NO];
     } else {
@@ -70,11 +71,20 @@
     [MobClick setCrashReportEnabled:YES];
 #endif
     
-    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
     
     [iRate sharedInstance].promptAtLaunch = NO;
 
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [self lvApplication:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [self lvApplication:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url

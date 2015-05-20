@@ -23,7 +23,9 @@ class IMAccountManager: NSObject {
     
     override init() {
         var accountDaoHelper = AccountDaoHelper()
-        account = accountDaoHelper.loadAccountFromDB()
+//        account = accountDaoHelper.loadAccountFromDB()
+        account = IMAccountModel()
+        account.userId = 100015
         super.init()
     }
     

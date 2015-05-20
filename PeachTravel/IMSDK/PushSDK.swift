@@ -20,6 +20,7 @@ import UIKit
 private let pushSDKManager = PushSDKManager()
 
 class PushSDKManager: NSObject, GexinSdkDelegate {
+    
     private var gexinSdk: GexinSdk?
     private var listenerQueue: NSMutableArray = NSMutableArray()
     
@@ -146,9 +147,9 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
 class GetuiPush: GexinSdk {
     
     class func login() -> GexinSdk {
-        let kAppKey = "2FaPekdgKz9QULo2X4iEq5"
-        let kAppId = "PSrYJWRPN765o211bIkFM3"
-        let kAppSecret = "Zvl1NOaajv5KkByR8iolgA"
+        let kAppKey = "O2ooToqPrsAGJYy3iZ54d7"
+        let kAppId = "aGqQz4HiLg70iOUXheRSZ3"
+        let kAppSecret = "HBD1EqFmJF78PnWEy5KEM5"
         
         var pushSDKManager = PushSDKManager.shareInstance()
         var err: NSErrorPointer = NSErrorPointer()
