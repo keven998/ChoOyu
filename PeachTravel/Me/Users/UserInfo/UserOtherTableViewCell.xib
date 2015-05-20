@@ -36,7 +36,9 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxA-5L-4T9">
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="57" id="Bbq-fr-nwq"/>
+                            <constraint firstAttribute="width" constant="57" id="Bbq-fr-nwq">
+                                <variation key="widthClass=compact" constant="80"/>
+                            </constraint>
                             <constraint firstAttribute="height" constant="21" id="GHA-4F-Xfq"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -58,7 +60,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="qRP-a6-LMu" firstAttribute="leading" secondItem="lxA-5L-4T9" secondAttribute="trailing" constant="33" id="0ua-Y6-0o9">
-                        <variation key="widthClass=compact" constant="28"/>
+                        <variation key="widthClass=compact" constant="5"/>
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="qRP-a6-LMu" secondAttribute="trailing" id="7zw-2U-w9D"/>
                     <constraint firstAttribute="centerY" secondItem="lxA-5L-4T9" secondAttribute="centerY" id="QJ4-LA-bYB"/>

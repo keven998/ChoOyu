@@ -148,7 +148,7 @@
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
                                                      message:nil
                                                  cancelTitle:@"取消"
-                                                 otherTitles:@[@"拍照", @"从相册中选择"]
+                                                 otherTitles:@[@"拍照", @"相册"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       UIImagePickerControllerSourceType sourceType;
                                                       if (buttonIndex == 1) {
@@ -447,10 +447,14 @@
         }
         else if (indexPath.section ==  4) {
             if (indexPath.row == 0) {
-                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_gender.png"];
+                if ([AccountManager shareAccountManager].accountIsBindTel) {
+                    cell.cellDetail.text = @"已安全绑定";
+                } else {
+                    cell.cellDetail.text = @"设置";
+                }
             } else if (indexPath.row == 1) {
                 //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_memo.png"];
-                
+                cell.cellDetail.text = @"";
             }
         }
         
@@ -530,7 +534,6 @@
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             
             [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
-            
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_password"];
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];

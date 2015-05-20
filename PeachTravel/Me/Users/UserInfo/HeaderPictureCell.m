@@ -61,7 +61,6 @@
         cell.picImage.image =[UIImage imageNamed:@"ic_userInfo_avatar_placeholder"];
     } else {
         [cell.picImage sd_setImageWithURL:[NSURL URLWithString:_headerPicArray[indexPath.row]] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        
     }
     return cell;
 }
