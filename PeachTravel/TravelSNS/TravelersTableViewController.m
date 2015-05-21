@@ -15,7 +15,7 @@
 #import "ForeignScreeningViewController.h"
 #import "OtherUserInfoViewController.h"
 #import "DomesticScreeningViewController.h"
-@interface TravelersTableViewController ()
+@interface TravelersTableViewController ()<doScreenning>
 
 @property (nonatomic, strong) NSMutableArray *travelers;
 @property (nonatomic, assign) NSUInteger currentPage;
@@ -37,11 +37,9 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(goSelect)];
-    
     self.enableLoadingMore = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[TravelerTableViewCell class] forCellReuseIdentifier:@"travel_user_cell"];
-    
     _currentPage = 0;
     [self loadTravelers:nil];
 }
@@ -82,6 +80,8 @@
     }];
 }
 
+
+
 - (void)parseSearchResult:(id)searchResult
 {
     NSInteger count = [searchResult count];
@@ -102,6 +102,7 @@
     ScreeningViewController *screen = [[ScreeningViewController alloc]init];
     ForeignScreeningViewController *fcvc = [[ForeignScreeningViewController alloc]init];
     DomesticScreeningViewController *dsvc = [[DomesticScreeningViewController alloc]init];
+    screen.delegate = self;
     fcvc.screeningVC = screen;
     dsvc.screeningVC = screen;
     screen.viewControllers = @[fcvc,dsvc];
@@ -154,6 +155,43 @@
     // Dispose of any resources that can be recreated.
 }
 
+//doscreening delegate
+- (void)screeningTravelers:(NSString *)destination
+{
+    [_travelers removeAllObjects];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSNumber *imageWidth = [NSNumber numberWithInt:60];
+    [params setObject:imageWidth forKey:@"imgWidth"];
+    [params setObject:destination forKey:@"locId"];
+    [params setObject:@"roles" forKey:@"field"];
+    
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    __weak typeof(TravelersTableViewController *)weakSelf = self;
+    [hud showHUDInViewController:weakSelf content:64];
+    //搜索达人
+    [manager POST:API_SCREENING_EXPERT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
+        NSLog(@"%@",responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        NSLog(@"---%@",responseObject);
+        if (code == 0) {
+            [self parseSearchResult:[responseObject objectForKey:@"result"]];
+        } else {
+            [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
+    }];
+}
 #pragma mark - http method
 
 /*

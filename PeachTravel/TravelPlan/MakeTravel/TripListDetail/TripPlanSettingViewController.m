@@ -155,7 +155,7 @@
         TripPlanSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.image.image = [UIImage imageNamed:@"share"];
-            cell.cellLabel.text = @"分享";
+            cell.cellLabel.text = @"发给好友";
         }
         else if (indexPath.row == 1){
             cell.image.image = [UIImage imageNamed:@"diliver"];

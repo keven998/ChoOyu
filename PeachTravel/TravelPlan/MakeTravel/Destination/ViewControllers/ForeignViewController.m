@@ -1,4 +1,4 @@
-//
+
 //  ForeignViewController.m
 //  PeachTravel
 //
@@ -107,13 +107,12 @@ static NSString *reuseableCellIdentifier  = @"cell";
         }
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            
             id result = [responseObject objectForKey:@"result"];
             [_destinations initForeignCountriesWithJson:result];
             [_foreignCollectionView reloadData];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSMutableDictionary *dic = [responseObject mutableCopy];
-                [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
+                [dic safeSetObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
                 [[TMCache sharedCache] setObject:dic forKey:@"destination_foreign"];
             });
         } else {

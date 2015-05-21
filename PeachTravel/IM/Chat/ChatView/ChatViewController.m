@@ -174,11 +174,13 @@
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
 
-    UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
-    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    if (_isChatGroup) {
+        UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+        [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+        [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    }
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
@@ -956,11 +958,11 @@
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
-    LocationViewController *locationController = [[LocationViewController alloc] initWithNibName:nil bundle:nil];
+    LocationViewController *locationController = [[LocationViewController alloc] init];
     locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:locationController] animated:YES completion:nil];
 }
 
 /*****暂时屏蔽掉录制视频和发送及时语音的功能*****/

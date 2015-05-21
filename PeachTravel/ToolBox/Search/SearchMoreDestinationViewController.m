@@ -244,7 +244,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
     
     [manager GET:API_SUGGESTION parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self analysisSearchData:[responseObject objectForKey:@"result"]];
@@ -261,7 +261,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
-
+    
 }
 
 - (void)analysisSearchData:(id)json
