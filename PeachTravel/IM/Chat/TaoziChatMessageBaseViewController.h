@@ -33,7 +33,7 @@
 @property (nonatomic) IMChatType chatType;
 @property (nonatomic, copy) NSString *chatTitle;
 // chatType 聊天的类型，分为景点，城市之类的
-@property (nonatomic) TZChatType messageType;
+@property (nonatomic) IMMessageType messageType;
 
 //发送内容的 id,景点 id，攻略 id 之类的
 @property (nonatomic, copy) NSString *messageId;

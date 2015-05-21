@@ -160,13 +160,10 @@
 
 - (IBAction)confirmSend:(UIButton *)sender {
    
-//    ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatterId isGroup:_isGroup];
-//    ChatViewController *temp
-//    temtChatCtl.title = _chatTitle;
-//    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
-//    
-//    [_delegate sendSuccess:temtChatCtl];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+    IMClientManager *imclientManager = [IMClientManager shareInstance];
+    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil];  
+    [_delegate sendSuccess:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
 
 }
 
@@ -179,59 +176,59 @@
  *
  *  @return 需要发送的内容
  */
-- (NSDictionary *)dataToSend
+- (IMPoiModel *)dataToSend
 {
-    NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
-    [retDic setObject:[NSNumber numberWithInt:_messageType] forKey:@"tzType"];
-    NSMutableDictionary *contentDic = [[NSMutableDictionary alloc] init];
-    [contentDic safeSetObject:_messageId forKey:@"id"];
-    [contentDic safeSetObject:_messageImage forKey:@"image"];
-    [contentDic safeSetObject:_messageName forKey:@"name"];
+    IMPoiModel *retModel = [[IMPoiModel alloc] init];
+    retModel.poiId = _messageId;
+    retModel.image = _messageImage;
+    retModel.poiName = _messageName;
+    
     switch (_messageType) {
-        case TZChatTypeSpot:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
-            [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
+        case IMMessageTypeSpotMessageType:
+            retModel.desc = _messageDesc;
+            retModel.timeCost = _messageTimeCost;
             break;
             
-        case TZChatTypeStrategy:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
-            [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
+        case IMMessageTypeGuideMessageType:
+            retModel.desc = _messageDesc;
+            retModel.timeCost = _messageTimeCost;
 
             break;
             
-        case TZChatTypeFood:
-            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
-            [contentDic safeSetObject:_messagePrice forKey:@"price"];
-            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+        case IMMessageTypeRestaurantMessageType:
+            retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
+            retModel.price = _messagePrice;
+            retModel.address = _messageAddress;
             break;
             
-        case TZChatTypeHotel:
-            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
-            [contentDic safeSetObject:_messagePrice forKey:@"price"];
-            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+        case IMMessageTypeHotelMessageType:
+            retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
+            retModel.price = _messagePrice;
+            retModel.address = _messageAddress;
+
             break;
             
-        case TZChatTypeShopping:
-            [contentDic safeSetObject:[NSString stringWithFormat:@"%.1f", _messageRating] forKey:@"rating"];
-            [contentDic safeSetObject:_messageAddress forKey:@"address"];
+        case IMMessageTypeShoppingMessageType:
+            retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
+            retModel.address = _messageAddress;
             break;
             
-        case TZChatTypeCity:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
+        case IMMessageTypeCityPoiMessageType:
+            retModel.desc = _messageDesc;
+
             break;
             
-        case TZChatTypeTravelNote:
-            [contentDic safeSetObject:_messageDesc forKey:@"desc"];
-            [contentDic safeSetObject:_messageDetailUrl forKey:@"detailUrl"];
+        case IMMessageTypeTravelNoteMessageType:
+            retModel.desc = _messageDesc;
+            retModel.detailUrl = _messageDetailUrl;
 
             break;
             
         default:
             break;
     }
-    [retDic setObject:contentDic forKey:@"content"];
     
-    return retDic;
+    return retModel;
 }
 
 

@@ -21,10 +21,4 @@
 @property (nonatomic, copy) NSString *chatterNickName;
 @property (nonatomic, copy) NSString *chatterAvatar;
 
-/**
- *  发送旅行派消息
- *
- *  @param taoziMsg 旅行派
- */
-- (void)sendTaoziMessage:(NSDictionary *)taoziMsg;
 @end
