@@ -289,25 +289,43 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol{
                 
             case .AudioMessageType:
                 retMessage = AudioMessage()
-                var contents = rs.stringForColumn("Message")
-                retMessage?.fillContentWithContent(contents)
-                retMessage?.message = contents
                 
             case .ImageMessageType:
                 retMessage = ImageMessage()
-                var contents = rs.stringForColumn("Message")
-                retMessage?.fillContentWithContent(contents)
-                retMessage?.message = contents
                 
             case .LocationMessageType:
                 retMessage = LocationMessage()
-                var contents = rs.stringForColumn("Message")
-                retMessage?.fillContentWithContent(contents)
-                retMessage?.message = contents
+                
+            case .CityPoiMessageType:
+                retMessage = IMCityMessage()
+                
+            case .SpotMessageType:
+                retMessage = IMSpotMessage()
+                
+            case .GuideMessageType:
+                retMessage = IMGuideMessage()
+                
+            case .TravelNoteMessageType:
+                retMessage = IMTravelNoteMessage()
+                
+            case .RestaurantMessageType:
+                retMessage = IMRestaurantMessage()
+                
+            case .ShoppingMessageType:
+                retMessage = IMShoppingMessage()
+                
+            case .HotelMessageType:
+                retMessage = IMHotelMessage()
+
             
             default:
                 break
             }
+            
+            var contents = rs.stringForColumn("Message")
+            retMessage?.fillContentWithContent(contents)
+            retMessage?.message = contents
+            
             retMessage?.senderId  = Int(rs.intForColumn("SenderId"))
             retMessage?.sendType = IMMessageSendType(rawValue: Int(rs.intForColumn("SendType")))!
             retMessage?.createTime = Int(rs.intForColumn("CreateTime"))

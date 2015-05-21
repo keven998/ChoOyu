@@ -229,7 +229,7 @@
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
     taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatType = TZChatTypeStrategy;
+    taoziMessageCtl.chatType = IMMessageTypeGuideMessageType;
     taoziMessageCtl.messageId = self.tripDetail.tripId;
     
     NSMutableString *summary;

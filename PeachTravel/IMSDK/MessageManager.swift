@@ -148,6 +148,7 @@ class MessageManager: NSObject {
             cityMsg.poiName = poiModel.poiName
             cityMsg.image = poiModel.image
             cityMsg.desc = poiModel.desc
+            cityMsg.poiModel = poiModel
             message = cityMsg
 
         case IMPoiType.Spot:
@@ -156,6 +157,8 @@ class MessageManager: NSObject {
             spotMsg.spotName = poiModel.poiName
             spotMsg.image = poiModel.image
             spotMsg.desc = poiModel.desc
+            spotMsg.poiModel = poiModel
+
             message = spotMsg
 
         case IMPoiType.Guide:
@@ -165,6 +168,8 @@ class MessageManager: NSObject {
             guideMsg.image = poiModel.image
             guideMsg.desc = poiModel.desc
             guideMsg.timeCost = poiModel.timeCost
+            guideMsg.poiModel = poiModel
+
             message = guideMsg
 
         case IMPoiType.TravelNote:
@@ -174,6 +179,8 @@ class MessageManager: NSObject {
             travelNoteMsg.image = poiModel.image
             travelNoteMsg.desc = poiModel.desc
             travelNoteMsg.detailUrl = poiModel.detailUrl
+            travelNoteMsg.poiModel = poiModel
+
             message = travelNoteMsg
 
         case IMPoiType.Restaurant:
@@ -184,6 +191,8 @@ class MessageManager: NSObject {
             restaurantMsg.rating = poiModel.rating
             restaurantMsg.address = poiModel.address
             restaurantMsg.price = poiModel.price
+            restaurantMsg.poiModel = poiModel
+
             message = restaurantMsg
 
         case IMPoiType.Shopping:
@@ -194,6 +203,8 @@ class MessageManager: NSObject {
             shoppingMsg.rating = poiModel.rating
             shoppingMsg.address = poiModel.address
             shoppingMsg.price = poiModel.price
+            shoppingMsg.poiModel = poiModel
+
             message = shoppingMsg
 
         case IMPoiType.Hotel:
@@ -204,6 +215,8 @@ class MessageManager: NSObject {
             hotelMsg.rating = poiModel.rating
             hotelMsg.address = poiModel.address
             hotelMsg.price = poiModel.price
+            hotelMsg.poiModel = poiModel
+
             message = hotelMsg
 
         default:

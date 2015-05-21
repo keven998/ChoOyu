@@ -330,11 +330,11 @@
  */
 - (void)updateChatView:(NSNotification *)noti
 {
-//    EMMessage *message = [noti.userInfo objectForKey:@"message"];
-//    //如果是发送的消息是属于当前页面的
-//    if ([message.conversationChatter == _chatter]) {
-//        [self addChatDataToMessage:[noti.userInfo objectForKey:@"message"]];
-//    }
+    BaseMessage *message = [noti.userInfo objectForKey:@"message"];
+    //如果是发送的消息是属于当前页面的
+    if (message.chatterId == _chatter) {
+        [self addChatMessage2DataSource:[noti.userInfo objectForKey:@"message"]];
+    }
 }
 
 - (void)loadContactsFromTZServerWithGroup:(EMGroup *)emgroup withCompletion:(void(^)(BOOL))completion
@@ -480,14 +480,14 @@
             
         } else if ([obj isKindOfClass:[MessageModel class]]) {
             MessageModel *model = (MessageModel *)obj;
-            if ([[model.taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
+            if (model.type == IMMessageTypeTipsMessageType) {
                 TipsChatTableViewCell *tipsCell = (TipsChatTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MessageCellTips"];
                 if (tipsCell == nil) {
                     tipsCell = [[TipsChatTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MessageCellTips"];
                     tipsCell.backgroundColor = [UIColor clearColor];
                     tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-                tipsCell.textLabel.text = [model.taoziMessage objectForKey:@"content"];
+                tipsCell.textLabel.text = @"测试 TIPS 消息";
                 return tipsCell;
                 
             }  else{
@@ -560,7 +560,7 @@
         NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:location];
         id object = [self.dataSource objectAtIndex:indexPath.row];
         if ([object isKindOfClass:[MessageModel class]]) {
-            if ([[((MessageModel *)object).message.ext objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
+            if (((MessageModel *)object).type == IMMessageTypeTipsMessageType) {
                 return;
             }
             EMChatViewCell *cell = (EMChatViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -689,65 +689,63 @@
 {
     _isScrollToBottom = NO;
     [self keyBoardHidden];
-    switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
-        case TZChatTypeSpot: {
+    switch (model.type) {
+        case IMMessageTypeSpotMessageType: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
-            spotDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            spotDetailCtl.spotId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            spotDetailCtl.title = model.poiModel.poiName;
+            spotDetailCtl.spotId = model.poiModel.poiId;
             [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
              
-        case TZChatTypeFood: {
+        case IMMessageTypeRestaurantMessageType: {
             CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
-            restaurantDetailCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-//            [self addChildViewController:restaurantDetailCtl];
-//            [self.view addSubview:restaurantDetailCtl.view];
+            restaurantDetailCtl.title = model.poiModel.poiName;
+            restaurantDetailCtl.poiId = model.poiModel.poiId;
             [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             break;
             
-        case TZChatTypeShopping: {
+        case IMMessageTypeShoppingMessageType: {
             CommonPoiDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
-            shoppingCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            shoppingCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-//            [self addChildViewController:shoppingCtl];
-//            [self.view addSubview:shoppingCtl.view];
+            shoppingCtl.title = model.poiModel.poiName;
+            shoppingCtl.poiId = model.poiModel.poiId;
             [self.navigationController pushViewController:shoppingCtl animated:YES];
             NSLog(@"asda");
         }
             break;
             
-        case TZChatTypeHotel: {
+        case IMMessageTypeHotelMessageType: {
             CommonPoiDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
-            hotelCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            hotelCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-//            [self addChildViewController:hotelCtl];
-//            [self.view addSubview:hotelCtl.view];
+            hotelCtl.title = model.poiModel.poiName;
+            hotelCtl.poiId = model.poiModel.poiId;
             [self.navigationController pushViewController:hotelCtl animated:YES];
         }
             break;
             
-        case TZChatTypeTravelNote: {
+        case IMMessageTypeTravelNoteMessageType: {
             TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
             TravelNote *travelNote = [[TravelNote alloc] init];
-            travelNote.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            travelNote.summary = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
+            
+            travelNote.title = model.poiModel.poiName;
+            travelNote.summary = model.poiModel.desc;
+            
             TaoziImage *image = [[TaoziImage alloc] init];
-            image.imageUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
+            
+            image.imageUrl = model.poiModel.image;
             travelNote.images = @[image];
-            travelNote.detailUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
-            travelNote.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            
+            travelNote.detailUrl = model.poiModel.detailUrl;
+            travelNote.travelNoteId = model.poiModel.poiId;
             travelNoteCtl.titleStr = @"游记详情";
             travelNoteCtl.travelNote = travelNote;
             [self.navigationController pushViewController:travelNoteCtl animated:YES];
         }
             break;
             
-        case TZChatTypeStrategy: {
+        case IMMessageTypeGuideMessageType: {
             TripDetailRootViewController *tripDetailCtl = [[TripDetailRootViewController alloc] init];
-            tripDetailCtl.tripId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            tripDetailCtl.tripId = model.poiModel.poiId;
             tripDetailCtl.isMakeNewTrip = NO;
             if (model.isSender) {
                 tripDetailCtl.canEdit = YES;
@@ -767,11 +765,11 @@
         }
             break;
         
-        case TZChatTypeCity: {
+        case IMMessageTypeCityPoiMessageType: {
             _isScrollToBottom = NO;
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
-            cityCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            cityCtl.cityId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            cityCtl.title = model.poiModel.poiName;
+            cityCtl.cityId = model.poiModel.poiId;
             [self.navigationController pushViewController:cityCtl animated:YES];
         }
             break;

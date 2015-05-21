@@ -322,7 +322,7 @@
             AccountManager *accountManager = [AccountManager shareAccountManager];
             NSString *messageStr = [NSString stringWithFormat:@"%@把%@移除了群组",accountManager.account.nickName, selectPerson.nickName];
             
-            NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
+            NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:IMMessageTypeTipsMessageType], @"content":messageStr};
             
             EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:self.group.groupId isChatGroup:YES requireEncryption:NO];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];

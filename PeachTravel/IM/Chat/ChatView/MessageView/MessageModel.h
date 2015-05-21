@@ -45,8 +45,6 @@
 //旅行派自有的消息内容
 @property (nonatomic, strong) IMPoiModel *poiModel;
 
-@property (nonatomic, strong) NSDictionary *taoziMessage;
-
 //image
 @property (nonatomic) CGSize size;
 @property (nonatomic) CGSize thumbnailSize;

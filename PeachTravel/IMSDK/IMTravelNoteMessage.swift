@@ -15,6 +15,7 @@ class IMTravelNoteMessage: BaseMessage {
     var image: String?
     var desc: String?
     var detailUrl: String?
+    var poiModel: IMPoiModel!
     
     override init() {
         super.init()
@@ -27,20 +28,27 @@ class IMTravelNoteMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
+        poiModel = IMPoiModel()
         if let id = contentsDic.objectForKey("id") as? String {
             travelNoteId = id
+            poiModel.poiId = id
         }
         if let name = contentsDic.objectForKey("name") as? String {
             self.name = name
+            poiModel.poiName = name
+            
         }
         if let image = contentsDic.objectForKey("image") as? String {
             self.image = image
+            poiModel.image = image
         }
         if let desc = contentsDic.objectForKey("desc") as? String {
             self.desc = desc
+            poiModel.desc = desc
         }
         if let url = contentsDic.objectForKey("detailUrl") as? String {
             self.detailUrl = url
+            poiModel.detailUrl = url
         }
     }
 

@@ -265,7 +265,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageName = self.poi.zhName;
     taoziMessageCtl.messageTimeCost = ((CityPoi *)self.poi).timeCostDesc;
     taoziMessageCtl.descLabel.text = self.poi.desc;
-    taoziMessageCtl.chatType = TZChatTypeCity;
+    taoziMessageCtl.messageType = IMMessageTypeCityPoiMessageType;
 }
 
 #pragma mark - IBAction Methods

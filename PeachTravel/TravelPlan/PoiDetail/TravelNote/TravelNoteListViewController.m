@@ -179,7 +179,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     TravelNote *travelNote = [self.dataSource objectAtIndex:sender.tag];
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatType = TZChatTypeTravelNote;
+    taoziMessageCtl.messageType = IMMessageTypeTravelNoteMessageType;
     taoziMessageCtl.messageId = travelNote.travelNoteId;
     taoziMessageCtl.messageName = travelNote.title;
     taoziMessageCtl.messageDesc = travelNote.summary;
@@ -187,7 +187,6 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     TaoziImage *image = [travelNote.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
     taoziMessageCtl.chatterId = _chatterId;
-    taoziMessageCtl.chatType = _chatType;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 

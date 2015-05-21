@@ -91,7 +91,7 @@
     
     NSString *str = [NSString stringWithFormat:@"你已添加%@为好友",frendRequest.nickName];
     message.ext = @{
-                    @"tzType":[NSNumber numberWithInt:TZTipsMsg],
+                    @"tzType":[NSNumber numberWithInt:IMMessageTypeTipsMessageType],
                     @"content":str
                     };
     [message setIsGroup:NO];

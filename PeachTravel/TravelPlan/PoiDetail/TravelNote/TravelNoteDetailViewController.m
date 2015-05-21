@@ -144,7 +144,7 @@
     taoziMessageCtl.messageDesc = _travelNote.summary;
     taoziMessageCtl.messageName = _travelNote.title;
     taoziMessageCtl.messageDetailUrl = _travelNote.detailUrl;
-    taoziMessageCtl.chatType = TZChatTypeTravelNote;
+    taoziMessageCtl.chatType = IMMessageTypeTravelNoteMessageType;
 }
 
 - (void)login

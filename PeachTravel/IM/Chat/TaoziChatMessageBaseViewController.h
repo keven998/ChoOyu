@@ -30,10 +30,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
 
 @property (nonatomic) NSInteger chatterId;
-@property (nonatomic) IMChatType chatType;
+
 @property (nonatomic, copy) NSString *chatTitle;
-// chatType 聊天的类型，分为景点，城市之类的
+
+
+// messageType 消息的类型，分为景点，城市之类的
 @property (nonatomic) IMMessageType messageType;
+
+//聊天类型，单聊。群聊
+@property (nonatomic) IMChatType chatType;
+
 
 //发送内容的 id,景点 id，攻略 id 之类的
 @property (nonatomic, copy) NSString *messageId;

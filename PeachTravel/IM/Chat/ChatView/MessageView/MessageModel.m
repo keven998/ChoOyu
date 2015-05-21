@@ -39,7 +39,6 @@
                 _time = ((AudioMessage *)message).audioLength;
                 _localPath = ((AudioMessage *)message).localPath;
                 _isRead = ((AudioMessage *)message).audioStatus == IMAudioStatusReaded ? YES : NO;
-
                 
                 break;
                 
@@ -55,7 +54,40 @@
                 _address = ((LocationMessage *)message).address;
                 _latitude = ((LocationMessage *)message).latitude;
                 _longitude = ((LocationMessage *)message).longitude;
+                break;
                 
+            case IMMessageTypeTravelNoteMessageType:
+                _poiModel = ((IMTravelNoteMessage *) message).poiModel;
+                break;
+                
+            case IMMessageTypeCityPoiMessageType:
+                _poiModel = ((IMCityMessage *) message).poiModel;
+
+                break;
+            case IMMessageTypeShoppingMessageType:
+                _poiModel = ((IMShoppingMessage *) message).poiModel;
+
+                break;
+
+            case IMMessageTypeHotelMessageType:
+                _poiModel = ((IMHotelMessage *) message).poiModel;
+
+                break;
+
+            case IMMessageTypeRestaurantMessageType:
+                _poiModel = ((IMRestaurantMessage *) message).poiModel;
+
+                break;
+
+            case IMMessageTypeGuideMessageType:
+                _poiModel = ((IMGuideMessage *) message).poiModel;
+
+                break;
+
+            case IMMessageTypeSpotMessageType:
+                _poiModel = ((IMSpotMessage *) message).poiModel;
+
+                break;
             default:
                 break;
         }

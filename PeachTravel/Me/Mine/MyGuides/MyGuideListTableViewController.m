@@ -461,46 +461,6 @@ static NSString *reusableCell = @"myGuidesCell";
     }
 }
 
-//- (void)setupEmptyView {
-//    if (self.emptyView != nil) {
-//        return;
-//    }
-//    
-//    CGFloat width = self.view.bounds.size.width;
-//    
-//    self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-200)];
-//    [self.view addSubview:self.emptyView];
-//    
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 72, 72)];
-////    imageView.contentMode = UIViewContentModeCenter;
-//    imageView.image = [UIImage imageNamed:@"ic_guide_earth.png"];
-//    imageView.center = CGPointMake(width/2.0, 144);
-//    [self.emptyView addSubview:imageView];
-//    
-//    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 144+imageView.frame.size.height/2.0, width, 64.0)];
-////    desc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-//    desc.font = [UIFont systemFontOfSize:14.0];
-//    desc.numberOfLines = 2;
-////    desc.textAlignment = NSTextAlignmentCenter;
-//    NSString *text = @"你还没有任何旅行计划~";
-//    NSMutableAttributedString *attrDesc = [[NSMutableAttributedString alloc] initWithString:text];
-//    [attrDesc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, [text length])];
-//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//    style.lineSpacing = 4.0;
-//    [style setAlignment:NSTextAlignmentCenter];
-//    [attrDesc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
-//    [desc setAttributedText:attrDesc];
-//    
-//    [self.emptyView addSubview:desc];
-//}
-//
-//- (void) removeEmptyView {
-//    if (self.emptyView != nil) {
-//        [self.emptyView removeFromSuperview];
-//        self.emptyView = nil;
-//    }
-//}
-
 - (IBAction)sendPoi:(UIButton *)sender
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -509,7 +469,7 @@ static NSString *reusableCell = @"myGuidesCell";
 
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
-    taoziMessageCtl.chatType = TZChatTypeStrategy;
+    taoziMessageCtl.messageType = IMMessageTypeGuideMessageType;
     taoziMessageCtl.chatterId = _chatterId;
     taoziMessageCtl.chatTitle = @"计划";
     taoziMessageCtl.messageId = guideSummary.guideId;

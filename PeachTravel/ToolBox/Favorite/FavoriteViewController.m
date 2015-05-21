@@ -376,24 +376,24 @@
     //        taoziMessageCtl.messageTimeCost = item.timeCostStr;
     taoziMessageCtl.descLabel.text = item.desc;
     if (item.type == kSpotPoi) {
-        taoziMessageCtl.chatType = TZChatTypeSpot;
+        taoziMessageCtl.chatType = IMMessageTypeSpotMessageType;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
     } else if (item.type == kHotelPoi) {
-        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messageRating = item.rating;
         taoziMessageCtl.messagePrice = item.priceDesc;
     } else if (item.type == kRestaurantPoi) {
-        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.chatType = IMMessageTypeRestaurantMessageType;
         taoziMessageCtl.messageRating = item.rating;
         taoziMessageCtl.messagePrice = item.priceDesc;
     } else if (item.type == kShoppingPoi) {
-        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.chatType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = item.rating;
     } else if (item.type == kTravelNotePoi) {
-        taoziMessageCtl.chatType = TZChatTypeTravelNote;
+        taoziMessageCtl.chatType = IMMessageTypeTravelNoteMessageType;
         taoziMessageCtl.messageDetailUrl = item.detailUrl;
     } else {
-        taoziMessageCtl.chatType = TZChatTypeCity;
+        taoziMessageCtl.chatType = IMMessageTypeCityPoiMessageType;
         taoziMessageCtl.messageTimeCost = item.timeCostDesc;
     }
     

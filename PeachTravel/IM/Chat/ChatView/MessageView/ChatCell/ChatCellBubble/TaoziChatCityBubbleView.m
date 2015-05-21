@@ -74,9 +74,9 @@ NSString *const kRouterEventTaoziCityBubbleTapEventName = @"kRouterEventTaoziCit
 - (void)setModel:(MessageModel *)model
 {
     _model = model;
-    NSDictionary *content = [model.taoziMessage objectForKey:@"content"];
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:[content objectForKey:@"image"]] placeholderImage:nil];
-    _titleLabel.text = [content objectForKey:@"name"];
+    IMPoiModel *poiModel = model.poiModel;
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:poiModel.image] placeholderImage:nil];
+    _titleLabel.text = poiModel.poiName;
 }
 
 /**

@@ -32,7 +32,7 @@
     _imageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     _headerImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
-    if (_messageType == TZChatTypeTravelNote) {
+    if (_messageType == IMMessageTypeTravelNoteMessageType) {
         _titleBtn.titleLabel.numberOfLines = 2;
         _propertyBtn.hidden = YES;
 
@@ -44,7 +44,7 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_messageImage] placeholderImage:nil];
     
     switch (_messageType) {
-        case TZChatTypeSpot:
+        case IMMessageTypeSpotMessageType:
             _headerLabel.text = @"  景点";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
             if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
@@ -56,7 +56,7 @@
             
             break;
             
-        case TZChatTypeStrategy:
+        case IMMessageTypeGuideMessageType:
             [_propertyBtn setImage:[UIImage imageNamed:@"ic_time.png"] forState:UIControlStateNormal];
             _headerLabel.text = @"  计划";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
@@ -64,7 +64,7 @@
             _descLabel.text = _messageDesc;
             break;
             
-        case TZChatTypeFood: {
+        case IMMessageTypeRestaurantMessageType: {
             _headerLabel.text = @"   美食";
             [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
@@ -74,7 +74,7 @@
         }
             break;
             
-        case TZChatTypeHotel: {
+        case IMMessageTypeHotelMessageType: {
             _headerLabel.text = @"   酒店";
             [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f  %@",_messageRating, _messagePrice];
@@ -84,7 +84,7 @@
             
             break;
             
-        case TZChatTypeShopping: {
+        case IMMessageTypeShoppingMessageType: {
             _headerLabel.text = @"   购物";
             [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow.png"] forState:UIControlStateNormal];
             NSString *propertyStr = [NSString stringWithFormat:@"%.1f",_messageRating];
@@ -92,10 +92,9 @@
             [_propertyBtn setTitle:propertyStr forState:UIControlStateNormal];
 
         }
-            
             break;
             
-        case TZChatTypeCity:
+        case IMMessageTypeCityPoiMessageType:
             _headerLabel.text = @"   城市";
             if ([_messageTimeCost isBlankString] || !_messageTimeCost) {
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
@@ -106,7 +105,7 @@
             _descLabel.text = _messageDesc;
             break;
             
-        case TZChatTypeTravelNote:
+        case IMMessageTypeTravelNoteMessageType:
             _headerLabel.text = @"   游记";
             _descLabel.text = _messageDesc;
             break;
@@ -161,7 +160,7 @@
 - (IBAction)confirmSend:(UIButton *)sender {
    
     IMClientManager *imclientManager = [IMClientManager shareInstance];
-    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil];  
+    BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil];
     [_delegate sendSuccess:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
 
@@ -187,11 +186,13 @@
         case IMMessageTypeSpotMessageType:
             retModel.desc = _messageDesc;
             retModel.timeCost = _messageTimeCost;
+            retModel.poiType = IMPoiTypeSpot;
             break;
             
         case IMMessageTypeGuideMessageType:
             retModel.desc = _messageDesc;
             retModel.timeCost = _messageTimeCost;
+            retModel.poiType = IMPoiTypeGuide;
 
             break;
             
@@ -199,28 +200,35 @@
             retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
             retModel.price = _messagePrice;
             retModel.address = _messageAddress;
+            retModel.poiType = IMPoiTypeRestaurant;
+
             break;
             
         case IMMessageTypeHotelMessageType:
             retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
             retModel.price = _messagePrice;
             retModel.address = _messageAddress;
+            retModel.poiType = IMPoiTypeHotel;
 
             break;
             
         case IMMessageTypeShoppingMessageType:
             retModel.rating = [NSString stringWithFormat:@"%.1f", _messageRating];
             retModel.address = _messageAddress;
+            retModel.poiType = IMPoiTypeShopping;
+
             break;
             
         case IMMessageTypeCityPoiMessageType:
             retModel.desc = _messageDesc;
+            retModel.poiType = IMPoiTypeCity;
 
             break;
             
         case IMMessageTypeTravelNoteMessageType:
             retModel.desc = _messageDesc;
             retModel.detailUrl = _messageDetailUrl;
+            retModel.poiType = IMPoiTypeTravelNote;
 
             break;
             

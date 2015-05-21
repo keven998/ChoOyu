@@ -396,26 +396,26 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             taoziMessageCtl.delegate = self;
             switch (poi.poiType) {
                 case kCityPoi:
-                    taoziMessageCtl.chatType = TZChatTypeCity;
+                    taoziMessageCtl.chatType = IMMessageTypeCityPoiMessageType;
                     taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", ((CityPoi *)poi).timeCostDesc];
                     break;
                     
                 case kSpotPoi:
-                    taoziMessageCtl.chatType = TZChatTypeSpot;
+                    taoziMessageCtl.chatType = IMMessageTypeSpotMessageType;
                     taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%@", ((SpotPoi *)poi).timeCostStr];
                     break;
                     
                 case kRestaurantPoi:
-                    taoziMessageCtl.chatType = TZChatTypeFood;
+                    taoziMessageCtl.chatType = IMMessageTypeRestaurantMessageType;
                     taoziMessageCtl.messagePrice = ((RestaurantPoi *)poi).priceDesc;
                     break;
                     
                 case kShoppingPoi:
-                    taoziMessageCtl.chatType = TZChatTypeShopping;
+                    taoziMessageCtl.chatType = IMMessageTypeShoppingMessageType;
                     break;
                     
                 case kHotelPoi:
-                    taoziMessageCtl.chatType = TZChatTypeHotel;
+                    taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
                     taoziMessageCtl.messagePrice = ((HotelPoi *)poi).priceDesc;
                     break;
                     

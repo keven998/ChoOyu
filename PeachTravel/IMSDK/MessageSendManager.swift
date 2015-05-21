@@ -155,6 +155,26 @@ class MessageSendManager: NSObject {
         message.chatterId = receiver
         message.sendType = IMMessageSendType.MessageSendMine
         message.conversationId = conversationId
+        switch poiModel.poiType {
+        case .City :
+            message.messageType = IMMessageType.CityPoiMessageType
+        case .Spot :
+            message.messageType = IMMessageType.SpotMessageType
+        case .Restaurant :
+            message.messageType = IMMessageType.RestaurantMessageType
+        case .Guide :
+            message.messageType = IMMessageType.GuideMessageType
+        case .TravelNote :
+            message.messageType = IMMessageType.TravelNoteMessageType
+        case .Shopping :
+            message.messageType = IMMessageType.ShoppingMessageType
+        case .Hotel :
+            message.messageType = IMMessageType.HotelMessageType
+            
+        default:
+            break
+            
+        }
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: message)
         sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId)

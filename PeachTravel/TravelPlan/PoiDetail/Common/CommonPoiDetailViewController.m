@@ -145,7 +145,6 @@
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-//        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
             self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
@@ -157,7 +156,6 @@
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
-//    self.title = self.poi.zhName;
     
 }
 
@@ -169,19 +167,19 @@
     taoziMessageCtl.messageDesc = self.poi.desc;
     taoziMessageCtl.messageName = self.poi.zhName;
     taoziMessageCtl.messageRating = self.poi.rating;
-    taoziMessageCtl.chatType = TZChatTypeFood;
+    taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
     if (_poiType == kHotelPoi) {
-        taoziMessageCtl.chatType = TZChatTypeHotel;
+        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"酒店详情";
     } else if (_poiType == kRestaurantPoi) {
-        taoziMessageCtl.chatType = TZChatTypeFood;
+        taoziMessageCtl.chatType = IMMessageTypeHotelMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
-        self.title = @"没事详情";
+        self.title = @"美食详情";
     } else if (_poiType == kShoppingPoi) {
-        taoziMessageCtl.chatType = TZChatTypeShopping;
+        taoziMessageCtl.chatType = IMMessageTypeShoppingMessageType;
         taoziMessageCtl.messageRating = self.poi.rating;
         self.title = @"购物详情";
     } 

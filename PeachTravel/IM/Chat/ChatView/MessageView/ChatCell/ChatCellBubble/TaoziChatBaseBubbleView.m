@@ -118,8 +118,8 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     [_titleBtn setFrame:CGRectMake(_pictureImageView.frame.origin.x + 70, 10, titleWidth, 20)];
 
     CGFloat offsetY;
-    if ([[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeTravelNote
-        || [[_model.taoziMessage objectForKey:@"tzType"] integerValue] == TZChatTypeCity) {
+    if (_model.type ==  IMMessageTypeTravelNoteMessageType
+        || _model.type == IMMessageTypeCityPoiMessageType) {
         _propertyBtn.hidden = YES;
         _propertyBtn.frame = CGRectZero;
         offsetY = 25;
@@ -148,78 +148,77 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     NSInteger topCapHeight =  39;
     self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
     
-    if (model.taoziMessage) {
-        NSDictionary *content = [model.taoziMessage objectForKey:@"content"];
-        [_titleBtn setTitle:[content objectForKey:@"name"] forState:UIControlStateNormal];
-        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:[content objectForKey:@"image"]] placeholderImage:nil];
+    if (model.poiModel) {
+        [_titleBtn setTitle:model.poiModel.poiName forState:UIControlStateNormal];
+        [_pictureImageView sd_setImageWithURL:[NSURL URLWithString:model.poiModel.image] placeholderImage:nil];
         /**
          *  默认标题一行，但是游记的话是两行
          */
         _titleBtn.titleLabel.numberOfLines = 1;
-        switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
-            case TZChatTypeSpot:
+        switch (model.type) {
+            case IMMessageTypeSpotMessageType:
                 _typeLabel.text = @"景点";
-                [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
+                [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"desc"];
+                _descLabel.text = model.poiModel.desc;
                 break;
                 
-            case TZChatTypeFood: {
+            case IMMessageTypeRestaurantMessageType: {
                 _typeLabel.text = @"美食";
-                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
+                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", model.poiModel.rating, model.poiModel.price];
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
                 }
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"address"];
+                _descLabel.text = model.poiModel.address;
             }
                 break;
                 
-            case TZChatTypeHotel: {
+            case IMMessageTypeHotelMessageType: {
                 _typeLabel.text = @"酒店";
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
                 }
-                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", [content objectForKey:@"rating"], [content objectForKey:@"price"]];
+                NSString *protertyStr = [NSString stringWithFormat:@"%@  %@", model.poiModel.rating, model.poiModel.price];
                 [_propertyBtn setTitle:protertyStr forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"address"];
+                _descLabel.text = model.poiModel.address;
             }
                 
                 break;
                 
-            case TZChatTypeShopping:
+            case IMMessageTypeShoppingMessageType:
                 _typeLabel.text = @"购物";
                 if (_model.isSender) {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_gray_small.png"] forState:UIControlStateNormal];
                 } else {
                     [_propertyBtn setImage:[UIImage imageNamed:@"ic_star_yellow_small.png"] forState:UIControlStateNormal];
                 }
-                [_propertyBtn setTitle:[content objectForKey:@"rating"] forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"address"];
+                [_propertyBtn setTitle:model.poiModel.rating forState:UIControlStateNormal];
+                _descLabel.text = model.poiModel.address;
                 
                 break;
                 
-            case TZChatTypeStrategy:
+            case IMMessageTypeGuideMessageType:
                 _typeLabel.text = @"计划";
                 [_propertyBtn setImage:nil forState:UIControlStateNormal];
-                [_propertyBtn setTitle:[content objectForKey:@"timeCost"] forState:UIControlStateNormal];
-                _descLabel.text = [content objectForKey:@"desc"];
+                [_propertyBtn setTitle:model.poiModel.timeCost forState:UIControlStateNormal];
+                _descLabel.text = model.poiModel.desc;
                 break;
                 
-            case TZChatTypeTravelNote:
+            case IMMessageTypeTravelNoteMessageType:
                 _typeLabel.text = @"游记";
                 _propertyBtn.hidden = YES;
-                _descLabel.text = [content objectForKey:@"desc"];
+                _descLabel.text = model.poiModel.desc;
                 break;
 
-            case TZChatTypeCity:
+            case IMMessageTypeCityPoiMessageType:
                 _typeLabel.text = @"城市";
                 _propertyBtn.hidden = YES;
-                _descLabel.text = [content objectForKey:@"desc"];
+                _descLabel.text = model.poiModel.desc;
                 break;
                 
             default:

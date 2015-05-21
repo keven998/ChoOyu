@@ -15,6 +15,7 @@ class IMSpotMessage: BaseMessage {
     var image: String?
     var desc: String?
     var timeCost: String?
+    var poiModel: IMPoiModel!
     
     override init() {
         super.init()
@@ -27,20 +28,26 @@ class IMSpotMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
+        poiModel = IMPoiModel()
         if let id = contentsDic.objectForKey("id") as? String {
             spotId = id
+            poiModel.poiId = id
         }
         if let name = contentsDic.objectForKey("name") as? String {
             spotName = name
+            poiModel.poiName = name
         }
         if let image = contentsDic.objectForKey("image") as? String {
             self.image = image
+            poiModel.image = image
         }
         if let desc = contentsDic.objectForKey("desc") as? String {
             self.desc = desc
+            poiModel.desc = desc
         }
         if let time = contentsDic.objectForKey("timeCost") as? String {
             self.timeCost = time
+            poiModel.timeCost = time
         }
     }
 
