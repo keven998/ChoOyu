@@ -371,8 +371,8 @@
     taoziMessageCtl.messageImage = ((TaoziImage *)[item.images firstObject]).imageUrl;
     taoziMessageCtl.messageDesc = item.desc;
     taoziMessageCtl.messageName = item.zhName;
-    taoziMessageCtl.chatter = self.chatter;
-    taoziMessageCtl.isGroup = self.isChatGroup;
+    taoziMessageCtl.chatterId = self.chatterId;
+    taoziMessageCtl.chatType = self.chatType;
     //        taoziMessageCtl.messageTimeCost = item.timeCostStr;
     taoziMessageCtl.descLabel.text = item.desc;
     if (item.type == kSpotPoi) {

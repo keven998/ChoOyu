@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PeachTravel-swift.h"
 
 @interface FavoriteViewController : UIViewController
 
@@ -15,8 +16,8 @@
  */
 @property (nonatomic) BOOL selectToSend;
 
-@property (nonatomic, copy) NSString *chatter;
+@property (nonatomic) NSInteger chatterId;
 
-@property (nonatomic) BOOL isChatGroup;
+@property (nonatomic) IMChatType chatType;
 
 @end

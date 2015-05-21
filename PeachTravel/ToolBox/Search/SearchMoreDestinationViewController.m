@@ -391,7 +391,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         SuperPoi *poi = [self.dataSource objectAtIndex:indexPath.row];
         
-        if (_chatter) {
+        if (_chatterId > 0) {
             TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
             taoziMessageCtl.delegate = self;
             switch (poi.poiType) {
@@ -430,8 +430,8 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             taoziMessageCtl.messageImage = image.imageUrl;
             taoziMessageCtl.messageAddress = poi.address;
             taoziMessageCtl.messageRating = poi.rating;
-            taoziMessageCtl.chatter = _chatter;
-            taoziMessageCtl.isGroup = _isChatGroup;
+            taoziMessageCtl.chatterId = _chatterId;
+            taoziMessageCtl.chatType = _chatType;
             [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
         } else {
             

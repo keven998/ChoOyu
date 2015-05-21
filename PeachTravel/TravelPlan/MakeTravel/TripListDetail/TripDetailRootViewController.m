@@ -46,7 +46,6 @@
  *  点击目的地显示目的地界面
  */
 @property (nonatomic, strong) UIView *destinationBkgView;
-@property (nonatomic, strong) DestinationsView *destinationView;
 
 //完成按钮。。。uinavigationbar的返回按钮
 //@property (nonatomic, strong) UIButton *finishBtn;
@@ -535,13 +534,6 @@
     [cancelBtn addTarget:self action:@selector(hideDestinationView:) forControlEvents:UIControlEventTouchUpInside];
     [panelView addSubview:cancelBtn];
     
-    _destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(8, 50, kWindowWidth-16, 249)];
-    _destinationView.isCanAddDestination = YES;
-    _destinationView.delegate = self;
-    _destinationView.titleColor = APP_THEME_COLOR;
-    _destinationView.destinations = array;
-    [panelView addSubview:_destinationView];
-    
     [_destinationBkgView addSubview:panelView];
     
     [self.navigationController.view addSubview:_destinationBkgView];
@@ -891,14 +883,16 @@
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+
+
 {
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     [self setChatMessageModel:taoziMessageCtl];
     taoziMessageCtl.delegate = self;
     taoziMessageCtl.chatTitle = chatTitle;
-    taoziMessageCtl.chatter = chatter;
-    taoziMessageCtl.isGroup = isGroup;
+    taoziMessageCtl.chatterId = chatterId;
+    taoziMessageCtl.chatType = chatType;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
         [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];

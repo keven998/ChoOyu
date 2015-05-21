@@ -41,6 +41,8 @@
 #import "ShoppingPoi.h"
 #import "CityPoi.h"
 #import "TZNavigationViewController.h"
+#import "PeachTravel-swift.h"
+
 
 #endif
 

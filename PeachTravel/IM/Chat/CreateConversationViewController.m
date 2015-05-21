@@ -14,6 +14,7 @@
 #import "SelectContactScrollView.h"
 #import "SelectContactUnitView.h"
 #import "MJNIndexView.h"
+#import "PeachTravel-swift.h"
 
 #define contactCell      @"createConversationCell"
 
@@ -151,8 +152,8 @@
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
             Contact *contact = [self.selectedContacts firstObject];
-            if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
-                [_delegate createConversationSuccessWithChatter:contact.easemobUser isGroup:NO chatTitle:contact.nickName];
+            if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+                [_delegate createConversationSuccessWithChatter:contact.userId.integerValue chatType:IMChatTypeIMChatSingleType chatTitle:contact.nickName];
             }
             
         } else if (self.selectedContacts.count > 1) {     //群聊
@@ -179,9 +180,10 @@
                 if (group && !error) {
                     [[EaseMob sharedInstance].chatManager setApnsNickname:groupName];
                     [weakSelf sendMsgWhileCreateGroup:group.groupId];
-                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
-                        [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
+                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+                        [_delegate createConversationSuccessWithChatter:1000 chatType:IMChatTypeIMChatGroupType chatTitle:group.groupSubject];
                     }
+                    
                 }
                 else{
                     [weakSelf showHint:@"吖~好像请求失败了"];

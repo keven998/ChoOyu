@@ -182,9 +182,9 @@ static NSString *reusableCell = @"myGuidesCell";
     MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
     gltvc.isExpert = _isExpert;
     gltvc.isTrip = YES;
-    gltvc.chatter = _chatter;
+    gltvc.chatterId = _chatterId;
     gltvc.selectToSend = _selectToSend;
-    gltvc.isChatGroup = _isChatGroup;
+    gltvc.chatType = _chatType;
     [self.navigationController pushViewController:gltvc animated:YES];
 }
 
@@ -516,12 +516,12 @@ static NSString *reusableCell = @"myGuidesCell";
     TaoziChatMessageBaseViewController *taoziMessageCtl = [[TaoziChatMessageBaseViewController alloc] init];
     taoziMessageCtl.delegate = self;
     taoziMessageCtl.chatType = TZChatTypeStrategy;
-    taoziMessageCtl.chatter = _chatter;
+    taoziMessageCtl.chatterId = _chatterId;
     taoziMessageCtl.chatTitle = @"计划";
     taoziMessageCtl.messageId = guideSummary.guideId;
     taoziMessageCtl.messageDesc = guideSummary.summary;
     taoziMessageCtl.messageName = guideSummary.title;
-    taoziMessageCtl.isGroup = _isChatGroup;
+    taoziMessageCtl.chatType = _chatType;
     TaoziImage *image = [guideSummary.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
     taoziMessageCtl.messageTimeCost = [NSString stringWithFormat:@"%ld天", (long)guideSummary.dayCount];

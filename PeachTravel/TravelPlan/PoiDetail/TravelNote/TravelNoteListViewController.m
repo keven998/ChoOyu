@@ -186,8 +186,8 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageDetailUrl = travelNote.detailUrl;
     TaoziImage *image = [travelNote.images firstObject];
     taoziMessageCtl.messageImage = image.imageUrl;
-    taoziMessageCtl.chatter = _chatter;
-    taoziMessageCtl.isGroup = _isChatGroup;
+    taoziMessageCtl.chatterId = _chatterId;
+    taoziMessageCtl.chatType = _chatType;
     [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 

@@ -20,7 +20,8 @@
  *  @param isGroup 是否是群
  *  @param chatTitle 聊天界面显示的title
  */
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle;
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+;
 
 @end
 

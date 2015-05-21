@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatViewController.h"
+#import "PeachTravel-swift.h"
 
 @protocol TaoziMessageSendDelegate <NSObject>
 
@@ -28,11 +29,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
 @property (weak, nonatomic) IBOutlet UIButton *propertyBtn;
 
-@property (nonatomic, copy) NSString *chatter;
-@property (nonatomic) BOOL isGroup;
+@property (nonatomic) NSInteger chatterId;
+@property (nonatomic) IMChatType chatType;
 @property (nonatomic, copy) NSString *chatTitle;
 // chatType 聊天的类型，分为景点，城市之类的
-@property (nonatomic) TZChatType chatType;
+@property (nonatomic) TZChatType messageType;
 
 //发送内容的 id,景点 id，攻略 id 之类的
 @property (nonatomic, copy) NSString *messageId;

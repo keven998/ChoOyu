@@ -141,10 +141,12 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 #pragma mark - CreateConversationDelegate
 
-- (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+
+
 {
-    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
-        [_delegate createConversationSuccessWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
+    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+        [_delegate createConversationSuccessWithChatter:chatterId chatType:chatType chatTitle:chatTitle];
     }
 }
 
@@ -236,12 +238,13 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
         if (!conversation.isGroup) {
-            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO chatTitle:chatPeople.nickName];
+//            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO chatTitle:chatPeople.nickName];
+            
         } else{
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
+//                    [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
                     break;
                 }
             }

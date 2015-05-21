@@ -32,7 +32,7 @@
     _imageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     _headerImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
-    if (_chatType == TZChatTypeTravelNote) {
+    if (_messageType == TZChatTypeTravelNote) {
         _titleBtn.titleLabel.numberOfLines = 2;
         _propertyBtn.hidden = YES;
 
@@ -43,7 +43,7 @@
     
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:_messageImage] placeholderImage:nil];
     
-    switch (_chatType) {
+    switch (_messageType) {
         case TZChatTypeSpot:
             _headerLabel.text = @"  景点";
             [_propertyBtn setTitle:_messageTimeCost forState:UIControlStateNormal];
@@ -160,12 +160,13 @@
 
 - (IBAction)confirmSend:(UIButton *)sender {
    
-    ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatter isGroup:_isGroup];
-    temtChatCtl.title = _chatTitle;
-    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
-    
-    [_delegate sendSuccess:temtChatCtl];
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
+//    ChatViewController *temtChatCtl = [[ChatViewController alloc] initWithChatter:_chatterId isGroup:_isGroup];
+//    ChatViewController *temp
+//    temtChatCtl.title = _chatTitle;
+//    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:@"" andExtMessage:[self dataToSend] toUsername:_chatter isChatGroup:_isGroup requireEncryption:NO];
+//    
+//    [_delegate sendSuccess:temtChatCtl];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
 
 }
 
@@ -181,12 +182,12 @@
 - (NSDictionary *)dataToSend
 {
     NSMutableDictionary *retDic = [[NSMutableDictionary alloc] init];
-    [retDic setObject:[NSNumber numberWithInt:_chatType] forKey:@"tzType"];
+    [retDic setObject:[NSNumber numberWithInt:_messageType] forKey:@"tzType"];
     NSMutableDictionary *contentDic = [[NSMutableDictionary alloc] init];
     [contentDic safeSetObject:_messageId forKey:@"id"];
     [contentDic safeSetObject:_messageImage forKey:@"image"];
     [contentDic safeSetObject:_messageName forKey:@"name"];
-    switch (_chatType) {
+    switch (_messageType) {
         case TZChatTypeSpot:
             [contentDic safeSetObject:_messageDesc forKey:@"desc"];
             [contentDic safeSetObject:_messageTimeCost forKey:@"timeCost"];
