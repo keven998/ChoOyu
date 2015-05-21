@@ -404,7 +404,7 @@
     }
     else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
-        cell.nameLabel.text = @"旅行足迹";
+        cell.nameLabel.text = @"我的足迹";
         NSDictionary *country = amgr.accountDetail.tracks;
         NSInteger cityNumber = 0;
         NSMutableString *cityDesc = nil;

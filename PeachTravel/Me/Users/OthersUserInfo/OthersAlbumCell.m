@@ -22,19 +22,16 @@
 -(void)createUI
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.minimumLineSpacing = 100;
-    layout.minimumInteritemSpacing = 100;
+    layout.minimumInteritemSpacing = 5;
     
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
+    [_collectionView setCollectionViewLayout:layout];
     [_collectionView setBackgroundColor:[UIColor clearColor]];
+    _collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
     [_collectionView registerNib:[UINib nibWithNibName:@"PicCell" bundle:nil]  forCellWithReuseIdentifier:@"cell"];
     
-    
     [self.contentView addSubview:_collectionView];
-    _collectionView.backgroundColor = TEXT_COLOR_TITLE_DESC;
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -53,12 +50,13 @@
 {
     static NSString * CellIdentifier = @"cell";
     PicCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell.picImage sd_setImageWithURL:[NSURL URLWithString:_headerPicArray[indexPath.row]]placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-    
+    [cell.picImage sd_setImageWithURL:[NSURL URLWithString:_headerPicArray[indexPath.row]]];
     return cell;
 }
 
-
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(132, 85);
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

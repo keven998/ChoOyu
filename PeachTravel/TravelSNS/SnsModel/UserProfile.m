@@ -23,6 +23,7 @@
         _roles = [json objectForKey:@"roles"];
         _travels = [json objectForKey:@"tracks"];
         _birthday = [json objectForKey:@"birthday"];
+        _travelStatus = [json objectForKey:@"travelStatus"];
     }
     return self;
 }
@@ -36,7 +37,8 @@
         id vals = [_travels objectForKey:key];
         cityCount += [vals count];
     }
-    return [NSString stringWithFormat:@"%ld个国家 %d个城市", count, cityCount];
+    return [NSString stringWithFormat:@"%ld国 %d个城市", count, cityCount];
+    
 }
 
 - (NSString *)getRolesDescription {
@@ -46,6 +48,7 @@
     }
     return @"";
 }
+
 
 - (NSString *)getConstellation {
     NSDate *date = [ConvertMethods stringToDate:_birthday withFormat:@"yyyy-MM-dd" withTimeZone:[NSTimeZone systemTimeZone]];

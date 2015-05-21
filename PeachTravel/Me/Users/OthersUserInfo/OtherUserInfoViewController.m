@@ -22,7 +22,6 @@
     NSMutableArray *_dataArray;
 //    UIView *_headerView;
     UIImageView *_headerView;
-    UIView *_footerView;
     BOOL _isMyFriend;
 }
 @end
@@ -45,19 +44,40 @@
      [_tableView registerNib:[UINib nibWithNibName:@"OtherUserBasicInfoCell" bundle:nil] forCellReuseIdentifier:@"basicInfoCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    UIBarButtonItem *left = [UIBarButtonItem itemWithIcon:@"ic_navigation_back" highIcon:@"nav_back" target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem = left;
-    
-    [self createHeader];
-    [self createFooter];
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     [self.view addSubview:_tableView];
+    [self createHeader];
+    
+    [self createFooterBar];
 }
 
 -(void)loadUserInfo
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _isMyFriend = [accountManager isMyFrend: [NSNumber numberWithInteger:[_model.userId intValue]]];
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AppUtils *utils = [[AppUtils alloc] init];
+//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+//    
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+//    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, _model.userId];
+//    
+//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"%@", responseObject);
+//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+//        if (code == 0) {
+//            
+//        } else {
+//            
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [SVProgressHUD showHint:@"请求失败"];
+//    }];
 }
 
 -(void)createHeader
@@ -180,34 +200,36 @@
      _tableView.tableHeaderView = _headerView;
 }
 
--(void)createFooter
+-(void)createFooterBar
 {
-    _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
-    _footerView.backgroundColor = APP_PAGE_COLOR;
-    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2-1, 50)];
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, self.view.frame.size.width, 49)];
+    toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:toolBar];
+    
+    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2-1, 49)];
     [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
     [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     addFriend.backgroundColor = [UIColor whiteColor];
-    [addFriend addTarget:self action:@selector(aaa) forControlEvents:UIControlEventTouchUpInside];
-    [_footerView addSubview:addFriend];
+    [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview:addFriend];
     
-    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 50)];
+    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 49)];
     [consultingBtn setTitle:@"咨询达人" forState:UIControlStateNormal];
     consultingBtn.backgroundColor = [UIColor whiteColor];
     [consultingBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [consultingBtn addTarget:self action:@selector(aaa) forControlEvents:UIControlEventTouchUpInside];
-    [_footerView addSubview:consultingBtn];
-    
-    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2, 3, 1, 46)];
-    divide.backgroundColor = APP_DIVIDER_COLOR;
-    [_footerView addSubview:divide];
-    
-    _tableView.tableFooterView = _footerView;
+    [consultingBtn addTarget:self action:@selector(sendRequest) forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview:consultingBtn];
 }
--(void)aaa
-{
-    NSLog(@"我是尾部视图");
+
+#pragma mark - IBAction
+- (void) addToFriend {
+    
 }
+
+- (void) sendRequest {
+    
+}
+
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -230,7 +252,7 @@
         return 90;
     }
     
-    return 50;
+    return 44;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -241,16 +263,39 @@
     }
     else if (indexPath.section == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.textLabel.text = @"他的旅行计划";
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        cell.textLabel.textColor = TEXT_COLOR_TITLE;
+        cell.textLabel.text = @"TA的旅行计划";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
     else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
-        cell.nameLabel.text = @"旅行足迹";
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.footPrint.text = @"上海  北京  杭州";
-        cell.trajectory.text = [_model getFootprintDescription];
+        cell.nameLabel.text = @"TA的足迹";
+        
+        NSDictionary *country = _model.travels;
+        NSInteger cityNumber = 0;
+        NSMutableString *cityDesc = nil;
+        NSArray *keys = [country allKeys];
+        NSInteger countryNumber = keys.count;
+        for (int i = 0; i < countryNumber; ++i) {
+            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            cityNumber += citys.count;
+            for (id city in citys) {
+                if (cityDesc == nil) {
+                    cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
+                } else {
+                    [cityDesc appendFormat:@" %@", [city objectForKey:@"zhName"]];
+                }
+            }
+        }
+        
+        if (countryNumber > 0) {
+            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+        } else {
+            cell.trajectory.text = @"";
+        }
+        cell.footPrint.text = cityDesc;
         return cell;
     }
     else if (indexPath.section == 3) {
@@ -265,7 +310,7 @@
     else  {
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
-            cell.basicLabel.font = [UIFont systemFontOfSize:14];
+            cell.basicLabel.font = [UIFont systemFontOfSize:16];
             cell.basicLabel.text = @"基本信息";
             cell.information.text = @"";
         }else if (indexPath.row == 1){
@@ -283,7 +328,7 @@
             cell.information.text = [NSString stringWithFormat:@"%d",age];
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
-            cell.basicLabel.text = @"   现居地";
+            cell.basicLabel.text = @"   居住在";
             cell.information.text = _model.residence;
             cell.information.font = [UIFont systemFontOfSize:14];
         }
@@ -306,13 +351,12 @@
         [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
         [self presentViewController:nCtl animated:YES completion:nil];
-        
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
--(void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
+
 @end
 
 

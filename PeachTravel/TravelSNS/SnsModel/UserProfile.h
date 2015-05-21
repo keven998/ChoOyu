@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSArray *roles;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, strong) id travels;
+@property (nonatomic, copy) NSString *travelStatus;
 
 - (id) initWithJsonObject:(id)json;
 - (NSString *)getFootprintDescription;
