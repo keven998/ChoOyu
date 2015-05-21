@@ -181,6 +181,7 @@ static NSString *reusableCell = @"myGuidesCell";
 - (void) myTrip {
     MyGuideListTableViewController *gltvc = [[MyGuideListTableViewController alloc] init];
     gltvc.isExpert = _isExpert;
+    gltvc.userId = self.userId;
     gltvc.isTrip = YES;
     gltvc.chatterId = _chatterId;
     gltvc.selectToSend = _selectToSend;
@@ -392,14 +393,7 @@ static NSString *reusableCell = @"myGuidesCell";
     [params safeSetObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    //获取我的攻略列表
-    //    NSString *url = [[NSString alloc]init];
-    //    if (_isExpert) {
-    //        url = [NSString stringWithFormat:@"%@%@",API_GET_GUIDELIST_EXPERT,self.userId];
-    //    }else{
-    //        url = API_GET_GUIDELIST;
-    //    }
-    //
+
     NSLog(@"%@wode ",API_GET_GUIDELIST);
     [manager GET:API_GET_GUIDELIST parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
