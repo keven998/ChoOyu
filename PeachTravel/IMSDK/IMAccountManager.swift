@@ -25,7 +25,7 @@ class IMAccountManager: NSObject {
         var accountDaoHelper = AccountDaoHelper()
 //        account = accountDaoHelper.loadAccountFromDB()
         account = IMAccountModel()
-        account.userId = 100015
+        account.userId = 100014
         super.init()
     }
     

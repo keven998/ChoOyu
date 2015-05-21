@@ -1379,15 +1379,14 @@
 
 - (void)didSendMessage:(BaseMessage * __nonnull)message
 {
-    if (message.status == IMMessageStatusIMMessageFailed) {
-        NSLog(@"didSendMessage: 发送失败");
-    } else {
-        NSLog(@"didSendMessage: 发送成功");
-        for (int i = 0; i < self.dataSource.count; i++) {
-            MessageModel *msg = self.dataSource[i];
-            if ([msg isMemberOfClass:[BaseMessage class]]) {
+    for (int i = 0; i < self.dataSource.count; i++) {
+        MessageModel *msg = self.dataSource[i];
+        if ([msg isKindOfClass:[MessageModel class]]) {
+            if ([msg.baseMessage isKindOfClass:[BaseMessage class]]) {
                 if (message.localId == msg.baseMessage.localId) {
-                    return;
+                    msg.status = message.status;
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }
         }

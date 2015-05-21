@@ -31,6 +31,11 @@
         } else {
             _isChatGroup = YES;
         }
+        if (message.sendType == IMMessageSendTypeMessageSendMine) {
+            _isSender = YES;
+        } else {
+            _isSender = NO;
+        }
         
         switch (message.messageType) {
             case IMMessageTypeAudioMessageType:
