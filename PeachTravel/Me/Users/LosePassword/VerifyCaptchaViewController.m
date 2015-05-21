@@ -41,8 +41,8 @@
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
         } else {
-            self.navigationItem.title = @"更换手机";
-            _titleLabel.text = @"输入新的手机号";
+            self.navigationItem.title = @"绑定设置";
+            _titleLabel.text = [NSString stringWithFormat:@"已安全绑定手机号 %@", accountManager.account.tel];
         }
        
     } else {

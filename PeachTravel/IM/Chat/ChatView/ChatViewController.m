@@ -176,11 +176,13 @@
         UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
         UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
 
-    UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
-    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
-    [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    if (_isChatGroup) {
+        UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+        [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+        [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    }
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
@@ -1086,7 +1088,7 @@
     myGuideListTableCtl.isChatGroup = _isChatGroup;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
@@ -1105,7 +1107,7 @@
     favoriteCtl.selectToSend = YES;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:favoriteCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
@@ -1131,7 +1133,7 @@
     searchCtl.isChatGroup = _isChatGroup;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
@@ -1150,14 +1152,14 @@
     travelNoteCtl.isChatGroup = _isChatGroup;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:travelNoteCtl];
     [self presentViewController:tznavc animated:YES completion:^ {
-        [self keyBoardHidden];
+//        [self keyBoardHidden];
     }];
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
     // 弹出照片选择
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
@@ -1179,7 +1181,7 @@
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
 {
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
 #if TARGET_IPHONE_SIMULATOR
     [self showHint:@"模拟器不支持拍照"];
@@ -1193,11 +1195,11 @@
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
-    LocationViewController *locationController = [[LocationViewController alloc] initWithNibName:nil bundle:nil];
+    LocationViewController *locationController = [[LocationViewController alloc] init];
     locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:locationController] animated:YES completion:nil];
 }
 
 /*****暂时屏蔽掉录制视频和发送及时语音的功能*****/

@@ -12,8 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _picImage.layer.cornerRadius = 2;
-    _picImage.clipsToBounds = YES;
+//    _picImage.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _picImage.layer.borderWidth = 0.5;
+//    _picImage.clipsToBounds = YES;
 }
 
 @end

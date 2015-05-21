@@ -41,7 +41,7 @@
 @property (nonatomic, strong) NSArray *urlArray;
 @property (nonatomic, strong) NSArray *urlTitleArray;
 
-@property (nonatomic, strong) UIBarButtonItem *filterItem;
+@property (nonatomic, copy) NSString *selectText;
 
 /**
  *  当前显示的收藏类型
@@ -60,7 +60,7 @@
 - (id)init {
     if (self = [super init]) {
         _urlArray = @[@"all", @"locality", @"vs", @"restaurant", @"shopping", @"hotel", @"travelNote"];
-        _urlTitleArray = @[@"全部", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
+        _urlTitleArray = @[@"全部分类", @"城市", @"景点", @"美食", @"购物", @"酒店", @"游记"];
         _currentFavoriteType = [_urlArray objectAtIndex:0];
         _selectedIndex = -1;
         _currentPage = 0;
@@ -76,8 +76,8 @@
     [super viewDidLoad];
 
     self.navigationItem.title = @"收藏夹";
-    _filterItem = [[UIBarButtonItem alloc] initWithTitle:@"全部" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
-    self.navigationItem.rightBarButtonItem = _filterItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(switchCate)];
+    _selectText = @"全部分类";
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
@@ -169,7 +169,7 @@
     ctl.contentItems = _urlTitleArray;
     ctl.delegate = self;
     ctl.titleTxt = @"筛选";
-    ctl.selectItem = _filterItem.title;
+    ctl.selectItem = _selectText;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -402,8 +402,8 @@
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    _filterItem.title = str;
     _currentFavoriteType = [_urlArray objectAtIndex:indexPath.row];
+    _selectText = str;
     _enableLoadMore = NO;
     [_dataSource removeAllObjects];
     [_tableView reloadData];

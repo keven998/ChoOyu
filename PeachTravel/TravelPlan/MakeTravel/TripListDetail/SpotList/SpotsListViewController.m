@@ -275,6 +275,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         }
     } else if ([_tripDetail.itineraryList objectAtIndex:section] == 0) {
         [dest appendString:@"没有安排"];
+    } else {
+        [dest appendString:@""];
     }
     
     NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", titleStr, dest]];

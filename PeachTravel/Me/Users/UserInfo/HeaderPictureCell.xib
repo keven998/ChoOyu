@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="SX8-5f-1rw">
-                        <rect key="frame" x="0.0" y="9" width="320" height="51"/>
+                        <rect key="frame" x="0.0" y="11" width="320" height="47"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DBG-5R-H7n">
                             <size key="itemSize" width="110" height="90"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -26,16 +25,16 @@
                     </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="SX8-5f-1rw" secondAttribute="bottom" constant="1" id="9DS-1H-N8x"/>
-                    <constraint firstItem="SX8-5f-1rw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="bbE-Ul-itK"/>
-                    <constraint firstItem="SX8-5f-1rw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="mAh-Ur-waD"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="SX8-5f-1rw" secondAttribute="trailing" constant="-8" id="nPE-uE-bSj"/>
+                    <constraint firstAttribute="trailing" secondItem="SX8-5f-1rw" secondAttribute="trailing" id="Kzg-b9-yE4"/>
+                    <constraint firstAttribute="bottom" secondItem="SX8-5f-1rw" secondAttribute="bottom" constant="11" id="MHu-7C-XWw"/>
+                    <constraint firstItem="SX8-5f-1rw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="ine-Tk-Sas"/>
+                    <constraint firstItem="SX8-5f-1rw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pSD-tg-5VZ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="collectionView" destination="SX8-5f-1rw" id="HHw-sn-NuI"/>
             </connections>
-            <point key="canvasLocation" x="319" y="349"/>
+            <point key="canvasLocation" x="293" y="208"/>
         </tableViewCell>
     </objects>
 </document>
