@@ -41,8 +41,8 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     TZProgressHUD *hud = [[TZProgressHUD alloc]init];
     [hud showHUD];
-    
-    [manager GET:API_GET_SCREENING parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@?abroad=false",API_GET_SCREENING];
+    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSDictionary *dataDict = dict[@"result"];
         NSDictionary *domestic = dataDict[@"中国"];
@@ -152,34 +152,38 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
+//    ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
+//    ScreeningModel *model = _dataArray[indexPath.row];
+//    BOOL find = NO;
+//
+//    for (ScreeningModel * city in _screeningVC.selectedCityArray) {
+//        if ([city isEqual:model]) {
+//            cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+//            cell.backgroundColor = [UIColor whiteColor];
+//            NSInteger index = [_screeningVC.selectedCityArray indexOfObject:city];
+//            [_screeningVC.selectedCityArray removeObjectAtIndex:index];
+//            
+//            find = YES;
+//            break;
+//        }
+//    }
+//    
+//    if (!find) {
+//        cell.nameLabel.textColor = [UIColor whiteColor];
+//        cell.backgroundColor = APP_THEME_COLOR;
+//        [_screeningVC.selectedCityArray addObject:model];
+//    }
+//    if (_screeningVC.selectedCityArray.count == 0) {
+//        _screeningVC.navigationItem.rightBarButtonItem.enabled = NO;
+//    } else {
+//        _screeningVC.navigationItem.rightBarButtonItem.enabled = YES;
+//    }
     ScreeningModel *model = _dataArray[indexPath.row];
-    BOOL find = NO;
-
-    for (ScreeningModel * city in _screeningVC.selectedCityArray) {
-        if ([city isEqual:model]) {
-            cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-            cell.backgroundColor = [UIColor whiteColor];
-            NSInteger index = [_screeningVC.selectedCityArray indexOfObject:city];
-            [_screeningVC.selectedCityArray removeObjectAtIndex:index];
-            
-            find = YES;
-            break;
-        }
-    }
-    if (!find) {
-        cell.nameLabel.textColor = [UIColor whiteColor];
-        cell.backgroundColor = APP_THEME_COLOR;
-        [_screeningVC.selectedCityArray addObject:model];
-    }
-    if (_screeningVC.selectedCityArray.count == 0) {
-        _screeningVC.navigationItem.rightBarButtonItem.enabled = NO;
-    } else {
-        _screeningVC.navigationItem.rightBarButtonItem.enabled = YES;
-
-    }
-    
+    ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
+    cell.backgroundColor = APP_THEME_COLOR;
+    cell.nameLabel.textColor = [UIColor whiteColor];
+    [self.screeningVC.selectedCityArray addObject:model.userId];
+    [self.screeningVC doScreening];
 }
 
 @end

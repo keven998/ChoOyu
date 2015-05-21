@@ -15,7 +15,7 @@
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
-
+#import "PoisSearchViewController.h"
 @interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
@@ -56,7 +56,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setAutomaticallyAdjustsScrollViewInsets:YES];
+    [self setExtendedLayoutIncludesOpaqueBars:YES];
     if (self.shouldEdit) {
         UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
         self.navigationItem.leftBarButtonItem = lbtn;
@@ -108,7 +109,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:poisOfCityCellIdentifier];
     [self.view addSubview:self.tableView];
     
-    self.tableView.tableHeaderView = _searchBar;
+//    self.tableView.tableHeaderView = _searchBar;
 //    self.tableView.tableFooterView = _footerView;
     
     if (_poiType == kRestaurantPoi) {
@@ -546,8 +547,14 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
  */
 - (IBAction)beginSearch:(id)sender
 {
-    [self.searchController setActive:YES animated:YES];
-    [_searchBar becomeFirstResponder];
+//    [self.searchController setActive:YES animated:YES];
+//    [_searchBar becomeFirstResponder];
+    PoisSearchViewController *poiSearchCtl = [[PoisSearchViewController alloc]init];
+    poiSearchCtl.poiType = _poiType;
+    poiSearchCtl.tripDetail = _tripDetail;
+    poiSearchCtl.cityId = _cityId;
+    poiSearchCtl.zhName = _zhName;
+    [self.navigationController pushViewController:poiSearchCtl animated:YES];
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
