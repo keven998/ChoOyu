@@ -1614,9 +1614,9 @@
 //        sideCtl.detailViewController = chatSettingCtl;
 //        [sideCtl showSideDetailView];
     } else {
-        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
-        chatSettingCtl.chatter = _conversation.chatter;
-        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+//        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+//        chatSettingCtl.chatter = _conversation.chatter;
+//        [self.navigationController pushViewController:chatSettingCtl animated:YES];
     }
 }
 

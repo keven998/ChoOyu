@@ -571,8 +571,8 @@
         EMGroup *chatGroup = [EMGroup groupWithId:chatter];
         ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
     } else {
-        menuViewController = [[ChatSettingViewController alloc] init];
-        ((ChatSettingViewController *)menuViewController).chatter = chatter;
+//        menuViewController = [[ChatSettingViewController alloc] init];
+//        ((ChatSettingViewController *)menuViewController).chatter = chatter;
     }
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
