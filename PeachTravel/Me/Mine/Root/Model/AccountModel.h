@@ -10,6 +10,16 @@
 #import <Foundation/Foundation.h>
 #import "Account.h"
 
+@interface AlbumImage : NSObject
+
+@property (nonatomic, copy) NSString *imageId;
+@property (nonatomic, strong) TaoziImage *image;
+@property (nonatomic) long createTime;
+
+- (id)initWithJson: (id)json;
+
+@end
+
 @interface AccountModel : NSObject
 
 /**
