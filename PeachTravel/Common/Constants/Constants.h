@@ -102,7 +102,9 @@
 
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")  //获得封面故事接口
-#define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
+#define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/put-policy/portrait")  //上传头像接口
+#define API_POST_PHOTOALBUM                     (BASE_URL @"misc/put-policy/scenario")  //上传相册接口
+
 #define API_SEARCH                              (BASE_URL @"search")  //联合搜索
 #define API_GET_ALBUM                           (BASE_URL @"geo/localities/")      //获取城市图集
 #define API_GET_COLUMNS                         (BASE_URL @"columns")     //获取首页运营位置推荐
