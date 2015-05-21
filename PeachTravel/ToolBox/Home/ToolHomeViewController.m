@@ -261,6 +261,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取首页数据
     [manager GET:API_GET_COLUMNS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",API_GET_COLUMNS);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             if (!_operationDataArray) {

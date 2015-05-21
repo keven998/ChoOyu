@@ -23,6 +23,7 @@
 //    UIView *_headerView;
     UIImageView *_headerView;
     UIView *_footerView;
+    BOOL _isMyFriend;
 }
 @end
 
@@ -30,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadUserInfo];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"达人资料";
     _dataArray = [NSMutableArray array];
@@ -50,6 +52,11 @@
     [self createHeader];
     [self createFooter];
     [self.view addSubview:_tableView];
+}
+-(void)loadUserInfo
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    _isMyFriend = [accountManager isMyFrend: [NSNumber numberWithInteger:[_model.userId intValue]]];
 }
 -(void)createHeader
 {
