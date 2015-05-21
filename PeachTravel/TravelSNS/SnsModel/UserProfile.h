@@ -25,5 +25,6 @@
 - (id) initWithJsonObject:(id)json;
 - (NSString *)getFootprintDescription;
 - (NSString *)getRolesDescription;
+- (NSString *)getConstellation;
 
 @end
