@@ -29,6 +29,7 @@ class ChatConversation: NSObject {
     var conversationId: String?
     var chatterId: Int = 0
     var chatterName: String = ""
+    var chatterAvatar: String?
     var lastUpdateTime: Int = 0 {
         willSet {
             ChatConversation.updateConversationTimestampInDB(newValue, chatterId: chatterId)

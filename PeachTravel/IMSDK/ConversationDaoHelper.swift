@@ -90,6 +90,8 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
                     }
+                    conversation.chatterAvatar = rs.stringForColumn("AvatarSmall")
+
                     var typeValue  = rs.intForColumn("Type")
                     conversation.fillConversationType(frendType: IMFrendType(rawValue: Int(typeValue))!)
                     conversation.unReadMessageCount = Int(rs.intForColumn("UnreadMessageCount"))

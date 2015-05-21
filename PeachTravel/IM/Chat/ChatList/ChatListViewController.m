@@ -18,7 +18,6 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
-#import "TZConversation.h"
 #import "ContactListViewController.h"
 #import "AddContactTableViewController.h"
 #import "PXAlertView+Customization.h"
@@ -27,13 +26,13 @@
 #import "ChatSettingViewController.h"
 #import "PeachTravel-swift.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate, ChatConversationManagerDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的旅行派信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
+@property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UIView *emptyView;
 
@@ -64,13 +63,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-    
-    ChatConversation *conversation = [self.imClientManager.conversationManager createNewConversationWithChatterId:100014];
-    [self.imClientManager.conversationManager addConversation:conversation];
-
-    NSArray *contactList = [self.imClientManager.conversationManager getConversationList];
+    self.imClientManager.conversationManager.delegate = self;
+    _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [addBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
@@ -160,18 +157,6 @@
     return _tableView;
 }
 
-- (int)numberOfUnReadChatMsg
-{
-    if (!_chattingPeople) {
-        [self loadChattingPeople];
-    }
-    int ret = 0;
-    for (TZConversation *tzConversation in _chattingPeople) {
-        ret += tzConversation.conversation.unreadMessagesCount;
-    }
-    return ret;
-}
-
 - (void)setIMState:(IM_CONNECT_STATE)IMState
 {
     _IMState = IMState;
@@ -184,8 +169,6 @@
 - (IBAction)showContactList:(id)sender
 {
     ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-//    contactListCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:contactListCtl animated:YES];
     
     TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:contactListCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
@@ -196,74 +179,10 @@
     AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
     TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:addContactCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
-    
-//    addContactCtl.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:addContactCtl animated:YES];
 }
 
 
 #pragma mark - private
-
-/**
- *  得到聊天历史列表的好友的信息
- */
-- (void)loadChattingPeople
-{
-    NSLog(@"开始加载正在聊天的人");
-    NSMutableArray *dataSource = [self loadConversations];
-    if (!_chattingPeople) {
-        _chattingPeople = [[NSMutableArray alloc] init];
-    } else {
-        [_chattingPeople removeAllObjects];
-    }
-    for (EMConversation *conversation in dataSource) {
-        if (!conversation.chatter) {
-            [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES
-                                                                  append2Chat:YES];
-        }
-        if (!conversation.isGroup) {
-            if ([self.accountManager TZContactByEasemobUser:conversation.chatter]) {
-                TZConversation *tzConversation = [[TZConversation alloc] init];
-                tzConversation.chatterNickName = [self.accountManager TZContactByEasemobUser:conversation.chatter].nickName;
-                tzConversation.chatterAvatar = [self.accountManager TZContactByEasemobUser:conversation.chatter].avatarSmall;
-                tzConversation.conversation = conversation;
-                [_chattingPeople addObject:tzConversation];
-            } else {
-//                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:NO
-//                                                                      append2Chat:YES];
-
-            }
-            
-        } else {
-            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            for (EMGroup *group in groupArray) {
-                NSLog(@"%@", group.groupSubject);
-            }
-            
-            TZConversation *tzConversation = [[TZConversation alloc] init];
-            tzConversation.conversation = conversation;
-            [_chattingPeople addObject:tzConversation];
-
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:conversation.chatter]) {
-                    if (group.groupSubject) {
-                        tzConversation.chatterNickName = group.groupSubject;
-                    }
-                    break;
-                }
-            }
-            if (!tzConversation.chatterNickName) {
-                Group *group = [self.accountManager groupWithGroupId:tzConversation.conversation.chatter];
-                tzConversation.chatterNickName = group.groupSubject;
-            }
-        }
-    }
-    if (_chattingPeople.count > 0) {
-        [self setupListView];
-    }
-    NSLog(@"结束加载正在聊天的人");
-
-}
 
 /**
  *  通过连接状态更新navi的状态
@@ -337,7 +256,6 @@
             titleLabel.text = @"旅行圈";
             self.navigationItem.titleView = titleLabel;
         }
-
             break;
     }
 
@@ -361,26 +279,6 @@
     }
 }
 
-- (NSMutableArray *)loadConversations
-{
-    NSLog(@"loadDataSource start");
-    NSMutableArray *ret = nil;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    NSArray* sorte = [conversations sortedArrayUsingComparator:
-           ^(EMConversation *obj1, EMConversation* obj2){
-               EMMessage *message1 = [obj1 latestMessage];
-               EMMessage *message2 = [obj2 latestMessage];
-               if(message1.timestamp > message2.timestamp) {
-                   return(NSComparisonResult)NSOrderedAscending;
-               }else {
-                   return(NSComparisonResult)NSOrderedDescending;
-               }
-           }];
-    ret = [[NSMutableArray alloc] initWithArray:sorte];
-    NSLog(@"loadDataSource end");
-    return ret;
-}
-
 /**
  *  得到最后消息时间
  *
@@ -388,22 +286,22 @@
  *
  *  @return
  */
--(NSString *)lastMessageTimeByConversation:(EMConversation *)conversation
+-(NSString *)lastMessageTimeByConversation:(ChatConversation *)conversation
 {
     NSString *ret = @"";
-    EMMessage *lastMessage = [conversation latestMessage];
+    BaseMessage *lastMessage = [conversation lastLocalMessage];
     if (lastMessage) {
-        ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
+        ret = [NSDate formattedTimeFromTimeInterval:lastMessage.createTime];
     }
     
     return ret;
 }
 
 // 得到未读消息条数
-- (NSInteger)unreadMessageCountByConversation:(EMConversation *)conversation
+- (NSInteger)unreadMessageCountByConversation:(ChatConversation *)conversation
 {
     NSInteger ret = 0;
-    ret = conversation.unreadMessagesCount;
+    ret = conversation.unReadMessageCount;
     return  ret;
 }
 
@@ -430,64 +328,42 @@
  *
  *  @return
  */
--(NSString *)subTitleMessageByConversation:(EMConversation *)conversation
+-(NSString *)subTitleMessageByConversation:(ChatConversation *)conversation
 {
     NSString *ret = @"";
-    EMMessage *lastMessage = [conversation latestMessage];
+    BaseMessage *lastMessage = [conversation lastLocalMessage];
     if (lastMessage) {
-        if (conversation.isGroup) {
-            NSString *nickName = [[lastMessage.ext objectForKey:@"fromUser"] objectForKey:@"nickName"];
-            id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
-            switch (messageBody.messageBodyType) {
-                case eMessageBodyType_Image:{
+        if (conversation.chatType == IMChatTypeIMChatGroupType) {
+            NSString *nickName = lastMessage.senderName;
+            switch (lastMessage.messageType) {
+                case IMMessageTypeImageMessageType: {
                     ret = [NSString stringWithFormat:@"%@:[图片]", nickName];
                 }
                     break;
                     
-                case eMessageBodyType_Text:{
+                case IMMessageTypeTextMessageType: {
                     
-                    switch ([[lastMessage.ext objectForKey:@"tzType"] integerValue]) {
-                        case TZChatNormalText: {
-                            // 表情映射。
-                            NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
-                                                        convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
-                            ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
-                        }
-                            break;
-                            
-                        case TZChatTypeStrategy: case TZChatTypeTravelNote: case TZChatTypeSpot: case TZChatTypeCity: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping:{
-
-                            ret = [NSString stringWithFormat:@"%@:[链接]%@", nickName, [[lastMessage.ext objectForKey:@"content"] objectForKey:@"name"]];
-                        }
-                            break;
-                            
-                        case TZTipsMsg: {
-                            ret = [lastMessage.ext objectForKey:@"content"];
-                        }
-                            break;
-                            
-                        default: {
-                            ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
-                        }
-                            break;
-                    }
-
+                                        // 表情映射。
+                    NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                                convertToSystemEmoticons:lastMessage.message];
+                    ret = [NSString stringWithFormat:@"%@: %@",nickName, didReceiveText];
                 }
                     break;
                     
-                case eMessageBodyType_Voice:{
+                case IMMessageTypeGuideMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeCityPoiMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
+
+                    ret = [NSString stringWithFormat:@"%@:[链接]测试的链接", nickName];
+                }
+                    break;
+                    
+                    
+                case IMMessageTypeAudioMessageType:{
                     ret = [NSString stringWithFormat:@"%@:[语音]", nickName];
 
                 }
                     break;
                     
-                case eMessageBodyType_Location: {
-                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
-
-                }
-                    break;
-                    
-                case eMessageBodyType_Video: {
+                case IMMessageTypeLocationMessageType: {
                     ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
 
                 }
@@ -501,60 +377,46 @@
 
         } else {
             
-            id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
-            switch (messageBody.messageBodyType) {
-                    
-                case eMessageBodyType_Image:{
-                    ret = @"[图片]";
+            switch (lastMessage.messageType) {
+                case IMMessageTypeImageMessageType: {
+                    ret = [NSString stringWithFormat:@"[图片]"];
                 }
                     break;
                     
-                case eMessageBodyType_Text:{
+                case IMMessageTypeTextMessageType: {
                     
-                    switch ([[lastMessage.ext objectForKey:@"tzType"] integerValue]) {
-                        case TZChatNormalText: {
-                            // 表情映射。
-                            NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
-                                                        convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
-                            ret = didReceiveText;
-                            
-                        }
-                            break;
-                            
-                        case TZChatTypeStrategy: case TZChatTypeTravelNote: case TZChatTypeSpot: case TZChatTypeCity: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping:{
-                            
-                            ret = [NSString stringWithFormat:@"[链接]%@",[[lastMessage.ext objectForKey:@"content"] objectForKey:@"name"]];
-                            
-                        }
-                            break;
-
-                        case TZTipsMsg: {
-                            ret = [lastMessage.ext objectForKey:@"content"];
-                        }
-                            break;
-                            
-                        default: {
-                            ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
-                        }
-                            break;
-                    }
+                    // 表情映射。
+                    NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                                convertToSystemEmoticons:lastMessage.message];
+                    ret = [NSString stringWithFormat:@"%@", didReceiveText];
+                }
+                    break;
+                    
+                case IMMessageTypeGuideMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeCityPoiMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
+                    
+                    ret = [NSString stringWithFormat:@"[链接]测试的链接"];
+                }
+                    break;
+                    
+                    
+                case IMMessageTypeAudioMessageType:{
+                    ret = [NSString stringWithFormat:@"[语音]"];
                     
                 }
                     break;
                     
-                case eMessageBodyType_Voice:{
-                    ret = @"[声音]";
-                } break;
-                case eMessageBodyType_Location: {
-                    ret = @"[位置]";
-                } break;
-                case eMessageBodyType_Video: {
-                    ret = @"[视频]";
-                } break;
+                case IMMessageTypeLocationMessageType: {
+                    ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
+                    
+                }
+                    break;
+                    
                 default: {
                     ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
+                    
                 } break;
             }
+
         }
     }
     return ret;
@@ -573,25 +435,25 @@
     return target;
 }
 
-- (void)pushChatViewControllerWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)pushChatViewControllerWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
 {
 
-    ChatViewController *chatController;
-    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
-    chatController.chatterNickName = chatTitle;
-    chatController.title = chatTitle;
+//    ChatViewController *chatController;
+//    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+//    chatController.chatterNickName = chatTitle;
+//    chatController.title = chatTitle;
+//    
+//    UIViewController *menuViewController = nil;
+//    if (isGroup) {
+//        menuViewController = [[ChatGroupSettingViewController alloc] init];
+//        EMGroup *chatGroup = [EMGroup groupWithId:chatter];
+//        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
+//    } else {
+//        menuViewController = [[ChatSettingViewController alloc] init];
+//        ((ChatSettingViewController *)menuViewController).chatter = chatter;
+//    }
     
-    UIViewController *menuViewController = nil;
-    if (isGroup) {
-        menuViewController = [[ChatGroupSettingViewController alloc] init];
-        EMGroup *chatGroup = [EMGroup groupWithId:chatter];
-        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
-    } else {
-        menuViewController = [[ChatSettingViewController alloc] init];
-        ((ChatSettingViewController *)menuViewController).chatter = chatter;
-    }
-    
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UIViewController alloc] init] menuViewController:[[UIViewController alloc] init]];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
@@ -609,42 +471,41 @@
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
 
-    TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
-    
-    if (!tzConversation.conversation.isGroup) {
-        cell.name = tzConversation.chatterNickName;
+    ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
+
+    if (tzConversation.chatType == IMChatTypeIMChatSingleType) {
+        cell.name = tzConversation.chatterName;
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     } else{
-        cell.name = tzConversation.chatterNickName;
-//        [cell.imageView setImage:[UIImage imageNamed:@"test1.jpg"]];
+        cell.name = tzConversation.chatterName;
     }
     
-    EMMessage *message = tzConversation.conversation.latestMessage;
+    BaseMessage *message = tzConversation.lastLocalMessage;
     NSDictionary *userInfo = [[EaseMob sharedInstance].chatManager loginInfo];
     NSString *login = [userInfo objectForKey:kSDKUsername];
-    BOOL isSender = [login isEqualToString:message.from] ? YES : NO;
+    BOOL isSender = message.sendType == IMMessageSendTypeMessageSendMine ? YES : NO;
     
     if (isSender) {
-        if (message.deliveryState == eMessageDeliveryState_Delivering) {
+        if (message.status == IMMessageStatusIMMessageSending) {
             cell.sendStatus = MSGSending;
         }
-        if (message.deliveryState == eMessageDeliveryState_Failure) {
+        if (message.status == IMMessageStatusIMMessageFailed) {
             cell.sendStatus = MSGSendFaild;
         }
-        if (message.deliveryState == eMessageDeliveryState_Delivered) {
+        if (message.status == IMMessageStatusIMMessageSuccessful) {
             cell.sendStatus = MSGSended;
         }
     } else {
         cell.sendStatus = MSGSended;
     }
-    cell.detailMsg = [self subTitleMessageByConversation:tzConversation.conversation];
-    cell.time = [self lastMessageTimeByConversation:tzConversation.conversation];
-    cell.unreadCount = [self unreadMessageCountByConversation:tzConversation.conversation];
+    cell.detailMsg = [self subTitleMessageByConversation:tzConversation];
+    cell.time = [self lastMessageTimeByConversation:tzConversation];
+    cell.unreadCount = [self unreadMessageCountByConversation:tzConversation];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  self.chattingPeople.count;
+    return  self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -653,17 +514,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
-    NSString *title;
-    if (tzConversation.conversation.isGroup) {
-        title = tzConversation.chatterNickName;
-    } else {
-        title = tzConversation.chatterNickName;
-    }
-    
-    NSString *chatter = tzConversation.conversation.chatter;
-    [self pushChatViewControllerWithChatter:chatter isGroup:tzConversation.conversation.isGroup chatTitle:title];
-    [tzConversation.conversation markAllMessagesAsRead:YES];
+    ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
+    NSString *title = tzConversation.chatterName;
+   
+    [self pushChatViewControllerWithChatter:tzConversation.chatterId chatType:tzConversation.chatType chatTitle:title];
+    tzConversation.unReadMessageCount = 0;
 
 }
 
@@ -673,60 +528,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        TZConversation *tzConveration = [self.chattingPeople objectAtIndex:indexPath.row];
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:tzConveration.conversation.chatter deleteMessages:YES
-                                                              append2Chat:YES];
-        [self.chattingPeople removeObjectAtIndex:indexPath.row];
+        [self.dataSource removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [MobClick event:@"event_delete_talk_item"];
     }
 }
-
-#pragma mark - IChatMangerDelegate
-
--(void)didUnreadMessagesCountChanged
-{
-    [self refreshDataSource];
-}
-
-- (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
-{
-    NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-    NSLog(@"%@",groupArray);
-    
-    NSMutableArray *dataSource = [self loadConversations];
-
-    for (EMConversation *conversation in dataSource) {
-        if (conversation.isGroup) {
-            BOOL find = NO;
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:conversation.chatter]) {
-                    find = YES;
-                    break;
-                }
-            }
-            if (!find) {
-                [[EaseMob sharedInstance].chatManager removeConversationByChatter:conversation.chatter deleteMessages:YES
-                                                                      append2Chat:YES];
-            }
-        }
-    }
-        
-    NSLog(@"allgroups:%@", allGroups);
-    [self refreshDataSource];
-}
-
-- (void)didSendMessage:(EMMessage *)message error:(EMError *)error;
-{
-    for (int i = 0; i < self.chattingPeople.count; i++) {
-        TZConversation *tzConversation = [self.chattingPeople objectAtIndex:i];
-        if ([tzConversation.conversation.latestMessage.messageId isEqualToString:message.messageId]) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }
-    }
-}
-
 
 #pragma mark - registerNotifications
 -(void)registerNotifications{
@@ -744,7 +550,6 @@
 {
     NSLog(@"%@",[NSThread currentThread]);
     NSLog(@"开始刷新聊天DataSource");
-    [self loadChattingPeople];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"结束刷新聊天DataSource");
         [self.tableView reloadData];
@@ -768,12 +573,49 @@
     [self refreshDataSource];
 }
 
+#pragma mark - ChatConversationManagerDelegate
+- (void)conversationsHaveAdded:(NSArray * __nonnull)conversationList
+{
+    IMClientManager *imClientManager = [IMClientManager shareInstance];
+    NSLog(@"ChatConversationManagerDelegate - conversationListNeedUpdate");
+    _dataSource = [imClientManager.conversationManager.getConversationList mutableCopy];
+    
+    [self.tableView reloadData];
+}
+
+- (void)conversationsHaveRemoved:(NSArray * __nonnull)conversationList
+{
+    for (ChatConversation *addedConversation in conversationList) {
+        for (ChatConversation *conversation in _dataSource) {
+            if (addedConversation.chatterId == conversation.chatterId) {
+                NSInteger row = [_dataSource indexOfObject:conversation];
+                [_dataSource removeObject:conversation];
+                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:row inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            }
+        }
+    }
+}
+
+- (void)conversationStatusHasChanged:(ChatConversation * __nonnull)conversation
+{
+    for (ChatConversation *oldConversation in _dataSource) {
+        if (oldConversation.chatterId == conversation.chatterId) {
+            NSInteger index = [_dataSource indexOfObject:oldConversation];
+            [_dataSource replaceObjectAtIndex:index withObject:conversation];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            return;
+        }
+    }
+}
+
+
 #pragma mark - CreateConversationDelegate
 
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
     [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
-        [self pushChatViewControllerWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
+        
     }];
 }
 
