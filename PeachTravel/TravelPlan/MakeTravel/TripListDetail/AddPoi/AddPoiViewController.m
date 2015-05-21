@@ -91,7 +91,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         UIBarButtonItem *finishBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(addFinish:)];
         self.navigationItem.leftBarButtonItem = finishBtn;
         
-        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"过滤" style:UIBarButtonItemStylePlain target:self action:@selector(categoryFilt)];
+        UIBarButtonItem *cbtn = [[UIBarButtonItem alloc]initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(categoryFilt)];
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
         
