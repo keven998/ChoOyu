@@ -1152,12 +1152,18 @@
     if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
         [self.dataSource addObject:[createDate formattedTime]];
         self.chatTagDate = createDate;
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
     
     MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
     [self.dataSource addObject:model];
     
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
 }
+
 - (void)scrollViewToBottom:(BOOL)animated
 {
     if (self.tableView.contentSize.height > self.tableView.frame.size.height)
