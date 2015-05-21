@@ -187,6 +187,10 @@ class MessageSendManager: NSObject {
         
         var imageContentDic = NSMutableDictionary()
         imageContentDic.setObject(metadataId, forKey: "metadataId")
+        imageContentDic.setObject(image.size.height, forKey: "height");
+        imageContentDic.setObject(image.size.width, forKey: "width");
+        imageMessage.imageWidth = Int(image.size.width);
+        imageMessage.imageHeight = Int(image.size.height);
         imageMessage.message = imageMessage.contentsStrWithJsonObjc(imageContentDic) as! String
         
         var daoHelper = DaoHelper.shareInstance()
