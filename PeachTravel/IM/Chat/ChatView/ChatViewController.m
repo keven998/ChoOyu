@@ -118,8 +118,15 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-
+    _conversation.isCurrentConversation = YES;
+    _conversation.delegate = self;
+    [_conversation resetConvsersationUnreadMessageCount];
+    [_conversation getDefaultChatMessageInConversation:20];
     
+    for (BaseMessage *message in _conversation.chatMessageList) {
+        [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
+    }
+
     [[[EaseMob sharedInstance] deviceManager] addDelegate:self onQueue:nil];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -143,15 +150,6 @@
     [self.view addGestureRecognizer:tap];
     _isScrollToBottom = YES;
     
-    _conversation.isCurrentConversation = YES;
-    _conversation.delegate = self;
-    [_conversation resetConvsersationUnreadMessageCount];
-    [_conversation getDefaultChatMessageInConversation:20];
-    
-    for (BaseMessage *message in _conversation.chatMessageList) {
-        [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
-    }
-
     [self setupBarButtonItem];
 }
 
@@ -171,9 +169,8 @@
 
 - (void)setupBarButtonItem
 {
-//    if (self.navigationController.navigationBarHidden) {
-        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
+    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
 
     if (_chatType == IMChatTypeIMChatGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -1159,7 +1156,6 @@
     
     MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
     [self.dataSource addObject:model];
-    [self.tableView reloadData];
     
 }
 - (void)scrollViewToBottom:(BOOL)animated

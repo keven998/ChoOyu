@@ -126,31 +126,18 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
             identifier = [identifier stringByAppendingString:@"Audio"];
         }
             break;
-            
-        case eMessageBodyType_Taozi:
-        {
-            switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {
                     
-                case TZChatTypeCity: {
-                    identifier = [identifier stringByAppendingString:@"city"];
-                }
-                    break;
-                    
-                case TZChatTypeStrategy: case TZChatTypeSpot: case TZChatTypeFood: case TZChatTypeHotel: case TZChatTypeShopping: case TZChatTypeTravelNote:{
-                    identifier = [identifier stringByAppendingString:@"taoziExt"];
-                }
-                    break;
-                
-                default: {
-                    model.content = @"升级新版本才可以查看这条神秘消息哦";
-                    identifier = [identifier stringByAppendingString:@"Text"];
-
-                }
-                    break;
-            }
+        case IMMessageTypeCityPoiMessageType: {
+            identifier = [identifier stringByAppendingString:@"city"];
         }
             break;
             
+        case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeTravelNoteMessageType:{
+            identifier = [identifier stringByAppendingString:@"taoziExt"];
+        }
+            break;
+            
+
         default: {
             model.content = @"升级新版本才可以查看这条神秘消息哦";
             identifier = [identifier stringByAppendingString:@"Text"];
