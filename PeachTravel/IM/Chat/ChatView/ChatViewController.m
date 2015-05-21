@@ -1148,27 +1148,18 @@
 }
 
 
-- (NSMutableArray *)addChatToMessage:(BaseMessage *)message
+- (void)addChatMessage2DataSource:(BaseMessage *) message
 {
-    NSMutableArray *ret = [[NSMutableArray alloc] init];
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime];
     NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
     if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
-        [ret addObject:[createDate formattedTime]];
+        [self.dataSource addObject:[createDate formattedTime]];
         self.chatTagDate = createDate;
     }
     
     MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
-    if (model) {
-        [ret addObject:model];
-    }
-    
-    return ret;
-}
-
-- (void)addChatMessage2DataSource:(BaseMessage *) message
-{
-    [self.dataSource addObject:message];
+    [self.dataSource addObject:model];
+    [self.tableView reloadData];
     
 }
 - (void)scrollViewToBottom:(BOOL)animated
@@ -1379,6 +1370,29 @@
     BaseMessage *message = [imClientManager.messageSendManager sendPoiMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
     [self addChatMessage2DataSource:message];
 
+}
+
+#pragma mark - MessageManagerDelegate
+- (void)receiverMessage:(BaseMessage* __nonnull)message
+{
+    [self addChatMessage2DataSource:message];
+}
+
+- (void)didSendMessage:(BaseMessage * __nonnull)message
+{
+    if (message.status == IMMessageStatusIMMessageFailed) {
+        NSLog(@"didSendMessage: 发送失败");
+    } else {
+        NSLog(@"didSendMessage: 发送成功");
+        for (int i = 0; i < self.dataSource.count; i++) {
+            MessageModel *msg = self.dataSource[i];
+            if ([msg isMemberOfClass:[BaseMessage class]]) {
+                if (message.localId == msg.baseMessage.localId) {
+                    return;
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - EMDeviceManagerProximitySensorDelegate

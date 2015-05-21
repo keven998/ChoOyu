@@ -21,6 +21,7 @@
 {
     self = [super init];
     if (self) {
+        _baseMessage = message;
         _type = message.messageType;
         _status = message.status;
         _timestamp = message.createTime;

@@ -70,6 +70,7 @@
 
 @property (nonatomic, strong)id<IEMMessageBody> messageBody;
 @property (nonatomic, strong)EMMessage *message;
+@property (nonatomic, strong) BaseMessage *baseMessage;
 
 - (instancetype)initWithBaseMessage:(BaseMessage *)message;
 
