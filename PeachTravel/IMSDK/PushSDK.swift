@@ -32,8 +32,6 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     
     var allMessage = NSMutableArray()
 
-    
-    
     class func shareInstance() -> PushSDKManager {
         return pushSDKManager
     }
