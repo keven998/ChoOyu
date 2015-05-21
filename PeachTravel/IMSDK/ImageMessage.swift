@@ -28,8 +28,12 @@ class ImageMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
-        imageHeight = contentsDic.objectForKey("height") as! Int
-        imageWidth = contentsDic.objectForKey("width") as! Int
+        if let height = contentsDic.objectForKey("height") as? Int {
+            imageHeight = height;
+        }
+        if let width = contentsDic.objectForKey("width") as? Int {
+            imageWidth = width;
+        }
         originUrl = contentsDic.objectForKey("origin") as? String
         thumbUrl = contentsDic.objectForKey("thumb") as? String
         fullUrl = contentsDic.objectForKey("full") as? String

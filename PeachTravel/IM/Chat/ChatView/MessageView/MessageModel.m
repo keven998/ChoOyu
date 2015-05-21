@@ -47,7 +47,7 @@
                 _thumbnailSize = CGSizeMake(((ImageMessage *)message).imageWidth, ((ImageMessage *)message).imageHeight);
                 _imageRemoteURL = [NSURL URLWithString:((ImageMessage *)message).fullUrl];
                 _thumbnailRemoteURL = [NSURL URLWithString:((ImageMessage *)message).thumbUrl];
-                _image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:((ImageMessage *)message).localPath]]];
+                _image = [UIImage imageWithContentsOfFile:((ImageMessage*)message).localPath];
                 break;
                 
             case IMMessageTypeLocationMessageType:

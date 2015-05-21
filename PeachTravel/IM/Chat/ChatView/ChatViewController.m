@@ -963,8 +963,7 @@
 
 - (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
 {
-//    EMMessage *locationMessage = [ChatSendHelper sendLocationLatitude:latitude longitude:longitude address:address toUsername:_conversation.chatter isChatGroup:_isChatGroup requireEncryption:NO];
-//    [self addChatDataToMessage:locationMessage];
+    [self sendLocationLatitude:latitude longitude:longitude andAddress:address];
 }
 
 #pragma mark - DXMessageToolBarDelegate
@@ -1268,7 +1267,7 @@
     [self addChatMessage2DataSource:message];
 }
 
-- (IBAction)sendLocation:(id)sender {
+- (void)sendLocation:(long)lat lng:(long) lng  address:(NSString *)address{
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     LocationModel *model = [[LocationModel alloc] init];
     model.longitude = 116.24;
