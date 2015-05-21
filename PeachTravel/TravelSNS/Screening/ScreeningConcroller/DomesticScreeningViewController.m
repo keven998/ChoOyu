@@ -38,18 +38,24 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     TZProgressHUD *hud = [[TZProgressHUD alloc]init];
     [hud showHUD];
-    
-    [manager GET:API_GET_SCREENING parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@?abroad=true",API_GET_SCREENING];
+    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSDictionary *dataDict = dict[@"result"];
-        NSDictionary *domestic = dataDict[@"中国"];
+        NSArray *dataArray = [dataDict allKeys];
+        NSMutableArray *countryArray = [NSMutableArray array];
         
-        for (NSDictionary *dicdic in domestic) {
-            
-            ScreeningModel *model = [[ScreeningModel alloc]init];
-            model.zhName = dicdic[@"zhName"];
-            model.userId = dicdic[@"id"];
-            [_dataArray addObject:model];
+        for (NSArray *dicdic in dataArray) {
+            [countryArray addObject:dicdic];
+        }
+        for (NSArray *array in countryArray) {
+            NSDictionary *cityDict = dataDict[array];
+            for (NSDictionary *dicdicdic in cityDict) {
+                ScreeningModel *model = [[ScreeningModel alloc]init];
+                model.zhName = dicdicdic[@"zhName"];
+                model.userId = dicdicdic[@"id"];
+                [_dataArray addObject:model];
+            }
         }
         
         [_collectionView reloadData];
@@ -138,26 +144,22 @@
     static NSString * CellIdentifier = @"cell";
     ScreenningViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     ScreeningModel *model = _dataArray[indexPath.row];
+    cell.tag = 100 + indexPath.row;
     cell.nameLabel.text = model.zhName;
-    if (cell.selected) {
-        cell.nameLabel.textColor = [UIColor whiteColor];
-        cell.backgroundColor = APP_THEME_COLOR;
-        return  cell;
-    }
     cell.nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     cell.backgroundColor = [UIColor whiteColor];
-
     
-    //    cell.tiltleLabel.backgroundColor = [UIColor grayColor];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 //    NSLog(@"%@",cell)
-    
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.selected = YES;
-
-    NSLog(@"%@",_screeningVC.selectedCityArray);
+    ScreeningModel *model = _dataArray[indexPath.row];
+    ScreenningViewCell *cell = (ScreenningViewCell *)[self.view viewWithTag:(100+indexPath.row)];
+    cell.backgroundColor = APP_THEME_COLOR;
+    cell.nameLabel.textColor = [UIColor whiteColor];
+//    [self.screeningVC.navigationController popViewControllerAnimated:YES];
+    [self.screeningVC.selectedCityArray addObject:model.userId];
+    [self.screeningVC doScreening];
 }
 @end

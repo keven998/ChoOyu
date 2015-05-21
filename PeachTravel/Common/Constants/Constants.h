@@ -89,6 +89,7 @@
 #define API_SIGNIN                              (BASE_URL @"users/signin")
 #define API_BINDTEL                             (BASE_URL @"users/bind")        //绑定手机号
 #define API_SEARCH_USER                         (BASE_URL @"users/search")      //搜索好友
+#define API_SCREENING_EXPERT                    (BASE_URL @"users/expert/tracks/users")//筛选达人
 #define API_ADD_CONTACT                         (BASE_URL @"users/contacts")   //添加好友
 #define API_REQUEST_ADD_CONTACT                 (BASE_URL @"users/request-contacts")   //请求添加好友
 #define API_DELETE_CONTACTS                     (BASE_URL @"users/contacts")   //删除好友

@@ -8,8 +8,17 @@
 
 #import "TZSegmentedViewController.h"
 
+@protocol doScreenning <NSObject>
+
+- (void)screeningTravelers:(NSArray *)destination;
+
+@end
+
+
+
 @interface ScreeningViewController : TZSegmentedViewController
 @property (nonatomic, strong) UICollectionView *selectPanel;
 @property (nonatomic, copy) NSMutableArray *selectedCityArray;
-
+@property (nonatomic, weak) id <doScreenning> delegate;
+-(void)doScreening;
 @end

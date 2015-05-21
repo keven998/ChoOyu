@@ -10,5 +10,5 @@
 #import "TZTBViewController.h"
 
 @interface TravelersTableViewController : TZTBViewController
-
+//- (void)screeningTravelers:(NSArray *)destination;
 @end

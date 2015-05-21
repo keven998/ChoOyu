@@ -464,8 +464,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     if (poi.poiType == kSpotPoi) {
         SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
         ctl.spotId = poi.poiId;
-//        [self addChildViewController:ctl];
-//        [self.view addSubview:ctl.view];
         [self.navigationController pushViewController:ctl animated:YES];
         
     } else if (poi.poiType == kCityPoi) {
@@ -475,8 +473,6 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     } else {
         CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:poi.poiType];
         ctl.poiId = poi.poiId;
-//        [self addChildViewController:ctl];
-//        [self.view addSubview:ctl.view];
         [self.navigationController pushViewController:ctl animated:YES];
     }
 }
