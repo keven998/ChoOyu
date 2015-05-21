@@ -24,7 +24,6 @@
 #import "EMChatTimeCell.h"
 #import "ChatSendHelper.h"
 #import "MessageReadManager.h"
-#import "MessageModelManager.h"
 #import "LocationViewController.h"
 #import "UIViewController+HUD.h"
 #import "NSDate+Category.h"
@@ -132,7 +131,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
 
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
-    loadChatPeopleQueue = dispatch_queue_create("loadChattingPeople", NULL);
+
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self.view addSubview:self.tableView];
@@ -149,7 +148,9 @@
     [_conversation resetConvsersationUnreadMessageCount];
     [_conversation getDefaultChatMessageInConversation:20];
     
-    _dataSource = _conversation.chatMessageList;
+    for (BaseMessage *message in _conversation.chatMessageList) {
+        [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
+    }
 
     [self setupBarButtonItem];
 }
@@ -961,27 +962,6 @@
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:locationController] animated:YES completion:nil];
 }
 
-/*****暂时屏蔽掉录制视频和发送及时语音的功能*****/
-/*
-- (void)moreViewVideoAction:(DXChatBarMoreView *)moreView{
-    [self keyBoardHidden];
-    
-#if TARGET_IPHONE_SIMULATOR
-    [self showHint:@"模拟器不支持录像"];
-#elif TARGET_OS_IPHONE
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeMovie];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
-#endif
-}
-- (void)moreViewAudioCallAction:(DXChatBarMoreView *)moreView
-{
-    CallViewController *callController = [CallViewController shareController];
-    [callController setupCallOutWithChatter:_chatter];
-    [self presentViewController:callController animated:YES completion:nil];
-}
-*/
-
 #pragma mark - LocationViewDelegate
 
 - (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
@@ -1167,44 +1147,18 @@
 {
 }
 
-- (NSArray *)sortChatSource:(NSArray *)array
-{
-    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
-    if (array && [array count] > 0) {
-        
-        for (EMMessage *message in array) {
-            MessageModel *model = [MessageModelManager modelWithMessage:message];
-            
-            //如果消息是透传消息，直接忽略掉
-            if (model.type != eMessageBodyType_Command) {
-                NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
-                NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
-                if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
-                    [resultArray addObject:[createDate formattedTime]];
-                    self.chatTagDate = createDate;
-                }
-                
-                if (model) {
-                    [resultArray addObject:model];
-                }
 
-            }
-        }
-    }
-    return resultArray;
-}
-
-- (NSMutableArray *)addChatToMessage:(EMMessage *)message
+- (NSMutableArray *)addChatToMessage:(BaseMessage *)message
 {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
-    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.timestamp];
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime];
     NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
     if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
         [ret addObject:[createDate formattedTime]];
         self.chatTagDate = createDate;
     }
     
-    MessageModel *model = [MessageModelManager modelWithMessage:message];
+    MessageModel *model = [[MessageModel alloc] initWithBaseMessage:message];
     if (model) {
         [ret addObject:model];
     }

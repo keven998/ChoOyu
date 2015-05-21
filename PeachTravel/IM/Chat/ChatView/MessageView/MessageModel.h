@@ -71,6 +71,8 @@
 @property (nonatomic, strong)id<IEMMessageBody> messageBody;
 @property (nonatomic, strong)EMMessage *message;
 
+- (instancetype)initWithBaseMessage:(BaseMessage *)message;
+
 @end
 
 

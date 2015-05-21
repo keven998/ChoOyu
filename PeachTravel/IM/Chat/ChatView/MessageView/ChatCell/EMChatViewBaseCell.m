@@ -111,17 +111,17 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     }
     
     switch (model.type) {
-        case eMessageBodyType_Text:
+        case IMMessageTypeTextMessageType:
         {
             identifier = [identifier stringByAppendingString:@"Text"];
         }
             break;
-        case eMessageBodyType_Image:
+        case IMMessageTypeImageMessageType:
         {
             identifier = [identifier stringByAppendingString:@"Image"];
         }
             break;
-        case eMessageBodyType_Voice:
+        case IMMessageTypeAudioMessageType:
         {
             identifier = [identifier stringByAppendingString:@"Audio"];
         }

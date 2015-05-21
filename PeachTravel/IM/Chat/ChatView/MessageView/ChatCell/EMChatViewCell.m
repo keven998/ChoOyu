@@ -49,7 +49,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     if (self.messageModel.isSender) {
         // 菊花状态 （因不确定菊花具体位置，要在子类中实现位置的修改）
         switch (self.messageModel.status) {
-            case eMessageDeliveryState_Delivering:
+            case IMMessageStatusIMMessageSending:
             {
                 [_activityView setHidden:NO];
                 [_retryButton setHidden:YES];
@@ -57,13 +57,13 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 [_activtiy startAnimating];
             }
                 break;
-            case eMessageDeliveryState_Delivered:
+            case IMMessageStatusIMMessageSuccessful:
             {
                 [_activtiy stopAnimating];
                 [_activityView setHidden:YES];
             }
                 break;
-            case eMessageDeliveryState_Failure:
+            case IMMessageStatusIMMessageFailed:
             {
                 [_activityView setHidden:NO];
                 [_activtiy stopAnimating];
@@ -95,7 +95,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 {
     // 菊花状态 （因不确定菊花具体位置，要在子类中实现位置的修改）
     switch (self.messageModel.status) {
-        case eMessageDeliveryState_Delivering:
+        case IMMessageStatusIMMessageSending:
         {
             [_activityView setHidden:NO];
             [_retryButton setHidden:YES];
@@ -103,14 +103,14 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             [_activtiy startAnimating];
         }
             break;
-        case eMessageDeliveryState_Delivered:
+        case IMMessageStatusIMMessageSuccessful:
         {
             [_activtiy stopAnimating];
             [_activityView setHidden:YES];
             
         }
             break;
-        case eMessageDeliveryState_Failure:
+        case IMMessageStatusIMMessageFailed:
         {
             [_activityView setHidden:NO];
             [_activtiy stopAnimating];
@@ -186,17 +186,17 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 - (EMChatBaseBubbleView *)bubbleViewForMessageModel:(MessageModel *)messageModel
 {
     switch (messageModel.type) {
-        case eMessageBodyType_Text:
+        case IMMessageTypeTextMessageType:
         {
             return [[EMChatTextBubbleView alloc] init];
         }
             break;
-        case eMessageBodyType_Image:
+        case IMMessageTypeImageMessageType:
         {
             return [[EMChatImageBubbleView alloc] init];
         }
             break;
-        case eMessageBodyType_Voice:
+        case IMMessageTypeAudioMessageType:
         {
             return [[EMChatAudioBubbleView alloc] init];
         }
@@ -247,17 +247,17 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         nickNameHeight = 20;
     }
     switch (messageModel.type) {
-        case eMessageBodyType_Text:
+        case IMMessageTypeTextMessageType:
         {
             return [EMChatTextBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
-        case eMessageBodyType_Image:
+        case IMMessageTypeImageMessageType:
         {
             return [EMChatImageBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
-        case eMessageBodyType_Voice:
+        case IMMessageTypeAudioMessageType:
         {
             return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
