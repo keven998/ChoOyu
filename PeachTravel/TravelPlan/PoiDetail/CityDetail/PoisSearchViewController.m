@@ -30,7 +30,7 @@
     [super viewDidLoad];
     _dataArray = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-    _searchBar = [TaoziSearchBar searchBar];
+//    _searchBar = [TaoziSearchBar searchBar];
     _searchBar.frame = CGRectMake(0, 0, SCREEN_WIDTH-50, 30);
     self.navigationItem.titleView = _searchBar;
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];

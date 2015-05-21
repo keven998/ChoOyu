@@ -87,7 +87,7 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认清空全部聊天记录" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     [alertView showAlertViewWithBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:_chatter];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveAllMessages" object:[NSNumber numberWithInteger:_chatterId]];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];

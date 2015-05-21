@@ -19,12 +19,14 @@
     BOOL _isPlaying;
 }
 
-@property (nonatomic) MessageBodyType type;
-@property (nonatomic) MessageDeliveryState status;
+@property (nonatomic) IMMessageType type;
+@property (nonatomic) IMMessageStatus status;
 
 @property (nonatomic) BOOL isSender;    //是否是发送者
 @property (nonatomic) BOOL isRead;      //是否已读
-@property (nonatomic) BOOL isChatGroup;  //是否是群聊
+@property (nonatomic) IMChatType chatType;  //聊天类型
+
+@property (nonatomic) BOOL isChatGroup;
 
 @property (nonatomic, strong) NSString *messageId;
 @property (nonatomic, strong) NSURL *headImageURL;
@@ -41,6 +43,8 @@
 @property (nonatomic, strong) NSString *content;
 
 //旅行派自有的消息内容
+@property (nonatomic, strong) IMPoiModel *poiModel;
+
 @property (nonatomic, strong) NSDictionary *taoziMessage;
 
 //image

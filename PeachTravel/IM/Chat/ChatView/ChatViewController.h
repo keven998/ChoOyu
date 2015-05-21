@@ -16,6 +16,8 @@
 
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
 
+- (instancetype)initWithConversation:(ChatConversation *)conversation;
+
 @property (nonatomic, copy) NSString *chatterNickName;
 @property (nonatomic, copy) NSString *chatterAvatar;
 

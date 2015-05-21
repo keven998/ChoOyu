@@ -10,6 +10,6 @@
 
 @interface ChatSettingViewController : TZViewController
 
-@property (nonatomic, copy) NSString *chatter;
+@property (nonatomic) NSInteger chatterId;
 
 @end

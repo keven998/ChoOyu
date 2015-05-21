@@ -526,11 +526,7 @@
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
     } else {
-        if ([[((MessageModel *)obj).taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
-            return 40;
-        } else {
-            return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
-        }
+        return 40;
     }
 }
 

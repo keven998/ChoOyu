@@ -435,25 +435,22 @@
     return target;
 }
 
-- (void)pushChatViewControllerWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
+- (void)pushChatViewControllerWithConversation: (ChatConversation *)conversation
 {
+    ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
 
-//    ChatViewController *chatController;
-//    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
-//    chatController.chatterNickName = chatTitle;
-//    chatController.title = chatTitle;
-//    
-//    UIViewController *menuViewController = nil;
-//    if (isGroup) {
-//        menuViewController = [[ChatGroupSettingViewController alloc] init];
-//        EMGroup *chatGroup = [EMGroup groupWithId:chatter];
-//        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
-//    } else {
-//        menuViewController = [[ChatSettingViewController alloc] init];
-//        ((ChatSettingViewController *)menuViewController).chatter = chatter;
-//    }
     
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:[[UIViewController alloc] init] menuViewController:[[UIViewController alloc] init]];
+    UIViewController *menuViewController = nil;
+    if (conversation.chatType == IMChatTypeIMChatGroupType) {
+        menuViewController = [[ChatGroupSettingViewController alloc] init];
+        EMGroup *chatGroup;
+        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
+    } else {
+        menuViewController = [[ChatSettingViewController alloc] init];
+        ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;
+    }
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
     frostedViewController.hidesBottomBarWhenPushed = YES;
     frostedViewController.direction = REFrostedViewControllerDirectionRight;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
@@ -515,9 +512,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
-    NSString *title = tzConversation.chatterName;
-   
-    [self pushChatViewControllerWithChatter:tzConversation.chatterId chatType:tzConversation.chatType chatTitle:title];
+    [self pushChatViewControllerWithConversation:tzConversation];
     tzConversation.unReadMessageCount = 0;
 
 }

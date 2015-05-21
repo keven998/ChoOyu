@@ -9,9 +9,9 @@
 import UIKit
 
 class ImageMessage: BaseMessage {
-    var imageHeight: Int?
-    var imageWidth: Int?
-    var imageRatio: Float?
+    var imageHeight: Int = 0
+    var imageWidth: Int = 0
+    var imageRatio: Float = 0
     var localPath: String?
     var originUrl: String?
     var thumbUrl: String?
@@ -28,8 +28,8 @@ class ImageMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
-        imageHeight = contentsDic.objectForKey("height") as? Int
-        imageWidth = contentsDic.objectForKey("width") as? Int
+        imageHeight = contentsDic.objectForKey("height") as! Int
+        imageWidth = contentsDic.objectForKey("width") as! Int
         originUrl = contentsDic.objectForKey("origin") as? String
         thumbUrl = contentsDic.objectForKey("thumb") as? String
         fullUrl = contentsDic.objectForKey("full") as? String
