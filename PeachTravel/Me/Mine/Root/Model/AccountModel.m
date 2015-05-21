@@ -51,7 +51,7 @@
     }
     
     if ([json objectForKey:@"tracks"] == [NSNull null]) {
-        _tracks = [[NSMutableArray alloc] init];
+        _tracks = [[NSMutableDictionary alloc] init];
     } else {
         _tracks = [json objectForKey:@"tracks"];
     }

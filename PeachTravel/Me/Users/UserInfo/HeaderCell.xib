@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47v-fU-GzS">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47v-fU-GzS">
                         <rect key="frame" x="33" y="54" width="283" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="cRK-lT-rdk"/>
@@ -33,7 +33,7 @@
                             </mask>
                         </variation>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x03-sp-Cxs">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="设置" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x03-sp-Cxs">
                         <rect key="frame" x="118" y="16" width="173" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="U2n-Lm-Bs1"/>
@@ -71,10 +71,12 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrn-je-won">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrn-je-won">
                         <rect key="frame" x="11" y="15" width="64" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="64" id="64g-gs-PtD"/>
+                            <constraint firstAttribute="width" constant="64" id="64g-gs-PtD">
+                                <variation key="widthClass=compact" constant="93"/>
+                            </constraint>
                             <constraint firstAttribute="height" constant="21" id="PNG-Oh-7Dx"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -101,7 +103,7 @@
                         <variation key="widthClass=compact" constant="33"/>
                     </constraint>
                     <constraint firstItem="x03-sp-Cxs" firstAttribute="leading" secondItem="vrn-je-won" secondAttribute="trailing" constant="34" id="UAE-F3-dGk">
-                        <variation key="widthClass=compact" constant="43"/>
+                        <variation key="widthClass=compact" constant="14"/>
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="tcf-wb-MZE" secondAttribute="trailing" constant="10" id="V5L-bc-84M"/>
                     <constraint firstItem="x03-sp-Cxs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ZHw-w7-EOb"/>
@@ -124,11 +126,11 @@
                         <exclude reference="L5j-Yo-SPN"/>
                         <exclude reference="bBo-GB-0gU"/>
                         <exclude reference="hT7-me-zwh"/>
-                        <exclude reference="UAE-F3-dGk"/>
-                        <exclude reference="ZHw-w7-EOb"/>
                         <exclude reference="CK7-Rb-SnV"/>
                         <exclude reference="V5L-bc-84M"/>
                         <exclude reference="a2E-nZ-QAQ"/>
+                        <exclude reference="UAE-F3-dGk"/>
+                        <exclude reference="ZHw-w7-EOb"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -141,11 +143,11 @@
                         <include reference="L5j-Yo-SPN"/>
                         <include reference="bBo-GB-0gU"/>
                         <include reference="hT7-me-zwh"/>
-                        <include reference="UAE-F3-dGk"/>
-                        <include reference="ZHw-w7-EOb"/>
                         <include reference="CK7-Rb-SnV"/>
                         <include reference="V5L-bc-84M"/>
                         <include reference="a2E-nZ-QAQ"/>
+                        <include reference="UAE-F3-dGk"/>
+                        <include reference="ZHw-w7-EOb"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
