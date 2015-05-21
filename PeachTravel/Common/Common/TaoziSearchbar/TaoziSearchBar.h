@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TaoziSearchBar : UITextView
-
+@interface TaoziSearchBar : UITextField
++ (instancetype)searchBar;
 @end
