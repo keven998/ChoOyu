@@ -527,7 +527,7 @@
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
     } else {
-        return 40;
+        return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
     }
 }
 
