@@ -128,8 +128,11 @@ static NSString *cacheName = @"destination_demostic_group";
             [self reloadData];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSMutableDictionary *dic = [responseObject mutableCopy];
-                [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
-                [[TMCache sharedCache] setObject:dic forKey:cacheName];
+                if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
+                    [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"]  forKey:@"lastModified"];
+                    [[TMCache sharedCache] setObject:dic forKey:cacheName];
+                }
+               
             });
         } else {
             if (_hud) {
@@ -281,8 +284,10 @@ static NSString *cacheName = @"destination_demostic_group";
         [_makePlanCtl.selectPanel performBatchUpdates:^{
             [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
-            [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+            if (finished) {
+                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            }
         }];
     }
     [self.domesticCollectionView reloadItemsAtIndexPaths:@[indexPath]];

@@ -112,8 +112,10 @@ static NSString *reuseableCellIdentifier  = @"cell";
             [_foreignCollectionView reloadData];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 NSMutableDictionary *dic = [responseObject mutableCopy];
-                [dic safeSetObject:[operation.response.allHeaderFields objectForKey:@"Date"] forKey:@"lastModified"];
-                [[TMCache sharedCache] setObject:dic forKey:@"destination_foreign"];
+                if ([operation.response.allHeaderFields objectForKey:@"Date"]) {
+                    [dic setObject:[operation.response.allHeaderFields objectForKey:@"Date"]  forKey:@"lastModified"];
+                    [[TMCache sharedCache] setObject:dic forKey:@"destination_foreign"];
+                }
             });
         } else {
             if (_hud) {
@@ -296,8 +298,11 @@ static NSString *reuseableCellIdentifier  = @"cell";
         [_makePlanCtl.selectPanel performBatchUpdates:^{
             [_makePlanCtl.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
         } completion:^(BOOL finished) {
-            [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
-                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            if (finished) {
+                [_makePlanCtl.selectPanel scrollToItemAtIndexPath:lnp
+                                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            }
+            
         }];
     }
     
