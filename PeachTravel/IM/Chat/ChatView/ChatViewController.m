@@ -53,6 +53,8 @@
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
 
+#import "OtherUserInfoViewController.h"
+
 #import "TripDetailRootViewController.h"
 #import "PeachTravel-swift.h"
 
@@ -307,6 +309,9 @@
 //                                       };
 //        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
 //    }
+
+    
+
 }
 
 #pragma mark - private Methods

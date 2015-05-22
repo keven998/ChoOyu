@@ -20,10 +20,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // 背景
-        self.background = [UIImage imageNamed:@"searchbar_textfield_background"];
+        self.background = [UIImage imageNamed:@"ic_searchBar_background"];
         
         // 左边的放大镜图标
-        UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searchbar_textfield_search_icon"]];
+        UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_searchBar_leftView"]];
         iconView.contentMode = UIViewContentModeCenter;
         self.leftView = iconView;
         self.leftViewMode = UITextFieldViewModeAlways;
@@ -37,7 +37,7 @@
         // 设置提醒文字
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSForegroundColorAttributeName] = [UIColor grayColor];
-        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索" attributes:attrs];
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"   搜索" attributes:attrs];
         
         // 设置键盘右下角按钮的样式
         self.returnKeyType = UIReturnKeySearch;

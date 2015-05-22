@@ -20,6 +20,7 @@
 #import "TZConversation.h"
 #import "REFrostedViewController.h"
 #import "ChatSettingViewController.h"
+#import "OtherUserInfoViewController.h"
 
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
@@ -391,8 +392,10 @@
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
         Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
-        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        contactDetailCtl.contact = contact;
+//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+        
+        contactDetailCtl.userId = (NSString *)contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     

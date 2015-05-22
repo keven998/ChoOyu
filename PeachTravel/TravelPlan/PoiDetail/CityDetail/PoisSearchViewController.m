@@ -13,12 +13,14 @@
 #import "CommonPoiDetailViewController.h"
 #import "RestaurantDetailViewController.h"
 #import "ShoppingDetailViewController.h"
-
-@interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "HotelDetailViewController.h"
+#import "SpotDetailViewController.h"
+@interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
     TaoziSearchBar *_searchBar;
+    NSInteger _currentPageSearch;
 }
 @property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, strong) NSMutableArray *seletedArray;
@@ -32,9 +34,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
 //    _searchBar = [TaoziSearchBar searchBar];
     _searchBar.frame = CGRectMake(0, 0, SCREEN_WIDTH-50, 30);
+    [_searchBar becomeFirstResponder];
+    _currentPageSearch = 0;
     self.navigationItem.titleView = _searchBar;
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
+    
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
     
     
     if (_poiType == kRestaurantPoi) {
@@ -52,6 +59,11 @@
     [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:@"commonPoiListCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [_searchBar resignFirstResponder];
 }
 /**
  *  加载搜索的数据
@@ -119,7 +131,23 @@
         
     }];
 }
+- (void) beginLoadingSearch
+{
+    [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
+}
 
+#pragma mark - UIScrollViewDelegate
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:_tableView]) {
+        CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+        if (scrollPosition < 44.0) {
+            
+            [self beginLoadingSearch];
+        }
+    }
+}
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -148,7 +176,7 @@
     [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
     [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
     [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
-
+    
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,10 +199,15 @@
     CommonPoiListTableViewCell *cell = (CommonPoiListTableViewCell *)[self.view viewWithTag:(sender.tag)];
     cell.cellAction.selected = !cell.cellAction.selected;
 }
-
+-(void)goback
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)beginSearch:(id)sender;
 {
     _searchText = _searchBar.text;
+    [_dataArray removeAllObjects];
     [self loadSearchDataWithPageNo:0];
+    [_searchBar resignFirstResponder];
 }
 @end
