@@ -71,6 +71,7 @@
 }
 -(void)downloadData:(NSString *)modifiedTime url:(NSString *)url
 {
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -85,8 +86,9 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 //    API_GET_DOMESTIC_DESTINATIONS
+    NSLog(@"%@",url);
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id result = [responseObject objectForKey:@"result"];
@@ -208,12 +210,15 @@
     [MobClick event:@"event_select_city"];
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
+    float a = city.lat;
+    float b = city.lng;
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
     BOOL find = NO;
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
             NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
             [_destinations.destinationsSelected removeObjectAtIndex:index];
-            
+            [self deleteFootprint:location];
             find = YES;
             break;
         }
@@ -223,8 +228,8 @@
 //            [_makePlanCtl showDestinationBar];
         }
         [_destinations.destinationsSelected addObject:city];
-//        CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
-//        [self addFootprint:location];
+        
+        [self addFootprint:location];
     }
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
@@ -232,15 +237,15 @@
 
 - (IBAction)addFootprint:(id)sender
 {
-    float lat = random()%90;
-    float lng = random()%90;
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
-    [_footprintMapCtl addPoint:location];
+//    float lat = random()%90;
+//    float lng = random()%90;
+//    CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+    [_footprintMapCtl addPoint:sender];
     
 }
--(void)deleteFootprint:(id)sender
+-(void)deleteFootprint:(CLLocation *)location
 {
-    [_footprintMapCtl removePoint:sender];
+    [_footprintMapCtl removePoint:location];
     
 }
 -(void)back
