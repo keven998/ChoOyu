@@ -22,7 +22,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"选择现住地";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    
+    if (self.navigationController.childViewControllers.count == 1) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+        self.navigationItem.leftBarButtonItem = nil;
+    } else {
+//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_navigation_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+        [button addTarget:self action:@selector(dismiss)forControlEvents:UIControlEventTouchUpInside];
+        [button setFrame:CGRectMake(0, 0, 48, 30)];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -63,12 +76,11 @@
     [hud showHUDInView:self.view];
     [accountManager asyncChangeResidence:_locationStr completion:^(BOOL isSuccess, NSString *errStr) {
         if (isSuccess) {
-            [SVProgressHUD showHint:@"修改成功"];
-            [self.navigationController popViewControllerAnimated:YES];
             [hud hideTZHUD];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else{
-            [SVProgressHUD showHint:@"失败"];
+            [SVProgressHUD showHint:@"请求失败"];
             [hud hideTZHUD];
         }
     }];
@@ -159,10 +171,10 @@
         if (indexPath.section == 0) {
             if (_locationStr) {
                 [self updateUserResidence];
-            } else {
-                [SVProgressHUD showHint:@"定位还木有完成呢。"];
             }
-
+//            else {
+//                [SVProgressHUD showHint:@"定位还木有完成呢。"];
+//            }
         } else {
             NSDictionary *city = [_cityDataSource objectAtIndex:indexPath.row];
             if ([[city objectForKey:@"childCities"] count] > 0) {
@@ -170,7 +182,6 @@
                 cityListCtl.cityDataSource = [city objectForKey:@"childCities"];
                 [self.navigationController pushViewController:cityListCtl animated:YES];
             } else {
-                NSLog(@"我选择了%@", [city objectForKey:@"name"]);
                 _locationStr = [city objectForKey:@"name"];
                 [self updateUserResidence];
             }
@@ -185,7 +196,6 @@
         } else {
             _locationStr = [city objectForKey:@"name"];
             [self updateUserResidence];
-            NSLog(@"我选择了%@", [city objectForKey:@"name"]);
         }
     }
 }
@@ -196,7 +206,6 @@
 {
     [_locationManager stopUpdatingLocation];
     CLLocation *location = [locations firstObject];
-    NSLog(@"oh my god我被定位到了：%f, %f", location.coordinate.latitude, location.coordinate.longitude);
     [self getReverseGeocodeWithLoation:location];
 }
 

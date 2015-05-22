@@ -8,6 +8,7 @@
 
 #import "MyTripSpotsMapViewController.h"
 #import "SelectionTableViewController.h"
+#import "TZButton.h"
 #import <MapKit/MapKit.h>
 
 @interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, SelectDelegate>
@@ -41,8 +42,15 @@
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_trip_list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
     
-    UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"第1天" style:UIBarButtonItemStylePlain target:self action:@selector(switchDay)];
-    self.navigationItem.rightBarButtonItem = rbtn;
+    TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 64, 44);
+    [btn setTitle:@"第1天" forState:UIControlStateNormal];
+    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [btn addTarget:self action:@selector(switchDay) forControlEvents:UIControlEventTouchUpInside];
+    btn.imagePosition = IMAGE_AT_RIGHT;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
@@ -90,7 +98,7 @@
     SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
     ctl.contentItems = array;
     ctl.delegate = self;
-    ctl.selectItem = self.navigationItem.rightBarButtonItem.title;
+    ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -245,7 +253,8 @@
 
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    self.navigationItem.rightBarButtonItem.title = str;
+//    self.navigationItem.rightBarButtonItem.title = str;
+    [((UIButton *)self.navigationItem.rightBarButtonItem.customView) setTitle:str forState:UIControlStateNormal];
     _currentDay = indexPath.row;
     [self resetView];
 }
