@@ -45,12 +45,10 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-    [self.view addSubview:_tableView];
-    [self createHeader];
-    
-    [self createFooterBar];
-}
 
+    [self.view addSubview:_tableView];
+    
+}
 -(void)loadUserInfo
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -66,7 +64,7 @@
 //    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 //    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
 //    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, _model.userId];
-//    
+//
 //    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"%@", responseObject);
 //        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -78,6 +76,7 @@
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [SVProgressHUD showHint:@"请求失败"];
 //    }];
+    [self loadUserProfile:_userId];
 }
 
 -(void)createHeader
@@ -350,7 +349,6 @@
         [self.navigationController pushViewController:listCtl animated:YES];
     }else if (indexPath.section == 2){
         TraceViewController *ctl = [[TraceViewController alloc] init];
-//        ctl.citys = _model.travels;
         NSDictionary *country = _model.travels;
         NSMutableArray *traces = [[NSMutableArray alloc] init];
         NSArray *keys = [country allKeys];
@@ -372,6 +370,8 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - http method
 
 /**
  *  邀请好友
@@ -422,6 +422,42 @@
     
 }
 
+- (void) loadUserProfile:(NSString *)userId {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", [AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
+    NSLog(@"%@",url);
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            
+            [self parseUserProfileData:[responseObject objectForKey:@"result"]];
+        } else {
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showHint:@"请求失败"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (void)parseUserProfileData:(id )json
+{
+    _model = [[UserProfile alloc] initWithJsonObject:json];
+    [self createHeader];
+    [self createFooterBar];
+    [_tableView reloadData];
+}
 
 @end
 

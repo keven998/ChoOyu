@@ -1040,6 +1040,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     cell.textView.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
+//    cell.textView.textColor = [UIColor whiteColor];
     return cell;
 }
 

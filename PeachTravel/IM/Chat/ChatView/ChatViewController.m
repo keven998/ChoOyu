@@ -54,6 +54,8 @@
 #import "REFrostedViewController.h"
 #import "TripPlanSettingViewController.h"
 
+#import "OtherUserInfoViewController.h"
+
 #import "TripDetailRootViewController.h"
 
 #define KPageCount 20
@@ -314,12 +316,13 @@
 - (void)showUserInfoWithContactInfo:(Contact *)contact
 {
     if ([self.accountManager isMyFrend:contact.userId]) {
-        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        contactDetailCtl.contact = contact;
+//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+        contactDetailCtl.userId = (NSString *)contact.userId;
         if (_isChatGroup) {
-            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
+//            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
         } else {
-            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
+//            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
         }
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
         

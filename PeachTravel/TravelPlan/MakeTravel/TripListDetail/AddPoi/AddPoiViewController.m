@@ -268,7 +268,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 #pragma mark - IBAction Methods
 
 - (void)beginSearch {
-    
+    [_searchBar becomeFirstResponder];
 }
 
 - (IBAction)addFinish:(id)sender
@@ -656,6 +656,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+//    [_searchBar resignFirstResponder];
     [self.searchResultArray removeAllObjects];
     _searchText = nil;
 }
@@ -830,6 +831,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
     NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), tripPoi.zhName];
     cell.textView.text = txt;
+    cell.textView.textColor = [UIColor whiteColor];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
     return cell;

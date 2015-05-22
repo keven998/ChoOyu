@@ -147,8 +147,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OtherUserInfoViewController *otherInfoCtl = [[OtherUserInfoViewController alloc]init];
+    
     UserProfile *model = _travelers[indexPath.row];
-    otherInfoCtl.model = model;
+//    otherInfoCtl.model = model;
+    otherInfoCtl.userId = model.userId;
     [self.navigationController pushViewController:otherInfoCtl animated:YES] ;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

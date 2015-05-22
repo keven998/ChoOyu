@@ -14,6 +14,7 @@
 #import "SearchUserInfoViewController.h"
 #import "ConvertMethods.h"
 #import "ContactDetailViewController.h"
+#import "OtherUserInfoViewController.h"
 
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
@@ -137,8 +138,9 @@
             //如果已经是好友了，进入好友详情界面
             for (Contact *contact in accountManager.account.contacts) {
                 if ([contact.userId integerValue] == userId) {
-                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    contactDetailCtl.contact = contact;
+//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+                    contactDetailCtl.userId = (NSString *)contact.userId;
                     _nextViewController = contactDetailCtl;
                     [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
                     return;
