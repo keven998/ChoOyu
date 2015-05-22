@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    IMAGE_AT_TOP,
+    IMAGE_AT_RIGHT
+} IMAGE_ORIENTATION;
+
 @interface TZButton : UIButton
+
+@property (nonatomic, assign) IMAGE_ORIENTATION imagePosition;
 
 /**
  *  图片距离上方的间距
