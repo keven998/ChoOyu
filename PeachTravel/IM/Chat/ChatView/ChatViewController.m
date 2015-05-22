@@ -1296,6 +1296,7 @@
 
 }
 
+
 #pragma mark - MessageManagerDelegate
 - (void)receiverMessage:(BaseMessage* __nonnull)message
 {
@@ -1311,7 +1312,10 @@
                 if (message.localId == msg.baseMessage.localId) {
                     msg.status = message.status;
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    if ([cell isKindOfClass:[EMChatViewCell class]]) {
+                        ((EMChatViewCell *)cell).messageModel = msg;
+                    }
                 }
             }
         }
