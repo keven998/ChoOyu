@@ -10,7 +10,7 @@ import UIKit
 
 /// ACKArray 当超过多少是进行 ack
 let MaxACKCount = 20
-let ACKTime = 120.0
+let ACKTime = 20.0
 
 
 private let messageManger = MessageManager()

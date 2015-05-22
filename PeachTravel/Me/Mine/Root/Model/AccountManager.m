@@ -52,6 +52,7 @@
 {
     if (!_accountDetail) {
         _accountDetail = [[AccountModel alloc] init];
+        _accountDetail.basicUserInfo = self.account;
     }
     return _accountDetail;
 }
@@ -531,6 +532,21 @@
     }
     [self.account addContacts:contacts];
     [self save];
+    
+    FrendManager *frendManager = [[FrendManager alloc] init];
+    for (id contactDic in contactList) {
+        FrendModel *newContact = [[FrendModel alloc] init];
+        newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
+        newContact.nickName = [contactDic objectForKey:@"nickName"];
+        newContact.memo = [contactDic objectForKey:@"memo"];
+        newContact.avatar = [contactDic objectForKey:@"avatar"];
+        newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
+        newContact.signature = [contactDic objectForKey:@"signature"];
+        newContact.type = IMFrendTypeFrend;
+        [frendManager addFrend2DB:newContact];
+        [self.accountDetail.frendList addObject:newContact];
+    }
+
     NSLog(@"成功解析联系人");
 }
 

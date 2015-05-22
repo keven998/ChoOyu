@@ -27,7 +27,7 @@
  */
 @property (nonatomic, strong) Account *basicUserInfo;
 
-- (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion;
+@property (nonatomic, strong) NSMutableArray *frendList;
 
 /**
  *  用户居住地
@@ -43,5 +43,8 @@
  *  用户的图集
  */
 @property (nonatomic, strong) NSArray *userAlbum;
+
+- (void)loadUserInfoFromServer:(void (^)(bool isSuccess))completion;
+
 
 @end

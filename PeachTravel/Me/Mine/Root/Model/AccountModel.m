@@ -42,6 +42,14 @@
     return _basicUserInfo;
 }
 
+- (NSMutableArray *)frendList
+{
+    if (!_frendList) {
+        _frendList = [[NSMutableArray alloc] init];
+    }
+    return _frendList;
+}
+
 /**
  *  更新用户信息
  *

@@ -33,15 +33,19 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
         self.userId = userId
         pushSDKManager.login(userId, password: password)
     }
-
-    //MARK:PushConnectionDelegate
-    func getuiDidConnection(clientId: String) {
+    
+    func bindRegisterID2UserId(clientId: String) {
         println("GexinSdkDidRegisterClient： \(clientId)")
         var accountManager = AccountManager.shareAccountManager()
         NetworkUserAPI.asyncLogin(userId: self.userId!, registionId: clientId) { (isSuccess: Bool, errorCode: Int, retJson: NSDictionary?) -> () in
             self.connectionManagerDelegate?.connectionSetup(isSuccess, errorCode: 0)
-           
+            
         }
+    }
+
+    //MARK:PushConnectionDelegate
+    func getuiDidConnection(clientId: String) {
+      
     }
 }
 

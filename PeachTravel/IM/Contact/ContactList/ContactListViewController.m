@@ -227,7 +227,12 @@
     NSIndexPath *indexPath = [self.contactTableView indexPathForRowAtPoint:point];
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
 
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
+    IMClientManager *manager = [IMClientManager shareInstance];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId.integerValue];
+    [manager.conversationManager addConversation: conversation];
+    conversation.chatterId = contact.userId.integerValue;
+    
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithConversation:conversation];
     chatCtl.title = contact.nickName;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     for (EMConversation *conversation in conversations) {

@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSSet *contacts;
 @property (nonatomic, retain) NSSet *frendrequestlist;
 @property (nonatomic, retain) NSSet *groupList;
+
 @end
 
 @interface Account (CoreDataGeneratedAccessors)
