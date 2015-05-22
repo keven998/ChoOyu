@@ -784,45 +784,10 @@
 {
     [self keyBoardHidden];
     __weak ChatViewController *weakSelf = self;
-    id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
-    if ([model.messageBody messageBodyType] == eMessageBodyType_Image) {
-        EMImageMessageBody *imageBody = (EMImageMessageBody *)model.messageBody;
-        if (imageBody.thumbnailDownloadStatus == EMAttachmentDownloadSuccessed) {
-            [weakSelf showHudInView:weakSelf.view hint:@"正在获取大图..."];
-            [chatManager asyncFetchMessage:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
-                [weakSelf hideHud];
-                if (!error) {
-                    NSString *localPath = aMessage == nil ? model.localPath : [[aMessage.messageBodies firstObject] localPath];
-                    if (localPath && localPath.length > 0) {
-                        NSURL *url = [NSURL fileURLWithPath:localPath];
-                        weakSelf.isScrollToBottom = NO;
-                        [weakSelf.messageReadManager showBrowserWithImages:@[url] andImageView:imageView];
-                        return ;
-                    }
-                }
-                [weakSelf showHint:@"再点一下试试呗~"];
-            } onQueue:nil];
-        }else{
-            //获取缩略图
-            [chatManager asyncFetchMessageThumbnail:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
-                if (!error) {
-                }else{
-                    [weakSelf showHint:@"网络出了点小问题"];
-                }
-                
-            } onQueue:nil];
-        }
-    }else if ([model.messageBody messageBodyType] == eMessageBodyType_Video) {
-        //获取缩略图
-        EMVideoMessageBody *videoBody = (EMVideoMessageBody *)model.messageBody;
-        if (videoBody.thumbnailDownloadStatus != EMAttachmentDownloadSuccessed) {
-            [chatManager asyncFetchMessageThumbnail:model.message progress:nil completion:^(EMMessage *aMessage, EMError *error) {
-                if (!error) {
-                }else{
-                    [weakSelf showHint:@"缩略图获取失败!"];
-                }
-            } onQueue:nil];
-        }
+    
+    if (model.type == IMMessageTypeImageMessageType) {
+        NSString *imageUrl = ((ImageMessage *)model.baseMessage).localPath;
+        [weakSelf.messageReadManager showBrowserWithImages:@[[NSURL URLWithString:imageUrl]] andImageView:imageView];
     }
 }
 
@@ -1220,7 +1185,7 @@
 //    }
 }
 
-- (void)showMenuViewController:(UIView *)showInView andIndexPath:(NSIndexPath *)indexPath messageType:(MessageBodyType)messageType
+- (void)showMenuViewController:(UIView *)showInView andIndexPath:(NSIndexPath *)indexPath messageType:(IMMessageType)messageType
 {
     if (_menuController == nil) {
         _menuController = [UIMenuController sharedMenuController];
@@ -1232,7 +1197,7 @@
         _deleteMenuItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deleteMenuAction:)];
     }
     
-    if (messageType == eMessageBodyType_Text) {
+    if (messageType == IMMessageTypeTextMessageType) {
         [_menuController setMenuItems:@[_copyMenuItem, _deleteMenuItem]];
     }
     else{

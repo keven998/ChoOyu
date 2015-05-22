@@ -64,7 +64,7 @@
         NSString *documentPath = [paths objectAtIndex:0];
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *audioPath = [documentPath stringByAppendingPathComponent:@"\(account.userId)/ChatAudio/"];
+        NSString *audioPath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%@/ChatAudio/", [AccountManager shareAccountManager].account.userId]];
         if (![fileManager fileExistsAtPath: audioPath]) {
             [fileManager createDirectoryAtPath:audioPath withIntermediateDirectories:YES attributes:nil error:nil];
         }
@@ -80,7 +80,8 @@
         NSString *documentPath = [paths objectAtIndex:0];
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *imagePath = [documentPath stringByAppendingPathComponent:@"\(account.userId)/ChatImage/"];
+        NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%@/ChatImage/", [AccountManager shareAccountManager].account.userId]];
+
         if (![fileManager fileExistsAtPath: imagePath]) {
             [fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
         }
@@ -95,7 +96,8 @@
         NSString *tempPath = NSTemporaryDirectory();
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
-        NSString *retPath = [tempPath stringByAppendingPathComponent:@"\(account.userId)/tempFile/"];
+        NSString *retPath = [tempPath stringByAppendingPathComponent:[NSString stringWithFormat: @"%@/tempFile/", [AccountManager shareAccountManager].account.userId]];
+
         if (![fileManager fileExistsAtPath: retPath]) {
             [fileManager createDirectoryAtPath:retPath withIntermediateDirectories:YES attributes:nil error:nil];
         }
