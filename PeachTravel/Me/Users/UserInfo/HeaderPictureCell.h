@@ -16,6 +16,7 @@
 
 @interface HeaderPictureCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (copy,nonatomic) NSMutableArray *headerPicArray;
+@property (copy,nonatomic) NSArray *headerPicArray;
+
 @property (weak, nonatomic) id<ShowPickerDelegate> delegate;
 @end
