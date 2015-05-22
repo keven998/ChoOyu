@@ -961,12 +961,6 @@
     tmpView.center = self.view.center;
     [self.view addSubview:tmpView];
     [self.view bringSubviewToFront:recordView];
-    
-    NSError *error = nil;
-    [[EaseMob sharedInstance].chatManager startRecordingAudioWithError:&error];
-    if (error) {
-        NSLog(@"开始录音失败");
-    }
 }
 
 /**
@@ -1109,6 +1103,9 @@
 
 - (void)addChatMessage2DataSource:(BaseMessage *) message
 {
+    if (!message) {
+        return;
+    }
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:(NSTimeInterval)message.createTime];
     NSTimeInterval tempDate = [createDate timeIntervalSinceDate:self.chatTagDate];
     if (tempDate > 60 || tempDate < -60 || (self.chatTagDate == nil)) {
@@ -1247,6 +1244,7 @@
     BaseMessage *audioMessage = [imClientManager.messageSendManager sendAudioMessageWithWavFormat:_conversation.chatterId conversationId:_conversation.conversationId wavAudioPath:audioPath chatType:_conversation.chatType progress:^(float progress) {
         
     }];
+
     [self addChatMessage2DataSource:audioMessage];
 }
 

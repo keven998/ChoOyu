@@ -259,7 +259,7 @@ class MessageSendManager: NSObject {
     :param: progress     发送进度的回调
     :returns:
     */
-    func sendAudioMessageWithWavFormat(chatterId: Int, conversationId: String?, wavAudioPath: String, chatType:IMChatType, progress:(progressValue: Float) -> ()) -> BaseMessage {
+    func sendAudioMessageWithWavFormat(chatterId: Int, conversationId: String?, wavAudioPath: String, chatType:IMChatType, progress:(progressValue: Float) -> ()) -> BaseMessage? {
         var audioMessage = AudioMessage()
         audioMessage.chatterId = chatterId
         audioMessage.sendType = IMMessageSendType.MessageSendMine
@@ -279,9 +279,14 @@ class MessageSendManager: NSObject {
         audioContentDic.setObject(metadataId, forKey: "metadataId")
 
         if let url = NSURL(string: tempAmrPath) {
-            var play = AVAudioPlayer(contentsOfURL: url, error: nil)
-            audioContentDic.setObject(play.duration, forKey: "duration")
-            audioMessage.audioLength = Float(play.duration)
+            if let play = AVAudioPlayer(contentsOfURL: url, error: nil) {
+            
+                audioContentDic.setObject(play.duration, forKey: "duration")
+                audioMessage.audioLength = Float(play.duration)
+                
+            } else {
+                return nil
+            }
         }
         
         audioMessage.localPath = audioWavPath

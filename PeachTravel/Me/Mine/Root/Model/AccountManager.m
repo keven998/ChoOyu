@@ -92,7 +92,7 @@
 
 - (NSString *)userTempPath
 {
-    if (!_userChatImagePath) {
+    if (!_userTempPath) {
         NSString *tempPath = NSTemporaryDirectory();
         
         NSFileManager *fileManager =  [[NSFileManager alloc] init];
