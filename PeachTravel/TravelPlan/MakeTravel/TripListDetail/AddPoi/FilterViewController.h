@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol didSelectedDelegate <NSObject>
+
+-(void)didSelectedcityIndex:(NSIndexPath *)cityindexPath
+              categaryIndex:(NSIndexPath *)categaryIndexPath;
+
+@end
+
 @interface FilterViewController : UIViewController
 
 @property (nonatomic, strong) NSArray *contentItems;
 
-@property (nonatomic, assign) NSInteger selectedCategoryIndex;
-@property (nonatomic, assign) NSInteger selectedCityIndex;
+@property (nonatomic, strong) NSIndexPath *selectedCategoryIndex;
+@property (nonatomic, strong) NSIndexPath *selectedCityIndex;
 
+@property (nonatomic,weak) id<didSelectedDelegate> delegate;
 @end

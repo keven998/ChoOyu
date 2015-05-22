@@ -97,6 +97,9 @@
     [_tableView registerNib:[UINib nibWithNibName:@"AddMemberCell" bundle:nil] forCellReuseIdentifier:@"addCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    _tableView.tableHeaderView = headerView;
     [self createFooterView];
     
     [self.view addSubview:_tableView];
@@ -138,7 +141,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return 75;
+        return 49;
     }else if (indexPath.row == 3){
         return 65;
     }
@@ -151,6 +154,9 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         
         cell.textLabel.text = _group.groupSubject;
+        UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 48, SCREEN_WIDTH, 1)];
+        divide.backgroundColor = APP_DIVIDER_COLOR;
+        [cell addSubview:divide];
         return cell;
     }else if (indexPath.row == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
