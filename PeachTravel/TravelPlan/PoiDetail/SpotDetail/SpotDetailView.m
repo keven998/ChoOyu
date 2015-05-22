@@ -13,13 +13,14 @@
 #import "MJPhotoBrowser.h"
 #import "CommentDetail.h"
 #import "SuperWebViewController.h"
-@interface SpotDetailView ()
+#import "SwipeView.h"
+
+@interface SpotDetailView ()<SwipeViewDataSource, SwipeViewDelegate>
 
 
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *detailView;
 
-@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) EDStarRating *ratingView;
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) UIButton *openTimeBtn;
 @property (nonatomic, strong) UIButton *timeCostBtn;
 //@property (nonatomic, strong) UIButton *phoneButton;
+
+@property (nonatomic, strong) UIPageControl *pageControl;
 
 @end
 
@@ -43,11 +46,7 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         [self addSubview:_scrollView];
-        
-        _imageView = [[UIImageView alloc] init];
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        _imageView.clipsToBounds = YES;
-        [_scrollView addSubview:_imageView];
+
     }
     return self;
 }
@@ -62,21 +61,27 @@
 - (void)setupSubView{
     CGFloat offsetY = 0;
     
-    _imageView.frame = CGRectMake(0, offsetY, _scrollView.bounds.size.width, _scrollView.bounds.size.width/2);
-    _imageView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    _imageView.userInteractionEnabled = YES;
+    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.bounds), 168)];
+    swipeView.dataSource = self;
+    swipeView.delegate = self;
+    swipeView.bounces = NO;
+    swipeView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    swipeView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+    swipeView.pagingEnabled = YES;
+    swipeView.itemsPerPage = 1;
+    [_scrollView addSubview:swipeView];
     
-    UIView *imageMaskView = [[UIView alloc] initWithFrame:_imageView.bounds];
-    imageMaskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    [_imageView addSubview:imageMaskView];
+    _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 20)];
+    _pageControl.center = CGPointMake(CGRectGetWidth(self.bounds)/2, 168-20);
+    _pageControl.numberOfPages = _spot.images.count;
+    _pageControl.currentPageIndicatorTintColor = APP_THEME_COLOR;
+    _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    _pageControl.hidesForSinglePage = YES;
+    [_scrollView addSubview:_pageControl];
     
-    [_scrollView addSubview:_imageView];
-    TaoziImage *image = [_spot.images firstObject];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
+    offsetY += swipeView.frame.size.height+10;
     
-    offsetY += _imageView.bounds.size.height+10;
-    
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, offsetY, _imageView.bounds.size.width-50, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, offsetY, swipeView.bounds.size.width-50, 30)];
     _titleLabel.textColor = TEXT_COLOR_TITLE;
     _titleLabel.text = _spot.zhName;
     _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -86,7 +91,7 @@
     
     offsetY += 30;
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((_imageView.bounds.size.width-65)/2, offsetY, 65, 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((swipeView.bounds.size.width-65)/2, offsetY, 65, 15)];
 //    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray_small.png"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow_small.png"];
     _ratingView.maxRating = 5.0;
@@ -95,12 +100,6 @@
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.rating = _spot.rating;
     [_scrollView addSubview:_ratingView];
-    
-    UIButton *viewImageBtn = [[UIButton alloc] initWithFrame:_imageView.frame];
-    viewImageBtn.center = CGPointMake(_imageView.bounds.size.width/2, 85);
-//    [viewImageBtn setImage:[UIImage imageNamed:@"viewSpotImage.png"] forState:UIControlStateNormal];
-    [viewImageBtn addTarget:self action:@selector(viewImage:) forControlEvents:UIControlEventTouchUpInside];
-    [_imageView addSubview:viewImageBtn];
     
 //    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-100, _imageView.bounds.size.height-45, 55, 45)];
 //    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
@@ -224,28 +223,28 @@
         
     }
     else{
-    _phoneButton = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 65)];
-    [_phoneButton setTitle:_spot.telephone forState:UIControlStateNormal];
-    [_phoneButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    _phoneButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_phoneButton setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
-    _phoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    
-    [_scrollView addSubview:_phoneButton];
-    UILabel *phoneLabel = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
-    phoneLabel.font = [UIFont systemFontOfSize:14];
-    phoneLabel.textColor = TEXT_COLOR_TITLE;
-    phoneLabel.text = @"电话";
-    [_phoneButton addSubview:phoneLabel];
-    UIImageView *phoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
-    phoneImageView.image = [UIImage imageNamed:@"phone"];
-    [_phoneButton addSubview:phoneImageView];
+        _phoneButton = [[UIButton alloc]initWithFrame:CGRectMake(0, offsetY, width, 65)];
+        [_phoneButton setTitle:_spot.telephone forState:UIControlStateNormal];
+        [_phoneButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        _phoneButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_phoneButton setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
+        _phoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        
+        [_scrollView addSubview:_phoneButton];
+        UILabel *phoneLabel = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
+        phoneLabel.font = [UIFont systemFontOfSize:14];
+        phoneLabel.textColor = TEXT_COLOR_TITLE;
+        phoneLabel.text = @"电话";
+        [_phoneButton addSubview:phoneLabel];
+        UIImageView *phoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+        phoneImageView.image = [UIImage imageNamed:@"phone"];
+        [_phoneButton addSubview:phoneImageView];
 
-    
-    offsetY += 65;
-    UIView *spaceView1 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
-    spaceView1.backgroundColor = APP_DIVIDER_COLOR;
-    [_scrollView addSubview:spaceView1];
+        
+        offsetY += 65;
+        UIView *spaceView1 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
+        spaceView1.backgroundColor = APP_DIVIDER_COLOR;
+        [_scrollView addSubview:spaceView1];
     }
     
     
@@ -287,73 +286,39 @@
     spaceView4.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView4];
     
-    if ([_spot.desc isBlankString]||_spot.desc == nil) {
+    if ([_spot.desc isBlankString]||_spot.desc == nil)
+    {
         
     }
-    else{
-    _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width-8, 65)];
-    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
-    [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
-    _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
-    _descDetailBtn.titleLabel.numberOfLines = 3;
-    [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
-    _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [_scrollView addSubview:_descDetailBtn];
-    
-    
-    UILabel *introduction = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
-    introduction.font = [UIFont systemFontOfSize:14];
-    introduction.textColor = TEXT_COLOR_TITLE;
-    introduction.text = @"景点简介";
-    [_descDetailBtn addSubview:introduction];
-    UIImageView *descImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
-    descImageView.image = [UIImage imageNamed:@"spot introduction"];
-    [_descDetailBtn addSubview:descImageView];
-    
-    offsetY += 65;
-    
-    UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
-    spaceView5.backgroundColor = APP_DIVIDER_COLOR;
-    [_scrollView addSubview:spaceView5];
+    else
+    {
+        _descDetailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width-8, 65)];
+        [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
+        [_descDetailBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
+        _descDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _descDetailBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        [_descDetailBtn setTitle:_spot.desc forState:UIControlStateNormal];
+        _descDetailBtn.titleLabel.numberOfLines = 3;
+        [_descDetailBtn setContentEdgeInsets:UIEdgeInsetsMake(0, width/2.5, 0, 0)];
+        _descDetailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [_scrollView addSubview:_descDetailBtn];
+        
+        
+        UILabel *introduction = [[UILabel   alloc]initWithFrame:CGRectMake(50, 0, 100, _travelBtn.bounds.size.height)];
+        introduction.font = [UIFont systemFontOfSize:14];
+        introduction.textColor = TEXT_COLOR_TITLE;
+        introduction.text = @"景点简介";
+        [_descDetailBtn addSubview:introduction];
+        UIImageView *descImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 23, 18, 18)];
+        descImageView.image = [UIImage imageNamed:@"spot introduction"];
+        [_descDetailBtn addSubview:descImageView];
+        
+        offsetY += 65;
+        
+        UIView *spaceView5 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
+        spaceView5.backgroundColor = APP_DIVIDER_COLOR;
+        [_scrollView addSubview:spaceView5];
     }
-//    UILabel *timeTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
-//    timeTitle.backgroundColor = UIColorFromRGB(0xdfdfdf);
-//    timeTitle.text = @"游玩";
-//    timeTitle.font = [UIFont systemFontOfSize:11];
-//    timeTitle.textColor = TEXT_COLOR_TITLE_HINT;
-//    timeTitle.textAlignment = NSTextAlignmentCenter;
-//    [_scrollView addSubview:timeTitle];
-    
-//    offsetY += 25;
-//    
-//    
-//    
-//    
-//
-//    
-//    
-//    offsetY += _ticketBtn.frame.size.height;
-   
-    
-//    _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-100, offsetY, 80, 30)];
-//    [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
-//    [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xeeeeee)] forState:UIControlStateDisabled];
-//    _bookBtn.clipsToBounds = YES;
-//    _bookBtn.layer.cornerRadius = 5;
-//    [_bookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [_bookBtn setTitleColor:UIColorFromRGB(0xd5d5d5) forState:UIControlStateDisabled];
-//    _bookBtn.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
-//    [_bookBtn setTitle:@"预订" forState:UIControlStateNormal];
-//    _bookBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-//    [_scrollView addSubview:_bookBtn];
-//    if ([_spot.bookUrl isBlankString] || !_spot.bookUrl) {
-//        _bookBtn.enabled = NO;
-//    }
-    
-//    offsetY += 50;
-    
     
     UIView *btnBackView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, _scrollView.bounds.size.width, 75)];
     btnBackView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -530,13 +495,30 @@
     [_rootCtl.navigationController pushViewController:webCtl animated:YES];
 }
 
-#pragma mark - IBAction Methods
+#pragma mark - vc
+#pragma mark - SwipeViewDataSource
 
-- (IBAction)viewImage:(id)sender
-{
-    if (_spot.images.count==0) {
-        return;
+- (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView {
+    return _spot.images.count;
+}
+
+- (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view {
+    UIImageView *imageView = (UIImageView *)view;
+    if (imageView == nil)
+    {
+        imageView = [[UIImageView alloc] initWithFrame:swipeView.bounds];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
     }
+
+    TaoziImage *image = [_spot.images objectAtIndex:index];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
+    [_pageControl setCurrentPage:index];
+    return imageView;
+}
+
+- (void)swipeView:(SwipeView *)swipeView didSelectItemAtIndex:(NSInteger)index
+{
     NSInteger count = _spot.images.count;
     // 1.封装图片数据
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
@@ -545,17 +527,15 @@
         TaoziImage *image = [_spot.images objectAtIndex:i];
         MJPhoto *photo = [[MJPhoto alloc] init];
         photo.url = [NSURL URLWithString:image.imageUrl]; // 图片路径
-        photo.srcImageView = _imageView; // 来源于哪个UIImageView
+        photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView
         [photos addObject:photo];
     }
     
     // 2.显示相册
     MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+    browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
     browser.photos = photos; // 设置所有的图片
     [browser show];
 }
-
-
 
 @end

@@ -14,7 +14,8 @@
 @property (nonatomic, copy) NSString *zhName;
 @property (nonatomic, copy) NSString *enName;
 @property (nonatomic, copy) NSString *pinyin;
-
+@property (nonatomic) float lat;
+@property (nonatomic) float lng;
 - (id)initWithJson:(id)json;
 
 @end

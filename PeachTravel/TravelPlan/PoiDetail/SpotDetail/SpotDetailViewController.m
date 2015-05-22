@@ -20,7 +20,6 @@
 @property (nonatomic, strong) SpotDetailView *spotDetailView;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 
-
 @end
 
 @implementation SpotDetailViewController
@@ -28,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.title = @"详情";
     
     self.view.backgroundColor = [UIColor whiteColor];
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
@@ -45,7 +45,6 @@
     [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
     
     self.navigationItem.rightBarButtonItems = barItems;
-
     
     [self loadData];
 }

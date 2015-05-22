@@ -39,7 +39,7 @@
 {
     MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
     item.coordinate = location.coordinate;
-    [_annotationsArray addObject:item];
+    [self.annotationsArray addObject:item];
     [_mapView addAnnotation:item];
     [_mapView setCenterCoordinate:location.coordinate animated:YES];
 }
@@ -49,6 +49,7 @@
     for (int i = 0; i < self.annotationsArray.count; i++) {
         MKPointAnnotation *item = self.annotationsArray[i];
         if (item.coordinate.latitude == location.coordinate.latitude && item.coordinate.longitude == location.coordinate.longitude) {
+            [_mapView removeAnnotation:item];
             [self.annotationsArray removeObject:item];
             break;
         }

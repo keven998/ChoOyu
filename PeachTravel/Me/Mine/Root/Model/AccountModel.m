@@ -16,7 +16,7 @@
 {
     if (self = [super init]) {
         _imageId = [json objectForKey:@"id"];
-        _image = [[TaoziImage alloc] initWithJson:[json objectForKey:@"image"]];
+        _image = [[TaoziImage alloc] initWithJson:[[json objectForKey:@"image"] firstObject]];
         _createTime = [[json objectForKey:@"cTime"] longValue];
     }
     return self;

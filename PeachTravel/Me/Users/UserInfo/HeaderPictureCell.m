@@ -23,7 +23,7 @@
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.minimumInteritemSpacing = 5;
-
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
     [_collectionView setCollectionViewLayout:layout];
@@ -38,14 +38,17 @@
     _collectionView.dataSource = self;
 }
 
+- (void)setHeaderPicArray:(NSArray *)headerPicArray
+{
+    _headerPicArray = headerPicArray;
+    [_collectionView reloadData];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    //    if (section == _showCitiesIndex) {
     return _headerPicArray.count + 1;
-    //    }
-    //    return 0;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -56,11 +59,13 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * CellIdentifier = @"cell";
+   
     PicCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     if (indexPath.row == _headerPicArray.count) {
-        cell.picImage.image =[UIImage imageNamed:@"ic_userInfo_avatar_placeholder"];
+        cell.picImage.image =[UIImage imageNamed:@"ic_userInfo_add_avatar.png"];
     } else {
-        [cell.picImage sd_setImageWithURL:[NSURL URLWithString:_headerPicArray[indexPath.row]]];
+        AlbumImage *albumImage = _headerPicArray[indexPath.row];
+        [cell.picImage sd_setImageWithURL:[NSURL URLWithString: albumImage.image.imageUrl]];
     }
     return cell;
 }

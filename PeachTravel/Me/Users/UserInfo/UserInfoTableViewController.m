@@ -301,7 +301,7 @@
 }
 
 /**
- *  将头像上传至七牛服务器
+ *  将图片上传至七牛服务器
  *
  *  @param image       上传的图片
  *  @param uploadToken 上传的 token
@@ -328,6 +328,7 @@
                   [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
                   [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+                  
               } option:opt];
     
 }
@@ -438,17 +439,12 @@
     AccountManager *amgr = self.accountManager;
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        //        UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountDetailHeaderCell forIndexPath:indexPath];
-        //        cell.cellLabel.text = cellDataSource[indexPath.section][indexPath.row];
-        //        cell.testImage.image = [UIImage imageNamed:@"ic_setting_avatar.png"];
-        //        [cell.userPhoto sd_setImageWithURL:[NSURL URLWithString:self.self.accountManager.accountDetail.basicUserInfo.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-        
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
+        cell.headerPicArray = amgr.accountDetail.userAlbum;
         cell.delegate = self;
         return cell;
         
-    }
-    else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"我的足迹";
         NSDictionary *country = amgr.accountDetail.tracks;
@@ -625,7 +621,7 @@
     }
 }
 
--(void) updateStatus:(NSString *)str{
+-(void)updateStatus:(NSString *)str{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInView:self.view];
