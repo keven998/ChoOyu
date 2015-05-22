@@ -102,7 +102,9 @@
 
 //其他一些乱七八糟的接口
 #define API_GET_COVER_STORIES                   (BASE_URL @"misc/cover-stories")  //获得封面故事接口
-#define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/put-policy/portrait")  //获得封面故事接口
+#define API_POST_PHOTOIMAGE                     (BASE_URL @"misc/put-policy/portrait")  //上传头像接口
+#define API_POST_PHOTOALBUM                     (BASE_URL @"misc/put-policy/scenario")  //上传相册接口
+
 #define API_SEARCH                              (BASE_URL @"search")  //联合搜索
 #define API_GET_ALBUM                           (BASE_URL @"geo/localities/")      //获取城市图集
 #define API_GET_COLUMNS                         (BASE_URL @"columns")     //获取首页运营位置推荐
@@ -241,7 +243,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 #define APP_PAGE_COLOR                  UIColorFromRGB(0xf2f2f2)
 #define APP_THEME_COLOR                 UIColorFromRGB(0x1cc091)
-#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xad0618)
+#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0x00a071)
 #define APP_HIGNLIGHT_COLOR             UIColorFromRGB(0xff5d38)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
 #define APP_SUB_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0x279095)

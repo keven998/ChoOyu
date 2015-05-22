@@ -22,7 +22,6 @@
     NSMutableArray *_dataArray;
 //    UIView *_headerView;
     UIImageView *_headerView;
-    UIView *_footerView;
     BOOL _isMyFriend;
 }
 @end
@@ -33,7 +32,7 @@
     [super viewDidLoad];
     [self loadUserInfo];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"达人资料";
+    self.title = _model.name;
     _dataArray = [NSMutableArray array];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
@@ -45,21 +44,42 @@
      [_tableView registerNib:[UINib nibWithNibName:@"OtherUserBasicInfoCell" bundle:nil] forCellReuseIdentifier:@"basicInfoCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    UIBarButtonItem *left = [UIBarButtonItem itemWithIcon:@"ic_navigation_back" highIcon:@"nav_back" target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem = left;
-    
-    [self createHeader];
-    if(!_isMyFriend){
-    [self createFooter];
-    }
+    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     [self.view addSubview:_tableView];
+    [self createHeader];
+    
+    [self createFooterBar];
 }
+
 -(void)loadUserInfo
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     _isMyFriend = [accountManager isMyFrend: [NSNumber numberWithInteger:[_model.userId intValue]]];
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AppUtils *utils = [[AppUtils alloc] init];
+//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+//    
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+//    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, _model.userId];
+//    
+//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"%@", responseObject);
+//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+//        if (code == 0) {
+//            
+//        } else {
+//            
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [SVProgressHUD showHint:@"请求失败"];
+//    }];
 }
+
 -(void)createHeader
 {
     _headerView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 94)];
@@ -70,71 +90,68 @@
     UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(22, 17, 60, 60)];
     avatarView.clipsToBounds = YES;
     avatarView.backgroundColor = APP_IMAGEVIEW_COLOR;
-    avatarView.layer.cornerRadius = 10;
+    avatarView.layer.cornerRadius = 18;
+    avatarView.contentMode = UIViewContentModeScaleAspectFit;
     [_headerView addSubview:avatarView];
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(116, 17, 0, 21)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 17, 0, 21)];
     nameLabel.font = [UIFont systemFontOfSize:16];
     nameLabel.textColor = TEXT_COLOR_TITLE;
     [_headerView addSubview:nameLabel];
     
-    UILabel *statusLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 21, 13, 13)];
-    statusLable.font = [UIFont systemFontOfSize:10];
-    statusLable.textColor = [UIColor whiteColor];
-    statusLable.backgroundColor = APP_THEME_COLOR;
-    statusLable.layer.cornerRadius = 2.0;
-    statusLable.textAlignment = NSTextAlignmentCenter;
-    statusLable.clipsToBounds = YES;
-    [_headerView addSubview:statusLable];
+//    UILabel *statusLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 21, 13, 13)];
+//    statusLable.font = [UIFont systemFontOfSize:10];
+//    statusLable.textColor = [UIColor whiteColor];
+//    statusLable.backgroundColor = APP_THEME_COLOR;
+//    statusLable.layer.cornerRadius = 2.0;
+//    statusLable.textAlignment = NSTextAlignmentCenter;
+//    statusLable.clipsToBounds = YES;
+//    [_headerView addSubview:statusLable];
     
     UILabel *levelLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 21, 0, 13)];
     levelLabel.textColor = [UIColor whiteColor];
     levelLabel.font = [UIFont systemFontOfSize:10];
-    levelLabel.backgroundColor = UIColorFromRGB(0xf4b713);
+    levelLabel.backgroundColor = APP_THEME_COLOR;
     levelLabel.textAlignment = NSTextAlignmentCenter;
     levelLabel.layer.cornerRadius = 2.0;
     levelLabel.clipsToBounds = YES;
     [_headerView addSubview:levelLabel];
     
-    UILabel *resideLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 17, 0, 18)];
-    resideLabel.font = [UIFont systemFontOfSize:12];
-    resideLabel.textAlignment = NSTextAlignmentCenter;
-    resideLabel.textColor = TEXT_COLOR_TITLE_HINT;
-    [_headerView addSubview:resideLabel];
+    UILabel *constellationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 21, 0, 13)];
+    constellationLabel.textColor = TEXT_COLOR_TITLE;
+    constellationLabel.font = [UIFont systemFontOfSize:12];
+    constellationLabel.text = [_model getConstellation];
+    [_headerView addSubview:constellationLabel];
     
-    UIImageView *genderImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
-    if ([_model.gender isEqualToString:@"F"] ) {
+    UIImageView *genderImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 19, 15, 15)];
+    genderImage.contentMode = UIViewContentModeCenter;
+    if ([_model.gender isEqualToString:@"F"]) {
         genderImage.image = [UIImage imageNamed:@"girl"];
-    }else{
+        [_headerView addSubview:genderImage];
+    } else if([_model.gender isEqualToString:@"M"]) {
         genderImage.image = [UIImage imageNamed:@"boy"];
+        [_headerView addSubview:genderImage];
     }
-    [_headerView addSubview:genderImage];
     
-    UILabel *signatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(116, 70, CGRectGetWidth(self.view.bounds) - 100, 18)];
-    signatureLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    signatureLabel.font = [UIFont systemFontOfSize:12];
-    signatureLabel.textColor = TEXT_COLOR_TITLE_HINT;
-    [_headerView addSubview:signatureLabel];
     [avatarView sd_setImageWithURL:[NSURL URLWithString:_model.avatarSmall]];
     nameLabel.text = _model.name;
-    signatureLabel.text = _model.signature;
-    statusLable.text = [_model getRolesDescription];
-    UILabel *taoziId = [[UILabel alloc]initWithFrame:CGRectMake(116, 45, 200, 20)];
-    taoziId.font = [UIFont systemFontOfSize:14];
-    taoziId.textColor = TEXT_COLOR_TITLE_HINT;
-    NSString *taoziIdStr = [NSString stringWithFormat:@"桃子号:%@",_model.userId];
+    
+    UILabel *taoziId = [[UILabel alloc]initWithFrame:CGRectMake(96, CGRectGetMaxY(nameLabel.frame)+2, 200, 16)];
+    taoziId.font = [UIFont systemFontOfSize:13];
+    taoziId.textColor = TEXT_COLOR_TITLE_DESC;
+    NSString *taoziIdStr = [NSString stringWithFormat:@"ID %@",_model.userId];
     taoziId.text = taoziIdStr;
     [_headerView addSubview:taoziId];
     
+    UILabel *signatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, CGRectGetMaxY(taoziId.frame)+2, CGRectGetWidth(self.view.bounds) - 100, 18)];
+    signatureLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    signatureLabel.font = [UIFont systemFontOfSize:12];
+    signatureLabel.textColor = TEXT_COLOR_TITLE_DESC;
+    signatureLabel.text = _model.signature;
+    [_headerView addSubview:signatureLabel];
+    
     levelLabel.text = [NSString stringWithFormat:@"V%ld", _model.level];
-    resideLabel.text = @"";
 
-    CGSize reSize = [resideLabel.text boundingRectWithSize:CGSizeMake(100, 15)
-                                                    options:NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{
-                                                              NSFontAttributeName : [UIFont systemFontOfSize:12]
-                                                              }
-                                                    context:nil].size;
     CGSize levelSize = [levelLabel.text boundingRectWithSize:CGSizeMake(100, 15)
                                                       options:NSStringDrawingUsesLineFragmentOrigin
                                                    attributes:@{
@@ -142,68 +159,82 @@
                                                                 }
                                                       context:nil].size;
     
-    CGFloat maxSize = CGRectGetWidth(self.view.bounds) - 90 - 10 - 15 - 20 - reSize.width - levelSize.width - 5;
+    CGSize conSize = [constellationLabel.text boundingRectWithSize:CGSizeMake(100, 15)
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{
+                                                               NSFontAttributeName : [UIFont systemFontOfSize:12]
+                                                               }
+                                                     context:nil].size;
+    
+    CGFloat maxSize = CGRectGetWidth(self.view.bounds) - 240;
     CGSize nameSize = [nameLabel.text boundingRectWithSize:CGSizeMake(maxSize, 21)
                                                     options:NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{
                                                               NSFontAttributeName : [UIFont systemFontOfSize:16]
                                                               }
                                                     context:nil].size;
-    CGRect rf = resideLabel.frame;
-    rf.size.width = reSize.width + 50;
-    rf.origin.x = CGRectGetWidth(self.view.bounds) - rf.size.width;
-    resideLabel.frame = rf;
     
     CGRect nf = nameLabel.frame;
     nf.size.width = nameSize.width;
     nameLabel.frame = nf;
     
-    CGRect slf = statusLable.frame;
-    slf.origin.x = nf.origin.x + nf.size.width + 4;
-    statusLable.frame = slf;
-    
-    
     CGRect llf = levelLabel.frame;
     llf.size.width = levelSize.width + 5;
-    llf.origin.x = slf.origin.x + slf.size.width + 5;
+    llf.origin.x = 5 + CGRectGetMaxX(nf);
     levelLabel.frame = llf;
-
     
-    genderImage.frame = CGRectMake(llf.origin.x + llf.size.width + 5, 21, 15, 15) ;
-    _tableView.tableHeaderView = _headerView;
+    CGFloat ox = CGRectGetMaxX(llf);
+
+    if (genderImage.image != nil) {
+        CGRect gif = genderImage.frame;
+        gif.origin.x = ox + 5;
+        genderImage.frame = gif;
+        ox += 20;
+    }
+    
+    CGRect rect = constellationLabel.frame;
+    rect.size.width = conSize.width;
+    rect.origin.x = ox + 5;
+    constellationLabel.frame = rect;
+    
+     _tableView.tableHeaderView = _headerView;
 }
--(void)createFooter
+
+-(void)createFooterBar
 {
-    _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
-    _footerView.backgroundColor = APP_PAGE_COLOR;
-    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2-1, 50)];
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, CGRectGetWidth(self.view.bounds), 49)];
+    toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:toolBar];
+    
+    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
     [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
     [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    addFriend.backgroundColor = [UIColor whiteColor];
-    [addFriend addTarget:self action:@selector(aaa) forControlEvents:UIControlEventTouchUpInside];
-    [_footerView addSubview:addFriend];
+    [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+    [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+    [toolBar addSubview:addFriend];
     
-    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 50)];
-    [consultingBtn setTitle:@"咨询达人" forState:UIControlStateNormal];
-    consultingBtn.backgroundColor = [UIColor whiteColor];
-    [consultingBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [consultingBtn addTarget:self action:@selector(aaa) forControlEvents:UIControlEventTouchUpInside];
-    [_footerView addSubview:consultingBtn];
-    
-    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2, 3, 1, 46)];
-    divide.backgroundColor = APP_DIVIDER_COLOR;
-    [_footerView addSubview:divide];
-    
-    _tableView.tableFooterView = _footerView;
+//    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 49)];
+//    [consultingBtn setTitle:@"咨询达人" forState:UIControlStateNormal];
+//    consultingBtn.backgroundColor = [UIColor whiteColor];
+//    [consultingBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+//    [consultingBtn addTarget:self action:@selector(sendRequest) forControlEvents:UIControlEventTouchUpInside];
+//    [toolBar addSubview:consultingBtn];
 }
--(void)aaa
-{
-    NSLog(@"我是尾部视图");
+
+#pragma mark - IBAction
+- (void) addToFriend {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"输入好友验证申请" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    UITextField *nameTextField = [alert textFieldAtIndex:0];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    nameTextField.text = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
+    [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self requestAddContactWithHello:nameTextField.text];
+        }
+    }];
 }
--(void)addFriend
-{
-    
-}
+
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -226,7 +257,7 @@
         return 90;
     }
     
-    return 50;
+    return 44;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -237,16 +268,39 @@
     }
     else if (indexPath.section == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.textLabel.text = @"他的旅行计划";
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        cell.textLabel.textColor = TEXT_COLOR_TITLE;
+        cell.textLabel.text = @"TA的旅行计划";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
     else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
-        cell.nameLabel.text = @"旅行足迹";
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.footPrint.text = @"上海  北京  杭州";
-        cell.trajectory.text = [_model getFootprintDescription];
+        cell.nameLabel.text = @"TA的足迹";
+        
+        NSDictionary *country = _model.travels;
+        NSInteger cityNumber = 0;
+        NSMutableString *cityDesc = nil;
+        NSArray *keys = [country allKeys];
+        NSInteger countryNumber = keys.count;
+        for (int i = 0; i < countryNumber; ++i) {
+            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            cityNumber += citys.count;
+            for (id city in citys) {
+                if (cityDesc == nil) {
+                    cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
+                } else {
+                    [cityDesc appendFormat:@" %@", [city objectForKey:@"zhName"]];
+                }
+            }
+        }
+        
+        if (countryNumber > 0) {
+            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+        } else {
+            cell.trajectory.text = @"";
+        }
+        cell.footPrint.text = cityDesc;
         return cell;
     }
     else if (indexPath.section == 3) {
@@ -261,7 +315,7 @@
     else  {
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
-            cell.basicLabel.font = [UIFont systemFontOfSize:14];
+            cell.basicLabel.font = [UIFont systemFontOfSize:16];
             cell.basicLabel.text = @"基本信息";
             cell.information.text = @"";
         }else if (indexPath.row == 1){
@@ -279,7 +333,7 @@
             cell.information.text = [NSString stringWithFormat:@"%d",age];
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
-            cell.basicLabel.text = @"   现居地";
+            cell.basicLabel.text = @"   居住在";
             cell.information.text = _model.residence;
             cell.information.font = [UIFont systemFontOfSize:14];
         }
@@ -297,17 +351,66 @@
     }else if (indexPath.section == 2){
         MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
         ctl.pois = _model.travels;
-        ctl.currentDay = 0;
+//        ctl.currentDay = 0;
 //        ctl.titleText = _tripDetail.tripTitle;
+        [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
         [self presentViewController:nCtl animated:YES completion:nil];
-        
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
--(void)back
+
+/**
+ *  邀请好友
+ *
+ *  @param helloStr
+ */
+- (void)requestAddContactWithHello:(NSString *)helloStr
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:_model.userId forKey:@"userId"];
+    if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
+        helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
+    }
+    [params safeSetObject:helloStr forKey:@"message"];
+    
+    __weak typeof(OtherUserInfoViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+    
+    [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [hud hideTZHUD];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.2];
+        } else {
+            [SVProgressHUD showHint:@"添加失败"];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [hud hideTZHUD];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
+    }];
+    
 }
+
+
 @end
 
 

@@ -9,6 +9,21 @@
 #import "AccountModel.h"
 #import "AppDelegate.h"
 
+
+@implementation AlbumImage
+
+- (id)initWithJson: (id)json
+{
+    if (self = [super init]) {
+        _imageId = [json objectForKey:@"id"];
+        _image = [[TaoziImage alloc] initWithJson:[json objectForKey:@"image"]];
+        _createTime = [[json objectForKey:@"cTime"] longValue];
+    }
+    return self;
+}
+
+@end
+
 @implementation AccountModel
 
 - (Account *)basicUserInfo
@@ -51,7 +66,7 @@
     }
     
     if ([json objectForKey:@"tracks"] == [NSNull null]) {
-        _tracks = [[NSMutableArray alloc] init];
+        _tracks = [[NSMutableDictionary alloc] init];
     } else {
         _tracks = [json objectForKey:@"tracks"];
     }

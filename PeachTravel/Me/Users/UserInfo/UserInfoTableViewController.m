@@ -138,9 +138,57 @@
 {
     [self.accountManager.accountDetail loadUserInfoFromServer:^(bool isSuccess) {
         if (isSuccess) {
-            [self.tableView reloadData];
+            [self loadUserAlbum];
         }
     }];
+}
+
+/**
+ *  下载用户头像列表
+ */
+- (void)loadUserAlbum
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    NSString *url = [NSString stringWithFormat:@"%@%@/albums", API_USERINFO, accountManager.account.userId];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+            [self.tableView reloadData];
+        } else {
+            [self.tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.tableView reloadData];
+    }];
+
+}
+
+/**
+ *  解析用户头像列表
+ *
+ *  @param albumArray
+ */
+- (void)paraseUserAlbum:(NSArray *)albumArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (id album in albumArray) {
+        [array addObject:[[AlbumImage alloc] initWithJson:album]];
+    }
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    accountManager.accountDetail.userAlbum = array;
 }
 
 - (void)presentImagePicker
@@ -233,8 +281,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
-    [manager GET:API_POST_PHOTOIMAGE parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        NSLog(@"%@", responseObject);
+    [manager GET:API_POST_PHOTOALBUM parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
@@ -250,8 +297,7 @@
         if (self.isShowing) {
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
-    }];
-    
+    }];    
 }
 
 /**
@@ -404,7 +450,7 @@
     }
     else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
-        cell.nameLabel.text = @"旅行足迹";
+        cell.nameLabel.text = @"我的足迹";
         NSDictionary *country = amgr.accountDetail.tracks;
         NSInteger cityNumber = 0;
         NSMutableString *cityDesc = nil;
