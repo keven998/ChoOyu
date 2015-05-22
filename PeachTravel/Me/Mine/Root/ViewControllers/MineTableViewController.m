@@ -43,7 +43,7 @@
     
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -109,6 +109,7 @@
     backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     backgroundImageView.image = [UIImage imageNamed:@"picture_background"];
     backgroundImageView.userInteractionEnabled = YES;
+    backgroundImageView.clipsToBounds = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     tap.numberOfTapsRequired = 1;
     tap.numberOfTouchesRequired = 1;
@@ -149,7 +150,7 @@
     [backgroundImageView addSubview:signLabel];
     _signatureLabel = signLabel;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(height - 20, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(height+0.5, 0, 0, 0);
 }
 
 #pragma mark - setter & getter

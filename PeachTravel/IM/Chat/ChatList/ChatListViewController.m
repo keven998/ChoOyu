@@ -600,7 +600,6 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     } else{
         cell.name = tzConversation.chatterNickName;
-//        [cell.imageView setImage:[UIImage imageNamed:@"test1.jpg"]];
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;

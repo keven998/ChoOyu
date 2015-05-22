@@ -128,7 +128,7 @@
     [_currentAnnotations removeAllObjects];
     
     NSArray *currentDayPois = _pois[_currentDay];
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+//    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     NSInteger count = currentDayPois.count;
     CLLocationCoordinate2D pointsToUse[count];
     for (int i = 0; i < count; i++) {
@@ -137,7 +137,7 @@
         MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
         item.coordinate = location;
         item.title = pb.zhName;
-        [tempArray addObject:item];
+//        [tempArray addObject:item];
         
         [_currentAnnotations addObject:item];
         [mapView addAnnotation:item];
