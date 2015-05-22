@@ -132,6 +132,11 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         }
             break;
             
+        case IMMessageTypeLocationMessageType: {
+            identifier = [identifier stringByAppendingString:@"location"];
+        }
+            break;
+            
         case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeTravelNoteMessageType:{
             identifier = [identifier stringByAppendingString:@"taoziExt"];
         }

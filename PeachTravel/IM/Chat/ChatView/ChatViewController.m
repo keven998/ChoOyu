@@ -894,7 +894,7 @@
 
 - (void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
 {
-    [self sendLocationLatitude:latitude longitude:longitude andAddress:address];
+    [self sendLocation:latitude lng:longitude address:address];
 }
 
 #pragma mark - DXMessageToolBarDelegate
@@ -1194,12 +1194,12 @@
     [self addChatMessage2DataSource:message];
 }
 
-- (void)sendLocation:(long)lat lng:(long) lng  address:(NSString *)address{
+- (void)sendLocation:(double)lat lng:(double) lng  address:(NSString *)address{
     IMClientManager *imClientManager = [IMClientManager shareInstance];
     LocationModel *model = [[LocationModel alloc] init];
-    model.longitude = 116.24;
-    model.latitude = 39.28;
-    model.address = @"北京";
+    model.longitude = lng;
+    model.latitude = lat;
+    model.address = address;
     
     BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
     [self addChatMessage2DataSource:message];

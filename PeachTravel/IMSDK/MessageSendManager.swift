@@ -131,7 +131,9 @@ class MessageSendManager: NSObject {
         locationMessage.chatterId = receiver
         locationMessage.sendType = IMMessageSendType.MessageSendMine
         locationMessage.conversationId = conversationId
-        
+        var locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address];
+        locationMessage.message = locationMessage.contentsStrWithJsonObjc(locationDic) as! String
+
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: locationMessage)
         

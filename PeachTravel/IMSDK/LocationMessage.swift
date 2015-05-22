@@ -9,8 +9,8 @@
 import UIKit
 
 class LocationMessage: BaseMessage {
-    var longitude: Float = 0
-    var latitude: Float = 0
+    var longitude: Double = 0.0
+    var latitude: Double = 0.0
     var address: String = ""
     
     override init() {
@@ -24,10 +24,10 @@ class LocationMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
-        if let lng = contentsDic.objectForKey("lng") as? Float {
+        if let lng = contentsDic.objectForKey("lng") as? Double {
             longitude = lng
         }
-        if let lat = contentsDic.objectForKey("lat") as? Float {
+        if let lat = contentsDic.objectForKey("lat") as? Double {
             latitude = lat
         }
         if let name = contentsDic.objectForKey("name") as? String {

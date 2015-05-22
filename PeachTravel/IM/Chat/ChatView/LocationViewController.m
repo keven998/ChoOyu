@@ -65,27 +65,8 @@ static LocationViewController *defaultLocation = nil;
     
     self.title = @"位置信息";
     
-//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-//    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-//    [self.navigationItem setLeftBarButtonItem:backItem];
-    
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(popViewControllerAnimated)];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = backBtn;
-    
-//    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(popViewControllerAnimated)forControlEvents:UIControlEventTouchUpInside];
-//    [button setFrame:CGRectMake(0, 0, 48, 30)];
-//    //[button setTitle:@"返回" forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//    button.titleLabel.font = [UIFont systemFontOfSize:17.0];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-//    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    self.navigationItem.leftBarButtonItem = barButton;
     
     _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     _mapView.delegate = self;
@@ -95,14 +76,6 @@ static LocationViewController *defaultLocation = nil;
     
     if (_isSendLocation) {
         _mapView.showsUserLocation = YES;//显示当前位置
-        
-//        UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-//        [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-//        [sendButton setTitleColor:[UIColor colorWithRed:32 / 255.0 green:134 / 255.0 blue:158 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-//        [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-//        [sendButton addTarget:self action:@selector(sendLocation) forControlEvents:UIControlEventTouchUpInside];
-//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sendButton]];
-//        self.navigationItem.rightBarButtonItem.enabled = NO;
         
         UIBarButtonItem * sendButton = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
         sendButton.tintColor = APP_THEME_COLOR;
@@ -227,8 +200,13 @@ static LocationViewController *defaultLocation = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) popViewControllerAnimated {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void) dismiss {
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end

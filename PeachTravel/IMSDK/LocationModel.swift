@@ -9,7 +9,7 @@
 import UIKit
 
 class LocationModel: NSObject {
-    var latitude: Float = 0.0
-    var longitude: Float = 0.0
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var address: String = ""
 }

@@ -187,22 +187,17 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 {
     switch (messageModel.type) {
         case IMMessageTypeTextMessageType:
-        {
             return [[EMChatTextBubbleView alloc] init];
-        }
-            break;
+        
         case IMMessageTypeImageMessageType:
-        {
             return [[EMChatImageBubbleView alloc] init];
-        }
-            break;
-        case IMMessageTypeAudioMessageType:
-        {
-            return [[EMChatAudioBubbleView alloc] init];
-        }
-            break;
             
-    
+        case IMMessageTypeAudioMessageType:
+            return [[EMChatAudioBubbleView alloc] init];
+            
+        case IMMessageTypeLocationMessageType:
+            return [[EMChatLocationBubbleView alloc] init];
+            
         case IMMessageTypeCityPoiMessageType: case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
             return [[TaoziChatBaseBubbleView alloc] init];
         }
@@ -254,6 +249,9 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 
         }
             break;
+            
+        case IMMessageTypeLocationMessageType:
+            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
             
         case IMMessageTypeGuideMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: case IMMessageTypeTravelNoteMessageType: {
             return [TaoziChatBaseBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;

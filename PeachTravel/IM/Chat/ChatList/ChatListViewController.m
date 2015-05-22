@@ -87,7 +87,6 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
-    [self registerNotifications];
     [self updateNavigationTitleViewStatus];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -99,7 +98,6 @@
 }
 
 - (void)dealloc{
-    [self unregisterNotifications];
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
     _searchController.delegate = nil;
@@ -364,7 +362,7 @@
                     break;
                     
                 case IMMessageTypeLocationMessageType: {
-                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
+                    ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
 
                 }
                     break;
@@ -406,7 +404,7 @@
                     break;
                     
                 case IMMessageTypeLocationMessageType: {
-                    ret = [NSString stringWithFormat:@"升级新版本才可以查看这条神秘消息哦"];
+                    ret = [NSString stringWithFormat:@"[位置]"];
                     
                 }
                     break;
@@ -480,7 +478,6 @@
     
     BaseMessage *message = tzConversation.lastLocalMessage;
     NSDictionary *userInfo = [[EaseMob sharedInstance].chatManager loginInfo];
-    NSString *login = [userInfo objectForKey:kSDKUsername];
     BOOL isSender = message.sendType == IMMessageSendTypeMessageSendMine ? YES : NO;
     
     if (isSender) {
@@ -528,16 +525,6 @@
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [MobClick event:@"event_delete_talk_item"];
     }
-}
-
-#pragma mark - registerNotifications
--(void)registerNotifications{
-    [self unregisterNotifications];
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-}
-
--(void)unregisterNotifications{
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
 }
 
 #pragma mark - public
