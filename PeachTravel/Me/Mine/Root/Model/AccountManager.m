@@ -57,6 +57,53 @@
     return _accountDetail;
 }
 
+- (NSString *)userChatAudioPath
+{
+    if (!_userChatAudioPath) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [paths objectAtIndex:0];
+        
+        NSFileManager *fileManager =  [[NSFileManager alloc] init];
+        NSString *audioPath = [documentPath stringByAppendingPathComponent:@"\(account.userId)/ChatAudio/"];
+        if (![fileManager fileExistsAtPath: audioPath]) {
+            [fileManager createDirectoryAtPath:audioPath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        _userChatAudioPath = audioPath;
+    }
+    return _userChatAudioPath;
+}
+
+- (NSString *)userChatImagePath
+{
+    if (!_userChatImagePath) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [paths objectAtIndex:0];
+        
+        NSFileManager *fileManager =  [[NSFileManager alloc] init];
+        NSString *imagePath = [documentPath stringByAppendingPathComponent:@"\(account.userId)/ChatImage/"];
+        if (![fileManager fileExistsAtPath: imagePath]) {
+            [fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        _userChatImagePath = imagePath;
+    }
+    return _userChatImagePath;
+}
+
+- (NSString *)userTempPath
+{
+    if (!_userChatImagePath) {
+        NSString *tempPath = NSTemporaryDirectory();
+        
+        NSFileManager *fileManager =  [[NSFileManager alloc] init];
+        NSString *retPath = [tempPath stringByAppendingPathComponent:@"\(account.userId)/tempFile/"];
+        if (![fileManager fileExistsAtPath: retPath]) {
+            [fileManager createDirectoryAtPath:retPath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        _userTempPath = retPath;
+    }
+    return _userTempPath;
+}
+
 //用户是否登录
 - (BOOL)isLogin
 {
