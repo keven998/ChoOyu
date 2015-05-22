@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSArray *cities;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, strong) NSArray *images;
-
+//@property (nonatomic)
 - (id)initWithJson:(id)json;
 
 @end
