@@ -12,6 +12,7 @@
 #import "ChangeGroupTitleViewController.h"
 #import "Group.h"
 #import "ContactDetailViewController.h"
+#import "OtherUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SearchUserInfoViewController.h"
 #import "ChatGroupCell.h"
@@ -20,7 +21,6 @@
 @interface ChatGroupSettingViewController () <IChatManagerDelegate,UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate>
 {
     UITableView *_tableView;
-    NSMutableArray *_dataArray;
     UIButton *_selectedBtn;
 }
 @property (weak, nonatomic) IBOutlet UIView *contactsView;
@@ -52,7 +52,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBarHidden = YES;
     
-    _dataArray = [NSMutableArray array];
+    [self createTableView];
     
     /*
      [_groupTitle setTitle:_group.groupSubject forState:UIControlStateNormal];
@@ -79,7 +79,7 @@
     //注册为SDK的ChatManager的delegate
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
-        
+        [self updateView];
     }];
     
 }
@@ -232,7 +232,7 @@
         TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:createConversationCtl];
         [self presentViewController:nCtl animated:YES completion:nil];
         
-    }else if (indexPath.row >3&&indexPath.row < _groupNumbers.count +4) {
+    }else if (indexPath.row >3 && indexPath.row < _groupNumbers.count +4) {
         Contact *selectPerson = self.groupNumbers[indexPath.row - 4];
         [self  showUserInfoWithContactInfo:selectPerson];
         
@@ -273,6 +273,7 @@
 {
     self.navigationController.navigationBarHidden = NO;
 }
+
 - (NSArray *)loadGroupNumbers
 {
     NSMutableArray *contacts = [[NSMutableArray alloc] init];
@@ -286,7 +287,6 @@
     [contacts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return ((Contact *)obj1).userId >  ((Contact *)obj2).userId;
     }];
-    [_tableView reloadData];
     return contacts;
     
 }
@@ -330,7 +330,6 @@
         if (code == 0) {
             [self updateGroupInDB:[responseObject objectForKey:@"result"] andEMGroup:emgroup];
             completion(YES);
-            [_tableView reloadData];
         } else {
             completion(NO);
             [self showHint:@"呃～好像没找到网络"];
@@ -373,8 +372,8 @@
     for (UIView *view in _contactsView.subviews) {
         [view removeFromSuperview];
     }
+    [_tableView reloadData];
     //    [self createContactsScrollView];
-    [self createTableView];
 }
 
 /**
@@ -532,9 +531,10 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
     if ([accountManager isMyFrend:contact.userId]) {
-        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        contactDetailCtl.contact = contact;
-        contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
+//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+        contactDetailCtl.userId =(NSString *)contact.userId;
+//        contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
         
     } else {
@@ -693,7 +693,7 @@
 #pragma mark - CreateConversationDelegate
 -(void)reloadData
 {
-    [_tableView reloadData];
+    [self updateView];
 }
 
 @end
