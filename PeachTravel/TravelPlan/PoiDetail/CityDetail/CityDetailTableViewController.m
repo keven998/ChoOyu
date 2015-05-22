@@ -43,6 +43,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"城市";
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
