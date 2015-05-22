@@ -22,7 +22,7 @@ enum {
     FILTER_TYPE_CATE
 };
 
-@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate>
+@interface AddPoiViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UIActionSheetDelegate, SelectDelegate,didSelectedDelegate>
 
 @property (nonatomic) NSUInteger currentListTypeIndex;
 @property (nonatomic) NSUInteger currentCityIndex;
@@ -380,6 +380,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         [array addObject:poi.zhName];
     }
     FilterViewController *fvc = [[FilterViewController alloc] init];
+    fvc.delegate = self;
     fvc.contentItems = [NSArray arrayWithArray:array];
     [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
 }
@@ -842,25 +843,51 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     return 15.0;
 }
 
+- (void) didSelectedcityIndex:(NSIndexPath *)cityindexPath categaryIndex:(NSIndexPath *)categaryIndexPath
+{
+    _currentCityIndex = cityindexPath.row;
+    if (categaryIndexPath.row == 0){
+        _currentCategory= @"景点";
+        _currentListTypeIndex = 0;
+    }else if (categaryIndexPath.row == 1) {
+        _currentCategory = @"美食";
+        _currentListTypeIndex = 1;
+    }else if (categaryIndexPath.row == 2) {
+        _currentCategory = @"购物";
+        _currentListTypeIndex = 2;
+    }else if (categaryIndexPath.row == 3) {
+        _currentCategory = @"酒店";
+        _currentListTypeIndex = 3;
+    }
+    [self resetContents];
+}
+
+
+
 #pragma mark - SelectDelegate
 - (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-    if (_filterType == FILTER_TYPE_CITY) {
-        if (_currentCityIndex == indexPath.row) {
-            return;
-        }
-        _cityName = str;
-        _currentCityIndex = indexPath.row;
-        [self resetContents];
-        [MobClick event:@"event_filter_city"];
-    } else if (_filterType == FILTER_TYPE_CATE) {
-        if (_currentListTypeIndex == indexPath.row) {
-            return;
-        }
-        _currentCategory = str;
-        _currentListTypeIndex = indexPath.row;
-        [MobClick event:@"event_filter_items"];
-        [self resetContents];
-    }
+//    if (_filterType == FILTER_TYPE_CITY) {
+//        if (_currentCityIndex == indexPath.row) {
+//            return;
+//        }
+//        _cityName = str;
+//        _currentCityIndex = indexPath.row;
+//        [self resetContents];
+//        [MobClick event:@"event_filter_city"];
+//    } else if (_filterType == FILTER_TYPE_CATE) {
+//        if (_currentListTypeIndex == indexPath.row) {
+//            return;
+//        }
+//        _currentCategory = str;
+//        _currentListTypeIndex = indexPath.row;
+//        [MobClick event:@"event_filter_items"];
+//        [self resetContents];
+//    }
+    
+//    _currentCityIndex = selectcityindex;
+//    _currentListTypeIndex = selecttypeindex;
+    
+    [self resetContents];
 }
 
 - (void) resetContents {

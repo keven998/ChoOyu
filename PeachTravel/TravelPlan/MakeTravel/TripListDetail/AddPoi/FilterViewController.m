@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"筛选";
-    
+    //    _selectedCityIndex = ;
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
     UIBarButtonItem *rbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(selectComplete)];
@@ -52,14 +52,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 70;
+    return 50;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 70)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 50)];
     view.backgroundColor = APP_PAGE_COLOR;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 100, 40)];
-    label.font = [UIFont systemFontOfSize:16];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 100, 40)];
+    label.font = [UIFont systemFontOfSize:15];
     label.textColor = TEXT_COLOR_TITLE;
     [view addSubview:label];
     if (section == 0) {
@@ -69,6 +69,20 @@
     }
     return view;
 }
+//- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.section == 0) {
+//        return UITableViewCellAccessoryNone;
+//    } else {
+//        if(indexPath.row==_selectedCityIndex){
+//            return UITableViewCellAccessoryCheckmark;
+//        }
+//        else{
+//            return UITableViewCellAccessoryNone;
+//        }
+//    }
+//    
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
@@ -85,13 +99,18 @@
     if (indexPath.section == 0) {
         CategoryTableViewCell *ctcell = [tableView dequeueReusableCellWithIdentifier:@"category_selection_cell" forIndexPath:indexPath];
         [ctcell setSelectedItems:[NSArray arrayWithObjects:@"景点", @"美食", @"购物", @"酒店", nil]];
-        [ctcell.segmentControl setSelectedSegmentIndex:_selectedCategoryIndex];
+        [ctcell.segmentControl setSelectedSegmentIndex:_selectedCategoryIndex.row];
+        [ctcell.segmentControl addTarget:self action:@selector(selectCategary:) forControlEvents:UIControlEventValueChanged];
         return ctcell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"select_cell" forIndexPath:indexPath];
+        cell.textLabel.textColor = TEXT_COLOR_TITLE_DESC;
         cell.textLabel.text = [_contentItems objectAtIndex:indexPath.row];
-        if (_selectedCityIndex == indexPath.row) {
+        cell.tag = 100 + indexPath.row;
+        if (indexPath.row == _selectedCityIndex.row) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
         return cell;
     }
@@ -99,47 +118,48 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+//    UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+//    if (newCell.accessoryType == UITableViewCellAccessoryNone) {
+//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    }else if (newCell.accessoryType == UITableViewCellAccessoryCheckmark) {
+//        newCell.accessoryType = UITableViewCellAccessoryNone;
+//    }
+//    _selectedCityIndex=indexPath.row;
+   
+    if (indexPath.section == 0) {
+        return;
+    } else {
+        _selectedCityIndex = indexPath;
+    }
+    [tableView reloadData];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
-
+//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+//    if (newCell.accessoryType == UITableViewCellAccessoryNone) {
+//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    }else if (newCell.accessoryType == UITableViewCellAccessoryCheckmark) {
+//        newCell.accessoryType = UITableViewCellAccessoryNone;
+//    }
+//}
 #pragma mark - IBAction
 - (void)goBack {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)selectComplete {
-    
+    [self.delegate didSelectedcityIndex:_selectedCityIndex categaryIndex:_selectedCategoryIndex];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-//- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
-//    if (_filterType == FILTER_TYPE_CITY) {
-//        if (_currentCityIndex == indexPath.row) {
-//            return;
-//        }
-//        _cityName = str;
-//        _currentCityIndex = indexPath.row;
-//        [self resetContents];
-//        [MobClick event:@"event_filter_city"];
-//    } else if (_filterType == FILTER_TYPE_CATE) {
-//        if (_currentListTypeIndex == indexPath.row) {
-//            return;
-//        }
-//        _currentCategory = str;
-//        _currentListTypeIndex = indexPath.row;
-//        [MobClick event:@"event_filter_items"];
-//        [self resetContents];
-//    }
-//}
-
-//- (void) resetContents {
-//    _isLoadingMoreNormal = YES;
-//    _didEndScrollNormal = YES;
-//    _enableLoadMoreNormal = NO;
-//    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
-//    _requestUrl = [NSString stringWithFormat:@"%@%@", _urlArray[_currentListTypeIndex], poi.cityId];
-//    [self.dataSource removeAllObjects];
-//    [self.tableView reloadData];
-//    _currentPageNormal = 0;
-//    [self loadDataWithPageNo:_currentPageNormal];
-//}
-
+-(void)selectCategary:(id)sender
+{
+    UISegmentedControl *switchButton = (UISegmentedControl*)sender;
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:switchButton.selectedSegmentIndex inSection:0];
+    _selectedCategoryIndex = ip;
+    [self.tableView reloadData];
+}
 
 @end

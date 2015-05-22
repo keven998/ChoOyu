@@ -25,12 +25,13 @@
     segmentControl = [[UISegmentedControl alloc] initWithItems:selectedItems];
     segmentControl.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     segmentControl.layer.borderWidth = 1.0;
-    segmentControl.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 44);
+    segmentControl.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 50);
     [segmentControl setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [segmentControl setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [segmentControl setBackgroundImage:[ConvertMethods createImageWithColor:UIColorFromRGB(0xe5e5e5)] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     [segmentControl setDividerImage:[ConvertMethods createImageWithColor:APP_DIVIDER_COLOR] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [segmentControl setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE} forState:UIControlStateNormal];
-    [segmentControl setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected];
+    [segmentControl setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_DESC} forState:UIControlStateNormal];
+    [segmentControl setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_DESC} forState:UIControlStateSelected];
+//    [segmentControl setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected];
     [self.contentView addSubview:segmentControl];
 }
 

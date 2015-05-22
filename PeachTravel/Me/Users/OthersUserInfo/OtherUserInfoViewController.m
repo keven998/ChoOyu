@@ -11,7 +11,7 @@
 #import "HeaderCell.h"
 #import "OtherUserBasicInfoCell.h"
 #import "OthersAlbumCell.h"
-#import "MyTripSpotsMapViewController.h"
+#import "TraceViewController.h"
 
 #import "AccountModel.h"
 #import "UIBarButtonItem+MJ.h"
@@ -349,13 +349,25 @@
         listCtl.userId = _model.userId;
         [self.navigationController pushViewController:listCtl animated:YES];
     }else if (indexPath.section == 2){
-        MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
-        ctl.pois = _model.travels;
-//        ctl.currentDay = 0;
-//        ctl.titleText = _tripDetail.tripTitle;
-        [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-        UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
-        [self presentViewController:nCtl animated:YES completion:nil];
+        TraceViewController *ctl = [[TraceViewController alloc] init];
+//        ctl.citys = _model.travels;
+        NSDictionary *country = _model.travels;
+        NSMutableArray *traces = [[NSMutableArray alloc] init];
+        NSArray *keys = [country allKeys];
+        SuperPoi *sp;
+        for (id key in keys) {
+            NSArray *citys = [country objectForKey:key];
+            for (id city in citys) {
+                sp = [SuperPoi new];
+                sp.zhName = [city objectForKey:@"zhName"];
+                sp.lat = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:1] floatValue];
+                sp.lng = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:0] floatValue];
+                [traces addObject:sp];
+            }
+        }
+        
+        ctl.citys = traces;
+        [self.navigationController pushViewController:ctl animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
