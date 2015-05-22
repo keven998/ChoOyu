@@ -24,8 +24,6 @@ extension AppDelegate {
             application.registerForRemoteNotificationTypes(remoteType)
         }
         
-        var manager = IMClientManager.shareInstance()
-        manager.connectionManager.login(100015, password: "")
         return true
     }
     

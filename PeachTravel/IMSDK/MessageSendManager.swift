@@ -68,8 +68,8 @@ class MessageSendManager: NSObject {
         for messageManagerDelegate in self.sendDelegateList {
             messageManagerDelegate.sendNewMessage?(message)
         }
-        var accountManager = IMAccountManager.shareInstance()
-        NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
+        var accountManager = AccountManager.shareAccountManager()
+        NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId.integerValue, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
             if isSuccess {
                 message.status = IMMessageStatus.IMMessageSuccessful
                 if let retMessage = retMessage {
@@ -200,7 +200,7 @@ class MessageSendManager: NSObject {
         var imageData = UIImageJPEGRepresentation(image, 1)
         
         var metadataId = NSUUID().UUIDString
-        var imagePath = IMAccountManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(metadataId).jpeg")
+        var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(metadataId).jpeg")
         MetaDataManager.moveMetadata2Path(imageData, toPath: imagePath)
         
         imageMessage.localPath = imagePath
@@ -268,9 +268,9 @@ class MessageSendManager: NSObject {
         
         var metadataId = NSUUID().UUIDString
         
-        var tempAmrPath = IMAccountManager.shareInstance().userTempPath.stringByAppendingPathComponent("\(metadataId).amr")
+        var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\(metadataId).amr")
 
-        var audioWavPath = IMAccountManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(metadataId).wav")
+        var audioWavPath = AccountManager.shareAccountManager().userChatAudioPath.stringByAppendingPathComponent("\(metadataId).wav")
         MetaDataManager.moveMetadataFromOnePath2AnotherPath(wavAudioPath, toPath: audioWavPath)
         
         VoiceConverter.wavToAmr(wavAudioPath, amrSavePath: tempAmrPath)

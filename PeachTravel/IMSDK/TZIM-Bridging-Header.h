@@ -11,3 +11,4 @@
 #import "UIBubbleTableViewDataSource.h"
 #import "UIBubbleTableView.h"
 #import "NSBubbleData.h"
+#import "AccountManager.h"

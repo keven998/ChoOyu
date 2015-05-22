@@ -91,7 +91,7 @@ class MetadataUploadManager: NSObject {
         var uploadManager = QNUploadManager()
         
         var params = NSMutableDictionary()
-        params.setObject("\(IMAccountManager.shareInstance().account.userId)", forKey: "x:sender")
+        params.setObject("\(AccountManager.shareAccountManager().account.userId)", forKey: "x:sender")
         params.setObject("\(metadataMessage.messageType.rawValue)", forKey: "x:msgType")
         
         if let conversationId = conversationId {
@@ -147,7 +147,7 @@ class MetadataDownloadManager:NSObject{
                     
                     dispatch_async(metadataOperationQueue, { () -> Void in
                         
-                        var imagePath = IMAccountManager.shareInstance().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!).jpeg")
+                        var imagePath = AccountManager.shareAccountManager().userChatImagePath.stringByAppendingPathComponent("\(imageMessage.metadataId!).jpeg")
                         
                         if let imageData = data {
                             var fileManager =  NSFileManager()
@@ -193,9 +193,9 @@ class MetadataDownloadManager:NSObject{
                 } else {
                     
                     dispatch_async(metadataOperationQueue, { () -> Void in
-                        var audioWavPath = IMAccountManager.shareInstance().userChatAudioPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).wav")
+                        var audioWavPath = AccountManager.shareAccountManager().userChatAudioPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).wav")
                         
-                        var tempAmrPath = IMAccountManager.shareInstance().userTempPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).amr")
+                        var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\(audioMessage.metadataId!).amr")
                         
                         if let audioData = data {
                             var fileManager =  NSFileManager()

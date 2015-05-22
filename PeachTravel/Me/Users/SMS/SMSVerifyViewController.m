@@ -134,18 +134,8 @@
             __weak SMSVerifyViewController *weakSelf = self;
             //注册完成后要登录环信
             hud.status = @"正在登录...";
-            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-                if (isSuccess) {
-                    [hud hideTZHUD];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
-                    [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-                } else {
-                    [hud hideTZHUD];
-                    [accountManager easeMobUnlogin];
-                    [SVProgressHUD showHint:@"登录失败"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
-                }
-            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
+
         } else {
             [hud hideTZHUD];
             [SVProgressHUD showHint:[NSString stringWithFormat:@"%@", [[responseObject objectForKey:@"err"] objectForKey:@"message"]]];

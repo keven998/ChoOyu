@@ -14,3 +14,6 @@
 #import "AppUtils.h"
 #import "HomeViewController.h"
 #import "WXApi.h"
+#import "TaoziImage.h"
+#import "AccountManager.h"
+

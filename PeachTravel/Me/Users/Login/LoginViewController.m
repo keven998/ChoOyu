@@ -202,18 +202,11 @@
         if (code == 0) {
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-                [hud hideTZHUD];
-                if (isSuccess) {
-                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
-                    if (self.completion) {
-                        self.completion(YES);
-                    }
-                } else {
-                    [SVProgressHUD showHint:@"登录失败"];
-                }
-            }];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+            [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
+            if (self.completion) {
+                self.completion(YES);
+            }
         } else {
             [hud hideTZHUD];
             if (self.isShowing) {
@@ -290,17 +283,10 @@
             NSLog(@"%@", responseObject);
             AccountManager *accountManager = [AccountManager shareAccountManager];
             [accountManager userDidLoginWithUserInfo:[responseObject objectForKey:@"result"]];
-            [accountManager loginEaseMobServer:^(BOOL isSuccess) {
-                [hud hideTZHUD];
-                if (isSuccess) {
-                    [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    if (self.completion) {
-                        self.completion(YES);
-                    }
-                } else {
-                    [SVProgressHUD showHint:@"登录失败"];
-                }
-            }];
+            [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+            if (self.completion) {
+                self.completion(YES);
+            }
             
         } else {
             [hud hideTZHUD];

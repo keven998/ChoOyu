@@ -139,14 +139,14 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     :param: receivedMessages 已经收到的消息
     */
     func ACKMessageWithReceivedMessages(receivedMessages: NSArray?) {
-        var accountManager = IMAccountManager.shareInstance()
+        var accountManager = AccountManager.shareAccountManager()
         
         println("fetchOmitMessageWithReceivedMessages queue: \(NSThread.currentThread())")
         
         //储存需要额外处理的消息
         var messagesNeed2Deal = NSMutableArray()
 
-        NetworkTransportAPI.asyncACKMessage(accountManager.account.userId, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
+        NetworkTransportAPI.asyncACKMessage(accountManager.account.userId.integerValue, shouldACKMessageList:messageManager.messagesShouldACK, completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> () in
             
             println("fetch Result 一共是：\(retMessage?.count): \(retMessage)")
 

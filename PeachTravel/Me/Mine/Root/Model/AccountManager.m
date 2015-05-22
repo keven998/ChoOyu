@@ -117,70 +117,10 @@
     }
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
-}
-
-//环信系统也登录成功，这时候才是真正的登录成功
-- (void)easeMobDidLogin
-{
     [self save];
-    [self loadContactsFromServer];
-}
-
-//环信系统登录失败
-- (void)easeMobUnlogin
-{
-    if (self.account) {
-        [self.context deleteObject:self.account];
-        [self save];
-    }
-    _account = nil;
-}
-
-- (void)loginEaseMobServer
-{
-    [self loginEaseMobServer:nil];
-}
-
-- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion
-{
-    [self loginEaseMobServerWithUserName:self.account.easemobUser withPassword:self.account.easemobPwd withCompletion:completion];
-}
-
-/**
- *  使用用户名密码登录环信聊天系统,只有环信系统也登录成功才算登录成功
- *
- *  @param userName
- *  @param password
- */
-- (void)loginEaseMobServerWithUserName:(NSString *)userName withPassword:(NSString *)password withCompletion:(void(^)(BOOL))completion
-{
-    if ([EaseMob sharedInstance].chatManager.isLoggedIn) {
-        [[EaseMob sharedInstance].chatManager logoffWithUnbindDeviceToken:YES error:nil];
-    }
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:userName
-                                                        password:password
-                                                      completion:
-     ^(NSDictionary *loginInfo, EMError *error) {
-         if (loginInfo && !error) {
-             [self easeMobDidLogin];
-             [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-
-             EMPushNotificationOptions *options = [[EMPushNotificationOptions alloc] init];
-             options.displayStyle = ePushNotificationDisplayStyle_simpleBanner;
-             [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
-             //设置环信自动登录
-             [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
-             [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
-             if (completion) {
-                 completion(YES);
-             }
-         } else {
-             [self easeMobUnlogin];
-             if (completion) {
-                 completion(NO);
-             }
-         }
-     } onQueue:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+    IMClientManager *manager = [IMClientManager shareInstance];
+    [manager.connectionManager login:_account.userId.intValue password:@""];
 }
 
 #pragma mark - 修改用户信息相关接口

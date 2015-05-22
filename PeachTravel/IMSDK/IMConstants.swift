@@ -8,6 +8,8 @@
 
 import UIKit
 
+let userUrl = "http://hedy.zephyre.me/users"
+
 /**
 消息类型
 */

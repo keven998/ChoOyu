@@ -20,6 +20,11 @@
 
 + (AccountManager *)shareAccountManager;
 
+@property (nonatomic, copy) NSString *userChatImagePath;
+@property (nonatomic, copy) NSString *userChatAudioPath;
+@property (nonatomic, copy) NSString *userTempPath;
+
+
 /**
  *  用户是否登录
  *
@@ -35,16 +40,6 @@
 - (void)userDidLoginWithUserInfo:(id)userInfo;
 
 /**
- *  环信系统已经登录成功
- */
-- (void)easeMobDidLogin;
-
-/**
- *  环信系统登录失败
- */
-- (void)easeMobUnlogin;
-
-/**
  *  异步退出登录
  */
 - (void)asyncLogout:(void(^)(BOOL isSuccess))completion;
@@ -55,14 +50,6 @@
  *  @return
  */
 - (BOOL)accountIsBindTel;
-
-/**
- *  登录环信服务器
- */
-- (void)loginEaseMobServer;
-
-- (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion;
-
 
 /*******用户信息相关接口********/
 
