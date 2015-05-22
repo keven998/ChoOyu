@@ -629,6 +629,7 @@
 {
     ChatManagerAudio *audioManager = [ChatManagerAudio shareInstance];
     audioManager.delegate = self;
+    model.isPlayed = YES;
     if (!model.isPlaying) {
         [audioManager playAudio:model.localPath messageLocalId:model.baseMessage.localId];
         model.isPlaying = true;
