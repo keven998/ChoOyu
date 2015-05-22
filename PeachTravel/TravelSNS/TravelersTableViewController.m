@@ -15,6 +15,7 @@
 #import "ForeignScreeningViewController.h"
 #import "OtherUserInfoViewController.h"
 #import "DomesticScreeningViewController.h"
+#import "TZButton.h"
 @interface TravelersTableViewController ()<doScreenning>
 
 @property (nonatomic, strong) NSMutableArray *travelers;
@@ -27,16 +28,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"达人指路";
+    self.navigationItem.title = @"派派达人";
     
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(0, 0, 40, 44);
-//    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//    [btn setImage:[UIImage imageNamed:@"ic_nav_filter_normal.png"] forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(goSelect) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStylePlain target:self action:@selector(goSelect)];
+    TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 44, 44);
+    [btn setTitle:@"筛选" forState:UIControlStateNormal];
+    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [btn addTarget:self action:@selector(goSelect) forControlEvents:UIControlEventTouchUpInside];
+    btn.imagePosition = IMAGE_AT_RIGHT;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+
     self.enableLoadingMore = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[TravelerTableViewCell class] forCellReuseIdentifier:@"travel_user_cell"];
