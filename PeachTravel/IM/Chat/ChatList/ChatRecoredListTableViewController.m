@@ -143,7 +143,6 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
 
 - (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
 
-
 {
     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
         [_delegate createConversationSuccessWithChatter:chatterId chatType:chatType chatTitle:chatTitle];
