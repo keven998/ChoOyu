@@ -171,6 +171,7 @@
 		C6A0C6AD1A39C04D009D9768 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */; };
 		C6A0C6AF1A39C05A009D9768 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */; };
 		C6B65A671A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */; };
+		C6C5AFD41B0EDA73005D6A0F /* TraceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5AFD31B0EDA73005D6A0F /* TraceViewController.m */; };
 		C6C5C3B71ADE15BE0047C058 /* BaseTextSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */; };
 		C6C5C3B81ADE15BE0047C058 /* BaseTextSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */; };
 		C6C5C3C91ADE65570047C058 /* AutoSlideScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6C5C3C21ADE65570047C058 /* AutoSlideScrollView.m */; };
@@ -1094,6 +1095,8 @@
 		C6A0C6AC1A39C04D009D9768 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C6A0C6AE1A39C05A009D9768 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C6B65A661A8386C6007F00F0 /* ic_nav_action_search_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_gray@2x.png"; sourceTree = "<group>"; };
+		C6C5AFD21B0EDA73005D6A0F /* TraceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraceViewController.h; sourceTree = "<group>"; };
+		C6C5AFD31B0EDA73005D6A0F /* TraceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraceViewController.m; sourceTree = "<group>"; };
 		C6C5C3B41ADE15BE0047C058 /* BaseTextSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTextSettingViewController.h; sourceTree = "<group>"; };
 		C6C5C3B51ADE15BE0047C058 /* BaseTextSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTextSettingViewController.m; sourceTree = "<group>"; };
 		C6C5C3B61ADE15BE0047C058 /* BaseTextSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseTextSettingViewController.xib; sourceTree = "<group>"; };
@@ -2569,6 +2572,15 @@
 				C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */,
 			);
 			path = SDSegmentedControl;
+			sourceTree = "<group>";
+		};
+		C6C5AFCE1B0ED786005D6A0F /* Footprint  */ = {
+			isa = PBXGroup;
+			children = (
+				C6C5AFD21B0EDA73005D6A0F /* TraceViewController.h */,
+				C6C5AFD31B0EDA73005D6A0F /* TraceViewController.m */,
+			);
+			path = "Footprint ";
 			sourceTree = "<group>";
 		};
 		C6C5C3C01ADE65570047C058 /* AutoSlideScrollView */ = {
@@ -4482,6 +4494,7 @@
 		D9A8FEE41A80CC2B005AD701 /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				C6C5AFCE1B0ED786005D6A0F /* Footprint  */,
 				27FF1AC71B0716F800643D77 /* OthersUserInfo */,
 				D9A8FEE51A80CC2B005AD701 /* BindPhone */,
 				D9A8FEE91A80CC2B005AD701 /* ChangePassword */,
@@ -5957,6 +5970,7 @@
 				D9F46DB91AC52D8600972AE8 /* SVWebViewController.m in Sources */,
 				C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */,
 				D9A800601A80DD0C005AD701 /* AddressBookTableViewCell.m in Sources */,
+				C6C5AFD41B0EDA73005D6A0F /* TraceViewController.m in Sources */,
 				D9A8FF291A80CCA5005AD701 /* AccountManagerTableViewCell.m in Sources */,
 				27FF1A791B059AFA00643D77 /* TripPlanSettingCell.m in Sources */,
 				D9A802271A80E036005AD701 /* pinyin.c in Sources */,
