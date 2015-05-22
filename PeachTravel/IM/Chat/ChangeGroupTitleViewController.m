@@ -65,7 +65,10 @@
         [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
     } onQueue:nil];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)updateSuccess
 {
     

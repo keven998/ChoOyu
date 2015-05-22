@@ -258,6 +258,7 @@
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
                 [self sendMsgWhileCreateGroup:_group.groupId];
+                [self.delegate reloadData];
                 [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {

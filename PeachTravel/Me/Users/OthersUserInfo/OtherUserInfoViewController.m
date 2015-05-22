@@ -50,7 +50,9 @@
     self.navigationItem.leftBarButtonItem = left;
     
     [self createHeader];
+    if(!_isMyFriend){
     [self createFooter];
+    }
     [self.view addSubview:_tableView];
 }
 -(void)loadUserInfo
@@ -198,6 +200,10 @@
 {
     NSLog(@"我是尾部视图");
 }
+-(void)addFriend
+{
+    
+}
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return CGFLOAT_MIN;
@@ -291,9 +297,8 @@
     }else if (indexPath.section == 2){
         MyTripSpotsMapViewController *ctl = [[MyTripSpotsMapViewController alloc] init];
         ctl.pois = _model.travels;
-//        ctl.currentDay = 0;
+        ctl.currentDay = 0;
 //        ctl.titleText = _tripDetail.tripTitle;
-        [ctl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
         UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
         [self presentViewController:nCtl animated:YES completion:nil];
         

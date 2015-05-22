@@ -375,6 +375,7 @@ static NSString *reusableCell = @"myGuidesCell";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (_isExpert) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", _userId] forHTTPHeaderField:@"UserId"];

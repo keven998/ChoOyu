@@ -21,7 +21,7 @@
  *  @param chatTitle 聊天界面显示的title
  */
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle;
-
+-(void)reloadData;
 @end
 
 @interface CreateConversationViewController : TZViewController
