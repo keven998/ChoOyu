@@ -58,7 +58,7 @@
 
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -627,49 +627,16 @@
  */
 - (void)chatAudioCellBubblePressed:(MessageModel *)model
 {
-    if (!model.isSender) {
-        id <IEMFileMessageBody> body = [model.message.messageBodies firstObject];
-        EMAttachmentDownloadStatus downloadStatus = [body attachmentDownloadStatus];
-        if (downloadStatus == EMAttachmentDownloading) {
-            [self showHint:@"正在下载语音，稍后点击"];
-            return;
-        }
-        else if (downloadStatus == EMAttachmentDownloadFailure)
-        {
-            [self showHint:@"正在下载语音，稍后点击"];
-            [[EaseMob sharedInstance].chatManager asyncFetchMessage:model.message progress:nil];
-            
-            return;
-        }
+    ChatManagerAudio *audioManager = [ChatManagerAudio shareInstance];
+    audioManager.delegate = self;
+    if (!model.isPlaying) {
+        [audioManager playAudio:model.localPath messageLocalId:model.baseMessage.localId];
+        model.isPlaying = true;
+    } else {
+        [audioManager stopPlayAudio];
+        model.isPlaying = false;
     }
-    
-    // 播放音频
-    if (model.type == eMessageBodyType_Voice) {
-        __weak ChatViewController *weakSelf = self;
-        BOOL isPrepare = [self.messageReadManager prepareMessageAudioModel:model updateViewCompletion:^(MessageModel *prevAudioModel, MessageModel *currentAudioModel) {
-            if (prevAudioModel || currentAudioModel) {
-                [weakSelf.tableView reloadData];
-            }
-        }];
-        
-        if (isPrepare) {
-            _isPlayingAudio = YES;
-            __weak ChatViewController *weakSelf = self;
-            [[[EaseMob sharedInstance] deviceManager] enableProximitySensor];
-            [[EaseMob sharedInstance].chatManager asyncPlayAudio:model.chatVoice completion:^(EMError *error) {
-                [weakSelf.messageReadManager stopMessageAudioModel];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.tableView reloadData];
-                    
-                    weakSelf.isPlayingAudio = NO;
-                });
-            } onQueue:nil];
-        }
-        else{
-            _isPlayingAudio = NO;
-        }
-    }
+    [self.tableView reloadData];
 }
 
 // 位置的bubble被点击
@@ -968,15 +935,14 @@
  */
 - (void)didCancelRecordingVoiceAction:(UIView *)recordView
 {
-    [[EaseMob sharedInstance].chatManager asyncCancelRecordingAudioWithCompletion:nil onQueue:nil];
 }
 
 /**
  *  松开手指完成录音
  */
-- (void)didFinishRecoingVoiceAction:(UIView *)recordView
+- (void)didFinishRecoingVoiceAction:(NSString *)audioPath
 {
-    [self sendAudioMessage:@""];
+    [self sendAudioMessage:audioPath];
 }
 
 #pragma mark - ZYQAssetPickerController Delegate
@@ -1274,6 +1240,26 @@
             if ([msg.baseMessage isKindOfClass:[BaseMessage class]]) {
                 if (message.localId == msg.baseMessage.localId) {
                     msg.status = message.status;
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    if ([cell isKindOfClass:[EMChatViewCell class]]) {
+                        ((EMChatViewCell *)cell).messageModel = msg;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#pragma mark - ChatManagerAudioDelegate
+- (void)playAudioEnded:(NSInteger)messageId
+{
+    for (int i = 0; i < self.dataSource.count; i++) {
+        MessageModel *msg = self.dataSource[i];
+        if ([msg isKindOfClass:[MessageModel class]]) {
+            if ([msg.baseMessage isKindOfClass:[BaseMessage class]]) {
+                if (messageId == msg.baseMessage.localId) {
+                    msg.isPlaying = NO;
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                     if ([cell isKindOfClass:[EMChatViewCell class]]) {

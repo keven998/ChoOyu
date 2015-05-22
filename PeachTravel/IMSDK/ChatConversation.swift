@@ -48,12 +48,10 @@ class ChatConversation: NSObject {
     
     weak var delegate: ChatConversationDelegate?
     
-    let chatManager: ChatManager
     
     override init() {
         chatterId = 0
         chatMessageList = NSMutableArray()
-        chatManager = ChatManager(chatterId: chatterId, chatType: chatType)
         unReadMessageCount = 0
         super.init()
     }

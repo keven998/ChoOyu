@@ -200,7 +200,6 @@
 		D9092FDF1B0C812D00F0F35F /* BaseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F861B0C812C00F0F35F /* BaseMessage.swift */; };
 		D9092FE01B0C812D00F0F35F /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F871B0C812C00F0F35F /* ChatConversation.swift */; };
 		D9092FE11B0C812D00F0F35F /* ChatConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F881B0C812C00F0F35F /* ChatConversationManager.swift */; };
-		D9092FE21B0C812D00F0F35F /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F891B0C812C00F0F35F /* ChatManager.swift */; };
 		D9092FE31B0C812D00F0F35F /* ChatManagerAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F8A1B0C812C00F0F35F /* ChatManagerAudio.swift */; };
 		D9092FE41B0C812D00F0F35F /* ChatManagerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F8B1B0C812C00F0F35F /* ChatManagerMessage.swift */; };
 		D9092FE51B0C812D00F0F35F /* ChatMessageDaoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9092F8C1B0C812C00F0F35F /* ChatMessageDaoHelper.swift */; };
@@ -1199,7 +1198,6 @@
 		D9092F861B0C812C00F0F35F /* BaseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessage.swift; sourceTree = "<group>"; };
 		D9092F871B0C812C00F0F35F /* ChatConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConversation.swift; sourceTree = "<group>"; };
 		D9092F881B0C812C00F0F35F /* ChatConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConversationManager.swift; sourceTree = "<group>"; };
-		D9092F891B0C812C00F0F35F /* ChatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		D9092F8A1B0C812C00F0F35F /* ChatManagerAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerAudio.swift; sourceTree = "<group>"; };
 		D9092F8B1B0C812C00F0F35F /* ChatManagerMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerMessage.swift; sourceTree = "<group>"; };
 		D9092F8C1B0C812C00F0F35F /* ChatMessageDaoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageDaoHelper.swift; sourceTree = "<group>"; };
@@ -2779,7 +2777,6 @@
 				D9092F861B0C812C00F0F35F /* BaseMessage.swift */,
 				D9092F871B0C812C00F0F35F /* ChatConversation.swift */,
 				D9092F881B0C812C00F0F35F /* ChatConversationManager.swift */,
-				D9092F891B0C812C00F0F35F /* ChatManager.swift */,
 				D9092F8A1B0C812C00F0F35F /* ChatManagerAudio.swift */,
 				D9092F8B1B0C812C00F0F35F /* ChatManagerMessage.swift */,
 				D9092F8C1B0C812C00F0F35F /* ChatMessageDaoHelper.swift */,
@@ -6340,7 +6337,6 @@
 				D9092FE11B0C812D00F0F35F /* ChatConversationManager.swift in Sources */,
 				D9A802301A80E036005AD701 /* SwipeView.m in Sources */,
 				D9A802FC1A80E566005AD701 /* main.m in Sources */,
-				D9092FE21B0C812D00F0F35F /* ChatManager.swift in Sources */,
 				D9A802241A80E036005AD701 /* PositionBean.m in Sources */,
 				D9092FD91B0C812D00F0F35F /* NSData+Base64.m in Sources */,
 				D9A8010F1A80DD23005AD701 /* ChangeGroupTitleViewController.m in Sources */,

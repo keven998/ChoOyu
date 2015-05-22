@@ -90,8 +90,8 @@
 
 -(void)setVoiceImage {
     _recordAnimationView.image = [UIImage imageNamed:@"speaking-motion01"];
-    double voiceSound = 0;
-    voiceSound = [[EaseMob sharedInstance].deviceManager peekRecorderVoiceMeter];
+    float voiceSound = 0;
+    voiceSound = ([ChatManagerAudio shareInstance].averagePower + 60)/50;
     if (0 < voiceSound <= 0.05) {
         [_recordAnimationView setImage:[UIImage imageNamed:@"speaking-motion1"]];
     }else if (0.05<voiceSound<=0.10) {

@@ -14,7 +14,7 @@
 
 #define CHAT_PANEL_VIEW_HEIGHT 188
 
-@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate>
+@interface DXMessageToolBar()<HPGrowingTextViewDelegate, DXFaceDelegate, ChatManagerAudioDelegate>
 {
     CGFloat _previousTextViewContentHeight;//上一次inputTextView的contentSize.height
 }
@@ -34,6 +34,7 @@
 @property (strong, nonatomic) UIButton *moreButton;
 @property (strong, nonatomic) UIButton *faceButton;
 @property (strong, nonatomic) UIButton *recordButton;
+@property (strong, nonatomic) ChatManagerAudio *audioManager;
 
 /**
  *  底部扩展页面
@@ -137,6 +138,15 @@
         _faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
     return _faceView;
+}
+
+- (ChatManagerAudio *)audioManager
+{
+    if (!_audioManager) {
+        _audioManager = [ChatManagerAudio shareInstance];
+        _audioManager.delegate = self;
+    }
+    return _audioManager;
 }
 
 #pragma mark - setter
@@ -580,6 +590,8 @@
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchDown];
     }
+
+    [self.audioManager beginRecordAudio];
     
     if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
         [_delegate didStartRecordingVoiceAction:self.recordView];
@@ -589,6 +601,7 @@
 - (void)recordButtonTouchUpOutside
 {
     NSLog(@"recordButtonTouchUpOutside-----");
+    [self.audioManager cancelRecordAudio];
     if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
     {
         [_delegate didCancelRecordingVoiceAction:self.recordView];
@@ -604,13 +617,11 @@
 - (void)recordButtonTouchUpInside
 {
     NSLog(@"recordButtonTouchUpInside-----");
+    
+    [self.audioManager stopRecordAudio];
+    
     if ([self.recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)self.recordView recordButtonTouchUpInside];
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
-    {
-        [self.delegate didFinishRecoingVoiceAction:self.recordView];
     }
     
     [self.recordView removeFromSuperview];
@@ -642,6 +653,16 @@
     }
 }
 
+#pragma mark - ChatManagerAudioDelegate
+
+- (void)audioRecordEnd:(NSString * __nonnull)audioPath
+{
+    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
+    {
+        [self.delegate didFinishRecoingVoiceAction:audioPath];
+    }
+}
+
 #pragma mark - public
 
 /**
@@ -663,8 +684,6 @@
  */
 - (void)cancelTouchRecord
 {
-//    self.recordButton.selected = NO;
-//    self.recordButton.highlighted = NO;
     if ([_recordView isKindOfClass:[DXRecordView class]]) {
         [(DXRecordView *)_recordView recordButtonTouchUpInside];
         [_recordView removeFromSuperview];
@@ -675,5 +694,7 @@
 {
     return kVerticalPadding * 2 + kInputTextViewMinHeight;
 }
+
+
 
 @end
