@@ -197,7 +197,7 @@ static LocationViewController *defaultLocation = nil;
         [_delegate sendLocationLatitude:_currentLocationCoordinate.latitude longitude:_currentLocationCoordinate.longitude andAddress:_addressString];
     }
     
-    [self dismiss];
+    [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.3];
 }
 
 - (void) dismiss {

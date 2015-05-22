@@ -524,6 +524,7 @@
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
     } else {
+        NSLog(@"height: %f", [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj]);
         return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
     }
 }
@@ -807,14 +808,6 @@
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_search_extra"];
-
-//    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-//    searchCtl.isCanSend = YES;
-//    searchCtl.titleStr = @"发送地点";
-//    searchCtl.chatter = _chatter;
-//    searchCtl.isChatGroup = _isChatGroup;
-//    [self.navigationController pushViewController:searchCtl animated:YES];
-
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
     searchCtl.chatterId = _chatter;
@@ -848,7 +841,6 @@
 {
     // 隐藏键盘
 //    [self keyBoardHidden];
-    
     // 弹出照片选择
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
     picker.maximumNumberOfSelection = 10;
@@ -876,14 +868,14 @@
 #elif TARGET_OS_IPHONE
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 #endif
 }
 
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-//    [self keyBoardHidden];
+    [self keyBoardHidden];
     
     LocationViewController *locationController = [[LocationViewController alloc] init];
     locationController.delegate = self;
@@ -1202,6 +1194,8 @@
     model.address = address;
     
     BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
+    
+    message.message = @"ceshi xiaoxi ";
     [self addChatMessage2DataSource:message];
 }
 
