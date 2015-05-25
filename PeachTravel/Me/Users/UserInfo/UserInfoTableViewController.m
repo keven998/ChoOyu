@@ -708,6 +708,21 @@
     }];
 }
 
+/**
+ *  删除用户头像
+ *
+ *  @param index 
+ */
+- (void)deleteUserAvatar:(NSInteger)index
+{
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
+    [self.accountManager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
+        [hud hideTZHUD];
+    }];
+}
+
 - (void)changeUserMark
 {
     SignatureViewController *bsvc = [[SignatureViewController alloc]init];
@@ -786,6 +801,8 @@
                                                           
                                                       } else if (buttonIndex == 2) {
                                                           
+                                                      } else if (buttonIndex == 3) {
+                                                          [self deleteUserAvatar:index];
                                                       }
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];

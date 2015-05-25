@@ -262,6 +262,45 @@
     }];
 }
 
+- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+//    [params setObject:self.account.userId forKey:@"userId"];
+//    [params setObject:albumImage.imageId forKey:@"picId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums/%@", API_USERINFO, self.account.userId, albumImage.imageId];
+    
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showHint:@"修改成功"];
+            NSMutableArray *albums = [self.accountDetail.userAlbum mutableCopy];
+            [albums removeObject:albumImage];
+            self.accountDetail.userAlbum = albums;
+            completion(YES, nil);
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            
+        } else {
+            completion(NO, [[responseObject objectForKey:@"err"] objectForKey:@"message"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+}
+
+
 /**
  *  异步更新服务的用户信息
  *

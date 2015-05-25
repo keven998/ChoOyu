@@ -136,6 +136,14 @@
 - (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
 
 
+/**
+ *  删除用户相册里的某一张图片
+ *
+ *  @param albumImage
+ *  @param completion 
+ */
+- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+
 
 #pragma mark - 修改用户的好友信息
 
