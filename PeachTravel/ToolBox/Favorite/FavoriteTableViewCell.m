@@ -35,7 +35,7 @@
     _contentBkgView.layer.cornerRadius = 2.0;
     _contentBkgView.clipsToBounds = YES;
     _sendBtn.layer.cornerRadius = 2.0;
-    
+    _sendBtn.backgroundColor = APP_THEME_COLOR;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
