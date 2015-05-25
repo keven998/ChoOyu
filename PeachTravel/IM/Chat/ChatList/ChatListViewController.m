@@ -524,7 +524,7 @@
     }
     
     BaseMessage *message = tzConversation.lastLocalMessage;
-    NSDictionary *userInfo = [[EaseMob sharedInstance].chatManager loginInfo];
+
     BOOL isSender = message.sendType == IMMessageSendTypeMessageSendMine ? YES : NO;
     
     if (isSender) {

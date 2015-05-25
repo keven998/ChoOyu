@@ -1,14 +1,10 @@
-/************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+//
+//  ChatViewController.m
+//  PeachTravel
+//
+//  Created by liangpengshuai on 5/25/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
+//
 
 #import "ChatViewController.h"
 
@@ -135,7 +131,7 @@
     for (BaseMessage *message in _conversation.chatMessageList) {
         [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
     }
-
+    
     [[[EaseMob sharedInstance] deviceManager] addDelegate:self onQueue:nil];
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -145,11 +141,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:@"applicationDidEnterBackground" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatView:) name:updateChateViewNoti object:nil];
-
-    _messageQueue = dispatch_queue_create("easemob.com", NULL);
-
+    
+    _messageQueue = dispatch_queue_create("messageQueue.com", NULL);
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.chatToolBar];
     
@@ -180,7 +176,7 @@
 {
     UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
-
+    
     if (_chatType == IMChatTypeIMChatGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
@@ -194,7 +190,7 @@
     [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
-
+    
     [bar pushNavigationItem:navTitle animated:YES];
     [self.view addSubview:bar];
 }
@@ -264,60 +260,60 @@
         return;
     }
     
-//    Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
-//    if (!contact) {
-//        for (Contact *tempContact in self.peopleInGroup) {
-//            if ([tempContact.easemobUser isEqualToString:model.username]) {
-//                [self  showUserInfoWithContactInfo:tempContact];
-//                return;
-//            }
-//        }
-//        if (!contact) {
-//             __weak typeof(ChatViewController *)weakSelf = self;
-//            TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-//            [hud showHUDInViewController:weakSelf];
-//            [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
-//                [hud hideTZHUD];
-//                if (isSuccess) {
-//                    for (Contact *tempContact in self.peopleInGroup) {
-//                        if ([tempContact.easemobUser isEqualToString:model.username]) {
-//                            [self  showUserInfoWithContactInfo:tempContact];
-//                            break;
-//                        }
-//                    }
-//                }
-//            }];
-//        }
-//    } else {
-//        [self  showUserInfoWithContactInfo:contact];
-//    }
+    //    Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
+    //    if (!contact) {
+    //        for (Contact *tempContact in self.peopleInGroup) {
+    //            if ([tempContact.easemobUser isEqualToString:model.username]) {
+    //                [self  showUserInfoWithContactInfo:tempContact];
+    //                return;
+    //            }
+    //        }
+    //        if (!contact) {
+    //             __weak typeof(ChatViewController *)weakSelf = self;
+    //            TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    //            [hud showHUDInViewController:weakSelf];
+    //            [self asyncLoadGroupFromEasemobServerWithCompletion:^(BOOL isSuccess) {
+    //                [hud hideTZHUD];
+    //                if (isSuccess) {
+    //                    for (Contact *tempContact in self.peopleInGroup) {
+    //                        if ([tempContact.easemobUser isEqualToString:model.username]) {
+    //                            [self  showUserInfoWithContactInfo:tempContact];
+    //                            break;
+    //                        }
+    //                    }
+    //                }
+    //            }];
+    //        }
+    //    } else {
+    //        [self  showUserInfoWithContactInfo:contact];
+    //    }
 }
 
 - (void)showUserInfoWithContactInfo:(Contact *)contact
 {
-//    if ([self.accountManager isMyFrend:contact.userId]) {
-//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-//        contactDetailCtl.contact = contact;
-//        if (_isChatGroup) {
-//            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
-//        } else {
-//            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
-//        }
-//        [self.navigationController pushViewController:contactDetailCtl animated:YES];
-//        
-//    } else {
-//        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-//        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
-//                                       @"avatar":contact.avatar,
-//                                       @"nickName":contact.nickName,
-//                                       @"signature":contact.signature,
-//                                       @"easemobUser":contact.easemobUser
-//                                       };
-//        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
-//    }
-
+    //    if ([self.accountManager isMyFrend:contact.userId]) {
+    //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+    //        contactDetailCtl.contact = contact;
+    //        if (_isChatGroup) {
+    //            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
+    //        } else {
+    //            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
+    //        }
+    //        [self.navigationController pushViewController:contactDetailCtl animated:YES];
+    //
+    //    } else {
+    //        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+    //        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
+    //                                       @"avatar":contact.avatar,
+    //                                       @"nickName":contact.nickName,
+    //                                       @"signature":contact.signature,
+    //                                       @"easemobUser":contact.easemobUser
+    //                                       };
+    //        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+    //    }
     
-
+    
+    
 }
 
 #pragma mark - private Methods
@@ -325,12 +321,12 @@
 - (NSArray *)loadContactsFromDB
 {
     NSMutableArray *contacts = [[NSMutableArray alloc] init];
-//    _group = [self.accountManager groupWithGroupId:_chatter];
-//    if (_group) {
-//        for (id item in _group.numbers) {
-//            [contacts addObject:item];
-//        }
-//    }
+    //    _group = [self.accountManager groupWithGroupId:_chatter];
+    //    if (_group) {
+    //        for (id item in _group.numbers) {
+    //            [contacts addObject:item];
+    //        }
+    //    }
     return contacts;
 }
 
@@ -553,7 +549,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-   _didEndScroll = YES;
+    _didEndScroll = YES;
 }
 
 #pragma mark - GestureRecognizer
@@ -566,7 +562,7 @@
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
 {
-	if (recognizer.state == UIGestureRecognizerStateBegan && [self.dataSource count] > 0) {
+    if (recognizer.state == UIGestureRecognizerStateBegan && [self.dataSource count] > 0) {
         CGPoint location = [recognizer locationInView:self.tableView];
         NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:location];
         id object = [self.dataSource objectAtIndex:indexPath.row];
@@ -613,7 +609,7 @@
         [self.tableView endUpdates];
         id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
         [chatManager asyncResendMessage:messageModel.message progress:nil];
-
+        
     } else if ([eventName isEqualToString:kRouterEventChatHeadImageTapEventName]) {   //点击头像
         [self showUserInfoWithModel:model];
     }
@@ -677,7 +673,7 @@
             [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
-             
+            
         case IMMessageTypeRestaurantMessageType: {
             CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.title = model.poiModel.poiName;
@@ -744,7 +740,7 @@
             [self.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
-        
+            
         case IMMessageTypeCityPoiMessageType: {
             _isScrollToBottom = NO;
             CityDetailTableViewController *cityCtl = [[CityDetailTableViewController alloc] init];
@@ -788,7 +784,7 @@
     myGuideListTableCtl.chatType = _chatType;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-//        [self keyBoardHidden];
+        //        [self keyBoardHidden];
     }];
 }
 
@@ -800,21 +796,21 @@
 - (void)moreViewMyFavoriteAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_favorite_extra"];
-
+    
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.chatType = _chatType;
     favoriteCtl.chatterId = _chatter;
     favoriteCtl.selectToSend = YES;
     UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:favoriteCtl];
     [self presentViewController:ctl animated:YES completion:^ {
-//        [self keyBoardHidden];
+        //        [self keyBoardHidden];
     }];
 }
 
 /**
  *  发送目的地
  *
- *  @param moreView 
+ *  @param moreView
  */
 - (void)moreViewDestinationAction:(DXChatBarMoreView *)moreView
 {
@@ -825,7 +821,7 @@
     searchCtl.chatType = _chatType;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
     [self presentViewController:tznavc animated:YES completion:^ {
-//        [self keyBoardHidden];
+        //        [self keyBoardHidden];
     }];
 }
 
@@ -837,21 +833,21 @@
 - (void)moreViewTravelNoteAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_travel_notes_extra"];
-
+    
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;
     travelNoteCtl.chatterId = _chatter;
     travelNoteCtl.chatType = _chatType;
     UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:travelNoteCtl];
     [self presentViewController:tznavc animated:YES completion:^ {
-//        [self keyBoardHidden];
+        //        [self keyBoardHidden];
     }];
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-//    [self keyBoardHidden];
+    //    [self keyBoardHidden];
     // 弹出照片选择
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
     picker.maximumNumberOfSelection = 10;
@@ -872,7 +868,7 @@
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
 {
-//    [self keyBoardHidden];
+    //    [self keyBoardHidden];
     
 #if TARGET_IPHONE_SIMULATOR
     [self showHint:@"模拟器不支持拍照"];
@@ -1111,7 +1107,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-
+    
 }
 
 - (void)scrollViewToBottom:(BOOL)animated
@@ -1124,53 +1120,53 @@
 }
 
 /*
-- (void)showRoomContact:(id)sender
-{
-    [self.view endEditing:YES];
-    [self keyBoardHidden];
-    if (_isChatGroup) {
-        EMGroup *chatGroup = nil;
-        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-        for (EMGroup *group in groupArray) {
-            if ([group.groupId isEqualToString:_chatter]) {
-                chatGroup = group;
-                break;
-            }
-        }
-        if (chatGroup == nil) {
-            chatGroup = [EMGroup groupWithId:_chatter];
-        }
-        ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
-        chatSettingCtl.group = chatGroup;
-//        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
-//        sideCtl.detailViewController = chatSettingCtl;
-//        [sideCtl showSideDetailView];
-    } else {
-//        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
-//        chatSettingCtl.chatter = _conversation.chatter;
-//        [self.navigationController pushViewController:chatSettingCtl animated:YES];
-    }
-}
+ - (void)showRoomContact:(id)sender
+ {
+ [self.view endEditing:YES];
+ [self keyBoardHidden];
+ if (_isChatGroup) {
+ EMGroup *chatGroup = nil;
+ NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+ for (EMGroup *group in groupArray) {
+ if ([group.groupId isEqualToString:_chatter]) {
+ chatGroup = group;
+ break;
+ }
+ }
+ if (chatGroup == nil) {
+ chatGroup = [EMGroup groupWithId:_chatter];
+ }
+ ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
+ chatSettingCtl.group = chatGroup;
+ //        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
+ //        sideCtl.detailViewController = chatSettingCtl;
+ //        [sideCtl showSideDetailView];
+ } else {
+ //        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+ //        chatSettingCtl.chatter = _conversation.chatter;
+ //        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+ }
+ }
  */
 
 - (void)removeAllMessages:(id)sender
 {
-//    if (_dataSource.count == 0) {
-//        return;
-//    }
-//    
-//    if ([sender isKindOfClass:[NSNotification class]]) {
-//        NSString *chatter = (NSString *)[(NSNotification *)sender object];
-//        if (_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
-//            [_conversation removeAllMessages];
-//            [_dataSource removeAllObjects];
-//            [_tableView reloadData];
-//        } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
-//            [_conversation removeAllMessages];
-//            [_dataSource removeAllObjects];
-//            [_tableView reloadData];
-//        }
-//    }
+    //    if (_dataSource.count == 0) {
+    //        return;
+    //    }
+    //
+    //    if ([sender isKindOfClass:[NSNotification class]]) {
+    //        NSString *chatter = (NSString *)[(NSNotification *)sender object];
+    //        if (_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
+    //            [_conversation removeAllMessages];
+    //            [_dataSource removeAllObjects];
+    //            [_tableView reloadData];
+    //        } else if (!_isChatGroup && [chatter isEqualToString:_conversation.chatter]) {
+    //            [_conversation removeAllMessages];
+    //            [_dataSource removeAllObjects];
+    //            [_tableView reloadData];
+    //        }
+    //    }
 }
 
 - (void)showMenuViewController:(UIView *)showInView andIndexPath:(NSIndexPath *)indexPath messageType:(IMMessageType)messageType
@@ -1236,7 +1232,7 @@
     BaseMessage *audioMessage = [imClientManager.messageSendManager sendAudioMessageWithWavFormat:_conversation.chatterId conversationId:_conversation.conversationId wavAudioPath:audioPath chatType:_conversation.chatType progress:^(float progress) {
         
     }];
-
+    
     [self addChatMessage2DataSource:audioMessage];
 }
 
@@ -1248,7 +1244,7 @@
         
     }];
     [self addChatMessage2DataSource:imageMessage];
-
+    
 }
 
 
