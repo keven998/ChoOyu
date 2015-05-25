@@ -36,7 +36,9 @@
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"我的足迹"], @[@"签名"], @[@"性别", @"生日", @"居住在"], @[@"安全绑定", @"修改密码"], ]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
-
+{
+    Destinations *_citySelectedArray;
+}
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
 
@@ -59,6 +61,8 @@
     self.navigationItem.title = @"我";
     
     [self loadUserInfo];
+    
+    _citySelectedArray = [[Destinations alloc]init];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -461,8 +465,12 @@
         NSInteger countryNumber = keys.count;
         for (int i = 0; i < countryNumber; ++i) {
             NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            NSLog(@"%@",citys);
             cityNumber += citys.count;
             for (id city in citys) {
+//                city
+                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+                [_citySelectedArray.destinationsSelected addObject:poi];
                 if (cityDesc == nil) {
                     cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
                 } else {
@@ -561,6 +569,7 @@
     } else if (indexPath.section == 1) {
         
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        footCtl.destinations = _citySelectedArray;
         [self presentViewController:footCtl animated:YES completion:nil];
         
     } else if (indexPath.section == 2) {

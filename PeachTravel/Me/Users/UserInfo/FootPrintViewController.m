@@ -30,7 +30,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _destinations = [[Destinations alloc] init];
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self downloadData:@"" url:API_GET_DOMESTIC_DESTINATIONS];
     _footprintMapCtl = [[FootprintMapViewController alloc] init];
@@ -39,16 +38,16 @@
     [self.view addSubview:_footprintMapCtl.view];
     [_footprintMapCtl didMoveToParentViewController:self];
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(5, 15, 44, 44)];
+    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(3, 15, 44, 44)];
     [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 50, 50)];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setTitle:@"添加" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(addFootprint:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 50, 50)];
+//    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [btn setTitle:@"添加" forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(addFootprint:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
 
     UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:@[@"国内",@"国外"]];
     segControl.tintColor = APP_THEME_COLOR;
@@ -69,43 +68,7 @@
         [self downloadData:@"" url:API_GET_FOREIGN_DESTINATIONS];
     }
 }
--(void)downloadData:(NSString *)modifiedTime url:(NSString *)url
-{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
-    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
-    
-    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//    API_GET_DOMESTIC_DESTINATIONS
-    NSLog(@"%@",url);
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            id result = [responseObject objectForKey:@"result"];
-            [_destinations.domesticCities removeAllObjects];
-            [_destinations initDomesticCitiesWithJson:result];
-            [_collectionView reloadData];
 
-        } else {
-
-        }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
-
-}
 
 
 
@@ -193,11 +156,17 @@
     AreaDestination *area = [self.destinations.domesticCities objectAtIndex:indexPath.section];
     CityDestinationPoi *city = [area.cities objectAtIndex:indexPath.row];
     cell.nameLabel.text = city.zhName;
-    
+//    NSLog(@"%@",_destinations.destinationsSelected);
+
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
+        NSLog(@"%@---%@",city.cityId,cityPoi.cityId);
         if ([cityPoi.cityId isEqualToString:city.cityId]) {
             cell.nameLabel.textColor = [UIColor whiteColor];
             cell.backgroundColor = APP_THEME_COLOR;
+            float a = city.lat;
+            float b = city.lng;
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:a longitude:b];
+            [self addFootprint:location];
             return  cell;
         }
     }
@@ -218,33 +187,41 @@
         if ([city.cityId isEqualToString:cityPoi.cityId]) {
             NSInteger index = [_destinations.destinationsSelected indexOfObject:cityPoi];
             [_destinations.destinationsSelected removeObjectAtIndex:index];
-            [self deleteFootprint:location];
+            [self deleteFootprint:location track:city.cityId];
             find = YES;
             break;
         }
     }
     if (!find) {
         if (_destinations.destinationsSelected.count == 0) {
-//            [_makePlanCtl showDestinationBar];
+            
         }
         [_destinations.destinationsSelected addObject:city];
         
-        [self addFootprint:location];
+        [self addFootprint:location track:city.cityId];
     }
     [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
-
-
-- (IBAction)addFootprint:(id)sender
+- (IBAction)addFootprint:(CLLocation *)location
 {
-//    float lat = random()%90;
-//    float lng = random()%90;
-//    CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
-    [_footprintMapCtl addPoint:sender];
+
+    [_footprintMapCtl addPoint:location];
     
 }
--(void)deleteFootprint:(CLLocation *)location
+
+- (IBAction)addFootprint:(CLLocation *)location track:(NSString *)areaId
 {
+    NSMutableArray *tracks = [NSMutableArray array];
+    [tracks addObject:areaId];
+    [self changTracks:@"add" tracks:tracks];
+    [_footprintMapCtl addPoint:location];
+    
+}
+- (void)deleteFootprint:(CLLocation *)location track:(NSString *)areaId
+{
+    NSMutableArray *tracks = [NSMutableArray array];
+    [tracks addObject:areaId];
+    [self changTracks:@"del" tracks:tracks];
     [_footprintMapCtl removePoint:location];
     
 }
@@ -252,4 +229,77 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+#pragma mark - http method
+-(void)downloadData:(NSString *)modifiedTime url:(NSString *)url
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:@"Cache-Control" forHTTPHeaderField:@"private"];
+    [manager.requestSerializer setValue:modifiedTime forHTTPHeaderField:@"If-Modified-Since"];
+    
+    NSDictionary *params = @{@"groupBy" : [NSNumber numberWithBool:true]};
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    //    API_GET_DOMESTIC_DESTINATIONS
+    
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"%@",responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            id result = [responseObject objectForKey:@"result"];
+            [_destinations.domesticCities removeAllObjects];
+            [_destinations initDomesticCitiesWithJson:result];
+            [_collectionView reloadData];
+            
+        } else {
+            
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+}
+
+- (void)changTracks:(NSString *)action tracks:(NSArray *)tracks
+{
+    AccountManager *account = [AccountManager shareAccountManager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", account.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:action forKey:@"action"];
+    [params safeSetObject:tracks forKey:@"tracks"];
+    NSLog(@"%@",tracks);
+    NSString *urlStr = [NSString stringWithFormat:@"%@users/%@/tracks", BASE_URL, account.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            
+        } else {
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
 @end
