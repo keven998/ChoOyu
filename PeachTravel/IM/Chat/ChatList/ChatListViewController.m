@@ -597,9 +597,13 @@
     
     if (!tzConversation.conversation.isGroup) {
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        
+//
+
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     } else{
         cell.name = tzConversation.chatterNickName;
+        
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;

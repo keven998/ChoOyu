@@ -191,7 +191,7 @@
         cell.delegate = self;
         NSInteger i = indexPath.row - 4;
         cell.nameLabel.text = ((Contact *)self.groupNumbers[i]).nickName;
-        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        [cell.headerImage sd_setImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         return cell;
     }
     return 0;
@@ -410,7 +410,7 @@
             UIButton *item = [[UIButton alloc] initWithFrame:CGRectMake(20+(spaceWidth+60)*index, offsetY, 60, 60)];
             item.layer.cornerRadius = 5;
             item.tag = i;
-            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+            [item sd_setBackgroundImageWithURL:[NSURL URLWithString:((Contact *)self.groupNumbers[i]).avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"person_disabled"]];
             item.clipsToBounds = YES;
             [item addTarget:self action:@selector(showUserInfo:) forControlEvents:UIControlEventTouchUpInside];
             
