@@ -48,7 +48,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         return conversationList
     }
     
-    private func updateConversationList() {
+    func updateConversationList() {
         var daoHelper = DaoHelper.shareInstance()
         NSLog("****开始获取会话列表*****")
         conversationList = daoHelper.getAllConversationList()

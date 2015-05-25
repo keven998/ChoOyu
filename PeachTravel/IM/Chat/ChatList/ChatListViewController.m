@@ -80,6 +80,7 @@
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -97,11 +98,19 @@
     [MobClick endLogPageView:@"page_talk_lists"];
 }
 
-- (void)dealloc{
+- (void)dealloc {
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
     _searchController.delegate = nil;
     _searchController = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)userDidLogin
+{
+    [self.imClientManager.conversationManager updateConversationList];
+    _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
+    [self.tableView reloadData];
 }
 
 #pragma mark - getter & setter

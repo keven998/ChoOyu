@@ -168,10 +168,11 @@
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
     [self save];
-    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin];
     [self bindRegisterID2UserId];
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
+   
 }
 
 - (void)bindRegisterID2UserId
