@@ -162,6 +162,7 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         _selectedBtn = [[UIButton alloc]initWithFrame:CGRectMake(374/2, 29/2, 20, 20)];
         [_selectedBtn setImage:[UIImage imageNamed:@"ic_button_normal"] forState:UIControlStateNormal];
+        [_selectedBtn addTarget:self action:@selector(changeMsgStatus:) forControlEvents:UIControlEventTouchUpInside];
         [_selectedBtn setImage:[UIImage imageNamed:@"ic_button_selected"] forState:UIControlStateSelected];
         _selectedBtn.selected = !_group.isPushNotificationEnabled;
         [cell addSubview:_selectedBtn];
