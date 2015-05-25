@@ -11,7 +11,6 @@
 #import "NSDate+Category.h"
 #import "RealtimeSearchUtil.h"
 #import "ChatViewController.h"
-#import "EMSearchDisplayController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
@@ -28,7 +27,6 @@
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
-@property (strong, nonatomic) EMSearchDisplayController *searchController;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (nonatomic, strong) UIView *emptyView;
@@ -84,7 +82,6 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_talk_lists"];
-    [self refreshDataSource];
     [self updateNavigationTitleViewStatus];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -98,8 +95,6 @@
 - (void)dealloc {
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
-    _searchController.delegate = nil;
-    _searchController = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -553,35 +548,6 @@
         [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
         [MobClick event:@"event_delete_talk_item"];
     }
-}
-
-#pragma mark - public
-
--(void)refreshDataSource
-{
-    NSLog(@"%@",[NSThread currentThread]);
-    NSLog(@"开始刷新聊天DataSource");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"结束刷新聊天DataSource");
-        [self.tableView reloadData];
-    });
-}
-
-- (void)networkChanged:(EMConnectionState)connectionState
-{
-    if (connectionState == eEMConnectionDisconnected) {
-    }
-    else{
-    }
-}
-
-- (void)willReceiveOfflineMessages{
-    NSLog(@"开始接收离线消息");
-}
-
-- (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
-    NSLog(@"离线消息接收成功");
-    [self refreshDataSource];
 }
 
 #pragma mark - ChatConversationManagerDelegate
