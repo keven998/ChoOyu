@@ -134,10 +134,10 @@
                         <exclude reference="L5j-Yo-SPN"/>
                         <exclude reference="PDj-VD-yst"/>
                         <exclude reference="hT7-me-zwh"/>
-                        <exclude reference="UAE-F3-dGk"/>
-                        <exclude reference="ZHw-w7-EOb"/>
                         <exclude reference="T1a-An-Rkb"/>
                         <exclude reference="khj-iA-iWe"/>
+                        <exclude reference="UAE-F3-dGk"/>
+                        <exclude reference="ZHw-w7-EOb"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -151,10 +151,10 @@
                         <include reference="L5j-Yo-SPN"/>
                         <include reference="PDj-VD-yst"/>
                         <include reference="hT7-me-zwh"/>
-                        <include reference="UAE-F3-dGk"/>
-                        <include reference="ZHw-w7-EOb"/>
                         <include reference="T1a-An-Rkb"/>
                         <include reference="khj-iA-iWe"/>
+                        <include reference="UAE-F3-dGk"/>
+                        <include reference="ZHw-w7-EOb"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

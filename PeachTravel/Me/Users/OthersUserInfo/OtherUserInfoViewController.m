@@ -24,6 +24,7 @@
 //    UIView *_headerView;
     UIImageView *_headerView;
     BOOL _isMyFriend;
+    NSMutableArray *_albumArray;
 }
 @end
 
@@ -31,6 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _albumArray = [NSMutableArray array];
+    [self loadUserAlbum];
     [self loadUserInfo];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _model.name;
@@ -46,7 +49,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-
+    
     [self.view addSubview:_tableView];
     
 }
@@ -287,7 +290,10 @@
 {
     if (indexPath.section == 0) {
         OthersAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumCell" forIndexPath:indexPath];
-        cell.headerPicArray = nil;
+        
+        
+        cell.headerPicArray = _albumArray;
+        NSLog(@"%@",cell.headerPicArray);
         return cell;
     }
     else if (indexPath.section == 1) {
@@ -475,6 +481,43 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
+
+- (void)loadUserAlbum
+{
+    AccountManager *account = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", account.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums", API_USERINFO, _userId];
+    
+    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+            
+            [_tableView reloadData];
+        } else {
+            [_tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_tableView reloadData];
+    }];
+    
+}
+- (void)paraseUserAlbum:(NSArray *)albumArray
+{
+    
+    for (id album in albumArray) {
+        [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
+    }
+}
+
 
 - (void)parseUserProfileData:(id )json
 {

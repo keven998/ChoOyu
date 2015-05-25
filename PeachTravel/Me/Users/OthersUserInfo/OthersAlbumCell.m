@@ -23,7 +23,8 @@
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.minimumInteritemSpacing = 5;
-    
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+
     _collectionView.dataSource=self;
     _collectionView.delegate=self;
     [_collectionView setCollectionViewLayout:layout];
@@ -33,7 +34,11 @@
     
     [self.contentView addSubview:_collectionView];
 }
-
+- (void)setHeaderPicArray:(NSArray *)headerPicArray
+{
+    _headerPicArray = headerPicArray;
+    [_collectionView reloadData];
+}
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -50,7 +55,9 @@
 {
     static NSString * CellIdentifier = @"cell";
     PicCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell.picImage sd_setImageWithURL:[NSURL URLWithString:_headerPicArray[indexPath.row]]];
+    AlbumImage *albumImage = _headerPicArray[indexPath.row];
+    [cell.picImage sd_setImageWithURL:[NSURL URLWithString: albumImage.image.imageUrl]];
+    NSLog(@"%@",albumImage.image.imageUrl);
     return cell;
 }
 

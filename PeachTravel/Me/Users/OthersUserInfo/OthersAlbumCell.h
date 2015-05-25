@@ -10,7 +10,7 @@
 
 @interface OthersAlbumCell : UITableViewCell
 
-@property (copy,nonatomic) NSMutableArray *headerPicArray;
+@property (copy,nonatomic) NSArray *headerPicArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end

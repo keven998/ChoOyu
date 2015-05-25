@@ -193,6 +193,7 @@
     }
     AccountManager *accountManager = [AccountManager shareAccountManager];
     accountManager.accountDetail.userAlbum = array;
+    NSLog(@"%@",array);
 }
 
 - (void)presentImagePicker
@@ -452,6 +453,7 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
         cell.headerPicArray = amgr.accountDetail.userAlbum;
+        NSLog(@"%@",cell.headerPicArray);
         cell.delegate = self;
         return cell;
         
