@@ -75,6 +75,14 @@ class ChatConversation: NSObject {
     
 //MARK: private function
     
+    /**
+    frendtype 是不是包含传入的类型
+    
+    :param: frendType
+    :param: typeWeight
+    
+    :returns:
+    */
     private func typeIsCorrect(frendType: IMFrendType, typeWeight: IMFrendWeightType) -> Bool {
         if (frendType.rawValue & typeWeight.rawValue) == 0 {
             return false
@@ -137,7 +145,7 @@ class ChatConversation: NSObject {
     */
     func getDefaultChatMessageInConversation(messageCount: Int) {
         
-        if chatMessageList.count > 0 {
+        if chatMessageList.count >= messageCount {
             return
         }
         NSLog("开始加载聊天界面记录")
