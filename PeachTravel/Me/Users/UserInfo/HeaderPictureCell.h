@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ShowPickerDelegate <NSObject>
+@protocol HeaderPictureDelegate <NSObject>
 
--(void)showPickerView;
+- (void)showPickerView;
+
+/**
+ *  编辑album
+ *
+ *  @param index 点击的位置
+ */
+- (void)editAvatar:(NSInteger)index;
+
+
 
 @end
 
@@ -18,5 +27,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (copy,nonatomic) NSArray *headerPicArray;
 
-@property (weak, nonatomic) id<ShowPickerDelegate> delegate;
+@property (weak, nonatomic) id<HeaderPictureDelegate> delegate;
+
 @end
