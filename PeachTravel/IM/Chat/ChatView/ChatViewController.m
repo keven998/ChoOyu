@@ -1065,15 +1065,16 @@
     ChatViewController *weakSelf = self;
     NSInteger currentCount = self.dataSource.count;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [weakSelf.conversation getMoreChatMessageInConversation:5];
-        [self.dataSource removeAllObjects];
-        for (BaseMessage *message in _conversation.chatMessageList) {
-            [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
+        if ([[weakSelf.conversation getMoreChatMessageInConversation:5] count] > 0) {
+            [self.dataSource removeAllObjects];
+            for (BaseMessage *message in _conversation.chatMessageList) {
+                [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(weakSelf.dataSource.count-currentCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            });
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(weakSelf.dataSource.count-currentCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        });
     });
 }
 
