@@ -12,12 +12,19 @@ import UIKit
     func connectionSetup(isSuccess: Bool, errorCode: Int);
 }
 
+private let connectionManager = ConnectionManager()
+
 class ConnectionManager: NSObject, PushConnectionDelegate {
     
     let pushSDKManager = PushSDKManager.shareInstance()
     weak var connectionManagerDelegate: ConnectionManagerDelegate?
+    var registionId: String?
     
     private var userId: Int?
+    
+    class func shareInstance() -> ConnectionManager {
+        return connectionManager
+    }
     
     override init() {
         super.init()
@@ -29,23 +36,13 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
     :param: userId   用户名
     :param: password 密码
     */
-    func login(userId:Int, password:String) {
-        self.userId = userId
-        pushSDKManager.login(userId, password: password)
+    func createPushConnection() {
+        pushSDKManager.createPushConnection()
     }
     
-    func bindRegisterID2UserId(clientId: String) {
-        println("GexinSdkDidRegisterClient： \(clientId)")
-        var accountManager = AccountManager.shareAccountManager()
-        NetworkUserAPI.asyncLogin(userId: self.userId!, registionId: clientId) { (isSuccess: Bool, errorCode: Int, retJson: NSDictionary?) -> () in
-            self.connectionManagerDelegate?.connectionSetup(isSuccess, errorCode: 0)
-            
-        }
-    }
-
     //MARK:PushConnectionDelegate
     func getuiDidConnection(clientId: String) {
-      
+        registionId = clientId
     }
 }
 

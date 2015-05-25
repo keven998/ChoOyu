@@ -16,9 +16,8 @@ private let iMClientManager = IMClientManager()
     
 }
 
-class IMClientManager: NSObject, ConnectionManagerDelegate {
+class IMClientManager: NSObject {
     
-    let connectionManager: ConnectionManager
     let messageReceiveManager: MessageReceiveManager
     let messageSendManager: MessageSendManager
     let conversationManager: ChatConversationManager
@@ -27,7 +26,6 @@ class IMClientManager: NSObject, ConnectionManagerDelegate {
     weak var delegate: IMClientDelegate?
     
     override init() {
-        connectionManager = ConnectionManager()
         messageReceiveManager = MessageReceiveManager()
         messageSendManager = MessageSendManager()
         conversationManager = ChatConversationManager()
@@ -39,7 +37,6 @@ class IMClientManager: NSObject, ConnectionManagerDelegate {
             messageReceiveManager.ACKMessageWithReceivedMessages(nil)
         }
         super.init()
-        connectionManager.connectionManagerDelegate = self
        
     }
     

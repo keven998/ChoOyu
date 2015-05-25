@@ -77,7 +77,7 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: userId   用户名
     :param: password 密码
     */
-    func login(userId:Int, password:String) {
+    func createPushConnection() {
         gexinSdk = GetuiPush.login()
     }
     

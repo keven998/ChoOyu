@@ -171,7 +171,43 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin];
-    [manager.connectionManager login:_account.userId.intValue password:@""];
+    [self bindRegisterID2UserId];
+}
+
+- (void)bindRegisterID2UserId
+{
+    ConnectionManager *connectionManager = [ConnectionManager shareInstance];
+    if (!connectionManager.registionId) {
+        return;
+    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:self.account.userId forKey:@"userId"];
+    [params setObject:[ConnectionManager shareInstance].registionId forKey:@"regId"];
+    
+    NSString *loginUrl = @"http://hedy.zephyre.me/users/login";
+
+    
+    [manager POST:loginUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            
+        } else {
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+
+    
 }
 
 #pragma mark - 修改用户信息相关接口

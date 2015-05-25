@@ -336,7 +336,6 @@
 		D993C2391B12DF0C0088D568 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D993C1D41B12DF0C0088D568 /* NSString+Base64.m */; };
 		D993C23A1B12DF0C0088D568 /* AudioDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1D61B12DF0C0088D568 /* AudioDeviceManager.swift */; };
 		D993C23B1B12DF0C0088D568 /* NetworkTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1D81B12DF0C0088D568 /* NetworkTransportAPI.swift */; };
-		D993C23C1B12DF0C0088D568 /* NetworkUserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D993C1D91B12DF0C0088D568 /* NetworkUserAPI.swift */; };
 		D993C23D1B12DF0C0088D568 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = D993C1DD1B12DF0C0088D568 /* amrFileCodec.mm */; };
 		D993C23E1B12DF0C0088D568 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = D993C1DF1B12DF0C0088D568 /* wav.mm */; };
 		D993C23F1B12DF0C0088D568 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D993C1E11B12DF0C0088D568 /* libopencore-amrnb.a */; };
@@ -1455,7 +1454,6 @@
 		D993C1D41B12DF0C0088D568 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		D993C1D61B12DF0C0088D568 /* AudioDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDeviceManager.swift; sourceTree = "<group>"; };
 		D993C1D81B12DF0C0088D568 /* NetworkTransportAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTransportAPI.swift; sourceTree = "<group>"; };
-		D993C1D91B12DF0C0088D568 /* NetworkUserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUserAPI.swift; sourceTree = "<group>"; };
 		D993C1DC1B12DF0C0088D568 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
 		D993C1DD1B12DF0C0088D568 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
 		D993C1DE1B12DF0C0088D568 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
@@ -3380,7 +3378,6 @@
 			isa = PBXGroup;
 			children = (
 				D993C1D81B12DF0C0088D568 /* NetworkTransportAPI.swift */,
-				D993C1D91B12DF0C0088D568 /* NetworkUserAPI.swift */,
 			);
 			path = NerWork;
 			sourceTree = "<group>";
@@ -6763,7 +6760,6 @@
 				D9A802B31A80E3D3005AD701 /* NSString+TaoziString.m in Sources */,
 				D9A8020D1A80E036005AD701 /* JGActionSheet.m in Sources */,
 				D9A8FF1B1A80CC2B005AD701 /* SMSVerifyViewController.m in Sources */,
-				D993C23C1B12DF0C0088D568 /* NetworkUserAPI.swift in Sources */,
 				D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */,
 				C6D038271AE52F85006DFD24 /* TravelerTableViewCell.m in Sources */,
 				D9A8FFAA1A80D1C3005AD701 /* RecommendDetail.m in Sources */,
