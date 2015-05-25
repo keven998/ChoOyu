@@ -270,14 +270,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
-//    [params setObject:self.account.userId forKey:@"userId"];
-//    [params setObject:albumImage.imageId forKey:@"picId"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums/%@", API_USERINFO, self.account.userId, albumImage.imageId];
     
