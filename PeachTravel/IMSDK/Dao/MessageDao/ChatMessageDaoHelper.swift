@@ -25,7 +25,7 @@ protocol ChatMessageDaoHelperProtocol{
     :param: messageCount 需要获取的数量
     :returns: 获取到的聊天信息
     */
-    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> NSArray
+    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> 
     
     /**
     找出所有聊天列表中的最后一条会话
@@ -62,7 +62,7 @@ protocol ChatMessageDaoHelperProtocol{
     func updateMessageContents(tableName: String, message: BaseMessage) 
 }
 
-class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol{
+class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     
     /**
     当数据库没打开的时候创建聊天表
@@ -175,8 +175,8 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol{
         }
     }
     
-    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> NSArray {
-        var retArray = NSMutableArray()
+    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> {
+        var retArray = Array<BaseMessage>()
         
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "select * from (select * from \(fromTable) where LocalId < ? order by LocalId desc limit \(messageCount)) order by LocalId"
@@ -185,7 +185,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol{
             if (rs != nil) {
                 while rs.next() {
                     if let message = ChatMessageDaoHelper.messageModelWithFMResultSet(rs) {
-                        retArray.addObject(message)
+                        retArray.append(message)
                     }
                 }
             }

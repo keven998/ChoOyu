@@ -36,7 +36,7 @@ class ChatConversation: NSObject {
         }
     }
     var unReadMsgCount: Int = 0
-    var chatMessageList: NSMutableArray
+    var chatMessageList: Array<BaseMessage>
     var chatType: IMChatType = IMChatType.IMChatSingleType     //聊天类型，默认是单聊
     var isCurrentConversation: Bool = false        //是否是当前显示的会话，默认为 false
     var isTopConversation: Bool = false            //是否置顶
@@ -51,7 +51,7 @@ class ChatConversation: NSObject {
     
     override init() {
         chatterId = 0
-        chatMessageList = NSMutableArray()
+        chatMessageList = Array()
         unReadMessageCount = 0
         super.init()
     }
@@ -95,7 +95,7 @@ class ChatConversation: NSObject {
     */
     var lastLocalMessage: BaseMessage? {
         get {
-            var retMessage = chatMessageList.lastObject as? BaseMessage
+            var retMessage = chatMessageList.last
             if retMessage != nil {
                 return retMessage
 
@@ -113,12 +113,11 @@ class ChatConversation: NSObject {
     var lastServerMessage: BaseMessage? {
         get {
             for var i=chatMessageList.count-1; i>0; i-- {
-                var message = chatMessageList.objectAtIndex(i) as! BaseMessage
+                var message = chatMessageList[i]
                 if message.serverId >= 0 {
                     return message
                 }
             }
-            
             var daoHelper = DaoHelper.shareInstance()
             var tableName = "chat_\(chatterId)"
             return daoHelper.selectLastServerMessage(tableName)
@@ -133,7 +132,7 @@ class ChatConversation: NSObject {
     :param: messageList
     */
     func addReceiveMessage(message: BaseMessage) {
-        chatMessageList.addObject(message)
+        chatMessageList.append(message)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             delegate?.receiverMessage?(message)
         })
@@ -152,7 +151,7 @@ class ChatConversation: NSObject {
         var daoHelper = DaoHelper.shareInstance()
         var tableName = "chat_\(chatterId)"
         var retArray = NSArray()
-        chatMessageList = daoHelper.selectChatMessageList(tableName, untilLocalId: Int.max, messageCount: messageCount) as! NSMutableArray
+        chatMessageList = daoHelper.selectChatMessageList(tableName, untilLocalId: Int.max, messageCount: messageCount)
 
         NSLog("结束加载聊天界面记录")
     }
@@ -160,7 +159,7 @@ class ChatConversation: NSObject {
     /**
     获取更多的聊天记录
     */
-    func getMoreChatMessageInConversation(messageCount: Int) {
+    func getMoreChatMessageInConversation(messageCount: Int) -> Array<BaseMessage> {
         
         NSLog("开始加载更多的聊天界面记录")
         var daoHelper = DaoHelper.shareInstance()
@@ -168,13 +167,20 @@ class ChatConversation: NSObject {
         var retArray = NSArray()
         var localId: Int
         if chatMessageList.count > 0 {
-            localId = (chatMessageList.lastObject as! BaseMessage).localId
+            localId = (chatMessageList.first)!.localId
         } else {
             localId = Int.max
         }
-        chatMessageList.addObjectsFromArray(daoHelper.selectChatMessageList(tableName, untilLocalId: localId, messageCount: messageCount) as [AnyObject])
+        var moreMessages = daoHelper.selectChatMessageList(tableName, untilLocalId: localId, messageCount: messageCount)
+        
+        for var i = moreMessages.count-1; i>0; i--
+        {
+            var message = moreMessages[i]
+            chatMessageList.insert(message, atIndex: 0)
+        }
         
         NSLog("结束加载更多的聊天界面记录")
+        return moreMessages
     }
     
     /**
@@ -205,7 +211,7 @@ class ChatConversation: NSObject {
     :param: message
     */
     func addSendingMessage(message: BaseMessage) {
-        chatMessageList.addObject(message)
+        chatMessageList.append(message)
     }
     
     /**
@@ -214,7 +220,7 @@ class ChatConversation: NSObject {
     */
     func messageHaveSended(message: BaseMessage) {
         for var i=chatMessageList.count-1; i>0; i-- {
-            var tempMessage = chatMessageList.objectAtIndex(i) as! BaseMessage
+            var tempMessage = chatMessageList[i]
             if tempMessage.localId == message.localId {
                 tempMessage.status = message.status
                 tempMessage.serverId = message.serverId
