@@ -925,8 +925,7 @@
         FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
         NSMutableString *strchar= [NSMutableString stringWithString:contact.fullPY];
         NSString *sr= [strchar substringToIndex:1];
-        if(![sectionHeadsKeys containsObject:[sr uppercaseString]])//here I'm checking whether the character already in the selection header keys or not
-        {
+        if(![sectionHeadsKeys containsObject:[sr uppercaseString]]) {
             [sectionHeadsKeys addObject:[sr uppercaseString]];
             TempArrForGrouping = [[NSMutableArray alloc] initWithObjects:nil];
             checkValueAtIndex = NO;

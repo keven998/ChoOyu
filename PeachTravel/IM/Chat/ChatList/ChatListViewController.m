@@ -1,14 +1,11 @@
-/************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+//
+//  ChatListViewController
+//  PeachTravel
+//
+//  Created by liangpengshuai on 5/25/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
+//
+
 #import "ChatListViewController.h"
 #import "ChatListCell.h"
 #import "NSDate+Category.h"
@@ -306,22 +303,6 @@
 }
 
 /**
- *  是否有未读的消息，包括未读的聊天消息和好友请求消息
- *
- *  @return
- */
-- (BOOL)isUnReadMsg
-{
-    NSArray *conversations = [[[EaseMob sharedInstance] chatManager] conversations];
-    for (EMConversation *conversation in conversations) {
-        if (conversation.unreadMessagesCount > 0) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-/**
  * 得到最后消息文字或者类型
  *
  *  @param conversation
@@ -484,7 +465,6 @@
 {
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
 
-    
     UIViewController *menuViewController = nil;
     if (conversation.chatType == IMChatTypeIMChatGroupType) {
         menuViewController = [[ChatGroupSettingViewController alloc] init];
@@ -502,8 +482,9 @@
     frostedViewController.liveBlur = YES;
     frostedViewController.limitMenuViewSize = YES;
     frostedViewController.resumeNavigationBar = NO;
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
+    frostedViewController.navigationItem.title = conversation.chatterName;
 }
 
 #pragma mark - TableViewDelegate & TableViewDatasource

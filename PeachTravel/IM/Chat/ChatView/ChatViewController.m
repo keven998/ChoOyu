@@ -126,7 +126,7 @@
     _conversation.isCurrentConversation = YES;
     _conversation.delegate = self;
     [_conversation resetConvsersationUnreadMessageCount];
-    [_conversation getDefaultChatMessageInConversation:5];
+    [_conversation getDefaultChatMessageInConversation:10];
     
     for (BaseMessage *message in _conversation.chatMessageList) {
         [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
@@ -1070,7 +1070,7 @@
     ChatViewController *weakSelf = self;
     NSInteger currentCount = self.dataSource.count;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        if ([[weakSelf.conversation getMoreChatMessageInConversation:5] count] > 0) {
+        if ([[weakSelf.conversation getMoreChatMessageInConversation:10] count] > 0) {
             [self.dataSource removeAllObjects];
             for (BaseMessage *message in _conversation.chatMessageList) {
                 [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
