@@ -422,7 +422,7 @@
     
 }
 
-- (void) loadUserProfile:(NSString *)userId {
+- (void) loadUserProfile:(NSInteger)userId {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -433,7 +433,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", [AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
+    NSString *url = [NSString stringWithFormat:@"%@%ld", API_USERINFO, userId];
     NSLog(@"%@",url);
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

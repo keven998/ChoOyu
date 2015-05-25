@@ -27,6 +27,9 @@
  */
 @property (nonatomic, strong) Account *basicUserInfo;
 
+/**
+ *  好友列表
+ */
 @property (nonatomic, strong) NSMutableArray *frendList;
 
 /**

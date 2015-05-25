@@ -45,7 +45,8 @@
 - (NSMutableArray *)frendList
 {
     if (!_frendList) {
-        _frendList = [[NSMutableArray alloc] init];
+        FrendManager *frendManager = [[FrendManager alloc] init];
+        _frendList = [[frendManager getAllMyContacts] mutableCopy];
     }
     return _frendList;
 }

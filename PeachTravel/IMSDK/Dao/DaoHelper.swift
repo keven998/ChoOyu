@@ -191,23 +191,17 @@ public class DaoHelper:NSObject {
         return self.frendDaoHelper.selectFrend(userId: userId)
     }
     
-    func selectFrend(#conversationId: String) -> FrendModel? {
-        return self.frendDaoHelper.selectFrend(conversationId: conversationId)
-    }
-    
     /**
     获取我的所有联系人
     :returns:
     */
     func selectAllContacts() -> Array<FrendModel> {
-        if self.openDB() {
-            var result = frendDaoHelper.selectAllContacts()
-            self.closeDB()
-            return result
-            
-        } else {
-            return Array<FrendModel>()
-        }
+        var result = frendDaoHelper.selectAllContacts()
+        return result
+    }
+    
+    func deleteAllContactsFromDB() {
+        frendDaoHelper.deleteAllContactsFromDB()
     }
     
     func frendIsExitInDB(userId: Int) -> Bool {
@@ -254,9 +248,7 @@ public class DaoHelper:NSObject {
     
     func removeConversationfromDB(chatterId: Int) {
         dispatch_async(databaseWriteQueue, { () -> Void in
-            self.openDB()
             self.conversationHelper.removeConversationfromDB(chatterId)
-            self.closeDB()
         })
     }
     

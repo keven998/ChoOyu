@@ -110,6 +110,7 @@
 {
     if (!_accountManager) {
         _accountManager = [AccountManager shareAccountManager];
+
     }
     return _accountManager;
 }
@@ -521,7 +522,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ChatConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
         [self.dataSource removeObjectAtIndex:indexPath.row];
+        [self.imClientManager.conversationManager removeConversationWithChatterId: conversation.chatterId];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [MobClick event:@"event_delete_talk_item"];
     }

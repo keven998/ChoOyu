@@ -60,15 +60,7 @@ protocol FrendDaoProtocol {
     :returns:
     */
     func selectFrend(#userId: Int) -> FrendModel?
-    
-    /**
-    通过 conversationId 来获取 frend
-    
-    :param: conversationId
-    
-    :returns: 
-    */
-    func selectFrend(#conversationId: String) -> FrendModel?
+
 
     
 }
@@ -137,20 +129,6 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         return frend
     }
     
-    func selectFrend(#conversationId: String) -> FrendModel? {
-        var frend: FrendModel?
-        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(frendTableName) where ConversationId = ?"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [conversationId])
-            if (rs != nil) {
-                while rs.next() {
-                    frend = self.fillFrendModelWithFMResultSet(rs)
-                }
-            }
-        }
-        return frend
-    }
-    
     /**
     获取所有的是我的好友的列表
     :returns:
@@ -158,8 +136,8 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func selectAllContacts() -> Array<FrendModel> {
         var retArray = Array<FrendModel>()
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from \(frendTableName) where Type = ?"
-            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue])
+            var sql = "select * from \(frendTableName) where Type = ? or Type = ? or Type = ? or Type = ?"
+            var rs = dataBase.executeQuery(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.ChatTop_Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue])
             if (rs != nil) {
                 while rs.next() {
                     retArray.append(self.fillFrendModelWithFMResultSet(rs))
@@ -167,6 +145,18 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
             }
         }
         return retArray
+    }
+    
+    func deleteAllContactsFromDB() {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "delete from \(frendTableName) where Type = ? or Type = ? or Type = ? or Type = ?"
+            if dataBase.executeUpdate(sql, withArgumentsInArray: [IMFrendType.Frend.rawValue, IMFrendType.ChatTop_Frend.rawValue, IMFrendType.Frend_Business.rawValue, IMFrendType.Frend_Expert.rawValue]) {
+                println("执行 deleteAllContactsFromDB 语句 成功")
+            } else {
+                println("执行 deleteAllContactsFromDB 语句 失败")
+
+            }
+        }
     }
     
     /**
@@ -195,6 +185,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         frend.avatarSmall = rs.stringForColumn("AvatarSmall")
         frend.signature = rs.stringForColumn("Signature")
         frend.sex = Int(rs.intForColumn("Sex"))
+        frend.fullPY = rs.stringForColumn("FullPY")
         frend.type = IMFrendType(rawValue: Int(rs.intForColumn("Type")))!
         frend.memo = rs.stringForColumn("memo")
         return frend

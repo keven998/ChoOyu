@@ -226,22 +226,15 @@
 {
     CGPoint point = [sender convertPoint:CGPointZero toView:self.contactTableView];
     NSIndexPath *indexPath = [self.contactTableView indexPathForRowAtPoint:point];
-    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+    FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
 
     IMClientManager *manager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId.integerValue];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId];
     [manager.conversationManager addConversation: conversation];
-    conversation.chatterId = contact.userId.integerValue;
+    conversation.chatterId = contact.userId;
     
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithConversation:conversation];
     chatCtl.title = contact.nickName;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    for (EMConversation *conversation in conversations) {
-        if ([conversation.chatter isEqualToString:contact.easemobUser]) {
-            [conversation markAllMessagesAsRead:YES];
-            break;
-        }
-    }
     
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
     
@@ -353,7 +346,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     } else {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
         ContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
@@ -391,11 +384,11 @@
         FrendRequestTableViewController *frendRequestCtl = [[FrendRequestTableViewController alloc] init];
         [self.navigationController pushViewController:frendRequestCtl animated:YES];
     } else {
-        Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
+        FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
 //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
-        contactDetailCtl.userId = (NSString *)contact.userId;
+        contactDetailCtl.userId = contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     

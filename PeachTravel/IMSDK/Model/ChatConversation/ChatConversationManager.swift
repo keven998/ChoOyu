@@ -158,7 +158,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :param: chatterId
     :Bool: 是否成功
     */
-    func removeConversation(chatterId: Int) -> Bool {
+    func removeConversation(#chatterId: Int) -> Bool {
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.removeConversationfromDB(chatterId)
         for i in 0 ..< conversationList.count {

@@ -30,6 +30,11 @@ class FrendManager: NSObject {
         return retArray
     }
     
+    func deleteAllContacts() {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.deleteAllContactsFromDB()
+    }
+    
     /**
     用户是否在本地数据里存在
     :param: userId 查询的用户 id
@@ -62,17 +67,6 @@ class FrendManager: NSObject {
         return daoHelper.selectFrend(userId: userId)
     }
     
-    /**
-    从数据库里通过 conversationId 获取用户信息
-    
-    :param: conversationId
-    
-    :returns:
-    */
-    func getFrendInfoFromDB(#conversationId: String) -> FrendModel? {
-        var daoHelper = DaoHelper.shareInstance()
-        return daoHelper.selectFrend(conversationId: conversationId)
-    }
 }
 
 

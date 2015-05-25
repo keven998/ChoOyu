@@ -631,7 +631,9 @@
     [self.account addContacts:contacts];
     [self save];
     
+    [self.accountDetail.frendList removeAllObjects];
     FrendManager *frendManager = [[FrendManager alloc] init];
+    [frendManager deleteAllContacts];
     for (id contactDic in contactList) {
         FrendModel *newContact = [[FrendModel alloc] init];
         newContact.userId = [[contactDic objectForKey:@"userId"] integerValue];
@@ -640,6 +642,7 @@
         newContact.avatar = [contactDic objectForKey:@"avatar"];
         newContact.avatarSmall = [contactDic objectForKey:@"avatarSmall"];
         newContact.signature = [contactDic objectForKey:@"signature"];
+        newContact.fullPY = [ConvertMethods chineseToPinyin:[contactDic objectForKey:@"nickName"]];
         newContact.type = IMFrendTypeFrend;
         [frendManager addFrend2DB:newContact];
         [self.accountDetail.frendList addObject:newContact];
@@ -867,12 +870,12 @@
 - (NSDictionary *)contactsByPinyin
 {
     NSMutableArray *chineseStringsArray = [[NSMutableArray alloc] init];
-    for (id tempContact in self.account.contacts) {
+    for (id tempContact in self.accountDetail.frendList) {
         [chineseStringsArray addObject:tempContact];
     }
     NSMutableArray *sectionHeadsKeys = [[NSMutableArray alloc] init];
     //sort the ChineseStringArr by pinYin
-    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinyin" ascending:YES]];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"fullPY" ascending:YES]];
     [chineseStringsArray sortUsingDescriptors:sortDescriptors];
     
     NSMutableArray *arrayForArrays = [[NSMutableArray alloc] init];
@@ -881,8 +884,8 @@
     
     for(int index = 0; index < [chineseStringsArray count]; index++)
     {
-        Contact *contact = (Contact *)[chineseStringsArray objectAtIndex:index];
-        NSMutableString *strchar= [NSMutableString stringWithString:contact.pinyin];
+        FrendModel *contact = (FrendModel *)[chineseStringsArray objectAtIndex:index];
+        NSMutableString *strchar= [NSMutableString stringWithString:contact.fullPY];
         NSString *sr= [strchar substringToIndex:1];
         if(![sectionHeadsKeys containsObject:[sr uppercaseString]])//here I'm checking whether the character already in the selection header keys or not
         {
