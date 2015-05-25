@@ -41,20 +41,14 @@
     _contentTextField.text = _content;
     [self.view addSubview:_contentTextField];
     
-//    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
-//    [topView setBarStyle:UIBarStyleDefault];
-//    UIBarButtonItem * doneButton = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(dismissKeyBoard)];
-//    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-//    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneButton,nil];
-//    [topView setItems:buttonsArray];
-//    [_contentTextField setInputAccessoryView:topView];
+
 }
 -(void)dismissKeyBoard
 {
     [_contentTextField resignFirstResponder];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+- (void)textViewDidChange:(UITextView *)textView;
 {
     self.navigationItem.rightBarButtonItem.enabled = ![textView.text isEqualToString:_content];
     if (!_acceptEmptyContent) {
@@ -63,8 +57,8 @@
             self.navigationItem.rightBarButtonItem.enabled = NO;
         }
     }
-    return YES;
 }
+
 /**
  *  重写父类的返回方法
  */
