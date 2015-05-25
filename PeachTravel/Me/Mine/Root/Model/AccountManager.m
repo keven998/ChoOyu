@@ -245,6 +245,24 @@
 }
 
 /**
+ *  修改用户头像
+ *
+ *  @param albumImage
+ *  @param completion
+ */
+- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
+{
+    [self asyncUpdateUserInfoToServer:albumImage.imageId andUserInfoType:ChangeAvatar andKeyWord:@"avatar" completion:^(BOOL isSuccess, NSString *errStr) {
+        if (isSuccess) {
+            self.account.avatar =  albumImage.image.imageUrl;
+            completion(YES, nil);
+        } else {
+            completion(NO, errStr);
+        }
+    }];
+}
+
+/**
  *  异步更新服务的用户信息
  *
  *  @param userInfo     用户信息，可以是昵称，签名等

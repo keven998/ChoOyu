@@ -127,6 +127,15 @@
  */
 - (void)asyncChangeBirthday:(NSString *)birthday completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
 
+/**
+ *  修改用户头像
+ *
+ *  @param albumImage
+ *  @param completion 
+ */
+- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+
+
 
 #pragma mark - 修改用户的好友信息
 
