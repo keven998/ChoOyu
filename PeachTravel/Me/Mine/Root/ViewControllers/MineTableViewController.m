@@ -166,7 +166,7 @@
 - (void) updateAccountInfo {
     AccountManager *amgr = self.accountManager;
     if ([amgr isLogin]) {
-        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         _nameLabel.text = amgr.account.nickName;
         _propLabel.text = [NSString stringWithFormat:@"ID %d", [amgr.account.userId intValue]];
         _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
@@ -178,7 +178,7 @@
 //            cell.userGender.image = nil;
 //        }
     } else {
-        [_avatarImageView setImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+        [_avatarImageView setImage:[UIImage imageNamed:@"person_disabled"]];
         _propLabel.text = @"点击登录旅行派，享受更多旅行帮助";
         _nameLabel.text = @"未登录";
         _signatureLabel.text = nil;
