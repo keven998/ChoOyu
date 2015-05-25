@@ -426,7 +426,7 @@
     cell.tripPoi = poi;
     cell.cellAction.hidden = NO;
     cell.cellAction.tag = indexPath.row;
-    [cell.cellAction setImage:[UIImage imageNamed:@"ic_navigation_black.png"] forState:UIControlStateNormal];
+//    [cell.cellAction setImage:[UIImage imageNamed:@"ic_navigation_black.png"] forState:UIControlStateNormal];
     [cell.cellAction setTitle:poi.distanceStr forState:UIControlStateNormal];
     cell.cellAction.titleLabel.font = [UIFont systemFontOfSize:12];
     [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];

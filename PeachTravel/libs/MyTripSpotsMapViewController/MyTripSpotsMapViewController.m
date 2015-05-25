@@ -52,12 +52,21 @@
     btn.imagePosition = IMAGE_AT_RIGHT;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
+
+
+    
     mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self showMapPin];
     
+    UIImageView *collectionBackImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.bounds.size.width, 49)];
+        collectionBackImg.image = [UIImage imageNamed:@"collectionBack"];
+    collectionBackImg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    collectionBackImg.clipsToBounds = YES;
+    [self.view addSubview:collectionBackImg];
+
     [self setupSelectPanel];
 }
 
@@ -74,8 +83,7 @@
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
-    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.selectPanel.backgroundColor = [UIColor clearColor];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -83,6 +91,7 @@
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[SelectPoiCell class] forCellWithReuseIdentifier:@"spoi_cell"];
+    
     [self.view addSubview:_selectPanel];
 }
 
@@ -228,6 +237,7 @@
     SuperPoi *pb = [currentDayPois objectAtIndex:indexPath.row];
     NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
     cell.textView.text = txt;
+    cell.textView.textColor = [UIColor whiteColor];
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
     return cell;

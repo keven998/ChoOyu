@@ -518,7 +518,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_create_new_trip_plan_city"];
 }
 
--(void)dealtap:(UITapGestureRecognizer *)tap
+- (void)dealtap:(UITapGestureRecognizer *)tap
 {
     CityDescDetailViewController *cddVC = [[CityDescDetailViewController alloc]init];
     cddVC.des = self.poi.desc;

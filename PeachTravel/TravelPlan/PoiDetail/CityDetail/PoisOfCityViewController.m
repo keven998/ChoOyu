@@ -735,11 +735,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
             
             UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
             tagBtn.titleLabel.numberOfLines = 2.0;
-            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
+//            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
             if (_poiType == kRestaurantPoi) {
-                [tagBtn setTitle:@"美食\n攻略" forState:UIControlStateNormal];
+                [tagBtn setBackgroundImage:[UIImage imageNamed:@"jingdian_food_eat"] forState:UIControlStateNormal];
             } else if (_poiType == kShoppingPoi) {
-                [tagBtn setTitle:@"购物\n攻略" forState:UIControlStateNormal];
+                [tagBtn setBackgroundImage:[UIImage imageNamed:@"jingdian_shopping"] forState:UIControlStateNormal];
             }
             tagBtn.titleLabel.font  = [UIFont boldSystemFontOfSize:17.0];
             [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 0)];

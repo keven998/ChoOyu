@@ -91,28 +91,17 @@
     
     offsetY += 30;
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake((swipeView.bounds.size.width-65)/2, offsetY, 65, 15)];
-//    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray_small.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow_small.png"];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 90, 15)];
+    _ratingView.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY);
+    _ratingView.starImage = [UIImage imageNamed:@"star_biankuang"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"star_couler"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
     _ratingView.rating = _spot.rating;
     [_scrollView addSubview:_ratingView];
-    
-//    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-100, _imageView.bounds.size.height-45, 55, 45)];
-//    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite.png"] forState:UIControlStateNormal];
-//    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_spot_favorite_selected.png"] forState:UIControlStateSelected];
-//    _favoriteBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-//    _favoriteBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
-//    [_imageView addSubview:_favoriteBtn];
-//    _favoriteBtn.selected = _spot.isMyFavorite;
-//    
-//    _shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(_imageView.bounds.size.width-45, _imageView.bounds.size.height-45, 45, 45)];
-//    [_shareBtn setImage:[UIImage imageNamed:@"ic_spot_share.png"] forState:UIControlStateNormal];
-//    _shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 2);
-//    [_imageView addSubview:_shareBtn];
+
     
     offsetY += 50;
     
