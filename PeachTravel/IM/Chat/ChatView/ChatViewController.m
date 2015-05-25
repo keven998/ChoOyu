@@ -116,6 +116,13 @@
     return self;
 }
 
+- (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType
+{
+    IMClientManager *imclientManager = [IMClientManager shareInstance];
+    ChatConversation *conversation= [imclientManager.conversationManager getConversationWithChatterId:chatter];
+    return [[ChatViewController alloc] initWithConversation:conversation];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -1060,6 +1067,9 @@
     }
 }
 
+/**
+ *  上拉加载更多聊天记录
+ */
 - (void)loadMoreMessages
 {
     ChatViewController *weakSelf = self;
@@ -1078,8 +1088,11 @@
     });
 }
 
-
-
+/**
+ *  添加一条新发送的消息到底部
+ *
+ *  @param message
+ */
 - (void)addChatMessage2DataSource:(BaseMessage *) message
 {
     if (!message) {
@@ -1215,7 +1228,6 @@
     
     BaseMessage *message = [imClientManager.messageSendManager sendLocationMessage:model receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
     
-    message.message = @"ceshi xiaoxi ";
     [self addChatMessage2DataSource:message];
 }
 

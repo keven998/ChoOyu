@@ -14,7 +14,7 @@
 
 @interface ChatViewController : TZViewController
 
-- (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
+- (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType;
 
 - (instancetype)initWithConversation:(ChatConversation *)conversation;
 

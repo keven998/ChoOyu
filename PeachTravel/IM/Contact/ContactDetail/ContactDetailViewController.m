@@ -223,7 +223,7 @@
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.easemobUser isGroup:NO];
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.userId.integerValue chatType:IMChatTypeIMChatSingleType];
     chatCtl.title = contact.nickName;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     for (EMConversation *conversation in conversations) {
