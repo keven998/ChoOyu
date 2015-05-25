@@ -334,7 +334,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-
 }
 
 - (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL, NSString *))completion
