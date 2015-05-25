@@ -498,7 +498,7 @@
         cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
-                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
+                
                 cell.cellDetail.text = amgr.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
                 cell.cellDetail.text = amgr.accountDetail.travelStatus;
