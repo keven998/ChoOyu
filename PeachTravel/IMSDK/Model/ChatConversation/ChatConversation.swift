@@ -159,9 +159,8 @@ class ChatConversation: NSObject {
         }
         NSLog("开始加载聊天界面记录")
         var daoHelper = DaoHelper.shareInstance()
-        var tableName = "chat_\(chatterId)"
         var retArray = NSArray()
-        chatMessageList = daoHelper.selectChatMessageList(tableName, untilLocalId: Int.max, messageCount: messageCount)
+        chatMessageList = daoHelper.selectChatMessageList(chatterId, untilLocalId: Int.max, messageCount: messageCount)
 
         NSLog("结束加载聊天界面记录")
     }
@@ -181,7 +180,7 @@ class ChatConversation: NSObject {
         } else {
             localId = Int.max
         }
-        var moreMessages = daoHelper.selectChatMessageList(tableName, untilLocalId: localId, messageCount: messageCount)
+        var moreMessages = daoHelper.selectChatMessageList(chatterId, untilLocalId: localId, messageCount: messageCount)
         
         for var i = moreMessages.count-1; i>0; i--
         {

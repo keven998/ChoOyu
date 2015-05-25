@@ -143,8 +143,8 @@ public class DaoHelper:NSObject {
         })
     }
     
-    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> {
-        return chatMessageDaoHelper.selectChatMessageList(fromTable, untilLocalId: untilLocalId, messageCount: messageCount)
+    func selectChatMessageList(chatterId: Int, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> {
+        return chatMessageDaoHelper.selectChatMessageList(chatterId, untilLocalId: untilLocalId, messageCount: messageCount)
     }
     
     func selectLastServerMessage(fromTable: String) -> BaseMessage? {

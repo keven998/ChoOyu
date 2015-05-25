@@ -43,7 +43,7 @@
                 _remotePath = ((AudioMessage *)message).remoteUrl;
                 _time = ((AudioMessage *)message).audioLength;
                 _localPath = ((AudioMessage *)message).localPath;
-                _isRead = ((AudioMessage *)message).audioStatus == IMAudioStatusReaded ? YES : NO;
+                _isPlayed = ((AudioMessage *)message).audioStatus == IMAudioStatusReaded ? YES : NO;
                 
                 break;
                 

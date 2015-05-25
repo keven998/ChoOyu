@@ -17,9 +17,8 @@ class ChatManagerMessage: NSObject, ChatManagerMessageProtocol {
     //MARK: ChatManagerMessageProtocol
     func selectChatMessageList(chatterId:Int, untilLocalId localId: Int, messageCount: Int) -> NSArray {
         var daoHelper = DaoHelper.shareInstance()
-        var tableName = "chat_\(chatterId)"
         var retArray = NSArray()
-        retArray = daoHelper.selectChatMessageList(tableName, untilLocalId: localId, messageCount: messageCount)
+        retArray = daoHelper.selectChatMessageList(chatterId, untilLocalId: localId, messageCount: messageCount)
         return retArray
     }
 }

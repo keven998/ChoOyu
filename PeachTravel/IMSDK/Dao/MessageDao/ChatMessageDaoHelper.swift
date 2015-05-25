@@ -27,7 +27,7 @@ protocol ChatMessageDaoHelperProtocol{
     :param: messageCount 需要获取的数量
     :returns: 获取到的聊天信息
     */
-    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> 
+    func selectChatMessageList(chatterId: Int, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> 
     
     /**
     找出所有聊天列表中的最后一条会话
@@ -190,16 +190,19 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         }
     }
     
-    func selectChatMessageList(fromTable:String, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> {
+    func selectChatMessageList(chatterId: Int, untilLocalId: Int, messageCount: Int) -> Array<BaseMessage> {
         var retArray = Array<BaseMessage>()
         
+        var tableName = "chat_\(chatterId)"
+
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "select * from (select * from \(fromTable) where LocalId < ? order by LocalId desc limit \(messageCount)) order by LocalId"
+            var sql = "select * from (select * from \(tableName) where LocalId < ? order by LocalId desc limit \(messageCount)) order by LocalId"
             println("执行 sql 语句 : \(sql)")
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: [untilLocalId, messageCount])
             if (rs != nil) {
                 while rs.next() {
                     if let message = ChatMessageDaoHelper.messageModelWithFMResultSet(rs) {
+                        message.chatterId = chatterId
                         retArray.append(message)
                     }
                 }
