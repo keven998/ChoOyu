@@ -133,7 +133,9 @@
                     <constraint firstAttribute="trailing" secondItem="1hy-kI-Yi0" secondAttribute="trailing" constant="8" id="lL8-iq-PCC">
                         <variation key="widthClass=compact" constant="84"/>
                     </constraint>
-                    <constraint firstAttribute="trailing" secondItem="ffJ-oR-a9q" secondAttribute="trailing" constant="8" id="vrz-v8-XXC"/>
+                    <constraint firstAttribute="trailing" secondItem="ffJ-oR-a9q" secondAttribute="trailing" constant="8" id="vrz-v8-XXC">
+                        <variation key="widthClass=compact" constant="84"/>
+                    </constraint>
                 </constraints>
                 <variation key="default">
                     <mask key="subviews">
