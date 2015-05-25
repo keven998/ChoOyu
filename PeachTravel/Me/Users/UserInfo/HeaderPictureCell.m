@@ -10,6 +10,7 @@
 #import "TaoziCollectionLayout.h"
 #import "PicCell.h"
 #import "PXAlertView+Customization.h"
+
 @interface HeaderPictureCell ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 
@@ -82,6 +83,8 @@
 {
     if (indexPath.row == _headerPicArray.count) {
         [self.delegate showPickerView];
+    } else {
+        [self.delegate editAvatar:indexPath.row];
     }
 }
 

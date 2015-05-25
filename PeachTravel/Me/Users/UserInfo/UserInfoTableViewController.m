@@ -35,7 +35,7 @@
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"我的足迹"], @[@"签名"], @[@"性别", @"生日", @"居住在"], @[@"安全绑定", @"修改密码"], ]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, ShowPickerDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
 
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
@@ -612,7 +612,8 @@
 
 #pragma mark - SelectDelegate
 
-- (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+- (void)selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath
+{
     //    [_tableView reloadData];
     if (_updateUserInfoType == 1) {
         [self updateGender:indexPath];
@@ -621,7 +622,8 @@
     }
 }
 
--(void)updateStatus:(NSString *)str{
+- (void)updateStatus:(NSString *)str
+{
     AccountManager *accountManager = [AccountManager shareAccountManager];
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInView:self.view];
@@ -634,7 +636,8 @@
     [self.tableView reloadData];
 }
 
-- (void) updateGender:(NSIndexPath *)selectIndex {
+- (void) updateGender:(NSIndexPath *)selectIndex
+{
     NSString *str = [[NSString alloc]init];
     if (selectIndex.row == 0) {
         str = @"F";
@@ -683,7 +686,8 @@
 }
 
 #pragma mark - http method
-- (void) changeUserName {
+- (void)changeUserName
+{
     BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
     bsvc.navTitle = @"修改名字";
     bsvc.content = self.accountManager.accountDetail.basicUserInfo.nickName;
@@ -694,15 +698,33 @@
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
 }
 
-- (void)changeUserMark {
-    //    BaseTextSettingViewController *bsvc = [[BaseTextSettingViewController alloc] init];
-    //    bsvc.navTitle = @"个性签名";
-    //    bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
-    //    bsvc.acceptEmptyContent = YES;
-    //    bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
-    //        [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];
-    //    };
-    //    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:bsvc] animated:YES completion:nil];
+- (void)changeAvatar:(NSInteger)index
+{
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
+    [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
+        [hud hideTZHUD];
+    }];
+}
+
+/**
+ *  删除用户头像
+ *
+ *  @param index 
+ */
+- (void)deleteUserAvatar:(NSInteger)index
+{
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInView:self.view];
+    AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
+    [self.accountManager asyncDelegateUserAlbumImage:image completion:^(BOOL isSuccess, NSString *error) {
+        [hud hideTZHUD];
+    }];
+}
+
+- (void)changeUserMark
+{
     SignatureViewController *bsvc = [[SignatureViewController alloc]init];
     bsvc.navTitle = @"个性签名";
     bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
@@ -750,21 +772,52 @@
         }];
     }
 }
--(void)showPickerView
+
+- (void)changeJob:(NSString *)jobStr
+{
+    [_tableView reloadData];
+}
+
+- (void)changeStatus
+{
+    [_tableView reloadData];
+}
+
+#pragma mark - HeaderPictureDelegate
+- (void)showPickerView
 {
     [self presentImagePicker];
 }
--(void)changeJob:(NSString *)jobStr
-{
-    [_tableView reloadData];
-}
--(void)changeStatus
-{
-    [_tableView reloadData];
-}
 
+- (void)editAvatar:(NSInteger)index
+{
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                                     message:nil
+                                                 cancelTitle:@"取消"
+                                                 otherTitles:@[ @"设为头像", @"查看图片", @"删除"]
+                                                  completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                                      if (buttonIndex == 1) {
+                                                          [self changeAvatar:index];
+                                                          
+                                                      } else if (buttonIndex == 2) {
+                                                          
+                                                      } else if (buttonIndex == 3) {
+                                                          [self deleteUserAvatar:index];
+                                                      }
+                                                  }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
+}
 
 @end
+
+
+
+
+
+
+
+
 
 
 
