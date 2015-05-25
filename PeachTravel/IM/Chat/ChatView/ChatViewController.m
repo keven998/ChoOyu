@@ -229,8 +229,7 @@
     
     _chatToolBar.delegate = nil;
     _chatToolBar = nil;
-    
-    [[EaseMob sharedInstance].chatManager stopPlayingAudio];
+    _conversation.isCurrentConversation = NO;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

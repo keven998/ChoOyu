@@ -305,14 +305,6 @@
     return ret;
 }
 
-// 得到未读消息条数
-- (NSInteger)unreadMessageCountByConversation:(ChatConversation *)conversation
-{
-    NSInteger ret = 0;
-    ret = conversation.unReadMessageCount;
-    return  ret;
-}
-
 /**
  *  是否有未读的消息，包括未读的聊天消息和好友请求消息
  *
@@ -550,7 +542,7 @@
     }
     cell.detailMsg = [self subTitleMessageByConversation:tzConversation];
     cell.time = [self lastMessageTimeByConversation:tzConversation];
-    cell.unreadCount = [self unreadMessageCountByConversation:tzConversation];
+    cell.unreadCount = tzConversation.unReadMessageCount;
     return cell;
 }
 
