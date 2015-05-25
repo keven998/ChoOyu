@@ -284,14 +284,15 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]} range:NSMakeRange(titleStr.length, dest.length)];
     headerTitle.attributedText = attributeString;
     [headerView addSubview:headerTitle];
-    
+    if (_canEdit)
+    {
     UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(width-64, 6, 64, 44)];
     [mapBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
 //    [mapBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 15, 0, 0)];
     mapBtn.tag = section;
     [mapBtn addTarget:self action:@selector(editDay:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:mapBtn];
-    
+    }
     CGFloat tloffsety = 0;
     if (section == 0) {
         tloffsety = 25;

@@ -11,6 +11,7 @@
 #import "NJKWebViewProgressView.h"
 #import "LoginViewController.h"
 #import "PeachTravel-swift.h"
+#import "UIBarButtonItem+MJ.h"
 
 @interface TravelNoteDetailViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate, CreateConversationDelegate, TaoziMessageSendDelegate> {
     UIWebView *_webView;
@@ -32,19 +33,21 @@
     self.navigationItem.title = _titleStr;
     
     UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
-    [talkBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite_selected.png"] forState:UIControlStateSelected];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_2"] forState:UIControlStateNormal];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_ztl_sc_1"] forState:UIControlStateSelected];
     [talkBtn addTarget:self action:@selector(doFavorite:) forControlEvents:UIControlEventTouchUpInside];
     talkBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *moreBarItem = [[UIBarButtonItem alloc] initWithCustomView:talkBtn];
     
     UIButton *cb = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [cb setImage:[UIImage imageNamed:@"ic_chat.png"] forState:UIControlStateNormal];
+    [cb setImage:[UIImage imageNamed:@"ic_ztl_lt"] forState:UIControlStateNormal];
     [cb addTarget:self action:@selector(chat) forControlEvents:UIControlEventTouchUpInside];
     cb.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     UIBarButtonItem *chatItem = [[UIBarButtonItem alloc] initWithCustomView:cb];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:chatItem, moreBarItem, nil];
+    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_back_trip_ios" highIcon:@"nav_back" target:self action:@selector(gooBack)];
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
@@ -73,7 +76,10 @@
     [_webView bringSubviewToFront:_webView.scrollView];
 
 }
-
+- (void)gooBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];

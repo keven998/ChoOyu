@@ -194,7 +194,7 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
         if (!conversation.isGroup) {
             cell.titleLabel.text = chatPeople.nickName;
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:chatPeople.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         } else{
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {

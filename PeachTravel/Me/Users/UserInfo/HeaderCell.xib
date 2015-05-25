@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -52,25 +53,6 @@
                             </mask>
                         </variation>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-wb-MZE">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="22" id="2vZ-nW-BvV"/>
-                            <constraint firstAttribute="height" constant="22" id="zMp-iv-ozq"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="2vZ-nW-BvV"/>
-                                <exclude reference="zMp-iv-ozq"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="2vZ-nW-BvV"/>
-                                <include reference="zMp-iv-ozq"/>
-                            </mask>
-                        </variation>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrn-je-won">
                         <rect key="frame" x="11" y="15" width="64" height="21"/>
                         <constraints>
@@ -95,24 +77,49 @@
                             </mask>
                         </variation>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-wb-MZE">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="HCK-vX-hEW">
+                                <variation key="widthClass=compact" constant="8"/>
+                            </constraint>
+                            <constraint firstAttribute="height" constant="14" id="Hvn-jS-19K">
+                                <variation key="widthClass=compact" constant="15"/>
+                            </constraint>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="HCK-vX-hEW"/>
+                                <exclude reference="Hvn-jS-19K"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="HCK-vX-hEW"/>
+                                <include reference="Hvn-jS-19K"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="47v-fU-GzS" firstAttribute="trailing" secondItem="x03-sp-Cxs" secondAttribute="trailing" id="59H-RL-Qch"/>
                     <constraint firstItem="vrn-je-won" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="5GO-It-3Ug"/>
-                    <constraint firstItem="tcf-wb-MZE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="CK7-Rb-SnV"/>
                     <constraint firstAttribute="trailing" secondItem="47v-fU-GzS" secondAttribute="trailing" constant="15" id="L5j-Yo-SPN">
                         <variation key="widthClass=compact" constant="33"/>
+                    </constraint>
+                    <constraint firstItem="47v-fU-GzS" firstAttribute="top" secondItem="x03-sp-Cxs" secondAttribute="bottom" constant="12" id="PDj-VD-yst"/>
+                    <constraint firstItem="tcf-wb-MZE" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="12" id="T1a-An-Rkb">
+                        <variation key="widthClass=compact" constant="0.0"/>
                     </constraint>
                     <constraint firstItem="x03-sp-Cxs" firstAttribute="leading" secondItem="vrn-je-won" secondAttribute="trailing" constant="34" id="UAE-F3-dGk">
                         <variation key="widthClass=compact" constant="14"/>
                     </constraint>
-                    <constraint firstAttribute="trailing" secondItem="tcf-wb-MZE" secondAttribute="trailing" constant="10" id="V5L-bc-84M"/>
                     <constraint firstItem="x03-sp-Cxs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ZHw-w7-EOb"/>
-                    <constraint firstItem="tcf-wb-MZE" firstAttribute="leading" secondItem="x03-sp-Cxs" secondAttribute="trailing" constant="10" id="a2E-nZ-QAQ">
-                        <variation key="widthClass=compact" constant="1"/>
-                    </constraint>
-                    <constraint firstItem="47v-fU-GzS" firstAttribute="top" secondItem="tcf-wb-MZE" secondAttribute="bottom" constant="11" id="bBo-GB-0gU"/>
                     <constraint firstItem="47v-fU-GzS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="hT7-me-zwh">
                         <variation key="widthClass=compact" constant="15"/>
+                    </constraint>
+                    <constraint firstItem="tcf-wb-MZE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="khj-iA-iWe">
+                        <variation key="widthClass=compact" constant="11"/>
                     </constraint>
                     <constraint firstItem="vrn-je-won" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="wPd-cF-p8u"/>
                 </constraints>
@@ -123,14 +130,14 @@
                     <mask key="constraints">
                         <exclude reference="5GO-It-3Ug"/>
                         <exclude reference="wPd-cF-p8u"/>
+                        <exclude reference="59H-RL-Qch"/>
                         <exclude reference="L5j-Yo-SPN"/>
-                        <exclude reference="bBo-GB-0gU"/>
+                        <exclude reference="PDj-VD-yst"/>
                         <exclude reference="hT7-me-zwh"/>
-                        <exclude reference="CK7-Rb-SnV"/>
-                        <exclude reference="V5L-bc-84M"/>
-                        <exclude reference="a2E-nZ-QAQ"/>
                         <exclude reference="UAE-F3-dGk"/>
                         <exclude reference="ZHw-w7-EOb"/>
+                        <exclude reference="T1a-An-Rkb"/>
+                        <exclude reference="khj-iA-iWe"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -140,14 +147,14 @@
                     <mask key="constraints">
                         <include reference="5GO-It-3Ug"/>
                         <include reference="wPd-cF-p8u"/>
+                        <include reference="59H-RL-Qch"/>
                         <include reference="L5j-Yo-SPN"/>
-                        <include reference="bBo-GB-0gU"/>
+                        <include reference="PDj-VD-yst"/>
                         <include reference="hT7-me-zwh"/>
-                        <include reference="CK7-Rb-SnV"/>
-                        <include reference="V5L-bc-84M"/>
-                        <include reference="a2E-nZ-QAQ"/>
                         <include reference="UAE-F3-dGk"/>
                         <include reference="ZHw-w7-EOb"/>
+                        <include reference="T1a-An-Rkb"/>
+                        <include reference="khj-iA-iWe"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
@@ -160,6 +167,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_right_normal.png" width="11" height="19"/>
+        <image name="jiantou.png" width="7" height="12"/>
     </resources>
 </document>

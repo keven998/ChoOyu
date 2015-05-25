@@ -7,6 +7,8 @@
 //
 
 #import "CityDescDetailViewController.h"
+#import "UIBarButtonItem+MJ.h"
+
 
 @interface CityDescDetailViewController ()
 
@@ -18,6 +20,8 @@
     [super viewDidLoad];
     self.title = @"城市简介";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"ic_back_trip_ios" highIcon:@"nav_back" target:self action:@selector(goBack)];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -40,6 +44,9 @@
     
     scrollView.contentSize = CGSizeMake(0, rect.size.height + 24);
 }
-
+- (void)goBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

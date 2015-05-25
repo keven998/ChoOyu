@@ -21,6 +21,7 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
+#import "UIBarButtonItem+MJ.h"
 
 @interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
@@ -39,10 +40,9 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"热门城市";
     
-    
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(goSearch)];
-    makePlanBtn.image = [UIImage imageNamed:@"ic_search.png"];
+    UIBarButtonItem *makePlanBtn = [UIBarButtonItem itemWithIcon:@"ic_search" highIcon:@"ic_search" target:self action:@selector(goSearch)];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
+    
 
     
     [self.view addSubview:self.collectionView];

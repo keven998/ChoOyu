@@ -15,6 +15,7 @@
     self.backgroundColor = APP_PAGE_COLOR;
     
     _contentType.font = [UIFont systemFontOfSize:26.0];
+    _contentType.textColor = APP_THEME_COLOR;
     _contentLocation.font = [UIFont systemFontOfSize:13.0];
     _contentTitle.font = [UIFont systemFontOfSize:15.0];
     _timeBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];

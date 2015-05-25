@@ -105,8 +105,8 @@
 
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 90, 15)];
     _ratingView.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY);
-    _ratingView.starImage = [UIImage imageNamed:@"ic_star_gray.png"];
-    _ratingView.starHighlightedImage = [UIImage imageNamed:@"ic_star_yellow.png"];
+    _ratingView.starImage = [UIImage imageNamed:@"star_biankuang"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"star_couler"];
     _ratingView.maxRating = 5.0;
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 3;

@@ -131,7 +131,7 @@
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            cell.flagView.image = [UIImage imageNamed:@"ic_score_app.png"];
+            cell.flagView.image = [UIImage imageNamed:@"ic_good"];
         } else if (indexPath.row == 1) {
             cell.flagView.image = [UIImage imageNamed:@"ic_app_message.png"];
         }

@@ -84,7 +84,7 @@
     UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(38+20+13, 0, SCREEN_WIDTH, 44)];
     addLabel.text = @"添加";
     [_footerButton addSubview:addLabel];
-    UIImageView *addImage = [[UIImageView alloc]initWithFrame:CGRectMake(43, 12, 20, 20)];
+    UIImageView *addImage = [[UIImageView alloc]initWithFrame:CGRectMake(43, 16, 12, 12)];
     addImage.image = [UIImage imageNamed:@"add_contact"];
     [_footerButton addSubview:addImage];
     
