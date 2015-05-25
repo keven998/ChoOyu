@@ -8,7 +8,6 @@
 
 import UIKit
 
-private let messageReceivePool = MessageReceivePool()
 private let reorderTime = 0.5
 
 @objc protocol MessageReceivePoolDelegate {
@@ -25,10 +24,6 @@ class MessageReceivePool: NSObject {
     private var timer: NSTimer?
     
     weak var delegate: MessageReceivePoolDelegate?
-    
-    class func shareInstance() -> MessageReceivePool {
-        return messageReceivePool
-    }
     
     deinit {
         println("MessageReceivePool deinit")

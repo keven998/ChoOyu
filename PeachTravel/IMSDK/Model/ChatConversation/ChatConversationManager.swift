@@ -113,7 +113,9 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 return exitConversation
             }
         }
-        return self.createNewConversation(chatterId: chatterId)
+        var conversation = self.createNewConversation(chatterId: chatterId)
+        self.addConversation(conversation)
+        return conversation
     }
     
     /**

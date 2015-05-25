@@ -18,18 +18,29 @@ private let iMClientManager = IMClientManager()
 
 class IMClientManager: NSObject, ConnectionManagerDelegate {
     
-    var connectionManager: ConnectionManager
-    var messageReceiveManager: MessageReceiveManager!
-    var messageSendManager: MessageSendManager!
-    var conversationManager: ChatConversationManager!
+    let connectionManager: ConnectionManager
+    let messageReceiveManager: MessageReceiveManager
+    let messageSendManager: MessageSendManager
+    let conversationManager: ChatConversationManager
+    let cmdMessageManager: CMDMessageManager
     
     weak var delegate: IMClientDelegate?
     
     override init() {
         connectionManager = ConnectionManager()
+        messageReceiveManager = MessageReceiveManager()
+        messageSendManager = MessageSendManager()
+        conversationManager = ChatConversationManager()
+        messageSendManager.addMessageSendDelegate(conversationManager)
+        cmdMessageManager = CMDMessageManager()
+        messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
+        messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
+        if AccountManager.shareAccountManager().isLogin() {
+            messageReceiveManager.ACKMessageWithReceivedMessages(nil)
+        }
         super.init()
         connectionManager.connectionManagerDelegate = self
-        self.connectionSetup(true, errorCode: 0);
+       
     }
     
     deinit {
@@ -40,19 +51,23 @@ class IMClientManager: NSObject, ConnectionManagerDelegate {
         return iMClientManager
     }
     
+    /**
+    用户登录成功
+    */
+    func userDidLogin() {
+        self.connectionSetup(true, errorCode: 0)
+        let daoHelper = DaoHelper.shareInstance()
+        daoHelper.userDidLogin()
+        MessageManager.shareInsatance().startTimer2ACK()
+
+    }
+    
     
 //MARK: ConnectionManager
     func connectionSetup(isSuccess: Bool, errorCode: Int) {
         if isSuccess {
-            self.messageReceiveManager = MessageReceiveManager.shareInstance()
-            self.messageSendManager = MessageSendManager.shareInstance()
-            self.conversationManager = ChatConversationManager()
-            self.messageSendManager.addMessageSendDelegate(conversationManager)
-            let cmdMessageManager = CMDMessageManager.shareInstance()
-            self.messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
-            self.messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
-            self.messageReceiveManager.ACKMessageWithReceivedMessages(nil)
-        }
+          
+                   }
         delegate?.userDidLogin(isSuccess, errorCode: errorCode)
     }
 

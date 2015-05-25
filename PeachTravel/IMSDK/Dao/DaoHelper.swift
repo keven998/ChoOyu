@@ -16,26 +16,28 @@ let tempDirectory: String = NSTemporaryDirectory()
 let databaseWriteQueue = dispatch_queue_create("com.database.write", nil)
 
 public class DaoHelper:NSObject {
-    private let db: FMDatabase
-    private let chatMessageDaoHelper: ChatMessageDaoHelper
-    private let metaDataDaoHelper: MetaDataDaoHelper
-    private let frendDaoHelper: FrendDaoHelper
+    private var db: FMDatabase
+    private var chatMessageDaoHelper: ChatMessageDaoHelper
+    private var metaDataDaoHelper: MetaDataDaoHelper
+    private var frendDaoHelper: FrendDaoHelper
 
-    private let conversationHelper: ConversationDaoHelper
-    private let dbQueue: FMDatabaseQueue
+    private var conversationHelper: ConversationDaoHelper
+    private var dbQueue: FMDatabaseQueue
     
     class func shareInstance() -> DaoHelper {
         return daoHelper
     }
     
     override init() {
-        
-        var userId = AccountManager.shareAccountManager().account.userId
+        var userId = -1
+        if let account = AccountManager.shareAccountManager().account {
+            userId = AccountManager.shareAccountManager().account.userId.integerValue
+        }
         
         var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
         
         println("dbPath: \(dbPath)")
-                
+        
         var fileManager =  NSFileManager()
         
         if !fileManager.fileExistsAtPath(dbPath) {
@@ -45,12 +47,17 @@ public class DaoHelper:NSObject {
         
         db = FMDatabase(path: dbPath)
         dbQueue = FMDatabaseQueue(path: dbPath)
-
+        
         chatMessageDaoHelper = ChatMessageDaoHelper(db: db, dbQueue: dbQueue)
         metaDataDaoHelper = MetaDataDaoHelper(db: db)
         frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
         conversationHelper = ConversationDaoHelper(db: db, dbQueue: dbQueue)
+
         super.init()
+    }
+    
+    func userDidLogin() {
+        self.fillDatabase()
     }
     
     /**
@@ -58,6 +65,32 @@ public class DaoHelper:NSObject {
     */
     func getDB4Test()-> FMDatabase {
         return db
+    }
+    
+    func fillDatabase() {
+        var userId = -1
+        if let account = AccountManager.shareAccountManager().account {
+            userId = AccountManager.shareAccountManager().account.userId.integerValue
+        }
+        
+        var dbPath: String = documentPath.stringByAppendingPathComponent("\(userId)/user.sqlite")
+        
+        println("dbPath: \(dbPath)")
+        
+        var fileManager =  NSFileManager()
+        
+        if !fileManager.fileExistsAtPath(dbPath) {
+            var directryPath = documentPath.stringByAppendingPathComponent("\(userId)")
+            fileManager.createDirectoryAtPath(directryPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+        }
+        
+        db = FMDatabase(path: dbPath)
+        dbQueue = FMDatabaseQueue(path: dbPath)
+        
+        chatMessageDaoHelper = ChatMessageDaoHelper(db: db, dbQueue: dbQueue)
+        metaDataDaoHelper = MetaDataDaoHelper(db: db)
+        frendDaoHelper = FrendDaoHelper(db: db, dbQueue: dbQueue)
+        conversationHelper = ConversationDaoHelper(db: db, dbQueue: dbQueue)
     }
     
     private func openDB() -> Bool {

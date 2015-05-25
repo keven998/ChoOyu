@@ -536,7 +536,6 @@
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
     } else {
-        NSLog(@"height: %f", [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj]);
         return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
     }
 }

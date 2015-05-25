@@ -21,8 +21,6 @@ enum MessageReceiveDelegateRoutingKey: Int {
     optional func receiveNewMessage(message: BaseMessage)
 }
 
-private let messageReceiveManager = MessageReceiveManager()
-
 class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDelegate, MessageManagerDelegate {
     
     private let messageReceiveQueue = dispatch_queue_create("messageReceiveQueue", nil)
@@ -31,14 +29,10 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private var receiveDelegateList: Array<[MessageReceiveDelegateRoutingKey: MessageReceiveManagerDelegate]> = Array()
     
     let pushSDKManager = PushSDKManager.shareInstance()
-    let messagePool = MessageReceivePool.shareInstance()
+    let messagePool = MessageReceivePool()
     let messageManager = MessageManager.shareInsatance()
     
     private var receiveMessageList: NSDictionary?
-
-    class func shareInstance() -> MessageReceiveManager {
-        return messageReceiveManager
-    }
     
     override init() {
         super.init()

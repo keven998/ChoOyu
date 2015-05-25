@@ -85,7 +85,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
     func createFrendTable() {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "create table '\(frendTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, NickName TEXT, Avatar Text, AvatarSmall Text, ShortPY Text, FullPY Text, Signature Text, Memo Text, Sex INTEGER, Type INTEGER, ExtData Text)"
-            if (super.dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
+            if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
                 println("success 执行 sql 语句：\(sql)")
                 
             } else {

@@ -24,16 +24,9 @@ import AVFoundation
     optional func messageHasSended(message: BaseMessage)
 }
 
-
-private let messageSendManager = MessageSendManager()
-
 class MessageSendManager: NSObject {
     
     private var sendDelegateList: Array<MessageSendManagerDelegate> = Array()
-    
-    class func shareInstance() -> MessageSendManager {
-        return messageSendManager
-    }
     
     /**
     注册消息的监听

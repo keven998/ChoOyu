@@ -70,16 +70,11 @@ enum CMDMessageRoutingKey: Int {
     
 }
 
-private let manager = CMDMessageManager()
 
 class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     
     private var listenerQueue: Array<[CMDMessageRoutingKey: CMDMessageManager]> = Array()
     
-    class func shareInstance() -> CMDMessageManager {
-        return manager
-    }
-
     /**
     注册消息的监听
     

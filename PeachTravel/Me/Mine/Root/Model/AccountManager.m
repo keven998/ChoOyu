@@ -170,6 +170,7 @@
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
     IMClientManager *manager = [IMClientManager shareInstance];
+    [manager userDidLogin];
     [manager.connectionManager login:_account.userId.intValue password:@""];
 }
 

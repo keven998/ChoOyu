@@ -38,7 +38,9 @@ class MessageManager: NSObject {
         var daoHelper = DaoHelper.shareInstance()
         allLastMessageList = daoHelper.selectAllLastServerChatMessageInDB().mutableCopy() as! NSMutableDictionary
         super.init()
-        self.startTimer()
+        if (AccountManager.shareAccountManager().isLogin()) {
+            self.startTimer2ACK()
+        }
     }
     
     func updateLastServerMessage(message: BaseMessage) {
@@ -60,7 +62,13 @@ class MessageManager: NSObject {
     }
     
     func ackMessageWhenTimeout() {
-        self.shouldACK()
+        if AccountManager.shareAccountManager().isLogin() {
+            self.shouldACK()
+            
+        } else {
+            self.stopTimer()
+            
+        }
     }
 
     /**
@@ -229,14 +237,21 @@ class MessageManager: NSObject {
         }
         return message
     }
-       
-//MARK: private methods
     
-    private func startTimer() {
+    func startTimer2ACK() {
         timer = NSTimer.scheduledTimerWithTimeInterval(ACKTime, target: self, selector: Selector("ackMessageWhenTimeout"), userInfo: nil, repeats: true)
         println("********ACK 的定时器开始启动了*******")
     }
     
+    func stopTimer() {
+        if timer.valid {
+            timer.invalidate()
+            timer = nil
+        }
+    }
+    
+    //MARK: private methods
+
     private class func messageModelWithMessageDic(messageDic: NSDictionary) -> BaseMessage? {
         var messageModel: BaseMessage?
         if let messageTypeInteger = messageDic.objectForKey("msgType")?.integerValue {
