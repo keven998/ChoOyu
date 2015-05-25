@@ -358,9 +358,31 @@
                 }
                     break;
                     
-                case IMMessageTypeGuideMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeCityPoiMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
+                case IMMessageTypeGuideMessageType:
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMGuideMessage *)lastMessage).guideId];
 
-                    ret = [NSString stringWithFormat:@"%@:[链接]测试的链接", nickName];
+                    break;
+                case IMMessageTypeTravelNoteMessageType:
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMTravelNoteMessage *)lastMessage).travelNoteId];
+
+                    break;
+                case IMMessageTypeSpotMessageType:
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMSpotMessage *)lastMessage).spotName];
+
+                    break;
+                case IMMessageTypeCityPoiMessageType:
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMCityMessage *)lastMessage).poiName];
+
+                    break;
+                case IMMessageTypeRestaurantMessageType:
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMRestaurantMessage *)lastMessage).poiName];
+
+                    break;
+                case IMMessageTypeHotelMessageType:
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMHotelMessage *)lastMessage).poiName];
+                    break;
+                case IMMessageTypeShoppingMessageType: {
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMShoppingMessage *)lastMessage).poiName];
                 }
                     break;
                     
@@ -400,11 +422,34 @@
                 }
                     break;
                     
-                case IMMessageTypeGuideMessageType: case IMMessageTypeTravelNoteMessageType: case IMMessageTypeSpotMessageType: case IMMessageTypeCityPoiMessageType: case IMMessageTypeRestaurantMessageType: case IMMessageTypeHotelMessageType: case IMMessageTypeShoppingMessageType: {
+                case IMMessageTypeGuideMessageType:
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMGuideMessage *)lastMessage).guideId];
                     
-                    ret = [NSString stringWithFormat:@"[链接]测试的链接"];
+                    break;
+                case IMMessageTypeTravelNoteMessageType:
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMTravelNoteMessage *)lastMessage).travelNoteId];
+                    
+                    break;
+                case IMMessageTypeSpotMessageType:
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMSpotMessage *)lastMessage).spotName];
+                    
+                    break;
+                case IMMessageTypeCityPoiMessageType:
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMCityMessage *)lastMessage).poiName];
+                    
+                    break;
+                case IMMessageTypeRestaurantMessageType:
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMRestaurantMessage *)lastMessage).poiName];
+                    
+                    break;
+                case IMMessageTypeHotelMessageType:
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMHotelMessage *)lastMessage).poiName];
+                    break;
+                case IMMessageTypeShoppingMessageType: {
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMShoppingMessage *)lastMessage).poiName];
                 }
                     break;
+
                     
                     
                 case IMMessageTypeAudioMessageType:{
