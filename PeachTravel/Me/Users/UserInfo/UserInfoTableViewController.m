@@ -327,6 +327,13 @@
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
                   [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
+                  
+                  AlbumImage *image = [[AlbumImage alloc] init];
+                  image.imageId = [resp objectForKey:@"id"];
+                  image.image.imageUrl = [resp objectForKey:@"url"];
+                  NSMutableArray *mutableArray = [self.accountManager.accountDetail.userAlbum mutableCopy];
+                  [mutableArray addObject:image];
+                  self.accountManager.accountDetail.userAlbum = mutableArray;
                   [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
                   
               } option:opt];
