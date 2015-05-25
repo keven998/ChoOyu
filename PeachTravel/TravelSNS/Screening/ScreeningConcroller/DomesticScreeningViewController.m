@@ -36,8 +36,10 @@
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    TZProgressHUD *hud = [[TZProgressHUD alloc]init];
-    [hud showHUD];
+    __weak typeof(self)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+
     NSString *urlStr = [NSString stringWithFormat:@"%@?abroad=true",API_GET_SCREENING];
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
