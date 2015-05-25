@@ -14,6 +14,8 @@ protocol ChatMessageDaoHelperProtocol{
     func createChatTable(tableName: String)
     func insertChatMessage(tableName: String, message:BaseMessage)
     
+    func deleteChatMessage(tableName: String, localId: Int)
+    
     func insertChatMessageList(messageList: Array<BaseMessage>)
     
     func updateMessageInDB(tableName: String, message:BaseMessage)
@@ -32,6 +34,7 @@ protocol ChatMessageDaoHelperProtocol{
     :returns:
     */
     func selectAllLastServerChatMessageInDB() -> NSDictionary
+    
     
     /**
     某个聊天中最后一条服务器的聊天记录
@@ -59,7 +62,8 @@ protocol ChatMessageDaoHelperProtocol{
     */
     func messageIsExitInTable(tableName: String, message: BaseMessage) -> Bool
     
-    func updateMessageContents(tableName: String, message: BaseMessage) 
+    func updateMessageContents(tableName: String, message: BaseMessage)
+    
 }
 
 class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
@@ -90,6 +94,17 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "create table '\(tableName)' (LocalId INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, ServerId INTEGER, Status int(4), Type int(4), Message TEXT, CreateTime INTEGER, SendType int, SenderId int)"
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
+                println("success 执行 sql 语句：\(sql)")
+            } else {
+                println("error 执行 sql 语句：\(sql)")
+            }
+        }
+    }
+    
+    func deleteChatMessage(tableName: String, localId: Int) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            var sql = "delete from '\(tableName)' where LocalId = ?"
+            if (dataBase.executeUpdate(sql, withArgumentsInArray: [localId])) {
                 println("success 执行 sql 语句：\(sql)")
             } else {
                 println("error 执行 sql 语句：\(sql)")

@@ -998,27 +998,27 @@
 
 - (void)deleteMenuAction:(id)sender
 {
-//    if (_longPressIndexPath && _longPressIndexPath.row > 0) {
-//        MessageModel *model = [self.dataSource objectAtIndex:_longPressIndexPath.row];
-//        NSMutableArray *messages = [NSMutableArray arrayWithObjects:model, nil];
-//        [_conversation removeMessage:model.message];
-//        NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:_longPressIndexPath, nil];;
-//        if (_longPressIndexPath.row - 1 >= 0) {
-//            id nextMessage = nil;
-//            id prevMessage = [self.dataSource objectAtIndex:(_longPressIndexPath.row - 1)];
-//            if (_longPressIndexPath.row + 1 < [self.dataSource count]) {
-//                nextMessage = [self.dataSource objectAtIndex:(_longPressIndexPath.row + 1)];
-//            }
-//            if ((!nextMessage || [nextMessage isKindOfClass:[NSString class]]) && [prevMessage isKindOfClass:[NSString class]]) {
-//                [messages addObject:prevMessage];
-//                [indexPaths addObject:[NSIndexPath indexPathForRow:(_longPressIndexPath.row - 1) inSection:0]];
-//            }
-//        }
-//        [self.dataSource removeObjectsInArray:messages];
-//        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-//    }
-//    
-//    _longPressIndexPath = nil;
+    if (_longPressIndexPath && _longPressIndexPath.row > 0) {
+        MessageModel *model = [self.dataSource objectAtIndex:_longPressIndexPath.row];
+        NSMutableArray *messages = [NSMutableArray arrayWithObjects:model, nil];
+        [_conversation deleteMessageWithLocalId:model.baseMessage.localId];
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithObjects:_longPressIndexPath, nil];;
+        if (_longPressIndexPath.row - 1 >= 0) {
+            id nextMessage = nil;
+            id prevMessage = [self.dataSource objectAtIndex:(_longPressIndexPath.row - 1)];
+            if (_longPressIndexPath.row + 1 < [self.dataSource count]) {
+                nextMessage = [self.dataSource objectAtIndex:(_longPressIndexPath.row + 1)];
+            }
+            if ((!nextMessage || [nextMessage isKindOfClass:[NSString class]]) && [prevMessage isKindOfClass:[NSString class]]) {
+                [messages addObject:prevMessage];
+                [indexPaths addObject:[NSIndexPath indexPathForRow:(_longPressIndexPath.row - 1) inSection:0]];
+            }
+        }
+        [self.dataSource removeObjectsInArray:messages];
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+    _longPressIndexPath = nil;
 }
 
 #pragma mark - private

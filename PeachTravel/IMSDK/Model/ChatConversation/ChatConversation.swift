@@ -127,6 +127,16 @@ class ChatConversation: NSObject {
     
 //MARK: public Internal function
     
+    func deleteMessage(#localId: Int) {
+        for (index, value) in enumerate(self.chatMessageList) {
+            if value.localId == localId {
+                self.chatMessageList.removeAtIndex(index)
+            }
+        }
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.deleteChatMessage("chat_\(chatterId)", localId: localId)
+    }
+    
     /**
     添加收到的消息到消息列表中
     :param: messageList
