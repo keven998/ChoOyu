@@ -236,14 +236,8 @@ public class DaoHelper:NSObject {
     }
     
     func getAllConversationList() -> Array<ChatConversation> {
-        if self.openDB() {
-            var retArray = conversationHelper.getAllCoversation()
-            self.closeDB()
-            return retArray
-            
-        } else {
-            return Array()
-        }
+        var retArray = conversationHelper.getAllCoversation()
+        return retArray
     }
     
     func removeConversationfromDB(chatterId: Int) {

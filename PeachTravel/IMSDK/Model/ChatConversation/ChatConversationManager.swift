@@ -73,6 +73,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         var time = NSDate().timeIntervalSince1970
         var timeInt: Int = Int(round(time))
         conversation.lastUpdateTime = timeInt
+        
+        var frendManager = FrendManager()
+        if let frend = frendManager.getFrendInfoFromDB(userId: chatterId) {
+            conversation.fillConversationType(frendType: frend.type)
+            conversation.chatterAvatar = frend.avatarSmall
+            conversation.chatterName = frend.nickName
+        }
         return conversation
     }
     
