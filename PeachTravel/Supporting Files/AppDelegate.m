@@ -108,6 +108,11 @@
     return  result;
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [self lvApplicationDidBecomeActive:application];
+}
+
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [self saveContext];

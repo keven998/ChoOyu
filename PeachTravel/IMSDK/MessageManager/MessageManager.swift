@@ -239,6 +239,9 @@ class MessageManager: NSObject {
     }
     
     func startTimer2ACK() {
+        if timer != nil {
+            return
+        }
         timer = NSTimer.scheduledTimerWithTimeInterval(ACKTime, target: self, selector: Selector("ackMessageWhenTimeout"), userInfo: nil, repeats: true)
         println("********ACK 的定时器开始启动了*******")
     }
