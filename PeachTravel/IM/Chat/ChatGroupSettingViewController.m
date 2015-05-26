@@ -246,7 +246,9 @@
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] title:@"移出"];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"移除"];
+    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 2)];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor] attributedTitle:attr];
     return rightUtilityButtons;
 }
 
