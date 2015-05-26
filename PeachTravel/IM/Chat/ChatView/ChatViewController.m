@@ -1192,7 +1192,6 @@
 
 - (void)exitGroup
 {
-    [self.navigationController popToViewController:self animated:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
