@@ -559,7 +559,13 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     poiSearchCtl.tripDetail = _tripDetail;
     poiSearchCtl.cityId = _cityId;
     poiSearchCtl.zhName = _zhName;
-    [self.navigationController pushViewController:poiSearchCtl animated:YES];
+    [poiSearchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:poiSearchCtl];
+    
+    [self presentViewController:tznavc animated:YES completion:^{
+        
+    }];
+
 }
 
 - (IBAction)jumpToMapView:(UIButton *)sender
