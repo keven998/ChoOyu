@@ -296,8 +296,8 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     //获取一个会话的详细信息
     private func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(frendModel: FrendModel?) -> ()) {
         var frend = FrendModel()
-        frend.userId = 101
-        frend.nickName = "新用户"
+        frend.userId = conversation.chatterId
+        frend.nickName = conversation.chatterName
         frend.type = IMFrendType.Frend
         completion(frendModel: frend)
     }

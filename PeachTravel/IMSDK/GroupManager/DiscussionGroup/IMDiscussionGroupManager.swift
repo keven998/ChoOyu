@@ -56,6 +56,7 @@ class IMDiscussionGroupManager: NSObject {
         NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
+                group.subject = "测试群组"
                 var frendManager = FrendManager()
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 completionBlock(isSuccess: true, errorCode: errorCode, discussionGroup: group)

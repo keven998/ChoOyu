@@ -510,7 +510,7 @@
         cell.name = tzConversation.chatterName;
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
     } else{
-        
+        cell.imageView.image = [UIImage imageNamed:@"avatar_placeholder.png"];
         cell.name = tzConversation.chatterName;
     }
     

@@ -160,35 +160,19 @@
             [self showHudInView:self.view hint:@"创建群组..."];
             
             NSMutableArray *source = [NSMutableArray array];
-            for (Contact *buddy in self.selectedContacts) {
-                [source addObject:buddy.easemobUser];
+            for (FrendModel *buddy in self.selectedContacts) {
+                [source addObject:[NSNumber numberWithInteger:buddy.userId]];
             }
             
-            Contact *firstContact = [self.selectedContacts firstObject];
-            Contact *secondContact = [self.selectedContacts objectAtIndex:1];
-            NSString *groupName = [NSString stringWithFormat:@"%@,%@",firstContact.nickName, secondContact.nickName];
-
-            EMGroupStyleSetting *setting = [[EMGroupStyleSetting alloc] init];
-            setting.groupStyle = eGroupStyle_PrivateMemberCanInvite;
-            
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            NSString *messageStr = [NSString stringWithFormat:@"%@ 邀请你加入群组\'%@\'", accountManager.account.nickName, groupName];
-            __weak CreateConversationViewController *weakSelf = self;
-            
-            [[EaseMob sharedInstance].chatManager asyncCreateGroupWithSubject:groupName description:@"" invitees:source initialWelcomeMessage:messageStr styleSetting:setting completion:^(EMGroup *group, EMError *error) {
-                [weakSelf hideHud];
-                if (group && !error) {
-                    [[EaseMob sharedInstance].chatManager setApnsNickname:groupName];
-                    [weakSelf sendMsgWhileCreateGroup:group.groupId];
-                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
-                        [_delegate createConversationSuccessWithChatter:1000 chatType:IMChatTypeIMChatGroupType chatTitle:group.groupSubject];
-                    }
-                    
+            IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
+            [discussionGroupManager asyncCreateDiscussionGroup:source completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
+                FrendModel *model = self.selectedContacts.firstObject;
+                NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
+                discussionGroup.subject = groupSubjct;
+                if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+                    [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
                 }
-                else{
-                    [weakSelf showHint:@"吖~好像请求失败了"];
-                }
-            } onQueue:nil];
+            }];
         }
     }
 }
