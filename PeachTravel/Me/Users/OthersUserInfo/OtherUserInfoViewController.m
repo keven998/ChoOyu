@@ -13,9 +13,10 @@
 #import "OthersAlbumCell.h"
 #import "TraceViewController.h"
 #import "ChatViewController.h"
-
+#import "ChatSettingViewController.h"
 #import "AccountModel.h"
 #import "UIBarButtonItem+MJ.h"
+#import "REFrostedViewController.h"
 
 @interface OtherUserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -258,7 +259,16 @@
             break;
         }
     }
-    [self.navigationController pushViewController:chatCtl animated:YES];
+    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.resumeNavigationBar = NO;
+    frostedViewController.limitMenuViewSize = YES;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 //    [self presentViewController:chatCtl animated:YES completion:nil];
 }
 
@@ -454,6 +464,7 @@
 }
 
 - (void) loadUserProfile:(NSNumber *)userId {
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
