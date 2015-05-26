@@ -341,7 +341,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)unreadMessageCountHasChange:(NSInteger)unreadCount
 {
     UITabBarItem *item = [self.tabBar.items firstObject];
-    item.badgeValue = [NSString stringWithFormat:@"%ld", unreadCount];
+    if (unreadCount == 0) {
+        item.badgeValue = nil;
+    } else {
+        item.badgeValue = [NSString stringWithFormat:@"%ld", unreadCount];
+    }
 }
 
 

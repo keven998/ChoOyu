@@ -77,7 +77,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
-    [_delegate unreadMessageCountHasChange:self.imClientManager.conversationManager.totalMessageUnreadCount];
 }
 
 -(void)viewWillAppear:(BOOL)animated
