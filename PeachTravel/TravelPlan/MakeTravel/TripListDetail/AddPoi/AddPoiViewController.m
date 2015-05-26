@@ -16,7 +16,7 @@
 #import "SelectionTableViewController.h"
 #import "FilterViewController.h"
 #import "PoisOfCityViewController.h"
-
+#import "PoisSearchViewController.h"
 enum {
     FILTER_TYPE_CITY = 1,
     FILTER_TYPE_CATE
@@ -101,7 +101,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         btn.imagePosition = IMAGE_AT_RIGHT;
         UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
         UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn, sbtn, nil];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:cbtn,sbtn, nil];
         
         CityDestinationPoi *firstDestination = [_tripDetail.destinations firstObject];
         _cityName = firstDestination.zhName;
@@ -118,8 +118,10 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 45)];
     _searchBar.delegate = self;
-    self.tableView.tableHeaderView = _searchBar;
-    
+//    self.tableView.tableHeaderView = _searchBar;
+//    self.navigationItem.titleView = _searchBar;
+    UIImage *img = [[UIImage imageNamed:@"ic_searchBar_background"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
+    [_searchBar setBackgroundImage:img];
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     [self.searchController.searchResultsTableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:addPoiCellIndentifier];
     self.searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -135,8 +137,9 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,firstDestination.cityId];
     } else {
         _requestUrl = [NSString stringWithFormat:@"%@%@", API_GET_SPOTLIST_CITY ,_cityId];
-
     }
+    
+    NSLog(@"%@",_requestUrl);
     [_tableView setContentOffset:CGPointMake(0, 45)];
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     
@@ -148,7 +151,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor grayColor]];
+    [self.selectPanel setBackgroundColor:[UIColor clearColor]];
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
     self.selectPanel.delegate = self;
@@ -156,6 +159,11 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
+    UIImageView *collectionBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49)];
+    collectionBg.image = [UIImage imageNamed:@"collectionBack"];
+    collectionBg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:collectionBg];
+    
     
     [self.view addSubview:_selectPanel];
 }
@@ -268,7 +276,20 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 #pragma mark - IBAction Methods
 
 - (void)beginSearch {
-    [_searchBar becomeFirstResponder];
+//    [_searchBar becomeFirstResponder];
+    PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
+    
+    searchCtl.cityId = poi.cityId;
+    searchCtl.tripDetail = _tripDetail;
+    searchCtl.poiType = kSpotPoi;
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    
+    [self presentViewController:tznavc animated:YES completion:^{
+        
+    }];
+
 }
 
 - (IBAction)addFinish:(id)sender
@@ -550,7 +571,8 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
                     [self.searchResultArray addObject:poi];
                 }
                 [self.searchController.searchResultsTableView reloadData];
-                _currentPageSearch = pageNo;
+                _currentPageSearch = pageNo;    
+                [self.tableView reloadData];
             } else {
                 if (self.isShowing) {
                     [SVProgressHUD showHint:[NSString stringWithFormat:@"%@",[[responseObject objectForKey:@"err"] objectForKey:@"message"]]];
@@ -637,9 +659,9 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         case kSpotPoi: {
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.spotId = tripPoi.poiId;
-//            [self addChildViewController:spotDetailCtl];
-//            [self.view addSubview:spotDetailCtl.view];
+            
             [self.navigationController pushViewController:spotDetailCtl animated:YES];
+            
         }
             break;
         default: {
@@ -654,48 +676,62 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 
 #pragma mark - SearchBarDelegate
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-//    [_searchBar resignFirstResponder];
-    [self.searchResultArray removeAllObjects];
-    _searchText = nil;
-}
+//- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+//{
+////    [_searchBar resignFirstResponder];
+//    [self.searchResultArray removeAllObjects];
+//    _searchText = nil;
+//}
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    PoisSearchViewController *searchCtl = [[PoisSearchViewController alloc] init];
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    CityDestinationPoi *poi = [self.tripDetail.destinations objectAtIndex:_currentCityIndex];
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    _currentPageSearch = 0;
-    _searchText = searchBar.text;
-    [self loadSearchDataWithPageNo:_currentPageSearch];
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
-{
-    _isLoadingMoreSearch = YES;
-    _didEndScrollSearch = YES;
-    _enableLoadMoreSearch = NO;
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
-{
-    [self.searchResultArray removeAllObjects];
-    [self.searchController.searchResultsTableView reloadData];
-    [self.tableView reloadData];
-}
-
--(BOOL)searchDisplayController:(UISearchDisplayController *)controlle shouldReloadTableForSearchString:(NSString *)searchString {
+    searchCtl.cityId = poi.cityId;
+    searchCtl.tripDetail = _tripDetail;
+    searchCtl.poiType = kSpotPoi;
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        for (UIView* v in _searchController.searchResultsTableView.subviews) {
-            if ([v isKindOfClass: [UILabel class]] &&
-                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
-                ((UILabel *)v).text = @"";
-                break;
-            }
-        }
-    });
-    return YES;
+    [self presentViewController:tznavc animated:YES completion:^{
+
+    }];
+    return NO;
 }
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+//{
+//    _currentPageSearch = 0;
+//    _searchText = searchBar.text;
+//    [self loadSearchDataWithPageNo:_currentPageSearch];
+//}
+//
+//- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
+//{
+//    _isLoadingMoreSearch = YES;
+//    _didEndScrollSearch = YES;
+//    _enableLoadMoreSearch = NO;
+//}
+//
+//- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+//{
+//    [self.searchResultArray removeAllObjects];
+//    [self.searchController.searchResultsTableView reloadData];
+//    [self.tableView reloadData];
+//}
+//
+//-(BOOL)searchDisplayController:(UISearchDisplayController *)controlle shouldReloadTableForSearchString:(NSString *)searchString {
+//    
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.001);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        for (UIView* v in _searchController.searchResultsTableView.subviews) {
+//            if ([v isKindOfClass: [UILabel class]] &&
+//                ([[(UILabel*)v text] isEqualToString:@"No Results"] || [[(UILabel*)v text] isEqualToString:@"无结果"]) ) {
+//                ((UILabel *)v).text = @"";
+//                break;
+//            }
+//        }
+//    });
+//    return YES;
+//}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -839,6 +875,12 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    NSArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    SuperPoi *tripPoi = [oneDayArray objectAtIndex:indexPath.row];
+    SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
+    spotDetailCtl.spotId = tripPoi.poiId;
+    
+    [self.navigationController pushViewController:spotDetailCtl animated:YES];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

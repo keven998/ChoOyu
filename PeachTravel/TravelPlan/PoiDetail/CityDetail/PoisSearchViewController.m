@@ -15,7 +15,7 @@
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "SpotDetailViewController.h"
-@interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
@@ -33,15 +33,16 @@
     _dataArray = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [TaoziSearchBar searchBar];
+    _searchBar.delegate = self;
     _searchBar.frame = CGRectMake(0, 0, SCREEN_WIDTH-50, 30);
     [_searchBar becomeFirstResponder];
     _currentPageSearch = 0;
     self.navigationItem.titleView = _searchBar;
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch:)];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
-    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+//    self.navigationItem.leftBarButtonItem = leftBarBtn;
     
     
     if (_poiType == kRestaurantPoi) {
@@ -96,17 +97,18 @@
         case kShoppingPoi:
             [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
             break;
+        case kSpotPoi:
+            [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
+            break;
         default:
             break;
     }
-    
     [params setObject:_cityId forKey:@"locId"];
     [params safeSetObject:_searchText forKey:@"keyWord"];
-    
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSLog(@"%@^-^-^",responseObject);
+//        NSLog(@"%@^-^-^",responseObject);
         NSString *key = nil;
         switch (_poiType) {
             case kRestaurantPoi:
@@ -115,7 +117,9 @@
             case kShoppingPoi:
                 key = @"shopping";
                 break;
-                
+            case kSpotPoi:
+                key = @"vs";
+                break;
             default:
                 break;
         }
@@ -131,11 +135,18 @@
         
     }];
 }
+
 - (void) beginLoadingSearch
 {
     [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
+    
 }
-
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField*)theTextField {
+    [theTextField resignFirstResponder];
+    [self beginSearch:nil];
+    return YES;
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
@@ -201,7 +212,8 @@
 }
 -(void)goback
 {
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)beginSearch:(id)sender;
 {

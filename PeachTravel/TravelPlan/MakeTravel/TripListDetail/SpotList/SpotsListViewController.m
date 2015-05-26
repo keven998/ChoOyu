@@ -23,7 +23,9 @@
 #import "REFrostedViewController.h"
 
 @interface SpotsListViewController () <UITableViewDataSource, UITableViewDelegate, addPoiDelegate>
-
+{
+    NSMutableArray *_cityArray;
+}
 @property (strong, nonatomic) UITableView *tableView;
 
 @end
@@ -35,6 +37,8 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _cityArray = [NSMutableArray array];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"TripPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:tripPoiListReusableIdentifier];
@@ -99,6 +103,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     AddPoiViewController *addPoiCtl = [[AddPoiViewController alloc] init];
     addPoiCtl.tripDetail = self.tripDetail;
     addPoiCtl.delegate = self;
+    addPoiCtl.cityId = _cityArray[day];
     addPoiCtl.shouldEdit = YES;
     addPoiCtl.currentDayIndex = day;
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:addPoiCtl];
@@ -261,6 +266,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     for (SuperPoi *tripPoi in [_tripDetail.itineraryList objectAtIndex:section]) {
         if (tripPoi.locality.zhName) {
             [set addObject:tripPoi.locality.zhName];
+            [_cityArray addObject:tripPoi.locality.cityId];
         }
     }
     
