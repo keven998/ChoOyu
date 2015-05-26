@@ -27,11 +27,8 @@ class NetworkTransportAPI: NSObject {
     */
     class func asyncSendMessage(message: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
-        
         let requestSerializer = AFJSONRequestSerializer()
-        
         manager.requestSerializer = requestSerializer
-
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
@@ -61,9 +58,7 @@ class NetworkTransportAPI: NSObject {
     */
     class func asyncPOST(#requstUrl: String, parameters: NSDictionary, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
-        
         let requestSerializer = AFJSONRequestSerializer()
-        
         manager.requestSerializer = requestSerializer
         var accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
@@ -93,9 +88,7 @@ class NetworkTransportAPI: NSObject {
     */
     class func asyncGET(#requestUrl: String, parameters: NSDictionary?, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: AnyObject?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
-        
         let requestSerializer = AFJSONRequestSerializer()
-        
         manager.requestSerializer = requestSerializer
         var accountManager = AccountManager.shareAccountManager()
         manager.requestSerializer.setValue("\(accountManager.account.userId)", forHTTPHeaderField: "UserId")
@@ -126,13 +119,9 @@ class NetworkTransportAPI: NSObject {
     */
     class func asyncACKMessage(userId: Int, shouldACKMessageList: Array<String>, completionBlock: (isSuccess: Bool, errorCode: Int, retMessage: NSArray?) -> ()) {
         let manager = AFHTTPRequestOperationManager()
-        
         println("开始执行 ACK 接口")
-        
         let requestSerializer = AFJSONRequestSerializer()
-        
         manager.requestSerializer = requestSerializer
-        
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
