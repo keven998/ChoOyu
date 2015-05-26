@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64)];
+    _mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 49)];
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_mapView];
     _mapView.mapType = MKMapTypeStandard;
@@ -65,7 +65,7 @@
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
+    [self.selectPanel setBackgroundColor:[UIColor clearColor]];
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
@@ -74,6 +74,12 @@
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[CityCell class] forCellWithReuseIdentifier:@"city_cell"];
+    
+    UIImageView *collectionBg = [[UIImageView alloc]initWithFrame:self.selectPanel.frame];
+    collectionBg.image = [UIImage imageNamed:@"collectionBack"];
+    collectionBg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:collectionBg];
+    
     [self.view addSubview:_selectPanel];
 }
 
@@ -117,6 +123,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     
     SuperPoi *pb = [_citys objectAtIndex:indexPath.row];
     cell.textView.text = pb.zhName;
+    cell.textView.textColor = [UIColor whiteColor];
     CGSize size = [pb.zhName sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
     return cell;
