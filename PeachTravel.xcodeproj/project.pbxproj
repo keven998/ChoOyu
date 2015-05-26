@@ -47,6 +47,7 @@
 		27951B721AF86C46004D69BE /* PicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27951B701AF86C46004D69BE /* PicCell.xib */; };
 		279CAF6B1B131DE500A52465 /* ic_good@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 279CAF6A1B131DE500A52465 /* ic_good@2x.png */; };
 		279CAF6D1B13249300A52465 /* ic_group_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 279CAF6C1B13249300A52465 /* ic_group_placeholder@2x.png */; };
+		279CAF701B145A5500A52465 /* UIImage+resized.m in Sources */ = {isa = PBXBuildFile; fileRef = 279CAF6F1B145A5500A52465 /* UIImage+resized.m */; };
 		27B9FAB01AFB284300EEBF07 /* ic_nrq_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B9FAA81AFB284300EEBF07 /* ic_nrq_1@2x.png */; };
 		27B9FAB11AFB284300EEBF07 /* ic_nrq_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B9FAA91AFB284300EEBF07 /* ic_nrq_2@2x.png */; };
 		27B9FAB21AFB284300EEBF07 /* ic_nrq_food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B9FAAA1AFB284300EEBF07 /* ic_nrq_food@2x.png */; };
@@ -926,6 +927,8 @@
 		27951B701AF86C46004D69BE /* PicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicCell.xib; sourceTree = "<group>"; };
 		279CAF6A1B131DE500A52465 /* ic_good@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_good@2x.png"; sourceTree = "<group>"; };
 		279CAF6C1B13249300A52465 /* ic_group_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_placeholder@2x.png"; sourceTree = "<group>"; };
+		279CAF6E1B145A5500A52465 /* UIImage+resized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+resized.h"; path = "../Common/TaoziSearchbar/UIImage+resized.h"; sourceTree = "<group>"; };
+		279CAF6F1B145A5500A52465 /* UIImage+resized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+resized.m"; path = "../Common/TaoziSearchbar/UIImage+resized.m"; sourceTree = "<group>"; };
 		27B9FAA81AFB284300EEBF07 /* ic_nrq_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nrq_1@2x.png"; sourceTree = "<group>"; };
 		27B9FAA91AFB284300EEBF07 /* ic_nrq_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nrq_2@2x.png"; sourceTree = "<group>"; };
 		27B9FAAA1AFB284300EEBF07 /* ic_nrq_food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nrq_food@2x.png"; sourceTree = "<group>"; };
@@ -3719,6 +3722,8 @@
 				D9A802411A80E3D3005AD701 /* NSDate+Category.m */,
 				D9A802421A80E3D3005AD701 /* NSDateFormatter+Category.h */,
 				D9A802431A80E3D3005AD701 /* NSDateFormatter+Category.m */,
+				279CAF6E1B145A5500A52465 /* UIImage+resized.h */,
+				279CAF6F1B145A5500A52465 /* UIImage+resized.m */,
 				D9A802441A80E3D3005AD701 /* NSMutableDictionary+MyDictionary.h */,
 				D9A802451A80E3D3005AD701 /* NSMutableDictionary+MyDictionary.m */,
 				D9A802461A80E3D3005AD701 /* NSString+TaoziString.h */,
@@ -6004,6 +6009,7 @@
 				C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */,
 				D9A8001C1A80D52F005AD701 /* DomesticViewController.m in Sources */,
 				D92CA0B61AD8BDD400F244FF /* DACircularProgressView.m in Sources */,
+				279CAF701B145A5500A52465 /* UIImage+resized.m in Sources */,
 				D9A802B01A80E3D3005AD701 /* NSDate+Category.m in Sources */,
 				D9A802221A80E036005AD701 /* MJPhotoView.m in Sources */,
 				D92CA1061AD8BDF900F244FF /* PSTGridLayoutInfo.m in Sources */,
