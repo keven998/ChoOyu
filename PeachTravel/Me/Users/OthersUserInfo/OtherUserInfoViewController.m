@@ -210,7 +210,7 @@
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isMyFrend:(NSNumber *)_userId]) {
+    if ([accountManager isMyFrend:_userId]) {
         UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
         [addFriend setTitle:@"开始聊天" forState:UIControlStateNormal];
         [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
