@@ -15,6 +15,7 @@
 #import "ShoppingDetailViewController.h"
 #import "HotelDetailViewController.h"
 #import "SpotDetailViewController.h"
+
 @interface PoisSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     UITableView *_tableView;
@@ -41,8 +42,8 @@
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
-//    self.navigationItem.leftBarButtonItem = leftBarBtn;
+    //    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+    //    self.navigationItem.leftBarButtonItem = leftBarBtn;
     
     
     if (_poiType == kRestaurantPoi) {
@@ -108,7 +109,7 @@
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        NSLog(@"%@^-^-^",responseObject);
+        //        NSLog(@"%@^-^-^",responseObject);
         NSString *key = nil;
         switch (_poiType) {
             case kRestaurantPoi:
@@ -199,22 +200,77 @@
         [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         NSLog(@"%@", self.navigationController);
     }
-    if (_poiType == kShoppingPoi) {
+    else if (_poiType == kShoppingPoi) {
         CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
         shoppingDetailCtl.poiId = poi.poiId;
         [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
     }
+    else if (_poiType == kSpotPoi) {
+        SpotDetailViewController *spotDetail = [[SpotDetailViewController alloc]init];
+        spotDetail.spotId = poi.poiId;
+        [self.navigationController pushViewController:spotDetail animated:YES];
+    }
 }
+/**
+ *  添加一个 poi
+ *
+ *  @param sender
+ */
 - (IBAction)addPoi:(UIButton *)sender
 {
-    CommonPoiListTableViewCell *cell = (CommonPoiListTableViewCell *)[self.view viewWithTag:(sender.tag)];
+    CGPoint point;
+    NSIndexPath *indexPath;
+    CommonPoiListTableViewCell *cell;
+    
+    point = [sender convertPoint:CGPointZero toView:_tableView];
+    indexPath = [_tableView indexPathForRowAtPoint:point];
+    cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    
+    
+    SuperPoi *poi;
+        poi = [_dataArray objectAtIndex:sender.tag];
+    
+    if (!cell.cellAction.isSelected) {
+        [_seletedArray addObject:poi];
+        
+//        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
+//        [self.selectPanel performBatchUpdates:^{
+//            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+//        } completion:^(BOOL finished) {
+//            [self.selectPanel scrollToItemAtIndexPath:lnp
+//                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+//        }];
+    
+    } else {
+        int index = -1;
+        NSInteger count = _seletedArray.count;
+        for (int i = 0; i < count; ++i) {
+            SuperPoi *tripPoi = [_seletedArray objectAtIndex:i];
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                [_seletedArray removeObjectAtIndex:i];
+                index = i;
+                break;
+            }
+        }
+        
+        if (index != -1) {
+//            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+//            [self.selectPanel performBatchUpdates:^{
+//                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+//            } completion:^(BOOL finished) {
+//                [self.selectPanel reloadData];
+//            }];
+        }
+        
+    }
     cell.cellAction.selected = !cell.cellAction.selected;
 }
+
 -(void)goback
 {
-//    [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 -(void)beginSearch:(id)sender;
 {
     _searchText = _searchBar.text;

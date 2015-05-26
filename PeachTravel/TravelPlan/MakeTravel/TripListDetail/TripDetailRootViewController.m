@@ -719,6 +719,7 @@
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(width/3*i, 0, width/3, 50)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
+        
         [button setTitleEdgeInsets:UIEdgeInsetsMake(28, 0, 0, 0)];
         [array addObject:button];
         [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
