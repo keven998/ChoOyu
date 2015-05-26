@@ -256,7 +256,7 @@
 }
 - (void) talkToFriend {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:accountManager.account.easemobUser isGroup:NO];
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:_model.easemobUser isGroup:NO];
     chatCtl.title = accountManager.account.nickName;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     for (EMConversation *conversation in conversations) {
@@ -275,7 +275,6 @@
     frostedViewController.limitMenuViewSize = YES;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
-//    [self presentViewController:chatCtl animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
