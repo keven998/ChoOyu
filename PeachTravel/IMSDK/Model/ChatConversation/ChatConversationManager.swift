@@ -34,6 +34,16 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     private var conversationList: Array<ChatConversation>
     
+    var totalMessageUnreadCount: Int {
+        get {
+            var totalCount = 0
+            for conversation in conversationList {
+                totalCount += conversation.unReadMessageCount
+            }
+            return totalCount
+        }
+    }
+    
     var delegate: ChatConversationManagerDelegate?
         
     override init() {

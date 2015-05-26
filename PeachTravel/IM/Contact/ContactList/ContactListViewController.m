@@ -17,7 +17,6 @@
 #import "ConvertMethods.h"
 #import "MJNIndexView.h"
 #import "BaseTextSettingViewController.h"
-#import "TZConversation.h"
 #import "REFrostedViewController.h"
 #import "ChatSettingViewController.h"
 #import "OtherUserInfoViewController.h"

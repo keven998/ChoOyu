@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChatListViewController : TZViewController
+@protocol UnreadMessageCountChangeDelegate <NSObject>
 
-/**
- *  未读的聊天消息
- */
-@property (nonatomic) int numberOfUnReadChatMsg;
+- (void)unreadMessageCountHasChange:(NSInteger)unreadCount;
+
+@end
+
+@interface ChatListViewController : TZViewController
 
 /**
  *  链接状态
  */
 @property (nonatomic) IM_CONNECT_STATE IMState;
+
+@property (nonatomic, weak) id <UnreadMessageCountChangeDelegate> delegate;
 
 @end
 
