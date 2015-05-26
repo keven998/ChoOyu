@@ -298,7 +298,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         var frend = FrendModel()
         frend.userId = conversation.chatterId
         frend.nickName = conversation.chatterName
-        frend.type = IMFrendType.Frend
+        frend.type = IMFrendType.DiscussionGroup
         completion(frendModel: frend)
     }
     
