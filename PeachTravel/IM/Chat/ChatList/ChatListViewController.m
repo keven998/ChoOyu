@@ -84,7 +84,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_talk_lists"];
-    
+    [self refreshDataSource];
     [self updateNavigationTitleViewStatus];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -103,7 +103,7 @@
 
 - (void)userDidLogin
 {
-    [self.imClientManager.conversationManager updateConversationList];
+    [self.imClientManager.conversationManager updateConversationListFromDB];
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
 }
@@ -119,13 +119,18 @@
     }
 }
 
+- (void)refreshDataSource
+{
+    _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
+    [self.tableView reloadData];
+}
+
 #pragma mark - getter & setter
 
 - (AccountManager *)accountManager
 {
     if (!_accountManager) {
         _accountManager = [AccountManager shareAccountManager];
-
     }
     return _accountManager;
 }
@@ -567,11 +572,8 @@
 #pragma mark - ChatConversationManagerDelegate
 - (void)conversationsHaveAdded:(NSArray * __nonnull)conversationList
 {
-    IMClientManager *imClientManager = [IMClientManager shareInstance];
     NSLog(@"ChatConversationManagerDelegate - conversationListNeedUpdate");
-    _dataSource = [imClientManager.conversationManager.getConversationList mutableCopy];
-    
-    [self.tableView reloadData];
+    [self refreshDataSource];
 }
 
 - (void)conversationsHaveRemoved:(NSArray * __nonnull)conversationList
@@ -590,14 +592,7 @@
 
 - (void)conversationStatusHasChanged:(ChatConversation * __nonnull)conversation
 {
-    for (ChatConversation *oldConversation in _dataSource) {
-        if (oldConversation.chatterId == conversation.chatterId) {
-            NSInteger index = [_dataSource indexOfObject:oldConversation];
-            [_dataSource replaceObjectAtIndex:index withObject:conversation];
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            return;
-        }
-    }
+    [self refreshDataSource];
 }
 
 #pragma mark - CreateConversationDelegate

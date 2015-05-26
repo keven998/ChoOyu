@@ -92,7 +92,7 @@ class MessageSendManager: NSObject {
     */
     func sendTextMessage(message: String, receiver: Int, chatType:IMChatType, conversationId: String?) -> BaseMessage {
         var textMessage = TextMessage()
-        textMessage.createTime = Int(NSDate().timeIntervalSince1970)
+        textMessage.createTime = Int(NSDate().timeIntervalSince1970*1000)
         textMessage.status = IMMessageStatus.IMMessageSending
         textMessage.message = message
         textMessage.chatterId = receiver
@@ -189,7 +189,7 @@ class MessageSendManager: NSObject {
         var imageMessage = ImageMessage()
         imageMessage.chatterId = chatterId
         imageMessage.sendType = IMMessageSendType.MessageSendMine
-        imageMessage.createTime = Int(NSDate().timeIntervalSince1970)
+        imageMessage.createTime = Int(NSDate().timeIntervalSince1970*1000)
         imageMessage.status = IMMessageStatus.IMMessageSending
 
         var imageData = UIImageJPEGRepresentation(image, 1)
@@ -258,7 +258,7 @@ class MessageSendManager: NSObject {
         var audioMessage = AudioMessage()
         audioMessage.chatterId = chatterId
         audioMessage.sendType = IMMessageSendType.MessageSendMine
-        audioMessage.createTime = Int(NSDate().timeIntervalSince1970)
+        audioMessage.createTime = Int(NSDate().timeIntervalSince1970*1000)
         audioMessage.status = IMMessageStatus.IMMessageSending
         
         var metadataId = NSUUID().UUIDString

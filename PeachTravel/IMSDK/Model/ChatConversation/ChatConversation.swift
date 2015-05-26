@@ -146,7 +146,7 @@ class ChatConversation: NSObject {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             delegate?.receiverMessage?(message)
         })
-        self.lastUpdateTime = message.createTime
+        self.lastUpdateTime = Int(NSDate().timeIntervalSince1970*1000)
     }
     
     /**
@@ -221,6 +221,7 @@ class ChatConversation: NSObject {
     */
     func addSendingMessage(message: BaseMessage) {
         chatMessageList.append(message)
+        self.lastUpdateTime = message.createTime
     }
     
     /**

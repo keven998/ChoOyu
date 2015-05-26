@@ -43,12 +43,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     func getConversationList() -> NSArray {
         if conversationList.count < 1 {
-            self.updateConversationList()
+            self.updateConversationListFromDB()
         }
+        self.reorderConversationList()
         return conversationList
     }
     
-    func updateConversationList() {
+    func updateConversationListFromDB() {
         var daoHelper = DaoHelper.shareInstance()
         NSLog("****开始获取会话列表*****")
         conversationList = daoHelper.getAllConversationList()
@@ -62,6 +63,22 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             }
         }
         return false
+    }
+    
+    /**
+    将 conversationlist 重新排序
+    */
+    func reorderConversationList() {
+        sort(&conversationList, { (conversation1: ChatConversation, conversation2: ChatConversation) -> Bool in
+            if conversation1.isTopConversation && !conversation2.isTopConversation {
+                return true
+            } else if !conversation1.isTopConversation && conversation2.isTopConversation {
+                return false
+            } else {
+                return conversation1.lastUpdateTime >= conversation2.lastUpdateTime
+            }
+        })
+        
     }
 
     /**
