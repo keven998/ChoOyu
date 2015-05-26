@@ -124,7 +124,7 @@
 {
     [self addPaipaiContact];
     [self save];
-//    [self loadContactsFromServer];
+    [self loadContactsFromServer];
 }
 
 /**
