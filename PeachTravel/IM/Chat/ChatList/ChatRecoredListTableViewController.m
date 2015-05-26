@@ -235,7 +235,6 @@ static NSString *reusableChatRecordCell = @"chatRecordListCell";
         [self.navigationController pushViewController:createConversationCtl animated:YES];
     } else {
         EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-        Contact *chatPeople = [self.chattingPeople objectAtIndex:indexPath.row];
         if (!conversation.isGroup) {
 //            [_delegate createConversationSuccessWithChatter:chatPeople.easemobUser isGroup:NO chatTitle:chatPeople.nickName];
             

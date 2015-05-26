@@ -24,7 +24,7 @@
 #define contactCell      @"contactCell"
 #define requestCell      @"requestCell"
 
-@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MJNIndexViewDataSource, SWTableViewCellDelegate>
+@interface ContactListViewController ()<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate>
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
@@ -51,17 +51,6 @@
 
     [self.view addSubview:self.contactTableView];
     
-    self.indexView = [[MJNIndexView alloc] initWithFrame:self.view.bounds];
-    self.indexView.rightMargin = 0;
-    self.indexView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
-    self.indexView.fontColor = APP_SUB_THEME_COLOR;
-    self.indexView.selectedItemFontColor = APP_SUB_THEME_COLOR_HIGHLIGHT;
-    self.indexView.dataSource = self;
-    self.indexView.maxItemDeflection = 60;
-    self.indexView.rangeOfDeflection = 1;
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
-    [self.indexView refreshIndexItems];
-//    [self.view addSubview:self.indexView];
     [self.accountManager loadContactsFromServer];
 //    [self handleEmptyView];
 }
@@ -388,22 +377,12 @@
 //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
-        contactDetailCtl.userId = contact.userId;
+        contactDetailCtl.userId = [NSNumber numberWithInteger:contact.userId];
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-#pragma mark MJMIndexForTableView datasource methods
-// 索引目录
--(NSArray *)sectionIndexTitlesForMJNIndexView:(MJNIndexView *)indexView
-{
-    return [self.dataSource objectForKey:@"headerKeys"];
-}
 
-- (void)sectionForSectionMJNIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    [self.contactTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:index+1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-}
 
 @end
