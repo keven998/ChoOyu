@@ -10,6 +10,11 @@
 
 @protocol UnreadMessageCountChangeDelegate <NSObject>
 
+/**
+ *  未读消息的数量发生变化
+ *
+ *  @param unreadCount 
+ */
 - (void)unreadMessageCountHasChange:(NSInteger)unreadCount;
 
 @end

@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum MessageReceiveDelegateRoutingKey: Int {
+@objc enum MessageReceiveDelegateRoutingKey: Int {
     case normal = 1
     case cmd = 2
 }

@@ -26,7 +26,7 @@
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, UITabBarControllerDelegate, UnreadMessageCountChangeDelegate>
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, UITabBarControllerDelegate, UnreadMessageCountChangeDelegate, MessageReceiveManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *coverView;
 
@@ -62,8 +62,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     
     [self setupViewControllers];
     
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    
+    IMClientManager *imclientManager = [IMClientManager shareInstance];
+    [imclientManager.messageReceiveManager addMessageReceiveListener:self withRoutingKey:MessageReceiveDelegateRoutingKeynormal];
+
     if (![[AccountManager shareAccountManager] isLogin]) {
         [self setupLoginPage];
     }
@@ -348,6 +349,22 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }
 }
 
+#pragma mark - MessageReceiveManagerDelegate
+
+- (void)receiveNewMessage:(BaseMessage * __nonnull)message
+{
+    BOOL needShowNotification = (message.chatType == IMChatTypeIMChatSingleType) ? [self needShowNotification:message.chatterId] : YES;
+    if (needShowNotification) {
+#if !TARGET_IPHONE_SIMULATOR
+        [self playSoundAndVibration];
+        
+        BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+        if (!isAppActivity) {
+            [self showNotificationWithMessage:message];
+        }
+#endif
+    }
+}
 
 /**
  *  是否需要显示推送通知
@@ -356,40 +373,30 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  *
  *  @return
  */
-- (BOOL)needShowNotification:(NSString *)fromChatter
+- (BOOL)needShowNotification:(NSInteger)fromChatter
 {
     BOOL ret = YES;
-    NSArray *igGroupIds = [[EaseMob sharedInstance].chatManager ignoredGroupIds];
-    for (NSString *str in igGroupIds) {
-        if ([str isEqualToString:fromChatter]) {
-            ret = NO;
-            break;
-        }
-    }
+    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
     
-    if (ret) {
-        EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
-        
-        do {
-            if (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) {
-                NSDate *now = [NSDate date];
-                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
-                NSInteger hour = [components hour];
-                //        NSInteger minute= [components minute];
-                
-                NSUInteger startH = options.noDisturbingStartH;
-                NSUInteger endH = options.noDisturbingEndH;
-                if (startH>endH) {
-                    endH += 24;
-                }
-                
-                if (hour>=startH && hour<=endH) {
-                    ret = NO;
-                    break;
-                }
+    do {
+        if (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) {
+            NSDate *now = [NSDate date];
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
+            NSInteger hour = [components hour];
+            //        NSInteger minute= [components minute];
+            
+            NSUInteger startH = options.noDisturbingStartH;
+            NSUInteger endH = options.noDisturbingEndH;
+            if (startH>endH) {
+                endH += 24;
             }
-        } while (0);
-    }
+            
+            if (hour>=startH && hour<=endH) {
+                ret = NO;
+                break;
+            }
+        }
+    } while (0);
     
     return ret;
 }
@@ -412,61 +419,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
 }
 
-- (void)showNotificationWithMessage:(EMMessage *)message
+- (void)showNotificationWithMessage:(BaseMessage *)message
 {
-    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
     //发送本地推送
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = [NSDate date]; //触发通知的时间
     
-    if (options.displayStyle == ePushNotificationDisplayStyle_messageSummary) {
-        id<IEMMessageBody> messageBody = [message.messageBodies firstObject];
-        NSString *messageStr = nil;
-        switch (messageBody.messageBodyType) {
-            case eMessageBodyType_Text:
-            {
-                messageStr = ((EMTextMessageBody *)messageBody).text;
-            }
-                break;
-            case eMessageBodyType_Image:
-            {
-                messageStr = @"[图片]";
-            }
-                break;
-            case eMessageBodyType_Location:
-            {
-                messageStr = @"[位置]";
-            }
-                break;
-            case eMessageBodyType_Voice:
-            {
-                messageStr = @"[音频]";
-            }
-                break;
-            case eMessageBodyType_Video:{
-                messageStr = @"[视频]";
-            }
-                break;
-            default:
-                break;
-        }
-        
-        NSString *title = message.from;
-        if (message.isGroup) {
-            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:message.conversationChatter]) {
-                    title = [NSString stringWithFormat:@"%@(%@)", message.groupSenderName, group.groupSubject];
-                    break;
-                }
-            }
-        }
-        
-        notification.alertBody = [NSString stringWithFormat:@"%@:%@", title, messageStr];
-    }
-    else{
-        notification.alertBody = @"您有一条新消息";
-    }
+    notification.alertBody = @"您有一条新消息";
     
     notification.alertAction = @"打开";
     notification.timeZone = [NSTimeZone defaultTimeZone];
