@@ -177,8 +177,6 @@
 {
     if (!_contactTableView) {
         _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-//        _contactTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 27)];
-//        _contactTableView.contentInset = UIEdgeInsetsMake(27, 0, 0, 0);
         _contactTableView.dataSource = self;
         _contactTableView.delegate = self;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
