@@ -782,7 +782,7 @@
         } else {
             self.currentViewController = oldController;
         }
-        [self setupNavigationRightItems:NO];
+        [self setNavigationItems];
     }];
     [self.view bringSubviewToFront:_tabBarView];
 }
