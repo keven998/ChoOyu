@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString *avatarSmall;
 @property (nonatomic, copy) NSString *avatarBig;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *userId;
+@property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, copy) NSString *gender;
 @property (nonatomic, copy) NSString *residence;
 @property (nonatomic, assign) NSInteger level;

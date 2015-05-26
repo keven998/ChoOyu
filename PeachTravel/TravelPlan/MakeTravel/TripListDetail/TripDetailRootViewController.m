@@ -537,13 +537,6 @@
     [cancelBtn addTarget:self action:@selector(hideDestinationView:) forControlEvents:UIControlEventTouchUpInside];
     [panelView addSubview:cancelBtn];
     
-    _destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(8, 50, kWindowWidth-16, 249)];
-    _destinationView.isCanAddDestination = YES;
-    _destinationView.delegate = self;
-    _destinationView.titleColor = APP_THEME_COLOR;
-    _destinationView.destinations = array;
-    [panelView addSubview:_destinationView];
-    
     [_destinationBkgView addSubview:panelView];
     
     [self.navigationController.view addSubview:_destinationBkgView];
