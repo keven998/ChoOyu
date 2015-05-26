@@ -391,7 +391,7 @@
 //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
         
-        contactDetailCtl.userId = (NSString *)contact.userId;
+        contactDetailCtl.userId = contact.userId;
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
     }
     

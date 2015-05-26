@@ -453,7 +453,7 @@
     
 }
 
-- (void) loadUserProfile:(NSString *)userId {
+- (void) loadUserProfile:(NSNumber *)userId {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];

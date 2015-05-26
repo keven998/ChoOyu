@@ -318,7 +318,7 @@
     if ([self.accountManager isMyFrend:contact.userId]) {
 //        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
         OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-        contactDetailCtl.userId = (NSString *)contact.userId;
+        contactDetailCtl.userId = contact.userId;
         if (_isChatGroup) {
 //            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
         } else {
