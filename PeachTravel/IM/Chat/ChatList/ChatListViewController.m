@@ -596,7 +596,8 @@
 - (void)createConversationSuccessWithChatter:(NSInteger)chatterId chatType:(IMChatType)chatType chatTitle:(NSString *)chatTitle
 {
     [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
-        
+        ChatConversation *conversation = [self.imClientManager.conversationManager getConversationWithChatterId:chatterId];
+        [self pushChatViewControllerWithConversation:conversation];
     }];
 }
 

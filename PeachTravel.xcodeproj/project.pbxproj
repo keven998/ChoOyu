@@ -510,7 +510,6 @@
 		D9A801591A80DD23005AD701 /* EMSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800F71A80DD23005AD701 /* EMSearchBar.m */; };
 		D9A8015A1A80DD23005AD701 /* EMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800F91A80DD23005AD701 /* EMTextView.m */; };
 		D9A8015B1A80DD23005AD701 /* EMRemarkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800FC1A80DD23005AD701 /* EMRemarkImageView.m */; };
-		D9A8015C1A80DD23005AD701 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A800FF1A80DD23005AD701 /* BaseViewController.m */; };
 		D9A8015D1A80DD23005AD701 /* EMChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801011A80DD23005AD701 /* EMChooseViewController.m */; };
 		D9A8015E1A80DD23005AD701 /* EMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801031A80DD23005AD701 /* EMNavigationController.m */; };
 		D9A8015F1A80DD23005AD701 /* EMSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A801051A80DD23005AD701 /* EMSearchDisplayController.m */; };
@@ -1694,8 +1693,6 @@
 		D9A800F91A80DD23005AD701 /* EMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTextView.m; sourceTree = "<group>"; };
 		D9A800FB1A80DD23005AD701 /* EMRemarkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMRemarkImageView.h; sourceTree = "<group>"; };
 		D9A800FC1A80DD23005AD701 /* EMRemarkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMRemarkImageView.m; sourceTree = "<group>"; };
-		D9A800FE1A80DD23005AD701 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		D9A800FF1A80DD23005AD701 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		D9A801001A80DD23005AD701 /* EMChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChooseViewController.h; sourceTree = "<group>"; };
 		D9A801011A80DD23005AD701 /* EMChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMChooseViewController.m; sourceTree = "<group>"; };
 		D9A801021A80DD23005AD701 /* EMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMNavigationController.h; sourceTree = "<group>"; };
@@ -4144,8 +4141,6 @@
 		D9A800FD1A80DD23005AD701 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				D9A800FE1A80DD23005AD701 /* BaseViewController.h */,
-				D9A800FF1A80DD23005AD701 /* BaseViewController.m */,
 				D9A801001A80DD23005AD701 /* EMChooseViewController.h */,
 				D9A801011A80DD23005AD701 /* EMChooseViewController.m */,
 				D9A801021A80DD23005AD701 /* EMNavigationController.h */,
@@ -6558,7 +6553,6 @@
 				D9A802E31A80E3D3005AD701 /* ResizableView.m in Sources */,
 				D9A8FF201A80CC2B005AD701 /* UserOtherTableViewCell.m in Sources */,
 				D9A802311A80E036005AD701 /* TBXML.m in Sources */,
-				D9A8015C1A80DD23005AD701 /* BaseViewController.m in Sources */,
 				D993C25B1B12DF0C0088D568 /* MetadataManager.swift in Sources */,
 				D9A8002E1A80D52F005AD701 /* DestinationsView.m in Sources */,
 				D9A800661A80DD0C005AD701 /* ContactDetailViewController.m in Sources */,

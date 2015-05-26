@@ -151,9 +151,9 @@
             [SVProgressHUD showErrorWithStatus:@"请选择一个以上好友"];
             
         } else if (self.selectedContacts.count == 1) {    //只选择一个视为单聊
-            Contact *contact = [self.selectedContacts firstObject];
+            FrendModel *contact = [self.selectedContacts firstObject];
             if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
-                [_delegate createConversationSuccessWithChatter:contact.userId.integerValue chatType:IMChatTypeIMChatSingleType chatTitle:contact.nickName];
+                [_delegate createConversationSuccessWithChatter:contact.userId chatType:IMChatTypeIMChatSingleType chatTitle:contact.nickName];
             }
             
         } else if (self.selectedContacts.count > 1) {     //群聊
@@ -219,23 +219,24 @@
                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
-- (BOOL)isSelected:(NSString *)easeMobUserName
+- (BOOL)isSelected:(NSInteger)userId
 {
-    for (Contact *contact in self.selectedContacts) {
-        if ([easeMobUserName isEqualToString: contact.easemobUser]) {
+    for (FrendModel *contact in self.selectedContacts) {
+        if (userId == contact.userId) {
             return YES;
         }
     }
     return NO;
 }
 
-- (BOOL)isNumberInGroup:(NSString *)easeMobUserName
+//TODO:
+- (BOOL)isNumberInGroup:(NSInteger)userId
 {
-    for (NSString *userName in self.emGroup.occupants) {
-        if ([easeMobUserName isEqualToString: userName]) {
-            return YES;
-        }
-    }
+//    for (NSString *userName in self.emGroup.occupants) {
+//        if ([easeMobUserName isEqualToString: userName]) {
+//            return YES;
+//        }
+//    }
     return NO;
 }
 
@@ -342,16 +343,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     cell.nickNameLabel.text = contact.nickName;
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
-    if ([self isSelected:contact.easemobUser]) {
+    if ([self isSelected:contact.userId]) {
         cell.checkStatus = checked;
     } else {
         cell.checkStatus = unChecked;
     }
-    if ([self isNumberInGroup:contact.easemobUser]) {
+    if ([self isNumberInGroup:contact.userId]) {
         cell.checkStatus = disable;
     }
     return cell;
@@ -360,11 +361,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if ([self isNumberInGroup:contact.easemobUser]) {
+    FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if ([self isNumberInGroup:contact.userId]) {
         return;
     }
-    if ([self isSelected:contact.easemobUser]) {
+    if ([self isSelected:contact.userId]) {
         NSInteger index = [self.selectedContacts indexOfObject:contact];
         [self.selectContactView removeUnitAtIndex:index];
         
