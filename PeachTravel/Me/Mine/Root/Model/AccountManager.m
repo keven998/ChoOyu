@@ -122,8 +122,22 @@
 //环信系统也登录成功，这时候才是真正的登录成功
 - (void)easeMobDidLogin
 {
+    [self addPaipaiContact];
     [self save];
-    [self loadContactsFromServer];
+//    [self loadContactsFromServer];
+}
+
+/**
+ *  默认添加 paipai 好友
+ */
+- (void)addPaipaiContact
+{
+    Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+    contact.userId = [NSNumber numberWithInt:10000];
+    contact.nickName = @"派派";
+    contact.easemobUser = @"gcounhhq0ckfjwotgp02c39vq40ewhxt";
+    contact.pinyin = @"paipai";
+    [self.account addContactsObject:contact];
 }
 
 //环信系统登录失败
@@ -290,7 +304,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(NO, nil);
     }];
-
 }
 
 
