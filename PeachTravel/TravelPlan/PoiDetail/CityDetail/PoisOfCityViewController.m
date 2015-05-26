@@ -189,7 +189,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
-    [self.selectPanel setBackgroundColor:[UIColor whiteColor]];
+    [self.selectPanel setBackgroundColor:[UIColor clearColor]];
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.selectPanel.showsHorizontalScrollIndicator = NO;
     self.selectPanel.showsVerticalScrollIndicator = NO;
@@ -198,6 +198,11 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.selectPanel registerClass:[SelectDestCell class] forCellWithReuseIdentifier:@"sdest_cell"];
+    UIImageView *backImg = [[UIImageView alloc]initWithFrame:self.selectPanel.frame];
+    backImg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    backImg.image = [UIImage imageNamed:@"collectionBack"];
+    [self.view addSubview:backImg];
+    
     [self.view addSubview:_selectPanel];
 }
 
@@ -1040,13 +1045,27 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     cell.textView.text = txt;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
     cell.textView.frame = CGRectMake(0, 0, size.width, 49);
-//    cell.textView.textColor = [UIColor whiteColor];
+    cell.textView.textColor = [UIColor whiteColor];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    SuperPoi *tripPoi = [_seletedArray objectAtIndex:indexPath.row];
+    
+    if (_poiType == kRestaurantPoi) {
+        CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
+        restaurantDetailCtl.poiId = tripPoi.poiId;
+        [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
+        NSLog(@"%@", self.navigationController);
+    }
+    if (_poiType == kShoppingPoi) {
+        CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
+        shoppingDetailCtl.poiId = tripPoi.poiId;
+        [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
+    }
+
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

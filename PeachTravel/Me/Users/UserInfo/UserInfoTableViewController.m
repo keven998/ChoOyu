@@ -36,7 +36,9 @@
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"我的足迹"], @[@"签名"], @[@"性别", @"生日", @"居住在"], @[@"安全绑定", @"修改密码"], ]
 
 @interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
-
+{
+    Destinations *_citySelectedArray;
+}
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
 
@@ -59,6 +61,8 @@
     self.navigationItem.title = @"我";
     
     [self loadUserInfo];
+    
+    _citySelectedArray = [[Destinations alloc]init];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -189,6 +193,7 @@
     }
     AccountManager *accountManager = [AccountManager shareAccountManager];
     accountManager.accountDetail.userAlbum = array;
+    NSLog(@"%@",array);
 }
 
 - (void)presentImagePicker
@@ -448,6 +453,7 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         HeaderPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
         cell.headerPicArray = amgr.accountDetail.userAlbum;
+        NSLog(@"%@",cell.headerPicArray);
         cell.delegate = self;
         return cell;
         
@@ -461,8 +467,12 @@
         NSInteger countryNumber = keys.count;
         for (int i = 0; i < countryNumber; ++i) {
             NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            NSLog(@"%@",citys);
             cityNumber += citys.count;
             for (id city in citys) {
+//                city
+                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+                [_citySelectedArray.destinationsSelected addObject:poi];
                 if (cityDesc == nil) {
                     cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
                 } else {
@@ -490,7 +500,7 @@
         cell.cellTitle.text = cellDataSource[indexPath.section][indexPath.row];
         if (indexPath.section == 0) {
             if (indexPath.row == 1) {
-                //                cell.cellImage.image = [UIImage imageNamed:@"ic_setting_nick.png"];
+                
                 cell.cellDetail.text = amgr.accountDetail.basicUserInfo.nickName;
             } else if (indexPath.row == 2) {
                 cell.cellDetail.text = amgr.accountDetail.travelStatus;
@@ -561,6 +571,7 @@
     } else if (indexPath.section == 1) {
         
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+        footCtl.destinations = _citySelectedArray;
         [self presentViewController:footCtl animated:YES completion:nil];
         
     } else if (indexPath.section == 2) {

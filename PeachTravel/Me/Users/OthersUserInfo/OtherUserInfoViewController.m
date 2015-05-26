@@ -12,6 +12,7 @@
 #import "OtherUserBasicInfoCell.h"
 #import "OthersAlbumCell.h"
 #import "TraceViewController.h"
+#import "ChatViewController.h"
 
 #import "AccountModel.h"
 #import "UIBarButtonItem+MJ.h"
@@ -23,6 +24,7 @@
 //    UIView *_headerView;
     UIImageView *_headerView;
     BOOL _isMyFriend;
+    NSMutableArray *_albumArray;
 }
 @end
 
@@ -30,6 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _albumArray = [NSMutableArray array];
+    [self loadUserAlbum];
     [self loadUserInfo];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _model.name;
@@ -45,7 +49,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-
+    
     [self.view addSubview:_tableView];
     
 }
@@ -204,13 +208,23 @@
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-49, CGRectGetWidth(self.view.bounds), 49)];
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
-    
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([accountManager isMyFrend:(NSNumber *)_userId]) {
+        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
+        [addFriend setTitle:@"开始聊天" forState:UIControlStateNormal];
+        [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        [addFriend addTarget:self action:@selector(talkToFriend) forControlEvents:UIControlEventTouchUpInside];
+        [toolBar addSubview:addFriend];
+
+    } else {
     UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
     [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
     [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
     [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
     [toolBar addSubview:addFriend];
+    }
     
 //    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 49)];
 //    [consultingBtn setTitle:@"咨询达人" forState:UIControlStateNormal];
@@ -232,6 +246,20 @@
             [self requestAddContactWithHello:nameTextField.text];
         }
     }];
+}
+- (void) talkToFriend {
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:accountManager.account.easemobUser isGroup:NO];
+    chatCtl.title = accountManager.account.nickName;
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    for (EMConversation *conversation in conversations) {
+        if ([conversation.chatter isEqualToString:accountManager.account.easemobUser]) {
+            [conversation markAllMessagesAsRead:YES];
+            break;
+        }
+    }
+    [self.navigationController pushViewController:chatCtl animated:YES];
+//    [self presentViewController:chatCtl animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -262,7 +290,10 @@
 {
     if (indexPath.section == 0) {
         OthersAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumCell" forIndexPath:indexPath];
-        cell.headerPicArray = nil;
+        
+        
+        cell.headerPicArray = _albumArray;
+        NSLog(@"%@",cell.headerPicArray);
         return cell;
     }
     else if (indexPath.section == 1) {
@@ -450,6 +481,43 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
+
+- (void)loadUserAlbum
+{
+    AccountManager *account = [AccountManager shareAccountManager];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", account.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums", API_USERINFO, _userId];
+    
+    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
+            
+            [_tableView reloadData];
+        } else {
+            [_tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_tableView reloadData];
+    }];
+    
+}
+- (void)paraseUserAlbum:(NSArray *)albumArray
+{
+    
+    for (id album in albumArray) {
+        [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
+    }
+}
+
 
 - (void)parseUserProfileData:(id )json
 {

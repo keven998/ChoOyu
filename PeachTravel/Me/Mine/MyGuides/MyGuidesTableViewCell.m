@@ -24,6 +24,7 @@
     _mockImageView.image = [[UIImage imageNamed:@"ic_mock_up.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
     _titleBkgImage.image = [UIImage imageNamed:@"titleImageBackground"];
 //resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 5)];
+    _sendBtn.backgroundColor = APP_THEME_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

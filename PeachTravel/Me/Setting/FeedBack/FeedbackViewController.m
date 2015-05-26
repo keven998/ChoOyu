@@ -37,7 +37,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
     self.navigationItem.title = @"意见和需求";
-
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedback:)];
+    
     CGFloat width = self.view.frame.size.width;
     
     UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 20.0, width-30, 20.0)];
