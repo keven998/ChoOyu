@@ -16,4 +16,6 @@
 #import "WXApi.h"
 #import "TaoziImage.h"
 #import "AccountManager.h"
+#import "Reachability.h"
+#import "NetworkReachability.h"
 

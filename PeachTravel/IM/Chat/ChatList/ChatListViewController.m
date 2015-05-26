@@ -76,6 +76,8 @@
     contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -104,6 +106,17 @@
     [self.imClientManager.conversationManager updateConversationList];
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
+}
+
+- (void)networkChanged:(NSNotification *)noti
+{
+    NSDictionary *userInfo = noti.userInfo;
+    NetworkStatus status = [[userInfo objectForKey:@"status"] integerValue];
+    if (status == NotReachable) {
+        [self setIMState:IM_DISCONNECTED];
+    } else {
+        [self setIMState:IM_CONNECTED];
+    }
 }
 
 #pragma mark - getter & setter

@@ -22,6 +22,7 @@ class IMClientManager: NSObject {
     let messageSendManager: MessageSendManager
     let conversationManager: ChatConversationManager
     let cmdMessageManager: CMDMessageManager
+    let netWorkReachability: NetworkReachability
     
     weak var delegate: IMClientDelegate?
     
@@ -31,6 +32,7 @@ class IMClientManager: NSObject {
         conversationManager = ChatConversationManager()
         messageSendManager.addMessageSendDelegate(conversationManager)
         cmdMessageManager = CMDMessageManager()
+        netWorkReachability = NetworkReachability()
         messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
         messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
         if AccountManager.shareAccountManager().isLogin() {

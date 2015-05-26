@@ -10,8 +10,6 @@
 
 @interface ChatListViewController : TZViewController
 
-- (void)networkChanged:(EMConnectionState)connectionState;
-
 /**
  *  未读的聊天消息
  */

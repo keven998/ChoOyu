@@ -133,6 +133,7 @@
 #define updateFavoriteListNoti                  @"updateFavoriteListView"    //更新收藏列表
 #define updateGuideListNoti                     @"updateFavoriteListView"    //更新我的攻略列表
 
+#define networkConnectionStatusChangeNoti       @"networkConnectionStatusChange"    //网络状态发生变化
 
 #pragma mark - ***********各种枚举信息*************
 

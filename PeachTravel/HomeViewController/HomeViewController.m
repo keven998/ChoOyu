@@ -413,65 +413,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 #pragma mark - IChatManagerDelegate 消息变化
 
-- (void)networkChanged:(EMConnectionState)connectionState
-{
-    NSLog(@"networkChanged网络发生变化");
-}
-
-- (void)didUpdateConversationList:(NSArray *)conversationList
-{
-    NSLog(@"聊天的内容发生变化");
-}
-
-- (void)willReceiveOfflineMessages
-{
-    NSLog(@"*****将要收取消息");
-    self.chatListCtl.IMState = IM_RECEIVING;
-}
-
-- (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
-    self.chatListCtl.IMState = IM_RECEIVED;
-    [self setupUnreadMessageCount];
-}
-
-- (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
-{
-    self.chatListCtl.IMState = IM_RECEIVED;
-    for (EMMessage *cmdMessage in offlineCmdMessages) {
-        [TZCMDChatHelper distributeCMDMsg:cmdMessage];
-    }
-    [self setupUnreadMessageCount];
-    NSLog(@"我收到了很多透传消息");
-}
-
-// 收到消息回调
--(void)didReceiveMessage:(EMMessage *)message
-{
-    NSLog(@"收到消息，消息为%@", message);
-    
-    BOOL needShowNotification = message.isGroup ? [self needShowNotification:message.conversationChatter] : YES;
-    if (needShowNotification) {
-#if !TARGET_IPHONE_SIMULATOR
-        [self playSoundAndVibration];
-        
-        BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
-        if (!isAppActivity) {
-            [self showNotificationWithMessage:message];
-        }
-#endif
-    }
-}
-
-/**
- *  接收到透传消息的回调，当程序 activity 的时候
- *
- *  @param cmdMessage
- */
-- (void)didReceiveCmdMessage:(EMMessage *)cmdMessage
-{
-    [TZCMDChatHelper distributeCMDMsg:cmdMessage];
-    NSLog(@"接收到透传消息:  %@",cmdMessage);
-}
 
 /**
  *  是否需要显示推送通知

@@ -209,7 +209,7 @@
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:toolBar];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    if ([accountManager isMyFrend:(NSNumber *)_userId]) {
+    if ([accountManager isMyFrend:[NSNumber numberWithInteger:_userId]]) {
         UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
         [addFriend setTitle:@"开始聊天" forState:UIControlStateNormal];
         [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
@@ -249,7 +249,7 @@
 }
 - (void) talkToFriend {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:accountManager.account.easemobUser isGroup:NO];
+    ChatViewController *chatCtl = [[ChatViewController alloc]initWithChatter:accountManager.account.userId.integerValue chatType:IMChatTypeIMChatSingleType];
     chatCtl.title = accountManager.account.nickName;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     for (EMConversation *conversation in conversations) {
