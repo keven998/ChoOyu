@@ -26,7 +26,7 @@
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, UITabBarControllerDelegate, UnreadMessageCountChangeDelegate, MessageReceiveManagerDelegate>
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, UITabBarControllerDelegate, UnreadMessageCountChangeDelegate, MessageReceiveManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *coverView;
 
@@ -72,7 +72,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)dealloc
 {
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -353,7 +352,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)receiveNewMessage:(BaseMessage * __nonnull)message
 {
-    BOOL needShowNotification = (message.chatType == IMChatTypeIMChatSingleType) ? [self needShowNotification:message.chatterId] : YES;
+    BOOL needShowNotification = (message.chatType == IMChatTypeIMChatSingleType) ? YES : NO;
     if (needShowNotification) {
 #if !TARGET_IPHONE_SIMULATOR
         [self playSoundAndVibration];
@@ -364,41 +363,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         }
 #endif
     }
-}
-
-/**
- *  是否需要显示推送通知
- *
- *  @param fromChatter
- *
- *  @return
- */
-- (BOOL)needShowNotification:(NSInteger)fromChatter
-{
-    BOOL ret = YES;
-    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
-    
-    do {
-        if (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) {
-            NSDate *now = [NSDate date];
-            NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
-            NSInteger hour = [components hour];
-            //        NSInteger minute= [components minute];
-            
-            NSUInteger startH = options.noDisturbingStartH;
-            NSUInteger endH = options.noDisturbingEndH;
-            if (startH>endH) {
-                endH += 24;
-            }
-            
-            if (hour>=startH && hour<=endH) {
-                ret = NO;
-                break;
-            }
-        }
-    } while (0);
-    
-    return ret;
 }
 
 - (void)playSoundAndVibration{
@@ -413,10 +377,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     //保存最后一次响铃时间
     self.lastPlaySoundDate = [NSDate date];
     
-    // 收到消息时，播放音频
-    [[EaseMob sharedInstance].deviceManager asyncPlayNewMessageSound];
-    // 收到消息时，震动
-    [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
 }
 
 - (void)showNotificationWithMessage:(BaseMessage *)message
