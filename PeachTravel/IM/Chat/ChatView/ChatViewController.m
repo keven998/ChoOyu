@@ -312,8 +312,6 @@
     //        [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
     //    }
     
-    
-    
 }
 
 #pragma mark - private Methods

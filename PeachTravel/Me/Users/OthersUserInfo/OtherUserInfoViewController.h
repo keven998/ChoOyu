@@ -12,6 +12,7 @@
 @interface OtherUserInfoViewController : TZViewController
 
 @property (nonatomic,strong) UserProfile *model;
-@property (nonatomic) NSInteger userId;
+
+@property (nonatomic,strong) NSNumber *userId;
 
 @end

@@ -453,13 +453,12 @@
     
 }
 
-- (void) loadUserProfile:(NSInteger)userId {
+- (void) loadUserProfile:(NSNumber *)userId {
     
     FrendManager *frendManager = [[FrendManager alloc] init];
-    [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
+    [frendManager asyncGetFrendInfoFromServer:userId.integerValue completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
         
     }];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];

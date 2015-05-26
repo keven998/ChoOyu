@@ -26,5 +26,5 @@
  */
 @property (nonatomic) BOOL isExpert;
 
-@property (nonatomic,copy) NSString *userId;
+@property (nonatomic,copy) NSNumber *userId;
 @end

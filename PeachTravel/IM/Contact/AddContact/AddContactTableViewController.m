@@ -140,7 +140,7 @@
                 if ([contact.userId integerValue] == userId) {
 //                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
                     OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
-                    contactDetailCtl.userId = (NSString *)contact.userId;
+                    contactDetailCtl.userId = contact.userId;
                     _nextViewController = contactDetailCtl;
                     [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
                     return;
