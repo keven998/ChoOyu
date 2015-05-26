@@ -454,6 +454,12 @@
 }
 
 - (void) loadUserProfile:(NSInteger)userId {
+    
+    FrendManager *frendManager = [[FrendManager alloc] init];
+    [frendManager asyncGetFrendInfoFromServer:userId completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
+        
+    }];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
     [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
@@ -494,7 +500,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", account.account.userId] forHTTPHeaderField:@"UserId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums", API_USERINFO, _userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%ld/albums", API_USERINFO, _userId];
     
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];

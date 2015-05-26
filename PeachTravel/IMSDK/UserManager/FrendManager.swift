@@ -46,12 +46,12 @@ class FrendManager: NSObject {
     }
     
     /**
-    异步通过 userid 获取用户信息
+    异步通过 userid 从服务器获取用户信息
     
     :param: userId
     */
-    func asyncGetFrendInfo(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel) -> ()) {
-        
+    func asyncGetFrendInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel) -> ()) {
+        self.loadUserInfoFromServer(userId, completion: completion)
     }
     
     /**
@@ -63,7 +63,6 @@ class FrendManager: NSObject {
     */
     func getFrendInfoFromDB(#userId: Int) -> FrendModel? {
         var daoHelper = DaoHelper.shareInstance()
-
         return daoHelper.selectFrend(userId: userId)
     }
     
