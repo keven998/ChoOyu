@@ -82,6 +82,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_talk_lists"];
+    
     [self updateNavigationTitleViewStatus];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }

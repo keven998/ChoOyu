@@ -924,6 +924,7 @@
 		D9F46DD01AC92B9200972AE8 /* TZSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F46DCF1AC92B9200972AE8 /* TZSideViewController.m */; };
 		D9F6ABEB1AA882A800BE8263 /* ic_group_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */; };
 		D9FCE7DE1B134B4B0039F896 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */; };
+		D9FCE7E91B135C820039F896 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FCE7E81B135C820039F896 /* Reachability.m */; };
 		ECA2A8C30F0010E2F827610E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECFF7EAB22286C959CD2E43 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -2321,6 +2322,8 @@
 		D9F6ABEA1AA882A800BE8263 /* ic_group_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_group_icon@2x.png"; sourceTree = "<group>"; };
 		D9FCE7DC1B134B4B0039F896 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		D9FCE7DD1B134B4B0039F896 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		D9FCE7E71B135C820039F896 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D9FCE7E81B135C820039F896 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E36073AEEC32FD100F0D0A9B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -3372,6 +3375,7 @@
 		D993C1D71B12DF0C0088D568 /* NerWork */ = {
 			isa = PBXGroup;
 			children = (
+				D9FCE7E61B135C820039F896 /* Reachability */,
 				D993C1D81B12DF0C0088D568 /* NetworkTransportAPI.swift */,
 			);
 			path = NerWork;
@@ -5739,6 +5743,15 @@
 			name = CityListTableViewController;
 			sourceTree = "<group>";
 		};
+		D9FCE7E61B135C820039F896 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				D9FCE7E71B135C820039F896 /* Reachability.h */,
+				D9FCE7E81B135C820039F896 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -6441,6 +6454,7 @@
 				D993C2521B12DF0C0088D568 /* IMConstants.swift in Sources */,
 				D9A8FECB1A80C818005AD701 /* Account.m in Sources */,
 				D9A8FF5F1A80CF19005AD701 /* SearchResultTableViewCell.m in Sources */,
+				D9FCE7E91B135C820039F896 /* Reachability.m in Sources */,
 				2753BCC71AF60B1D0098E5B3 /* HeaderPictureCell.m in Sources */,
 				D9A8001E1A80D52F005AD701 /* ForeignViewController.m in Sources */,
 				D92CA1001AD8BDF900F244FF /* PSTCollectionViewController.m in Sources */,
