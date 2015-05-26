@@ -30,11 +30,7 @@ class ChatConversation: NSObject {
     var chatterId: Int = 0
     var chatterName: String = ""
     var chatterAvatar: String?
-    var lastUpdateTime: Int = 0 {
-        willSet {
-            ChatConversation.updateConversationTimestampInDB(newValue, chatterId: chatterId)
-        }
-    }
+    var lastUpdateTime: Int = 0
     var chatMessageList: Array<BaseMessage>
     var chatType: IMChatType = IMChatType.IMChatSingleType     //聊天类型，默认是单聊
     var isCurrentConversation: Bool = false        //是否是当前显示的会话，默认为 false
@@ -57,6 +53,11 @@ class ChatConversation: NSObject {
     
     deinit {
         println("ChatConversation deinit")
+    }
+    
+    func updateTimeStamp(newValue: Int) {
+        lastUpdateTime = newValue
+        ChatConversation.updateConversationTimestampInDB(newValue, chatterId: chatterId)
     }
     
     func fillConversationType(#frendType: IMFrendType) {
@@ -145,7 +146,7 @@ class ChatConversation: NSObject {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             delegate?.receiverMessage?(message)
         })
-        self.lastUpdateTime = Int(NSDate().timeIntervalSince1970*1000)
+        self.updateTimeStamp(Int(NSDate().timeIntervalSince1970))
     }
     
     /**
@@ -220,7 +221,7 @@ class ChatConversation: NSObject {
     */
     func addSendingMessage(message: BaseMessage) {
         chatMessageList.append(message)
-        self.lastUpdateTime = message.createTime
+        self.updateTimeStamp(message.createTime)
     }
     
     /**

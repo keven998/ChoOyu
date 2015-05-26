@@ -308,12 +308,7 @@
  */
 -(NSString *)lastMessageTimeByConversation:(ChatConversation *)conversation
 {
-    NSString *ret = @"";
-    BaseMessage *lastMessage = [conversation lastLocalMessage];
-    if (lastMessage) {
-        ret = [NSDate formattedTimeFromTimeInterval:lastMessage.createTime];
-    }
-    
+    NSString *ret = [NSDate formattedTimeFromTimeInterval:conversation.lastUpdateTime];
     return ret;
 }
 

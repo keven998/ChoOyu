@@ -86,7 +86,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                 while rs.next() {
                     var conversation = ChatConversation()
                     conversation.chatterId = Int(rs.intForColumn("UserId"))
-                    conversation.lastUpdateTime = Int(rs.intForColumn("LastUpdateTime"))
+                    conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
                     if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
                     }
