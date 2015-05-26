@@ -185,9 +185,7 @@
     //搜索达人
     [manager POST:API_SCREENING_EXPERT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
-        NSLog(@"%@",responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        NSLog(@"---%@",responseObject);
         if (code == 0) {
             [self parseSearchResult:[responseObject objectForKey:@"result"]];
         } else {
