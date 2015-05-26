@@ -50,7 +50,7 @@ class FrendManager: NSObject {
     
     :param: userId
     */
-    func asyncGetFrendInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel) -> ()) {
+    func asyncGetFrendInfoFromServer(userId: Int, completion: (isSuccess: Bool, errorCode: Int, frendInfo: FrendModel?) -> ()) {
         self.loadUserInfoFromServer(userId, completion: completion)
     }
     

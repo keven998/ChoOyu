@@ -54,5 +54,55 @@ class FrendModel: NSObject {
     var fullPY: String = ""
     var signature: String = ""
     var memo: String = ""
-    var sex: Int = 0
+    var sex: NSString = "M"
+    init(json: NSDictionary) {
+        userId = json.objectForKey("userId") as! Int
+        nickName = json.objectForKey("nickName") as! String
+        avatar = json.objectForKey("avatar") as! String
+        avatarSmall = json.objectForKey("avatarSmall") as! String
+        signature = json.objectForKey("signature") as! String
+        memo = json.objectForKey("memo") as! String
+        sex = json.objectForKey("gender") as! String
+    }
+    
+    override init() {
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

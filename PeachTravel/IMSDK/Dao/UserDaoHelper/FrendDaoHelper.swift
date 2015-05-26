@@ -184,7 +184,7 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         frend.avatar = rs.stringForColumn("Avatar")
         frend.avatarSmall = rs.stringForColumn("AvatarSmall")
         frend.signature = rs.stringForColumn("Signature")
-        frend.sex = Int(rs.intForColumn("Sex"))
+        frend.sex = String(rs.intForColumn("Sex"))
         frend.fullPY = rs.stringForColumn("FullPY")
         frend.type = IMFrendType(rawValue: Int(rs.intForColumn("Type")))!
         frend.memo = rs.stringForColumn("memo")
