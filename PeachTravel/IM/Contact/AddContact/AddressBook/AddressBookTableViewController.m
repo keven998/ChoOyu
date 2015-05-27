@@ -16,6 +16,8 @@
 #import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 
+#import "OtherUserInfoViewController.h"
+
 #define addressBookCell    @"addressBookCell"
 
 @interface AddressBookTableViewController () <MFMessageComposeViewControllerDelegate>
@@ -220,10 +222,15 @@
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-            searchUserInfoCtl.userInfo = [responseObject objectForKey:@"result"];
-            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+//            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+//            searchUserInfoCtl.userInfo = [responseObject objectForKey:@"result"];
+//            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
+            NSDictionary *userInfo = [responseObject objectForKey:@"result"];
+            otherCtl.userId = [userInfo objectForKey:@"userId"];
+            [self.navigationController pushViewController:otherCtl animated:YES];
         } else {
+            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
