@@ -22,7 +22,6 @@
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
-//    UIView *_headerView;
     UIImageView *_headerView;
     BOOL _isMyFriend;
     NSMutableArray *_albumArray;
@@ -34,8 +33,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _albumArray = [NSMutableArray array];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+
+    _isMyFriend = [accountManager isMyFrend: _userId];
+    
+    if (_isMyFriend) {
+        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+        [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+        [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    }
+    
+    [self loadUserProfile:_userId];
     [self loadUserAlbum];
-    [self loadUserInfo];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _model.name;
     _dataArray = [NSMutableArray array];
@@ -58,36 +69,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
--(void)loadUserInfo
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    _isMyFriend = [accountManager isMyFrend: [NSNumber numberWithInteger:[_model.userId intValue]]];
-    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    AppUtils *utils = [[AppUtils alloc] init];
-//    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-//    
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-//    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, _model.userId];
-//
-//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
-//        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-//        if (code == 0) {
-//            
-//        } else {
-//            
-//        }
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [SVProgressHUD showHint:@"请求失败"];
-//    }];
-    [self loadUserProfile:_userId];
 }
 
 -(void)createHeader
@@ -276,6 +257,73 @@
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
 }
+
+- (IBAction)moreAction:(UIButton *)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"删除", nil];
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [MobClick event:@"event_delete_it"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确认删除好友？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self removeContact];
+            }
+        }];
+    }
+}
+
+- (void)removeContact
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, _userId];
+    
+    __weak typeof(OtherUserInfoViewController *)weakSelf = self;
+    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
+    [hud showHUDInViewController:weakSelf];
+    
+    //删除联系人
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [hud hideTZHUD];
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [accountManager removeContact:_userId];
+            [SVProgressHUD showHint:@"已删除～"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            
+        } else {
+            if (self.isShowing) {
+                [SVProgressHUD showHint:@"请求也是失败了"];
+            }
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        [hud hideTZHUD];
+        if (self.isShowing) {
+            [SVProgressHUD showHint:@"呃～好像没找到网络"];
+        }
+    }];
+    
+}
+
 
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
