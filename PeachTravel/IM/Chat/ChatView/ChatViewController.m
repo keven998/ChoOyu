@@ -1111,35 +1111,24 @@
     }
 }
 
-/*
  - (void)showRoomContact:(id)sender
  {
- [self.view endEditing:YES];
- [self keyBoardHidden];
- if (_isChatGroup) {
- EMGroup *chatGroup = nil;
- NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
- for (EMGroup *group in groupArray) {
- if ([group.groupId isEqualToString:_chatter]) {
- chatGroup = group;
- break;
- }
- }
- if (chatGroup == nil) {
- chatGroup = [EMGroup groupWithId:_chatter];
- }
- ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
- chatSettingCtl.group = chatGroup;
- //        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
- //        sideCtl.detailViewController = chatSettingCtl;
- //        [sideCtl showSideDetailView];
- } else {
+     [self.view endEditing:YES];
+     [self keyBoardHidden];
+     if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
+         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+         IMDiscussionGroup *group = [groupManager getBasicDiscussionGroupInfoWithGroupId:_conversation.chatterId];
+         ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
+         
+         TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
+         sideCtl.detailViewController = chatSettingCtl;
+         [sideCtl showSideDetailView];
+     } else {
  //        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
  //        chatSettingCtl.chatter = _conversation.chatter;
  //        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+     }
  }
- }
- */
 
 - (void)removeAllMessages:(id)sender
 {

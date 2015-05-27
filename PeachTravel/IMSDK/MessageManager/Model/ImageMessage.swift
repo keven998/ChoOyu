@@ -23,7 +23,7 @@ class ImageMessage: BaseMessage {
     }
 
     override func fillContentWithContent(contents: String) {
-        var imageDic = super.jsonObjcWithString(contents)
+        var imageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(imageDic)
     }
     
@@ -46,10 +46,10 @@ class ImageMessage: BaseMessage {
     更新消息的主体内容，一般是下载附件完成后填入新的 metadataId
     */
     func updateMessageContent() {
-        var imageDic: NSMutableDictionary = super.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
-            if let content = super.contentsStrWithJsonObjc(imageDic) {
+            if let content = JSONConvertMethod.contentsStrWithJsonObjc(imageDic) {
                 message = content as String
             }
         }

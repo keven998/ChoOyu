@@ -34,7 +34,7 @@ class AudioMessage: BaseMessage {
     }
     
     override func fillContentWithContent(contents: String) {
-        var audioDic = super.jsonObjcWithString(contents)
+        var audioDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(audioDic)
     }
     
@@ -59,13 +59,13 @@ class AudioMessage: BaseMessage {
     更新消息的主体内容，一般是下载附件完成后填入新的 metadataId
     */
     func updateMessageContent() {
-        var imageDic: NSMutableDictionary = super.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         if let metadataId = metadataId {
             imageDic.setObject(metadataId, forKey: "metadataId")
             imageDic.setObject(audioStatus.rawValue, forKey: "audioStatus")
             imageDic.setObject(audioLength, forKey: "duration")
 
-            if let content = super.contentsStrWithJsonObjc(imageDic) {
+            if let content = JSONConvertMethod.contentsStrWithJsonObjc(imageDic) {
                 message = content as String
             }
         }
@@ -75,9 +75,9 @@ class AudioMessage: BaseMessage {
     更新消息的状态
     */
     func updateAudioStatus(status: IMAudioStatus) {
-        var imageDic: NSMutableDictionary = super.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
+        var imageDic: NSMutableDictionary = JSONConvertMethod.jsonObjcWithString(message).mutableCopy() as! NSMutableDictionary
         imageDic.setObject(status.rawValue, forKey: "audioStatus")
-        if let content = super.contentsStrWithJsonObjc(imageDic) {
+        if let content = JSONConvertMethod.contentsStrWithJsonObjc(imageDic) {
             message = content as String
         }
     }

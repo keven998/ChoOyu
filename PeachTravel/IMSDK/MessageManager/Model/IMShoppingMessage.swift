@@ -24,7 +24,7 @@ class IMShoppingMessage: BaseMessage {
     }
     
     override func fillContentWithContent(contents: String) {
-        var imageDic = super.jsonObjcWithString(contents)
+        var imageDic = JSONConvertMethod.jsonObjcWithString(contents)
         self.fillContentWithContentDic(imageDic)
     }
     

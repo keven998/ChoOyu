@@ -55,6 +55,8 @@ class FrendModel: NSObject {
     var signature: String = ""
     var memo: String = ""
     var sex: NSString = "M"
+    var extData: NSString = ""
+    
     init(json: NSDictionary) {
         userId = json.objectForKey("userId") as! Int
         nickName = json.objectForKey("nickName") as! String

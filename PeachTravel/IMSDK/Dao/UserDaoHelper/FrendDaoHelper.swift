@@ -108,9 +108,9 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
-            var sql = "insert or replace into \(frendTableName) (UserId, NickName, Avatar, AvatarSmall, ShortPY, FullPY, Signature, Memo, Sex, Type) values (?,?,?,?,?,?,?,?,?,?)"
+            var sql = "insert or replace into \(frendTableName) (UserId, NickName, Avatar, AvatarSmall, ShortPY, FullPY, Signature, Memo, Sex, Type, ExtData) values (?,?,?,?,?,?,?,?,?,?,?)"
             println("执行 sql 语句：\(sql)")
-            var array = [frend.userId, frend.nickName, frend.avatar, frend.avatarSmall, frend.shortPY, frend.fullPY, frend.signature, frend.memo, frend.sex, frend.type.rawValue]
+            var array = [frend.userId, frend.nickName, frend.avatar, frend.avatarSmall, frend.shortPY, frend.fullPY, frend.signature, frend.memo, frend.sex, frend.type.rawValue, frend.extData]
             dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
         }
     }
@@ -188,6 +188,9 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
         frend.fullPY = rs.stringForColumn("FullPY")
         frend.type = IMFrendType(rawValue: Int(rs.intForColumn("Type")))!
         frend.memo = rs.stringForColumn("memo")
+        if let data = rs.stringForColumn("ExtData") {
+            frend.extData = data
+        }
         return frend
     }
     

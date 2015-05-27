@@ -125,7 +125,7 @@ class MessageSendManager: NSObject {
         locationMessage.sendType = IMMessageSendType.MessageSendMine
         locationMessage.conversationId = conversationId
         var locationDic = ["lat": location.latitude, "lng": location.longitude, "name": location.address];
-        locationMessage.message = locationMessage.contentsStrWithJsonObjc(locationDic) as! String
+        locationMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(locationDic) as! String
 
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: locationMessage)
@@ -206,7 +206,7 @@ class MessageSendManager: NSObject {
         imageContentDic.setObject(image.size.width, forKey: "width");
         imageMessage.imageWidth = Int(image.size.width);
         imageMessage.imageHeight = Int(image.size.height);
-        imageMessage.message = imageMessage.contentsStrWithJsonObjc(imageContentDic) as! String
+        imageMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(imageContentDic) as! String
         
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(chatterId)", message: imageMessage)
@@ -285,7 +285,7 @@ class MessageSendManager: NSObject {
         }
         
         audioMessage.localPath = audioWavPath
-        audioMessage.message = audioMessage.contentsStrWithJsonObjc(audioContentDic) as! String
+        audioMessage.message = JSONConvertMethod.contentsStrWithJsonObjc(audioContentDic) as! String
         
         println("开始发送语音消息： 消息内容为： \(audioMessage.message)")
         var daoHelper = DaoHelper.shareInstance()

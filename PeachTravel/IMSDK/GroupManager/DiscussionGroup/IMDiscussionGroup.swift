@@ -12,10 +12,15 @@ class IMDiscussionGroup: NSObject {
     
     var groupId: Int = -1
     var subject: String!
+    var numbers: Array<FrendModel> = Array()
     
     init(jsonData: NSDictionary) {
         groupId = jsonData.objectForKey("groupId") as! Int
         subject = jsonData.objectForKey("name") as! String
+    }
+    
+    override init() {
+        super.init()
     }
 
 }

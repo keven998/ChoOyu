@@ -159,13 +159,8 @@
         } else if (self.selectedContacts.count > 1) {     //群聊
             [self showHudInView:self.view hint:@"创建群组..."];
             
-            NSMutableArray *source = [NSMutableArray array];
-            for (FrendModel *buddy in self.selectedContacts) {
-                [source addObject:[NSNumber numberWithInteger:buddy.userId]];
-            }
-            
             IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
-            [discussionGroupManager asyncCreateDiscussionGroup:source completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
+            [discussionGroupManager asyncCreateDiscussionGroup: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
                 FrendModel *model = self.selectedContacts.firstObject;
                 NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
                 discussionGroup.subject = groupSubjct;

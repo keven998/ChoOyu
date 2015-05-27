@@ -118,7 +118,7 @@ class MessageManager: NSObject {
         switch message.messageType {
         case .LocationMessageType :
             var location = ["name": (message as! LocationMessage).address, "lng": (message as! LocationMessage).longitude, "lat": (message as! LocationMessage).latitude]
-            var contentStr = message.contentsStrWithJsonObjc(location)
+            var contentStr = JSONConvertMethod.contentsStrWithJsonObjc(location)
             retDic.setValue(contentStr, forKey: "contents")
             
         case .TextMessageType :
@@ -142,7 +142,7 @@ class MessageManager: NSObject {
         if let messageDic = messageObjc as? NSDictionary {
             return MessageManager.messageModelWithMessageDic(messageDic)
         } else if let messageStr = messageObjc as? String {
-            return MessageManager.messageModelWithMessageDic(MessageManager.jsonObjcWithString(messageStr))
+            return MessageManager.messageModelWithMessageDic(JSONConvertMethod.jsonObjcWithString(messageStr))
         }
         return nil
     }
@@ -343,15 +343,6 @@ class MessageManager: NSObject {
         }
         return messageModel
     }
-    
-    private class func jsonObjcWithString(messageStr: String) -> NSDictionary {
-        var mseesageData = messageStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        var messageJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(mseesageData!, options:.AllowFragments, error: nil)
-        if messageJson is NSDictionary {
-            return messageJson as! NSDictionary
-        } else {
-            return NSDictionary()
-        }
-    }
+
     
 }

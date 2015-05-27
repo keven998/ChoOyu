@@ -49,14 +49,20 @@ class IMDiscussionGroupManager: NSObject {
     异步创建一个讨论组
     :returns:
     */
-    func asyncCreateDiscussionGroup(invitees: Array<Int>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
+    func asyncCreateDiscussionGroup(invitees: Array<FrendModel>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
+        
+        var array = Array<Int>()
+        for frend in invitees {
+            array.append(frend.userId)
+        }
         var params = NSMutableDictionary()
-        params.setObject(invitees, forKey: "participants")
+        params.setObject(array, forKey: "participants")
         
         NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
                 group.subject = "测试群组"
+                group.numbers = invitees
                 var frendManager = FrendManager()
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 completionBlock(isSuccess: true, errorCode: errorCode, discussionGroup: group)
@@ -132,7 +138,53 @@ class IMDiscussionGroupManager: NSObject {
         frendModel.userId = group.groupId
         frendModel.nickName = group.subject
         frendModel.type = IMFrendType.DiscussionGroup
+        
+        var numberDic = NSMutableDictionary()
+        var array = Array<Int>()
+        
+        for frend in group.numbers {
+            array.append(frend.userId)
+        }
+        numberDic.setObject(array, forKey: "numbers")
+        frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
+
         return frendModel
+    }
+    
+    /**
+    将一个 frendmodel 类型转换为IMDiscussionGroup类型
+    
+    :param: frendModel 
+    
+    :returns:
+    */
+    func getFullDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
+        var discussionGroup = IMDiscussionGroup()
+        discussionGroup.groupId = frendModel.userId
+        discussionGroup.subject = frendModel.nickName
+        var extData = JSONConvertMethod.jsonObjcWithString(frendModel.extData as String)
+        
+        if let numbersId = extData.objectForKey("numbers") as? Array<Int> {
+            var daohelper = DaoHelper.shareInstance()
+            for userId in numbersId {
+                if let frend = daohelper.selectFrend(userId: userId) {
+                    discussionGroup.numbers.append(frend)
+                } else {
+                    var frendModel = FrendModel()
+                    frendModel.userId = userId
+                    discussionGroup.numbers.append(frendModel)
+                }
+            }
+            
+        }
+        return discussionGroup
+    }
+    
+    func getBasicDiscussionGroupInfo(#frendModel: FrendModel) -> IMDiscussionGroup {
+        var discussionGroup = IMDiscussionGroup()
+        discussionGroup.groupId = frendModel.userId
+        discussionGroup.subject = frendModel.nickName
+        return discussionGroup
     }
 
     

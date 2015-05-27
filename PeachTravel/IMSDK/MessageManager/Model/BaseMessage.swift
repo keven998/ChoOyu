@@ -37,22 +37,6 @@ class BaseMessage: NSObject {
         super.init()
     }
     
-    func jsonObjcWithString(messageStr: String) -> NSDictionary {
-        var mseesageData = messageStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        var messageJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(mseesageData!, options:.AllowFragments, error: nil)
-        if messageJson is NSDictionary {
-            return messageJson as! NSDictionary
-        } else {
-            return NSDictionary()
-       }
-    }
-    
-    func contentsStrWithJsonObjc(messageDic: NSDictionary) -> NSString? {
-        var jsonData = NSJSONSerialization.dataWithJSONObject(messageDic, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
-        var retStr = NSString(data:jsonData!, encoding: NSUTF8StringEncoding)
-        return retStr
-    }
-    
     /**
     初始化通过 contents 将具体消息的其他内容补充全,  子类重写
     :param: contents
