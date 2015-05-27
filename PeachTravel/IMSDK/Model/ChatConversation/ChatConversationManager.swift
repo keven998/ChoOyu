@@ -301,6 +301,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         self.handleSendingMessage(message)
     }
     
+    
 }
 
 
