@@ -31,8 +31,9 @@
     UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
     registerBtn.center = CGPointMake(SCREEN_WIDTH * 0.22, 31);
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    registerBtn.backgroundColor = UIColorFromRGB(0x272727);
+    registerBtn.backgroundColor = UIColorFromRGB(0x656565);
     registerBtn.layer.cornerRadius = 5;
     registerBtn.clipsToBounds = YES;
     [btnBg addSubview:registerBtn];
@@ -40,9 +41,10 @@
     
     UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
     loginBtn.center = CGPointMake(SCREEN_WIDTH/2, 31);
+    loginBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    loginBtn.backgroundColor = UIColorFromRGB(0x272727);
+    loginBtn.backgroundColor = UIColorFromRGB(0x656565);
     loginBtn.layer.cornerRadius = 5;
     loginBtn.clipsToBounds = YES;
     [btnBg addSubview:loginBtn];

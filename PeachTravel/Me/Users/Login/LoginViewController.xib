@@ -13,6 +13,7 @@
                 <outlet property="passwordTextField" destination="whk-ET-N28" id="vZC-i2-ROA"/>
                 <outlet property="userNameTextField" destination="ys6-1u-JAa" id="dwg-I5-dc4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="wechatBtnConstraint" destination="B58-OG-e5Z" id="Dyk-OB-zJU"/>
                 <outlet property="weiChatBtn" destination="sK6-6L-ETH" id="CRJ-EY-5il"/>
             </connections>
         </placeholder>
@@ -24,12 +25,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIj-GB-DTR">
                     <rect key="frame" x="10" y="15" width="200" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="29" id="Lqf-oK-FoM">
-                            <variation key="widthClass=compact" constant="41"/>
-                        </constraint>
-                        <constraint firstAttribute="width" constant="160" id="U3K-w3-ZyX">
-                            <variation key="widthClass=compact" constant="251"/>
-                        </constraint>
+                        <constraint firstAttribute="height" constant="41" id="Q1x-n5-qdG"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="登 录">
@@ -37,14 +33,12 @@
                     </state>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="Lqf-oK-FoM"/>
-                            <exclude reference="U3K-w3-ZyX"/>
+                            <exclude reference="Q1x-n5-qdG"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
                         <mask key="constraints">
-                            <include reference="Lqf-oK-FoM"/>
-                            <include reference="U3K-w3-ZyX"/>
+                            <include reference="Q1x-n5-qdG"/>
                         </mask>
                     </variation>
                     <connections>
@@ -274,26 +268,24 @@
             <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="UQw-cd-bme" secondAttribute="centerX" id="2Oi-nm-neg"/>
-                <constraint firstAttribute="centerX" secondItem="NIj-GB-DTR" secondAttribute="centerX" id="5ew-CZ-jkg"/>
                 <constraint firstItem="UQw-cd-bme" firstAttribute="top" secondItem="NIj-GB-DTR" secondAttribute="bottom" constant="8" id="5g7-1H-mjw">
                     <variation key="heightClass=compact-widthClass=compact" constant="8"/>
                 </constraint>
+                <constraint firstItem="NIj-GB-DTR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="205" id="8El-WX-LkL"/>
+                <constraint firstItem="UQw-cd-bme" firstAttribute="top" secondItem="NIj-GB-DTR" secondAttribute="bottom" constant="14" id="9sq-fl-rP9"/>
+                <constraint firstAttribute="centerX" secondItem="NIj-GB-DTR" secondAttribute="centerX" id="ADI-mL-Sto"/>
                 <constraint firstItem="sK6-6L-ETH" firstAttribute="top" secondItem="UQw-cd-bme" secondAttribute="bottom" constant="74" id="B58-OG-e5Z"/>
-                <constraint firstItem="NIj-GB-DTR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="205" id="EUY-Ay-GWX"/>
-                <constraint firstItem="NIj-GB-DTR" firstAttribute="top" secondItem="3aH-dh-7Mo" secondAttribute="bottom" constant="38" id="OVW-vj-Bn2">
-                    <variation key="widthClass=compact" constant="26"/>
-                </constraint>
-                <constraint firstItem="UQw-cd-bme" firstAttribute="top" secondItem="NIj-GB-DTR" secondAttribute="bottom" constant="14" id="YSs-ff-suQ"/>
-                <constraint firstItem="sK6-6L-ETH" firstAttribute="leading" secondItem="NIj-GB-DTR" secondAttribute="leading" id="a8L-J2-etX">
-                    <variation key="widthClass=compact" constant="100"/>
-                </constraint>
+                <constraint firstItem="NIj-GB-DTR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="74" id="Ixr-Tt-tZC"/>
                 <constraint firstAttribute="trailing" secondItem="3aH-dh-7Mo" secondAttribute="trailing" id="azo-zF-tOv"/>
                 <constraint firstItem="3aH-dh-7Mo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="edE-ix-2UJ"/>
                 <constraint firstAttribute="centerX" secondItem="INg-2C-z3E" secondAttribute="centerX" id="hML-rP-XC4"/>
                 <constraint firstItem="INg-2C-z3E" firstAttribute="top" secondItem="sK6-6L-ETH" secondAttribute="bottom" constant="21" id="ipK-pl-Jrk"/>
                 <constraint firstItem="3aH-dh-7Mo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="o8r-EJ-ymH"/>
+                <constraint firstItem="NIj-GB-DTR" firstAttribute="centerX" secondItem="sK6-6L-ETH" secondAttribute="centerX" id="rbD-hy-YMO"/>
+                <constraint firstAttribute="trailing" secondItem="NIj-GB-DTR" secondAttribute="trailing" constant="75" id="rim-z6-zex"/>
+                <constraint firstItem="NIj-GB-DTR" firstAttribute="top" secondItem="3aH-dh-7Mo" secondAttribute="bottom" constant="26" id="xuu-lR-UBT"/>
             </constraints>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <nil key="simulatedTopBarMetrics"/>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="NIj-GB-DTR"/>
@@ -303,19 +295,21 @@
                     <exclude reference="UQw-cd-bme"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="hML-rP-XC4"/>
-                    <exclude reference="ipK-pl-Jrk"/>
-                    <exclude reference="2Oi-nm-neg"/>
-                    <exclude reference="5g7-1H-mjw"/>
-                    <exclude reference="YSs-ff-suQ"/>
-                    <exclude reference="B58-OG-e5Z"/>
-                    <exclude reference="a8L-J2-etX"/>
-                    <exclude reference="5ew-CZ-jkg"/>
-                    <exclude reference="EUY-Ay-GWX"/>
-                    <exclude reference="OVW-vj-Bn2"/>
                     <exclude reference="azo-zF-tOv"/>
                     <exclude reference="edE-ix-2UJ"/>
                     <exclude reference="o8r-EJ-ymH"/>
+                    <exclude reference="8El-WX-LkL"/>
+                    <exclude reference="ADI-mL-Sto"/>
+                    <exclude reference="Ixr-Tt-tZC"/>
+                    <exclude reference="rbD-hy-YMO"/>
+                    <exclude reference="rim-z6-zex"/>
+                    <exclude reference="xuu-lR-UBT"/>
+                    <exclude reference="2Oi-nm-neg"/>
+                    <exclude reference="5g7-1H-mjw"/>
+                    <exclude reference="9sq-fl-rP9"/>
+                    <exclude reference="B58-OG-e5Z"/>
+                    <exclude reference="hML-rP-XC4"/>
+                    <exclude reference="ipK-pl-Jrk"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -327,18 +321,20 @@
                     <include reference="UQw-cd-bme"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="hML-rP-XC4"/>
-                    <include reference="ipK-pl-Jrk"/>
-                    <include reference="2Oi-nm-neg"/>
-                    <include reference="YSs-ff-suQ"/>
-                    <include reference="B58-OG-e5Z"/>
-                    <include reference="a8L-J2-etX"/>
-                    <include reference="5ew-CZ-jkg"/>
-                    <include reference="EUY-Ay-GWX"/>
-                    <include reference="OVW-vj-Bn2"/>
                     <include reference="azo-zF-tOv"/>
                     <include reference="edE-ix-2UJ"/>
                     <include reference="o8r-EJ-ymH"/>
+                    <include reference="8El-WX-LkL"/>
+                    <include reference="ADI-mL-Sto"/>
+                    <include reference="Ixr-Tt-tZC"/>
+                    <include reference="rbD-hy-YMO"/>
+                    <include reference="rim-z6-zex"/>
+                    <include reference="xuu-lR-UBT"/>
+                    <include reference="2Oi-nm-neg"/>
+                    <include reference="9sq-fl-rP9"/>
+                    <include reference="B58-OG-e5Z"/>
+                    <include reference="hML-rP-XC4"/>
+                    <include reference="ipK-pl-Jrk"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact-widthClass=compact">

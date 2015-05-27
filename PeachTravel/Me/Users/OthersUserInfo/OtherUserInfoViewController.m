@@ -62,6 +62,8 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     
+    self.title = _model.name;
+    
     [self.view addSubview:_tableView];
     
 }
@@ -343,7 +345,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2||indexPath.section == 3||indexPath.section == 0) {
+    if (indexPath.section == 2||indexPath.section == 3) {
+
+        return 90;
+    }else if  ( indexPath.section == 0) {
+        if (_albumArray.count == 0) {
+            return 0;
+        }
+        
         return 90;
     }
     
@@ -360,10 +369,14 @@
         return cell;
     }
     else if (indexPath.section == 1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.textLabel.textColor = TEXT_COLOR_TITLE;
-        cell.textLabel.text = @"TA的旅行计划";
+        
+        OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
+        
+        cell.information.text = @"0个";
+        cell.information.font = [UIFont systemFontOfSize:14];
+        cell.basicLabel.font = [UIFont systemFontOfSize:15];
+        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
+        cell.basicLabel.text = @"TA的旅行计划";
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
@@ -372,7 +385,7 @@
     else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"TA的足迹";
-        
+        cell.footPrint.textColor = TEXT_COLOR_TITLE;
         NSDictionary *country = _model.travels;
         NSInteger cityNumber = 0;
         NSMutableString *cityDesc = nil;
@@ -597,8 +610,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_tableView reloadData];
     }];
-    
 }
+
 - (void)paraseUserAlbum:(NSArray *)albumArray
 {
     

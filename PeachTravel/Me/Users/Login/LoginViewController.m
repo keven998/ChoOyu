@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *supportLoginButton;
 @property (weak, nonatomic) IBOutlet UILabel *wechatLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wechatBtnConstraint;
 
 @property (weak, nonatomic) IBOutlet UIButton *weiChatBtn;
 @property (nonatomic, copy) void (^completion)(BOOL completed);
@@ -49,6 +50,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
+    if (IS_IPHONE_4) {
+        _wechatBtnConstraint.constant = 20;
+    }
 //    if (!self.isPushed) {
 //        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
 //        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];

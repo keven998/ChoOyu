@@ -116,7 +116,7 @@
     [backgroundImageView addGestureRecognizer:tap];
     [self.view addSubview:backgroundImageView];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, width, 44)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 15, width, 44)];
     titleLabel.font = [UIFont boldSystemFontOfSize:17];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;

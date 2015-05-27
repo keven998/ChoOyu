@@ -146,13 +146,8 @@
                     return;
                 }
             }
-//            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-//            searchUserInfoCtl.userInfo = [searchResult firstObject];
-//            _nextViewController = searchUserInfoCtl;
             OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
-//            NSDictionary *userInfo = [searchResult objectForKey:@"result"];
             otherCtl.userId = [NSNumber numberWithInteger:userId];
-//            [self.navigationController pushViewController:otherCtl animated:YES];
             _nextViewController = otherCtl;
             [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
         }
