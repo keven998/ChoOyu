@@ -263,7 +263,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     //获取一个会话的详细信息
-    private func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
+    func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
         var frendManager = FrendManager()
         frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
             if let frend = frendInfo {
