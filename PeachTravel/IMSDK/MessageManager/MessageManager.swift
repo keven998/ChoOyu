@@ -315,8 +315,11 @@ class MessageManager: NSObject {
                     if chatType == "single" {
                         messageModel!.chatterId = messageDic.objectForKey("senderId") as! Int
                         
-                    } else {
+                    } else if chatType == "group"{
                         messageModel!.chatterId = messageDic.objectForKey("groupId") as! Int
+                        
+                    } else if chatType == "CMD" {
+                        
                     }
                     
                 } else {

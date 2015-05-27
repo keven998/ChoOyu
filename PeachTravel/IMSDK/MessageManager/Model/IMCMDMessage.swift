@@ -36,7 +36,9 @@ class IMCMDMessage: BaseMessage {
     }
     
     override func fillContentWithContentDic(contentsDic: NSDictionary) {
-        actionCode = CMDActionCode(rawValue: (contentsDic.objectForKey("action") as! String))
+        if let action = contentsDic.objectForKey("action") as? String {
+            actionCode = CMDActionCode(rawValue: action)
+        }
         actionContent = contentsDic
     }
 }

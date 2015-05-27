@@ -114,6 +114,8 @@ class PushSDKManager: NSObject, GexinSdkDelegate {
     :param: message 需要分发的消息
     */
     func dispatchPushMessage(message: NSString) {
+        
+        println("dispatchPushMessage: \(message)")
         let dispatchMessageDic: NSDictionary
         var mseesageData = message.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         var messageJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(mseesageData!, options:.AllowFragments, error: nil)
