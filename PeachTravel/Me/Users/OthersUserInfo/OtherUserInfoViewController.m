@@ -364,7 +364,9 @@
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.textColor = TEXT_COLOR_TITLE;
         cell.textLabel.text = @"TA的旅行计划";
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
         return cell;
     }
     else if (indexPath.section == 2) {
@@ -390,17 +392,25 @@
         
         if (countryNumber > 0) {
             cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+            cell.footPrint.text = cityDesc;
         } else {
-            cell.trajectory.text = @"";
+            cell.trajectory.text = @"0国 0个城市";
+            cell.footPrint.text = @"未设置足迹";
         }
-        cell.footPrint.text = cityDesc;
+        
+        
         return cell;
     }
     else if (indexPath.section == 3) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
+        cell.imageJiantou.image = nil;
         cell.backgroundColor = [UIColor whiteColor];
-        cell.footPrint.text = _model.signature;
+        if (_model.signature == nil || [_model.signature isBlankString] || _model.signature.length == 0) {
+            cell.footPrint.text = @"未设置签名";
+        } else {
+            cell.footPrint.text = _model.signature;
+        }
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
         cell.trajectory.text = @"";
         return cell;
@@ -423,11 +433,19 @@
             int age=trunc(dateDiff/(60*60*24))/365;
             age = -age;
             cell.information.font = [UIFont systemFontOfSize:14];
+            if (_model.birthday == nil||[_model.birthday isBlankString] || _model.birthday.length == 0) {
+                cell.information.text = @"未设置";
+            }else {
             cell.information.text = [NSString stringWithFormat:@"%d",age];
+            }
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
             cell.basicLabel.text = @"   居住在";
+            if (_model.residence.length == 0 || [_model.residence isBlankString] || _model.residence == nil) {
+                cell.information.text = @"未设置";
+            }else {
             cell.information.text = _model.residence;
+            }
             cell.information.font = [UIFont systemFontOfSize:14];
         }
         return cell;
@@ -534,7 +552,7 @@
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            
+            NSLog(@"%@",responseObject);
             [self parseUserProfileData:[responseObject objectForKey:@"result"]];
         } else {
             

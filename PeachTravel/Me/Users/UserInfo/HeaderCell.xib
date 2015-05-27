@@ -160,6 +160,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="footPrint" destination="47v-fU-GzS" id="kd5-HI-shh"/>
+                <outlet property="imageJiantou" destination="tcf-wb-MZE" id="ybr-6K-Zss"/>
                 <outlet property="nameLabel" destination="vrn-je-won" id="84m-NN-o8I"/>
                 <outlet property="trajectory" destination="x03-sp-Cxs" id="N7w-Gd-SSh"/>
             </connections>
