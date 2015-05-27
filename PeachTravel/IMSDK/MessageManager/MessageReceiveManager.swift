@@ -293,17 +293,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadPreviewImageAndDistribution(message: ImageMessage) {
         MetadataDownloadManager.asyncDownloadThumbImage(message, completion: { (isSuccess: Bool, retMessage: ImageMessage) -> () in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if retMessage.messageType == IMMessageType.CMDMessageType {
-                    for delegateDic in self.receiveDelegateList {
-                        if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.cmd] {
-                            delegate.receiveNewMessage?(retMessage)
-                        }
-                    }
-                } else {
-                    for delegateDic in self.receiveDelegateList {
-                        if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
-                            delegate.receiveNewMessage?(retMessage)
-                        }
+                for delegateDic in self.receiveDelegateList {
+                    if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
+                        delegate.receiveNewMessage?(retMessage)
                     }
                 }
             })
@@ -317,17 +309,9 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     private func downloadAudioDataAndDistribution(message: AudioMessage) {
         MetadataDownloadManager.asyncDownloadAudioData(message, completion: { (isSuccess: Bool, retMessage: AudioMessage) -> () in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if retMessage.messageType == IMMessageType.CMDMessageType {
-                    for delegateDic in self.receiveDelegateList {
-                        if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.cmd] {
-                            delegate.receiveNewMessage?(retMessage)
-                        }
-                    }
-                } else {
-                    for delegateDic in self.receiveDelegateList {
-                        if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
-                            delegate.receiveNewMessage?(retMessage)
-                        }
+                for delegateDic in self.receiveDelegateList {
+                    if let delegate = delegateDic[MessageReceiveDelegateRoutingKey.normal] {
+                        delegate.receiveNewMessage?(retMessage)
                     }
                 }
             })
