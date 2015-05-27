@@ -447,7 +447,7 @@
     
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
@@ -500,6 +500,9 @@
 
 - (void)loadUserAlbum
 {
+    TZProgressHUD *hud = [[TZProgressHUD alloc]init];
+    __weak typeof(OtherUserInfoViewController *)weakSelf = self;
+    [hud showHUDInViewController:weakSelf content:64];
     AccountManager *account = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -540,6 +543,8 @@
     _model = [[UserProfile alloc] initWithJsonObject:json];
     [self createHeader];
     [self createFooterBar];
+    TZProgressHUD *hud = [[TZProgressHUD alloc]init];
+    [hud hideTZHUD];
     [_tableView reloadData];
 }
 
