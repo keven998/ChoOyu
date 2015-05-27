@@ -64,7 +64,7 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     
     frame.origin.y = 0;
     [self.locationImageView setFrame:frame];
-    _addressLabel.frame = CGRectMake(5, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width - 20, 25);
+    _addressLabel.frame = CGRectMake(10, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width - 20, 25);
 }
 
 #pragma mark - setter
