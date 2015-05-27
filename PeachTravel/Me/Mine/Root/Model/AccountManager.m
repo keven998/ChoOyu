@@ -52,6 +52,7 @@
 {
     if (!_accountDetail) {
         _accountDetail = [[AccountModel alloc] init];
+        _accountDetail.basicUserInfo = self.account;
     }
     return _accountDetail;
 }
