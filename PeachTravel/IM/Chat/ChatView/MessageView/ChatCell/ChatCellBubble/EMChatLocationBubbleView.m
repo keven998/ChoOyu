@@ -27,7 +27,7 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        
+        [super.backImageView removeFromSuperview];
         _locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:_locationImageView];
         
@@ -41,18 +41,15 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     return self;
 }
 
--(CGSize)sizeThatFits:(CGSize)size
+- (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize textBlockMinSize = {130, 25};
+    CGSize textBlockMinSize = {180, 25};
+
     
-    CGSize addressSize = [self.model.address boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: _addressLabel.font} context:nil].size;
-    
-    CGFloat width = addressSize.width < LOCATION_IMAGEVIEW_SIZE ? LOCATION_IMAGEVIEW_SIZE : addressSize.width-BUBBLE_ARROW_WIDTH;
-    
-    return CGSizeMake(width + BUBBLE_ARROW_WIDTH, LOCATION_IMAGEVIEW_SIZE);
+    return CGSizeMake(textBlockMinSize.width + BUBBLE_ARROW_WIDTH, LOCATION_IMAGEVIEW_SIZE);
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
     [super layoutSubviews];
     

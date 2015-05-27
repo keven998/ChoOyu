@@ -504,7 +504,7 @@
                     break;
                     
                 case eMessageBodyType_Location: {
-                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
+                    ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
 
                 }
                     break;

@@ -71,7 +71,7 @@ static LocationViewController *defaultLocation = nil;
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 //    [self.navigationItem setLeftBarButtonItem:backItem];
     
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(popViewControllerAnimated)];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = backBtn;
     
 //    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -166,7 +166,7 @@ static LocationViewController *defaultLocation = nil;
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
-    [self showHint:@"定位失败"];
+
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -224,11 +224,15 @@ static LocationViewController *defaultLocation = nil;
         [_delegate sendLocationLatitude:_currentLocationCoordinate.latitude longitude:_currentLocationCoordinate.longitude andAddress:_addressString];
     }
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismiss];
 }
 
-- (void) popViewControllerAnimated {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void) dismiss {
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end
