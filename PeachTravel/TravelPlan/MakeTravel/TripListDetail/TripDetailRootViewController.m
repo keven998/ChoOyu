@@ -711,7 +711,7 @@
 //    _tabBarView.clipsToBounds = YES;
     [self.view addSubview:_tabBarView];
     
-    NSArray *tabBarItemTitles = @[@"行程计划", @"美食计划", @"购物计划"];
+    NSArray *tabBarItemTitles = @[@"行程计划", @"美食清单", @"购物清单"];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     CGFloat width = _tabBarView.frame.size.width;
     
