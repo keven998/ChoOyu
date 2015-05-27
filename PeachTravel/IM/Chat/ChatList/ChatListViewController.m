@@ -514,10 +514,9 @@
     ChatViewController *chatController = [[ChatViewController alloc] initWithConversation:conversation];
 
     UIViewController *menuViewController = nil;
-    if (conversation.chatType == IMChatTypeIMChatGroupType) {
+    if (conversation.chatType == IMChatTypeIMChatGroupType || conversation.chatType == IMChatTypeIMChatDiscussionGroupType) {
         menuViewController = [[ChatGroupSettingViewController alloc] init];
-        EMGroup *chatGroup;
-        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
+        ((ChatGroupSettingViewController *)menuViewController).groupId = conversation.chatterId;
     } else {
         menuViewController = [[ChatSettingViewController alloc] init];
         ((ChatSettingViewController *)menuViewController).chatterId = conversation.chatterId;

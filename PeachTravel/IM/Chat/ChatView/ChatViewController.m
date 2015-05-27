@@ -177,7 +177,7 @@
     UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
     
-    if (_chatType == IMChatTypeIMChatGroupType) {
+    if (_chatType == IMChatTypeIMChatGroupType || _chatType == IMChatTypeIMChatDiscussionGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
         [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -1116,8 +1116,6 @@
      [self.view endEditing:YES];
      [self keyBoardHidden];
      if (_chatType == IMChatTypeIMChatDiscussionGroupType) {
-         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-         IMDiscussionGroup *group = [groupManager getBasicDiscussionGroupInfoWithGroupId:_conversation.chatterId];
          ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
          
          TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];

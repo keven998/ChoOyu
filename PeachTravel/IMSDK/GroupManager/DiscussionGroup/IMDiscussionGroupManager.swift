@@ -121,7 +121,27 @@ class IMDiscussionGroupManager: NSObject {
     func asyncChangeDiscussionGroupTitle(completion:(isSuccess: Bool, errorCode: Int)) {
     }
     
-    func asyncAddNumbers(numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int)) {
+    /**
+    向群里添加新用户
+    
+    :param: groupId
+    :param: numbers
+    :param: completion 
+    */
+    func asyncAddNumbers(#groupId: Int, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int)) {
+        var array = Array<Int>()
+        for frend in numbers {
+            array.append(frend.userId)
+        }
+        var params = NSMutableDictionary()
+        params.setObject(array, forKey: "participants")
+        params.setObject("addMembers", forKey: "action")
+        params.setObject(groupId, forKey: "id")
+        let addNumberUrl = "\(groupUrl)/\(groupId)/request"
+        NetworkTransportAPI.asyncPOST(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+            
+        }
+
     }
 
     
