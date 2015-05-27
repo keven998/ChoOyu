@@ -127,6 +127,12 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         }
             break;
             
+        case eMessageBodyType_Location:
+        {
+            identifier = [identifier stringByAppendingString:@"Location"];
+        }
+            break;
+            
         case eMessageBodyType_Taozi:
         {
             switch ([[model.taoziMessage objectForKey:@"tzType"] integerValue]) {

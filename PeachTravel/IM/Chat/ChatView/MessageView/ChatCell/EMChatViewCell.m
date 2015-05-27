@@ -202,6 +202,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
             break;
             
+        case eMessageBodyType_Location:
+        {
+            return [[EMChatLocationBubbleView alloc] init];
+        }
+            break;
         case eMessageBodyType_Taozi:
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
@@ -260,6 +265,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case eMessageBodyType_Voice:
         {
             return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+        }
+            break;
+            
+        case eMessageBodyType_Location:
+        {
+            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
                 

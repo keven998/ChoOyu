@@ -87,7 +87,7 @@
             break;
         case eMessageBodyType_Location:
         {
-            model.content = @"升级新版本才可以查看这条神秘消息哦";
+            model.content = ((EMLocationMessageBody *)messageBody).address;
             model.address = ((EMLocationMessageBody *)messageBody).address;
             model.latitude = ((EMLocationMessageBody *)messageBody).latitude;
             model.longitude = ((EMLocationMessageBody *)messageBody).longitude;
