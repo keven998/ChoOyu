@@ -93,12 +93,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     /**
     新建会话列表, 会话的 用户 id
     */
-    func createNewConversation(#chatterId: Int) -> ChatConversation {
+    func createNewConversation(#chatterId: Int, chatType: IMChatType) -> ChatConversation {
         var conversation = ChatConversation()
         conversation.chatterId = chatterId
         var time = NSDate().timeIntervalSince1970
         var timeInt: Int = Int(round(time))
         conversation.lastUpdateTime = timeInt
+        conversation.chatType = chatType
         
         var frendManager = FrendManager()
         
@@ -120,7 +121,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :returns:
     */
     func createNewConversation(#message: BaseMessage) -> ChatConversation {
-        return self.createNewConversation(chatterId: message.chatterId)
+        return self.createNewConversation(chatterId: message.chatterId, chatType: message.chatType)
     }
 
     /**
@@ -130,13 +131,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     :returns:
     */
-    func getConversationWithChatterId(chatterId: Int) -> ChatConversation {
+    func getConversationWithChatterId(chatterId: Int, chatType: IMChatType) -> ChatConversation {
         for exitConversation in conversationList {
             if exitConversation.chatterId == chatterId {
                 return exitConversation
             }
         }
-        var conversation = self.createNewConversation(chatterId: chatterId)
+        var conversation = self.createNewConversation(chatterId: chatterId, chatType: chatType)
         self.addConversation(conversation)
         return conversation
     }

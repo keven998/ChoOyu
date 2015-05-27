@@ -208,7 +208,7 @@
     FrendModel *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section-1] objectAtIndex:indexPath.row];
 
     IMClientManager *manager = [IMClientManager shareInstance];
-    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId];
+    ChatConversation *conversation = [manager.conversationManager getConversationWithChatterId:contact.userId chatType:IMChatTypeIMChatSingleType];
     [manager.conversationManager addConversation: conversation];
     conversation.chatterId = contact.userId;
     

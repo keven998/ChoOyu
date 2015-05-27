@@ -115,7 +115,7 @@
 - (instancetype)initWithChatter:(NSInteger)chatter chatType:(IMChatType)chatType
 {
     IMClientManager *imclientManager = [IMClientManager shareInstance];
-    ChatConversation *conversation= [imclientManager.conversationManager getConversationWithChatterId:chatter];
+    ChatConversation *conversation= [imclientManager.conversationManager getConversationWithChatterId:chatter chatType:chatType];
     return [[ChatViewController alloc] initWithConversation:conversation];
 }
 
