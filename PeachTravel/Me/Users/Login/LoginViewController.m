@@ -67,12 +67,12 @@
     self.view.backgroundColor = UIColorFromRGB(0Xf2f2f2);
     
     
-    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 134/3, SCREEN_WIDTH/2, 1)];
-    spaceView6.backgroundColor = APP_PAGE_COLOR;
-    [_backView addSubview:spaceView6];
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 100, SCREEN_WIDTH/2, 1)];
-    spaceView.backgroundColor = APP_PAGE_COLOR;
-    [_backView addSubview:spaceView];
+//    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 150/3, SCREEN_WIDTH/2, 1)];
+//    spaceView6.backgroundColor = APP_PAGE_COLOR;
+//    [_backView addSubview:spaceView6];
+//    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 105, SCREEN_WIDTH*3/5, 1)];
+//    spaceView.backgroundColor = APP_PAGE_COLOR;
+//    [_backView addSubview:spaceView];
     
     [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -193,7 +193,7 @@
     
      __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
