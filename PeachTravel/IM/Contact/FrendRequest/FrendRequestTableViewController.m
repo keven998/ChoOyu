@@ -11,6 +11,7 @@
 #import "FrendRequest.h"
 #import "AccountManager.h"
 #import "ContactDetailViewController.h"
+#import "OtherUserInfoViewController.h"
 
 #define requestCell      @"requestCell"
 
@@ -156,8 +157,10 @@
 //            [SVProgressHUD showHint:@"已添加"];
             for (Contact *contact in self.accountManager.account.contacts) {
                 if ([((FrendRequest *)frendRequest).userId longValue] == [contact.userId longValue]) {
-                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    contactDetailCtl.contact = contact;
+//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+                    
+                    contactDetailCtl.userId = contact.userId;
                     [self.navigationController pushViewController:contactDetailCtl animated:YES];
                     break;
                 }
