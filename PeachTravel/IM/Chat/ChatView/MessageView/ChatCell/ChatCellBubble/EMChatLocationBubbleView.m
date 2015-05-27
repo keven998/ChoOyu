@@ -27,7 +27,6 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [super.backImageView removeFromSuperview];
         _locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:_locationImageView];
         
@@ -64,6 +63,8 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     
     frame.origin.y = 0;
     [self.locationImageView setFrame:frame];
+    self.locationImageView.layer.cornerRadius = 5.0;
+    self.locationImageView.clipsToBounds = YES;
     _addressLabel.frame = CGRectMake(10, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width - 20, 25);
 }
 
@@ -73,20 +74,21 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 {
     [super setModel:model];
     
-    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
+//    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
     _addressLabel.text = model.address;
+    self.locationImageView.image = [UIImage imageNamed:LOCATION_IMAGE];
 
-    [self resizeImage:[UIImage imageNamed:LOCATION_IMAGE] withMaskImageName:maskImageName];
+//    [self resizeImage:[UIImage imageNamed:LOCATION_IMAGE] withMaskImageName:maskImageName];
 }
 
-- (void) resizeImage:(UIImage *)image withMaskImageName:(NSString *)maskImageName;
-{
-    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:15 topCapHeight:30];
-    CGSize size = CGSizeMake(100, 150);
-    const UIImage *maskImageDrawnToSize = [resizableMaskImage renderAtSize:size];
-    _locationImageView.image = [image maskWithImage: maskImageDrawnToSize];
-    
-}
+//- (void) resizeImage:(UIImage *)image withMaskImageName:(NSString *)maskImageName;
+//{
+//    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:15 topCapHeight:30];
+//    CGSize size = CGSizeMake(100, 150);
+//    const UIImage *maskImageDrawnToSize = [resizableMaskImage renderAtSize:size];
+//    _locationImageView.image = [image maskWithImage: maskImageDrawnToSize];
+//    
+//}
 
 #pragma mark - public
 
