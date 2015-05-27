@@ -69,13 +69,6 @@
     }
 }
 
-
-
-
-
-
-
-
 -(void)createCollectionView
 {
     TaoziCollectionLayout *layout = [[TaoziCollectionLayout alloc] init];

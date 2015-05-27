@@ -109,6 +109,8 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         self.navigationItem.title = @"添加行程";
         [self setupSelectPanel];
     } else {
+        UIBarButtonItem *sbtn = [[UIBarButtonItem alloc]initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(beginSearch)];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:sbtn, nil];
         self.navigationItem.title = [NSString stringWithFormat:@"%@景点", _cityName];
     }
     
@@ -394,16 +396,6 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
 }
 
 - (void) categoryFilt {
-//    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
-//    ctl.contentItems = @[@"景点", @"美食", @"购物", @"酒店"];
-//    ctl.titleTxt = @"切换类别";
-//    ctl.delegate = self;
-//    ctl.selectItem = _currentCategory;
-//    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
-//    [self presentViewController:nav animated:YES completion:^{
-//        _filterType = FILTER_TYPE_CATE;
-//    }];
-    
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (CityDestinationPoi *poi in _tripDetail.destinations) {
         [array addObject:poi.zhName];
