@@ -101,7 +101,7 @@
                 [button setFrame:CGRectMake((col+7) * itemWidth, row * itemHeight, itemWidth, itemHeight)];
                 [button.titleLabel setFont:[UIFont fontWithName:@"AppleColorEmoji" size:29.0]];
                 [button setTitle: [_faces objectAtIndex:(row * maxCol + col+18)] forState:UIControlStateNormal];
-                button.tag = row * maxCol + col;
+                button.tag = row * maxCol + col + 18;
                 [button addTarget:self action:@selector(selected:) forControlEvents:UIControlEventTouchUpInside];
                 [_scrollView addSubview:button];
             }

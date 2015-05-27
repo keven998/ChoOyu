@@ -38,7 +38,7 @@
         // 设置提醒文字
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSForegroundColorAttributeName] = [UIColor grayColor];
-        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"   搜索" attributes:attrs];
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"     搜索" attributes:attrs];
         
         // 设置键盘右下角按钮的样式
         self.returnKeyType = UIReturnKeySearch;
@@ -52,6 +52,6 @@
     [super layoutSubviews];
     
     // 设置左边图标的frame
-    self.leftView.frame = CGRectMake(10, 0, 30, self.frame.size.height);
+    self.leftView.frame = CGRectMake(0, 5, 40, self.frame.size.height-10);
 }
 @end

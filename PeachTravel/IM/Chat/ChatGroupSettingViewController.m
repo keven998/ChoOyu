@@ -541,13 +541,15 @@
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
         
     } else {
-        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
-                                       @"avatar":contact.avatar,
-                                       @"nickName":contact.nickName,
-                                       @"signature":contact.signature,
-                                       @"easemobUser":contact.easemobUser
-                                       };
+//        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+//        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
+//                                       @"avatar":contact.avatar,
+//                                       @"nickName":contact.nickName,
+//                                       @"signature":contact.signature,
+//                                       @"easemobUser":contact.easemobUser
+//                                       };
+        OtherUserInfoViewController *searchUserInfoCtl = [[OtherUserInfoViewController alloc]init];
+        searchUserInfoCtl.userId = contact.userId;
         [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
     }
 }

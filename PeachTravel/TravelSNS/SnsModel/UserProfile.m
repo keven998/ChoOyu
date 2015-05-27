@@ -23,6 +23,7 @@
         _roles = [json objectForKey:@"roles"];
         _travels = [json objectForKey:@"tracks"];
         _birthday = [json objectForKey:@"birthday"];
+        _easemobUser = [json objectForKey:@"easemobUser"];
         _travelStatus = [json objectForKey:@"travelStatus"];
     }
     return self;

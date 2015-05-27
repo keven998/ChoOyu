@@ -356,7 +356,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
 //    if (self.tableView.isEditing) {
 //        return YES;
 //    }
-    return YES;
+    return _canEdit;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

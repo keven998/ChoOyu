@@ -412,8 +412,7 @@
     [_scrollView addSubview:moreCommentBtn];
     }
     offsetY += 40;
-    
-    if (_spot.comments.count >= 1) {
+        if (_spot.comments.count >= 1) {
         
         UIImageView *dotImageViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(10, offsetY-10, 20, 17)];
         dotImageViewLeft.image = [UIImage imageNamed:@"ic_quotation_l.png"];
@@ -437,6 +436,7 @@
         [_scrollView addSubview:commentSubLabel];
         offsetY += 15;
     }
+
     offsetY += 10;
     if (_spot.comments.count >= 2) {
         CommentDetail *comment = [_spot.comments objectAtIndex:1];
@@ -499,7 +499,7 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
     }
-
+    
     TaoziImage *image = [_spot.images objectAtIndex:index];
     [imageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl]];
     [_pageControl setCurrentPage:index];

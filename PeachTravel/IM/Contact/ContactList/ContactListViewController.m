@@ -15,7 +15,6 @@
 #import "OptionOfFASKTableViewCell.h"
 #import "AddContactTableViewController.h"
 #import "ConvertMethods.h"
-#import "MJNIndexView.h"
 #import "BaseTextSettingViewController.h"
 #import "REFrostedViewController.h"
 #import "ChatSettingViewController.h"
@@ -29,9 +28,6 @@
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
-
-//索引
-@property (nonatomic, strong) MJNIndexView *indexView;
 
 @property (strong, nonatomic) UIView *emptyView;
 
@@ -50,7 +46,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
 
     [self.view addSubview:self.contactTableView];
-    
     [self.accountManager loadContactsFromServer];
 //    [self handleEmptyView];
 }
@@ -204,9 +199,6 @@
 {
     self.dataSource = [self.accountManager contactsByPinyin];
     [self.contactTableView reloadData];
-   
-    [self.indexView setFrame:CGRectMake(0, 0, kWindowWidth-5, kWindowHeight-64)];
-    [self.indexView refreshIndexItems];
 }
 
 - (IBAction)chat:(UIButton *)sender

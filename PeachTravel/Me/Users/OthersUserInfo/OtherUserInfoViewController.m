@@ -54,6 +54,12 @@
     [self.view addSubview:_tableView];
     
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 -(void)loadUserInfo
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -269,7 +275,6 @@
     frostedViewController.limitMenuViewSize = YES;
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
     [self.navigationController pushViewController:frostedViewController animated:YES];
-//    [self presentViewController:chatCtl animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
