@@ -25,6 +25,11 @@
 }
 @property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, strong) NSMutableArray *seletedArray;
+
+@property (nonatomic, assign) BOOL isLoadingMoreSearch;
+@property (nonatomic, assign) BOOL didEndScrollSearch;
+@property (nonatomic, assign) BOOL enableLoadMoreSearch;
+
 @end
 
 @implementation PoisSearchViewController
@@ -125,22 +130,35 @@
                 break;
         }
         NSArray *jsonDic = [[responseObject objectForKey:@"result"] objectForKey:key];
-        
+        if (jsonDic.count == 15) {
+            _enableLoadMoreSearch = YES;
+        }
         for (id poiDic in jsonDic) {
             [_dataArray addObject:[PoiFactory poiWithJson:poiDic]];
         }
-        
+        _currentPageSearch = pageNo;
         
         [_tableView reloadData];
+        [self loadMoreCompletedSearch];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        [self loadMoreCompletedSearch];
     }];
 }
 
 - (void) beginLoadingSearch
 {
+
+    _isLoadingMoreSearch = YES;
     [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
     
+    NSLog(@"我要加载到第%lu",(long)_currentPageSearch+1);
+    
+}
+- (void) loadMoreCompletedSearch
+{
+    if (!_isLoadingMoreSearch) return;
+    _isLoadingMoreSearch = NO;
+    _didEndScrollSearch = YES;
 }
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField*)theTextField {
@@ -148,17 +166,25 @@
     [self beginSearch:nil];
     return YES;
 }
+
 #pragma mark - UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([scrollView isEqual:_tableView]) {
+    
+    if (!_isLoadingMoreSearch && _didEndScrollSearch && _enableLoadMoreSearch) {
         CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
         if (scrollPosition < 44.0) {
-            
+            _didEndScrollSearch = NO;
             [self beginLoadingSearch];
         }
     }
+}
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    
+    _didEndScrollSearch = YES;
+    
 }
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -184,11 +210,12 @@
     
     cell.tripPoi = poi;
     cell.cellAction.tag = indexPath.row;
-    cell.cellAction.hidden = NO;
-    [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
-    [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
-    [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
-    
+    if (_tripDetail) {
+        cell.cellAction.hidden = NO;
+        [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
+        [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
+        [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
+    }
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -228,19 +255,19 @@
     
     
     SuperPoi *poi;
-        poi = [_dataArray objectAtIndex:sender.tag];
+    poi = [_dataArray objectAtIndex:sender.tag];
     
     if (!cell.cellAction.isSelected) {
         [_seletedArray addObject:poi];
         
-//        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
-//        [self.selectPanel performBatchUpdates:^{
-//            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
-//        } completion:^(BOOL finished) {
-//            [self.selectPanel scrollToItemAtIndexPath:lnp
-//                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-//        }];
-    
+        //        NSIndexPath *lnp = [NSIndexPath indexPathForItem:_seletedArray.count - 1 inSection:0];
+        //        [self.selectPanel performBatchUpdates:^{
+        //            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        //        } completion:^(BOOL finished) {
+        //            [self.selectPanel scrollToItemAtIndexPath:lnp
+        //                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        //        }];
+        
     } else {
         int index = -1;
         NSInteger count = _seletedArray.count;
@@ -254,12 +281,12 @@
         }
         
         if (index != -1) {
-//            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
-//            [self.selectPanel performBatchUpdates:^{
-//                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
-//            } completion:^(BOOL finished) {
-//                [self.selectPanel reloadData];
-//            }];
+            //            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+            //            [self.selectPanel performBatchUpdates:^{
+            //                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+            //            } completion:^(BOOL finished) {
+            //                [self.selectPanel reloadData];
+            //            }];
         }
         
     }
