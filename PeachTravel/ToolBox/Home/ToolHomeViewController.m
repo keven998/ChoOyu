@@ -56,7 +56,7 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, self.tableView.bounds.size.width, 44)];
     _searchBar.delegate = self;
     [_searchBar setBackgroundImage:[UIImage new]];
-    _searchBar.placeholder = @"城市、景点、美食、游记";
+    _searchBar.placeholder = @"城市、景点、美食、购物";
     [self.view addSubview:_searchBar];
     
     _navigationbarAnimated = YES;
