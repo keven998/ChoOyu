@@ -208,14 +208,13 @@
     return NO;
 }
 
-//TODO:
 - (BOOL)isNumberInGroup:(NSInteger)userId
 {
-//    for (NSString *userName in self.emGroup.occupants) {
-//        if ([easeMobUserName isEqualToString: userName]) {
-//            return YES;
-//        }
-//    }
+    for (FrendModel *frend in self.group.numbers) {
+        if (frend.userId == userId) {
+            return YES;
+        }
+    }
     return NO;
 }
 
@@ -231,22 +230,22 @@
             [source addObject:contact.easemobUser];
         }
         
-        EMError *error = nil;
-        [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
-        if (!error) {
-            [hud hideTZHUD];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
-                AccountManager *accountManager = [AccountManager shareAccountManager];
-                [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
-                [self sendMsgWhileCreateGroup:_group.groupId];
-                [self.delegate reloadData];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            });
-        } else {
-            [hud hideTZHUD];
-            [SVProgressHUD showErrorWithStatus:@"好像请求失败了"];
-        }
+//        EMError *error = nil;
+//        [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
+//        if (!error) {
+//            [hud hideTZHUD];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
+//                AccountManager *accountManager = [AccountManager shareAccountManager];
+//                [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
+//                [self sendMsgWhileCreateGroup:_group.groupId];
+//                [self.delegate reloadData];
+//                [self dismissViewControllerAnimated:YES completion:nil];
+//            });
+//        } else {
+//            [hud hideTZHUD];
+//            [SVProgressHUD showErrorWithStatus:@"好像请求失败了"];
+//        }
     });
 }
 

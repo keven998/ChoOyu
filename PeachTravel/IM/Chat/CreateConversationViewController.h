@@ -31,12 +31,7 @@
 /**
  *  旅行派群组
  */
-@property (nonatomic, strong) Group *group;
-
-/**
- *  环信的群组
- */
-@property (nonatomic, strong) EMGroup *emGroup;
+@property (nonatomic, strong) IMDiscussionGroup *group;
 
 @property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 

@@ -53,9 +53,14 @@
     self.navigationController.navigationBarHidden = YES;
     
     [self createTableView];
-    IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-    _groupModel = [groupManager getFullDiscussionGroupInfoWithGroupId:_groupId];
-}
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+        _groupModel = [groupManager getFullDiscussionGroupInfoWithGroupId:_groupId];
+       dispatch_async(dispatch_get_main_queue(), ^{
+           [_tableView reloadData];
+       });
+    });
+   }
 
 -(void)createTableView
 {
@@ -200,13 +205,7 @@
     }
     
     else if (indexPath.row == 3) {
-//        AccountManager *accountManager = [AccountManager shareAccountManager];
-//        CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
-//        createConversationCtl.emGroup = _group;
-//        createConversationCtl.group = [accountManager groupWithGroupId:_group.groupId];
-//        createConversationCtl.delegate = self;
-//        TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:createConversationCtl];
-//        [self presentViewController:nCtl animated:YES completion:nil];
+        [self addGroupNumber:nil];
         
     }else if (indexPath.row >3 && indexPath.row < _groupModel.numbers.count +4) {
         Contact *selectPerson = self.groupModel.numbers[indexPath.row - 4];
@@ -362,13 +361,10 @@
 //增加群组成员
 - (IBAction)addGroupNumber:(id)sender
 {
-//    AccountManager *accountManager = [AccountManager shareAccountManager];
-//    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
-//    createConversationCtl.emGroup = _group;
-//    createConversationCtl.group = [accountManager groupWithGroupId:_group.groupId];
-//    
-//    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:createConversationCtl];
-//    [self presentViewController:nCtl animated:YES completion:nil];
+    CreateConversationViewController *createConversationCtl = [[CreateConversationViewController alloc] init];
+    createConversationCtl.group = _groupModel;
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:createConversationCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
 }
 
 /**
