@@ -430,9 +430,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
+    AccountManager *amgr = self.accountManager;
     if ((indexPath.section == 0 && indexPath.row == 0))
     {
+        if (amgr.accountDetail.userAlbum.count == 0) {
+            return 0;
+        }
         return 108;
     }
     else if (indexPath.section == 1 || indexPath.section == 2)
@@ -483,16 +486,22 @@
         
         if (countryNumber > 0) {
             cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+            cell.footPrint.text = cityDesc;
         } else {
-            cell.trajectory.text = @"没有上传足迹";
+            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+            cell.footPrint.text = @"未设置足迹";
         }
-        cell.footPrint.text = cityDesc;
+        
         return cell;
     } else if (indexPath.section == 2) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.trajectory.textColor = TEXT_COLOR_TITLE_DESC;
-        cell.footPrint.text = self.accountManager.accountDetail.basicUserInfo.signature;
+        if([self.accountManager.accountDetail.basicUserInfo.signature isBlankString]||self.accountManager.accountDetail.basicUserInfo.signature.length == 0) {
+            cell.footPrint.text = @"未设置签名";
+        }else {
+            cell.footPrint.text = self.accountManager.accountDetail.basicUserInfo.signature;
+        }
         return cell;
     }
     else {
@@ -522,9 +531,17 @@
                 }
             }
             else if (indexPath.row == 1) {
+                if (amgr.accountDetail.birthday.length == 0 || amgr.accountDetail.birthday == nil) {
+                    cell.cellDetail.text = @"未设置";
+                }else {
                 cell.cellDetail.text = amgr.accountDetail.birthday;
+                }
             } else if (indexPath.row == 2) {
+                if (amgr.accountDetail.residence.length == 0) {
+                    cell.cellDetail.text = @"未设置";
+                } else {
                 cell.cellDetail.text = amgr.accountDetail.residence;
+                }
             }
         }
         else if (indexPath.section ==  4) {
