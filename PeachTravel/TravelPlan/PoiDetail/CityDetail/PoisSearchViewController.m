@@ -212,8 +212,13 @@
     cell.cellAction.tag = indexPath.row;
     if (_tripDetail) {
         cell.cellAction.hidden = NO;
+        if(_poiType == kSpotPoi){
+            [cell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
+            [cell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
+        } else {
         [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
         [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
+        }
         [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
     }
     return cell;
