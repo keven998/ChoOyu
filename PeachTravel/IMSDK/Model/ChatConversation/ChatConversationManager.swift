@@ -88,7 +88,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 return conversation1.lastUpdateTime >= conversation2.lastUpdateTime
             }
         })
-        
     }
 
     /**
@@ -102,10 +101,15 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         conversation.lastUpdateTime = timeInt
         
         var frendManager = FrendManager()
+        
         if let frend = frendManager.getFrendInfoFromDB(userId: chatterId) {
-            conversation.fillConversationType(frendType: frend.type)
-            conversation.chatterAvatar = frend.avatarSmall
-            conversation.chatterName = frend.nickName
+            self.fillConversationWithFrendData(conversation, frendModel: frend)
+            addConversation(conversation)
+            
+        } else {
+            self.asyncGetConversationInfoFromServer(conversation, completion: { (fullConversation) -> () in
+                self.addConversation(conversation)
+            })
         }
         return conversation
     }
@@ -116,15 +120,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     :returns:
     */
     func createNewConversation(#message: BaseMessage) -> ChatConversation {
-        var conversation = ChatConversation()
-        conversation.chatterId = message.chatterId
-        if let conversationId = message.conversationId {
-            conversation.conversationId = conversationId;
-        }
-        var time = NSDate().timeIntervalSince1970
-        var timeInt: Int = Int(round(time))
-        conversation.lastUpdateTime = timeInt
-        return conversation
+        return self.createNewConversation(chatterId: message.chatterId)
     }
 
     /**
@@ -167,20 +163,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         if self.conversationIsExit(conversation) {
             return
         }
-        
-        //如果这个好友在本地不存在，那么去服务器加载一个好友
-        var frendManager = FrendManager()
-        if !frendManager.frendIsExit(conversation.chatterId) {
-            var frendModel = FrendModel()
-            frendModel.userId = conversation.chatterId
-            if conversation.chatType == IMChatType.IMChatGroupType {
-                frendModel.type = IMFrendType.Group
-            } else if conversation.chatType == IMChatType.IMChatSingleType {
-                frendModel.type = IMFrendType.Frend
-            }
-            frendManager.addFrend2DB(frendModel)
-        }
-
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.addConversation(conversation)
         self.conversationList.append(conversation)
@@ -238,19 +220,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         var frendManager = FrendManager()
         conversation.addReceiveMessage(message)
         conversation.unReadMessageCount = 1
-
-       if let frend = frendManager.getFrendInfoFromDB(userId: message.chatterId) {
-            self.fillConversationWithFrendData(conversation, frendModel: frend)
-            addConversation(conversation)
-            
-        } else {
-            self.asyncGetConversationInfoFromServer(conversation, completion: { (frendModel) -> () in
-                if let frend = frendModel {
-                    self.fillConversationWithFrendData(conversation, frendModel: frend)
-                }
-                self.addConversation(conversation)
-            })
-        }
     }
     
     /**
@@ -294,12 +263,14 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     }
     
     //获取一个会话的详细信息
-    private func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(frendModel: FrendModel?) -> ()) {
-        var frend = FrendModel()
-        frend.userId = conversation.chatterId
-        frend.nickName = conversation.chatterName
-        frend.type = IMFrendType.DiscussionGroup
-        completion(frendModel: frend)
+    private func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
+        var frendManager = FrendManager()
+        frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
+            if let frend = frendInfo {
+                self.fillConversationWithFrendData(conversation, frendModel: frend)
+            }
+            completion(fullConversation: conversation)
+        })
     }
     
 //MARK: MessageTransferManagerDelegate

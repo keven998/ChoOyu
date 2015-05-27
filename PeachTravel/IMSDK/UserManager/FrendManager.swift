@@ -40,7 +40,7 @@ class FrendManager: NSObject {
     :param: userId 查询的用户 id
     :returns:
     */
-    func frendIsExit(userId: Int) -> Bool {
+    func frendIsExitInDB(userId: Int) -> Bool {
         var daoHelper = DaoHelper.shareInstance()
         return daoHelper.frendIsExitInDB(userId)
     }
