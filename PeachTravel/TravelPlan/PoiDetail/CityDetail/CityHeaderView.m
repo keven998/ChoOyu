@@ -77,9 +77,10 @@
     CGRect dframe = CGRectMake(10, 20 + 20, width-20, 0);
     _cityDesc = [[UILabel alloc] init];
     _cityDesc.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _cityDesc.numberOfLines = 0;
+    _cityDesc.numberOfLines = 3;
     NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
     ps.lineSpacing = 3.0;
+    ps.lineBreakMode = NSLineBreakByTruncatingTail;
     NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName:ps};
     NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:_cityPoi.desc attributes:attribs];
     CGRect rect = [attrstr boundingRectWithSize:(CGSize){dframe.size.width, 3*13+15} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
