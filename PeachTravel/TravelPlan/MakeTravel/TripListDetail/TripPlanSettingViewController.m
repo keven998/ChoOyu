@@ -129,7 +129,13 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return _tripDetail.tripTitle;;
+        if (_tripDetail.tripTitle.length > 50) {
+            NSString *str = [_tripDetail.tripTitle substringToIndex:23];
+            str = [NSString stringWithFormat:@"%@....计划",str];
+            return  str;
+        } else {
+        return _tripDetail.tripTitle;
+        }
     }
     else
         return @"已选目的地";
