@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *footPrint;
 //@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 //@property (assign, nonatomic) CGFloat h;
+@property (weak, nonatomic) IBOutlet UIImageView *imageJiantou;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 //@property (copy,nonatomic) NSArray *dataArray;
 @end

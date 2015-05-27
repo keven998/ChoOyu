@@ -484,7 +484,7 @@
         if (countryNumber > 0) {
             cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
         } else {
-            cell.trajectory.text = @"";
+            cell.trajectory.text = @"没有上传足迹";
         }
         cell.footPrint.text = cityDesc;
         return cell;
