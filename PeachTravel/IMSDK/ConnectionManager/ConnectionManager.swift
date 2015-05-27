@@ -8,6 +8,8 @@
 
 import UIKit
 
+let getuiDidConnectionNoti = "getuiDidConnectionNoti"
+
 @objc protocol ConnectionManagerDelegate {
     func connectionSetup(isSuccess: Bool, errorCode: Int);
 }
@@ -43,6 +45,7 @@ class ConnectionManager: NSObject, PushConnectionDelegate {
     //MARK:PushConnectionDelegate
     func getuiDidConnection(clientId: String) {
         registionId = clientId
+        NSNotificationCenter.defaultCenter().postNotificationName(getuiDidConnectionNoti, object: nil)
     }
 }
 
