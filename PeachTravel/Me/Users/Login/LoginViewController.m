@@ -61,6 +61,7 @@
     [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
     [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
     [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     self.navigationItem.leftBarButtonItem = left;
     
