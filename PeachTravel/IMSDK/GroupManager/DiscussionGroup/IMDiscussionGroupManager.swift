@@ -115,10 +115,11 @@ class IMDiscussionGroupManager: NSObject {
     
     :param: completion
     */
-    func asyncLeaveDiscussionGroup(completion:(isSuccess: Bool, errorCode: Int)) {
+    func asyncLeaveDiscussionGroup(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
     }
     
-    func asyncChangeDiscussionGroupTitle(completion:(isSuccess: Bool, errorCode: Int)) {
+    func asyncChangeDiscussionGroupTitle(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+
     }
     
     /**
@@ -128,7 +129,7 @@ class IMDiscussionGroupManager: NSObject {
     :param: numbers
     :param: completion 
     */
-    func asyncAddNumbers(#groupId: Int, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int)) {
+    func asyncAddNumbers(#groupId: Int, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var array = Array<Int>()
         for frend in numbers {
             array.append(frend.userId)
@@ -137,9 +138,13 @@ class IMDiscussionGroupManager: NSObject {
         params.setObject(array, forKey: "participants")
         params.setObject("addMembers", forKey: "action")
         params.setObject(groupId, forKey: "id")
-        let addNumberUrl = "\(groupUrl)/\(groupId)/request"
+        let addNumberUrl = "\(groupUrl)/\(groupId)"
         NetworkTransportAPI.asyncPOST(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
-            
+            if isSuccess {
+                completion(isSuccess: true, errorCode: 0)
+            } else {
+                completion(isSuccess: false, errorCode: 0)
+            }
         }
 
     }

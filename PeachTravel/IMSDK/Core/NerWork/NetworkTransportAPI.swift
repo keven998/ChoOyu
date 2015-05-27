@@ -68,8 +68,14 @@ class NetworkTransportAPI: NSObject {
         manager.POST(requstUrl, parameters: parameters, success:
             {
                 (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-                if let reslutDic = responseObject.objectForKey("result") as? NSDictionary {
-                    completionBlock(isSuccess: true, errorCode: 0, retMessage: reslutDic)
+                
+                println("responseObject: \(responseObject)")
+                if let code = responseObject.objectForKey("code") as? Int {
+                    if code == 0 {
+                        completionBlock(isSuccess: true, errorCode: 0, retMessage: responseObject.objectForKey("result") as? NSDictionary)
+                    } else {
+                        completionBlock(isSuccess: false, errorCode: 0, retMessage: nil)
+                    }
                 }
             })
             {

@@ -225,27 +225,14 @@
     [hud showHUDInViewController:weakSelf];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *source = [NSMutableArray array];
-        for (Contact *contact in self.selectedContacts) {
-            [source addObject:contact.easemobUser];
-        }
-        
-//        EMError *error = nil;
-//        [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.group.groupId welcomeMessage:@"" error:&error];
-//        if (!error) {
-//            [hud hideTZHUD];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [_group addNumbers:[NSSet setWithArray:self.selectedContacts]];
-//                AccountManager *accountManager = [AccountManager shareAccountManager];
-//                [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
-//                [self sendMsgWhileCreateGroup:_group.groupId];
-//                [self.delegate reloadData];
-//                [self dismissViewControllerAnimated:YES completion:nil];
-//            });
-//        } else {
-//            [hud hideTZHUD];
-//            [SVProgressHUD showErrorWithStatus:@"好像请求失败了"];
-//        }
+       
+        IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
+        [discussionGroupManager asyncAddNumbersWithGroupId:_group.groupId numbers: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
+            [hud hideTZHUD];
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"添加成功"];
+            }
+        }];
     });
 }
 
