@@ -150,6 +150,35 @@ class IMDiscussionGroupManager: NSObject {
         }
 
     }
+    
+    /**
+    删除群组里的成员
+    
+    :param: groupId
+    :param: numbers
+    :param: completion
+    */
+    func asyncDeleteNumbers(#group: IMDiscussionGroup, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+        var array = Array<Int>()
+        for frend in numbers {
+            array.append(frend.userId)
+        }
+        var params = NSMutableDictionary()
+        params.setObject(array, forKey: "participants")
+        params.setObject("delMembers", forKey: "action")
+        params.setObject(group.groupId, forKey: "id")
+        let addNumberUrl = "\(groupUrl)/\(group.groupId)"
+        NetworkTransportAPI.asyncPOST(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
+            if isSuccess {
+                self.deleteNumbersFromGroup(numbers: numbers, group: group)
+                
+                completion(isSuccess: true, errorCode: 0)
+            } else {
+                completion(isSuccess: false, errorCode: 0)
+            }
+        }
+    }
+
 
     
  //MARK: private function
@@ -176,6 +205,26 @@ class IMDiscussionGroupManager: NSObject {
         self.updateGroupInfoInDB(group)
     }
     
+    /**
+    删除群组里的某一些成员
+    
+    :param: numbers
+    :param: group
+    */
+    private func deleteNumbersFromGroup(#numbers: Array<FrendModel>, group: IMDiscussionGroup) {
+        var leftNumbers = Array<FrendModel>()
+        for frend in numbers {
+            var find = false
+            for oldFrend in group.numbers {
+                if oldFrend.userId != frend.userId {
+                    leftNumbers.append(oldFrend)
+                }
+            }
+        }
+        group.numbers = leftNumbers
+        self.updateGroupInfoInDB(group)
+    }
+
     /**
     更新数据库里相关群组的信息
     

@@ -494,42 +494,21 @@
  */
 - (IBAction)upChatList:(UIButton *)sender {
 }
+
 #pragma mark - SWTableViewCellDelegate
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
-//    [cell hideUtilityButtonsAnimated:YES];
-//    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
-//    
-//    Contact *selectPerson = _groupNumbers[indexPath.row-4];
-//    AccountManager *accountManager = [AccountManager shareAccountManager];
-//    
-//    NSArray *occupants = @[selectPerson.easemobUser];
-//    __weak typeof(self)weakSelf = self;
-//    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-//    [hud showHUDInViewController:weakSelf];
-//    
-//    [[EaseMob sharedInstance].chatManager asyncRemoveOccupants:occupants fromGroup:self.group.groupId completion:^(EMGroup *group, EMError *error) {
-//        [hud hideTZHUD];
-//        if (!error) {
-//            [accountManager removeNumberToGroup:self.group.groupId numbers:[NSSet setWithObject:selectPerson]];
-//            self.groupNumbers = [self loadGroupNumbers];
-//            [self updateView];
-//            for (UIButton *btn in self.numberDeleteBtns) {
-//                btn.hidden = NO;
-//            }
-////            AccountManager *accountManager = [AccountManager shareAccountManager];
-////            NSString *messageStr = [NSString stringWithFormat:@"%@把%@移除了群组",accountManager.account.nickName, selectPerson.nickName];
-////            
-////            NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:TZTipsMsg], @"content":messageStr};
-////            
-////            EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:self.group.groupId isChatGroup:YES requireEncryption:NO];
-////            [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
-//            
-//        } else {
-//        }
-//    } onQueue:nil];
-
+    [cell hideUtilityButtonsAnimated:YES];
+    IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
+    
+    [groupManager asyncDeleteNumbersWithGroup:_groupModel numbers:@[_groupModel.numbers[index]] completion:^(BOOL isSuccess, NSInteger errorCode) {
+        if (isSuccess) {
+            [SVProgressHUD showHint:@"删除成功"];
+            [_tableView reloadData];
+        }
+    }];
 }
+
 #pragma mark - CreateConversationDelegate
 -(void)reloadData
 {
