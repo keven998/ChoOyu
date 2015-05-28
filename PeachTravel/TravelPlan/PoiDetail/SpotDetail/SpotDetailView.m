@@ -65,7 +65,7 @@
     swipeView.dataSource = self;
     swipeView.delegate = self;
     swipeView.bounces = NO;
-    swipeView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    swipeView.backgroundColor = APP_BORDER_COLOR;
     swipeView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     swipeView.pagingEnabled = YES;
     swipeView.itemsPerPage = 1;
@@ -89,7 +89,7 @@
     
     [_scrollView addSubview:_titleLabel];
     
-    offsetY += 30;
+    offsetY += 30 + 12;
     
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 90, 15)];
     _ratingView.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY);
@@ -498,6 +498,7 @@
         imageView = [[UIImageView alloc] initWithFrame:swipeView.bounds];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
+        imageView.backgroundColor = APP_BORDER_COLOR;
     }
     
     TaoziImage *image = [_spot.images objectAtIndex:index];

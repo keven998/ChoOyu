@@ -123,7 +123,9 @@
                     <constraint firstItem="ffJ-oR-a9q" firstAttribute="top" secondItem="RYX-TY-fQd" secondAttribute="bottom" constant="1" id="5bE-jH-oMu"/>
                     <constraint firstAttribute="trailing" secondItem="oRV-G7-LPY" secondAttribute="trailing" constant="8" id="9nL-hp-wOn"/>
                     <constraint firstItem="1hy-kI-Yi0" firstAttribute="top" secondItem="52z-Kh-JXx" secondAttribute="top" constant="12" id="BNL-u9-ObD"/>
-                    <constraint firstAttribute="trailing" secondItem="RYX-TY-fQd" secondAttribute="trailing" constant="8" id="Ehl-ax-Yne"/>
+                    <constraint firstAttribute="trailing" secondItem="RYX-TY-fQd" secondAttribute="trailing" constant="8" id="Ehl-ax-Yne">
+                        <variation key="widthClass=compact" constant="8"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="7ul-Yy-Ngu" secondAttribute="centerY" id="I4Z-Wf-RIc"/>
                     <constraint firstItem="RYX-TY-fQd" firstAttribute="top" secondItem="1hy-kI-Yi0" secondAttribute="bottom" constant="3" id="Mmp-eU-ITf"/>
                     <constraint firstItem="RYX-TY-fQd" firstAttribute="leading" secondItem="7ul-Yy-Ngu" secondAttribute="trailing" constant="10" id="N4k-PA-yzy"/>
@@ -131,10 +133,10 @@
                     <constraint firstItem="ffJ-oR-a9q" firstAttribute="leading" secondItem="7ul-Yy-Ngu" secondAttribute="trailing" constant="10" id="YZ5-MI-qX2"/>
                     <constraint firstItem="1hy-kI-Yi0" firstAttribute="leading" secondItem="7ul-Yy-Ngu" secondAttribute="trailing" constant="10" id="Z41-zB-bkj"/>
                     <constraint firstAttribute="trailing" secondItem="1hy-kI-Yi0" secondAttribute="trailing" constant="8" id="lL8-iq-PCC">
-                        <variation key="widthClass=compact" constant="84"/>
+                        <variation key="widthClass=compact" constant="85"/>
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="ffJ-oR-a9q" secondAttribute="trailing" constant="8" id="vrz-v8-XXC">
-                        <variation key="widthClass=compact" constant="84"/>
+                        <variation key="widthClass=compact" constant="80"/>
                     </constraint>
                 </constraints>
                 <variation key="default">
@@ -190,8 +192,10 @@
             <connections>
                 <outlet property="cellAction" destination="oRV-G7-LPY" id="edO-X9-oML"/>
                 <outlet property="headerImageView" destination="7ul-Yy-Ngu" id="5S8-CO-9Co"/>
+                <outlet property="labCons" destination="lL8-iq-PCC" id="62w-b7-p3z"/>
                 <outlet property="propertyLabel" destination="RYX-TY-fQd" id="Gr2-nj-jgz"/>
                 <outlet property="titleLabel" destination="1hy-kI-Yi0" id="XI5-sZ-Yt3"/>
+                <outlet property="valueCons" destination="vrz-v8-XXC" id="4G6-Qi-IqA"/>
                 <outlet property="valueLabel" destination="ffJ-oR-a9q" id="849-Wz-gKy"/>
             </connections>
             <point key="canvasLocation" x="-807" y="59.5"/>

@@ -28,7 +28,8 @@
 #import "SignatureViewController.h"
 #import "DomesticViewController.h"
 #import "ForeignViewController.h"
-
+#import "MJPhoto.h"
+#import "MJPhotoBrowser.h"
 
 #define accountDetailHeaderCell          @"headerCell"
 #define otherUserInfoCell           @"otherCell"
@@ -429,13 +430,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    AccountManager *amgr = self.accountManager;
+
     if ((indexPath.section == 0 && indexPath.row == 0))
     {
-        if (amgr.accountDetail.userAlbum.count == 0) {
-            return 0;
-        }
         return 108;
     }
     else if (indexPath.section == 1 || indexPath.section == 2)
@@ -835,18 +832,46 @@
                                                  otherTitles:@[ @"设为头像", @"查看图片", @"删除"]
                                                   completion:^(BOOL cancelled, NSInteger buttonIndex) {
                                                       if (buttonIndex == 1) {
+                                                          
                                                           [self changeAvatar:index];
                                                           
                                                       } else if (buttonIndex == 2) {
                                                           
+                                                          [self showImageDetail:index];
+                                                          
                                                       } else if (buttonIndex == 3) {
+                                                          
                                                           [self deleteUserAvatar:index];
+                                                          
                                                       }
                                                   }];
     [alertView setTitleFont:[UIFont systemFontOfSize:16]];
     [alertView useDefaultIOS7Style];
 }
+//      AlbumImage *albumImage = _headerPicArray[indexPath.row];
+//      [cell.picImage sd_setImageWithURL:[NSURL URLWithString: albumImage.image.imageUrl]];
+-(void)showImageDetail:(NSInteger)index
+{
+    AccountManager *amgr = self.accountManager;
+    NSInteger count = amgr.accountDetail.userAlbum.count;
+    // 1.封装图片数据
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:count];
+    for (NSInteger i = 0; i<count; i++) {
+        // 替换为中等尺寸图片
+        AlbumImage *albumImage = amgr.accountDetail.userAlbum[i];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:albumImage.image.imageUrl]; // 图片路径
+//        photo.srcImageView = (UIImageView *)[swipeView itemViewAtIndex:index]; // 来源于哪个UIImageView
+        [photos addObject:photo];
+    }
+    
+    // 2.显示相册
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
+    browser.photos = photos; // 设置所有的图片
+    [browser show];
 
+}
 @end
 
 

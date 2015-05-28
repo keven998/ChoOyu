@@ -402,6 +402,8 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     }
     FilterViewController *fvc = [[FilterViewController alloc] init];
     fvc.delegate = self;
+    fvc.selectedCategoryIndex = [NSIndexPath indexPathForRow:_currentListTypeIndex inSection:0] ;
+    fvc.selectedCityIndex = [NSIndexPath indexPathForRow:_currentCityIndex inSection:1];
     fvc.contentItems = [NSArray arrayWithArray:array];
     [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
 }
@@ -630,11 +632,10 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         poiCell.cellAction.selected = isAdded;
         [poiCell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        poiCell.labCons.constant = 8;
+        poiCell.valueCons.constant = 8;
     }
-//    else {
-//        [poiCell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-//        [poiCell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-//    }
     return poiCell;
 }
 
