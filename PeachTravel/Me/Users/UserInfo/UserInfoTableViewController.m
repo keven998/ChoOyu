@@ -36,12 +36,18 @@
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"我的足迹"], @[@"签名"], @[@"性别", @"生日", @"居住在"], @[@"安全绑定", @"修改密码"], ]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate,updataTracksDelegate>
 {
-    Destinations *_citySelectedArray;
 }
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) AccountManager *accountManager;
+@property (strong, nonatomic) Destinations *destinations;
+
+
+// 我的足迹的描述
+@property (nonatomic, copy) NSString *tracksDesc;
+//我的足迹所有城市的罗列
+@property (nonatomic, copy) NSString *tracksCityDesc;
 
 @property (nonatomic, strong) JGProgressHUD *HUD;
 
@@ -62,8 +68,6 @@
     self.navigationItem.title = @"我";
     
     [self loadUserInfo];
-    
-    _citySelectedArray = [[Destinations alloc]init];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -108,6 +112,25 @@
 
 #pragma mark - setter & getter
 
+- (Destinations *)updateDestinations
+{
+    _destinations = [[Destinations alloc] init];
+    AccountManager *amgr = self.accountManager;
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.accountDetail.tracks];
+    
+    NSArray *keys = [country allKeys];
+    NSInteger countryNumber = keys.count;
+    for (int i = 0; i < countryNumber; ++i) {
+        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+        NSLog(@"%@",citys);
+        for (id city in citys) {
+            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+            [_destinations.destinationsSelected addObject:poi];
+        }
+    }
+    return _destinations;
+}
+
 - (UIView *)footerView
 {
     if (!_footerView) {
@@ -143,9 +166,36 @@
 {
     [self.accountManager.accountDetail loadUserInfoFromServer:^(bool isSuccess) {
         if (isSuccess) {
+            [self updateTracksDesc];
+            [self updateDestinations];
             [self loadUserAlbum];
         }
     }];
+}
+
+- (void)updateTracksDesc
+{
+    NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:[AccountManager shareAccountManager].accountDetail.tracks];
+    NSInteger cityNumber = 0;
+    NSMutableString *cityDesc = nil;
+    NSArray *keys = [country allKeys];
+    NSInteger countryNumber = keys.count;
+    for (int i = 0; i < countryNumber; ++i) {
+        NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+        NSLog(@"%@",citys);
+        cityNumber += citys.count;
+        
+        for (id city in citys) {
+            CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+            if (cityDesc == nil) {
+                cityDesc = [[NSMutableString alloc] initWithString:poi.zhName];
+            } else {
+                [cityDesc appendFormat:@" %@", poi.zhName];
+            }
+        }
+    }
+    _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+    _tracksCityDesc = cityDesc;
 }
 
 /**
@@ -430,7 +480,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     if ((indexPath.section == 0 && indexPath.row == 0))
     {
         return 108;
@@ -460,35 +509,13 @@
     } else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"我的足迹";
-        NSDictionary *country = amgr.accountDetail.tracks;
-        NSInteger cityNumber = 0;
-        NSMutableString *cityDesc = nil;
-        NSArray *keys = [country allKeys];
-        NSInteger countryNumber = keys.count;
-        for (int i = 0; i < countryNumber; ++i) {
-            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-            NSLog(@"%@",citys);
-            cityNumber += citys.count;
-            for (id city in citys) {
-//                city
-                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-                [_citySelectedArray.destinationsSelected addObject:poi];
-                if (cityDesc == nil) {
-                    cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
-                } else {
-                    [cityDesc appendFormat:@" %@", [city objectForKey:@"zhName"]];
-                }
-            }
-        }
-        
-        if (countryNumber > 0) {
-            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
-            cell.footPrint.text = cityDesc;
+        cell.trajectory.text = _tracksDesc;
+        if (_tracksCityDesc) {
+            cell.footPrint.text = _tracksCityDesc;
         } else {
-            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
             cell.footPrint.text = @"未设置足迹";
         }
-        
+        cell.tag = 1001;
         return cell;
         
     } else if (indexPath.section == 2) {
@@ -586,9 +613,9 @@
         }
         
     } else if (indexPath.section == 1) {
-        
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
-        footCtl.destinations = _citySelectedArray;
+        footCtl.destinations = self.destinations;
+        footCtl.delegate = self;
         [self presentViewController:footCtl animated:YES completion:nil];
         
     } else if (indexPath.section == 2) {
@@ -633,6 +660,7 @@
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             
             [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_password"];
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
@@ -871,6 +899,13 @@
     browser.photos = photos; // 设置所有的图片
     [browser show];
 
+}
+
+- (void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
+{
+    _tracksDesc = [NSString stringWithFormat:@"%ld国 %ld个城市",country,city];
+    _tracksCityDesc = track;
+    [self.tableView reloadData];
 }
 @end
 

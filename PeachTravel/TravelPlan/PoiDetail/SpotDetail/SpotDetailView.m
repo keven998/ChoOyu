@@ -92,7 +92,7 @@
     offsetY += 30 + 12;
     
     _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 90, 15)];
-    _ratingView.center = CGPointMake(_scrollView.bounds.size.width/2, offsetY);
+    _ratingView.center = CGPointMake(swipeView.bounds.size.width/2, offsetY);
     _ratingView.starImage = [UIImage imageNamed:@"star_biankuang"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"star_couler"];
     _ratingView.maxRating = 5.0;
@@ -124,9 +124,7 @@
     spaceView.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView];
 
-    
-    
-    UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY-20, width, 25)];
+    UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY-10, width, 25)];
     destTitle.text = @"实用信息";
     destTitle.font = [UIFont boldSystemFontOfSize:17];
     destTitle.textColor = TEXT_COLOR_TITLE;
