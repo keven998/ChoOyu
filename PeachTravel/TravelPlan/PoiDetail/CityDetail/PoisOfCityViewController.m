@@ -324,8 +324,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_RESTAURANTSLIST_CITY,_cityId];
         
-    }
-    if (_poiType == kShoppingPoi) {
+    } else if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@", API_GET_SHOPPINGLIST_CITY,_cityId];
     }
     
@@ -744,18 +743,14 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(11, 20, sectionheaderView.bounds.size.width-22, sectionheaderView.bounds.size.height-30)];
             btn.layer.cornerRadius = 3.0;
             
-            UIButton *tagBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
-            tagBtn.titleLabel.numberOfLines = 2.0;
+            UIImageView *tagBtn = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18, 80, 80)];
+            tagBtn.contentMode = UIViewContentModeCenter;
 //            [tagBtn setBackgroundImage:[UIImage imageNamed:@"ic_city_border.png"] forState:UIControlStateNormal];
             if (_poiType == kRestaurantPoi) {
-                [tagBtn setBackgroundImage:[UIImage imageNamed:@"jingdian_food_eat"] forState:UIControlStateNormal];
+                [tagBtn setImage:[UIImage imageNamed:@"jingdian_food_eat"]];
             } else if (_poiType == kShoppingPoi) {
-                [tagBtn setBackgroundImage:[UIImage imageNamed:@"jingdian_shopping"] forState:UIControlStateNormal];
+                [tagBtn setImage:[UIImage imageNamed:@"jingdian_shopping"]];
             }
-            tagBtn.titleLabel.font  = [UIFont boldSystemFontOfSize:17.0];
-            [tagBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 0)];
-            [tagBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-            tagBtn.userInteractionEnabled = YES;
             [btn addSubview:tagBtn];
             
             NSUInteger len = [_dataSource.desc length];

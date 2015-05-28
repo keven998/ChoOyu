@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -148,23 +148,6 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHP-Bw-dpw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.98039215686274506" green="0.65098039215686276" blue="0.68627450980392157" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="BCO-Qd-7Vx"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="BCO-Qd-7Vx"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="BCO-Qd-7Vx"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h39-Bq-jSe">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.99215686270000003" green="0.33725490200000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -206,9 +189,6 @@
                             <constraint firstAttribute="trailing" secondItem="h39-Bq-jSe" secondAttribute="trailing" constant="8" id="GqW-Oz-QDo"/>
                             <constraint firstItem="oMy-vb-5XK" firstAttribute="leading" secondItem="MEp-3c-21t" secondAttribute="leading" constant="10" id="GxY-4I-kKO"/>
                             <constraint firstItem="nLA-g0-BSE" firstAttribute="leading" secondItem="oMy-vb-5XK" secondAttribute="trailing" constant="10" id="Izd-TI-LZF"/>
-                            <constraint firstItem="AHP-Bw-dpw" firstAttribute="leading" secondItem="MEp-3c-21t" secondAttribute="leading" id="KdP-5m-OBN">
-                                <variation key="widthClass=compact" constant="-2"/>
-                            </constraint>
                             <constraint firstAttribute="centerY" secondItem="h39-Bq-jSe" secondAttribute="centerY" id="UN2-uW-H6i"/>
                             <constraint firstAttribute="trailing" secondItem="FAu-ay-ugQ" secondAttribute="trailing" constant="8" id="fH8-Dk-1pM">
                                 <variation key="widthClass=compact" constant="13"/>
@@ -225,12 +205,8 @@
                             <constraint firstItem="FAu-ay-ugQ" firstAttribute="top" secondItem="MEp-3c-21t" secondAttribute="top" constant="4" id="k71-4r-obK">
                                 <variation key="widthClass=compact" constant="9"/>
                             </constraint>
-                            <constraint firstAttribute="trailing" secondItem="AHP-Bw-dpw" secondAttribute="trailing" id="mRW-R0-g8z"/>
                             <constraint firstAttribute="centerY" secondItem="oMy-vb-5XK" secondAttribute="centerY" id="n1C-O0-zAd">
                                 <variation key="widthClass=compact" constant="-1.5"/>
-                            </constraint>
-                            <constraint firstAttribute="bottom" secondItem="AHP-Bw-dpw" secondAttribute="bottom" id="tbq-EN-ilA">
-                                <variation key="widthClass=compact" constant="1"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="FRv-kb-OA4" secondAttribute="trailing" constant="11" id="vhb-Qr-LI2"/>
                             <constraint firstItem="bmq-YL-BIJ" firstAttribute="leading" secondItem="MEp-3c-21t" secondAttribute="leading" constant="10" id="wGl-p1-Tdo"/>
@@ -243,7 +219,6 @@
                                 <exclude reference="FAu-ay-ugQ"/>
                                 <exclude reference="nLA-g0-BSE"/>
                                 <exclude reference="FRv-kb-OA4"/>
-                                <exclude reference="AHP-Bw-dpw"/>
                                 <exclude reference="h39-Bq-jSe"/>
                             </mask>
                             <mask key="constraints">
@@ -261,9 +236,6 @@
                                 <exclude reference="UN2-uW-H6i"/>
                                 <exclude reference="GxY-4I-kKO"/>
                                 <exclude reference="n1C-O0-zAd"/>
-                                <exclude reference="KdP-5m-OBN"/>
-                                <exclude reference="mRW-R0-g8z"/>
-                                <exclude reference="tbq-EN-ilA"/>
                                 <exclude reference="DKj-7N-ZD4"/>
                                 <exclude reference="wGl-p1-Tdo"/>
                             </mask>
@@ -276,7 +248,6 @@
                                 <include reference="FAu-ay-ugQ"/>
                                 <include reference="nLA-g0-BSE"/>
                                 <include reference="FRv-kb-OA4"/>
-                                <include reference="AHP-Bw-dpw"/>
                                 <include reference="h39-Bq-jSe"/>
                             </mask>
                             <mask key="constraints">
@@ -294,9 +265,6 @@
                                 <include reference="UN2-uW-H6i"/>
                                 <include reference="GxY-4I-kKO"/>
                                 <include reference="n1C-O0-zAd"/>
-                                <include reference="KdP-5m-OBN"/>
-                                <include reference="mRW-R0-g8z"/>
-                                <include reference="tbq-EN-ilA"/>
                                 <include reference="DKj-7N-ZD4"/>
                                 <include reference="wGl-p1-Tdo"/>
                             </mask>

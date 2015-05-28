@@ -46,7 +46,7 @@
     desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"你的意见和需求，我们在认真听取";
+    desc1.text = @"你的意见和需求，是我们改进的动力";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
