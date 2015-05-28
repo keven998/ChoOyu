@@ -88,7 +88,9 @@ class MessageManager: NSObject {
     }
     
     func shouldACK() {
-        self.delegate?.shouldACK(messagesShouldACK)
+        if AccountManager.shareAccountManager().isLogin() {
+            self.delegate?.shouldACK(messagesShouldACK)
+        }
     }
    
     /**
