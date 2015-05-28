@@ -18,4 +18,6 @@
 #import "AccountManager.h"
 #import "Reachability.h"
 #import "NetworkReachability.h"
-
+#import "SuperPoi.h"
+#import "ConvertMethods.h"
+#import "AreaDestination.h"
