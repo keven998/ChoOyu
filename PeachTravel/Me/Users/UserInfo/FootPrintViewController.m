@@ -230,6 +230,7 @@
 -(void)back
 {
     BOOL find = NO;
+    [_countryName removeAllObjects];
     for (AreaDestination *area in self.destinations.domesticCities) {
         for (CityDestinationPoi *city in area.cities) {
             
@@ -271,8 +272,10 @@
     for (CityDestinationPoi *cityPoi in _destinations.destinationsSelected) {
         if (cityDesc == nil) {
             cityDesc = [[NSMutableString alloc] initWithString:cityPoi.zhName];
+            
+        } else {
+            [cityDesc appendFormat:@" %@",cityPoi.zhName];
         }
-        [cityDesc appendFormat:@" %@",cityPoi.zhName];
     }
     
     NSLog(@"%@",cityDesc);
