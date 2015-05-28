@@ -18,7 +18,7 @@
 #import "UIBarButtonItem+MJ.h"
 #import "REFrostedViewController.h"
 
-@interface OtherUserInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface OtherUserInfoViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_dataArray;
