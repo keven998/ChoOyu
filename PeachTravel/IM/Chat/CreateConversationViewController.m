@@ -227,9 +227,10 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
        
         IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
-        [discussionGroupManager asyncAddNumbersWithGroupId:_group.groupId numbers: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
+        [discussionGroupManager asyncAddNumbersWithGroup:_group numbers: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
             if (isSuccess) {
+                [self.contactTableView reloadData];
                 [SVProgressHUD showHint:@"添加成功"];
             }
         }];

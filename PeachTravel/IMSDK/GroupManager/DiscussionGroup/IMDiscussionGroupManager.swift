@@ -129,7 +129,7 @@ class IMDiscussionGroupManager: NSObject {
     :param: numbers
     :param: completion 
     */
-    func asyncAddNumbers(#groupId: Int, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncAddNumbers(#group: IMDiscussionGroup, numbers: Array<FrendModel>, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
         var array = Array<Int>()
         for frend in numbers {
             array.append(frend.userId)
@@ -137,10 +137,12 @@ class IMDiscussionGroupManager: NSObject {
         var params = NSMutableDictionary()
         params.setObject(array, forKey: "participants")
         params.setObject("addMembers", forKey: "action")
-        params.setObject(groupId, forKey: "id")
-        let addNumberUrl = "\(groupUrl)/\(groupId)"
+        params.setObject(group.groupId, forKey: "id")
+        let addNumberUrl = "\(groupUrl)/\(group.groupId)"
         NetworkTransportAPI.asyncPOST(requstUrl: addNumberUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
+                self.addNumbers2Group(numbers: numbers, group: group)
+                
                 completion(isSuccess: true, errorCode: 0)
             } else {
                 completion(isSuccess: false, errorCode: 0)
@@ -151,6 +153,39 @@ class IMDiscussionGroupManager: NSObject {
 
     
  //MARK: private function
+    
+    /**
+    添加一组成员到群组的用户列表里。自动幂等，已有不添加
+    
+    :param: numbers
+    :param: group
+    */
+    private func addNumbers2Group(#numbers: Array<FrendModel>, group: IMDiscussionGroup) {
+        for frend in numbers {
+            var find = false
+            for oldFrend in group.numbers {
+                if oldFrend.userId == frend.userId {
+                    find = true
+                    break
+                }
+            }
+            if !find {
+                group.numbers.append(frend)
+            }
+        }
+    }
+    
+    /**
+    更新数据库里相关群组的信息
+    
+    :param: group
+    */
+    private func updateGroupInfoInDB(group: IMDiscussionGroup) {
+        var frend = self.convertDiscussionGroupModel2FrendModel(group)
+        var frendManager = FrendManager()
+        frendManager.addFrend2DB(frend)
+    }
+    
     /**
     将一个群组转换成一个frendmodel
     
@@ -200,7 +235,6 @@ class IMDiscussionGroupManager: NSObject {
                     discussionGroup.numbers.append(frendModel)
                 }
             }
-            
         }
         return discussionGroup
     }
