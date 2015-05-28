@@ -161,12 +161,18 @@
             
             IMDiscussionGroupManager *discussionGroupManager = [IMDiscussionGroupManager shareInstance];
             [discussionGroupManager asyncCreateDiscussionGroup: self.selectedContacts completionBlock:^(BOOL isSuccess, NSInteger errCode, IMDiscussionGroup * __nullable discussionGroup) {
-                FrendModel *model = self.selectedContacts.firstObject;
-                NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
-                discussionGroup.subject = groupSubjct;
-                if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
-                    [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
+                if (isSuccess) {
+                    FrendModel *model = self.selectedContacts.firstObject;
+                    NSString *groupSubjct = [NSString stringWithFormat:@"测试群组: %@", model.nickName];
+                    discussionGroup.subject = groupSubjct;
+                    if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:chatType:chatTitle:)]) {
+                        [_delegate createConversationSuccessWithChatter:discussionGroup.groupId chatType:IMChatTypeIMChatDiscussionGroupType chatTitle:discussionGroup.subject];
+                    }
+                } else {
+                    [self hideHud];
+                    [SVProgressHUD showHint:@"创建失败"];
                 }
+               
             }];
         }
     }
