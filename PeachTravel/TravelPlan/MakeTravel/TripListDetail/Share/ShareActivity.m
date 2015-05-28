@@ -116,7 +116,8 @@
 
 - (void)showInView:(UIView *)view
 {
-    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+//    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+    [view addSubview:self];
 }
 
 #pragma mark - Praviate method
