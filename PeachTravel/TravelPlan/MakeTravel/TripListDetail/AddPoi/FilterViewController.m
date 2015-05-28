@@ -118,14 +118,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-//    UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-//    if (newCell.accessoryType == UITableViewCellAccessoryNone) {
-//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }else if (newCell.accessoryType == UITableViewCellAccessoryCheckmark) {
-//        newCell.accessoryType = UITableViewCellAccessoryNone;
-//    }
-//    _selectedCityIndex=indexPath.row;
    
     if (indexPath.section == 0) {
         return;
@@ -136,15 +128,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
-//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-//    if (newCell.accessoryType == UITableViewCellAccessoryNone) {
-//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }else if (newCell.accessoryType == UITableViewCellAccessoryCheckmark) {
-//        newCell.accessoryType = UITableViewCellAccessoryNone;
-//    }
-//}
+
 #pragma mark - IBAction
 - (void)goBack {
     [self dismissViewControllerAnimated:YES completion:nil];

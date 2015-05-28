@@ -402,6 +402,8 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     }
     FilterViewController *fvc = [[FilterViewController alloc] init];
     fvc.delegate = self;
+    fvc.selectedCategoryIndex = [NSIndexPath indexPathForRow:_currentListTypeIndex inSection:0] ;
+    fvc.selectedCityIndex = [NSIndexPath indexPathForRow:_currentCityIndex inSection:1];
     fvc.contentItems = [NSArray arrayWithArray:array];
     [self presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:fvc] animated:YES completion:nil];
 }
