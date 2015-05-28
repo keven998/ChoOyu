@@ -26,6 +26,8 @@
     BOOL _isMyFriend;
     NSMutableArray *_albumArray;
 }
+
+@property (nonatomic, strong) FrendModel *userInfo;
 @end
 
 @implementation OtherUserInfoViewController
@@ -46,7 +48,6 @@
     }
     
     [self loadUserProfile:_userId];
-    [self loadUserAlbum];
     self.view.backgroundColor = [UIColor whiteColor];
     _dataArray = [NSMutableArray array];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -60,8 +61,6 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-    
-
     
     [self.view addSubview:_tableView];
     
@@ -112,26 +111,26 @@
     UILabel *constellationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 21, 0, 13)];
     constellationLabel.textColor = TEXT_COLOR_TITLE;
     constellationLabel.font = [UIFont systemFontOfSize:12];
-    constellationLabel.text = [_model getConstellation];
+    constellationLabel.text = _userInfo.costellation;
     [_headerView addSubview:constellationLabel];
     
     UIImageView *genderImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 19, 15, 15)];
     genderImage.contentMode = UIViewContentModeCenter;
-    if ([_model.gender isEqualToString:@"F"]) {
+    if ([_userInfo.sex isEqualToString:@"F"]) {
         genderImage.image = [UIImage imageNamed:@"girl"];
         [_headerView addSubview:genderImage];
-    } else if([_model.gender isEqualToString:@"M"]) {
+    } else if([_userInfo.sex isEqualToString:@"M"]) {
         genderImage.image = [UIImage imageNamed:@"boy"];
         [_headerView addSubview:genderImage];
     }
     
-    [avatarView sd_setImageWithURL:[NSURL URLWithString:_model.avatarSmall]];
-    nameLabel.text = _model.name;
+    [avatarView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatarSmall]];
+    nameLabel.text = _userInfo.nickName;
     
     UILabel *taoziId = [[UILabel alloc]initWithFrame:CGRectMake(96, CGRectGetMaxY(nameLabel.frame)+2, 200, 16)];
     taoziId.font = [UIFont systemFontOfSize:13];
     taoziId.textColor = TEXT_COLOR_TITLE_DESC;
-    NSString *taoziIdStr = [NSString stringWithFormat:@"ID %@",_model.userId];
+    NSString *taoziIdStr = [NSString stringWithFormat:@"ID %ld",_userInfo.userId];
     taoziId.text = taoziIdStr;
     [_headerView addSubview:taoziId];
     
@@ -139,10 +138,10 @@
     signatureLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     signatureLabel.font = [UIFont systemFontOfSize:12];
     signatureLabel.textColor = TEXT_COLOR_TITLE_DESC;
-    signatureLabel.text = _model.signature;
+    signatureLabel.text = _userInfo.signature;
     [_headerView addSubview:signatureLabel];
     
-    levelLabel.text = [NSString stringWithFormat:@"V%ld", _model.level];
+    levelLabel.text = [NSString stringWithFormat:@"V%ld", _userInfo.level];
 
     CGSize levelSize = [levelLabel.text boundingRectWithSize:CGSizeMake(100, 15)
                                                       options:NSStringDrawingUsesLineFragmentOrigin
@@ -385,25 +384,17 @@
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"TA的足迹";
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
-        NSDictionary *country = _model.travels;
         NSInteger cityNumber = 0;
         NSMutableString *cityDesc = nil;
-        NSArray *keys = [country allKeys];
-        NSInteger countryNumber = keys.count;
-        for (int i = 0; i < countryNumber; ++i) {
-            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
-            cityNumber += citys.count;
-            for (id city in citys) {
-                if (cityDesc == nil) {
-                    cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
-                } else {
-                    [cityDesc appendFormat:@" %@", [city objectForKey:@"zhName"]];
-                }
+        for (AreaDestination *area in _userInfo.tracks) {
+            for (CityDestinationPoi *poi in area.cities) {
+                [cityDesc appendString:poi.enName];
+                cityNumber++;
             }
         }
         
-        if (countryNumber > 0) {
-            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
+        if (_userInfo.tracks.count > 0) {
+            cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)_userInfo.tracks.count, (long)cityNumber];
             cell.footPrint.text = cityDesc;
         } else {
             cell.trajectory.text = @"0国 0个城市";
@@ -418,10 +409,10 @@
         cell.nameLabel.text = @"签名";
         cell.imageJiantou.image = nil;
         cell.backgroundColor = [UIColor whiteColor];
-        if (_model.signature == nil || [_model.signature isBlankString] || _model.signature.length == 0) {
+        if (_userInfo.signature == nil || [_userInfo.signature isBlankString] || _userInfo.signature.length == 0) {
             cell.footPrint.text = @"未设置签名";
         } else {
-            cell.footPrint.text = _model.signature;
+            cell.footPrint.text = _userInfo.signature;
         }
         cell.footPrint.textColor = TEXT_COLOR_TITLE;
         cell.trajectory.text = @"";
@@ -439,13 +430,13 @@
             
             NSDateFormatter *format2=[[NSDateFormatter alloc]init];
             [format2 setDateFormat:@"yyyy/MM/dd"];
-            NSString *str2=_model.birthday;
+            NSString *str2=_userInfo.birthday;
             NSDate *date = [format2 dateFromString:str2];
             NSTimeInterval dateDiff = [date timeIntervalSinceNow];
             int age=trunc(dateDiff/(60*60*24))/365;
             age = -age;
             cell.information.font = [UIFont systemFontOfSize:14];
-            if (_model.birthday == nil||[_model.birthday isBlankString] || _model.birthday.length == 0) {
+            if (_userInfo.birthday == nil||[_userInfo.birthday isBlankString] || _userInfo.birthday.length == 0) {
                 cell.information.text = @"未设置";
             }else {
             cell.information.text = [NSString stringWithFormat:@"%d",age];
@@ -453,10 +444,10 @@
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
             cell.basicLabel.text = @"   居住在";
-            if (_model.residence.length == 0 || [_model.residence isBlankString] || _model.residence == nil) {
+            if (_userInfo.residence.length == 0 || [_userInfo.residence isBlankString] || _userInfo.residence == nil) {
                 cell.information.text = @"未设置";
             }else {
-            cell.information.text = _model.residence;
+            cell.information.text = _userInfo.residence;
             }
             cell.information.font = [UIFont systemFontOfSize:14];
         }
@@ -469,26 +460,26 @@
     if (indexPath.section == 1) {
         MyGuideListTableViewController *listCtl = [[MyGuideListTableViewController alloc]init];
         listCtl.isExpert = YES;
-        listCtl.userId = _model.userId;
+        listCtl.userId = _userInfo.userId;
         [self.navigationController pushViewController:listCtl animated:YES];
     }else if (indexPath.section == 2){
         TraceViewController *ctl = [[TraceViewController alloc] init];
-        NSDictionary *country = _model.travels;
-        NSMutableArray *traces = [[NSMutableArray alloc] init];
-        NSArray *keys = [country allKeys];
-        SuperPoi *sp;
-        for (id key in keys) {
-            NSArray *citys = [country objectForKey:key];
-            for (id city in citys) {
-                sp = [SuperPoi new];
-                sp.zhName = [city objectForKey:@"zhName"];
-                sp.lat = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:1] floatValue];
-                sp.lng = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:0] floatValue];
-                [traces addObject:sp];
-            }
-        }
-        
-        ctl.citys = traces;
+//        NSDictionary *country = _userInfo.travels;
+//        NSMutableArray *traces = [[NSMutableArray alloc] init];
+//        NSArray *keys = [country allKeys];
+//        SuperPoi *sp;
+//        for (id key in keys) {
+//            NSArray *citys = [country objectForKey:key];
+//            for (id city in citys) {
+//                sp = [SuperPoi new];
+//                sp.zhName = [city objectForKey:@"zhName"];
+//                sp.lat = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:1] floatValue];
+//                sp.lng = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:0] floatValue];
+//                [traces addObject:sp];
+//            }
+//        }
+//        
+//        ctl.citys = traces;
         [self.navigationController pushViewController:ctl animated:YES];
     }
     
@@ -517,7 +508,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:_model.userId forKey:@"userId"];
+    [params safeSetObject:[NSNumber numberWithInteger:_userInfo.userId] forKey:@"userId"];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
@@ -550,41 +541,19 @@
     
     FrendManager *frendManager = [[FrendManager alloc] init];
     [frendManager asyncGetFrendInfoFromServer:userId.integerValue completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
-        
-    }];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", [AccountManager shareAccountManager].account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
-    NSLog(@"%@",url);
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            NSLog(@"%@",responseObject);
-            [self parseUserProfileData:[responseObject objectForKey:@"result"]];
-        } else {
+        if (isSuccess) {
+            _userInfo = frend;
+            [self createHeader];
+            [self loadUserAlbum];
             
+        } else {
+            [SVProgressHUD showHint:@"请求失败"];
         }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showHint:@"请求失败"];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 
 - (void)loadUserAlbum
 {
-    TZProgressHUD *hud = [[TZProgressHUD alloc]init];
-    __weak typeof(OtherUserInfoViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf content:64];
     AccountManager *account = [AccountManager shareAccountManager];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -601,7 +570,6 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
-            
             [_tableView reloadData];
         } else {
             [_tableView reloadData];
@@ -613,21 +581,10 @@
 
 - (void)paraseUserAlbum:(NSArray *)albumArray
 {
-    
     for (id album in albumArray) {
         [_albumArray addObject:[[AlbumImage alloc] initWithJson:album]];
     }
-}
-
-- (void)parseUserProfileData:(id )json
-{
-    _model = [[UserProfile alloc] initWithJsonObject:json];
-    self.navigationItem.title = _model.name;
-    [self createHeader];
-    [self createFooterBar];
-    TZProgressHUD *hud = [[TZProgressHUD alloc]init];
-    [hud hideTZHUD];
-    [_tableView reloadData];
+    _userInfo.userAlbum = _albumArray;
 }
 
 @end
