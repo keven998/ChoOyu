@@ -632,11 +632,10 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
         poiCell.cellAction.selected = isAdded;
         [poiCell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [poiCell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        poiCell.labCons.constant = 8;
+        poiCell.valueCons.constant = 8;
     }
-//    else {
-//        [poiCell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-//        [poiCell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-//    }
     return poiCell;
 }
 

@@ -13,6 +13,8 @@
 @interface CommonPoiListTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) SuperPoi *tripPoi;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *valueCons;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;

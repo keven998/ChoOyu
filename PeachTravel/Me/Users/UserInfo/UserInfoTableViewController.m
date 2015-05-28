@@ -430,13 +430,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    AccountManager *amgr = self.accountManager;
+
     if ((indexPath.section == 0 && indexPath.row == 0))
     {
-        if (amgr.accountDetail.userAlbum.count == 0) {
-            return 0;
-        }
         return 108;
     }
     else if (indexPath.section == 1 || indexPath.section == 2)
