@@ -48,6 +48,8 @@
     cell.textLabel.text = [_contentItems objectAtIndex:indexPath.row];
     if (_selectItemIndex == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     return cell;
 }

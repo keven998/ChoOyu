@@ -48,7 +48,6 @@
     [self loadUserProfile:_userId];
     [self loadUserAlbum];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = _model.name;
     _dataArray = [NSMutableArray array];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
@@ -62,7 +61,7 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     
-    self.title = _model.name;
+
     
     [self.view addSubview:_tableView];
     
@@ -620,10 +619,10 @@
     }
 }
 
-
 - (void)parseUserProfileData:(id )json
 {
     _model = [[UserProfile alloc] initWithJsonObject:json];
+    self.navigationItem.title = _model.name;
     [self createHeader];
     [self createFooterBar];
     TZProgressHUD *hud = [[TZProgressHUD alloc]init];

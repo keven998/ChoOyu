@@ -126,7 +126,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
             }
         }
     }];
-
+    [_tableView reloadData];
 }
 
 - (void)insertDay:(BOOL)before currentDay:(NSInteger)currentDay {
@@ -375,6 +375,7 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
         NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
         [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
     }
+    [_tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
