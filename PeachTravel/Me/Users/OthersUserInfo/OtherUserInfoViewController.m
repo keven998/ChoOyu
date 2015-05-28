@@ -60,9 +60,6 @@
     [_tableView registerNib:[UINib nibWithNibName:@"OthersAlbumCell" bundle:nil] forCellReuseIdentifier:@"albumCell"];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-    
-
-    
     [self.view addSubview:_tableView];
     
 }
@@ -207,12 +204,12 @@
         [toolBar addSubview:addFriend];
 
     } else {
-    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
-    [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
-    [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
-    [toolBar addSubview:addFriend];
+        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
+        [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
+        [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+        [toolBar addSubview:addFriend];
     }
     
 //    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 49)];
@@ -345,7 +342,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2||indexPath.section == 3) {
-
         return 90;
     }else if  ( indexPath.section == 0) {
         if (_albumArray.count == 0) {
@@ -357,12 +353,12 @@
     
     return 44;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         OthersAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumCell" forIndexPath:indexPath];
-        
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.headerPicArray = _albumArray;
         NSLog(@"%@",cell.headerPicArray);
         return cell;

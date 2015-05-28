@@ -36,7 +36,7 @@
 
 #define cellDataSource              @[@[@"头像", @"名字", @"状态"], @[@"我的足迹"], @[@"签名"], @[@"性别", @"生日", @"居住在"], @[@"安全绑定", @"修改密码"], ]
 
-@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate>
+@interface UserInfoTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, SelectDelegate, ChangJobDelegate, HeaderPictureDelegate,updataTracksDelegate>
 {
     Destinations *_citySelectedArray;
 }
@@ -430,7 +430,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     if ((indexPath.section == 0 && indexPath.row == 0))
     {
         return 108;
@@ -460,7 +459,9 @@
     } else if (indexPath.section == 1) {
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"我的足迹";
-        NSDictionary *country = amgr.accountDetail.tracks;
+//        NSDictionary *country = amgr.accountDetail.tracks;
+        NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.accountDetail.tracks];
+        
         NSInteger cityNumber = 0;
         NSMutableString *cityDesc = nil;
         NSArray *keys = [country allKeys];
@@ -469,10 +470,9 @@
             NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
             NSLog(@"%@",citys);
             cityNumber += citys.count;
+            
             for (id city in citys) {
 //                city
-                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
-                [_citySelectedArray.destinationsSelected addObject:poi];
                 if (cityDesc == nil) {
                     cityDesc = [[NSMutableString alloc] initWithString:[city objectForKey:@"zhName"]];
                 } else {
@@ -488,7 +488,7 @@
             cell.trajectory.text = [NSString stringWithFormat:@"%ld国 %ld个城市", (long)countryNumber, (long)cityNumber];
             cell.footPrint.text = @"未设置足迹";
         }
-        
+        cell.tag = 1001;
         return cell;
         
     } else if (indexPath.section == 2) {
@@ -586,9 +586,27 @@
         }
         
     } else if (indexPath.section == 1) {
-        
+        AccountManager *amgr = self.accountManager;
+        NSMutableDictionary *country = [NSMutableDictionary dictionaryWithDictionary:amgr.accountDetail.tracks];
+        [_citySelectedArray.destinationsSelected removeAllObjects];
+
+        NSInteger cityNumber = 0;
+        NSArray *keys = [country allKeys];
+        NSInteger countryNumber = keys.count;
+        for (int i = 0; i < countryNumber; ++i) {
+            NSArray *citys = [country objectForKey:[keys objectAtIndex:i]];
+            NSLog(@"%@",citys);
+            cityNumber += citys.count;
+            
+            for (id city in citys) {
+                CityDestinationPoi *poi = [[CityDestinationPoi alloc] initWithJson:city];
+                [_citySelectedArray.destinationsSelected addObject:poi];
+            }
+        }
+
         FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
         footCtl.destinations = _citySelectedArray;
+        footCtl.delegate = self;
         [self presentViewController:footCtl animated:YES completion:nil];
         
     } else if (indexPath.section == 2) {
@@ -633,6 +651,7 @@
             changePasswordCtl.verifyCaptchaType = UserBindTel;
             
             [self.navigationController presentViewController:[[TZNavigationViewController alloc] initWithRootViewController:changePasswordCtl] animated:YES completion:nil];
+            
         } else if (indexPath.row == 1) {
             [MobClick event:@"event_update_password"];
             ChangePasswordViewController *changePasswordCtl = [[ChangePasswordViewController alloc] init];
@@ -870,6 +889,15 @@
     browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
     browser.photos = photos; // 设置所有的图片
     [browser show];
+
+}
+
+-(void)updataTracks:(NSInteger)country citys:(NSInteger)city trackStr:(NSString *)track
+{
+    NSString *str = [NSString stringWithFormat:@"%ld国 %ld个城市",country,city];
+    HeaderCell *view = (HeaderCell *)[self.view viewWithTag:1001];
+    view.trajectory.text = str;
+    view.footPrint.text = track;
 
 }
 @end
