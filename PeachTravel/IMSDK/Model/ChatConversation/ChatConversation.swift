@@ -61,34 +61,22 @@ class ChatConversation: NSObject {
     }
     
     func fillConversationType(#frendType: IMFrendType) {
-        isTopConversation = self.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.ConversationTop)
-        if self.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.Frend) {
+        isTopConversation = FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.ConversationTop)
+        if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.Frend) {
             chatType = IMChatType.IMChatSingleType
             
-        } else if self.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.Group) {
+        } else if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.Group) {
             chatType = IMChatType.IMChatGroupType
             
-        } else if self.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.DiscussionGroup) {
+        } else if FrendModel.typeIsCorrect(frendType, typeWeight: IMFrendWeightType.DiscussionGroup) {
             chatType = IMChatType.IMChatDiscussionGroupType
         }
     }
     
 //MARK: private function
     
-    /**
-    frendtype 是不是包含传入的类型
     
-    :param: frendType
-    :param: typeWeight
-    
-    :returns:
-    */
-    private func typeIsCorrect(frendType: IMFrendType, typeWeight: IMFrendWeightType) -> Bool {
-        if (frendType.rawValue & typeWeight.rawValue) == 0 {
-            return false
-        }
-        return true
-    }
+  
     
     /**
     更新最新一条本地消息

@@ -56,6 +56,72 @@ class FrendModel: NSObject {
     var memo: String = ""
     var sex: NSString = "M"
     var extData: NSString = ""
+    var residence: NSString = ""
+    var level: Int = 0
+    var birthday: NSString = ""
+    var travelStatus: NSString = ""
+    var rolesDescription: NSString {
+        if FrendModel.typeIsCorrect(self.type, typeWeight: IMFrendWeightType.Expert) {
+            return "达"
+        }
+        return ""
+    }
+    var tracks: Array<AreaDestination> = Array()
+    var userAlbum: Array<AlbumImage> = Array()
+    
+    var costellation: NSString {
+        get {
+            let date = ConvertMethods.stringToDate(self.birthday as String, withFormat: "yyyy-MM-dd", withTimeZone: NSTimeZone.systemTimeZone())
+            var components = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.YearCalendarUnit, fromDate: date)
+            var star = ""
+            var month = components.month
+            var day = components.day
+            if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
+                star = "水瓶座"
+            }
+            else if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
+                star = "双鱼座"
+            }
+            else if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
+                star = "白羊座"
+            }
+            else if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
+                star = "金牛座"
+            }
+            else if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
+                star = "双子座"
+            }
+            else if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
+                star = "巨蟹座"
+            }
+            else if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
+                star = "狮子座";
+            }
+            else if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
+                star = "处女座";
+            }
+            else if (month == 9 && day >= 23) || (month == 10 && day <= 22) {
+                star = "天秤座";
+            }
+            else if (month == 10 && day >= 23) || (month == 11 && day <= 21) {
+                star = "天蝎座";
+            }
+            else if (month == 11 && day >= 22) || (month == 12 && day <= 21) {
+                star = "射手座";
+            }
+            else if (month == 12 && day >= 22) || (month == 1 && day <= 19) {
+                star = "摩羯座";
+            }
+            return star;
+        }
+    }
+    
+    
+    var footprintDescription :NSString {
+        get {
+            return "\(self.tracks.count)国 \(count)城市"
+        }
+    }
     
     init(json: NSDictionary) {
         userId = json.objectForKey("userId") as! Int
@@ -65,11 +131,54 @@ class FrendModel: NSObject {
         signature = json.objectForKey("signature") as! String
         memo = json.objectForKey("memo") as! String
         sex = json.objectForKey("gender") as! String
+        residence = json.objectForKey("residence") as! String
+        birthday = json.objectForKey("birthday") as! String
+        level = json.objectForKey("level") as! Int
+        travelStatus = json.objectForKey("travelStatus") as! String
+        if let roles = json.objectForKey("toles") as? NSArray {
+            if let role = roles.firstObject as? String {
+                if role == "expert" {
+                    type = IMFrendType.Expert
+                } 
+            }
+        }
+        
+        if let tracksDic = json.objectForKey("tracks") as? NSDictionary {
+            var keys = tracksDic.allKeys
+            for key in keys {
+                var area = AreaDestination()
+                area.enName = key as! String
+                if let citys = tracksDic.objectForKey(key) as? NSArray {
+                    for city in citys {
+                        var poi = CityDestinationPoi(json: city)
+                        area.cities.append(poi!)
+                    }
+                }
+                self.tracks.append(area)
+            }
+        }
+        
     }
     
     override init() {
         
     }
+   
+    /**
+    frendtype 是不是包含传入的类型
+    
+    :param: frendType
+    :param: typeWeight
+    
+    :returns:
+    */
+    class func typeIsCorrect(frendType: IMFrendType, typeWeight: IMFrendWeightType) -> Bool {
+        if (frendType.rawValue & typeWeight.rawValue) == 0 {
+            return false
+        }
+        return true
+    }
+    
 }
 
 
