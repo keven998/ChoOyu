@@ -173,6 +173,7 @@ class IMDiscussionGroupManager: NSObject {
                 group.numbers.append(frend)
             }
         }
+        self.updateGroupInfoInDB(group)
     }
     
     /**

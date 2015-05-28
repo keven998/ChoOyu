@@ -230,8 +230,9 @@
         [discussionGroupManager asyncAddNumbersWithGroup:_group numbers: self.selectedContacts completion:^(BOOL isSuccess, NSInteger errorCode) {
             [hud hideTZHUD];
             if (isSuccess) {
-                [self.contactTableView reloadData];
                 [SVProgressHUD showHint:@"添加成功"];
+                [self.delegate reloadData];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
         }];
     });
