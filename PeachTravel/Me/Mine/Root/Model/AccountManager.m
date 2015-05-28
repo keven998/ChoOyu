@@ -167,40 +167,17 @@
     }
     _account = [NSEntityDescription insertNewObjectForEntityForName:@"Account" inManagedObjectContext:self.context];
     [self loadUserInfo:userInfo];
-}
-
-//环信系统也登录成功，这时候才是真正的登录成功
-- (void)easeMobDidLogin
-{
+    
     [self addPaipaiContact];
     [self save];
     IMClientManager *manager = [IMClientManager shareInstance];
     [manager userDidLogin];
     [self bindRegisterID2UserId];
     [[NSNotificationCenter defaultCenter] postNotificationName:userDidLoginNoti object:nil];
-   
+
 }
 
 - (void)bindRegisterID2UserId
-{
-    
-}
-
-/**
- *  默认添加 paipai 好友
- */
-- (void)addPaipaiContact
-{
-    Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
-    contact.userId = [NSNumber numberWithInt:10000];
-    contact.nickName = @"派派";
-    contact.easemobUser = @"gcounhhq0ckfjwotgp02c39vq40ewhxt";
-    contact.pinyin = @"paipai";
-    [self.account addContactsObject:contact];
-}
-
-//环信系统登录失败
-- (void)easeMobUnlogin
 {
     ConnectionManager *connectionManager = [ConnectionManager shareInstance];
     if (!connectionManager.registionId) {
@@ -222,7 +199,7 @@
     [params setObject:[ConnectionManager shareInstance].registionId forKey:@"regId"];
     
     NSString *loginUrl = @"http://hedy.zephyre.me/users/login";
-
+    
     
     [manager POST:loginUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -232,8 +209,19 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
+}
 
-    
+/**
+ *  默认添加 paipai 好友
+ */
+- (void)addPaipaiContact
+{
+    Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+    contact.userId = [NSNumber numberWithInt:10000];
+    contact.nickName = @"派派";
+    contact.easemobUser = @"gcounhhq0ckfjwotgp02c39vq40ewhxt";
+    contact.pinyin = @"paipai";
+    [self.account addContactsObject:contact];
 }
 
 #pragma mark - 修改用户信息相关接口
