@@ -39,7 +39,6 @@
         cityCount += [vals count];
     }
     return [NSString stringWithFormat:@"%ld国 %d个城市", count, cityCount];
-    
 }
 
 - (NSString *)getRolesDescription {
