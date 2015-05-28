@@ -45,7 +45,7 @@
 
     NSInteger count = _citys.count;
     for (int i = 0; i < count; i++) {
-        SuperPoi *pb = [_citys objectAtIndex:i];
+        CityDestinationPoi *pb = [_citys objectAtIndex:i];
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(pb.lat, pb.lng);
         MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
         item.coordinate = location;
@@ -121,7 +121,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CityCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"city_cell" forIndexPath:indexPath];
     
-    SuperPoi *pb = [_citys objectAtIndex:indexPath.row];
+    CityDestinationPoi *pb = [_citys objectAtIndex:indexPath.row];
     cell.textView.text = pb.zhName;
     cell.textView.textColor = [UIColor whiteColor];
     CGSize size = [pb.zhName sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
@@ -135,7 +135,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SuperPoi *pb = [_citys objectAtIndex:indexPath.row];
+    CityDestinationPoi *pb = [_citys objectAtIndex:indexPath.row];
     NSString *txt = pb.zhName;
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);

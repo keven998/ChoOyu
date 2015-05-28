@@ -455,6 +455,7 @@
     }
 
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
@@ -462,24 +463,16 @@
         listCtl.isExpert = YES;
         listCtl.userId = _userInfo.userId;
         [self.navigationController pushViewController:listCtl animated:YES];
-    }else if (indexPath.section == 2){
+        
+    } else if (indexPath.section == 2){
         TraceViewController *ctl = [[TraceViewController alloc] init];
-//        NSDictionary *country = _userInfo.travels;
-//        NSMutableArray *traces = [[NSMutableArray alloc] init];
-//        NSArray *keys = [country allKeys];
-//        SuperPoi *sp;
-//        for (id key in keys) {
-//            NSArray *citys = [country objectForKey:key];
-//            for (id city in citys) {
-//                sp = [SuperPoi new];
-//                sp.zhName = [city objectForKey:@"zhName"];
-//                sp.lat = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:1] floatValue];
-//                sp.lng = [[[city valueForKeyPath:@"location.coordinates"] objectAtIndex:0] floatValue];
-//                [traces addObject:sp];
-//            }
-//        }
-//        
-//        ctl.citys = traces;
+        NSMutableArray *tracks = [[NSMutableArray alloc] init];
+        for (AreaDestination *area in _userInfo.tracks) {
+            for (CityDestinationPoi *poi in area.cities) {
+                [tracks addObject:poi];
+            }
+        }
+        ctl.citys = tracks;
         [self.navigationController pushViewController:ctl animated:YES];
     }
     
