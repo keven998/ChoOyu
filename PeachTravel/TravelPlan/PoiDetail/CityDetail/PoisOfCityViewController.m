@@ -823,11 +823,10 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         [cell.cellAction removeTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
     }
-//    else {
-//        [cell.cellAction setTitle:@"地图" forState:UIControlStateNormal];
-//        [cell.cellAction removeTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-//        [cell.cellAction addTarget:self action:@selector(jumpToMapView:) forControlEvents:UIControlEventTouchUpInside];
-//    }
+    else {
+        cell.labCons.constant = 8;
+        cell.valueCons.constant = 8;
+    }
     
     return cell;
 }
