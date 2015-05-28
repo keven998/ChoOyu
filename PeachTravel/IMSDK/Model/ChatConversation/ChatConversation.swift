@@ -100,7 +100,7 @@ class ChatConversation: NSObject {
     */
     var lastServerMessage: BaseMessage? {
         get {
-            for var i=chatMessageList.count-1; i>0; i-- {
+            for var i = chatMessageList.count-1; i>0; i-- {
                 var message = chatMessageList[i]
                 if message.serverId >= 0 {
                     return message
