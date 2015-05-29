@@ -25,6 +25,7 @@
         _birthday = [json objectForKey:@"birthday"];
         _easemobUser = [json objectForKey:@"easemobUser"];
         _travelStatus = [json objectForKey:@"travelStatus"];
+        _guideCnt = [json objectForKey:@"guideCnt"];
     }
     return self;
 }
