@@ -22,8 +22,8 @@
     self.navigationItem.title = _titleTxt;
     UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = lbtn;
-    if (!_selectItemIndex&&_selectItemIndex != 0){
-    _selectItemIndex = [_contentItems indexOfObject:_selectItem];
+    if (!_selectItem) {
+        _selectItemIndex = [_contentItems indexOfObject:_selectItem];
     }
     _selectTableView.backgroundColor = APP_PAGE_COLOR;
     _selectTableView.separatorColor = APP_BORDER_COLOR;
