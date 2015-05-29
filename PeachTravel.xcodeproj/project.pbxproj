@@ -808,6 +808,7 @@
 		D9A8FFCE1A80D216005AD701 /* HotDestinationCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC71A80D216005AD701 /* HotDestinationCollectionViewController.m */; };
 		D9A8FFCF1A80D216005AD701 /* RecommendDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A8FFC91A80D216005AD701 /* RecommendDataSource.m */; };
 		D9A981B019EFB99A00210A1B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A981AF19EFB99A00210A1B /* CoreData.framework */; };
+		D9B7BA461B171FB300891600 /* app_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B7BA451B171FB300891600 /* app_icon@2x.png */; };
 		D9B9EA0E1A88C42400966074 /* btn_spot_info_disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA0C1A88C42400966074 /* btn_spot_info_disable@2x.png */; };
 		D9B9EA0F1A88C42400966074 /* btn_spot_info_enable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA0D1A88C42400966074 /* btn_spot_info_enable@2x.png */; };
 		D9B9EA131A88CBD000966074 /* add_contact@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B9EA121A88CBD000966074 /* add_contact@2x.png */; };
@@ -2007,6 +2008,7 @@
 		D9A8FFFF1A80D52F005AD701 /* DestinationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationsView.m; sourceTree = "<group>"; };
 		D9A981A919EFB5FD00210A1B /* UserInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserInfo.xcdatamodel; sourceTree = "<group>"; };
 		D9A981AF19EFB99A00210A1B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9B7BA451B171FB300891600 /* app_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app_icon@2x.png"; path = "../app_icon@2x.png"; sourceTree = "<group>"; };
 		D9B9EA0C1A88C42400966074 /* btn_spot_info_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_disable@2x.png"; sourceTree = "<group>"; };
 		D9B9EA0D1A88C42400966074 /* btn_spot_info_enable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_spot_info_enable@2x.png"; sourceTree = "<group>"; };
 		D9B9EA121A88CBD000966074 /* add_contact@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_contact@2x.png"; sourceTree = "<group>"; };
@@ -3955,6 +3957,7 @@
 		D9A803651A80E737005AD701 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D9B7BA451B171FB300891600 /* app_icon@2x.png */,
 				27FF1AD01B09932400643D77 /* 他的资料 */,
 				27FF1A9D1B06F1F000643D77 /* 聊天 */,
 				27FF1A801B05A25200643D77 /* 行程单 */,
@@ -5771,6 +5774,7 @@
 				27FF1ADA1B09A25B00643D77 /* boy@2x.png in Resources */,
 				D9A8FEC61A80C818005AD701 /* ConfirmRouteViewController.xib in Resources */,
 				D9A800381A80D52F005AD701 /* CommonPoiListTableViewCell.xib in Resources */,
+				D9B7BA461B171FB300891600 /* app_icon@2x.png in Resources */,
 				D9A804851A80E738005AD701 /* bkg-linked_dots@2x.png in Resources */,
 				D9A8011E1A80DD23005AD701 /* call_out_h@2x.png in Resources */,
 				D9A804D21A80E738005AD701 /* ic_app_message@2x.png in Resources */,
