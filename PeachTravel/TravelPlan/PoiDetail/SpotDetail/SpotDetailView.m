@@ -61,7 +61,7 @@
 - (void)setupSubView{
     CGFloat offsetY = 0;
     
-    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.bounds), 168)];
+    SwipeView *swipeView = [[SwipeView alloc] initWithFrame:CGRectMake(0, offsetY, CGRectGetWidth(self.bounds), 368/2)];
     swipeView.dataSource = self;
     swipeView.delegate = self;
     swipeView.bounces = NO;
@@ -72,26 +72,26 @@
     [_scrollView addSubview:swipeView];
     
     _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 20)];
-    _pageControl.center = CGPointMake(CGRectGetWidth(self.bounds)/2, 168-20);
+    _pageControl.center = CGPointMake(CGRectGetWidth(self.bounds)/2, 368/2-20);
     _pageControl.numberOfPages = _spot.images.count;
     _pageControl.currentPageIndicatorTintColor = APP_THEME_COLOR;
     _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     _pageControl.hidesForSinglePage = YES;
     [_scrollView addSubview:_pageControl];
     
-    offsetY += swipeView.frame.size.height+10;
+    offsetY += swipeView.frame.size.height+14;
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, offsetY, swipeView.bounds.size.width-50, 30)];
     _titleLabel.textColor = TEXT_COLOR_TITLE;
     _titleLabel.text = _spot.zhName;
     _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:24];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:20];
     
     [_scrollView addSubview:_titleLabel];
     
     offsetY += 30 + 12;
     
-    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 90, 15)];
+    _ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(0, 0, 105, 15)];
     _ratingView.center = CGPointMake(swipeView.bounds.size.width/2, offsetY);
     _ratingView.starImage = [UIImage imageNamed:@"star_biankuang"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"star_couler"];
@@ -103,7 +103,7 @@
     [_scrollView addSubview:_ratingView];
 
     
-    offsetY += 50;
+    offsetY += 17;
     
     _bookBtn = [[UIButton alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width-100, offsetY+20, 80, 30)];
     [_bookBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
@@ -120,23 +120,25 @@
         _bookBtn.enabled = NO;
     }
     CGFloat width = _scrollView.bounds.size.width;
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY-28, width, 1)];
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(10, offsetY, width-20, 1)];
     spaceView.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView];
-
-    UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY-10, width, 25)];
+    offsetY += 15;
+    
+    
+    UILabel *destTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, offsetY, width, 25)];
     destTitle.text = @"实用信息";
-    destTitle.font = [UIFont boldSystemFontOfSize:17];
+    destTitle.font = [UIFont systemFontOfSize:20];
     destTitle.textColor = TEXT_COLOR_TITLE;
     destTitle.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:destTitle];
-    offsetY += 25;
+    offsetY += 37;
     
 
     if ([_spot.priceDesc isBlankString]||_spot.priceDesc == nil) {
     }
     else{
-    _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 20)];
+    _ticketBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width-5, 20)];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_ticketBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _ticketBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -153,7 +155,7 @@
     UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 3, 18, 18)];
     ticketImageView.image = [UIImage imageNamed:@"ticket"];
     [_ticketBtn addSubview:ticketImageView];
-    offsetY += 35;
+    offsetY += 25;
     
     UIView *spaceView2 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
     spaceView2.backgroundColor = APP_DIVIDER_COLOR;
@@ -166,7 +168,7 @@
         [content appendString:[NSString stringWithFormat:@"%@\n", _spot.timeCostStr]];
     }
     [content appendString:[NSString stringWithFormat:@"%@", _spot.openTime]];
-    _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    _travelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY - 5, width-5, 65)];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_travelBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
     _travelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -200,7 +202,7 @@
     
     
     
-    offsetY += 65;
+    offsetY += 55;
     UIView *spaceView3 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
     spaceView3.backgroundColor = APP_DIVIDER_COLOR;
     [_scrollView addSubview:spaceView3];
@@ -228,7 +230,7 @@
         [_phoneButton addSubview:phoneImageView];
 
         
-        offsetY += 65;
+        offsetY += 44;
         UIView *spaceView1 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
         spaceView1.backgroundColor = APP_DIVIDER_COLOR;
         [_scrollView addSubview:spaceView1];
@@ -236,7 +238,7 @@
     
     
     
-    _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, width, 65)];
+    _addressBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY-7, width-5, 65)];
     _addressBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     [_addressBtn setTitleColor:TEXT_COLOR_TITLE_DESC forState:UIControlStateHighlighted];
@@ -266,7 +268,7 @@
     address.text = @"地图";
     [_addressBtn addSubview:address];
     
-    offsetY += 65;
+    offsetY += 44;
 
     
     UIView *spaceView4 = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, width, 1)];
