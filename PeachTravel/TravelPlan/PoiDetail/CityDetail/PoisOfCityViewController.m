@@ -16,7 +16,7 @@
 #import "ShoppingDetailViewController.h"
 #import "SuperWebViewController.h"
 #import "PoisSearchViewController.h"
-@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface PoisOfCityViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TZFilterViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate, UISearchDisplayDelegate, UICollectionViewDataSource, UICollectionViewDelegate,updateSelectedPlanDelegate>
 
 @property (nonatomic, strong) UIButton *rightItemBtn;
 @property (nonatomic, strong) RecommendsOfCity *dataSource;
@@ -407,7 +407,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     }
     
     [params setObject:_cityId forKey:@"locId"];
-    [params safeSetObject:_searchText forKey:@"keyWord"];
+    [params safeSetObject:_searchText forKey:@"keyword"];
     
     NSLog(@"searchController.searchResultsTableView frame :%@", NSStringFromCGRect(_searchController.searchResultsTableView.frame));
     
@@ -558,6 +558,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     poiSearchCtl.tripDetail = _tripDetail;
     poiSearchCtl.cityId = _cityId;
     poiSearchCtl.zhName = _zhName;
+    poiSearchCtl.delegate = self;
     [poiSearchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:poiSearchCtl];
     
@@ -1081,6 +1082,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     return 15.0;
 }
 
+#pragma mark - updateSelectedPlanDelegate
+-(void)updateSelectedPlan
+{
+    [self.tableView reloadData];
+    [self.selectPanel reloadData];
+}
 
 @end
 

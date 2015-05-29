@@ -22,9 +22,9 @@
     NSMutableArray *_dataArray;
     TaoziSearchBar *_searchBar;
     NSInteger _currentPageSearch;
+    NSMutableArray *_seletedArray;
 }
 @property (nonatomic, copy) NSString *searchText;
-@property (nonatomic, strong) NSMutableArray *seletedArray;
 
 @property (nonatomic, assign) BOOL isLoadingMoreSearch;
 @property (nonatomic, assign) BOOL didEndScrollSearch;
@@ -37,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dataArray = [NSMutableArray array];
+    _seletedArray = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
     _searchBar = [TaoziSearchBar searchBar];
     _searchBar.delegate = self;
@@ -72,6 +73,7 @@
 {
     [_searchBar resignFirstResponder];
 }
+
 /**
  *  加载搜索的数据
  *
@@ -110,7 +112,7 @@
             break;
     }
     [params setObject:_cityId forKey:@"locId"];
-    [params safeSetObject:_searchText forKey:@"keyWord"];
+    [params safeSetObject:_searchText forKey:@"keyword"];
     //获取搜索列表信息
     [manager GET:API_SEARCH parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -147,7 +149,7 @@
 
 - (void) beginLoadingSearch
 {
-
+    
     _isLoadingMoreSearch = YES;
     [self loadSearchDataWithPageNo:(_currentPageSearch + 1)];
     
@@ -215,9 +217,11 @@
         if(_poiType == kSpotPoi){
             [cell.cellAction setTitle:@"添加" forState:UIControlStateNormal];
             [cell.cellAction setTitle:@"已添加" forState:UIControlStateSelected];
+            [cell.cellAction addTarget:self action:@selector(addSpotPoi:) forControlEvents:UIControlEventTouchUpInside];
         } else {
-        [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
-        [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
+            [cell.cellAction setTitle:@"收集" forState:UIControlStateNormal];
+            [cell.cellAction setTitle:@"已收集" forState:UIControlStateSelected];
+            [cell.cellAction addTarget:self action:@selector(addPoi:) forControlEvents:UIControlEventTouchUpInside];
         }
         [cell.cellAction setBackgroundImage:[ConvertMethods createImageWithColor:TEXT_COLOR_TITLE_DESC] forState:UIControlStateSelected];
     }
@@ -244,6 +248,66 @@
     }
 }
 /**
+ *  添加或者删除景点
+ *
+ *  @param sender
+ */
+- (IBAction)addSpotPoi:(UIButton *)sender
+{
+    [MobClick event:@"event_add_desination_as_schedule"];
+    
+    CGPoint point;
+    NSIndexPath *indexPath;
+    CommonPoiListTableViewCell *cell;
+    point = [sender convertPoint:CGPointZero toView:_tableView];
+    indexPath = [_tableView indexPathForRowAtPoint:point];
+    cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+    
+    
+    NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+    SuperPoi *poi;
+    if (!cell.cellAction.selected) {
+        
+        poi = [_dataArray objectAtIndex:indexPath.row];
+        
+        [oneDayArray addObject:poi];
+        
+        //        NSIndexPath *lnp = [NSIndexPath indexPathForItem:oneDayArray.count - 1 inSection:0];
+        //        [self.selectPanel performBatchUpdates:^{
+        //            [self.selectPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+        //        } completion:^(BOOL finished) {
+        //            [self.selectPanel scrollToItemAtIndexPath:lnp
+        //                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        //        }];
+    } else {
+        SuperPoi *poi;
+        poi = [_dataArray objectAtIndex:indexPath.row];
+        
+        NSMutableArray *oneDayArray = [self.tripDetail.itineraryList objectAtIndex:_currentDayIndex];
+        int index = -1;
+        NSInteger count = oneDayArray.count;
+        for (int i = 0; i < count; ++i) {
+            SuperPoi *tripPoi = [oneDayArray objectAtIndex:i];
+            if ([tripPoi.poiId isEqualToString:poi.poiId]) {
+                [oneDayArray removeObjectAtIndex:i];
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            //            NSIndexPath *lnp = [NSIndexPath indexPathForItem:index inSection:0];
+            //            [self.selectPanel performBatchUpdates:^{
+            //                [self.selectPanel deleteItemsAtIndexPaths:[NSArray arrayWithObject:lnp]];
+            //            } completion:^(BOOL finished) {
+            //                [self.selectPanel reloadData];
+            //            }];
+        }
+        
+    }
+    cell.cellAction.selected = !cell.cellAction.selected;
+    
+}
+/**
  *  添加一个 poi
  *
  *  @param sender
@@ -253,7 +317,6 @@
     CGPoint point;
     NSIndexPath *indexPath;
     CommonPoiListTableViewCell *cell;
-    
     point = [sender convertPoint:CGPointZero toView:_tableView];
     indexPath = [_tableView indexPathForRowAtPoint:point];
     cell = (CommonPoiListTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
@@ -300,6 +363,7 @@
 
 -(void)goback
 {
+    [self.delegate updateSelectedPlan];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
