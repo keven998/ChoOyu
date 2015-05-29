@@ -125,7 +125,7 @@
     
     __weak typeof(ChangePasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [manager POST:API_CHANGE_PWD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

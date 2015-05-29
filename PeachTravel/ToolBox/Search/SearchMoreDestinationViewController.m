@@ -103,7 +103,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf];
+    [_hud showHUDInViewController:weakSelf content:64];
    
 }
 
@@ -471,7 +471,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             [self loadDataWithPageIndex:_currentPage];
             _hud = [[TZProgressHUD alloc] init];
             __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
-            [_hud showHUDInViewController:weakSelf];
+            [_hud showHUDInViewController:weakSelf content:64];
 
         }
     }

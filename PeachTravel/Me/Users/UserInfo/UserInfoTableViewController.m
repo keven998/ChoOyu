@@ -329,7 +329,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -431,7 +431,7 @@
     }
     __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [accountManager asyncChangeGender:gender completion:^(BOOL isSuccess, NSString *errStr) {
         [hud hideTZHUD];

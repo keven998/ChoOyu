@@ -294,7 +294,7 @@
     
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //删除联系人
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
