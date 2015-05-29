@@ -12,6 +12,9 @@ import UIKit
 let MaxACKCount = 20
 let ACKTime = 40.0
 
+//cmd 消息的 chatterid
+let CMDMessageChatterId = -100
+
 
 private let messageManger = MessageManager()
 
@@ -310,6 +313,7 @@ class MessageManager: NSObject {
                     messageModel!.message = contents
                     messageModel?.fillContentWithContent(contents)
                 }
+                messageModel?.messageType = messageType
                 messageModel!.conversationId = messageDic.objectForKey("conversation") as? String
                 messageModel!.createTime = messageDic.objectForKey("timestamp") as! Int
                 
@@ -321,7 +325,7 @@ class MessageManager: NSObject {
                         messageModel!.chatterId = messageDic.objectForKey("groupId") as! Int
                         
                     } else if chatType == "CMD" {
-                        
+                        messageModel!.chatterId = CMDMessageChatterId
                     }
                     
                 } else {
