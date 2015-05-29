@@ -31,11 +31,11 @@
     self.navigationItem.title = @"派派达人";
     
     TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 44, 44);
-    [btn setTitle:@"筛选" forState:UIControlStateNormal];
+    btn.frame = CGRectMake(0, 0, 70, 44);
+    [btn setTitle:@"足迹筛选" forState:UIControlStateNormal];
     [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [btn addTarget:self action:@selector(goSelect) forControlEvents:UIControlEventTouchUpInside];
     btn.imagePosition = IMAGE_AT_RIGHT;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
