@@ -34,6 +34,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     
     private var conversationList: Array<ChatConversation>
     
+    //所有会话的未读消息个数总和
     var totalMessageUnreadCount: Int {
         get {
             var totalCount = 0
