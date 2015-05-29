@@ -146,7 +146,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:80];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    [params setObject:keyWord forKey:@"keyWord"];
+    [params setObject:keyWord forKey:@"keyword"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"vs"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];

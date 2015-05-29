@@ -105,7 +105,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
     if (_isSearch) {
-        [params safeSetObject:keyWord forKey:@"keyWord"];
+        [params safeSetObject:keyWord forKey:@"keyword"];
     } else {
         [params safeSetObject:_cityId forKey:@"locId"];
     }
