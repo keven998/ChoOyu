@@ -366,11 +366,11 @@
     else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
-        
-        cell.information.text = @"0个";
+        NSString *str = [NSString stringWithFormat:@"%@个",_model.guideCnt];
+        cell.information.text = str;
         cell.information.font = [UIFont systemFontOfSize:14];
         cell.basicLabel.font = [UIFont systemFontOfSize:15];
-        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
+//        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
         cell.basicLabel.text = @"TA的旅行计划";
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -593,7 +593,7 @@
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             [self paraseUserAlbum:[responseObject objectForKey:@"result"]];
-            
+
             [_tableView reloadData];
         } else {
             [_tableView reloadData];

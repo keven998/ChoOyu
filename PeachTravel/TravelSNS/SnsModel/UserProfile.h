@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, strong) id travels;
 @property (nonatomic, copy) NSString *travelStatus;
+@property (nonatomic, copy) NSNumber *guideCnt;
 
 - (id) initWithJsonObject:(id)json;
 - (NSString *)getFootprintDescription;
