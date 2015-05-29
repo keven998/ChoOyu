@@ -369,8 +369,8 @@
     else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
-        NSString *str = [NSString stringWithFormat:@"%@个",_model.guideCnt];
-        cell.information.text = str;
+//        NSString *str = [NSString stringWithFormat:@"%@个",_model.guideCnt];
+//        cell.information.text = str;
         cell.information.font = [UIFont systemFontOfSize:14];
         cell.basicLabel.font = [UIFont systemFontOfSize:15];
 //        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
