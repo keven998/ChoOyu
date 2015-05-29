@@ -20,9 +20,9 @@
     /****** 设置环信 ******/
     NSString *apnsCertName = nil;
 #if DEBUG
-    apnsCertName = @"TaoziAPNS_Development";
+    apnsCertName = @"LXP_DEV";
 #else
-    apnsCertName = @"TaoziAPNS_Production";
+    apnsCertName = @"LXP_PRO";
 #endif
 
     [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#taozi" apnsCertName:apnsCertName otherConfig:@{kSDKConfigEnableConsoleLogger:@NO}];
@@ -36,7 +36,6 @@
             didFinishLaunchingWithOptions:launchOptions];
     
     [self setupNotifiers];
-
 
     NSLog(@"loginInfo: %@", [[EaseMob sharedInstance].chatManager loginInfo]);
     
