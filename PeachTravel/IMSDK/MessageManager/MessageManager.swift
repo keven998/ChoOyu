@@ -10,10 +10,12 @@ import UIKit
 
 /// ACKArray 当超过多少是进行 ack
 let MaxACKCount = 20
+
+//ACK 间隔时间
 let ACKTime = 40.0
 
 //cmd 消息的 chatterid
-let CMDMessageChatterId = -100
+let CMDMessageChatterId = 0
 
 
 private let messageManger = MessageManager()
