@@ -14,6 +14,8 @@
 @property (nonatomic, copy) NSString *playGuide;
 @property (nonatomic, copy) NSString *timeCostDesc;
 @property (nonatomic, copy) NSString *travelMonth;
+@property (nonatomic, copy) NSString *diningTitles;
+@property (nonatomic, copy) NSString *shoppingTitles;
 @property (nonatomic) NSUInteger imageCount;
 @property (nonatomic, strong) NSArray *travelNotes;
 @property (nonatomic, strong) RecommendsOfCity *restaurantsOfCity;

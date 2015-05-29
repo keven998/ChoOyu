@@ -232,7 +232,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [params setObject:self.poi.poiId forKey:@"locId"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [manager GET:API_SEARCH_TRAVELNOTE parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
             id travelNotes = [responseObject objectForKey:@"result"];
@@ -326,6 +326,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     PoisOfCityViewController *restaurantOfCityCtl = [[PoisOfCityViewController alloc] init];
     restaurantOfCityCtl.shouldEdit = NO;
     restaurantOfCityCtl.cityId = self.poi.poiId;
+    restaurantOfCityCtl.descDetail = ((CityPoi *)self.poi).diningTitles;
     restaurantOfCityCtl.zhName = self.poi.zhName;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
     [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
@@ -341,6 +342,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [MobClick event:@"event_city_shopping"];
     PoisOfCityViewController *shoppingOfCityCtl = [[PoisOfCityViewController alloc] init];
     shoppingOfCityCtl.shouldEdit = NO;
+    shoppingOfCityCtl.descDetail = ((CityPoi *)self.poi).shoppingTitles;
     shoppingOfCityCtl.cityId = self.poi.poiId;
     shoppingOfCityCtl.zhName = self.poi.zhName;
     shoppingOfCityCtl.poiType = kShoppingPoi;

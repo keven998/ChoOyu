@@ -296,9 +296,12 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     if (_poiType == kRestaurantPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/restaurant", API_GET_GUIDE_CITY,_cityId];
         
+//        requsetUrl = [NSString stringWithFormat:@"%@%@"]
     }
     if (_poiType == kShoppingPoi) {
         requsetUrl = [NSString stringWithFormat:@"%@%@/shopping", API_GET_GUIDE_CITY,_cityId];
+        
+        
     }
     //获取城市的美食列表信息
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -823,7 +826,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (![_dataSource.desc isBlankString] && _dataSource.desc != nil) {
+    if (![_descDetail isBlankString] && _descDetail != nil) {
         if (section == 0) {
             UIView *sectionheaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 160)];
             sectionheaderView.backgroundColor = APP_PAGE_COLOR;
@@ -844,8 +847,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
             }
             [btn addSubview:tagBtn];
             
-            NSUInteger len = [_dataSource.desc length];
-            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_dataSource.desc];
+            NSUInteger len = [_descDetail length];
+            NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:_descDetail];
             [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_SUBTITLE  range:NSMakeRange(0, len)];
             NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
