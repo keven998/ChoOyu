@@ -38,7 +38,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     __weak typeof(self)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     NSString *urlStr = [NSString stringWithFormat:@"%@?abroad=true",API_GET_SCREENING];
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -41,6 +41,7 @@
 @property (nonatomic, assign) BOOL didEndScrollSearch;
 @property (nonatomic, assign) BOOL enableLoadMoreSearch;
 
+
 @property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, strong) TZProgressHUD *hud;
 @property (nonatomic, strong) UIButton *filterBtn;
@@ -50,6 +51,7 @@
 
 @property (nonatomic, strong) NSMutableArray *seletedArray;
 
+@property (nonatomic) NSInteger currentCityIndex;
 @end
 
 @implementation PoisOfCityViewController
@@ -60,6 +62,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     [super viewDidLoad];
     [self setAutomaticallyAdjustsScrollViewInsets:YES];
     [self setExtendedLayoutIncludesOpaqueBars:YES];
+    _currentCityIndex = 0;
     if (self.shouldEdit) {
         UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(finishAdd:)];
         self.navigationItem.leftBarButtonItem = lbtn;
@@ -80,8 +83,16 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
         _zhName = destination.zhName;
         _cityId = destination.cityId;
         if (self.tripDetail.destinations.count > 1) {
-            UIBarButtonItem *fttn = [[UIBarButtonItem alloc] initWithTitle:@"城市" style:UIBarButtonItemStylePlain target:self action:@selector(filter:)];
-            [rbItems addObject:fttn];
+            TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(0, 0, 44, 44);
+            [btn setTitle:@"城市" forState:UIControlStateNormal];
+            [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+            [btn addTarget:self action:@selector(filter:) forControlEvents:UIControlEventTouchUpInside];
+            btn.imagePosition = IMAGE_AT_RIGHT;
+            UIBarButtonItem *cbtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
+            [rbItems addObject:cbtn];
 
         }
     }
@@ -544,7 +555,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     selectCtl.contentItems = [NSArray arrayWithArray:array];
     selectCtl.titleTxt = @"筛选";
     selectCtl.delegate = self;
-    selectCtl.selectItem = 0;
+    selectCtl.selectItemIndex = _currentCityIndex;
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:selectCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -1173,7 +1184,7 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
 
     
  
-    
+    _currentCityIndex = indexPath.row;
     [self resetContents:indexPath.row];
 }
 

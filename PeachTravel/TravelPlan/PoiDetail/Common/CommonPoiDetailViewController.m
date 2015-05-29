@@ -140,7 +140,7 @@
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(self)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

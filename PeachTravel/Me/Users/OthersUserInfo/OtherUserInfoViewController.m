@@ -77,14 +77,14 @@
     _headerView.userInteractionEnabled = YES;
     _headerView.backgroundColor = [UIColor whiteColor];
     
-    UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(22, 17, 60, 60)];
+    UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 17, 60, 60)];
     avatarView.clipsToBounds = YES;
     avatarView.backgroundColor = APP_IMAGEVIEW_COLOR;
     avatarView.layer.cornerRadius = 18;
     avatarView.contentMode = UIViewContentModeScaleAspectFit;
     [_headerView addSubview:avatarView];
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 17, 0, 21)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 17, 0, 21)];
     nameLabel.font = [UIFont systemFontOfSize:16];
     nameLabel.textColor = TEXT_COLOR_TITLE;
     [_headerView addSubview:nameLabel];
@@ -156,7 +156,7 @@
                                                                }
                                                      context:nil].size;
     
-    CGFloat maxSize = CGRectGetWidth(self.view.bounds) - 240;
+    CGFloat maxSize = CGRectGetWidth(self.view.bounds) - 220;
     CGSize nameSize = [nameLabel.text boundingRectWithSize:CGSizeMake(maxSize, 21)
                                                     options:NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{
@@ -294,7 +294,7 @@
     
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //删除联系人
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -367,9 +367,10 @@
     else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
-        NSString *str = [NSString stringWithFormat:@"%@个",_model.guideCnt];
-        cell.information.text = str;
-        cell.information.font = [UIFont systemFontOfSize:14];
+        NSString *str = [NSString stringWithFormat:@"共%@篇旅行计划",_model.guideCnt];
+        NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:12], NSForegroundColorAttributeName: APP_THEME_COLOR};
+        NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:str attributes:attribs];
+        cell.information.attributedText = attrstr;
         cell.basicLabel.font = [UIFont systemFontOfSize:15];
 //        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
         cell.basicLabel.text = @"TA的旅行计划";
@@ -441,11 +442,10 @@
             NSTimeInterval dateDiff = [date timeIntervalSinceNow];
             int age=trunc(dateDiff/(60*60*24))/365;
             age = -age;
-            cell.information.font = [UIFont systemFontOfSize:14];
             if (_model.birthday == nil||[_model.birthday isBlankString] || _model.birthday.length == 0) {
                 cell.information.text = @"未设置";
-            }else {
-            cell.information.text = [NSString stringWithFormat:@"%d",age];
+            } else {
+                cell.information.text = [NSString stringWithFormat:@"%d",age];
             }
         }else {
             cell.basicLabel.font = [UIFont systemFontOfSize:14];
@@ -453,9 +453,8 @@
             if (_model.residence.length == 0 || [_model.residence isBlankString] || _model.residence == nil) {
                 cell.information.text = @"未设置";
             }else {
-            cell.information.text = _model.residence;
+                cell.information.text = [NSString stringWithFormat:@"%@", _model.residence];
             }
-            cell.information.font = [UIFont systemFontOfSize:14];
         }
         return cell;
     }
