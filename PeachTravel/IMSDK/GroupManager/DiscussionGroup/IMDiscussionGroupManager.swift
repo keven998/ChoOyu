@@ -84,7 +84,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
                 group.subject = "测试群组"
                 group.numbers = invitees
-                var frendManager = FrendManager()
+                var frendManager = FrendManager.shareInstance()
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 completionBlock(isSuccess: true, errorCode: errorCode, discussionGroup: group)
             } else {
@@ -106,7 +106,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
                 for groupData in retData  {
                     var group = IMDiscussionGroup(jsonData: groupData as! NSDictionary)
                     groupList.append(group)
-                    var frendManager = FrendManager()
+                    var frendManager = FrendManager.shareInstance()
                     frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
                 }
             }
@@ -252,7 +252,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     */
     private func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
-        var frendManager = FrendManager()
+        var frendManager = FrendManager.shareInstance()
         frendManager.addFrend2DB(frend)
     }
     
