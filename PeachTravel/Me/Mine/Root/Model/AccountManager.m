@@ -267,9 +267,11 @@
  */
 - (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
 {
-    [self asyncUpdateUserInfoToServer:albumImage.imageId andUserInfoType:ChangeAvatar andKeyWord:@"avatar" completion:^(BOOL isSuccess, NSString *errStr) {
+    [self asyncUpdateUserInfoToServer:albumImage.image.imageUrl andUserInfoType:ChangeAvatar andKeyWord:@"avatar" completion:^(BOOL isSuccess, NSString *errStr) {
         if (isSuccess) {
             self.account.avatar =  albumImage.image.imageUrl;
+            self.account.avatarSmall =  albumImage.image.imageUrl;
+
             completion(YES, nil);
         } else {
             completion(NO, errStr);
