@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIImageView *backgroundImg = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    backgroundImg.image = [UIImage imageNamed:@"ic_prepare_place"];
+    backgroundImg.image = [UIImage imageNamed:@"ic_prepare_place@2x.jpg"];
     [self.view addSubview:backgroundImg];
     
     UIImageView *btnBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-62, SCREEN_WIDTH, 62)];
