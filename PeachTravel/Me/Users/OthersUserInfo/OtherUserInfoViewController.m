@@ -553,7 +553,8 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@",_userId] forHTTPHeaderField:@"UserId"];
-    
+    TZProgressHUD *hud = [[TZProgressHUD alloc]init];
+    [hud showHUDInViewController:self.navigationController];
     NSString *url = [NSString stringWithFormat:@"%@%@", API_USERINFO, userId];
     NSLog(@"%@",url);
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -565,11 +566,14 @@
         } else {
             
         }
+        [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SVProgressHUD showHint:@"请求失败"];
+        [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+    
 }
 
 - (void)loadUserAlbum
