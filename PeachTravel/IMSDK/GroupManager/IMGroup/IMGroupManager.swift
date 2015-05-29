@@ -12,6 +12,30 @@ let groupUrl = "http://hedy.zephyre.me/groups"
 
 let groupManager = IMGroupManager()
 
+@objc protocol IMGroupManagerDelegate {
+    /**
+    邀请加入群组
+    
+    :param: inviteContent 邀请的内容
+    */
+    optional func inviteAddGroup(inviteContent: NSDictionary)
+    
+    /**
+    某人退出了群组
+    
+    :param: content
+    */
+    optional func someoneQuiteGroup(content: NSDictionary)
+    
+    /**
+    群组被销毁
+    
+    :param: content
+    */
+    optional func groupDestroyed(content: NSDictionary)
+
+}
+
 class IMGroupManager: NSObject {
     private var delegateQueue: Array<IMGroupManager> = Array()
     

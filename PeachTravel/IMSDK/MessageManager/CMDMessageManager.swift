@@ -18,62 +18,20 @@ enum CMDMessageRoutingKey: Int {
     
     //MARK: 好友
     
-    /**
-    请求添加好友
-    
-    :param: requestContent 请求的信息
-    */
-    optional func requestAddFrend(requestContent: NSDictionary)
-    
+    optional func receiveFrendCMDMessage(cmdMessage: IMCMDMessage);
     //MARK: 讨论组
     
-    /**
-    邀请加入讨论组
-    
-    :param: inviteContent 邀请的内容
-    */
-    optional func inviteAddDiscussionGroup(inviteContent: NSDictionary)
-    
-    /**
-    某人退出了讨论组
-    
-    :param: content
-    */
-    optional func someoneQuiteDiscussionGroup(content: NSDictionary)
-    
-    
+    optional func receiveDiscussiongGroupCMDMessage(cmdMessage: IMCMDMessage);
     
     //MARK: 群组
-    
-    /**
-    邀请加入群组
-    
-    :param: inviteContent 邀请的内容
-    */
-    optional func inviteAddGroup(inviteContent: NSDictionary)
-    
-    /**
-    某人退出了群组
-    
-    :param: content
-    */
-    optional func someoneQuiteGroup(content: NSDictionary)
-    
-    /**
-    群组被销毁
-    
-    :param: content
-    */
-    optional func groupDestroyed(content: NSDictionary)
-    
-    
+    optional func receiveGroupCMDMessage(cmdMessage: IMCMDMessage);
     
 }
 
 
 class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     
-    private var listenerQueue: Array<[CMDMessageRoutingKey: CMDMessageManager]> = Array()
+    private var listenerQueue: Array<[CMDMessageRoutingKey: CMDMessageManagerDelegate]> = Array()
     
     /**
     注册消息的监听
@@ -81,7 +39,7 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     :param: monitor        监听的对象
     :param: withRoutingKey 需要监听消息的key
     */
-    func addPushMessageListener(listener: CMDMessageManager, withRoutingKey routingKey: CMDMessageRoutingKey) {
+    func addCMDMessageListener(listener: CMDMessageManagerDelegate, withRoutingKey routingKey: CMDMessageRoutingKey) {
         listenerQueue.append([routingKey: listener])
     }
     
@@ -91,7 +49,7 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     :param: listener   监听对象
     :param: routingKey 监听消息的 key
     */
-    func removePushMessageListener(listener: CMDMessageManager, withRoutingKey routingKey: CMDMessageRoutingKey) {
+    func removeCMDMessageListener(listener: CMDMessageManager, withRoutingKey routingKey: CMDMessageRoutingKey) {
         for (index, value) in enumerate(listenerQueue) {
             if value[routingKey] === listener {
                 listenerQueue.removeAtIndex(index)
@@ -100,13 +58,61 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
         }
     }
     
+    private func getDelegateWithRoutingKey(routingKey: CMDMessageRoutingKey) -> CMDMessageManagerDelegate? {
+        for value in listenerQueue {
+            var listenerDic = value as Dictionary<CMDMessageRoutingKey, CMDMessageManagerDelegate>
+            if let oldListener = listenerDic[routingKey] {
+                return oldListener
+            }
+        }
+        return nil
+    }
+    
+    
     
     //MARK: MessageTransferManagerDelegate
     
     func receiveNewMessage(message: BaseMessage) {
-        
+        if let cmdMessage = message as? IMCMDMessage {
+            self.dispatchCMDMessage(cmdMessage)
+        }
     }
     
-
+    /**
+    分发 cmd 消息
+    
+    :param: message
+    */
+    private func dispatchCMDMessage(message: IMCMDMessage) {
+        if let actionCode = message.actionCode {
+            switch message.actionCode! {
+                
+            case .D_INVITE :
+                if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.DiscussionGroup_CMD) {
+                    delegate.receiveDiscussiongGroupCMDMessage?(message)
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+    
    
+    
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

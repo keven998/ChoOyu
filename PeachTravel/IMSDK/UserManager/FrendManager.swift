@@ -8,6 +8,16 @@
 
 import UIKit
 
+@objc protocol FrendManagerDelegate {
+    /**
+    请求添加好友
+    
+    :param: requestContent 请求的信息
+    */
+    optional func requestAddFrend(requestContent: NSDictionary)
+
+}
+
 class FrendManager: NSObject {
     
     /**

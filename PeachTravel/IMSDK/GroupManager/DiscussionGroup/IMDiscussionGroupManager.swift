@@ -10,16 +10,37 @@ import UIKit
 
 @objc protocol DiscusssionGroupManagerDelegate {
     
+    
+    /**
+    邀请加入讨论组
+    
+    :param: inviteContent 邀请的内容
+    */
+    optional func inviteAddDiscussionGroup(inviteContent: NSDictionary)
+    
+    /**
+    某人退出了讨论组
+    
+    :param: content
+    */
+    optional func someoneQuiteDiscussionGroup(content: NSDictionary)
+
+    
 }
 
 let discussionGroupManager = IMDiscussionGroupManager()
 
-class IMDiscussionGroupManager: NSObject {
+class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     
     private var delegateQueue: Array<DiscusssionGroupManagerDelegate> = Array()
     
     class func shareInstance() -> IMDiscussionGroupManager {
         return discussionGroupManager
+    }
+    
+    override init() {
+        super.init()
+        IMClientManager.shareInstance().cmdMessageManager.addCMDMessageListener(self, withRoutingKey: CMDMessageRoutingKey.DiscussionGroup_CMD)
     }
     
     /**
@@ -148,7 +169,6 @@ class IMDiscussionGroupManager: NSObject {
                 completion(isSuccess: false, errorCode: 0)
             }
         }
-
     }
     
     /**
@@ -236,6 +256,29 @@ class IMDiscussionGroupManager: NSObject {
         frendManager.addFrend2DB(frend)
     }
     
+    private func dispatchCMDMessage(message: IMCMDMessage) {
+        switch message.actionCode! {
+        case .D_INVITE :
+           self.someInviteYouAddDiscussionGroup(message)
+            
+        default :
+            break
+        }
+       
+    }
+    
+    /**
+    某人邀请你加入群组
+    :param: message
+    */
+    private func someInviteYouAddDiscussionGroup(message: IMCMDMessage) {
+        var daoHelper = DaoHelper.shareInstance()
+        daoHelper.insertChatMessage("chat_\(CMDMessageChatterId)", message: message)
+        for delegate in delegateQueue {
+            delegate.inviteAddDiscussionGroup?(message.actionContent)
+        }
+    }
+    
     /**
     将一个群组转换成一个frendmodel
     
@@ -295,6 +338,14 @@ class IMDiscussionGroupManager: NSObject {
         discussionGroup.subject = frendModel.nickName
         return discussionGroup
     }
-
     
+    
+    //MARK: CMDMessageManagerDelegate
+    
+    func receiveDiscussiongGroupCMDMessage(cmdMessage: IMCMDMessage) {
+        self.dispatchCMDMessage(cmdMessage)
+    }
 }
+
+
+
