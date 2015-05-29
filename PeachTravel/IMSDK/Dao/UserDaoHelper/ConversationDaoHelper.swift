@@ -161,7 +161,6 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
         }
     }
     
-    
     func updateUnreadMessageCountInConversation(unReadMessageCount: Int, userId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
             var sql = "update \(conversationTableName) set UnreadMessageCount = ? where UserId = ?"
