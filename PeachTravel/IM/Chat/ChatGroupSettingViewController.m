@@ -154,6 +154,7 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         
         cell.textLabel.text = _group.groupSubject;
+        cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_groupsetting"];
         UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 48, SCREEN_WIDTH, 1)];
         divide.backgroundColor = APP_DIVIDER_COLOR;
         [cell addSubview:divide];
@@ -167,6 +168,7 @@
         _selectedBtn.selected = !_group.isPushNotificationEnabled;
         [cell addSubview:_selectedBtn];
         cell.textLabel.text = @"免打扰";
+        cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_wurao"];
         cell.tag = 101;
         UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(18, 48, SCREEN_WIDTH, 1)];
         divide.backgroundColor = APP_DIVIDER_COLOR;
@@ -179,6 +181,7 @@
         divide.backgroundColor = APP_DIVIDER_COLOR;
         [cell addSubview:divide];
         cell.textLabel.text = @"清空聊天记录";
+        cell.imageView.image = [UIImage imageNamed:@"ic_chat_ce_rubbish"];
         return cell;
     }
     else if (indexPath.row == 3) {
