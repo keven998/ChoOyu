@@ -164,7 +164,7 @@
                         _bookBtn.enabled = NO;
                     }
  
-    [_scrollView addSubview:_bookBtn];
+//    [_scrollView addSubview:_bookBtn];
     }
     
     NSString *priceDesc;
