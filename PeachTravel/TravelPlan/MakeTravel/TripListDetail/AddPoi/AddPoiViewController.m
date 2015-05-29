@@ -452,7 +452,7 @@ static NSString *addPoiCellIndentifier = @"commonPoiListCell";
     if (pageNo == 0) {
         hud = [[TZProgressHUD alloc] init];
         __weak typeof(self)weakSelf = self;
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUDInViewController:weakSelf content:64];
     }
     //获取列表信息
     [manager GET:_requestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

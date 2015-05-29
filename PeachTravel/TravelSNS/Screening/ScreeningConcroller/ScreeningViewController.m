@@ -87,7 +87,7 @@
     [self performSelector:@selector(cancel) withObject:nil afterDelay:0.3];
     __weak typeof(self)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf content:64];
+    [hud showHUDInViewController:weakSelf];
 }
 - (void)cancel {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];

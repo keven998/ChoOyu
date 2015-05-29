@@ -54,7 +54,7 @@
     } else {
         __weak typeof(ChangeGroupTitleViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUDInViewController:weakSelf content:64];
         [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
                                                              forGroup:_groupId];
     }

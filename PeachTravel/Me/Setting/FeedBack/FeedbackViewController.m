@@ -95,7 +95,7 @@
     
     __weak typeof(FeedbackController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:

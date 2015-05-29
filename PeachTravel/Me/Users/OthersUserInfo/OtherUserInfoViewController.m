@@ -77,14 +77,14 @@
     _headerView.userInteractionEnabled = YES;
     _headerView.backgroundColor = [UIColor whiteColor];
     
-    UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(22, 17, 60, 60)];
+    UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 17, 60, 60)];
     avatarView.clipsToBounds = YES;
     avatarView.backgroundColor = APP_IMAGEVIEW_COLOR;
     avatarView.layer.cornerRadius = 18;
     avatarView.contentMode = UIViewContentModeScaleAspectFit;
     [_headerView addSubview:avatarView];
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 17, 0, 21)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 17, 0, 21)];
     nameLabel.font = [UIFont systemFontOfSize:16];
     nameLabel.textColor = TEXT_COLOR_TITLE;
     [_headerView addSubview:nameLabel];
@@ -156,7 +156,7 @@
                                                                }
                                                      context:nil].size;
     
-    CGFloat maxSize = CGRectGetWidth(self.view.bounds) - 240;
+    CGFloat maxSize = CGRectGetWidth(self.view.bounds) - 220;
     CGSize nameSize = [nameLabel.text boundingRectWithSize:CGSizeMake(maxSize, 21)
                                                     options:NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{
@@ -294,7 +294,7 @@
     
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //删除联系人
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
