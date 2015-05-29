@@ -18,7 +18,41 @@ import UIKit
 
 }
 
-class FrendManager: NSObject {
+private let frendManager = FrendManager()
+
+class FrendManager: NSObject, CMDMessageManagerDelegate {
+    
+    private var delegateQueue: Array<FrendManagerDelegate> = Array()
+    
+    class func shareInstance() -> FrendManager {
+        return frendManager
+    }
+    
+    override init() {
+        super.init()
+        IMClientManager.shareInstance().cmdMessageManager.addCMDMessageListener(self, withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
+    }
+    
+    /**
+    添加一个frend的 delegate
+    :param: delegate
+    */
+    func addDelegate(delegate: FrendManagerDelegate) {
+        delegateQueue.append(delegate)
+    }
+    
+    /**
+    删除一个frend的 delegate
+    :param: delegate
+    */
+    func removeDelegate(delegate: FrendManagerDelegate) {
+        for (index, value) in enumerate(delegateQueue) {
+            if value === delegate {
+                delegateQueue.removeAtIndex(index)
+                return
+            }
+        }
+    }
     
     /**
     添加一个好友到数据库里
@@ -74,6 +108,12 @@ class FrendManager: NSObject {
     func getFrendInfoFromDB(#userId: Int) -> FrendModel? {
         var daoHelper = DaoHelper.shareInstance()
         return daoHelper.selectFrend(userId: userId)
+    }
+    
+    //MARK: CMDMessageManagerDelegate
+    
+    func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
+        
     }
     
 }
