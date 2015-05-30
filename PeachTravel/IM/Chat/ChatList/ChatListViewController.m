@@ -599,6 +599,7 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     } else {
         cell.name = tzConversation.chatterNickName;
+        cell.imageView.image = [UIImage imageNamed:@"group_talk"];
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;
