@@ -40,7 +40,6 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     
     override init() {
         super.init()
-        IMClientManager.shareInstance().cmdMessageManager.addCMDMessageListener(self, withRoutingKey: CMDMessageRoutingKey.DiscussionGroup_CMD)
     }
     
     /**
@@ -73,16 +72,19 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncCreateDiscussionGroup(invitees: Array<FrendModel>, completionBlock: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
         
         var array = Array<Int>()
+        var groupName = AccountManager.shareAccountManager().account.nickName as String
         for frend in invitees {
             array.append(frend.userId)
+            groupName += ", \(frend.nickName)"
         }
         var params = NSMutableDictionary()
         params.setObject(array, forKey: "participants")
+        params.setObject(groupName, forKey: "name")
         
         NetworkTransportAPI.asyncPOST(requstUrl: groupUrl, parameters: params) { (isSuccess, errorCode, retMessage) -> () in
             if isSuccess {
                 var group = IMDiscussionGroup(jsonData: retMessage!)
-                group.subject = "测试群组"
+                group.subject = groupName
                 group.numbers = invitees
                 var frendManager = FrendManager.shareInstance()
                 frendManager.addFrend2DB(self.convertDiscussionGroupModel2FrendModel(group))
@@ -272,10 +274,32 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     :param: message
     */
     private func someInviteYouAddDiscussionGroup(message: IMCMDMessage) {
-        var daoHelper = DaoHelper.shareInstance()
-        daoHelper.insertChatMessage("chat_\(CMDMessageChatterId)", message: message)
+        self.addDiscussionGroupInfo2DB(message: message)
         for delegate in delegateQueue {
             delegate.inviteAddDiscussionGroup?(message.actionContent)
+        }
+    }
+    
+    /**
+    从 cmd 消息里提取群组信息，并将群组信息插入到 frend 表中
+    
+    :param: message
+    */
+    private func addDiscussionGroupInfo2DB(#message: IMCMDMessage) {
+        var frendModel = FrendModel()
+        if let content = message.actionContent {
+            frendModel.userId = content.objectForKey("groupId") as! Int
+            if let nickName = content.objectForKey("groupName") as? String {
+                frendModel.nickName = nickName
+            }
+            if let avatar = content.objectForKey("groupAvatar") as? String {
+                frendModel.avatar = avatar
+                frendModel.avatarSmall = avatar
+            }
+            frendModel.fullPY = ConvertMethods.chineseToPinyin(frendModel.nickName)
+            frendModel.type = IMFrendType.DiscussionGroup
+            var frendManager = FrendManager.shareInstance()
+            frendManager.addFrend2DB(frendModel)
         }
     }
     

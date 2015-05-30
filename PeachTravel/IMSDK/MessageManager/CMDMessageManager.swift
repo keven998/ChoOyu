@@ -40,6 +40,7 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
     :param: withRoutingKey 需要监听消息的key
     */
     func addCMDMessageListener(listener: CMDMessageManagerDelegate, withRoutingKey routingKey: CMDMessageRoutingKey) {
+        
         listenerQueue.append([routingKey: listener])
     }
     
@@ -89,6 +90,11 @@ class CMDMessageManager: NSObject, MessageReceiveManagerDelegate {
                 
             case .D_INVITE :
                 if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.DiscussionGroup_CMD) {
+                    delegate.receiveDiscussiongGroupCMDMessage?(message)
+                }
+                
+            case .G_INVITE :
+                if let delegate = self.getDelegateWithRoutingKey(CMDMessageRoutingKey.Group_CMD) {
                     delegate.receiveDiscussiongGroupCMDMessage?(message)
                 }
                 

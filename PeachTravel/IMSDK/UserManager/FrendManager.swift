@@ -30,7 +30,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
     
     override init() {
         super.init()
-        IMClientManager.shareInstance().cmdMessageManager.addCMDMessageListener(self, withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
     }
     
     /**

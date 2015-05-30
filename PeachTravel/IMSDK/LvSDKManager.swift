@@ -32,6 +32,9 @@ class IMClientManager: NSObject {
         conversationManager = ChatConversationManager()
         messageSendManager.addMessageSendDelegate(conversationManager)
         cmdMessageManager = CMDMessageManager()
+        cmdMessageManager.addCMDMessageListener(IMDiscussionGroupManager.shareInstance(), withRoutingKey: CMDMessageRoutingKey.DiscussionGroup_CMD)
+        cmdMessageManager.addCMDMessageListener(FrendManager.shareInstance(), withRoutingKey: CMDMessageRoutingKey.Frend_CMD)
+
         netWorkReachability = NetworkReachability()
         messageReceiveManager.addMessageReceiveListener(cmdMessageManager, withRoutingKey: MessageReceiveDelegateRoutingKey.cmd)
         messageReceiveManager.addMessageReceiveListener(conversationManager, withRoutingKey: MessageReceiveDelegateRoutingKey.normal)
