@@ -367,10 +367,16 @@
     else if (indexPath.section == 1) {
         
         OtherUserBasicInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicInfoCell" forIndexPath:indexPath];
-        NSString *str = [NSString stringWithFormat:@"共%@篇旅行计划",_model.guideCnt];
+        NSString *str = [[NSString alloc]init];
+        if(_model.guideCnt==nil){
+            str = [NSString stringWithFormat:@"共%d篇旅行计划",0];
+        }else {
+            str = [NSString stringWithFormat:@"共%@篇旅行计划",_model.guideCnt];
+        }
         NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:12], NSForegroundColorAttributeName: APP_THEME_COLOR};
         NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:str attributes:attribs];
         cell.information.attributedText = attrstr;
+        
         cell.basicLabel.font = [UIFont systemFontOfSize:15];
 //        cell.basicLabel.textColor = TEXT_COLOR_TITLE;
         cell.basicLabel.text = @"TA的旅行计划";
