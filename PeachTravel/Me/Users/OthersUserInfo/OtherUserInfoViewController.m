@@ -37,7 +37,7 @@
 
     _isMyFriend = [accountManager isMyFrend: _userId];
     
-    if (_isMyFriend) {
+    if (_isMyFriend&& _userId != [NSNumber numberWithInteger:10000]) {
         UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
         [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
         [moreBtn addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
