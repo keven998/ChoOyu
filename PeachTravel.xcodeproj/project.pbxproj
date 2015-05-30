@@ -332,6 +332,7 @@
 		D9722F3C1A83674C00D8A8CC /* ic_dot_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9722F3B1A83674C00D8A8CC /* ic_dot_line@2x.png */; };
 		D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97C8B4C1A526B9F00476C9C /* Images.xcassets */; };
 		D980FD651A88EFAB00313582 /* ic_msg_sending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */; };
+		D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */; };
 		D98CC6431A1993BE00FA5A76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D902AD1F1A149FAB00E36A93 /* CFNetwork.framework */; };
 		D990FBE919F926E50008A8FE /* UserInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D9A981A819EFB5FD00210A1B /* UserInfo.xcdatamodeld */; };
 		D993CABF1AB30F080075314E /* ic_nav_action_search_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D993CABE1AB30F080075314E /* ic_nav_action_search_white@2x.png */; };
@@ -1303,6 +1304,8 @@
 		D9722F3B1A83674C00D8A8CC /* ic_dot_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_dot_line@2x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_msg_sending@2x.png"; sourceTree = "<group>"; };
+		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
+		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D993CABE1AB30F080075314E /* ic_nav_action_search_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_action_search_white@2x.png"; sourceTree = "<group>"; };
 		D993CB521AB6C7050075314E /* SuperPoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperPoi.h; sourceTree = "<group>"; };
@@ -4654,6 +4657,8 @@
 		D9A8FF4A1A80CF19005AD701 /* Search--搜索详情 */ = {
 			isa = PBXGroup;
 			children = (
+				D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */,
+				D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */,
 				D9A8FF4B1A80CF19005AD701 /* SearchDestinationViewController.h */,
 				D9A8FF4C1A80CF19005AD701 /* SearchDestinationViewController.m */,
 				D9A8FF4D1A80CF19005AD701 /* SearchMoreDestinationViewController.h */,
@@ -6030,6 +6035,7 @@
 				27FC91541AF205030083F052 /* HeaderCell.m in Sources */,
 				D9EE34651ABA6DD40076933B /* PoiFactory.m in Sources */,
 				D9A8FFA61A80D1C3005AD701 /* RecommendsOfCity.m in Sources */,
+				D9823E841B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m in Sources */,
 				D9A8016A1A80DD37005AD701 /* TZCMDChatHelper.m in Sources */,
 				D9A8FFA01A80D1C3005AD701 /* CityDetailTableViewController.m in Sources */,
 				D9A800331A80D52F005AD701 /* TripPoiListTableViewCell.m in Sources */,
