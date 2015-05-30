@@ -152,7 +152,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"restaurant"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"hotel"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"shopping"];
-    [params setObject:[NSNumber numberWithInt:5] forKey:@"pageCnt"];
+    [params setObject:[NSNumber numberWithInt:5] forKey:@"pageSize"];
 
      __weak typeof(SearchDestinationViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
