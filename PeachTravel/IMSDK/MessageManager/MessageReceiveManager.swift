@@ -322,9 +322,11 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
     
     func receivePushMessage(message: NSDictionary) {
         NSLog("收到消息： 消息为：\(message)")
-        if let message = MessageManager.messageModelWithMessage(message) {
-            message.sendType = .MessageSendSomeoneElse
-            messagePool.addMessage4Reorder(message)
+        if AccountManager.shareAccountManager().isLogin() {
+            if let message = MessageManager.messageModelWithMessage(message) {
+                message.sendType = .MessageSendSomeoneElse
+                messagePool.addMessage4Reorder(message)
+            }
         }
     }
     
@@ -345,10 +347,6 @@ class MessageReceiveManager: NSObject, PushMessageDelegate, MessageReceivePoolDe
         self.ACKMessageWithReceivedMessages(nil)
     }
 }
-
-
-
-
 
 
 

@@ -171,7 +171,6 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             }
         }
     }
-    
 
     /**
     更新消息的 contents 字段
@@ -242,7 +241,6 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     func selectLastServerMessage(fromTable: String) -> BaseMessage? {
         var retMessage: BaseMessage?
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-
             var sql = "select * from \(fromTable) where serverId > 0 order by LocalId desc limit 1"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
@@ -269,7 +267,6 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
         }
         return retDic
     }
-    
     
     /**
     获取指定的聊天列表里的最后一条消息

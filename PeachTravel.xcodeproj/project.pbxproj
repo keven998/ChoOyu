@@ -5780,7 +5780,7 @@
 				TargetAttributes = {
 					D99D8EC419C8600C0021C25B = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 8DEY49A633;
+						DevelopmentTeam = PE4BUR4VUP;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -6914,7 +6914,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5ba09e7f-e964-450e-a079-8c6c71f8a3b6";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";

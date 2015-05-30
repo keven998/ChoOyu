@@ -342,11 +342,11 @@
                     break;
                     
                 case IMMessageTypeGuideMessageType:
-                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMGuideMessage *)lastMessage).guideId];
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMGuideMessage *)lastMessage).guideName];
 
                     break;
                 case IMMessageTypeTravelNoteMessageType:
-                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMTravelNoteMessage *)lastMessage).travelNoteId];
+                    ret = [NSString stringWithFormat:@"%@:[链接] %@", nickName, ((IMTravelNoteMessage *)lastMessage).name];
 
                     break;
                 case IMMessageTypeSpotMessageType:
@@ -406,11 +406,11 @@
                     break;
                     
                 case IMMessageTypeGuideMessageType:
-                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMGuideMessage *)lastMessage).guideId];
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMGuideMessage *)lastMessage).guideName];
                     
                     break;
                 case IMMessageTypeTravelNoteMessageType:
-                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMTravelNoteMessage *)lastMessage).travelNoteId];
+                    ret = [NSString stringWithFormat:@"[链接] %@", ((IMTravelNoteMessage *)lastMessage).name];
                     
                     break;
                 case IMMessageTypeSpotMessageType:
