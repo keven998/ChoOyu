@@ -229,7 +229,7 @@
     taoziMessageCtl.chatType = chatType;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
+        [self.navigationController presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
     }];
 }
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
@@ -276,8 +276,8 @@
  */
 - (void)dismissPopup
 {
-    if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:nil];
+    if (self.navigationController.popupViewController != nil) {
+        [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

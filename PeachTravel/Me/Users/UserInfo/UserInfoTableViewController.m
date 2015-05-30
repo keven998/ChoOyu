@@ -228,7 +228,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView reloadData];
     }];
-
 }
 
 /**
@@ -330,7 +329,7 @@
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -381,8 +380,6 @@
     
     [upManager putData:data key:key token:uploadToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  [self.accountManager updateUserInfo:[resp objectForKey:@"url"] withChangeType:ChangeAvatar];
-                  [self.accountManager updateUserInfo:[resp objectForKey:@"urlSmall"] withChangeType:ChangeSmallAvatar];
                   
                   AlbumImage *image = [[AlbumImage alloc] init];
                   image.imageId = [resp objectForKey:@"id"];
@@ -434,7 +431,7 @@
     }
     __weak typeof(UserInfoTableViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [accountManager asyncChangeGender:gender completion:^(BOOL isSuccess, NSString *errStr) {
         [hud hideTZHUD];
@@ -767,6 +764,7 @@
     [hud showHUDInView:self.view];
     AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
         [hud hideTZHUD];
     }];
 }

@@ -20,13 +20,14 @@
 
 @property (nonatomic, copy) NSString *cityId; //当前显示的城市
 @property (nonatomic, copy) NSString *zhName; //当前显示的城市
-
+@property (nonatomic, copy) NSString *descDetail;
 /**
  *  标记是从三账单进来的还是从从城市详情界面进来的
  */
 @property (nonatomic) BOOL shouldEdit;
 @property (nonatomic, strong) TripDetail *tripDetail;
 @property (nonatomic) TZPoiType poiType;
+
 
 
 @property (nonatomic, weak) id <PoisOfCityDelegate>delegate;

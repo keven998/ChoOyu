@@ -229,7 +229,7 @@
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:keyWord forKey:@"keyWord"];
+    [params setObject:keyWord forKey:@"keyword"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
     [params setObject:[NSNumber numberWithBool:NO] forKey:@"vs"];
     [params setObject:[NSNumber numberWithBool:NO] forKey:@"restaurant"];

@@ -103,7 +103,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     
     _hud = [[TZProgressHUD alloc] init];
     __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
-    [_hud showHUDInViewController:weakSelf];
+    [_hud showHUDInViewController:weakSelf content:64];
    
 }
 
@@ -188,7 +188,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSNumber *imageWidth = [NSNumber numberWithInt:80];
     [params setObject:imageWidth forKey:@"imgWidth"];
-    [params safeSetObject:_keyWord forKey:@"keyWord"];
+    [params safeSetObject:_keyWord forKey:@"keyword"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:_poiTypeDesc];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInteger:pageIndex] forKey:@"page"];
@@ -238,7 +238,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
     [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:_searchBar.text forKey:@"keyWord"];
+    [params safeSetObject:_searchBar.text forKey:@"keyword"];
     [params setObject:[NSNumber numberWithInt:15] forKey:@"pageSize"];
     [params setObject:[NSNumber numberWithInt:0] forKey:@"page"];
     [params setObject:[NSNumber numberWithBool:YES] forKey:@"loc"];
@@ -471,7 +471,7 @@ static NSString *reusableCellIdentifier = @"searchResultCell";
             [self loadDataWithPageIndex:_currentPage];
             _hud = [[TZProgressHUD alloc] init];
             __weak typeof(SearchMoreDestinationViewController *)weakSelf = self;
-            [_hud showHUDInViewController:weakSelf];
+            [_hud showHUDInViewController:weakSelf content:64];
 
         }
     }

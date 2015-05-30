@@ -23,6 +23,8 @@
         _playGuide = [json objectForKey:@"playGuide"];
         _timeCostDesc = [json objectForKey:@"timeCostDesc"];
         _travelMonth = [json objectForKey:@"travelMonth"];
+        _shoppingTitles = [json objectForKey:@"shoppingTitles"];
+        _diningTitles = [json objectForKey:@"diningTitles"];
         _imageCount = [[json objectForKey:@"imageCnt"] integerValue]>100 ? 100:[[json objectForKey:@"imageCnt"] integerValue];
     }
     return self;

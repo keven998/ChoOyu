@@ -77,7 +77,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paipaiSayHello2User) name:userDidLoginNoti object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -126,43 +125,6 @@
     [_delegate unreadMessageCountHasChange:self.imClientManager.conversationManager.totalMessageUnreadCount];
     
 }
-
-/**
- *  登录成功后服务号向大家打招呼
- */
-- (void)paipaiSayHello2User
-{
-    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:@"gcounhhq0ckfjwotgp02c39vq40ewhxt" isGroup:NO];
-    [self insertPaipaiHelloMsgToEasemobDB:conversation];
-}
-
-- (void)insertPaipaiHelloMsgToEasemobDB:(EMConversation *)conversation
-{
-    if (conversation.latestMessage) {
-        return;
-    }
-    id  chatManager = [[EaseMob sharedInstance] chatManager];
-    NSDictionary *loginInfo = [chatManager loginInfo];
-    NSString *account = [loginInfo objectForKey:kSDKUsername];
-    EMChatText *chatText = [[EMChatText alloc] initWithText:@"欢迎使用旅行派"];
-    EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
-    EMMessage *message = [[EMMessage alloc] initWithReceiver:conversation.chatter bodies:@[textBody]];
-
-    [message setIsGroup:NO];
-    [message setIsReadAcked:NO];
-    [message setTo:account];
-    [message setFrom:conversation.chatter];
-    [message setIsGroup:NO];
-    message.conversationChatter = conversation.chatter;
-    
-    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-    NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
-    [message setMessageId:messageID];
-    
-    [chatManager importMessage:message
-                   append2Chat:YES];
-}
-
 
 #pragma mark - getter & setter
 
@@ -537,7 +499,6 @@
 #pragma mark - TableViewDelegate & TableViewDatasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
 
