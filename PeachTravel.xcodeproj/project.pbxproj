@@ -63,6 +63,10 @@
 		27B9FAB71AFB284300EEBF07 /* ic_ztl_tj@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27B9FAAF1AFB284300EEBF07 /* ic_ztl_tj@2x.png */; };
 		27F273CB1B18A4B700AC1ABE /* group_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F273CA1B18A4B700AC1ABE /* group_talk@2x.png */; };
 		27F273CD1B197A0400AC1ABE /* ic_prepare_place@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F273CC1B197A0400AC1ABE /* ic_prepare_place@2x.png */; };
+		27F273D21B198F0F00AC1ABE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F273CE1B198F0F00AC1ABE /* Default-568h@2x.png */; };
+		27F273D31B198F0F00AC1ABE /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F273CF1B198F0F00AC1ABE /* Default-667h@2x.png */; };
+		27F273D41B198F0F00AC1ABE /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F273D01B198F0F00AC1ABE /* Default-736h@3x.png */; };
+		27F273D51B198F0F00AC1ABE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F273D11B198F0F00AC1ABE /* Default@2x.png */; };
 		27F4043C1AF0C73100CEA095 /* JobListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F4043B1AF0C73100CEA095 /* JobListViewController.m */; };
 		27F411E01AEF5CA1009D6C2B /* DomesticScreeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411D51AEF5CA1009D6C2B /* DomesticScreeningViewController.m */; };
 		27F411E11AEF5CA1009D6C2B /* ForeignScreeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F411D71AEF5CA1009D6C2B /* ForeignScreeningViewController.m */; };
@@ -938,6 +942,10 @@
 		27B9FAAF1AFB284300EEBF07 /* ic_ztl_tj@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_ztl_tj@2x.png"; sourceTree = "<group>"; };
 		27F273CA1B18A4B700AC1ABE /* group_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group_talk@2x.png"; sourceTree = "<group>"; };
 		27F273CC1B197A0400AC1ABE /* ic_prepare_place@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_prepare_place@2x.png"; sourceTree = "<group>"; };
+		27F273CE1B198F0F00AC1ABE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		27F273CF1B198F0F00AC1ABE /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		27F273D01B198F0F00AC1ABE /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
+		27F273D11B198F0F00AC1ABE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		27F4043A1AF0C73100CEA095 /* JobListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobListViewController.h; sourceTree = "<group>"; };
 		27F4043B1AF0C73100CEA095 /* JobListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobListViewController.m; sourceTree = "<group>"; };
 		27F411D41AEF5CA1009D6C2B /* DomesticScreeningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticScreeningViewController.h; sourceTree = "<group>"; };
@@ -3990,6 +3998,10 @@
 				279CAF6A1B131DE500A52465 /* ic_good@2x.png */,
 				275B69251B158782002FE764 /* ic_prepare_ImgBg@2x.png */,
 				27329DBD1B0E1A9200F0A4FA /* ic_button_normal@2x.png */,
+				27F273CE1B198F0F00AC1ABE /* Default-568h@2x.png */,
+				27F273CF1B198F0F00AC1ABE /* Default-667h@2x.png */,
+				27F273D01B198F0F00AC1ABE /* Default-736h@3x.png */,
+				27F273D11B198F0F00AC1ABE /* Default@2x.png */,
 				279CAF6C1B13249300A52465 /* ic_group_placeholder@2x.png */,
 				27329DBE1B0E1A9200F0A4FA /* ic_button_selected@2x.png */,
 				275B69291B17F610002FE764 /* ic_chat_ce_add@2x.png */,
@@ -5373,6 +5385,7 @@
 				D9A802371A80E036005AD701 /* read_me.txt in Resources */,
 				D9A805891A80E738005AD701 /* sns_icon_qq@2x.png in Resources */,
 				27FF1A7A1B059AFA00643D77 /* TripPlanSettingCell.xib in Resources */,
+				27F273D51B198F0F00AC1ABE /* Default@2x.png in Resources */,
 				D9A804D61A80E738005AD701 /* ic_chatlist_normal@2x.png in Resources */,
 				D9A805071A80E738005AD701 /* ic_sns_pengyouquan@2x.png in Resources */,
 				D9245DC71A8C553E004571AD /* story_default@2x.png in Resources */,
@@ -5547,6 +5560,7 @@
 				D9A804A61A80E738005AD701 /* ic_group_expand@2x.png in Resources */,
 				D9A805201A80E738005AD701 /* nearby_ic_tab_stay_select@2x.png in Resources */,
 				27FF1A8B1B05A25200643D77 /* ic_trip_edit_ios@2x.png in Resources */,
+				27F273D21B198F0F00AC1ABE /* Default-568h@2x.png in Resources */,
 				D9A805151A80E738005AD701 /* login_btn_highlight@2x.png in Resources */,
 				D9A804E51A80E738005AD701 /* ic_home_normal@2x.png in Resources */,
 				D9A802ED1A80E3D3005AD701 /* ic_pb_earth@2x.png in Resources */,
@@ -5597,6 +5611,7 @@
 				D917DAA81A8B48EE0039720A /* ic_guide_plan@2x.png in Resources */,
 				D917DAA71A8B48EE0039720A /* ic_guide_phone@2x.png in Resources */,
 				27F7E6971B0312700049EC08 /* titleImageBackground@2x.png in Resources */,
+				27F273D31B198F0F00AC1ABE /* Default-667h@2x.png in Resources */,
 				D9A8052A1A80E738005AD701 /* ic_city_access@2x.png in Resources */,
 				D917DAC21A8B49AF0039720A /* ic_guide2_2_select@2x.png in Resources */,
 				D9722F2A1A82446900D8A8CC /* Loading_Animation_final10@2x.png in Resources */,
@@ -5664,6 +5679,7 @@
 				D917DADD1A8B4B3B0039720A /* ic_guide_title_1@2x.png in Resources */,
 				27FF1AB41B06F1F000643D77 /* ic_back_navigation@2x.png in Resources */,
 				D9A806CA1A80F597005AD701 /* UMSCommentDetailController.xib in Resources */,
+				27F273D41B198F0F00AC1ABE /* Default-736h@3x.png in Resources */,
 				D9F46DBD1AC52D8600972AE8 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
 				D9245DE11A8D9DCB004571AD /* ic_spot_favorite@2x.png in Resources */,
 				D9A805191A80E738005AD701 /* nearby_ic_tab_delicacy_normal@2x.png in Resources */,
@@ -6369,7 +6385,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6392,7 +6407,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ba09e7f-e964-450e-a079-8c6c71f8a3b6";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -6403,7 +6418,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

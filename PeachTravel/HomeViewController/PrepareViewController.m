@@ -19,8 +19,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     UIImageView *backgroundImg = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    backgroundImg.image = [UIImage imageNamed:@"ic_prepare_place"];
+    if (IS_IPHONE_4) {
+        backgroundImg.image = [UIImage imageNamed:@"Default"];
+    }else if (IS_IPHONE_5) {
+        backgroundImg.image = [UIImage imageNamed:@"Default-568h"];
+    }else if (IS_IPHONE_6P) {
+        backgroundImg.image = [UIImage imageNamed:@"Default-736h"];
+    }else {
+    backgroundImg.image = [UIImage imageNamed:@"Default"];
+    }
     [self.view addSubview:backgroundImg];
     
     UIImageView *btnBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-62, SCREEN_WIDTH, 62)];
@@ -83,4 +92,6 @@
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 }
+
+
 @end
