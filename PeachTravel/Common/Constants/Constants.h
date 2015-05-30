@@ -262,7 +262,7 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 /*****应用启动时是否应该启动引导页******/
 #define shouldSkipIntroduce [[NSUserDefaults standardUserDefaults] boolForKey:[[AppUtils alloc] init].appVersion]
 
-#define kShouldShowIntroduceWhenFirstLaunch   YES
+#define kShouldShowIntroduceWhenFirstLaunch   NO
 
 /*****Yahoo!天气对应的 code 列表******/
 #define yahooWeatherCode @[   @"龙卷风",\
