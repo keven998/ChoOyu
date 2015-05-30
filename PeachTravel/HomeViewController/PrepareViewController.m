@@ -22,13 +22,13 @@
     
     UIImageView *backgroundImg = [[UIImageView alloc]initWithFrame:self.view.bounds];
     if (IS_IPHONE_4) {
-        backgroundImg.image = [UIImage imageNamed:@"Default"];
+        backgroundImg.image = [UIImage imageNamed:@"Default@2x"];
     }else if (IS_IPHONE_5) {
         backgroundImg.image = [UIImage imageNamed:@"Default-568h"];
     }else if (IS_IPHONE_6P) {
-        backgroundImg.image = [UIImage imageNamed:@"Default-736h"];
+        backgroundImg.image = [UIImage imageNamed:@"Default-414w-736h@3x~iphone"];
     }else {
-    backgroundImg.image = [UIImage imageNamed:@"Default"];
+        backgroundImg.image = [UIImage imageNamed:@"Default-375w-667h@2x~iphone"];
     }
     [self.view addSubview:backgroundImg];
     
