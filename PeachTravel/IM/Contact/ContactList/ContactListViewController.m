@@ -336,7 +336,7 @@
         [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:60];
         cell.delegate = self;
 
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:nil];
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
 //        NSString *detailStr;
 //        if (![contact.memo isBlankString]) {
 //            detailStr = [NSString stringWithFormat:@"%@ (%@)", contact.memo, contact.nickName];
