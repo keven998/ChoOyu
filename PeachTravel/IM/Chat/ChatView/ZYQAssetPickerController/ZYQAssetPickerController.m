@@ -223,7 +223,7 @@ static UIColor *titleColor;
 
 + (void)initialize
 {
-    titleFont       = [UIFont fontWithName:@"MicrosoftYaHei" size:12];
+    titleFont       = [UIFont systemFontOfSize:12];
     titleHeight     = 20.0f;
     titleColor      = [UIColor whiteColor];
 }
@@ -527,7 +527,7 @@ static UIColor *titleColor;
         
         if (cell==nil) {
             cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellFooter"];
-            cell.textLabel.font=[UIFont fontWithName:@"MicrosoftYaHei" size:18];
+            cell.textLabel.font=[UIFont systemFontOfSize:18];
             cell.textLabel.backgroundColor=[UIColor clearColor];
             cell.textLabel.textAlignment=NSTextAlignmentCenter;
             cell.textLabel.textColor=[UIColor blackColor];
@@ -590,8 +590,8 @@ static UIColor *titleColor;
     ZYQAssetPickerController *vc = (ZYQAssetPickerController *)self.navigationController;
     BOOL selectable = [vc.selectionFilter evaluateWithObject:asset];
     if (_indexPathsForSelectedItems.count > vc.maximumNumberOfSelection) {
-        if (vc.delegate!=nil&&[vc.delegate respondsToSelector:@selector(assetPickerControllerDidMaximum:)]) {
-            [vc.delegate assetPickerControllerDidMaximum:vc];
+        if (vc.myDelegate!=nil&&[vc.myDelegate respondsToSelector:@selector(assetPickerControllerDidMaximum:)]) {
+            [vc.myDelegate assetPickerControllerDidMaximum:vc];
         }
     }
     
@@ -605,8 +605,8 @@ static UIColor *titleColor;
     ZYQAssetPickerController *vc = (ZYQAssetPickerController *)self.navigationController;
     vc.indexPathsForSelectedItems = _indexPathsForSelectedItems;
     
-    if (vc.delegate!=nil&&[vc.delegate respondsToSelector:@selector(assetPickerController:didSelectAsset:)])
-        [vc.delegate assetPickerController:vc didSelectAsset:asset];
+    if (vc.myDelegate!=nil&&[vc.myDelegate respondsToSelector:@selector(assetPickerController:didSelectAsset:)])
+        [vc.myDelegate assetPickerController:vc didSelectAsset:asset];
     
     [self setTitleWithSelectedIndexPaths:_indexPathsForSelectedItems];
 }
@@ -618,8 +618,8 @@ static UIColor *titleColor;
     ZYQAssetPickerController *vc = (ZYQAssetPickerController *)self.navigationController;
     vc.indexPathsForSelectedItems = _indexPathsForSelectedItems;
     
-    if (vc.delegate!=nil&&[vc.delegate respondsToSelector:@selector(assetPickerController:didDeselectAsset:)])
-        [vc.delegate assetPickerController:vc didDeselectAsset:asset];
+    if (vc.myDelegate!=nil&&[vc.myDelegate respondsToSelector:@selector(assetPickerController:didDeselectAsset:)])
+        [vc.myDelegate assetPickerController:vc didDeselectAsset:asset];
     
     [self setTitleWithSelectedIndexPaths:_indexPathsForSelectedItems];
 }
@@ -676,14 +676,14 @@ static UIColor *titleColor;
     ZYQAssetPickerController *picker = (ZYQAssetPickerController *)self.navigationController;
     
     if (_indexPathsForSelectedItems.count < picker.minimumNumberOfSelection) {
-        if (picker.delegate!=nil&&[picker.delegate respondsToSelector:@selector(assetPickerControllerDidMaximum:)]) {
-            [picker.delegate assetPickerControllerDidMaximum:picker];
+        if (picker.myDelegate!=nil&&[picker.myDelegate respondsToSelector:@selector(assetPickerControllerDidMaximum:)]) {
+            [picker.myDelegate assetPickerControllerDidMaximum:picker];
         }
     }
     
 
-    if ([picker.delegate respondsToSelector:@selector(assetPickerController:didFinishPickingAssets:)])
-        [picker.delegate assetPickerController:picker didFinishPickingAssets:_indexPathsForSelectedItems];
+    if ([picker.myDelegate respondsToSelector:@selector(assetPickerController:didFinishPickingAssets:)])
+        [picker.myDelegate assetPickerController:picker didFinishPickingAssets:_indexPathsForSelectedItems];
     
     if (picker.isFinishDismissViewController) {
         [picker popViewControllerAnimated:YES];
@@ -910,7 +910,7 @@ static UIColor *titleColor;
     title.numberOfLines     = 5;
     
     message.text            = NSLocalizedString(@"你可以在「隐私设置」中启用存取。", nil);
-    message.font            = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    message.font            = [UIFont systemFontOfSize:14.0];
     message.textColor       = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
     message.textAlignment   = NSTextAlignmentCenter;
     message.numberOfLines   = 5;
@@ -952,13 +952,13 @@ static UIColor *titleColor;
     message.preferredMaxLayoutWidth = 304.0f;
     
     title.text              = NSLocalizedString(@"没有照片或视频。", nil);
-    title.font              = [UIFont fontWithName:@"MicrosoftYaHei" size:26.0];
+    title.font              = [UIFont systemFontOfSize:26.0];
     title.textColor         = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
     title.textAlignment     = NSTextAlignmentCenter;
     title.numberOfLines     = 5;
     
     message.text            = NSLocalizedString(@"您可以使用 iTunes 将照片和视频\n同步到 iPhone。", nil);
-    message.font            = [UIFont fontWithName:@"MicrosoftYaHei" size:18.0];
+    message.font            = [UIFont systemFontOfSize:18.0];
     message.textColor       = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
     message.textAlignment   = NSTextAlignmentCenter;
     message.numberOfLines   = 5;
@@ -1036,8 +1036,8 @@ static UIColor *titleColor;
 {
     ZYQAssetPickerController *picker = (ZYQAssetPickerController *)self.navigationController;
     
-    if ([picker.delegate respondsToSelector:@selector(assetPickerControllerDidCancel:)])
-        [picker.delegate assetPickerControllerDidCancel:picker];
+    if ([picker.myDelegate respondsToSelector:@selector(assetPickerControllerDidCancel:)])
+        [picker.myDelegate assetPickerControllerDidCancel:picker];
     
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }

@@ -1,4 +1,6 @@
-# Qiniu Objective-C SDK
+# Qiniu Resource Storage SDK for Objective-C
+
+[![@qiniu on weibo](http://img.shields.io/badge/weibo-%40qiniutek-blue.svg)](http://weibo.com/qiniutek)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/qiniu/objc-sdk.svg?branch=master)](https://travis-ci.org/qiniu/objc-sdk)
 [![Latest Stable Version](http://img.shields.io/cocoapods/v/Qiniu.svg)](https://github.com/qiniu/objc-sdk/releases)
@@ -40,8 +42,17 @@ pod "Qiniu", "~> 7.0"
 
 ## 测试
 
+### 所有测试
+
 ``` bash
 $ xctool -workspace QiniuSDK.xcworkspace -scheme "QiniuSDK Mac" -sdk macosx -configuration Release test -test-sdk macosx
+```
+### 指定测试
+
+可以在单元测试上修改，熟悉SDK
+
+``` bash
+$ xctool -workspace QiniuSDK.xcworkspace -scheme "QiniuSDK Mac" -sdk macosx -configuration Debug test -test-sdk macosx -only "QiniuSDK MacTests:QNResumeUploadTest/test500k"
 ```
 
 ## 常见问题

@@ -14,6 +14,7 @@
 #import "SearchUserInfoViewController.h"
 #import "ConvertMethods.h"
 #import "ContactDetailViewController.h"
+#import "OtherUserInfoViewController.h"
 
 #define searchCell          @"searchContactCell"
 #define normalCell          @"normalCell"
@@ -37,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"加好友";
+    self.navigationItem.title = @"添加";
     [self.searchTableViewController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:searchCell];
 }
 
@@ -58,7 +59,7 @@
 - (NSArray *)normalDataSource
 {
     if (!_normalDataSource) {
-        _normalDataSource = @[@"添加通讯录好友", @"邀请微信好友"];
+        _normalDataSource = @[@"通讯录好友", @"邀请微信好友"];
     }
     return _normalDataSource;
 }
@@ -75,8 +76,7 @@
 
 - (void)shareToWeChat
 {
-    
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:[NSString stringWithFormat:@"我正在用桃子旅行，女生们专属的旅行应用。桃子旅行搜索: %@ 加我", [AccountManager shareAccountManager].account.nickName] image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:[NSString stringWithFormat:@"我正在用旅行派，搜索: %@ 加我", [AccountManager shareAccountManager].account.nickName] image:nil location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             NSLog(@"分享成功！");
         }
@@ -106,7 +106,7 @@
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(AddContactTableViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     //搜索好友
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
@@ -123,7 +123,6 @@
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
-
 }
 
 - (void)parseSearchResult:(id)searchResult
@@ -139,16 +138,17 @@
             //如果已经是好友了，进入好友详情界面
             for (Contact *contact in accountManager.account.contacts) {
                 if ([contact.userId integerValue] == userId) {
-                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-                    contactDetailCtl.contact = contact;
+//                    ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+                    OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+                    contactDetailCtl.userId = contact.userId;
                     _nextViewController = contactDetailCtl;
                     [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
                     return;
                 }
             }
-            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-            searchUserInfoCtl.userInfo = [searchResult firstObject];
-            _nextViewController = searchUserInfoCtl;
+            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
+            otherCtl.userId = [NSNumber numberWithInteger:userId];
+            _nextViewController = otherCtl;
             [self performSelector:@selector(jumpToNextCtl) withObject:nil afterDelay:0.3];
         }
     } else {
@@ -170,12 +170,12 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
-        return 0;
-    }
-    return 12.0;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
+//        return 0;
+//    }
+//    return 12.0;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 48.0;
@@ -204,7 +204,7 @@
                 divider.backgroundColor = UIColorFromRGB(0xdddddd);
                 [cell.contentView addSubview:divider];
             }
-            cell.textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.textLabel.textColor = TEXT_COLOR_TITLE;
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -213,14 +213,14 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
-        return nil;
-    }
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = APP_PAGE_COLOR;
-    return view;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    if ([tableView isEqual:_searchTableViewController.searchResultsTableView]) {
+//        return nil;
+//    }
+//    UIView *view = [[UIView alloc] init];
+//    view.backgroundColor = APP_PAGE_COLOR;
+//    return view;
+//}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

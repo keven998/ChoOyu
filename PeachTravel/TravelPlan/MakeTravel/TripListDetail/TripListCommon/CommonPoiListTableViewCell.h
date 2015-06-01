@@ -9,23 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
 #import "EDStarRating.h"
-#import "PoiSummary.h"
 
 @interface CommonPoiListTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) PoiSummary *tripPoi;
+@property (nonatomic, strong) SuperPoi *tripPoi;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *valueCons;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *mapBtn;
-@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *propertyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
-@property (weak, nonatomic) IBOutlet UILabel *rankingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
-@property (weak, nonatomic) IBOutlet UIView *seperatorView;
 
+@property (weak, nonatomic) IBOutlet UIButton *cellAction;
 
 @end

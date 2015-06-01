@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"完成 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
@@ -29,7 +29,7 @@
         UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 76.0, _passwordLabel.bounds.size.height - 16.0)];
         ul.text = @" 设置密码:";
         ul.textColor = TEXT_COLOR_TITLE;
-        ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+        ul.font = [UIFont systemFontOfSize:14.0];
         ul.textAlignment = NSTextAlignmentCenter;
         _passwordLabel.leftView = ul;
         _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -40,7 +40,7 @@
         UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
         ul.text = @" 新密码:";
         ul.textColor = TEXT_COLOR_TITLE;
-        ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+        ul.font = [UIFont systemFontOfSize:14.0];
         ul.textAlignment = NSTextAlignmentCenter;
         _passwordLabel.leftView = ul;
         _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -84,7 +84,7 @@
     
      __weak typeof(ResetPasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     //完成修改
     [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -122,7 +122,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 52.0, _passwordLabel.bounds.size.height - 16.0)];
     ul.text = @"新密码:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    ul.font = [UIFont systemFontOfSize:15.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = ul;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;

@@ -10,7 +10,6 @@
   * from EaseMob Technologies.
   */
 #import "ChatListViewController.h"
-#import "SRRefreshView.h"
 #import "ChatListCell.h"
 #import "NSDate+Category.h"
 #import "RealtimeSearchUtil.h"
@@ -19,19 +18,21 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "AccountManager.h"
 #import "CreateConversationViewController.h"
-#import "IMRootViewController.h"
 #import "TZConversation.h"
+#import "ContactListViewController.h"
+#import "AddContactTableViewController.h"
+#import "PXAlertView+Customization.h"
+#import "REFrostedViewController.h"
+#import "ChatGroupSettingViewController.h"
+#import "ChatSettingViewController.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, SRRefreshDelegate, IChatManagerDelegate, CreateConversationDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的桃子信息，显示界面的时候需要用到
+@property (strong, nonatomic) NSMutableArray        *chattingPeople;       //保存正在聊天的联系人的旅行派信息，显示界面的时候需要用到
 @property (strong, nonatomic) UITableView           *tableView;
-@property (nonatomic, strong) SRRefreshView         *slimeView;
-@property (nonatomic, strong) AccountManager *accountManager;
+@property (nonatomic, strong) AccountManager        *accountManager;
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
-
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
-
 
 @property (nonatomic, strong) UIView *emptyView;
 
@@ -62,6 +63,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
+    
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [addBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
+    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    
+    UIButton *contactListBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [contactListBtn setImage:[UIImage imageNamed:@"ic_contacts_normal.png"] forState:UIControlStateNormal];
+    [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
+    contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -70,8 +83,9 @@
     [MobClick beginLogPageView:@"page_talk_lists"];
     [self refreshDataSource];
     [self registerNotifications];
+    [self updateNavigationTitleViewStatus];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -81,15 +95,13 @@
 
 - (void)dealloc{
     [self unregisterNotifications];
-    _slimeView.delegate = nil;
-    _slimeView = nil;
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
     _searchController.delegate = nil;
     _searchController = nil;
 }
 
-#pragma mark - getter
+#pragma mark - getter & setter
 
 - (AccountManager *)accountManager
 {
@@ -99,27 +111,30 @@
     return _accountManager;
 }
 
-- (SRRefreshView *)slimeView
+- (IBAction)addAction:(UIButton *)sender
 {
-    if (!_slimeView) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    return _slimeView;
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:nil
+                                    message:nil
+                                cancelTitle:@"取消"
+                                otherTitles:@[ @"新建聊天", @"添加好友"]
+                                 completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                                     if (buttonIndex == 1) {
+                                         [self addConversation:nil];
+                                         [MobClick event:@"event_create_new_talk"];
+                                     } else if (buttonIndex == 2) {
+                                         [self addUserContact:nil];
+                                         [MobClick event:@"event_add_new_friend"];
+                                     }
+                                 }];
+    [alertView setTitleFont:[UIFont systemFontOfSize:16]];
+    [alertView useDefaultIOS7Style];
 }
 
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -140,6 +155,36 @@
     }
     return ret;
 }
+
+- (void)setIMState:(IM_CONNECT_STATE)IMState
+{
+    _IMState = IMState;
+    [self updateNavigationTitleViewStatus];
+}
+
+
+#pragma mark - IBAction
+
+- (IBAction)showContactList:(id)sender
+{
+    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+//    contactListCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:contactListCtl animated:YES];
+    
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:contactListCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
+}
+
+- (IBAction)addUserContact:(id)sender
+{
+    AddContactTableViewController *addContactCtl = [[AddContactTableViewController alloc] init];
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:addContactCtl];
+    [self presentViewController:nCtl animated:YES completion:nil];
+    
+//    addContactCtl.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:addContactCtl animated:YES];
+}
+
 
 #pragma mark - private
 
@@ -197,47 +242,96 @@
             }
         }
     }
-    if (_chattingPeople.count <= 0) {
-        [self setupEmptyView];
-    } else {
+    if (_chattingPeople.count > 0) {
         [self setupListView];
     }
     NSLog(@"结束加载正在聊天的人");
 
 }
 
-- (void) setupEmptyView {
-    if (self.emptyView != nil) {
-        return;
-    }
+/**
+ *  通过连接状态更新navi的状态
+ */
+- (void)updateNavigationTitleViewStatus
+{
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityView.center = CGPointMake(35, 22);
+    [titleView addSubview:activityView];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    [activityView startAnimating];
+    [titleView addSubview:titleLabel];
     
-    CGFloat width = self.view.frame.size.width;
-    
-    self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.emptyView];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.0, 0.0, 108.0, 64.0);
-    btn.center = CGPointMake(width/2.0, 132.0);
-    [btn setImage:[UIImage imageNamed:@"ic_new_talk.png"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(addConversation:) forControlEvents:UIControlEventTouchUpInside];
-    [self.emptyView addSubview:btn];
+    switch (_IMState) {
+        case IM_CONNECTING: {
+            self.navigationItem.titleView = titleView;
+            titleLabel.text = @"旅行圈(连接中...)";
+            NSLog(@"连接中");
+        }
+            break;
+            
+        case IM_DISCONNECTED: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
+            titleLabel.textColor = [UIColor redColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"旅行圈(未连接)";
+            self.navigationItem.titleView = titleLabel;
+            NSLog(@"未连接");
+        }
+            break;
+            
+        case IM_RECEIVING: {
+            self.navigationItem.titleView = titleView;
+            titleLabel.text = @"旅行圈(收取中...)";
+            NSLog(@"收取中");
+            self.navigationItem.titleView = titleView;
+        }
+            break;
+            
+        case IM_RECEIVED: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"旅行圈";
+            self.navigationItem.titleView = titleLabel;
+            NSLog(@"IM_RECEIVED");
+        }
+            break;
+            
+        case IM_CONNECTED: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"旅行圈";
+            self.navigationItem.titleView = titleLabel;
+            NSLog(@"IM_CONNECTED");
+        }
+            break;
+            
+        default: {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+            titleLabel.textColor = [UIColor blackColor];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+            titleLabel.text = @"旅行圈";
+            self.navigationItem.titleView = titleLabel;
+        }
 
-    UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(0, 100.0 + 64.0, width, 64.0)];
-    desc.textColor = UIColorFromRGB(0x797979);
-    desc.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-    desc.numberOfLines = 2;
-    desc.textAlignment = NSTextAlignmentCenter;
-    desc.text = @"Talk\n你的旅行圈";
-    [self.emptyView addSubview:desc];
+            break;
+    }
+
 }
 
 - (IBAction)addConversation:(id)sender
 {
     _createConversationCtl = [[CreateConversationViewController alloc] init];
     _createConversationCtl.delegate = self;
-    UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_createConversationCtl];
-    [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nCtl.navigationBar.translucent = YES;
+    TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_createConversationCtl];
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 
@@ -372,7 +466,7 @@
                     break;
                     
                 case eMessageBodyType_Location: {
-                    ret = [NSString stringWithFormat:@"%@:升级新版本才可以查看这条神秘消息哦", nickName];
+                    ret = [NSString stringWithFormat:@"%@:[位置]", nickName];
 
                 }
                     break;
@@ -463,10 +557,38 @@
     return target;
 }
 
+- (void)pushChatViewControllerWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+{
+
+    ChatViewController *chatController;
+    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
+    chatController.chatterNickName = chatTitle;
+    chatController.title = chatTitle;
+    
+    UIViewController *menuViewController = nil;
+    if (isGroup) {
+        menuViewController = [[ChatGroupSettingViewController alloc] init];
+        EMGroup *chatGroup = [EMGroup groupWithId:chatter];
+        ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
+    } else {
+//        menuViewController = [[ChatSettingViewController alloc] init];
+//        ((ChatSettingViewController *)menuViewController).chatter = chatter;
+    }
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
+    frostedViewController.hidesBottomBarWhenPushed = YES;
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.limitMenuViewSize = YES;
+    frostedViewController.resumeNavigationBar = NO;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
+}
+
 #pragma mark - TableViewDelegate & TableViewDatasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
 
@@ -474,10 +596,10 @@
     
     if (!tzConversation.conversation.isGroup) {
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
-    } else{
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:tzConversation.chatterAvatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
+    } else {
         cell.name = tzConversation.chatterNickName;
-        [cell.imageView setImage:[UIImage imageNamed:@"ic_group_icon.png"]];
+        cell.imageView.image = [UIImage imageNamed:@"group_talk"];
     }
     
     EMMessage *message = tzConversation.conversation.latestMessage;
@@ -514,26 +636,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     TZConversation *tzConversation = [self.chattingPeople objectAtIndex:indexPath.row];
-    ChatViewController *chatController;
     NSString *title;
-    NSString *avatar;
     if (tzConversation.conversation.isGroup) {
         title = tzConversation.chatterNickName;
     } else {
         title = tzConversation.chatterNickName;
-        avatar = tzConversation.chatterAvatar;
     }
     
     NSString *chatter = tzConversation.conversation.chatter;
-    chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:tzConversation.conversation.isGroup];
-    chatController.chatterAvatar = avatar;
-    chatController.chatterNickName = title;
-    chatController.title = title;
-    
+    [self pushChatViewControllerWithChatter:chatter isGroup:tzConversation.conversation.isGroup chatTitle:title];
     [tzConversation.conversation markAllMessagesAsRead:YES];
-    [self.navigationController pushViewController:chatController animated:YES];
+
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -547,31 +661,8 @@
                                                               append2Chat:YES];
         [self.chattingPeople removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        if (_chattingPeople.count == 0) {
-            [self setupEmptyView];
-        }
         [MobClick event:@"event_delete_talk_item"];
     }
-}
-
-#pragma mark - scrollView delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [_slimeView scrollViewDidScroll];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    [_slimeView scrollViewDidEndDraging];
-}
-
-#pragma mark - slimeRefresh delegate
-//刷新消息列表
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self refreshDataSource];
-    [_slimeView endRefresh];
 }
 
 #pragma mark - IChatMangerDelegate
@@ -602,9 +693,7 @@
                                                                       append2Chat:YES];
             }
         }
-        
     }
-    
         
     NSLog(@"allgroups:%@", allGroups);
     [self refreshDataSource];
@@ -640,12 +729,6 @@
     NSLog(@"开始刷新聊天DataSource");
     [self loadChattingPeople];
     dispatch_async(dispatch_get_main_queue(), ^{
-        typeof(ChatListViewController) *weakSelf = self;
-        if ([self isUnReadMsg]) {
-            [self.delegate updateNotify:weakSelf notify:YES];
-        } else {
-            [self.delegate updateNotify:weakSelf notify:NO];
-        }
         NSLog(@"结束刷新聊天DataSource");
         [self.tableView reloadData];
     });
@@ -673,9 +756,7 @@
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
     [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
-        ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
-        chatCtl.title = chatTitle;
-        [self.navigationController pushViewController:chatCtl animated:YES];
+        [self pushChatViewControllerWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
     }];
 }
 

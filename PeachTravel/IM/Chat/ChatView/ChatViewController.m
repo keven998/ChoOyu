@@ -15,7 +15,6 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "SRRefreshView.h"
 #import "DXChatBarMoreView.h"
 #import "DXRecordView.h"
 #import "DXFaceView.h"
@@ -41,7 +40,6 @@
 #import "SearchUserInfoViewController.h"
 #import "CreateConversationViewController.h"
 #import "SpotDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "CityDetailTableViewController.h"
@@ -49,13 +47,20 @@
 #import "TravelNoteListViewController.h"
 #import "TravelNoteDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "IMRootViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "HotelDetailViewController.h"
+#import "ShoppingDetailViewController.h"
+#import "TZSideViewController.h"
+#import "REFrostedViewController.h"
+#import "TripPlanSettingViewController.h"
+
+#import "OtherUserInfoViewController.h"
+
 #import "TripDetailRootViewController.h"
 
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -76,10 +81,12 @@
 @property (strong, nonatomic) NSArray *peopleInGroup;   //保存群组的人员信息
 @property (strong, nonatomic) NSMutableArray *chattingPeople;
 
-@property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是桃子用户的信息。
-@property (strong, nonatomic) SRRefreshView *slimeView;
+@property (strong, nonatomic) Group *group;     //当前聊天的群组信息，是自己维护的群组，存到是旅行派用户的信息。
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
+
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIActivityIndicatorView *headerLoading;
 
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
 
@@ -90,6 +97,8 @@
 @property (nonatomic) BOOL isScrollToBottom;
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic, strong) AccountManager *accountManager;
+
+@property (nonatomic, assign) BOOL didEndScroll;
 
 @end
 
@@ -102,6 +111,8 @@
         _isPlayingAudio = NO;
         _chatter = chatter;
         _isChatGroup = isGroup;
+        
+        _didEndScroll = YES;
         
         //根据接收者的username获取当前会话的管理者
         _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:chatter isGroup:_isChatGroup];
@@ -133,26 +144,68 @@
         self.peopleInGroup = [self loadContactsFromDB];
     }
 
-    [self setupBarButtonItem];
     [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
+    
+    self.tableView.tableHeaderView = self.headerView;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden)];
     [self.view addGestureRecognizer:tap];
     //通过会话管理者获取已收发消息
     [self loadMoreMessages];
     _isScrollToBottom = YES;
+    
+    [self setupBarButtonItem];
+}
 
+- (UIView *)headerView {
+    if (!_headerView) {
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 44.0)];
+        _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        UIActivityIndicatorView *indicatroView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32.0, 32.0)];
+        [indicatroView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [indicatroView setCenter:CGPointMake(CGRectGetWidth(self.tableView.bounds)/2.0, 44.0/2.0)];
+        [_headerView addSubview:indicatroView];
+        _headerLoading = indicatroView;
+    }
+    return _headerView;
 }
 
 - (void)setupBarButtonItem
 {
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-    [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+//    if (self.navigationController.navigationBarHidden) {
+        UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
+
+    if (_isChatGroup) {
+        UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [menu setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+        [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+        [menu setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    }
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+
+    
+//    navTitle.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
+//        navTitle.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [bar pushNavigationItem:navTitle animated:YES];
+        [self.view addSubview:bar];
+//    }
+//    else {
+//        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+//        [moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
+//        [moreBtn addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
+//        [moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+//        self.navigationItem.title = self.chatterNickName;
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -171,11 +224,10 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"page_talking"];
+    [MobClick endLogPageView:@"page_talking"];
     [_chatToolBar unRegisterNoti];
     // 设置当前conversation的所有message为已读
     [_conversation markAllMessagesAsRead:YES];
-    
 }
 
 - (void)dealloc
@@ -183,9 +235,6 @@
     _tableView.delegate = nil;
     _tableView.dataSource = nil;
     _tableView = nil;
-    
-    _slimeView.delegate = nil;
-    _slimeView = nil;
     
     _chatToolBar.delegate = nil;
     _chatToolBar = nil;
@@ -205,22 +254,23 @@
 
 #pragma mark - IBAction Methods
 
+- (void)showMenu
+{
+    // Dismiss keyboard (optional)
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    
+    // Present the view controller
+    [self.frostedViewController presentMenuViewController];
+}
+
 /**
  * 实现父类的后退按钮
  */
 - (void)goBack
 {
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    NSArray *ctls = self.navigationController.viewControllers;
-    UIViewController *ctl = [ctls objectAtIndex:1];
-    if ([ctl isKindOfClass:[IMRootViewController class]]) {
-        ((IMRootViewController *)ctl).selectedIndext = 0;
-        
-        [self.navigationController popToViewController:ctl animated:YES];
-        return;
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.frostedViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.frostedViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**
@@ -235,7 +285,6 @@
     }
     
     Contact *contact = [self.accountManager TZContactByEasemobUser:model.username];
-    
     if (!contact) {
         for (Contact *tempContact in self.peopleInGroup) {
             if ([tempContact.easemobUser isEqualToString:model.username]) {
@@ -267,23 +316,26 @@
 - (void)showUserInfoWithContactInfo:(Contact *)contact
 {
     if ([self.accountManager isMyFrend:contact.userId]) {
-        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
-        contactDetailCtl.contact = contact;
+//        ContactDetailViewController *contactDetailCtl = [[ContactDetailViewController alloc] init];
+        OtherUserInfoViewController *contactDetailCtl = [[OtherUserInfoViewController alloc]init];
+        contactDetailCtl.userId = contact.userId;
         if (_isChatGroup) {
-            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
+//            contactDetailCtl.goBackToChatViewWhenClickTalk = NO;
         } else {
-            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
+//            contactDetailCtl.goBackToChatViewWhenClickTalk = YES;
         }
         [self.navigationController pushViewController:contactDetailCtl animated:YES];
         
     } else {
-        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
-                                       @"avatar":contact.avatar,
-                                       @"nickName":contact.nickName,
-                                       @"signature":contact.signature,
-                                       @"easemobUser":contact.easemobUser
-                                       };
+//        SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+//        searchUserInfoCtl.userInfo = @{@"userId":contact.userId,
+//                                       @"avatar":contact.avatar,
+//                                       @"nickName":contact.nickName,
+//                                       @"signature":contact.signature,
+//                                       @"easemobUser":contact.easemobUser
+//                                       };
+        OtherUserInfoViewController *searchUserInfoCtl = [[OtherUserInfoViewController alloc]init];
+        searchUserInfoCtl.userId = contact.userId;
         [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
     }
 }
@@ -445,27 +497,10 @@
     return _chattingPeople;
 }
 
-- (SRRefreshView *)slimeView
-{
-    if (_slimeView == nil) {
-        _slimeView = [[SRRefreshView alloc] init];
-        _slimeView.delegate = self;
-        _slimeView.upInset = 0;
-        _slimeView.slimeMissWhenGoingBack = YES;
-        _slimeView.slime.bodyColor = APP_THEME_COLOR;
-        _slimeView.slime.skinColor = [UIColor clearColor];
-        _slimeView.slime.lineWith = 0.7;
-        _slimeView.slime.shadowBlur = 0;
-        _slimeView.slime.shadowColor = [UIColor clearColor];
-    }
-    
-    return _slimeView;
-}
-
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height - 64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - self.chatToolBar.frame.size.height - 44) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -485,7 +520,8 @@
 {
     if (!_chatToolBar) {
         _chatToolBar = [[DXMessageToolBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - [DXMessageToolBar defaultHeight], self.view.frame.size.width, [DXMessageToolBar defaultHeight])];
-        _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+        _chatToolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        _chatToolBar.backgroundColor = APP_PAGE_COLOR;
         _chatToolBar.delegate = self;
         _chatToolBar.rootCtl = self;
     }
@@ -599,8 +635,7 @@
     NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[NSString class]]) {
         return 40;
-    }
-    else{
+    } else {
         if ([[((MessageModel *)obj).taoziMessage objectForKey:@"tzType"] integerValue] == TZTipsMsg) {
             return 40;
         } else {
@@ -613,24 +648,17 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (_slimeView) {
-        [_slimeView scrollViewDidScroll];
+    if (_didEndScroll) {
+        if (scrollView.contentOffset.y < 40) {
+            _didEndScroll = NO;
+            [self loadMoreMessages];
+        }
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (_slimeView) {
-        [_slimeView scrollViewDidEndDraging];
-    }
-}
-
-#pragma mark - slimeRefresh delegate
-//加载更多
-- (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
-{
-    [self loadMoreMessages];
-    [_slimeView endRefresh];
+   _didEndScroll = YES;
 }
 
 #pragma mark - GestureRecognizer
@@ -789,7 +817,7 @@
 }
 
 /**
- *  自定义桃子消息的气泡被点击
+ *  自定义旅行派消息的气泡被点击
  *
  *  @param model 回传的 气泡所属的 model
  */
@@ -802,50 +830,53 @@
             SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
             spotDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             spotDetailCtl.spotId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            [self addChildViewController:spotDetailCtl];
-            [self.view addSubview:spotDetailCtl.view];
+            [self.navigationController pushViewController:spotDetailCtl animated:YES];
         }
             break;
              
         case TZChatTypeFood: {
-            CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
             restaurantDetailCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            restaurantDetailCtl.poiType = kRestaurantPoi;
             restaurantDetailCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            [self addChildViewController:restaurantDetailCtl];
-            [self.view addSubview:restaurantDetailCtl.view];
+//            [self addChildViewController:restaurantDetailCtl];
+//            [self.view addSubview:restaurantDetailCtl.view];
+            [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
         }
             break;
             
         case TZChatTypeShopping: {
-            CommonPoiDetailViewController *shoppingCtl = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *shoppingCtl = [[ShoppingDetailViewController alloc] init];
             shoppingCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             shoppingCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            shoppingCtl.poiType = kShoppingPoi;
-            [self addChildViewController:shoppingCtl];
-            [self.view addSubview:shoppingCtl.view];
+//            [self addChildViewController:shoppingCtl];
+//            [self.view addSubview:shoppingCtl.view];
+            [self.navigationController pushViewController:shoppingCtl animated:YES];
+            NSLog(@"asda");
         }
             break;
             
         case TZChatTypeHotel: {
-            CommonPoiDetailViewController *hotelCtl = [[CommonPoiDetailViewController alloc] init];
+            CommonPoiDetailViewController *hotelCtl = [[HotelDetailViewController alloc] init];
             hotelCtl.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
             hotelCtl.poiId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
-            hotelCtl.poiType = kHotelPoi;
-            [self addChildViewController:hotelCtl];
-            [self.view addSubview:hotelCtl.view];
+//            [self addChildViewController:hotelCtl];
+//            [self.view addSubview:hotelCtl.view];
+            [self.navigationController pushViewController:hotelCtl animated:YES];
         }
             break;
             
         case TZChatTypeTravelNote: {
             TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
-            travelNoteCtl.travelNoteTitle = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
-            travelNoteCtl.desc = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
-            travelNoteCtl.travelNoteCover = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
-            travelNoteCtl.urlStr = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
-            travelNoteCtl.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
+            TravelNote *travelNote = [[TravelNote alloc] init];
+            travelNote.title = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"name"];
+            travelNote.summary = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"desc"];
+            TaoziImage *image = [[TaoziImage alloc] init];
+            image.imageUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"image"];
+            travelNote.images = @[image];
+            travelNote.detailUrl = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"detailUrl"];
+            travelNote.travelNoteId = [[model.taoziMessage objectForKey:@"content"] objectForKey:@"id"];
             travelNoteCtl.titleStr = @"游记详情";
-            
+            travelNoteCtl.travelNote = travelNote;
             [self.navigationController pushViewController:travelNoteCtl animated:YES];
         }
             break;
@@ -860,7 +891,15 @@
                 tripDetailCtl.canEdit = NO;
             }
             
-            [self.navigationController pushViewController:tripDetailCtl animated:YES];
+            TripPlanSettingViewController *tpvc = [[TripPlanSettingViewController alloc] init];
+            
+            REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:tripDetailCtl menuViewController:tpvc];
+            frostedViewController.direction = REFrostedViewControllerDirectionRight;
+            frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+            frostedViewController.liveBlur = YES;
+            frostedViewController.limitMenuViewSize = YES;
+            frostedViewController.resumeNavigationBar = NO;
+            [self.navigationController pushViewController:frostedViewController animated:YES];
         }
             break;
         
@@ -961,6 +1000,16 @@
                         [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
                         UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
                         if ([cell isKindOfClass:[EMChatViewCell class]]) {
+                            if (cellModel.isChatGroup) {
+                                [self checkOutModel:cellModel];
+                            } else {
+                                cellModel.nickName = _chatterNickName;
+                                if (cellModel.isSender) {
+                                    cellModel.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
+                                } else {
+                                    cellModel.headImageURL = [NSURL URLWithString:_chatterAvatar];
+                                }
+                            }
                             ((EMChatViewCell *)cell).messageModel = cellModel;
                         }
                         
@@ -1038,12 +1087,14 @@
 - (void)moreViewMyStrategyAction:(DXChatBarMoreView *)moreView
 {
     [MobClick event:@"event_share_plan_extra"];
-    [self keyBoardHidden];
     MyGuideListTableViewController *myGuideListTableCtl = [[MyGuideListTableViewController alloc] init];
     myGuideListTableCtl.chatter = _chatter;
     myGuideListTableCtl.selectToSend = YES;
     myGuideListTableCtl.isChatGroup = _isChatGroup;
-    [self.navigationController pushViewController:myGuideListTableCtl animated:YES];
+    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:myGuideListTableCtl];
+    [self presentViewController:ctl animated:YES completion:^ {
+//        [self keyBoardHidden];
+    }];
 }
 
 /**
@@ -1055,13 +1106,14 @@
 {
     [MobClick event:@"event_share_favorite_extra"];
 
-    [self keyBoardHidden];
     FavoriteViewController *favoriteCtl = [[FavoriteViewController alloc] init];
     favoriteCtl.isChatGroup = _isChatGroup;
     favoriteCtl.chatter = _chatter;
     favoriteCtl.selectToSend = YES;
-    [self.navigationController pushViewController:favoriteCtl animated:YES];
-
+    UINavigationController *ctl = [[UINavigationController alloc] initWithRootViewController:favoriteCtl];
+    [self presentViewController:ctl animated:YES completion:^ {
+//        [self keyBoardHidden];
+    }];
 }
 
 /**
@@ -1073,14 +1125,21 @@
 {
     [MobClick event:@"event_share_search_extra"];
 
-    [self keyBoardHidden];
+//    SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
+//    searchCtl.isCanSend = YES;
+//    searchCtl.titleStr = @"发送地点";
+//    searchCtl.chatter = _chatter;
+//    searchCtl.isChatGroup = _isChatGroup;
+//    [self.navigationController pushViewController:searchCtl animated:YES];
+
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
     searchCtl.isCanSend = YES;
-    searchCtl.titleStr = @"发送地点";
     searchCtl.chatter = _chatter;
     searchCtl.isChatGroup = _isChatGroup;
-    [self.navigationController pushViewController:searchCtl animated:YES];
-
+    UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:^ {
+//        [self keyBoardHidden];
+    }];
 }
 
 /**
@@ -1092,25 +1151,27 @@
 {
     [MobClick event:@"event_share_travel_notes_extra"];
 
-    [self keyBoardHidden];
     TravelNoteListViewController *travelNoteCtl = [[TravelNoteListViewController alloc] init];
     travelNoteCtl.isSearch = YES;
     travelNoteCtl.chatter = _chatter;
     travelNoteCtl.isChatGroup = _isChatGroup;
-    [self.navigationController pushViewController:travelNoteCtl animated:YES];
+    UINavigationController *tznavc = [[UINavigationController alloc] initWithRootViewController:travelNoteCtl];
+    [self presentViewController:tznavc animated:YES completion:^ {
+//        [self keyBoardHidden];
+    }];
 }
 
 - (void)moreViewPhotoAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
     // 弹出照片选择
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
     picker.maximumNumberOfSelection = 10;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups=NO;
-    picker.delegate=self;
+    picker.myDelegate = self;
     picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
             NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
@@ -1121,12 +1182,11 @@
     }];
     
     [self presentViewController:picker animated:YES completion:NULL];
-
 }
 
 - (void)moreViewTakePicAction:(DXChatBarMoreView *)moreView
 {
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
 #if TARGET_IPHONE_SIMULATOR
     [self showHint:@"模拟器不支持拍照"];
@@ -1140,11 +1200,11 @@
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
-    [self keyBoardHidden];
+//    [self keyBoardHidden];
     
-    LocationViewController *locationController = [[LocationViewController alloc] initWithNibName:nil bundle:nil];
+    LocationViewController *locationController = [[LocationViewController alloc] init];
     locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:locationController] animated:YES completion:nil];
 }
 
 /*****暂时屏蔽掉录制视频和发送及时语音的功能*****/
@@ -1185,8 +1245,8 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         CGRect rect = self.tableView.frame;
-        rect.origin.y = 64;
-        rect.size.height = self.view.frame.size.height - toHeight - 64;
+        rect.origin.y = 65;
+        rect.size.height = self.view.frame.size.height - toHeight - 65;
         self.tableView.frame = rect;
     }];
     [self scrollViewToBottom:YES];
@@ -1365,6 +1425,9 @@
 
 - (void)loadMoreMessages
 {
+    if (_headerLoading == nil || [_headerLoading isAnimating]) {
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSLog(@"******开始加载聊天记录0");
@@ -1373,23 +1436,34 @@
         NSTimeInterval beforeTime = 0;
         if (latestMessage) {
             beforeTime = latestMessage.timestamp + 1;
-        }else{
+        } else {
             beforeTime = [[NSDate date] timeIntervalSince1970] * 1000 + 1;
         }
         
+        [_headerLoading startAnimating];
         NSArray *chats = [weakSelf.conversation loadNumbersOfMessages:(currentCount + KPageCount) before:beforeTime];
-        NSLog(@"******开始加载聊天记录1");
-
         if ([chats count] > currentCount) {
             weakSelf.dataSource.array = [weakSelf sortChatSource:chats];
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"******结束加载聊天记录");
-
+                [_headerLoading stopAnimating];
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataSource count] - currentCount - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                if (chats.count < KPageCount) {
+                    [_headerLoading stopAnimating];
+                    [_headerView removeFromSuperview];
+                    _headerView = nil;
+                    _headerLoading = nil;
+                    _tableView.tableHeaderView = nil;
+                }
             });
         } else {
             NSLog(@"******不需要加载聊天记录");
+            [_headerLoading stopAnimating];
+            [_headerView removeFromSuperview];
+            _headerView = nil;
+            _headerLoading = nil;
+            _tableView.tableHeaderView = nil;
         }
     });
 }
@@ -1503,17 +1577,12 @@
             } else {
                 isReloadToBottom = NO;
             }
-            NSLog(@"contentSize:%f   offsetSize:%f", weakSelf.tableView.contentSize.height, weakSelf.tableView.contentOffset.y);
 
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            
-            NSLog(@"contentSize:%f   offsetSize:%f", weakSelf.tableView.contentSize.height, weakSelf.tableView.contentOffset.y);
-
             if (isReloadToBottom) {
                  [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                 NSLog(@"******UITableViewScrollPositionBottom");
             }
-           
         });
     });
 
@@ -1542,16 +1611,17 @@
             }
         }
         if (chatGroup == nil) {
-            chatGroup = [[EMGroup alloc] initWithGroupId:_chatter];
+            chatGroup = [EMGroup groupWithId:_chatter];
         }
         ChatGroupSettingViewController *chatSettingCtl = [[ChatGroupSettingViewController alloc] init];
         chatSettingCtl.group = chatGroup;
-        [self.navigationController pushViewController:chatSettingCtl animated:YES];
-        
+//        TZSideViewController *sideCtl = [[TZSideViewController alloc] initWithDetailViewFrame:CGRectMake(50, 20, 270, 460)];
+//        sideCtl.detailViewController = chatSettingCtl;
+//        [sideCtl showSideDetailView];
     } else {
-        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
-        chatSettingCtl.chatter = _conversation.chatter;
-        [self.navigationController pushViewController:chatSettingCtl animated:YES];
+//        ChatSettingViewController *chatSettingCtl = [[ChatSettingViewController alloc] init];
+//        chatSettingCtl.chatter = _conversation.chatter;
+//        [self.navigationController pushViewController:chatSettingCtl animated:YES];
     }
 }
 
@@ -1600,7 +1670,6 @@
 
 - (void)exitGroup
 {
-    [self.navigationController popToViewController:self animated:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

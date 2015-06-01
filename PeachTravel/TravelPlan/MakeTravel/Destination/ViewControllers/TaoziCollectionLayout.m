@@ -65,7 +65,6 @@
             offsetX += _spacePerItem + itemSize.width;
             
             (heighest < itemSize.height)? (heighest=itemSize.height):(heighest=heighest);
-
             [tempArray addObject:attributes];
         }
         if (heighest > 0) {
@@ -87,7 +86,7 @@
             frame.origin.x -= 10.0;
             frame.origin.y -= 10.0;
             frame.size.width = self.collectionView.frame.size.width;
-            frame.size.height += self.sectionInset.top + self.sectionInset.bottom + 20.0;
+            frame.size.height += self.sectionInset.top + self.sectionInset.bottom + 25.0;
             
             UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:@"CityCardReusableView" withIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
             attributes.zIndex = -1;
@@ -133,7 +132,7 @@
 
 -(CGSize)collectionViewContentSize{
     CGSize retVal = self.collectionView.bounds.size;
-    retVal.height = offsetY + 24;
+    retVal.height = offsetY + 30;
     return retVal;
 }
 

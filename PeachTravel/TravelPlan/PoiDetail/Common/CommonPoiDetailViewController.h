@@ -9,10 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "PoiDetailSuperViewController.h"
 
+@protocol FavoriteDelegate <NSObject>
+
+-(void)favorite;
+
+@end
+
 @interface CommonPoiDetailViewController : PoiDetailSuperViewController
 
 @property (nonatomic, copy) NSString *poiId;
 
 @property (nonatomic) TZPoiType poiType;
+@property (nonatomic,weak) id <FavoriteDelegate> delegate;
+- (void) loadDataWithUrl:(NSString *)url;
 
 @end

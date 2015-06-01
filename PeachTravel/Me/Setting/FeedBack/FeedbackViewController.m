@@ -36,34 +36,32 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-    self.navigationItem.title = @"意见与吐槽";
-
+    self.navigationItem.title = @"意见和需求";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedback:)];
+    
     CGFloat width = self.view.frame.size.width;
     
-    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 84.0, width-30, 20.0)];
-    desc1.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    UILabel *desc1 = [[UILabel alloc]initWithFrame:CGRectMake(15.0, 20.0, width-30, 20.0)];
+    desc1.font = [UIFont systemFontOfSize:13.0];
     desc1.textColor = UIColorFromRGB(0x5a5a5a);
     desc1.textAlignment = NSTextAlignmentCenter;
-    desc1.text = @"有什么需要的请尽管吩咐";
+    desc1.text = @"你的意见和需求，是我们改进的动力";
     desc1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:desc1];
     
-    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(0., 109.0, width, 86.0)];
+    UIView *eborder = [[UIView alloc] initWithFrame:CGRectMake(0., 45, width, 86.0)];
     eborder.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:eborder];
     
     UITextView *suggestion = [[UITextView alloc] initWithFrame:CGRectMake(5.0, 5.0, width - 10.0, 76.0)];
     suggestion.backgroundColor = [UIColor clearColor];
     suggestion.textColor = TEXT_COLOR_TITLE;
-    suggestion.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    suggestion.font = [UIFont systemFontOfSize:14.0];
     suggestion.scrollEnabled = YES;
     [eborder addSubview:suggestion];
     contentEditor = suggestion;
     [contentEditor becomeFirstResponder];
-    
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"发送 " style:UIBarButtonItemStyleBordered target:self action:@selector(sendFeedback:)];
-    backBtn.tintColor = APP_THEME_COLOR;
-    self.navigationItem.rightBarButtonItem = backBtn;
 }
 
 - (void)goBack
@@ -90,14 +88,14 @@
     
     NSString *contents = contentEditor.text;
     NSString *trimText = [contents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([trimText length] < 1) {
-        [SVProgressHUD showHint:@"说点什么吧"];
+    if ([trimText length] < 5) {
+        [SVProgressHUD showHint:@"多说点什么吧"];
         return;
     }
     
     __weak typeof(FeedbackController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:

@@ -7,26 +7,26 @@
 //
 
 #import "HomeViewController.h"
-#import "ToolBoxViewController.h"
-#import "HotDestinationCollectionViewController.h"
+#import "ToolHomeViewController.h"
 #import "MineTableViewController.h"
-#import "RDVTabBarItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PageOne.h"
 #import "PageTwo.h"
 #import "PageThree.h"
 #import "EAIntroView.h"
 #import "TZCMDChatHelper.h"
-#import "ContactListViewController.h"
 #import "ChatListViewController.h"
 #import "LoginViewController.h"
+#import "ChatListViewController.h"
+#import "RegisterViewController.h"
+#import "PrepareViewController.h"
 
 #define kBackGroundImage    @"backGroundImage"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
-@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, MHTabBarControllerDelegate>
+@interface HomeViewController ()<UIGestureRecognizerDelegate, EAIntroDelegate, IChatManagerDelegate, UITabBarControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *coverView;
 
@@ -37,9 +37,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
-@property (nonatomic, strong) ToolBoxViewController *toolBoxCtl;
-@property (nonatomic, strong) HotDestinationCollectionViewController *hotDestinationCtl;
+@property (nonatomic, strong) ToolHomeViewController *toolBoxCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
+@property (nonatomic, strong) ChatListViewController *chatListCtl;
 
 @property (nonatomic, strong) PageOne *pageView1;
 @property (nonatomic, strong) PageTwo *pageView2;
@@ -61,52 +61,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [super viewDidLoad];
     
     [self setupViewControllers];
-
-    [self setupConverView];
-
+    
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self setupUnreadMessageCount];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (_shouldJumpToChatListWhenAppLaunch && _coverView != nil) {
-        [_coverView removeFromSuperview];
-        _coverView = nil;
-        [self jumpToChatListCtl];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidRegistedNoti object:nil];
+    
+    if (![[AccountManager shareAccountManager] isLogin]) {
+        [self setupLoginPage];
     }
-    
-    if (_coverView != nil) {
-        NSString *backGroundImageStr = [[NSUserDefaults standardUserDefaults] objectForKey:kBackGroundImage];
-        [_coverView sd_setImageWithURL:[NSURL URLWithString:backGroundImageStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (error) {
-                _coverView.image = [UIImage imageNamed:@"story_default.png"];
-            }
-        }];
-        [self loadData];
-    }
-    NSLog(@"home willAppear");
-    self.navigationController.navigationBar.hidden = YES;
-    
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    NSLog(@"home willDisappear");
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
 }
 
 - (void)dealloc
@@ -115,49 +81,79 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (IMRootViewController *)IMRootCtl
-{
-    if (!_IMRootCtl) {
-        _IMRootCtl = [[IMRootViewController alloc] init];
-        
-        ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
-        contactListCtl.title = @"好友";
-        
-        ChatListViewController *chatListCtl = [[ChatListViewController alloc] init];
-        chatListCtl.title = @"Talk";
-        chatListCtl.notify = NO;
-        NSArray *viewControllers = [NSArray arrayWithObjects:chatListCtl,contactListCtl, nil];
-        _IMRootCtl.viewControllers = viewControllers;
-        _IMRootCtl.segmentedNormalImages = @[@"ic_chatlist_normal.png", @"ic_contacts_normal.png"];
-        _IMRootCtl.segmentedSelectedImages = @[@"ic_chatlist_selected.png", @"ic_contacts_selected.png"];
-        _IMRootCtl.selectedColor = APP_SUB_THEME_COLOR;
-        _IMRootCtl.normalColor= [UIColor grayColor];
-        _IMRootCtl.animationOptions = UIViewAnimationOptionTransitionCrossDissolve;
-        _IMRootCtl.duration = 0.2;
-    }
-    return _IMRootCtl;
+- (void) setupLoginPage {
+//    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    _coverView.userInteractionEnabled = YES;
+//    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    _coverView.image = [UIImage imageNamed:@"LaunchImage-800-Portrait-736h"]; //LaunchImage-568h, LaunchImage-700-568h, LaunchImage-800-667h, LaunchImage-800-Portrait-736h
+//    [self.view addSubview:_coverView];
+    
+    PrepareViewController *prepareCtl = [[PrepareViewController alloc] init];
+    prepareCtl.rootViewController = self;
+    prepareCtl.view.frame = self.view.frame;
+    [self addChildViewController:prepareCtl];
+    [self.view addSubview:prepareCtl.view];
+    [prepareCtl willMoveToParentViewController:self];
+    
+    /*
+     @"LaunchImage-568h@2x.png"  // ios 8 - iphone 5 - portrait
+     @"LaunchImage-568h@2x.png" // ios 8 - iphone 5 - landscape
+     @"LaunchImage-700-568h@2x.png" // ios 7 - iphone 5 - portrait
+     @"LaunchImage-700-568h@2x.png" // ios 7 - iphone 5 - landscape
+     @"LaunchImage-700-Landscape@2x~ipad.png" // ios 7 - ipad retina - landscape
+     @"LaunchImage-700-Landscape~ipad.png" // ios 7 - ipad regular - landscape
+     @"LaunchImage-700-Portrait@2x~ipad.png" // ios 7 - ipad retina - portrait
+     @"LaunchImage-700-Portrait~ipad.png" // ios 7 - ipad regular - portrait
+     @"LaunchImage-700@2x.png" // ios 7 - iphone 4/4s retina - portrait
+     @"LaunchImage-700@2x.png" // ios 7 - iphone 4/4s retina - landscape
+     @"LaunchImage-Landscape@2x~ipad.png" // ios 8 - ipad retina - landscape
+     @"LaunchImage-Landscape~ipad.png" // ios 8 - ipad regular - landscape
+     @"LaunchImage-Portrait@2x~ipad.png" // ios 8 - ipad retina - portrait
+     @"LaunchImage-Portrait~ipad.png" // ios 8 - ipad regular - portrait
+     @"LaunchImage.png" // ios 6 - iphone 3g/3gs - portrait
+     @"LaunchImage.png" // ios 6 - iphone 3g/3gs - landscape
+     @"LaunchImage@2x.png" // ios 6,7,8 - iphone 4/4s - portrait
+     @"LaunchImage@2x.png" // ios 6,7,8 - iphone 4/4s - landscape
+     @"LaunchImage-800-667h@2x.png" // ios 8 - iphone 6 - portrait
+     @"LaunchImage-800-667h@2x.png" // ios 8 - iphone 6 - landscape
+     @"LaunchImage-800-Portrait-736h@3x.png" // ios 8 - iphone 6 plus - portrait
+     @"LaunchImage-800-Landscape-736h@3x.png" // ios 8 - iphone 6 plus - landscape
+     */
+    [self setupConverView];
+//    [self beginIntroduce];
 }
 
 - (void) setupConverView {
-
-    _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _coverView.userInteractionEnabled = YES;
-    _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-   
-    [self.view addSubview:_coverView];
-    
-    _coverView.backgroundColor = [UIColor whiteColor];
-
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
         [self beginIntroduce];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     } else {
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:3];
+        _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        _coverView.userInteractionEnabled = YES;
+        _coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.view addSubview:_coverView];
+        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:1.5];
     }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - setter & getter
+
+- (ChatListViewController *)chatListCtl
+{
+    if (!_chatListCtl) {
+        _chatListCtl = [[ChatListViewController alloc] init];
+    }
+    return _chatListCtl;
+}
+
+- (void)setIMState:(IM_CONNECT_STATE)IMState
+{
+    _IMState = IMState;
+    self.chatListCtl.IMState = _IMState;
 }
 
 #pragma mark - IBActions
@@ -174,22 +170,11 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     }];
 }
 
-/**
- *  跳转到聊天列表
- */
-- (void)jumpToChatListCtl
-{
-    [self jumpIM:nil];
-}
-
 //进入聊天功能
 - (IBAction)jumpIM:(UIButton *)sender {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if ([accountManager isLogin]) {
-        [self.navigationController pushViewController:self.IMRootCtl animated:YES];
-        
-        NSLog(@"%@", self.navigationController);
-        
+        [self.navigationController pushViewController:self.chatListCtl animated:YES];
     } else {
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
         [self performSelector:@selector(goLogin:) withObject:nil afterDelay:0.8];
@@ -198,13 +183,38 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (IBAction)goLogin:(id)sender
 {
-    LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    LoginViewController *loginCtl = [[LoginViewController alloc] initWithCompletion:^(BOOL completed) {
+        [self userDidLogin];
+    }];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nctl.navigationBar.translucent = YES;
+    [self presentViewController:nctl animated:YES completion:nil];
+}
 
-    [self.navigationController presentViewController:nctl animated:YES completion:nil];
+- (IBAction)goRegist:(id)sender {
+    RegisterViewController *loginCtl = [[RegisterViewController alloc] init];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
+- (IBAction)goPass:(id)sender {
+    [self setSelectedIndex:1];
+    [_coverView removeFromSuperview];
+    _coverView = nil;
+}
+
+- (void) userDidLogin {
+//    [_coverView removeFromSuperview];
+//    _coverView = nil;
+    NSArray *controllers = [self childViewControllers];
+    if (controllers != nil && controllers.count > 0) {
+        UIViewController *ctl = [controllers lastObject];
+        if ([ctl isKindOfClass:[PrepareViewController class]]) {
+            PrepareViewController *vc = (PrepareViewController *)ctl;
+            [vc.view removeFromSuperview];
+            [vc removeFromParentViewController];
+        }
+    }
 }
 
 /**
@@ -309,10 +319,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if (pageIndex == 0) {
         [_pageView1 startAnimation];
     }
-    if (pageIndex == 1) {
+    else if (pageIndex == 1) {
         [_pageView2 startAnimation];
     }
-    if (pageIndex == 2) {
+    else if (pageIndex == 2) {
         [_pageView3 startAnimation];
     }
 }
@@ -331,92 +341,41 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)setupViewControllers
 {
-    _toolBoxCtl = [[ToolBoxViewController alloc] init];
-    UINavigationController *firstNavigationController = [[UINavigationController alloc]
+    self.tabBar.translucent = NO;
+    self.delegate = self;
+    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tababr.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:5];
+    
+    self.tabBar.selectedImageTintColor = UIColorFromRGB(0x21b67f);
+    
+    TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
+                                                          initWithRootViewController:self.chatListCtl];
+    
+    _toolBoxCtl = [[ToolHomeViewController alloc] init];
+    TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
-    _hotDestinationCtl = [[HotDestinationCollectionViewController alloc] init];
-    UINavigationController *secondNavigationController = [[UINavigationController alloc]
-                                                          initWithRootViewController:_hotDestinationCtl];
-
-    
     _mineCtl = [[MineTableViewController alloc] init];
-    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
+    TZNavigationViewController *FourthNavigationController = [[TZNavigationViewController alloc]
                                                          initWithRootViewController:_mineCtl];
 
-    
+
     [self setViewControllers:@[firstNavigationController, secondNavigationController,
-                               thirdNavigationController]];
+                               FourthNavigationController]];
     [self customizeTabBarForController];
 }
 
 - (void)customizeTabBarForController
 {
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 77);
-    self.tabBar.frame = frame;
-    
-    UIView *imView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 74, 77)];
-    imView.backgroundColor = [UIColor clearColor];
-    
-    UIView *imBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 28, 74, 49)];
-    imBackView.backgroundColor = APP_PAGE_COLOR;
-    UIView *spaceV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 71, 0.5)];
-    spaceV.backgroundColor = UIColorFromRGB(0xcccccc);
-    [imBackView addSubview:spaceV];
-    [imView addSubview:imBackView];
-    
-    UIButton *IMBtn = [[TZButton alloc] initWithFrame:CGRectMake(0.5, 0.5, 61, 61)];
-    IMBtn.backgroundColor = [UIColor clearColor];
-    [IMBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [IMBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateHighlighted];
-    IMBtn.titleLabel.font = [UIFont systemFontOfSize:8.0];
-    [IMBtn setImage:[UIImage imageNamed:@"ic_IM_normal.png"] forState:UIControlStateNormal];
-    [IMBtn setImage:[UIImage imageNamed:@"ic_IM_selected.png"] forState:UIControlStateHighlighted];
-    [IMBtn addTarget:self action:@selector(jumpIM:) forControlEvents:UIControlEventTouchUpInside];
-    IMBtn.center = CGPointMake(imView.bounds.size.width/2+4, imView.bounds.size.height/2);
-    [imView addSubview:IMBtn];
-    
-    [self.tabBar addSubview:imView];
-    
-    _unReadMsgLabel = [[UILabel alloc] initWithFrame:CGRectMake(48, 7, 20, 20)];
-    _unReadMsgLabel.backgroundColor = [UIColor redColor];
-    _unReadMsgLabel.textColor = [UIColor whiteColor];
-    _unReadMsgLabel.layer.cornerRadius = 10;
-    _unReadMsgLabel.clipsToBounds = YES;
-    _unReadMsgLabel.textAlignment = NSTextAlignmentCenter;
-    _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    [imView addSubview:_unReadMsgLabel];
-    
-    self.tabBar.contentEdgeInsets = UIEdgeInsetsMake(0, 73, 0, 0);
-    
-    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(71, 28, self.tabBar.frame.size.width-71, 0.5)];
-    spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
-    [self.tabBar addSubview:spaceView];
     
     NSArray *tabBarItemImages = @[@"ic_home", @"ic_loc", @"ic_person"];
-    NSArray *titles = @[@"首页", @"目的地", @"我"];
+//    NSArray *titles = @[@"旅行圈", @"旅行", @"我"];
     NSInteger index = 0;
     
-    for (RDVTabBarItem *item in [[self tabBar] items]) {
-        item.titlePositionAdjustment = UIOffsetMake(0, 2);
-        item.selectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:7.0], NSForegroundColorAttributeName : APP_THEME_COLOR};
-        item.unselectedTitleAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:7.0], NSForegroundColorAttributeName : TEXT_COLOR_TITLE_SUBTITLE};
-        
-        item.itemHeight = 49.0;
-        item.backgroundColor = APP_PAGE_COLOR;
-        item.title = titles[index];
-        if ([[[self tabBar] items] indexOfObject:item] != 0) {
-            UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 33)];
-            spaceView.backgroundColor = UIColorFromRGB(0xcccccc);
-            [item addSubview:spaceView];
-        }
-        
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
-                                                      [tabBarItemImages objectAtIndex:index]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
-                                                        [tabBarItemImages objectAtIndex:index]]];
-        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
-        
+    for (UITabBarItem *item in self.tabBar.items) {
+//        item.title = titles[index];
+        item.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal", [tabBarItemImages objectAtIndex:index]]];
+        item.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", [tabBarItemImages objectAtIndex:index]]];
+        item.imageInsets = UIEdgeInsetsMake(7, 0, -7, 0);
         index++;
     }
 }
@@ -426,7 +385,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 - (void)userDidLogOut
 {
-    _IMRootCtl = nil;
     [self setupUnreadMessageCount];
 }
 
@@ -438,31 +396,19 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 -(void)setupUnreadMessageCount
 {
-    UIApplication *application = [UIApplication sharedApplication];
+    int unReadCount = self.chatListCtl.numberOfUnReadChatMsg;
+    UITabBarItem *item = [self.tabBar.items firstObject];
 
-    if (!_IMRootCtl && application.applicationIconBadgeNumber>0) {
-        _unReadMsgLabel.text = [NSString stringWithFormat:@"%ld", (long)application.applicationIconBadgeNumber];
-        
+    if (unReadCount == 0) {
+        [item setBadgeValue:nil];
+
     } else {
-        int unReadCount = self.IMRootCtl.totalUnReadMsg;
-        if (unReadCount > 0) {
-            _unReadMsgLabel.hidden = NO;
-            _unReadMsgLabel.text = [NSString stringWithFormat:@"%d", unReadCount];
-            if (unReadCount > 9) {
-                _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:10.0];
-            }
-            if (unReadCount > 99) {
-                _unReadMsgLabel.font = [UIFont systemFontOfSize:5.0];
-            }
-            else {
-                _unReadMsgLabel.font = [UIFont boldSystemFontOfSize:12.0];
-            }
-
-        } else {
-            _unReadMsgLabel.hidden = YES;
-        }
-        [application setApplicationIconBadgeNumber:unReadCount];
+        [item setBadgeValue:[NSString stringWithFormat:@"%d", unReadCount]];
     }
+    UIApplication *application = [UIApplication sharedApplication];
+    [application setApplicationIconBadgeNumber:unReadCount];
+    
+    [self userDidLogin];
 }
 
 #pragma mark - IChatManagerDelegate 消息变化
@@ -470,7 +416,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)networkChanged:(EMConnectionState)connectionState
 {
     NSLog(@"networkChanged网络发生变化");
-
 }
 
 - (void)didUpdateConversationList:(NSArray *)conversationList
@@ -481,17 +426,17 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)willReceiveOfflineMessages
 {
     NSLog(@"*****将要收取消息");
-    self.IMRootCtl.IMState = IM_RECEIVING;
+    self.chatListCtl.IMState = IM_RECEIVING;
 }
 
 - (void)didFinishedReceiveOfflineMessages:(NSArray *)offlineMessages{
-    self.IMRootCtl.IMState = IM_RECEIVED;
+    self.chatListCtl.IMState = IM_RECEIVED;
     [self setupUnreadMessageCount];
 }
 
 - (void)didFinishedReceiveOfflineCmdMessages:(NSArray *)offlineCmdMessages
 {
-    self.IMRootCtl.IMState = IM_RECEIVED;
+    self.chatListCtl.IMState = IM_RECEIVED;
     for (EMMessage *cmdMessage in offlineCmdMessages) {
         [TZCMDChatHelper distributeCMDMsg:cmdMessage];
     }
@@ -550,7 +495,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
         
         do {
-            if (options.noDisturbing) {
+            if (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) {
                 NSDate *now = [NSDate date];
                 NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:now];
                 NSInteger hour = [components hour];
@@ -651,8 +596,39 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     notification.timeZone = [NSTimeZone defaultTimeZone];
     //发送通知
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    //    UIApplication *application = [UIApplication sharedApplication];
-    //    application.applicationIconBadgeNumber += 1;
+    UIApplication *application = [UIApplication sharedApplication];
+    application.applicationIconBadgeNumber += 1;
+}
+
+#pragma mark - UITabbarViewControllerDelegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    AccountManager *accountManager = [AccountManager shareAccountManager];
+    if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
+        LoginViewController *loginCtl = [[LoginViewController alloc] init];
+        TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
+        _toolBoxCtl.hideNavigationBar = YES;
+        _mineCtl.hideNavigationBar = YES;
+        [self presentViewController:navi animated:YES completion:^{
+            _toolBoxCtl.hideNavigationBar = NO;
+            _mineCtl.hideNavigationBar = NO;
+        }];
+        return NO;
+    } else {
+        if ([viewController isEqual:_toolBoxCtl.navigationController]) {
+            _toolBoxCtl.navigationbarAnimated = NO;
+        } else if ([viewController isEqual:_mineCtl.navigationController]) {
+            _mineCtl.navigationbarAnimated = NO;
+        }
+    }
+    return YES;
+}
+
+#pragma mark - UITabbarDelegate
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    NSLog(@"%@", item);
 }
 
 #pragma mark - IChatManagerDelegate 登陆回调（主要用于监听自动登录是否成功）
@@ -665,6 +641,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSLog(@"自动登录成功");
     }
 }
+
 
 #pragma mark - IChatManagerDelegate 好友变化
 
@@ -684,7 +661,6 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         notification.timeZone = [NSTimeZone defaultTimeZone];
     }
 #endif
-    
 }
 
 - (void)didUpdateBuddyList:(NSArray *)buddyList
@@ -852,7 +828,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
                                   nil];
         alertView.tag = 100;
         [alertView show];
-
+        
     } onQueue:nil];
 }
 
@@ -872,7 +848,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
     if (connectionState == eEMConnectionDisconnected) {
-        _IMRootCtl.IMState = IM_DISCONNECTED;
+        self.chatListCtl.IMState = IM_DISCONNECTED;
     }
 
 }
@@ -881,8 +857,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void)willAutoReconnect{
     NSLog(@"正在重练中");
-//    [SVProgressHUD showHint:@"正在重练中"];
-    self.IMRootCtl.IMState = IM_CONNECTING;
+
+    self.chatListCtl.IMState = IM_CONNECTING;
 }
 
 - (void)didAutoReconnectFinishedWithError:(NSError *)error{
@@ -894,7 +870,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         NSLog(@"重练成功");
 //        [SVProgressHUD showHint:@"重练成功"];
 
-        self.IMRootCtl.IMState = IM_CONNECTED;
+        self.chatListCtl.IMState = IM_CONNECTED;
     }
 }
 

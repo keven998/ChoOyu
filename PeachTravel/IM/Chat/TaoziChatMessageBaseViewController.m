@@ -10,7 +10,6 @@
 #import "ChatSendHelper.h"
 
 @interface TaoziChatMessageBaseViewController ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleHightConstraint;
 @property (weak, nonatomic) IBOutlet UIView *imageBkgView;
 
 @end
@@ -24,23 +23,25 @@
     self.view.layer.cornerRadius = 4.0;
     _sendBtn.layer.cornerRadius = 2.0;
     _cancelBtn.layer.cornerRadius = 2.0;
+    _headerLabel.textColor = APP_THEME_COLOR;
     _sendBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
     _cancelBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
     _sendBtn.layer.borderWidth = 1.0;
     _cancelBtn.layer.borderWidth = 1.0;
     _headerImageView.layer.cornerRadius = 2.0;
     _headerImageView.clipsToBounds = YES;
+    [_sendBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [_cancelBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [_titleBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     _imageBkgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     _headerImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [_titleBtn setTitle:_messageName forState:UIControlStateNormal];
     if (_chatType == TZChatTypeTravelNote) {
         _titleBtn.titleLabel.numberOfLines = 2;
-        _titleHightConstraint.constant = 34;
         _propertyBtn.hidden = YES;
 
     } else {
         _titleBtn.titleLabel.numberOfLines = 1;
-        _titleHightConstraint.constant = 17;
         _propertyBtn.hidden = NO;
     }
     

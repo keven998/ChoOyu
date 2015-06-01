@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TripDetail.h"
-#import "TZTBViewController.h"
 
 @protocol addPoiDelegate <NSObject>
 
@@ -31,7 +30,7 @@
  */
 @property (nonatomic) BOOL shouldEdit;
 
-@property (nonatomic, assign) id <addPoiDelegate> delegate;
+@property (nonatomic, weak) id <addPoiDelegate> delegate;
 
 
 @end

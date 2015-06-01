@@ -11,20 +11,13 @@
 @implementation ContactListTableViewCell
 
 - (void)awakeFromNib {
-    _avatarImageView.clipsToBounds = YES;
-    _avatarImageView.layer.cornerRadius = 4.0;
-    _nickNameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
-    self.backgroundColor = APP_PAGE_COLOR;
-    
+    _avatarImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
+    _avatarImageView.layer.cornerRadius = 8;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-}
-
-- (void)layoutSubviews {
-    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "CityDestinationPoi.h"
-#import "DestinationToolBar.h"
 #import "Destinations.h"
 #import "TZSegmentedViewController.h"
 
@@ -19,10 +18,9 @@
 
 @interface MakePlanViewController : TZSegmentedViewController
 
-@property (nonatomic, strong) DestinationToolBar *destinationToolBar;
+@property (nonatomic, strong) UICollectionView *selectPanel;
 @property (nonatomic, strong) Destinations *destinations;
-@property (nonatomic, strong) UIView *nextView;
-@property (nonatomic, assign) id < UpdateDestinationsDelegate> myDelegate;
+@property (nonatomic, weak) id <UpdateDestinationsDelegate> myDelegate;
 
 /**
  *  当点击下一步的时候是不是只更新目的地列表。因为如果从三账单进来的话，只需要更新目的地列表就好

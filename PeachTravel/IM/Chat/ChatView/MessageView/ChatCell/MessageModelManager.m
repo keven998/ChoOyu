@@ -63,7 +63,7 @@
                                             convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
                 model.content = didReceiveText;
                 
-            } else {        //如果是桃子旅行自定义的消息类型
+            } else {        //如果是旅行派自定义的消息类型
                 model.taoziMessage = message.ext;
                 model.type = eMessageBodyType_Taozi;
             }
@@ -87,7 +87,7 @@
             break;
         case eMessageBodyType_Location:
         {
-            model.content = @"升级新版本才可以查看这条神秘消息哦";
+            model.content = ((EMLocationMessageBody *)messageBody).address;
             model.address = ((EMLocationMessageBody *)messageBody).address;
             model.latitude = ((EMLocationMessageBody *)messageBody).latitude;
             model.longitude = ((EMLocationMessageBody *)messageBody).longitude;

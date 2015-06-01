@@ -10,9 +10,11 @@
 #import "ChatRecoredListTableViewController.h"
 #import "CreateConversationViewController.h"
 #import "TaoziChatMessageBaseViewController.h"
-
+#import "SuperPoi.h"
 
 @interface PoiDetailSuperViewController : TZViewController
+
+@property (nonatomic, strong) SuperPoi *poi;
 
 enum {
     kASMap = 1,
@@ -22,7 +24,7 @@ enum {
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
 
 /**
- *  当把景点发送到桃talk 的时候子类里实现传值,因为不同的 poi 详情需要传递的值不一样
+ *  当把景点发送到旅行派 的时候子类里实现传值,因为不同的 poi 详情需要传递的值不一样
  *
  *  @param taoziMessageCtl 接收值的 ctl
  */
@@ -31,15 +33,11 @@ enum {
 /**
  *  所有 poi 的收藏接口
  *
- *  @param poiId
- *  @param type       poi 类型
- *  @param isFavorite 是收藏还是取消收藏 yes ： 收藏    no：取消收藏
- *  @param completion 收藏回掉
  */
-- (void)asyncFavorite:(NSString *)poiId poiType:(NSString *)type isFavorite:(BOOL)isFavorite completion:(void (^) (BOOL isSuccess))completion;
+- (void)asyncFavoritePoiWithCompletion:(void (^)(BOOL))completion;
 
 /**
- *  发送到桃talk
+ *  发送到旅行派
  */
 - (IBAction)chat:(id)sender;
 

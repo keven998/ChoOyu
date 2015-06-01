@@ -17,6 +17,10 @@
         _zhName = [json objectForKey:@"zhName"];
         _enName = [json objectForKey:@"enName"];
         _pinyin = [json objectForKey:@"pinyin"];
+        if ([json objectForKey:@"location"] != [NSNull null]) {
+            _lng = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] firstObject] doubleValue];
+            _lat = [[[[json objectForKey:@"location"] objectForKey:@"coordinates"] lastObject] doubleValue];
+        }
     }
     return self;
 }

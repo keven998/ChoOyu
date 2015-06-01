@@ -19,9 +19,9 @@
                  andAddress:(NSString *)address;
 @end
 
-@interface LocationViewController : TZViewController
+@interface LocationViewController : UIViewController
 
-@property (nonatomic, assign) id<LocationViewDelegate> delegate;
+@property (nonatomic, weak) id<LocationViewDelegate> delegate;
 
 - (instancetype)initWithLocation:(CLLocationCoordinate2D)locationCoordinate;
 

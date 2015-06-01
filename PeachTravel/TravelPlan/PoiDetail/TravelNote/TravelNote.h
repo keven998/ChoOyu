@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TravelNote : NSObject
+@interface TravelNote : NSObject 
 
 @property (nonatomic, copy) NSString *travelNoteId;
 @property (nonatomic, copy) NSString *title;
@@ -21,4 +21,7 @@
 @property (nonatomic, copy) NSString *publishDateStr;
 
 - (id)initWithJson:(id)json;
+
+- (void)asyncFavorite:(NSString *)poiId poiType:(NSString *)type isFavorite:(BOOL)isFavorite completion:(void (^) (BOOL isSuccess))completion;
+
 @end

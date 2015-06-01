@@ -32,33 +32,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(goBackToAllPets)];
-//    [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back"]];
-//    self.navigationItem.leftBarButtonItem = backBtn;
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(goBackToAllPets)forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 48, 30)];
-    //[button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-    button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    self.tableView = [[UITableView alloc] init];
-    _tableView.frame = CGRectMake(0.0, 64.0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 64.0);
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     _tableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:_tableView];
 }
 
 - (void)goBackToAllPets
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self == [self.navigationController.viewControllers objectAtIndex:0]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (UIView *)footerView {
@@ -87,6 +83,7 @@
     if (!_isLoadingMore) return;
     [_indicatroView stopAnimating];
     _isLoadingMore = NO;
+    isSameScrollProcessEnd = YES;
 }
 
 - (void) setFooterViewVisibility:(BOOL)visible {

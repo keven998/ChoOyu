@@ -1,0 +1,25 @@
+//
+//  SpotPoi.h
+//  PeachTravel
+//
+//  Created by liangpengshuai on 3/16/15.
+//  Copyright (c) 2015 com.aizou.www. All rights reserved.
+//
+
+#import "SuperPoi.h"
+
+@interface SpotPoi : SuperPoi
+
+@property (nonatomic, copy) NSString *timeCostStr;
+@property (nonatomic, copy) NSString *bookUrl;
+@property (nonatomic, copy) NSString *priceDesc;
+@property (nonatomic, copy) NSString *travelMonth;
+@property (nonatomic, copy) NSString *openTime;
+@property (nonatomic, copy) NSString *trafficInfoUrl;
+@property (nonatomic, copy) NSString *guideUrl;
+@property (nonatomic, copy) NSString *tipsUrl;
+@property (nonatomic, copy) NSString *descUrl;
+@property (nonatomic, copy) NSString *telephone;
+- (id)initWithJson:(id)json;
+
+@end

@@ -12,7 +12,6 @@
 #import "AccountManager.h"
 #import "WXApi.h"
 
-#import "EMChatServiceDefs.h"
 #import "EMPushNotificationOptions.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
@@ -21,7 +20,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *losePassworkBtn;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 @property (weak, nonatomic) IBOutlet UIButton *supportLoginButton;
+@property (weak, nonatomic) IBOutlet UILabel *wechatLabel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wechatBtnConstraint;
+
+@property (weak, nonatomic) IBOutlet UIButton *weiChatBtn;
+@property (nonatomic, copy) void (^completion)(BOOL completed);
 
 @end
 
@@ -29,41 +35,59 @@
 
 #pragma mark - LifeCycle
 
+- (id) initWithCompletion:(loginCompletion)completion {
+    if (self = [super init]) {
+        self.completion = completion;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"登录";
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidRegistedNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegisted) name:userDidResetPWDNoti object:nil];
     
-    if (!self.isPushed) {
-//        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl)];
-//        [backBtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-//        self.navigationItem.leftBarButtonItem = backBtn;
-        
-        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
-        [button setFrame:CGRectMake(0, 0, 48, 30)];
-        //[button setTitle:@"返回" forState:UIControlStateNormal];
-        [button setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-        button.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-        self.navigationItem.leftBarButtonItem = barButton;
+    if (IS_IPHONE_4) {
+        _wechatBtnConstraint.constant = 20;
     }
+//    if (!self.isPushed) {
+//        UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+//        [button setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+//        [button addTarget:self action:@selector(dismissCtl)forControlEvents:UIControlEventTouchUpInside];
+//        [button setFrame:CGRectMake(0, 0, 48, 30)];
+//        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
+    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    self.navigationItem.leftBarButtonItem = left;
+    
+    self.view.backgroundColor = UIColorFromRGB(0Xf2f2f2);
+    
+    
+//    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 150/3, SCREEN_WIDTH/2, 1)];
+//    spaceView6.backgroundColor = APP_PAGE_COLOR;
+//    [_backView addSubview:spaceView6];
+//    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 105, SCREEN_WIDTH*3/5, 1)];
+//    spaceView.backgroundColor = APP_PAGE_COLOR;
+//    [_backView addSubview:spaceView];
+    
+    [_weiChatBtn addTarget:self action:@selector(weixinLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
     _userNameTextField.delegate = self;
     _passwordTextField.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     ul.text = @" 账户:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _userNameTextField.leftView = ul;
     _userNameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
@@ -72,7 +96,7 @@
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _userNameTextField.bounds.size.height - 16.0)];
     pl.text = @" 密码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordTextField.leftView = pl;
     _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -84,10 +108,15 @@
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册 " style:UIBarButtonItemStyleBordered target:self action:@selector(userRegister:)];
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册 " style:UIBarButtonItemStylePlain target:self action:@selector(userRegister:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
-    
+
+    [[TMCache sharedCache] objectForKey:@"last_account" block:^(TMCache *cache, NSString *key, id object)  {
+        if (object != nil) {
+            _userNameTextField.text = object;
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -95,6 +124,15 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_login"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weixinDidLogin:) name:weixinDidLoginNoti object:nil];
+    
+    if (![WXApi isWXAppInstalled]) {
+        _wechatLabel.hidden = YES;
+        _supportLoginButton.hidden = YES;
+    } else {
+        _wechatLabel.hidden = NO;
+
+        _supportLoginButton.hidden = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -134,7 +172,7 @@
     [self.view endEditing:YES];
     if (!(([_userNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length!=0) && ([_passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length != 0)) ) {
 //        [self showHint:@"不输帐号或密码，是没法登录滴"];
-        [SVProgressHUD showHint:@"我要账号和密码"];
+        [SVProgressHUD showHint:@"请输入账号和密码"];
         return;
     }
     
@@ -160,7 +198,7 @@
     
      __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //普通登录
     [manager POST:API_SIGNIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -173,7 +211,10 @@
                 [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
+                    [[TMCache sharedCache] setObject:_userNameTextField.text forKey:@"last_account"];
+                    if (self.completion) {
+                        self.completion(YES);
+                    }
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }
@@ -197,6 +238,7 @@
 //微信登录
 - (IBAction)weixinLogin:(UIButton *)sender {
     [MobClick event:@"event_login_with_weichat_account"];
+    
     [self sendAuthRequest];
 }
 
@@ -243,7 +285,7 @@
     
      __weak typeof(LoginViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     //微信登录
     [manager POST:API_WEIXIN_LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -257,7 +299,9 @@
                 [hud hideTZHUD];
                 if (isSuccess) {
                     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
-                    [SVProgressHUD showHint:@"欢迎回到桃子旅行"];
+                    if (self.completion) {
+                        self.completion(YES);
+                    }
                 } else {
                     [SVProgressHUD showHint:@"登录失败"];
                 }
@@ -279,13 +323,15 @@
 - (void)userDidRegisted
 {
     [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+    if (self.completion) {
+        self.completion(YES);
+    }
 }
 
 - (void)dismissCtl
 {
-    if (self.isPushed) {
+    if (self.navigationController.viewControllers.count > 1) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-    
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }

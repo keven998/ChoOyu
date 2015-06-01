@@ -9,10 +9,11 @@
 #import "ContactDetailViewController.h"
 #import "ChatViewController.h"
 #import "ALDBlurImageProcessor.h"
-#import "RNGridMenu.h"
 #import "AccountManager.h"
+#import "ChatSettingViewController.h"
+#import "REFrostedViewController.h"
 
-@interface ContactDetailViewController ()<UIScrollViewDelegate, RNGridMenuDelegate, UIActionSheetDelegate>
+@interface ContactDetailViewController ()<UIScrollViewDelegate, UIActionSheetDelegate>
 {
     ALDBlurImageProcessor *blurImageProcessor;
 }
@@ -24,7 +25,6 @@
 @property (nonatomic, strong) UIView *signPanel;
 @property (nonatomic, strong) UILabel *signLabel;
 @property (nonatomic, strong) UIButton *chatBtn;
-@property (nonatomic, strong) RNGridMenu *av;
 @property (nonatomic, strong) UIView *contentView;
 
 @end
@@ -59,7 +59,7 @@
     _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _contentView.autoresizesSubviews = YES;
     
-    CGSize size = [contact.signature sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:14.0]}];
+    CGSize size = [contact.signature sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0]}];
     
     [_contentView setFrame:CGRectMake(_contentView.frame.origin.x, _contentView.frame.origin.y, _contentView.frame.size.width, _contentView.frame.size.height+size.height+100)];
 
@@ -69,7 +69,7 @@
     _bigHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _bigHeaderView.clipsToBounds = YES;
     _bigHeaderView.layer.cornerRadius = 2.0;
-    [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+    [_bigHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
         if (image == nil) return ;
         blurImageProcessor = [[ALDBlurImageProcessor alloc] initWithImage: image];
         [blurImageProcessor asyncBlurWithRadius: 99
@@ -94,7 +94,7 @@
     [smallHeaderView sd_setImageWithURL:[NSURL URLWithString:contact.avatar] placeholderImage:nil];
     smallHeaderView.layer.cornerRadius = 30.0;
     smallHeaderView.clipsToBounds = YES;
-    [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"avatar_placeholder.png"]];
+    [smallHeaderView sd_setImageWithURL: [NSURL URLWithString:contact.avatar] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     [_smallHeaderFrame addSubview:smallHeaderView];
     
     UIImageView *genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(47, 47, 17, 17)];
@@ -121,9 +121,9 @@
     nickPanel.backgroundColor = [UIColor whiteColor];
     nickPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     nickPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    nickPanel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    nickPanel.font = [UIFont systemFontOfSize:14.0];
     nickPanel.layer.cornerRadius = 2.0;
-    nickPanel.text = [NSString stringWithFormat:@"   昵称：%@", contact.nickName];
+    nickPanel.text = [NSString stringWithFormat:@"   名字：%@", contact.nickName];
     [_contentView addSubview:nickPanel];
     
     oy += 55.0;
@@ -131,9 +131,9 @@
     idPanel.backgroundColor = [UIColor whiteColor];
     idPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     idPanel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    idPanel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    idPanel.font = [UIFont systemFontOfSize:14.0];
     idPanel.layer.cornerRadius = 2.0;
-    idPanel.text = [NSString stringWithFormat:@"   桃号：%@", contact.userId];
+    idPanel.text = [NSString stringWithFormat:@"   ID：%@", contact.userId];
     [_contentView addSubview:idPanel];
     
     oy += 55.0;
@@ -145,7 +145,7 @@
     _signLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, oy, width - 40.0, 54.0)];
     _signLabel.numberOfLines = 0.;
     _signLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    _signLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _signLabel.font = [UIFont systemFontOfSize:14.0];
     _signLabel.layer.cornerRadius = 2.0;
     if (contact.signature) {
         _signLabel.text = [NSString stringWithFormat:@"旅行签名：%@",contact.signature];
@@ -160,8 +160,8 @@
     [_chatBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     _chatBtn.clipsToBounds = YES;
     [_chatBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_chatBtn setTitle:@"Talk" forState:UIControlStateNormal];
-    _chatBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    [_chatBtn setTitle:@"聊天" forState:UIControlStateNormal];
+    _chatBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     _chatBtn.titleEdgeInsets = UIEdgeInsetsMake(4, 0, 0, 0);
     _chatBtn.layer.cornerRadius = 2.0;
     [_chatBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
@@ -193,6 +193,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friend_information"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -212,9 +213,6 @@
     [blurImageProcessor cancelAsyncBlurOperations];
     blurImageProcessor = nil;
     _bigHeaderView = nil;
-    
-    _av.delegate = nil;
-    _av = nil;
 }
 
 #pragma - mark IBAction
@@ -234,7 +232,17 @@
             break;
         }
     }
-    [self.navigationController pushViewController:chatCtl animated:YES];
+    
+    UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
+    
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];
+    frostedViewController.direction = REFrostedViewControllerDirectionRight;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.resumeNavigationBar = NO;
+    frostedViewController.limitMenuViewSize = YES;
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    [self.navigationController pushViewController:frostedViewController animated:YES];
 }
 
 - (void)goBack
@@ -279,7 +287,7 @@
     
      __weak typeof(ContactDetailViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     //删除联系人
     [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -306,20 +314,6 @@
         }
     }];
     
-}
-
-#pragma mark - RNGridMenuDelegate
-
-- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex {
-    if (itemIndex == 0) {
-        [self removeContact];
-    }
-    _av = nil;
-}
-
-- (void)gridMenuWillDismiss:(RNGridMenu *)gridMenu
-{
-    _av = nil;
 }
 
 #pragma UIScrollViewDelegate

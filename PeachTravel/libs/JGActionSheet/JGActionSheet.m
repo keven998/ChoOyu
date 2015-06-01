@@ -231,7 +231,7 @@ static BOOL disableCustomEasing = NO;
             UILabel *messageLabel = [[UILabel alloc] init];
             messageLabel.backgroundColor = [UIColor clearColor];
             messageLabel.textAlignment = NSTextAlignmentCenter;
-            messageLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0f];
+            messageLabel.font = [UIFont systemFontOfSize:12.0f];
             messageLabel.textColor = [UIColor blackColor];
             messageLabel.numberOfLines = 0;
             
@@ -292,7 +292,7 @@ static BOOL disableCustomEasing = NO;
             UILabel *messageLabel = [[UILabel alloc] init];
             messageLabel.backgroundColor = [UIColor clearColor];
             messageLabel.textAlignment = NSTextAlignmentCenter;
-            messageLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0f];
+            messageLabel.font = [UIFont systemFontOfSize:12.0f];
             messageLabel.textColor = [UIColor blackColor];
             messageLabel.numberOfLines = 0;
             
@@ -361,7 +361,7 @@ static BOOL disableCustomEasing = NO;
     UIFont *font = nil;
     
     if (buttonStyle == JGActionSheetButtonStyleDefault) {
-        font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0f];
+        font = [UIFont systemFontOfSize:15.0f];
         titleColor = [UIColor blackColor];
         
         backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
@@ -375,21 +375,21 @@ static BOOL disableCustomEasing = NO;
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleRed) {
-        font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0f];
+        font = [UIFont systemFontOfSize:15.0f];
         titleColor = [UIColor whiteColor];
         
         backgroundColor = rgb(231.0f, 76.0f, 60.0f);
         borderColor = rgb(192.0f, 57.0f, 43.0f);
     }
     else if (buttonStyle == JGActionSheetButtonStyleGreen) {
-        font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0f];
+        font = [UIFont systemFontOfSize:15.0f];
         titleColor = [UIColor whiteColor];
         
         backgroundColor = rgb(46.0f, 204.0f, 113.0f);
         borderColor = rgb(39.0f, 174.0f, 96.0f);
     }
     else if (buttonStyle == JGActionSheetButtonStyleBlue) {
-        font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0f];
+        font = [UIFont systemFontOfSize:15.0f];
         titleColor = [UIColor whiteColor];
         
         backgroundColor = rgb(52.0f, 152.0f, 219.0f);

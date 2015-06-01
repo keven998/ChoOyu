@@ -57,13 +57,13 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
 
         _propertyBtn = [[UIButton alloc] init];
         [_propertyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _propertyBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+        _propertyBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
         _propertyBtn.userInteractionEnabled = NO;
         _propertyBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _propertyBtn.backgroundColor = [UIColor clearColor];
         
         _descLabel = [[UILabel alloc] init];
-        _descLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
+        _descLabel.font = [UIFont systemFontOfSize:9.0];
         _descLabel.textColor = [UIColor whiteColor];
         _descLabel.backgroundColor = [UIColor clearColor];
         _descLabel.numberOfLines = 3;
@@ -145,7 +145,7 @@ NSString *const kRouterEventTaoziBubbleTapEventName = @"kRouterEventTaoziBubbleT
     BOOL isReceiver = !_model.isSender;
     NSString *imageName = isReceiver ? @"chat_receiver_bg" : @"chat_sender_bg";
     NSInteger leftCapWidth = isReceiver?BUBBLE_LEFT_LEFT_CAP_WIDTH:BUBBLE_RIGHT_LEFT_CAP_WIDTH;
-    NSInteger topCapHeight =  17;
+    NSInteger topCapHeight =  39;
     self.backImageView.image = [[UIImage imageNamed:imageName] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
     
     if (model.taoziMessage) {

@@ -12,8 +12,11 @@
 #import "UIImage+BoxBlur.h"
 
 @interface CommonPoiDetailViewController ()
-@property (nonatomic, strong) PoiSummary *commonPoi;
+{
+    UIButton *_favoriteBtn;
+}
 @property (nonatomic, strong) UIImageView *backGroundImageView;
+
 
 @end
 
@@ -23,78 +26,74 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _backGroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    _backGroundImageView.image = [[self screenShotWithView:self.navigationController.view] drn_boxblurImageWithBlur:0.17];
-    _backGroundImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    [self.view addSubview:_backGroundImageView];
-    [self.view addSubview:view];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCtl)];
-    tap.numberOfTapsRequired = 1;
-    tap.numberOfTouchesRequired = 1;
-    [view addGestureRecognizer:tap];
+    NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
-    [self loadData];
-}
+    UIButton *talkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [talkBtn setImage:[UIImage imageNamed:@"ic_home_normal"] forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(shareToTalk) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:talkBtn]];
+    
+    _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_travelnote_favorite.png"] forState:UIControlStateNormal];
+    [_favoriteBtn setImage:[UIImage imageNamed:@"ic_navgation_favorite_seleted.png"] forState:UIControlStateSelected];
+    [_favoriteBtn addTarget:self action:@selector(favorite:) forControlEvents:UIControlEventTouchUpInside];
+    [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_favoriteBtn]];
+    
+    self.navigationItem.rightBarButtonItems = barItems;
+    
+   
 
+}
+- (IBAction)favorite:(UIButton *)sender
+{
+    
+    if (_poiType == kRestaurantPoi) {
+        [MobClick event:@"event_favorite_delicacy"];
+    } else if (_poiType == kShoppingPoi) {
+        [MobClick event:@"event_favorite_shopping"];
+    } else if (_poiType == kHotelPoi) {
+        [MobClick event:@"event_favorite_hotel"];
+    }
+
+    [super asyncFavoritePoiWithCompletion:^(BOOL isSuccess) {
+
+        if (isSuccess) {
+            _favoriteBtn.selected = !_favoriteBtn.selected;
+        }
+    }];
+    
+    
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (_poiType == kRestaurantPoi) {
-        [MobClick beginLogPageView:@"page_delicacy_detail"];
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick beginLogPageView:@"page_shopping_detail"];
-    } else if (_poiType == kHotelPoi) {
-        [MobClick beginLogPageView:@"page_hotel_detail"];
-    }
-    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBarHidden= YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (_poiType == kRestaurantPoi) {
-        [MobClick endLogPageView:@"page_delicacy_detail"];
-    } else if (_poiType == kShoppingPoi) {
-        [MobClick endLogPageView:@"page_shopping_detail"];
-    } else if (_poiType == kHotelPoi) {
-        [MobClick endLogPageView:@"page_hotel_detail"];
-        
-    }
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)updateView
 {
-    self.navigationItem.title = _commonPoi.zhName;
-    CommonPoiDetailView *restaurantView = [[CommonPoiDetailView alloc] initWithFrame:CGRectMake(15, 30, self.view.bounds.size.width-30, self.view.bounds.size.height-50)];
-    restaurantView.rootCtl = self;
-    restaurantView.poiType = _poiType;
-    restaurantView.poi = self.commonPoi;
-    restaurantView.layer.cornerRadius = 4.0;
-    [self.view addSubview:restaurantView];
 
-    restaurantView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        restaurantView.transform = CGAffineTransformMakeScale(1, 1);
-
-    } completion:^(BOOL finished) {
-        restaurantView.transform = CGAffineTransformIdentity;
-        [restaurantView.closeBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-        [restaurantView.shareBtn addTarget:self action:@selector(chat:) forControlEvents:UIControlEventTouchUpInside];
-    }];
+    CommonPoiDetailView *commonPoiDetailView = [[CommonPoiDetailView alloc] initWithFrame:self.view.bounds];
+    commonPoiDetailView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+1);
+    commonPoiDetailView.showsHorizontalScrollIndicator = NO;
+    commonPoiDetailView.showsVerticalScrollIndicator = NO;
+    commonPoiDetailView.rootCtl = self;
+    commonPoiDetailView.poiType = _poiType;
+    commonPoiDetailView.poi = self.poi;
+    commonPoiDetailView.layer.cornerRadius = 4.0;
+    [self.view addSubview:commonPoiDetailView];
+ 
 }
 
-- (void)dismissCtl
-{
-    [SVProgressHUD dismiss];
-    self.navigationController.navigationBar.hidden = NO;
-    [self willMoveToParentViewController:nil];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
-}
 
 - (void)dismissCtlWithHint:(NSString *)hint {
     [SVProgressHUD showHint:hint];
@@ -103,14 +102,13 @@
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
 - (void)dealloc
 {
-    NSLog(@"RestaurantDetialViewController dealloc");
+//    NSLog(@"RestaurantDetialViewController dealloc");
 }
 
 #pragma mark - Private Methods
@@ -126,7 +124,7 @@
     return image;
 }
 
-- (void) loadData
+- (void) loadDataWithUrl:(NSString *)url
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AppUtils *utils = [[AppUtils alloc] init];
@@ -142,61 +140,53 @@
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(self)weakSelf = self;
-    [hud showHUDInViewController:weakSelf];
-    
-    NSString *typeUrl;
-    if (_poiType == kRestaurantPoi) {
-        typeUrl = API_GET_RESTAURANT_DETAIL;
-    }
-    if (_poiType == kShoppingPoi) {
-        typeUrl = API_GET_SHOPPING_DETAIL;
-    }
-    if (_poiType == kHotelPoi) {
-        typeUrl = API_GET_HOTEL_DETAIL;
-    }
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@", typeUrl, _poiId];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];
         NSInteger result = [[responseObject objectForKey:@"code"] integerValue];
-        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
+//        NSLog(@"/***获取poi详情数据****\n%@", responseObject);
         if (result == 0) {
-            _commonPoi = [[PoiSummary alloc] initWithJson:[responseObject objectForKey:@"result"]];
+            self.poi = [PoiFactory poiWithPoiType:_poiType andJson:[responseObject objectForKey:@"result"]];
             [self updateView];
         } else {
             [self dismissCtlWithHint:@"无法获取数据"];
         }
-          
+        _favoriteBtn.selected=self.poi.isMyFavorite;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [hud hideTZHUD];
         [self dismissCtlWithHint:@"呃～好像没找到网络"];
     }];
+//    self.title = self.poi.zhName;
+    
 }
+
 
 - (void)setChatMessageModel:(TaoziChatMessageBaseViewController *)taoziMessageCtl
 {
-    taoziMessageCtl.messageId = _commonPoi.poiId;
-    taoziMessageCtl.messageImage = ((TaoziImage *)[_commonPoi.images firstObject]).imageUrl;
-    taoziMessageCtl.messageDesc = _commonPoi.desc;
-    taoziMessageCtl.messageName = _commonPoi.zhName;
-    taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
-    taoziMessageCtl.messageRating = _commonPoi.rating;
+    taoziMessageCtl.messageId = self.poi.poiId;
+    taoziMessageCtl.messageImage = ((TaoziImage *)[self.poi.images firstObject]).imageUrl;
+    taoziMessageCtl.messageDesc = self.poi.desc;
+    taoziMessageCtl.messageName = self.poi.zhName;
+    taoziMessageCtl.messageRating = self.poi.rating;
     taoziMessageCtl.chatType = TZChatTypeFood;
     if (_poiType == kHotelPoi) {
         taoziMessageCtl.chatType = TZChatTypeHotel;
-        taoziMessageCtl.messageRating = _commonPoi.rating;
-        taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+        taoziMessageCtl.messagePrice = ((HotelPoi *)self.poi).priceDesc;
+        taoziMessageCtl.messageRating = self.poi.rating;
+        self.title = @"酒店详情";
     } else if (_poiType == kRestaurantPoi) {
         taoziMessageCtl.chatType = TZChatTypeFood;
-        taoziMessageCtl.messageRating = _commonPoi.rating;
-        taoziMessageCtl.messagePrice = _commonPoi.priceDesc;
+        taoziMessageCtl.messageRating = self.poi.rating;
+        taoziMessageCtl.messagePrice = ((RestaurantPoi *)self.poi).priceDesc;
+        self.title = @"没事详情";
     } else if (_poiType == kShoppingPoi) {
         taoziMessageCtl.chatType = TZChatTypeShopping;
-        taoziMessageCtl.messageRating = _commonPoi.rating;
+        taoziMessageCtl.messageRating = self.poi.rating;
+        self.title = @"购物详情";
     } 
 
-    taoziMessageCtl.messageAddress = _commonPoi.address;
+    taoziMessageCtl.messageAddress = self.poi.address;
 }
 
 @end

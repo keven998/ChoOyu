@@ -15,7 +15,7 @@
     if (self) {
         // Initialization code
         [self setBackgroundColor:[UIColor whiteColor]];
-        self.layer.cornerRadius = 2.0;
+//        self.layer.cornerRadius = 2.0;
     }
     return self;
 }

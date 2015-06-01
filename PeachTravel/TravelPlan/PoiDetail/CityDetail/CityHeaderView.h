@@ -17,17 +17,17 @@
 
 @interface CityHeaderView : UIView
 
-@property (nonatomic, strong) UIButton *favoriteBtn;
+@property (nonatomic, strong) TZButton *showTipsBtn;
 @property (nonatomic, strong) TZButton *showSpotsBtn;
 @property (nonatomic, strong) TZButton *showRestaurantsBtn;
 @property (nonatomic, strong) TZButton *showShoppingBtn;
-@property (nonatomic, strong) UIButton *playNotes;
+@property (nonatomic, strong) UILabel *cityDesc;
 
 - (CGFloat)headerViewHightWithCityData:(CityPoi *)poi;
 
 @property (nonatomic, strong) CityPoi *cityPoi;
 
-@property (nonatomic, assign) id <CityHeaderViewDelegate>delegate;
+@property (nonatomic, weak) id <CityHeaderViewDelegate>delegate;
 
 
 

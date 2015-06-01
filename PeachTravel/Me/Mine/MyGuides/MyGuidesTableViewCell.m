@@ -13,16 +13,18 @@
 - (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = APP_PAGE_COLOR;
-    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
-    _headerImageView.layer.borderWidth = 1;
+//    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
+//    _headerImageView.layer.borderWidth = 1;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     _headerImageView.clipsToBounds = YES;
-    _headerImageView.layer.cornerRadius = 4.0;
-    _titleBtn.font = [UIFont fontWithName:@"MicroSoftYahei" size:14.0];
-    _descLabel.font = [UIFont fontWithName:@"MicroSoftYahei" size:12.0];
+//    _headerImageView.layer.cornerRadius = 4.0;
+    _titleBtn.font = [UIFont systemFontOfSize:14.0];
+    _descLabel.font = [UIFont systemFontOfSize:12.0];
     _sendBtn.layer.cornerRadius = 2.0;
     _mockImageView.image = [[UIImage imageNamed:@"ic_mock_up.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
-    _titleBkgImage.image = [[UIImage imageNamed:@"bg_guide_title.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 5)];
+    _titleBkgImage.image = [UIImage imageNamed:@"titleImageBackground"];
+//resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 5)];
+    _sendBtn.backgroundColor = APP_THEME_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

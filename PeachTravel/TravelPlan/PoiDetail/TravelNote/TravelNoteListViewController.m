@@ -30,28 +30,22 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
-    CGFloat y;
-    if (_isSearch) {
-        y = self.searchBar.frame.size.height + self.searchBar.frame.origin.y;
-        [self.view addSubview:self.searchBar];
-    } else {
-        y = 64;
-    }
+    
     self.enableLoadingMore = NO;
-    self.tableView.frame = CGRectMake(11, y, self.view.frame.size.width-22, self.view.frame.size.height-y);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    [self.tableView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
     [self.tableView registerNib:[UINib nibWithNibName:@"TravelNoteTableViewCell" bundle:nil] forCellReuseIdentifier:reusableCellIdentifier];
     _currentPage = 0;
     if (!_isSearch) {
         self.navigationItem.title = _cityName;//[NSString stringWithFormat:@"%@精选游记", _cityName];
         [self loadDataWithPageNo:_currentPage andKeyWork:nil];
     } else {
+        self.tableView.tableHeaderView = self.searchBar;
         self.navigationItem.title = @"发送游记";
-        self.enableLoadingMore = NO;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        
+        [self.tableView setContentOffset:CGPointMake(0, 40)];
     }
 }
 
@@ -111,7 +105,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     [params setObject:[NSNumber numberWithInteger:pageNo] forKey:@"page"];
     
     if (_isSearch) {
-        [params safeSetObject:keyWord forKey:@"keyWord"];
+        [params safeSetObject:keyWord forKey:@"keyword"];
     } else {
         [params safeSetObject:_cityId forKey:@"locId"];
     }
@@ -194,13 +188,15 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     taoziMessageCtl.messageImage = image.imageUrl;
     taoziMessageCtl.chatter = _chatter;
     taoziMessageCtl.isGroup = _isChatGroup;
-    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^{
-        
-    }];
+    [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [_searchBar endEditing:YES];
+}
+
+- (void)goBack {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource & Delegate
@@ -217,7 +213,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 130.0;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -246,13 +242,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
     TravelNote *travelNote = [self.dataSource objectAtIndex:indexPath.row];
     TravelNoteDetailViewController *travelNoteCtl = [[TravelNoteDetailViewController alloc] init];
     travelNoteCtl.title = travelNote.title;
-
-    travelNoteCtl.travelNoteTitle = travelNote.title;
-    travelNoteCtl.desc = travelNote.summary;
-    TaoziImage *image = [travelNote.images firstObject];
-    travelNoteCtl.travelNoteCover = image.imageUrl;
-    travelNoteCtl.urlStr = travelNote.detailUrl;
-    travelNoteCtl.travelNoteId = travelNote.travelNoteId;
+    travelNoteCtl.travelNote = travelNote;
     [self.navigationController pushViewController:travelNoteCtl animated:YES];
 }
 
@@ -279,9 +269,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)sendSuccess:(ChatViewController *)chatCtl
 {
     [self dismissPopup];
-    
     [SVProgressHUD showSuccessWithStatus:@"已发送~"];
-    
 }
 
 - (void)sendCancel
@@ -296,8 +284,7 @@ static NSString *reusableCellIdentifier = @"travelNoteCell";
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 

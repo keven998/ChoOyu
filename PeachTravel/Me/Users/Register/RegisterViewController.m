@@ -10,6 +10,8 @@
 #import "SMSVerifyViewController.h"
 #import "SuperWebViewController.h"
 
+typedef void(^loginCompletion)(BOOL completed);
+
 @interface RegisterViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneLabel;
@@ -25,7 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirmRegister:)];
+//    UIBarButtonItem *navBack = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+//    navBack.tintColor = APP_THEME_COLOR;
+//    self.navigationItem.leftBarButtonItem = navBack;
+    
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"提交 " style:UIBarButtonItemStylePlain target:self action:@selector(confirmRegister:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
@@ -34,18 +40,18 @@
     _passwordLabel.delegate = self;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
-    ul.text = @"手机号:";
+    ul.text = @"手机:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
     _phoneLabel.text = _defaultPhone;
     
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _passwordLabel.bounds.size.height - 16.0)];
-    pl.text = @" 密码:";
+    pl.text = @"密码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _passwordLabel.leftView = pl;
     _passwordLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -66,6 +72,14 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_register"];
+}
+
+- (void)goBack {
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -98,7 +112,7 @@
             break;
             
         case PasswordError:
-            [self showHint:@"密码只能是6-16位的数字或字母"];
+            [self showHint:@"密码是6-16位的数字或字母"];
             break;
             
         default:
@@ -154,7 +168,6 @@
             smsVerifyCtl.password = self.passwordLabel.text;
             smsVerifyCtl.coolDown = [[[responseObject objectForKey:@"result"] objectForKey:@"coolDown"] integerValue];
             [self.navigationController pushViewController:smsVerifyCtl animated:YES];
-              
         } else {
             if ([[responseObject objectForKey:@"err"] objectForKey:@"message"]) {
                 [SVProgressHUD showHint:[[responseObject objectForKey:@"err"] objectForKey:@"message"]];
@@ -175,6 +188,7 @@
     SuperWebViewController *webViewCtl = [[SuperWebViewController alloc] init];
     webViewCtl.urlStr = APP_AGREEMENT;
     webViewCtl.titleStr = @"用户注册协议";
+    webViewCtl.hideToolBar = YES;
     [self.navigationController pushViewController:webViewCtl animated:YES];
 }
 

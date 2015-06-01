@@ -10,7 +10,7 @@
 
 @interface SelectContactScrollView ()
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+//@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic) NSInteger countPerLine;
 @property (nonatomic) NSInteger lineCount;
 

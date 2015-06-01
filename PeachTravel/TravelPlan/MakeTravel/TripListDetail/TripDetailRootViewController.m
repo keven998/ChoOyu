@@ -7,7 +7,6 @@
 //
 
 #import "TripDetailRootViewController.h"
-#import "RDVTabBarItem.h"
 #import "SpotsListViewController.h"
 #import "RestaurantsListViewController.h"
 #import "ShoppingListViewController.h"
@@ -25,8 +24,9 @@
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
-
-@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate, DestinationsViewDelegate, UpdateDestinationsDelegate>
+#import "PXAlertView+Customization.h"
+#import "TripPlanSettingViewController.h"
+@interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) SpotsListViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
@@ -37,6 +37,10 @@
 @property (nonatomic, strong) NSArray *tabbarPageControllerArray;
 @property (nonatomic, strong) UIViewController *currentViewController;
 @property (nonatomic, strong) UIView *tabBarView;
+
+@property (nonatomic, strong) UINavigationItem *navgationBarItem;
+
+@property (nonatomic) CGPoint initialDraggingPoint;
 
 /**
  *  点击目的地显示目的地界面
@@ -71,88 +75,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-    [_backButton setImage:nil forState:UIControlStateSelected];
-    [_backButton setTitle:nil forState:UIControlStateNormal];
-    [_backButton setTitle:@"取消" forState:UIControlStateSelected];
-    [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-    [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-    [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-    [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-    _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-    _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-    _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-    self.navigationItem.leftBarButtonItem = barButton;
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-   
+    [self setupViewControllers];
     [self setNavigationItems];
     
-    [self setupViewControllers];
-    if (_isMakeNewTrip) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否需要为你创建行程模版" delegate:self cancelButtonTitle:@"不需要" otherButtonTitles:@"需要", nil];
-        [alert showAlertViewWithBlock:^(NSInteger buttonIndex) {
-            if (buttonIndex == 0) {
-                [self loadNewTripDataWithRecommendData:NO];
-                [MobClick event:@"event_unuse_template"];
-            }
-            
-            if (buttonIndex == 1) {
-                [self loadNewTripDataWithRecommendData:YES];
-                [MobClick event:@"event_use_template"];
-            }
-        }];
-    } else {
+    if (!_isMakeNewTrip) {
         [[TMCache sharedCache] objectForKey:@"last_tripdetail" block:^(TMCache *cache, NSString *key, id object)  {
             dispatch_async(dispatch_get_main_queue(), ^{
-            if (object != nil) {
-                TripDetail *td = [[TripDetail alloc] initWithJson:object];
-                if ([td.tripId isEqualToString:_tripId]) {
-                    _tripDetail = td;
-                    [self reloadTripData];
+                if (object != nil) {
+                    TripDetail *td = [[TripDetail alloc] initWithJson:object];
+                    if ([td.tripId isEqualToString:_tripId]) {
+                        _tripDetail = td;
+                        [self reloadTripData];
+                    }
                 }
-            }
-            [self checkTripData];
+                [self checkTripData];
             });
         }];
+    } else {
+        [self loadNewTripDataWithRecommendData:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:userDidLogoutNoti object:nil];
     
 }
-
-//设置返回按钮。是返回还是完成
-//- (void)setNavigationBackBarItem:(BOOL)isBack
-//{
-//    if (isBack) {
-//        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_backButton setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
-//        [_backButton addTarget:self action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-//        [_backButton setFrame:CGRectMake(0, 0, 48, 30)];
-//        [_backButton setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateNormal];
-//        [_backButton setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateHighlighted];
-//        _backButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17.0];
-//        _backButton.titleEdgeInsets = UIEdgeInsetsMake(2, 1, 0, 0);
-//        _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
-//        self.navigationItem.leftBarButtonItem = barButton;
-//    } else {
-//        _finishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 25)];
-//        [_finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-//        _finishBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-//        [_finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _finishBtn.layer.borderWidth = 1.0;
-//        _finishBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-//        _finishBtn.layer.cornerRadius = 2.0;
-//        [_finishBtn addTarget:self action:@selector(finishEidtTrip:) forControlEvents:UIControlEventTouchUpInside];
-//        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:_finishBtn];
-//        self.navigationItem.leftBarButtonItem = barButton;
-//    }
-//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -169,44 +113,78 @@
 
 - (void)setNavigationItems
 {
-    if (_canEdit) {
-        NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
-        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
-        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit_done.png"] forState:UIControlStateSelected];
+    UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    UINavigationItem *navTitle = [[UINavigationItem alloc] init];
+    [bar pushNavigationItem:navTitle animated:YES];
+    [self.view addSubview:bar];
+    _navgationBarItem = navTitle;
 
-        [_editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_editBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
-        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+    if (_canEdit) {
+        [self setupNavigationRightItems:NO];
         
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 44)];
-        [_moreBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_more.png"] forState:UIControlStateNormal];
-        _moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
-        
-        self.navigationItem.rightBarButtonItems = barItems;
     } else {
         _forkBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         _forkBtn.layer.cornerRadius = 2.0;
         _forkBtn.layer.borderColor = APP_THEME_COLOR.CGColor;
         _forkBtn.layer.borderWidth = 1.0;
         [_forkBtn setTitle:@"复制计划" forState:UIControlStateNormal];
-        _forkBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+        _forkBtn.titleLabel.font = [UIFont systemFontOfSize:10.0];
         [_forkBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
         [_forkBtn setTitleColor:[APP_THEME_COLOR colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [_forkBtn addTarget:self action:@selector(forkTrip:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
         UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithCustomView:_forkBtn];
-        self.navigationItem.rightBarButtonItem = addBtn;
+        _navgationBarItem.rightBarButtonItem = addBtn;
     }
-
 }
-- (void) hint {
-    [SVProgressHUD showHint:@"已保存到我的旅程，可自由定制"];
+
+- (void) setupNavigationRightItems:(BOOL)isEditing {
+    
+    _navgationBarItem.rightBarButtonItems = nil;
+    if (isEditing) {
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+        [_editBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_editBtn setTitle:@"确定" forState:UIControlStateNormal];
+//        [_editBtn setImage:[UIImage imageNamed:@"ic_xingchengdan_queding"] forState:UIControlStateNormal];
+        [_editBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        _editBtn.selected = YES;
+        _navgationBarItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_editBtn];
+        _navgationBarItem.leftBarButtonItems = nil;
+
+    } else {
+        NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [_moreBtn setImage:[UIImage imageNamed:@"ic_menu_navigationbar.png"] forState:UIControlStateNormal];
+        [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
+        
+        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+            UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+            [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview_ios"] forState:UIControlStateNormal];
+            [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
+            [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:mapBtn]];
+        }
+        
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
+        [_editBtn setImage:[UIImage imageNamed:@"ic_trip_edit.png"] forState:UIControlStateNormal];
+        [_editBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_editBtn addTarget:self action:@selector(editTrip:) forControlEvents:UIControlEventTouchUpInside];
+        [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_editBtn]];
+        
+        _navgationBarItem.rightBarButtonItems = barItems;
+        
+        UIButton *bbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [bbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [bbtn setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+        [bbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        _navgationBarItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bbtn];
+    }
 }
 
 - (void)dealloc
@@ -222,6 +200,37 @@
     _chatRecordListCtl = nil;
 }
 
+- (void)pan:(UIPanGestureRecognizer *)reconizer
+{
+    if (reconizer.state == UIGestureRecognizerStateBegan) {
+        _initialDraggingPoint = [reconizer translationInView:self.view];
+    } else if (reconizer.state == UIGestureRecognizerStateEnded || reconizer.state == UIGestureRecognizerStateCancelled) {
+        CGPoint lastPoint = [reconizer translationInView:self.view];
+        if ((lastPoint.x - _initialDraggingPoint.x) > 100) {
+            if ([_currentViewController isEqual:[_tabbarPageControllerArray firstObject]]) {
+                UIButton *btn = [_tabbarButtonArray lastObject];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            } else {
+                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
+                UIButton *btn = [_tabbarButtonArray objectAtIndex:index-1];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+            
+        } else if ((lastPoint.x - _initialDraggingPoint.x) < -100) {
+            if ([_currentViewController isEqual:[_tabbarPageControllerArray lastObject]]) {
+                UIButton *btn = [_tabbarButtonArray firstObject];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            } else {
+                NSInteger index = [_tabbarPageControllerArray indexOfObject:_currentViewController];
+                UIButton *btn = [_tabbarButtonArray objectAtIndex:index+1];
+                [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+    }
+}
+
+#pragma mark - IBAction
+
 - (IBAction)finishEidtTrip:(id)sender
 {
     [MobClick event:@"event_edit_done"];
@@ -235,36 +244,49 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-//            [self setNavigationBackBarItem:YES];
-//            _editBtn.enabled = YES;
-            _spotsListCtl.shouldEdit = NO;
-            _restaurantListCtl.shouldEdit = NO;
-            _shoppingListCtl.shouldEdit = NO;
+            if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+                _spotsListCtl.shouldEdit = NO;
+            } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
+                _shoppingListCtl.shouldEdit = NO;
+            } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
+                _restaurantListCtl.shouldEdit = NO;
+            }
+            _editBtn.selected = !_editBtn.selected;
         } else {
             [SVProgressHUD showErrorWithStatus:@"保存失败了"];
         }
     }];
 }
 
+- (void)mapView {
+    if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+        [_spotsListCtl mapView];
+    } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
+        [_shoppingListCtl mapView];
+    } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
+        [_restaurantListCtl mapView];
+    }
+}
+
 /**
- *  不同情况的返回按钮相应的操作不一致
+ *  不同情况的确定按钮相应的操作不一致
  */
 - (void)goBack
 {
     if ([_tripDetail tripIsChange]) {
-        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"攻略已编辑，是否保存" message:nil delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
+        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否保存已修改内容" delegate:self cancelButtonTitle:@"直接返回" otherButtonTitles:@"保存", nil];
         [alterView showAlertViewWithBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            if (buttonIndex == 1) {
+                [self dismissCtl];
+            } else if (buttonIndex == 1) {
                 TZProgressHUD *hud = [[TZProgressHUD alloc] init];
                 [hud showHUD];
                 [_tripDetail saveTrip:^(BOOL isSuccesss) {
                     [hud hideTZHUD];
                     if (isSuccesss) {
-                        [SVProgressHUD showHint:@"保存成功"];
                         [self performSelector:@selector(dismissCtl) withObject:nil afterDelay:0.3];
+                        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                        [center postNotificationName:updateGuideListNoti object:nil];
                     } else {
                         [SVProgressHUD showHint:@"保存失败了～"];
                     }
@@ -272,13 +294,17 @@
             }
         }];
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissCtl];
     }
 }
 
 - (void)dismissCtl
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)userDidLogout
@@ -309,7 +335,7 @@
         [cityIds addObject:poi.cityId];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:150];
     [params setObject:imageWidth forKey:@"imgWidth"];
     if (isNeedRecommend) {
         [params setObject:@"recommend" forKey:@"action"];
@@ -317,7 +343,7 @@
         [params setObject:@"" forKey:@"action"];
     }
     [params setObject:cityIds forKey:@"locId"];
-
+    
     __weak typeof(TripDetailRootViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
@@ -332,12 +358,11 @@
             [self reloadTripData];
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
-                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
-            } else {
-                [self performSelector:@selector(hint) withObject:nil afterDelay:1.0];
+//                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
+                [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.25];
             }
         } else {
-             if (self.isShowing) {
+            if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
             }
         }
@@ -349,13 +374,22 @@
     }];
 }
 
+- (void)hintBuildRoutes {
+    PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
+                            message:[NSString stringWithFormat:@"根据网友们经验为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
+                        cancelTitle:@"确定"
+                         completion:nil];
+    [alertView useDefaultIOS7Style];
+    [alertView setTitleFont:[UIFont systemFontOfSize:17]];
+    [alertView setMessageColor:TEXT_COLOR_TITLE_SUBTITLE];
+}
+
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
-    [self setNavigationItems];
 }
 
 /**
@@ -436,23 +470,26 @@
     [MobClick event:@"event_share_plan_detail"];
     NSArray *shareButtonimageArray = @[@"ic_sns_talk.png", @"ic_sns_pengyouquan.png",  @"ic_sns_weixin.png", @"ic_sns_qq.png", @"ic_sns_qzone.png", @"ic_sns_sina.png", @"ic_sns_douban.png"];
     NSArray *shareButtonTitleArray = @[@"Talk", @"朋友圈", @"微信好友", @"QQ", @"QQ空间", @"新浪微博", @"豆瓣"];
-    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"分享到" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
+    ShareActivity *shareActivity = [[ShareActivity alloc] initWithTitle:@"转发至" delegate:self cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonimageArray];
     [shareActivity showInView:self.view];
 }
 
 /**
  *  点击navigationbar上的更多按钮
- *
  *  @param sender
  */
 - (IBAction)showMoreAction:(id)sender
 {
     if (!_tripDetail) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
+//        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享", @"目的地", nil];
-    [sheet showInView:self.view];
+    
+    [self.view endEditing:YES];
+    
+    [self.frostedViewController.view endEditing:YES];
+    
+    [self.frostedViewController presentMenuViewController];
 }
 
 /**
@@ -479,7 +516,7 @@
     panelView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     
     UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _destinationBkgView.bounds.size.width, 49)];
-    titleBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
+    titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [titleBtn setTitle:@"目的地" forState:UIControlStateNormal];
     [titleBtn setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
     titleBtn.userInteractionEnabled = NO;
@@ -494,32 +531,19 @@
     [panelView addSubview:spaceViewTwo];
     
     UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 300, _destinationBkgView.bounds.size.width, 40)];
-    cancelBtn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYahei" size:18];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     [cancelBtn addTarget:self action:@selector(hideDestinationView:) forControlEvents:UIControlEventTouchUpInside];
     [panelView addSubview:cancelBtn];
     
-    _destinationView = [[DestinationsView alloc] initWithFrame:CGRectMake(8, 50, kWindowWidth-16, 249)];
-    _destinationView.isCanAddDestination = YES;
-    _destinationView.delegate = self;
-    _destinationView.titleColor = APP_THEME_COLOR;
-    _destinationView.destinations = array;
-    [panelView addSubview:_destinationView];
-    
     [_destinationBkgView addSubview:panelView];
     
     [self.navigationController.view addSubview:_destinationBkgView];
-
+    
     [UIView animateWithDuration:0.2 animations:^{
         panelView.frame = CGRectMake(0, _destinationBkgView.bounds.size.height-340, _destinationBkgView.bounds.size.width, 340);
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-    for (UIView *view in _destinationBkgView.subviews) {
-        NSLog(@"%@", view);
-    }
+    } completion:nil];
 }
 
 
@@ -538,18 +562,23 @@
 {
     [MobClick event:@"event_edit_plan"];
     if (!_tripDetail) {
-        [SVProgressHUD showHint:@"呃～好像没找到网络"];
         return;
     }
     BOOL status = sender.selected;
-    sender.selected = !status;
     if (!status) {
-        _spotsListCtl.shouldEdit = YES;
-        _restaurantListCtl.shouldEdit = YES;
-        _shoppingListCtl.shouldEdit = YES;
+        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+            _spotsListCtl.shouldEdit = YES;
+        } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
+            _shoppingListCtl.shouldEdit = YES;
+        } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
+            _restaurantListCtl.shouldEdit = YES;
+        }
+        sender.selected = !status;
     } else {
         [self finishEidtTrip:nil];
     }
+    
+    [self setupNavigationRightItems:!status];
 }
 
 /**
@@ -583,9 +612,9 @@
     [hud showHUDInViewController:weakSelf];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSNumber *imageWidth = [NSNumber numberWithInt:120];
+    NSNumber *imageWidth = [NSNumber numberWithInt:150];
     [params setObject:imageWidth forKey:@"imgWidth"];
-
+    
     [manager GET:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [hud hideTZHUD];
@@ -594,9 +623,9 @@
             _tripDetail.tripId = [[responseObject objectForKey:@"result"] objectForKey:@"id"];
             self.canEdit = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
-            [SVProgressHUD showHint:@"已保存到我的旅程"];
+            [SVProgressHUD showHint:@"已保存到我的旅行计划"];
         } else {
-             if (self.isShowing) {
+            if (self.isShowing) {
                 [SVProgressHUD showHint:@"请求也是失败了"];
             }
         }
@@ -615,22 +644,20 @@
  */
 - (void)reloadTripData
 {
-    if (_isMakeNewTrip) {
-        [_editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
     _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
+    ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
+    
 }
 
 - (void)setupViewControllers
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     _spotsListCtl = [[SpotsListViewController alloc] init];
-
     _spotsListCtl.rootViewController = self;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
@@ -642,9 +669,10 @@
     [self addChildViewController:_spotsListCtl];
     [self.view addSubview:_spotsListCtl.view];
     
-    [_spotsListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
-    [_restaurantListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
-    [_shoppingListCtl.view setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-54-64)];
+    
+    [_spotsListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
+    [_restaurantListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
+    [_shoppingListCtl.view setFrame:CGRectMake(0, 65, self.view.bounds.size.width, self.view.bounds.size.height - 65)];
     
     [array addObject:_spotsListCtl];
     [array addObject:_restaurantListCtl];
@@ -659,71 +687,65 @@
 
 - (void)customizeTabBarForController
 {
-    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-54, self.view.frame.size.width, 54)];
-    _tabBarView.backgroundColor = APP_THEME_COLOR;
-    
-    _tabBarSelectedView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    _tabBarSelectedView.backgroundColor = APP_SUB_THEME_COLOR;
-    _tabBarSelectedView.layer.cornerRadius = 15.0;
-    [_tabBarSelectedView setImage:[UIImage imageNamed:@"ic_trip_selected_1.png"] forState:UIControlStateNormal];
-    
+    _tabBarView = [[UIView alloc] initWithFrame:CGRectMake(19, self.view.frame.size.height-49-5, self.view.frame.size.width-38, 49)];
+    _tabBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _tabBarView.backgroundColor = APP_PAGE_COLOR;
+    _tabBarView.alpha = 0.9;
+    CALayer *layer = _tabBarView.layer;
+    layer.borderWidth = 1;
+    layer.borderColor = APP_BORDER_COLOR.CGColor;
+    layer.shadowColor = APP_BORDER_COLOR.CGColor;
+    layer.shadowOffset = CGSizeMake(0, -0.5);
+    layer.shadowRadius = 0.5;
+    layer.shadowOpacity = 1.0;
+    layer.cornerRadius = 1;
+//    UIView *divide = [[UIView alloc]initWithFrame:CGRectMake(0.5, 0, _tabBarView.frame.size.width - 1, 1)];
+//    divide.backgroundColor = APP_PAGE_COLOR;
+//    [_tabBarView addSubview:divide];
+//    _tabBarView.layer.cornerRadius = 3;
+//    _tabBarView.layer.shadowColor = APP_DIVIDER_COLOR.CGColor;
+//    _tabBarView.layer.shadowColor = APP_THEME_COLOR.CGColor;
+//    _tabBarView.layer.shadowOffset = CGSizeMake(0, 0);
+//    _tabBarView.layer.shadowOpacity = 0;
+//    _tabBarView.layer.shadowRadius = 4;
+//    _tabBarView.clipsToBounds = YES;
     [self.view addSubview:_tabBarView];
-
-    NSArray *tabBarItemTitles = @[@"旅程", @"美食收集", @"逛收集"];
     
+    NSArray *tabBarItemTitles = @[@"行程计划", @"美食清单", @"购物清单"];
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    
     CGFloat width = _tabBarView.frame.size.width;
-
-    NSInteger index = 0;
-    for (int i=0; i<3; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((25+(width-50)/3*i), 0, (width-50)/3, 54)];
+    
+    for (int i = 0; i < 3; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(width/3*i, 0, width/3, 50)];
         [button setTitle:tabBarItemTitles[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor clearColor];
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(36, 0, 0, 0)];
+        
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(28, 0, 0, 0)];
         [array addObject:button];
+        [button setTitleColor:TEXT_COLOR_TITLE forState:UIControlStateNormal];
         [_tabBarView addSubview:button];
         button.tag = i;
-        button.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:9.0];
+        button.titleLabel.font = [UIFont systemFontOfSize:9.0];
         [button addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *showBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         showBtn.userInteractionEnabled = NO;
-        showBtn.backgroundColor = UIColorFromRGB(0xd74353);
-        showBtn.layer.cornerRadius = 15.0;
-        NSString *imageName = [NSString stringWithFormat: @"ic_trip_normal_%d",i+1];
+//        showBtn.backgroundColor = UIColorFromRGB(0xd74353);
+//        showBtn.layer.cornerRadius = 15.0;
+        NSString *imageName = [NSString stringWithFormat: @"ic_trip_new_%d",i+1];
         [showBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         showBtn.center = CGPointMake(button.bounds.size.width/2, button.bounds.size.height/2-6);
         [button addSubview:showBtn];
-        
-        
-        if (i == 0) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+7, button.frame.size.height/2-9, button.frame.size.width/2, 7)];
-            lineView.backgroundColor = UIColorFromRGB(0xd74353);
-            [button addSubview:lineView];
-            lineView.userInteractionEnabled = NO;
-            _tabBarSelectedView.center = button.center;
-            [_tabBarSelectedView setCenter:CGPointMake(button.center.x, button.center.y-7)];
-        }
-        if (i == 1) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.size.width/2+14, button.frame.size.height/2-9, button.frame.size.width/2-7, 7)];
-            lineView.backgroundColor = UIColorFromRGB(0xd74353);
-            lineView.userInteractionEnabled = NO;
-            [button addSubview:lineView];
-            UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-9, button.frame.size.width/2-14, 7)];
-            lineView2.backgroundColor = UIColorFromRGB(0xd74353);
-            lineView2.userInteractionEnabled = NO;
-            [button addSubview:lineView2];
-        }
-        if (i == 2) {
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, button.frame.size.height/2-9, button.frame.size.width/2-14, 7)];
-            lineView.backgroundColor = UIColorFromRGB(0xd74353);
-            lineView.userInteractionEnabled = NO;
-            [button addSubview:lineView];
-        }
-        index++;
     }
-    [_tabBarView addSubview:_tabBarSelectedView];
+    
+    UIView *divider1 = [[UIView alloc]initWithFrame:CGRectMake(width/3.0-0.5, 7, 1, 35)];
+    divider1.backgroundColor = APP_DIVIDER_COLOR;
+    [_tabBarView addSubview:divider1];
+    
+    UIView *divider2 = [[UIView alloc]initWithFrame:CGRectMake(width*2.0/3.0-0.5, 7, 1, 35)];
+    divider2.backgroundColor = APP_DIVIDER_COLOR;
+    [_tabBarView addSubview:divider2];
+//    [_tabBarView addSubview:_tabBarSelectedView];
     _tabbarButtonArray = array;
 }
 
@@ -731,15 +753,11 @@
 {
     UIViewController *newController = [_tabbarPageControllerArray objectAtIndex:sender.tag];
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [_tabBarSelectedView setCenter:CGPointMake(sender.center.x, sender.center.y-7)];
-    }];
-    
     if ([newController isEqual:_currentViewController]) {
         return;
     }
-    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
-    [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+//    NSString *imageName = [NSString stringWithFormat: @"ic_trip_selected_%ld",(long)sender.tag+1];
+//    [_tabBarSelectedView setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self replaceController:_currentViewController newController:newController];
 }
 
@@ -752,7 +770,7 @@
             [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentViewController = newController;
-
+            
             NSInteger newIndex = [_tabbarPageControllerArray indexOfObject:newController];
             for (UIButton *btn in _tabbarButtonArray) {
                 if ([_tabbarButtonArray indexOfObject:btn] == newIndex) {
@@ -761,9 +779,10 @@
                     btn.selected = NO;
                 }
             }
-        }else{
+        } else {
             self.currentViewController = oldController;
         }
+        [self setNavigationItems];
     }];
     [self.view bringSubviewToFront:_tabBarView];
 }
@@ -778,18 +797,15 @@
     TaoziImage *image = [_tripDetail.images firstObject];
     NSString *imageUrl = image.imageUrl;
     UMSocialUrlResource *resource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imageUrl];
-
+    
     [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionCenter];
     switch (imageIndex) {
             
         case 0: {
             _chatRecordListCtl = [[ChatRecoredListTableViewController alloc] init];
             _chatRecordListCtl.delegate = self;
-            UINavigationController *nCtl = [[UINavigationController alloc] initWithRootViewController:_chatRecordListCtl];
-            [nCtl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-            nCtl.navigationBar.translucent = YES;
+            TZNavigationViewController *nCtl = [[TZNavigationViewController alloc] initWithRootViewController:_chatRecordListCtl];
             [self presentViewController:nCtl animated:YES completion:nil];
-            
             break;
         }
             
@@ -869,56 +885,6 @@
     [self.navigationController pushViewController:cityDetailCtl animated:YES];
 }
 
-- (void)willAddDestination
-{
-    [MobClick event:@"event_rechoose_destination"];
-    [self hideDestinationView:nil];
-    Destinations *destinations = [[Destinations alloc] init];
-    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
-    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
-    DomesticViewController *domestic = [[DomesticViewController alloc] init];
-    for (CityDestinationPoi *poi in _tripDetail.destinations) {
-        [destinations.destinationsSelected addObject:poi];
-    }
-    domestic.destinations = destinations;
-    foreignCtl.destinations = destinations;
-    makePlanCtl.destinations = destinations;
-    makePlanCtl.viewControllers = @[domestic, foreignCtl];
-    domestic.makePlanCtl = makePlanCtl;
-    foreignCtl.makePlanCtl = makePlanCtl;
-    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
-    makePlanCtl.duration = 0;
-    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
-    makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
-    makePlanCtl.normalColor= [UIColor grayColor];
-    makePlanCtl.shouldOnlyChangeDestinationWhenClickNextStep = YES;
-    makePlanCtl.myDelegate = self;
-    [self.navigationController pushViewController:makePlanCtl animated:YES];
-}
-
-#pragma mark - UpdateDestinationsDelegate
-
-- (void)updateDestinations:(NSArray *)destinations
-{
-    [self showDestination:nil];
-    TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    typeof(self) weakSelf = self;
-    [hud showHUDInViewController:weakSelf.navigationController];
-    [self.tripDetail updateTripDestinations:^(BOOL isSuccesss) {
-        [hud hideTZHUD];
-        if (isSuccesss) {
-            NSMutableArray *array = [[NSMutableArray alloc] init];
-            for (CityDestinationPoi *poi in _tripDetail.destinations) {
-                [array addObject:poi.zhName];
-            }
-            _destinationView.destinations = array;
-        } else {
-            
-        }
-    } withDestinations:destinations];
-}
-
 #pragma mark - CreateConversationDelegate
 
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
@@ -931,8 +897,7 @@
     taoziMessageCtl.isGroup = isGroup;
     
     [self.chatRecordListCtl dismissViewControllerAnimated:YES completion:^{
-        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:^(void) {
-        }];
+        [self presentPopupViewController:taoziMessageCtl atHeight:170.0 animated:YES completion:nil];
     }];
 }
 
@@ -987,9 +952,7 @@
 - (void)dismissPopup
 {
     if (self.popupViewController != nil) {
-        [self dismissPopupViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self dismissPopupViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -999,8 +962,7 @@
 {
     if (buttonIndex == 0) {
         [self share:nil];
-    }
-    if (buttonIndex == 1) {
+    } else if (buttonIndex == 1) {
         [self showDestination:nil];
     }
 }

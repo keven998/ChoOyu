@@ -25,7 +25,7 @@
 
 @interface DXFaceView : UIView <FacialViewDelegate>
 
-@property (nonatomic, assign) id<DXFaceDelegate> delegate;
+@property (nonatomic, weak) id<DXFaceDelegate> delegate;
 
 - (BOOL)stringIsFace:(NSString *)string;
 

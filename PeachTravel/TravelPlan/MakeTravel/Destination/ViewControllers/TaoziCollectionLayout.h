@@ -60,7 +60,7 @@
 
 @interface TaoziCollectionLayout : UICollectionViewFlowLayout
 
-@property (nonatomic, assign) id <TaoziLayoutDelegate> delegate;
+@property (nonatomic, weak) id <TaoziLayoutDelegate> delegate;
 
 /**
  *  是否显示每个组的背景

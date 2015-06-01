@@ -36,9 +36,9 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+        _nameLabel.textColor = TEXT_COLOR_TITLE_DESC;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        _nameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11];
+        _nameLabel.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:_nameLabel];
         
         [self setupSubviewsForMessageModel:model];
@@ -72,7 +72,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     
     _nameLabel.hidden = !messageModel.isChatGroup;
     
-    UIImage *placeholderImage = [UIImage imageNamed:@"avatar_placeholder.png"];
+    UIImage *placeholderImage = [UIImage imageNamed:@"person_disabled"];
     [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
 }
 
@@ -124,6 +124,12 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
         case eMessageBodyType_Voice:
         {
             identifier = [identifier stringByAppendingString:@"Audio"];
+        }
+            break;
+            
+        case eMessageBodyType_Location:
+        {
+            identifier = [identifier stringByAppendingString:@"Location"];
         }
             break;
             

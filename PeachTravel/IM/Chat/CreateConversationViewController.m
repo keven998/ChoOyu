@@ -9,7 +9,6 @@
 #import "CreateConversationViewController.h"
 #import "pinyin.h"
 #import "AccountManager.h"
-#import "ChatView/ChatViewController.h"
 #import "CreateConversationTableViewCell.h"
 #import "ChatView/ChatSendHelper.h"
 #import "SelectContactScrollView.h"
@@ -39,15 +38,14 @@
     self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.selectContactView];
     [self.view addSubview:self.contactTableView];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(createConversation:)];
+    UIBarButtonItem *confirm = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(createConversation:)];
     confirm.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = confirm;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     if (!_isPushed) {
-        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissCtl:)];
+        UIBarButtonItem *backBtn = [[UIBarButtonItem alloc]initWithTitle:@" 取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl:)];
         backBtn.tintColor = TEXT_COLOR_TITLE_SUBTITLE;
         self.navigationItem.leftBarButtonItem = backBtn;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissCtl:) name:userDidLogoutNoti object:nil];
@@ -70,12 +68,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    self.navigationController.navigationBarHidden = YES;
     [MobClick beginLogPageView:@"page_choose_talk_to"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
     [MobClick endLogPageView:@"page_choose_talk_to"];
 }
 
@@ -91,8 +91,9 @@
 - (SelectContactScrollView *)selectContactView
 {
     if (!_selectContactView) {
-        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 90)];
+        _selectContactView = [[SelectContactScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90)];
         _selectContactView.delegate = self;
+        _selectContactView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _selectContactView.backgroundColor = [UIColor whiteColor];
         _selectContactView.alpha = 0;
     }
@@ -102,16 +103,13 @@
 - (UITableView *)contactTableView
 {
     if (!_contactTableView) {
-        CGFloat offsetY = 64+10;
-        _contactTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, kWindowWidth, [UIApplication sharedApplication].keyWindow.frame.size.height - offsetY)];
+        _contactTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         _contactTableView.dataSource = self;
-        
-        NSLog(@"%f", self.view.frame.size.height);
-        
         _contactTableView.delegate = self;
         _contactTableView.separatorStyle = UITableViewCellSelectionStyleNone;
         _contactTableView.backgroundColor = APP_PAGE_COLOR;
         _contactTableView.showsVerticalScrollIndicator = NO;
+        _contactTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contactTableView registerNib:[UINib nibWithNibName:@"CreateConversationTableViewCell" bundle:nil] forCellReuseIdentifier:contactCell];
         _contactTableView.sectionIndexColor = APP_SUB_THEME_COLOR;
     }
@@ -184,13 +182,11 @@
                     if (_delegate && [_delegate respondsToSelector:@selector(createConversationSuccessWithChatter:isGroup:chatTitle:)]) {
                         [_delegate createConversationSuccessWithChatter:group.groupId isGroup:YES chatTitle:group.groupSubject];
                     }
-
                 }
                 else{
                     [weakSelf showHint:@"吖~好像请求失败了"];
                 }
             } onQueue:nil];
-
         }
     }
 }
@@ -262,6 +258,7 @@
                 AccountManager *accountManager = [AccountManager shareAccountManager];
                 [accountManager addNumberToGroup:_group.groupId numbers:[NSSet setWithArray:self.selectedContacts]];
                 [self sendMsgWhileCreateGroup:_group.groupId];
+                [self.delegate reloadData];
                 [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
@@ -346,7 +343,7 @@
     Contact *contact = [[[self.dataSource objectForKey:@"content"] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     CreateConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contactCell forIndexPath:indexPath];
     cell.nickNameLabel.text = contact.nickName;
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
     if ([self isSelected:contact.easemobUser]) {
         cell.checkStatus = checked;
     } else {
@@ -385,7 +382,7 @@
         }
         [self.selectedContacts addObject:contact];
         SelectContactUnitView *unitView = [[SelectContactUnitView alloc] initWithFrame:CGRectMake(0, 0, 40, 80)];
-        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
+        [unitView.avatarBtn sd_setImageWithURL:[NSURL URLWithString:contact.avatarSmall] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         unitView.nickNameLabel.text = contact.nickName;
         [self.selectContactView addSelectUnit:unitView];
         self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.selectedContacts.count];

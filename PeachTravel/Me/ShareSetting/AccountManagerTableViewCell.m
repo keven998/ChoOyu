@@ -14,14 +14,13 @@
     // Initialization code
     self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
     self.contentView.layer.borderWidth = 0.25;
-    _snsTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:16.0];
+    _snsTitle.font = [UIFont systemFontOfSize:16.0];
     [_snsSwitch setOnTintColor:APP_THEME_COLOR];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 @end

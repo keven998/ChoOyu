@@ -29,33 +29,39 @@
     _presentPasswordLabel.delegate = self;
     _confirmPasswordLabel.delegate = self;
     
-    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _oldPasswordLabel.bounds.size.height - 16.0)];
-    ul.text = @"当前密码:";
+    UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _oldPasswordLabel.bounds.size.height - 16.0)];
+    ul.text = @"  旧密码:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-    ul.textAlignment = NSTextAlignmentCenter;
+    ul.font = [UIFont systemFontOfSize:14.0];
+    ul.textAlignment = NSTextAlignmentLeft;
     _oldPasswordLabel.leftView = ul;
     _oldPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
     
-    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _presentPasswordLabel.bounds.size.height - 16.0)];
-    pl.text = @"新密码:";
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _presentPasswordLabel.bounds.size.height - 16.0)];
+    pl.text = @"  新密码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-    pl.textAlignment = NSTextAlignmentCenter;
+    pl.font = [UIFont systemFontOfSize:14.0];
+    pl.textAlignment = NSTextAlignmentLeft;
     _presentPasswordLabel.leftView = pl;
     _presentPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
+    [_presentPasswordLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     
-    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90.0, _presentPasswordLabel.bounds.size.height - 16.0)];
-    npl.text = @"确认新密码:";
+    UILabel *npl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, _presentPasswordLabel.bounds.size.height - 16.0)];
+    npl.text = @"  重复密码:";
     npl.textColor = TEXT_COLOR_TITLE;
-    npl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12.0];
-    npl.textAlignment = NSTextAlignmentCenter;
+    npl.font = [UIFont systemFontOfSize:14.0];
+    npl.textAlignment = NSTextAlignmentLeft;
     _confirmPasswordLabel.leftView = npl;
     _confirmPasswordLabel.leftViewMode = UITextFieldViewModeAlways;
+    [_confirmPasswordLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(changePassword:)];
+    UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = leftBtn;
+    
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(changePassword:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -71,12 +77,13 @@
     return YES;
 }
 
-#pragma mark - Private Methods
-
-- (void)goBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
+- (void) textChanged:(UITextField *)textField {
+    if (![_confirmPasswordLabel.text isEqualToString:@""] && ![_presentPasswordLabel.text isEqualToString:@""]) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
 }
+
+#pragma mark - Private Methods
 
 - (UserInfoInputError)checkInput
 {
@@ -118,7 +125,7 @@
     
     __weak typeof(ChangePasswordViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     
     [manager POST:API_CHANGE_PWD parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

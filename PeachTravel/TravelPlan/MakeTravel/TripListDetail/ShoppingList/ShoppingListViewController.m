@@ -7,7 +7,6 @@
 //
 
 #import "ShoppingListViewController.h"
-#import "DKCircleButton.h"
 #import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
 #import "CityDestinationPoi.h"
@@ -15,7 +14,7 @@
 #import "CityDetailTableViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
-
+#import "ShoppingDetailViewController.h"
 @interface ShoppingListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -30,8 +29,6 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = APP_PAGE_COLOR;
     [self.view addSubview:self.tableView];
 }
 
@@ -58,20 +55,18 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-54)];
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:shoppingListReusableIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = APP_PAGE_COLOR;
-        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 55, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
         }
 //        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
-        
     }
     return _tableView;
 }
@@ -123,13 +118,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     shoppingOfCityCtl.tripDetail = _tripDetail;
     shoppingOfCityCtl.delegate = self;
     shoppingOfCityCtl.poiType = kShoppingPoi;
-    
     shoppingOfCityCtl.shouldEdit = YES;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:shoppingOfCityCtl];
-    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nctl.navigationBar.translucent = YES;
-    [self presentViewController:nctl animated:YES completion:^{
-    }];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:shoppingOfCityCtl];
+    [self presentViewController:nctl animated:YES completion:nil];
 }
 
 - (void)updateTableView
@@ -213,9 +204,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)finishEdit
 {
-    if (!_shouldEdit) {
-        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
+//    if (!_shouldEdit) {
+//        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+//    }
     [self.tableView reloadData];
 }
 
@@ -233,29 +224,17 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 134;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 20;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView = [[UIView alloc] init];
-    return footerView;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shoppingListReusableIdentifier forIndexPath:indexPath];
-    cell.mapBtn.tag = indexPath.section;
-    [cell.mapBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    cell.cellAction.tag = indexPath.section;
+    [cell.cellAction setTitle:@"导航" forState:UIControlStateNormal];
+    [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
-    
     return cell;
 }
 
@@ -270,8 +249,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
 }
+
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
@@ -280,7 +260,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [MobClick event:@"event_reorder_items"];
     NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
-    PoiSummary *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
+    SuperPoi *poi = [_tripDetail.shoppingList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.shoppingList removeObjectAtIndex:sourceIndexPath.section];
     
     [_tripDetail.shoppingList insertObject:poi atIndex:destinationIndexPath.section];
@@ -323,12 +303,11 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PoiSummary *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
-    CommonPoiDetailViewController *shoppingDetailCtl = [[CommonPoiDetailViewController alloc] init];
+    SuperPoi *tripPoi = [_tripDetail.shoppingList objectAtIndex:indexPath.section];
+    CommonPoiDetailViewController *shoppingDetailCtl = [[ShoppingDetailViewController alloc] init];
     shoppingDetailCtl.poiId = tripPoi.poiId;
     shoppingDetailCtl.poiType = kShoppingPoi;
-    [self.rootViewController addChildViewController:shoppingDetailCtl];
-    [self.rootViewController.view addSubview:shoppingDetailCtl.view];
+    [self.navigationController pushViewController:shoppingDetailCtl animated:YES];
 }
 
 - (void)dealloc {
@@ -346,7 +325,7 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    PoiSummary *poi = [_tripDetail.shoppingList objectAtIndex:actionSheet.tag];
+    SuperPoi *poi = [_tripDetail.shoppingList objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
@@ -415,6 +394,9 @@ static NSString *shoppingListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
+- (void)mapView {
+    
+}
 
 @end
 

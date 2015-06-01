@@ -7,16 +7,20 @@
 //
 
 #import "MyTripSpotsMapViewController.h"
-#import "PositionBean.h"
+#import "SelectionTableViewController.h"
+#import "TZButton.h"
 #import <MapKit/MapKit.h>
 
-@interface MyTripSpotsMapViewController () <MKMapViewDelegate>
+@interface MyTripSpotsMapViewController () <MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, SelectDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UILabel *currentDayLabel;
 @property (nonatomic, strong) NSMutableArray *currentAnnotations;
 @property (nonatomic, assign) NSUInteger positionCount;      //记录是第几个
 @property (nonatomic, strong) MKPolyline *line;
+
+@property (nonatomic, strong) UICollectionView *selectPanel;
+
 @end
 
 @implementation MyTripSpotsMapViewController
@@ -34,14 +38,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"地图";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = _titleText;
+    UIBarButtonItem *lbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_trip_list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = lbtn;
+    
+    TZButton *btn = [TZButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 64, 44);
+    [btn setTitle:@"第1天" forState:UIControlStateNormal];
+    [btn setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"ic_shaixuan_.png"] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [btn addTarget:self action:@selector(switchDay) forControlEvents:UIControlEventTouchUpInside];
+    btn.imagePosition = IMAGE_AT_RIGHT;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+
+
     
     mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:mapView];
     mapView.mapType = MKMapTypeStandard;
     mapView.delegate = self;
     [self showMapPin];
+    
+    UIImageView *collectionBackImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 49, self.view.bounds.size.width, 49)];
+        collectionBackImg.image = [UIImage imageNamed:@"collectionBack"];
+    collectionBackImg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    collectionBackImg.clipsToBounds = YES;
+    [self.view addSubview:collectionBackImg];
+
+    [self setupSelectPanel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,10 +78,43 @@
     [super viewWillDisappear:animated];
 }
 
+- (void) setupSelectPanel {
+    CGRect collectionViewFrame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - 49, CGRectGetWidth(self.view.bounds), 49);
+    UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    self.selectPanel = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:aFlowLayout];
+    self.selectPanel.backgroundColor = [UIColor clearColor];
+    self.selectPanel.showsHorizontalScrollIndicator = NO;
+    self.selectPanel.showsVerticalScrollIndicator = NO;
+    self.selectPanel.delegate = self;
+    self.selectPanel.dataSource = self;
+    self.selectPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.selectPanel.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    [self.selectPanel registerClass:[SelectPoiCell class] forCellWithReuseIdentifier:@"spoi_cell"];
+    
+    [self.view addSubview:_selectPanel];
+}
+
+#pragma mark - IBAction
+- (void) switchDay {
+    NSInteger count = _pois.count;
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:(count + 1)];
+    int i = 0;
+    while (i < count) {
+        [array addObject:[NSString stringWithFormat:@"第%d天", ++i]];
+    }
+    
+    SelectionTableViewController *ctl = [[SelectionTableViewController alloc] init];
+    ctl.contentItems = array;
+    ctl.delegate = self;
+    ctl.selectItem = ((UIButton *)self.navigationItem.rightBarButtonItem.customView).titleLabel.text;
+    TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:ctl];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 - (void)goBack
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc
@@ -84,15 +143,19 @@
 
     [mapView removeAnnotations:_currentAnnotations];
     [_currentAnnotations removeAllObjects];
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    CLLocationCoordinate2D pointsToUse[_pois.count];
-    for (int i = 0; i < _pois.count; i++) {
-        PositionBean *pb = [_pois objectAtIndex:i];
-        CLLocationCoordinate2D location = CLLocationCoordinate2DMake(pb.latitude, pb.longitude);
+    
+    NSArray *currentDayPois = _pois[_currentDay];
+//    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    NSInteger count = currentDayPois.count;
+    CLLocationCoordinate2D pointsToUse[count];
+    for (int i = 0; i < count; i++) {
+        SuperPoi *pb = [currentDayPois objectAtIndex:i];
+        CLLocationCoordinate2D location = CLLocationCoordinate2DMake(pb.lat, pb.lng);
         MKPointAnnotation* item = [[MKPointAnnotation alloc]init];
         item.coordinate = location;
-        item.title = pb.poiName;
-        [tempArray addObject:item];
+        item.title = pb.zhName;
+//        [tempArray addObject:item];
+        
         [_currentAnnotations addObject:item];
         [mapView addAnnotation:item];
         pointsToUse[i] = location;
@@ -101,9 +164,9 @@
             [mapView selectAnnotation:item animated:YES];
         }
     }
-    _line = [MKPolyline polylineWithCoordinates:pointsToUse count:_pois.count];
+    _line = [MKPolyline polylineWithCoordinates:pointsToUse count:count];
     [mapView addOverlay:_line level:MKOverlayLevelAboveLabels];
-    [self moveMapToCenteratMapView:mapView withArray:_pois];
+    [self moveMapToCenteratMapView:mapView withArray:currentDayPois];
 }
 
 //设置百度地图缩放级别
@@ -125,16 +188,18 @@
     double curLat = 0.0;
     double curLon = 0.0;
     
-    PositionBean *point = [list objectAtIndex:0];
-    minLat = point.latitude;
-    minLon = point.longitude;
-    maxLat = point.latitude;
-    maxLon = point.longitude;
-    PositionBean *b;
+    SuperPoi *pb = [list objectAtIndex:0];
+    
+//    PositionBean *point = [list objectAtIndex:0];
+    minLat = pb.lat;
+    minLon = pb.lng;
+    maxLat = pb.lat;
+    maxLon = pb.lng;
+//    PositionBean *b;
     for (int i = 0; i < list.count; i++) {
-        b = list[i];
-        curLat = b.latitude;
-        curLon = b.longitude;
+        pb = list[i];
+        curLat = pb.lat;
+        curLon = pb.lng;
         
         minLat = (minLat > curLat) ? curLat : minLat;
         maxLat = (maxLat < curLat) ? curLat : maxLat;
@@ -152,6 +217,61 @@
     MKCoordinateRegion region = MKCoordinateRegionMake(centerPoint,span);
     MKCoordinateRegion adjustedRegion = [mapView regionThatFits:region];
     [mv_bmap setRegion:adjustedRegion animated:YES];
+}
+
+#pragma mark - Collection view
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [_pois[_currentDay] count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SelectPoiCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"spoi_cell" forIndexPath:indexPath];
+    
+//    PositionBean *pb = [_pois objectAtIndex:indexPath.row];
+    NSArray *currentDayPois = _pois[_currentDay];
+    SuperPoi *pb = [currentDayPois objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
+    cell.textView.text = txt;
+    cell.textView.textColor = [UIColor whiteColor];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : cell.textView.font}];
+    cell.textView.frame = CGRectMake(0, 0, size.width, 49);
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    [mapView selectAnnotation:[_currentAnnotations objectAtIndex:indexPath.row] animated:YES];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    PositionBean *pb = [_pois objectAtIndex:indexPath.row];
+    NSArray *currentDayPois = _pois[_currentDay];
+    SuperPoi *pb = [currentDayPois objectAtIndex:indexPath.row];
+    NSString *txt = [NSString stringWithFormat:@"%ld %@", (indexPath.row + 1), pb.zhName];
+    CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+    return CGSizeMake(size.width, 49);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 15.0;
+}
+
+#pragma mark - SelectDelegate
+- (void) selectItem:(NSString *)str atIndex:(NSIndexPath *)indexPath {
+//    self.navigationItem.rightBarButtonItem.title = str;
+    [((UIButton *)self.navigationItem.rightBarButtonItem.customView) setTitle:str forState:UIControlStateNormal];
+    _currentDay = indexPath.row;
+    [self resetView];
+}
+
+- (void) resetView {
+    [self showMapPin];
+    [self.selectPanel reloadData];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -184,5 +304,22 @@ calloutAccessoryControlTapped:(UIControl *)control{
 }
 @end
 
+@implementation SelectPoiCell
+
+@synthesize textView;
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        textView = [[UILabel alloc] init];
+        textView.font = [UIFont systemFontOfSize:17];
+        textView.textColor = [UIColor blueColor];
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.numberOfLines = 1;
+        [self.contentView addSubview:textView];
+    }
+    return self;
+}
+
+@end
 
 

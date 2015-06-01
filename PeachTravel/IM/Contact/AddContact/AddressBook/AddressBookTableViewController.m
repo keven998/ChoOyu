@@ -16,6 +16,8 @@
 #import "ContactDetailViewController.h"
 #import "SearchUserInfoViewController.h"
 
+#import "OtherUserInfoViewController.h"
+
 #define addressBookCell    @"addressBookCell"
 
 @interface AddressBookTableViewController () <MFMessageComposeViewControllerDelegate>
@@ -31,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"添加通讯录好友";
+    self.navigationItem.title = @"通讯录好友";
     [self.tableView registerNib:[UINib nibWithNibName:@"AddressBookTableViewCell" bundle:nil] forCellReuseIdentifier:addressBookCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = APP_PAGE_COLOR;
@@ -220,10 +222,15 @@
     [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
         if (code == 0) {
-            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
-            searchUserInfoCtl.userInfo = [responseObject objectForKey:@"result"];
-            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+//            SearchUserInfoViewController *searchUserInfoCtl = [[SearchUserInfoViewController alloc] init];
+//            searchUserInfoCtl.userInfo = [responseObject objectForKey:@"result"];
+//            [self.navigationController pushViewController:searchUserInfoCtl animated:YES];
+            OtherUserInfoViewController *otherCtl = [[OtherUserInfoViewController alloc]init];
+            NSDictionary *userInfo = [responseObject objectForKey:@"result"];
+            otherCtl.userId = [userInfo objectForKey:@"userId"];
+            [self.navigationController pushViewController:otherCtl animated:YES];
         } else {
+            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -239,7 +246,7 @@
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate = self;
     picker.recipients = @[[self.dataSource[sender.tag] objectForKey:@"tel"]];
-    picker.body = @"嘿嘿。下个桃子旅行呗~";
+    picker.body = @"给你推荐个旅行好工具:旅行派";
     [self presentViewController:picker animated:YES completion:nil];
 }
 

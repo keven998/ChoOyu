@@ -44,12 +44,12 @@
         CGFloat offsetX = 0;
         for (int i = 0; i < _destinations.count; i++) {
             NSString *title = [_destinations objectAtIndex:i];
-            CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:10.0]}];
+            CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:10.0]}];
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, 7, 10+size.width, 16)];
             btn.tag = i;
             [btn setTitle:title forState:UIControlStateNormal];
             [btn setTitleColor:_titleColor forState:UIControlStateNormal];
-            btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.0];
+            btn.titleLabel.font = [UIFont systemFontOfSize:10.0];
             offsetX += btn.bounds.size.width + 10;
             [_scrollView addSubview:btn];
         }
@@ -60,20 +60,20 @@
         CGFloat offsetY = 10;
         for (int i = 0; i < _destinations.count; i++) {
             NSString *title = [_destinations objectAtIndex:i];
-            CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
+            CGSize size = [title sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(offsetX, offsetY, 40+size.width, 30)];
             btn.layer.borderWidth = 0.5;
             btn.layer.borderColor = APP_THEME_COLOR.CGColor;
             btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             [btn setTitle:title forState:UIControlStateNormal];
             [btn setTitleColor:_titleColor forState:UIControlStateNormal];
-            btn.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+            btn.titleLabel.font = [UIFont systemFontOfSize:13.0];
             btn.layer.cornerRadius = 2.0;
             btn.tag = i;
             offsetX += btn.bounds.size.width + 20;
             
             NSString *nextTitle = [_destinations objectAtIndex:i];
-            CGSize nextSize = [nextTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont fontWithName:@"MicrosoftYaHei" size:13.0]}];
+            CGSize nextSize = [nextTitle sizeWithAttributes:@{NSFontAttributeName :[UIFont systemFontOfSize:13.0]}];
 
             if (offsetX+nextSize.width+60 >_scrollView.bounds.size.width) {
                 offsetY += 50;
@@ -90,7 +90,6 @@
                 [_scrollView addSubview:addBtn];
             }
         }
-        
         [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width, offsetY+50)];
     }
    

@@ -14,7 +14,7 @@
 
 @interface YWeatherUtils : NSObject <NSURLConnectionDelegate, WOEIDUtilsDelegate>
 
-@property (nonatomic, assign) id mAfterRecieveDataDelegate;
+@property (nonatomic, weak) id mAfterRecieveDataDelegate;
 @property (nonatomic, retain) NSMutableData* receivedData;
 @property (nonatomic, assign) TBXMLElement* mResultElement;
 @property (nonatomic, retain) NSString* mSearchTagName;

@@ -13,16 +13,28 @@
 - (void)awakeFromNib {
 //    _headerImageView.layer.borderColor = APP_BORDER_COLOR.CGColor;
 //    _headerImageView.layer.borderWidth = 0.5;
+//    _headerImageView.layer.cornerRadius = 1.0;
     _headerImageView.backgroundColor = APP_IMAGEVIEW_COLOR;
     
-    CGRect rect = _spaceview.frame;
-    rect.size.height = 0.5;
-    _spaceview.frame = rect;
+    UIView *dividerView = [[UIView alloc] initWithFrame:CGRectMake(36, 0, CGRectGetWidth(self.bounds) - 46, 1)];
+    dividerView.backgroundColor = APP_PAGE_COLOR;
+    dividerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.contentView addSubview:dividerView];
 
+    _titleLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+    _propertyLabel.textColor = TEXT_COLOR_TITLE_HINT;
+    _valueLabel.textColor = APP_THEME_COLOR;
+    _timeLineView.backgroundColor = APP_DIVIDER_COLOR;
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)setTripPoi:(PoiSummary *)tripPoi
+- (void)willTransitionToState:(UITableViewCellStateMask)state {
+    [super willTransitionToState:state];
+    _timeLineView.hidden = (state != UITableViewCellStateDefaultMask);
+}
+
+- (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
     TaoziImage *image = [_tripPoi.images firstObject];
@@ -32,43 +44,51 @@
     NSString *rankStr;
     switch (_tripPoi.poiType) {
         case kSpotPoi:
-            rankStr = @"景点排名";
+            rankStr = @"景点排名第";
             break;
             
         case kRestaurantPoi:
-            rankStr = @"美食排名";
+            rankStr = @"美食排名第";
             break;
         
         case kShoppingPoi:
-            rankStr = @"购物排名";
+            rankStr = @"购物排名第";
             break;
             
         case kHotelPoi:
-            rankStr = @"酒店排名";
+            rankStr = @"酒店排名第";
             break;
             
         default:
             break;
     }
-    if (_tripPoi.rank == 0) {
-        _rankLabel.text = @"";
-    } else if (_tripPoi.rank <= 100) {
-        _rankLabel.text = [NSString stringWithFormat:@"%@ %d", rankStr, _tripPoi.rank];
-    } else {
-        _rankLabel.text = [NSString stringWithFormat:@"%@ >100", rankStr];
-    }
     
-    _tripPoi.priceDesc = @"人均10元";
-    if (_tripPoi.poiType == kSpotPoi) {
-        NSString *timeStr = [NSString stringWithFormat:@"参考游玩  %@", tripPoi.timeCost];
-        [_property setTitle:timeStr forState:UIControlStateNormal];
+    NSString *property = _tripPoi.locality.zhName;
+    if (_tripPoi.rank == 0) {
+        
+    } else if (_tripPoi.rank <= 500) {
+        property = [NSString stringWithFormat:@"%@ %@%d", property, rankStr, _tripPoi.rank];
     } else {
-        [_property setImage:nil forState:UIControlStateNormal];
-        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi || _tripPoi.poiType == kShoppingPoi) {
-            [_property setTitle:_tripPoi.address forState:UIControlStateNormal];
-        }
+        property = [NSString stringWithFormat:@"%@", property];
     }
-   
+    _propertyLabel.text = property;
+    
+    if (_tripPoi.poiType == kSpotPoi) {
+        if ([((SpotPoi *)tripPoi).timeCostStr isBlankString]) {
+            _valueLabel.text = @"";
+        }else{
+        NSString *timeStr = [NSString stringWithFormat:@"建议游玩%@", ((SpotPoi *)tripPoi).timeCostStr];
+            _valueLabel.text = timeStr;
+            
+        }
+    } else {
+        _valueLabel.text = nil;
+    }
+//    else {
+//        if (_tripPoi.poiType == kRestaurantPoi || _tripPoi.poiType == kHotelPoi || _tripPoi.poiType == kShoppingPoi) {
+//            _valueLabel.text = _tripPoi.address;
+//        }
+//    }   
 }
 
 @end

@@ -7,21 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RDVTabBarController.h"
-#import "IMRootViewController.h"
 
-@interface HomeViewController : RDVTabBarController
+@interface HomeViewController : UITabBarController
 
 /**
  *  跳转到 web 界面
  */
 - (void)jumpToWebViewCtl;
 
-/**
- *  当程序启动的时候是否应该进入聊天列表界面
- */
-@property (nonatomic)BOOL shouldJumpToChatListWhenAppLaunch;
-
-@property (nonatomic, strong) IMRootViewController *IMRootCtl;
+@property (nonatomic) IM_CONNECT_STATE IMState;
 
 @end

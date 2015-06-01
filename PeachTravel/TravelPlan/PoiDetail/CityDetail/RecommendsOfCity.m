@@ -7,7 +7,6 @@
 //
 
 #import "RecommendsOfCity.h"
-#import "PoiSummary.h"
 
 @implementation RecommendsOfCity
 
@@ -37,7 +36,7 @@
         _recommendList = [[NSMutableArray alloc] init];
     }
     for (NSDictionary *poiDic in json) {
-        PoiSummary *poi = [[PoiSummary alloc] initWithJson:poiDic];
+        SuperPoi *poi = [PoiFactory poiWithJson:poiDic];
         [_recommendList addObject:poi];
     }
 }

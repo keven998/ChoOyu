@@ -48,6 +48,15 @@
     return _account;
 }
 
+- (AccountModel *)accountDetail
+{
+    if (!_accountDetail) {
+        _accountDetail = [[AccountModel alloc] init];
+        _accountDetail.basicUserInfo = self.account;
+    }
+    return _accountDetail;
+}
+
 //用户是否登录
 - (BOOL)isLogin
 {
@@ -94,11 +103,12 @@
         _account = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
         completion(YES);
-
+//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     } onQueue:nil];
 }
 
-//用户桃子系统登录成功
+//用户旅行派系统登录成功
 - (void)userDidLoginWithUserInfo:(id)userInfo
 {
     if (self.account) {
@@ -113,8 +123,22 @@
 //环信系统也登录成功，这时候才是真正的登录成功
 - (void)easeMobDidLogin
 {
+    [self addPaipaiContact];
     [self save];
     [self loadContactsFromServer];
+}
+
+/**
+ *  默认添加 paipai 好友
+ */
+- (void)addPaipaiContact
+{
+    Contact *contact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.context];
+    contact.userId = [NSNumber numberWithInt:10000];
+    contact.nickName = @"派派";
+    contact.easemobUser = @"gcounhhq0ckfjwotgp02c39vq40ewhxt";
+    contact.pinyin = @"paipai";
+    [self.account addContactsObject:contact];
 }
 
 //环信系统登录失败
@@ -161,6 +185,7 @@
              [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
              //设置环信自动登录
              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+             [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
              if (completion) {
                  completion(YES);
              }
@@ -173,15 +198,252 @@
      } onQueue:nil];
 }
 
+#pragma mark - 修改用户信息相关接口
 
-//更新用户信息
+- (void)asyncChangeUserName:(NSString *)newUsername completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion
+{
+    //如果新的用户名和之前一样的话直接返回
+    if ([newUsername isEqualToString:self.account.nickName]) {
+        completion(YES, NoError, nil);
+    } else if ([self checkUserinfo:newUsername andUserInfoType:ChangeName] != NoError) {
+        completion(NO, [self checkUserinfo:newUsername andUserInfoType:ChangeName], nil);
+    } else {
+        [self asyncUpdateUserInfoToServer:newUsername andUserInfoType:ChangeName andKeyWord:@"nickName" completion:^(BOOL isSuccess, NSString *errStr) {
+            if (isSuccess) {
+                completion(YES, NoError, nil);
+            } else {
+                completion(NO, NoError, errStr);
+            }
+        }];
+    }
+}
+
+- (void)asyncChangeSignature:(NSString *)newSignature completion:(void (^)(BOOL, UserInfoInputError, NSString *))completion
+{
+    //如果新的用户名和之前一样的话直接返回
+    if ([newSignature isEqualToString:self.account.signature]) {
+        completion(YES, NoError, nil);
+        
+    } else {
+        [self asyncUpdateUserInfoToServer:newSignature andUserInfoType:ChangeSignature andKeyWord:@"signature" completion:^(BOOL isSuccess, NSString *errStr) {
+            if (isSuccess) {
+                completion(YES, NoError, nil);
+            } else {
+                completion(NO, NoError, errStr);
+            }
+        }];
+    }
+}
+
+- (void)asyncChangeResidence:(NSString *)residence completion:(void (^)(BOOL, NSString *))completion
+{
+    [self asyncUpdateUserInfoToServer:residence andUserInfoType:ChangeOtherInfo andKeyWord:@"residence" completion:^(BOOL isSuccess, NSString *errStr) {
+        if (isSuccess) {
+            self.accountDetail.residence =  residence;
+            completion(YES, nil);
+        } else {
+            completion(NO, errStr);
+        }
+    }];
+}
+
+- (void)asyncChangeBirthday:(NSString *)birthday completion:(void (^)(BOOL, NSString *))completion
+{
+    [self asyncUpdateUserInfoToServer:birthday andUserInfoType:ChangeOtherInfo andKeyWord:@"birthday" completion:^(BOOL isSuccess, NSString *errStr) {
+    if (isSuccess) {
+        self.accountDetail.birthday =  birthday;
+        completion(YES, nil);
+    } else {
+        completion(NO, errStr);
+    }
+}];
+}
+
+/**
+ *  修改用户头像
+ *
+ *  @param albumImage
+ *  @param completion
+ */
+- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
+{
+    [self asyncUpdateUserInfoToServer:albumImage.image.imageUrl andUserInfoType:ChangeAvatar andKeyWord:@"avatar" completion:^(BOOL isSuccess, NSString *errStr) {
+        if (isSuccess) {
+            self.account.avatar =  albumImage.image.imageUrl;
+            self.account.avatarSmall =  albumImage.image.imageUrl;
+
+            completion(YES, nil);
+        } else {
+            completion(NO, errStr);
+        }
+    }];
+}
+
+- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/albums/%@", API_USERINFO, self.account.userId, albumImage.imageId];
+    
+    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showHint:@"修改成功"];
+            NSMutableArray *albums = [self.accountDetail.userAlbum mutableCopy];
+            [albums removeObject:albumImage];
+            self.accountDetail.userAlbum = albums;
+            completion(YES, nil);
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            
+        } else {
+            completion(NO, [[responseObject objectForKey:@"err"] objectForKey:@"message"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+}
+
+
+/**
+ *  异步更新服务的用户信息
+ *
+ *  @param userInfo     用户信息，可以是昵称，签名等
+ *  @param userInfoType 更改用户信息的类型
+ *  @param keyWord      更改用户信息类型的关键字
+ *  @param completion   完成后的回调, 回调信息包括：是否成功，错误的信息
+ */
+- (void)asyncUpdateUserInfoToServer:(NSString *)userInfo andUserInfoType:(UserInfoChangeType)userInfoType andKeyWord:(NSString *)keyWord completion:(void (^) (BOOL isSuccess, NSString *errStr)) completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:userInfo forKey:keyWord];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [SVProgressHUD showHint:@"修改成功"];
+            [self updateUserInfo:userInfo withChangeType:userInfoType];
+            if (userInfoType == ChangeName) {
+                [[EaseMob sharedInstance].chatManager setApnsNickname:userInfo];
+            }
+            completion(YES, nil);
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+
+        } else {
+            completion(NO, [[responseObject objectForKey:@"err"] objectForKey:@"message"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+
+}
+
+- (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newGender forKey:@"gender"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateUserInfo:newGender withChangeType:ChangeGender];
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+}
+
+- (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL, NSString *))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:newStatus forKey:@"travelStatus"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", API_USERINFO, self.account.userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+//            [self updateUserInfo:newStatus withChangeType:ChangeGender];
+            self.accountDetail.travelStatus = newStatus;
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
+            completion(YES, nil);
+        } else {
+            completion(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO, nil);
+    }];
+}
+
+/**
+ *  更新用户信息
+ *
+ *  @param changeContent 信息内容
+ */
+- (void)updateUserInfo:(id)userInfo
+{
+    [self loadUserInfo:userInfo];
+}
+
+/**
+ *  修改用户信息
+ *
+ *  @param changeContent 信息内容
+ *  @param changeType    信息类型，电话，签名等
+ */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType
 {
     switch (changeType) {
         case ChangeName:
             self.account.nickName = changeContent;
             break;
-        
+            
         case ChangeSignature:
             self.account.signature = changeContent;
             break;
@@ -208,6 +470,36 @@
     [self save];
 }
 
+/**
+ *  检测输入的用户信息是否合法
+ *
+ *  @param userInfo     用户信息
+ *  @param userInfoType 用户信息类型
+ *
+ *  @return 错误码
+ */
+- (UserInfoInputError)checkUserinfo:(NSString *)userInfo andUserInfoType:(UserInfoChangeType)userInfoType
+{
+    if (userInfoType == ChangeName) {
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]{1,}$";
+        NSString *regex2 = @"^[0-9]{6,}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex2];
+        if (![pred1 evaluateWithObject:userInfo] || [pred2 evaluateWithObject:userInfo]) {
+            return IllegalCharacterError;
+        }
+    }
+    if (userInfoType == ChangeSignature) {
+        NSString *regex1 = @"^[\u4E00-\u9FA5|0-9a-zA-Z|_]*$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex1];
+        if (![pred1 evaluateWithObject:userInfo] ||  ![pred1 evaluateWithObject:userInfo]) {
+            NSLog(@"输入中含有非法字符串");
+            return IllegalCharacterError;
+        }
+    }
+    return NoError;
+}
+
 //解析从服务器上下载的用户信息
 - (void)loadUserInfo:(id)json
 {
@@ -226,7 +518,15 @@
     _account.easemobPwd = [json objectForKey:@"easemobPwd"];
 }
 
-//通过环信 id 取得用户的桃子信息
+#pragma mark - **********好友相关操作********
+
+/**
+ *  通过环信 id 取得用户的旅行派信息
+ *
+ *  @param easemobUser 环信 id
+ *
+ *  @return
+ */
 - (Contact *)TZContactByEasemobUser:(NSString *)easemobUser
 {
     for (Contact *contact in self.account.contacts) {
@@ -237,6 +537,17 @@
     return nil;
 }
 
+- (Contact *)TZContactByUserId:(NSNumber *)userId
+{
+    for (Contact *contact in self.account.contacts) {
+        if (contact.userId.integerValue == userId.integerValue) {
+            return contact;
+        }
+    }
+    return nil;
+}
+
+
 - (BOOL)isMyFrend:(NSNumber *)userId
 {
     for (Contact *contact in self.account.contacts) {
@@ -245,11 +556,6 @@
         }
     }
     return NO;
-}
-
-- (void)updateContact
-{
-    
 }
 
 //从服务器上获取好友列表
@@ -411,6 +717,53 @@
             [self save];
             break;
         }
+    }
+}
+
+#pragma mark - ********修改用户好友信息
+
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL))completion
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AppUtils *utils = [[AppUtils alloc] init];
+    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", self.account.userId] forHTTPHeaderField:@"UserId"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params safeSetObject:remark forKey:@"memo"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/memo", API_USERINFO, userId];
+    
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"result = %@", responseObject);
+        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
+        if (code == 0) {
+            [self updateContactMemo:remark andUserId:userId];
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(NO);
+    }];
+
+}
+
+/**
+ *  更新好友备注
+ */
+- (void)updateContactMemo:(NSString *)memo andUserId:(NSNumber *)userId
+{
+    Contact *contact = [self TZContactByUserId:userId];
+    if (contact) {
+        contact.memo = memo;
+        NSError *error;
+        [self.context save:&error];
     }
 }
 

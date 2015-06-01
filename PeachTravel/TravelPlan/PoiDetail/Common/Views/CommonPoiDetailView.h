@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PoiSummary.h"
 
-@interface CommonPoiDetailView : UIView
+@interface CommonPoiDetailView : UIScrollView
 
-@property (nonatomic, strong) PoiSummary *poi;
+@property (nonatomic, strong) SuperPoi *poi;
 
 @property (nonatomic, weak) UIViewController *rootCtl;
 
@@ -20,5 +19,7 @@
 @property (nonatomic, strong) UIButton *closeBtn;
 
 @property (nonatomic) TZPoiType poiType;
+
+- (IBAction)favorite:(id)sender;
 
 @end

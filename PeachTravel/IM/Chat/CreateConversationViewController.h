@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Group.h"
-#import "ChatViewController.h"
 
 @protocol CreateConversationDelegate <NSObject>
 
@@ -22,13 +21,13 @@
  *  @param chatTitle 聊天界面显示的title
  */
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle;
-
+-(void)reloadData;
 @end
 
 @interface CreateConversationViewController : TZViewController
 
 /**
- *  桃子群组
+ *  旅行派群组
  */
 @property (nonatomic, strong) Group *group;
 
@@ -37,7 +36,7 @@
  */
 @property (nonatomic, strong) EMGroup *emGroup;
 
-@property (nonatomic, assign) id <CreateConversationDelegate> delegate;
+@property (nonatomic, weak) id <CreateConversationDelegate> delegate;
 
 @property (nonatomic) BOOL isPushed;
 

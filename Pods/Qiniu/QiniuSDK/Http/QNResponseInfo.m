@@ -9,7 +9,6 @@
 
 #import "QNResponseInfo.h"
 
-
 const int kQNFileError = -4;
 const int kQNInvalidArgument = -3;
 const int kQNRequestCancelled = -2;
@@ -29,8 +28,10 @@ static NSString *domain = @"qiniu.com";
 	return [[QNResponseInfo alloc] initWithStatus:kQNInvalidArgument errorDescription:text];
 }
 
-+ (instancetype)responseInfoWithNetError:(NSError *)error {
-	return [[QNResponseInfo alloc] initWithStatus:kQNNetworkError error:error];
++ (instancetype)responseInfoWithNetError:(NSError *)error host:(NSString *)host duration:(double)duration {
+	if (error.code != -1003) {
+	}
+	return [[QNResponseInfo alloc] initWithStatus:kQNNetworkError error:error host:host duration:duration];
 }
 
 + (instancetype)responseInfoWithFileError:(NSError *)error {
@@ -43,9 +44,18 @@ static NSString *domain = @"qiniu.com";
 
 - (instancetype)initWithStatus:(int)status
                          error:(NSError *)error {
+	return [self initWithStatus:status error:error host:nil duration:0];
+}
+
+- (instancetype)initWithStatus:(int)status
+                         error:(NSError *)error
+                          host:(NSString *)host
+                      duration:(double)duration {
 	if (self = [super init]) {
 		_statusCode = status;
 		_error = error;
+		_host = host;
+		_duration = duration;
 	}
 	return self;
 }
@@ -59,11 +69,17 @@ static NSString *domain = @"qiniu.com";
 - (instancetype)init:(int)status
            withReqId:(NSString *)reqId
             withXLog:(NSString *)xlog
+            withXVia:(NSString *)xvia
+            withHost:(NSString *)host
+        withDuration:(double)duration
             withBody:(NSData *)body {
 	if (self = [super init]) {
 		_statusCode = status;
 		_reqId = [reqId copy];
 		_xlog = [xlog copy];
+		_xvia = [xvia copy];
+		_host = [host copy];
+		_duration = duration;
 		if (status != 200) {
 			if (body == nil) {
 				_error = [[NSError alloc] initWithDomain:domain code:_statusCode userInfo:nil];
@@ -72,7 +88,12 @@ static NSString *domain = @"qiniu.com";
 				NSError *tmp;
 				NSDictionary *uInfo = [NSJSONSerialization JSONObjectWithData:body options:NSJSONReadingMutableLeaves error:&tmp];
 				if (tmp != nil) {
-					uInfo = @{ @"error":[[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding] };
+					// 出现错误时，如果信息是非UTF8编码会失败，返回nil
+					NSString *str = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+					if (str == nil) {
+						str = @"";
+					}
+					uInfo = @{ @"error": str };
 				}
 				_error = [[NSError alloc] initWithDomain:domain code:_statusCode userInfo:uInfo];
 			}
@@ -86,7 +107,7 @@ static NSString *domain = @"qiniu.com";
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %p, status: %d, requestId: %@, xlog: %@, error: %@>", NSStringFromClass([self class]), self, _statusCode, _reqId, _xlog, _error];
+	return [NSString stringWithFormat:@"<%@: %p, status: %d, requestId: %@, xlog: %@, xvia: %@, host: %@ duration:%f s error: %@>", NSStringFromClass([self class]), self, _statusCode, _reqId, _xlog, _xvia, _host, _duration, _error];
 }
 
 - (BOOL)isCancelled {
@@ -99,7 +120,11 @@ static NSString *domain = @"qiniu.com";
 
 - (BOOL)isConnectionBroken {
 	// reqId is nill means the server is not qiniu
-	return _statusCode == kQNNetworkError || _reqId == nil;
+	return _statusCode == kQNNetworkError;
+}
+
+- (BOOL)needSwitchServer {
+	return _statusCode == kQNNetworkError || (_statusCode / 100 == 5 && _statusCode != 579);
 }
 
 - (BOOL)couldRetry {

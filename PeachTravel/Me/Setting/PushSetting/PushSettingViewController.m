@@ -24,14 +24,15 @@
     _tableView.dataSource = self;
     _tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0);
     EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
-    _isNoDisturbing = options.noDisturbing;
+    (options.noDisturbStatus == ePushNotificationNoDisturbStatusDay) ? (_isNoDisturbing = YES) : (_isNoDisturbing = NO);
+//    _isNoDisturbing = options.noDisturbing;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-#pragma UITableViewDataSource
+#pragma UITableViewDataSourcex
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
@@ -44,7 +45,7 @@
         [cell.switchButton removeTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
         [cell.switchButton addTarget:self action:@selector(enablePush:) forControlEvents:UIControlEventValueChanged];
     } else if (indexPath.row == 1) {
-        cell.titleView.text = @"Talk提醒";
+        cell.titleView.text = @"消息提醒";
         [cell.switchButton removeTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
         [cell.switchButton addTarget:self action:@selector(enableCircleMsg:) forControlEvents:UIControlEventValueChanged];
         cell.switchButton.on = !_isNoDisturbing;
@@ -88,27 +89,21 @@
 - (void)savePushOptions
 {
     EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
-//    [SVProgressHUD show];
-    if (_isNoDisturbing != options.noDisturbing) {
-        options.noDisturbing = _isNoDisturbing;
-        if (_isNoDisturbing) {
-            options.noDisturbingStartH = 0;
-            options.noDisturbingEndH = 24;
-        } else {
-            options.noDisturbingStartH = -1;
-            options.noDisturbingEndH = -1;
-
-        }
-        [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options completion:^(EMPushNotificationOptions *options, EMError *error) {
-            if (!error) {
-//                [SVProgressHUD showHint:@"设置成功"];
-            } else {
-                [SVProgressHUD showHint:@"设置失败"];
-                _isNoDisturbing = !_isNoDisturbing;
-                [self.tableView reloadData];
-            }
-        } onQueue:nil];
+    if (_isNoDisturbing) {
+        options.noDisturbStatus = ePushNotificationNoDisturbStatusDay;
+    } else {
+        options.noDisturbStatus = ePushNotificationNoDisturbStatusClose;
     }
+    
+    [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options completion:^(EMPushNotificationOptions *options, EMError *error) {
+        if (!error) {
+//                [SVProgressHUD showHint:@"设置成功"];
+        } else {
+            [SVProgressHUD showHint:@"设置失败"];
+            _isNoDisturbing = !_isNoDisturbing;
+            [self.tableView reloadData];
+        }
+    } onQueue:nil];
 }
 
 @end

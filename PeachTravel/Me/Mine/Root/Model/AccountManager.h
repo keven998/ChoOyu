@@ -10,10 +10,13 @@
 #import "Account.h"
 #import "Contact.h"
 #import "FrendRequest.h"
+#import "AccountModel.h"
 
 @interface AccountManager : NSObject
 
 @property (nonatomic, strong) Account *account;
+
+@property (strong, nonatomic) AccountModel *accountDetail;
 
 + (AccountManager *)shareAccountManager;
 
@@ -25,7 +28,7 @@
 - (BOOL)isLogin;
 
 /**
- *  用户桃子系统登录成功
+ *  用户旅行派系统登录成功
  *
  *  @param userInfo
  */
@@ -60,6 +63,9 @@
 
 - (void)loginEaseMobServer:(void (^)(BOOL isSuccess))completion;
 
+
+/*******用户信息相关接口********/
+
 /**
  *  修改用户信息
  *
@@ -67,6 +73,81 @@
  *  @param changeType    信息类型，电话，签名等
  */
 - (void)updateUserInfo:(NSString *)changeContent withChangeType:(UserInfoChangeType)changeType;
+
+
+/**
+ *  更新用户信息
+ *
+ *  @param changeContent 信息内容
+ */
+- (void)updateUserInfo:(id)userInfo;
+
+/**
+ *  修改用户名字
+ *
+ *  @param newUsername 新的用户昵称
+ */
+- (void)asyncChangeUserName:(NSString *)newUsername completion:(void (^)(BOOL isSuccess, UserInfoInputError error, NSString *errStr))completion;
+
+/**
+ *  修改用户签名
+ *
+ *  @param newSignature 新签名
+ */
+
+- (void)asyncChangeSignature:(NSString *)newSignature completion:(void (^)(BOOL isSuccess, UserInfoInputError error, NSString *errStr))completion;
+
+/**
+ *  修改用户居住地信息
+ *
+ *  @param residence   居住地信息
+ *  @param completion
+ */
+- (void)asyncChangeResidence:(NSString *)residence completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+
+/**
+ *  修改用户的性别
+ *
+ *  @param newGender  新的性别
+ *  @param completion
+ */
+- (void)asyncChangeGender:(NSString *)newGender completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+/**
+ *  修改用户的状态
+ *
+ *  @param newStatus  新的状态
+ *  @param completion
+ */
+- (void)asyncChangeStatus:(NSString *)newStatus completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+/**
+ *  修改用户的生日
+ *
+ *  @param newGender  新的生日
+ *  @param completion
+ */
+- (void)asyncChangeBirthday:(NSString *)birthday completion:(void (^)(BOOL isSuccess, NSString *errStr))completion;
+
+/**
+ *  修改用户头像
+ *
+ *  @param albumImage
+ *  @param completion 
+ */
+- (void)asyncChangeUserAvatar:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+
+
+/**
+ *  删除用户相册里的某一张图片
+ *
+ *  @param albumImage
+ *  @param completion 
+ */
+- (void)asyncDelegateUserAlbumImage:(AlbumImage *)albumImage completion:(void (^)(BOOL, NSString *))completion;
+
+
+#pragma mark - 修改用户的好友信息
+
+- (void)asyncChangeRemark:(NSString *)remark withUserId:(NSNumber *)userId completion:(void (^)(BOOL isSuccess))completion;
 
 /**
  *  判读是不是我的好友
@@ -118,11 +199,6 @@
 - (void)agreeFrendRequest:(FrendRequest *)frendRequest;
 
 /**
- *  更新好友列表
- */
-- (void)updateContact;
-
-/**
  *  通过环信 id 删除好友
  *
  *  @param userId
@@ -130,7 +206,7 @@
 - (void)removeContact:(NSNumber *)userId;
 
 /**
- *  通过环信 id 获取桃子用户信息
+ *  通过环信 id 获取旅行派用户信息
  *
  *  @param easemobUser
  *

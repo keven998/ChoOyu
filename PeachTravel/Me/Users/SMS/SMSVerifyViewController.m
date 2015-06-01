@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
-    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确认 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    UIBarButtonItem *registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"确认 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
@@ -48,7 +48,7 @@
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _verifyCodeTextField.bounds.size.height - 16.0)];
     ul.text = @" 验证码:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _verifyCodeTextField.leftView = ul;
     _verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -139,7 +139,6 @@
                     [hud hideTZHUD];
                     [[NSNotificationCenter defaultCenter] postNotificationName:userDidRegistedNoti object:nil userInfo:@{@"poster":weakSelf}];
                     [[EaseMob sharedInstance].chatManager setApnsNickname:[[responseObject objectForKey:@"result"] objectForKey:@"nickName"]];
-                    [SVProgressHUD showHint:@"登录成功，欢迎加入桃子旅行"];
                 } else {
                     [hud hideTZHUD];
                     [accountManager easeMobUnlogin];
@@ -180,7 +179,7 @@
     [params setObject:kUserRegister forKey:@"actionCode"];
      __weak typeof(SMSVerifyViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

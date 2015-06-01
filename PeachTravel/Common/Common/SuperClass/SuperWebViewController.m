@@ -11,7 +11,6 @@
 #import "NJKWebViewProgressView.h"
 
 @interface SuperWebViewController () <UIWebViewDelegate, NJKWebViewProgressDelegate> {
-    UIWebView *_webView;
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
@@ -32,34 +31,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = APP_PAGE_COLOR;
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [back setImage:[UIImage imageNamed:@"ic_navigation_back.png"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [back setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
     self.navigationItem.title = _titleStr;
     
+    self.view.backgroundColor = APP_PAGE_COLOR;
     _progressProxy = [[NJKWebViewProgress alloc] init];
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
-    self.automaticallyAdjustsScrollViewInsets = NO; 
+    self.webView.delegate = _progressProxy;
     CGFloat progressBarHeight = 3.0f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
-    [self.view addSubview:_webView];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlStr]];
-    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _webView.delegate = _progressProxy;
-    [_webView loadRequest:request];
+    [super loadRequest:request];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.bounds.size.width, 32)];
-    label.text = @"桃子旅行\n你最贴心的旅行助手";
+    label.text = @"旅行派\n能和达人交流、朋友互动的旅行工具";
     label.textColor = TEXT_COLOR_TITLE_HINT;
-    label.font = [UIFont fontWithName:@"MicroSoftYahei" size:11.0];
+    label.font = [UIFont systemFontOfSize:11.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
-    [_webView addSubview:label];
-    [_webView bringSubviewToFront:_webView.scrollView];
+    [self.webView addSubview:label];
+    [self.webView bringSubviewToFront:self.webView.scrollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,10 +83,6 @@
     _progressProxy.webViewProxyDelegate = nil;
     _progressProxy = nil;
     _progressView = nil;
-    [_webView removeFromSuperview];
-    [_webView stopLoading];
-    _webView.delegate = nil;
-    _webView = nil;
 }
 
 /**
@@ -93,11 +90,7 @@
  */
 - (void)goBack
 {
-    if ([_webView canGoBack]) {
-        [_webView goBack];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - NJKWebViewProgressDelegate

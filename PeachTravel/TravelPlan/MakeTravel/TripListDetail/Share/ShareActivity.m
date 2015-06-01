@@ -14,7 +14,7 @@
 #define CORNER_RADIUS                           5
 #define SHAREBUTTON_BORDER_WIDTH                0.5f
 #define SHAREBUTTON_BORDER_COLOR                [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.8].CGColor
-#define SHAREBUTTONTITLE_FONT                   [UIFont fontWithName:@"MicrosoftYaHei" size:18]
+#define SHAREBUTTONTITLE_FONT                   [UIFont systemFontOfSize:18]
 
 #define SHAREBUTTON_WIDTH                       50
 #define SHAREBUTTON_HEIGHT                      50
@@ -25,7 +25,7 @@
 #define SHARETITLE_HEIGHT                       20
 #define SHARETITLE_INTERVAL_WIDTH               14
 #define SHARETITLE_INTERVAL_HEIGHT              SHAREBUTTON_WIDTH+SHAREBUTTON_INTERVAL_HEIGHT
-#define SHARETITLE_FONT                         [UIFont fontWithName:@"MicrosoftYaHei" size:16]
+#define SHARETITLE_FONT                         [UIFont systemFontOfSize:16]
 
 #define TITLE_INTERVAL_HEIGHT                   15
 #define TITLE_HEIGHT                            35
@@ -38,7 +38,7 @@
 #define BUTTON_HEIGHT                           40
 #define BUTTON_INTERVAL_WIDTH                   40
 #define BUTTON_WIDTH                            240
-#define BUTTONTITLE_FONT                        [UIFont fontWithName:@"MicrosoftYaHei" size:22]
+#define BUTTONTITLE_FONT                        [UIFont systemFontOfSize:22]
 #define BUTTON_BORDER_WIDTH                     0.5f
 #define BUTTON_BORDER_COLOR                     [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.6].CGColor
 
@@ -77,7 +77,7 @@
 @property (nonatomic,assign) BOOL isHadShareButton;
 @property (nonatomic,assign) BOOL isHadCancelButton;
 @property (nonatomic,assign) CGFloat LXActivityHeight;
-@property (nonatomic,assign) id<ActivityDelegate>delegate;
+@property (nonatomic,weak) id<ActivityDelegate>delegate;
 
 @end
 
@@ -116,7 +116,8 @@
 
 - (void)showInView:(UIView *)view
 {
-    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+//    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+    [view addSubview:self];
 }
 
 #pragma mark - Praviate method
@@ -132,7 +133,7 @@
     self.LXActivityHeight = 0;
     
     //初始化IndexNumber为0;
-    self.positionIndexNumber = 1;
+    self.positionIndexNumber = 0;
     
     //生成LXActionSheetView
     self.backGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 0)];
@@ -158,22 +159,20 @@
     float button_interval = (CGRectGetWidth(self.backGroundView.bounds)-62-3*SHAREBUTTON_WIDTH)/2;
     if (shareButtonImagesNameArray) {
         
-        UIButton *taoziBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.frame.size.width-SHAREBUTTON_WIDTH)/2, self.LXActivityHeight, SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
-        [taoziBtn setBackgroundImage:[UIImage imageNamed:[shareButtonImagesNameArray objectAtIndex:0]] forState:UIControlStateNormal];
-        [self.backGroundView addSubview:taoziBtn];
-        taoziBtn.tag = 0;
-        [taoziBtn addTarget:self action:@selector(didClickOnImageIndex:) forControlEvents:UIControlEventTouchUpInside];
+//        UIButton *taoziBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.frame.size.width-SHAREBUTTON_WIDTH)/2, self.LXActivityHeight, SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
+//        [taoziBtn setBackgroundImage:[UIImage imageNamed:[shareButtonImagesNameArray objectAtIndex:0]] forState:UIControlStateNormal];
+//        [self.backGroundView addSubview:taoziBtn];
+//        taoziBtn.tag = 0;
+//        [taoziBtn addTarget:self action:@selector(didClickOnImageIndex:) forControlEvents:UIControlEventTouchUpInside];
 
         
-        if ((shareButtonImagesNameArray.count-1) > 0) {
+        if ((shareButtonImagesNameArray.count) > 0) {
             self.isHadShareButton = YES;
-            for (int i = 1; i < shareButtonImagesNameArray.count; i++) {
+            for (int i = 0; i < shareButtonImagesNameArray.count; i++) {
                 //计算出行数，与列数
-                int column = (int)ceil((float)(i)/3)+1; //行
+                int column = (int)(i/3); //行
                 int line = (i)%3; //列
-                if (line == 0) {
-                    line = 3;
-                }
+            
                 UIButton *shareButton = [self creatShareButtonWithColumn:column andLine:line];
                 shareButton.tag = self.positionIndexNumber;
                 [shareButton addTarget:self action:@selector(didClickOnImageIndex:) forControlEvents:UIControlEventTouchUpInside];
@@ -181,10 +180,10 @@
                 [shareButton setBackgroundImage:[UIImage imageNamed:[shareButtonImagesNameArray objectAtIndex:i]] forState:UIControlStateNormal];
                 //有Title的时候
                 if (self.isHadTitle == YES) {
-                    [shareButton setFrame:CGRectMake(31+((line-1)*(button_interval+SHAREBUTTON_WIDTH)), self.LXActivityHeight+((column-1)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT)), SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
+                    [shareButton setFrame:CGRectMake(31+((line)*(button_interval+SHAREBUTTON_WIDTH)), self.LXActivityHeight+((column)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT)), SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
                 }
                 else{
-                    [shareButton setFrame:CGRectMake(31+((line-1)*(button_interval+SHAREBUTTON_WIDTH)), SHAREBUTTON_INTERVAL_HEIGHT+((column-1)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT)), SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
+                    [shareButton setFrame:CGRectMake(31+((line)*(button_interval+SHAREBUTTON_WIDTH)), SHAREBUTTON_INTERVAL_HEIGHT+((column)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT)), SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
                 }
                 [self.backGroundView addSubview:shareButton];
                 
@@ -195,27 +194,25 @@
     
     if (shareButtonTitlesArray) {
         
-        UILabel *taoziLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width-SHAREBUTTON_WIDTH)/2, self.LXActivityHeight+SHAREBUTTON_HEIGHT, SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
-        taoziLabel.text = [shareButtonTitlesArray firstObject];
-        [self.backGroundView addSubview:taoziLabel];
-        taoziLabel.backgroundColor = [UIColor clearColor];
-        taoziLabel.textAlignment = NSTextAlignmentCenter;
-        taoziLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10.];
-        taoziLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
+//        UILabel *taoziLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width-SHAREBUTTON_WIDTH)/2, self.LXActivityHeight+SHAREBUTTON_HEIGHT, SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
+//        taoziLabel.text = [shareButtonTitlesArray firstObject];
+//        [self.backGroundView addSubview:taoziLabel];
+//        taoziLabel.backgroundColor = [UIColor clearColor];
+//        taoziLabel.textAlignment = NSTextAlignmentCenter;
+//        taoziLabel.font = [UIFont systemFontOfSize:10.];
+//        taoziLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
         
         if (shareButtonTitlesArray.count > 0 && shareButtonImagesNameArray.count > 0) {
-            for (int j = 1; j < shareButtonTitlesArray.count; j++) {
+            for (int j = 0; j < shareButtonTitlesArray.count; j++) {
                 //计算出行数，与列数
-                int column = (int)ceil((float)(j)/3)+1; //行
+                int column = (int)(j/3); //行
                 int line = (j)%3; //列
-                if (line == 0) {
-                    line = 3;
-                }
+            
                 UILabel *shareLabel = [self creatShareLabelWithColumn:column andLine:line];
                 shareLabel.text = [shareButtonTitlesArray objectAtIndex:j];
                 //有Title的时候
                 if (self.isHadTitle == YES) {
-                    [shareLabel setFrame:CGRectMake(31+((line-1)*(button_interval+SHARETITLE_WIDTH)), self.LXActivityHeight+SHAREBUTTON_HEIGHT+((column-1)*(SHARETITLE_INTERVAL_HEIGHT)), SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
+                    [shareLabel setFrame:CGRectMake(31+((line)*(button_interval+SHARETITLE_WIDTH)), self.LXActivityHeight+SHAREBUTTON_HEIGHT+((column)*(SHARETITLE_INTERVAL_HEIGHT)), SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
                 }
                 [self.backGroundView addSubview:shareLabel];
             }
@@ -224,12 +221,12 @@
     
     //再次计算加入shareButtons后LXActivity的高度
     if (shareButtonImagesNameArray && shareButtonImagesNameArray.count > 0) {
-        int totalColumns = (int)ceil((float)(shareButtonImagesNameArray.count)/4);
+        int totalColumns = (int)ceil((float)(shareButtonImagesNameArray.count)/3);
         if (self.isHadTitle  == YES) {
-            self.LXActivityHeight = self.LXActivityHeight + (totalColumns+1)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT);
+            self.LXActivityHeight = self.LXActivityHeight + (totalColumns)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT);
         }
         else{
-            self.LXActivityHeight = SHAREBUTTON_INTERVAL_HEIGHT + (totalColumns+1)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT);
+            self.LXActivityHeight = SHAREBUTTON_INTERVAL_HEIGHT + (totalColumns)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT);
         }
     }
     
@@ -278,17 +275,17 @@
 
 - (UIButton *)creatShareButtonWithColumn:(int)column andLine:(int)line
 {
-    UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(SHAREBUTTON_INTERVAL_WIDTH+((line-1)*(SHAREBUTTON_INTERVAL_WIDTH+SHAREBUTTON_WIDTH)), SHAREBUTTON_INTERVAL_HEIGHT+((column-1)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT)), SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
+    UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(SHAREBUTTON_INTERVAL_WIDTH+((line)*(SHAREBUTTON_INTERVAL_WIDTH+SHAREBUTTON_WIDTH)), SHAREBUTTON_INTERVAL_HEIGHT+((column)*(SHAREBUTTON_INTERVAL_HEIGHT+SHAREBUTTON_HEIGHT)), SHAREBUTTON_WIDTH, SHAREBUTTON_HEIGHT)];
     return shareButton;
 }
 
 - (UILabel *)creatShareLabelWithColumn:(int)column andLine:(int)line
 {
-    UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(SHARETITLE_INTERVAL_WIDTH+((line-1)*(SHARETITLE_INTERVAL_WIDTH+SHARETITLE_WIDTH)), SHARETITLE_INTERVAL_HEIGHT+((column-1)*(SHARETITLE_INTERVAL_HEIGHT)), SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
+    UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(SHARETITLE_INTERVAL_WIDTH+((line)*(SHARETITLE_INTERVAL_WIDTH+SHARETITLE_WIDTH)), SHARETITLE_INTERVAL_HEIGHT+((column)*(SHARETITLE_INTERVAL_HEIGHT)), SHARETITLE_WIDTH, SHARETITLE_HEIGHT)];
     
     shareLabel.backgroundColor = [UIColor clearColor];
     shareLabel.textAlignment = NSTextAlignmentCenter;
-    shareLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:11.];
+    shareLabel.font = [UIFont systemFontOfSize:11.];
     shareLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
     return shareLabel;
 }

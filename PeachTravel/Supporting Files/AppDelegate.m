@@ -14,6 +14,7 @@
 #import "AccountManager.h"
 #import "WXApiObject.h"
 #import "WXApi.h"
+#import "iRate.h"
 #import "AppDelegate+EaseMob.h"
 
 @interface AppDelegate ()
@@ -28,19 +29,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                            NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:17.0]}];
+    if (IS_IOS8) {
+        [[UINavigationBar appearance] setTranslucent:NO];
+    } else {
+        
+    }
+    [[UINavigationBar appearance] setTintColor:APP_THEME_COLOR];
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
+    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]
+                                       forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    _homeViewController = [[HomeViewController alloc] init];
     
     //目前只有环信的推送。因此暂时
-    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (message) {
-        _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
-    }
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
+//    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+//    if (message) {
+//        _homeViewController.shouldJumpToChatListWhenAppLaunch = YES;
+//    }
+    self.window.rootViewController = [[HomeViewController alloc] init];
     [self.window makeKeyAndVisible];
     
     
@@ -55,8 +64,15 @@
     /**设置友盟统计**/
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
 
+#ifndef __OPTIMIZE__
+    [MobClick setCrashReportEnabled:NO];
+#else
+    [MobClick setCrashReportEnabled:YES];
+#endif
     
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+    
+    [iRate sharedInstance].promptAtLaunch = NO;
 
     return YES;
 }

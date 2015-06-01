@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(nextStep:)];
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
     addBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = addBtn;
     AccountManager *accountManager = [AccountManager shareAccountManager];
@@ -40,23 +40,23 @@
         if (_shouldSetPasswordWhenBindTel) {
             self.navigationItem.title = @"安全设置";
             _titleLabel.text = @"为了账户安全和使用方便,强烈建议你绑定手机号";
-            self.navigationItem.rightBarButtonItem.title = @"提交 ";
         } else {
-            self.navigationItem.title = @"更换手机";
-            _titleLabel.text = @"输入新的手机号";
-            self.navigationItem.rightBarButtonItem.title = @"提交 ";
+            self.navigationItem.title = @"绑定设置";
+            _titleLabel.text = [NSString stringWithFormat:@"已安全绑定手机号 %@", accountManager.account.tel];
         }
        
     } else {
-        self.navigationItem.title = @"用户验证";
+        self.navigationItem.title = @"验证";
         _phoneLabel.placeholder = @"请输入手机号";
-        self.navigationItem.rightBarButtonItem.title = @"提交 ";
     }
+    
+    self.navigationItem.rightBarButtonItem.title = @"提交 ";
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     UILabel *ul = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _phoneLabel.bounds.size.height - 16.0)];
     ul.text = @"手机号:";
     ul.textColor = TEXT_COLOR_TITLE;
-    ul.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    ul.font = [UIFont systemFontOfSize:14.0];
     ul.textAlignment = NSTextAlignmentCenter;
     _phoneLabel.leftView = ul;
     _phoneLabel.leftViewMode = UITextFieldViewModeAlways;
@@ -64,15 +64,17 @@
     UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 64.0, _captchaLabel.bounds.size.height - 16.0)];
     pl.text = @"验证码:";
     pl.textColor = TEXT_COLOR_TITLE;
-    pl.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    pl.font = [UIFont systemFontOfSize:14.0];
     pl.textAlignment = NSTextAlignmentCenter;
     _captchaLabel.leftView = pl;
     _captchaLabel.leftViewMode = UITextFieldViewModeAlways;
+    [_captchaLabel addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+    
     _captchaBtn.layer.cornerRadius = 5.0;
     _captchaBtn.clipsToBounds = YES;
     [_captchaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_captchaBtn setTitleColor:TEXT_COLOR_TITLE_SUBTITLE forState:UIControlStateDisabled];
-    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_SUB_THEME_COLOR] forState:UIControlStateNormal];
+    [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR] forState:UIControlStateNormal];
     [_captchaBtn setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
 
 }
@@ -158,7 +160,7 @@
 
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     //获取注册码
     [manager POST:API_GET_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -208,7 +210,7 @@
     [params setObject:_captchaLabel.text forKey:@"captcha"];
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
     //验证注册码
     [manager POST:API_VERIFY_CAPTCHA parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -261,7 +263,7 @@
     
      __weak typeof(VerifyCaptchaViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     //修改手机号
     [manager POST:API_BINDTEL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -295,10 +297,10 @@
 - (IBAction)receiveVerifyCode:(UIButton *)sender {
     [self.view endEditing:YES];
     if ([self checkInput] == PhoneNumberError) {
-        [self showHint:@"手机号没get到"];
+        [self showHint:@"请输入手机号"];
     } else {
         _captchaBtn.enabled =  NO;
-        [_captchaBtn setTitle:@"请稍等" forState:UIControlStateDisabled];
+        [_captchaBtn setTitle:@"请稍候" forState:UIControlStateDisabled];
 
         [self getCaptcha];
     }
@@ -306,7 +308,7 @@
 
 - (IBAction)nextStep:(UIButton *)sender {
     if ([_captchaLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
-        [self showHint:@"亲，你的验证码呢"];
+        [self showHint:@"请输入验证码"];
         return;
     }
     [self.view endEditing:YES];
@@ -318,6 +320,10 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     [super touchesEnded:touches withEvent:event];
+}
+
+- (void) textChanged:(UITextField *)textField {
+    self.navigationItem.rightBarButtonItem.enabled = ![textField.text isEqualToString:@""];
 }
 @end
 

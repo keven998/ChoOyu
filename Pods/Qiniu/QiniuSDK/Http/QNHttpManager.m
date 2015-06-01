@@ -17,13 +17,7 @@
 @property (nonatomic) AFHTTPRequestOperationManager *httpManager;
 @end
 
-static NSString *userAgent = nil;
-
 @implementation QNHttpManager
-
-+ (void)initialize {
-	userAgent = QNUserAgent();
-}
 
 - (instancetype)init {
 	if (self = [super init]) {
@@ -36,17 +30,24 @@ static NSString *userAgent = nil;
 
 + (QNResponseInfo *)buildResponseInfo:(AFHTTPRequestOperation *)operation
                             withError:(NSError *)error
+                         withDuration:(double)duration
                          withResponse:(id)responseObject {
 	QNResponseInfo *info;
+	NSString *host = operation.request.URL.host;
+
 	if (operation.response) {
+		int status =  (int)[operation.response statusCode];
 		NSDictionary *headers = [operation.response allHeaderFields];
 		NSString *reqId = headers[@"X-Reqid"];
 		NSString *xlog = headers[@"X-Log"];
-		int status =  (int)[operation.response statusCode];
-		info = [[QNResponseInfo alloc] init:status withReqId:reqId withXLog:xlog withBody:responseObject];
+		NSString *xvia = headers[@"X-Via"];
+		if (xvia == nil) {
+			xvia = headers[@"X-Px"];
+		}
+		info = [[QNResponseInfo alloc] init:status withReqId:reqId withXLog:xlog withXVia:xvia withHost:host withDuration:duration withBody:responseObject];
 	}
 	else {
-		info = [QNResponseInfo responseInfoWithNetError:error];
+		info = [QNResponseInfo responseInfoWithNetError:error host:host duration:duration];
 	}
 	return info;
 }
@@ -54,17 +55,22 @@ static NSString *userAgent = nil;
 - (void)  sendRequest:(NSMutableURLRequest *)request
     withCompleteBlock:(QNCompleteBlock)completeBlock
     withProgressBlock:(QNInternalProgressBlock)progressBlock {
+	__block NSDate *startTime = [NSDate date];
 	AFHTTPRequestOperation *operation = [_httpManager
 	                                     HTTPRequestOperationWithRequest:request
 	                                                             success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-	    QNResponseInfo *info = [QNHttpManager buildResponseInfo:operation withError:nil withResponse:operation.responseData];
+	    double duration = [[NSDate date] timeIntervalSinceDate:startTime];
+	    QNResponseInfo *info = [QNHttpManager buildResponseInfo:operation withError:nil withDuration:duration withResponse:operation.responseData];
 	    NSDictionary *resp = nil;
 	    if (info.isOK) {
 	        resp = responseObject;
 		}
+	    NSLog(@"success %@", info);
 	    completeBlock(info, resp);
 	}                                                                failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    QNResponseInfo *info = [QNHttpManager buildResponseInfo:operation withError:error withResponse:operation.responseData];
+	    double duration = [[NSDate date] timeIntervalSinceDate:startTime];
+	    QNResponseInfo *info = [QNHttpManager buildResponseInfo:operation withError:error withDuration:duration withResponse:operation.responseData];
+	    NSLog(@"failure %@", info);
 	    completeBlock(info, nil);
 	}
 
@@ -77,7 +83,7 @@ static NSString *userAgent = nil;
 	}
 	[request setTimeoutInterval:kQNTimeoutInterval];
 
-	[request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+	[request setValue:QNUserAgent() forHTTPHeaderField:@"User-Agent"];
 	[request setValue:nil forHTTPHeaderField:@"Accept-Language"];
 	[_httpManager.operationQueue addOperation:operation];
 }

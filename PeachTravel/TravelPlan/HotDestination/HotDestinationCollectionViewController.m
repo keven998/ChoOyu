@@ -16,14 +16,16 @@
 #import "SuperWebViewController.h"
 #import "SpotDetailViewController.h"
 #import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
-#import "CommonPoiDetailViewController.h"
 #import "SearchDestinationViewController.h"
+#import "PoiDetailViewControllerFactory.h"
+#import "MakePlanViewController.h"
+#import "ForeignViewController.h"
+#import "DomesticViewController.h"
+#import "UIBarButtonItem+MJ.h"
 
 @interface HotDestinationCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, TaoziLayoutDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
-@property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
@@ -33,27 +35,15 @@
 static NSString * const reuseIdentifier = @"Cell";
 static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = APP_PAGE_COLOR;
-//    self.navigationItem.title = @"目的地";
-//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
-//    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    self.navigationItem.title = @"热门城市";
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 , 100, 44)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"目的地";
-    self.navigationItem.titleView = titleLabel;
+    UIBarButtonItem *makePlanBtn = [UIBarButtonItem itemWithIcon:@"ic_search" highIcon:@"ic_search" target:self action:@selector(goSearch)];
+    self.navigationItem.rightBarButtonItem = makePlanBtn;
     
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [_searchBtn setImage:[UIImage imageNamed:@"ic_nav_action_search_white.png"] forState:UIControlStateNormal];
-    [_searchBtn addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
-    _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchBtn];
+
     
     [self.view addSubview:self.collectionView];
 
@@ -67,29 +57,12 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_destination"];
-    _isShowing = YES;
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    if ([self rdv_tabBarController].tabBarHidden) {
-        [[self rdv_tabBarController] setTabBarHidden:NO];
-    }
-    [self.navigationController.navigationBar setBackgroundImage:nil  forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBarTintColor:APP_THEME_COLOR];
-    self.navigationController.navigationBar.translucent = YES;
-    [self setNeedsStatusBarAppearanceUpdate];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_destination"];
-    _isShowing = NO;
-    if (self.navigationController.viewControllers.count == 2) {
-        [[self rdv_tabBarController] setTabBarHidden:YES];
-    }
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -110,13 +83,33 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
 
 #pragma mark - IBAction
 
-- (IBAction)goSearch:(UIButton *)sender {
-    [MobClick event:@"event_go_search"];
+- (void)goSearch {
     SearchDestinationViewController *searchCtl = [[SearchDestinationViewController alloc] init];
-    searchCtl.titleStr = @"搜索";
-    [self.navigationController pushViewController:searchCtl animated:YES];
+    [searchCtl setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    TZNavigationViewController *tznavc = [[TZNavigationViewController alloc] initWithRootViewController:searchCtl];
+    [self presentViewController:tznavc animated:YES completion:nil];
 }
 
+- (IBAction)makePlan:(UIButton *)sender {
+    Destinations *destinations = [[Destinations alloc] init];
+    MakePlanViewController *makePlanCtl = [[MakePlanViewController alloc] init];
+    ForeignViewController *foreignCtl = [[ForeignViewController alloc] init];
+    DomesticViewController *domestic = [[DomesticViewController alloc] init];
+    domestic.destinations = destinations;
+    foreignCtl.destinations = destinations;
+    makePlanCtl.destinations = destinations;
+    makePlanCtl.viewControllers = @[domestic, foreignCtl];
+    domestic.makePlanCtl = makePlanCtl;
+    foreignCtl.makePlanCtl = makePlanCtl;
+    makePlanCtl.animationOptions = UIViewAnimationOptionTransitionNone;
+    makePlanCtl.duration = 0;
+    makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
+    makePlanCtl.selectedColor = APP_THEME_COLOR;
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
+    makePlanCtl.normalColor= [UIColor grayColor];
+    makePlanCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:makePlanCtl animated:YES];
+}
 
 #pragma mark - setter & getter
 
@@ -291,6 +284,8 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.title = recommend.title;
         webCtl.urlStr = recommend.linkUrl;
+        webCtl.hidesBottomBarWhenPushed = YES;
+        webCtl.hideToolBar = YES;
         [self.navigationController pushViewController:webCtl animated:YES];
     }
     if (recommend.linkType == LinkNative) {
@@ -298,6 +293,7 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             case kCityPoi: {
                 CityDetailTableViewController *ctl = [[CityDetailTableViewController alloc] init];
                 ctl.cityId = recommend.recommondId;
+                ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
@@ -305,38 +301,17 @@ static NSString * const reuseHeaderIdentifier = @"hotDestinationHeader";
             case kSpotPoi: {
                 SpotDetailViewController *ctl = [[SpotDetailViewController alloc] init];
                 ctl.spotId = recommend.recommondId;
+                ctl.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
                 break;
-                
-            case kRestaurantPoi: {
-                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-                ctl.poiType = kRestaurantPoi;
-                ctl.poiId = recommend.recommondId;
-                [self addChildViewController:ctl];
-                [self.view addSubview:ctl.view];
-            }
-                break;
             
-            case kShoppingPoi: {
-                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
+            default: {
+                CommonPoiDetailViewController *ctl = [PoiDetailViewControllerFactory poiDetailViewControllerWithPoiType:recommend.poiType];
                 ctl.poiId = recommend.recommondId;
-                ctl.poiType = kShoppingPoi;
                 [self addChildViewController:ctl];
                 [self.view addSubview:ctl.view];
             }
-                break;
-                
-            case kHotelPoi: {
-                CommonPoiDetailViewController *ctl = [[CommonPoiDetailViewController alloc] init];
-                ctl.poiId = recommend.recommondId;
-                ctl.poiType = kHotelPoi;
-                [self addChildViewController:ctl];
-                [self.view addSubview:ctl.view];
-            }
-                break;
-                
-            default:
                 break;
         }
     }

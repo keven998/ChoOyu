@@ -27,12 +27,11 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        
         _locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:_locationImageView];
         
         _addressLabel = [[UILabel alloc] init];
-        _addressLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:LOCATION_ADDRESS_LABEL_FONT_SIZE];
+        _addressLabel.font = [UIFont systemFontOfSize:LOCATION_ADDRESS_LABEL_FONT_SIZE];
         _addressLabel.textColor = [UIColor whiteColor];
         _addressLabel.numberOfLines = 0;
         _addressLabel.backgroundColor = [UIColor clearColor];
@@ -41,18 +40,15 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     return self;
 }
 
--(CGSize)sizeThatFits:(CGSize)size
+- (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize textBlockMinSize = {130, 25};
+    CGSize textBlockMinSize = {180, 25};
+
     
-    CGSize addressSize = [self.model.address boundingRectWithSize:textBlockMinSize options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: _addressLabel.font} context:nil].size;
-    
-    CGFloat width = addressSize.width < LOCATION_IMAGEVIEW_SIZE ? LOCATION_IMAGEVIEW_SIZE : addressSize.width-BUBBLE_ARROW_WIDTH;
-    
-    return CGSizeMake(width + BUBBLE_ARROW_WIDTH, LOCATION_IMAGEVIEW_SIZE);
+    return CGSizeMake(textBlockMinSize.width + BUBBLE_ARROW_WIDTH, LOCATION_IMAGEVIEW_SIZE);
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
     [super layoutSubviews];
     
@@ -67,7 +63,9 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
     
     frame.origin.y = 0;
     [self.locationImageView setFrame:frame];
-    _addressLabel.frame = CGRectMake(5, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width - 20, 25);
+    self.locationImageView.layer.cornerRadius = 5.0;
+    self.locationImageView.clipsToBounds = YES;
+    _addressLabel.frame = CGRectMake(10, self.locationImageView.frame.size.height - 30, self.locationImageView.frame.size.width - 20, 25);
 }
 
 #pragma mark - setter
@@ -76,20 +74,21 @@ NSString *const kRouterEventLocationBubbleTapEventName = @"kRouterEventLocationB
 {
     [super setModel:model];
     
-    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
+//    NSString *maskImageName = _model.isSender ? @"SenderImageNodeBorder_back.png" : @"ReceiverImageNodeBorder_back.png";
     _addressLabel.text = model.address;
+    self.locationImageView.image = [UIImage imageNamed:LOCATION_IMAGE];
 
-    [self resizeImage:[UIImage imageNamed:LOCATION_IMAGE] withMaskImageName:maskImageName];
+//    [self resizeImage:[UIImage imageNamed:LOCATION_IMAGE] withMaskImageName:maskImageName];
 }
 
-- (void) resizeImage:(UIImage *)image withMaskImageName:(NSString *)maskImageName;
-{
-    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:15 topCapHeight:30];
-    CGSize size = CGSizeMake(100, 150);
-    const UIImage *maskImageDrawnToSize = [resizableMaskImage renderAtSize:size];
-    _locationImageView.image = [image maskWithImage: maskImageDrawnToSize];
-    
-}
+//- (void) resizeImage:(UIImage *)image withMaskImageName:(NSString *)maskImageName;
+//{
+//    const UIImage *resizableMaskImage = [[UIImage imageNamed:maskImageName] stretchableImageWithLeftCapWidth:15 topCapHeight:30];
+//    CGSize size = CGSizeMake(100, 150);
+//    const UIImage *maskImageDrawnToSize = [resizableMaskImage renderAtSize:size];
+//    _locationImageView.image = [image maskWithImage: maskImageDrawnToSize];
+//    
+//}
 
 #pragma mark - public
 

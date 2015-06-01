@@ -42,7 +42,7 @@
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.text = @" 手指上滑，取消发送 ";
         [self addSubview:_textLabel];
-        _textLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:10];
+        _textLabel.font = [UIFont systemFontOfSize:10];
         _textLabel.textColor = [UIColor whiteColor];
         _textLabel.layer.cornerRadius = 5;
         _textLabel.layer.borderColor = [[UIColor redColor] colorWithAlphaComponent:0.5].CGColor;

@@ -14,11 +14,16 @@
  *  进入此页面，点击每条攻略是发送还是进入详情，yes：发送
  */
 @property (nonatomic) BOOL selectToSend;
-
 @property (nonatomic, copy) NSString *chatter;
-
 @property (nonatomic) BOOL isChatGroup;
 
+@property (nonatomic, assign) BOOL isTrip;
 
 
+/**
+ *  自己查看为NO  查看达人为YES
+ */
+@property (nonatomic) BOOL isExpert;
+
+@property (nonatomic,copy) NSNumber *userId;
 @end

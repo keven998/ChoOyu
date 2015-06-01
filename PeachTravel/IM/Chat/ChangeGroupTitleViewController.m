@@ -21,7 +21,7 @@
     _titleLable.text = _oldTitle;
     self.navigationItem.title = @"修改群名称";
     
-    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStyleBordered target:self action:@selector(confirm:)];
+    UIBarButtonItem * addBtn = [[UIBarButtonItem alloc]initWithTitle:@"确定 " style:UIBarButtonItemStylePlain target:self action:@selector(confirm:)];
     addBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = addBtn;
     
@@ -54,7 +54,7 @@
     } else {
         __weak typeof(ChangeGroupTitleViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
-        [hud showHUDInViewController:weakSelf];
+        [hud showHUDInViewController:weakSelf content:64];
         [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
                                                              forGroup:_groupId];
     }
@@ -65,7 +65,10 @@
         [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
     } onQueue:nil];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)updateSuccess
 {
     

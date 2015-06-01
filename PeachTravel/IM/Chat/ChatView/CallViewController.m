@@ -68,18 +68,18 @@ static CallViewController *shareController = nil;
     [self.view addSubview:_bgImageView];
     
     _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
-    _statusLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:15.0];
+    _statusLabel.font = [UIFont systemFontOfSize:15.0];
     _statusLabel.backgroundColor = [UIColor clearColor];
     _statusLabel.textColor = [UIColor whiteColor];
     _statusLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_statusLabel];
     
     _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 50) / 2, CGRectGetMaxY(_statusLabel.frame) + 20, 50, 50)];
-    _headerImageView.image = [UIImage imageNamed:@"avatar_placeholder.png"];
+    _headerImageView.image = [UIImage imageNamed:@"person_disabled"];
     [self.view addSubview:_headerImageView];
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerImageView.frame) + 5, self.view.frame.size.width, 20)];
-    _nameLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
+    _nameLabel.font = [UIFont systemFontOfSize:14.0];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -94,7 +94,7 @@ static CallViewController *shareController = nil;
     
     _silenceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_silenceButton.frame), CGRectGetMaxY(_silenceButton.frame) + 5, 40, 20)];
     _silenceLabel.textColor = [UIColor whiteColor];
-    _silenceLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    _silenceLabel.font = [UIFont systemFontOfSize:13.0];
     _silenceLabel.textAlignment = NSTextAlignmentCenter;
     _silenceLabel.text = @"静音";
     [self.view addSubview:_silenceLabel];
@@ -107,7 +107,7 @@ static CallViewController *shareController = nil;
     
     _outLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_speakerOutButton.frame), CGRectGetMaxY(_speakerOutButton.frame) + 5, 40, 20)];
     _outLabel.textColor = [UIColor whiteColor];
-    _outLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
+    _outLabel.font = [UIFont systemFontOfSize:13.0];
     _outLabel.textAlignment = NSTextAlignmentCenter;
     _outLabel.text = @"免提";
     [self.view addSubview:_outLabel];

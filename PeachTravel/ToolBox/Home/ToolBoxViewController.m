@@ -15,14 +15,14 @@
 #import "MyGuideListTableViewController.h"
 #import "FavoriteViewController.h"
 #import "LocalViewController.h"
-#import "CycleScrollView.h"
+#import "AutoSlideScrollView.h"
 #import "NSTimer+Addition.h"
 #import "SuperWebViewController.h"
 #import "MakePlanViewController.h"
 #import "ForeignViewController.h"
 #import "DomesticViewController.h"
 
-@interface ToolBoxViewController () <UIAlertViewDelegate, MHTabBarControllerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
+@interface ToolBoxViewController () <UIAlertViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 {
     CLLocationManager* locationManager;
     BOOL locationIsGotten;
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSMutableArray *imageViews;
 
 @property (strong, nonatomic) UILabel *weatherLabel;
-@property (nonatomic, strong) CycleScrollView *galleryPageView;
+@property (nonatomic, strong) AutoSlideScrollView *galleryPageView;
 @property (nonatomic, strong) UIButton *planBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
 @property (nonatomic, strong) UIView *contentFrame;
@@ -49,6 +49,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
     }
     return self;
 }
@@ -60,7 +61,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_navigation_title.png"]];
     self.view.backgroundColor = APP_PAGE_COLOR;
     
-    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStyleBordered target:self action:@selector(showActionHint)];
+    UIBarButtonItem * makePlanBtn = [[UIBarButtonItem alloc]initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(showActionHint)];
     makePlanBtn.image = [UIImage imageNamed:@"ic_new_plan.png"];
     makePlanBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = makePlanBtn;
@@ -84,7 +85,7 @@
     
     CGFloat height = 135 * ratioY;
     
-    _galleryPageView = [[CycleScrollView alloc]initWithFrame:CGRectMake(0, 64, w, height) animationDuration:5];
+    _galleryPageView = [[AutoSlideScrollView alloc]initWithFrame:CGRectMake(0, 64, w, height) animationDuration:5];
     _galleryPageView.backgroundColor = [APP_THEME_COLOR colorWithAlphaComponent:0.2];
     _galleryPageView.clipsToBounds = YES;
     [self.view addSubview:_galleryPageView];
@@ -94,19 +95,13 @@
     _contentFrame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_contentFrame];
     
-    //    _weatherFrame = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, _galleryPageView.frame.origin.y+_galleryPageView.frame.size.height-40, w, 40.0)];
-    //    _weatherFrame.image = [UIImage imageNamed:@"weatherbackground.png"];
-    //    _weatherFrame.contentMode = UIViewContentModeScaleToFill;
-    //    _weatherFrame.clipsToBounds = YES;
-    //    _weatherFrame.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    
     CGFloat offsetY = 10.0 * ratioY;
     
     _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake(18.0, offsetY, w - 28, 15*ratioY)];
     _weatherLabel.textAlignment = NSTextAlignmentRight;
     _weatherLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _weatherLabel.textColor = UIColorFromRGB(0x7a7a7a);
-    _weatherLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:(9*ratioY)];
+    _weatherLabel.font = [UIFont systemFontOfSize:(9*ratioY)];
     
     _weatherLabel.numberOfLines = 2;
     [_contentFrame addSubview:_weatherLabel];
@@ -128,7 +123,7 @@
     [_planBtn addSubview:myGuideTitleLabel];
     
     UILabel *guideSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 25*ratioY, _planBtn.bounds.size.width + 48.0, 60*ratioY)];
-    guideSubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12*ratioX];
+    guideSubTitle.font = [UIFont systemFontOfSize:12*ratioX];
     guideSubTitle.numberOfLines = 3;
     guideSubTitle.textColor = TEXT_COLOR_TITLE_PH;
     guideSubTitle.textAlignment = NSTextAlignmentCenter;
@@ -137,13 +132,13 @@
     UIButton *guideSimButton = [[UIButton alloc] initWithFrame:CGRectMake(12.5, (guideSubTitle.frame.size.height+guideSubTitle.frame.origin.y) + 5*ratioY, 90*ratioX, 90*ratioX)];
     guideSimButton.clipsToBounds = YES;
     guideSimButton.titleLabel.numberOfLines = 2;
-    [guideSimButton setTitle:@"我的\n旅程" forState:UIControlStateNormal];
+    [guideSimButton setTitle:@"我的\n旅途" forState:UIControlStateNormal];
     [guideSimButton setTitleColor:APP_SUB_THEME_COLOR forState:UIControlStateNormal];
-    guideSimButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17*ratioX];
+    guideSimButton.titleLabel.font = [UIFont systemFontOfSize:17*ratioX];
     [guideSimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
     [_planBtn addSubview:guideSimButton];
     
-    myGuideTitleLabel.text = @"旅程助手";
+    myGuideTitleLabel.text = @"旅途助手";
     
     CGFloat title_w = [myGuideTitleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18*ratioX]}].width;
     
@@ -152,7 +147,7 @@
     [_planBtn addSubview:titleImage];
 
     
-    NSString *str = @"最贴心的旅程助手\n让你的旅行\n更安心、简单";
+    NSString *str = @"最贴心的旅途助手\n让你的旅行\n更安心、简单";
     NSMutableAttributedString *desc = [[NSMutableAttributedString alloc] initWithString:str];
     [desc addAttribute:NSForegroundColorAttributeName value:TEXT_COLOR_TITLE_PH  range:NSMakeRange(0, [str length])];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
@@ -173,7 +168,7 @@
     [_aroundBtn addSubview:nearByTitleLabel];
     
     UILabel *nearBySubTitle = [[UILabel alloc] initWithFrame:CGRectMake(22, 25*ratioY, _aroundBtn.bounds.size.width - 20.0, 60*ratioY)];
-    nearBySubTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:12*ratioX];
+    nearBySubTitle.font = [UIFont systemFontOfSize:12*ratioX];
     nearBySubTitle.numberOfLines = 3;
     nearBySubTitle.textColor = TEXT_COLOR_TITLE_PH;
     nearBySubTitle.textAlignment = NSTextAlignmentCenter;
@@ -184,7 +179,7 @@
     [nearBySimButton setBackgroundImage:[UIImage imageNamed:@"ic_home_btn_cycle.png"] forState:UIControlStateNormal];
     [nearBySimButton setTitle:@"发现\n身边" forState:UIControlStateNormal];
     nearBySimButton.titleLabel.numberOfLines = 2;
-    nearBySimButton.titleLabel.font = [UIFont fontWithName:@"MicrosoftYaHei" size:17*ratioX];
+    nearBySimButton.titleLabel.font = [UIFont systemFontOfSize:17*ratioX];
     nearBySimButton.clipsToBounds = YES;
     [_aroundBtn addSubview:nearBySimButton];
     
@@ -211,9 +206,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([self rdv_tabBarController].tabBarHidden) {
-        [[self rdv_tabBarController] setTabBarHidden:NO];
-    }
     if (!_operationDataArray || _operationDataArray.count == 0) {
         [self loadRecommendData];
     } else {
@@ -232,9 +224,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (self.navigationController.viewControllers.count == 2) {
-        [[self rdv_tabBarController] setTabBarHidden:YES];
-    }
+  
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [MobClick endLogPageView:@"page_home_tools"];
@@ -242,7 +232,6 @@
 
 - (void)dealloc
 {
-    [_galleryPageView stopTimer];
     _galleryPageView = nil;
     locationManager.delegate = nil;
     locationManager = nil;
@@ -275,6 +264,7 @@
         SuperWebViewController *webCtl = [[SuperWebViewController alloc] init];
         webCtl.titleStr = data.title;
         webCtl.urlStr = data.linkUrl;
+        webCtl.hidesBottomBarWhenPushed = YES;
         [weakSelf.navigationController pushViewController:webCtl animated:YES];
 
     };
@@ -340,6 +330,7 @@
     [params setObject:imageWidth forKey:@"imgWidth"];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     //获取首页数据
+
     [manager GET:API_GET_COLUMNS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
@@ -388,7 +379,7 @@
     [desc addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, s.length)];
     [_weatherLabel setAttributedText:desc];
     
-    CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"MicrosoftYaHei" size:9*(kWindowHeight/480)]}].width;
+    CGFloat offsetX = [s sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:9*(kWindowHeight/480)]}].width;
 
     UIImageView *weatherImageview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_weatherLabel.bounds) - offsetX - 20, 2, kWindowHeight/480*10, 10*kWindowHeight/480)];
     weatherImageview.image = [UIImage imageNamed:[yahooWeatherImageName objectAtIndex:_weatherInfo.mCurrentCode]];
@@ -406,6 +397,7 @@
     [MobClick event:@"event_locality"];
 
     LocalViewController *lvc = [[LocalViewController alloc] init];
+    lvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:lvc animated:YES];
 }
 
@@ -423,6 +415,7 @@
         [SVProgressHUD showErrorWithStatus:@"请先登录"];
     } else {
         MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+        myGuidesCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGuidesCtl animated:YES];
     }
 }
@@ -435,7 +428,7 @@
 - (IBAction)goLogin:(id)sender
 {
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:loginCtl];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
     [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
     nctl.navigationBar.translucent = YES;
@@ -443,15 +436,15 @@
 }
 
 /**
- *  新建旅程
+ *  新建旅途
  */
 - (IBAction) showActionHint {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:self
                                               cancelButtonTitle:@"取消"
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"新建旅程", nil];
-    [sheet showInView:self.view];
+                                              otherButtonTitles:@"新建旅途", nil];
+    [sheet showInView:[UIApplication sharedApplication].keyWindow];
     [MobClick event:@"event_create_new_trip_plan_home"];
 }
 
@@ -479,14 +472,13 @@
     makePlanCtl.duration = 0;
     makePlanCtl.segmentedTitles = @[@"国内", @"国外"];
     makePlanCtl.selectedColor = APP_THEME_COLOR;
-    makePlanCtl.segmentedTitleFont = [UIFont fontWithName:@"MicrosoftYahei" size:18.0];
+    makePlanCtl.segmentedTitleFont = [UIFont systemFontOfSize:18.0];
     makePlanCtl.normalColor= [UIColor grayColor];
-
+    makePlanCtl.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:makePlanCtl animated:YES];
 }
 
 #pragma mark - private
-
 /**
  *  是否有未读的消息，包括未读的聊天消息和好友请求消息
  *

@@ -11,10 +11,9 @@
 @implementation UserOtherTableViewCell
 
 - (void)awakeFromNib {
-    self.contentView.layer.borderWidth = 0.25;
-    _cellTitle.font = [UIFont fontWithName:@"MicrosoftYaHei" size:14.0];
-    _cellDetail.font = [UIFont fontWithName:@"MicrosoftYaHei" size:13.0];
-    self.contentView.layer.borderColor = APP_DIVIDER_COLOR.CGColor;
+//    _cellTitle.font = [UIFont systemFontOfSize:16.0];
+    _cellDetail.font = [UIFont systemFontOfSize:13.0];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

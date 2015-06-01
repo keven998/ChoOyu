@@ -26,7 +26,7 @@
 
 @implementation ChatSendHelper
 
-//发送桃子旅行自定义的消息类型
+//发送旅行派自定义的消息类型
 +(EMMessage *)sendTaoziMessageWithString:(NSString *)mainStr
                            andExtMessage:(NSDictionary *)extMsg
                              toUsername:(NSString *)username

@@ -20,16 +20,15 @@
     /****** 设置环信 ******/
     NSString *apnsCertName = nil;
 #if DEBUG
-    apnsCertName = @"TaoziAPNS_Development";
+    apnsCertName = @"LXP_DEV";
 #else
-    apnsCertName = @"TaoziAPNS_Production";
+    apnsCertName = @"LXP_PRO";
 #endif
 
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#taozi" apnsCertName:apnsCertName];
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"aizou#taozi" apnsCertName:apnsCertName otherConfig:@{kSDKConfigEnableConsoleLogger:@NO}];
     // 登录成功后，自动去取好友列表
     // SDK获取结束后，会回调
     // - (void)didFetchedBuddyList:(NSArray *)buddyList error:(EMError *)error方法。
-    [[EaseMob sharedInstance].chatManager setIsAutoFetchBuddyList:YES];
     
     // 注册环信监听
     [self registerEaseMobNotification];
@@ -42,7 +41,7 @@
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     
-    //如果桃子的帐号仍然在线,可是环信的却已经不在线了，那么登录环信帐号
+    //如果旅行派的帐号仍然在线,可是环信的却已经不在线了，那么登录环信帐号
     if ([accountManager isLogin] && ![[EaseMob sharedInstance].chatManager loginInfo]) {
         [accountManager loginEaseMobServer:^(BOOL isSuccess) {
             if (isSuccess) {
@@ -199,7 +198,7 @@
 -(void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (!error) {
-        self.homeViewController.IMRootCtl.IMState = IM_CONNECTING;
+        self.homeViewController.IMState = IM_CONNECTING;
     }
 }
 
@@ -207,12 +206,12 @@
 -(void)didAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     if (error) {
-        self.homeViewController.IMRootCtl.IMState = IM_DISCONNECTED;
+        self.homeViewController.IMState = IM_DISCONNECTED;
     } else {
-        self.homeViewController.IMRootCtl.IMState = IM_CONNECTED;
+        self.homeViewController.IMState = IM_CONNECTED;
+        [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
     }
 }
-
 
 // 绑定deviceToken回调
 - (void)didBindDeviceWithError:(EMError *)error
@@ -226,10 +225,10 @@
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
     if (connectionState == eEMConnectionDisconnected) {
-        self.homeViewController.IMRootCtl.IMState = IM_DISCONNECTED;
+        self.homeViewController.IMState = IM_DISCONNECTED;
     }
     if (connectionState == eEMConnectionConnected) {
-        self.homeViewController.IMRootCtl.IMState = IM_CONNECTED;
+        self.homeViewController.IMState = IM_CONNECTED;
     }
 }
 

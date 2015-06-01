@@ -67,11 +67,9 @@
     if ([[userInfo objectForKey:@"gender"] isEqualToString:@"M"]) {
         self.genderImageView.image = [UIImage imageNamed:@"ic_gender_man.png"];
         
-    }
-    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"F"]) {
+    } else if ([[userInfo objectForKey:@"gender"] isEqualToString:@"F"]) {
         self.genderImageView.image  = [UIImage imageNamed:@"ic_gender_lady.png"];
-    }
-    if ([[userInfo objectForKey:@"gender"] isEqualToString:@"U"]) {
+    } else if ([[userInfo objectForKey:@"gender"] isEqualToString:@"U"]) {
         self.genderImageView.image  = nil;
     }
 
@@ -118,7 +116,7 @@
 
      __weak typeof(SearchUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInViewController:weakSelf];
+    [hud showHUDInViewController:weakSelf content:64];
 
     [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

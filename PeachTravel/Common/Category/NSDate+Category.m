@@ -93,7 +93,7 @@
         }else if (hour < 0 && hour >= -24) {
             dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"昨天HH:mm"];
         }else {
-            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
+            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"MM-dd"];
         }
     }else {
         if (hour >= 0 && hour <= 6) {
@@ -107,7 +107,7 @@
         }else if (hour < 0 && hour >= -24){
             dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"昨天HH:mm"];
         }else  {
-            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
+            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"MM-dd"];
         }
         
     }
@@ -256,7 +256,7 @@
 	if (components1.weekOfYear != components2.weekOfYear) return NO;
 	
 	// Must have a time interval under 1 week. Thanks @aclark
-	return (abs([self timeIntervalSinceDate:aDate]) < D_WEEK);
+	return (fabs([self timeIntervalSinceDate:aDate]) < D_WEEK);
 }
 
 - (BOOL) isThisWeek

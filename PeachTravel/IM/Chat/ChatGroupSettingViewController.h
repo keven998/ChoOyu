@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChatGroupSettingViewController : TZViewController
+@interface ChatGroupSettingViewController : UIViewController
 
 @property (nonatomic, strong) EMGroup *group;
 

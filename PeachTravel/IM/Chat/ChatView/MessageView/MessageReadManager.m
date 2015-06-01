@@ -22,7 +22,7 @@ static MessageReadManager *detailInstance = nil;
 @property (strong, nonatomic) UIWindow *keyWindow;
 
 @property (strong, nonatomic) NSMutableArray *photos;
-@property (strong, nonatomic) UINavigationController *photoNavigationController;
+@property (strong, nonatomic) TZNavigationViewController *photoNavigationController;
 
 @property (strong, nonatomic) UIAlertView *textAlertView;
 
@@ -81,10 +81,10 @@ static MessageReadManager *detailInstance = nil;
     return _photoBrowser;
 }
 
-- (UINavigationController *)photoNavigationController
+- (TZNavigationViewController *)photoNavigationController
 {
     if (_photoNavigationController == nil) {
-        _photoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.photoBrowser];
+        _photoNavigationController = [[TZNavigationViewController alloc] initWithRootViewController:self.photoBrowser];
         _photoNavigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
     

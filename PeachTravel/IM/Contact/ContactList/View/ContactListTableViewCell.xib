@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,25 +19,18 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="MRD-cM-l1V"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4RI-Xp-0RI">
-                        <rect key="frame" x="15" y="5" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="2U0-H3-1s5"/>
-                            <constraint firstAttribute="height" constant="40" id="AmC-MZ-tlL"/>
-                        </constraints>
-                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3L-1f-LAp">
                         <rect key="frame" x="0.0" y="48" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="kYt-ip-rN7"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjQ-4j-fqw">
+                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjQ-4j-fqw">
                         <rect key="frame" x="261" y="10" width="46" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="46" id="DXz-WI-WO9"/>
@@ -47,19 +40,42 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4RI-Xp-0RI">
+                        <rect key="frame" x="15" y="5" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="2U0-H3-1s5">
+                                <variation key="widthClass=compact" constant="32"/>
+                            </constraint>
+                            <constraint firstAttribute="height" constant="40" id="AmC-MZ-tlL">
+                                <variation key="widthClass=compact" constant="32"/>
+                            </constraint>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="K3L-1f-LAp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0RP-sv-odU"/>
-                    <constraint firstItem="UBo-DE-0lK" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="15" id="5oX-fD-MX2"/>
-                    <constraint firstAttribute="trailing" secondItem="UBo-DE-0lK" secondAttribute="trailing" constant="60" id="H6u-Wp-tm3"/>
-                    <constraint firstAttribute="trailing" secondItem="fjQ-4j-fqw" secondAttribute="trailing" constant="13" id="L92-En-kmR"/>
+                    <constraint firstItem="UBo-DE-0lK" firstAttribute="leading" secondItem="4RI-Xp-0RI" secondAttribute="trailing" constant="15" id="5oX-fD-MX2">
+                        <variation key="widthClass=compact" constant="14"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="UBo-DE-0lK" secondAttribute="trailing" constant="60" id="H6u-Wp-tm3">
+                        <variation key="widthClass=compact" constant="72"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="fjQ-4j-fqw" secondAttribute="trailing" constant="13" id="L92-En-kmR">
+                        <variation key="widthClass=compact" constant="1"/>
+                    </constraint>
                     <constraint firstAttribute="trailing" secondItem="K3L-1f-LAp" secondAttribute="trailing" id="NqZ-iK-JC9"/>
                     <constraint firstAttribute="centerY" secondItem="4RI-Xp-0RI" secondAttribute="centerY" id="XqD-fM-5EH"/>
-                    <constraint firstItem="fjQ-4j-fqw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="cvD-jZ-G6k"/>
-                    <constraint firstItem="4RI-Xp-0RI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="dIH-kt-aOI"/>
+                    <constraint firstItem="fjQ-4j-fqw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="cvD-jZ-G6k">
+                        <variation key="widthClass=compact" constant="7"/>
+                    </constraint>
+                    <constraint firstItem="4RI-Xp-0RI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="dIH-kt-aOI">
+                        <variation key="widthClass=compact" constant="12"/>
+                    </constraint>
                     <constraint firstAttribute="centerY" secondItem="UBo-DE-0lK" secondAttribute="centerY" id="ndy-O6-y1u"/>
-                    <constraint firstAttribute="bottom" secondItem="K3L-1f-LAp" secondAttribute="bottom" constant="0.5" id="v2z-3J-BY7"/>
+                    <constraint firstAttribute="bottom" secondItem="K3L-1f-LAp" secondAttribute="bottom" constant="0.5" id="v2z-3J-BY7">
+                        <variation key="widthClass=compact" constant="-7"/>
+                    </constraint>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -67,10 +83,10 @@
                 <outlet property="chatBtn" destination="fjQ-4j-fqw" id="OQ8-VA-vM3"/>
                 <outlet property="nickNameLabel" destination="UBo-DE-0lK" id="72N-ca-aVL"/>
             </connections>
-            <point key="canvasLocation" x="108" y="229.5"/>
+            <point key="canvasLocation" x="142" y="161"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_begin_talk.png" width="34" height="28"/>
+        <image name="ic_begin_talk.png" width="23" height="23"/>
     </resources>
 </document>

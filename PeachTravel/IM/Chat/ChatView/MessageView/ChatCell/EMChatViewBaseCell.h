@@ -18,12 +18,12 @@
 #import "UIResponder+Router.h"
 
 #define HEAD_SIZE 40 // 头像大小
-#define HEAD_PADDING 5 // 头像到cell的内间距和头像到bubble的间距
-#define CELLPADDING 20 // Cell之间间距
+#define HEAD_PADDING 10 // 头像到cell的内间距和头像到bubble的间距
+#define CELLPADDING 5 // Cell之间间距
 
 #define NAME_LABEL_WIDTH 180 // nameLabel宽度
-#define NAME_LABEL_HEIGHT 20 // nameLabel 高度
-#define NAME_LABEL_PADDING 15 // nameLabel与头像的距离
+#define NAME_LABEL_HEIGHT 12 // nameLabel 高度
+#define NAME_LABEL_PADDING 20 // nameLabel与头像的距离
 #define NAME_LABEL_FONT_SIZE 14 // 字体
 
 extern NSString *const kRouterEventChatHeadImageTapEventName;

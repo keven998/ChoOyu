@@ -24,7 +24,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     self = [super initWithMessageModel:model reuseIdentifier:reuseIdentifier];
     if (self) {
         self.headImageView.clipsToBounds = YES;
-        self.headImageView.layer.cornerRadius = 4.0;
+        self.headImageView.layer.cornerRadius = 10;
         if (model.isChatGroup) {
             _showNickName = YES;
         } else {
@@ -61,7 +61,6 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
             {
                 [_activtiy stopAnimating];
                 [_activityView setHidden:YES];
-                
             }
                 break;
             case eMessageDeliveryState_Failure:
@@ -78,12 +77,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         
         bubbleFrame.origin.x = self.headImageView.frame.origin.x - bubbleFrame.size.width - HEAD_PADDING;
         _bubbleView.frame = bubbleFrame;
-        
         CGRect frame = self.activityView.frame;
         frame.origin.x = bubbleFrame.origin.x - frame.size.width - ACTIVTIYVIEW_BUBBLE_PADDING;
         frame.origin.y = _bubbleView.center.y - frame.size.height / 2;
         self.activityView.frame = frame;
-        
     } else{
         if (_showNickName) {
             bubbleFrame.origin.y = self.headImageView.frame.origin.y + 20;
@@ -205,6 +202,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         }
             break;
             
+        case eMessageBodyType_Location:
+        {
+            return [[EMChatLocationBubbleView alloc] init];
+        }
+            break;
         case eMessageBodyType_Taozi:
         {
             switch ([[messageModel.taoziMessage objectForKey:@"tzType"] integerValue]) {
@@ -263,6 +265,12 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         case eMessageBodyType_Voice:
         {
             return [EMChatAudioBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
+        }
+            break;
+            
+        case eMessageBodyType_Location:
+        {
+            return [EMChatLocationBubbleView heightForBubbleWithObject:messageModel] + nickNameHeight;
         }
             break;
                 

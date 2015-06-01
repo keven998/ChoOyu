@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class PositionBean;
-
 @interface MyTripSpotsMapViewController : TZViewController
+
 @property (nonatomic, strong) NSArray *pois;
 @property (nonatomic, assign) NSUInteger currentDay;         //标记当前是第几天
+@property (nonatomic, copy) NSString *titleText;
+
+@end
+
+@interface SelectPoiCell : UICollectionViewCell
+
+@property (nonatomic, strong) UILabel *textView;
 
 @end

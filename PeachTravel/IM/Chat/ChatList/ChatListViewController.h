@@ -11,9 +11,8 @@
   */
 
 #import <UIKit/UIKit.h>
-#import "MHTabBarController.h"
 
-@interface ChatListViewController : MHChildViewController
+@interface ChatListViewController : TZViewController
 
 - (void)refreshDataSource;
 
@@ -23,6 +22,11 @@
  *  未读的聊天消息
  */
 @property (nonatomic) int numberOfUnReadChatMsg;
+
+/**
+ *  链接状态
+ */
+@property (nonatomic) IM_CONNECT_STATE IMState;
 
 @end
 

@@ -7,7 +7,6 @@
 //
 
 #import "RestaurantsListViewController.h"
-#import "DKCircleButton.h"
 #import "CommonPoiListTableViewCell.h"
 #import "DestinationsView.h"
 #import "CityDestinationPoi.h"
@@ -15,6 +14,8 @@
 #import "CityDetailTableViewController.h"
 #import "CommonPoiDetailViewController.h"
 #import "PoisOfCityViewController.h"
+#import "RestaurantDetailViewController.h"
+#import "ShoppingDetailViewController.h"
 
 @interface RestaurantsListViewController () <UITableViewDataSource, UITableViewDelegate, PoisOfCityDelegate, UIActionSheetDelegate>
 
@@ -58,14 +59,14 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(11, 0, self.view.bounds.size.width-22, self.view.bounds.size.height-54)];
-        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"CommonPoiListTableViewCell" bundle:nil] forCellReuseIdentifier:restaurantListReusableIdentifier];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.contentInset = UIEdgeInsetsMake(10, 0, 55, 0);
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.backgroundColor = APP_PAGE_COLOR;
         _tableView.delegate = self;
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         _tableView.dataSource = self;
         if (_canEdit) {
             _tableView.tableFooterView = self.tableViewFooterView;
@@ -114,7 +115,6 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-
 #pragma makr - IBAction Methods
 
 - (IBAction)addWantTo:(id)sender
@@ -124,12 +124,10 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     restaurantOfCityCtl.tripDetail = _tripDetail;
     restaurantOfCityCtl.delegate = self;
     restaurantOfCityCtl.poiType = kRestaurantPoi;
-    
     restaurantOfCityCtl.shouldEdit = YES;
-    UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:restaurantOfCityCtl];
-    [nctl.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bkg.png"] forBarMetrics:UIBarMetricsDefault];
-    nctl.navigationBar.translucent = YES;
-    [self presentViewController:nctl animated:YES completion:nil];
+    TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:restaurantOfCityCtl];
+    [self.rootViewController presentViewController:nctl animated:YES completion:nil];
+//    [self.navigationController pushViewController:restaurantOfCityCtl animated:YES];
 }
 
 - (void)updateTableView
@@ -212,9 +210,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (void)finishEdit
 {
-    if (!_shouldEdit) {
-        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
+//    if (!_shouldEdit) {
+//        [_rootViewController.editBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+//    }
     [self.tableView reloadData];
 }
 
@@ -232,29 +230,17 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 134.0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 20;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView = [[UIView alloc] init];
-    return footerView;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CommonPoiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:restaurantListReusableIdentifier forIndexPath:indexPath];
-    cell.mapBtn.tag = indexPath.section;
-    [cell.mapBtn removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.mapBtn addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
+    cell.cellAction.tag = indexPath.section;
+    [cell.cellAction removeTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cellAction addTarget:self action:@selector(jumpMapView:) forControlEvents:UIControlEventTouchUpInside];
+//    [cell.deleteBtn addTarget:self action:@selector(deletePoi:) forControlEvents:UIControlEventTouchUpInside];
     cell.tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
-    
     return cell;
 }
 
@@ -269,17 +255,16 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
 }
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [MobClick event:@"event_reorder_items"];
-    NSLog(@"from:%@ to:%@",sourceIndexPath, destinationIndexPath);
-    PoiSummary *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
+    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:sourceIndexPath.section];
     [_tripDetail.restaurantsList removeObjectAtIndex:sourceIndexPath.section];
    
     [_tripDetail.restaurantsList insertObject:poi atIndex:destinationIndexPath.section];
@@ -316,18 +301,15 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PoiSummary *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
-    CommonPoiDetailViewController *restaurantDetailCtl = [[CommonPoiDetailViewController alloc] init];
+    SuperPoi *tripPoi = [_tripDetail.restaurantsList objectAtIndex:indexPath.section];
+
+    CommonPoiDetailViewController *restaurantDetailCtl = [[RestaurantDetailViewController alloc] init];
     restaurantDetailCtl.poiId = tripPoi.poiId;
     restaurantDetailCtl.poiType = kRestaurantPoi;
-    [self.rootViewController addChildViewController:restaurantDetailCtl];
-    [self.rootViewController.view addSubview:restaurantDetailCtl.view];
+
+    [self.navigationController pushViewController:restaurantDetailCtl animated:YES];
 }
 
 - (void)dealloc {
@@ -345,7 +327,7 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    PoiSummary *poi = [_tripDetail.restaurantsList objectAtIndex:actionSheet.tag];
+    SuperPoi *poi = [_tripDetail.restaurantsList objectAtIndex:actionSheet.tag];
     NSArray *platformArray = [ConvertMethods mapPlatformInPhone];
     switch (buttonIndex) {
         case 0:
@@ -414,6 +396,9 @@ static NSString *restaurantListReusableIdentifier = @"commonPoiListCell";
     }
 }
 
+- (void)mapView {
+    
+}
 
 @end
 

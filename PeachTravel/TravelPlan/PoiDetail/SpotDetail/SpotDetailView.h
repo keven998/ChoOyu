@@ -25,5 +25,7 @@
 @property (nonatomic, strong) UIButton *addressBtn;
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, strong) UIButton *bookBtn;
+@property (nonatomic, strong) UIButton *phoneButton;
 
+@property (nonatomic, weak) UIViewController *rootCtl;
 @end
