@@ -135,7 +135,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TravelerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"travel_user_cell" forIndexPath:indexPath];
     UserProfile *up = [_travelers objectAtIndex:indexPath.row];
-    [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall]];
+    [cell.avatarView sd_setImageWithURL:[NSURL URLWithString:up.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_chat_avatar_placeholder"]];
     cell.nameLabel.text = up.name;
     cell.footprintsLabel.text = [NSString stringWithFormat:@"足迹: %@", [up getFootprintDescription]];
     cell.signatureLabel.text = up.signature;

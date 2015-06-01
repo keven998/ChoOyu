@@ -123,7 +123,7 @@
         [_headerView addSubview:genderImage];
     }
     
-    [avatarView sd_setImageWithURL:[NSURL URLWithString:_model.avatarSmall]];
+    [avatarView sd_setImageWithURL:[NSURL URLWithString:_model.avatarSmall] placeholderImage:[UIImage imageNamed:@"ic_chat_avatar_placeholder"]];
     nameLabel.text = _model.name;
     
     UILabel *taoziId = [[UILabel alloc]initWithFrame:CGRectMake(96, CGRectGetMaxY(nameLabel.frame)+2, 200, 16)];
