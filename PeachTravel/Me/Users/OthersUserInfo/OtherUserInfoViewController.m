@@ -444,6 +444,7 @@
             NSDateFormatter *format2=[[NSDateFormatter alloc]init];
             [format2 setDateFormat:@"yyyy/MM/dd"];
             NSString *str2=_model.birthday;
+
             NSDate *date = [format2 dateFromString:str2];
             NSTimeInterval dateDiff = [date timeIntervalSinceNow];
             int age=trunc(dateDiff/(60*60*24))/365;
