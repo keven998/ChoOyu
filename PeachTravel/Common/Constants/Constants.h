@@ -35,7 +35,7 @@
 
 /***** API *****/
 
-#define BASE_URL1                                @ "http://api.lvxingpai.com/app"
+//#define BASE_URL                                 @ "http://api.lvxingpai.com/app"
 #define BASE_URL                                 @ "http://182.92.150.243:9000/app/"
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
