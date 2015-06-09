@@ -418,8 +418,7 @@ static NSString * const reuseIdentifier = @"travelNoteCell";
     [allNotes setTitle:@"更多" forState:UIControlStateNormal];
     [allNotes setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
     allNotes.titleLabel.font = [UIFont systemFontOfSize:13.0];
-//    [allNotes setImage:[UIImage imageNamed:@"ic_city_access.png"] forState:UIControlStateNormal];
-//    allNotes.imageEdgeInsets = UIEdgeInsetsMake(2, 100, 0, 0);
+
     allNotes.titleEdgeInsets = UIEdgeInsetsMake(10, 0, 0, 14);
     allNotes.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [allNotes addTarget:self action:@selector(showMoreTravelNote:) forControlEvents:UIControlEventTouchUpInside];

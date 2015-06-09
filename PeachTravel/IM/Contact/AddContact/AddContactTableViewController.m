@@ -106,7 +106,7 @@
     
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     __weak typeof(AddContactTableViewController *)weakSelf = self;
-    [hud showHUDInViewController:weakSelf content:64];
+    [hud showHUDInViewController:weakSelf];
     //搜索好友
     [manager GET:API_SEARCH_USER parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [hud hideTZHUD];

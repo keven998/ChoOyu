@@ -20,8 +20,8 @@
 #define SHARE_SINA_KEY          @ "3743857858"
 #define SHARE_RENREN_KEY        @ "5746d38353ed4bbb9bb4018bfb035a89"
 #define SHARE_DOUBAN_KEY        @ "07402b7af9b58b7115c08270ed20a253"
-#define SHARE_WEIXIN_APPID      @ "wx26b58c7173483529"
-#define SHARE_WEIXIN_SECRET     @ "28daa05c021ebebe6d3cf06645b0c5ac"
+#define SHARE_WEIXIN_APPID      @ "wx86048e56adaf7486"
+#define SHARE_WEIXIN_SECRET     @ "d5408e689b82c0335a728cc8bd1b3c2e"
 #define SHARE_TECENTWEIBO_KEY   @ "801545095 "
 
 #define WECHAT_API_DOMAIN       @ "https://api.weixin.qq.com/"
@@ -37,6 +37,8 @@
 
 #define BASE_URL                                @ "http://api.lvxingpai.com/app/"
 //#define BASE_URL1                                 @ "http://182.92.150.243:9000/taozi/"
+
+
 //攻略相关接口
 #define API_GET_RECOMMEND                       (BASE_URL @"recommend")     //获取目的地首页推荐接口
 #define API_GET_SCREENING                       (BASE_URL @"users/expert/tracks")  //    达人足迹接口
