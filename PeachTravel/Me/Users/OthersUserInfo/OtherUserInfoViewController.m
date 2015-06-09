@@ -580,7 +580,7 @@
         [hud hideTZHUD];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
-    
+    [hud hideTZHUD];
 }
 
 - (void)loadUserAlbum
