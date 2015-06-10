@@ -519,10 +519,10 @@
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.trajectory.textColor = TEXT_COLOR_TITLE_DESC;
-        if([self.accountManager.accountDetail.basicUserInfo.signature isBlankString]||self.accountManager.accountDetail.basicUserInfo.signature.length == 0) {
+        if([self.accountManager.account.signature isBlankString]||self.accountManager.accountDetail.basicUserInfo.signature.length == 0) {
             cell.footPrint.text = @"未设置签名";
         }else {
-            cell.footPrint.text = self.accountManager.accountDetail.basicUserInfo.signature;
+            cell.footPrint.text = self.accountManager.account.signature;
         }
         return cell;
         
@@ -539,13 +539,13 @@
             
         } else if (indexPath.section == 3) {
             if (indexPath.row == 0){
-                if ([amgr.accountDetail.basicUserInfo.gender isEqualToString:@"F"]) {
+                if ([amgr.account.gender isEqualToString:@"F"]) {
                     cell.cellDetail.text = @"美女";
                 }
-                else if ([amgr.accountDetail.basicUserInfo.gender isEqualToString:@"M"]) {
+                else if ([amgr.account.gender isEqualToString:@"M"]) {
                     cell.cellDetail.text = @"帅锅";
                 }
-                else if ([amgr.accountDetail.basicUserInfo.gender isEqualToString:@"U"]) {
+                else if ([amgr.account.gender isEqualToString:@"U"]) {
                     cell.cellDetail.text = @"一言难尽";
                 }
                 else {
@@ -761,7 +761,8 @@
 - (void)changeAvatar:(NSInteger)index
 {
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
-    [hud showHUDInView:self.view];
+//    [hud showHUDInView:self.view];
+    [hud showHUDInViewController:self.navigationController content:64];
     AlbumImage *image = [self.accountManager.accountDetail.userAlbum objectAtIndex:index];
     [self.accountManager asyncChangeUserAvatar:image completion:^(BOOL isSuccess, NSString *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];

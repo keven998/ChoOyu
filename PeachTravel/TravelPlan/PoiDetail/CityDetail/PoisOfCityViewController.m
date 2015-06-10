@@ -558,7 +558,8 @@ static NSString *poisOfCityCellIdentifier = @"commonPoiListCell";
     selectCtl.contentItems = [NSArray arrayWithArray:array];
     selectCtl.titleTxt = @"筛选";
     selectCtl.delegate = self;
-    selectCtl.selectItemIndex = _currentCityIndex;
+//    selectCtl.selectItemIndex = _currentCityIndex;
+    selectCtl.selectItem = array[_currentCityIndex];
     TZNavigationViewController *nav = [[TZNavigationViewController alloc] initWithRootViewController:selectCtl];
     [self presentViewController:nav animated:YES completion:nil];
 }

@@ -155,18 +155,18 @@
                         <exclude reference="ZnC-pu-5CC"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="Rbo-Kj-TL8"/>
-                        <exclude reference="wJu-VW-Yg7"/>
+                        <exclude reference="0MH-W9-MMC"/>
+                        <exclude reference="hyu-RF-7IY"/>
+                        <exclude reference="uEV-ae-9w3"/>
                         <exclude reference="Mcc-tP-U5H"/>
                         <exclude reference="PKG-RP-uVW"/>
                         <exclude reference="adm-ol-qxX"/>
                         <exclude reference="KvP-85-X97"/>
                         <exclude reference="XSy-kf-Naq"/>
-                        <exclude reference="0MH-W9-MMC"/>
-                        <exclude reference="hyu-RF-7IY"/>
-                        <exclude reference="uEV-ae-9w3"/>
                         <exclude reference="V77-1B-IlV"/>
                         <exclude reference="uzu-0R-awL"/>
+                        <exclude reference="Rbo-Kj-TL8"/>
+                        <exclude reference="wJu-VW-Yg7"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
@@ -180,18 +180,18 @@
                 </variation>
                 <variation key="heightClass=regular-widthClass=compact">
                     <mask key="constraints">
-                        <include reference="Rbo-Kj-TL8"/>
-                        <include reference="wJu-VW-Yg7"/>
+                        <include reference="0MH-W9-MMC"/>
+                        <include reference="hyu-RF-7IY"/>
+                        <include reference="uEV-ae-9w3"/>
                         <include reference="Mcc-tP-U5H"/>
                         <include reference="PKG-RP-uVW"/>
                         <include reference="adm-ol-qxX"/>
                         <include reference="KvP-85-X97"/>
                         <include reference="XSy-kf-Naq"/>
-                        <include reference="0MH-W9-MMC"/>
-                        <include reference="hyu-RF-7IY"/>
-                        <include reference="uEV-ae-9w3"/>
                         <include reference="V77-1B-IlV"/>
                         <include reference="uzu-0R-awL"/>
+                        <include reference="Rbo-Kj-TL8"/>
+                        <include reference="wJu-VW-Yg7"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

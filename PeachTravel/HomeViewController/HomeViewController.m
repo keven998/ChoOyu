@@ -222,7 +222,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 - (void)updateBackgroundData:(NSString *)imageUrl
 {
     if (_coverView != nil) {
-        [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"story_default.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_coverView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"Default-375w-667h@2x~iphone"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (image) {
                 if (_coverView != nil) {
                     [NSObject cancelPreviousPerformRequestsWithTarget:self

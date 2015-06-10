@@ -18,8 +18,6 @@
 #import "HMSegmentedControl.h"
 
 #define LOCAL_PAGE_TITLES       @[@"景点", @"美食", @"购物", @"酒店"]
-#define LOCAL_PAGE_NORMALIMAGES       @[@"nearby_ic_tab_spot_normal.png", @"nearby_ic_tab_delicacy_normal.png", @"nearby_ic_tab_shopping_normal.png", @"nearby_ic_tab_stay_normal.png"]
-#define LOCAL_PAGE_HIGHLIGHTEDIMAGES       @[@"nearby_ic_tab_spot_select.png", @"nearby_ic_tab_delicacy_select", @"nearby_ic_tab_shopping_select.png", @"nearby_ic_tab_stay_select.png"]
 
 #define PAGE_FUN                0
 #define PAGE_FOOD               1

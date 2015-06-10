@@ -137,6 +137,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CityDestinationPoi *pb = [_citys objectAtIndex:indexPath.row];
     NSString *txt = pb.zhName;
+    
     CGSize size = [txt sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     return CGSizeMake(size.width, 49);
 }
@@ -145,15 +146,7 @@ calloutAccessoryControlTapped:(UIControl *)control{
     return 15.0;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
 

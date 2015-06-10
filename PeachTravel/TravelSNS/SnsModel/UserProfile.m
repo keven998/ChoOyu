@@ -22,7 +22,7 @@
         _signature = [json objectForKey:@"signature"];
         _roles = [json objectForKey:@"roles"];
         _travels = [json objectForKey:@"tracks"];
-        if ([json objectForKey:@"birthday"] == [NSNull null]) {
+        if ([json objectForKey:@"birthday"] != [NSNull null]) {
             _birthday = [json objectForKey:@"birthday"];
         }
         _easemobUser = [json objectForKey:@"easemobUser"];

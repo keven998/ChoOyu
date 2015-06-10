@@ -24,7 +24,7 @@
     _ratingView.editable = NO;
     _ratingView.horizontalMargin = 7;
     _ratingView.displayMode = EDStarRatingDisplayAccurate;
-
+    
     UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 1.0)];
     spaceView.backgroundColor = APP_DIVIDER_COLOR;
     spaceView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -46,23 +46,30 @@
 - (void)setTripPoi:(SuperPoi *)tripPoi
 {
     _tripPoi = tripPoi;
-    _titleLabel.text = _tripPoi.zhName;
-    
-//    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", title, city]];
-//    NSRange makeRange = NSMakeRange(attributeString.length - city.length, city.length);
-//    [attributeString addAttributes:@{NSForegroundColorAttributeName:TEXT_COLOR_TITLE_HINT} range:makeRange];
-//    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:makeRange];
-//    _titleLabel.attributedText = attributeString;
+    if ([_tripPoi.zhName isBlankString]||_tripPoi.zhName.length == 0 || _tripPoi.zhName == nil){
+        _titleLabel.text = @"  ";
+    } else {
+        _titleLabel.text = _tripPoi.zhName;
+    }
+    //    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", title, city]];
+    //    NSRange makeRange = NSMakeRange(attributeString.length - city.length, city.length);
+    //    [attributeString addAttributes:@{NSForegroundColorAttributeName:TEXT_COLOR_TITLE_HINT} range:makeRange];
+    //    [attributeString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:makeRange];
+    //    _titleLabel.attributedText = attributeString;
     
     TaoziImage *image = [tripPoi.images firstObject];
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:image.imageUrl] placeholderImage:nil];
     
     _ratingView.rating = tripPoi.rating;
-
+    
     if (_tripPoi.rank <= 500 && _tripPoi.rank > 0) {
         _propertyLabel.text = [NSString stringWithFormat:@"%@ %@排名第%d", _tripPoi.locality.zhName, _tripPoi.poiTypeName, _tripPoi.rank];
     } else {
-        _propertyLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.locality.zhName];
+        if (_tripPoi.locality.zhName == nil || _tripPoi.locality.zhName.length == 0) {
+            _propertyLabel.text = @"";
+        } else {
+            _propertyLabel.text = [NSString stringWithFormat:@"%@", _tripPoi.locality.zhName];
+        }
     }
     
     switch (_tripPoi.poiType) {
