@@ -69,7 +69,7 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     self.navigationItem.leftBarButtonItem = left;
     
-    self.view.backgroundColor = UIColorFromRGB(0Xf2f2f2);
+    self.view.backgroundColor = APP_PAGE_COLOR;
     
     
 //    UIView *spaceView6 = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 150/3, SCREEN_WIDTH/2, 1)];

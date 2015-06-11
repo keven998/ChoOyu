@@ -235,13 +235,11 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 
 
 #define IS_IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue]>=8)
-
-
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define APP_PAGE_COLOR                  UIColorFromRGB(0xf2f2f2)
+
+#define APP_PAGE_COLOR                  UIColorFromRGB(0xf7faf7)
 
 #define APP_THEME_COLOR                 UIColorFromRGB(0x99cc66)
 #define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xb9dc96)
@@ -250,6 +248,8 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define COLOR_ALERT                     UIColorFromRGB(0xff9600)
 #define COLOR_ENTER                     UIColorFromRGB(0x4bd228)
 #define COLOR_LINKED                    UIColorFromRGB(0x469bff)
+#define COLOR_DISABLE                   UIColorFromRGB(0xe2e2e2)
+#define COLOR_LINE                      UIColorFromRGB(0xe2e2e2)
 
 #define COLOR_TEXT_I                    UIColorFromRGB(0x323232)
 #define COLOR_TEXT_II                   UIColorFromRGB(0x646464)
