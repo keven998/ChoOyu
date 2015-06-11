@@ -242,20 +242,33 @@ typedef NS_ENUM(NSUInteger, TZCMDChatType) {
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define APP_PAGE_COLOR                  UIColorFromRGB(0xf2f2f2)
-#define APP_THEME_COLOR                 UIColorFromRGB(0x1cc091)
-#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0x00a071)
+
+#define APP_THEME_COLOR                 UIColorFromRGB(0x99cc66)
+#define APP_THEME_COLOR_HIGHLIGHT       UIColorFromRGB(0xb9dc96)
+
+#define COLOR_CHECKED                   UIColorFromRGB(0xfa5064)
+#define COLOR_ALERT                     UIColorFromRGB(0xff9600)
+#define COLOR_ENTER                     UIColorFromRGB(0x4bd228)
+#define COLOR_LINKED                    UIColorFromRGB(0x469bff)
+
+#define COLOR_TEXT_I                    UIColorFromRGB(0x323232)
+#define COLOR_TEXT_II                   UIColorFromRGB(0x646464)
+#define COLOR_TEXT_III                  UIColorFromRGB(0x969696)
+#define COLOR_TEXT_IV                   UIColorFromRGB(0xc8c8c8)
+#define COLOR_TEXT_V                    UIColorFromRGB(0xcdcdcd)
+
+//pre-design
+#define TEXT_COLOR_TITLE                UIColorFromRGB(0x323232)
+#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x626262)
+#define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
+#define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
+#define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
 #define APP_HIGNLIGHT_COLOR             UIColorFromRGB(0xff5d38)
 #define APP_SUB_THEME_COLOR             UIColorFromRGB(0x6ed8dc)
 #define APP_SUB_THEME_COLOR_HIGHLIGHT   UIColorFromRGB(0x279095)
 #define APP_BORDER_COLOR                UIColorFromRGB(0xe4e4e4)
 #define APP_IMAGEVIEW_COLOR             UIColorFromRGB(0xf8f8f8)
-
 #define APP_DIVIDER_COLOR               UIColorFromRGB(0xe5e5e5)
-#define TEXT_COLOR_TITLE                UIColorFromRGB(0x2e2727)
-#define TEXT_COLOR_TITLE_SUBTITLE       UIColorFromRGB(0x62626)
-#define TEXT_COLOR_TITLE_DESC           UIColorFromRGB(0x999999)
-#define TEXT_COLOR_TITLE_HINT           UIColorFromRGB(0xa6a6a6)
-#define TEXT_COLOR_TITLE_PH             UIColorFromRGB(0xcdcdcd)
 #define GRAY_COLOR                      UIColorFromRGB(0xdddddd)
 
 
