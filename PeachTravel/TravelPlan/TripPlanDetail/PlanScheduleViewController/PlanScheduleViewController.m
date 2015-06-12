@@ -68,10 +68,19 @@
         if (i == 0) {
             [dstr appendString:[NSString stringWithFormat:@"1.%@", sp.zhName]];
         } else {
-            [dstr appendString:[NSString stringWithFormat:@" > %d.%@", (i+1), sp.zhName]];
+            [dstr appendString:[NSString stringWithFormat:@" → %d.%@", (i+1), sp.zhName]];
         }
     }
-    cell.dayScheduleSummary.text = dstr;
+    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+    ps.lineSpacing = 8.0;
+    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:ps};
+    NSAttributedString *attrstr = [[NSAttributedString alloc] initWithString:dstr attributes:attribs];
+    cell.dayScheduleSummary.attributedText = attrstr;
+    CGRect frame = cell.dayScheduleSummary.frame;
+    CGRect rect = [attrstr boundingRectWithSize:(CGSize){CGRectGetWidth(frame), CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    frame.size.height = ceilf(rect.size.height) + 1;
+    cell.dayScheduleSummary.frame = frame;
+
     return cell;
 }
 
