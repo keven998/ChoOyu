@@ -165,12 +165,6 @@ static NSString *tripPoiListReusableIdentifier = @"tripPoiListCell";
     [self presentViewController:nCtl animated:YES completion:nil];
 }
 
-- (void)updateTableView
-{
-    [self.tableView reloadData];
-
-}
-
 - (void)setShouldEdit:(BOOL)shouldEdit
 {
     _shouldEdit = shouldEdit;
