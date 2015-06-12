@@ -7,53 +7,57 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="108" id="KGk-i7-Jjw" customClass="PlanScheduleTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="117" id="KGk-i7-Jjw" customClass="POICell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRo-8X-87Z">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WfK-f4-ghZ">
                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="dRo-8X-87Z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="U5g-v7-Uno"/>
-                    <constraint firstAttribute="trailing" secondItem="dRo-8X-87Z" secondAttribute="trailing" constant="8" id="ZQO-KB-DHB"/>
-                    <constraint firstAttribute="bottom" secondItem="dRo-8X-87Z" secondAttribute="bottom" constant="8" id="hV6-Md-weU"/>
-                    <constraint firstItem="dRo-8X-87Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="tKx-2h-Ny2"/>
+                    <constraint firstItem="WfK-f4-ghZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="ecS-a2-HYn">
+                        <variation key="widthClass=compact" constant="14"/>
+                    </constraint>
+                    <constraint firstAttribute="bottom" secondItem="WfK-f4-ghZ" secondAttribute="bottom" constant="45" id="eun-r1-AV8">
+                        <variation key="widthClass=compact" constant="28"/>
+                    </constraint>
+                    <constraint firstItem="WfK-f4-ghZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="52" id="hWn-8q-cEK"/>
+                    <constraint firstAttribute="trailing" secondItem="WfK-f4-ghZ" secondAttribute="trailing" constant="41" id="pDR-Xd-L1c"/>
                 </constraints>
                 <variation key="default">
                     <mask key="subviews">
-                        <exclude reference="dRo-8X-87Z"/>
+                        <exclude reference="WfK-f4-ghZ"/>
                     </mask>
                     <mask key="constraints">
-                        <exclude reference="U5g-v7-Uno"/>
-                        <exclude reference="ZQO-KB-DHB"/>
-                        <exclude reference="hV6-Md-weU"/>
-                        <exclude reference="tKx-2h-Ny2"/>
+                        <exclude reference="ecS-a2-HYn"/>
+                        <exclude reference="eun-r1-AV8"/>
+                        <exclude reference="hWn-8q-cEK"/>
+                        <exclude reference="pDR-Xd-L1c"/>
                     </mask>
                 </variation>
                 <variation key="widthClass=compact">
                     <mask key="subviews">
-                        <include reference="dRo-8X-87Z"/>
+                        <include reference="WfK-f4-ghZ"/>
                     </mask>
                     <mask key="constraints">
-                        <include reference="U5g-v7-Uno"/>
-                        <include reference="ZQO-KB-DHB"/>
-                        <include reference="hV6-Md-weU"/>
-                        <include reference="tKx-2h-Ny2"/>
+                        <include reference="ecS-a2-HYn"/>
+                        <include reference="eun-r1-AV8"/>
+                        <include reference="hWn-8q-cEK"/>
+                        <include reference="pDR-Xd-L1c"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <connections>
-                <outlet property="dayScheduleSummary" destination="dRo-8X-87Z" id="9dr-J6-YAX"/>
+                <outlet property="poiName" destination="WfK-f4-ghZ" id="6wR-Q3-JZc"/>
             </connections>
-            <point key="canvasLocation" x="-23" y="-62"/>
+            <point key="canvasLocation" x="341.5" y="214"/>
         </tableViewCell>
     </objects>
 </document>

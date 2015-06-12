@@ -8,6 +8,7 @@
 
 #import "PlanScheduleViewController.h"
 #import "PlanScheduleTableViewCell.h"
+#import "DayAgendaViewController.h"
 
 @interface PlanScheduleViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -86,7 +87,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
+    davc.tripDetail = _tripDetail;
+    [self.navigationController pushViewController:davc animated:YES];
 }
 
 /*

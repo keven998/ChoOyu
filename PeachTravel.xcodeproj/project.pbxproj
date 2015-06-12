@@ -134,6 +134,9 @@
 		C60C0D701A299389006033C9 /* PushSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */; };
 		C60C1B551A83562A00C83164 /* ic_new_plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */; };
 		C60C1B571A83570500C83164 /* app_them_extender_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */; };
+		C6261BB01B2AFDA400DFADEF /* DayAgendaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6261BAF1B2AFDA400DFADEF /* DayAgendaViewController.m */; };
+		C6261BB61B2B00D400DFADEF /* POICell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6261BB41B2B00D400DFADEF /* POICell.m */; };
+		C6261BB71B2B00D400DFADEF /* POICell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6261BB51B2B00D400DFADEF /* POICell.xib */; };
 		C65763211AEB392C0069909D /* ic_trip_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65763201AEB392C0069909D /* ic_trip_list@2x.png */; };
 		C65844DE1B09B8A700972CC6 /* ic_add_city@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C65844DD1B09B8A700972CC6 /* ic_add_city@2x.png */; };
 		C659E9F11ADF794500A28095 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F01ADF794500A28095 /* DistributionViewController.m */; };
@@ -977,6 +980,11 @@
 		C60C0D6E1A299389006033C9 /* PushSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushSettingTableViewCell.xib; sourceTree = "<group>"; };
 		C60C1B541A83562A00C83164 /* ic_new_plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_plan@2x.png"; sourceTree = "<group>"; };
 		C60C1B561A83570500C83164 /* app_them_extender_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_them_extender_right@2x.png"; sourceTree = "<group>"; };
+		C6261BAE1B2AFDA400DFADEF /* DayAgendaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayAgendaViewController.h; sourceTree = "<group>"; };
+		C6261BAF1B2AFDA400DFADEF /* DayAgendaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayAgendaViewController.m; sourceTree = "<group>"; };
+		C6261BB31B2B00D400DFADEF /* POICell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POICell.h; sourceTree = "<group>"; };
+		C6261BB41B2B00D400DFADEF /* POICell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POICell.m; sourceTree = "<group>"; };
+		C6261BB51B2B00D400DFADEF /* POICell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = POICell.xib; sourceTree = "<group>"; };
 		C65763201AEB392C0069909D /* ic_trip_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_trip_list@2x.png"; sourceTree = "<group>"; };
 		C65844DD1B09B8A700972CC6 /* ic_add_city@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_city@2x.png"; sourceTree = "<group>"; };
 		C659E9EF1ADF794500A28095 /* DistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistributionViewController.h; sourceTree = "<group>"; };
@@ -2339,6 +2347,34 @@
 			path = Me/Setting/PushSetting;
 			sourceTree = "<group>";
 		};
+		C6261BAD1B2AFD7800DFADEF /* DayAgendaViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C6261BAE1B2AFDA400DFADEF /* DayAgendaViewController.h */,
+				C6261BAF1B2AFDA400DFADEF /* DayAgendaViewController.m */,
+			);
+			path = DayAgendaViewController;
+			sourceTree = "<group>";
+		};
+		C6261BB11B2B00B200DFADEF /* CommonViewUnit */ = {
+			isa = PBXGroup;
+			children = (
+				C6261BB21B2B00B200DFADEF /* POICell */,
+			);
+			name = CommonViewUnit;
+			path = TravelPlan/CommonViewUnit;
+			sourceTree = "<group>";
+		};
+		C6261BB21B2B00B200DFADEF /* POICell */ = {
+			isa = PBXGroup;
+			children = (
+				C6261BB31B2B00D400DFADEF /* POICell.h */,
+				C6261BB41B2B00D400DFADEF /* POICell.m */,
+				C6261BB51B2B00D400DFADEF /* POICell.xib */,
+			);
+			path = POICell;
+			sourceTree = "<group>";
+		};
 		C659E9F21AE0FBA200A28095 /* SnsModel--达人指路--右上角详情 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2478,6 +2514,7 @@
 		C6F5D4761B2AB183009163E3 /* TripPlanDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C6261BAD1B2AFD7800DFADEF /* DayAgendaViewController */,
 				C6F5D4771B2AB183009163E3 /* PlanFavoritesViewController */,
 				C6F5D4781B2AB183009163E3 /* PlanScheduleViewController */,
 			);
@@ -2879,6 +2916,7 @@
 		D9A5939119E3DA8E004A6072 /* TravelPlan */ = {
 			isa = PBXGroup;
 			children = (
+				C6261BB11B2B00B200DFADEF /* CommonViewUnit */,
 				C6F5D4761B2AB183009163E3 /* TripPlanDetail */,
 				D9A8FFD01A80D52F005AD701 /* MakeTravel */,
 				D9A8FFBF1A80D216005AD701 /* HotDestination--目的地 */,
@@ -5516,6 +5554,7 @@
 				D9A804971A80E738005AD701 /* speaking-motion4@2x.png in Resources */,
 				D9A804EE1A80E738005AD701 /* ic_login_weixin_highlight@2x.png in Resources */,
 				D9A804D41A80E738005AD701 /* ic_big_arr_right@2x.png in Resources */,
+				C6261BB71B2B00D400DFADEF /* POICell.xib in Resources */,
 				D9A805861A80E738005AD701 /* sns_icon_douban@2x.png in Resources */,
 				27329DBF1B0E1A9200F0A4FA /* ic_button_normal@2x.png in Resources */,
 				D9A8001D1A80D52F005AD701 /* DomesticViewController.xib in Resources */,
@@ -5941,6 +5980,7 @@
 				D9A8FF1D1A80CC2B005AD701 /* UserHeaderTableViewCell.m in Sources */,
 				D9A8014F1A80DD23005AD701 /* UIImage+Utils.m in Sources */,
 				D9687CA61AC409AB00B1C88E /* FootPrintViewController.m in Sources */,
+				C6261BB61B2B00D400DFADEF /* POICell.m in Sources */,
 				D9A8015E1A80DD23005AD701 /* EMNavigationController.m in Sources */,
 				D92CA1121AD8BDF900F244FF /* SWCellScrollView.m in Sources */,
 				D9A8FF151A80CC2B005AD701 /* ResetPasswordViewController.m in Sources */,
@@ -6035,6 +6075,7 @@
 				D9A8014E1A80DD23005AD701 /* MessageReadManager.m in Sources */,
 				270C165A1B00CF6A0048C85D /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				D9A8FF551A80CF19005AD701 /* FavoriteViewController.m in Sources */,
+				C6261BB01B2AFDA400DFADEF /* DayAgendaViewController.m in Sources */,
 				27F411E21AEF5CA1009D6C2B /* ScreeningViewController.m in Sources */,
 				D9A8FFA91A80D1C3005AD701 /* PoiSummary.m in Sources */,
 				D9EE34621AB958D70076933B /* PoiDetailViewControllerFactory.m in Sources */,
