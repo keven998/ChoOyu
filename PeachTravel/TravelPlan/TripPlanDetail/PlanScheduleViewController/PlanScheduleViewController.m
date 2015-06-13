@@ -28,6 +28,7 @@
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"PlanScheduleTableViewCell" bundle:nil] forCellReuseIdentifier:@"schedule_summary_cell"];
     [self.view addSubview:_tableView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,6 +91,7 @@
     DayAgendaViewController *davc = [[DayAgendaViewController alloc] initWithDay:indexPath.row];
     davc.tripDetail = _tripDetail;
     [self.navigationController pushViewController:davc animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /*

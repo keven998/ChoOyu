@@ -8,12 +8,15 @@
 
 #import "DayAgendaViewController.h"
 #import "POICell.h"
+#import "SpotDetailViewController.h"
+#import "ScheduleEditorViewController.h"
 
 @interface DayAgendaViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
+
 
 @implementation DayAgendaViewController
 
@@ -38,6 +41,14 @@
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"POICell" bundle:nil] forCellReuseIdentifier:@"poi_cell"];
     [self.view addSubview:_tableView];
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 44, CGRectGetWidth(self.view.bounds), 44)];
+    btn.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [btn setTitle:@"编辑" forState:UIControlStateNormal];
+    [btn setBackgroundColor:COLOR_ENTER];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(editSchedule) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,7 +90,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    SpotDetailViewController *spotDetailCtl = [[SpotDetailViewController alloc] init];
+    SuperPoi *poi = _tripDetail.itineraryList[_currentDay][indexPath.row];
+    spotDetailCtl.spotId = poi.poiId;
+    [self.navigationController pushViewController:spotDetailCtl animated:YES];
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,6 +117,13 @@
     return @"删除";
 }
 
+
+#pragma IBAction - editSchedule
+- (void) editSchedule {
+    ScheduleEditorViewController *sevc = [[ScheduleEditorViewController alloc] init];
+    sevc.tripDetail = _tripDetail;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:sevc] animated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation
