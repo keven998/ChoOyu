@@ -11,7 +11,7 @@
 #import "PushSettingViewController.h"
 #import "PushSettingTableViewCell.h"
 
-@interface PushSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface PushSettingViewController ()
 
 @property (nonatomic) BOOL isNoDisturbing;
 

@@ -378,7 +378,7 @@ static NSString *reusableCell = @"myGuidesCell";
     
     AccountManager *accountManager = [AccountManager shareAccountManager];
     if (_isExpert) {
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", _userId] forHTTPHeaderField:@"UserId"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"%ld", (long)_userId] forHTTPHeaderField:@"UserId"];
     }else{
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
     }
