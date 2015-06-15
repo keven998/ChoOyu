@@ -123,7 +123,15 @@
     _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     [self.tableView reloadData];
     [_delegate unreadMessageCountHasChange:self.imClientManager.conversationManager.totalMessageUnreadCount];
-    
+    for (ChatConversation *tzConversation in _dataSource) {
+        if ([tzConversation.chatterName isBlankString]) {
+            [self.imClientManager.conversationManager asyncGetConversationInfoFromServer:tzConversation completion:^(ChatConversation * conversation) {
+                NSInteger index = [_dataSource indexOfObject:tzConversation];
+                [self.dataSource replaceObjectAtIndex:index withObject:conversation];
+                [self.tableView reloadData];
+            }];
+        }
+    }
 }
 
 #pragma mark - getter & setter

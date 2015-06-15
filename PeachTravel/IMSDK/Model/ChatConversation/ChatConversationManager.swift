@@ -191,7 +191,30 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         }
         return false
     }
-
+    
+    /**
+    从网上获取一个会话的详细信息
+    
+    :param: conversation
+    :param: completion
+    */
+    func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
+        if conversation.chatType == IMChatType.IMChatSingleType {
+            var frendManager = FrendManager.shareInstance()
+            frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
+                if let frend = frendInfo {
+                    self.fillConversationWithFrendData(conversation, frendModel: frend)
+                }
+                completion(fullConversation: conversation)
+            })
+            
+        } else if conversation.chatType == IMChatType.IMChatDiscussionGroupType {
+            
+        } else if conversation.chatType == IMChatType.IMChatGroupType {
+            
+        }
+       
+    }
     
 //MARK: private methods
     
@@ -262,17 +285,6 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
                 })
             }
         }
-    }
-    
-    //获取一个会话的详细信息
-    func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
-        var frendManager = FrendManager.shareInstance()
-        frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
-            if let frend = frendInfo {
-                self.fillConversationWithFrendData(conversation, frendModel: frend)
-            }
-            completion(fullConversation: conversation)
-        })
     }
     
 //MARK: MessageTransferManagerDelegate

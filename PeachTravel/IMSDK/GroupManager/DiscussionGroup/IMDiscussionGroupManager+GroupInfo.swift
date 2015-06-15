@@ -17,7 +17,7 @@ extension IMDiscussionGroupManager {
     
     :returns:
     */
-    func getBasicDiscussionGroupInfo(#groupId: Int) -> IMDiscussionGroup? {
+    func getBasicDiscussionGroupInfoFromDB(#groupId: Int) -> IMDiscussionGroup? {
         var daoHelper = DaoHelper.shareInstance()
         var frendModel = daoHelper.selectFrend(userId: groupId)
         var retGroup: IMDiscussionGroup?
@@ -35,7 +35,7 @@ extension IMDiscussionGroupManager {
     
     :returns:
     */
-    func getFullDiscussionGroupInfo(#groupId: Int) -> IMDiscussionGroup? {
+    func getFullDiscussionGroupInfoFromDB(#groupId: Int) -> IMDiscussionGroup? {
         var daoHelper = DaoHelper.shareInstance()
         var frendModel = daoHelper.selectFrend(userId: groupId)
         var retGroup: IMDiscussionGroup?

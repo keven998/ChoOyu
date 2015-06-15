@@ -55,7 +55,7 @@
     [self createTableView];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         IMDiscussionGroupManager *groupManager = [IMDiscussionGroupManager shareInstance];
-        _groupModel = [groupManager getFullDiscussionGroupInfoWithGroupId:_groupId];
+        _groupModel = [groupManager getFullDiscussionGroupInfoFromDBWithGroupId:_groupId];
        dispatch_async(dispatch_get_main_queue(), ^{
            [_tableView reloadData];
        });

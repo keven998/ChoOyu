@@ -75,9 +75,6 @@ class ChatConversation: NSObject {
     
 //MARK: private function
     
-    
-  
-    
     /**
     更新最新一条本地消息
     */
