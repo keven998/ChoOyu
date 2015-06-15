@@ -28,6 +28,8 @@ class MessageSendManager: NSObject {
     
     private var sendDelegateList: Array<MessageSendManagerDelegate> = Array()
     
+    private var sendingMessageList: Array<BaseMessage> = Array()
+    
     /**
     注册消息的监听
     
@@ -58,9 +60,6 @@ class MessageSendManager: NSObject {
     
     private func sendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?) {
         var daoHelper = DaoHelper.shareInstance()
-        for messageManagerDelegate in self.sendDelegateList {
-            messageManagerDelegate.sendNewMessage?(message)
-        }
         var accountManager = AccountManager.shareAccountManager()
         NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId.integerValue, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
             if isSuccess {
@@ -101,7 +100,9 @@ class MessageSendManager: NSObject {
         
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: textMessage)
-        
+        for messageManagerDelegate in self.sendDelegateList {
+            messageManagerDelegate.sendNewMessage?(textMessage)
+        }
         sendMessage(textMessage, receiver: receiver, chatType: chatType, conversationId: conversationId)
         return textMessage
     }
@@ -129,7 +130,9 @@ class MessageSendManager: NSObject {
 
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: locationMessage)
-        
+        for messageManagerDelegate in self.sendDelegateList {
+            messageManagerDelegate.sendNewMessage?(locationMessage)
+        }
         sendMessage(locationMessage, receiver: receiver, chatType: chatType, conversationId: conversationId)
 
         return locationMessage
@@ -172,6 +175,9 @@ class MessageSendManager: NSObject {
         }
         var daoHelper = DaoHelper.shareInstance()
         daoHelper.insertChatMessage("chat_\(receiver)", message: message)
+        for messageManagerDelegate in self.sendDelegateList {
+            messageManagerDelegate.sendNewMessage?(message)
+        }
         sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId)
         
         return message
@@ -216,33 +222,9 @@ class MessageSendManager: NSObject {
             messageManagerDelegate.sendNewMessage?(imageMessage)
         }
         
-        MetadataUploadManager.asyncRequestUploadToken2SendMessage(QiniuGetTokeAction.uploadChatMetadata, completionBlock: { (isSuccess, key, token) -> () in
-            if isSuccess {
-                MetadataUploadManager.uploadMetadata2Qiniu(imageMessage, token: token!, key: key!, metadata: imageData, chatType:chatType, conversationId: conversationId, progress: { (progressValue) -> () in
-                    println("上传了: \(progressValue)")
-                    })
-                    { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
-                        if isSuccess {
-                            imageMessage.status = IMMessageStatus.IMMessageSuccessful
-                            if let retMessage = retMessage {
-                                if let serverId = retMessage.objectForKey("msgId") as? Int {
-                                    imageMessage.serverId = serverId
-                                    MessageManager.shareInsatance().updateLastServerMessage(imageMessage)
-                                }
-                            }
-                        } else {
-                            imageMessage.status = IMMessageStatus.IMMessageFailed
-                        }
-                        daoHelper.updateMessageInDB("chat_\(imageMessage.chatterId)", message: imageMessage)
-                        for messageManagerDelegate in self.sendDelegateList {
-                            messageManagerDelegate.messageHasSended?(imageMessage)
-                        }
-                        
-                        
-                }
-            }
-        })
-        
+        self.sendMetadataMessage(imageMessage, metadata: imageData, chatType: chatType, conversationId: conversationId) { (isSuccess) -> () in
+            
+        }
         return imageMessage
     }
     
@@ -299,41 +281,82 @@ class MessageSendManager: NSObject {
         var audioData = NSData(contentsOfFile: tempAmrPath)
         
         if let audioData = audioData {
-        
-            MetadataUploadManager.asyncRequestUploadToken2SendMessage(QiniuGetTokeAction.uploadChatMetadata, completionBlock: { (isSuccess, key, token) -> () in
-                if isSuccess {
-                    MetadataUploadManager.uploadMetadata2Qiniu(audioMessage, token: token!, key: key!, metadata: audioData, chatType:chatType, conversationId:conversationId, progress: { (progressValue) -> () in
-                        println("上传了: \(progressValue)")
-                        })
-                        { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
-                            var fileManager =  NSFileManager()
-                            var error: NSError?
-                            fileManager.removeItemAtPath(tempAmrPath, error: &error)
-                            if error != nil {
-                                println("移除发送完成后的临时文件出错 error\(error)")
-                            }
-                            if isSuccess {
-                                audioMessage.status = IMMessageStatus.IMMessageSuccessful
-                                if let retMessage = retMessage {
-                                    if let serverId = retMessage.objectForKey("msgId") as? Int {
-                                        audioMessage.serverId = serverId
-                                        MessageManager.shareInsatance().updateLastServerMessage(audioMessage)
-                                    }
-                                }
-                                
-                            } else {
-                                audioMessage.status = IMMessageStatus.IMMessageFailed
-                            }
-                            daoHelper.updateMessageInDB("chat_\(audioMessage.chatterId)", message: audioMessage)
-                            for messageManagerDelegate in self.sendDelegateList {
-                                messageManagerDelegate.messageHasSended?(audioMessage)
-                            }
-
-                    }
+            self.sendMetadataMessage(audioMessage, metadata: audioData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                var fileManager =  NSFileManager()
+                var error: NSError?
+                fileManager.removeItemAtPath(tempAmrPath, error: &error)
+                if error != nil {
+                    println("移除发送完成后的临时文件出错 error\(error)")
                 }
             })
         }
         return audioMessage
+    }
+    
+    
+    private func sendMetadataMessage(metadataMessage: BaseMessage, metadata: NSData, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool)->()) {
+        MetadataUploadManager.asyncRequestUploadToken2SendMessage(QiniuGetTokeAction.uploadChatMetadata, completionBlock: { (isSuccess, key, token) -> () in
+            if isSuccess {
+                MetadataUploadManager.uploadMetadata2Qiniu(metadataMessage, token: token!, key: key!, metadata: metadata, chatType:chatType, conversationId:conversationId, progress: { (progressValue) -> () in
+                    println("上传了: \(progressValue)")
+                    })
+                    { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
+                        completionBlock(isSuccess: isSuccess)
+                        if isSuccess {
+                            metadataMessage.status = IMMessageStatus.IMMessageSuccessful
+                            if let retMessage = retMessage {
+                                if let serverId = retMessage.objectForKey("msgId") as? Int {
+                                    metadataMessage.serverId = serverId
+                                    MessageManager.shareInsatance().updateLastServerMessage(metadataMessage)
+                                }
+                            }
+                            
+                        } else {
+                            metadataMessage.status = IMMessageStatus.IMMessageFailed
+                        }
+                        let daoHelper = DaoHelper.shareInstance()
+                        daoHelper.updateMessageInDB("chat_\(metadataMessage.chatterId)", message: metadataMessage)
+                        for messageManagerDelegate in self.sendDelegateList {
+                            messageManagerDelegate.messageHasSended?(metadataMessage)
+                        }
+                        
+                }
+            } else {
+                metadataMessage.status = IMMessageStatus.IMMessageFailed
+                let daoHelper = DaoHelper.shareInstance()
+                daoHelper.updateMessageInDB("chat_\(metadataMessage.chatterId)", message: metadataMessage)
+                for messageManagerDelegate in self.sendDelegateList {
+                    messageManagerDelegate.messageHasSended?(metadataMessage)
+                }
+            }
+        })
+    }
+    
+    /**
+    重新发送 message
+    */
+    func resendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?) {
+        message.status = IMMessageStatus.IMMessageSending
+        let daoHelper = DaoHelper.shareInstance()
+        daoHelper.updateMessageInDB("chat_\(message.chatterId)", message: message)
+        if message.messageType == IMMessageType.AudioMessageType {
+            
+            var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\((message as! AudioMessage).metadataId).amr")
+            VoiceConverter.wavToAmr((message as! AudioMessage).localPath, amrSavePath: tempAmrPath)
+            if let audioData = NSData(contentsOfFile: tempAmrPath) {
+                self.sendMetadataMessage(message, metadata: audioData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                })
+            }
+            
+        } else if message.messageType == IMMessageType.ImageMessageType {
+            if let imageData = NSData(contentsOfFile: (message as! ImageMessage).localPath!) {
+                self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
+                    
+                })
+            }
+        } else {
+            self.sendMessage(message, receiver: receiver, chatType: chatType, conversationId: conversationId)
+        }
     }
 }
 

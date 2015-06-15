@@ -593,14 +593,14 @@
     } else if([eventName isEqualToString:kResendButtonTapEventName]){
         EMChatViewCell *resendCell = [userInfo objectForKey:kShouldResendCell];
         MessageModel *messageModel = resendCell.messageModel;
-        messageModel.status = eMessageDeliveryState_Delivering;
+        messageModel.status = IMMessageStatusIMMessageSending;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:resendCell];
         [self.tableView beginUpdates];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath]
                               withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
-        id <IChatManager> chatManager = [[EaseMob sharedInstance] chatManager];
-        [chatManager asyncResendMessage:messageModel.message progress:nil];
+        IMClientManager *imClientManager = [IMClientManager shareInstance];
+        [imClientManager.messageSendManager resendMessage:messageModel.baseMessage receiver:_conversation.chatterId chatType:_conversation.chatType conversationId:_conversation.conversationId];
         
     } else if ([eventName isEqualToString:kRouterEventChatHeadImageTapEventName]) {   //点击头像
         [self showUserInfoWithModel:model];
@@ -1217,7 +1217,6 @@
 - (void)sendImageMessage:(UIImage *)image
 {
     IMClientManager *imClientManager = [IMClientManager shareInstance];
-    
     BaseMessage *imageMessage = [imClientManager.messageSendManager sendImageMessage:_conversation.chatterId conversationId:_conversation.conversationId image:image chatType:_conversation.chatType progress:^(float progressValue) {
         
     }];
