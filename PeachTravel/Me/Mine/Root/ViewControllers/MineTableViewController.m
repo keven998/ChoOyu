@@ -19,7 +19,7 @@
 #import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
 
-#define cellDataSource           @[@[@"收藏夹", @"推荐应用给好友"], @[@"设置", @"关于旅行派"]]
+#define cellDataSource           @[@[@"收藏夹", @"邀请好友"], @[@"应用设置", @"关于我们"]]
 #define secondCell               @"secondCell"
 
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>

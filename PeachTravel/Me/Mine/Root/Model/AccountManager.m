@@ -732,6 +732,10 @@
     NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [self save];
+    // 收到消息时，播放音频
+    [[EaseMob sharedInstance].deviceManager asyncPlayNewMessageSound];
+    // 收到消息时，震动
+    [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
 }
 
 - (void)removeFrendRequest:(FrendRequest *)frendRequest
@@ -750,6 +754,7 @@
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
+   
 }
 
 - (void)removeContact:(NSNumber *)userId

@@ -28,6 +28,7 @@
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) NSDictionary *dataSource;
 @property (strong, nonatomic) AccountManager *accountManager;
+@property (nonatomic) NSUInteger numberOfUnreadFrendRequest;
 
 @property (strong, nonatomic) UIView *emptyView;
 
@@ -44,6 +45,8 @@
     self.navigationItem.title = @"联系人";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList) name:contactListNeedUpdateNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNumberOfUnreadFrendRequest) name:frendRequestListNeedUpdateNoti object:nil];
+
 
     [self.view addSubview:self.contactTableView];
     [self.accountManager loadContactsFromServer];
@@ -54,6 +57,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_friends_lists"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self updateNumberOfUnreadFrendRequest];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -160,9 +164,8 @@
     return _accountManager;
 }
 
-- (void)setNumberOfUnreadFrendRequest:(NSUInteger)numberOfUnreadFrendRequest
-{
-    _numberOfUnreadFrendRequest = numberOfUnreadFrendRequest;
+- (void)updateNumberOfUnreadFrendRequest{
+    _numberOfUnreadFrendRequest = self.accountManager.numberOfUnReadFrendRequest;
     if (_contactTableView) {
         [_contactTableView reloadData];
     }

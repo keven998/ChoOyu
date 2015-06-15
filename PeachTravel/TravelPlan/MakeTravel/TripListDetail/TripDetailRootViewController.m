@@ -7,7 +7,7 @@
 //
 
 #import "TripDetailRootViewController.h"
-#import "SpotsListViewController.h"
+#import "PlanScheduleViewController.h"
 #import "RestaurantsListViewController.h"
 #import "ShoppingListViewController.h"
 #import "CityDestinationPoi.h"
@@ -28,7 +28,7 @@
 #import "TripPlanSettingViewController.h"
 @interface TripDetailRootViewController () <ActivityDelegate, TaoziMessageSendDelegate, ChatRecordListDelegate, CreateConversationDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) SpotsListViewController *spotsListCtl;
+@property (nonatomic, strong) PlanScheduleViewController *spotsListCtl;
 @property (nonatomic, strong) RestaurantsListViewController *restaurantListCtl;
 @property (nonatomic, strong) ShoppingListViewController *shoppingListCtl;
 @property (nonatomic, strong) ChatRecoredListTableViewController *chatRecordListCtl;
@@ -163,7 +163,7 @@
         [_moreBtn addTarget:self action:@selector(showMoreAction:) forControlEvents:UIControlEventTouchUpInside];
         [barItems addObject:[[UIBarButtonItem alloc]initWithCustomView:_moreBtn]];
         
-        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
+        if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
             UIButton *mapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 44)];
             [mapBtn setImage:[UIImage imageNamed:@"ic_trip_mapview_ios"] forState:UIControlStateNormal];
             [mapBtn addTarget:self action:@selector(mapView) forControlEvents:UIControlEventTouchUpInside];
@@ -243,8 +243,8 @@
             [hud hideTZHUD];
         }
         if (isSuccesss) {
-            if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-                _spotsListCtl.shouldEdit = NO;
+            if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
+//                _spotsListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
                 _shoppingListCtl.shouldEdit = NO;
             } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -258,8 +258,8 @@
 }
 
 - (void)mapView {
-    if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-        [_spotsListCtl mapView];
+    if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
+//        [_spotsListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
         [_shoppingListCtl mapView];
     } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -358,7 +358,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:updateGuideListNoti object:nil];
             if (isNeedRecommend) {
 //                [SVProgressHUD showHint:[NSString stringWithFormat:@"已为你创建%lu行程", (unsigned long)_tripDetail.itineraryList.count]];
-                [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.25];
+                [self performSelector:@selector(hintBuildRoutes) withObject:nil afterDelay:0.5];
             }
         } else {
             if (self.isShowing) {
@@ -375,7 +375,7 @@
 
 - (void)hintBuildRoutes {
     PXAlertView *alertView = [PXAlertView showAlertWithTitle:@"提示"
-                            message:[NSString stringWithFormat:@"根据网友们经验为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
+                            message:[NSString stringWithFormat:@"为你推荐了%lu天旅程，可自由调整", (unsigned long)_tripDetail.itineraryList.count]
                         cancelTitle:@"确定"
                          completion:nil];
     [alertView useDefaultIOS7Style];
@@ -386,7 +386,7 @@
 - (void)setCanEdit:(BOOL)canEdit
 {
     _canEdit = canEdit;
-    _spotsListCtl.canEdit = _canEdit;
+//    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
 }
@@ -565,8 +565,8 @@
     }
     BOOL status = sender.selected;
     if (!status) {
-        if ([_currentViewController isKindOfClass:[SpotsListViewController class]]) {
-            _spotsListCtl.shouldEdit = YES;
+        if ([_currentViewController isKindOfClass:[PlanScheduleViewController class]]) {
+//            _spotsListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[ShoppingListViewController class]]) {
             _shoppingListCtl.shouldEdit = YES;
         } else if ([_currentViewController isKindOfClass:[RestaurantsListViewController class]]) {
@@ -646,7 +646,7 @@
     _spotsListCtl.tripDetail = _tripDetail;
     _restaurantListCtl.tripDetail = _tripDetail;
     _shoppingListCtl.tripDetail = _tripDetail;
-    _spotsListCtl.canEdit = _canEdit;
+//    _spotsListCtl.canEdit = _canEdit;
     _restaurantListCtl.canEdit = _canEdit;
     _shoppingListCtl.canEdit = _canEdit;
     ((TripPlanSettingViewController *)self.container.menuViewController).tripDetail = self.tripDetail;
@@ -656,8 +656,8 @@
 - (void)setupViewControllers
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    _spotsListCtl = [[SpotsListViewController alloc] init];
-    _spotsListCtl.rootViewController = self;
+    _spotsListCtl = [[PlanScheduleViewController alloc] init];
+//    _spotsListCtl.rootViewController = self;
     
     _restaurantListCtl = [[RestaurantsListViewController alloc] init];
     _restaurantListCtl.rootViewController = self;
