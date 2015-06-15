@@ -7,7 +7,7 @@
 //
 
 #import "HomeViewController.h"
-#import "ToolHomeViewController.h"
+#import "ToolsHomeViewController.h"
 #import "MineTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PageOne.h"
@@ -37,7 +37,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  */
 @property (nonatomic, strong) UILabel *unReadMsgLabel;
 
-@property (nonatomic, strong) ToolHomeViewController *toolBoxCtl;
+@property (nonatomic, strong) ToolsHomeViewController *toolBoxCtl;
 @property (nonatomic, strong) MineTableViewController *mineCtl;
 @property (nonatomic, strong) ChatListViewController *chatListCtl;
 
@@ -306,7 +306,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     TZNavigationViewController *firstNavigationController = [[TZNavigationViewController alloc]
                                                           initWithRootViewController:self.chatListCtl];
     
-    _toolBoxCtl = [[ToolHomeViewController alloc] init];
+    _toolBoxCtl = [[ToolsHomeViewController alloc] init];
     TZNavigationViewController *secondNavigationController = [[TZNavigationViewController alloc]
                                                          initWithRootViewController:_toolBoxCtl];
     
@@ -403,17 +403,13 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
         TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
-        _toolBoxCtl.hideNavigationBar = YES;
         _mineCtl.hideNavigationBar = YES;
         [self presentViewController:navi animated:YES completion:^{
-            _toolBoxCtl.hideNavigationBar = NO;
             _mineCtl.hideNavigationBar = NO;
         }];
         return NO;
     } else {
-        if ([viewController isEqual:_toolBoxCtl.navigationController]) {
-            _toolBoxCtl.navigationbarAnimated = NO;
-        } else if ([viewController isEqual:_mineCtl.navigationController]) {
+        if ([viewController isEqual:_mineCtl.navigationController]) {
             _mineCtl.navigationbarAnimated = NO;
         }
     }

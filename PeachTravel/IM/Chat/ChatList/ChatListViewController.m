@@ -222,7 +222,7 @@
     activityView.center = CGPointMake(35, 22);
     [titleView addSubview:activityView];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 105, 44)];
-    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     [activityView startAnimating];
     [titleView addSubview:titleLabel];

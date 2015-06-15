@@ -144,7 +144,6 @@
 		C659E9F51AE0FBF500A28095 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C659E9F41AE0FBF500A28095 /* UserProfile.m */; };
 		C65DB7B81AD37B8600F51443 /* SelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */; };
 		C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */; };
-		C65DB7BC1AD4CD9800F51443 /* ToolHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BB1AD4CD9800F51443 /* ToolHomeViewController.m */; };
 		C65DB7C01AD4E44800F51443 /* TravelersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */; };
 		C65DB7C61AD644E000F51443 /* SettingHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7C51AD644E000F51443 /* SettingHomeViewController.m */; };
 		C65DB7C91AD6A44200F51443 /* TZNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7C81AD6A44200F51443 /* TZNavigationViewController.m */; };
@@ -162,6 +161,7 @@
 		C67C078A1A81BFC100E0F30B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C67C077F1A81BFC100E0F30B /* TencentOpenApi_IOS_Bundle.bundle */; };
 		C67C078B1A81BFC100E0F30B /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C07821A81BFC100E0F30B /* libSocialWechat.a */; };
 		C67C078C1A81BFC100E0F30B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67C07831A81BFC100E0F30B /* libWeChatSDK.a */; };
+		C691DD921B2ECB8400B7D318 /* ToolsHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C691DD911B2ECB8400B7D318 /* ToolsHomeViewController.m */; };
 		C694C3821AE9E23800F5C36E /* ic_navigation_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C694C3811AE9E23800F5C36E /* ic_navigation_black@2x.png */; };
 		C694C3861AE9EB7800F5C36E /* SDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */; };
 		C694C3891AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C694C3871AE9F4C300F5C36E /* ic_navgation_favorite_seleted@2x.png */; };
@@ -1062,8 +1062,6 @@
 		C65DB7B51AD37B8600F51443 /* SelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTableViewController.h; sourceTree = "<group>"; };
 		C65DB7B61AD37B8600F51443 /* SelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTableViewController.m; sourceTree = "<group>"; };
 		C65DB7B71AD37B8600F51443 /* SelectionTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionTableViewController.xib; sourceTree = "<group>"; };
-		C65DB7BA1AD4CD9800F51443 /* ToolHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolHomeViewController.h; sourceTree = "<group>"; };
-		C65DB7BB1AD4CD9800F51443 /* ToolHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolHomeViewController.m; sourceTree = "<group>"; };
 		C65DB7BE1AD4E44800F51443 /* TravelersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelersTableViewController.h; sourceTree = "<group>"; };
 		C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelersTableViewController.m; sourceTree = "<group>"; };
 		C65DB7C41AD644E000F51443 /* SettingHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingHomeViewController.h; path = Me/Setting/SettingHomeViewController.h; sourceTree = "<group>"; };
@@ -1097,6 +1095,8 @@
 		C67C07841A81BFC100E0F30B /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
 		C67C07851A81BFC100E0F30B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C67C07861A81BFC100E0F30B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		C691DD901B2ECB8400B7D318 /* ToolsHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsHomeViewController.h; sourceTree = "<group>"; };
+		C691DD911B2ECB8400B7D318 /* ToolsHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsHomeViewController.m; sourceTree = "<group>"; };
 		C694C3811AE9E23800F5C36E /* ic_navigation_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigation_black@2x.png"; sourceTree = "<group>"; };
 		C694C3841AE9EB7800F5C36E /* SDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDSegmentedControl.h; sourceTree = "<group>"; };
 		C694C3851AE9EB7800F5C36E /* SDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDSegmentedControl.m; sourceTree = "<group>"; };
@@ -5293,8 +5293,8 @@
 				D9A8FF3A1A80CF19005AD701 /* OperationData.m */,
 				D9A8FF3B1A80CF19005AD701 /* ToolBoxViewController.h */,
 				D9A8FF3C1A80CF19005AD701 /* ToolBoxViewController.m */,
-				C65DB7BA1AD4CD9800F51443 /* ToolHomeViewController.h */,
-				C65DB7BB1AD4CD9800F51443 /* ToolHomeViewController.m */,
+				C691DD901B2ECB8400B7D318 /* ToolsHomeViewController.h */,
+				C691DD911B2ECB8400B7D318 /* ToolsHomeViewController.m */,
 			);
 			name = "Home--3.第二个主界面";
 			path = ToolBox/Home;
@@ -6302,7 +6302,6 @@
 				D9A8FEC51A80C818005AD701 /* ConfirmRouteViewController.m in Sources */,
 				D9A801481A80DD23005AD701 /* EMChatViewBaseCell.m in Sources */,
 				D9A8FF521A80CF19005AD701 /* Favorite.m in Sources */,
-				C65DB7BC1AD4CD9800F51443 /* ToolHomeViewController.m in Sources */,
 				D9A802231A80E036005AD701 /* MyTripSpotsMapViewController.m in Sources */,
 				D92CA1111AD8BDF900F244FF /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				D9A802B21A80E3D3005AD701 /* NSMutableDictionary+MyDictionary.m in Sources */,
@@ -6548,6 +6547,7 @@
 				D9A8FED31A80C818005AD701 /* OptionTableViewCell.m in Sources */,
 				D9A802EF1A80E3D3005AD701 /* TZProgressHUD.m in Sources */,
 				27FF1AEA1B09C51000643D77 /* OthersAlbumCell.m in Sources */,
+				C691DD921B2ECB8400B7D318 /* ToolsHomeViewController.m in Sources */,
 				D9A802381A80E036005AD701 /* WeatherInfo.m in Sources */,
 				D9A8FECF1A80C818005AD701 /* Group.m in Sources */,
 				C65DB7C61AD644E000F51443 /* SettingHomeViewController.m in Sources */,
