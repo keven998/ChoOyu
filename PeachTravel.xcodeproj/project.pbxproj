@@ -241,10 +241,8 @@
 		D917DADB1A8B4B370039720A /* ic_guide_title_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADA1A8B4B370039720A /* ic_guide_title_2@2x.png */; };
 		D917DADD1A8B4B3B0039720A /* ic_guide_title_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADC1A8B4B3B0039720A /* ic_guide_title_1@2x.png */; };
 		D917DADF1A8B4B3F0039720A /* ic_guide_title_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DADE1A8B4B3F0039720A /* ic_guide_title_3@2x.png */; };
-		D917DAE11A8B57520039720A /* ic_new_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D917DAE01A8B57520039720A /* ic_new_talk@2x.png */; };
 		D920A4131B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920A4121B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift */; };
 		D920A4151B15AB3800AD81B7 /* JSONConvertMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D920A4141B15AB3800AD81B7 /* JSONConvertMethod.swift */; };
-		D9245DC71A8C553E004571AD /* story_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DC61A8C553E004571AD /* story_default@2x.png */; };
 		D9245DC91A8C7D65004571AD /* ic_filter_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */; };
 		D9245DCB1A8C7D91004571AD /* ic_filter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DCA1A8C7D91004571AD /* ic_filter@2x.png */; };
 		D9245DD71A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9245DD61A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png */; };
@@ -1199,10 +1197,8 @@
 		D917DADA1A8B4B370039720A /* ic_guide_title_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_guide_title_2@2x.png"; path = "../1/ic_guide_title_2@2x.png"; sourceTree = "<group>"; };
 		D917DADC1A8B4B3B0039720A /* ic_guide_title_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_guide_title_1@2x.png"; path = "../2/ic_guide_title_1@2x.png"; sourceTree = "<group>"; };
 		D917DADE1A8B4B3F0039720A /* ic_guide_title_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_title_3@2x.png"; sourceTree = "<group>"; };
-		D917DAE01A8B57520039720A /* ic_new_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_new_talk@2x.png"; sourceTree = "<group>"; };
 		D920A4121B15A40E00AD81B7 /* IMDiscussionGroupManager+GroupInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMDiscussionGroupManager+GroupInfo.swift"; sourceTree = "<group>"; };
 		D920A4141B15AB3800AD81B7 /* JSONConvertMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONConvertMethod.swift; sourceTree = "<group>"; };
-		D9245DC61A8C553E004571AD /* story_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "story_default@2x.png"; sourceTree = "<group>"; };
 		D9245DC81A8C7D65004571AD /* ic_filter_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter_box@2x.png"; sourceTree = "<group>"; };
 		D9245DCA1A8C7D91004571AD /* ic_filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter@2x.png"; sourceTree = "<group>"; };
 		D9245DD61A8CA1AA004571AD /* ic_travelnote_favorite_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_travelnote_favorite_selected@2x.png"; sourceTree = "<group>"; };
@@ -1318,6 +1314,8 @@
 		D9722F3B1A83674C00D8A8CC /* ic_dot_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_dot_line@2x.png"; sourceTree = "<group>"; };
 		D97C8B4C1A526B9F00476C9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D980FD641A88EFAB00313582 /* ic_msg_sending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_msg_sending@2x.png"; sourceTree = "<group>"; };
+		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
+		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
 		D98F39051B0E0BC100767F14 /* EMCallManagerCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerCallDelegate.h; sourceTree = "<group>"; };
 		D98F39061B0E0BC100767F14 /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerDelegate.h; sourceTree = "<group>"; };
 		D98F39071B0E0BC100767F14 /* EMCallServiceDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallServiceDefs.h; sourceTree = "<group>"; };
@@ -1402,8 +1400,6 @@
 		D98F39671B0E0BC100767F14 /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		D98F39681B0E0BC100767F14 /* libEaseMobClientSDKLite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDKLite.a; sourceTree = "<group>"; };
 		D98F396A1B0E0BC100767F14 /* EaseMob.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseMob.bundle; sourceTree = "<group>"; };
-		D9823E821B19AA0200A1AE35 /* SuggestionDestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionDestinationTableViewController.h; sourceTree = "<group>"; };
-		D9823E831B19AA0200A1AE35 /* SuggestionDestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionDestinationTableViewController.m; sourceTree = "<group>"; };
 		D990FBE819F923570008A8FE /* UserInfo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UserInfo 2.xcdatamodel"; sourceTree = "<group>"; };
 		D993C1C71B12DF0C0088D568 /* ChatManagerAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerAudio.swift; sourceTree = "<group>"; };
 		D993C1C81B12DF0C0088D568 /* ChatManagerMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManagerMessage.swift; sourceTree = "<group>"; };
@@ -6803,7 +6799,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -6830,7 +6825,6 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
 				PROVISIONING_PROFILE = "5ba09e7f-e964-450e-a079-8c6c71f8a3b6";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -6844,7 +6838,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

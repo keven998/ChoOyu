@@ -1,4 +1,4 @@
-//
+    //
 //  HomeViewController.m
 //  PeachTravel
 //
@@ -89,8 +89,8 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 - (void) setupConverView {
     if (!shouldSkipIntroduce && kShouldShowIntroduceWhenFirstLaunch) {
-        [self beginIntroduce];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
+//        [self beginIntroduce];
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[[AppUtils alloc] init].appVersion];
     } else {
         _coverView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         _coverView.userInteractionEnabled = YES;
