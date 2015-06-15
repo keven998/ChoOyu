@@ -10,6 +10,5 @@
 
 @interface ContactListViewController : UIViewController
 
-@property (nonatomic) NSUInteger numberOfUnreadFrendRequest;
 
 @end
