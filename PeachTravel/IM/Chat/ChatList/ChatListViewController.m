@@ -576,9 +576,8 @@
     return target;
 }
 
-- (void)pushChatViewControllerWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
+- (void)pushChatViewControllerWithChatter:(NSString *)chatter chatterAvatar:(NSString *)chatterAvatar isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
-
     ChatViewController *chatController;
     chatController = [[ChatViewController alloc] initWithChatter:chatter isGroup:isGroup];
     chatController.chatterNickName = chatTitle;
@@ -590,8 +589,7 @@
         EMGroup *chatGroup = [EMGroup groupWithId:chatter];
         ((ChatGroupSettingViewController *)menuViewController).group = chatGroup;
     } else {
-//        menuViewController = [[ChatSettingViewController alloc] init];
-//        ((ChatSettingViewController *)menuViewController).chatter = chatter;
+        chatController.chatterAvatar = chatterAvatar;
     }
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatController menuViewController:menuViewController];
@@ -664,7 +662,7 @@
     }
     
     NSString *chatter = tzConversation.conversation.chatter;
-    [self pushChatViewControllerWithChatter:chatter isGroup:tzConversation.conversation.isGroup chatTitle:title];
+    [self pushChatViewControllerWithChatter:chatter chatterAvatar:tzConversation.chatterAvatar isGroup:tzConversation.conversation.isGroup chatTitle:title];
     [tzConversation.conversation markAllMessagesAsRead:YES];
 
 }
@@ -784,8 +782,13 @@
 
 - (void)createConversationSuccessWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup chatTitle:(NSString *)chatTitle
 {
+    NSString *chatterAvatar = @"";
+    if (!isGroup) {
+        chatterAvatar = [self.accountManager contactWithEaseMobUserId:chatter].avatarSmall;
+    }
     [_createConversationCtl dismissViewControllerAnimated:YES completion:^{
-        [self pushChatViewControllerWithChatter:chatter isGroup:isGroup chatTitle:chatTitle];
+        [self pushChatViewControllerWithChatter:chatter chatterAvatar:chatterAvatar isGroup:isGroup chatTitle:chatTitle];
+
     }];
 }
 
