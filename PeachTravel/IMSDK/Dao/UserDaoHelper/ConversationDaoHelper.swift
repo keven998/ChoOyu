@@ -90,7 +90,11 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                     if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
                     }
-                    conversation.chatterAvatar = rs.stringForColumn("AvatarSmall")
+                    if let avatarSmall = rs.stringForColumn("AvatarSmall") {
+                        conversation.chatterAvatar = avatarSmall
+                    } else {
+                        conversation.chatterAvatar = rs.stringForColumn("Avatar")
+                    }
 
                     var typeValue  = rs.intForColumn("Type")
                     conversation.fillConversationType(frendType: IMFrendType(rawValue: Int(typeValue))!)
