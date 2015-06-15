@@ -200,7 +200,7 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     */
     func asyncGetConversationInfoFromServer(conversation: ChatConversation, completion:(fullConversation: ChatConversation?) -> ()) {
         if conversation.chatType == IMChatType.IMChatSingleType {
-            var frendManager = FrendManager.shareInstance()
+            let frendManager = FrendManager.shareInstance()
             frendManager.asyncGetFrendInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, frendInfo) -> () in
                 if let frend = frendInfo {
                     self.fillConversationWithFrendData(conversation, frendModel: frend)
@@ -209,6 +209,13 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
             })
             
         } else if conversation.chatType == IMChatType.IMChatDiscussionGroupType {
+            let discussionGroupManager = IMDiscussionGroupManager.shareInstance()
+            discussionGroupManager.asyncGetDiscussionGroupInfoFromServer(conversation.chatterId, completion: { (isSuccess, errorCode, discussionGroup) -> () in
+                if let group = discussionGroup {
+                    self.fillConversationWithIMDiscussionGroup(conversation, group: group)
+                }
+                completion(fullConversation: conversation)
+            })
             
         } else if conversation.chatType == IMChatType.IMChatGroupType {
             
@@ -258,6 +265,31 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
         conversation.chatterName = frendModel.nickName
         conversation.chatterId = frendModel.userId
     }
+    
+    /**
+    利用 IMDiscussionGroup 信息来补全 conversation 的信息
+    
+    :param: conversation
+    :param: frendModel
+    */
+    private func fillConversationWithIMDiscussionGroup(conversation: ChatConversation, group: IMDiscussionGroup) {
+        conversation.chatType = IMChatType.IMChatDiscussionGroupType
+        conversation.chatterName = group.subject
+        conversation.chatterId = group.groupId
+    }
+    
+    /**
+    利用 IMGroupModel 信息来补全 conversation 的信息
+    
+    :param: conversation
+    :param: frendModel
+    */
+    private func fillConversationWithFrendIMGroup(conversation: ChatConversation, group: IMGroupModel) {
+        conversation.chatType = IMChatType.IMChatDiscussionGroupType
+        conversation.chatterName = group.subject
+        conversation.chatterId = group.groupId
+    }
+
     
     /**
     处理刚开始发送的消息。只更新最后一条本地消息，等发送成功后更新最后一条本地消息
