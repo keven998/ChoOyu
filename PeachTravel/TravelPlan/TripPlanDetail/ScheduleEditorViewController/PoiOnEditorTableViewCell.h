@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FMMoveTableViewCell.h"
 
-@interface PoiOnEditorTableViewCell : UITableViewCell
+@interface PoiOnEditorTableViewCell : FMMoveTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *poiNameLabel;
 

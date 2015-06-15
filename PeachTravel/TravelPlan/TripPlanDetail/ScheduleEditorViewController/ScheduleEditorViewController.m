@@ -8,12 +8,13 @@
 
 #import "ScheduleEditorViewController.h"
 #import "PoiOnEditorTableViewCell.h"
+#import "FMMoveTableView.h"
 
-@interface ScheduleEditorViewController ()<UITableViewDelegate, UITableViewDataSource> {
+@interface ScheduleEditorViewController ()<FMMoveTableViewDataSource, FMMoveTableViewDelegate> {
     NSMutableArray *_cityArray;
 }
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) FMMoveTableView *tableView;
 
 @end
 
@@ -30,7 +31,7 @@
     
     _cityArray = [NSMutableArray array];
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[FMMoveTableView alloc] initWithFrame:self.view.bounds];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = APP_PAGE_COLOR;
     _tableView.dataSource = self;
@@ -106,9 +107,12 @@
     return headerTitle;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiOnEditorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poi_cell_of_edit" forIndexPath:indexPath];
+    if (tableView.movingIndexPath != nil) {
+        indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
+    }
     SuperPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
     cell.poiNameLabel.text = tripPoi.zhName;
     return cell;
@@ -136,6 +140,27 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
+}
+
+- (BOOL)moveTableView:(FMMoveTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    //	Uncomment these lines to enable moving a row just within it's current section
+    //	if ([sourceIndexPath section] != [proposedDestinationIndexPath section]) {
+    //		proposedDestinationIndexPath = sourceIndexPath;
+    //	}
+    
+    return proposedDestinationIndexPath;
+}
+
+
+- (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    
 }
 
 #pragma mark - IBAction
