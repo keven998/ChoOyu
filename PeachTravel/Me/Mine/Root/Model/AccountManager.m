@@ -583,6 +583,27 @@
     return NO;
 }
 
+- (Contact *)contactWithUserId:(NSNumber *)userId
+{
+    for (Contact *contact in self.account.contacts) {
+        if (contact.userId.integerValue == userId.integerValue) {
+            return contact;
+        }
+    }
+    return nil;
+}
+
+- (Contact *)contactWithEaseMobUserId:(NSString *)userId
+{
+    for (Contact *contact in self.account.contacts) {
+        if ([contact.easemobUser isEqualToString:userId]) {
+            return contact;
+        }
+    }
+    return nil;
+    
+}
+
 //从服务器上获取好友列表
 - (void)loadContactsFromServer
 {
