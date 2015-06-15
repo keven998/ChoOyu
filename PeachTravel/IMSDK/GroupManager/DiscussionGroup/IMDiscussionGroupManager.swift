@@ -252,7 +252,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     
     :param: group
     */
-    private func updateGroupInfoInDB(group: IMDiscussionGroup) {
+    func updateGroupInfoInDB(group: IMDiscussionGroup) {
         var frend = self.convertDiscussionGroupModel2FrendModel(group)
         var frendManager = FrendManager.shareInstance()
         frendManager.addFrend2DB(frend)
@@ -315,15 +315,16 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
         frendModel.userId = group.groupId
         frendModel.nickName = group.subject
         frendModel.type = IMFrendType.DiscussionGroup
-        
-        var numberDic = NSMutableDictionary()
-        var array = Array<Int>()
-        
-        for frend in group.numbers {
-            array.append(frend.userId)
+        if group.numbers.count > 0 {
+            var numberDic = NSMutableDictionary()
+            var array = Array<Int>()
+            
+            for frend in group.numbers {
+                array.append(frend.userId)
+            }
+            numberDic.setObject(array, forKey: "numbers")
+            frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
         }
-        numberDic.setObject(array, forKey: "numbers")
-        frendModel.extData = JSONConvertMethod.contentsStrWithJsonObjc(numberDic)!
 
         return frendModel
     }

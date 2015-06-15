@@ -46,4 +46,76 @@ extension IMDiscussionGroupManager {
         return retGroup
     }
     
+    /**
+    从网上获取讨论组信息
+    
+    :param: groupId
+    :param: completion
+    */
+    func asyncGetDiscussionGroupInfoFromServer(groupId: Int, completion: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        
+        var url = "\(API_USERINFO)\(groupId)"
+        manager.GET(url, parameters: nil, success: {
+            (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            if (responseObject.objectForKey("code") as! Int) == 0 {
+                let resultDic = responseObject.objectForKey("result") as! NSDictionary
+                let group = IMDiscussionGroup(jsonData: resultDic)
+                self.updateGroupInfoInDB(group)
+                completion(isSuccess: true, errorCode: 0, discussionGroup: group)
+            } else {
+                completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
+            }
+        }) {
+            (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
+            print(error)
+        }
+    }
+
+    /**
+    从网上获取讨论组的成员信息
+    
+    :param: groupId
+    :param: completion 
+    */
+    func asyncGetNumbersInDiscussionGroupInfoFromServer(groupId: Int, completion: (isSuccess: Bool, errorCode: Int, discussionGroup: IMDiscussionGroup?) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        
+        var url = "\(API_USERINFO)\(groupId)"
+        manager.GET(url, parameters: nil, success: {
+            (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            if (responseObject.objectForKey("code") as! Int) == 0 {
+                let resultDic = responseObject.objectForKey("result") as! NSDictionary
+                let group = IMDiscussionGroup(jsonData: resultDic)
+                self.updateGroupInfoInDB(group)
+                completion(isSuccess: true, errorCode: 0, discussionGroup: group)
+            } else {
+                completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
+            }
+            }) {
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
+                print(error)
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+
+    
 }
