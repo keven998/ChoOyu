@@ -19,7 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(skip:) name:userDidLoginNoti object:nil];
+
     UIImageView *backgroundImg = [[UIImageView alloc]initWithFrame:self.view.bounds];
     if (IS_IPHONE_4) {
         backgroundImg.image = [UIImage imageNamed:@"Default@2x"];
@@ -70,6 +71,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)login:(id)sender {
