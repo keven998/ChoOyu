@@ -19,6 +19,13 @@ class IMDiscussionGroup: NSObject {
         subject = jsonData.objectForKey("name") as! String
     }
     
+    func updateNumbersInGroup(jsonData: Array<NSDictionary>) {
+        for frendDic in jsonData {
+            let frend = FrendModel(json: frendDic)
+            numbers.append(frend)
+        }
+    }
+    
     override init() {
         super.init()
     }
