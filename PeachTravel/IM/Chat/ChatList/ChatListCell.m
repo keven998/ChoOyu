@@ -39,13 +39,13 @@
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont systemFontOfSize:12];
-        _timeLabel.textColor = TEXT_COLOR_TITLE_PH;
+        _timeLabel.textColor = COLOR_TEXT_III;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
         
         _detailLabel = [[UILabel alloc] init];
-        _detailLabel.font = [UIFont systemFontOfSize:13.5];
-        _detailLabel.textColor = TEXT_COLOR_TITLE_HINT;
+        _detailLabel.font = [UIFont systemFontOfSize:13];
+        _detailLabel.textColor = COLOR_TEXT_III;
         _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView addSubview:_detailLabel];
@@ -58,7 +58,7 @@
         [self.contentView addSubview:sendFailedImageView];
         
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 21, 21)];
-        _unreadLabel.backgroundColor = APP_HIGNLIGHT_COLOR;
+        _unreadLabel.backgroundColor = COLOR_CHECKED;
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
         _unreadLabel.font = [UIFont systemFontOfSize:12];
         _unreadLabel.adjustsFontSizeToFitWidth = NO;
@@ -69,8 +69,12 @@
         [self.contentView insertSubview:_unreadLabel aboveSubview:self.imageView];
         
         spaceView = [[UIView alloc] init];
-        spaceView.backgroundColor = APP_DIVIDER_COLOR;
+        spaceView.backgroundColor = COLOR_LINE;
         [self.contentView addSubview:spaceView];
+        
+        self.textLabel.font = [UIFont systemFontOfSize:18];
+        self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        self.textLabel.textColor = COLOR_TEXT_I;
     }
     return self;
 }
@@ -88,16 +92,13 @@
     [super layoutSubviews];
     
     CGFloat width = CGRectGetWidth(self.bounds);
+    self.imageView.frame = CGRectMake(10, 10, 56, 56);
+    self.imageView.layer.cornerRadius = 28;
+    self.imageView.clipsToBounds = YES;
     
+    //image offset x = 56 + 10 + 10margin = 76
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(54, 17, width - 54 - 85, 18.0);
-    self.textLabel.font = [UIFont systemFontOfSize:16];
-    self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    self.textLabel.textColor = TEXT_COLOR_TITLE_SUBTITLE;
-    
-    self.imageView.frame = CGRectMake(12, 19, 32, 32);
-    self.imageView.layer.cornerRadius = 8;
-    self.imageView.layer.masksToBounds = YES;
+    self.textLabel.frame = CGRectMake(76, 14, width - 76 - 85, 24);
     
     _timeLabel.frame = CGRectMake(width - 80.0, 14.0, 70.0, 18.0);
     
@@ -123,9 +124,9 @@
         activityView.hidden = YES;
     }
     
-    sendFailedImageView.frame = CGRectMake(58, 42, 12, 12);
-    activityView.frame = CGRectMake(58, 42, 13, 12);
-    _detailLabel.frame = CGRectMake(58+offsetX, 35, width - 85.0-54, 25);
+    sendFailedImageView.frame = CGRectMake(76, 45, 12, 12);
+    activityView.frame = CGRectMake(76, 45, 13, 12);
+    _detailLabel.frame = CGRectMake(76+offsetX, 38, width - 85.0-76, 25);
     
     _timeLabel.text = _time;
     
@@ -159,8 +160,8 @@
         [_unreadLabel setHidden:YES];
     }
     
-    spaceView.frame = CGRectMake(0, self.contentView.frame.size.height-0.5, self.contentView.frame.size.width, 0.5);
-    self.selectedBackgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    spaceView.frame = CGRectMake(10, self.contentView.frame.size.height-0.5, width - 10, 0.5);
+//    self.selectedBackgroundView.frame = self.bounds;
 }
 
 -(void)setName:(NSString *)name{
@@ -180,7 +181,7 @@
 
 + (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 76;
 }
 
 @end

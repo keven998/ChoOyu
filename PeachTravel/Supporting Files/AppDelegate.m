@@ -32,18 +32,19 @@
     [self lvApplication:application didFinishLaunchingWithOptions:launchOptions];
     if (IS_IOS8) {
         [[UINavigationBar appearance] setTranslucent:NO];
-    } else {
-        
     }
-    [[UINavigationBar appearance] setTintColor:APP_THEME_COLOR];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"ic_navigation_back.png"]];
-    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:[UIColor whiteColor]]
+    [[UINavigationBar appearance] setBackgroundImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]
                                        forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+        [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
+
+//    [[UINavigationBar appearance] setShadowImage:[ConvertMethods createImageWithColor:APP_THEME_COLOR]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = APP_PAGE_COLOR;
     
     //目前只有环信的推送。因此暂时
 //    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];

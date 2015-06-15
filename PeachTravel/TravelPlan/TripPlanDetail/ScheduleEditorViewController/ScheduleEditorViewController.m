@@ -62,9 +62,20 @@
     return _tripDetail.itineraryList.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(FMMoveTableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[_tripDetail.itineraryList objectAtIndex:section] count];
+    NSInteger numberOfRows = [[_tripDetail.itineraryList objectAtIndex:section] count];
+    if (tableView.movingIndexPath && tableView.movingIndexPath.section != tableView.initialIndexPathForMovingRow.section)
+    {
+        if (section == tableView.movingIndexPath.section) {
+            numberOfRows++;
+        }
+        else if (section == tableView.initialIndexPathForMovingRow.section) {
+            numberOfRows--;
+        }
+    }
+
+    return numberOfRows;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -110,11 +121,20 @@
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PoiOnEditorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"poi_cell_of_edit" forIndexPath:indexPath];
-    if (tableView.movingIndexPath != nil) {
-        indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
+    if ([tableView indexPathIsMovingIndexPath:indexPath])
+    {
+        [cell prepareForMove];
     }
-    SuperPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
-    cell.poiNameLabel.text = tripPoi.zhName;
+    else 
+    {
+        if (tableView.movingIndexPath != nil) {
+            indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
+        }
+        SuperPoi *tripPoi = _tripDetail.itineraryList[indexPath.section][indexPath.row];
+        cell.poiNameLabel.text = tripPoi.zhName;
+        cell.shouldIndentWhileEditing = NO;
+        cell.showsReorderControl = NO;
+    }
     return cell;
 }
 
@@ -160,7 +180,9 @@
 
 - (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    
+    NSArray *movie = [[_tripDetail.itineraryList objectAtIndex:fromIndexPath.section] objectAtIndex:fromIndexPath.row];
+    [[_tripDetail.itineraryList objectAtIndex:fromIndexPath.section] removeObjectAtIndex:fromIndexPath.row];
+    [[_tripDetail.itineraryList objectAtIndex:toIndexPath.section] insertObject:movie atIndex:toIndexPath.row];
 }
 
 #pragma mark - IBAction
