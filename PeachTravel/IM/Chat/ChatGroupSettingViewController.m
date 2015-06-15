@@ -8,7 +8,6 @@
 
 #import "ChatGroupSettingViewController.h"
 #import "AccountManager.h"
-#import "ChatSendHelper.h"
 #import "ChangeGroupTitleViewController.h"
 #import "Group.h"
 #import "ContactDetailViewController.h"
@@ -18,7 +17,8 @@
 #import "ChatGroupCell.h"
 #import "AddMemberCell.h"
 #import "SWTableViewCell.h"
-@interface ChatGroupSettingViewController () <IChatManagerDelegate,UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate>
+
+@interface ChatGroupSettingViewController () <UITableViewDataSource,UITableViewDelegate,CreateConversationDelegate,SWTableViewCellDelegate>
 {
     UITableView *_tableView;
     UIButton *_selectedBtn;

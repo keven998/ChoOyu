@@ -12,8 +12,6 @@
 #import "AccountManager.h"
 #import "WXApi.h"
 
-#import "EMPushNotificationOptions.h"
-
 @interface LoginViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;

@@ -7,7 +7,6 @@
 //
 
 #import "TaoziChatMessageBaseViewController.h"
-#import "ChatSendHelper.h"
 
 @interface TaoziChatMessageBaseViewController ()
 @property (weak, nonatomic) IBOutlet UIView *imageBkgView;

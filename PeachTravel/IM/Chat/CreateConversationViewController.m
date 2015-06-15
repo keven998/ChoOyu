@@ -10,7 +10,6 @@
 #import "pinyin.h"
 #import "AccountManager.h"
 #import "CreateConversationTableViewCell.h"
-#import "ChatView/ChatSendHelper.h"
 #import "SelectContactScrollView.h"
 #import "SelectContactUnitView.h"
 #import "MJNIndexView.h"
@@ -180,22 +179,6 @@
 
 
 #pragma mark - Private Methods
-
-//当群主创建了一个群组，向群里发送一条欢迎语句
-- (void)sendMsgWhileCreateGroup:(NSString *)groupId
-{
-    AccountManager *accountManager = [AccountManager shareAccountManager];
-    NSMutableString *messageStr = [NSMutableString stringWithFormat:@"%@邀请了",accountManager.account.nickName];
-    for (Contact *contact in self.selectedContacts) {
-        [messageStr appendString:[NSString stringWithFormat:@"%@ ", contact.nickName]];
-    }
-    [messageStr appendString:@"加入了群聊"];
-    NSDictionary *messageDic = @{@"tzType":[NSNumber numberWithInt:IMMessageTypeTipsMessageType], @"content":messageStr};
-    
-    EMMessage *message = [ChatSendHelper sendTaoziMessageWithString:messageStr andExtMessage:messageDic toUsername:groupId isChatGroup:YES requireEncryption:NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateChateViewNoti object:nil userInfo:@{@"message":message}];
-
-}
 
 - (void)tableViewMoveToCorrectPosition:(NSInteger)currentIndex
 {

@@ -9,7 +9,6 @@
 #import "AccountManager.h"
 #import "AppDelegate.h"
 #import "Group.h"
-#import "EaseMob.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 
@@ -138,24 +137,11 @@
 //用户退出登录
 - (void)asyncLogout:(void (^)(BOOL))completion
 {
-    __weak typeof(self) weakSelf = self;
-
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
-        NSLog(@"%@", [[EaseMob sharedInstance].chatManager loginInfo]);
-        
-        if (error && (error.errorCode != EMErrorServerNotLogin)) {
-            NSLog(@"%@", error.description);
-            completion(NO);
-            return;
-        }
-        [weakSelf.context deleteObject:self.account];
-        [weakSelf save];
-        _account = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
-        completion(YES);
-//        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-//        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    } onQueue:nil];
+    [self.context deleteObject:self.account];
+    [self save];
+    _account = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:userDidLogoutNoti object:nil];
+    completion(YES);
 }
 
 //用户旅行派系统登录成功
@@ -368,9 +354,6 @@
         if (code == 0) {
             [SVProgressHUD showHint:@"修改成功"];
             [self updateUserInfo:userInfo withChangeType:userInfoType];
-            if (userInfoType == ChangeName) {
-                [[EaseMob sharedInstance].chatManager setApnsNickname:userInfo];
-            }
             completion(YES, nil);
             [[NSNotificationCenter defaultCenter] postNotificationName:updateUserInfoNoti object:nil];
 
@@ -754,10 +737,6 @@
     NSLog(@"收到好友请求，请求信息为：%@", frendRequest);
     [[NSNotificationCenter defaultCenter] postNotificationName:frendRequestListNeedUpdateNoti object:nil];
     [self save];
-    // 收到消息时，播放音频
-    [[EaseMob sharedInstance].deviceManager asyncPlayNewMessageSound];
-    // 收到消息时，震动
-    [[EaseMob sharedInstance].deviceManager asyncPlayVibration];
 }
 
 - (void)removeFrendRequest:(FrendRequest *)frendRequest

@@ -12,7 +12,6 @@
 #import "AccountManager.h"
 #import "ContactDetailViewController.h"
 #import "OtherUserInfoViewController.h"
-#import "EaseMob.h"
 
 #define requestCell      @"requestCell"
 
@@ -82,35 +81,6 @@
 
 #pragma mark - Private Methods
 
-- (void)insertMsgToEasemobDB:(FrendRequest *)frendRequest
-{
-    id  chatManager = [[EaseMob sharedInstance] chatManager];
-    NSDictionary *loginInfo = [chatManager loginInfo];
-    NSString *account = [loginInfo objectForKey:kSDKUsername];
-    EMChatText *chatText = [[EMChatText alloc] initWithText:@""];
-    EMTextMessageBody *textBody = [[EMTextMessageBody alloc] initWithChatObject:chatText];
-    EMMessage *message = [[EMMessage alloc] initWithReceiver:frendRequest.easemobUser bodies:@[textBody]];
-    
-    NSString *str = [NSString stringWithFormat:@"你已添加%@为好友",frendRequest.nickName];
-    message.ext = @{
-                    @"tzType":[NSNumber numberWithInt:IMMessageTypeTipsMessageType],
-                    @"content":str
-                    };
-    [message setIsGroup:NO];
-    [message setIsReadAcked:NO];
-    [message setTo:account];
-    [message setFrom:frendRequest.easemobUser];
-    [message setIsGroup:NO];
-    message.conversationChatter = frendRequest.easemobUser;
-    
-    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-    NSString *messageID = [NSString stringWithFormat:@"%.0f", interval];
-    [message setMessageId:messageID];
-    
-    [chatManager importMessage:message
-                   append2Chat:YES];
-}
-
 - (void)updateDataSource
 {
     [self.dataSource removeAllObjects];
@@ -153,7 +123,6 @@
             [self.accountManager agreeFrendRequest:frendRequest];
             [self.accountManager addContact:frendRequest];
             [self.tableView reloadData];
-            [self insertMsgToEasemobDB:frendRequest];
             
 //            [SVProgressHUD showHint:@"已添加"];
             for (Contact *contact in self.accountManager.account.contacts) {

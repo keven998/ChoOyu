@@ -18,7 +18,6 @@
 #import "EMChatViewCell.h"
 #import "TipsChatTableViewCell.h"
 #import "EMChatTimeCell.h"
-#import "ChatSendHelper.h"
 #import "MessageReadManager.h"
 #import "LocationViewController.h"
 #import "UIViewController+HUD.h"
@@ -57,7 +56,7 @@
 
 #define KPageCount 20
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, IDeviceManagerDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, ZYQAssetPickerControllerDelegate, ChatConversationDelegate, ChatManagerAudioDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -132,11 +131,6 @@
     for (BaseMessage *message in _conversation.chatMessageList) {
         [self.dataSource addObject:[[MessageModel alloc] initWithBaseMessage:(message)]];
     }
-    
-    [[[EaseMob sharedInstance] deviceManager] addDelegate:self onQueue:nil];
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
-    //注册为SDK的ChatManager的delegate
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeAllMessages:) name:@"RemoveAllMessages" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitGroup) name:@"ExitGroup" object:nil];
@@ -341,35 +335,6 @@
     if (message.chatterId == _chatter) {
         [self addChatMessage2DataSource:[noti.userInfo objectForKey:@"message"]];
     }
-}
-
-- (void)loadContactsFromTZServerWithGroup:(EMGroup *)emgroup withCompletion:(void(^)(BOOL))completion
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:emgroup.occupants forKey:@"easemob"];
-    //获取用户信息列表
-    [manager POST:API_GET_USERINFO_WITHEASEMOB parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
-            completion(YES);
-        } else {
-            completion(NO);
-            [self showHint:@"请求也是失败了"];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(NO);
-        [self showHint:@"呃～好像没找到网络"];
-    }];
 }
 
 #pragma mark - getter
@@ -1251,21 +1216,5 @@
     }
 }
 
-#pragma mark - EMDeviceManagerProximitySensorDelegate
-
-- (void)proximitySensorChanged:(BOOL)isCloseToUser{
-    //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗（省电啊）
-    if (isCloseToUser)//黑屏
-    {
-        // 使用耳机播放
-        [[EaseMob sharedInstance].deviceManager switchAudioOutputDevice:eAudioOutputDevice_earphone];
-    } else {
-        // 使用扬声器播放
-        [[EaseMob sharedInstance].deviceManager switchAudioOutputDevice:eAudioOutputDevice_speaker];
-        if (!_isPlayingAudio) {
-            [[[EaseMob sharedInstance] deviceManager] disableProximitySensor];
-        }
-    }
-}
 
 @end

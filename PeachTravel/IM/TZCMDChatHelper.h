@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EaseMob.h"
 
 
 @interface TZCMDChatHelper : NSObject
-
-+ (EMMessage *)addContact:(NSString *)userName
-     withAttachMsg:(NSString *)attachMsg;
-
-+ (void)distributeCMDMsg:(id)cmdMsg;
+//
+//+ (EMMessage *)addContact:(NSString *)userName
+//     withAttachMsg:(NSString *)attachMsg;
+//
+//+ (void)distributeCMDMsg:(id)cmdMsg;
 
 @end
