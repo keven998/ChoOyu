@@ -46,7 +46,7 @@
 
 - (NSString *)getRolesDescription {
     if (_roles == nil || _roles.count == 0) return @"";
-    if ([[_roles objectAtIndex:0] isEqualToString:@"expert"]) {
+    if ([_roles containsObject:@"expert"]) {
         return @"达";
     }
     return @"";
