@@ -34,6 +34,11 @@
 @property (nonatomic, strong) CreateConversationViewController *createConversationCtl;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
+/**
+ *  好友请求的未读标记
+ */
+@property (strong, nonatomic) UILabel *frendRequestUnreadCountLabel;
+
 @property (nonatomic, strong) UIView *emptyView;
 
 /**
@@ -74,7 +79,20 @@
     [contactListBtn setImage:[UIImage imageNamed:@"ic_contacts_normal.png"] forState:UIControlStateNormal];
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    
+    _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(34, 5, 8, 8)];
+    _frendRequestUnreadCountLabel.backgroundColor = [UIColor redColor];
+    _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
+    _frendRequestUnreadCountLabel.clipsToBounds = YES;
+    [contactListBtn addSubview:_frendRequestUnreadCountLabel];
+    if (self.accountManager.numberOfUnReadFrendRequest > 0) {
+        _frendRequestUnreadCountLabel.hidden = NO;
+    } else {
+        _frendRequestUnreadCountLabel.hidden = YES;
+    }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestUnreadCount) name:frendRequestListNeedUpdateNoti object:nil];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -95,6 +113,7 @@
 
 - (void)dealloc{
     [self unregisterNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     _createConversationCtl.delegate = nil;
     _createConversationCtl = nil;
     _searchController.delegate = nil;
@@ -723,6 +742,16 @@
 }
 
 #pragma mark - public
+
+- (void)updateFrendRequestUnreadCount
+{
+    if (self.accountManager.numberOfUnReadFrendRequest > 0) {
+        _frendRequestUnreadCountLabel.hidden = NO;
+    } else {
+        _frendRequestUnreadCountLabel.hidden = YES;
+    }
+
+}
 
 -(void)refreshDataSource
 {

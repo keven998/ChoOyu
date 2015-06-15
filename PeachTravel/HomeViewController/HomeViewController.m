@@ -65,7 +65,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
     [self setupUnreadMessageCount];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:frendRequestListNeedUpdateNoti object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUnreadFrendRequestCount) name:frendRequestListNeedUpdateNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogOut) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidLoginNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUnreadMessageCount) name:userDidRegistedNoti object:nil];
@@ -394,7 +394,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
  *  @return 
  */
 
--(void)setupUnreadMessageCount
+- (void)setupUnreadMessageCount
 {
     int unReadCount = self.chatListCtl.numberOfUnReadChatMsg;
     UITabBarItem *item = [self.tabBar.items firstObject];
@@ -409,6 +409,14 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [application setApplicationIconBadgeNumber:unReadCount];
     
     [self userDidLogin];
+}
+
+/**
+ *  统计好友请求的的未读消息
+ */
+- (void)setUnreadFrendRequestCount
+{
+   
 }
 
 #pragma mark - IChatManagerDelegate 消息变化
