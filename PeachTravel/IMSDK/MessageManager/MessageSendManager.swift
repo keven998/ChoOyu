@@ -28,7 +28,7 @@ class MessageSendManager: NSObject {
     
     private var sendDelegateList: Array<MessageSendManagerDelegate> = Array()
     
-    private var sendingMessageList: Array<BaseMessage> = Array()
+    private let sendingMessageList: NSMutableArray = NSMutableArray()
     
     /**
     注册消息的监听
@@ -59,9 +59,12 @@ class MessageSendManager: NSObject {
 //MARK: private methods
     
     private func sendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?) {
+        sendingMessageList.addObject(message)
+        
         var daoHelper = DaoHelper.shareInstance()
         var accountManager = AccountManager.shareAccountManager()
         NetworkTransportAPI.asyncSendMessage(MessageManager.prepareMessage2Send(receiverId: receiver, senderId: accountManager.account.userId.integerValue, conversationId: conversationId, chatType: chatType, message: message), completionBlock: { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
+            self.sendingMessageList.removeObject(message)
             if isSuccess {
                 message.status = IMMessageStatus.IMMessageSuccessful
                 if let retMessage = retMessage {
@@ -81,6 +84,23 @@ class MessageSendManager: NSObject {
     }
     
 //MARK: Internal methods
+    /**
+    判断一条消息是不是确实正在发送，判断的方法是： 检查这条消息是不是在发送中的队列里
+    
+    :param: message
+    
+    :returns:
+    */
+    func messageIsReallySending(message: BaseMessage) -> Bool {
+        for sendingMsg in sendingMessageList {
+            if message.localId == (sendingMsg as! BaseMessage).localId {
+                if message.chatterId == (sendingMsg as! BaseMessage).chatterId {
+                    return true
+                }
+            }
+        }
+        return false
+    }
     
     /**
     发送一条文本消息
@@ -293,8 +313,17 @@ class MessageSendManager: NSObject {
         return audioMessage
     }
     
+    /**
+    发送二进制文件
     
+    :param: metadataMessage
+    :param: metadata
+    :param: chatType
+    :param: conversationId
+    :param: completionBlock
+    */
     private func sendMetadataMessage(metadataMessage: BaseMessage, metadata: NSData, chatType: IMChatType, conversationId: String?, completionBlock:(isSuccess: Bool)->()) {
+        sendingMessageList.addObject(metadataMessage)
         MetadataUploadManager.asyncRequestUploadToken2SendMessage(QiniuGetTokeAction.uploadChatMetadata, completionBlock: { (isSuccess, key, token) -> () in
             if isSuccess {
                 MetadataUploadManager.uploadMetadata2Qiniu(metadataMessage, token: token!, key: key!, metadata: metadata, chatType:chatType, conversationId:conversationId, progress: { (progressValue) -> () in
@@ -302,6 +331,7 @@ class MessageSendManager: NSObject {
                     })
                     { (isSuccess: Bool, errorCode: Int, retMessage: NSDictionary?) -> () in
                         completionBlock(isSuccess: isSuccess)
+                        self.sendingMessageList.removeObject(metadataMessage)
                         if isSuccess {
                             metadataMessage.status = IMMessageStatus.IMMessageSuccessful
                             if let retMessage = retMessage {
@@ -322,6 +352,8 @@ class MessageSendManager: NSObject {
                         
                 }
             } else {
+                self.sendingMessageList.removeObject(metadataMessage)
+
                 metadataMessage.status = IMMessageStatus.IMMessageFailed
                 let daoHelper = DaoHelper.shareInstance()
                 daoHelper.updateMessageInDB("chat_\(metadataMessage.chatterId)", message: metadataMessage)
@@ -336,11 +368,18 @@ class MessageSendManager: NSObject {
     重新发送 message
     */
     func resendMessage(message: BaseMessage, receiver: Int, chatType:IMChatType, conversationId: String?) {
+        //如果需要重发的消息已经在发送队列里了，那么不需要重新发送
+        if self.messageIsReallySending(message) {
+            message.status = IMMessageStatus.IMMessageSending
+            let daoHelper = DaoHelper.shareInstance()
+            daoHelper.updateMessageInDB("chat_\(message.chatterId)", message: message)
+            return
+        }
+        
         message.status = IMMessageStatus.IMMessageSending
         let daoHelper = DaoHelper.shareInstance()
         daoHelper.updateMessageInDB("chat_\(message.chatterId)", message: message)
         if message.messageType == IMMessageType.AudioMessageType {
-            
             var tempAmrPath = AccountManager.shareAccountManager().userTempPath.stringByAppendingPathComponent("\((message as! AudioMessage).metadataId).amr")
             VoiceConverter.wavToAmr((message as! AudioMessage).localPath, amrSavePath: tempAmrPath)
             if let audioData = NSData(contentsOfFile: tempAmrPath) {
@@ -351,7 +390,6 @@ class MessageSendManager: NSObject {
         } else if message.messageType == IMMessageType.ImageMessageType {
             if let imageData = NSData(contentsOfFile: (message as! ImageMessage).localPath!) {
                 self.sendMetadataMessage(message, metadata: imageData, chatType: chatType, conversationId: conversationId, completionBlock: { (isSuccess) -> () in
-                    
                 })
             }
         } else {

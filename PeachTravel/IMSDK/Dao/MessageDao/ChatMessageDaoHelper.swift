@@ -200,7 +200,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: [untilLocalId, messageCount])
             if (rs != nil) {
                 while rs.next() {
-                    if let message = ChatMessageDaoHelper.messageModelWithFMResultSet(rs) {
+                    if let message = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName) {
                         message.chatterId = chatterId
                         retArray.append(message)
                     }
@@ -245,7 +245,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
-                    retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs)
+                    retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: fromTable)
                 }
             }
         }
@@ -280,7 +280,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if (rs != nil) {
                 while rs.next() {
-                    retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs)
+                    retMessage = ChatMessageDaoHelper.messageModelWithFMResultSet(rs, tableName: tableName)
                 }
             }
         }
@@ -294,7 +294,7 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
     :param: rs 数据库查询结果
     :returns: 转换的message model
     */
-    class func messageModelWithFMResultSet(rs: FMResultSet) -> BaseMessage? {
+    class func messageModelWithFMResultSet(rs: FMResultSet, tableName: NSString) -> BaseMessage? {
         var retMessage: BaseMessage?
         if let messageType = IMMessageType(rawValue: Int(rs.intForColumn("Type"))) {
             switch messageType {
@@ -347,7 +347,18 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
             retMessage?.localId = Int(rs.intForColumn("LocalId"))
             retMessage?.serverId = Int(rs.intForColumn("ServerId"))
             if let status = IMMessageStatus(rawValue: Int(rs.intForColumn("status"))) {
-                retMessage?.status = status
+                if status == IMMessageStatus.IMMessageSending {
+                    let imClientMessage = IMClientManager.shareInstance()
+                    if !imClientMessage.messageSendManager.messageIsReallySending(retMessage!) {
+                        retMessage?.status = IMMessageStatus.IMMessageFailed
+                        let daoHelper = DaoHelper.shareInstance()
+                        daoHelper.updateMessageInDB(tableName as String, message: retMessage!)
+                    } else {
+                        retMessage?.status = status
+                    }
+                } else {
+                    retMessage?.status = status
+                }
             }
         }
         return retMessage
