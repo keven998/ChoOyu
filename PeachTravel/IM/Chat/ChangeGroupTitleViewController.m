@@ -55,15 +55,17 @@
         __weak typeof(ChangeGroupTitleViewController *)weakSelf = self;
         hud = [[TZProgressHUD alloc] init];
         [hud showHUDInViewController:weakSelf content:64];
-        [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text
-                                                             forGroup:_groupId];
+        IMDiscussionGroupManager *manager = [IMDiscussionGroupManager shareInstance];
+        [manager asyncChangeDiscussionGroupTitleWithGroupId:_groupId title:title completion:^(BOOL isSuccess, NSInteger errorCode) {
+            [hud hideTZHUD];
+            if (isSuccess) {
+                [SVProgressHUD showHint:@"修改成功"];
+                [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
+            }
+        }];
     }
     
-    [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_titleLable.text forGroup:_groupId completion:^(EMGroup *group, EMError *error) {
-        [hud hideTZHUD];
-        [SVProgressHUD showHint:@"修改成功"];
-        [self performSelector:@selector(goBack) withObject:nil afterDelay:0.4];
-    } onQueue:nil];
+  
 }
 -(void)viewWillAppear:(BOOL)animated
 {

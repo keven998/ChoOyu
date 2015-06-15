@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "ContactDetailViewController.h"
 #import "OtherUserInfoViewController.h"
+#import "EaseMob.h"
 
 #define requestCell      @"requestCell"
 

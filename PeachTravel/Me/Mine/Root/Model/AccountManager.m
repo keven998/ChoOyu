@@ -9,6 +9,7 @@
 #import "AccountManager.h"
 #import "AppDelegate.h"
 #import "Group.h"
+#import "EaseMob.h"
 
 #define ACCOUNT_KEY  @"taozi_account"
 

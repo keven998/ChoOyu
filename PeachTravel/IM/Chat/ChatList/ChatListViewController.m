@@ -22,7 +22,7 @@
 #import "ChatSettingViewController.h"
 #import "PeachTravel-swift.h"
 
-@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, IChatManagerDelegate, CreateConversationDelegate, ChatConversationManagerDelegate>
+@interface ChatListViewController ()<UITableViewDelegate, UITableViewDataSource, CreateConversationDelegate, ChatConversationManagerDelegate>
 
 @property (strong, nonatomic) UITableView           *tableView;
 @property (nonatomic, strong) AccountManager        *accountManager;

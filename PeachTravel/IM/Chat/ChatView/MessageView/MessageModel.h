@@ -57,7 +57,6 @@
 @property (nonatomic, strong) NSString *localPath;
 @property (nonatomic, strong) NSString *remotePath;
 @property (nonatomic) NSInteger time;
-@property (nonatomic, strong) EMChatVoice *chatVoice;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isPlayed;
 
@@ -66,8 +65,6 @@
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 
-@property (nonatomic, strong)id<IEMMessageBody> messageBody;
-@property (nonatomic, strong)EMMessage *message;
 @property (nonatomic, strong) BaseMessage *baseMessage;
 
 - (instancetype)initWithBaseMessage:(BaseMessage *)message;

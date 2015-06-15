@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EaseMob.h"
+
 
 @interface TZCMDChatHelper : NSObject
 

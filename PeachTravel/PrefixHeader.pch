@@ -17,7 +17,6 @@
 #import "TMCache.h"
 #import "AFNetworking.h"
 #import "SVProgressHUD.H"
-#import "EaseMob.h"
 #import "UIViewController+DismissKeyboard.h"
 #import "UIViewController+HUD.h"
 #import "UIAlertView+Block.h"
@@ -41,7 +40,13 @@
 #import "ShoppingPoi.h"
 #import "CityPoi.h"
 #import "TZNavigationViewController.h"
+#import <AVFoundation/AVFoundation.h>
+
+
+
 #import "PeachTravel-swift.h"
+
+
 
 
 #endif

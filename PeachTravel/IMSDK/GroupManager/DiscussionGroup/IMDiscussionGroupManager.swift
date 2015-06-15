@@ -141,7 +141,7 @@ class IMDiscussionGroupManager: NSObject, CMDMessageManagerDelegate {
     func asyncLeaveDiscussionGroup(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
     }
     
-    func asyncChangeDiscussionGroupTitle(completion:(isSuccess: Bool, errorCode: Int) -> ()) {
+    func asyncChangeDiscussionGroupTitle(#groupId: Int, title: String, completion:(isSuccess: Bool, errorCode: Int) -> ()) {
 
     }
     

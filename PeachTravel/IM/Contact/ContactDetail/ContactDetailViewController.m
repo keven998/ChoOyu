@@ -225,13 +225,6 @@
     }
     ChatViewController *chatCtl = [[ChatViewController alloc] initWithChatter:contact.userId.integerValue chatType:IMChatTypeIMChatSingleType];
     chatCtl.title = contact.nickName;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    for (EMConversation *conversation in conversations) {
-        if ([conversation.chatter isEqualToString:contact.easemobUser]) {
-            [conversation markAllMessagesAsRead:YES];
-            break;
-        }
-    }
     
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
     

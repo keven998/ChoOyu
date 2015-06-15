@@ -10,7 +10,7 @@
 
 @interface ChangeGroupTitleViewController : TZViewController
 
-@property (nonatomic, copy) NSString *groupId;
+@property (nonatomic) int groupId;
 @property (nonatomic, copy) NSString *oldTitle;
 
 @end

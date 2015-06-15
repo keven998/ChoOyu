@@ -239,13 +239,7 @@
     AccountManager *accountManager = [AccountManager shareAccountManager];
     ChatViewController *chatCtl = [[ChatViewController alloc]initWithChatter:accountManager.account.userId.integerValue chatType:IMChatTypeIMChatSingleType];
     chatCtl.title = accountManager.account.nickName;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    for (EMConversation *conversation in conversations) {
-        if ([conversation.chatter isEqualToString:accountManager.account.easemobUser]) {
-            [conversation markAllMessagesAsRead:YES];
-            break;
-        }
-    }
+   
     UIViewController *menuViewController = [[ChatSettingViewController alloc] init];
     
     REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:chatCtl menuViewController:menuViewController];

@@ -52,6 +52,7 @@
 #import "OtherUserInfoViewController.h"
 
 #import "TripDetailRootViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "PeachTravel-swift.h"
 
 #define KPageCount 20
@@ -1032,26 +1033,6 @@
     }
     
     return bCanRecord;
-}
-
-- (void)stopAudioPlaying
-{
-    //停止音频播放及播放动画
-    [[EaseMob sharedInstance].chatManager stopPlayingAudio];
-    MessageModel *playingModel = [self.messageReadManager stopMessageAudioModel];
-    
-    NSIndexPath *indexPath = nil;
-    if (playingModel) {
-        indexPath = [NSIndexPath indexPathForRow:[self.dataSource indexOfObject:playingModel] inSection:0];
-    }
-    
-    if (indexPath) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
-        });
-    }
 }
 
 /**

@@ -11,6 +11,7 @@
   */
 
 #import <Foundation/Foundation.h>
+#import "EaseMob.h"
 
 @interface ChatSendHelper : NSObject
 
