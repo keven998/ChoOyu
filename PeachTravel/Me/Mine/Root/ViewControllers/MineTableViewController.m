@@ -29,8 +29,13 @@
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *propLabel;
-@property (nonatomic, strong) UILabel *signatureLabel;
+@property (nonatomic, strong) UILabel *idLabel;
+@property (nonatomic, strong) UIImageView *avatarBg;
+@property (nonatomic, strong) UIImageView *genderView;
+@property (nonatomic, strong) UILabel *levelLabel;
+@property (nonatomic, strong) UILabel *friendCount;
+@property (nonatomic, strong) UILabel *planCount;
+@property (nonatomic, strong) UILabel *trackCount;
 
 @end
 
@@ -40,7 +45,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -61,6 +65,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑 " style:UIBarButtonItemStylePlain target:self action:@selector(tap)];
+    rightBtn.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,54 +101,123 @@
 
 - (void) setupTableHeaderView {
     CGFloat width = CGRectGetWidth(self.view.bounds);
-    CGFloat height = 366 * CGRectGetHeight(self.view.bounds) / 1334;
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
-    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    backgroundImageView.image = [UIImage imageNamed:@"picture_background"];
-    backgroundImageView.userInteractionEnabled = YES;
-    backgroundImageView.clipsToBounds = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    CGFloat height = 890 * CGRectGetHeight(self.view.bounds) / 2208;
+    
+    UIView *headerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    headerBgView.backgroundColor = [UIColor whiteColor];
+    headerBgView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    headerBgView.clipsToBounds = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userLogin)];
     tap.numberOfTapsRequired = 1;
     tap.numberOfTouchesRequired = 1;
-    [backgroundImageView addGestureRecognizer:tap];
-    [self.view addSubview:backgroundImageView];
+    [headerBgView addGestureRecognizer:tap];
+    [self.view addSubview:headerBgView];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 15, width, 44)];
-    titleLabel.font = [UIFont boldSystemFontOfSize:17];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"我";
-    [backgroundImageView addSubview:titleLabel];
+    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height/2.0, height/2.0)];
+    avatarBg.backgroundColor = COLOR_ALERT;
+    avatarBg.center = CGPointMake(width/2.0, height/4.0 + 20);
+    [headerBgView addSubview:avatarBg];
+    _avatarBg = avatarBg;
     
-    UIImageView *headerView = [[UIImageView alloc] initWithFrame:CGRectMake(22, (height - 20.0)/2.0 - 10, 60, 60)];
-    headerView.clipsToBounds = YES;
-    headerView.layer.cornerRadius = 17.0;
-    [backgroundImageView addSubview:headerView];
-    _avatarImageView = headerView;
+    CGFloat avatarW = CGRectGetWidth(avatarBg.frame) - 10;
+    UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
+    avatar.clipsToBounds = YES;
+    avatar.layer.cornerRadius = avatarW/2.0;
+    avatar.center = avatarBg.center;
+    avatar.contentMode = UIViewContentModeScaleAspectFill;
+    [headerBgView addSubview:avatar];
+    _avatarImageView = avatar;
     
-    CGFloat xOffset = headerView.frame.origin.x + headerView.frame.size.width + 12;
-    CGFloat yOffset = headerView.frame.origin.y;
+    UIImageView *gender = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    gender.backgroundColor = COLOR_CHECKED;
+    gender.center = CGPointMake(width/2.0 - 20, CGRectGetMaxY(avatarBg.frame));
+    [headerBgView addSubview:gender];
+    _genderView = gender;
     
-    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset, width - xOffset - 10, 22)];
-    nameLabel.font = [UIFont boldSystemFontOfSize:15];
+    UIImageView *levelBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 24)];
+    levelBg.backgroundColor = COLOR_ENTER;
+    levelBg.center = CGPointMake(width/2.0 +24, CGRectGetMaxY(avatarBg.frame));
+    [headerBgView addSubview:levelBg];
+    UILabel *levelLabel = [[UILabel alloc] initWithFrame:levelBg.frame];
+    levelLabel.textColor = [UIColor whiteColor];
+    levelLabel.font = [UIFont systemFontOfSize:9];
+    levelLabel.textAlignment = NSTextAlignmentCenter;
+    [levelBg addSubview:levelLabel];
+    _levelLabel = levelLabel;
+    
+    CGFloat unitWidth = width/3.0;
+    CGFloat offsetY = CGRectGetMaxY(levelBg.frame);
+    UIButton *friendEntry = [[UIButton alloc] initWithFrame:CGRectMake(0, offsetY, unitWidth, height - offsetY)];
+    UILabel *friendNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 18)];
+    friendNumber.textColor = COLOR_TEXT_I;
+    friendNumber.textAlignment = NSTextAlignmentCenter;
+    friendNumber.font = [UIFont systemFontOfSize:16];
+    friendNumber.text = @"99";
+    friendNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    _friendCount = friendNumber;
+    [friendEntry addSubview:friendNumber];
+    UILabel *fl = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, unitWidth - 20, 20)];
+    fl.textColor = COLOR_TEXT_III;
+    fl.text = @"好友";
+    fl.textAlignment = NSTextAlignmentCenter;
+    fl.font = [UIFont systemFontOfSize:12];
+    [friendEntry addSubview:fl];
+    [headerBgView addSubview:friendEntry];
+    
+    UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, height - offsetY)];
+    UILabel *planNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 18)];
+    planNumber.textColor = COLOR_TEXT_I;
+    planNumber.textAlignment = NSTextAlignmentCenter;
+    planNumber.font = [UIFont systemFontOfSize:16];
+    planNumber.text = @"99";
+    _planCount = planNumber;
+    planNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    [planEntry addSubview:planNumber];
+    UILabel *pl = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, unitWidth - 20, 20)];
+    pl.textColor = COLOR_TEXT_III;
+    pl.text = @"计划";
+    pl.textAlignment = NSTextAlignmentCenter;
+    pl.font = [UIFont systemFontOfSize:12];
+    [planEntry addSubview:pl];
+    [headerBgView addSubview:planEntry];
+    
+    UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, height - offsetY)];
+    UILabel *trackNumber = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, unitWidth - 20, 18)];
+    trackNumber.textColor = COLOR_TEXT_I;
+    trackNumber.textAlignment = NSTextAlignmentCenter;
+    trackNumber.font = [UIFont systemFontOfSize:16];
+    trackNumber.lineBreakMode = NSLineBreakByTruncatingTail;
+    trackNumber.text = @"5国17城";
+    _trackCount = trackNumber;
+    [trackEntry addSubview:trackNumber];
+    UILabel *tl = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, unitWidth - 20, 20)];
+    tl.textColor = COLOR_TEXT_III;
+    tl.text = @"足迹";
+    tl.textAlignment = NSTextAlignmentCenter;
+    tl.font = [UIFont systemFontOfSize:12];
+    [trackEntry addSubview:tl];
+    [headerBgView addSubview:trackEntry];
+
+    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width/2, 44)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, width/2, 18)];
     nameLabel.textColor = [UIColor whiteColor];
-    [backgroundImageView addSubview:nameLabel];
+    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.text = @"旅行派";
+    [view addSubview:nameLabel];
     _nameLabel = nameLabel;
     
-    UILabel *propLabel = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset + 22, width - xOffset - 10, 19)];
-    propLabel.font = [UIFont systemFontOfSize:12];
-    propLabel.textColor = [UIColor whiteColor];
-    [backgroundImageView addSubview:propLabel];
-    _propLabel = propLabel;
+    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, width/2, 12)];
+    idLabel.textColor = [UIColor whiteColor];
+    idLabel.font = [UIFont systemFontOfSize:9];
+    idLabel.textAlignment = NSTextAlignmentCenter;
+    idLabel.text = @"未登录";
+    [view addSubview:idLabel];
+    _idLabel = idLabel;
     
-    UILabel *signLabel = [[UILabel alloc]initWithFrame:CGRectMake(xOffset, yOffset + 41, width - xOffset - 10, 19)];
-    signLabel.font = [UIFont systemFontOfSize:12];
-    signLabel.textColor = [UIColor whiteColor];
-    [backgroundImageView addSubview:signLabel];
-    _signatureLabel = signLabel;
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
+    self.navigationItem.titleView = view;
 }
 
 #pragma mark - setter & getter
@@ -158,8 +235,9 @@
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         _nameLabel.text = amgr.account.nickName;
-        _propLabel.text = [NSString stringWithFormat:@"ID %d", [amgr.account.userId intValue]];
-        _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
+        _idLabel.text = [NSString stringWithFormat:@"ID %@", amgr.account.userId];
+//        _propLabel.text = [NSString stringWithFormat:@"ID %d", [amgr.account.userId intValue]];
+//        _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
 //        if ([amgr.account.gender isEqualToString:@"M"]) {
 //            cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
 //        } else if ([amgr.account.gender isEqualToString:@"F"]) {
@@ -169,9 +247,10 @@
 //        }
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"person_disabled"]];
-        _propLabel.text = @"点击登录旅行派，享受更多旅行帮助";
-        _nameLabel.text = @"未登录";
-        _signatureLabel.text = nil;
+//        _propLabel.text = @"点击登录旅行派，享受更多旅行帮助";
+        _nameLabel.text = @"旅行派";
+        _idLabel.text = @"未登录";
+//        _signatureLabel.text = nil;
 //        cell.userGender.image = nil;
     }
 }
@@ -209,8 +288,11 @@
 
 #pragma mark - IBAction Methods
 
-- (IBAction)userLogin:(id)sender
+- (void)userLogin
 {
+    if (self.accountManager.isLogin) {
+        return;
+    }
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
@@ -231,7 +313,7 @@
         userInfoCtl.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:userInfoCtl animated:YES];
     } else {
-        [self userLogin:nil];
+        [self userLogin];
     }
 }
 
