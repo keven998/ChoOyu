@@ -45,12 +45,12 @@
 //    self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = APP_PAGE_COLOR;
-    self.tableView.separatorColor = APP_DIVIDER_COLOR;
+    self.tableView.separatorColor = COLOR_LINE;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.tableView registerNib:[UINib nibWithNibName:@"OptionTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:secondCell];
     
@@ -61,32 +61,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:userDidLogoutNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
-    
-    _navigationbarAnimated = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"page_home_me"];
-    [self.navigationController setNavigationBarHidden:YES animated:_navigationbarAnimated];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    _navigationbarAnimated = YES; //tab 切换navigationbar 动画补丁
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"page_home_me"];
-    if (!_hideNavigationBar) {
-        [self.navigationController setNavigationBarHidden:NO animated:_navigationbarAnimated];
-    }
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)dealloc
@@ -150,7 +140,7 @@
     [backgroundImageView addSubview:signLabel];
     _signatureLabel = signLabel;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(height+10, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
 }
 
 #pragma mark - setter & getter
@@ -224,10 +214,7 @@
     LoginViewController *loginCtl = [[LoginViewController alloc] init];
     TZNavigationViewController *nctl = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
     loginCtl.isPushed = NO;
-    _hideNavigationBar = YES;
-    [self.navigationController presentViewController:nctl animated:YES completion:^ {
-        _hideNavigationBar = NO;
-    }];
+    [self.navigationController presentViewController:nctl animated:YES completion:nil];
 }
 
 - (IBAction)userRegister:(id)sender
@@ -255,7 +242,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -264,6 +251,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *hv = [[UIView alloc] init];
+    hv.backgroundColor = [UIColor clearColor];
+    return hv;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
