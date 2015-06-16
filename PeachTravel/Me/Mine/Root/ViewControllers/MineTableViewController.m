@@ -40,6 +40,7 @@
 @property (nonatomic, strong) UILabel *planCount;
 @property (nonatomic, strong) UILabel *trackCount;
 @property (nonatomic, strong) UIImageView *levelBg;
+@property (nonatomic, strong) UIImageView *flagHeaderIV;
 
 @end
 
@@ -116,6 +117,13 @@
     tap.numberOfTouchesRequired = 1;
     [headerBgView addGestureRecognizer:tap];
     [self.view addSubview:headerBgView];
+    
+    UIImageView *flagHeaderIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, 0.6*height)];
+    flagHeaderIV.contentMode = UIViewContentModeScaleAspectFill;
+    flagHeaderIV.clipsToBounds = YES;
+    flagHeaderIV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [headerBgView addSubview:flagHeaderIV];
+    _flagHeaderIV = flagHeaderIV;
     
     UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 185, 185)];
     avatarBg.center = CGPointMake(width/2.0, 100);
@@ -251,19 +259,26 @@
 //            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
 //            _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_boy.png"];
 //        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
+//        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_boy.png"];
 //        } else if ([amgr.account.gender isEqualToString:@"F"]) {
 //            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_girl.png"];
 //        _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_girl.png"];
 //        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_girl.png"];
+//        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_girl.png"];
 //        } else if ([amgr.account.gender isEqualToString:@"U"]) {
 //            _avatarBg.image = nil;
+//        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
 //        _genderView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
-        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
+//        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
 //        }
         _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
         _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_boy.png"];
     } else {
-        [_avatarImageView setImage:[UIImage imageNamed:@"person_disabled"]];
+        [_avatarImageView setImage:[UIImage imageNamed:@"ic_home_userentry_unlogin.png"]];
+        _genderView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
+        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
+        _flagHeaderIV.image = [UIImage imageNamed:@"ic_home_header_unlogin.png"];
+        _levelLabel.text = @"LV0";
         _nameLabel.text = @"旅行派";
         _idLabel.text = @"未登录";
     }
