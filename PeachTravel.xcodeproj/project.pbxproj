@@ -146,6 +146,20 @@
 		C65DB7C01AD4E44800F51443 /* TravelersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7BF1AD4E44800F51443 /* TravelersTableViewController.m */; };
 		C65DB7C61AD644E000F51443 /* SettingHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7C51AD644E000F51443 /* SettingHomeViewController.m */; };
 		C65DB7C91AD6A44200F51443 /* TZNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C65DB7C81AD6A44200F51443 /* TZNavigationViewController.m */; };
+		C6631CF91B300C4E00BE4ADC /* ic_tab_more_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CE71B300C4E00BE4ADC /* ic_tab_more_highlight@3x.png */; };
+		C6631CFA1B300C4E00BE4ADC /* ic_tab_more_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CE81B300C4E00BE4ADC /* ic_tab_more_normal@3x.png */; };
+		C6631CFB1B300C4E00BE4ADC /* ic_tab_talk_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CE91B300C4E00BE4ADC /* ic_tab_talk_highlight@3x.png */; };
+		C6631CFC1B300C4E00BE4ADC /* ic_tab_talk_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CEA1B300C4E00BE4ADC /* ic_tab_talk_normal@3x.png */; };
+		C6631CFD1B300C4E00BE4ADC /* ic_tab_tools_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CEB1B300C4E00BE4ADC /* ic_tab_tools_highlight@3x.png */; };
+		C6631CFE1B300C4E00BE4ADC /* ic_tab_tools_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CEC1B300C4E00BE4ADC /* ic_tab_tools_normal@3x.png */; };
+		C6631D061B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CF61B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png */; };
+		C6631D071B300C4E00BE4ADC /* ic_navigationbar_menu_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CF71B300C4E00BE4ADC /* ic_navigationbar_menu_add@3x.png */; };
+		C6631D081B300C4E00BE4ADC /* ic_navigationbar_menu_friendlist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631CF81B300C4E00BE4ADC /* ic_navigationbar_menu_friendlist@3x.png */; };
+		C6631D0E1B300D6400BE4ADC /* ic_lxp_search_homo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D091B300D6400BE4ADC /* ic_lxp_search_homo@3x.png */; };
+		C6631D0F1B300D6400BE4ADC /* lxp_expert_helper@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0A1B300D6400BE4ADC /* lxp_expert_helper@3x.png */; };
+		C6631D101B300D6400BE4ADC /* lxp_plan_helper@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0B1B300D6400BE4ADC /* lxp_plan_helper@3x.png */; };
+		C6631D111B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0C1B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png */; };
+		C6631D121B300D6400BE4ADC /* lxp_search_bg_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0D1B300D6400BE4ADC /* lxp_search_bg_normal@3x.png */; };
 		C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C673B5581ADCEC7100D40262 /* TripPlanSettingViewController.m */; };
 		C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3021ACD64E3007680D9 /* RECommonFunctions.m */; };
 		C679D30E1ACD64E3007680D9 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3041ACD64E3007680D9 /* REFrostedContainerViewController.m */; };
@@ -1006,6 +1020,20 @@
 		C65DB7C51AD644E000F51443 /* SettingHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingHomeViewController.m; path = Me/Setting/SettingHomeViewController.m; sourceTree = "<group>"; };
 		C65DB7C71AD6A44200F51443 /* TZNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZNavigationViewController.h; sourceTree = "<group>"; };
 		C65DB7C81AD6A44200F51443 /* TZNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZNavigationViewController.m; sourceTree = "<group>"; };
+		C6631CE71B300C4E00BE4ADC /* ic_tab_more_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_more_highlight@3x.png"; sourceTree = "<group>"; };
+		C6631CE81B300C4E00BE4ADC /* ic_tab_more_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_more_normal@3x.png"; sourceTree = "<group>"; };
+		C6631CE91B300C4E00BE4ADC /* ic_tab_talk_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_talk_highlight@3x.png"; sourceTree = "<group>"; };
+		C6631CEA1B300C4E00BE4ADC /* ic_tab_talk_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_talk_normal@3x.png"; sourceTree = "<group>"; };
+		C6631CEB1B300C4E00BE4ADC /* ic_tab_tools_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_tools_highlight@3x.png"; sourceTree = "<group>"; };
+		C6631CEC1B300C4E00BE4ADC /* ic_tab_tools_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_tools_normal@3x.png"; sourceTree = "<group>"; };
+		C6631CF61B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_avatar_lxp_search@3x.png"; sourceTree = "<group>"; };
+		C6631CF71B300C4E00BE4ADC /* ic_navigationbar_menu_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigationbar_menu_add@3x.png"; sourceTree = "<group>"; };
+		C6631CF81B300C4E00BE4ADC /* ic_navigationbar_menu_friendlist@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navigationbar_menu_friendlist@3x.png"; sourceTree = "<group>"; };
+		C6631D091B300D6400BE4ADC /* ic_lxp_search_homo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_lxp_search_homo@3x.png"; sourceTree = "<group>"; };
+		C6631D0A1B300D6400BE4ADC /* lxp_expert_helper@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_expert_helper@3x.png"; sourceTree = "<group>"; };
+		C6631D0B1B300D6400BE4ADC /* lxp_plan_helper@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_plan_helper@3x.png"; sourceTree = "<group>"; };
+		C6631D0C1B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_search_bg_highlight@3x.png"; sourceTree = "<group>"; };
+		C6631D0D1B300D6400BE4ADC /* lxp_search_bg_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_search_bg_normal@3x.png"; sourceTree = "<group>"; };
 		C673B5571ADCEC7100D40262 /* TripPlanSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripPlanSettingViewController.h; sourceTree = "<group>"; };
 		C673B5581ADCEC7100D40262 /* TripPlanSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripPlanSettingViewController.m; sourceTree = "<group>"; };
 		C679D3011ACD64E3007680D9 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
@@ -2413,6 +2441,51 @@
 				C6D038261AE52F85006DFD24 /* TravelerTableViewCell.m */,
 			);
 			path = TravelSNS;
+			sourceTree = "<group>";
+		};
+		C6631CE51B300C4E00BE4ADC /* 3x */ = {
+			isa = PBXGroup;
+			children = (
+				C6631CE61B300C4E00BE4ADC /* 主页tab */,
+				C6631CED1B300C4E00BE4ADC /* 工具首页 */,
+				C6631CF51B300C4E00BE4ADC /* 聊天列表首页 */,
+			);
+			path = 3x;
+			sourceTree = "<group>";
+		};
+		C6631CE61B300C4E00BE4ADC /* 主页tab */ = {
+			isa = PBXGroup;
+			children = (
+				C6631CE71B300C4E00BE4ADC /* ic_tab_more_highlight@3x.png */,
+				C6631CE81B300C4E00BE4ADC /* ic_tab_more_normal@3x.png */,
+				C6631CE91B300C4E00BE4ADC /* ic_tab_talk_highlight@3x.png */,
+				C6631CEA1B300C4E00BE4ADC /* ic_tab_talk_normal@3x.png */,
+				C6631CEB1B300C4E00BE4ADC /* ic_tab_tools_highlight@3x.png */,
+				C6631CEC1B300C4E00BE4ADC /* ic_tab_tools_normal@3x.png */,
+			);
+			path = "主页tab";
+			sourceTree = "<group>";
+		};
+		C6631CED1B300C4E00BE4ADC /* 工具首页 */ = {
+			isa = PBXGroup;
+			children = (
+				C6631D091B300D6400BE4ADC /* ic_lxp_search_homo@3x.png */,
+				C6631D0A1B300D6400BE4ADC /* lxp_expert_helper@3x.png */,
+				C6631D0B1B300D6400BE4ADC /* lxp_plan_helper@3x.png */,
+				C6631D0C1B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png */,
+				C6631D0D1B300D6400BE4ADC /* lxp_search_bg_normal@3x.png */,
+			);
+			path = "工具首页";
+			sourceTree = "<group>";
+		};
+		C6631CF51B300C4E00BE4ADC /* 聊天列表首页 */ = {
+			isa = PBXGroup;
+			children = (
+				C6631CF61B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png */,
+				C6631CF71B300C4E00BE4ADC /* ic_navigationbar_menu_add@3x.png */,
+				C6631CF81B300C4E00BE4ADC /* ic_navigationbar_menu_friendlist@3x.png */,
+			);
+			path = "聊天列表首页";
 			sourceTree = "<group>";
 		};
 		C679D3001ACD64E3007680D9 /* REFrostedViewController */ = {
@@ -3960,6 +4033,7 @@
 		D9A803651A80E737005AD701 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C6631CE51B300C4E00BE4ADC /* 3x */,
 				D9B7BA451B171FB300891600 /* app_icon@2x.png */,
 				27FF1AD01B09932400643D77 /* 他的资料 */,
 				27FF1A9D1B06F1F000643D77 /* 聊天 */,
@@ -5326,6 +5400,7 @@
 				27FF1A7A1B059AFA00643D77 /* TripPlanSettingCell.xib in Resources */,
 				27F273D51B198F0F00AC1ABE /* Default@2x.png in Resources */,
 				D9A804D61A80E738005AD701 /* ic_chatlist_normal@2x.png in Resources */,
+				C6631CFB1B300C4E00BE4ADC /* ic_tab_talk_highlight@3x.png in Resources */,
 				D9A805071A80E738005AD701 /* ic_sns_pengyouquan@2x.png in Resources */,
 				D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */,
 				D9A8057E1A80E738005AD701 /* s_rain@2x.png in Resources */,
@@ -5350,6 +5425,7 @@
 				D9A805091A80E738005AD701 /* ic_sns_qzone@2x.png in Resources */,
 				D9A804941A80E738005AD701 /* speaking-motion1@2x.png in Resources */,
 				D9A805261A80E738005AD701 /* btn_new_plan@2x.png in Resources */,
+				C6631CF91B300C4E00BE4ADC /* ic_tab_more_highlight@3x.png in Resources */,
 				D917DACA1A8B49AF0039720A /* ic_guide2_6_select@2x.png in Resources */,
 				275B69221B156CDC002FE764 /* ic_tiaoguo@2x.png in Resources */,
 				27FF1A951B05D4D000643D77 /* ic_trip_new_2@2x.png in Resources */,
@@ -5366,6 +5442,7 @@
 				D9722F2B1A82446900D8A8CC /* Loading_Animation_final11@2x.png in Resources */,
 				D9A804D11A80E738005AD701 /* ic_app_introduction@2x.png in Resources */,
 				D9A805381A80E738005AD701 /* ic_city_tra_up@2x.png in Resources */,
+				C6631D071B300C4E00BE4ADC /* ic_navigationbar_menu_add@3x.png in Resources */,
 				C65DB7B91AD37B8600F51443 /* SelectionTableViewController.xib in Resources */,
 				D9A8057F1A80E738005AD701 /* s_snow@2x.png in Resources */,
 				D9A805101A80E738005AD701 /* ic_text_cover_bg@2x.png in Resources */,
@@ -5444,6 +5521,7 @@
 				D9A801221A80DD23005AD701 /* call_silence_h@2x.png in Resources */,
 				D9F46DB81AC52D8600972AE8 /* SVWebViewController.bundle in Resources */,
 				D9A8006E1A80DD0C005AD701 /* FrendRequestTableViewCell.xib in Resources */,
+				C6631D111B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png in Resources */,
 				D9A804E61A80E738005AD701 /* ic_home_selected@2x.png in Resources */,
 				D9A8011F1A80DD23005AD701 /* call_silence.png in Resources */,
 				C69EB43A1AE63FD90039626B /* route_timeline_pot@2x.png in Resources */,
@@ -5463,6 +5541,7 @@
 				27F7E69D1B033C700049EC08 /* weichat_login@2x.png in Resources */,
 				D9A804C31A80E738005AD701 /* deco-dots@2x.png in Resources */,
 				D9A805081A80E738005AD701 /* ic_sns_qq@2x.png in Resources */,
+				C6631CFE1B300C4E00BE4ADC /* ic_tab_tools_normal@3x.png in Resources */,
 				D9A8058A1A80E738005AD701 /* sns_icon_qqweibo@2x.png in Resources */,
 				D9A805411A80E738005AD701 /* ic_destination@2x.png in Resources */,
 				D9A8057C1A80E738005AD701 /* m_snow@2x.png in Resources */,
@@ -5514,6 +5593,7 @@
 				D9A8FF161A80CC2B005AD701 /* ResetPasswordViewController.xib in Resources */,
 				D9A804A01A80E738005AD701 /* chat_location_detail_disclosure.png in Resources */,
 				D9F46DBE1AC52D8600972AE8 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
+				C6631D061B300C4E00BE4ADC /* ic_avatar_lxp_search@3x.png in Resources */,
 				D9A801201A80DD23005AD701 /* call_silence@2x.png in Resources */,
 				D9A805781A80E738005AD701 /* h_rain@2x.png in Resources */,
 				D9A8013B1A80DD23005AD701 /* chatBar_more_guide@2x.png in Resources */,
@@ -5563,6 +5643,7 @@
 				27F7E6921B03101E0049EC08 /* delete@2x.png in Resources */,
 				27F7E69B1B032FBF0049EC08 /* LoginViewController.xib in Resources */,
 				D9A8021D1A80E036005AD701 /* MJPhotoBrowser.bundle in Resources */,
+				C6631CFA1B300C4E00BE4ADC /* ic_tab_more_normal@3x.png in Resources */,
 				D9A805291A80E738005AD701 /* ic_cell_item_unchoose@2x.png in Resources */,
 				D9A8FF0E1A80CC2B005AD701 /* BindTelephoneViewController.xib in Resources */,
 				D917DABF1A8B49AF0039720A /* ic_guide2_1_normal@2x.png in Resources */,
@@ -5594,6 +5675,7 @@
 				D9A804971A80E738005AD701 /* speaking-motion4@2x.png in Resources */,
 				D9A804EE1A80E738005AD701 /* ic_login_weixin_highlight@2x.png in Resources */,
 				D9A804D41A80E738005AD701 /* ic_big_arr_right@2x.png in Resources */,
+				C6631D101B300D6400BE4ADC /* lxp_plan_helper@3x.png in Resources */,
 				C6261BB71B2B00D400DFADEF /* POICell.xib in Resources */,
 				D9A805861A80E738005AD701 /* sns_icon_douban@2x.png in Resources */,
 				27329DBF1B0E1A9200F0A4FA /* ic_button_normal@2x.png in Resources */,
@@ -5632,6 +5714,7 @@
 				27FF1AF81B0A203E00643D77 /* spot introduction@2x.png in Resources */,
 				D917DAD51A8B4B060039720A /* ic_guide_dot3@2x.png in Resources */,
 				D9A805811A80E738005AD701 /* thunder_rain@2x.png in Resources */,
+				C6631D081B300C4E00BE4ADC /* ic_navigationbar_menu_friendlist@3x.png in Resources */,
 				D9A8FFCD1A80D216005AD701 /* HotDestinationCollectionViewCell.xib in Resources */,
 				D9A806D01A80F597005AD701 /* UMSnsAccountViewController.xib in Resources */,
 				D9F46DC11AC52D8600972AE8 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
@@ -5653,6 +5736,7 @@
 				D9A8057B1A80E738005AD701 /* m_rain@2x.png in Resources */,
 				D97C8B4D1A526B9F00476C9C /* Images.xcassets in Resources */,
 				D917DAC31A8B49AF0039720A /* ic_guide2_3_normal@2x.png in Resources */,
+				C6631CFD1B300C4E00BE4ADC /* ic_tab_tools_highlight@3x.png in Resources */,
 				D9A804A51A80E738005AD701 /* chat_location_preview@2x.png in Resources */,
 				D9A804DB1A80E738005AD701 /* ic_contacts_selected@2x.png in Resources */,
 				D917DACB1A8B49AF0039720A /* ic_mountain@2x.png in Resources */,
@@ -5666,6 +5750,7 @@
 				D9A8FFBE1A80D1C3005AD701 /* TravelNoteTableViewCell.xib in Resources */,
 				D9008D6D1A8A05AD000A237D /* ic_quotation_l@2x.png in Resources */,
 				D9A8013A1A80DD23005AD701 /* chatBar_more_destination@2x.png in Resources */,
+				C6631D0E1B300D6400BE4ADC /* ic_lxp_search_homo@3x.png in Resources */,
 				27FF1A891B05A25200643D77 /* ic_back_trip_ios@2x.png in Resources */,
 				D9A805181A80E738005AD701 /* navi_bkg@2x.png in Resources */,
 				D9A800611A80DD0C005AD701 /* AddressBookTableViewCell.xib in Resources */,
@@ -5718,6 +5803,7 @@
 				D9A8006A1A80DD0C005AD701 /* ContactListTableViewCell.xib in Resources */,
 				D917DAD21A8B4A320039720A /* ic_guide3_talk3_1@2x.png in Resources */,
 				D917DAC01A8B49AF0039720A /* ic_guide2_1_select@2x.png in Resources */,
+				C6631D121B300D6400BE4ADC /* lxp_search_bg_normal@3x.png in Resources */,
 				27FF1A9A1B06E9C600643D77 /* chatBar_recordBg@2x.png in Resources */,
 				D9245DE91A8D9FDB004571AD /* ic_dialog_window_close@2x.png in Resources */,
 				D9A8058B1A80E738005AD701 /* sns_icon_qzone@2x.png in Resources */,
@@ -5743,6 +5829,7 @@
 				D9A800681A80DD0C005AD701 /* ContactListViewController.xib in Resources */,
 				D9A804831A80E738005AD701 /* avatar_line@2x.png in Resources */,
 				C60C0D6B1A298DF8006033C9 /* PushSettingViewController.xib in Resources */,
+				C6631D0F1B300D6400BE4ADC /* lxp_expert_helper@3x.png in Resources */,
 				D9722F121A81C91D00D8A8CC /* ic_star_gray@2x.png in Resources */,
 				C694C38A1AE9F4C300F5C36E /* ic_share_to_talk@2x.png in Resources */,
 				27F7E6951B0312650049EC08 /* nav_back@2x.png in Resources */,
@@ -5756,6 +5843,7 @@
 				D9A8FF101A80CC2B005AD701 /* ChangePasswordViewController.xib in Resources */,
 				27FF1ABB1B06F1F000643D77 /* ic_love_selected@2x.png in Resources */,
 				D9A805741A80E738005AD701 /* bao_snow@2x.png in Resources */,
+				C6631CFC1B300C4E00BE4ADC /* ic_tab_talk_normal@3x.png in Resources */,
 				270C16531B0079C60048C85D /* ic_little_normal@2x.png in Resources */,
 				D9A8FFCB1A80D216005AD701 /* HotDestinationCollectionReusableView.xib in Resources */,
 				D9722F131A81C91D00D8A8CC /* ic_star_yellow@2x.png in Resources */,
