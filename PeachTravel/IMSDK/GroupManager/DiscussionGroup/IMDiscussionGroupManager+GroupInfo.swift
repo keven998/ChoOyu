@@ -60,7 +60,7 @@ extension IMDiscussionGroupManager {
         manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         
-        var url = "\(API_USERINFO)\(groupId)"
+        var url = "\(groupUrl)\(groupId)"
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {
@@ -96,8 +96,11 @@ extension IMDiscussionGroupManager {
         manager.GET(url, parameters: nil, success: {
             (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             if (responseObject.objectForKey("code") as! Int) == 0 {
-                
-                self.updateGroupInfoInDB(group)
+                if let result = responseObject.objectForKey("result") as? Array<NSDictionary> {
+                    group.updateNumbersInGroup(result)
+                    self.updateGroupInfoInDB(group)
+                }
+
                 completion(isSuccess: true, errorCode: 0, discussionGroup: group)
             } else {
                 completion(isSuccess: false, errorCode: 0, discussionGroup: nil)
