@@ -38,25 +38,43 @@
     
     UIImageView *searchIC = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height, height - 20)];
     searchIC.image = [UIImage imageNamed:@"ic_lxp_search_homo.png"];
-    searchIC.center = CGPointMake((width-20)/2.0, height/2.0 - 10);
+    searchIC.center = CGPointMake((width-20)/2.0, height/2.0 - 5);
     searchIC.contentMode = UIViewContentModeScaleAspectFit;
     [lxpSearchBg addSubview:searchIC];
     
-    CGFloat mxh = CGRectGetMaxY(lxpSearchBg.frame) + 20;
+    UILabel *searchText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
+    searchText.textColor = COLOR_TEXT_II;
+    searchText.font = [UIFont systemFontOfSize:14];
+    searchText.text = @"~旅行·搜搜~";
+    searchText.textAlignment = NSTextAlignmentCenter;
+    searchText.center = CGPointMake((width-20)/2.0, height/2.0 - 20);
+    [lxpSearchBg addSubview:searchText];
+    
+    CGFloat mxh = CGRectGetMaxY(lxpSearchBg.frame) + 10;
     CGFloat w = (width - 30) / 2;
-    UIButton *lxpHelper = [[UIButton alloc] initWithFrame:CGRectMake(10, mxh, w, w*1.67)];
+    UIButton *lxpHelper = [[UIButton alloc] initWithFrame:CGRectMake(10, mxh, w, w*1.45)];
+    UIImageView *flag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lxp_expert_helper.png"]];
+    flag.center = CGPointMake(w/2.0, w*1.45/2.0 - 14);
+    [lxpHelper addSubview:flag];
+    [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
+    [lxpHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [lxpHelper setTitle:@"旅行达人" forState:UIControlStateNormal];
-    [lxpHelper setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    lxpHelper.titleLabel.font = [UIFont systemFontOfSize:17];
-    lxpHelper.backgroundColor = [UIColor whiteColor];
+    [lxpHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
+    [lxpHelper setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    lxpHelper.titleLabel.font = [UIFont systemFontOfSize:13];
     [lxpHelper addTarget:self action:@selector(goLxpHelper) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lxpHelper];
     
-    UIButton *planHelper = [[UIButton alloc] initWithFrame:CGRectMake(w + 20, mxh, w, w*1.67)];
+    UIButton *planHelper = [[UIButton alloc] initWithFrame:CGRectMake(w+20, mxh, w, w*1.45)];
+    flag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lxp_plan_helper.png"]];
+    flag.center = CGPointMake(w/2.0, w*1.45/2.0 - 14);
+    [planHelper addSubview:flag];
+    [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_normal.png"] forState:UIControlStateNormal];
+    [planHelper setBackgroundImage:[UIImage imageNamed:@"tools_home_card_bg_highlight.png"] forState:UIControlStateHighlighted];
     [planHelper setTitle:@"我的计划" forState:UIControlStateNormal];
-    [planHelper setTitleColor:COLOR_TEXT_I forState:UIControlStateNormal];
-    planHelper.titleLabel.font = [UIFont systemFontOfSize:17];
-    planHelper.backgroundColor = [UIColor whiteColor];
+    [planHelper setTitleEdgeInsets:UIEdgeInsetsMake(flag.frame.size.height / 2.0, 0, -64, 0)];
+    [planHelper setTitleColor:COLOR_TEXT_II forState:UIControlStateNormal];
+    planHelper.titleLabel.font = [UIFont systemFontOfSize:13];
     [planHelper addTarget:self action:@selector(goMyPlan) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:planHelper];
 }

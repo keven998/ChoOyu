@@ -161,6 +161,8 @@
 		C6631D101B300D6400BE4ADC /* lxp_plan_helper@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0B1B300D6400BE4ADC /* lxp_plan_helper@3x.png */; };
 		C6631D111B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0C1B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png */; };
 		C6631D121B300D6400BE4ADC /* lxp_search_bg_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D0D1B300D6400BE4ADC /* lxp_search_bg_normal@3x.png */; };
+		C6631D151B3014A800BE4ADC /* tools_home_card_bg_highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D131B3014A800BE4ADC /* tools_home_card_bg_highlight@3x.png */; };
+		C6631D161B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6631D141B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png */; };
 		C673B5591ADCEC7100D40262 /* TripPlanSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C673B5581ADCEC7100D40262 /* TripPlanSettingViewController.m */; };
 		C679D30D1ACD64E3007680D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3021ACD64E3007680D9 /* RECommonFunctions.m */; };
 		C679D30E1ACD64E3007680D9 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C679D3041ACD64E3007680D9 /* REFrostedContainerViewController.m */; };
@@ -1094,6 +1096,8 @@
 		C6631D0B1B300D6400BE4ADC /* lxp_plan_helper@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_plan_helper@3x.png"; sourceTree = "<group>"; };
 		C6631D0C1B300D6400BE4ADC /* lxp_search_bg_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_search_bg_highlight@3x.png"; sourceTree = "<group>"; };
 		C6631D0D1B300D6400BE4ADC /* lxp_search_bg_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lxp_search_bg_normal@3x.png"; sourceTree = "<group>"; };
+		C6631D131B3014A800BE4ADC /* tools_home_card_bg_highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tools_home_card_bg_highlight@3x.png"; sourceTree = "<group>"; };
+		C6631D141B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tools_home_card_bg_normal@3x.png"; sourceTree = "<group>"; };
 		C673B5571ADCEC7100D40262 /* TripPlanSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripPlanSettingViewController.h; sourceTree = "<group>"; };
 		C673B5581ADCEC7100D40262 /* TripPlanSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripPlanSettingViewController.m; sourceTree = "<group>"; };
 		C679D3011ACD64E3007680D9 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
@@ -2607,6 +2611,8 @@
 		C6631CED1B300C4E00BE4ADC /* 工具首页 */ = {
 			isa = PBXGroup;
 			children = (
+				C6631D131B3014A800BE4ADC /* tools_home_card_bg_highlight@3x.png */,
+				C6631D141B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png */,
 				C6631D091B300D6400BE4ADC /* ic_lxp_search_homo@3x.png */,
 				C6631D0A1B300D6400BE4ADC /* lxp_expert_helper@3x.png */,
 				C6631D0B1B300D6400BE4ADC /* lxp_plan_helper@3x.png */,
@@ -5854,6 +5860,7 @@
 				27F273D51B198F0F00AC1ABE /* Default@2x.png in Resources */,
 				D9A804D61A80E738005AD701 /* ic_chatlist_normal@2x.png in Resources */,
 				C6631CFB1B300C4E00BE4ADC /* ic_tab_talk_highlight@3x.png in Resources */,
+				C6631D161B3014A800BE4ADC /* tools_home_card_bg_normal@3x.png in Resources */,
 				D9A805071A80E738005AD701 /* ic_sns_pengyouquan@2x.png in Resources */,
 				D917DAA61A8B48EE0039720A /* ic_guide_earth@2x.png in Resources */,
 				D9A8057E1A80E738005AD701 /* s_rain@2x.png in Resources */,
@@ -6274,6 +6281,7 @@
 				D9A804881A80E738005AD701 /* cell_accessory_pink@2x.png in Resources */,
 				D9F46DC71AC8E96300972AE8 /* DomesticCityDataSource.plist in Resources */,
 				D9A801441A80DD23005AD701 /* imageDownloadFail@2x.png in Resources */,
+				C6631D151B3014A800BE4ADC /* tools_home_card_bg_highlight@3x.png in Resources */,
 				27329DCC1B12CD4900F0A4FA /* jingdian_food_eat@2x.png in Resources */,
 				D9A804E41A80E738005AD701 /* ic_home_btn_cycle@2x.png in Resources */,
 				D9A804B41A80E738005AD701 /* chat_sender_audio_playing_002@2x.png in Resources */,
@@ -6901,7 +6909,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "84cfe988-86e7-4c59-a16c-fdd923072ec9";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -6940,7 +6948,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08bcfa7b-e7c8-4656-840c-d52edf396045";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PeachTravel/PeachTravel-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
