@@ -18,6 +18,9 @@
 #import "UMSocial.h"
 #import "SuperWebViewController.h"
 #import "FeedbackViewController.h"
+#import "FootPrintViewController.h"
+#import "MyGuideListTableViewController.h"
+#import "ContactListViewController.h"
 
 #define cellDataSource           @[@[@"邀请好友", @"意见反馈", @"关于我们"], @[@"应用设置"]]
 #define secondCell               @"secondCell"
@@ -36,6 +39,7 @@
 @property (nonatomic, strong) UILabel *friendCount;
 @property (nonatomic, strong) UILabel *planCount;
 @property (nonatomic, strong) UILabel *trackCount;
+@property (nonatomic, strong) UIImageView *levelBg;
 
 @end
 
@@ -66,7 +70,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userAccountHasChage) name:updateUserInfoNoti object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidRegister:) name:userDidRegistedNoti object:nil];
     
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑 " style:UIBarButtonItemStylePlain target:self action:@selector(tap)];
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑 " style:UIBarButtonItemStylePlain target:self action:@selector(editUserInfo)];
     rightBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = rightBtn;
 }
@@ -113,13 +117,15 @@
     [headerBgView addGestureRecognizer:tap];
     [self.view addSubview:headerBgView];
     
-    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height/2.0, height/2.0)];
-    avatarBg.backgroundColor = COLOR_ALERT;
-    avatarBg.center = CGPointMake(width/2.0, height/4.0 + 20);
+    UIImageView *avatarBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 185, 185)];
+    avatarBg.center = CGPointMake(width/2.0, 100);
+    avatarBg.contentMode = UIViewContentModeScaleToFill;
+    avatarBg.clipsToBounds = YES;
+    avatarBg.backgroundColor = [UIColor grayColor];
     [headerBgView addSubview:avatarBg];
     _avatarBg = avatarBg;
     
-    CGFloat avatarW = CGRectGetWidth(avatarBg.frame) - 10;
+    CGFloat avatarW = 130;
     UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, avatarW, avatarW)];
     avatar.clipsToBounds = YES;
     avatar.layer.cornerRadius = avatarW/2.0;
@@ -128,22 +134,23 @@
     [headerBgView addSubview:avatar];
     _avatarImageView = avatar;
     
-    UIImageView *gender = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-    gender.backgroundColor = COLOR_CHECKED;
-    gender.center = CGPointMake(width/2.0 - 20, CGRectGetMaxY(avatarBg.frame));
-    [headerBgView addSubview:gender];
-    _genderView = gender;
-    
-    UIImageView *levelBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 24)];
-    levelBg.backgroundColor = COLOR_ENTER;
-    levelBg.center = CGPointMake(width/2.0 +24, CGRectGetMaxY(avatarBg.frame));
+    UIImageView *levelBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 64, 20)];
+    levelBg.center = CGPointMake(width/2.0 + 12, CGRectGetMaxY(avatarBg.frame));
+    levelBg.contentMode = UIViewContentModeScaleAspectFit;
     [headerBgView addSubview:levelBg];
+    _levelBg = levelBg;
     UILabel *levelLabel = [[UILabel alloc] initWithFrame:levelBg.frame];
     levelLabel.textColor = [UIColor whiteColor];
-    levelLabel.font = [UIFont systemFontOfSize:9];
+    levelLabel.font = [UIFont systemFontOfSize:11];
     levelLabel.textAlignment = NSTextAlignmentCenter;
     [levelBg addSubview:levelLabel];
     _levelLabel = levelLabel;
+    
+    UIImageView *gender = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    gender.center = CGPointMake(width/2.0 - 16, CGRectGetMaxY(avatarBg.frame));
+    gender.contentMode = UIViewContentModeScaleAspectFit;
+    [headerBgView addSubview:gender];
+    _genderView = gender;
     
     CGFloat unitWidth = width/3.0;
     CGFloat offsetY = CGRectGetMaxY(levelBg.frame);
@@ -162,6 +169,7 @@
     fl.textAlignment = NSTextAlignmentCenter;
     fl.font = [UIFont systemFontOfSize:12];
     [friendEntry addSubview:fl];
+    [friendEntry addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:friendEntry];
     
     UIButton *planEntry = [[UIButton alloc] initWithFrame:CGRectMake(unitWidth, offsetY, unitWidth, height - offsetY)];
@@ -179,6 +187,7 @@
     pl.textAlignment = NSTextAlignmentCenter;
     pl.font = [UIFont systemFontOfSize:12];
     [planEntry addSubview:pl];
+    [planEntry addTarget:self action:@selector(myPlan:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:planEntry];
     
     UIButton *trackEntry = [[UIButton alloc] initWithFrame:CGRectMake(2*unitWidth, offsetY, unitWidth, height - offsetY)];
@@ -196,14 +205,15 @@
     tl.textAlignment = NSTextAlignmentCenter;
     tl.font = [UIFont systemFontOfSize:12];
     [trackEntry addSubview:tl];
+    [trackEntry addTarget:self action:@selector(myTrack:) forControlEvents:UIControlEventTouchUpInside];
     [headerBgView addSubview:trackEntry];
 
     self.tableView.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width/2, 44)];
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, width/2, 18)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, width/2, 18)];
     nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.font = [UIFont boldSystemFontOfSize:16];
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.text = @"旅行派";
     [view addSubview:nameLabel];
@@ -211,7 +221,7 @@
     
     UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 26, width/2, 12)];
     idLabel.textColor = [UIColor whiteColor];
-    idLabel.font = [UIFont systemFontOfSize:9];
+    idLabel.font = [UIFont boldSystemFontOfSize:10];
     idLabel.textAlignment = NSTextAlignmentCenter;
     idLabel.text = @"未登录";
     [view addSubview:idLabel];
@@ -235,23 +245,27 @@
     if ([amgr isLogin]) {
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:amgr.account.avatarSmall] placeholderImage:[UIImage imageNamed:@"person_disabled"]];
         _nameLabel.text = amgr.account.nickName;
-        _idLabel.text = [NSString stringWithFormat:@"ID %@", amgr.account.userId];
-//        _propLabel.text = [NSString stringWithFormat:@"ID %d", [amgr.account.userId intValue]];
-//        _signatureLabel.text = amgr.account.signature.length > 0 ? amgr.account.signature:@"";
+        _idLabel.text = [NSString stringWithFormat:@"ID：%@", amgr.account.userId];
+        
 //        if ([amgr.account.gender isEqualToString:@"M"]) {
-//            cell.userGender.image = [UIImage imageNamed:@"ic_gender_man.png"];
+//            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
+//            _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_boy.png"];
+//        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_boy.png"];
 //        } else if ([amgr.account.gender isEqualToString:@"F"]) {
-//            cell.userGender.image = [UIImage imageNamed:@"ic_gender_lady.png"];
+//            _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_girl.png"];
+//        _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_girl.png"];
+//        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_girl.png"];
 //        } else if ([amgr.account.gender isEqualToString:@"U"]) {
-//            cell.userGender.image = nil;
+//            _avatarBg.image = nil;
+//        _genderView.image = [UIImage imageNamed:@"ic_home_gender_unknown.png"];
+        _levelBg.image = [UIImage imageNamed:@"ic_home_level_bg_unknown.png"];
 //        }
+        _avatarBg.image = [UIImage imageNamed:@"ic_home_avatar_border_boy.png"];
+        _genderView.image = [UIImage imageNamed:@"ic_home_user_gender_boy.png"];
     } else {
         [_avatarImageView setImage:[UIImage imageNamed:@"person_disabled"]];
-//        _propLabel.text = @"点击登录旅行派，享受更多旅行帮助";
         _nameLabel.text = @"旅行派";
         _idLabel.text = @"未登录";
-//        _signatureLabel.text = nil;
-//        cell.userGender.image = nil;
     }
 }
 
@@ -307,7 +321,7 @@
     [self presentViewController:navc animated:YES completion:nil];
 }
 
-- (void)tap {
+- (void)editUserInfo {
     if (self.accountManager.isLogin) {
         UserInfoTableViewController *userInfoCtl = [[UserInfoTableViewController alloc] init];
         userInfoCtl.hidesBottomBarWhenPushed = YES;
@@ -316,6 +330,30 @@
         [self userLogin];
     }
 }
+
+- (IBAction)showContactList:(id)sender
+{
+    ContactListViewController *contactListCtl = [[ContactListViewController alloc] init];
+    contactListCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:contactListCtl animated:YES];
+}
+
+- (IBAction)myPlan:(id)sender
+{
+    MyGuideListTableViewController *myGuidesCtl = [[MyGuideListTableViewController alloc] init];
+    myGuidesCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:myGuidesCtl animated:YES];
+}
+
+- (IBAction)myTrack:(id)sender
+{
+    FootPrintViewController *footCtl = [[FootPrintViewController alloc] init];
+//    footCtl.destinations = self.destinations;
+//    footCtl.delegate = self;
+    footCtl.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:footCtl animated:YES];
+}
+
 
 #pragma mark - Table view data source
 
@@ -348,15 +386,15 @@
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
-                [cell.flagView setImage:[UIImage imageNamed:@"ic_share_to_friend.png"]];
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_home_shareapp2friend.png"]];
                 break;
                 
             case 1:
-                [cell.flagView setImage:[UIImage imageNamed:@"ic_feedback.png"]];
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_home_feedback.png"]];
                 break;
                 
             case 2:
-                [cell.flagView setImage:[UIImage imageNamed:@"ic_about.png"]];
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_home_aboutus.png"]];
                 break;
                 
             default:
@@ -366,7 +404,7 @@
     } else {
         switch (indexPath.row) {
             case 0:
-                [cell.flagView setImage:[UIImage imageNamed:@"ic_setting.png"]];
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_home_app_setting.png"]];
                 break;
                 
             default:

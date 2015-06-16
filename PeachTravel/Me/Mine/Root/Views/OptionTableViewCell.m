@@ -18,6 +18,8 @@
     
 //    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.5)];
     
+    _titleView.textColor = COLOR_TEXT_II;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
