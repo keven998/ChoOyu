@@ -35,7 +35,7 @@ typedef void(^loginCompletion)(BOOL completed);
     registerBtn.tintColor = APP_THEME_COLOR;
     self.navigationItem.rightBarButtonItem = registerBtn;
     
-    self.navigationItem.title = @"注册";
+    self.navigationItem.title = @"新用户注册";
     
     _passwordLabel.delegate = self;
     
