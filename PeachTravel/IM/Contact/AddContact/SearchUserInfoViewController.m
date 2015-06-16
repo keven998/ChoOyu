@@ -134,7 +134,16 @@
             [SVProgressHUD showHint:@"呃～好像没找到网络"];
         }
     }];
+    
+    
 
 }
 
 @end
+
+
+
+
+
+
+

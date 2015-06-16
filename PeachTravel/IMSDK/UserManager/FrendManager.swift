@@ -8,6 +8,9 @@
 
 import UIKit
 
+private let API_REQUEST_ADD_CONTACT = "\(BASE_URL)users/request-contacts"  //请求添加好友
+private let API_FREND = "\(BASE_URL)users/contacts"
+
 @objc protocol FrendManagerDelegate {
     /**
     请求添加好友
@@ -109,8 +112,70 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         return daoHelper.selectFrend(userId: userId)
     }
     
-    //MARK: CMDMessageManagerDelegate
+    /**
+     请求添加好友
     
+    :param: userId
+    :param: completion
+    */
+    func asyncRequestAddContact(#userId: Int, helloStr: String, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        let params = ["userId": userId, "message": helloStr]
+        var url = "\(API_USERINFO)\(userId)"
+        manager.POST(API_REQUEST_ADD_CONTACT, parameters: params, success:
+            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if (responseObject.objectForKey("code") as! Int) == 0 {
+                    completion(isSuccess: true, errorCode: 0)
+                } else {
+                    completion(isSuccess: false, errorCode: 0)
+                }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0)
+                print(error)
+        }
+    }
+    
+    /**
+    删除好友
+    :param: userId
+    :param: helloStr
+    :param: completion
+    */
+    func asyncRemoveContact(#frend: FrendModel, completion: (isSuccess: Bool, errorCode: Int) -> ()) {
+        let manager = AFHTTPRequestOperationManager()
+        let requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = requestSerializer
+        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
+        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
+        let url = "\(API_FREND)/\(frend.userId)"
+        manager.DELETE(url, parameters: nil, success:
+            { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                if (responseObject.objectForKey("code") as! Int) == 0 {
+                    if FrendModel.typeIsCorrect(frend.type, typeWeight: IMFrendWeightType.Frend) {
+                        var typeValue = frend.type.rawValue - IMFrendType.Frend.rawValue
+                        frend.type = IMFrendType(rawValue: typeValue)!
+                    }
+                    let daoHelper = DaoHelper.shareInstance()
+                    daoHelper.updateFrendType(userId: frend.userId, frendType: frend.type)
+                    completion(isSuccess: true, errorCode: 0)
+                } else {
+                    completion(isSuccess: false, errorCode: 0)
+                }
+            }){
+                (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(isSuccess: false, errorCode: 0)
+                print(error)
+        }
+    }
+    
+    //MARK: CMDMessageManagerDelegate
     func receiveFrendCMDMessage(cmdMessage: IMCMDMessage) {
         
     }

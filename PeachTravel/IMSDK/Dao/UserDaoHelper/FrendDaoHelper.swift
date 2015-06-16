@@ -60,9 +60,14 @@ protocol FrendDaoProtocol {
     :returns:
     */
     func selectFrend(#userId: Int) -> FrendModel?
-
-
     
+    /**
+    更新好友类型
+    
+    :param: userId
+    :param: type
+    */
+    func updateFrendType(#userId: Int, type: IMFrendType)
 }
 
 class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
@@ -216,6 +221,16 @@ class FrendDaoHelper: BaseDaoHelper, FrendDaoProtocol {
             }
         }
         return retArray
+    }
+    
+    func updateFrendType(#userId: Int, type: IMFrendType) {
+        databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
+            
+            var sql = "update \(frendTableName) set Type = ? where UserId = ?"
+            println("执行 sql 语句：\(sql)")
+            var array = [type.rawValue, userId]
+            dataBase.executeUpdate(sql, withArgumentsInArray: array as [AnyObject])
+        }
     }
 
 }

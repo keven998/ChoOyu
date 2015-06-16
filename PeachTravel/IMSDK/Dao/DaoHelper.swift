@@ -230,6 +230,10 @@ public class DaoHelper:NSObject {
         return self.frendDaoHelper.selectFrend(userId: userId)
     }
     
+    func updateFrendType(#userId: Int, frendType: IMFrendType) {
+        self.frendDaoHelper.updateFrendType(userId: userId, type: frendType)
+    }
+    
     /**
     获取我的所有联系人
     :returns:

@@ -278,27 +278,17 @@
 
 - (void)removeContact
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", API_DELETE_CONTACTS, _userId];
-    
+
+    FrendManager *frendManager = [FrendManager shareInstance];
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf];
-    
-    //删除联系人
-    [manager DELETE:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+
+    [frendManager asyncRemoveContactWithFrend:_userInfo completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
+
+        if (isSuccess) {
             [accountManager removeContact:_userId];
             [SVProgressHUD showHint:@"已删除～"];
             [[NSNotificationCenter defaultCenter] postNotificationName:contactListNeedUpdateNoti object:nil];
@@ -309,15 +299,8 @@
                 [SVProgressHUD showHint:@"请求也是失败了"];
             }
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", error);
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
     }];
-    
+
 }
 
 
@@ -485,48 +468,27 @@
 - (void)requestAddContactWithHello:(NSString *)helloStr
 {
     AccountManager *accountManager = [AccountManager shareAccountManager];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AppUtils *utils = [[AppUtils alloc] init];
-    [manager.requestSerializer setValue:utils.appVersion forHTTPHeaderField:@"Version"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"iOS %@",utils.systemVersion] forHTTPHeaderField:@"Platform"];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@", accountManager.account.userId] forHTTPHeaderField:@"UserId"];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params safeSetObject:[NSNumber numberWithInteger:_userInfo.userId] forKey:@"userId"];
+
+    FrendManager *frendManager = [FrendManager shareInstance];
     if ([helloStr stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0) {
         helloStr = [NSString stringWithFormat:@"Hi, 我是%@", accountManager.account.nickName];
     }
-    [params safeSetObject:helloStr forKey:@"message"];
-    
     __weak typeof(OtherUserInfoViewController *)weakSelf = self;
     TZProgressHUD *hud = [[TZProgressHUD alloc] init];
     [hud showHUDInViewController:weakSelf content:64];
-    
-    [manager POST:API_REQUEST_ADD_CONTACT parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [frendManager asyncRequestAddContactWithUserId:_userId.integerValue helloStr:helloStr completion:^(BOOL isSuccess, NSInteger errorCode) {
         [hud hideTZHUD];
-        NSInteger code = [[responseObject objectForKey:@"code"] integerValue];
-        if (code == 0) {
+        if (isSuccess) {
             [SVProgressHUD showHint:@"请求已发送，等待对方验证"];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:0.2];
         } else {
             [SVProgressHUD showHint:@"添加失败"];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [hud hideTZHUD];
-        if (self.isShowing) {
-            [SVProgressHUD showHint:@"呃～好像没找到网络"];
-        }
     }];
-    
 }
 
-- (void) loadUserProfile:(NSNumber *)userId {
+- (void)loadUserProfile:(NSNumber *)userId {
     
     FrendManager *frendManager = [[FrendManager alloc] init];
     [frendManager asyncGetFrendInfoFromServer:userId.integerValue completion:^(BOOL isSuccess, NSInteger errorCode, FrendModel * __nonnull frend) {
