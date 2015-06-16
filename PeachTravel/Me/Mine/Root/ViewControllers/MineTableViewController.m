@@ -16,10 +16,10 @@
 #import "OptionTableViewCell.h"
 #import "PushMsgsViewController.h"
 #import "UMSocial.h"
-#import "FavoriteViewController.h"
 #import "SuperWebViewController.h"
+#import "FeedbackViewController.h"
 
-#define cellDataSource           @[@[@"收藏夹", @"邀请好友"], @[@"应用设置", @"关于我们"]]
+#define cellDataSource           @[@[@"邀请好友", @"意见反馈", @"关于我们"], @[@"应用设置"]]
 #define secondCell               @"secondCell"
 
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -150,7 +150,7 @@
     [backgroundImageView addSubview:signLabel];
     _signatureLabel = signLabel;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(height+0.5, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(height+10, 0, 0, 0);
 }
 
 #pragma mark - setter & getter
@@ -267,68 +267,61 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-        OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
-        cell.titleView.text = [[cellDataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (indexPath.section == 0) {
-            switch (indexPath.row) {
-                case 0:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_my_favorite.png"]];
-                    break;
-                    
-                case 1:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_share_to_friend.png"]];
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-        } else {
-            switch (indexPath.row) {
-                case 0:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_setting.png"]];
-                    break;
-                    
-                case 1:
-                    [cell.flagView setImage:[UIImage imageNamed:@"ic_about.png"]];
-                    break;
-                    
-                default:
-                    break;
-            }
+    OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:secondCell];
+    cell.titleView.text = [[cellDataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_share_to_friend.png"]];
+                break;
+                
+            case 1:
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_feedback.png"]];
+                break;
+                
+            case 2:
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_about.png"]];
+                break;
+                
+            default:
+                break;
         }
-        return cell;
+        
+    } else {
+        switch (indexPath.row) {
+            case 0:
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_setting.png"]];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            AccountManager *accountManager = [AccountManager shareAccountManager];
-            if (!accountManager.isLogin) {
-                [self performSelector:@selector(userLogin:) withObject:nil afterDelay:0.3];
-                [SVProgressHUD showHint:@"请先登录"];
-            } else {
-                FavoriteViewController *fvc = [[FavoriteViewController alloc] init];
-                fvc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:fvc animated:YES];
-            }
-        } else if (indexPath.row == 1) {
             [self shareToWeChat];
-        }
-        
-    } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
-            settingCtl.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:settingCtl animated:YES];
         } else if (indexPath.row == 1) {
+            [MobClick event:@"event_feedback"];
+            FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
+            [self.navigationController pushViewController:feedbackCtl animated:YES];
+        } else {
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
             svc.hidesBottomBarWhenPushed = YES;
             svc.titleStr = @"关于旅行派";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
             svc.hideToolBar = YES;
             [self.navigationController pushViewController:svc animated:YES];
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
+            settingCtl.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:settingCtl animated:YES];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
