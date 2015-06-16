@@ -287,7 +287,7 @@ public class DaoHelper:NSObject {
     
     func updateUnreadMessageCountInConversation(unReadMessageCount: Int, userId: Int) {
         dispatch_async(databaseWriteQueue, { () -> Void in
-            self.conversationHelper.updateUnreadMessageCountInConversation(unReadMessageCount, userId: userId)
+            self.conversationHelper.updateUnreadMessageCountInConversation(unReadMessageCount, chatterId: userId)
         })
     }
     

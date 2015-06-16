@@ -131,6 +131,10 @@
                 [self.tableView reloadData];
             }];
         }
+        if ([tzConversation.chatterAvatar isBlankString]) {
+            
+            
+        }
     }
 }
 

@@ -41,7 +41,7 @@ protocol ConversationDaoProtocol {
     
     :param: conversation
     */
-    func updateUnreadMessageCountInConversation(unReadMessageCount: Int, userId: Int)
+    func updateUnreadMessageCountInConversation(unReadMessageCount: Int, chatterId: Int)
     
     /**
     更新会话的时间戳
@@ -80,12 +80,12 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
         }
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
           
-            var sql = "select * from \(conversationTableName) left join \(frendTableName) on \(conversationTableName).UserId = \(frendTableName).UserId order by LastUpdateTime DESC"
+            var sql = "select * from \(conversationTableName) left join \(frendTableName) on \(conversationTableName).ChatterId = \(frendTableName).UserId order by LastUpdateTime DESC"
             var rs = dataBase.executeQuery(sql, withArgumentsInArray: nil)
             if rs != nil {
                 while rs.next() {
                     var conversation = ChatConversation()
-                    conversation.chatterId = Int(rs.intForColumn("UserId"))
+                    conversation.chatterId = Int(rs.intForColumn("ChatterId"))
                     conversation.lastUpdateTime = Int(rs.longForColumn("LastUpdateTime"))
                     if let chatterName = rs.stringForColumn("NickName") {
                         conversation.chatterName = chatterName
@@ -117,7 +117,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
     func createConversationsTable() {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
-            var sql = "create table '\(conversationTableName)' (UserId INTEGER PRIMARY KEY NOT NULL, LastUpdateTime INTEGER, ConversationId String, UnreadMessageCount INTEGER)"
+            var sql = "create table '\(conversationTableName)' (ChatterId INTEGER PRIMARY KEY NOT NULL, LastUpdateTime INTEGER, ConversationId String, UnreadMessageCount INTEGER)"
             
             if (dataBase.executeUpdate(sql, withArgumentsInArray: nil)) {
                 println("success 执行 sql 语句：\(sql)")
@@ -140,7 +140,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
 
             if let conversationId = conversation.conversationId {
-                var sql = "insert or replace into \(conversationTableName) (UserId, LastUpdateTime, ConversationId) values (?,?,?)"
+                var sql = "insert or replace into \(conversationTableName) (ChatterId, LastUpdateTime, ConversationId) values (?,?,?)"
                 println("执行 addConversation userId: \(conversation.chatterId)")
                 var array = [conversation.chatterId, conversation.lastUpdateTime, conversationId]
                 if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
@@ -151,7 +151,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
                 }
                 
             } else {
-                var sql = "insert or replace into \(conversationTableName) (UserId, LastUpdateTime) values (?,?)"
+                var sql = "insert or replace into \(conversationTableName) (ChatterId, LastUpdateTime) values (?,?)"
                 println("执行 addConversation userId: \(conversation.chatterId)")
                 var array = [conversation.chatterId, conversation.lastUpdateTime]
                 if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
@@ -165,11 +165,11 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
         }
     }
     
-    func updateUnreadMessageCountInConversation(unReadMessageCount: Int, userId: Int) {
+    func updateUnreadMessageCountInConversation(unReadMessageCount: Int, chatterId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(conversationTableName) set UnreadMessageCount = ? where UserId = ?"
-            println("执行 updateUnreadMessageCountInConversation userId: \(userId)")
-            var array = [unReadMessageCount, userId]
+            var sql = "update \(conversationTableName) set UnreadMessageCount = ? where ChatterId = ?"
+            println("执行 updateUnreadMessageCountInConversation chatterId: \(chatterId)")
+            var array = [unReadMessageCount, chatterId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
                 println("success 执行 sql 语句：\(sql)")
                 
@@ -181,7 +181,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
     
     func updateTimestampInConversation(timeStamp: Int, userId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(conversationTableName) set LastUpdateTime = ? where UserId = ?"
+            var sql = "update \(conversationTableName) set LastUpdateTime = ? where ChatterId = ?"
             println("执行 updateTimestampInConversation userId: \(userId)")
             var array = [timeStamp, userId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {
@@ -195,7 +195,7 @@ class ConversationDaoHelper: BaseDaoHelper, ConversationDaoProtocol {
 
     func updateConversationIdInConversation(conversationId: String, userId: Int) {
         databaseQueue.inDatabase { (dataBase: FMDatabase!) -> Void in
-            var sql = "update \(conversationTableName) set ConversationId = ? where UserId = ?"
+            var sql = "update \(conversationTableName) set ConversationId = ? where ChatterId = ?"
             println("执行 updateConversationIdInConversation userId: \(userId)")
             var array = [conversationId, userId]
             if dataBase.executeUpdate(sql, withArgumentsInArray:array as [AnyObject]) {

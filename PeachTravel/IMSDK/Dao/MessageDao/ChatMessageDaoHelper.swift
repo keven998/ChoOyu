@@ -337,8 +337,12 @@ class ChatMessageDaoHelper:BaseDaoHelper, ChatMessageDaoHelperProtocol {
                 break
             }
             
+            //attention: 因为表明的结构为 chat_100。所以从第五位取可以取到 chatterid
+            let chatterIdStr = tableName.substringFromIndex(5)
+            retMessage?.chatterId = chatterIdStr.toInt()!
             var contents = rs.stringForColumn("Message")
             retMessage?.fillContentWithContent(contents)
+            
             retMessage?.message = contents
             
             retMessage?.senderId  = Int(rs.intForColumn("SenderId"))
