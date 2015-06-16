@@ -263,6 +263,11 @@ class ChatConversationManager: NSObject, MessageReceiveManagerDelegate, MessageS
     private func fillConversationWithFrendData(conversation: ChatConversation, frendModel: FrendModel) {
         conversation.fillConversationType(frendType: frendModel.type)
         conversation.chatterName = frendModel.nickName
+        if frendModel.avatarSmall != "" {
+            conversation.chatterAvatar = frendModel.avatarSmall
+        } else {
+            conversation.chatterAvatar = frendModel.avatar
+        }
         conversation.chatterId = frendModel.userId
     }
     

@@ -223,6 +223,7 @@
 }
 
 #pragma mark - IBAction
+
 - (void) addToFriend {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"输入好友验证申请" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
@@ -235,6 +236,7 @@
         }
     }];
 }
+
 - (void) talkToFriend {
     AccountManager *accountManager = [AccountManager shareAccountManager];
     ChatViewController *chatCtl = [[ChatViewController alloc]initWithChatter:accountManager.account.userId.integerValue chatType:IMChatTypeIMChatSingleType];
