@@ -84,7 +84,6 @@
         _frendRequestUnreadCountLabel.hidden = YES;
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestUnreadCount) name:frendRequestListNeedUpdateNoti object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated

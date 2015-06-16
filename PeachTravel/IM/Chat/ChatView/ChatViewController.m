@@ -170,7 +170,7 @@
 - (void)setupBarButtonItem
 {
     UINavigationBar *bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.chatterNickName];
+    UINavigationItem *navTitle = [[UINavigationItem alloc] initWithTitle:self.conversation.chatterName];
     
     if (_chatType == IMChatTypeIMChatGroupType || _chatType == IMChatTypeIMChatDiscussionGroupType) {
         UIButton *menu = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
@@ -458,11 +458,11 @@
             }  else{
                 if (model.isChatGroup) {
                 } else {
-                    model.nickName = _chatterNickName;
+                    model.nickName = _conversation.chatterName;
                     if (model.isSender) {
                         model.headImageURL = [NSURL URLWithString:self.accountManager.account.avatarSmall];
                     } else {
-                        model.headImageURL = [NSURL URLWithString:_chatterAvatar];
+                        model.headImageURL = [NSURL URLWithString:_conversation.chatterAvatar];
                     }
                 }
                 NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
