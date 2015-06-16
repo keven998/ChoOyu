@@ -556,7 +556,6 @@
     ChatConversation *tzConversation = [self.dataSource objectAtIndex:indexPath.row];
     [self pushChatViewControllerWithConversation:tzConversation];
     tzConversation.unReadMessageCount = 0;
-
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{

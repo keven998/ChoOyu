@@ -161,7 +161,6 @@
 }
 
 - (IBAction)confirmSend:(UIButton *)sender {
-   
     IMClientManager *imclientManager = [IMClientManager shareInstance];
     BaseMessage *message = [imclientManager.messageSendManager sendPoiMessage:[self dataToSend] receiver:_chatterId chatType:_chatType conversationId:nil];
     [_delegate sendSuccess:nil];
