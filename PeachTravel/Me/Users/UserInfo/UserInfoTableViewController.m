@@ -519,7 +519,7 @@
         HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zuji" forIndexPath:indexPath];
         cell.nameLabel.text = @"签名";
         cell.trajectory.textColor = TEXT_COLOR_TITLE_DESC;
-        if([self.accountManager.account.signature isBlankString]||self.accountManager.accountDetail.basicUserInfo.signature.length == 0) {
+        if([self.accountManager.account.signature isBlankString]||self.accountManager.accountDetail.signature.length == 0) {
             cell.footPrint.text = @"未设置签名";
         }else {
             cell.footPrint.text = self.accountManager.account.signature;
@@ -789,7 +789,7 @@
 {
     SignatureViewController *bsvc = [[SignatureViewController alloc]init];
     bsvc.navTitle = @"个性签名";
-    bsvc.content = self.accountManager.accountDetail.basicUserInfo.signature;
+    bsvc.content = self.accountManager.accountDetail.signature;
     bsvc.acceptEmptyContent = YES;
     bsvc.saveEdition = ^(NSString *editText, saveComplteBlock(completed)) {
         [self updateUserInfo:ChangeSignature withNewContent:editText success:completed];

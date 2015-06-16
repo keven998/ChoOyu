@@ -26,22 +26,6 @@
 
 @implementation AccountModel
 
-- (Account *)basicUserInfo
-{
-    if (!_basicUserInfo) {
-        NSError *error = nil;
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSManagedObjectContext *context = [((AppDelegate *)[[UIApplication sharedApplication] delegate]) managedObjectContext];
-        request.entity = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
-        NSArray *objes = [context executeFetchRequest:request error:&error];
-        if (error) {
-            [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
-        }
-        _basicUserInfo = [objes firstObject];
-    }
-    return _basicUserInfo;
-}
-
 - (NSMutableArray *)frendList
 {
     if (!_frendList) {
