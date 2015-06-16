@@ -206,12 +206,12 @@
         [toolBar addSubview:addFriend];
 
     } else {
-    UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
-    [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
-    [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
-    [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
-    [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
-    [toolBar addSubview:addFriend];
+        UIButton *addFriend = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 49)];
+        [addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
+        [addFriend setTitleColor:APP_THEME_COLOR forState:UIControlStateNormal];
+        [addFriend setTitleColor:APP_THEME_COLOR_HIGHLIGHT forState:UIControlStateHighlighted];
+        [addFriend addTarget:self action:@selector(addToFriend) forControlEvents:UIControlEventTouchUpInside];
+        [toolBar addSubview:addFriend];
     }
     
 //    UIButton *consultingBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-1, 0, SCREEN_WIDTH/2, 49)];
@@ -531,6 +531,7 @@
         if (isSuccess) {
             _userInfo = frend;
             [self createHeader];
+            [self createFooterBar];
             [self loadUserAlbum];
             
         } else {

@@ -52,7 +52,6 @@
     return @"";
 }
 
-
 - (NSString *)getConstellation {
     NSString *star = @"";
     if (_birthday) {
