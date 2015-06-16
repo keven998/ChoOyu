@@ -117,7 +117,6 @@ class MessageManager: NSObject {
         
         if chatType == IMChatType.IMChatSingleType {
             retDic.setValue("single", forKey: "chatType")
-            
             } else {
             retDic.setValue("group", forKey: "chatType")
         }
@@ -322,9 +321,11 @@ class MessageManager: NSObject {
                 if let chatType = messageDic.objectForKey("chatType") as? String {
                     if chatType == "single" {
                         messageModel!.chatterId = messageDic.objectForKey("senderId") as! Int
+                        messageModel!.chatType = IMChatType.IMChatSingleType
                         
                     } else if chatType == "group"{
                         messageModel!.chatterId = messageDic.objectForKey("groupId") as! Int
+                        messageModel!.chatType = IMChatType.IMChatDiscussionGroupType
                         
                     } else if chatType == "CMD" {
                         messageModel!.chatterId = CMDMessageChatterId
