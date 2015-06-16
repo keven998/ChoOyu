@@ -33,6 +33,8 @@
 
 @property (nonatomic, strong) IMClientManager *imClientManager;
 
+@property (nonatomic, strong) UILabel *frendRequestUnreadCountLabel;
+
 /**
  *  是否有未读的消息，如果有出现小红点
  */
@@ -58,25 +60,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-    self.imClientManager.conversationManager.delegate = self;
-    _dataSource = [[self.imClientManager.conversationManager getConversationList] mutableCopy];
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [addBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
-    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     UIButton *contactListBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [contactListBtn setImage:[UIImage imageNamed:@"ic_contacts_normal.png"] forState:UIControlStateNormal];
+    [contactListBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_friendlist.png"] forState:UIControlStateNormal];
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
-    contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin) name:userDidLoginNoti object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:networkConnectionStatusChangeNoti object:nil];
+    contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(34, 5, 8, 8)];
+    _frendRequestUnreadCountLabel.backgroundColor = [UIColor redColor];
+    _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
+    _frendRequestUnreadCountLabel.clipsToBounds = YES;
+    [contactListBtn addSubview:_frendRequestUnreadCountLabel];
+    if (self.accountManager.numberOfUnReadFrendRequest > 0) {
+        _frendRequestUnreadCountLabel.hidden = NO;
+    } else {
+        _frendRequestUnreadCountLabel.hidden = YES;
+    }
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestUnreadCount) name:frendRequestListNeedUpdateNoti object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
