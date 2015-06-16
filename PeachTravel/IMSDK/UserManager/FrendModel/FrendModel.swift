@@ -130,7 +130,9 @@ class FrendModel: NSObject {
         avatar = json.objectForKey("avatar") as! String
         avatarSmall = json.objectForKey("avatarSmall") as! String
         signature = json.objectForKey("signature") as! String
-        memo = json.objectForKey("memo") as! String
+        if let memoStr =  json.objectForKey("memo") as? String {
+            memo = memoStr
+        }
         sex = json.objectForKey("gender") as! String
         residence = json.objectForKey("residence") as! String
         if let day =  json.objectForKey("birthday") as? String {
