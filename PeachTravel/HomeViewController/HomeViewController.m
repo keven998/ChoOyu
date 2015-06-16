@@ -403,14 +403,10 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     if ([viewController isEqual:_chatListCtl.navigationController] && !accountManager.isLogin) {
         LoginViewController *loginCtl = [[LoginViewController alloc] init];
         TZNavigationViewController *navi = [[TZNavigationViewController alloc] initWithRootViewController:loginCtl];
-        _mineCtl.hideNavigationBar = YES;
-        [self presentViewController:navi animated:YES completion:^{
-            _mineCtl.hideNavigationBar = NO;
-        }];
+        [self presentViewController:navi animated:YES completion:nil];
         return NO;
     } else {
         if ([viewController isEqual:_mineCtl.navigationController]) {
-            _mineCtl.navigationbarAnimated = NO;
         }
     }
     return YES;
