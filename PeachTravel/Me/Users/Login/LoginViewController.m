@@ -58,14 +58,15 @@
 //        [button setFrame:CGRectMake(0, 0, 48, 30)];
 //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
-    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
-    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
-    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    self.navigationItem.leftBarButtonItem = left;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismissCtl)];
+//    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    [rightBtn setImage:[UIImage imageNamed:@"ic_navigation_back"] forState:UIControlStateNormal];
+//    [rightBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+//    [rightBtn setTitle:@"取消" forState:UIControlStateNormal];
+//    [rightBtn addTarget:self action:@selector(dismissCtl) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+//    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+//    self.navigationItem.leftBarButtonItem = left;
     
     self.view.backgroundColor = APP_PAGE_COLOR;
     
@@ -106,8 +107,8 @@
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin.png"] forState:UIControlStateNormal];
     [_supportLoginButton setImage:[UIImage imageNamed:@"ic_login_weixin_highlight.png"] forState:UIControlStateHighlighted];
     
-    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"注册 " style:UIBarButtonItemStylePlain target:self action:@selector(userRegister:)];
-    registerBtn.tintColor = APP_THEME_COLOR;
+    UIBarButtonItem * registerBtn = [[UIBarButtonItem alloc]initWithTitle:@"新用户" style:UIBarButtonItemStylePlain target:self action:@selector(userRegister:)];
+    registerBtn.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = registerBtn;
 
     [[TMCache sharedCache] objectForKey:@"last_account" block:^(TMCache *cache, NSString *key, id object)  {

@@ -22,7 +22,7 @@
 #import "MyGuideListTableViewController.h"
 #import "ContactListViewController.h"
 
-#define cellDataSource           @[@[@"邀请好友", @"意见反馈", @"关于我们"], @[@"应用设置"]]
+#define cellDataSource           @[@[@"邀请好友", @"意见反馈"], @[@"关于我们", @"应用设置"]]
 #define secondCell               @"secondCell"
 
 @interface MineTableViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -408,10 +408,6 @@
                 [cell.flagView setImage:[UIImage imageNamed:@"ic_home_feedback.png"]];
                 break;
                 
-            case 2:
-                [cell.flagView setImage:[UIImage imageNamed:@"ic_home_aboutus.png"]];
-                break;
-                
             default:
                 break;
         }
@@ -419,6 +415,10 @@
     } else {
         switch (indexPath.row) {
             case 0:
+                [cell.flagView setImage:[UIImage imageNamed:@"ic_home_aboutus.png"]];
+                break;
+                
+            case 1:
                 [cell.flagView setImage:[UIImage imageNamed:@"ic_home_app_setting.png"]];
                 break;
                 
@@ -437,16 +437,16 @@
             [MobClick event:@"event_feedback"];
             FeedbackController *feedbackCtl = [[FeedbackController alloc] init];
             [self.navigationController pushViewController:feedbackCtl animated:YES];
-        } else {
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
             SuperWebViewController *svc = [[SuperWebViewController alloc] init];
             svc.hidesBottomBarWhenPushed = YES;
             svc.titleStr = @"关于旅行派";
             svc.urlStr = [NSString stringWithFormat:@"%@?version=%@", APP_ABOUT, [[AppUtils alloc] init].appVersion];
             svc.hideToolBar = YES;
             [self.navigationController pushViewController:svc animated:YES];
-        }
-    } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
+        } else {
             SettingHomeViewController *settingCtl = [[SettingHomeViewController alloc] init];
             settingCtl.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingCtl animated:YES];
