@@ -25,14 +25,22 @@
     
     // Do any additional setup after loading the view.
     CGFloat width = CGRectGetWidth(self.view.bounds);
-    UIImageView *lxpSearchBg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, width - 20, (width-20)*0.45)];
+    CGFloat height = (width-20)*0.67;
+    UIImageView *lxpSearchBg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, width - 20, height)];
     lxpSearchBg.clipsToBounds = YES;
     lxpSearchBg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     lxpSearchBg.backgroundColor = [UIColor whiteColor];
     lxpSearchBg.userInteractionEnabled = YES;
+    lxpSearchBg.image = [UIImage imageNamed:@"lxp_search_bg_normal.png"];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lxpSearch:)];
     [lxpSearchBg addGestureRecognizer:tapGesture];
     [self.view addSubview:lxpSearchBg];
+    
+    UIImageView *searchIC = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height, height - 20)];
+    searchIC.image = [UIImage imageNamed:@"ic_lxp_search_homo.png"];
+    searchIC.center = CGPointMake((width-20)/2.0, height/2.0 - 10);
+    searchIC.contentMode = UIViewContentModeScaleAspectFit;
+    [lxpSearchBg addSubview:searchIC];
     
     CGFloat mxh = CGRectGetMaxY(lxpSearchBg.frame) + 20;
     CGFloat w = (width - 30) / 2;
