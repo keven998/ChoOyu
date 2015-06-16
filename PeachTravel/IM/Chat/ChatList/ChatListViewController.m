@@ -70,16 +70,15 @@
     [self.view addSubview:self.tableView];
     
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [addBtn setImage:[UIImage imageNamed:@"add_contact.png"] forState:UIControlStateNormal];
+    [addBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_add.png"] forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addAction:) forControlEvents:UIControlEventTouchUpInside];
-    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     UIButton *contactListBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [contactListBtn setImage:[UIImage imageNamed:@"ic_contacts_normal.png"] forState:UIControlStateNormal];
+    [contactListBtn setImage:[UIImage imageNamed:@"ic_navigationbar_menu_friendlist.png"] forState:UIControlStateNormal];
     [contactListBtn addTarget:self action:@selector(showContactList:) forControlEvents:UIControlEventTouchUpInside];
-    contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    
+    contactListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _frendRequestUnreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(34, 5, 8, 8)];
     _frendRequestUnreadCountLabel.backgroundColor = [UIColor redColor];
     _frendRequestUnreadCountLabel.layer.cornerRadius = 4;
@@ -90,7 +89,7 @@
     } else {
         _frendRequestUnreadCountLabel.hidden = YES;
     }
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contactListBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFrendRequestUnreadCount) name:frendRequestListNeedUpdateNoti object:nil];
 
 }
