@@ -151,8 +151,6 @@ class FrendManager: NSObject, CMDMessageManagerDelegate {
         let manager = AFHTTPRequestOperationManager()
         let requestSerializer = AFJSONRequestSerializer()
         manager.requestSerializer = requestSerializer
-        manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept")
-        manager.requestSerializer.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         manager.requestSerializer.setValue("\(AccountManager.shareAccountManager().account.userId)", forHTTPHeaderField: "UserId")
         let url = "\(API_FREND)/\(frend.userId)"
         manager.DELETE(url, parameters: nil, success:
